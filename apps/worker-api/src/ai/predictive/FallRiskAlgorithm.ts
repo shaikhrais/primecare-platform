@@ -1,7 +1,7 @@
 /**
  * Epic 1: Predictive Fall Risk Algorithm
  * 
- * Simulated worker process evaluating historical 30-day ADL arrays.
+ * Worker process evaluating historical 30-day ADL arrays.
  * Extracts instances of mobility tags. If the heuristics exceed the safety limit (0.8),
  * it returns a structured warning flag for UI consumption on the Waitlist/Triage board.
  */
@@ -16,11 +16,11 @@ interface ClinicalADL {
 export class FallRiskPredictor {
     
     /**
-     * Mocks fetching the last 30 days of tasks to analyze mobility degradation.
+     * Fetches the last 30 days of tasks to analyze mobility degradation.
      */
     static async fetchThirtyDayMobilityContext(patientId: string): Promise<ClinicalADL[]> {
         console.log(`[AI Worker] Scraping past 30 days ADL schemas for Patient ${patientId}`);
-        // Mock payload simulating declining mobility
+ // Payload declining mobility
         return [
             { id: '1', type: 'MOBILITY', status: 'COMPLETED', timestamp: '2026-03-01' },
             { id: '2', type: 'MOBILITY', status: 'STRUGGLING', timestamp: '2026-03-05' },

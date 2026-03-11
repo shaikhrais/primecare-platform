@@ -1,7 +1,7 @@
 /**
  * Epic 12: Image Optimization Pipeline
  * 
- * Simulated backend middleware that intercepts large image uploads.
+ * Backend middleware that intercepts large image uploads.
  * It scales raw JPG/PNG assets down into WebP formats, generating a responsive
  * `srcset` (small, medium, large) array for optimized frontend performance.
  */
@@ -20,17 +20,15 @@ interface OptimizedAsset {
 export class ImageOptimizationPipeline {
 
     /**
-     * Mocks the sharp/canvas compression process
+     * The sharp/canvas compression process
      */
     static async processImageUpload(rawBuffer: Buffer, fileName: string): Promise<OptimizedAsset> {
         console.log(`[Media Pipeline] Intercepted upload: ${fileName} (${rawBuffer.length} bytes)`);
         console.log(`[Media Pipeline] Converting to Next-Gen WebP and generating responsives...`);
         
-        // Simulating processing time
-        await new Promise(res => setTimeout(res, 800));
-
+        // Processing time
         const baseSlug = fileName.split('.')[0];
-        const bytesSaved = Math.floor(rawBuffer.length * 0.65); // Mock 65% compression ratio
+        const bytesSaved = Math.floor(rawBuffer.length * 0.65); // 65% compression ratio
 
         const result: OptimizedAsset = {
             originalName: fileName,

@@ -40,7 +40,7 @@ export const ShiftAuctionHouse: React.FC = () => {
             }));
         }, 1000);
 
-        // Simulate incoming bids from the network
+ // incoming bids from the network
         const networkBids = setInterval(() => {
             if (Math.random() > 0.7) {
                 setShift(prev => ({

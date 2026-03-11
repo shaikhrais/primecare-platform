@@ -105,7 +105,7 @@ marketingRoutes.openapi(
         responses: { 200: { description: 'Success' } }
     }),
     async (c) => {
-        // Return simulated active connections for the demo
+ // Return active connections for the demo
         return c.json([
             { id: '1', platform: 'facebook', name: 'PrimeCare HC', status: 'connected', lastSync: '2 hours ago', accountId: 'fb-12345' },
             { id: '2', platform: 'linkedin', name: 'PrimeCare Corp', status: 'connected', lastSync: '10 mins ago', accountId: 'li-9876' },

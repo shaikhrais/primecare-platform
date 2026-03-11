@@ -12,7 +12,7 @@ export default function FHIRCenter() {
     ]);
 
     const generateFHIRRecord = () => {
-        const mockFHIR = {
+        const sampleFHIR = {
             resourceType: "Patient",
             id: "pc-client-123",
             active: true,
@@ -22,7 +22,7 @@ export default function FHIRCenter() {
             managingOrganization: { display: "PrimeCare North Tenant" },
             extension: [{ url: "http://primecare.ca/fhir/StructureDefinition/last-audit-score", valueDecimal: 98.2 }]
         };
-        setJson(JSON.stringify(mockFHIR, null, 2));
+        setJson(JSON.stringify(sampleFHIR, null, 2));
     };
 
     return (

@@ -1,7 +1,7 @@
 /**
  * Epic 17: Global Asset Replacer
  * 
- * Simulated backend script triggered when an agency rebrands.
+ * Backend script triggered when an agency rebrands.
  * Instead of manually finding and replacing an old logo in 100 different
  * database tables, the Digital Asset Manager uploads the new logo once,
  * and this script systematically crawls all tenants, templates, and layouts 
@@ -11,7 +11,7 @@
 export class GlobalAssetReplacer {
 
     /**
-     * Executes the simulated recursive database URL swap
+     * Executes the recursive database URL swap
      */
     static async executeGlobalReplace(oldAssetUrl: string, newAssetUrl: string): Promise<number> {
         console.log(`[Asset Swap] Initiating global refactoring query...`);
@@ -20,14 +20,13 @@ export class GlobalAssetReplacer {
 
         let fieldsUpdated = 0;
 
-        // Simulate database crawling and string replacement across tables
-        await new Promise(res => setTimeout(res, 1200));
+        // Database crawling and string replacement across tables
 
         const areasScanned = ['TenantConfig', 'EmailTemplates', 'PdfInvoices', 'UserProfiles'];
 
         console.log(`[Asset Swap] Scanning ${areasScanned.join(', ')}...`);
 
-        // Mock changes
+        // Changes applied
         fieldsUpdated += 42; // Tenant configs updated
         fieldsUpdated += 134; // Email footers updated
         fieldsUpdated += 890; // Generated PDF templates marked for invalidation

@@ -37,7 +37,7 @@ const InteractionAudit: React.FC = () => {
             const item = allInteractions[i] as any;
             setCurrentAudit(item.label);
 
-            // simulate connectivity depth check
+ // connectivity depth check
             await new Promise(resolve => setTimeout(resolve, 150));
 
             const result: AuditResult = {

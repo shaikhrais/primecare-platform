@@ -4,7 +4,7 @@ import { GitMerge, Hexagon, Component, Link, Circle } from 'lucide-react';
 export const DependencyGraphVisualizer: React.FC = () => {
     const [selectedNode, setSelectedNode] = useState<string | null>('PrimaryButton');
 
-    // Mocks D3 interaction data
+ // D3 interaction data
     const activeDependencies = [
         { id: '1', name: 'LoginForm.tsx', type: 'page', impact: 'critical' },
         { id: '2', name: 'WaitlistSignup.tsx', type: 'page', impact: 'high' },
@@ -28,7 +28,7 @@ export const DependencyGraphVisualizer: React.FC = () => {
 
             <div style={{ display: 'flex', gap: '24px', height: '400px' }}>
                 
-                {/* Mocked D3 Force Graph Canvas */}
+                {/* D3 Force Graph Canvas */}
                 <div style={{ flex: 2, backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {/* Simplified SVG representation of a D3 node network */}
                     <svg width="100%" height="100%" style={{ position: 'absolute' }}>

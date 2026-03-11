@@ -1,7 +1,7 @@
 import app from './src/index';
 
 // Polyfill minimal env for local Node execution
-const mockEnv = {
+const localEnv = {
     DATABASE_URL: 'file:./dev.db',
     JWT_SECRET: 'test-secret'
 };
@@ -28,7 +28,7 @@ async function runE2E() {
         })
     });
 
-    const registerRes = await app.request(registerReq, {}, mockEnv);
+    const registerRes = await app.request(registerReq, {}, localEnv);
 
     const regData = await registerRes.json();
     console.log('Registration Response:', registerRes.status);
@@ -59,7 +59,7 @@ async function runE2E() {
         })
     });
 
-    const loginRes = await app.request(loginReq, {}, mockEnv);
+    const loginRes = await app.request(loginReq, {}, localEnv);
     const loginData = await loginRes.json();
     console.log('Login Response:', loginRes.status);
 
@@ -77,7 +77,7 @@ async function runE2E() {
         }
     });
 
-    const profileRes = await app.request(profileReq, {}, mockEnv);
+    const profileRes = await app.request(profileReq, {}, localEnv);
     const profileData = await profileRes.json();
     console.log('Profile Response:', profileRes.status);
     console.log('Profile Data (Mapped from DB):', profileData);

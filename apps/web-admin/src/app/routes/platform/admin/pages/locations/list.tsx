@@ -17,7 +17,7 @@ export default function LocationsList() {
                 const token = localStorage.getItem('token');
                 // In real implementation: const res = await fetch(`${API_URL}/v1/admin/locations`, ...);
 
-                // Simulating fetch for now as backend might not have data
+ // fetch for now as backend might not have data
                 setTimeout(() => {
                     setLocations([
                         { id: '1', name: 'Downtown Clinic', manager: 'Sarah Connor', capacity: 50, status: 'Active' },

@@ -9,7 +9,7 @@
 
 interface WatermarkedResponse {
     originalFilename: string;
-    watermarkedBufferId: string; // Mock handle to actual stream
+    watermarkedBufferId: string; // handle to actual stream
     securityTags: string[];
 }
 
@@ -23,7 +23,7 @@ export class DocumentWatermarkingEngine {
         console.log(`[Document Security] Requesting Client: ${userEmail} (${requestIp})`);
         console.log(`[Document Security] Generating personalized forensic watermark layer...`);
 
-        // Simulate PDF rendering overhead
+ // PDF rendering overhead
         await new Promise(res => setTimeout(res, 900));
 
         const watermarkText = `CONFIDENTIAL - LICENSED TO ${userEmail.toUpperCase()} (${requestIp}) - DO NOT DISTRIBUTE`;

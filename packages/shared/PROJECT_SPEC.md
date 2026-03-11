@@ -58,7 +58,7 @@ The core "brain" of the frontend. All text, routes, and API endpoints are define
 - **Components:**
   - `StatsCard`: "Total Users", "Pending Leads".
   - `QuickActionTile`: Link to "View Schedule".
-- **Data:** Fetches from `/v1/admin/dashboard` (Mocked/Real).
+- **Data:** Fetches from `/v1/admin/dashboard` (/Real).
 
 ### 3.2 Schedule (`/schedule`)
 - **Visuals:** Full-screen Calendar view (Month/Week/Day).

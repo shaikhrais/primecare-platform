@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const PrivateMarketplace: React.FC = () => {
-    // Mock local state mimicking a tenant-scoped marketplace
+ // local state mimicking a tenant-scoped marketplace
     const [listings] = useState([
         { id: 1, title: 'Advanced Wound Care Certification', type: 'Course', provider: 'Internal Training Dept', price: '$0.00' },
         { id: 2, title: 'Weekend On-Call Overflow Coverage', type: 'B2B Service', provider: 'Apex Staffing Partner (Child Agency)', price: 'Variable Rate' },

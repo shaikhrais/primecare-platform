@@ -1,7 +1,7 @@
 /**
  * Epic 10: Orphaned Component Sweeper
  * 
- * Simulated Abstract Syntax Tree (AST) parser that analyzes the web-admin 
+ * Abstract Syntax Tree (AST) parser that analyzes the web-admin 
  * frontend codebase. It flags any React components that are defined and exported,
  * but never actually imported or rendered anywhere in the active routes.
  */
@@ -16,13 +16,13 @@ interface ComponentMeta {
 export class OrphanedComponentSweeper {
 
     /**
-     * Mocks a deep fs tree traversal and AST parsing of the React codebase
+ * a deep fs tree traversal and AST parsing of the React codebase
      */
     private static async scanAbstractSyntaxTree(): Promise<ComponentMeta[]> {
         console.log(`[Component Sweeper] Building Abstract Syntax Tree...`);
         console.log(`[Component Sweeper] Analyzing 1,402 files for import mapping...`);
         
-        // Mock results simulating standard React components vs orphaned components
+ // results standard React components vs orphaned components
         return [
             { fileName: 'PrimaryButton.tsx', exportName: 'PrimaryButton', filePath: '/components/ui/PrimaryButton.tsx', importCount: 142 },
             { fileName: 'LegacyCard.tsx', exportName: 'LegacyCard', filePath: '/components/deprecated/LegacyCard.tsx', importCount: 0 },

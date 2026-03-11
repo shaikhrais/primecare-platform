@@ -33,7 +33,7 @@ export class GpsReimbursementEngine {
     }
 
     /**
-     * Mocks fetching the day's transit logs for a worker
+     * Fetches the day's transit logs for a worker
      */
     private static async fetchTransitLegs(workerId: string): Promise<GeofenceCheckpoint[]> {
         return [

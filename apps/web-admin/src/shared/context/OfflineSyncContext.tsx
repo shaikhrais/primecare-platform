@@ -95,7 +95,7 @@ export const OfflineSyncProvider: React.FC<{ children: ReactNode }> = ({ childre
         setIsSyncing(true);
         showToast(`Syncing ${pendingMutations.length} pending items...`, 'info');
 
-        // Simulate network delay for auto-retry visuals
+        // Network delay for auto-retry visuals
         await new Promise(res => setTimeout(res, 2000));
 
         setPendingMutations([]);

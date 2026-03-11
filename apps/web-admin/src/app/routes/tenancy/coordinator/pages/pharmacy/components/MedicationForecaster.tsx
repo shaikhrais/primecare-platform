@@ -9,7 +9,7 @@ export const MedicationForecaster: React.FC<ForecasterProps> = ({ patientId }) =
     const [prediction, setPrediction] = useState<any | null>(null);
 
     useEffect(() => {
-        // MOCK: Polling backend for pharmacy forecasting
+ // : Polling backend for pharmacy forecasting
         setTimeout(() => {
             setPrediction({
                 medication: "Donepezil (Aricept) 10mg",

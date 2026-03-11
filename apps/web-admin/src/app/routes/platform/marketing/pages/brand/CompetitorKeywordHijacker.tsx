@@ -21,7 +21,7 @@ export const CompetitorKeywordHijacker: React.FC = () => {
     const handleHijack = (id: string, e: React.MouseEvent) => {
         e.stopPropagation();
         setKeywords(keywords.map(k => 
-            k.id === id ? { ...k, competitorPresence: 'ACTIVE' } : k // Simulate PrimeCare taking it over
+            k.id === id ? { ...k, competitorPresence: 'ACTIVE' } : k // PrimeCare taking it over
         ));
     };
 

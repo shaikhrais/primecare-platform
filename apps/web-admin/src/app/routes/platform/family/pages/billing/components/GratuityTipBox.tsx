@@ -14,7 +14,7 @@ export const GratuityTipBox: React.FC = () => {
     const [processing, setProcessing] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    // Mock recent shift
+ // recent shift
     const recentShift: ShiftCompletion = {
         shiftId: 'shift_994',
         caregiverName: 'Sarah Jenkins',
@@ -24,7 +24,7 @@ export const GratuityTipBox: React.FC = () => {
 
     const handleTip = () => {
         setProcessing(true);
-        // Mocks Stripe PaymentIntent for Gratuity
+ // Stripe PaymentIntent for Gratuity
         setTimeout(() => {
             setProcessing(false);
             setSuccess(true);

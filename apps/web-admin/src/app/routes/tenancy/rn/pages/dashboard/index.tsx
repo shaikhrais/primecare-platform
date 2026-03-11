@@ -14,7 +14,7 @@ export const Dashboard: React.FC = () => {
     const [showScribe, setShowScribe] = useState(false);
     const [showPad, setShowPad] = useState(false);
 
-    // MOCK DATA: Patient Context Sidebar Content
+    // Patient Context Sidebar Content
     const SidebarContext = () => (
         <>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px' }}>

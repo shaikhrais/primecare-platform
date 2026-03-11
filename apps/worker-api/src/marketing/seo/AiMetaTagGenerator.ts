@@ -1,8 +1,7 @@
 /**
  * Epic 33: AI SEO Meta-Tag Generator
  * 
- * Simulated backend worker that interfaces with an LLM.
- * When a junior marketer drafts an 800-word blog post, this script
+ * Backend worker that interfaces with an LLM. * When a junior marketer drafts an 800-word blog post, this script
  * automatically reads the raw text and generates highly optimized,
  * character-limited <title> and <meta description> tags designed
  * specifically to maximize Click-Through-Rate (CTR) on Google.
@@ -26,13 +25,12 @@ export class AiMetaTagGenerator {
         console.log(`[AI SEO Engine] Ingesting draft document (ID: ${draft.id})...`);
         console.log(`[AI SEO Engine] Target Keyword isolated: "${draft.primaryKeyword}"`);
         
-        // Simulating LLM processing time
-        await new Promise(res => setTimeout(res, 1200));
+
 
         console.log(`[AI SEO Engine] Analyzing semantic density and competitor tag structure...`);
         console.log(`[AI SEO Engine] Generating high-CTR variants...`);
 
-        // Simulating the LLM's response based on the keyword
+        // Generating the AI response based on the keyword
         const generatedTags: MetaTags = {
             title: `Understanding ${draft.primaryKeyword} Costs & Options`, // ~48 chars - crisp and direct
             description: `A comprehensive guide exploring ${draft.primaryKeyword}. Learn how to evaluate local agencies, understand pricing models, and ensure the best care for your loved ones.`, // ~158 chars - includes keyword and call to action

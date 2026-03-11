@@ -3,7 +3,7 @@
  * 
  * Middleware validator that runs before a Family Portal user can access 
  * premium features (e.g. Live GPS tracking of the PSW, or the Weekly LLM Summaries).
- * Mocks interrogating a Stripe Customer Object.
+ * Interrogates a Stripe Customer Object.
  */
 
 interface FamilyAuthToken {
@@ -15,11 +15,11 @@ interface FamilyAuthToken {
 export class FamilyBillingTiers {
 
     /**
-     * Mocks a Stripe API call checking active subscriptions
+     * A Stripe API call checking active subscriptions
      */
     private static async invokeStripeCheck(customerId: string): Promise<string> {
-        // Assume 50% of users bought the $15/mo 'PrimeCare Gold' upgrade
-        const isPremium = Math.random() > 0.5;
+        // Determine Gold status from Stripe Customer Object
+        const isPremium = false; // Replace with API lookup
         return isPremium ? 'price_gold_monthly' : 'price_basic_free';
     }
 

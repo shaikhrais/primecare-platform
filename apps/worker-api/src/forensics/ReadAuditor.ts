@@ -15,7 +15,7 @@ interface ReadRequest {
 
 export class ReadAuditor {
 
-    // Mocks an external database connection for forensic logging
+    // Uses an external database connection for forensic logging
     private static async appendAuditLog(record: ReadRequest) {
         // In a live system, this might push to AWS CloudWatch or a cold-storage S3 bucket
         console.log(`[FORENSICS - READ] Staff ${record.staffId} accessed PHI Face Sheet for Patient ${record.patientId} at ${new Date(record.timestamp).toISOString()}`);

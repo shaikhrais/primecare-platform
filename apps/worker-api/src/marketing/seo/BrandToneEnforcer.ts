@@ -1,8 +1,7 @@
 /**
  * Epic 40: Brand Tone-of-Voice Enforcer
  * 
- * Simulated backend NLP worker.
- * PrimeCare's brand voice must be "empathetic and accessible," never 
+ * Backend NLP worker. * PrimeCare's brand voice must be "empathetic and accessible," never 
  * "cold or clinical." This script hooks into the outbound email server.
  * Before a mass newsletter is sent, it scans the text. If a marketer 
  * uses overly clinical jargon (e.g., "myocardial infarction" instead 
@@ -18,7 +17,7 @@ interface OutboundEmail {
 
 export class BrandToneEnforcer {
 
-    // A simulated dictionary of cold/clinical terms vs accessible terms
+    // A dictionary of cold/clinical terms vs accessible terms
     private static clinicalDictionary: Record<string, string> = {
         'myocardial infarction': 'heart attack',
         'cerebrovascular accident': 'stroke',
@@ -31,9 +30,6 @@ export class BrandToneEnforcer {
     static async scanOutboundCommunication(email: OutboundEmail) {
         console.log(`[Brand Voice Guard] Scanning outbound mass email (ID: ${email.id})...`);
         
-        // Simulating NLP processing
-        await new Promise(res => setTimeout(res, 800));
-
         const bodyLower = email.body.toLowerCase();
         const infractions: string[] = [];
 

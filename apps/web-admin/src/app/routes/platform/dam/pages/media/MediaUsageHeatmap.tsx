@@ -57,7 +57,7 @@ export const MediaUsageHeatmap: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', gap: '24px', height: '350px' }}>
-                {/* Mock D3 Heatmap Area */}
+                {/* D3 Heatmap Area */}
                 <div style={{ flex: 2, backgroundColor: '#0F172A', borderRadius: '8px', position: 'relative', overflow: 'hidden', display: 'flex', padding: '24px', flexWrap: 'wrap', alignContent: 'flex-start', gap: '12px' }}>
                     
                     {/* Render visual blocks sizing based on the selected metric relative weight */}

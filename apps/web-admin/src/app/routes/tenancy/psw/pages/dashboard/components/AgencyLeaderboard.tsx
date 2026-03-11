@@ -10,7 +10,7 @@ interface LeaderboardEntry {
 }
 
 export const AgencyLeaderboard: React.FC = () => {
-    // Mock leaders for the Toronto Branch
+ // leaders for the Toronto Branch
     const leaders: LeaderboardEntry[] = [
         { rank: 1, name: 'Sarah Jenkins', avatarUrl: 'https://i.pravatar.cc/150?u=sarah', compositeScore: 9.8, badges: ['Perfect Attendance', 'Family Favorite'] },
         { rank: 2, name: 'Michael Osei', avatarUrl: 'https://i.pravatar.cc/150?u=michael', compositeScore: 9.5, badges: ['Wound Care Pro'] },

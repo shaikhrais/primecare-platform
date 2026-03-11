@@ -5,7 +5,7 @@ export const DamageReportIntake: React.FC = () => {
     const [status, setStatus] = useState<'IDLE' | 'UPLOADING' | 'SUCCESS'>('IDLE');
     const [fileName, setFileName] = useState<string>('');
 
-    const handleUploadMock = () => {
+    const handleUpload = () => {
         setStatus('UPLOADING');
         setTimeout(() => {
             setStatus('SUCCESS');
@@ -53,7 +53,7 @@ export const DamageReportIntake: React.FC = () => {
                     <textarea rows={3} placeholder="Describe the damage..." style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.95rem', resize: 'vertical' }} />
                 </div>
 
-                {/* Upload Zone Mock */}
+                {/* Upload Zone */}
                 <div 
                     style={{ 
                         border: '2px dashed #CBD5E1', borderRadius: '8px', padding: '32px', textAlign: 'center', 
@@ -76,7 +76,7 @@ export const DamageReportIntake: React.FC = () => {
                 </div>
 
                 <button 
-                    onClick={handleUploadMock}
+                    onClick={handleUpload}
                     disabled={status === 'UPLOADING' || !fileName}
                     style={{ 
                         width: '100%', padding: '12px', backgroundColor: '#0F172A', color: 'white', 

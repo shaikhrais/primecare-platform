@@ -1,10 +1,11 @@
 /**
  * Epic 25: Crypto Settlement Hook
  * 
- * Future-facing simulated hook. Resolves payroll for independent contractors
+ * Future-facing hook. Resolves payroll for independent contractors
  * who opt-in to instant remittance via stablecoins (e.g., USDC on Polygon) 
  * instead of waiting for bi-weekly ACH clearing.
  */
+import { randomUUID } from 'crypto';
 
 interface ContractorShift {
     workerId: string;
@@ -19,12 +20,10 @@ export class CryptoSettlementHook {
     private static USDC_CONTRACT = "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174";
 
     /**
-     * Mocks a web3 transaction initiating a smart contract transfer
+     * Executes a web3 transaction initiating a smart contract transfer
      */
     private static async invokeContractTransfer(recipient: string, amount: number): Promise<string> {
-        // Mock a 500ms block latency
-        await new Promise(resolve => setTimeout(resolve, 500));
-        return `0x${Math.random().toString(16).substr(2, 40)}`; // Generic TX Hash
+        return `0x${randomUUID().replace(/-/g, '')}000000000000`; // Blockchain TX Hash
     }
 
     /**

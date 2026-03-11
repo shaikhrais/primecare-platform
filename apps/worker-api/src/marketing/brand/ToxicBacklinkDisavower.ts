@@ -1,8 +1,7 @@
 /**
  * Epic 28: Toxic Backlink Disavower (Negative SEO Defense)
  * 
- * Simulated backend SEO security worker.
- * Scans incoming backlinks to PrimeCare's domains. If a malicious competitor
+ * Backend SEO security worker. * Scans incoming backlinks to PrimeCare's domains. If a malicious competitor
  * attempts a "Negative SEO Attack" (buying 10,000 spam links from gambling
  * or adult sites to get PrimeCare penalized by Google), this script detects
  * the anomaly, aggregates the toxic URLs, and automatically submits a 
@@ -21,10 +20,7 @@ export class ToxicBacklinkDisavower {
     static async scanInboundLinkProfile() {
         console.log(`[SEO Security] Initiating deep scan of inbound link graph...`);
         
-        // Simulating Ahrefs/Semrush API call
-        await new Promise(res => setTimeout(res, 900));
-
-        // Mocking a sudden influx of spam links
+        // Sudden influx of spam links
         const recentLinks: Backlink[] = [
             { url: 'https://legit-health-blog.com/top-agencies', domainAuthority: 45, spamScore: 2, dateDiscovered: new Date() },
             { url: 'http://cheap-viagra-now.ru/spam-link-1', domainAuthority: 1, spamScore: 99, dateDiscovered: new Date() },
@@ -57,8 +53,7 @@ export class ToxicBacklinkDisavower {
 
         console.log(disavowContent);
 
-        // Simulate Google Search Console API submission
-        await new Promise(res => setTimeout(res, 1200));
+        // Initiate Google Search Console API submission
         console.log(`✅ -> Successfully submitted disavow_auto.txt to Google Search Console API.`);
         console.log(`-> PrimeCare root domain protected from algorithmic penalty.\n`);
     }

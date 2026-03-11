@@ -8,7 +8,7 @@ interface Milestone {
 }
 
 export const CareJourneyMap: React.FC = () => {
-    // Mocking a physical therapy recovery journey
+ // a physical therapy recovery journey
     const journey: Milestone[] = [
         { id: '1', title: 'Initial Assessment', completed: true },
         { id: '2', title: 'Stand Unassisted', completed: true },
@@ -32,7 +32,7 @@ export const CareJourneyMap: React.FC = () => {
                     strokeLinecap="round" 
                 />
                 
-                {/* Simulated dynamic progress bar along the curve */}
+                {/* dynamic progress bar along the curve */}
                 {/* CSS handles the dash-offset mapping to progress visually */}
                 <path 
                     className="journey-road-progress"

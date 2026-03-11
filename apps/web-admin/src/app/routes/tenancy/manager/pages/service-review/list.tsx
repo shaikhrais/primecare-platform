@@ -14,10 +14,10 @@ export default function ServiceReviewsList() {
         const fetchReviews = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // Mocking the endpoint response for now
+ // the endpoint response for now
                 // In real implementation: const res = await fetch(`${API_URL}/v1/manager/service-reviews`, ...);
 
-                // Simulating fetch
+ // fetch
                 setTimeout(() => {
                     setReviews([
                         { id: '1', clientName: 'Alice Thompson', date: '2026-02-14', category: 'Nursing', score: 10, status: 'Completed' },

@@ -15,7 +15,7 @@ export default function RegistryAutoRepair() {
     const handleScan = async () => {
         setIsScanning(true);
         setRepairLog([]);
-        // Mocking a deep scan of ApiRegistry vs RouteRegistry
+ // a deep scan of ApiRegistry vs RouteRegistry
         await new Promise(resolve => setTimeout(resolve, 1500));
         setScanResults({
             inconsistencies: [

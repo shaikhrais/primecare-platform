@@ -2,7 +2,7 @@
  * Epic 17: Automated HIPAA/PHIPA Risk Reports
  * 
  * Scheduled worker that aggregates the forensic Read Audits and JIT Elevation logs
- * into a structured monthly JSON payload, conceptually simulating a massive PDF generation
+ * into a structured monthly JSON payload, conceptually a massive PDF generation
  * event for state board compliance audits.
  */
 
@@ -16,7 +16,7 @@ interface ComplianceIncident {
 export class HipaaRiskGenerator {
 
     /**
-     * Mocks fetching the aggregated compliance logs for the past 30 days.
+ * fetching the aggregated compliance logs for the past 30 days.
      */
     private static async fetchMonthlyIncidents(): Promise<ComplianceIncident[]> {
         return [

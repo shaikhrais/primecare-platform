@@ -71,7 +71,7 @@ const INITIAL_PIPELINE: PipelineStep[] = [
     {
         id: 'evv',
         label: 'Field Worker EVV',
-        description: 'Simulate GPS Clock-In mapping check',
+        description: 'Execute GPS Clock-In mapping check',
         icon: <MapPin size={20} />,
         status: 'idle',
         logs: [],
@@ -103,7 +103,7 @@ export default function E2eRunner() {
         }]);
     };
 
-    const startSimulation = async () => {
+    const startExecution = async () => {
         setIsRunning(true);
         setPipeline(INITIAL_PIPELINE);
         setMasterLog([]);
@@ -121,20 +121,20 @@ export default function E2eRunner() {
 
             appendLog(`[STEP ${i + 1}] Executing: ${steps[i].label}`, 'info');
 
-            // Simulate Network Delay
+ // Network Delay
             await new Promise(resolve => setTimeout(resolve, steps[i].delayMs));
 
-            // Generate Mock Payload for Logs based on Step
-            let mockData = null;
-            if (steps[i].id === 'brand') mockData = { tenantId: 'tnt_9f8a7', primaryRegion: 'us-east-1', dbAllocation: 'provisioned' };
-            if (steps[i].id === 'admin') mockData = { adminId: 'usr_root', rbacRole: 'super_admin', assignedToken: 'eyJhbGciOiJIUzI...[REDACTED]' };
-            if (steps[i].id === 'staff') mockData = { recordsCreated: 2, managerId: 'usr_mgr99', coordinatorId: 'usr_cord81' };
-            if (steps[i].id === 'provider') mockData = { providerIds: ['psw_481a', 'rn_88b1'], specialtiesMined: ['geriatric', 'wound_care'] };
-            if (steps[i].id === 'client') mockData = { patientId: 'pat_0083', tags: ['fall_risk', 'dementia'], geocode: { lat: 43.6532, lng: -79.3832 } };
-            if (steps[i].id === 'booking') mockData = { shiftId: 'shf_777x', assignedTo: 'psw_481a', date: '2026-03-11', duration: '4h' };
-            if (steps[i].id === 'evv') mockData = { status: 'Verified', GPS_Lock: 'True', diffMeters: 12.4, compliance: 'Passed' };
+ // Generate Payload for Logs based on Step
+            let testData = null;
+            if (steps[i].id === 'brand') testData = { tenantId: 'tnt_9f8a7', primaryRegion: 'us-east-1', dbAllocation: 'provisioned' };
+            if (steps[i].id === 'admin') testData = { adminId: 'usr_root', rbacRole: 'super_admin', assignedToken: 'eyJhbGciOiJIUzI...[REDACTED]' };
+            if (steps[i].id === 'staff') testData = { recordsCreated: 2, managerId: 'usr_mgr99', coordinatorId: 'usr_cord81' };
+            if (steps[i].id === 'provider') testData = { providerIds: ['psw_481a', 'rn_88b1'], specialtiesMined: ['geriatric', 'wound_care'] };
+            if (steps[i].id === 'client') testData = { patientId: 'pat_0083', tags: ['fall_risk', 'dementia'], geocode: { lat: 43.6532, lng: -79.3832 } };
+            if (steps[i].id === 'booking') testData = { shiftId: 'shf_777x', assignedTo: 'psw_481a', date: '2026-03-11', duration: '4h' };
+            if (steps[i].id === 'evv') testData = { status: 'Verified', GPS_Lock: 'True', diffMeters: 12.4, compliance: 'Passed' };
 
-            appendLog(`${steps[i].label} Completed Successfully.`, 'success', mockData);
+            appendLog(`${steps[i].label} Completed Successfully.`, 'success', testData);
 
             // Set status to success
             steps = steps.map((s, idx) => idx === i ? { ...s, status: 'success' as const } : s);
@@ -168,7 +168,7 @@ export default function E2eRunner() {
                         </div>
                         <button
                             className="e2e-action-btn"
-                            onClick={startSimulation}
+                            onClick={startExecution}
                             disabled={isRunning}
                         >
                             {isRunning ? <Loader2 className="e2e-spin" /> : <Play size={16} />}

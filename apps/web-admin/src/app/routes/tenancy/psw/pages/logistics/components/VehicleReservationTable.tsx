@@ -20,7 +20,7 @@ export const VehicleReservationTable: React.FC = () => {
     const [bookingActive, setBookingActive] = useState(false);
     const [selectedVehicle, setSelectedVehicle] = useState<string>('');
 
-    const handleMockBooking = () => {
+    const handleBooking = () => {
         setBookingActive(true);
         setTimeout(() => {
             setReservations(prev => [
@@ -65,7 +65,7 @@ export const VehicleReservationTable: React.FC = () => {
                     <input type="text" value="Tomorrow, 10:00 AM - 04:00 PM" disabled style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#F1F5F9', color: '#94A3B8' }} />
                 </div>
                 <button 
-                    onClick={handleMockBooking}
+                    onClick={handleBooking}
                     disabled={!selectedVehicle || bookingActive}
                     style={{ 
                         padding: '12px 24px', backgroundColor: '#16A34A', color: 'white', border: 'none', 

@@ -5,7 +5,7 @@ interface SurgePricingModalProps {
     clientName: string;
     currentMultiplier: number;
     isActive: boolean;
-    basePayout: number; // mock base payout for demonstration
+    basePayout: number; // base payout for demonstration
     onClose: () => void;
     onSave: (visitId: string, surgeMultiplier: number, isSurgeActive: boolean) => Promise<void>;
 }

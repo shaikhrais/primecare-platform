@@ -21,11 +21,11 @@ interface ActiveSessionData {
 
 export class SessionHijackSentinel {
 
-    // Mocks an in-memory or Redis session store
+ // an in-memory or Redis session store
     private static activeSessions: Record<string, ActiveSessionData> = {};
 
     /**
-     * Mocks fetching the last known location for the provided JWT
+ * fetching the last known location for the provided JWT
      */
     private static async getSessionCache(jwtId: string): Promise<ActiveSessionData | null> {
         return this.activeSessions[jwtId] || null;

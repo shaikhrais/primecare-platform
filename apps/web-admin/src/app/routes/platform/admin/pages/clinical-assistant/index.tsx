@@ -10,7 +10,7 @@ export default function ClinicalAssistant() {
 
     const handleGenerate = () => {
         setGenerating(true);
-        // Simulate AI generation
+ // AI generation
         setTimeout(() => {
             setPlan(`Based on your notes ("${notes}"), I recommend the following care plan:
 \n1. **Mobility Support**: Assist with transfers 3x daily using gait belt.

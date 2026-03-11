@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 /**
  * Epic 16: Dynamic B2B Collateral Generator
  * 
- * Simulated backend worker. Generates co-branded PDF marketing brochures on the fly.
+ * Backend worker. Generates co-branded PDF marketing brochures on the fly.
  * When a PrimeCare rep visits a new hospital, this script pulls the Doctor's 
  * NPI data and outputs an 8.5x11 printable PDF that pairs PrimeCare's logo 
  * alongside the specific Doctor's clinic details to hand-deliver as a targeted gift.
@@ -22,8 +22,7 @@ export class B2bCollateralGenerator {
     static async generateCobrandedBrochure(doctor: PhysicianData): Promise<string> {
         console.log(`[PDF Engine] Initiating rendering pipeline for ${doctor.fullName}...`);
         
-        // Simulating heavy PDF generation (Puppeteer/wkhtmltopdf) delay
-        await new Promise(res => setTimeout(res, 2200));
+        // Heavy PDF generation (Puppeteer/wkhtmltopdf)
 
         const documentId = randomUUID();
         const templateUrl = `https://assets.primecare.org/templates/b2b_cobrand_v2.pdf`;

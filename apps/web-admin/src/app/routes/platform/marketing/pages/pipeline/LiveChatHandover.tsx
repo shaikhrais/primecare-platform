@@ -104,7 +104,7 @@ export const LiveChatHandover: React.FC = () => {
                                 <div style={{ fontWeight: 700 }}>Live View: {sessions.find(s => s.id === activeChat)?.visitorIp}</div>
                             </div>
                             <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                {/* Mock chat bubbles */}
+                                {/* chat bubbles */}
                                 <div style={{ alignSelf: 'flex-start', backgroundColor: 'white', border: '1px solid #E2E8F0', padding: '12px 16px', borderRadius: '12px 12px 12px 0', fontSize: '0.9rem', color: '#334155', maxWidth: '85%' }}>
                                     {sessions.find(s => s.id === activeChat)?.lastMessage}
                                 </div>

@@ -28,7 +28,7 @@ interface ActivePSW {
 export class SmartShiftMatcher {
 
     /**
-     * Haversine formula to calculate mock geographic distance in km.
+ * Haversine formula to calculate geographic distance in km.
      */
     private static calculateDistance(p1: GeoPoint, p2: GeoPoint): number {
         const R = 6371; // Earth radius km
@@ -42,7 +42,7 @@ export class SmartShiftMatcher {
     }
 
     /**
-     * Mocks fetching the active worker pool from Redis/PostgreSQL.
+ * fetching the active worker pool from Redis/PostgreSQL.
      */
     static async fetchAvailableWorkers(): Promise<ActivePSW[]> {
         return [

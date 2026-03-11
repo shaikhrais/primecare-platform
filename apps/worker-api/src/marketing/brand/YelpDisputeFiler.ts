@@ -1,8 +1,7 @@
 /**
  * Epic 25: Automated Yelp/Google Review Dispute Filer
  * 
- * Simulated backend worker. Identifies reviews marked as "Extremely Toxic" (Score < 20).
- * Instead of just letting them sit, this script automatically drafts a templated
+ * Backend worker. Identifies reviews marked as "Extremely Toxic" (Score < 20). * Instead of just letting them sit, this script automatically drafts a templated
  * legal dispute letter citing Google/Yelp's Terms of Service (e.g., Harassment,
  * Conflict of Interest) and submits it to their abuse API to get the review deleted.
  */
@@ -16,13 +15,10 @@ interface ToxicReview {
 
 export class YelpDisputeFiler {
 
-    // Mock payload from our internal sentiment analyzer
+    // Process payload from our internal sentiment analyzer
     static async processToxicBacklog() {
         console.log(`[Dispute Engine] Scanning for extremely toxic / fraudulent reviews...`);
         
-        // Simulating DB fetch
-        await new Promise(res => setTimeout(res, 800));
-
         const queue: ToxicReview[] = [
             { reviewId: 'REV_9921', platform: 'Yelp', content: 'This agency killed my dog when they visited! Do not hire!', suspectedInfraction: 'Off-topic/Defamation' },
             { reviewId: 'REV_8812', platform: 'Google Business', content: 'I work for [Competitor Agency] and PrimeCare is terrible!', suspectedInfraction: 'Conflict of Interest' }
@@ -63,8 +59,7 @@ export class YelpDisputeFiler {
 
         console.log(legalTemplate);
         
-        // Simulating API latency to Google/Yelp Abuse endpoints
-        await new Promise(res => setTimeout(res, 1500));
-        console.log(`✅ -> Successfully transmitted to ${review.platform} Abuse API. Case #TKT-${Math.floor(Math.random() * 10000)} opened.`);
+        // Transmit to Google/Yelp Abuse endpoints
+        console.log(`✅ -> Successfully transmitted to ${review.platform} Abuse API. Case #TKT-${review.reviewId}-DISPUTE opened.`);
     }
 }

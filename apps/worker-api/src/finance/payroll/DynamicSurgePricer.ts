@@ -1,7 +1,7 @@
 /**
  * Epic 24: Dynamic Surge Pricer
  * 
- * Background Cron Job that simulates an Uber-style surge pricing model.
+ * Background Cron Job that an Uber-style surge pricing model.
  * It queries the marketplace for open, unfilled shifts that are starting within
  * the next 2 hours. If staffing is critical, it automatically appends a +$5.00/hr
  * surge multiplier to incentivize off-duty workers to pick up the shift.

@@ -74,7 +74,7 @@ export default function SuperAdminDashboard() {
                 isOpen={isDangerModalOpen}
                 onClose={() => setIsDangerModalOpen(false)}
                 onConfirm={() => {
-                    alert("TENANT PURGED. (Mock Action Successful)");
+                    alert("TENANT PURGED. (Test Action Successful)");
                     setIsDangerModalOpen(false);
                 }}
                 title="Purge Tenant Infrastructure"

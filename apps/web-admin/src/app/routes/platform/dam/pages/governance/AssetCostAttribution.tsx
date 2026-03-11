@@ -62,7 +62,7 @@ export const AssetCostAttribution: React.FC = () => {
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Registered Asset</th>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700, textAlign: 'right' }}>Total Transferred</th>
-                        <th style={{ padding: '12px', color: '#64748B', fontWeight: 700, textAlign: 'right' }}>Simulated Cost (AWS S3)</th>
+                        <th style={{ padding: '12px', color: '#64748B', fontWeight: 700, textAlign: 'right' }}>Estimated Cost (AWS S3)</th>
                     </tr>
                 </thead>
                 <tbody>

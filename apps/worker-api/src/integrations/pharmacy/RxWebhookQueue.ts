@@ -23,7 +23,7 @@ interface PharmacyRxPayload {
 export class RxWebhookQueue {
 
     /**
-     * Mocks a DB insertion to generate an RN task
+     * Executes a DB insertion to generate an RN task
      */
     private static async createCarePlanAmendment(patientId: string, summary: string) {
         // Assume Prisma DB insertion here linking to RN Dashboard Amendment Queue

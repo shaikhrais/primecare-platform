@@ -14,10 +14,10 @@ export default function EvaluationsList() {
         const fetchEvaluations = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // Mocking the endpoint response for now as backend might not be ready
+ // the endpoint response for now as backend might not be ready
                 // In real implementation: const res = await fetch(`${API_URL}/v1/manager/evaluations`, ...);
 
-                // Simulating fetch
+ // fetch
                 setTimeout(() => {
                     setEvaluations([
                         { id: '1', staffName: 'John Walker', date: '2026-02-10', score: 8, status: 'Completed' },

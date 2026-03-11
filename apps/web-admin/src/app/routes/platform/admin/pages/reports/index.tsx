@@ -11,7 +11,7 @@ export default function ReportsPage() {
     const [dateRange, setDateRange] = useState('30d');
 
     const handleExport = () => {
-        // Mock export
+ // export
         const csvContent = "data:text/csv;charset=utf-8,Date,Metric,Value\n2023-01,Revenue,50000";
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");

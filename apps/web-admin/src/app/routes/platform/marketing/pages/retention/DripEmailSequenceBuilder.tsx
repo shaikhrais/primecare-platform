@@ -84,7 +84,7 @@ export const DripEmailSequenceBuilder: React.FC = () => {
                     </div>
                 )}
 
-                 {/* Simulated Branching for Condition Node */}
+                 {/* Branching for Condition Node */}
                  {index === 4 && (
                     <div style={{ display: 'flex', width: '400px', justifyContent: 'space-between', marginTop: '10px', position: 'relative' }}>
                         

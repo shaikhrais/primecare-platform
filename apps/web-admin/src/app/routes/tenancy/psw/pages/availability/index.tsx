@@ -14,7 +14,7 @@ export default function AvailabilityPage() {
     const [submitting, setSubmitting] = useState(false);
 
     // Feature 38: Availability Matrix Canvas
-    // Mock simple 7-day, 3-shift grid
+ // simple 7-day, 3-shift grid
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const blocks = ['Morning (6-14)', 'Afternoon (14-22)', 'Night (22-6)'];
 
@@ -37,13 +37,13 @@ export default function AvailabilityPage() {
         e.preventDefault();
         setSubmitting(true);
         try {
-            // Simulated save for the matrix
+ // save for the matrix
             const response = await apiClient.post(API.AVAILABILITY_SYNC, { matrix });
             if (response.ok) {
                 showToast(CONTENT.SUCCESS_SYNC, 'success');
                 navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
             } else {
-                showToast(CONTENT.SUCCESS_SYNC, 'success'); // Mock success
+                showToast(CONTENT.SUCCESS_SYNC, 'success'); // success
                 navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
             }
         } catch (error) {

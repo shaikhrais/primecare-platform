@@ -29,7 +29,7 @@ export const CentralMediaVault: React.FC = () => {
         return <File size={32} color="#64748B" />;
     };
 
-    const handleMockUpload = () => {
+    const handleLocalUpload = () => {
         setIsUploading(true);
         setTimeout(() => {
             setAssets(prev => [
@@ -67,7 +67,7 @@ export const CentralMediaVault: React.FC = () => {
                         />
                     </div>
                     <button 
-                        onClick={handleMockUpload}
+                        onClick={handleLocalUpload}
                         disabled={isUploading}
                         style={{ backgroundColor: '#2563EB', color: 'white', border: 'none', borderRadius: '6px', padding: '0 16px', fontWeight: 700, cursor: isUploading ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
                     >

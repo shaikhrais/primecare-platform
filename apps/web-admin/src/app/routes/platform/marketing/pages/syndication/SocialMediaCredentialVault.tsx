@@ -14,7 +14,7 @@ declare global {
 interface SocialPlatform {
     id: string;
     platformName: string;
-    iconUrl: string; // simulating an icon
+    iconUrl: string; // showing an icon
     accountName: string | null;
     status: 'CONNECTED' | 'DISCONNECTED' | 'EXPIRED';
     lastSync: string | null;
@@ -104,7 +104,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                 alert("Facebook SDK failed to load.");
             }
         } else {
-             // Mock for others
+ // for others
             setTimeout(() => {
                 setPlatforms(prev => prev.map(p => 
                     p.id === id ? { ...p, status: 'CONNECTED', accountName: p.accountName || `Connected_${p.platformName.split(' ')[0]}`, lastSync: 'Just now', tokenExpiry: '90 Days' } : p
@@ -243,7 +243,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
 // Wrap with GoogleOAuthProvider
 export const SocialMediaCredentialVault: React.FC = () => {
     return (
-        <GoogleOAuthProvider clientId="1234567890-mock.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="1234567890-demo.apps.googleusercontent.com">
             <SocialMediaCredentialVaultInner />
         </GoogleOAuthProvider>
     );

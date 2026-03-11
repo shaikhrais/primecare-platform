@@ -1,7 +1,7 @@
 /**
  * Epic 8: WCAG Contrast Checker
  * 
- * Simulated backend validation utility. When a Digital Asset Manager attempts to
+ * Backend validation utility. When a Digital Asset Manager attempts to
  * save new design tokens, this module ensures the resulting combinations of
  * background and foreground colors pass standard WCAG AAA contrast ratios.
  */
@@ -15,10 +15,10 @@ interface ColorPair {
 export class WcagContrastChecker {
 
     /**
-     * Converts a Hex string to relative luminance (simplified mock algorithm)
+     * Converts a Hex string to relative luminance (simplified algorithm)
      */
     private static extractLuminance(hex: string): number {
-        // Simplified mockup of sRGB luminance extraction
+        // Simplified of sRGB luminance extraction
         const parsed = parseInt(hex.replace('#', ''), 16);
         return parsed > 0x888888 ? 0.8 : 0.2; 
     }

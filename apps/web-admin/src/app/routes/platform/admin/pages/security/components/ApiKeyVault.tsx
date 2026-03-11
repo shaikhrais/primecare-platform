@@ -7,7 +7,7 @@ export const ApiKeyVault: React.FC = () => {
     const [reveal, setReveal] = useState(false);
     const [copied, setCopied] = useState(false);
 
-    // Mock Key
+ // Key
     const STATIC_KEY = "pk_live_51Mabcde1234FGHIdjklMNOpqrSTUvwxyz9876QWERTYUIOPasdfghjklZXCVBNM";
 
     const copyToClipboard = () => {

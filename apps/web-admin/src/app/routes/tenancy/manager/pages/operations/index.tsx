@@ -41,7 +41,7 @@ export default function OperationsHub() {
                     });
                 }
 
-                // Mocking alerts and activities for foundational parity
+ // alerts and activities for foundational parity
                 setAlerts([
                     { id: '1', title: 'Critical Document Expiry', desc: '5 caregivers have CPR certifications expiring in < 7 days.', type: 'danger' },
                     { id: '2', title: 'Shift Divergence Pulse', desc: 'High volume of manual clock-outs detected in East Region.', type: 'warning' }

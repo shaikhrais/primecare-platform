@@ -25,7 +25,7 @@ export default function WoundCareDashboard() {
                      <WoundCanvas />
                 </div>
 
-                {/* Sider (Mock Context) */}
+                {/* Sider Context */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
                     <div style={{ backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>

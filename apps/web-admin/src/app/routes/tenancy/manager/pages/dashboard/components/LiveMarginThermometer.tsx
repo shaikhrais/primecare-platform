@@ -5,7 +5,7 @@ export const LiveMarginThermometer: React.FC = () => {
     const [stats, setStats] = useState({ grossBilled: 0, payrollCost: 0, margin: 0 });
 
     useEffect(() => {
-        // Simulating websocket data stream reflecting active shifts
+ // websocket data stream reflecting active shifts
         const interval = setInterval(() => {
             const randomGross = 15000 + (Math.random() * 1000);
             const randomPayroll = randomGross * (0.65 + (Math.random() * 0.05)); // 65-70% overhead

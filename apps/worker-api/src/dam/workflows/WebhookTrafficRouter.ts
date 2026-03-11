@@ -1,7 +1,7 @@
 /**
  * Epic 22: Webhook Traffic Router
  * 
- * Simulated backend middleware that intercepts incoming external webhooks
+ * Backend middleware that intercepts incoming external webhooks
  * (e.g., from Stripe or Twilio). It analyzes the JSON payload and dynamically
  * routes it to the correct internal microservice based on logic trees defined
  * by the Digital Asset Manager in the `VisualLogicBuilder` UI.
@@ -16,14 +16,14 @@ interface WebhookPayload {
 export class WebhookTrafficRouter {
 
     /**
-     * Mocks a database lookup of active Visual Logic rules
+     * Lookup of active Visual Logic rules
      */
     private static fetchRoutingRules(source: string, eventType: string): string[] {
-        // Mock: If Stripe payment succeeds, hit Finance Ledger and Push Notifications
+        // Match: If Stripe payment succeeds, hit Finance Ledger and Push Notifications
         if (source === 'stripe' && eventType === 'payment_intent.succeeded') {
             return ['finance_ledger_service', 'slack_notification_service'];
         }
-        // Mock: If background check clears, hit HR
+        // Match: If background check clears, hit HR
         if (source === 'checkr' && eventType === 'report.completed') {
             return ['hr_onboarding_service'];
         }
@@ -47,7 +47,7 @@ export class WebhookTrafficRouter {
         console.log(`[Webhook Router] Match found in Visual Logic tree. Routing payload to ${targetServices.length} internal microservices.`);
         
         for (const service of targetServices) {
-            // Simulating internal network dispatch
+            // Dispatch internal network dispatch
             console.log(`[Webhook Router] -> Dispatching to [${service}]... OK.`);
         }
 

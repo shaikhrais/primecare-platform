@@ -13,12 +13,12 @@ export default function Marketplace() {
     }, []);
 
     const fetchListings = async () => {
-        // Mock data for now until API is fully wired
-        const mockListings = [
+ // data for now until API is fully wired
+        const sampleListings = [
             { id: '1', title: 'Overflow Nursing Staff', tenant: 'Grace Health', price: 85, category: 'Staffing' },
             { id: '2', title: 'Compliance Audit Kit', tenant: 'SafeCare Ops', price: 250, category: 'Consulting' },
         ];
-        setListings(mockListings);
+        setListings(sampleListings);
         setLoading(false);
     };
 

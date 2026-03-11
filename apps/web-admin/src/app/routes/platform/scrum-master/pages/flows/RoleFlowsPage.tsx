@@ -144,7 +144,7 @@ export default function RoleFlowsPage() {
                     { name: 'Security Scans', route: 'SCRUM_MASTER.SECURITY_SCANS', component: 'SecurityScansPage', status: 'implemented', requirement: 'Perform SAST/DAST audits and dependency vulnerability checks.' },
                     { name: 'Theme Core', route: 'SCRUM_MASTER.THEME_CENTER', component: 'ThemeCoreCenter', status: 'implemented', requirement: 'Coordinate platform-wide design tokens and CSS variable injection.' },
                     { name: 'Registry Fixer', route: 'SCRUM_MASTER.AUTO_FIX', component: 'RegistryAutoRepair', status: 'implemented', requirement: 'Automated repair of broken route/API registry mappings.' },
-                    { name: 'User Shadowing', route: 'SCRUM_MASTER.IMPERSONATE', component: 'ImpersonationTool', status: 'implemented', requirement: 'Technical debugging by simulating specific user sessions.' },
+                    { name: 'User Shadowing', route: 'SCRUM_MASTER.IMPERSONATE', component: 'ImpersonationTool', status: 'implemented', requirement: 'Technical debugging by impersonating specific user sessions.' },
                 ]
             },
             manager: {

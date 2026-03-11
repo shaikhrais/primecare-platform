@@ -9,7 +9,7 @@ describe('NotificationCenterContext', () => {
         });
 
         expect(result.current.notifications).toBeDefined();
-        // Initially we load 3 mock notifications
+        // Initially we load 3 notifications
         expect(result.current.notifications.length).toBe(3);
         expect(result.current.unreadCount).toBeGreaterThan(0);
     });
@@ -38,7 +38,7 @@ describe('NotificationCenterContext', () => {
             wrapper: NotificationCenterProvider,
         });
 
-        const notificationId = result.current.notifications[0].id; // Get the first one (which we just added or initial mock)
+        const notificationId = result.current.notifications[0].id; // Get the first one
 
         act(() => {
             result.current.markAsRead(notificationId);

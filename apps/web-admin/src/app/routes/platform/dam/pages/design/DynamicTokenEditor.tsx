@@ -34,7 +34,7 @@ export const DynamicTokenEditor: React.FC = () => {
     const handleSaveGlobal = () => {
         setIsSaving(true);
         setTimeout(() => {
-            // Mock API persist
+ // API persist
             setIsSaving(false);
             alert("Design Tokens Synced to Production CDN.");
         }, 1500);

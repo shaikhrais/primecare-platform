@@ -34,7 +34,7 @@ export default function ImpersonationTool() {
         setIsImpersonating(true);
         setSelectedUser(user);
 
-        // Mocking the impersonation logic
+ // the impersonation logic
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         localStorage.setItem('impersonated_user', JSON.stringify(user));

@@ -10,7 +10,7 @@ export const CarePlanEvolution: React.FC<AmendmentProps> = ({ patientId }) => {
     const [suggestion, setSuggestion] = useState<any | null>(null);
 
     useEffect(() => {
-        // Simulated API fetch polling the new backend logic
+        // API fetch polling the new backend logic
         setTimeout(() => {
             setSuggestion({
                 id: 'amd_901',

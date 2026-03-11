@@ -16,7 +16,7 @@ interface Edge {
 }
 
 export const YearbookGraph: React.FC = () => {
-    // Mock Data simulating a force-directed graph (D3 style)
+ // Data a force-directed graph (D3 style)
     const nodes: Node[] = [
         { id: 'n1', label: 'Sarah (RN)', role: 'RN', x: 50, y: 50 },
         { id: 'n2', label: 'Michael', role: 'PSW', x: 20, y: 30 },

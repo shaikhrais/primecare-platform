@@ -26,7 +26,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
         setStatus('scanning');
 
         try {
-            // Simulated WebAuthn Call
+ // WebAuthn Call
             // Real implementation would use navigator.credentials.get({ publicKey: { ... } })
             await new Promise(resolve => setTimeout(resolve, 1500));
 

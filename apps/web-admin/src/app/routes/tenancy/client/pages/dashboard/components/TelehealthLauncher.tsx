@@ -7,7 +7,7 @@ export const TelehealthLauncher: React.FC = () => {
     if (isInCall) {
         return (
             <section style={{ backgroundColor: '#1E293B', borderRadius: '24px', padding: '32px', color: 'white', position: 'relative', overflow: 'hidden', height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '4px solid #6366F1', boxShadow: '0 25px 50px -12px rgba(99, 102, 241, 0.5)' }}>
-                {/* Mocking the Daily.co / WebRTC iFrame injection point */}
+                {/* the Daily.co / WebRTC iFrame injection point */}
                 <div style={{ position: 'absolute', inset: 0, backgroundColor: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ textAlign: 'center' }}>
                         <div style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#334155', margin: '0 auto 24px auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

@@ -48,7 +48,7 @@ r.openapi(osmStartRoute, async (c) => {
     const redirectUri = c.env.OSM_REDIRECT_URI || `${c.env.SITE_URL || 'http://localhost:8787'}/v1/auth/osm/callback`;
 
     if (!clientId) {
-        // R6: Don't silently fall back to dev mock — return clear error
+ // R6: Don't silently fall back to dev — return clear error
         return c.json({ error: 'OSM OAuth not configured. Set OSM_CLIENT_ID.' }, 500);
     }
 
@@ -95,9 +95,9 @@ r.openapi(osmCallbackRoute, async (c) => {
     const jwtSecret = c.env.JWT_SECRET;
     if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
-    // R6: Reject mock codes in production
-    if (code === 'MOCK_DEV_CODE') {
-        return c.json({ error: 'Mock auth not allowed' }, 400);
+ // R6: Reject codes in production
+    if (code === 'DEMO_DEV_CODE') {
+        return c.json({ error: 'Auth not allowed' }, 400);
     }
 
     try {

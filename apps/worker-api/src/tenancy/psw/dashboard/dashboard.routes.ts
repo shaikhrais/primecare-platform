@@ -98,7 +98,7 @@ r.openapi(getDashboardStatsRoute, async (c) => {
     ];
 
     const hoursLogged = (timesheets.reduce((acc: number, cur: any) => acc + (cur.totalMinutes || 0), 0) / 60) || 0;
-    const currentStreak = onTime > 5 ? Math.floor(onTime / 2) : onTime; // Simulated streak logic
+    const currentStreak = onTime > 5 ? Math.floor(onTime / 2) : onTime; // streak logic
 
     return c.json({
         earnings: earningsData,

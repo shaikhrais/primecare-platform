@@ -26,7 +26,7 @@ const BillingHub: React.FC = () => {
             setInvoices(data);
         } catch (error) {
             console.error('Failed to fetch invoices', error);
-            // Mock for Face One realization
+ // for Face One realization
             setInvoices([
                 { id: 'INV-001', createdAt: new Date().toISOString(), amount: 450.00, currency: 'CAD', status: 'pending', serviceDescription: 'Personal Care - 15 Hours' },
                 { id: 'INV-002', createdAt: new Date(Date.now() - 86400000 * 7).toISOString(), amount: 320.00, currency: 'CAD', status: 'paid', serviceDescription: 'Respite Care - 10 Hours' }

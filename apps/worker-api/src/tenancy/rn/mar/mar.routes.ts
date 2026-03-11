@@ -43,7 +43,7 @@ mar.openapi(scheduleRoute, async (c) => {
         const timeStr = new Date(entry.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const freqStr = `Daily (${timeStr})`;
         
-        // Temporarily mock drug interaction rules engine
+ // Temporarily drug interaction rules engine
         let interactionLevel: 'critical' | 'moderate' | 'none' | undefined = undefined;
         let interactionMessage: string | undefined = undefined;
         

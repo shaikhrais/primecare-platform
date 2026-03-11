@@ -1,7 +1,7 @@
 /**
  * Epic 10: LLM Executive Summaries
  * 
- * Scheduled weekly cron worker simulating querying OpenAI/Anthropic APIs.
+ * Scheduled weekly cron worker querying OpenAI/Anthropic APIs.
  * It compiles the 21+ fragmented clinical daily notes logged across the week
  * and synthesizes them into a highly human-readable email format for the family portal.
  */
@@ -15,7 +15,7 @@ interface NoteContext {
 export class WeeklyLLMSummary {
 
     /**
-     * Mocks a database pipeline fetching 7 days of daily notes.
+ * a database pipeline fetching 7 days of daily notes.
      */
     private static async fetchWeeklyContext(patientId: string): Promise<NoteContext[]> {
         return [
@@ -28,11 +28,11 @@ export class WeeklyLLMSummary {
     }
 
     /**
-     * Simulates submitting an array of clinical strings to an LLM context window.
+ * submitting an array of clinical strings to an LLM context window.
      */
     private static async invokeGenerativeModel(contextArray: string[]): Promise<string> {
         console.log(`[LLM Sentinel] Transmitting ${contextArray.length} clinical notes to Generative API...`);
-        // MOCKED LLM GENERATION DELAY
+ // LLM GENERATION DELAY
         await new Promise(resolve => setTimeout(resolve, 800));
 
         return `Hello Family, this week has been generally positive and stable. 

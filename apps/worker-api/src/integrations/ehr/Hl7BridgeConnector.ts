@@ -1,7 +1,7 @@
 /**
  * Epic 39: Electronic Health Record (EHR) HL7 Bridges
  * 
- * Simulated pipeline that natively translates internal PrimeCare JSON objects
+ * pipeline that natively translates internal PrimeCare JSON objects
  * (e.g., Patient Demographics) into HL7 v2.x pipe-delimited strings to successfully
  * handshake with legacy hospital systems like Epic or Cerner.
  */

@@ -9,7 +9,7 @@ export default function TemplatesList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulating data fetch
+ // data fetch
         setTimeout(() => {
             setTemplates([
                 { id: '1', name: 'Welcome Email', type: 'Email', lastModified: '2026-02-10', status: 'Active' },

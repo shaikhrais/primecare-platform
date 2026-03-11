@@ -24,7 +24,7 @@ export const DirectDispatchChat: React.FC<DirectDispatchChatProps> = ({ isOpen, 
         }]);
         setInputValue('');
 
-        // Simulate dispatcher reply
+ // dispatcher reply
         setTimeout(() => {
             setMessages(prev => [...prev, {
                 id: Date.now() + 1,

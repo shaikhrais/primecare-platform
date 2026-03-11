@@ -27,7 +27,7 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
 
         fetchWorkers();
         
-        // Simulating continuous ping from the backend stream
+ // continuous ping from the backend stream
         const interval = setInterval(fetchWorkers, 10000);
         return () => clearInterval(interval);
     }, []);
@@ -35,8 +35,8 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
     // Suggestion 22: Dual Monitor Pop-out (Tear Off) Feature
     const handleTearOff = () => {
         // In a real app, this would route to a specific `/standalone/radar` path that only renders this component.
-        // We will mock the `window.open` feature and show a toast since we don't have a standalone route registered currently.
-        const standaloneUrl = window.location.origin + '/?radar_standalone=true'; // Mock standalone flag
+ // We will the `window.open` feature and show a toast since we don't have a standalone route registered currently.
+        const standaloneUrl = window.location.origin + '/?radar_standalone=true'; // standalone flag
         window.open(standaloneUrl, '_blank', 'width=1000,height=800,menubar=no,toolbar=no,location=no');
         showToast('Fleet Radar detached to secondary monitor.', 'success');
     };
@@ -69,7 +69,7 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
                 )}
             </div>
 
-            {/* Simulated Radar Map Space */}
+            {/* Radar Map Space */}
             <div style={{ position: 'relative', flex: 1, backgroundColor: '#020617', margin: '2px', borderRadius: '12px', overflow: 'hidden' }}>
                 {/* Radar Grid Overlay */}
                 <div style={{

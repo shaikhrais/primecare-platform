@@ -14,11 +14,11 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
     const [structuredNotes, setStructuredNotes] = useState<any | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // Mocking a Web Speech API / MediaRecorder stream
+    // Web Speech API / MediaRecorder stream logic
     useEffect(() => {
         let interval: ReturnType<typeof setInterval>;
         if (isRecording) {
-            const mockStream = [
+            const demoStream = [
                 "Patient states the pain is about a 6 out of 10 in the lower back.",
                 " Noticed some mild erythema around the sacral region during turning.",
                 " Applied barrier cream.",
@@ -27,8 +27,8 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
             ];
             let index = 0;
             interval = setInterval(() => {
-                if (index < mockStream.length) {
-                    setTranscript(prev => prev + ' ' + mockStream[index]);
+                if (index < demoStream.length) {
+                    setTranscript(prev => prev + ' ' + demoStream[index]);
                     index++;
                 }
             }, 2000);

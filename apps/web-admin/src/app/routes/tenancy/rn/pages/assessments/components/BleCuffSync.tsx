@@ -18,7 +18,7 @@ export const BleCuffSync: React.FC = () => {
             setPairing(true);
             setError(null);
             
-            // Check if Web Bluetooth API is available (mock validation)
+            // Check if Web Bluetooth API is available
             if (!(navigator as any).bluetooth) {
                 // If no actual Bluetooth, fallback to fetching recent cloud IoT state for the BleCuff
                 const token = localStorage.getItem('token');
@@ -57,7 +57,7 @@ export const BleCuffSync: React.FC = () => {
             await characteristic.startNotifications();
             characteristic.addEventListener('characteristicvaluechanged', (e: any) => {
                 // Parse the 8-bit array payload (Implementation depends on the device GATT spec)
-                // For this mock, we just resolve generic data
+                // For this, we just resolve generic data
                 setReading({ sys: 121, dia: 80, pulse: 72 });
                 setPairing(false);
             });

@@ -21,7 +21,7 @@ export const DenialTriageQueue: React.FC = () => {
 
     const handleDelegate = (item: DenialItem) => {
         setProcessingId(item.id);
-        // Mocks an API call wrapping the denial item and pushing it to the target persona's task queue
+ // an API call wrapping the denial item and pushing it to the target persona's task queue
         setTimeout(() => {
             setQueue(prev => prev.filter(q => q.id !== item.id));
             setProcessingId(null);

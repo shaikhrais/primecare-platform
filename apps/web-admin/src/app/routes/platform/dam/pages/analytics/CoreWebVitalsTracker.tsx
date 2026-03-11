@@ -23,7 +23,7 @@ export const CoreWebVitalsTracker: React.FC = () => {
     const handleRefresh = () => {
         setIsRefreshing(true);
         setTimeout(() => {
-            // Simulate slightly fluctuating data
+ // slightly fluctuating data
             setMetrics(prev => prev.map(m => {
                 if (m.name === 'LCP') return { ...m, value: (1.5 + Math.random()).toFixed(1) as unknown as number, status: Math.random() > 0.8 ? 'NEEDS_IMPROVEMENT' : 'GOOD' };
                 if (m.name === 'FID') return { ...m, value: Math.floor(90 + Math.random() * 60) as number, status: 'GOOD' };

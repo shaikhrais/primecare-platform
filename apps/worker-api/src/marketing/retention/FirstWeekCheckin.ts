@@ -55,7 +55,7 @@ export class FirstWeekCheckin {
 
         console.log(`\n[Retention Engine] Surveys dispatched. Awaiting Webhook replies...`);
         
-        // Simulating a negative reply
+ // a negative reply
         await new Promise(res => setTimeout(res, 1500));
         console.log(`\n🚨 [WEBHOOK RECEIVED] Reply from ${contracts[0]?.familyPhone || '+1000'}: "2. The nurse was late on Tuesday."`);
         

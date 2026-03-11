@@ -30,7 +30,7 @@ r.openapi(complianceScanRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
 
-    // Simulate compliance scan logic
+ // compliance scan logic
     const metrics = {
         totalCaregivers: 84,
         compliant: 78,

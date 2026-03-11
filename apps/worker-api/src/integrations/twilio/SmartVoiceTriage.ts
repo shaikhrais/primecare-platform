@@ -14,7 +14,7 @@ interface TwilioVoicePayload {
 
 export class SmartVoiceTriage {
 
-    // Hardcoded trigger strings for simulation
+ // Hardcoded trigger strings for 
     private static medicalEmergencyKeywords = ['chest pain', 'heart', 'bleed', 'ambulance', 'cannot breathe', 'fall', 'floor'];
     private static clinicalKeywords = ['medication', 'pill', 'fever', 'wound', 'rash'];
     private static schedulingKeywords = ['cancel', 'reschedule', 'late', 'time', 'tomorrow'];

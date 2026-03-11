@@ -21,7 +21,7 @@ export const PersonalityMatcher: React.FC = () => {
     const handleSwipe = (traitId: string, choice: 'Y' | 'N') => {
         setPreferences(prev => ({ ...prev, [traitId]: choice }));
         
-        // Timeout for simple animation mock
+ // Timeout for simple animation 
         setTimeout(() => {
             setCurrentIndex(prev => prev + 1);
         }, 300);

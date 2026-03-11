@@ -9,7 +9,7 @@ export default function SystemHealthMonitor() {
     const [logs, setLogs] = useState<string[]>([]);
 
     useEffect(() => {
-        const mockLogs = [
+        const sampleLogs = [
             '[SYSTEM] Authentication provider ready.',
             '[INFO] Worker API latency: 45ms',
             '[SUCCESS] Daily compliance job completed.',
@@ -18,7 +18,7 @@ export default function SystemHealthMonitor() {
             '[INFO] WebAdmin build v1.2.4 strictly synced.',
         ];
 
-        setLogs(mockLogs);
+        setLogs(sampleLogs);
 
         const interval = setInterval(() => {
             const newLog = `[${new Date().toLocaleTimeString()}] ${t((ContentRegistry.SCRUM_MASTER.MONITORING as any).HEARTBEAT)}`;

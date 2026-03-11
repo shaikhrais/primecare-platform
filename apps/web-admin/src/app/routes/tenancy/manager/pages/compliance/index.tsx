@@ -25,7 +25,7 @@ export default function ComplianceSync() {
                 if (data && data.results) {
                     setAuditData(data.results);
                 } else {
-                    // Mock fallback
+ // fallback
                     setAuditData([
                         { id: '1', provider: 'Sarah Jenkins (PSW)', document: 'CPR Certification', expiry: '2026-03-10', status: 'critical' },
                         { id: '2', provider: 'Mike Ross (PSW)', document: 'Background Check', expiry: '2026-06-15', status: 'valid' },

@@ -188,7 +188,7 @@ export default function ExpenseReportForm() {
                         <button onClick={() => setIsCameraOpen(false)} style={{ padding: '1rem', border: 'none', borderRadius: '8px', cursor: 'pointer', color: 'white' }}>Cancel</button>
                         <button
                             onClick={() => {
-                                setFormData({ ...formData, receiptImage: 'data:image/png;base64,mockbase64', receiptAttached: true });
+                                setFormData({ ...formData, receiptImage: 'data:image/png;base64,demobase64', receiptAttached: true });
                                 setIsDirty(true);
                                 setIsCameraOpen(false);
                             }}

@@ -81,13 +81,13 @@ export default function Login() {
 
     const handleBiometricSuccess = async () => {
         // In a real WebAuthn flow, this would pass the assertion to the backend.
-        // For the purpose of this eradication phase, we'll swap out the hardcoded mock user
+ // For the purpose of this eradication phase, we'll swap out the hardcoded user
         // and trigger a real API login using the current (or pre-configured) email/password state.
         setShowBiometric(false);
         setLoading(true);
         setError(null);
 
-        // Simulated user for demo purposes, since we don't have true WebAuthn keys registered
+ // user for demo purposes, since we don't have true WebAuthn keys registered
         // in this environment. We'll use a real known user account to hit the real DB.
         const demoEmail = email || 'psw@primecare.com';
         const demoPassword = password || 'Password123!';

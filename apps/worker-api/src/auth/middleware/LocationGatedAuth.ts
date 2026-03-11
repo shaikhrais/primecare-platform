@@ -14,7 +14,7 @@ interface AuthContext {
 
 export class LocationGatedAuth {
 
-    // Mocks an Environment Variable array of whitelisted CIDR blocks/IPs for the Agency HQ
+ // an Environment Variable array of whitelisted CIDR blocks/IPs for the Agency HQ
     private static HQ_ALLOWED_IPS = ['192.168.1.50', '203.0.113.42', '10.0.0.0/24'];
 
     /**

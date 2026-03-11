@@ -6,7 +6,7 @@ interface Hazard {
     description: string;
     found: boolean;
     x: number;
-    y: number; // Percentages for positioning on the mock viewport
+    y: number; // Percentages for positioning on the Viewport
 }
 
 export const VrHoardingSimulator: React.FC = () => {
@@ -16,7 +16,7 @@ export const VrHoardingSimulator: React.FC = () => {
         { id: 'h3', description: 'Expired medication on counter', found: false, x: 20, y: 55 }
     ]);
     
-    const [viewPan, setViewPan] = useState({ x: 0, y: 0 }); // Simulating looking around
+    const [viewPan, setViewPan] = useState({ x: 0, y: 0 }); // looking around
     const foundCount = hazards.filter(h => h.found).length;
     const isComplete = foundCount === hazards.length;
 
@@ -44,17 +44,17 @@ export const VrHoardingSimulator: React.FC = () => {
                 </div>
             </div>
 
-            {/* Simulating the XR Viewport */}
+            {/* the XR Viewport */}
             <div 
                 style={{ 
                     height: '400px', width: '100%', position: 'relative', 
-                    // Mocks a blurred living room background
+ // a blurred living room background
                     backgroundImage: 'radial-gradient(circle at center, #334155 0%, #0F172A 100%)',
                     cursor: 'crosshair',
                     overflow: 'hidden'
                 }}
                 onMouseMove={(e) => {
-                    // Simple parallax effect to mock looking around
+ // Simple parallax effect to looking around
                     const rx = (e.clientX / window.innerWidth) * 20 - 10;
                     const ry = (e.clientY / window.innerHeight) * 20 - 10;
                     setViewPan({ x: rx, y: ry });
@@ -65,7 +65,7 @@ export const VrHoardingSimulator: React.FC = () => {
                     <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '4px', height: '4px', backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: '50%' }} />
                 </div>
 
-                {/* Simulated Hazards */}
+                {/* Hazards */}
                 <div style={{ width: '100%', height: '100%', transform: `translate(${viewPan.x}px, ${viewPan.y}px)`, transition: 'transform 0.1s ease-out' }}>
                     {hazards.map(hazard => (
                         <div 

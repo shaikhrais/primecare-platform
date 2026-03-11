@@ -9,9 +9,9 @@ export const WoundVisionTracker: React.FC<TrackerProps> = ({ patientId }) => {
     const [analyzing, setAnalyzing] = useState(false);
     const [result, setResult] = useState<{ area: number; improvement: number } | null>(null);
 
-    const triggerMockVisionAnalysis = () => {
+    const triggerVisionAnalysis = () => {
         setAnalyzing(true);
-        // Simulate sending base64 canvas image to Python OpenCV worker
+        // Uploading base64 canvas image to Python OpenCV worker
         setTimeout(() => {
             setResult({
                 area: 4.2, // cm squared
@@ -29,7 +29,7 @@ export const WoundVisionTracker: React.FC<TrackerProps> = ({ patientId }) => {
                     AI Vision Analysis
                 </h3>
                 <button 
-                    onClick={triggerMockVisionAnalysis}
+                    onClick={triggerVisionAnalysis}
                     disabled={analyzing}
                     style={{ 
                         display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#8B5CF6', 

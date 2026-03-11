@@ -31,7 +31,7 @@ export const CareUpdatesFeed: React.FC = () => {
                     type: 'note', 
                     authorName: 'PrimeCare Staff', // Await relation joins to get actual worker names
                     authorRole: 'PSW / RN', 
-                    timestamp: new Date().toLocaleDateString(), // Mocking timestamp structure to UI
+                    timestamp: new Date().toLocaleDateString(), // timestamp structure to UI
                     content: entry.activities || 'Routine care visit completed.',
                 })) || [];
 
@@ -98,7 +98,7 @@ export const CareUpdatesFeed: React.FC = () => {
                         {post.content}
                     </div>
 
-                    {/* Action Bar (Mocking social engagement) */}
+                    {/* Action Bar ( social engagement) */}
                     <div style={{ display: 'flex', gap: '16px', color: '#94A3B8' }}>
                         <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: 'inherit', fontWeight: 700 }} title="Acknowledge">
                             <Heart size={18} /> Acknowledge

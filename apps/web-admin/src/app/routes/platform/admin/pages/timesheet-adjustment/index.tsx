@@ -21,7 +21,7 @@ export default function TimesheetAdjForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
-        // Simulate API
+ // API
         setTimeout(() => {
             showToast('Timesheet adjustment saved', 'success');
             setIsDirty(false);

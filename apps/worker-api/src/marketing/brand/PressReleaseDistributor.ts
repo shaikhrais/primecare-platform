@@ -1,9 +1,8 @@
 /**
  * Epic 27: Press Release Distributor
  * 
- * Simulated backend PR syndication tool.
- * Evaluates a draft news announcement, formats it into standard PR Newswire
- * styling, and simulates blasting it to local health journalists and 
+ * Backend PR syndication tool. * Evaluates a draft news announcement, formats it into standard PR Newswire
+ * styling, and blasting it to local health journalists and 
  * hospital partner email lists to manage corporate narrative proactively.
  */
 
@@ -20,8 +19,7 @@ export class PressReleaseDistributor {
     static async syndicateRelease(release: PressRelease) {
         console.log(`[PR Engine] Formatting new press release...`);
         
-        // Simulating PR formatting
-        await new Promise(res => setTimeout(res, 500));
+        // PR formatting
 
         const formattedPR = `
 FOR IMMEDIATE RELEASE
@@ -47,8 +45,7 @@ Contact: media@primecare.org
 
         console.log(`[PR Engine] Initiating distribution to list: ${release.mediaList}`);
         
-        // Simulate network API call to PR Newswire / Mailchimp
-        await new Promise(res => setTimeout(res, 1800));
+        // Network API call to PR Newswire / Mailchimp
         
         const audienceCount = release.mediaList === 'LOCAL_NEWS' ? 142 : 550;
         
@@ -56,16 +53,5 @@ Contact: media@primecare.org
         console.log(`-> Tracking pixel embedded. Awaiting open-rate analytics.\n`);
     }
 
-    /**
-     * Helper to mock data for terminal demonstrations
-     */
-    static runMockSyndication() {
-        this.syndicateRelease({
-            headline: 'PrimeCare Earns "Best Places to Work 2024" Award',
-            subHeadline: 'Recognized for outstanding nursing support and competitive benefits.',
-            city: 'Columbus, OH',
-            body: 'Today, the regional nursing board recognized PrimeCare as a top employer...',
-            mediaList: 'LOCAL_NEWS'
-        });
-    }
+
 }

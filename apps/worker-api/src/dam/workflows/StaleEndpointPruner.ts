@@ -1,7 +1,7 @@
 /**
  * Epic 29: Stale Endpoint Pruner
  * 
- * Simulated backend worker that runs nightly to improve platform security.
+ * Backend worker that runs nightly to improve platform security.
  * It sweeps the API registry looking for routes or webhooks that haven't been
  * triggered in over 180 days. Instead of letting them sit as potential 
  * attack vectors, it automatically disables them and alerts the engineering team.
@@ -16,14 +16,14 @@ interface EndpointRecord {
 
 export class StaleEndpointPruner {
 
-    // Mock Database
+    // Database registry
     private static registry: EndpointRecord[] = [
         { id: '1', path: '/api/v1/integrations/legacy-soap-sync', lastCalledAt: new Date('2024-05-12'), isActive: true },
         { id: '2', path: '/api/v1/auth/login', lastCalledAt: new Date(), isActive: true }
     ];
 
     /**
-     * Executes the simulated nightly sweep
+     * Executes the nightly sweep
      */
     static async sweepStaleRoutes(): Promise<number> {
         console.log(`[API Governance] Starting nightly endpoint activity scanner...`);

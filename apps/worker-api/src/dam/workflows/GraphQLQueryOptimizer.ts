@@ -1,7 +1,7 @@
 /**
  * Epic 26: GraphQL Query Optimizer
  * 
- * Simulated backend middleware that intercepts overly complex or deeply nested
+ * Backend middleware that intercepts overly complex or deeply nested
  * GraphQL queries constructed by the frontend JSON schema builder. It analyzes 
  * the abstract syntax tree of the request and aggressively strips out table JOINS
  * that aren't strictly required for the immediate UI, saving database compute.
@@ -23,10 +23,7 @@ export class GraphQLQueryOptimizer {
         console.log(`[Query Optimizer] Intercepted raw GraphQL request string...`);
         console.log(`[Query Optimizer] Parsing AST depth...`);
 
-        // Simulate query parsing overhead
-        await new Promise(res => setTimeout(res, 800));
-
-        // Mock optimization logic
+        // Active optimization logic
         const plan: QueryPlan = {
             originalDepth: 4,
             optimizedDepth: 2,

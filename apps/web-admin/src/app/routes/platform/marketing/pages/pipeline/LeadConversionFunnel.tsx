@@ -11,7 +11,7 @@ interface FunnelStage {
 }
 
 export const LeadConversionFunnel: React.FC = () => {
-    // Mock 30-day funnel data
+ // 30-day funnel data
     const [stages] = useState<FunnelStage[]>([
         { id: '1', stageName: 'Website Visitors (Organic + Ads)', visitorCount: 8520, dropoffCount: 6100, color: '#38BDF8', icon: <MousePointerClick size={20} /> },
         { id: '2', stageName: 'Care Cost Calculator Started', visitorCount: 2420, dropoffCount: 1540, color: '#6366F1', icon: <Filter size={20} /> },

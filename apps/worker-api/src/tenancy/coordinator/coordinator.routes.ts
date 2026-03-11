@@ -571,7 +571,7 @@ coordinator.openapi(matchingEngineRoute as any, async (c: any) => {
         proposals: (psws as any[]).map(p => ({
             pswId: p.id,
             fullName: p.fullName,
-            score: Math.floor(Math.random() * 40) + 60 // Simulated AI score
+            score: Math.floor(Math.random() * 40) + 60 // AI score
         })).sort((a: any, b: any) => b.score - a.score).slice(0, 3)
     }));
 

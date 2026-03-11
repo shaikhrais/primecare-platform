@@ -41,7 +41,7 @@ export const systemContent = {
     },
     IMPERSONATION: {
         TITLE: 'User Shadowing & Debug',
-        SUBTITLE: 'Securely simulate user sessions to diagnose technical issues and verify RBAC policies.',
+        SUBTITLE: 'Securely test user sessions to diagnose technical issues and verify RBAC policies.',
         SEARCH_PLACEHOLDER: 'Search by name, email, or Role ID...',
         SEARCH_BTN: 'Find Users',
         SEARCHING: 'Searching...',

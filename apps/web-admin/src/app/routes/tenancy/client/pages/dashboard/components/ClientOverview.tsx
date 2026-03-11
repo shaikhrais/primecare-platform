@@ -3,7 +3,7 @@ import { BudgetUtilizationChart } from '@/shared/components/charts/BudgetUtiliza
 import { WellnessTrendChart } from '@/shared/components/charts/WellnessTrendChart';
 import { CareContinuityChart } from '@/shared/components/charts/CareContinuityChart';
 import { ClientSatisfactionRadar } from '@/shared/components/charts/ClientSatisfactionRadar';
-// Removed MOCK_ data to enforce strict DB mode
+// Removed data to enforce strict DB mode
 interface ClientOverviewProps {
     stats: any;
 }

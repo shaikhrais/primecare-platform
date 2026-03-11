@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { User, Activity, AlertTriangle, Briefcase, TrendingDown, Users } from 'lucide-react';
 
-// Mock Node Data structure for an Org Chart
+// Node Data structure for an Org Chart
 interface OrgNode {
     id: string;
     name: string;

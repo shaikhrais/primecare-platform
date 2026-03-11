@@ -91,7 +91,7 @@ export default function UserList() {
     const handleInvite = async (email: string) => {
         setSubmitting(true);
         try {
-            // Simulate API call for now (as per original logic)
+ // API call for now (as per original logic)
             await new Promise(resolve => setTimeout(resolve, 800));
             showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
             setIsModalOpen(false);

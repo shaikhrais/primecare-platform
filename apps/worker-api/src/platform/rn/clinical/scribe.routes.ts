@@ -28,11 +28,11 @@ scribeRoutes.openapi(
         const body = await c.req.valid('json');
 
         // Note: In an actual implementation, this would call GPT-4 / Claude / Gemini Edge LLM.
-        // As a simulated backend worker for edge, we intercept the transcript and apply deterministic formatting.
+ // As a backend worker for edge, we intercept the transcript and apply deterministic formatting.
         
         const transcript = body.transcript.toLowerCase();
         
-        // Very basic NLP simulation for the requested demo
+ // Very basic NLP for the requested demo
         let severity = '0/10';
         if (transcript.includes('1 out of 10') || transcript.includes('1/10')) severity = '1/10';
         if (transcript.includes('2 out of 10') || transcript.includes('2/10')) severity = '2/10';

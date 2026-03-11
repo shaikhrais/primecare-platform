@@ -64,7 +64,7 @@ export const PostDischargeSuccess: React.FC = () => {
             <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '32px', textAlign: 'center' }}>
                 <ShieldCheck size={48} color="#2563EB" style={{ margin: '0 auto 16px auto' }} />
                 <h4 style={{ margin: '0 0 8px 0', fontSize: '1.4rem', color: '#1E3A8A', fontWeight: 800 }}>Medicare Fines Avoided for Hospital Partners</h4>
-                <p style={{ margin: '0 0 16px 0', color: '#3B82F6', fontSize: '1.1rem' }}>By trusting PrimeCare with your post-discharge patients, our dedicated 24/7 nursing team has prevented costly bounce-backs, simulating an estimated savings of:</p>
+                <p style={{ margin: '0 0 16px 0', color: '#3B82F6', fontSize: '1.1rem' }}>By trusting PrimeCare with your post-discharge patients, our dedicated 24/7 nursing team has prevented costly bounce-backs, projecting an estimated savings of:</p>
                 <div style={{ fontSize: '3.5rem', fontWeight: 900, color: '#1D4ED8', textShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
                     ${(estimatedFinesAvoided).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                 </div>

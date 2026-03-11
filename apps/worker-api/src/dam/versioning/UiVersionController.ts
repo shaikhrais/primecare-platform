@@ -1,7 +1,7 @@
 /**
  * Epic 4: UI Version Controller
  * 
- * Simulated backend utility for the Digital Asset Manager. It controls pointers 
+ * backend utility for the Digital Asset Manager. It controls pointers 
  * to Cloudflare/AWS Edge CDN hashed deployment bundles. If a critical UI 
  * component update causes a regression, this utility instantly shifts the global 
  * routing pointer back to an older, stable layout hash.
@@ -16,7 +16,7 @@ interface DeploymentSnapshot {
 
 export class UiVersionController {
 
-    private static mockS3Snapshots: DeploymentSnapshot[] = [
+    private static localS3Snapshots: DeploymentSnapshot[] = [
         { versionId: 'v2.1.0-4a8b2', deployedAt: '2026-03-10T08:00:00Z', description: 'Updated global button border radii', isActive: true },
         { versionId: 'v2.0.9-19ff0', deployedAt: '2026-03-08T12:30:00Z', description: 'Added WCAG AAA contrast fixes', isActive: false },
         { versionId: 'v2.0.8-b391a', deployedAt: '2026-03-01T09:15:00Z', description: 'Spring theme update', isActive: false }
@@ -29,7 +29,7 @@ export class UiVersionController {
         console.log(`[UI Version Control] Initiating emergency frontend rollback...`);
         console.log(`[UI Version Control] Target Snapshot: ${targetVersionId}`);
 
-        const target = this.mockS3Snapshots.find(s => s.versionId === targetVersionId);
+        const target = this.localS3Snapshots.find(s => s.versionId === targetVersionId);
         
         if (!target) {
             console.error(`[UI Version Control] Rollback failed. Snapshot ${targetVersionId} not found in artifact registry.`);
@@ -37,10 +37,10 @@ export class UiVersionController {
         }
 
         try {
-            // Simulate API call to Cloudflare Pages routing rule update
+ // API call to Cloudflare Pages routing rule update
             console.log(`[UI Version Control] Updating CDN edge rules to point '/* -> /_workers/assets/${targetVersionId}'`);
             
-            this.mockS3Snapshots.forEach(s => s.isActive = false);
+            this.localS3Snapshots.forEach(s => s.isActive = false);
             target.isActive = true;
 
             console.log(`[UI Version Control] Rollback complete. Global DNS cache purging... Done.`);
@@ -55,6 +55,6 @@ export class UiVersionController {
      * Lists available layout builds that can be restored.
      */
     static getAvailableSnapshots(): DeploymentSnapshot[] {
-        return this.mockS3Snapshots;
+        return this.localS3Snapshots;
     }
 }

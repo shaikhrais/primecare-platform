@@ -41,7 +41,7 @@ export const iMessageThread: React.FC = () => {
                 body: text
             });
 
-            // Simulate Coordinator Auto-reply for Demo UX (since no real-time sockets yet)
+ // Coordinator Auto-reply for Demo UX (since no real-time sockets yet)
             setTimeout(() => {
                 const autoReply: ChatMessage = {
                     id: Date.now().toString(),

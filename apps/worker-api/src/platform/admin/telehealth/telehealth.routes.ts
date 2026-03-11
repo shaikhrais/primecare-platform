@@ -50,7 +50,7 @@ telehealthRoutes.openapi(getSessionsRoute, async (c) => {
             provider: s.provider.email, // Best fallback
             time: new Date(s.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' (' + new Date(s.startTime).toLocaleDateString() + ')',
             status: s.status === 'in-progress' ? 'In-Progress' : (s.status.charAt(0).toUpperCase() + s.status.slice(1)),
-            type: 'Clinical Review' // Mocked type since there's no type field on TelehealthSession
+            type: 'Clinical Review' // type since there's no type field on TelehealthSession
         }));
 
         return c.json({ sessions: mappedSessions }, 200);

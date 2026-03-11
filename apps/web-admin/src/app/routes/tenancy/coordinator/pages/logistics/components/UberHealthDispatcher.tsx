@@ -13,8 +13,8 @@ export const UberHealthDispatcher: React.FC = () => {
     const [dispatching, setDispatching] = useState(false);
     const [rideStatus, setRideStatus] = useState<'IDLE' | 'DISPATCHED' | 'EN_ROUTE'>('IDLE');
 
-    // Mock patient request
-    const mockRequest: RideRequest = {
+ // patient request
+    const sampleRequest: RideRequest = {
         patientId: 'pt_91',
         patientName: 'Eleanor Vance',
         pickupAddress: '142 Evergreen Terrace, Toronto',
@@ -24,12 +24,12 @@ export const UberHealthDispatcher: React.FC = () => {
 
     const handleDispatch = () => {
         setDispatching(true);
-        // Mocks hitting the Uber Health B2B API
+ // hitting the Uber Health B2B API
         setTimeout(() => {
             setDispatching(false);
             setRideStatus('DISPATCHED');
             
-            // Mock Driver Accept payload arriving
+ // Driver Accept payload arriving
             setTimeout(() => {
                 setRideStatus('EN_ROUTE');
             }, 3000);
@@ -51,15 +51,15 @@ export const UberHealthDispatcher: React.FC = () => {
 
             <div style={{ backgroundColor: '#F8FAFC', padding: '16px', borderRadius: '8px', border: '1px solid #E2E8F0', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontWeight: 700, color: '#0F172A' }}>{mockRequest.patientName}</span>
-                    <span style={{ fontSize: '0.85rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={14} /> Appt: {mockRequest.appointmentTime}</span>
+                    <span style={{ fontWeight: 700, color: '#0F172A' }}>{sampleRequest.patientName}</span>
+                    <span style={{ fontSize: '0.85rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}><Clock size={14} /> Appt: {sampleRequest.appointmentTime}</span>
                 </div>
                 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                     <MapPin size={16} color="#475569" style={{ marginTop: '2px' }} />
                     <div style={{ fontSize: '0.9rem', color: '#334155' }}>
-                        <div><strong>Pick-up:</strong> {mockRequest.pickupAddress}</div>
-                        <div style={{ marginTop: '4px' }}><strong>Drop-off:</strong> {mockRequest.dropoffClinic}</div>
+                        <div><strong>Pick-up:</strong> {sampleRequest.pickupAddress}</div>
+                        <div style={{ marginTop: '4px' }}><strong>Drop-off:</strong> {sampleRequest.dropoffClinic}</div>
                     </div>
                 </div>
             </div>

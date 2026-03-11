@@ -34,7 +34,7 @@ export const CommandPalette: React.FC = () => {
         { id: 'nav-earnings', label: 'Go to Earnings', category: 'Navigation', icon: '💰', action: () => navigate(RouteRegistry.ADMIN.EARNINGS) },
         { id: 'nav-settings', label: 'Go to Settings', category: 'Navigation', icon: '⚙️', action: () => navigate(RouteRegistry.ADMIN.SETTINGS) },
 
-        // Actions (Mock for now)
+        // Actions
         { id: 'act-new-visit', label: 'Create New Visit', category: 'Action', icon: '➕', action: () => { navigate(RouteRegistry.ADMIN.SCHEDULE); close(); } },
         { id: 'act-new-user', label: 'Invite New User', category: 'Action', icon: '✉️', action: () => { navigate(RouteRegistry.ADMIN.USERS); close(); } },
 

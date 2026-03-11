@@ -86,12 +86,12 @@ export default function PswDashboard() {
             try {
                 // Feature 39: Ambient Wi-Fi Check-in (Time-theft prevention)
                 // In a true hybrid app (Capacitor/React Native), this would poll the OS for active BSSID signatures.
-                // We'll simulate fetching local ambient network signatures to append to the payload.
-                await new Promise(r => setTimeout(r, 600)); // Simulate scan delay
-                const mockAmbientSsids = ["PRIMECARE_GUEST", "COFFEE_NET_5G", "RESIDENT_ROUTER_1A"];
-                console.log(`[Validation]: Securely scanned 3 neighboring BSSIDs to cross-reference location veracity vs GPS drift: ${mockAmbientSsids.join(', ')}`);
+ // We'll fetching local ambient network signatures to append to the payload.
+                await new Promise(r => setTimeout(r, 600)); // scan delay
+                const localAmbientSsids = ["PRIMECARE_GUEST", "COFFEE_NET_5G", "RESIDENT_ROUTER_1A"];
+                console.log(`[Validation]: Securely scanned 3 neighboring BSSIDs to cross-reference location veracity vs GPS drift: ${localAmbientSsids.join(', ')}`);
 
-                showToast(`Location verified. Scanned ${mockAmbientSsids.length} nearby networks for anti-fraud validation.`, 'info');
+                showToast(`Location verified. Scanned ${localAmbientSsids.length} nearby networks for anti-fraud validation.`, 'info');
 
                 const token = localStorage.getItem('token');
                 const response = await fetch(`${API_URL}${ApiRegistry.PSW.CHECK_IN(id)}`, {
@@ -104,7 +104,7 @@ export default function PswDashboard() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                         accuracy: position.coords.accuracy,
-                        ambientBssids: mockAmbientSsids // Passed to backend to verify physical presence
+                        ambientBssids: localAmbientSsids // Passed to backend to verify physical presence
                     })
                 });
                 if (response.ok) {

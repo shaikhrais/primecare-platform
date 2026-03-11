@@ -35,7 +35,7 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
 
     React.useEffect(() => {
         if (!navigator.geolocation || !shifts[0]?.serviceLat || !shifts[0]?.serviceLng) {
-            // Fallback for mocked/missing DB lat/lng
+ // Fallback for /missing DB lat/lng
             if (shifts[0]) setCurrentDistance(Math.floor(Math.random() * 50) + 10);
             return;
         }

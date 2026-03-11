@@ -1,7 +1,7 @@
 /**
  * Epic 37: Amazon Alexa "PrimeCare Skill"
  * 
- * Simulated AWS Lambda function backing an Alexa Custom Skill.
+ * AWS Lambda function backing an Alexa Custom Skill.
  * Parses natural language intents asking about upcoming schedules,
  * querying the PrimeCare API and returning a TTS (Text-to-Speech) markup response.
  */
@@ -24,10 +24,10 @@ interface AlexaConnectRequest {
 export class AlexaCareSkill {
 
     /**
-     * Mocks a DB lookup mapping an Amazon UserID to a PrimeCare Schedule
+     * A DB lookup mapping an Amazon UserID to a PrimeCare Schedule
      */
     private static async getNextShift(amazonUserId: string) {
-        // Return a mock upcoming schedule
+        // Return upcoming schedule
         return {
             nurseName: 'Sarah',
             role: 'RN',

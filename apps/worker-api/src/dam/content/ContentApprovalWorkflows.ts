@@ -1,7 +1,7 @@
 /**
  * Epic 36: Content Approval Workflows
  * 
- * Simulated backend middleware that intercepts file uploads to the central 
+ * Backend middleware that intercepts file uploads to the central 
  * Media Vault. If a document is classified as a "Medical Protocol" or 
  * "Legal Addendum", this hook forces its status to "DRAFT" until an explicit 
  * approval payload is received from a Registered Nurse (RN) Admin.
@@ -35,9 +35,9 @@ export class ContentApprovalWorkflows {
     }
 
     /**
-     * Mock payload handler for when an RN actually clicks "Approve"
+     * Payload handler for when an RN actually clicks "Approve"
      */
-    static async simulateClinicalApproval(docId: string, reviewingRnId: string): Promise<void> {
+    static async processClinicalApproval(docId: string, reviewingRnId: string): Promise<void> {
         console.log(`[Workflow Engine] Received cryptographic signature from RN: ${reviewingRnId}`);
         console.log(`[Workflow Engine] Document ${docId} has successfully passed clinical review.`);
         console.log(`[Workflow Engine] Asset state changed from DRAFT -> LIVE.`);

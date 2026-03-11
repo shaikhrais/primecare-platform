@@ -9,7 +9,7 @@ interface Anomaly {
     severity: 'critical' | 'warning';
 }
 
-// Removing MOCK_ANOMALIES to enforce DB-only architecture
+// Removing ANOMALIES to enforce DB-only architecture
 
 export const AnomalyTicker: React.FC = () => {
     const [anomalies, setAnomalies] = useState<Anomaly[]>([]);

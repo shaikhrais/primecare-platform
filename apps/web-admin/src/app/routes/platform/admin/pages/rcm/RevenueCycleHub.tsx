@@ -13,7 +13,7 @@ export default function RevenueCycleHub() {
             const token = localStorage.getItem('token');
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
-            // Mock data for demo
+ // data for demo
             setClaims([
                 { id: '1', patient: 'Sarah Jenkins', provider: 'BlueCross', amount: 450.00, status: 'Paid', date: '2026-03-01' },
                 { id: '2', patient: 'Robert Chen', provider: 'Aetna', amount: 1200.50, status: 'Pending', date: '2026-03-02' },

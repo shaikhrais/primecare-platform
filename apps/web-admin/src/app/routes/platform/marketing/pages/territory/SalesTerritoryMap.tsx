@@ -37,9 +37,9 @@ export const SalesTerritoryMap: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', gap: '24px', height: '400px' }}>
-                {/* Simulated Geofence Map Area */}
+                {/* Geofence Map Area */}
                 <div style={{ flex: 2, backgroundColor: '#F1F5F9', borderRadius: '12px', border: '1px solid #CBD5E1', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {/* Simulated Map Background */}
+                    {/* Map Background */}
                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.1, backgroundImage: 'radial-gradient(#475569 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                     
                     {/* SVG Territory Polygons */}

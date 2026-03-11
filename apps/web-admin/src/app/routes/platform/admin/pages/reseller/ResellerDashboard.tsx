@@ -8,7 +8,7 @@ const ResellerDashboard: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isProvisioning, setIsProvisioning] = useState(false);
 
-    // Mock new tenant form state
+ // new tenant form state
     const [newTenant, setNewTenant] = useState({ name: '', slug: '', adminEmail: '', adminPassword: '' });
 
     const fetchChildren = async () => {

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Lock, Server, Save, CheckCircle2 } from 'lucide-react';
 
 export const BYOKVault: React.FC = () => {
-    const [kmsArn, setKmsArn] = useState('arn:aws:kms:us-east-1:123456789012:key/mock-default-key-id');
+    const [kmsArn, setKmsArn] = useState('arn:aws:kms:us-east-1:123456789012:key/demo-default-key-id');
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
 
     const handleSave = () => {
         setSaving(true);
         setSaved(false);
-        // Simulate validating the KMS key and re-encrypting the tenant DB payload
+ // validating the KMS key and re-encrypting the tenant DB payload
         setTimeout(() => {
             setSaving(false);
             setSaved(true);

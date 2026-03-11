@@ -56,7 +56,7 @@ export const ReferralSourceHeatmap: React.FC = () => {
             </div>
 
             <div style={{ height: '500px', backgroundColor: '#F1F5F9', borderRadius: '12px', border: '1px solid #CBD5E1', position: 'relative', overflow: 'hidden' }}>
-                {/* Simulated Street Map Background */}
+                {/* Street Map Background */}
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.15, backgroundImage: 'linear-gradient(#94A3B8 1px, transparent 1px), linear-gradient(90deg, #94A3B8 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
                 {/* Heatmap Bubbles Layer */}

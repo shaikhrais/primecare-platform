@@ -11,7 +11,7 @@ interface AccountNode {
 }
 
 export const CorporateAccountHierarchy: React.FC = () => {
-    // Mock highly-nested account tree structure typical of large healthcare networks
+ // highly-nested account tree structure typical of large healthcare networks
     const [hierarchy] = useState<AccountNode[]>([
         {
             id: 'HQ_1',

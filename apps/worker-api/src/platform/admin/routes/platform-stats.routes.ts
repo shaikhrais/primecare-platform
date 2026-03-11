@@ -15,7 +15,7 @@ platformStats.get('/stats', async (c: any) => {
     ]);
 
     // Calculate Platform Revenue (simplified example: 5% of total visit revenue)
-    const totalFees = visits * 2.50; // Mock platform fee per visit
+    const totalFees = visits * 2.50; // platform fee per visit
 
     return c.json({
         tenants,

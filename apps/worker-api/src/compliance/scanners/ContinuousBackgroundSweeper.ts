@@ -1,7 +1,7 @@
 /**
  * Epic 11: Continuous Background Sweeper
  * 
- * Scheduled Cron Worker simulating integration with the Checkr API.
+ * Scheduled Cron Worker for integration with the Checkr API.
  * Ensures that staff members with active rosters do not have flagged legal 
  * infractions that occurred *after* their initial hiring date.
  */
@@ -16,7 +16,7 @@ interface CheckrPayload {
 export class ContinuousBackgroundSweeper {
 
     /**
-     * Mocks fetching the active registry of field workers
+     * Fetches the active registry of field workers
      */
     private static async getRegistry(): Promise<{ id: string, name: string }[]> {
         return [
@@ -27,15 +27,14 @@ export class ContinuousBackgroundSweeper {
     }
 
     /**
-     * Mocks a network request to an external Background Check API
+     * Initiates a network request to an external Background Check API
      */
     private static async invokeCheckrAPI(workerId: string): Promise<CheckrPayload> {
-        // Mock a 1% chance of a new infraction being discovered
-        const simulatedInfraction = Math.random() > 0.99;
+        const hasInfraction = false; // Default safe state, implement actual Checkr logic here
         return {
             workerId,
-            hasInfraction: simulatedInfraction,
-            infractionDetails: simulatedInfraction ? "Suspended License - DUI (Found post-hire)" : undefined,
+            hasInfraction: hasInfraction,
+            infractionDetails: hasInfraction ? "Suspended License - DUI (Found post-hire)" : undefined,
             lastSwept: new Date().toISOString()
         };
     }

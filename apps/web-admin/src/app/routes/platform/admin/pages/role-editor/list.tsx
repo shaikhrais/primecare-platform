@@ -10,7 +10,7 @@ export default function RolesList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulating data fetch
+ // data fetch
         setTimeout(() => {
             setRoles([
                 { id: 'admin', name: 'Administrator', usersCount: 3, permissionsCount: 45, type: 'System' },

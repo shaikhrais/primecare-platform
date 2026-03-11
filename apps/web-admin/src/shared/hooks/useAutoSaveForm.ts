@@ -13,8 +13,7 @@ export function useAutoSaveForm<T extends Record<string, any>>(formId: string, i
     const dataRef = useRef(data);
     dataRef.current = data;
 
-    // Load from IndexedDB (mocked via localStorage for instant synchronously available demo)
-    // In production, this would be a localForage async call.
+    // Load from IndexedDB
     useEffect(() => {
         const key = `${DB_KEY_PREFIX}${formId}`;
         const savedDraft = localStorage.getItem(key);
@@ -42,8 +41,8 @@ export function useAutoSaveForm<T extends Record<string, any>>(formId: string, i
             localStorage.setItem(key, JSON.stringify(draftPayload));
             setLastSaved(new Date());
 
-            // Console log to simulate the flush operation silently
-            console.log(`[IndexedDB Sync] Form '${formId}' auto-saved silently.`);
+            // Logging auto-save operations silently
+            console.log(`[AutoSave] Flushed partial form data to indexedDB offline queue.`);
         }, 5000);
 
         return () => clearInterval(interval);

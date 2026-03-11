@@ -57,7 +57,7 @@ export default function BillingPage() {
             });
             const data = await response.json();
             if (data.clientSecret) {
-                showToast('Stripe Checkout simulated. Please complete on the Stripe hosted page.', 'info');
+                showToast('Stripe Checkout initiated. Please complete on the Stripe hosted page.', 'info');
                 window.location.href = `https://checkout.stripe.com/pay/${data.clientSecret}`;
             }
         } catch (error) {

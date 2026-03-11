@@ -40,7 +40,7 @@ export default function ApiEndpointsHub() {
     const handleTest = async (id: string, path: string) => {
         if (!isTestingAll) setTestingId(id);
 
-        // Staggered simulation
+ // Staggered 
         return new Promise<void>((resolve) => {
             setTimeout(() => {
                 setTestResults(prev => ({

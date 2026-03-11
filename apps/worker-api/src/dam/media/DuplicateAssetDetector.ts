@@ -1,7 +1,7 @@
 /**
  * Epic 15: Duplicate Asset Detector
  * 
- * Simulated pre-upload interceptor. Before saving a file to the CDN, it 
+ * Pre-upload interceptor. Before saving a file to the CDN, it 
  * hashes the buffer using SHA-256. If a matching hash already exists in 
  * the database, it rejects the upload and returns a pointer to the 
  * existing file, drastically saving cloud storage costs.
@@ -17,7 +17,7 @@ interface DuplicateCheckResult {
 
 export class DuplicateAssetDetector {
 
-    // Mock Database of known file signatures
+    // Database of known file signatures
     private static knownHashes = new Map<string, string>([
         ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'https://cdn.primecare.local/hero-banner.webp'],
         ['a4b8c9d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9', 'https://cdn.primecare.local/forms/w9-blank.pdf']

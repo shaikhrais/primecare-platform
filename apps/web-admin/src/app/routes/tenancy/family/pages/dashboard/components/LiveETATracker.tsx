@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapPin, Navigation, Car } from 'lucide-react';
 
 export const LiveETATracker: React.FC = () => {
-    // Mocking a live coordinate stream
+ // a live coordinate stream
     const [progress, setProgress] = useState(0); // 0 to 100
     const [etaMinutes, setEtaMinutes] = useState(12);
 
@@ -26,9 +26,9 @@ export const LiveETATracker: React.FC = () => {
     return (
         <section style={{ backgroundColor: 'white', borderRadius: '16px', overflow: 'hidden', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
             
-            {/* Map Mock Area */}
+            {/* Map Area */}
             <div style={{ height: '300px', backgroundColor: '#E2E8F0', position: 'relative', overflow: 'hidden' }}>
-                {/* SVG Route Path Mock */}
+                {/* SVG Route Path */}
                 <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M 10 90 Q 50 90 50 50 T 90 10" fill="none" stroke="#CBD5E1" strokeWidth="2" />
                     <path d="M 10 90 Q 50 90 50 50 T 90 10" fill="none" stroke="#3B82F6" strokeWidth="2" 

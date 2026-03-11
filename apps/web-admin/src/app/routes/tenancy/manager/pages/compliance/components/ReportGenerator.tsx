@@ -24,7 +24,7 @@ export const ReportGenerator: React.FC = () => {
 
         setQueue(prev => [...prev, newReport]);
         
-        // Suggestion 27: Background Report Generation Mock
+ // Suggestion 27: Background Report Generation 
         // Step 1: Tell user it's offloaded
         showToast(`Request for '${reportName}' sent to background worker queue. You can safely leave this page.`, 'info');
 

@@ -72,7 +72,7 @@ export const ShiftDragBoard: React.FC = () => {
         setDragOverStaffId(staff.id);
 
         // Suggestion 20: Visual Collision / Overlap Detection
-        // Mocking a calculation: If James Reynolds takes shift 's2', he can't make it.
+ // a calculation: If James Reynolds takes shift 's2', he can't make it.
         if (staff.name.includes('James') && draggedShift?.id === 's2') {
             setIsCollisionDetected(true);
         } else {
@@ -132,7 +132,7 @@ export const ShiftDragBoard: React.FC = () => {
     const executeContextMenuAction = (action: string) => {
         if (action === 'cancel') {
             showToast('Shift cancelled. Notification sent to family.', 'info');
-            // Mock removal
+ // removal
             if (contextMenu?.staffId) {
                 setStaffList(prev => prev.map(st => st.id === contextMenu.staffId ? { ...st, shifts: st.shifts.filter(s => s.id !== contextMenu.shiftId) } : st));
             } else {

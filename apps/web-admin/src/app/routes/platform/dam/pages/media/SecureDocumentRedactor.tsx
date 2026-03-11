@@ -11,7 +11,7 @@ interface RedactionBox {
 
 export const SecureDocumentRedactor: React.FC = () => {
     const [redactions, setRedactions] = useState<RedactionBox[]>([
-        { id: 'r1', x: 120, y: 180, width: 140, height: 24 }, // Pre-existing mock redaction (e.g. SSN)
+        { id: 'r1', x: 120, y: 180, width: 140, height: 24 }, // Pre-existing redaction (e.g. SSN)
     ]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -108,7 +108,7 @@ export const SecureDocumentRedactor: React.FC = () => {
                     )}
                 </div>
 
-                {/* Canvas Area (Mock PDF) */}
+                {/* Canvas Area ( PDF) */}
                 <div style={{ flex: 1, backgroundColor: '#F1F5F9', border: '1px solid #E2E8F0', borderRadius: '8px', display: 'flex', justifyContent: 'center', padding: '32px', overflow: 'auto' }}>
                     <div 
                         onMouseDown={handleMouseDown}

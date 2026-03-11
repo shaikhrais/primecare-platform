@@ -23,7 +23,7 @@ interface Timesheet {
 export class AutomatedTimesheetResolver {
 
     /**
-     * Mocks a database lookup isolating when a device broke the 200m geofence radius.
+ * a database lookup isolating when a device broke the 200m geofence radius.
      */
     private static async fetchExitGeofenceLogs(workerId: string, _date: string): Promise<GeofenceLog[]> {
         return [

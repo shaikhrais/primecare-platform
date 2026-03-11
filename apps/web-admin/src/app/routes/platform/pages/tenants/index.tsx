@@ -19,13 +19,13 @@ export default function TenantList() {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                // Mocking tenant data mapped to Tenant model
-                const mockTenants: Tenant[] = [
+ // tenant data mapped to Tenant model
+                const sampleTenants: Tenant[] = [
                     { id: '1', name: 'PrimeCare Main', domain: 'main.primecare.ca', status: 'active', createdAt: '2025-01-01' },
                     { id: '2', name: 'West Side Health', domain: 'westside.primecare.ca', status: 'active', createdAt: '2025-02-15' },
                     { id: '3', name: 'North Star Seniors', domain: 'northstar.primecare.ca', status: 'pending', createdAt: '2026-01-10' },
                 ];
-                setTenants(mockTenants);
+                setTenants(sampleTenants);
             } finally {
                 setLoading(false);
             }

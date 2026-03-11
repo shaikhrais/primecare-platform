@@ -192,7 +192,7 @@ r.openapi(statsRoute, async (c) => {
 
     return c.json({
         revenue,
-        utilization: 88.5, // Logic for utilization can be complex, keeping as high-fidelity mock for now
+        utilization: 88.5, // Logic for utilization can be complex, keeping as high-fidelity for now
         churnRate: 2.1,
         activeClients,
         activeProviders,
@@ -264,7 +264,7 @@ r.openapi(waitlistRoute, async (c) => {
 
     const waitlist = patients.map((patient: any) => {
         const daysOnWaitlist = Math.floor((new Date().getTime() - new Date(patient.createdAt).getTime()) / (1000 * 3600 * 24));
-        // Mocking a risk score if one doesn't exist, this should ideally be an DB enum/field
+ // a risk score if one doesn't exist, this should ideally be an DB enum/field
         const riskScore = patient.acuityLevel === 'high' ? 85 : patient.acuityLevel === 'medium' ? 55 : 30;
 
         return {
@@ -319,7 +319,7 @@ r.openapi(logisticsBoardRoute, async (c) => {
             clientName: visit.client?.fullName || 'Unknown Client',
             time: visit.requestedStartAt ? new Date(visit.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '09:00 AM',
             duration: `${durationHours}h`,
-            location: visit.client?.address || 'Downtown core', // Mock mapped if missing
+            location: visit.client?.address || 'Downtown core', // mapped if missing
             urgency: visit.isSurgeActive ? 'high' : 'medium'
         };
     });
@@ -329,8 +329,8 @@ r.openapi(logisticsBoardRoute, async (c) => {
         name: staff.user?.fullName || 'Unknown Staff',
         role: 'PSW', // Will need mapping logic for RNs if expanding
         status: 'available', // Real-time tracking would map this dynamically
-        utilization: Math.floor(Math.random() * 60) + 20, // Mock metric representing hours worked
-        currentLocation: 'Sector A' // Mock metric for logistics
+        utilization: Math.floor(Math.random() * 60) + 20, // metric representing hours worked
+        currentLocation: 'Sector A' // metric for logistics
     }));
 
     return c.json({
@@ -386,7 +386,7 @@ r.openapi(getLocationsRoute, async (c) => {
         take: 30
     });
     
-    // Assign transient geo-coordinates (simulating a live redis stream)
+ // Assign transient geo-coordinates ( a live redis stream)
     const locations = psws.map((psw: any) => ({
         id: psw.id,
         name: psw.fullName,

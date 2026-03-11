@@ -48,7 +48,7 @@ export default function OnboardBusiness() {
         if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
         typingTimeoutRef.current = setTimeout(() => {
-            // Mock API validation delay
+ // API validation delay
             setSlugAvailable(val !== 'admin' && val !== 'primecare' && val !== 'test');
             setCheckingSlug(false);
         }, 600);

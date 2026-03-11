@@ -14,7 +14,7 @@ export default function LeadConversion() {
     const [leadName, setLeadName] = useState('Loading...');
 
     useEffect(() => {
-        // Mock fetch or actual fetch if needed
+ // fetch or actual fetch if needed
         setLeadName('John Doe'); // Placeholder
     }, [id]);
 
@@ -22,7 +22,7 @@ export default function LeadConversion() {
         setLoading(true);
         try {
             const apiPath = ApiRegistry.ADMIN.LEADS_CONVERT(id!);
-            // Simulation of API call
+ // of API call
             // const response = await apiClient.post(apiPath, {});
 
             showToast('Lead converted successfully to Client!', 'success');

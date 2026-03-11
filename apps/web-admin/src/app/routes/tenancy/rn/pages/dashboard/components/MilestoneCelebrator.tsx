@@ -7,7 +7,7 @@ export const MilestoneCelebrator: React.FC = () => {
     const [windowDimension, setWindowDimension] = useState({ width: window.innerWidth, height: window.innerHeight });
 
     useEffect(() => {
-        // Mocks checking user's hire date against today's date
+        // Check user's hire date against today's date
         const isAnniversary = true; // Would be: (new Date(user.hireDate).getMonth() === new Date().getMonth() && new Date().getDay() === new Date().getDay())
 
         if (isAnniversary) {

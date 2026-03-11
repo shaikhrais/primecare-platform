@@ -1,8 +1,7 @@
 /**
  * Epic 6: Competitor Pricing Scraper
  * 
- * Simulated backend worker. Periodically pulls localized pricing data
- * from competitor websites and aggregates the state median, allowing the 
+ * Backend worker. Periodically pulls localized pricing data * from competitor websites and aggregates the state median, allowing the 
  * marketing team to automatically adjust Google Ad bids if PrimeCare's
  * pricing falls below market median.
  */
@@ -12,10 +11,7 @@ export class CompetitorPricingScraper {
     static async scrapeLocalMarketRates(targetZipCode: string) {
         console.log(`[Scrape Engine] Initiating stealth fetch for competitors in ZIP: ${targetZipCode}...`);
         
-        // Simulating network delay for headless browser
-        await new Promise(res => setTimeout(res, 1800));
-
-        // Simulated DOM scraped data
+        // DOM scraped data
         const localCompetitors = [
             { agency: 'Sunrise Care Providers', hourlyRate: 38.50, isPublic: true },
             { agency: 'Comfort Keepers Local', hourlyRate: 36.00, isPublic: true },

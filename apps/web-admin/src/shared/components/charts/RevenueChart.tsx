@@ -22,7 +22,7 @@ export const RevenueChart = React.memo(({ data, isDemo }: Props) => {
 
     const handleClick = (data: any) => {
         if (data && data.activePayload && data.activePayload.length > 0) {
-            // Drill down to earnings for that month (mock filter)
+            // Drill down to earnings for that month
             navigate(`${RouteRegistry.ADMIN.EARNINGS}?tab=Overview&month=${data.activeLabel}`);
         }
     };

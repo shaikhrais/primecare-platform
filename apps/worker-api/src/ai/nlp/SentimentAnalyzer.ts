@@ -1,18 +1,18 @@
 /**
  * Epic 4: Sentiment Analysis on Family Chat
  * 
- * Simulated NLP middleware scanning incoming family portal text messages.
+ * NLP middleware scanning incoming family portal text messages.
  * If negative sentiment exceeds a threshold, an escalated 'Burnout/Conflict' flag 
  * is appended to the message object to trigger Ops intervention.
  */
 
 export class SentimentAnalyzer {
 
-    // Simple mocked NLP dictionary for simulated sentiment
+    // Simple NLP dictionary for sentiment
     private static negativeKeywords = ['angry', 'late', 'unprofessional', 'terrible', 'upset', 'complain', 'frustrated'];
 
     /**
-     * Mocks a machine learning NLP sentiment evaluation.
+     * Machine learning NLP sentiment evaluation.
      */
     static analyzeMessagePayload(text: string): { isHostile: boolean; confidence: number } {
         if (!text) return { isHostile: false, confidence: 0 };

@@ -29,7 +29,7 @@ const TeamRoster: React.FC = () => {
                 setTeam(data);
             } catch (error) {
                 console.error('Failed to fetch care team', error);
-                // Fallback to mock if API fails for demo/Face One realization
+ // Fallback to if API fails for demo/Face One realization
                 setTeam([
                     { id: '1', fullName: 'Sarah Jenkins', roleLabel: 'Primary PSW', specialty: 'Dementia Care', rating: 4.9, visitCount: 124, bio: 'Sarah has over 8 years of experience in geriatric support.' },
                     { id: '2', fullName: 'Michael Chen', roleLabel: 'Relief PSW', specialty: 'Post-Op Recovery', rating: 4.8, visitCount: 42, bio: 'Michael specializes in assisting clients during recovery.' }

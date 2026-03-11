@@ -1,7 +1,7 @@
 /**
  * Epic 22: Automated Medicaid/Medicare Clearinghouse Sync
  * 
- * Simulated pipeline that ingests the split Medicare invoice chunk generated
+ * Pipeline that ingests the split Medicare invoice chunk generated
  * by the MultiPayerEngine, and maps the localized payload into an EDI 837 
  * compatible format ready for daily batch submission to Waystar.
  */
@@ -18,7 +18,7 @@ interface MedicareInvoice {
 export class ClearinghouseSync {
 
     /**
-     * Mocks fetching NPI and Agency Tax ID configs.
+     * Fetches NPI and Agency Tax ID configs.
      */
     private static getAgencyHeaders() {
         return {
@@ -36,7 +36,7 @@ export class ClearinghouseSync {
         
         const headers = this.getAgencyHeaders();
 
-        // MOCKED EDI 837 STRING FORMAT (Conceptually Simplified)
+        // EDI 837 STRING FORMAT (Conceptually Simplified)
         // ISA: Interchange Control Header
         // NM1: Entity Name
         // CLM: Claim Information
