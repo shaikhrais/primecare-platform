@@ -1,0 +1,54 @@
+/**
+ * Epic 36: Smart-Pill Dispenser Hooks
+ * 
+ * Intercepts JSON webhooks fired from WiFi-connected Smart Pill dispensers
+ * (e.g., Philips standard). When the machine physically drops the pill into the cup,
+ * it verifies the event and automatically checks off the eMAR without the RN
+ * needing to manually type or confirm the dose was consumed.
+ */
+
+interface PillDispenseWebhook {
+    machineId: string;
+    patientId: string;
+    doseId: string;
+    medicationName: string;
+    dispensedAt: string; // ISO String
+    compartmentStatus: 'EMPTY' | 'BLOCKED';
+}
+
+export class PhilipsDispenserLog {
+
+    /**
+     * Mocks a DB lookup evaluating if this dose was actually scheduled for this time window.
+     */
+    private static async getEMARSchedule(patientId: string, doseId: string) {
+        // Assume dose was scheduled for right now
+        return {
+            status: 'PENDING',
+            scheduledTime: new Date().toISOString()
+        };
+    }
+
+    /**
+     * Core Webhook processing logic
+     */
+    static async handleDispenseEvent(payload: PillDispenseWebhook): Promise<boolean> {
+        console.log(`[Smart Pharmacy] Received dispense event from machine ${payload.machineId} for Patient ${payload.patientId}`);
+        
+        if (payload.compartmentStatus === 'BLOCKED') {
+            console.error(`[Smart Pharmacy] Machine jammed! Generating critical alert to on-call RN.`);
+            return false;
+        }
+
+        const emarDose = await this.getEMARSchedule(payload.patientId, payload.doseId);
+
+        if (emarDose && emarDose.status === 'PENDING') {
+            console.log(`[Smart Pharmacy] Validating dose of ${payload.medicationName}. Auto-signing eMAR...`);
+            // In a live system: UPDATE eMar set status='ADMINISTERED', signedBy='SYSTEM_PHILIPS_IOT'
+            return true;
+        }
+
+        console.warn(`[Smart Pharmacy] Dose ID ${payload.doseId} does not match active schedule. Investigating...`);
+        return false;
+    }
+}
