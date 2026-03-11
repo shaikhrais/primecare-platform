@@ -11,14 +11,28 @@ interface Subscriber {
     status: 'SUBSCRIBED' | 'UNSUBSCRIBED' | 'BOUNCED';
 }
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 export const NewsletterSubscriberDb: React.FC = () => {
-    const [subscribers, setSubscribers] = useState<Subscriber[]>([
-        { id: '1', email: 'j.smith@hospital.org', name: 'Dr. John Smith', segment: 'B2B_HOSPITAL', engagementScore: 'HIGH', lastOpened: '2 days ago', status: 'SUBSCRIBED' },
-        { id: '2', email: 'mary.jones@email.com', name: 'Mary Jones', segment: 'B2C_DEMENTIA_FAMILY', engagementScore: 'HIGH', lastOpened: '1 week ago', status: 'SUBSCRIBED' },
-        { id: '3', email: 'r.williams@email.com', name: 'Robert Williams', segment: 'B2C_GENERAL_LEAD', engagementScore: 'LOW', lastOpened: '3 months ago', status: 'SUBSCRIBED' },
-        { id: '4', email: 'a.nurses@clinic.net', name: 'Amanda (Clinic RN)', segment: 'B2B_HOSPITAL', engagementScore: 'MEDIUM', lastOpened: '1 month ago', status: 'SUBSCRIBED' },
-        { id: '5', email: 'fake.email@bounce.com', name: 'Unknown', segment: 'B2C_GENERAL_LEAD', engagementScore: 'LOW', lastOpened: 'Never', status: 'BOUNCED' }
-    ]);
+    const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchSubscribers = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/subscribers');
+                if (res.ok) {
+                    const data = await res.json();
+                    setSubscribers(data);
+                }
+            } catch (error) {
+                console.error("Failed to load subscribers", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSubscribers();
+    }, []);
 
     const [selectedSegment, setSelectedSegment] = useState<string>('ALL');
 
@@ -92,7 +106,7 @@ export const NewsletterSubscriberDb: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredSubscribers.map(sub => (
+                            {loading ? <tr><td colSpan={5} style={{ padding: '24px', textAlign: 'center', color: '#64748B' }}>Loading subscriber database...</td></tr> : filteredSubscribers.map(sub => (
                                 <tr key={sub.id} style={{ borderBottom: '1px solid #E2E8F0', opacity: sub.status === 'BOUNCED' ? 0.6 : 1 }}>
                                     <td style={{ padding: '16px 12px', verticalAlign: 'middle' }}><Square size={16} color="#CBD5E1" /></td>
                                     

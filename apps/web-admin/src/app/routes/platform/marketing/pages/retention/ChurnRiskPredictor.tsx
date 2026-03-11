@@ -12,12 +12,28 @@ interface ChurnRiskPatient {
     assignedRn: string;
 }
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 export const ChurnRiskPredictor: React.FC = () => {
-    const [patients] = useState<ChurnRiskPatient[]>([
-        { id: '1', name: 'James W.', contractStartDate: '2022-04-15', historicalWeeklyAvgHours: 120, currentWeeklyHours: 40, hoursDropPercentage: 66, riskLevel: 'CRITICAL', assignedRn: 'Sarah J.' },
-        { id: '2', name: 'Eleanor F.', contractStartDate: '2023-01-10', historicalWeeklyAvgHours: 40, currentWeeklyHours: 20, hoursDropPercentage: 50, riskLevel: 'HIGH', assignedRn: 'Marcus C.' },
-        { id: '3', name: 'Robert M.', contractStartDate: '2023-08-22', historicalWeeklyAvgHours: 24, currentWeeklyHours: 16, hoursDropPercentage: 33, riskLevel: 'MODERATE', assignedRn: 'Elena R.' }
-    ]);
+    const [patients, setPatients] = useState<ChurnRiskPatient[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchChurnRisks = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/churn-risks');
+                if (res.ok) {
+                    const data = await res.json();
+                    setPatients(data);
+                }
+            } catch (error) {
+                console.error("Failed to load churn risks", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchChurnRisks();
+    }, []);
 
     const getRiskColor = (level: ChurnRiskPatient['riskLevel']) => {
         switch(level) {
@@ -62,8 +78,9 @@ export const ChurnRiskPredictor: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {patients.map(patient => (
-                    <div key={patient.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px', backgroundColor: getRiskBg(patient.riskLevel), border: `1px solid ${getRiskColor(patient.riskLevel)}40`, borderRadius: '12px' }}>
+                {loading ? <div style={{ textAlign: 'center', padding: '24px', color: '#64748B' }}>Loading predictive churn risks...</div> : (
+                    patients.map(patient => (
+                        <div key={patient.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px', backgroundColor: getRiskBg(patient.riskLevel), border: `1px solid ${getRiskColor(patient.riskLevel)}40`, borderRadius: '12px' }}>
                         
                         <div style={{ flex: '1 1 250px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
@@ -105,7 +122,7 @@ export const ChurnRiskPredictor: React.FC = () => {
                         </div>
 
                     </div>
-                ))}
+                )))}
             </div>
             
              <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px dashed #CBD5E1', fontSize: '0.85rem', color: '#475569' }}>

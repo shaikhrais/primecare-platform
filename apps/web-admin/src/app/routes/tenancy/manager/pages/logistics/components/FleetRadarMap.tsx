@@ -2,32 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { Maximize, ExternalLink, Activity, Users, MapPin } from 'lucide-react';
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 interface FleetRadarMapProps {
     isStandalone?: boolean;
 }
 
-// Mock up 10 random field workers in a CSS grid mimicking a city zone
-const MOCK_WORKERS = Array.from({ length: 15 }).map((_, i) => ({
-    id: i,
-    x: Math.random() * 90 + 5, // 5% to 95%
-    y: Math.random() * 90 + 5,
-    status: Math.random() > 0.8 ? 'delayed' : 'on-time',
-    name: `Worker ${i + 1}`
-}));
-
 export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = false }) => {
     const { showToast } = useNotification();
-    const [workers, setWorkers] = useState(MOCK_WORKERS);
+    const [workers, setWorkers] = useState<any[]>([]);
 
-    // Simulate real-time movement
     useEffect(() => {
-        const interval = setInterval(() => {
-            setWorkers(prev => prev.map(w => ({
-                ...w,
-                x: Math.max(5, Math.min(95, w.x + (Math.random() - 0.5) * 2)),
-                y: Math.max(5, Math.min(95, w.y + (Math.random() - 0.5) * 2)),
-            })));
-        }, 3000);
+        const fetchWorkers = async () => {
+            try {
+                const res = await apiClient.get('/v1/manager/ops/locations');
+                if (res.ok) {
+                    const data = await res.json();
+                    setWorkers(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch radar locations", error);
+            }
+        };
+
+        fetchWorkers();
+        
+        // Simulating continuous ping from the backend stream
+        const interval = setInterval(fetchWorkers, 10000);
         return () => clearInterval(interval);
     }, []);
 
@@ -54,7 +55,7 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
                         <span style={{ fontWeight: 800, letterSpacing: '1px' }}>GTA SECTOR A-4</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8' }}>
-                        <Users size={16} /> 15 Active Units
+                        <Users size={16} /> {workers.length} Active Units
                     </div>
                 </div>
 

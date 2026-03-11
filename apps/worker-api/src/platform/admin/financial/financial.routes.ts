@@ -451,4 +451,49 @@ financial.openapi(taxRemittanceRoute, async (c) => {
     return c.json(tx, 200);
 });
 
+// GET /earnings
+const earningsRoute = createRoute({
+    method: 'get',
+    path: '/earnings',
+    summary: 'View Detailed Earnings Report',
+    tags: ['Financial'],
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
+    },
+});
+
+financial.openapi(earningsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+
+    const visits = await prisma.visit.findMany({
+        where: { tenantId, status: { in: ['completed', 'verified', 'invoiced'] } },
+        include: { client: true, psw: true },
+        orderBy: { requestedStartAt: 'desc' },
+        take: 50
+    });
+
+    const mapped = visits.map((v: any) => {
+        // Calculate based on strict duration (in mins) * flat rates
+        const durationHours = (v.durationMinutes || 60) / 60;
+        const revenue = durationHours * 45; // $45/hr bill rate
+        const payroll = durationHours * 25; // $25/hr pay rate
+
+        return {
+            id: `INV-${v.id.slice(0, 8).toUpperCase()}`,
+            date: new Date(v.requestedStartAt).toISOString().split('T')[0],
+            client: v.client?.fullName || 'Walk-in Client',
+            psw: v.psw?.fullName || 'Unassigned Staff',
+            shiftId: v.id,
+            revenue,
+            payroll,
+            profit: revenue - payroll,
+            paymentStatus: v.status === 'invoiced' ? 'Paid' : 'Pending',
+            payoutStatus: 'Pending'
+        };
+    });
+
+    return c.json(mapped, 200);
+});
+
 export default financial;

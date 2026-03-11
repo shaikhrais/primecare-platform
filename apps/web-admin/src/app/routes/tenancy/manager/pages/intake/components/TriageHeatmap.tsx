@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AlertTriangle, Clock, Activity, UserPlus } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface WaitlistPatient {
     id: string;
-    name: string;
-    acuity: 'high' | 'medium' | 'low';
-    daysWaiting: number;
-    requiredService: string;
+    fullName: string;
+    riskScore: number;
+    daysOnWaitlist: number;
+    primaryCondition: string | null;
+    location: string;
+    status: string;
 }
 
-const MOCK_WAITLIST: WaitlistPatient[] = [
-    { id: '1', name: 'Alvarez, R.', acuity: 'high', daysWaiting: 12, requiredService: 'Wound Care (RN)' },
-    { id: '2', name: 'Kim, S.', acuity: 'high', daysWaiting: 3, requiredService: 'Palliative (RN)' },
-    { id: '3', name: 'Smith, J.', acuity: 'medium', daysWaiting: 15, requiredService: 'Personal Care (PSW)' },
-    { id: '4', name: 'Tremblay, M.', acuity: 'low', daysWaiting: 22, requiredService: 'Companionship (PSW)' },
-    { id: '5', name: 'Singh, P.', acuity: 'high', daysWaiting: 8, requiredService: 'IV Therapy (RN)' },
-    { id: '6', name: 'O Connor, B.', acuity: 'medium', daysWaiting: 4, requiredService: 'Personal Care (PSW)' },
-    { id: '7', name: 'Chen, L.', acuity: 'low', daysWaiting: 2, requiredService: 'Companionship (PSW)' },
-];
-
 export const TriageHeatmap: React.FC = () => {
+    const [waitlist, setWaitlist] = useState<WaitlistPatient[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchWaitlist = async () => {
+            try {
+                const data = await apiClient.get('/v1/manager/intake/waitlist');
+                setWaitlist(data as unknown as WaitlistPatient[]);
+            } catch (error) {
+                console.error('Failed to fetch waitlist:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchWaitlist();
+    }, []);
+
+    // Helper to map DB risk score (0-100) to simple Tiers
+    const getAcuityTier = (score: number) => {
+        if (score >= 80) return 'high';
+        if (score >= 50) return 'medium';
+        return 'low';
+    };
 
     // Grouping by Matrix logic (Suggestion 24)
     // X-Axis: Wait Time (0-7 days, 8-14 days, 15+ days)
@@ -45,18 +61,22 @@ export const TriageHeatmap: React.FC = () => {
     };
 
     const filterPatients = (acuity: string, waitTier: string) => {
-        return MOCK_WAITLIST.filter(p => {
-            const matchesAcuity = p.acuity === acuity;
+        return waitlist.filter(p => {
+            const matchesAcuity = getAcuityTier(p.riskScore) === acuity;
             let matchesWait = false;
-            if (waitTier === '0-7') matchesWait = p.daysWaiting <= 7;
-            if (waitTier === '8-14') matchesWait = p.daysWaiting >= 8 && p.daysWaiting <= 14;
-            if (waitTier === '15+') matchesWait = p.daysWaiting >= 15;
+            if (waitTier === '0-7') matchesWait = p.daysOnWaitlist <= 7;
+            if (waitTier === '8-14') matchesWait = p.daysOnWaitlist >= 8 && p.daysOnWaitlist <= 14;
+            if (waitTier === '15+') matchesWait = p.daysOnWaitlist >= 15;
             return matchesAcuity && matchesWait;
         });
     };
 
     const waitTiers = ['0-7', '8-14', '15+'];
     const acuities = ['high', 'medium', 'low'];
+
+    if (loading) {
+        return <div style={{ padding: '24px', textAlign: 'center', color: '#64748B' }}>Loading waitlist...</div>;
+    }
 
     return (
         <div style={{ backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '900px' }}>
@@ -113,8 +133,8 @@ export const TriageHeatmap: React.FC = () => {
                                             {patients.length > 0 ? (
                                                 patients.map(p => (
                                                     <div key={p.id} style={{ backgroundColor: 'rgba(255,255,255,0.9)', padding: '6px 10px', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', display: 'flex', justifyContent: 'space-between', cursor: 'grab' }}>
-                                                        <span>{p.name}</span>
-                                                        <span style={{ color: '#64748B' }}>{p.daysWaiting}d</span>
+                                                        <span>{p.fullName}</span>
+                                                        <span style={{ color: '#64748B' }}>{p.daysOnWaitlist}d</span>
                                                     </div>
                                                 ))
                                             ) : (

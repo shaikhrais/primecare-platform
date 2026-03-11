@@ -4,7 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
-import { MOCK_PSW_DATA, MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
+
 
 // Components
 import { PswStats } from './components/PswStats';

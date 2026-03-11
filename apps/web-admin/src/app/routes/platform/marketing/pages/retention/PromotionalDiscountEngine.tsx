@@ -12,12 +12,28 @@ interface PromoCode {
     status: 'ACTIVE' | 'EXPIRED' | 'DEPLETED';
 }
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 export const PromotionalDiscountEngine: React.FC = () => {
-    const [promos, setPromos] = useState<PromoCode[]>([
-        { id: '1', code: 'FREE_ASSESS_2026', discountType: 'FIXED_AMOUNT', value: 150, expirationDate: '2026-12-31', maxRedemptions: 50, currentRedemptions: 12, status: 'ACTIVE' },
-        { id: '2', code: 'WINTER_RESPITE_10', discountType: 'PERCENTAGE', value: 10, expirationDate: '2026-03-01', maxRedemptions: 20, currentRedemptions: 20, status: 'DEPLETED' },
-        { id: '3', code: 'VETERAN_CARE', discountType: 'PERCENTAGE', value: 15, expirationDate: '2099-12-31', maxRedemptions: 9999, currentRedemptions: 145, status: 'ACTIVE' }
-    ]);
+    const [promos, setPromos] = useState<PromoCode[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchPromos = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/promotions');
+                if (res.ok) {
+                    const data = await res.json();
+                    setPromos(data);
+                }
+            } catch (error) {
+                console.error("Failed to load promotions", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPromos();
+    }, []);
 
     const [newCode, setNewCode] = useState('');
     const [discountType, setDiscountType] = useState<'PERCENTAGE' | 'FIXED_AMOUNT'>('PERCENTAGE');
@@ -92,7 +108,7 @@ export const PromotionalDiscountEngine: React.FC = () => {
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>Active Promo Ledger</div>
                     
-                    {promos.map(promo => {
+                    {loading ? <div style={{ textAlign: 'center', padding: '24px', color: '#64748B' }}>Loading promotional ledger...</div> : (promos.map(promo => {
                         const isDepleted = promo.status === 'DEPLETED';
                         
                         return (
@@ -136,7 +152,7 @@ export const PromotionalDiscountEngine: React.FC = () => {
 
                             </div>
                         );
-                    })}
+                    }))}
                 </div>
             </div>
             

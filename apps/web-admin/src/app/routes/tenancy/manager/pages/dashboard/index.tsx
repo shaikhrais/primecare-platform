@@ -6,7 +6,6 @@ import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 import './ManagerDashboard.css';
-import { MOCK_MANAGER_DATA } from '@/shared/data/mockChartData';
 
 import { DashboardStats } from './components/DashboardStats';
 import { QuickActions } from './components/QuickActions';
@@ -75,7 +74,7 @@ export default function ManagerDashboard() {
     // Helper for chart data mapping
     const getChartData = (key: string, realValue: any) => {
         if (realValue && Array.isArray(realValue) && realValue.length > 0) return realValue;
-        return (MOCK_MANAGER_DATA as any)[key] || [];
+        return [];
     };
 
     const displayData = {
@@ -146,7 +145,7 @@ export default function ManagerDashboard() {
             <div className="dashboard-main-content">
                 {perspective === 'Operations' ? (
                     <>
-                        <AnalyticsSection displayData={displayData} isDemo={!chartData} />
+                        <AnalyticsSection displayData={displayData} isDemo={false} />
                         <ShiftTimeline shifts={shifts} />
                     </>
                 ) : (

@@ -11,16 +11,29 @@ interface ApprovalItem {
     tags: string[];
 }
 
-const MOCK_APPROVALS: ApprovalItem[] = [
-    { id: '1', type: 'Timesheet', employee: 'Sarah Connor', amount: '42 Hours', date: 'Oct 24 - Oct 31', tags: ['Regular'] },
-    { id: '2', type: 'Expense', employee: 'James Reynolds', amount: '$45.50', date: 'Oct 28', tags: ['Mileage', 'Client Transit'] },
-    { id: '3', type: 'Timesheet', employee: 'Kyle Reese', amount: '48 Hours', date: 'Oct 24 - Oct 31', tags: ['Regular', '8h Overtime'] },
-    { id: '4', type: 'Expense', employee: 'Sarah Connor', amount: '$12.00', date: 'Oct 29', tags: ['PPE Supplies'] },
-];
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const ApprovalSwipeStack: React.FC = () => {
     const { showToast } = useNotification();
-    const [stack, setStack] = useState<ApprovalItem[]>(MOCK_APPROVALS);
+    const [stack, setStack] = useState<ApprovalItem[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchApprovals = async () => {
+            try {
+                const res = await apiClient.get('/v1/manager/ops/approvals');
+                if (res.ok) {
+                    const data = await res.json();
+                    setStack(data);
+                }
+            } catch (error) {
+                console.error("Failed to load approvals", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchApprovals();
+    }, []);
     
     // Physics and dragging state
     const cardRef = useRef<HTMLDivElement>(null);
@@ -58,14 +71,26 @@ export const ApprovalSwipeStack: React.FC = () => {
         }
     };
 
-    const handleApprove = (id: string) => {
-        showToast(`Approved ${stack.find(s => s.id === id)?.type} for ${stack.find(s => s.id === id)?.employee}`, 'success');
-        triggerFlyOut(1); // 1 = right
+    const handleApprove = async (id: string) => {
+        try {
+            await apiClient.post(`/v1/manager/ops/approvals/${id}/approve`);
+            showToast(`Approved ${stack.find(s => s.id === id)?.type} for ${stack.find(s => s.id === id)?.employee}`, 'success');
+            triggerFlyOut(1); // 1 = right
+        } catch (e) {
+            showToast('Failed to approve item', 'error');
+            setDragX(0);
+        }
     };
 
-    const handleReject = (id: string) => {
-        showToast(`Rejected ${stack.find(s => s.id === id)?.type}. Sent back for revision.`, 'info');
-        triggerFlyOut(-1); // -1 = left
+    const handleReject = async (id: string) => {
+        try {
+            await apiClient.post(`/v1/manager/ops/approvals/${id}/reject`);
+            showToast(`Rejected ${stack.find(s => s.id === id)?.type}. Sent back for revision.`, 'info');
+            triggerFlyOut(-1); // -1 = left
+        } catch (e) {
+            showToast('Failed to reject item', 'error');
+            setDragX(0);
+        }
     };
 
     const triggerFlyOut = (direction: number) => {
@@ -75,6 +100,10 @@ export const ApprovalSwipeStack: React.FC = () => {
             setDragX(0);
         }, 200); // Wait for CSS transition
     };
+
+    if (loading) {
+        return <div style={{ padding: '48px', textAlign: 'center' }}>Loading Pending Approvals...</div>;
+    }
 
     if (stack.length === 0) {
         return (

@@ -2,11 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Pen, RotateCcw, Check } from 'lucide-react';
 
 interface SignaturePadProps {
-    onSign: (base64Signature: string) => void;
-    onCancel: () => void;
+    onSign?: (base64Signature: string) => void;
+    onSave?: (base64Signature: string) => void;
+    onCancel?: () => void;
+    onClear?: () => void;
+    width?: number;
+    height?: number;
 }
 
-export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onCancel }) => {
+export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onSave, onCancel, onClear, width, height }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [hasSigned, setHasSigned] = useState(false);
@@ -79,6 +83,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onCancel }) 
         if (!canvas || !ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         setHasSigned(false);
+        if (onClear) onClear();
     };
 
     const handleConfirm = () => {
@@ -87,7 +92,8 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onCancel }) 
         
         // Export as High Quality PNG Base64
         const dataUrl = canvas.toDataURL('image/png');
-        onSign(dataUrl);
+        if (onSign) onSign(dataUrl);
+        if (onSave) onSave(dataUrl);
     };
 
     return (
@@ -106,8 +112,8 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onCancel }) 
             <div style={{ position: 'relative', border: '2px dashed #CBD5E1', borderRadius: '12px', overflow: 'hidden', backgroundColor: '#F8FAFC' }}>
                 <canvas 
                     ref={canvasRef}
-                    width={600}
-                    height={200}
+                    width={width || 600}
+                    height={height || 200}
                     style={{ display: 'block', width: '100%', cursor: 'crosshair', touchAction: 'none' }}
                     onMouseDown={startDrawing}
                     onMouseMove={draw}

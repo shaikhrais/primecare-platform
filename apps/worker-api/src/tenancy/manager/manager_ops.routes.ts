@@ -23,6 +23,35 @@ const FeedbackTriageSchema = z.object({
     resolutionNote: z.string().optional(),
 });
 
+const WaitlistResponseSchema = z.object({
+    id: z.string(),
+    fullName: z.string(),
+    riskScore: z.number(),
+    daysOnWaitlist: z.number(),
+    primaryCondition: z.string().nullable(),
+    location: z.string(),
+    status: z.string(),
+});
+
+const LogisticsBoardResponseSchema = z.object({
+    unassignedShifts: z.array(z.object({
+        id: z.string(),
+        clientName: z.string(),
+        time: z.string(),
+        duration: z.string(),
+        location: z.string(),
+        urgency: z.enum(['high', 'medium', 'low']),
+    })),
+    availableStaff: z.array(z.object({
+        id: z.string(),
+        name: z.string(),
+        role: z.string(),
+        status: z.enum(['available', 'busy', 'offline']),
+        utilization: z.number(),
+        currentLocation: z.string(),
+    }))
+});
+
 const branchHealthRoute = createRoute({
     method: 'get',
     path: '/branch-health',
@@ -109,6 +138,43 @@ const feedbackTriageRoute = createRoute({
     ...ROUTE_METADATA.MANAGER.FEEDBACK_TRIAGE,
 });
 
+const waitlistRoute = createRoute({
+    method: 'get',
+    path: '/intake/waitlist',
+    request: {},
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(WaitlistResponseSchema),
+                },
+            },
+            description: 'Intake waitlist retrieved',
+        },
+    },
+    // We can define this metadata inline or reference the core registry
+    tags: ['Manager Operations'],
+    operationId: 'getWaitlist',
+});
+
+const logisticsBoardRoute = createRoute({
+    method: 'get',
+    path: '/schedule/logistics-board',
+    request: {},
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: LogisticsBoardResponseSchema,
+                },
+            },
+            description: 'Logistics board data retrieved',
+        },
+    },
+    tags: ['Manager Operations'],
+    operationId: 'getLogisticsBoard',
+});
+
 r.openapi(statsRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
@@ -178,4 +244,272 @@ r.openapi(branchHealthRoute, async (c) => {
     }, 200);
 });
 
+r.openapi(waitlistRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    // Fetch patients who don't have an active care plan
+    const patients = await prisma.patientProfile.findMany({
+        where: { 
+            tenantId,
+            status: 'pending' // Assuming pending status means waitlist
+        },
+        include: {
+            client: true
+        },
+        orderBy: {
+            createdAt: 'asc' // Oldest first
+        }
+    });
+
+    const waitlist = patients.map((patient: any) => {
+        const daysOnWaitlist = Math.floor((new Date().getTime() - new Date(patient.createdAt).getTime()) / (1000 * 3600 * 24));
+        // Mocking a risk score if one doesn't exist, this should ideally be an DB enum/field
+        const riskScore = patient.acuityLevel === 'high' ? 85 : patient.acuityLevel === 'medium' ? 55 : 30;
+
+        return {
+            id: patient.id,
+            fullName: patient.client ? patient.client.fullName : 'Unknown Client',
+            riskScore,
+            daysOnWaitlist,
+            primaryCondition: 'General Care', // Awaiting schema updates for specific conditions
+            location: patient.client ? patient.client.address : 'Unknown',
+            status: patient.status
+        };
+    });
+
+    // Sort by risk score descending
+    waitlist.sort((a: any, b: any) => b.riskScore - a.riskScore);
+
+    return c.json(waitlist, 200);
+});
+
+r.openapi(logisticsBoardRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const [unassignedShifts, availableStaff] = await Promise.all([
+        prisma.visit.findMany({
+            where: {
+                tenantId,
+                status: 'posted' // Unassigned visits
+            },
+            include: {
+                client: true,
+                service: true
+            },
+            take: 20
+        }),
+        prisma.pswProfile.findMany({
+            where: {
+                tenantId,
+                isActive: true
+            },
+            include: {
+                user: true
+            },
+            take: 10
+        })
+    ]);
+
+    const formattedShifts = unassignedShifts.map((visit: any) => {
+        const durationHours = visit.durationMinutes ? (visit.durationMinutes / 60).toFixed(1) : '1.0';
+        return {
+            id: visit.id,
+            clientName: visit.client?.fullName || 'Unknown Client',
+            time: visit.requestedStartAt ? new Date(visit.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '09:00 AM',
+            duration: `${durationHours}h`,
+            location: visit.client?.address || 'Downtown core', // Mock mapped if missing
+            urgency: visit.isSurgeActive ? 'high' : 'medium'
+        };
+    });
+
+    const formattedStaff = availableStaff.map((staff: any) => ({
+        id: staff.id,
+        name: staff.user?.fullName || 'Unknown Staff',
+        role: 'PSW', // Will need mapping logic for RNs if expanding
+        status: 'available', // Real-time tracking would map this dynamically
+        utilization: Math.floor(Math.random() * 60) + 20, // Mock metric representing hours worked
+        currentLocation: 'Sector A' // Mock metric for logistics
+    }));
+
+    return c.json({
+        unassignedShifts: formattedShifts,
+        availableStaff: formattedStaff
+    }, 200);
+});
+
+// GET Latest Incidents
+const getIncidentsRoute = createRoute({
+    method: 'get',
+    path: '/incidents',
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Recent incidents' }
+    }
+});
+
+r.openapi(getIncidentsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    
+    const incidents = await prisma.incident.findMany({
+        where: { tenantId, status: 'open' },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+        include: {
+            reporter: { select: { email: true } }
+        }
+    });
+    
+    return c.json(incidents, 200);
+});
+
+
+
+// GET Live Fleet Locations
+const getLocationsRoute = createRoute({
+    method: 'get',
+    path: '/locations',
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Real-time staff coordinates' }
+    }
+});
+
+r.openapi(getLocationsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    
+    // Fetch active PSWs in the tenant
+    const psws = await prisma.pswProfile.findMany({
+        where: { user: { tenantId } },
+        select: { id: true, fullName: true, isOnline: true },
+        take: 30
+    });
+    
+    // Assign transient geo-coordinates (simulating a live redis stream)
+    const locations = psws.map((psw: any) => ({
+        id: psw.id,
+        name: psw.fullName,
+        x: Math.random() * 90 + 5,
+        y: Math.random() * 90 + 5,
+        status: psw.isOnline ? 'on-time' : 'delayed'
+    }));
+    
+    return c.json(locations, 200);
+});
+
+
+// ==========================================
+// PENDING APPROVALS ROUTES
+// ==========================================
+
+const getApprovalsRoute = createRoute({
+    method: 'get',
+    path: '/approvals',
+    request: {},
+    responses: {
+        200: {
+            content: {
+                'application/json': { schema: z.array(z.any()) },
+            },
+            description: 'List of pending approvals'
+        }
+    }
+});
+
+const approveItemRoute = createRoute({
+    method: 'post',
+    path: '/approvals/{id}/approve',
+    request: { params: z.object({ id: z.string() }) },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.object({ success: z.boolean() }) } },
+            description: 'Item approved'
+        }
+    }
+});
+
+const rejectItemRoute = createRoute({
+    method: 'post',
+    path: '/approvals/{id}/reject',
+    request: { params: z.object({ id: z.string() }) },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.object({ success: z.boolean() }) } },
+            description: 'Item rejected'
+        }
+    }
+});
+
+r.openapi(getApprovalsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const [timesheets, expenses] = await Promise.all([
+        prisma.timesheet.findMany({
+            where: { tenantId, status: 'submitted' },
+            include: { psw: { include: { user: true } } },
+            take: 10
+        }),
+        prisma.mileageLog.findMany({
+            where: { tenantId, status: 'pending' },
+            include: { psw: { include: { user: true } } },
+            take: 10
+        })
+    ]);
+
+    const items = [
+        ...timesheets.map((t: any) => ({
+            id: `ts_${t.id}`,
+            type: 'Timesheet',
+            employee: t.psw?.user?.email || 'Unknown PSW',
+            amount: `${Math.round((t.totalMinutes || 0) / 60)} hrs`,
+            date: `Week ${t.weekId}`,
+            tags: [(t.totalMinutes || 0) > 2400 ? 'Overtime Risk' : 'Standard']
+        })),
+        ...expenses.map((e: any) => ({
+            id: `exp_${e.id}`,
+            type: 'Expense',
+            employee: e.psw?.user?.email || 'Unknown PSW',
+            amount: `$${Number(e.reimbursementAmount || 0).toFixed(2)}`,
+            date: new Date(e.date).toLocaleDateString(),
+            tags: ['Mileage', `${e.distanceKm} km`]
+        }))
+    ];
+
+    // Shuffle slightly for the swipe stack UX
+    return c.json(items.sort(() => Math.random() - 0.5), 200);
+});
+
+r.openapi(approveItemRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const reviewerId = c.get('jwtPayload').sub;
+
+    if (id.startsWith('ts_')) {
+        const realId = id.replace('ts_', '');
+        await prisma.timesheet.update({ where: { id: realId }, data: { status: 'approved', reviewedBy: reviewerId, reviewedAt: new Date() } });
+    } else if (id.startsWith('exp_')) {
+        const realId = id.replace('exp_', '');
+        await prisma.mileageLog.update({ where: { id: realId }, data: { status: 'approved' } });
+    }
+    return c.json({ success: true }, 200);
+});
+
+r.openapi(rejectItemRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const reviewerId = c.get('jwtPayload').sub;
+
+    if (id.startsWith('ts_')) {
+        const realId = id.replace('ts_', '');
+        await prisma.timesheet.update({ where: { id: realId }, data: { status: 'draft', reviewedBy: reviewerId, reviewedAt: new Date() } }); // Reject back to draft
+    } else if (id.startsWith('exp_')) {
+        const realId = id.replace('exp_', '');
+        await prisma.mileageLog.update({ where: { id: realId }, data: { status: 'draft' } });
+    }
+    return c.json({ success: true }, 200);
+});
+
 export default r;
+

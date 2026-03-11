@@ -31,11 +31,11 @@ r.openapi(listMarketplaceRoute, async (c) => {
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    // Fetch shifts that are posted but HAVE NOT been offered to this specific PSW (those are handled by /offers)
+    // Fetch shifts that are posted but HAVE NOT been assigned/offered to this specific PSW (those are handled by /assignments)
     const shifts = await prisma.visit.findMany({
         where: {
             status: 'posted',
-            offers: { none: { pswId: profile.id } },
+            assignments: { none: { pswId: profile.id } },
         },
         orderBy: { requestedStartAt: 'asc' },
         include: {
@@ -87,13 +87,54 @@ r.openapi(acceptMarketplaceRoute, async (c) => {
             data: { status: 'scheduled', assignedPswId: profile.id },
         }),
         // Expire any pending direct offers for this shift to other PSWs since someone took it from the marketplace
-        prisma.shiftOffer.updateMany({
-            where: { visitId, status: 'pending' },
+        prisma.shiftAssignment.updateMany({
+            where: { visitId, status: 'offered' },
             data: { status: 'expired' },
         }),
     ]);
 
     return c.json({ success: true }, 200);
+});
+
+// GET Peer Swaps
+const listSwapsRoute = createRoute({
+    ...ROUTE_METADATA.PSW_SCHEDULE.LIST_MARKETPLACE,
+    method: 'get',
+    path: '/swaps',
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Peer Swaps' },
+        404: { description: 'Profile not found' },
+    },
+});
+
+r.openapi(listSwapsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const userId = c.get('jwtPayload').sub;
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    const swaps = await prisma.visit.findMany({
+        where: {
+            status: 'swap_requested',
+            assignedPswId: { not: profile.id }, // don't show your own swaps on the board
+        },
+        orderBy: { requestedStartAt: 'asc' },
+        include: {
+            client: { select: { fullName: true, city: true, addressLine1: true } },
+            service: true,
+            psw: { select: { fullName: true } }
+        },
+    });
+
+    // Map to frontend expectation
+    const mappedSwaps = swaps.map((s: any) => ({
+        ...s,
+        offeredBy: s.psw?.fullName || 'Peer Worker',
+        note: s.clientNotes || 'Can someone cover this for me? Appreciate it!',
+    }));
+
+    return c.json(mappedSwaps, 200);
 });
 
 export default r;

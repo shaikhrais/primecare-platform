@@ -68,8 +68,8 @@ r.openapi(getDashboardStatsRoute, async (c) => {
     const late = checkEvents.filter((e: any) => e.result === 'rejected').length;
 
     const reliabilityData = [
-        { name: 'On-Time', count: onTime || 10, fill: '#10B981' },
-        { name: 'Issue', count: late, fill: '#EF4444' }
+        { metric: 'On-Time', score: onTime || 10, color: '#10B981' },
+        { metric: 'Issue', score: late, color: '#EF4444' }
     ];
 
     const visits = await prisma.visit.findMany({
@@ -92,9 +92,9 @@ r.openapi(getDashboardStatsRoute, async (c) => {
     });
 
     const shiftData = [
-        { name: 'Day', value: day || 5 },
-        { name: 'Night', value: night || 2 },
-        { name: 'Weekend', value: weekend || 1 }
+        { type: 'Day', count: day || 5 },
+        { type: 'Night', count: night || 2 },
+        { type: 'Weekend', count: weekend || 1 }
     ];
 
     const hoursLogged = (timesheets.reduce((acc: number, cur: any) => acc + (cur.totalMinutes || 0), 0) / 60) || 0;
@@ -104,6 +104,7 @@ r.openapi(getDashboardStatsRoute, async (c) => {
         earnings: earningsData,
         reliability: reliabilityData,
         shifts: shiftData,
+        attendance: [], // Prevent crash in StaffAttendanceHeatmap
         hoursLogged: Number(hoursLogged.toFixed(1)),
         currentStreak
     }, 200);

@@ -15,6 +15,9 @@ const scheduleRoute = createRoute({
                     schema: z.array(z.object({
                         id: z.string(), medicationName: z.string(), dosage: z.string(),
                         route: z.string(), scheduledTime: z.string(), status: z.string(),
+                        frequency: z.string(),
+                        interactionLevel: z.enum(['critical', 'moderate', 'none']).optional(),
+                        interactionMessage: z.string().optional()
                     }))
                 }
             }, description: 'Schedule'
@@ -34,7 +37,34 @@ mar.openapi(scheduleRoute, async (c) => {
         where: { tenantId, clientId, scheduledTime: { gte: today, lt: tomorrow } },
         orderBy: { scheduledTime: 'asc' },
     });
-    return c.json(entries, 200);
+
+    // Map to the UI expected interface (id, name, dose, route, frequency, status, interaction)
+    const formattedEntries = entries.map((entry: any) => {
+        const timeStr = new Date(entry.scheduledTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const freqStr = `Daily (${timeStr})`;
+        
+        // Temporarily mock drug interaction rules engine
+        let interactionLevel: 'critical' | 'moderate' | 'none' | undefined = undefined;
+        let interactionMessage: string | undefined = undefined;
+        
+        if (entry.medicationName.toLowerCase().includes('warfarin')) {
+            interactionLevel = 'critical';
+            interactionMessage = 'CRITICAL INTERACTION DETECTED: Aspirin increases bleeding risk when taken with Warfarin. Evaluate INR.';
+        }
+
+        return {
+            id: entry.id,
+            name: entry.medicationName, // UI maps this to `name`
+            dose: entry.dosage, // UI maps this to `dose`
+            route: entry.route || 'PO',
+            frequency: freqStr,
+            status: entry.status === 'given' ? 'administered' : 'pending',
+            interactionLevel,
+            interactionMessage
+        };
+    });
+
+    return c.json(formattedEntries, 200);
 });
 
 // POST /administer — Record medication administration

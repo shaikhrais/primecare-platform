@@ -46,14 +46,7 @@ export default function LiveVisit() {
     const [elapsed, setElapsed] = useState(0);
     const touchStartXRef = React.useRef<number | null>(null);
     const [visit, setVisit] = useState<any>(null);
-    const [tasks, setTasks] = useState([
-        { id: '1', label: 'Medication Administration', done: false, isStandard: true },
-        { id: '2', label: 'Mobility Support & Transfers', done: false, isStandard: true },
-        { id: '3', label: 'Hydration & Nutrition Check', done: false, isStandard: true },
-        { id: '4', label: 'Documentation Sink', done: false, isStandard: false },
-        { id: 'add-1', label: 'Catheter Bag Exchange (Protocol)', done: false, isStandard: false, isComplex: true },
-        { id: '5', label: 'ROM Exercises (15 mins)', done: false, isStandard: false, requiresTimer: true },
-    ]);
+    const [tasks, setTasks] = useState<any[]>([]);
     const [visitNotes, setVisitNotes] = useState('');
     const [showVitalHistory, setShowVitalHistory] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
@@ -65,16 +58,11 @@ export default function LiveVisit() {
     const [wizardTask, setWizardTask] = useState<string | null>(null);
     const [isTranslated, setIsTranslated] = useState(false);
 
-    const MOCK_ALLERGIES = ['Penicillin', 'Latex - Severe Anaphylaxis'];
-    const MOCK_MEDS: Medication[] = [
-        { id: 'm1', name: 'Lisinopril', dosage: '10mg', route: 'Oral', time: '08:00 AM', instructions: 'Take with food to absorb fully.' },
-        { id: 'm2', name: 'Atorvastatin', dosage: '20mg', route: 'Oral', time: '08:00 AM', instructions: 'Do not take with grapefruit juice.' }
-    ];
-    const MOCK_WIZARD_STEPS = [
-        { title: 'Gather Supplies', description: 'Ensure you have clean gloves, a new sterile catheter bag, alcohol swabs, and a disposable towel.', criticalWarning: 'Verify sterile packaging is fully intact.' },
-        { title: 'Prepare Client', description: 'Position client comfortably and explain the procedure to minimize anxiety and stress.', image: '🛏️' },
-        { title: 'Exchange Bag', description: 'Clamp the old tube, swab the connection point securely with alcohol, disconnect, and immediately reattach the new sterile bag.', criticalWarning: 'Do not let the open tube touch any unsterile surface.' }
-    ];
+    const allergies = visit?.client?.allergies || (visit?.client?.patientAlerts?.map((a: any) => a.alertText) || []);
+    const meds = visit?.client?.marEntries?.map((m: any) => ({
+        id: m.id, name: m.medicationName, dosage: m.dosage, route: m.route, time: m.administrationTime, instructions: m.specialInstructions
+    })) || [];
+    const wizardSteps = visit?.service?.wizardSteps || [];
 
     useEffect(() => {
         const controller = new AbortController();
@@ -105,6 +93,28 @@ export default function LiveVisit() {
         if (id) fetchVisit();
         return () => controller.abort();
     }, [id]);
+
+    useEffect(() => {
+        if (visit?.service?.wizardSteps) {
+            let parsedSteps = [];
+            try {
+                parsedSteps = typeof visit.service.wizardSteps === 'string'
+                    ? JSON.parse(visit.service.wizardSteps)
+                    : visit.service.wizardSteps;
+            } catch (e) {
+                console.error('Failed to parse wizard steps', e);
+            }
+            if (Array.isArray(parsedSteps) && parsedSteps.length > 0) {
+                setTasks(parsedSteps.map((step, index) => ({
+                    id: `step-${index}`,
+                    label: step.title || step.label || step,
+                    done: false,
+                    isStandard: !!step.isRequired,
+                    ...step
+                })));
+            }
+        }
+    }, [visit]);
 
     useEffect(() => {
         const timer = setInterval(() => setCurrentTime(new Date().toLocaleTimeString()), 1000);
@@ -239,8 +249,8 @@ export default function LiveVisit() {
             </header>
 
             <div className="session-block session-active" style={{ padding: '16px' }}>
-                <AllergyBanner allergies={MOCK_ALLERGIES} />
-                <MedAdminRecord medications={MOCK_MEDS} onMedicationUpdate={(medId, status) => showToast(`Medication ${medId} marked as ${status}`, status === 'GIVEN' ? 'success' : 'warning')} />
+                <AllergyBanner allergies={allergies} />
+                <MedAdminRecord medications={meds} onMedicationUpdate={(medId, status) => showToast(`Medication ${medId} marked as ${status}`, status === 'GIVEN' ? 'success' : 'warning')} />
 
                 <div className="pulse-bg" />
                 <div className="active-grid">
@@ -445,7 +455,7 @@ export default function LiveVisit() {
             {wizardTask !== null && (
                 <TaskCarouselWizard
                     taskName={tasks.find(t => t.id === wizardTask)?.label || 'Clinical Task'}
-                    steps={MOCK_WIZARD_STEPS}
+                    steps={wizardSteps}
                     onClose={() => setWizardTask(null)}
                     onComplete={() => {
                         toggleTask(wizardTask);

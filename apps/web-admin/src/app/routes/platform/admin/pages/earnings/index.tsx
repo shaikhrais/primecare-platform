@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SmartBreadcrumbs } from '@/shared/components/SmartBreadcrumbs';
 import { useSearchParams } from 'react-router-dom';
-import { MOCK_EARNINGS, EarningRecord } from './earnings.data';
+import { EarningRecord } from './earnings.data';
+import { apiClient } from '@/shared/utils/apiClient';
 import { EarningStats } from './components/EarningStats';
 import { EarningsTable } from './components/EarningsTable';
 import { EarningsFilters } from './components/EarningsFilters';
@@ -17,6 +18,25 @@ export default function AdminEarningsPage() {
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
+    const [earnings, setEarnings] = useState<EarningRecord[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchEarnings = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/financial/earnings');
+                if (res.ok) {
+                    const data = await res.json();
+                    setEarnings(data);
+                }
+            } catch (error) {
+                console.error("Failed to load earnings", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchEarnings();
+    }, []);
 
     // Sync URL with Tab Selection
     useEffect(() => {
@@ -36,7 +56,7 @@ export default function AdminEarningsPage() {
 
     // Filter Logic
     const filteredEarnings = useMemo(() => {
-        let filtered = MOCK_EARNINGS;
+        let filtered = earnings;
 
         // Search Filter
         if (searchTerm) {
@@ -58,7 +78,7 @@ export default function AdminEarningsPage() {
         }
 
         return filtered;
-    }, [searchTerm, dateRange]);
+    }, [searchTerm, dateRange, earnings]);
 
     // Recalculate Stats based on Filtered Data
     const totalRevenue = filteredEarnings.reduce((acc: number, curr: EarningRecord) => acc + curr.revenue, 0);
@@ -195,7 +215,7 @@ export default function AdminEarningsPage() {
 
                 <EarningsFilters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-                <EarningsTable earnings={filteredEarnings} />
+                {loading ? <div style={{ textAlign: 'center', padding: '48px', color: '#6B7280' }}>Loading earnings ledger...</div> : <EarningsTable earnings={filteredEarnings} />}
             </div>
 
             <style>{`

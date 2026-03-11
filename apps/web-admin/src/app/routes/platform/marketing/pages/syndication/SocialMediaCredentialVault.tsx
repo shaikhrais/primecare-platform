@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Share2, Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send } from 'lucide-react';
+import { Share2, Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send, Loader2 } from 'lucide-react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { apiClient } from '@/shared/utils/apiClient';
 
 // Define window type for Facebook SDK
 declare global {
@@ -22,15 +23,26 @@ interface SocialPlatform {
 }
 
 const SocialMediaCredentialVaultInner: React.FC = () => {
-    const [platforms, setPlatforms] = useState<SocialPlatform[]>([
-        { id: '1', platformName: 'Facebook Page', iconUrl: 'fb', accountName: 'PrimeCare Home Health', status: 'CONNECTED', lastSync: '2 hours ago', tokenExpiry: '2026-05-15', permissions: ['pages_manage_posts', 'pages_read_engagement'] },
-        { id: '5', platformName: 'Google Business Profile', iconUrl: 'g', accountName: null, status: 'DISCONNECTED', lastSync: null, tokenExpiry: null, permissions: ['business.manage'] },
-        { id: '2', platformName: 'LinkedIn Company', iconUrl: 'in', accountName: 'PrimeCare USA', status: 'CONNECTED', lastSync: '1 day ago', tokenExpiry: '2027-01-01', permissions: ['w_organization_social', 'r_organization_social'] },
-        { id: '3', platformName: 'Instagram Business', iconUrl: 'ig', accountName: '@primecare_health', status: 'EXPIRED', lastSync: '14 days ago', tokenExpiry: '2026-02-28', permissions: ['instagram_basic', 'instagram_content_publish'] },
-        { id: '4', platformName: 'X (Twitter)', iconUrl: 'x', accountName: null, status: 'DISCONNECTED', lastSync: null, tokenExpiry: null, permissions: ['tweet.read', 'tweet.write'] }
-    ]);
-
+    const [platforms, setPlatforms] = useState<SocialPlatform[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [isConnecting, setIsConnecting] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchVault = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/syndication/vault');
+                if (res.ok) {
+                    const data = await res.json();
+                    setPlatforms(data);
+                }
+            } catch (err) {
+                console.error("Failed to load vault:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchVault();
+    }, []);
 
     // Load Facebook SDK
     useEffect(() => {
@@ -143,8 +155,13 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                 </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {platforms.map(platform => {
+            {isLoading ? (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '48px 0', color: '#94A3B8' }}>
+                    <Loader2 size={32} className="animate-spin" />
+                </div>
+            ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    {platforms.map(platform => {
                     const isConnected = platform.status === 'CONNECTED';
                     const isExpired = platform.status === 'EXPIRED';
 
@@ -211,6 +228,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                     );
                 })}
             </div>
+            )}
 
             <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#EFF6FF', borderRadius: '8px', border: '1px solid #BFDBFE', fontSize: '0.9rem', color: '#1E3A8A', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                  <Send size={24} style={{ flexShrink: 0 }} />

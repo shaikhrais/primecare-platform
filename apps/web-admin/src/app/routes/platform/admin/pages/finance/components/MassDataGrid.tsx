@@ -1,31 +1,40 @@
 import React, { useState } from 'react';
 import { Database, Download, Filter, Search } from 'lucide-react';
 
-// Mock large dataset (we'll just generate rows)
-const generateData = (count: number) => {
-    const data = [];
-    const types = ['PAYROLL', 'INVOICE', 'REMITTANCE', 'CORRECTION'];
-    const statuses = ['CLEARED', 'PENDING', 'FLAGGED'];
-    for(let i=0; i < count; i++) {
-        data.push({
-            id: `SYNC-${Math.floor(Math.random() * 9000000) + 1000000}`,
-            date: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toISOString().split('T')[0],
-            tenant: `Agency ${Math.floor(Math.random() * 50) + 1}`,
-            type: types[Math.floor(Math.random() * types.length)],
-            amount: (Math.random() * 15000).toFixed(2),
-            status: statuses[Math.floor(Math.random() * statuses.length)],
-            hash: Math.random().toString(36).substring(2, 10).toUpperCase()
-        });
-    }
-    return data;
-};
-
-const MOCK_ROWS = generateData(100);
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const MassDataGrid: React.FC = () => {
+    const [rows, setRows] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const filteredRows = MOCK_ROWS.filter(r => 
+    React.useEffect(() => {
+        const fetchLedger = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/financial');
+                if (res.ok) {
+                    const data = await res.json();
+                    setRows(data.map((tx: any) => ({
+                        id: tx.id.slice(0, 13), // short ID
+                        date: new Date(tx.createdAt).toISOString().split('T')[0],
+                        tenant: tx.tenantId?.slice(0, 8) || 'Global',
+                        type: tx.type || 'SYSTEM_SYNC',
+                        amount: parseFloat(tx.amount || 0).toFixed(2),
+                        status: tx.status === 'posted' ? 'CLEARED' : tx.status === 'pending' ? 'PENDING' : 'FLAGGED',
+                        hash: tx.reference || tx.id.slice(-8).toUpperCase()
+                    })));
+                }
+            } catch (error) {
+                console.error("Failed to load global ledger data", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchLedger();
+    }, []);
+
+
+    const filteredRows = rows.filter(r => 
         r.id.includes(searchTerm) || 
         r.tenant.toLowerCase().includes(searchTerm.toLowerCase()) || 
         r.hash.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,7 +46,7 @@ export const MassDataGrid: React.FC = () => {
             <div style={{ backgroundColor: '#F8FAFC', padding: '16px 24px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#0F172A', fontWeight: 800 }}>
                     <Database size={20} color="#10B981" /> 
-                    Global Ledger Table <span style={{ color: '#94A3B8', fontWeight: 600, fontSize: '0.85rem', marginLeft: '8px' }}>(Showing {filteredRows.length} of 1,240,592 rows)</span>
+                    Global Ledger Table <span style={{ color: '#94A3B8', fontWeight: 600, fontSize: '0.85rem', marginLeft: '8px' }}>(Showing {filteredRows.length} of {rows.length} rows)</span>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '12px' }}>
@@ -75,7 +84,7 @@ export const MassDataGrid: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRows.map((row, idx) => (
+                        {loading ? <tr><td colSpan={7} style={{ padding: '24px', textAlign: 'center', color: '#64748B' }}>Loading millions of records...</td></tr> : filteredRows.map((row, idx) => (
                             <tr key={idx} style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: idx % 2 === 0 ? 'white' : '#FAFAFA' }}>
                                 <td style={{ padding: '8px 12px', color: '#3B82F6', fontWeight: 600 }}>{row.id}</td>
                                 <td style={{ padding: '8px 12px', color: '#64748B' }}>{row.date}</td>

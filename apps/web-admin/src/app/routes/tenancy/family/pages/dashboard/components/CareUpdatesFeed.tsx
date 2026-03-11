@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Heart, Stethoscope, Clock } from 'lucide-react';
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 interface FeedItem {
     id: string;
     type: 'note' | 'photo' | 'vitals';
@@ -12,67 +14,37 @@ interface FeedItem {
     vitals?: { bp: string, hr: string, temp: string };
 }
 
-const MOCK_FEED: FeedItem[] = [
-    {
-        id: '1',
-        type: 'photo',
-        authorName: 'Sarah Jenkins',
-        authorRole: 'RN',
-        timestamp: '10 mins ago',
-        content: 'John was in great spirits today! We went for a short walk in the garden after lunch.',
-        imageUrl: 'https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-        id: '2',
-        type: 'vitals',
-        authorName: 'System Logger',
-        authorRole: 'Device Sync',
-        timestamp: '15 mins ago',
-        content: 'End of visit vitals recorded.',
-        vitals: { bp: '120/80', hr: '72 bpm', temp: '98.6 °F' }
-    },
-    {
-        id: '3',
-        type: 'note',
-        authorName: 'Sarah Jenkins',
-        authorRole: 'RN',
-        timestamp: '2 hours ago',
-        content: 'Administered afternoon medications. John complained of mild joint pain, applying heat pad.'
-    }
-];
-
 export const CareUpdatesFeed: React.FC = () => {
-    const [posts, setPosts] = useState<FeedItem[]>(MOCK_FEED);
-    const [isLoading, setIsLoading] = useState(false);
+    const [posts, setPosts] = useState<FeedItem[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const bottomRef = useRef<HTMLDivElement>(null);
 
-    // Mocking an IntersectionObserver for infinite scrolling
     useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !isLoading) {
-                // Simulate fetching older posts
-                setIsLoading(true);
-                setTimeout(() => {
-                    const olderPost: FeedItem = {
-                        id: `old-${Date.now()}`,
-                        type: 'note',
-                        authorName: 'Mark D.',
-                        authorRole: 'PSW',
-                        timestamp: 'Yesterday at 4:30 PM',
-                        content: 'Finished meal prep for the week. Kitchen is cleaned and locked up.'
-                    };
-                    setPosts(prev => [...prev, olderPost]);
-                    setIsLoading(false);
-                }, 1500);
+        const fetchFeed = async () => {
+            try {
+                // Hardcoding demo client ID for testing
+                const response: any = await apiClient.get('/v1/client/family/feed/demo-client-1');
+
+                // Map real db entries to FeedItems
+                const mappedEntries: FeedItem[] = response.recentEntries?.map((entry: any) => ({
+                    id: entry.id,
+                    type: 'note', 
+                    authorName: 'PrimeCare Staff', // Await relation joins to get actual worker names
+                    authorRole: 'PSW / RN', 
+                    timestamp: new Date().toLocaleDateString(), // Mocking timestamp structure to UI
+                    content: entry.activities || 'Routine care visit completed.',
+                })) || [];
+
+                setPosts(mappedEntries);
+            } catch (error) {
+                console.error('Failed to fetch family feed:', error);
+            } finally {
+                setIsLoading(false);
             }
-        });
+        };
 
-        if (bottomRef.current) {
-            observer.observe(bottomRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, [isLoading]);
+        fetchFeed();
+    }, []);
 
     return (
         <section style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', maxHeight: '800px', overflowY: 'auto' }}>

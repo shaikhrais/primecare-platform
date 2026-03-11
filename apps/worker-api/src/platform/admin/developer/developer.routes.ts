@@ -92,6 +92,17 @@ const dbPushRoute = createRoute({
             },
             description: 'Schema pushed successfully',
         },
+        500: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        success: z.boolean(),
+                        message: z.string()
+                    }),
+                },
+            },
+            description: 'Failed to push schema',
+        },
     },
 });
 

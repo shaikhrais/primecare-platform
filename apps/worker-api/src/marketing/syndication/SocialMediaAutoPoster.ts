@@ -14,7 +14,7 @@ interface SyndicationPayload {
     campaignName: string;
     mediaUrl: string;       // e.g., the 1080x1080 Caregiver Spotlight
     captionBody: string;    // The text content
-    targetPlatforms: ('FACEBOOK' | 'LINKEDIN' | 'INSTAGRAM' | 'X')[];
+    targetPlatforms: string[];
 }
 
 export class SocialMediaAutoPoster {
@@ -65,13 +65,14 @@ export class SocialMediaAutoPoster {
         });
         
         console.log(`\n[Database] Updating asset status to 'SYNDICATED_EXTERNALLY'.\n`);
+        return results;
     }
 
     /**
      * Helper to mock data for terminal demonstrations
      */
-    static runDemo() {
-        this.executeSyndicationBlast({
+    static async runDemo() {
+        await this.executeSyndicationBlast({
             assetId: 'asset_99182',
             campaignName: 'Q4_Top_Caregiver_Maria',
             mediaUrl: 'https://s3.primecare.org/assets/maria_spotlight_1080.png',

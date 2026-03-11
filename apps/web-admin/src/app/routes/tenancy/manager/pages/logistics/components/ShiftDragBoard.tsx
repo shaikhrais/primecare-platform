@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { User, GripVertical, Clock, CheckCircle2, AlertOctagon } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface Shift {
     id: string;
@@ -17,20 +18,40 @@ interface Staff {
     shifts: Shift[];
 }
 
-const MOCK_UNASSIGNED: Shift[] = [
-    { id: 's1', patientName: 'B. Morrison', time: '09:00 - 11:00', address: '123 Test St', duration: '2h' },
-    { id: 's2', patientName: 'J. Smith', time: '13:00 - 15:00', address: '456 Far Away Rd', duration: '2h' },
-];
-
-const MOCK_STAFF: Staff[] = [
-    { id: 'st1', name: 'James Reynolds', role: 'RN', shifts: [{ id: 's3', patientName: 'A. Davis', time: '08:00 - 12:00', address: '789 Close Ave', duration: '4h' }] },
-    { id: 'st2', name: 'Sarah Connor', role: 'PSW', shifts: [] },
-];
-
 export const ShiftDragBoard: React.FC = () => {
     const { showToast } = useNotification();
-    const [unassigned, setUnassigned] = useState<Shift[]>(MOCK_UNASSIGNED);
-    const [staffList, setStaffList] = useState<Staff[]>(MOCK_STAFF);
+    const [unassigned, setUnassigned] = useState<Shift[]>([]);
+    const [staffList, setStaffList] = useState<Staff[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLogistics = async () => {
+            try {
+                const data: any = await apiClient.get('/v1/manager/schedule/logistics-board');
+                
+                // Map the api data to the existing component interfaces
+                setUnassigned(data.unassignedShifts.map((s: any) => ({
+                    id: s.id,
+                    patientName: s.clientName,
+                    time: s.time,
+                    address: s.location,
+                    duration: s.duration
+                })));
+                
+                setStaffList(data.availableStaff.map((st: any) => ({
+                    id: st.id,
+                    name: st.name,
+                    role: st.role,
+                    shifts: [] // Initialize with empty shifts
+                })));
+            } catch (error) {
+                console.error('Failed to fetch logistics board:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchLogistics();
+    }, []);
 
     // Drag State
     const [draggedShift, setDraggedShift] = useState<Shift | null>(null);
@@ -149,6 +170,10 @@ export const ShiftDragBoard: React.FC = () => {
             </div>
         </div>
     );
+
+    if (loading) {
+        return <div style={{ padding: '24px', textAlign: 'center', color: '#64748B' }}>Loading logistics board...</div>;
+    }
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', userSelect: 'none' }}>

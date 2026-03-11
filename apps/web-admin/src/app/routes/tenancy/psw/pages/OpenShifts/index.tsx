@@ -31,14 +31,21 @@ export default function OpenShifts() {
     const fetchMarketplaceShifts = async () => {
         setLoading(true);
         try {
-            const res = await apiClient.get('/v1/psw/schedule/marketplace');
-            if (res.ok) {
-                const data = await res.json();
+            const [shiftsRes, swapsRes] = await Promise.all([
+                apiClient.get('/v1/psw/schedule/marketplace'),
+                apiClient.get('/v1/psw/schedule/marketplace/swaps')
+            ]);
+            
+            if (shiftsRes.ok) {
+                const data = await shiftsRes.json();
                 setShifts(data);
-                // Peer swaps aren't built yet, so we leave it empty for now
-                setPeerSwaps([]);
             } else {
                 showToast('Failed to load marketplace shifts', 'error');
+            }
+
+            if (swapsRes.ok) {
+                const swapData = await swapsRes.json();
+                setPeerSwaps(swapData);
             }
         } catch (error) {
             console.error('Error fetching marketplace shifts:', error);

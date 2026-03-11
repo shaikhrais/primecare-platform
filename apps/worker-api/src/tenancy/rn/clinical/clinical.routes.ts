@@ -4,11 +4,13 @@ import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
 import { requirePermission } from '../../../_shared/middleware/rbac';
 import { logAudit } from '../../../_shared/utils/audit';
 import carePlanRoutes from '../carePlans/carePlans.routes';
+import scribeRoutes from '../../../platform/rn/clinical/scribe.routes';
 
 const clinical = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Delegate care-plans
 clinical.route('/care-plans', carePlanRoutes);
+clinical.route('/scribe-parse', scribeRoutes);
 
 /**
  * RN Submit Clinical Assessment

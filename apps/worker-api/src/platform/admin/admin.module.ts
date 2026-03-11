@@ -38,6 +38,7 @@ import bookingRequestRoutes from './booking-requests/booking-requests.routes';
 import referenceDataRoutes from './reference-data/reference-data.routes';
 import interopRoutes from './interop/interop.routes';
 import cronRoutes from './cron/cron.routes';
+import marketingRoutes from './marketing/marketing.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -69,6 +70,7 @@ admin.route('/', contentRoutes);
 // Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)
 admin.route('/system/platform', platformStats);
 admin.route('/system/risk-surveillance', riskSurveillanceRoutes);
+admin.route('/system/marketing', marketingRoutes);
 
 // Insights Routes
 admin.route('/insights/predictive-staffing', predictiveStaffingRoutes);

@@ -147,6 +147,7 @@ const getClientStatsRoute = createRoute({
                         budget: z.array(z.any()),
                         wellness: z.array(z.any()),
                         continuity: z.array(z.any()),
+                        nextVisit: z.any().nullable().optional(),
                     }),
                 },
             },
@@ -165,7 +166,7 @@ r.openapi(getClientStatsRoute, async (c) => {
     const profile = await prisma.clientProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    const [invoices, entries, visits] = await Promise.all([
+    const [invoices, entries, visits, nextVisit] = await Promise.all([
         prisma.invoice.findMany({
             where: { clientId: profile.id, status: 'paid' },
             select: { total: true }
@@ -180,6 +181,11 @@ r.openapi(getClientStatsRoute, async (c) => {
             where: { clientId: profile.id, status: 'completed' },
             include: { psw: { select: { id: true, fullName: true } } },
             take: 50
+        }),
+        prisma.visit.findFirst({
+            where: { clientId: profile.id, status: { in: ['scheduled', 'en_route'] }, requestedStartAt: { gte: new Date() } },
+            orderBy: { requestedStartAt: 'asc' },
+            include: { psw: { include: { user: true } }, service: true }
         })
     ]);
 
@@ -213,10 +219,20 @@ r.openapi(getClientStatsRoute, async (c) => {
         { name: 'Relief Staff', value: Math.round(((totalVisits - primaryCount) / totalVisits) * 100) }
     ];
 
+    const nextVisitFormatted = nextVisit ? {
+        id: nextVisit.id,
+        workerName: nextVisit.psw?.fullName || 'Unassigned',
+        workerRole: nextVisit.service?.name || 'Personal Support Worker',
+        arrivalTime: new Date(nextVisit.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        bio: nextVisit.psw?.user?.bio || 'Looking forward to our visit today!',
+        imageUrl: nextVisit.psw?.user?.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(nextVisit.psw?.fullName || 'U')}`
+    } : null;
+
     return c.json({
         budget: spendingData,
         wellness: wellnessData.length > 0 ? wellnessData : [{ day: 'N/A', mood: 0, energy: 0 }],
-        continuity: continuityData
+        continuity: continuityData,
+        nextVisit: nextVisitFormatted
     }, 200);
 });
 

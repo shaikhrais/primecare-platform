@@ -9,29 +9,38 @@ interface Anomaly {
     severity: 'critical' | 'warning';
 }
 
-const MOCK_ANOMALIES: Anomaly[] = [
-    { id: '1', type: 'late', message: 'PSW S. Connor is 45m late for Client B. Morrison', timestamp: new Date(), severity: 'warning' },
-    { id: '2', type: 'overtime', message: 'Nurse J. Reynolds approaching 60h weekly limit', timestamp: new Date(Date.now() - 3600000), severity: 'critical' },
-    { id: '3', type: 'incident', message: 'Fall Risk Level 4 reported at Facility North', timestamp: new Date(Date.now() - 7200000), severity: 'critical' },
-];
+// Removing MOCK_ANOMALIES to enforce DB-only architecture
 
 export const AnomalyTicker: React.FC = () => {
-    const [anomalies, setAnomalies] = useState<Anomaly[]>(MOCK_ANOMALIES);
-
-    // Simulate new anomalies rolling in
+    const [anomalies, setAnomalies] = useState<Anomaly[]>([]);
+    
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (Math.random() > 0.7) {
-                const newAnomaly: Anomaly = {
-                    id: Math.random().toString(),
-                    type: 'late',
-                    message: `System Alert: Missed EVV Check-out detected for Shift #${Math.floor(Math.random() * 1000)}`,
-                    timestamp: new Date(),
-                    severity: 'critical'
-                };
-                setAnomalies(prev => [newAnomaly, ...prev].slice(0, 5)); // Keep last 5
+        const fetchAnomalies = async () => {
+            try {
+                // Using apiClient directly to the new worker-api route
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/v1/manager/ops/incidents`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    const mapped = data.map((d: any) => ({
+                        id: d.id,
+                        type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
+                        message: `[${d.type.toUpperCase()}] ${d.description}`,
+                        timestamp: new Date(d.createdAt),
+                        severity: d.status === 'open' ? 'critical' : 'warning'
+                    }));
+                    setAnomalies(mapped.slice(0, 5));
+                }
+            } catch (error) {
+                console.error('Failed to load anomalies:', error);
             }
-        }, 8000);
+        };
+        fetchAnomalies();
+        
+        // Poll every 30 seconds for live operations
+        const interval = setInterval(fetchAnomalies, 30000);
         return () => clearInterval(interval);
     }, []);
 

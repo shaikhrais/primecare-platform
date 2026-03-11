@@ -12,13 +12,28 @@ interface AttributionMetric {
     actualBilledRevenue: number; // The Holy Grail Metric
 }
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 export const MarketingRevenueAttribution: React.FC = () => {
-    const [metrics] = useState<AttributionMetric[]>([
-        { id: '1', campaignName: 'Q4_Dementia_Search', utmSource: 'google_cpc', spend: 4500, clicksTracked: 1250, leadsCaptured: 85, contractsSigned: 12, actualBilledRevenue: 145000 },
-        { id: '2', campaignName: 'Winter_Respite_Promo', utmSource: 'facebook_ads', spend: 2200, clicksTracked: 3400, leadsCaptured: 120, contractsSigned: 4, actualBilledRevenue: 18000 },
-        { id: '3', campaignName: 'Hospital_Discharge_Flyer', utmSource: 'print_qr', spend: 350, clicksTracked: 45, leadsCaptured: 18, contractsSigned: 8, actualBilledRevenue: 92000 },
-        { id: '4', campaignName: 'Local_Magazine_Ad', utmSource: 'print_vanity_url', spend: 1800, clicksTracked: 12, leadsCaptured: 2, contractsSigned: 0, actualBilledRevenue: 0 }
-    ]);
+    const [metrics, setMetrics] = useState<AttributionMetric[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchMetrics = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/revenue-attribution');
+                if (res.ok) {
+                    const data = await res.json();
+                    setMetrics(data);
+                }
+            } catch (error) {
+                console.error("Failed to load attribution metrics", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchMetrics();
+    }, []);
 
     const totalSpend = metrics.reduce((sum, m) => sum + m.spend, 0);
     const totalRevenue = metrics.reduce((sum, m) => sum + m.actualBilledRevenue, 0);
@@ -47,7 +62,7 @@ export const MarketingRevenueAttribution: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {metrics.map(metric => {
+                {loading ? <div style={{ textAlign: 'center', padding: '24px', color: '#64748B' }}>Syncing revenue attribution models...</div> : (metrics.map(metric => {
                     const roas = (metric.actualBilledRevenue / metric.spend) || 0;
                     const isProfitable = roas > 3; // >3x ROI is generally considered profitable
                     const isTotalLoss = metric.contractsSigned === 0;
@@ -106,7 +121,7 @@ export const MarketingRevenueAttribution: React.FC = () => {
 
                         </div>
                     );
-                })}
+                }))}
             </div>
             
              <div style={{ marginTop: '24px', padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0', fontSize: '0.9rem', color: '#0F172A', lineHeight: 1.5 }}>

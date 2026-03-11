@@ -10,41 +10,40 @@ interface AuditEvent {
     type: 'creation' | 'modification' | 'approval' | 'system';
 }
 
-const MOCK_EVENTS: AuditEvent[] = [
-    {
-        id: '1',
-        timestamp: new Date(Date.now() - 86400000 * 3), // 3 days ago
-        actor: { name: 'Sarah Connor', role: 'PSW' },
-        action: 'Created Initial Timesheet',
-        details: 'Logged 40h Regular, 2h Overtime.',
-        type: 'creation'
-    },
-    {
-        id: '2',
-        timestamp: new Date(Date.now() - 86400000 * 2),
-        actor: { name: 'Automated Rule Engine', role: 'System' },
-        action: 'Flagged Overtime Policy Exception',
-        details: 'Overtime > 1h without pre-auth code.',
-        type: 'system'
-    },
-    {
-        id: '3',
-        timestamp: new Date(Date.now() - 86400000 * 1.5),
-        actor: { name: 'Robert Chase', role: 'Clinical Manager' },
-        action: 'Modified Timesheet Payload',
-        details: 'Adjusted overtime down to 1h based on GPS ping logs.',
-        type: 'modification'
-    },
-    {
-        id: '4',
-        timestamp: new Date(Date.now() - 1200000),
-        actor: { name: 'Eleanor Vance', role: 'Operations Director' },
-        action: 'Manually Approved Override',
-        type: 'approval'
-    }
-];
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const AuditTimeline: React.FC = () => {
+    const [events, setEvents] = React.useState<AuditEvent[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchAudits = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/platform/audit-logs');
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    const mapped = data.map((d: any) => ({
+                        id: d.id,
+                        timestamp: new Date(d.createdAt || d.timestamp),
+                        actor: { name: d.actorUserId || 'System', role: 'Authorized Entity' },
+                        action: d.action,
+                        details: d.metadataJson ? JSON.stringify(d.metadataJson) : `Resource: ${d.resourceType} [${d.resourceId}]`,
+                        type: d.action.toLowerCase().includes('create') ? 'creation' 
+                              : d.action.toLowerCase().includes('approve') ? 'approval'
+                              : d.action.toLowerCase().includes('update') ? 'modification'
+                              : 'system'
+                    }));
+                    setEvents(mapped.slice(0, 10)); // keep last 10
+                }
+            } catch (error) {
+                console.error("Failed to fetch audit logs", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAudits();
+    }, []);
 
     const getIcon = (type: string) => {
         switch (type) {
@@ -77,8 +76,8 @@ export const AuditTimeline: React.FC = () => {
                 {/* Vertical Line Anchor */}
                 <div style={{ position: 'absolute', left: '23px', top: '24px', bottom: '24px', width: '2px', backgroundColor: '#E2E8F0', zIndex: 0 }} />
 
-                {MOCK_EVENTS.map((event, index) => (
-                    <div key={event.id} style={{ display: 'flex', gap: '24px', position: 'relative', paddingBottom: index === MOCK_EVENTS.length - 1 ? '0' : '32px' }}>
+                {loading ? <div style={{ padding: '24px', color: '#64748B' }}>Loading forensic trail...</div> : events.map((event, index) => (
+                    <div key={event.id} style={{ display: 'flex', gap: '24px', position: 'relative', paddingBottom: index === events.length - 1 ? '0' : '32px' }}>
                         {/* Timeline Node */}
                         <div style={{ 
                             width: '48px', height: '48px', 

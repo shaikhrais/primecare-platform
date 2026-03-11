@@ -3,7 +3,8 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { AlertCircle, CheckCircle, WifiOff, FileSignature } from 'lucide-react';
 import { SignaturePad } from '../assessments/components/SignaturePad';
 
-// Mock Medication Data
+import { apiClient } from '@/shared/utils/apiClient';
+
 interface Medication {
     id: string;
     name: string;
@@ -14,22 +15,6 @@ interface Medication {
     interactionLevel?: 'critical' | 'moderate' | 'none';
     interactionMessage?: string;
 }
-
-const MOCK_MAR: Medication[] = [
-    { id: 'm1', name: 'Metoprolol', dose: '50mg', route: 'PO', frequency: 'Daily (0800)', status: 'pending' },
-    {
-        id: 'm2',
-        name: 'Warfarin',
-        dose: '5mg',
-        route: 'PO',
-        frequency: 'Daily (0800)',
-        status: 'pending',
-        interactionLevel: 'critical',
-        interactionMessage: 'CRITICAL INTERACTION DETECTED: Aspirin increases bleeding risk when taken with Warfarin. Evaluate INR.'
-    },
-    { id: 'm3', name: 'Aspirin (Scheduled)', dose: '81mg', route: 'PO', frequency: 'Daily (0800)', status: 'pending' },
-    { id: 'm4', name: 'Acetaminophen', dose: '650mg', route: 'PO', frequency: 'PRN', status: 'pending' },
-];
 
 export const MarClient: React.FC = () => {
     const { showToast } = useNotification();
@@ -44,14 +29,23 @@ export const MarClient: React.FC = () => {
     const [signature, setSignature] = useState<string | null>(null);
 
     useEffect(() => {
-        // Suggestion 15: Offline MAR capability
         const loadMeds = async () => {
             const cached = localStorage.getItem('primecare_emar_cache_123');
-            if (cached) {
+            if (cached && !navigator.onLine) {
                 setMeds(JSON.parse(cached));
-            } else {
-                setMeds(MOCK_MAR);
-                localStorage.setItem('primecare_emar_cache_123', JSON.stringify(MOCK_MAR));
+                return;
+            }
+
+            try {
+                // Hardcoding demo client ID for testing
+                const response = await apiClient.get('/v1/rn/clinical/mar/demo-client-1');
+                setMeds(response as unknown as Medication[]);
+                localStorage.setItem('primecare_emar_cache_123', JSON.stringify(response));
+            } catch (error) {
+                console.error('Failed to load meds:', error);
+                
+                // Fallback to cache if API strictly fails
+                if (cached) setMeds(JSON.parse(cached));
             }
         };
         loadMeds();
@@ -86,15 +80,34 @@ export const MarClient: React.FC = () => {
         setIsSigning(true);
     };
 
-    const handleFinalSubmit = () => {
+    const handleFinalSubmit = async () => {
         if (!signature) {
             showToast('Signature required.', 'error');
             return;
         }
-        showToast('Daily MAR Successfully Committed to Ledger.', 'success');
-        setIsSigning(false);
-        setMeds(MOCK_MAR); // Reset mock state
-        localStorage.removeItem('primecare_emar_cache_123');
+
+        try {
+            // Commit administered medications back to the server
+            const administeredMeds = meds.filter(m => m.status === 'administered');
+            for (const med of administeredMeds) {
+                await apiClient.post('/v1/rn/clinical/mar/administer', {
+                    clientId: 'demo-client-1',
+                    medicationName: med.name,
+                    dosage: med.dose,
+                    route: med.route,
+                    scheduledTime: new Date().toISOString(),
+                    status: 'given'
+                });
+            }
+
+            showToast('Daily MAR Successfully Committed to Ledger.', 'success');
+            setIsSigning(false);
+            setMeds([]); // Assume fetched fresh on component reload
+            localStorage.removeItem('primecare_emar_cache_123');
+        } catch (error) {
+            console.error('Failed to commit ledger:', error);
+            showToast('Failed to sync MAR ledger. Data cached locally.', 'error');
+        }
     };
 
     return (
@@ -195,7 +208,7 @@ export const MarClient: React.FC = () => {
                         <SignaturePad
                             width={450}
                             height={150}
-                            onSave={(sig) => setSignature(sig)}
+                            onSave={(sig: string) => setSignature(sig)}
                             onClear={() => setSignature(null)}
                         />
                         {signature && (

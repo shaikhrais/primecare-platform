@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { BrainCircuit, Zap, Target, Activity } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '../../../../../../shared/api/apiClient';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 

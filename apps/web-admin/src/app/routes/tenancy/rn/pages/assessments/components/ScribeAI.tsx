@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Check, X, Wand2, FileText, Loader2 } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface ScribeAIProps {
     onSaveNotes: (soapierData: any) => void;
@@ -11,6 +12,7 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
     const [transcript, setTranscript] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
     const [structuredNotes, setStructuredNotes] = useState<any | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // Mocking a Web Speech API / MediaRecorder stream
     useEffect(() => {
@@ -34,21 +36,22 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
         return () => clearInterval(interval);
     }, [isRecording]);
 
-    const handleProcessAI = () => {
+    const handleProcessAI = async () => {
         setIsProcessing(true);
-        // Mocking the AI Whisper -> SOAPIER parsing pipeline
-        setTimeout(() => {
-            setStructuredNotes({
-                S: "Patient reports lower back pain (6/10).",
-                O: "Mild erythema observed in sacral region. BP: 130/85. Vitals otherwise stable.",
-                A: "Risk for impaired skin integrity related to immobility.",
-                P: "Apply barrier cream. Turn and reposition every 2 hours.",
-                I: "Barrier cream applied during visit.",
-                E: "Patient tolerated position change well.",
-                R: "Will re-assess sacral region on next scheduled visit."
-            });
+        setError(null);
+        try {
+            const res = await apiClient.post('/v1/rn/clinical/scribe-parse/parse', { transcript });
+            if (res.ok) {
+                const data = await res.json();
+                setStructuredNotes(data);
+            } else {
+                setError('Failed to process dictation via Scribe Engine.');
+            }
+        } catch (err) {
+            setError('Network communication failed with AI worker.');
+        } finally {
             setIsProcessing(false);
-        }, 2000);
+        }
     };
 
     return (
@@ -114,6 +117,7 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                             ) : (
                                 <p style={{ color: '#94A3B8', fontStyle: 'italic', margin: 0 }}>Tap dictate and begin speaking your clinical observations...</p>
                             )}
+                            {error && <div style={{ marginTop: '16px', color: '#DC2626', fontSize: '0.85rem', fontWeight: 700 }}>{error}</div>}
                         </div>
                     </div>
 

@@ -149,4 +149,61 @@ family.openapi(messageRoute, async (c) => {
     return c.json({ sent: true }, 200);
 });
 
+// GET /schedule/upcoming — Family calendar export
+const scheduleRoute = createRoute({
+    method: 'get', path: '/schedule/upcoming',
+    summary: 'Family Upcoming Schedule', tags: ['Family'],
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Upcoming visits' }
+    }
+});
+
+family.openapi(scheduleRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const userId = (c.get('jwtPayload') as any).sub;
+
+    let clientId;
+    const clientProfile = await prisma.clientProfile.findUnique({ where: { userId } });
+    if (clientProfile) {
+        clientId = clientProfile.id;
+    } else {
+        const userRec = await prisma.user.findUnique({ where: { id: userId } });
+        const familyMember = await prisma.familyMember.findFirst({ 
+            where: { tenantId, email: userRec?.email || '' } 
+        });
+        if (familyMember) clientId = familyMember.clientId;
+    }
+
+    if (!clientId) return c.json([], 200);
+
+    const visits = await prisma.visit.findMany({
+        where: { tenantId, clientId, status: { in: ['scheduled', 'en_route', 'in_progress'] }, requestedStartAt: { gte: new Date() } },
+        orderBy: { requestedStartAt: 'asc' },
+        take: 15,
+        include: {
+            service: { select: { name: true, durationMinutes: true, description: true } },
+            psw: { include: { user: true } },
+            client: { select: { addressLine1: true, city: true } }
+        }
+    });
+
+    const mapped = visits.map((v: any) => {
+        const startsAt = new Date(v.requestedStartAt);
+        const durationMinutes = v.service?.durationMinutes || 60;
+        const endsAt = new Date(startsAt.getTime() + durationMinutes * 60000);
+
+        return {
+            id: v.id,
+            title: `PrimeCare: ${v.service?.name || 'Home Care Visit'}`,
+            description: `Care visit performed by ${v.psw?.user?.fullName || v.psw?.fullName || 'Assigned Staff'}.`,
+            startsAt,
+            endsAt,
+            location: `${v.client?.addressLine1 || ''}, ${v.client?.city || ''}`
+        };
+    });
+
+    return c.json(mapped, 200);
+});
+
 export default family;

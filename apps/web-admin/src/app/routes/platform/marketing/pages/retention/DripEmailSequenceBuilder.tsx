@@ -9,15 +9,28 @@ interface SequenceNode {
     metrics?: { sent: number; openRate: number; clickRate: number };
 }
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 export const DripEmailSequenceBuilder: React.FC = () => {
-    const [nodes] = useState<SequenceNode[]>([
-        { id: '1', type: 'TRIGGER', title: 'Lead Capture Form', description: 'User downloads "Dementia Pricing Guide PDF"' },
-        { id: '2', type: 'EMAIL', title: 'Email 1: Guide Delivery', description: 'Subject: Here is your Pricing Guide', metrics: { sent: 450, openRate: 68, clickRate: 42 } },
-        { id: '3', type: 'DELAY', title: 'Wait 3 Days', description: 'Give them time to read the PDF.' },
-        { id: '4', type: 'EMAIL', title: 'Email 2: Trust Building', description: 'Subject: How we screen our caregivers', metrics: { sent: 390, openRate: 45, clickRate: 15 } },
-        { id: '5', type: 'CONDITION', title: 'Did they click?', description: 'Branch based on engagement.' },
-        { id: '6', type: 'EMAIL', title: 'Email 3 (High Intent)', description: 'Subject: Book a free RN assessment', metrics: { sent: 58, openRate: 80, clickRate: 35 } },
-    ]);
+    const [nodes, setNodes] = useState<SequenceNode[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchSequences = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/marketing/drip-sequences');
+                if (res.ok) {
+                    const data = await res.json();
+                    setNodes(data);
+                }
+            } catch (error) {
+                console.error("Failed to load drip sequences", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSequences();
+    }, []);
 
     const renderNode = (node: SequenceNode, index: number) => {
         let bgColor, borderColor, icon;
@@ -114,7 +127,7 @@ export const DripEmailSequenceBuilder: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px 0' }}>
-                {nodes.map((node, index) => renderNode(node, index))}
+                {loading ? <div style={{ color: '#64748B' }}>Loading sequence metrics...</div> : nodes.map((node, index) => renderNode(node, index))}
                 
                 {/* Visual anchor for the "No" branch dropoff */}
                 <div style={{ width: '400px', display: 'flex', justifyContent: 'flex-end', marginTop: '-120px', paddingRight: '40px' }}>

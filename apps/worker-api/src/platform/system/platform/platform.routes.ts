@@ -67,7 +67,21 @@ platform.get('/audit-logs', async (c) => {
         }
     });
 
-    return c.json({ logs });
+    return c.json(logs);
+});
+
+// GET /v1/system/platform/system-events (Terminal Stream feed)
+platform.get('/system-events', async (c) => {
+    const prisma = c.get('prisma');
+    const _tenantId = (c.get('jwtPayload') as any)?.tenantId;
+
+    const events = await prisma.systemEvent.findMany({
+        take: 30,
+        orderBy: { createdAt: 'desc' }
+    });
+
+    // Provide ascending chronological order for the terminal
+    return c.json(events.reverse());
 });
 
 // GET /v1/system/platform/stats

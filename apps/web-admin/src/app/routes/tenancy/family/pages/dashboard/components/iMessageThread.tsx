@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Send, Phone } from 'lucide-react';
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 interface ChatMessage {
     id: string;
     text: string;
@@ -8,32 +10,51 @@ interface ChatMessage {
     timestamp: string;
 }
 
-const MOCK_CHAT: ChatMessage[] = [
-    { id: '1', text: 'Hi! I noticed Sarah was a bit late today, is everything okay?', sender: 'family', timestamp: '10:45 AM' },
-    { id: '2', text: 'Hello! Yes, Sarah got caught in some traffic on the 401, but she arrived safely at 10:55 AM.', sender: 'coordinator', timestamp: '10:48 AM' },
-    { id: '3', text: 'Great, thanks for letting me know.', sender: 'family', timestamp: '10:50 AM' },
-    { id: '4', text: 'No problem at all! Let us know if you need anything else.', sender: 'coordinator', timestamp: '10:52 AM' },
-    { id: '5', text: 'Will do. Have a good weekend.', sender: 'family', timestamp: '10:55 AM' },
-];
-
 export const iMessageThread: React.FC = () => {
-    const [messages, setMessages] = useState<ChatMessage[]>(MOCK_CHAT.reverse()); // Data needs to be reversed for column-reverse layout
+    // Starting with an empty thread or a welcome message
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        { id: '0', text: 'Hello! I am Jessica, your Care Coordinator. How can I help you regarding John today?', sender: 'coordinator', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+    ]);
     const [inputText, setInputText] = useState('');
 
-    const handleSend = (e: React.FormEvent) => {
+    const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!inputText.trim()) return;
+        const text = inputText;
+        if (!text.trim()) return;
 
         const newMsg: ChatMessage = {
             id: Date.now().toString(),
-            text: inputText,
+            text,
             sender: 'family',
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
 
         // Unshift since array is reversed
-        setMessages([newMsg, ...messages]);
+        setMessages(prev => [newMsg, ...prev]);
         setInputText('');
+
+        try {
+            // Post to backend Audit Log
+            await apiClient.post('/v1/client/family/message', {
+                clientId: 'demo-client-1',
+                subject: 'Family Portal Message',
+                body: text
+            });
+
+            // Simulate Coordinator Auto-reply for Demo UX (since no real-time sockets yet)
+            setTimeout(() => {
+                const autoReply: ChatMessage = {
+                    id: Date.now().toString(),
+                    text: "I've received your message and logged it to the patient file. I'll get back to you shortly!",
+                    sender: 'coordinator',
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+                setMessages(prev => [autoReply, ...prev]);
+            }, 2500);
+
+        } catch (error) {
+            console.error('Failed to send message:', error);
+        }
     };
 
     return (

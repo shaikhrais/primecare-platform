@@ -1,34 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal } from 'lucide-react';
 
-const MOCK_LOGS = [
-    "[10:45:01.121] INIT: Establishing WSS to worker-api...",
-    "[10:45:01.300] CONN: Handshake 200 OK. Authenticated as SUPER_ADMIN_01.",
-    "[10:45:01.355] EXEC: Starting routine: PAYROLL_GLOBAL_SETTLEMENT_W41",
-    "[10:45:02.012] DB: Locking Timesheet tables [Agency 1 - 50]...",
-    "[10:45:02.105] DB: Lock acquired.",
-    "[10:45:02.890] CALC: Chunk 1/240 Processing 500 records...",
-    "[10:45:03.111] CALC: Chunk 1/240 OK. 500/120000 records resolved.",
-    "[10:45:03.115] CALC: Chunk 2/240 Processing 500 records...",
-    "[10:45:03.402] WRN : Timecard TS-4921-X has unresolved overtime.",
-    "[10:45:03.450] CALC: Chunk 2/240 OK. 1000/120000 records resolved.",
-    "[10:45:03.500] CALC: Chunk 3/240 Processing 500 records...",
-    "[10:45:03.655] CALC: Chunk 3/240 OK. 1500/120000 records resolved.",
-    "[10:45:03.880] INFO: Memory pressure at 42%. Garbage collection triggered.",
-    "[10:45:04.010] CALC: Chunk 4/240 Processing 500 records...",
-    "[10:45:04.300] CALC: Chunk 4/240 OK. 2000/120000 records resolved.",
-    "[10:45:04.550] CALC: Chunk 5/240 Processing 500 records...",
-    "[10:45:04.890] CALC: Chunk 5/240 OK. 2500/120000 records resolved.",
-    "[10:45:05.100] CALC: Chunk 6/240 Processing 500 records...",
-    "[10:45:05.112] ERR : Failed constraint. Retrying chunk 6...",
-    "[10:45:05.500] CALC: Chunk 6/240 OK. (Retry 1) 3000/120000 records resolved.",
-    "[10:45:05.800] CALC: Fast-forwarding logs...",
-    "[10:45:30.000] CALC: Chunk 240/240 OK. 120000/120000 records resolved.",
-    "[10:45:30.150] DB: Committing transaction...",
-    "[10:45:30.800] SYNC: Pushing remittance commands to Stripe Connect...",
-    "[10:45:31.900] SYNC: 121 batches remitted successfully.",
-    "[10:45:32.050] DONE: Routine PAYROLL_GLOBAL_SETTLEMENT_W41 Complete in 31.05s."
-];
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const TerminalStream: React.FC = () => {
     const [lines, setLines] = useState<string[]>([]);
@@ -42,20 +15,40 @@ export const TerminalStream: React.FC = () => {
         }
     }, [lines]);
 
-    const startStream = () => {
-        setLines([]);
+    const startStream = async () => {
+        setLines(['[00:00:00.000] INIT: Fetching system kernel logs...']);
         setIsStreaming(true);
-        let index = 0;
 
-        const interval = setInterval(() => {
-            if (index < MOCK_LOGS.length) {
-                setLines(prev => [...prev, MOCK_LOGS[index]]);
-                index++;
+        try {
+            const res = await apiClient.get('/v1/system/platform/system-events');
+            if (res.ok) {
+                const data = await res.json();
+                const fetchedLogs = data.map((ev: any) => {
+                    const time = new Date(ev.createdAt).toISOString().split('T')[1].replace('Z', '');
+                    const tag = ev.operation === 'UPDATE' ? 'SYNC' : ev.operation === 'DELETE' ? 'ERR ' : 'DB  ';
+                    return `[${time}] ${tag}: ${ev.modelName} (ID: ${ev.entityId}) action [${ev.operation}] by Actor ${ev.actorUserId || 'KERNEL'}`;
+                });
+                
+                fetchedLogs.push(`[${new Date().toISOString().split('T')[1].replace('Z', '')}] DONE: Cloudflare Worker Execution Complete.`);
+
+                let index = 0;
+                const interval = setInterval(() => {
+                    if (index < fetchedLogs.length) {
+                        setLines(prev => [...prev, fetchedLogs[index]]);
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                        setIsStreaming(false);
+                    }
+                }, 100); 
             } else {
-                clearInterval(interval);
+                setLines(prev => [...prev, '[00:00:00.000] ERR : Failed to communicate with worker-api.']);
                 setIsStreaming(false);
             }
-        }, 150); // Fast simulation
+        } catch (error) {
+            setLines(prev => [...prev, `[00:00:00.000] ERR : Fatal Exception in shell stream. ${error}`]);
+            setIsStreaming(false);
+        }
     };
 
     return (

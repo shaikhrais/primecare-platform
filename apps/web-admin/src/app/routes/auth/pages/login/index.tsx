@@ -79,11 +79,47 @@ export default function Login() {
         navigate(target);
     };
 
-    const handleBiometricSuccess = () => {
-        // Mock successful biometric bypass for demo. In reality, we'd exchange WebAuthn assertions for a token.
+    const handleBiometricSuccess = async () => {
+        // In a real WebAuthn flow, this would pass the assertion to the backend.
+        // For the purpose of this eradication phase, we'll swap out the hardcoded mock user
+        // and trigger a real API login using the current (or pre-configured) email/password state.
         setShowBiometric(false);
-        const mockPswUser = { id: 'psw-1', email: 'psw@primecare.com', fullName: 'Sarah PSW', roles: ['psw'] };
-        finalizeLogin(mockPswUser, 'psw', 'mock-biometric-token');
+        setLoading(true);
+        setError(null);
+
+        // Simulated user for demo purposes, since we don't have true WebAuthn keys registered
+        // in this environment. We'll use a real known user account to hit the real DB.
+        const demoEmail = email || 'psw@primecare.com';
+        const demoPassword = password || 'Password123!';
+
+        try {
+            const response = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                body: JSON.stringify({ email: demoEmail, password: demoPassword }),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const roles = data.user.roles || [data.user.role];
+
+                if (roles.length > 1) {
+                    setTempUser(data.user);
+                    setTempToken(data.token);
+                    setAuthStep('select-role');
+                } else {
+                    finalizeLogin(data.user, roles[0], data.token);
+                }
+            } else {
+                const data = await response.json();
+                setError(typeof data.error === 'object' ? JSON.stringify(data.error) : data.error || 'Biometric authentication failed');
+            }
+        } catch (err) {
+            setError('Network error during biometric authentication.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     if (authStep === 'select-role' && tempUser) {

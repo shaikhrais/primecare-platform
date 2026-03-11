@@ -10,27 +10,33 @@ interface ShiftItem {
     location: string;
 }
 
-const MOCK_SHIFTS: ShiftItem[] = [
-    {
-        id: 'shift-1',
-        title: 'PrimeCare: Morning Morning PSW Visit',
-        description: 'Morning hygiene and breakfast prep by John Doe (PSW).',
-        startsAt: new Date(new Date().setHours(8, 0, 0, 0) + 86400000), // Tomorrow 8am
-        endsAt: new Date(new Date().setHours(10, 0, 0, 0) + 86400000), // Tomorrow 10am
-        location: '123 Main St, Anytown',
-    },
-    {
-        id: 'shift-2',
-        title: 'PrimeCare: Afternoon RN Visit',
-        description: 'Wound care and medication administration by Sarah Jenkins (RN).',
-        startsAt: new Date(new Date().setHours(14, 0, 0, 0) + 86400000 * 2), // Day after tomorrow 2pm
-        endsAt: new Date(new Date().setHours(15, 30, 0, 0) + 86400000 * 2),
-        location: '123 Main St, Anytown',
-    }
-];
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const CalendarExportList: React.FC = () => {
-    
+    const [shifts, setShifts] = React.useState<ShiftItem[]>([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchSchedule = async () => {
+            try {
+                // Dynamically fetch the family schedule based on logged-in user context
+                const res = await apiClient.get('/v1/client/family/schedule/upcoming');
+                if (res.ok) {
+                    const data = await res.json();
+                    setShifts(data.map((d: any) => ({
+                        ...d,
+                        startsAt: new Date(d.startsAt),
+                        endsAt: new Date(d.endsAt)
+                    })));
+                }
+            } catch (error) {
+                console.error("Failed to load family schedule", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchSchedule();
+    }, []);
     // Generates a proper iCalendar (.ics) string format client-side
     const generateIcsBlob = (shift: ShiftItem) => {
         // Formatting function for exact iCal timestamp structure: YYYYMMDDTHHMMSSZ
@@ -75,7 +81,7 @@ export const CalendarExportList: React.FC = () => {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {MOCK_SHIFTS.map(shift => (
+                {loading ? <div style={{ color: '#64748B', padding: '16px' }}>Syncing schedule...</div> : shifts.length === 0 ? <div style={{ color: '#64748B', padding: '16px' }}>No upcoming visits scheduled.</div> : shifts.map(shift => (
                     <div key={shift.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
                         <div>
                             <div style={{ fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>{shift.title}</div>

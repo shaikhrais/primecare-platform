@@ -10,18 +10,42 @@ interface LedgerEntry {
     timestamp: Date;
 }
 
-const MOCK_LEDGER: LedgerEntry[] = [
-    { id: 'tx-001', account: 'Cash/Operating (1001)', description: 'Daily Payroll Deposit', debit: 125000.00, credit: null, timestamp: new Date() },
-    { id: 'tx-002', account: 'Accounts Payable (2100)', description: 'Weekly Contractor Wages', debit: null, credit: 110000.00, timestamp: new Date() },
-    { id: 'tx-003', account: 'Tax Withholding (2250)', description: 'HST/GST Reserve', debit: null, credit: 15000.00, timestamp: new Date() },
-    
-    // An unbalanced entry for testing
-    { id: 'tx-004', account: 'Equipment Expense (5100)', description: 'New Tablets for PSWs', debit: 4500.00, credit: null, timestamp: new Date(Date.now() - 86400000) },
-    { id: 'tx-005', account: 'Cash/Operating (1001)', description: 'Tablet Purchase', debit: null, credit: 4000.00, timestamp: new Date(Date.now() - 86400000) },
-];
+import { apiClient } from '@/shared/utils/apiClient';
 
 export const TAccountVisualizer: React.FC = () => {
-    const [entries] = useState<LedgerEntry[]>(MOCK_LEDGER);
+    const [entries, setEntries] = useState<LedgerEntry[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchLedger = async () => {
+            try {
+                const res = await apiClient.get('/v1/system/financial');
+                if (res.ok) {
+                    const data = await res.json();
+                    // Flatten transaction journal entries into individual T-account entries
+                    const mappedEntries: LedgerEntry[] = [];
+                    data.forEach((tx: any) => {
+                        tx.journalEntries.forEach((je: any) => {
+                            mappedEntries.push({
+                                id: je.id,
+                                account: `${je.account?.name || 'Unknown'} (${je.account?.code || '---'})`,
+                                description: tx.description || 'System Entry',
+                                debit: je.type === 'debit' ? je.amount : null,
+                                credit: je.type === 'credit' ? je.amount : null,
+                                timestamp: new Date(tx.createdAt)
+                            });
+                        });
+                    });
+                    setEntries(mappedEntries);
+                }
+            } catch (error) {
+                console.error("Failed to load ledger stream", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchLedger();
+    }, []);
 
     const formatCurrency = (amount: number | null) => {
         if (amount === null) return '-';
@@ -58,6 +82,7 @@ export const TAccountVisualizer: React.FC = () => {
                 
                 {/* DEBITS COLUMN */}
                 <div>
+                    {loading && <div style={{ color: '#64748B', marginBottom: '16px' }}>Loading stream...</div>}
                     <div style={{ textAlign: 'center', fontWeight: 900, color: '#334155', borderBottom: '4px solid #6366F1', paddingBottom: '12px', marginBottom: '16px', fontSize: '1.1rem', letterSpacing: '2px' }}>
                         DEBITS (Dr)
                     </div>
