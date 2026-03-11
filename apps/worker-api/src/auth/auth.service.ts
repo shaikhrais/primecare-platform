@@ -9,18 +9,25 @@ import { sign } from 'hono/jwt';
  * - Removed unused hashPassword import
  */
 
+export const parseRoles = (roles: any): string[] => {
+    if (Array.isArray(roles)) return roles;
+    if (typeof roles === 'string') return roles.split(',').map(r => r.trim()).filter(Boolean);
+    return ['client'];
+};
+
 export const generateToken = async (
-    user: { id: string; roles: string[]; tenantId: string },
+    user: { id: string; roles: string | string[]; tenantId: string },
     secret: string,
     options: { activeRole?: string, expiresInMinutes?: number, type?: string } = {}
 ) => {
     const { activeRole, expiresInMinutes = 60, type } = options;
     const now = Math.floor(Date.now() / 1000);
+    const parsedRoles = parseRoles(user.roles);
 
     const payload: any = {
         sub: user.id,
-        roles: user.roles,
-        activeRole: activeRole || user.roles[0],
+        roles: parsedRoles,
+        activeRole: activeRole || parsedRoles[0],
         tenantId: user.tenantId,
         jti: crypto.randomUUID(),               // R23: Unique token ID for revocation denylist
         iat: now,                           // R8: When token was issued

@@ -17,7 +17,7 @@ const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // PSW module-level middleware
 psw.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 
 // Routes

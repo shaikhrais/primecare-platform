@@ -1,4 +1,4 @@
-﻿import { Context, Next } from 'hono';
+import { Context, Next } from 'hono';
 import { jwt } from 'hono/jwt';
 
 /**
@@ -14,13 +14,17 @@ export const requireAuth = (secret: string) => {
             cookie: 'accessToken'
         });
 
+        console.log("REQUIRE_AUTH: Verifying token...");
         try {
             await cookieMiddleware(c, async () => { });
+            console.log("REQUIRE_AUTH: Token verified!");
         } catch (e) {
+            console.error("REQUIRE_AUTH ERROR:", e);
             return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);
         }
 
         const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string; iss?: string; aud?: string; type?: string; jti?: string };
+        console.log("REQUIRE_AUTH PAYLOAD:", payload);
         if (!payload) {
             return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);
         }

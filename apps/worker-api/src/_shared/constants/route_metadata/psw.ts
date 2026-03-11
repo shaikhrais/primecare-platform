@@ -40,6 +40,16 @@ export const PSW_METADATA = {
             description: 'Report that a client was not present for a visit. Requires a check-in and 15 minute wait.',
             tags: ['PSW Schedule'],
         },
+        LIST_MARKETPLACE: {
+            summary: 'Get Marketplace Extends',
+            description: 'Retrieve a list of unassigned open shifts in the marketplace.',
+            tags: ['PSW Schedule'],
+        },
+        ACCEPT_MARKETPLACE: {
+            summary: 'Accept Marketplace Shift',
+            description: 'Accept an open shift from the marketplace and self-assign it.',
+            tags: ['PSW Schedule'],
+        },
     },
     EXTRA: {
         INCIDENTS_REPORT: {

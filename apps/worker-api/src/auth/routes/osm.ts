@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
-import { generateToken } from '../auth.service';
+import { generateToken, parseRoles } from '../auth.service';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -140,22 +140,23 @@ r.openapi(osmCallbackRoute, async (c) => {
                     email: osmEmail,
                     osmId,
                     tenantId: tenant.id,
-                    roles: ['client'],
+                    roles: 'client',
                     status: 'active'
                 }
             });
         }
 
         // 4. Generate Session — using env JWT_SECRET (no fallback)
+        const parsedRoles = parseRoles(user.roles);
         const accessToken = await generateToken({
             id: user.id,
-            roles: user.roles as any,
+            roles: parsedRoles,
             tenantId: user.tenantId
         }, jwtSecret);
 
         const refreshToken = await generateToken({
             id: user.id,
-            roles: user.roles as any,
+            roles: parsedRoles,
             tenantId: user.tenantId
         }, jwtSecret, { type: 'refresh', expiresInMinutes: 60 * 24 * 7 });
 

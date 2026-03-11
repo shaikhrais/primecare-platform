@@ -1,8 +1,8 @@
-﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../../bindings';
-import { generateToken } from '../auth.service';
+import { generateToken, parseRoles } from '../auth.service';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { logAudit } from '../../_shared/utils/audit';
 
@@ -62,9 +62,10 @@ r.openapi(refreshRoute, async (c) => {
             return c.json({ error: 'Account disabled' }, 401);
         }
 
+        const parsedRoles = parseRoles(user.roles);
         const accessToken = await generateToken({
             id: user.id,
-            roles: user.roles as any,
+            roles: parsedRoles,
             tenantId: user.tenantId
         }, jwtSecret);
 
@@ -197,7 +198,8 @@ r.openapi(whoamiRoute, async (c) => {
             return c.json({ error: 'Account disabled' }, 401);
         }
 
-        return c.json({ user }, 200);
+        const parsedRoles = parseRoles(user.roles);
+        return c.json({ user: { ...user, roles: parsedRoles } }, 200);
     } catch (err: any) {
         // R4: Don't log full error, just message
         return c.json({ error: 'Internal Server Error' }, 500);

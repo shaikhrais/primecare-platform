@@ -17,7 +17,7 @@ const staff = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // Staff module-level middleware
 staff.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 staff.use('*', requireRole(['staff', 'coordinator', 'admin']));
 

@@ -10,7 +10,7 @@ const sm = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // Scrum Master module-level middleware
 sm.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 sm.use('*', requireRole(['admin', 'scrum_master']));
 

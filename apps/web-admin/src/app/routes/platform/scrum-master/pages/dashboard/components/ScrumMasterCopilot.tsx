@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '../../../../../../shared/api/apiClient';
 
-const { ContentRegistry } = AdminRegistry;
+const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
 export const ScrumMasterCopilot: React.FC = () => {
     const { t } = useTranslation();
+    const [isPushing, setIsPushing] = useState(false);
+
+    const handleSchemaPush = async () => {
+        if (!window.confirm("Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment.")) return;
+        setIsPushing(true);
+        try {
+            const res = await apiClient.post('/v1/admin/developer/db-push', {});
+            alert(res.message || "Schema push triggered successfully.");
+        } catch (error: any) {
+            alert("Failed to push schema: " + (error.message || "Unknown error"));
+        } finally {
+            setIsPushing(false);
+        }
+    };
 
     const suggestions = [
         { text: t(ContentRegistry.SCRUM_MASTER.COPILOT.SUGGESTION_1), impact: 'High', color: '#10b981' },
@@ -26,7 +41,24 @@ export const ScrumMasterCopilot: React.FC = () => {
                     <h3 style={{ margin: '0 0 5px 0', fontSize: '1.5rem', fontWeight: 800 }}>✨ {t(ContentRegistry.SCRUM_MASTER.COPILOT.TITLE)}</h3>
                     <p style={{ margin: 0, opacity: 0.8, fontSize: '0.9rem' }}>{t(ContentRegistry.SCRUM_MASTER.COPILOT.SUBTITLE)}</p>
                 </div>
-                <div style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.2)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800, backdropFilter: 'blur(10px)' }}>AI PREVIEW</div>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    <button 
+                        onClick={handleSchemaPush} 
+                        disabled={isPushing}
+                        style={{ 
+                            padding: '8px 16px', 
+                            background: isPushing ? 'rgba(255,255,255,0.1)' : '#10b981', 
+                            border: 'none',
+                            color: 'white',
+                            cursor: isPushing ? 'not-allowed' : 'pointer',
+                            borderRadius: '12px', 
+                            fontSize: '0.75rem', 
+                            fontWeight: 800 
+                        }}>
+                        {isPushing ? 'PUSHING...' : '⚡ PUSH SCHEMA'}
+                    </button>
+                    <div style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.2)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800, backdropFilter: 'blur(10px)' }}>AI PREVIEW</div>
+                </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

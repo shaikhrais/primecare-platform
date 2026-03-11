@@ -1,9 +1,10 @@
-﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { LoginSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken } from '../auth.service';
 import { hashPassword, comparePassword, isLegacyHash } from '../../_shared/utils/crypto';
+import { parseRoles } from '../auth.service';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
 import { logAudit } from '../../_shared/utils/audit';
 import { authRateLimit } from '../../_shared/middleware/rate-limit';
@@ -103,9 +104,11 @@ r.openapi(loginRoute, async (c) => {
         const jwtSecret = c.env.JWT_SECRET;
         if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
+        const parsedRoles = parseRoles(user.roles);
+
         const accessToken = await generateToken({
             id: user.id,
-            roles: user.roles as any,
+            roles: parsedRoles,
             tenantId: user.tenantId
         }, jwtSecret);
 
@@ -152,7 +155,7 @@ r.openapi(loginRoute, async (c) => {
                 });
 
                 if (tenant && tenant.requireDeviceApproval) {
-                    const safeUserPending = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
+                    const safeUserPending = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
                     return c.json({
                         user: safeUserPending,
                         deviceStatus: 'pending_approval',
@@ -199,7 +202,7 @@ r.openapi(loginRoute, async (c) => {
             );
         }
 
-        const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId, status: user.status };
+        const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
         return c.json({ user: safeUser }, 200);
     } catch (e: any) {
         return c.json({ error: e.message, stack: e.stack }, 500);
@@ -262,11 +265,12 @@ r.openapi(switchRoleRoute, async (c) => {
     if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
     try {
+        const parsedRoles = parseRoles(user.roles);
         const token = await generateToken({
             id: user.id,
-            roles: user.roles as any,
+            roles: parsedRoles,
             tenantId: user.tenantId
-        }, jwtSecret, targetRole as any);
+        }, jwtSecret, { activeRole: targetRole as string });
 
         setCookie(c, 'accessToken', token, {
             httpOnly: true,

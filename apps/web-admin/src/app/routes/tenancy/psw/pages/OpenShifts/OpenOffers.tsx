@@ -58,19 +58,19 @@ export default function OpenOffers() {
                         <div key={offer.id} style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e5e7eb' }}>
                             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '1rem' }}>
                                 <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#ecfdf5', color: '#065f46', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 'bold' }}>OFFER</span>
-                                {offer.visit.isSurgeActive && (
+                                {offer.isSurgeActive && (
                                     <span style={{ padding: '0.25rem 0.75rem', backgroundColor: '#FEF2F2', color: '#EF4444', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                                        🔥 {offer.visit.surgeMultiplier}x SURGE
+                                        🔥 {offer.surgeMultiplier}x SURGE
                                     </span>
                                 )}
                                 <span style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '0.75rem' }}>Expires soon</span>
                             </div>
 
-                            <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{offer.visit.service?.name || 'Care Visit'}</h3>
+                            <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{offer.service?.name || 'Care Visit'}</h3>
                             <p style={{ margin: '0 0 1rem 0', color: '#4b5563', fontSize: '0.875rem' }}>
-                                <strong>Date:</strong> {new Date(offer.visit.requestedStartAt).toLocaleDateString()}<br />
-                                <strong>Time:</strong> {new Date(offer.visit.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ({offer.visit.durationMinutes} mins)<br />
-                                <strong>Client:</strong> {offer.visit.client?.fullName}
+                                <strong>Date:</strong> {new Date(offer.requestedStartAt).toLocaleDateString()}<br />
+                                <strong>Time:</strong> {new Date(offer.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ({offer.durationMinutes} mins)<br />
+                                <strong>Client:</strong> {offer.client?.fullName}
                             </p>
 
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>

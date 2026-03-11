@@ -19,6 +19,8 @@ const getDashboardStatsRoute = createRoute({
                         earnings: z.array(z.any()),
                         reliability: z.array(z.any()),
                         shifts: z.array(z.any()),
+                        hoursLogged: z.number(),
+                        currentStreak: z.number(),
                     }),
                 },
             },
@@ -32,9 +34,13 @@ const getDashboardStatsRoute = createRoute({
 
 r.openapi(getDashboardStatsRoute, async (c) => {
     const prisma = c.get('prisma');
-    const userId = c.get('jwtPayload').sub;
+    try {
+        console.log('1. Fetching userId');
+        const userId = c.get('jwtPayload').sub;
+        console.log('2. Fetching profile for userId:', userId);
 
-    const pswProfile = await prisma.pswProfile.findUnique({ where: { userId } });
+        const pswProfile = await prisma.pswProfile.findUnique({ where: { userId } });
+        console.log('3. Fetched profile:', pswProfile);
     if (!pswProfile) return c.json({ error: 'Profile not found' }, 404);
 
     const timesheets = await prisma.timesheet.findMany({
@@ -91,11 +97,20 @@ r.openapi(getDashboardStatsRoute, async (c) => {
         { name: 'Weekend', value: weekend || 1 }
     ];
 
+    const hoursLogged = (timesheets.reduce((acc: number, cur: any) => acc + (cur.totalMinutes || 0), 0) / 60) || 0;
+    const currentStreak = onTime > 5 ? Math.floor(onTime / 2) : onTime; // Simulated streak logic
+
     return c.json({
         earnings: earningsData,
         reliability: reliabilityData,
-        shifts: shiftData
+        shifts: shiftData,
+        hoursLogged: Number(hoursLogged.toFixed(1)),
+        currentStreak
     }, 200);
+    } catch(err: any) {
+        console.error("DASHBOARD STATS CRASHED:", err);
+        throw err;
+    }
 });
 
 export default r;

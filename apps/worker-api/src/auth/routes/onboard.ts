@@ -2,7 +2,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { BusinessOnboardSchema } from '../auth.validation';
-import { generateToken, generateRefreshToken } from '../auth.service';
+import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
 import { hashPassword } from '../../_shared/utils/crypto';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -73,7 +73,7 @@ r.openapi(onboardRoute, async (c) => {
         data: {
             email,
             passwordHash,
-            roles: ['admin'] as any,
+            roles: 'admin',
             tenantId: tenant.id
         },
     });
@@ -83,7 +83,9 @@ r.openapi(onboardRoute, async (c) => {
     const jwtSecret = c.env.JWT_SECRET;
     if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
-    const accessToken = await generateToken({ ...user, tenantId: tenant.id }, jwtSecret);
+    const parsedRoles = parseRoles(user.roles);
+
+    const accessToken = await generateToken({ ...user, roles: parsedRoles, tenantId: tenant.id }, jwtSecret);
     const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     setCookie(c, 'accessToken', accessToken, {
@@ -95,7 +97,7 @@ r.openapi(onboardRoute, async (c) => {
     });
 
     // R4: Return safe objects (no passwordHash)
-    const safeUser = { id: user.id, email: user.email, roles: user.roles, tenantId: user.tenantId };
+    const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId };
     // R19: Don't return token in body — HttpOnly cookie handles auth
     return c.json({ user: safeUser, tenant }, 201);
 });

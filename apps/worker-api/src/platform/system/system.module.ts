@@ -13,7 +13,7 @@ const system = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 // System module-level middleware
 system.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 
 // Routes

@@ -12,7 +12,7 @@ const coordinator = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }
 // Coordinator module-level middleware
 coordinator.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
-    await middleware(c, next);
+    return await middleware(c, next);
 });
 
 // Routes

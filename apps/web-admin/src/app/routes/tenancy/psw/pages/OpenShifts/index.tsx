@@ -28,26 +28,51 @@ export default function OpenShifts() {
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'marketplace' | 'swap_board'>('marketplace');
 
-    // MOCK DATA INJECTION FOR UI VALIDATION
-    useEffect(() => {
+    const fetchMarketplaceShifts = async () => {
         setLoading(true);
-        setTimeout(() => {
-            setShifts([
-                { id: '1', client: { city: 'Toronto' }, service: { name: 'Personal Care' }, requestedStartAt: new Date(Date.now() + 86400000).toISOString(), durationMinutes: 120, serviceAddressLine1: 'Downtown Core' },
-                { id: '2', client: { city: 'Mississauga' }, service: { name: 'Companionship' }, requestedStartAt: new Date(Date.now() + 172800000).toISOString(), durationMinutes: 60, serviceAddressLine1: 'Port Credit' }
-            ]);
-            setPeerSwaps([
-                { id: '3', client: { city: 'Toronto' }, service: { name: 'Respite Care' }, requestedStartAt: new Date(Date.now() + 259200000).toISOString(), durationMinutes: 240, serviceAddressLine1: 'Midtown', offeredBy: 'Sarah Connor', offeredByRole: 'PSW', note: 'Family emergency, really need coverage. Easy client.' }
-            ]);
+        try {
+            const res = await apiClient.get('/v1/psw/schedule/marketplace');
+            if (res.ok) {
+                const data = await res.json();
+                setShifts(data);
+                // Peer swaps aren't built yet, so we leave it empty for now
+                setPeerSwaps([]);
+            } else {
+                showToast('Failed to load marketplace shifts', 'error');
+            }
+        } catch (error) {
+            console.error('Error fetching marketplace shifts:', error);
+            showToast('Network error loading shifts', 'error');
+        } finally {
             setLoading(false);
-        }, 600);
+        }
+    };
+
+    useEffect(() => {
+        fetchMarketplaceShifts();
     }, []);
 
-    const handleAcceptShift = (id: string, isSwap = false) => {
-        showToast(isSwap ? 'Swap request sent to manager for approval.' : 'Shift accepted successfully!', 'success');
-        if (window.navigator?.vibrate) window.navigator.vibrate([50]);
-        if (isSwap) setPeerSwaps(prev => prev.filter(s => s.id !== id));
-        else setShifts(prev => prev.filter(s => s.id !== id));
+    const handleAcceptShift = async (id: string, isSwap = false) => {
+        if (isSwap) {
+            showToast('Swap request sent to manager for approval.', 'success');
+            setPeerSwaps(prev => prev.filter(s => s.id !== id));
+            return;
+        }
+
+        try {
+            const res = await apiClient.post(`/v1/psw/schedule/marketplace/${id}/accept`);
+            if (res.ok) {
+                showToast('Shift accepted successfully!', 'success');
+                if (window.navigator?.vibrate) window.navigator.vibrate([50]);
+                setShifts(prev => prev.filter(s => s.id !== id));
+            } else {
+                const data = await res.json();
+                showToast(data.error || 'Failed to accept shift. It may no longer be available.', 'error');
+                fetchMarketplaceShifts(); // Refresh list to remove taken shift
+            }
+        } catch (error) {
+            showToast('Network error while accepting shift', 'error');
+        }
     };
 
     // Suggestion 46: Guilt-Free Rejection UI

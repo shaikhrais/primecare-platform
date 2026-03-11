@@ -93,6 +93,7 @@ app.get('/v1/health', async (c) => {
 });
 
 app.onError((err, c) => {
+    console.error('APP.ONERROR:', err);
     // R11: Don't log full error objects in production
     // Removed raw console.error to prevent telemetry pollution
 

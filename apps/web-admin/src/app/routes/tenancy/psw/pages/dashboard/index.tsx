@@ -281,24 +281,24 @@ export default function PswDashboard() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
-                <EarningsProjections currentEarnings={840} targetEarnings={1000} trendData={[400, 550, 600, 300, 700, 800, 840]} />
+                <EarningsProjections currentEarnings={chartData?.earnings?.[chartData.earnings.length - 1]?.earnings || 0} targetEarnings={1000} trendData={chartData?.earnings?.map((e: any) => e.earnings) || [0]} />
                 <div className="pc-card" style={{ padding: '20px', borderLeft: `4px solid #3b82f6`, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
                         <div style={{ color: 'var(--text-300)', fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Hours Logged</div>
-                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>32.5</div>
+                        <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-100)', letterSpacing: '1px' }}>{chartData?.hoursLogged || 0}</div>
                     </div>
                     <div style={{ marginBottom: '8px' }}>
-                        <Sparkline data={[20, 25, 22, 30, 28, 30, 32.5]} color="#3b82f6" width={80} height={24} />
+                        <Sparkline data={chartData?.earnings?.map((e: any) => e.earnings) || [0]} color="#3b82f6" width={80} height={24} />
                     </div>
                 </div>
-                <ReliabilityStreak score={98} streakDays={14} trendData={[95, 96, 96, 97, 98, 97, 98]} />
+                <ReliabilityStreak score={98} streakDays={chartData?.currentStreak || 0} trendData={[95, 96, 96, 97, 98, 97, 98]} />
             </div>
 
             <PswStats chartData={chartData} />
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
                 <PeerKudosSystem />
-                <BurnoutPredictor hoursLoggedThisWeek={38} consecutiveDaysWorked={6} intensityScore={70} />
+                <BurnoutPredictor hoursLoggedThisWeek={chartData?.hoursLogged || 0} consecutiveDaysWorked={chartData?.currentStreak || 0} intensityScore={70} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>

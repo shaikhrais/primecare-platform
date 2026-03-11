@@ -1,7 +1,7 @@
-﻿import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
-import { generateToken, generateRefreshToken } from '../auth.service';
+import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
 import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
 import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
@@ -77,9 +77,10 @@ r.openapi(impersonateRoute, async (c) => {
 
     if (!targetUser) return c.json({ error: 'Target user not found' }, 404);
 
+    const parsedRoles = parseRoles(targetUser.roles);
+
     // R6: Prevent impersonating other super_admins
-    const targetRoles = (targetUser.roles || []) as string[];
-    if (targetRoles.includes('super_admin')) {
+    if (parsedRoles.includes('super_admin')) {
         return c.json({ error: 'Cannot impersonate another Super Admin' }, 403);
     }
 
@@ -91,7 +92,7 @@ r.openapi(impersonateRoute, async (c) => {
 
     const accessToken = await generateToken({
         id: targetUser.id,
-        roles: targetUser.roles as any,
+        roles: parsedRoles,
         tenantId: targetUser.tenantId,
     }, secret);
     const refreshToken = await generateRefreshToken(targetUser.id, secret);
@@ -110,7 +111,7 @@ r.openapi(impersonateRoute, async (c) => {
     const safeUser = {
         id: targetUser.id,
         email: targetUser.email,
-        roles: targetUser.roles,
+        roles: parsedRoles,
         tenantId: targetUser.tenantId,
     };
 
