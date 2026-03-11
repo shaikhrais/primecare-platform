@@ -27,8 +27,8 @@ import systemModule from './platform/system/system.module';
 import scrumMasterModule from './platform/scrum_master/scrum_master.module';
 import debugModule from './platform/system/debug.routes';
 
-// import { ChatServer } from './durable_objects/ChatServer';
-// export { ChatServer };
+import { ChatServer } from './durable_objects/ChatServer';
+export { ChatServer };
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Share2, Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send } from 'lucide-react';
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+
+// Define window type for Facebook SDK
+declare global {
+    interface Window {
+        fbAsyncInit: () => void;
+        FB: any;
+    }
+}
 
 interface SocialPlatform {
     id: string;
@@ -12,9 +21,10 @@ interface SocialPlatform {
     permissions: string[];
 }
 
-export const SocialMediaCredentialVault: React.FC = () => {
+const SocialMediaCredentialVaultInner: React.FC = () => {
     const [platforms, setPlatforms] = useState<SocialPlatform[]>([
         { id: '1', platformName: 'Facebook Page', iconUrl: 'fb', accountName: 'PrimeCare Home Health', status: 'CONNECTED', lastSync: '2 hours ago', tokenExpiry: '2026-05-15', permissions: ['pages_manage_posts', 'pages_read_engagement'] },
+        { id: '5', platformName: 'Google Business Profile', iconUrl: 'g', accountName: null, status: 'DISCONNECTED', lastSync: null, tokenExpiry: null, permissions: ['business.manage'] },
         { id: '2', platformName: 'LinkedIn Company', iconUrl: 'in', accountName: 'PrimeCare USA', status: 'CONNECTED', lastSync: '1 day ago', tokenExpiry: '2027-01-01', permissions: ['w_organization_social', 'r_organization_social'] },
         { id: '3', platformName: 'Instagram Business', iconUrl: 'ig', accountName: '@primecare_health', status: 'EXPIRED', lastSync: '14 days ago', tokenExpiry: '2026-02-28', permissions: ['instagram_basic', 'instagram_content_publish'] },
         { id: '4', platformName: 'X (Twitter)', iconUrl: 'x', accountName: null, status: 'DISCONNECTED', lastSync: null, tokenExpiry: null, permissions: ['tweet.read', 'tweet.write'] }
@@ -22,17 +32,78 @@ export const SocialMediaCredentialVault: React.FC = () => {
 
     const [isConnecting, setIsConnecting] = useState<string | null>(null);
 
-    const handleConnect = (id: string) => {
-        setIsConnecting(id);
-        setTimeout(() => {
-            setPlatforms(platforms.map(p => 
-                p.id === id ? { ...p, status: 'CONNECTED', accountName: p.accountName || `Connected_${p.platformName.split(' ')[0]}`, lastSync: 'Just now', tokenExpiry: '2027-12-31' } : p
-            ));
+    // Load Facebook SDK
+    useEffect(() => {
+        if (window.FB) return;
+        window.fbAsyncInit = function() {
+            window.FB.init({
+                appId      : '123456789012345', // Placeholder App ID
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v18.0'
+            });
+        };
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0] as HTMLElement;
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s) as HTMLScriptElement; js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode?.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }, []);
+
+    // Actual Google OAuth Login Hook
+    const loginWithGoogle = useGoogleLogin({
+        onSuccess: tokenResponse => {
+            console.log('Google Auth Success:', tokenResponse);
             setIsConnecting(null);
-        }, 1500);
-    };
+            setPlatforms(platforms.map(p => 
+                p.id === '5' ? { ...p, status: 'CONNECTED', accountName: 'PrimeCare GBP', lastSync: 'Just now', tokenExpiry: '1 hour' } : p
+            ));
+        },
+        onError: error => {
+            console.error('Google Auth Failed:', error);
+            setIsConnecting(null);
+        },
+        scope: 'https://www.googleapis.com/auth/business.manage',
+    });
+
+    const handleConnect = useCallback((id: string) => {
+        setIsConnecting(id);
+        
+        if (id === '5') {
+            // Trigger Real Google Login
+            loginWithGoogle();
+        } else if (id === '1' || id === '3') {
+            // Trigger Real Facebook/Instagram Login
+            if (window.FB) {
+                window.FB.login(function(response: any) {
+                    setIsConnecting(null);
+                    if (response.authResponse) {
+                         setPlatforms(prev => prev.map(p => 
+                            p.id === id ? { ...p, status: 'CONNECTED', accountName: `Connected_${p.platformName.split(' ')[0]}`, lastSync: 'Just now', tokenExpiry: '60 Days' } : p
+                        ));
+                    } else {
+                         console.error('User cancelled login or did not fully authorize.');
+                    }
+                }, {scope: id === '1' ? 'pages_manage_posts,pages_read_engagement' : 'instagram_basic,instagram_content_publish'});
+            } else {
+                setIsConnecting(null);
+                alert("Facebook SDK failed to load.");
+            }
+        } else {
+             // Mock for others
+            setTimeout(() => {
+                setPlatforms(prev => prev.map(p => 
+                    p.id === id ? { ...p, status: 'CONNECTED', accountName: p.accountName || `Connected_${p.platformName.split(' ')[0]}`, lastSync: 'Just now', tokenExpiry: '90 Days' } : p
+                ));
+                setIsConnecting(null);
+            }, 1000);
+        }
+    }, [loginWithGoogle]);
 
     const handleDisconnect = (id: string) => {
+         // Optionally, add revoking FB permissions here via FB.api('/me/permissions', 'delete')
          setPlatforms(platforms.map(p => 
             p.id === id ? { ...p, status: 'DISCONNECTED', accountName: null, lastSync: null, tokenExpiry: null } : p
         ));
@@ -148,5 +219,14 @@ export const SocialMediaCredentialVault: React.FC = () => {
                  </div>
             </div>
         </div>
+    );
+};
+
+// Wrap with GoogleOAuthProvider
+export const SocialMediaCredentialVault: React.FC = () => {
+    return (
+        <GoogleOAuthProvider clientId="1234567890-mock.apps.googleusercontent.com">
+            <SocialMediaCredentialVaultInner />
+        </GoogleOAuthProvider>
     );
 };

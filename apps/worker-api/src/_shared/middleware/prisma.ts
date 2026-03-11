@@ -1,8 +1,11 @@
-﻿import { createMiddleware } from 'hono/factory';
+import { createMiddleware } from 'hono/factory';
 import { Bindings, Variables } from '../../bindings';
 import { tenantExtension } from '../prisma/tenant.extension';
 import { auditExtension } from '../prisma/audit.extension';
 import { forensicExtension } from '../prisma/forensic.extension';
+import { PrismaClient } from '../../../generated/client';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 let prismaInstance: any = null;
 
@@ -25,35 +28,35 @@ export const prismaMiddleware = () => {
 
         if (!prismaInstance) {
             const dbUrl = c.env.DATABASE_URL;
-            const isAccelerate = dbUrl?.startsWith('prisma://');
 
             try {
-                if (isAccelerate) {
-                    // @ts-ignore
-                    const mod = await import('../../../generated/client/edge');
-                    const PrismaClient = mod.PrismaClient || (mod.default ? mod.default.PrismaClient : mod.default);
-                    // @ts-ignore
-                    const { withAccelerate } = await import('@prisma/extension-accelerate');
-                    prismaInstance = new PrismaClient({ datasourceUrl: dbUrl }).$extends(withAccelerate());
-                } else {
-                    // Local Node.js / SQLite Fallback Strategy
-                    const mod = await import('../../../generated/client/index.js');
-                    const PrismaClient = mod.PrismaClient || (mod.default ? mod.default.PrismaClient : mod.default);
-                    prismaInstance = new PrismaClient({ datasourceUrl: dbUrl });
-                }
+                const pool = new Pool({ connectionString: dbUrl });
+                const adapter = new PrismaPg(pool);
+                prismaInstance = new PrismaClient({ adapter });
             } catch (err: any) {
+                // We must store the error so we can return it if init fails
+                c.set('prismaError' as any, err.message);
                 console.error('[PRISMA_INIT_ERROR]', err.message);
-                // DON'T throw — let route handlers handle null prisma gracefully
-                // prismaInstance stays null, next request will retry init
+                // DON'T throw — let route handlers handle null prisma gracefully OR fail here
             }
         }
 
         let reqPrisma = prismaInstance;
         if (!reqPrisma) {
-            // Prisma failed to init — let route handler deal with null
-            c.set('prisma', null as any);
-            c.set('can', async () => false);
-            return await next();
+            // Prisma failed to init — stop execution before it hits route logic and throws null reference errors
+            const errorMessage = c.get('prismaError' as any) || 'Database connection failed';
+            
+            // R20: We can't rely on the route's error handler if we want to be safe globally
+            // Let's return a 503 response immediately.
+            const response = new Response(JSON.stringify({ 
+                error: 'Database Service Unavailable', 
+                message: errorMessage 
+            }), {
+                status: 503,
+                headers: { 'Content-Type': 'application/json' }
+            });
+            c.res = response;
+            return;
         }
         const payload = c.get('jwtPayload');
         const isSuperAdmin = payload?.roles?.includes('super_admin');

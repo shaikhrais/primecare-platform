@@ -13,7 +13,10 @@ usage.get('/', async (c) => {
         select: { brandingConfig: true }
     });
 
-    const config = (tenant?.brandingConfig as any) || {};
+    let config: any = {};
+    if (tenant?.brandingConfig) {
+        try { config = typeof tenant.brandingConfig === 'string' ? JSON.parse(tenant.brandingConfig) : tenant.brandingConfig; } catch (e) {}
+    }
     return c.json({ usageStats: config.usageStats || null });
 });
 
@@ -59,16 +62,19 @@ usage.openapi(saveUsageRoute, async (c) => {
         select: { brandingConfig: true }
     });
 
-    const existing = (tenant?.brandingConfig as any) || {};
+    let existing: any = {};
+    if (tenant?.brandingConfig) {
+        try { existing = typeof tenant.brandingConfig === 'string' ? JSON.parse(tenant.brandingConfig) : tenant.brandingConfig; } catch (e) {}
+    }
 
     await prisma.tenant.update({
         where: { id: tenantId },
         data: {
-            brandingConfig: {
+            brandingConfig: JSON.stringify({
                 ...existing,
                 usageStats: body.usageStats,
                 usageStatsUpdatedAt: new Date().toISOString(),
-            }
+            })
         }
     });
 

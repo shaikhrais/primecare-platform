@@ -113,6 +113,7 @@ class UsageTrackerService {
 
     /** Load from database and merge with local data */
     private async loadFromDB() {
+        if (!localStorage.getItem('user')) return;
         try {
             const { apiClient } = await import('@/shared/utils/apiClient');
             const res = await apiClient.get('/v1/admin/settings/usage-stats');
@@ -185,7 +186,7 @@ class UsageTrackerService {
 
     /** Sync current stats to database */
     async syncToDB() {
-        if (!this.dirty) return;
+        if (!this.dirty || !localStorage.getItem('user')) return;
         try {
             const { apiClient } = await import('@/shared/utils/apiClient');
             const res = await apiClient.patch('/v1/admin/settings/usage-stats', {
