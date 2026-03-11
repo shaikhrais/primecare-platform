@@ -10,12 +10,15 @@ export default function PharmacyHub() {
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            // Mock data for demo
-            setMeds([
-                { id: '1', name: 'Atorvastatin', strength: '20mg', patient: 'James Wilson', status: 'Active', frequency: 'Daily' },
-                { id: '2', name: 'Metformin', strength: '500mg', patient: 'Maria Garcia', status: 'Pending', frequency: 'BID' },
-                { id: '3', name: 'Lisinopril', strength: '10mg', patient: 'David Smith', status: 'Renewed', frequency: 'Daily' }
-            ]);
+            const token = localStorage.getItem('token');
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+            const response = await fetch(`${apiUrl}${ApiRegistry.PLATFORM.ADMIN.PHARMACY.PRESCRIPTIONS}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setMeds(data.prescriptions || []);
+            }
         } catch (e) {
             console.error(e);
         } finally {

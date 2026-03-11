@@ -64,6 +64,7 @@ const IntegrityVerification = lazy(() => import('./pages/security/IntegrityVerif
 const FinancialLedger = lazy(() => import('./pages/security/FinancialLedger'));
 const TaxComplianceHub = lazy(() => import('./pages/security/TaxComplianceHub'));
 const AccountingDashboard = lazy(() => import('./pages/security/AccountingDashboard'));
+const FinancialReconciliation = lazy(() => import('./pages/finance/reconciliation'));
 const NotificationsHub = lazy(() => import('./pages/notifications/NotificationsHub'));
 const DocumentCenter = lazy(() => import('./pages/documents/DocumentCenter'));
 const PayrollHub = lazy(() => import('./pages/payroll/PayrollHub'));
@@ -156,6 +157,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.TAX_HUB} element={<TaxComplianceHub />} />
         <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingDashboard />} />
+        <Route path={RouteRegistry.ADMIN.FINANCE.RECONCILIATION} element={<FinancialReconciliation />} />
         <Route path={RouteRegistry.ADMIN.NOTIFICATIONS_HUB} element={<NotificationsHub />} />
         <Route path={RouteRegistry.ADMIN.DOCUMENT_CENTER} element={<DocumentCenter />} />
         <Route path={RouteRegistry.ADMIN.PAYROLL_HUB} element={<PayrollHub />} />

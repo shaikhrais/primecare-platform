@@ -107,6 +107,7 @@ export const LinkRegistry: LinkDef[] = [
     { id: 'lnk-fd-dashboard', label: ACCOUNTING_DASHBOARD.TITLE, role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: 'High-level financial intelligence and real-time ledger oversight.' },
     { id: 'lnk-fd-ledger', label: 'Financial Ledger', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: 'Forensic audit trail and immutable ledger verification.' },
     { id: 'lnk-fd-tax-hub', label: 'Tax Compliance Hub', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: 'Periodic HST/GST filing and automated remittance processing.' },
+    { id: 'lnk-fd-reconciliation', label: 'Reconciliation Hub', role: 'finance_director', module: 'FINANCE', path: RouteRegistry.ADMIN.FINANCE.RECONCILIATION, description: 'Deterministic auto-matching engine for bank feeds.' },
     // Phase 15 Domain Expansion
     { id: 'lnk-client-medical-summary', label: 'Medical Summary', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.MEDICAL_SUMMARY, description: 'Consolidated view of clinical and medical history.' },
     { id: 'lnk-client-family-portal', label: 'Family Engagement', role: 'client', module: 'CLIENT', path: RouteRegistry.CLIENT.FAMILY_PORTAL, description: 'Portal for authorized family members to track care.' },

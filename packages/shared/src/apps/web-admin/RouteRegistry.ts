@@ -194,6 +194,7 @@ const PLATFORM = {
             TRADING_ACCOUNT: '/platform/admin/finance/trading',
             PROFIT_LOSS: '/platform/admin/finance/p-and-l',
             BALANCE_SHEET: '/platform/admin/finance/balance-sheet',
+            RECONCILIATION: '/platform/admin/finance/reconciliation',
         },
         // Domain Feature Pages
         EVV: {

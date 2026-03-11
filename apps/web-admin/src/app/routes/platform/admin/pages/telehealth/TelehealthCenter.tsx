@@ -14,16 +14,23 @@ export default function TelehealthCenter() {
             const token = localStorage.getItem('token');
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
-            // Mock data for demo
-            setSessions([
-                { id: '1', patient: 'Sarah Jenkins', provider: 'Dr. Miller', time: '14:00 Today', status: 'In-Progress', type: 'Clinical Review' },
-                { id: '2', patient: 'Robert Chen', provider: 'RN Sarah', time: '15:30 Today', status: 'Scheduled', type: 'Wound Care' }
+            const [sessionsRes, vitalsRes] = await Promise.all([
+                fetch(`${apiUrl}${ApiRegistry.PLATFORM.ADMIN.TELEHEALTH.SESSIONS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }),
+                fetch(`${apiUrl}/v1/admin/telehealth/vitals`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
             ]);
-            setVitals([
-                { id: 'v1', patient: 'Sarah Jenkins', type: 'Heart Rate', value: 72, unit: 'BPM', status: 'Normal' },
-                { id: 'v2', patient: 'Robert Chen', type: 'Blood Pressure', value: '142/90', unit: 'mmHg', status: 'High' },
-                { id: 'v3', patient: 'Emma Watson', type: 'O2 Sat', value: 98, unit: '%', status: 'Normal' }
-            ]);
+
+            if (sessionsRes.ok) {
+                const data = await sessionsRes.json();
+                setSessions(data.sessions || []);
+            }
+            if (vitalsRes.ok) {
+                const data = await vitalsRes.json();
+                setVitals(data.vitals || []);
+            }
         } catch (e) {
             console.error(e);
         } finally {

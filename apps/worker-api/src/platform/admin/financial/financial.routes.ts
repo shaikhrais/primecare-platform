@@ -496,4 +496,86 @@ financial.openapi(earningsRoute, async (c) => {
     return c.json(mapped, 200);
 });
 
+
+// GET /reconciliation/unmatched
+const unmatchedReconciliationRoute = createRoute({
+    method: 'get',
+    path: '/reconciliation/unmatched',
+    summary: 'Get Unmatched Bank and Ledger Transactions',
+    tags: ['Financial'],
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(unmatchedReconciliationRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+
+    const [bankFeeds, ledgerEntries] = await Promise.all([
+        prisma.bankTransaction.findMany({
+            where: { tenantId, status: 'unreconciled' },
+            orderBy: { bankDate: 'desc' }
+        }),
+        prisma.financialTransaction.findMany({
+            where: { tenantId, status: 'posted' },
+            orderBy: { createdAt: 'desc' },
+            include: { journalEntries: { include: { account: true } } }
+        })
+    ]);
+
+    return c.json({ bankFeeds, ledgerEntries }, 200);
+});
+
+// POST /reconciliation/match
+const executeMatchRoute = createRoute({
+    method: 'post',
+    path: '/reconciliation/match',
+    summary: 'Execute a Manual Fuzzy Match',
+    tags: ['Financial'],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        bankTransactionId: z.string(),
+                        ledgerTransactionId: z.string()
+                    })
+                }
+            }
+        }
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    },
+});
+
+financial.openapi(executeMatchRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const body = c.req.valid('json');
+
+    await prisma.$transaction([
+        prisma.financialReconciliation.create({
+            data: {
+                tenantId,
+                transactionId: body.ledgerTransactionId,
+                bankTransactionId: body.bankTransactionId,
+                status: 'reconciled',
+                matchedAt: new Date()
+            }
+        }),
+        prisma.financialTransaction.update({
+            where: { id: body.ledgerTransactionId },
+            data: { status: 'reconciled' }
+        }),
+        prisma.bankTransaction.update({
+            where: { id: body.bankTransactionId },
+            data: { status: 'reconciled' }
+        })
+    ]);
+
+    return c.json({ success: true }, 200);
+});
+
 export default financial;

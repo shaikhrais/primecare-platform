@@ -219,6 +219,49 @@ async function main() {
         });
     }
 
+
+    // 8. Injecting Logistics Data (Visits, Shift Assignments, and Waitlist Heatmap Data)
+    console.log('🗓 Seeding global logistics arrays...');
+    const service1 = await prisma.service.findFirst({ where: { slug: 'personal-care' } }) || { id: 'srv-1', tenantId: tenantA.id };
+    
+    // Create multiple upcoming and past Visits
+    const baseDate = new Date();
+    const visitsToCreate = [
+        { clientId: await getClientId(), assignedPswId: await getPswId(), serviceId: service1.id, tenantId: tenantA.id, status: 'completed', durationMinutes: 120, requestedStartAt: new Date(baseDate.getTime() - 86400000) },
+        { clientId: await getClientId(), assignedPswId: await getPswId(), serviceId: service1.id, tenantId: tenantA.id, status: 'in_progress', durationMinutes: 240, requestedStartAt: baseDate },
+        { clientId: await getClientId(), assignedPswId: null, serviceId: service1.id, tenantId: tenantA.id, status: 'requested', priority: 'high', crisisMode: true, durationMinutes: 60, requestedStartAt: new Date(baseDate.getTime() + 7200000) },
+        { clientId: await getClientId(), assignedPswId: null, serviceId: service1.id, tenantId: tenantA.id, status: 'requested', durationMinutes: 120, requestedStartAt: new Date(baseDate.getTime() + 86400000) },
+    ];
+
+    for (const vData of visitsToCreate) {
+        const v = await prisma.visit.create({
+            data: { ...vData, requiredSkills: 'Dementia Care, Hoyer Lift' }
+        });
+
+        // If it's requested, create shift assignments for the auction house board
+        if (v.status === 'requested') {
+            await prisma.shiftAssignment.createMany({
+                data: [
+                    { visitId: v.id, pswId: await getPswId(), tenantId: tenantA.id, status: 'offered', score: 0.95 },
+                    { visitId: v.id, pswId: await getPswId(), tenantId: tenantA.id, status: 'rejected', score: 0.82 }
+                ]
+            });
+        }
+    }
+
+    // 9. Seeding Platform Audit Logs
+    console.log('🛡 Seeding Global Security & Audit Timeline...');
+    const hqAdmin = await prisma.user.findFirst({ where: { roles: 'admin' } });
+    await prisma.auditLog.createMany({
+        data: [
+            { tenantId: tenantHQ.id, actorUserId: hqAdmin?.id, action: 'SYSTEM_HARDENING_PASSED', resourceType: 'Platform', metadataString: '{"sweep": "Auth JWT Rotation"}', ipAddress: '192.168.1.10' },
+            { tenantId: tenantA.id, actorUserId: await getRnId(), action: 'CARE_PLAN_SIGNED', resourceType: 'CarePlan', ipAddress: '10.0.0.45' },
+            { tenantId: tenantA.id, actorUserId: await getPswId(), action: 'VISIT_CLOCK_IN', resourceType: 'VisitCheckEvent', ipAddress: '172.68.90.10' },
+            { tenantId: tenantA.id, actorUserId: hqAdmin?.id, action: 'FIREWALL_RULE_UPDATED', resourceType: 'Network', metadataString: '{"policy": "Block Russian IPs"}', ipAddress: '192.168.1.10' },
+            { tenantId: tenantHQ.id, actorUserId: null, action: 'DATABASE_BACKUP_COMPLETED', resourceType: 'Infrastructure', ipAddress: '127.0.0.1' }
+        ]
+    });
+
     console.log('✅ Seeding complete.');
 }
 

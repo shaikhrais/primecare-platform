@@ -18,13 +18,6 @@ export default function SupplyChainHub() {
             if (response.ok) {
                 const data = await response.json();
                 setInventory(data.items || []);
-            } else {
-                // Mock data for demo
-                setInventory([
-                    { id: '1', name: 'N95 Respirators', sku: 'MED-N95-001', category: 'PPE', quantity: 450, reorderPoint: 500, unitPrice: 2.50 },
-                    { id: '2', name: 'Latex Gloves (Medium)', sku: 'CON-GLV-M', category: 'CONSUMABLES', quantity: 1200, reorderPoint: 200, unitPrice: 0.15 },
-                    { id: '3', name: 'Digital Thermometer', sku: 'MED-THR-001', category: 'DEVICES', quantity: 12, reorderPoint: 5, unitPrice: 45.00 }
-                ]);
             }
         } catch (e) {
             console.error(e);
