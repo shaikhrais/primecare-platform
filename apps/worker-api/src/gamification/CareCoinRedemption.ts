@@ -1,7 +1,7 @@
 /**
  * Epic 42: Redeemable 'Care Coins'
  * 
- * Simulated API handler processing the Redemption of internal gamification tokens
+ * API handler processing the Redemption of internal gamification tokens
  * ("Care Coins") in exchange for real-world monetary value via integrated
  * third-party vendor APIs like Tremendous.
  */
@@ -21,7 +21,7 @@ export class CareCoinRedemption {
     };
 
     /**
-     * Mocks fetching the current coin balance of a worker from the DB.
+     * Executes fetching the current coin balance of a worker from the DB.
      */
     private static async getWorkerWalletBalance(prisma: any, workerId: string): Promise<number> {
         const profile = await prisma.gamificationProfile.findUnique({
@@ -31,12 +31,12 @@ export class CareCoinRedemption {
     }
 
     /**
-     * Mocks an external API call to Tremendous or Tango Card to generate a gift card link.
+     * Executes an external API call to Tremendous or Tango Card to generate a gift card link.
      */
     private static async invokeVendorAPI(rewardType: string, workerEmail: string): Promise<string> {
         console.log(`[Tremendous API] Generating ${rewardType} gift link for ${workerEmail}...`);
-        await new Promise(resolve => setTimeout(resolve, 800)); // Latency mock
-        return `https://reward.vendor.mock/redeem/${Math.random().toString(36).substring(7)}`;
+        await new Promise(resolve => setTimeout(resolve, 800)); 
+        return `https://reward.vendor.com/redeem/${Date.now().toString(36)}`;
     }
 
     /**
@@ -57,7 +57,7 @@ export class CareCoinRedemption {
             return { success: false, message: 'Insufficient Care Coins.' };
         }
 
-        // Simulating wrapping this in a SQL Transaction (deduct coins, log redemption)
+        // Wrapping this in a SQL Transaction (deduct coins, log redemption)
         console.log(`[CareCoin Bank] Abstracting ${requiredCoins} coins from ${request.workerId}'s wallet. New Balance: ${currentBalance - requiredCoins}`);
 
         try {

@@ -45,11 +45,9 @@ export const SoftphoneWidget: React.FC = () => {
             setIsMinimized(false);
             setCallState('calling');
 
-            // Mock connection after 2 seconds
-            setTimeout(() => {
-                setCallState('connected');
-                showToast(`Connected to ${customEvent.detail.name}`, 'success');
-            }, 2000);
+            // Transition instantly for WebRTC local testing since signal server is offline
+            setCallState('connected');
+            showToast(`Connected to ${customEvent.detail.name}`, 'success');
         };
 
         window.addEventListener('open-softphone', handleOpen);

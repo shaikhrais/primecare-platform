@@ -50,7 +50,7 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
 
                 <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', marginBottom: '1rem' }}>Shift Breakdown</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    {/* Map real timesheet items originating from Prisma TimesheetItem relations */}
+
                     {timesheet.items && timesheet.items.length > 0 ? timesheet.items.map((item: any) => (
                         <div key={item.id} style={{ padding: '1rem', border: '1px solid #e5e7eb', borderRadius: '0.5rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>

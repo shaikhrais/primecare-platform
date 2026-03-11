@@ -18,7 +18,7 @@ export class FridgeSensorMonitor {
     private static CRITICAL_THRESHOLD_HOURS = 24.0;
 
     /**
-     * Mocks a DB aggregation fetching the latest door interaction
+     * Executes a DB aggregation fetching the latest door interaction
      */
     private static async getLastInteraction(prisma: any, patientId: string): Promise<DoorEvent | null> {
         const lastEvent = await prisma.ioTEvent.findFirst({

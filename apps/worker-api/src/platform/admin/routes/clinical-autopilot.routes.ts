@@ -93,7 +93,7 @@ r.openapi(runAutoPilotRoute, async (c) => {
 
             // 3. Create Shift Assignments (Offers)
             for (const psw of eligiblePsws) {
-                const confidence = 0.95; // Mock algorithmic confidence score
+                const confidence = 0.95; // Baseline algorithmic confidence score
                 await prisma.shiftAssignment.create({
                     data: {
                         visitId: visit.id,

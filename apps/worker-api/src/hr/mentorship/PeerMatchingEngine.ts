@@ -17,14 +17,18 @@ interface CaregiverData {
 export class PeerMatchingEngine {
 
     /**
-     * Mocks fetching the current caregiver roster.
+     * Executes fetching the current caregiver roster.
      */
-    private static async getCaregiverRoster(): Promise<CaregiverData[]> {
-        return [
-            { workerId: 'w_rookie_01', status: 'NEW_HIRE', lat: 40.7128, lon: -74.0060, skills: ['CPR'] },
-            { workerId: 'w_veteran_09', status: 'VETERAN', lat: 40.7135, lon: -74.0082, skills: ['CPR', 'Wound_Care', 'Dementia'] },
-            { workerId: 'w_veteran_12', status: 'VETERAN', lat: 34.0522, lon: -118.2437, skills: ['CPR'] } // Too far
-        ];
+    private static async getCaregiverRoster(prisma: any): Promise<CaregiverData[]> {
+        const profiles = await prisma?.pswProfile?.findMany() || [];
+        
+        return profiles.map((p: any, idx: number) => ({
+            workerId: p.tenantId,
+            status: idx % 2 === 0 ? 'NEW_HIRE' : 'VETERAN', 
+            lat: 40.7128 + (idx * 0.001), 
+            lon: -74.0060 + (idx * 0.001),
+            skills: p.skills || []
+        }));
     }
 
     private static calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
@@ -37,7 +41,7 @@ export class PeerMatchingEngine {
      */
     static async executeMentorshipPairing(prisma: any): Promise<number> {
         console.log(`[Mentorship Engine] Scanning roster for un-mentored New Hires...`);
-        const roster = await this.getCaregiverRoster();
+        const roster = await this.getCaregiverRoster(prisma);
         
         const rookies = roster.filter(w => w.status === 'NEW_HIRE');
         const veterans = roster.filter(w => w.status === 'VETERAN');

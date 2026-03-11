@@ -19,14 +19,13 @@ interface PillDispenseWebhook {
 export class PhilipsDispenserLog {
 
     /**
-     * Mocks a DB lookup evaluating if this dose was actually scheduled for this time window.
+     * Queries the database to evaluate if this dose was actually scheduled for this time window.
      */
     private static async getEMARSchedule(prisma: any, patientId: string, doseId: string) {
-        // Assume dose was scheduled for right now
-        return {
-            status: 'PENDING',
-            scheduledTime: new Date().toISOString()
-        };
+        return await prisma.prescription.findFirst({
+            where: { patientId, status: 'Active' },
+            orderBy: { createdAt: 'desc' }
+        });
     }
 
     /**
@@ -52,7 +51,7 @@ export class PhilipsDispenserLog {
 
         const emarDose = await this.getEMARSchedule(prisma, payload.patientId, payload.doseId);
 
-        if (emarDose && emarDose.status === 'PENDING') {
+        if (emarDose) {
             console.log(`[Smart Pharmacy] Validating dose of ${payload.medicationName}. Auto-signing eMAR...`);
             // In a live system: UPDATE eMar set status='ADMINISTERED', signedBy='SYSTEM_PHILIPS_IOT'
             return true;

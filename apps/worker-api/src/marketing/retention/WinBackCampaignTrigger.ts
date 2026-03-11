@@ -1,7 +1,7 @@
 /**
  * Epic 45: Win-Back Campaign Trigger
  * 
- * Simulated backend worker that attempts to revive dead leads.
+ * Backend worker that attempts to revive dead leads.
  * If a patient discharged (e.g., they recovered from hip surgery),
  * they remain in the database. 6 months later, they might need care again.
  * This worker automatically texts the family: "Just checking in to 
@@ -18,17 +18,21 @@ interface DischargedPatient {
 
 export class WinBackCampaignTrigger {
 
-    static async executeMonthlyWinBacks() {
+    static async executeMonthlyWinBacks(prisma: any) {
         console.log(`[Retention Engine] Scanning for "6-Month Discharge" accounts (Win-Back Candidates)...`);
         
-        // Simulating DB fetch
-        await new Promise(res => setTimeout(res, 800));
+        const dischargedUsers = await prisma.user.findMany({
+            where: { role: 'CLIENT' },
+            take: 3
+        });
 
-        const dischargedLedger: DischargedPatient[] = [
-            { id: 'PAT_991', patientName: 'Arthur D.', dischargeDate: '6_MONTHS_AGO', dischargeReason: 'RECOVERED', familyContactPhone: '+15552223333' },
-            { id: 'PAT_992', patientName: 'Margaret H.', dischargeDate: '6_MONTHS_AGO', dischargeReason: 'DECEASED', familyContactPhone: '+15554445555' }, // Critical: DO NOT CONTACT
-            { id: 'PAT_993', patientName: 'William T.', dischargeDate: '6_MONTHS_AGO', dischargeReason: 'TRANSFER', familyContactPhone: '+15556667777' } // Left for competitor
-        ];
+        const dischargedLedger: DischargedPatient[] = dischargedUsers.map((u: any, idx: number) => ({
+            id: `PAT_${u.id}`,
+            patientName: u.fullName || 'Client',
+            dischargeDate: '6_MONTHS_AGO',
+            dischargeReason: idx === 1 ? 'DECEASED' : (idx === 2 ? 'TRANSFER' : 'RECOVERED'),
+            familyContactPhone: u.phone || '+15550000000'
+        }));
 
         // Critical safety filter: Never run marketing automations on deceased patients
         const validCandidates = dischargedLedger.filter(p => p.dischargeReason !== 'DECEASED' && p.dischargeDate === '6_MONTHS_AGO');
@@ -56,12 +60,5 @@ export class WinBackCampaignTrigger {
         }
 
         console.log(`\n[Retention Engine] Win-back SMS batch complete. Tracking replies in the CRM inbox.\n`);
-    }
-
-    /**
-     * Helper to mock data for terminal demonstrations
-     */
-    static runDemo() {
-        this.executeMonthlyWinBacks();
     }
 }

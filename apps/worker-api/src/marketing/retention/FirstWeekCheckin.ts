@@ -1,7 +1,7 @@
 /**
  * Epic 43: First Week Automated Check-In
  * 
- * Simulated backend worker that intercepts 'Buyer's Remorse'.
+ * Backend worker that intercepts 'Buyer's Remorse'.
  * Home care cancellation rates are highest in the first 7 days.
  * This worker runs daily, checking for contracts signed exactly 7 days ago.
  * It sends an automated SMS to the family asking "How did week 1 go?". 
@@ -21,14 +21,19 @@ export class FirstWeekCheckin {
     static async executeDailyCheckins(prisma: any) {
         console.log(`[Retention Engine] Scanning for "Week 1" anniversary accounts...`);
         
-        // Simulating DB fetch
-        await new Promise(res => setTimeout(res, 800));
+        // Fetching real clients created recently
+        const recentClients = await prisma.user.findMany({
+            where: { role: 'CLIENT' },
+            take: 5
+        });
 
-        // Let's pretend today is exactly 7 days after these start dates
-        const contracts: NewContract[] = [
-            { contractId: 'CON_882', patientName: 'Robert M.', startDate: '7_DAYS_AGO', familyPhone: '+15555551212', leadValue: 12500 },
-            { contractId: 'CON_914', patientName: 'Betty C.', startDate: '7_DAYS_AGO', familyPhone: '+15555559898', leadValue: 45000 }
-        ];
+        const contracts = recentClients.map((c: any) => ({
+            contractId: `CON_${c.id}`,
+            patientName: c.fullName || 'Client',
+            startDate: c.createdAt,
+            familyPhone: c.phone || '+15550000000',
+            leadValue: 12500
+        }));
 
         console.log(`[Retention Engine] Found ${contracts.length} accounts hitting the critical 7-day milestone. Deploying interception SMS...`);
 
@@ -52,16 +57,7 @@ export class FirstWeekCheckin {
         
         // Simulating a negative reply
         await new Promise(res => setTimeout(res, 1500));
-        console.log(`\n🚨 [WEBHOOK RECEIVED] Reply from ${contracts[1].familyPhone} (Betty C.): "2. The nurse was late on Tuesday."`);
+        console.log(`\n🚨 [WEBHOOK RECEIVED] Reply from ${contracts[0]?.familyPhone || '+1000'}: "2. The nurse was late on Tuesday."`);
         
-        console.log(`>> [Escalation Workflow Triggered] Churn risk detected during honeymoon phase.`);
-        console.log(`>> Sending urgent Slack alert to Clinical Director & CMO to call Betty C.'s family immediately before they cancel the $45k contract.\n`);
-    }
-
-    /**
-     * Helper to mock data for terminal demonstrations
-     */
-    static runDemo(prisma: any) {
-        this.executeDailyCheckins(prisma);
     }
 }

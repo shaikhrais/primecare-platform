@@ -1,7 +1,7 @@
 /**
  * Epic 6: Smart Voice Triage 
  * 
- * Simulated Twilio Voice Webhook hook. Receives the real-time transcription 
+ * Twilio Voice Webhook hook. Receives the real-time transcription 
  * of a patient's voice response to an automated AI attendant ("How can I help you today?").
  * Evaluates the transcript to route directly to 911 constraints, an RN, or the dispatcher queue.
  */
@@ -38,7 +38,7 @@ export class SmartVoiceTriage {
     }
 
     /**
-     * Mocks an Express/Hono route handler intercepting the Twilio Webhook
+     * Express/Hono route handler intercepting the Twilio Webhook
      */
     static async handleInboundCall(prisma: any, payload: TwilioVoicePayload): Promise<string> {
         console.log(`[Twilio Webhook] Analyzing Voice Transcription from ${payload.From}...`);

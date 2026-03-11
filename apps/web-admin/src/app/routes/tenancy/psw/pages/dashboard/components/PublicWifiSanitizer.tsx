@@ -5,7 +5,6 @@ export const PublicWifiSanitizer: React.FC = () => {
     const [isSecure, setIsSecure] = useState(true);
 
     useEffect(() => {
-        // Mocks checking the navigator.connection object.
         // If effectiveType is "cellular" or ping is high, assume insecure/public conditions
         // where visual eavesdropping is likely.
         const connection = (navigator as any).connection;

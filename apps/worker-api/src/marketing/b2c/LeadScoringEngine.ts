@@ -1,7 +1,7 @@
 /**
  * Epic 2: Automated Lead Scoring Engine
  * 
- * Simulated backend worker. Evaluates incoming leads based on acuity keywords
+ * Backend worker. Evaluates incoming leads based on acuity keywords
  * and zip code routing, generating a 'Priority Score' (0-100) to ensure
  * sales reps call the most profitable clients first.
  */
@@ -28,7 +28,7 @@ export class LeadScoringEngine {
             }
         }
 
-        // 2. Geographic Desirability (mock logic)
+        // 2. Geographic Desirability
         // Some zip codes are clustered with existing clients, making dispatching cheaper
         if (['10021', '10028', '90210'].includes(zipCode)) {
             score += 20; // Prime territory cluster
@@ -41,23 +41,24 @@ export class LeadScoringEngine {
     }
 
     /**
-     * Mocks a batch processing job of fresh inbound web leads
+     * Executes a batch processing job of fresh inbound web leads
      */
     static async processNightlyBatch(prisma: any) {
         console.log(`[Sales Alg] Ingesting 3 new inbound leads...`);
-        const inboundQueue = [
-            { id: 'L1', zip: '10021', note: 'Mother needs 24/7 dementia care, she is bedbound.' },
-            { id: 'L2', zip: '33345', note: 'Need someone to drive my dad to groceries once a week.' },
-            { id: 'L3', zip: '90210', note: 'Looking for a reliable nurse. Recent stroke, needs hoyer lift.' }
-        ];
+        const inboundQueue = await prisma.user.findMany({
+            where: { role: 'CLIENT' },
+            take: 3
+        });
 
         for (const lead of inboundQueue) {
-            const priority = await this.evaluateNewLead(lead.note, lead.zip);
+            const zipCode = lead.postalCode || '00000';
+            const note = lead.bio || 'Needs general assistance';
+            const priority = await this.evaluateNewLead(note, zipCode);
             
             await prisma.aIInference.create({
                 data: {
                     modelName: 'lead_priority_scoring',
-                    predictionData: JSON.stringify({ leadId: lead.id, note: lead.note }),
+                    predictionData: JSON.stringify({ leadId: lead.id, note }),
                     confidenceScore: priority / 100,
                     userId: 'system'
                 }

@@ -1,7 +1,7 @@
 /**
  * Epic 48: SMS Compliance Manager (TCPA Defense)
  * 
- * Simulated backend worker that intercepts all inbound SMS replies 
+ * Backend worker that intercepts all inbound SMS replies 
  * from patients across the entire PrimeCare network.
  * If a patient replies "STOP", "CANCEL", "UNSUBSCRIBE" or "QUIT" to any 
  * marketing or operational text, this script intercepts it at the webhook 
@@ -57,24 +57,4 @@ export class SmsComplianceManager {
         console.log(`✅ [Compliance Engine] Message "${webhookData.body}" does not contain opt-out commands. Routing to standard Inbox.\n`);
     }
 
-    /**
-     * Helper to mock data for terminal demonstrations
-     */
-    static async runDemo(prisma: any) {
-        // Safe message
-        await this.processInboundWebhook(prisma, {
-            messageId: 'sms_99182',
-            fromNumber: '+15551234567',
-            body: 'Thanks for the pricing guide!',
-            receivedAt: new Date().toISOString()
-        });
-
-        // Trigger message
-        await this.processInboundWebhook(prisma, {
-            messageId: 'sms_99183',
-            fromNumber: '+15559876543',
-            body: 'STOP',
-            receivedAt: new Date().toISOString()
-        });
-    }
 }

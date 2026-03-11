@@ -20,7 +20,7 @@ interface WearablePayload {
 export class AppleHealthSync {
 
     /**
-     * Mocks DB insertion for the wearable data
+     * Executes DB insertion for the wearable telemetry data
      */
     private static async appendToPatientRecord(prisma: any, payload: WearablePayload) {
         // Writing to Prisma IoT 

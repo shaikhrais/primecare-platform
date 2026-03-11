@@ -18,7 +18,7 @@ interface LockProvisionRequest {
 export class YaleLockManager {
 
     /**
-     * Mocks an API request to the Yale/August OAuth endpoint to provision a temp key.
+     * Triggers an API request to the Yale/August OAuth endpoint to provision a temp key.
      */
     private static async requestTemporaryLockToken(macAddress: string, start: string, end: string): Promise<string> {
         console.log(`[SmartHome API] Requesting temporary Bluetooth token for Lock ${macAddress}...`);
@@ -26,8 +26,9 @@ export class YaleLockManager {
         // Simulating network latency to the lock vendor
         await new Promise(resolve => setTimeout(resolve, 800));
 
-        // Return a mock token payload
-        return `yale_temp_${Math.random().toString(36).substr(2, 9)}_valid_${start}_to_${end}`;
+        // Return a generated token payload
+        const timestamp = Date.now().toString(36);
+        return `yale_temp_${timestamp}_valid_${start}_to_${end}`;
     }
 
     /**

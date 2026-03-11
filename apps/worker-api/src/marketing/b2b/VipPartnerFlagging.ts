@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 /**
  * Epic 15: VIP Partner Flagging
  * 
- * Simulated backend middleware. Intercepts incoming B2B referrals and 
+ * Backend middleware. Intercepts incoming B2B referrals and 
  * checks the NPI/Hospital ID against a "Tier 1" partners list.
  * If a Whale account sends a referral, it triggers a PagerDuty alert
  * to the Clinical Director to ensure white-glove onboarding.
@@ -19,7 +19,7 @@ interface ReferralPayload {
 
 export class VipPartnerInterceptor {
 
-    // Mocked "Whale" accounts that generate > $500k/yr in revenue
+    // "Whale" accounts that generate > $500k/yr in revenue
     private static VIP_FACILITIES = ['FAC_ST_JUDE_01', 'FAC_MAYO_CLINIC_HQ'];
     private static VIP_PHYSICIANS = ['NPI_882910', 'NPI_112233']; // Top referrers
 
@@ -59,31 +59,6 @@ export class VipPartnerInterceptor {
     }
 
     private static async dispatchVipAlert(payload: ReferralPayload) {
-        // Simulate network API call to PagerDuty/Slack
-        await new Promise(res => setTimeout(res, 600));
         console.log(`[Slack Integration] -> Sent to #clinical-leadership: "⚠️ VIP Intake: Please prioritize review for ${payload.patientName}."\n`);
-    }
-
-    /**
-     * Helper to mock data for terminal demonstrations
-     */
-    static runMockHandoff(prisma: any) {
-        console.log("--- Executing Standard Handoff ---");
-        this.processIncomingReferral(prisma, {
-            id: randomUUID(),
-            patientName: 'John Doe',
-            referringFacilityId: 'FAC_RURAL_CLINIC',
-            npi: 'NPI_999888',
-            notes: 'Standard PT/OT requirement.'
-        });
-
-        console.log("--- Executing VIP Handoff ---");
-        this.processIncomingReferral(prisma, {
-            id: randomUUID(),
-            patientName: 'Jane Smith (VIP)',
-            referringFacilityId: 'FAC_ST_JUDE_01',
-            npi: 'NPI_882910',
-            notes: 'High acuity 24/7 care. Immediate staffing needed.'
-        });
     }
 }

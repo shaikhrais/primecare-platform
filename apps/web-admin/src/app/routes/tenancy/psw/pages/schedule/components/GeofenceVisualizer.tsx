@@ -10,7 +10,7 @@ interface GeofenceVisualizerProps {
 export const GeofenceVisualizer: React.FC<GeofenceVisualizerProps> = ({ clientLocation, distanceRequirmentMeters, currentDistanceMeters }) => {
     const isWithinGeofence = currentDistanceMeters <= distanceRequirmentMeters;
 
-    // Calculate a mock relative position for the blue dot
+    // Calculate a relative position footprint for the blue dot
     // If requirement is 100m, and current is 50m, it's inside the circle.
     // Let circle radius be 40px visually.
     const maxRenderDist = distanceRequirmentMeters * 2;

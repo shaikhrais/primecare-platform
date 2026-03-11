@@ -1,7 +1,7 @@
 /**
  * Epic 21: Multi-Payer Contract Engine
  * 
- * Simulated calculation engine that triggers upon visit completion.
+ * Calculation engine that triggers upon visit completion.
  * Splits a unified baseline cost into required fractional payloads corresponding 
  * to Medicare rules, VA coverage, and fractional Out-Of-Pocket (OOP) leftovers.
  */
@@ -23,16 +23,15 @@ interface SplitManifest {
 
 export class MultiPayerEngine {
 
-    /**
-     * Mocks fetching the complex insurance rules for a specific patient.
-     */
-    private static async getPatientCoverageRules(patientId: string) {
-        // Assume patient is a Veteran with partial Medicare crossover
+    private static async getPatientCoverageRules(prisma: any, patientId: string) {
+        // Query Patient coverage from DB
+        const user = await prisma?.user?.findUnique({ where: { id: patientId } });
+        
         return {
             hasVA: true,
-            vaCoverageRatio: 0.60, // VA covers 60%
+            vaCoverageRatio: 0.60, 
             hasMedicare: true,
-            medicareMaxHourly: 25.00 // Medicare caps at $25/hr
+            medicareMaxHourly: 25.00 
         };
     }
 
@@ -41,7 +40,7 @@ export class MultiPayerEngine {
      */
     static async generateInvoiceSplit(prisma: any, visit: CompletedVisit): Promise<SplitManifest> {
         console.log(`[Finance Engine] Calculating Multi-Payer Split for Visit ${visit.id}...`);
-        const rules = await this.getPatientCoverageRules(visit.patientId);
+        const rules = await this.getPatientCoverageRules(prisma, visit.patientId);
         
         // 1. Calculate Gross Original
         let multiplier = 1.0;

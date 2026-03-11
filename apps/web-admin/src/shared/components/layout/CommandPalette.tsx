@@ -47,10 +47,7 @@ export const CommandPalette: React.FC = () => {
         if (!isOpen) return;
 
         if (!query.trim()) {
-            setResults([
-                { id: 'm1', type: 'module', name: 'Logistics Fleet Map', subtitle: 'Live Fleet Radar', route: '/tenancy/manager/logistics' },
-                { id: 'm2', type: 'module', name: 'Staff Marketplace', subtitle: 'Open Shifts Board', route: '/tenancy/manager/scheduling' },
-            ]);
+            setResults([]);
             return;
         }
 

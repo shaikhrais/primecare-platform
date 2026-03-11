@@ -17,13 +17,22 @@ interface TimesheetEntry {
 export class OvertimeSentinel {
 
     /**
-     * Mocks a DB aggregation fetching all timesheets for a worker in a specific week
+     * Executes a DB aggregation fetching all timesheets for a worker in a specific week
      */
-    private static async getWorkerTimesheetsForWeek(workerId: string): Promise<TimesheetEntry[]> {
-        return [
-            { id: 'sheet_1', workerId, startTime: 1710162000, endTime: 1710176400, status: 'APPROVED' }, // 9AM - 1PM
-            { id: 'sheet_2', workerId, startTime: 1710172800, endTime: 1710187200, status: 'PENDING' }  // 12PM - 4PM (OVERLAP DETECTED)
-        ];
+    private static async getWorkerTimesheetsForWeek(prisma: any, workerId: string): Promise<TimesheetEntry[]> {
+        const shifts = await prisma?.shiftAssignment?.findMany({
+            where: { pswId: workerId, status: { in: ['completed', 'pending_approval'] } }
+        });
+
+        if (!shifts) return [];
+
+        return shifts.map((s: any) => ({
+            id: s.id,
+            workerId: s.pswId,
+            startTime: Math.floor(new Date(s.startTime).getTime() / 1000),
+            endTime: Math.floor(new Date(s.endTime).getTime() / 1000),
+            status: 'PENDING'
+        }));
     }
 
     /**
@@ -32,7 +41,7 @@ export class OvertimeSentinel {
     static async scanForTemporalFraud(prisma: any, workerId: string): Promise<boolean> {
         console.log(`[Fraud Sentinel] Scanning submitted timesheets for worker ${workerId}...`);
 
-        const sheets = await this.getWorkerTimesheetsForWeek(workerId);
+        const sheets = await this.getWorkerTimesheetsForWeek(prisma, workerId);
         
         // Sort chronologically by start time
         sheets.sort((a, b) => a.startTime - b.startTime);

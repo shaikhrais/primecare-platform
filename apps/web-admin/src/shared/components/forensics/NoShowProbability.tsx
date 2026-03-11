@@ -31,12 +31,12 @@ export const NoShowProbability: React.FC<NoShowProps> = ({ patientId, visitDate 
                         setWeather(pData.riskFactors?.includes('weather') ? 'rain' : 'clear');
                         setProbability(Math.round(prediction.confidenceScore * 100));
                     } else {
-                        setProbability(12);
+                        setProbability(0);
                     }
                 }
             } catch (e) {
                 console.error('Failed to load no-show probability', e);
-                setProbability(12);
+                setProbability(0);
             }
         };
 

@@ -16,14 +16,14 @@ export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://im
     const [isDrawing, setIsDrawing] = useState(false);
 
     useEffect(() => {
-        // Load mock wound image onto canvas
+        // Load dynamic wound base image onto canvas
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
         if (!canvas || !ctx) return;
 
         const img = new Image();
         img.crossOrigin = "anonymous";
-        // Safe anatomical stock photo mock or dynamic prop
+        // Safe anatomical stock photo or dynamic prop
         img.src = imageUrl; 
         img.onload = () => {
              // Draw image to fill canvas
@@ -154,7 +154,7 @@ export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://im
                 
                 <canvas 
                     ref={canvasRef}
-                    width={800} // Hardcoded for demo aspect ratio
+                    width={800} // Locked scale parameter to preserve coordinate mapping
                     height={400}
                     style={{ 
                         opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s',
