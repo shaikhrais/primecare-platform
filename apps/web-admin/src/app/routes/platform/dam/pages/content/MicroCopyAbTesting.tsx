@@ -47,8 +47,8 @@ export const MicroCopyAbTesting: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {tests.map(test => {
-                    const rateA = parseFloat(calculateConvRate(test.conversionsA, test.impressionsA));
-                    const rateB = parseFloat(calculateConvRate(test.conversionsB, test.impressionsB));
+                    const rateA = parseFloat(String(calculateConvRate(test.conversionsA, test.impressionsA)));
+                    const rateB = parseFloat(String(calculateConvRate(test.conversionsB, test.impressionsB)));
                     const winner = rateA > rateB ? 'A' : (rateB > rateA ? 'B' : 'TIE');
 
                     return (

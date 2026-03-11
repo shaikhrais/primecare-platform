@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Gauge, ShieldAlert, StopCircle, ArrowUpRight, Zap, RefreshCw } from 'lucide-react';
+import { Gauge, ShieldAlert, StopCircle, ArrowUpRight, Zap, RefreshCw, Activity } from 'lucide-react';
 
 interface RateLimitPolicy {
     id: string;

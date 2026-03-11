@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutTemplate, Move, PlusMenu, Trash2, Smartphone, Monitor } from 'lucide-react';
+import { LayoutTemplate, Move, PlusCircle, Trash2, Smartphone, Monitor } from 'lucide-react';
 
 interface Block {
     id: string;
@@ -80,25 +80,25 @@ export const NoCodeBuilderMock: React.FC = () => {
                             onClick={() => handleAddBlock('HERO', 'Hero Banner')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
-                            <PlusMenu size={16} color="#6366F1" /> Hero Banner
+                            <PlusCircle size={16} color="#6366F1" /> Hero Banner
                         </div>
                         <div 
                             onClick={() => handleAddBlock('STAT_GRID', 'Metrics Grid (3-Col)')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
-                            <PlusMenu size={16} color="#6366F1" /> Metrics Grid (3-Col)
+                            <PlusCircle size={16} color="#6366F1" /> Metrics Grid (3-Col)
                         </div>
                         <div 
                             onClick={() => handleAddBlock('FORM', 'Authentication Form')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
-                            <PlusMenu size={16} color="#6366F1" /> Authentication Form
+                            <PlusCircle size={16} color="#6366F1" /> Authentication Form
                         </div>
                         <div 
                             onClick={() => handleAddBlock('TEXT_BLOCK', 'Markdown Text Area')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
-                            <PlusMenu size={16} color="#6366F1" /> Markdown Text Area
+                            <PlusCircle size={16} color="#6366F1" /> Markdown Text Area
                         </div>
                     </div>
                 </div>

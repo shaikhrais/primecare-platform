@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircleWarning, ThumbsUp, ThumbsDown, AlertTriangle, ShieldAlert } from 'lucide-react';
+import { MessageCircleWarning, ThumbsUp, ThumbsDown, AlertTriangle, ShieldAlert, Star } from 'lucide-react';
 
 interface Review {
     id: string;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Target, Search, ArrowUpRight, ShieldExclamation, DollarSign } from 'lucide-react';
+import { Target, Search, ArrowUpRight, ShieldAlert, DollarSign } from 'lucide-react';
 
 interface CompetitorKeyword {
     id: string;
@@ -76,7 +76,7 @@ export const CompetitorKeywordHijacker: React.FC = () => {
                                 
                                 <td style={{ padding: '16px 12px', verticalAlign: 'middle', textAlign: 'right', paddingRight: '24px' }}>
                                     {kw.competitorPresence === 'ACTIVE' && <span style={{ color: '#16A34A', fontWeight: 700, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end' }}>DEFENDED</span>}
-                                    {kw.competitorPresence === 'DROPPED_OUT' && <span style={{ color: '#DC2626', fontWeight: 800, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end' }}><ShieldExclamation size={14}/> BUDGET CUT DETECTED</span>}
+                                    {kw.competitorPresence === 'DROPPED_OUT' && <span style={{ color: '#DC2626', fontWeight: 800, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end' }}><ShieldAlert size={14}/> BUDGET CUT DETECTED</span>}
                                     {kw.competitorPresence === 'WEAK' && <span style={{ color: '#D97706', fontWeight: 700, fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end' }}>LOW BID DEFENSE</span>}
                                 </td>
 

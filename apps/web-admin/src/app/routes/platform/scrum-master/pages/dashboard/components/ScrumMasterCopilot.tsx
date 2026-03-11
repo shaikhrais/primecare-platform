@@ -14,7 +14,7 @@ export const ScrumMasterCopilot: React.FC = () => {
         if (!window.confirm("Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment.")) return;
         setIsPushing(true);
         try {
-            const res = await apiClient.post('/v1/admin/developer/db-push', {});
+            const res = await apiClient.post('/v1/admin/developer/db-push', {}) as any;
             alert(res.message || "Schema push triggered successfully.");
         } catch (error: any) {
             alert("Failed to push schema: " + (error.message || "Unknown error"));

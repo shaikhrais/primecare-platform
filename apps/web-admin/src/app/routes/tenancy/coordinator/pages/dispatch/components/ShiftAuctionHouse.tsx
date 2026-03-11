@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Gavel, AlertCircle, TrendingUp, CheckCircle2 } from 'lucide-react';
+import { Gavel, AlertCircle, TrendingUp, CheckCircle2, Clock } from 'lucide-react';
 
 interface AuctionedShift {
     id: string;

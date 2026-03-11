@@ -152,7 +152,7 @@ export const InteractivePlayground: React.FC = () => {
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ padding: '12px 24px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#64748B', fontSize: '0.8rem', fontWeight: 600 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <Component size={14} /> Active Preview: `<PrimaryButton />`
+                            <Component size={14} /> Active Preview: {'<PrimaryButton />'}
                         </div>
                         <div>Viewport: 100%</div>
                     </div>

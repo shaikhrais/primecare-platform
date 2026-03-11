@@ -70,7 +70,7 @@ export const AssetExpirationManager: React.FC = () => {
                 </thead>
                 <tbody>
                     {assets.map(asset => {
-                        const isExpired = asset.status === 'ARCHIVED' || (asset.expiresAt && new Date(asset.expiresAt).getTime() < Date.now());
+                        const isExpired = asset.status === 'ARCHIVED' || Boolean(asset.expiresAt && new Date(asset.expiresAt).getTime() < Date.now());
                         
                         return (
                             <tr key={asset.id} style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: isExpired ? '#F8FAFC' : 'white', opacity: isExpired ? 0.7 : 1 }}>

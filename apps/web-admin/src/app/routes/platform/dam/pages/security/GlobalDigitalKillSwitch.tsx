@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Skull, AlertTriangle, ShieldAlert, WifiOff, Power, Database, Users } from 'lucide-react';
+import { Skull, AlertTriangle, ShieldAlert, WifiOff, Power, Database, Users, Activity, RefreshCw } from 'lucide-react';
 
 export const GlobalDigitalKillSwitch: React.FC = () => {
     const [isArmed, setIsArmed] = useState(false);

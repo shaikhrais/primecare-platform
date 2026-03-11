@@ -5,7 +5,7 @@ import { CareUpdatesFeed } from './components/CareUpdatesFeed';
 import { LiveETATracker } from './components/LiveETATracker';
 import { CoPaySlider } from './components/CoPaySlider';
 import { CalendarExportList } from './components/CalendarExportList';
-import { iMessageThread } from './components/iMessageThread';
+import { iMessageThread as IMessageThread } from './components/iMessageThread';
 import { MilestoneCelebration } from '@/shared/components/modals/MilestoneCelebration';
 
 export default function FamilyDashboard() {
@@ -42,7 +42,7 @@ export default function FamilyDashboard() {
                 <CareUpdatesFeed />
                 
                 <div style={{ position: 'sticky', top: '96px', alignSelf: 'start' }}>
-                    <iMessageThread />
+                    <IMessageThread />
                 </div>
             </section>
 

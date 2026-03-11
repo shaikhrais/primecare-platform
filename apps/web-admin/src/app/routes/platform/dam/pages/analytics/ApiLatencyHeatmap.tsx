@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, Radio, Cpu, Network, ShieldAlert, ArrowRightCircle } from 'lucide-react';
+import { LayoutDashboard, Server, Cpu, Network, ShieldAlert, ArrowRightCircle } from 'lucide-react';
 
 interface ComponentBottleneck {
     componentId: string;

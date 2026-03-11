@@ -38,7 +38,7 @@ export const WhosComingCard: React.FC<WhosComingCardProps> = ({ workerName, work
                 <div style={{ flex: 1, minWidth: '300px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
                         <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: 0, lineHeight: 1 }}>{workerName}</h3>
-                        <ShieldCheck size={32} color="#10B981" title="Background Checked & Verified" />
+                        <ShieldCheck size={32} color="#10B981" />
                     </div>
                     
                     <div style={{ fontSize: '1.25rem', color: '#3B82F6', fontWeight: 800, marginBottom: '24px' }}>

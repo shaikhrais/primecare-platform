@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Viewify, AlertTriangle, Eye, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, Eye, CheckCircle2 } from 'lucide-react';
 
 interface Hazard {
     id: string;
