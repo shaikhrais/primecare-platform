@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Navigation, Car } from 'lucide-react';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 
 export const LiveETATracker: React.FC = () => {
  // a live coordinate stream
     const [progress, setProgress] = useState(0); // 0 to 100
     const [etaMinutes, setEtaMinutes] = useState(12);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress(p => {
-                if (p >= 100) return 100;
-                return p + 2;
-            });
-            setEtaMinutes(e => {
-                if (e <= 0) return 0;
-                return Math.max(0, e - 0.25); // Faster countdown for demo
-            });
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
+    // In a real app, this listens to the actual driver telemetry
+    useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'TELEMETRY') {
+            setProgress(prev => Math.min(100, prev + 2)); // Or msg.progress
+            setEtaMinutes(prev => Math.max(0, prev - 0.25)); // Or msg.etaMinutes
+        }
+    });
 
     const isArrived = progress >= 100;
 

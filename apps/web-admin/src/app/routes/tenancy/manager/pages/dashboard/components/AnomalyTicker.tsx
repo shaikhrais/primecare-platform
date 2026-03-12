@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Clock, FileWarning, ShieldAlert } from 'lucide-react';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
+import { apiClient } from '@/shared/utils/apiClient';
 
 interface Anomaly {
     id: string;
@@ -14,35 +16,37 @@ interface Anomaly {
 export const AnomalyTicker: React.FC = () => {
     const [anomalies, setAnomalies] = useState<Anomaly[]>([]);
     
-    useEffect(() => {
-        const fetchAnomalies = async () => {
-            try {
-                // Using apiClient directly to the new worker-api route
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/v1/manager/ops/incidents`, {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-                });
-                
-                if (res.ok) {
-                    const data = await res.json();
-                    const mapped = data.map((d: any) => ({
-                        id: d.id,
-                        type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
-                        message: `[${d.type.toUpperCase()}] ${d.description}`,
-                        timestamp: new Date(d.createdAt),
-                        severity: d.status === 'open' ? 'critical' : 'warning'
-                    }));
-                    setAnomalies(mapped.slice(0, 5));
-                }
-            } catch (error) {
-                console.error('Failed to load anomalies:', error);
+    const fetchAnomalies = async () => {
+        try {
+            // Using apiClient mapped route to preserve context
+            const res = await apiClient.get('/v1/manager/ops/incidents');
+            
+            if (res.ok) {
+                const data = await res.json();
+                const mapped = data.map((d: any) => ({
+                    id: d.id,
+                    type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
+                    message: `[${d.type.toUpperCase()}] ${d.description}`,
+                    timestamp: new Date(d.createdAt),
+                    severity: d.status === 'open' ? 'critical' : 'warning'
+                }));
+                setAnomalies(mapped.slice(0, 5));
             }
-        };
+        } catch (error) {
+            console.error('Failed to load anomalies:', error);
+        }
+    };
+
+    useEffect(() => {
         fetchAnomalies();
-        
-        // Poll every 30 seconds for live operations
-        const interval = setInterval(fetchAnomalies, 30000);
-        return () => clearInterval(interval);
     }, []);
+
+    useRealtimeSync((msg: SyncMessage) => {
+        // Only refresh anomaly list if the event might correlate to an incident
+        if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY') {
+            fetchAnomalies();
+        }
+    });
 
     const getIcon = (type: string, severity: string) => {
         const color = severity === 'critical' ? '#DC2626' : '#F59E0B';

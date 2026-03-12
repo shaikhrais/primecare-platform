@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -43,50 +44,62 @@ export default function DispatchMap() {
     const [loading, setLoading] = useState(true);
     const { showToast } = useNotification();
 
-    useEffect(() => {
-        const fetchMapData = async () => {
-            try {
-                const data: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DISPATCH_MAP);
-                if (data) {
-                    const caregivers = data.caregivers.map((p: any) => ({
-                        id: p.id,
-                        name: p.fullName,
-                        lat: p.lastLat || 43.6532,
-                        lng: p.lastLng || -79.3832,
-                        status: p.status === 'urgent' ? 'sos' : p.status === 'active' ? 'active' : 'idle',
-                        icon: p.status === 'urgent' ? '🚨' : '🚙'
-                    }));
-                    const clients = data.clients.map((c: any) => ({
-                        id: c.id,
-                        name: c.fullName,
-                        lat: c.lat || 43.6600,
-                        lng: c.lng || -79.3900,
-                        status: 'client',
-                        icon: '🏠'
-                    }));
-                    setNodes([...caregivers, ...clients]);
-                    setActiveVisits(data.activeVisits || []);
-                    setRecentEvents(data.recentEvents || []);
-                }
-            } catch (error) {
-                console.error('Failed to fetch dispatch map:', error);
-            } finally {
-                setLoading(false);
+    const fetchMapData = async () => {
+        try {
+            const data: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DISPATCH_MAP);
+            if (data) {
+                const caregivers = data.caregivers.map((p: any) => ({
+                    id: p.id,
+                    name: p.fullName,
+                    lat: p.lastLat || 43.6532,
+                    lng: p.lastLng || -79.3832,
+                    status: p.status === 'urgent' ? 'sos' : p.status === 'active' ? 'active' : 'idle',
+                    icon: p.status === 'urgent' ? '🚨' : '🚙'
+                }));
+                const clients = data.clients.map((c: any) => ({
+                    id: c.id,
+                    name: c.fullName,
+                    lat: c.lat || 43.6600,
+                    lng: c.lng || -79.3900,
+                    status: 'client',
+                    icon: '🏠'
+                }));
+                setNodes([...caregivers, ...clients]);
+                setActiveVisits(data.activeVisits || []);
+                setRecentEvents(data.recentEvents || []);
             }
-        };
+        } catch (error) {
+            console.error('Failed to fetch dispatch map:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchMapData();
-        const interval = setInterval(fetchMapData, 30000); // Pulse every 30s
-        return () => clearInterval(interval);
     }, []);
+
+    const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY' || msg.type === 'INCIDENT') {
+            fetchMapData();
+        }
+    });
 
     if (loading) return <div className="dispatch-map-container"><p>Syncing Field Intel...</p></div>;
 
     return (
         <div className="dispatch-map-container">
             <header className="map-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                    <h1>{COORDINATOR_MAP.TITLE}</h1>
-                    <p>{COORDINATOR_MAP.SUBTITLE}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div>
+                        <h1>{COORDINATOR_MAP.TITLE}</h1>
+                        <p>{COORDINATOR_MAP.SUBTITLE}</p>
+                    </div>
+                    {/* Synchrony Indicator */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: 800, padding: '4px 8px', borderRadius: '12px', background: isConnected ? '#ECFCCB' : '#FEF3C7', color: isConnected ? '#4D7C0F' : '#B45309', border: `1px solid ${isConnected ? '#D9F99D' : '#FDE68A'}` }}>
+                        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: isConnected ? '#65A30D' : '#D97706', animation: isConnected ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none' }}></div>
+                        {isConnected ? 'LIVE SYNC' : 'CONNECTING...'}
+                    </div>
                 </div>
                 <div>
                     <button

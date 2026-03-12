@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import './CoordinatorHub.css';
 
 const { COORDINATOR_HUB } = ContentRegistry;
@@ -20,40 +21,44 @@ export default function CoordinatorHub() {
     const [loading, setLoading] = useState(true);
     const { showToast } = useNotification();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch live stats
-                const statsData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DASHBOARD_STATS);
-                if (statsData) setStats(statsData as any);
+    const fetchData = async () => {
+        try {
+            // Fetch live stats
+            const statsData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DASHBOARD_STATS);
+            if (statsData) setStats(statsData as any);
 
-                // Fetch waitlist entries (if any)
-                const waitlistData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.WAITLIST_SYNC);
-                if (waitlistData && Array.isArray(waitlistData)) setWaitlist(waitlistData);
+            // Fetch waitlist entries (if any)
+            const waitlistData = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.WAITLIST_SYNC);
+            if (waitlistData && Array.isArray(waitlistData)) setWaitlist(waitlistData);
 
-                // Fetch real incidents
-                const incidentsData: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.SOS_INCIDENTS);
-                if (incidentsData && Array.isArray(incidentsData)) {
-                    setIncidents(incidentsData.map((inc: any) => ({
-                        id: inc.id,
-                        type: inc.type,
-                        description: `SOS: ${inc.visit?.psw?.fullName} @ ${inc.visit?.client?.fullName}`,
-                        status: inc.status,
-                        createdAt: inc.createdAt
-                    })));
-                }
-
-                setLoading(false);
-            } catch (error) {
-                console.error('Failed to fetch coordinator data:', error);
-                setLoading(false);
+            // Fetch real incidents
+            const incidentsData: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.SOS_INCIDENTS);
+            if (incidentsData && Array.isArray(incidentsData)) {
+                setIncidents(incidentsData.map((inc: any) => ({
+                    id: inc.id,
+                    type: inc.type,
+                    description: `SOS: ${inc.visit?.psw?.fullName} @ ${inc.visit?.client?.fullName}`,
+                    status: inc.status,
+                    createdAt: inc.createdAt
+                })));
             }
-        };
 
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to fetch coordinator data:', error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 15000); // Refresh incidents every 15s
-        return () => clearInterval(interval);
     }, []);
+
+    useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'VISIT_UPDATE' || msg.type === 'INCIDENT' || msg.type === 'SHIFT_CLAIMED') {
+            fetchData();
+        }
+    });
 
     const acknowledgeSos = async (incidentId: string) => {
         try {

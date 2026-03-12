@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../shared/context/AuthContext';
 
 export interface SyncMessage {
-    type: 'VISIT_UPDATE' | 'SHIFT_CLAIMED' | 'TELEMETRY' | 'CHAT_MESSAGE';
+    type: 'VISIT_UPDATE' | 'SHIFT_CLAIMED' | 'TELEMETRY' | 'CHAT_MESSAGE' | 'INCIDENT' | 'AUCTION_BID';
     visitId?: string;
     status?: string;
     lat?: number;
