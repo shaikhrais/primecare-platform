@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ShoppingBag, ChevronRight, Stethoscope, HeartPulse, CreditCard } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ShopItem {
     id: string;
@@ -18,13 +20,23 @@ export const HardwareStorefront: React.FC = () => {
         { id: 'item_3', name: 'Omron Platinum BP Monitor', price: 75.00, icon: HeartPulse, description: 'Clinically validated, Bluetooth enabled.' }
     ];
 
-    const handlePurchase = (id: string) => {
+    const { showToast } = useNotification();
+
+    const handlePurchase = async (id: string) => {
         setPurchasing(id);
-        setTimeout(() => {
+        try {
+            const response = await apiClient.post('/v1/psw/dashboard/hardware/purchase', { itemId: id });
+            if (response.ok) {
+                showToast('Item ordered successfully. Amount will be deducted from your next pay cycle.', 'success');
+            } else {
+                throw new Error('Failed to process purchase');
+            }
+        } catch (error) {
+            console.error('Failed to buy hardware:', error);
+            showToast('Purchase could not be processed at this time.', 'error');
+        } finally {
             setPurchasing(null);
-            // Show toast in live app
-            alert('Item ordered successfully. Amount will be deducted from your next pay cycle.');
-        }, 1500);
+        }
     };
 
     return (

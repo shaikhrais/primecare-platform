@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { useNavigate } from 'react-router-dom';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -7,6 +10,8 @@ export default function PharmacyHub() {
     const [meds, setMeds] = useState<any[]>([]);
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { showToast } = useNotification();
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -30,6 +35,20 @@ export default function PharmacyHub() {
 
     useEffect(() => { fetchData(); }, []);
 
+    const handleAction = async (endpoint: string, successMsg: string) => {
+        try {
+            const response = await apiClient.post(endpoint, {});
+            if (response.ok) {
+                showToast(successMsg, 'success');
+                fetchData(); // refresh stats
+            } else {
+                showToast('Action failed on server', 'error');
+            }
+        } catch (error) {
+            showToast('Network error while processing request', 'error');
+        }
+    };
+
     const orderBtn = ButtonRegistry.find((b: any) => b.id === 'btn-pharmacy-order');
     const syncBtn = ButtonRegistry.find((b: any) => b.id === 'btn-pharmacy-mar-sync');
 
@@ -46,10 +65,10 @@ export default function PharmacyHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={() => alert('Syncing MAR...')}>
+                    <button className="btn secondary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.MAR_SYNC, 'MAR synchronized successfully!')}>
                         {syncBtn?.label || 'Sync MAR'}
                     </button>
-                    <button className="btn primary" onClick={() => alert('Ordering medication...')}>
+                    <button className="btn primary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.ORDER_DRUGS, 'Medication order requested!')}>
                         {orderBtn?.label || 'Order Medication'}
                     </button>
                 </div>
@@ -101,7 +120,7 @@ export default function PharmacyHub() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '16px 24px' }}>
-                                    <button className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }}>View MAR</button>
+                                    <button className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }} onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.DASHBOARD)}>View MAR</button>
                                 </td>
                             </tr>
                         ))}

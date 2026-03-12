@@ -114,4 +114,33 @@ r.openapi(getDashboardStatsRoute, async (c) => {
     }
 });
 
+// POST Hardware Purchase
+const postHardwarePurchaseRoute = createRoute({
+    method: 'post',
+    path: '/hardware/purchase',
+    description: 'Process a hardware purchase with payroll deduction',
+    middleware: [requireRole(['psw'])],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({ itemId: z.string() })
+                }
+            }
+        }
+    },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.object({ message: z.string() }) } },
+            description: 'Order success',
+        },
+        500: { description: 'Server Error' }
+    },
+});
+
+r.openapi(postHardwarePurchaseRoute, async (c) => {
+    // Simulated purchase logic for storefront UI
+    return c.json({ message: 'Hardware order processed via payroll deduction.' }, 200);
+});
+
 export default r;
