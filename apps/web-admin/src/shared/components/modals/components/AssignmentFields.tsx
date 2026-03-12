@@ -11,10 +11,12 @@ interface AssignmentFieldsProps extends SharedProps {
     onTypeChange: (type: 'open' | 'direct') => void;
     onPswChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     onCreatePsw?: () => void;
+    isCreatingPsw?: boolean;
+    inlinePswForm?: React.ReactNode;
 }
 
 export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
-    assignmentType, assignedPswId, psws, onTypeChange, onPswChange, disabled, onCreatePsw
+    assignmentType, assignedPswId, psws, onTypeChange, onPswChange, disabled, onCreatePsw, isCreatingPsw, inlinePswForm
 }) => {
     return (
         <>
@@ -50,27 +52,31 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Select PSW</label>
-                        {onCreatePsw && (
+                        {onCreatePsw && !isCreatingPsw && (
                             <button type="button" onClick={onCreatePsw} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
                                 + Create PSW
                             </button>
                         )}
                     </div>
-                    <select
-                        data-cy="inp-psw-id"
-                        required={assignmentType === 'direct'}
-                        value={assignedPswId}
-                        onChange={onPswChange}
-                        disabled={disabled}
-                        style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                    >
-                        <option value="">Select a service provider</option>
-                        {psws.map(psw => (
-                            <option key={psw.id} value={psw.pswProfile?.id || psw.id}>
-                                {psw.pswProfile?.fullName || psw.email}
-                            </option>
-                        ))}
-                    </select>
+                    {isCreatingPsw ? (
+                        inlinePswForm
+                    ) : (
+                        <select
+                            data-cy="inp-psw-id"
+                            required={assignmentType === 'direct'}
+                            value={assignedPswId}
+                            onChange={onPswChange}
+                            disabled={disabled}
+                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                        >
+                            <option value="">Select a service provider</option>
+                            {psws.map(psw => (
+                                <option key={psw.id} value={psw.pswProfile?.id || psw.id}>
+                                    {psw.pswProfile?.fullName || psw.email}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
             )}
         </>

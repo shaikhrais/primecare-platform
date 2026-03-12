@@ -25,6 +25,7 @@ import coordinatorModule from './tenancy/coordinator/coordinator.module';
 import userModule from './user/user.routes';
 import systemModule from './platform/system/system.module';
 import scrumMasterModule from './platform/scrum_master/scrum_master.module';
+import superuserModule from './platform/superuser/superuser.module';
 import debugModule from './platform/system/debug.routes';
 import cronRoutes from './platform/system/cron.routes';
 
@@ -193,6 +194,7 @@ app.route('/v1/coordinator', coordinatorModule);
 app.route('/v1/user', userModule);
 app.route('/v1/system', systemModule);
 app.route('/v1/scrum-master', scrumMasterModule);
+app.route('/v1/superuser', superuserModule);
 app.route('/v1/cron', cronRoutes);
 // R23 (L29): Gate debug module behind non-production environment
 app.use('/v1/debug/*', async (c, next) => {

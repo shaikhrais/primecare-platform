@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 import { useAuth } from '@/shared/context/AuthContext';
 import { useTheme } from '@/shared/context/ThemeContext';

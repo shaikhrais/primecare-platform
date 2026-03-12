@@ -6,7 +6,7 @@ interface SharedProps {
 
 interface SecondaryVisitFieldsProps extends SharedProps {
     priority: 'normal' | 'urgent';
-    recurrence: 'none' | 'daily' | 'weekly' | 'monthly';
+    recurrence: 'none' | 'daily' | 'weekly' | 'monthly' | 'advanced';
     clientNotes: string;
     onPriorityChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     onRecurrenceChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -44,6 +44,7 @@ export const SecondaryVisitFields: React.FC<SecondaryVisitFieldsProps> = ({
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
+                        <option value="advanced">Advanced Custom</option>
                     </select>
                 </div>
             </div>

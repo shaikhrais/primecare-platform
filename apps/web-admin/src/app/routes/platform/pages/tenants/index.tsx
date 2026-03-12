@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { ProvisionTenantModal } from './components/ProvisionTenantModal';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -15,21 +16,24 @@ interface Tenant {
 export default function TenantList() {
     const [tenants, setTenants] = useState<Tenant[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isProvisionModalOpen, setIsProvisionModalOpen] = useState(false);
+
+    const fetchTenants = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch('https://primecare-api.itpro-mohammed.workers.dev/v1/superuser/tenants');
+            if (res.ok) {
+                const data = await res.json();
+                setTenants(data);
+            }
+        } catch (error) {
+            console.error('Failed to load active tenants', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchTenants = async () => {
-            try {
- // tenant data mapped to Tenant model
-                const sampleTenants: Tenant[] = [
-                    { id: '1', name: 'PrimeCare Main', domain: 'main.primecare.ca', status: 'active', createdAt: '2025-01-01' },
-                    { id: '2', name: 'West Side Health', domain: 'westside.primecare.ca', status: 'active', createdAt: '2025-02-15' },
-                    { id: '3', name: 'North Star Seniors', domain: 'northstar.primecare.ca', status: 'pending', createdAt: '2026-01-10' },
-                ];
-                setTenants(sampleTenants);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchTenants();
     }, []);
 
@@ -40,12 +44,17 @@ export default function TenantList() {
                     <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Tenant Management</h1>
                     <p style={{ color: '#6B7280' }}>Provision and manage active fractal SaaS organizations.</p>
                 </div>
-                <button className="btn primary">
+                <button className="btn primary" onClick={() => setIsProvisionModalOpen(true)}>
                     + Provision New Tenant
                 </button>
             </div>
 
             <div className="pc-card" style={{ overflow: 'hidden' }}>
+                <ProvisionTenantModal 
+                    isOpen={isProvisionModalOpen} 
+                    onClose={() => setIsProvisionModalOpen(false)} 
+                    onSuccess={() => fetchTenants()} 
+                />
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                         <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>

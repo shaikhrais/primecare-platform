@@ -14,11 +14,15 @@ interface ClientServiceFieldsProps extends SharedProps {
     fixedClientName?: string;
     onCreateClient?: () => void;
     onCreateService?: () => void;
+    isCreatingClient?: boolean;
+    isCreatingService?: boolean;
+    inlineClientForm?: React.ReactNode;
+    inlineServiceForm?: React.ReactNode;
 }
 
 export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
     clientId, serviceId, clients, services, onClientChange, onServiceChange, fixedClientName, disabled,
-    onCreateClient, onCreateService
+    onCreateClient, onCreateService, isCreatingClient, isCreatingService, inlineClientForm, inlineServiceForm
 }) => {
     return (
         <>
@@ -35,6 +39,8 @@ export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
                     <div style={{ padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db', fontWeight: '600' }}>
                         {fixedClientName}
                     </div>
+                ) : isCreatingClient ? (
+                    inlineClientForm
                 ) : (
                     <select
                         data-cy="inp-client-id"
@@ -55,25 +61,29 @@ export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Service Type</label>
-                    {onCreateService && (
+                    {onCreateService && !isCreatingService && (
                         <button type="button" onClick={onCreateService} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
                             + Create Service
                         </button>
                     )}
                 </div>
-                <select
-                    data-cy="inp-service-id"
-                    required
-                    value={serviceId}
-                    onChange={onServiceChange}
-                    disabled={disabled}
-                    style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                >
-                    <option value="">Select a service</option>
-                    {services.map(s => (
-                        <option key={s.id} value={s.id}>{s.name}</option>
-                    ))}
-                </select>
+                {isCreatingService ? (
+                    inlineServiceForm
+                ) : (
+                    <select
+                        data-cy="inp-service-id"
+                        required
+                        value={serviceId}
+                        onChange={onServiceChange}
+                        disabled={disabled}
+                        style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                    >
+                        <option value="">Select a service</option>
+                        {services.map(s => (
+                            <option key={s.id} value={s.id}>{s.name}</option>
+                        ))}
+                    </select>
+                )}
             </div>
         </>
     );

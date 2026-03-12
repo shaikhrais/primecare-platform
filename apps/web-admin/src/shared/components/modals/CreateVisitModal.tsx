@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 // Components
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
+import { AdvancedRecurrenceBuilder } from './components/AdvancedRecurrenceBuilder';
+import { InlineCreateClient, InlineCreateService, InlineCreatePsw } from './components/InlineCreationForms';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 
@@ -28,6 +30,10 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     const [services, setServices] = useState<any[]>([]);
     const [psws, setPsws] = useState<any[]>([]);
 
+    const [isCreatingClient, setIsCreatingClient] = useState(false);
+    const [isCreatingService, setIsCreatingService] = useState(false);
+    const [isCreatingPsw, setIsCreatingPsw] = useState(false);
+
     const [formData, setFormData] = useState({
         clientId: initialClientId || '',
         serviceId: '',
@@ -37,7 +43,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
         clientNotes: '',
         assignmentType: 'open' as 'open' | 'direct',
         priority: 'normal' as 'normal' | 'urgent',
-        recurrence: 'none' as 'none' | 'daily' | 'weekly' | 'monthly'
+        recurrence: 'none' as 'none' | 'daily' | 'weekly' | 'monthly' | 'advanced',
+        advancedRRule: '',
+        advancedUntil: undefined as string | undefined
     });
 
     useEffect(() => {
@@ -53,7 +61,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                     clientNotes: visit.clientNotes || '',
                     assignmentType: visit.assignedPswId ? 'direct' : 'open',
                     priority: visit.priority || 'normal',
-                    recurrence: 'none'
+                    recurrence: 'none',
+                    advancedRRule: '',
+                    advancedUntil: undefined
                 });
             } else {
                 setFormData({
@@ -65,7 +75,9 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                     clientNotes: '',
                     assignmentType: 'open',
                     priority: 'normal',
-                    recurrence: 'none'
+                    recurrence: 'none',
+                    advancedRRule: '',
+                    advancedUntil: undefined
                 });
             }
         }
@@ -90,7 +102,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const payload = {
+        const payload: any = {
             clientId: formData.clientId,
             serviceId: formData.serviceId,
             requestedStartAt: new Date(formData.requestedStartAt).toISOString(),
@@ -98,8 +110,18 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
             assignedPswId: formData.assignmentType === 'direct' ? formData.assignedPswId : undefined,
             clientNotes: formData.clientNotes,
             priority: formData.priority,
-            recurrenceRule: formData.recurrence !== 'none' ? { pattern: formData.recurrence } : undefined
         };
+
+        if (formData.recurrence === 'advanced' && formData.advancedRRule) {
+            payload.recurrenceRuleString = formData.advancedRRule;
+            payload.recurrenceEndDate = formData.advancedUntil;
+        } else if (formData.recurrence === 'daily') {
+            payload.recurrenceRuleString = 'FREQ=DAILY';
+        } else if (formData.recurrence === 'weekly') {
+            payload.recurrenceRuleString = 'FREQ=WEEKLY';
+        } else if (formData.recurrence === 'monthly') {
+            payload.recurrenceRuleString = 'FREQ=MONTHLY';
+        }
 
         try {
             const response = visit
@@ -137,8 +159,18 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         onServiceChange={(e) => setFormData(p => ({ ...p, serviceId: e.target.value }))}
                         fixedClientName={visit ? (clients.find(c => c.id === formData.clientId)?.fullName || 'Loading...') : (initialClientId ? initialClientName : undefined)}
                         disabled={loading}
-                        onCreateClient={() => { onClose(); navigate('/clients'); }}
-                        onCreateService={() => { onClose(); navigate('/services'); }}
+                        onCreateClient={() => setIsCreatingClient(true)}
+                        onCreateService={() => setIsCreatingService(true)}
+                        isCreatingClient={isCreatingClient}
+                        isCreatingService={isCreatingService}
+                        inlineClientForm={<InlineCreateClient 
+                            onCancel={() => setIsCreatingClient(false)} 
+                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, clientId: newId })); setIsCreatingClient(false); }} 
+                        />}
+                        inlineServiceForm={<InlineCreateService 
+                            onCancel={() => setIsCreatingService(false)} 
+                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, serviceId: newId })); setIsCreatingService(false); }} 
+                        />}
                     />
                     <DateTimeFields
                         requestedStartAt={formData.requestedStartAt} durationMinutes={formData.durationMinutes}
@@ -151,7 +183,12 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         onTypeChange={(type) => setFormData(p => ({ ...p, assignmentType: type }))}
                         onPswChange={(e) => setFormData(p => ({ ...p, assignedPswId: e.target.value }))}
                         disabled={loading}
-                        onCreatePsw={() => { onClose(); navigate('/users'); }}
+                        onCreatePsw={() => setIsCreatingPsw(true)}
+                        isCreatingPsw={isCreatingPsw}
+                        inlinePswForm={<InlineCreatePsw 
+                            onCancel={() => setIsCreatingPsw(false)} 
+                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, assignedPswId: newId })); setIsCreatingPsw(false); }} 
+                        />}
                     />
                     <SecondaryVisitFields
                         priority={formData.priority} recurrence={formData.recurrence} clientNotes={formData.clientNotes}
@@ -160,6 +197,16 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         onNotesChange={(e) => setFormData(p => ({ ...p, clientNotes: e.target.value }))}
                         isEdit={!!visit} disabled={loading}
                     />
+                    {formData.recurrence === 'advanced' && (
+                        <div style={{ marginTop: '-0.5rem' }}>
+                            <AdvancedRecurrenceBuilder 
+                                value={formData.advancedRRule}
+                                onChange={(rrule, endDate) => setFormData(p => ({ ...p, advancedRRule: rrule, advancedUntil: endDate }))}
+                                startDate={formData.requestedStartAt}
+                                disabled={loading}
+                            />
+                        </div>
+                    )}
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                         <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}>{ContentRegistry.MODALS.CREATE_VISIT.CANCEL}</button>
                         <button type="submit" disabled={loading} data-cy="btn-submit-visit" style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
