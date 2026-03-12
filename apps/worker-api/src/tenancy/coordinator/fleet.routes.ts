@@ -72,6 +72,38 @@ fleet.openapi(heartbeatRoute, async (c) => {
         }
     }
 
+    // Phase 16: True Real-Time WebSocket Push (0ms Latency Map Sync)
+    // Avoids clients needing to poll /fleet/positions
+    if (psw.user?.tenantId && c.env.REALTIME_SYNC) {
+        try {
+            const doId = c.env.REALTIME_SYNC.idFromName(psw.user.tenantId);
+            const stub = c.env.REALTIME_SYNC.get(doId);
+            
+            // Build the WebSocket push payload
+            const realtimePayload = {
+                type: 'TELEMETRY',
+                pswId: psw.id,
+                lat: body.lat,
+                lng: body.lng,
+                status: body.status || 'available',
+                batteryLevel: body.batteryLevel
+            };
+
+            // Fire and forget POST to the Durable Object's internal /broadcast REST endpoint
+            const broadcastUrl = new URL(c.req.url);
+            broadcastUrl.pathname = '/broadcast';
+            
+            c.executionCtx.waitUntil(
+                stub.fetch(new Request(broadcastUrl.toString(), {
+                    method: 'POST',
+                    body: JSON.stringify(realtimePayload)
+                }))
+            );
+        } catch (e) {
+            console.error('[Fleet Watchdog] Failed to broadcast telemetry ping to REALTIME_SYNC', e);
+        }
+    }
+
     return c.json({ success: true }, 200);
 });
 

@@ -80,8 +80,16 @@ export default function DispatchMap() {
     }, []);
 
     const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
-        if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY' || msg.type === 'INCIDENT') {
-            fetchMapData();
+        if (msg.type === 'VISIT_UPDATE' || msg.type === 'INCIDENT') {
+            fetchMapData(); // Structural changes still warrant a full layout fetch
+        } else if (msg.type === 'TELEMETRY' && msg.pswId) {
+            // Phase 16: Zero-Latency WebSocket Push Update
+            // Bypasses HTTP polling, patching the Leaflet DOM state directly.
+            setNodes(prev => prev.map(n => 
+                n.id === msg.pswId 
+                    ? { ...n, lat: msg.lat || n.lat, lng: msg.lng || n.lng, status: msg.status || n.status } 
+                    : n
+            ));
         }
     });
 
