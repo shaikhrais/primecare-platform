@@ -42,6 +42,7 @@ import marketingRoutes from './marketing/marketing.routes';
 import telehealthRoutes from './telehealth/telehealth.routes';
 import pharmacyRoutes from './pharmacy/pharmacy.routes';
 import erpRoutes from './erp/erp.routes';
+import damRoutes from './dam/dam.routes';
 import { systemDataRoutes } from './system-data/system-data.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -104,7 +105,9 @@ admin.route('/interop', interopRoutes);
 admin.route('/cron', cronRoutes);
 admin.route('/telehealth', telehealthRoutes);
 admin.route('/pharmacy', pharmacyRoutes);
-admin.route('/erp', erpRoutes);
+adminModule.route('/claims', claimRoutes);
+adminModule.route('/erp', erpRoutes);
+adminModule.route('/dam', damRoutes);
 admin.route('/system-data', systemDataRoutes);
 
 const statsRoute = createRoute({

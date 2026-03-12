@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { Shield, ServerCrash, Cpu, AlertTriangle, Key } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import './ResponseBotAudit.css';
@@ -22,6 +24,8 @@ interface Touchpoint {
 export const ResponseBotAudit: React.FC = () => {
     const [touchpoints, setTouchpoints] = useState<Touchpoint[]>([]);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState('registry');
+    const { showToast } = useNotification();
     const [sweeping, setSweeping] = useState(false);
     const [publicUrlBase, setPublicUrlBase] = useState('https://primecare-admin.pages.dev');
     const [editingTp, setEditingTp] = useState<Touchpoint | null>(null);
@@ -52,9 +56,9 @@ export const ResponseBotAudit: React.FC = () => {
                 publicUrlBase: isPublic ? publicUrlBase : undefined
             });
             await fetchTouchpoints();
-        } catch (error) {
-            console.error('Sweep failed', error);
-            alert('Registry sweep failed. Check technical logs.');
+        } catch (e: any) {
+            console.error('Sweep Failure:', e);
+            showToast('Registry sweep failed. Check technical logs.', 'error');
         } finally {
             setSweeping(false);
         }
@@ -69,9 +73,9 @@ export const ResponseBotAudit: React.FC = () => {
             });
             setEditingTp(null);
             await fetchTouchpoints();
-        } catch (error) {
-            console.error('Update failed', error);
-            alert('Failed to update registry entry.');
+        } catch (e) {
+            console.error('Save Failure:', e);
+            showToast('Failed to update registry entry.', 'error');
         }
     };
 

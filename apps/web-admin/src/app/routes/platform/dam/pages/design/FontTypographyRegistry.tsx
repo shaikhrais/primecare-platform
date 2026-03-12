@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Type, Link2, DownloadCloud, AlertOctagon, Brush, Search, Trash2 } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface FontRegistry {
     id: string;
@@ -18,17 +20,22 @@ export const FontTypographyRegistry: React.FC = () => {
         { id: '4', family: 'Proxima Nova', provider: 'Adobe Typekit', weightIncluded: ['300', '400', '700'], status: 'PENDING', impactKb: 145 }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleStatusChange = (id: string, newStatus: FontRegistry['status']) => {
         setFonts(prev => prev.map(f => f.id === id ? { ...f, status: newStatus } : f));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/design/sync-fonts', { fonts });
+            showToast("Blocked fonts have been forcefully stripped from the <head> tag globally.", "success");
+        } catch (error) {
+            showToast("Unable to reach registry sink", "error");
+        } finally {
             setIsSaving(false);
-            alert("Blocked fonts have been forcefully stripped from the <head> tag globally.");
-        }, 1200);
+        }
     };
 
     const totalPayload = fonts.filter(f => f.status === 'APPROVED').reduce((sum, f) => sum + f.impactKb, 0);

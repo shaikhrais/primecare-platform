@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { History, GitCommit, Search, RefreshCcw, FileJson, CheckCircle2 } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface WorkflowCommit {
     id: string;
@@ -18,18 +20,23 @@ export const WorkflowVersionControl: React.FC = () => {
     ]);
     const [isReverting, setIsReverting] = useState(false);
     const [selectedCommit, setSelectedCommit] = useState<WorkflowCommit | null>(null);
+    const { showToast } = useNotification();
 
-    const handleRevert = (commit: WorkflowCommit) => {
+    const handleRevert = async (commit: WorkflowCommit) => {
         setIsReverting(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/workflows/rollback', { hash: commit.hash });
             setCommits(prev => prev.map(c => ({
                 ...c,
                 isActive: c.id === commit.id
             })));
-            setIsReverting(false);
+            showToast(`Visual Workflow Engine successfully rolled back to commit [${commit.hash}].`, "success");
             setSelectedCommit(null);
-            alert(`Visual Workflow Engine successfully rolled back to commit [${commit.hash}].`);
-        }, 1500);
+        } catch (error) {
+            showToast("Failed to revert logic graph", "error");
+        } finally {
+            setIsReverting(false);
+        }
     };
 
     return (

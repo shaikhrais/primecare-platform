@@ -3,6 +3,7 @@ import { CreditCard, History, Clock, CheckCircle, AlertTriangle, Download, Arrow
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import './BillingHub.css';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -18,6 +19,7 @@ interface Invoice {
 const BillingHub: React.FC = () => {
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [loading, setLoading] = useState(true);
+    const { showToast } = useNotification();
 
     const fetchInvoices = async () => {
         try {
@@ -48,7 +50,7 @@ const BillingHub: React.FC = () => {
             const response = await apiClient.post(btn.apiPath, { invoiceId: inv.id });
             const data = await response.json();
             if (data.url) window.location.href = data.url;
-            else alert('Redirecting to secure payment portal...');
+            else showToast('Redirecting to secure payment portal...', 'success');
         } catch (error) {
             console.error('Payment failed', error);
         }

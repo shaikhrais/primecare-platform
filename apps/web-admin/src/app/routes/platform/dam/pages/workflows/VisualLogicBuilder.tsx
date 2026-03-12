@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Workflow, Play, MousePointer2, Plus, ArrowRight, Settings2, Trash2, Webhook, MessageSquare, Database } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface LogicNode {
     id: string;
@@ -17,6 +19,7 @@ export const VisualLogicBuilder: React.FC = () => {
         { id: 'n3', type: 'ACTION', title: 'Push Notification', description: 'Slack: #finance-alerts', icon: <MessageSquare />, state: 'DRAFT' }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleAddNode = () => {
         setNodes(prev => [...prev, { id: `n_${Date.now()}`, type: 'ACTION', title: 'New Action', description: 'Unconfigured node', icon: <Settings2 />, state: 'DRAFT' }]);
@@ -26,13 +29,17 @@ export const VisualLogicBuilder: React.FC = () => {
         setNodes(prev => prev.filter(n => n.id !== id));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
-            setIsSaving(false);
-            alert("Visual logic payload translated to JSON and persisted to DB.");
+        try {
+            await apiClient.post('/platform/admin/dam/workflows/visual-logic', { nodes });
+            showToast("Visual logic payload translated to JSON and persisted to DB.", "success");
             setNodes(prev => prev.map(n => ({...n, state: 'CONFIGURED'})));
-        }, 1200);
+        } catch (error) {
+            showToast("Failed to compile syntax", "error");
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const renderNode = (node: LogicNode, index: number) => {

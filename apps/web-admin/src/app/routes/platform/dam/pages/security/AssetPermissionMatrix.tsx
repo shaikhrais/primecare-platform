@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lock, Unlock, ShieldAlert, Eye, Edit3, Trash2, Users } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RolePermission {
     roleId: string;
@@ -48,6 +50,7 @@ export const AssetPermissionMatrix: React.FC = () => {
     ]);
 
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const togglePermission = (categoryId: string, roleId: string, permissionType: 'canView' | 'canEdit' | 'canDelete') => {
         setCategories(prev => prev.map(c => {
@@ -70,12 +73,16 @@ export const AssetPermissionMatrix: React.FC = () => {
         }));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/security/rbac-matrix', { categories });
+            showToast("Role-Based Access Control (RBAC) matrix synchronized with PostgreSQL Identity layer.", "success");
+        } catch (error) {
+            showToast("ACL failure", "error");
+        } finally {
             setIsSaving(false);
-            alert("Role-Based Access Control (RBAC) matrix synchronized with PostgreSQL Identity layer.");
-        }, 1200);
+        }
     };
 
     return (

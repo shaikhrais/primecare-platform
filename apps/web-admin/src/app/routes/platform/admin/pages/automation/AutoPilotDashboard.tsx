@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ButtonRegistry } = AdminRegistry;
 
 const AutoPilotDashboard: React.FC = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [result, setResult] = useState<{ processedVisits: number, offersCreated: number, message: string } | null>(null);
+    const { showToast } = useNotification();
 
     const engageBtn = ButtonRegistry.find((b: any) => b.id === 'btn-ai-autopilot-engage');
 
@@ -24,7 +26,7 @@ const AutoPilotDashboard: React.FC = () => {
             }, 1500);
         } catch (error) {
             console.error(error);
-            alert('Error running Auto-Pilot.');
+            showToast('Error running Auto-Pilot.', 'error');
         } finally {
             setIsProcessing(false);
         }

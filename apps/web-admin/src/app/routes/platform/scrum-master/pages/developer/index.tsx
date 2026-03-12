@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function DeveloperPortal() {
     const [apiKey, setApiKey] = useState('');
+    const { showToast } = useNotification();
     const [keys, setKeys] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -32,11 +34,11 @@ export default function DeveloperPortal() {
             const response = await apiClient.post('/v1/admin/developer/keys', { name });
             if (response.ok) {
                 const data = await response.json();
-                alert(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`);
+                showToast(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`, 'success');
                 fetchKeys();
             }
         } catch (error) {
-            alert('Failed to create key');
+            showToast('Failed to create key', 'error');
         }
     };
 

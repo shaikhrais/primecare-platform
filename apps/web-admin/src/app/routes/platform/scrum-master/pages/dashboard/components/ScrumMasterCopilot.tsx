@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BrainCircuit, Zap, Target, Activity } from 'lucide-react';
+import { Terminal, Database } from 'lucide-react';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
@@ -9,15 +10,16 @@ const { ContentRegistry, ApiRegistry } = AdminRegistry;
 export const ScrumMasterCopilot: React.FC = () => {
     const { t } = useTranslation();
     const [isPushing, setIsPushing] = useState(false);
+    const { showToast } = useNotification();
 
     const handleSchemaPush = async () => {
         if (!window.confirm("Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment.")) return;
         setIsPushing(true);
         try {
             const res = await apiClient.post('/v1/admin/developer/db-push', {}) as any;
-            alert(res.message || "Schema push triggered successfully.");
+            showToast(res.message || "Schema push triggered successfully.", "success");
         } catch (error: any) {
-            alert("Failed to push schema: " + (error.message || "Unknown error"));
+            showToast("Failed to push schema: " + (error.message || "Unknown error"), "error");
         } finally {
             setIsPushing(false);
         }

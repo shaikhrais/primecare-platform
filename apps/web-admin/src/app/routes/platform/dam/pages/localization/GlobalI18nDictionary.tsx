@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Globe, Search, Save, Languages, Check, Filter } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface TranslationKey {
     id: string;
@@ -21,6 +23,7 @@ export const GlobalI18nDictionary: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<string>('ALL');
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleUpdate = (id: string, lang: 'en'|'es'|'fr', value: string) => {
         setTranslations(prev => prev.map(t => {
@@ -37,12 +40,16 @@ export const GlobalI18nDictionary: React.FC = () => {
         }));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/localization/i18n-dictionary', { translations });
+            showToast("Translation JSON dictionaries rebuilt and republished to the frontend Edge nodes.", "success");
+        } catch (error) {
+            showToast("Translation deployment engine failure", "error");
+        } finally {
             setIsSaving(false);
-            alert("Translation JSON dictionaries rebuilt and republished to the frontend Edge nodes.");
-        }, 1200);
+        }
     };
 
     const filteredTranslations = translations.filter(t => 

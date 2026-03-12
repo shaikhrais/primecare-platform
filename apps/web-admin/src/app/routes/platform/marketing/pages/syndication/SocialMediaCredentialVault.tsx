@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Share2, Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send, Loader2 } from 'lucide-react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 // Define window type for Facebook SDK
 declare global {
@@ -26,6 +27,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
     const [platforms, setPlatforms] = useState<SocialPlatform[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isConnecting, setIsConnecting] = useState<string | null>(null);
+    const { showToast } = useNotification();
 
     useEffect(() => {
         const fetchVault = async () => {
@@ -101,7 +103,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                 }, {scope: id === '1' ? 'pages_manage_posts,pages_read_engagement' : 'instagram_basic,instagram_content_publish'});
             } else {
                 setIsConnecting(null);
-                alert("Facebook SDK failed to load.");
+                showToast("Facebook SDK failed to load.", "error");
             }
         } else {
  // for others

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Plus, Settings, AlertTriangle, FileSignature, AlertOctagon, RefreshCcw } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ComplianceRule {
     id: string;
@@ -16,17 +18,22 @@ export const LegalComplianceBlockers: React.FC = () => {
         { id: '3', targetFormOrRoute: '/forms/caregiver-contract', requiredComponent: '<UnionAddendumModal />', region: 'CA_ON', isActive: false }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const toggleRuleActive = (id: string) => {
         setRules(prev => prev.map(r => r.id === id ? { ...r, isActive: !r.isActive } : r));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/compliance/blockers', { rules });
+            showToast("Compliance blockers successfully enforced on the UI routing layer.", "success");
+        } catch (error) {
+            showToast("Failed to lock down legal paths", "error");
+        } finally {
             setIsSaving(false);
-            alert("Compliance blockers successfully enforced on the UI routing layer.");
-        }, 1200);
+        }
     };
 
     return (

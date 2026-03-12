@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { MonitorSmartphone, LayoutDashboard, Search, Trash2, PieChart, Info, Map } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface BrowserData {
     id: string;
@@ -19,17 +21,22 @@ export const BrowserMatrixTelemetry: React.FC = () => {
         { id: '5', browserName: 'Internet Explorer', version: 'v11', percentTraffic: 0.5, supportCostLevel: 'HIGH', status: 'UNSUPPORTED' }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleStatusChange = (id: string, newStatus: BrowserData['status']) => {
         setBrowsers(prev => prev.map(b => b.id === id ? { ...b, status: newStatus } : b));
     };
 
-    const handleDeploy = () => {
+    const handleDeploy = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/analytics/browser-matrix', { browsers });
+            showToast("Support matrix updated! Browsers marked as 'UNSUPPORTED' will now receive a static HTTP 426 Upgrade Required page.", "success");
+        } catch (error) {
+            showToast("Failed to push matrix logic", "error");
+        } finally {
             setIsSaving(false);
-            alert("Support matrix updated! Browsers marked as 'UNSUPPORTED' will now receive a static HTTP 426 Upgrade Required page.");
-        }, 1200);
+        }
     };
 
     const getStatusStyles = (status: string) => {

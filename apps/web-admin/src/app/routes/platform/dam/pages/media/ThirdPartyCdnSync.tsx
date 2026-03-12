@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Cloud, Radio, RefreshCw, Server, AlertCircle, Database } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export const ThirdPartyCdnSync: React.FC = () => {
     const [provider, setProvider] = useState<'cloudflare' | 'aws'>('aws');
@@ -7,14 +9,19 @@ export const ThirdPartyCdnSync: React.FC = () => {
     const [accessKey, setAccessKey] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
     const [lastSync, setLastSync] = useState('2026-03-09 14:00:00 UTC');
+    const { showToast } = useNotification();
 
-    const handleSync = () => {
+    const handleSync = async () => {
         setIsSyncing(true);
-        setTimeout(() => {
-            setIsSyncing(false);
+        try {
+            await apiClient.post('/platform/admin/dam/media/cdn-sync', { provider, bucketUrl });
             setLastSync(new Date().toUTCString());
-            alert(`Successfully mirrored internal vault to external ${provider.toUpperCase()} bucket.`);
-        }, 2000);
+            showToast(`Successfully mirrored vault to external ${provider.toUpperCase()} bucket.`, "success");
+        } catch (error) {
+            showToast("Edge propagation failed", "error");
+        } finally {
+            setIsSyncing(false);
+        }
     };
 
     return (

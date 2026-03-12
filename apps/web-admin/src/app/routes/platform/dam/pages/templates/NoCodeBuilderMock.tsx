@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { LayoutTemplate, Move, PlusCircle, Trash2, Smartphone, Monitor } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface Block {
     id: string;
@@ -14,6 +16,7 @@ export const NoCodeBuilderMock: React.FC = () => {
     ]);
     const [viewMode, setViewMode] = useState<'MOBILE' | 'DESKTOP'>('DESKTOP');
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleAddBlock = (type: Block['type'], label: string) => {
         setBlocks(prev => [...prev, { id: `b_${Date.now()}`, type, label }]);
@@ -23,12 +26,16 @@ export const NoCodeBuilderMock: React.FC = () => {
         setBlocks(prev => prev.filter(b => b.id !== id));
     };
 
-    const handleSaveTemplate = () => {
+    const handleSaveTemplate = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/templates/no-code', { blocks });
+            showToast("JSON Template Structure saved to DB.", "success");
+        } catch (error) {
+            showToast("Failed to lock layout templates", "error");
+        } finally {
             setIsSaving(false);
-            alert("JSON Template Structure saved to DB.");
-        }, 1200);
+        }
     };
 
     return (

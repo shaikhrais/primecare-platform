@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Save, Users, AlertTriangle, ArrowRight } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface Variant {
     id: string;
@@ -17,6 +19,7 @@ export const AbVariantManager: React.FC = () => {
     ]);
     
     const [isDeploying, setIsDeploying] = useState(false);
+    const { showToast } = useNotification();
 
     const handleWeightChange = (id: string, newWeight: number) => {
         setVariants(prev => prev.map(v => v.id === id ? { ...v, trafficWeight: newWeight } : v));
@@ -27,13 +30,17 @@ export const AbVariantManager: React.FC = () => {
         return total === 100;
     };
 
-    const handleDeploy = () => {
+    const handleDeploy = async () => {
         if (!validateWeights()) return;
         setIsDeploying(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/traffic/routing-rules', { variants });
+            showToast("Traffic routing rules persisted to Edge CDN.", "success");
+        } catch (error) {
+            showToast("Failed to re-route origin flows", "error");
+        } finally {
             setIsDeploying(false);
-            alert("Traffic routing rules persisted to Edge CDN.");
-        }, 1200);
+        }
     };
 
     const totalWeight = variants.filter(v => ['ACTIVE', 'PAUSED'].includes(v.status)).reduce((sum, v) => sum + v.trafficWeight, 0);

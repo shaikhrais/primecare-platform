@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Type, Code, Terminal, Save, ShieldAlert, FileCode2, CheckSquare } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface HtmlNodeRule {
     tag: string;
@@ -20,6 +22,7 @@ export const RichTextGovernance: React.FC = () => {
     ]);
 
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const toggleRule = (tag: string) => {
         setRules(prev => prev.map(r => {
@@ -28,12 +31,16 @@ export const RichTextGovernance: React.FC = () => {
         }));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/content/rich-text-policies', { rules });
+            showToast("Rich Text sanitation policies saved. Database proxy will now strip forbidden HTML nodes from all incoming WYSIWYG saves.", "success");
+        } catch (error) {
+            showToast("Failed to lock proxy pipelines", "error");
+        } finally {
             setIsSaving(false);
-            alert("Rich Text sanitation policies saved. Database proxy will now strip forbidden HTML nodes from all incoming WYSIWYG saves.");
-        }, 1200);
+        }
     };
 
     return (

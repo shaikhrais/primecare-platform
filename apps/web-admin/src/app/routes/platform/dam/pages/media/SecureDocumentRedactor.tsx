@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Edit3, Shield, CheckCheck, Save, MousePointer2 } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RedactionBox {
     id: string;
@@ -18,6 +20,7 @@ export const SecureDocumentRedactor: React.FC = () => {
     const [startY, setStartY] = useState(0);
     const [currentBox, setCurrentBox] = useState<Partial<RedactionBox> | null>(null);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -51,13 +54,17 @@ export const SecureDocumentRedactor: React.FC = () => {
         setCurrentBox(null);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
-            setIsSaving(false);
-            alert("Redacted PDF saved permanently to vault. Original file overwritten.");
+        try {
+            await apiClient.post('/platform/admin/dam/media/redact-document', { redactions });
+            showToast("Redacted PDF saved permanently to vault. Original file overwritten.", "success");
             setRedactions([]);
-        }, 1500);
+        } catch (error) {
+            showToast("Failed to lock document redactions", "error");
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (

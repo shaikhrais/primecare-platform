@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Palette, Eye, Maximize, AlertTriangle, Save } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface DesignToken {
     id: string;
@@ -19,6 +21,7 @@ export const DynamicTokenEditor: React.FC = () => {
     ]);
     
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     // Live update the actual document root to show real-time changes
     useEffect(() => {
@@ -31,13 +34,16 @@ export const DynamicTokenEditor: React.FC = () => {
         setTokens(prev => prev.map(t => t.id === id ? { ...t, value: newValue } : t));
     };
 
-    const handleSaveGlobal = () => {
+    const handleSaveGlobal = async () => {
         setIsSaving(true);
-        setTimeout(() => {
- // API persist
+        try {
+            await apiClient.post('/platform/admin/dam/design/sync-tokens', { tokens });
+            showToast("Design Tokens Synced to Production CDN.", "success");
+        } catch (error) {
+            showToast("Failed to compile external SCSS pipeline", "error");
+        } finally {
             setIsSaving(false);
-            alert("Design Tokens Synced to Production CDN.");
-        }, 1500);
+        }
     };
 
     return (

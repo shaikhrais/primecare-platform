@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Layers, Activity, ShieldAlert, Zap, Globe, Pause, Play, DownloadCloud } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ScriptTag {
     id: string;
@@ -18,17 +20,22 @@ export const ThirdPartyScriptManager: React.FC = () => {
         { id: '4', provider: 'Sentry', description: 'Captures and aggregates frontend JS exceptions.', scriptType: 'PERFORMANCE', status: 'ACTIVE', payloadSizeKb: 28 }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const toggleScript = (id: string) => {
         setScripts(prev => prev.map(s => s.id === id ? { ...s, status: s.status === 'ACTIVE' ? 'PAUSED' : 'ACTIVE' } : s));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/governance/scripts', { scripts });
+            showToast("Script manifest updated. Edge Proxy will now inject these tags.", "success");
+        } catch (error) {
+            showToast("Failed to sync proxy tags", "error");
+        } finally {
             setIsSaving(false);
-            alert("Script manifest updated. The Edge Proxy will now inject/strip these tags before rendering HTML to the client.");
-        }, 1200);
+        }
     };
 
     const totalActivePayload = scripts.filter(s => s.status === 'ACTIVE').reduce((sum, s) => sum + s.payloadSizeKb, 0);

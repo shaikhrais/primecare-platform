@@ -4,10 +4,12 @@ import { TAccountVisualizer } from '../../admin/pages/finance/components/TAccoun
 import { MassDataGrid } from '../../admin/pages/finance/components/MassDataGrid';
 import { ApiKeyVault } from '../../admin/pages/security/components/ApiKeyVault';
 import { DangerZoneModal } from '@/shared/components/modals/DangerZoneModal';
-import { AlertOctagon, Terminal, Activity, Key, Database } from 'lucide-react';
+import { Database, ShieldAlert, Users, Activity, Trash2, Key, AlertOctagon, Terminal } from 'lucide-react';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export default function SuperAdminDashboard() {
     const [isDangerModalOpen, setIsDangerModalOpen] = useState(false);
+    const { showToast } = useNotification();
     
     // Suggestion demonstration wrapper
     return (
@@ -74,7 +76,7 @@ export default function SuperAdminDashboard() {
                 isOpen={isDangerModalOpen}
                 onClose={() => setIsDangerModalOpen(false)}
                 onConfirm={() => {
-                    alert("TENANT PURGED. (Test Action Successful)");
+                    showToast("TENANT PURGED. (Test Action Successful)", "success");
                     setIsDangerModalOpen(false);
                 }}
                 title="Purge Tenant Infrastructure"

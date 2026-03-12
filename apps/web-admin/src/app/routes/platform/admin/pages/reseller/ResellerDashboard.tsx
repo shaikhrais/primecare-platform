@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -7,6 +8,7 @@ const ResellerDashboard: React.FC = () => {
     const [children, setChildren] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isProvisioning, setIsProvisioning] = useState(false);
+    const { showToast } = useNotification();
 
  // new tenant form state
     const [newTenant, setNewTenant] = useState({ name: '', slug: '', adminEmail: '', adminPassword: '' });
@@ -65,11 +67,11 @@ const ResellerDashboard: React.FC = () => {
                 throw new Error(err.error || 'Failed to provision');
             }
 
-            alert('Successfully provisioned new child agency!');
+            showToast('Successfully provisioned new child agency!', 'success');
             setNewTenant({ name: '', slug: '', adminEmail: '', adminPassword: '' });
             fetchChildren();
         } catch (e: any) {
-            alert(e.message);
+            showToast(e.message || 'Provisioning failed', 'error');
         } finally {
             setIsProvisioning(false);
         }

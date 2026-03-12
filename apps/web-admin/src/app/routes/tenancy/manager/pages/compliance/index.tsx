@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import './ComplianceSync.css';
 
@@ -12,6 +13,8 @@ export default function ComplianceSync() {
     const [history, setHistory] = useState<any[]>([]);
     const [syncing, setSyncing] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const { showToast } = useNotification();
 
     const syncButton = ButtonRegistry.find(b => b.id === 'btn-mgr-compliance-sync');
 
@@ -54,7 +57,7 @@ export default function ComplianceSync() {
         setSyncing(true);
         try {
             await apiClient.post(ApiRegistry.TENANCY.MANAGER.COMPLIANCE_SYNC, {});
-            alert(MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS);
+            showToast(MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS, 'success');
             // Refresh history
             setHistory([{ id: Date.now().toString(), action: MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS, date: new Date().toLocaleString() }, ...history]);
         } catch (error) {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Type, CheckSquare, Calendar, AlignLeft, Hash, Save, LayoutTemplate, PlusCircle, Trash2 } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface SchemaField {
     id: string;
@@ -16,6 +18,7 @@ export const FormSchemaFederator: React.FC = () => {
     ]);
     const [formName, setFormName] = useState('New Intake Questionnaire');
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const getFieldIcon = (type: string) => {
         switch(type) {
@@ -40,12 +43,16 @@ export const FormSchemaFederator: React.FC = () => {
         setFields(prev => prev.map(f => f.id === id ? { ...f, [key]: value } : f));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/workflows/schemas', { formName, fields });
+            showToast("Dynamic JSON schema persisted! Frontend forms will universally reflect these changes immediately.", "success");
+        } catch (error) {
+            showToast("Failed to map dictionary format", "error");
+        } finally {
             setIsSaving(false);
-            alert("Dynamic JSON schema persisted! Frontend forms will universally reflect these changes immediately.");
-        }, 1500);
+        }
     };
 
     return (

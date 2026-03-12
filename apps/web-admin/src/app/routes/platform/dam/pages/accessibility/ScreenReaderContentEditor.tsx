@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { EyeOff, Type, BarChart, CheckCircle2, ShieldAlert, Image as ImageIcon, Save } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface VisuallyComplexAsset {
     id: string;
@@ -17,6 +19,7 @@ export const ScreenReaderContentEditor: React.FC = () => {
         { id: '4', type: 'CHART', title: 'Weekly Overtime Bar Graph', ariaLabel: '', status: 'MISSING_ARIA' }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
     const handleAriaChange = (id: string, newLabel: string) => {
         setAssets(prev => prev.map(a => {
@@ -31,12 +34,16 @@ export const ScreenReaderContentEditor: React.FC = () => {
         }));
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/accessibility/aria-labels', { assets });
+            showToast("Aria-labels successfully injected into the virtual DOM. Screen readers will now pick up these descriptions.", "success");
+        } catch (error) {
+            showToast("Accessibility deployment failed", "error");
+        } finally {
             setIsSaving(false);
-            alert("Aria-labels successfully injected into the virtual DOM. Screen readers will now pick up these descriptions.");
-        }, 1200);
+        }
     };
 
     const getIcon = (type: string) => {

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Link2, Search, CheckCircle2, AlertTriangle, PlusCircle, Save } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RouteAlias {
     id: string;
@@ -16,13 +18,18 @@ export const DynamicPageRouter: React.FC = () => {
         { id: '4', internalComponentPath: 'pages/marketing/Pricing.tsx', publicUrlSlug: '/pricing-plans', status: 'DRAFT' }
     ]);
     const [isSaving, setIsSaving] = useState(false);
+    const { showToast } = useNotification();
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setIsSaving(true);
-        setTimeout(() => {
+        try {
+            await apiClient.post('/platform/admin/dam/content/dynamic-routing', { aliases });
+            showToast("Edge proxy rules updated. New URL slugs will route to internal components globally within 60 seconds.", "success");
+        } catch (error) {
+            showToast("Failed to persist routing", "error");
+        } finally {
             setIsSaving(false);
-            alert("Edge proxy rules updated. New URL slugs will route to internal components globally within 60 seconds.");
-        }, 1200);
+        }
     };
 
     return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 interface JournalEntry {
     id: string;
@@ -38,6 +39,7 @@ export default function FinancialLedger() {
     const [expandedTx, setExpandedTx] = useState<string | null>(null);
     const [pAndL, setPAndL] = useState<any>(null);
     const [balanceSheet, setBalanceSheet] = useState<any>(null);
+    const { showToast } = useNotification();
 
     const loadData = async () => {
         setLoading(true);
@@ -68,7 +70,7 @@ export default function FinancialLedger() {
         try {
             const res = await apiClient.post('/platform/admin/financial/reconcile', { invoiceTxId, paymentTxId });
             if (res.ok) {
-                alert('Successfully matched transactions');
+                showToast('Successfully matched transactions', 'success');
                 loadData();
             }
         } catch (error) {

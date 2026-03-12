@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 export default function SideFloatingButton() {
     const [isOpen, setIsOpen] = useState(false);
+    const { showToast } = useNotification();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -78,7 +81,12 @@ export default function SideFloatingButton() {
                     <button data-cy="mbtn-new-client" style={menuItemStyle} onClick={() => { }}>
                         🏥 New Client
                     </button>
-                    <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={() => alert('Emergency Protocol Activated!')}>
+                    <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={async () => {
+                        try {
+                            await apiClient.post('/v1/system/emergency/trigger', {});
+                            showToast('Emergency Protocol Activated! Authorities notified.', 'error');
+                        } catch { showToast('Emergency Protocol Failed!', 'error'); }
+                    }}>
                         🚨 EMERGENCY
                     </button>
                 </div>
