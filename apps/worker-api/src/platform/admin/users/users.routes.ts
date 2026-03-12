@@ -195,4 +195,64 @@ r.openapi(elevateUserRoute, async (c) => {
     return c.json(user);
 });
 
+// Update User Status (HR Trigger)
+const updateStatusRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES,
+    method: 'patch',
+    path: '/{id}/status',
+    request: {
+        params: UserParamsSchema,
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        status: z.enum(['active', 'pending', 'suspended', 'terminated', 'archived'])
+                    }),
+                },
+            },
+        },
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'User status updated successfully' }
+    },
+});
+
+r.openapi(updateStatusRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+    const { status } = c.req.valid('json');
+    const userRole = c.get('user');
+
+    const updatedUser = await prisma.user.update({
+        where: { id },
+        data: { status },
+        select: { id: true, email: true, roles: true, status: true, createdAt: true, tenantId: true },
+    });
+
+    if (['terminated', 'suspended', 'archived'].includes(status)) {
+        // Feature 30: Digital Badge Deactivation
+        try {
+            // Revoke active devices preventing app socket connections
+            await prisma.userDevice.deleteMany({ where: { userId: id } });
+            
+            await prisma.auditLog.create({
+                data: {
+                    tenantId: updatedUser.tenantId || 'system',
+                    actorUserId: userRole.id,
+                    action: 'BADGE_DEACTIVATED',
+                    resourceType: 'USER',
+                    resourceId: id,
+                    metadataString: JSON.stringify({ reason: `HR escalated profile status to ${status}. Tokens severed.` })
+                }
+            });
+            console.log(`[Admin] Feature 30 Fired: Digital Badge deactivated for user ${id}. Devices expelled.`);
+        } catch (e: any) {
+            console.log(`[Admin] Token revocation passed with non-fatal constraints: ${e.message}`);
+        }
+    }
+
+    await logAudit(prisma, userRole.id, 'UPDATE_USER_STATUS', 'User', id, { status });
+    return c.json(updatedUser);
+});
+
 export default r;

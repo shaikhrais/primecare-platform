@@ -166,6 +166,28 @@ clinical.openapi(recordSupervisionRoute, async (c) => {
         },
     });
 
+    // Feature 23: CareCoin Deduction on Negative Evaluation
+    if (body.isSatisfactory === false) {
+        const gamificationProfile = await prisma.gamificationProfile.findUnique({ where: { pswId: body.pswId } });
+        if (gamificationProfile && gamificationProfile.careCoins >= 50) {
+            await prisma.gamificationProfile.update({
+                where: { id: gamificationProfile.id },
+                data: { careCoins: gamificationProfile.careCoins - 50 }
+            });
+            await prisma.auditLog.create({
+                data: {
+                    actorUserId: userId,
+                    action: 'CARE_COIN_PENALTY',
+                    resourceType: 'GAMIFICATION_PROFILE',
+                    resourceId: gamificationProfile.id,
+                    metadataString: JSON.stringify({ reason: 'Unsatisfactory performance marked in RN Supervision Log', amount: -50 }),
+                    tenantId
+                }
+            });
+            console.log(`[Clinical] Feature 23 Fired: Deducted 50 CareCoins from PSW ${body.pswId} following negative supervision.`);
+        }
+    }
+
     await logAudit(prisma, userId, 'RECORD_SUPERVISION', 'PSW_PROFILE', body.pswId, body);
 
     return c.json(log, 201);

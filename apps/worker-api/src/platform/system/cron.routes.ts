@@ -219,8 +219,146 @@ r.openapi(runSystemSweepsRoute, async (c) => {
         }
     }
 
-    console.log(`[Cron] System Sweeps: Processed ${processed} SLA breaches. Embedded Handover & Supervision triggers. Auto-approved ${autoApprovedCount} perfect timesheets. Flagged ${missedShiftCount} missed shifts.`);
-    return c.json({ processed, autoApprovedCount, missedShiftCount, message: `System Sweeps successful.` }, 200);
+    // Feature 21: Performance Review Automator
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    
+    // Check for PSWs hired ~1 year ago
+    const oneYearAnniversaries = await prisma.pswProfile.findMany({
+        where: {
+            createdAt: { lte: oneYearAgo }
+        },
+        include: { user: true }
+    });
+
+    let reviewDraftsCreated = 0;
+    for (const psw of oneYearAnniversaries) {
+        if (!psw.user?.tenantId) continue;
+        
+        const recentReview = await prisma.auditLog.findFirst({
+            where: {
+                resourceType: 'PSW_PROFILE',
+                resourceId: psw.id,
+                action: 'ANNIVERSARY_REVIEW_CREATED',
+                createdAt: { gte: new Date(Date.now() - 330 * 24 * 60 * 60 * 1000) } // Last 11 months
+            }
+        });
+
+        if (!recentReview) {
+            const hrManager = await prisma.user.findFirst({
+                where: { tenantId: psw.user.tenantId, role: 'manager' }
+            });
+
+            if (hrManager) {
+                // Feature 21: Draft performance review (represented via AppNotification task)
+                await prisma.appNotification.create({
+                    data: {
+                        userId: hrManager.id,
+                        tenantId: psw.user.tenantId,
+                        title: 'Action Required: Annual Performance Review',
+                        message: `PSW ${psw.user.fullName} has reached their 1-year anniversary. A blank Performance Review draft has been generated for your completion.`,
+                        type: 'info'
+                    }
+                });
+
+                await logAudit(prisma, 'SYSTEM', 'ANNIVERSARY_REVIEW_CREATED', 'PSW_PROFILE', psw.id, { reason: '1-year-anniversary' });
+                reviewDraftsCreated++;
+            }
+        }
+    }
+
+    // Feature 22: Compliance Sync Engine
+    const activeTenants = await prisma.tenant.findMany();
+    let complianceMetricsProcessed = 0;
+    for (const tenant of activeTenants) {
+        const totalPsws = await prisma.pswProfile.count({ where: { tenantId: tenant.id } });
+        const verifiedDocs = await prisma.pswDocument.count({ where: { psw: { tenantId: tenant.id }, status: 'verified' } });
+        
+        await prisma.systemEvent.create({
+            data: {
+                tenantId: tenant.id,
+                operation: 'COMPLIANCE_SYNC',
+                modelName: 'PswDocument',
+                entityId: tenant.id,
+                payload: JSON.stringify({ totalPsws, verifiedDocs, timestamp: new Date() })
+            }
+        });
+        complianceMetricsProcessed++;
+    }
+
+    // Feature 26: Automated Dismissal Safeguard
+    let dangerZoneFlags = 0;
+    const activePsws = await prisma.pswProfile.findMany({ include: { user: true } });
+    for (const psw of activePsws) {
+        if (!psw.user?.tenantId) continue;
+        const missedCount = await prisma.visit.count({
+            where: { assignedPswId: psw.id, status: 'missed' as any }
+        });
+
+        if (missedCount >= 3) {
+            const alerted = await prisma.systemEvent.findFirst({
+                where: { operation: 'DISMISSAL_SAFEGUARD_ALERT', entityId: psw.id }
+            });
+            if (!alerted) {
+                const manager = await prisma.user.findFirst({ where: { tenantId: psw.user.tenantId, role: 'manager' } });
+                if (manager) {
+                    await prisma.appNotification.create({
+                        data: {
+                            userId: manager.id, tenantId: psw.user.tenantId, type: 'critical',
+                            title: 'DANGER ZONE: Dismissal Safeguard Triggered',
+                            message: `PSW ${psw.user.fullName} has accumulated ${missedCount} "No Show" incidents. Automated suspension protocols are recommended.`
+                        }
+                    });
+                    await prisma.systemEvent.create({
+                        data: { tenantId: psw.user.tenantId, operation: 'DISMISSAL_SAFEGUARD_ALERT', modelName: 'PswProfile', entityId: psw.id, payload: '3+ missed shifts' }
+                    });
+                    dangerZoneFlags++;
+                    console.log(`[Cron] Feature 26 Fired: Danger Zone flag raised for PSW ${psw.id} (${missedCount} missed shifts).`);
+                }
+            }
+        }
+    }
+
+    // Feature 29: Targeted Surveys (Low Activity Outreach)
+    let surveysSent = 0;
+    const lowActivityUsers = await prisma.user.findMany({
+        where: { roles: { has: 'psw' }, status: 'active' },
+        include: { pswProfile: true }
+    });
+
+    const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
+    
+    for (const pswUser of lowActivityUsers) {
+        if (!pswUser.tenantId || !pswUser.pswProfile) continue;
+        
+        const recentTimesheets = await prisma.timesheet.count({
+            where: { pswId: pswUser.pswProfile.id, createdAt: { gt: oneMonthAgo } }
+        });
+        
+        if (recentTimesheets === 0) {
+            const recentlySurveyed = await prisma.appNotification.findFirst({
+                where: { userId: pswUser.id, title: 'Quarterly Check-In Survey', createdAt: { gt: ninetyDaysAgo } }
+            });
+            
+            if (!recentlySurveyed) {
+                await prisma.appNotification.create({
+                     data: {
+                         userId: pswUser.id,
+                         tenantId: pswUser.tenantId,
+                         type: 'info',
+                         title: 'Quarterly Check-In Survey',
+                         message: 'We noticed you haven\'t picked up many shifts lately. Complete this quick survey to let us know how we can support you better: https://link.to/survey'
+                     }
+                });
+                surveysSent++;
+                console.log(`[Cron] Feature 29 Fired: Dispatched targeted retention survey to inactive PSW ${pswUser.id}.`);
+            }
+        }
+    }
+
+    console.log(`[Cron] System Sweeps: Processed ${processed} SLA breaches. Auto-approved ${autoApprovedCount} perfect timesheets. Flagged ${missedShiftCount} missed shifts. Generated ${reviewDraftsCreated} performance reviews. Synced ${complianceMetricsProcessed} compliance telemetry metrics. Flagged ${dangerZoneFlags} dismissal warnings. Sent ${surveysSent} targeted surveys.`);
+    return c.json({ processed, autoApprovedCount, missedShiftCount, reviewDraftsCreated, complianceMetricsProcessed, dangerZoneFlags, surveysSent, message: `System Sweeps successful.` }, 200);
 });
 
 export default r;

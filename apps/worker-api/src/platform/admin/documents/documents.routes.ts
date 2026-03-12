@@ -44,6 +44,47 @@ documents.openapi(listRoute, async (c) => {
     })), 200);
 });
 
+// GET /documents/pending — HR Verifier Queue (Feature 24)
+const pendingQueueRoute = createRoute({
+    method: 'get', path: '/pending',
+    summary: 'Document Verifier Queue for HR review', tags: ['Documents', 'HR Operations'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        id: z.string(), pswName: z.string(), docType: z.string(),
+                        status: z.string(), uploadedAt: z.string()
+                    }))
+                }
+            }, description: 'Pending Documents'
+        }
+    }
+});
+
+documents.openapi(pendingQueueRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any)?.tenantId;
+
+    const pendingDocs = await prisma.pswDocument.findMany({
+        where: {
+            status: 'pending',
+            psw: { tenantId }
+        },
+        include: { psw: { include: { user: true } } },
+        orderBy: { createdAt: 'asc' }, // FIFO queue
+        take: 50
+    });
+
+    return c.json(pendingDocs.map((doc: any) => ({
+        id: doc.id,
+        pswName: doc.psw?.user?.fullName || 'Unknown PSW',
+        docType: doc.docType,
+        status: doc.status,
+        uploadedAt: doc.createdAt
+    })), 200);
+});
+
 // POST /documents/upload — Generate presigned upload URL
 const uploadRoute = createRoute({
     method: 'post', path: '/upload',
