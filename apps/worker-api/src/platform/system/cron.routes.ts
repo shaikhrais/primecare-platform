@@ -201,9 +201,12 @@ r.openapi(runSystemSweepsRoute, async (c) => {
     }
   }
 
-  // Feature 16: Missed Shift Alert
-  // Identify `scheduled` shifts where `requestedStartAt` is > 15 minutes ago and no `check_in` event exists
+  // Feature 16 & 17: Late & Missed Shift Alert (Phase 17 WebSockets)
+  // Identify `scheduled` shifts where `requestedStartAt` is > 15 minutes ago (Missed) or > 5 minutes ago (Late)
   const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+  // 17A. Process Missed Shifts (>15m Late)
   const missedShifts = await prisma.visit.findMany({
     where: {
       status: "scheduled",
@@ -217,7 +220,7 @@ r.openapi(runSystemSweepsRoute, async (c) => {
   for (const shift of missedShifts) {
     if (shift.tenantId) {
       const coordinator = await prisma.user.findFirst({
-        where: { tenantId: shift.tenantId, role: "manager" }, // Or 'coordinator' if it exists. Reverted to manager as standard default administrative mapping.
+        where: { tenantId: shift.tenantId, role: "manager" },
       });
 
       if (coordinator) {
@@ -232,6 +235,7 @@ r.openapi(runSystemSweepsRoute, async (c) => {
             tenantId: shift.tenantId,
           },
         });
+        
         // Update shift status to prevent duplicate triggers
         await prisma.visit.update({
           where: { id: shift.id },
@@ -246,7 +250,95 @@ r.openapi(runSystemSweepsRoute, async (c) => {
           { delay: ">15m" },
         );
         missedShiftCount++;
+
+        // Phase 17: Emit Real-Time Manager WebSocket Popup
+        if (c.env.REALTIME_SYNC) {
+          try {
+            const doId = c.env.REALTIME_SYNC.idFromName(shift.tenantId);
+            const stub = c.env.REALTIME_SYNC.get(doId);
+            const broadcastUrl = new URL(c.req.url);
+            broadcastUrl.pathname = '/broadcast';
+            
+            c.executionCtx.waitUntil(
+              stub.fetch(new Request(broadcastUrl.toString(), {
+                method: 'POST',
+                body: JSON.stringify({
+                  type: 'INCIDENT',
+                  severity: 'critical',
+                  title: 'Missed Shift Alert',
+                  message: `PSW ${shift.assignedPsw?.user?.fullName || 'Unassigned'} has missed their start time for ${shift.client?.fullName} by >15 minutes.`,
+                  visitId: shift.id
+                })
+              }))
+            );
+          } catch (e) {}
+        }
       }
+    }
+  }
+
+  // 17B. Process Late Shifts (>5m Late, <15m Late)
+  // Those that are >15m will be picked up by the missed shift sweep above eventually.
+  // We use the `isSurgeActive` column temporarily or rely on an `AppNotification` to track if we've already warned them.
+  const lateShifts = await prisma.visit.findMany({
+    where: {
+      status: "scheduled",
+      requestedStartAt: { lt: fiveMinutesAgo, gte: fifteenMinutesAgo },
+      checkEvents: { none: { eventType: "check_in" } },
+    },
+    include: { client: true, assignedPsw: { include: { user: true } } },
+  });
+
+  for (const shift of lateShifts) {
+    if (shift.tenantId) {
+       // Check if we already notified the manager about this specific late visit today.
+       const alreadyNotified = await prisma.appNotification.findFirst({
+           where: { tenantId: shift.tenantId, title: 'Late Shift Warning', message: { contains: shift.id } }
+       });
+
+       if (!alreadyNotified) {
+         const coordinator = await prisma.user.findFirst({
+            where: { tenantId: shift.tenantId, role: "manager" },
+         });
+
+         if (coordinator) {
+             const warningTitle = 'Late Shift Warning';
+             const warningMsg = `PSW ${shift.assignedPsw?.user?.fullName || 'Unassigned'} is over 5 minutes late checking in for ${shift.client?.fullName}. [ID:${shift.id}]`;
+             
+             await prisma.appNotification.create({
+                 data: {
+                     userId: coordinator.id,
+                     tenantId: shift.tenantId,
+                     type: 'warning',
+                     title: warningTitle,
+                     message: warningMsg
+                 }
+             });
+
+             // Phase 17: Emit Real-Time Manager WebSocket Popup
+             if (c.env.REALTIME_SYNC) {
+               try {
+                 const doId = c.env.REALTIME_SYNC.idFromName(shift.tenantId);
+                 const stub = c.env.REALTIME_SYNC.get(doId);
+                 const broadcastUrl = new URL(c.req.url);
+                 broadcastUrl.pathname = '/broadcast';
+                 
+                 c.executionCtx.waitUntil(
+                   stub.fetch(new Request(broadcastUrl.toString(), {
+                     method: 'POST',
+                     body: JSON.stringify({
+                       type: 'INCIDENT',
+                       severity: 'warning',
+                       title: warningTitle,
+                       message: warningMsg,
+                       visitId: shift.id
+                     })
+                   }))
+                 );
+               } catch (e) {}
+             }
+         }
+       }
     }
   }
 

@@ -80,8 +80,14 @@ export default function DispatchMap() {
     }, []);
 
     const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
-        if (msg.type === 'VISIT_UPDATE' || msg.type === 'INCIDENT') {
+        if (msg.type === 'VISIT_UPDATE') {
             fetchMapData(); // Structural changes still warrant a full layout fetch
+        } else if (msg.type === 'INCIDENT') {
+            fetchMapData(); 
+            // Phase 17: Real-Time Shift Latency UI Popups
+            if (msg.title && msg.message) {
+                showToast(`${msg.title} - ${msg.message}`, msg.severity === 'critical' ? 'error' : 'warning');
+            }
         } else if (msg.type === 'TELEMETRY' && msg.pswId) {
             // Phase 16: Zero-Latency WebSocket Push Update
             // Bypasses HTTP polling, patching the Leaflet DOM state directly.
