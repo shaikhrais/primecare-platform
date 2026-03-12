@@ -54,6 +54,7 @@ const CarePlanManager = lazy(() => import('./rn/pages/care-plans'));
 const EntryVerify = lazy(() => import('./rn/pages/audit'));
 const SupervisionHub = lazy(() => import('./rn/pages/supervision'));
 const AssessmentsHub = lazy(() => import('./rn/pages/assessments'));
+const RnCheckInScreen = lazy(() => import('./rn/pages/schedule/RnCheckInScreen'));
 
 // Client Pages
 const ClientDashboard = lazy(() => import('./client/pages/dashboard'));
@@ -166,6 +167,7 @@ export const TenancyRoutes = () => (
             <Route path="entry-verify" element={<EntryVerify />} />
             <Route path="supervision" element={<SupervisionHub />} />
             <Route path="assessments" element={<AssessmentsHub />} />
+            <Route path="check-in/:id" element={<RnCheckInScreen />} />
         </Route>
 
         {/* CLIENT PORTAL */}

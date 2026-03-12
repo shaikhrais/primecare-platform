@@ -61,6 +61,7 @@ const TENANCY = {
         WOUND_CARE_CLIENT: (clientId: string) => `/tenancy/rn/wound-care/${clientId}`,
         RAI_ASSESSMENTS: '/tenancy/rn/rai-assessments',
         RAI_ASSESSMENT_DETAIL: (id: string) => `/tenancy/rn/rai-assessments/${id}`,
+        CHECK_IN: (id: string) => `/tenancy/rn/check-in/${id}`,
     },
     COORDINATOR: {
         DASHBOARD: '/tenancy/coordinator',

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
-import { Navigation, Car, Bus, Footprints } from 'lucide-react';
+import { Navigation, Car, Bus, Footprints, MapPin, Target } from 'lucide-react';
 import './CheckInScreen.css';
 
 const CONTENT = ContentRegistry.PSW_LIVE_VISIT;
@@ -17,6 +17,7 @@ export default function CheckInScreen() {
     const [gpsStatus, setGpsStatus] = useState<'idle' | 'verifying' | 'verified' | 'error'>('idle');
     const [gpsAccuracy, setGpsAccuracy] = useState<number | null>(null);
     const [providerLocation, setProviderLocation] = useState<{lat: number, lng: number} | null>(null);
+    const [providerAddress, setProviderAddress] = useState<string | null>(null);
     
     const [routeInfo, setRouteInfo] = useState<{
         mode: 'driving' | 'transit' | 'walking',
@@ -46,8 +47,18 @@ export default function CheckInScreen() {
         
         // Background loc fetch to prep OSRM
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(pos => {
+            navigator.geolocation.getCurrentPosition(async (pos) => {
                 setProviderLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+                try {
+                    // Reverse Geocode provider location for UI
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
+                    if (res.ok) {
+                        const geoData = await res.json();
+                        setProviderAddress(geoData.address?.road ? `${geoData.address.road}, ${geoData.address.city || ''}` : 'Current Location');
+                    }
+                } catch {
+                    setProviderAddress('Current Location');
+                }
             }, () => {}, { enableHighAccuracy: false });
         }
     }, [id, showToast]);
@@ -205,38 +216,69 @@ export default function CheckInScreen() {
                     </div>
                 </section>
 
-                <section style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '16px', marginBottom: '24px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: '#0F172A', fontWeight: 800 }}>
+                <section className="transit-section">
+                     <div className="transit-header">
                          <Navigation size={18} color="#3B82F6" /> Smart Transit Estimator
                      </div>
-                     <div style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '16px' }}>Calculate optimal travel arrays before verifying GPS check-in.</div>
+                     <div className="transit-desc">Calculate optimal travel paths to the Client destination before verifying GPS check-in.</div>
                      
-                     <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-                         <button onClick={() => calculateRoute('driving')} style={{ flex: 1, padding: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', backgroundColor: routeInfo?.mode === 'driving' ? '#EFF6FF' : '#F8FAFC', border: routeInfo?.mode === 'driving' ? '1px solid #3B82F6' : '1px solid #E2E8F0', borderRadius: '8px', cursor: 'pointer', opacity: (!providerLocation || !visit?.client?.lat) ? 0.5 : 1 }} disabled={!providerLocation || !visit?.client?.lat}>
+                     {/* Origin & Destination Display */}
+                     <div className="location-meta-grid">
+                         <div className="location-meta-row">
+                             <Target size={14} color="#38bdf8" className="meta-icon" />
+                             <div className="meta-text">
+                                 <span className="meta-label">Origin:</span> 
+                                 {providerAddress || 'Acquiring GPS Signal...'}
+                             </div>
+                         </div>
+                         <div className="location-meta-row" style={{ paddingLeft: '7px', borderLeft: '2px dashed #cbd5e1', marginLeft: '6px', height: '10px' }}></div>
+                         <div className="location-meta-row">
+                             <MapPin size={14} color="#f43f5e" className="meta-icon" />
+                             <div className="meta-text">
+                                 <span className="meta-label">Destination:</span>
+                                 {visit?.client?.addressLine1 || 'Unknown Destination'}
+                             </div>
+                         </div>
+                     </div>
+
+                     <div className="transit-options">
+                         <button 
+                             onClick={() => calculateRoute('driving')} 
+                             className={`transit-btn ${routeInfo?.mode === 'driving' ? 'active' : ''}`}
+                             disabled={!providerLocation || !visit?.client?.lat}
+                         >
                              <Car size={20} color={routeInfo?.mode === 'driving' ? '#3B82F6' : '#64748B'} />
-                             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: routeInfo?.mode === 'driving' ? '#1E3A8A' : '#475569' }}>Drive</span>
+                             <span className="transit-btn-label">Drive</span>
                          </button>
-                         <button onClick={() => calculateRoute('transit')} style={{ flex: 1, padding: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', backgroundColor: routeInfo?.mode === 'transit' ? '#EFF6FF' : '#F8FAFC', border: routeInfo?.mode === 'transit' ? '1px solid #3B82F6' : '1px solid #E2E8F0', borderRadius: '8px', cursor: 'pointer', opacity: (!providerLocation || !visit?.client?.lat) ? 0.5 : 1 }} disabled={!providerLocation || !visit?.client?.lat}>
+                         <button 
+                             onClick={() => calculateRoute('transit')} 
+                             className={`transit-btn ${routeInfo?.mode === 'transit' ? 'active' : ''}`}
+                             disabled={!providerLocation || !visit?.client?.lat}
+                         >
                              <Bus size={20} color={routeInfo?.mode === 'transit' ? '#3B82F6' : '#64748B'} />
-                             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: routeInfo?.mode === 'transit' ? '#1E3A8A' : '#475569' }}>Transit</span>
+                             <span className="transit-btn-label">Transit</span>
                          </button>
-                         <button onClick={() => calculateRoute('walking')} style={{ flex: 1, padding: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', backgroundColor: routeInfo?.mode === 'walking' ? '#EFF6FF' : '#F8FAFC', border: routeInfo?.mode === 'walking' ? '1px solid #3B82F6' : '1px solid #E2E8F0', borderRadius: '8px', cursor: 'pointer', opacity: (!providerLocation || !visit?.client?.lat) ? 0.5 : 1 }} disabled={!providerLocation || !visit?.client?.lat}>
+                         <button 
+                             onClick={() => calculateRoute('walking')} 
+                             className={`transit-btn ${routeInfo?.mode === 'walking' ? 'active' : ''}`}
+                             disabled={!providerLocation || !visit?.client?.lat}
+                         >
                              <Footprints size={20} color={routeInfo?.mode === 'walking' ? '#3B82F6' : '#64748B'} />
-                             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: routeInfo?.mode === 'walking' ? '#1E3A8A' : '#475569' }}>Walk</span>
+                             <span className="transit-btn-label">Walk</span>
                          </button>
                      </div>
 
                      {calculatingRoute ? (
-                         <div style={{ textAlign: 'center', color: '#3B82F6', fontSize: '0.85rem', fontWeight: 600, padding: '8px' }}>Projecting Route Coordinates...</div>
+                         <div className="routing-loader">Projecting Route Coordinates...</div>
                      ) : routeInfo ? (
-                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F0FDF4', padding: '12px', border: '1px solid #BBF7D0', borderRadius: '8px' }}>
+                         <div className="routing-result">
                              <div>
-                                 <div style={{ fontSize: '0.75rem', color: '#166534', fontWeight: 700, textTransform: 'uppercase' }}>Est. Travel Time</div>
-                                 <div style={{ fontSize: '1.25rem', color: '#14532D', fontWeight: 900 }}>{routeInfo.durationText}</div>
+                                 <div className="routing-metric-label">Est. Travel Time</div>
+                                 <div className="routing-metric-value">{routeInfo.durationText}</div>
                              </div>
-                             <div style={{ textAlign: 'right' }}>
-                                  <div style={{ fontSize: '0.75rem', color: '#166534', fontWeight: 700, textTransform: 'uppercase' }}>Distance</div>
-                                  <div style={{ fontSize: '1.25rem', color: '#14532D', fontWeight: 900 }}>{routeInfo.distanceText}</div>
+                             <div className="routing-metric-right">
+                                  <div className="routing-metric-label">Distance</div>
+                                  <div className="routing-metric-value">{routeInfo.distanceText}</div>
                              </div>
                          </div>
                      ) : null}

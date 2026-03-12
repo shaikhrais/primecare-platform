@@ -64,6 +64,7 @@ export const PLATFORM = {
             PRESCRIPTIONS: '/v1/admin/pharmacy/prescriptions',
             ORDER_DRUGS: '/v1/admin/pharmacy/orders',
             MAR_SYNC: '/v1/admin/pharmacy/mar/sync',
+            VERIFY_BARCODE: '/v1/admin/pharmacy/verify-barcode',
         },
         REGIONAL: {
             PL_EXPORT: '/v1/admin/regional/fin/pl-export',

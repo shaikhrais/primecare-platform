@@ -17,6 +17,14 @@ interface PharmacyRxPayload {
         instructions: string;
         prescriberName: string;
     };
+}
+
+export interface HardwareDispensePayload {
+    orderId: string;
+    status: 'COMPLETE' | 'FAILED' | 'OUT_OF_STOCK' | 'PARTIAL';
+    dispensedNdc: string;
+    dispensedQuantity: number;
+    machineIp: string;
     timestamp: string;
 }
 
@@ -61,5 +69,29 @@ export class RxWebhookQueue {
             console.error(`[Surescripts Sync] Failed to queue amendment.`, e);
             return false;
         }
+    }
+
+    /**
+     * Processes external webhooks from physical Automated Dispensing Cabinets (e.g. Omnicell, Pyxis)
+     */
+    static async handleHardwareCallback(payload: HardwareDispensePayload): Promise<boolean> {
+        console.log(`[Hardware ADC] Callback received for Order ${payload.orderId} from Machine ${payload.machineIp}`);
+        
+        switch (payload.status) {
+            case 'COMPLETE':
+                console.log(`[Hardware ADC] Dispensing SUCCESS for NDC ${payload.dispensedNdc} (Qty: ${payload.dispensedQuantity})`);
+                break;
+            case 'OUT_OF_STOCK':
+                console.warn(`[Hardware ADC] Critical: ADC reported OUT_OF_STOCK for Order ${payload.orderId}. Flagging for Restock.`);
+                break;
+            case 'FAILED':
+                console.error(`[Hardware ADC] Dispatch FAILED at physical cabinet ${payload.machineIp}.`);
+                break;
+            default:
+                console.error(`[Hardware ADC] Unknown hardware status: ${payload.status}`);
+        }
+
+        // Ideally here we emit via WebSocket to update the PharmacyHub live UI
+        return true;
     }
 }
