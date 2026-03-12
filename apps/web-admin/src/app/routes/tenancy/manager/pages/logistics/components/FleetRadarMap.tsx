@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { Maximize, ExternalLink, Activity, Users, MapPin } from 'lucide-react';
+import { Maximize, ExternalLink, Activity, Users, MapPin, Wifi } from 'lucide-react';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 
 import { apiClient } from '@/shared/utils/apiClient';
 
@@ -12,24 +13,29 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
     const { showToast } = useNotification();
     const [workers, setWorkers] = useState<any[]>([]);
 
-    useEffect(() => {
-        const fetchWorkers = async () => {
-            try {
-                const res = await apiClient.get('/v1/manager/ops/locations');
-                if (res.ok) {
-                    const data = await res.json();
-                    setWorkers(data);
-                }
-            } catch (error) {
-                console.error("Failed to fetch radar locations", error);
+    const fetchWorkers = async () => {
+        try {
+            const res = await apiClient.get('/v1/manager/ops/locations');
+            if (res.ok) {
+                const data = await res.json();
+                setWorkers(data);
             }
-        };
+        } catch (error) {
+            console.error("Failed to fetch radar locations", error);
+        }
+    };
 
+    const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY') {
+            // Trigger dynamic refetch to ensure Map Coordinates are strictly translated
+            // by the backend projection engine
+            fetchWorkers();
+        }
+    });
+
+    useEffect(() => {
         fetchWorkers();
-        
- // continuous ping from the backend stream
-        const interval = setInterval(fetchWorkers, 10000);
-        return () => clearInterval(interval);
+        // Socket takes over after initial fetch. No setInterval polling needed.
     }, []);
 
     // Suggestion 22: Dual Monitor Pop-out (Tear Off) Feature
@@ -54,6 +60,13 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
                         <MapPin size={20} color="#38BDF8" />
                         <span style={{ fontWeight: 800, letterSpacing: '1px' }}>GTA SECTOR A-4</span>
                     </div>
+                    
+                    {/* WebSocket Sync Status Indicator */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isConnected ? '#10B981' : '#F59E0B' }} title={isConnected ? 'Live Sync Active' : 'Connecting to Edge Stream...'}>
+                        <Wifi size={16} style={{ animation: isConnected ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none' }} />
+                        <span style={{ fontSize: '12px', fontWeight: 600 }}>{isConnected ? 'LIVE' : 'SYNCING'}</span>
+                    </div>
+
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94A3B8' }}>
                         <Users size={16} /> {workers.length} Active Units
                     </div>

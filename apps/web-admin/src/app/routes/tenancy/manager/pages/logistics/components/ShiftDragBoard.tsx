@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { User, GripVertical, Clock, CheckCircle2, AlertOctagon } from 'lucide-react';
+import { User, GripVertical, Clock, CheckCircle2, AlertOctagon, Wifi } from 'lucide-react';
+import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import { apiClient } from '@/shared/utils/apiClient';
 
 interface Shift {
@@ -24,34 +25,42 @@ export const ShiftDragBoard: React.FC = () => {
     const [staffList, setStaffList] = useState<Staff[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const fetchLogistics = async () => {
+        try {
+            const data: any = await apiClient.get('/v1/manager/schedule/logistics-board');
+            
+            // Map the api data to the existing component interfaces
+            setUnassigned(data.unassignedShifts.map((s: any) => ({
+                id: s.id,
+                patientName: s.clientName,
+                time: s.time,
+                address: s.location,
+                duration: s.duration
+            })));
+            
+            setStaffList(data.availableStaff.map((st: any) => ({
+                id: st.id,
+                name: st.name,
+                role: st.role,
+                shifts: [] // Initialize with empty shifts
+            })));
+        } catch (error) {
+            console.error('Failed to fetch logistics board:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchLogistics = async () => {
-            try {
-                const data: any = await apiClient.get('/v1/manager/schedule/logistics-board');
-                
-                // Map the api data to the existing component interfaces
-                setUnassigned(data.unassignedShifts.map((s: any) => ({
-                    id: s.id,
-                    patientName: s.clientName,
-                    time: s.time,
-                    address: s.location,
-                    duration: s.duration
-                })));
-                
-                setStaffList(data.availableStaff.map((st: any) => ({
-                    id: st.id,
-                    name: st.name,
-                    role: st.role,
-                    shifts: [] // Initialize with empty shifts
-                })));
-            } catch (error) {
-                console.error('Failed to fetch logistics board:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchLogistics();
     }, []);
+
+    const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'SHIFT_CLAIMED' || msg.type === 'VISIT_UPDATE') {
+            console.log(`[ShiftDragBoard] Realtime event caught (${msg.type}). Refreshing logistics grid.`);
+            fetchLogistics();
+        }
+    });
 
     // Drag State
     const [draggedShift, setDraggedShift] = useState<Shift | null>(null);
@@ -177,7 +186,14 @@ export const ShiftDragBoard: React.FC = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', userSelect: 'none' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>High-Velocity Dispatch Board</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>High-Velocity Dispatch Board</h2>
+                
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isConnected ? '#10B981' : '#F59E0B' }} title={isConnected ? 'Live Sync Active' : 'Connecting to Edge Stream...'}>
+                    <Wifi size={20} style={{ animation: isConnected ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none' }} />
+                    <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{isConnected ? 'LIVE EDITING' : 'CONNECTING...'}</span>
+                </div>
+            </div>
 
             {/* Unassigned Pool */}
             <div style={{ backgroundColor: '#EEF2F6', padding: '16px', borderRadius: '12px', border: '1px dashed #94A3B8' }}>
