@@ -144,7 +144,19 @@ r.openapi(checkInRoute, async (c) => {
         console.error('Realtime broadcast failed:', e);
     }
 
-    return c.json(event, 200);
+    // Phase 18: Calculate Performance Feedback (Latency)
+    let performanceFeedback = { isLate: false, message: 'Great job! You checked in on time. Keep it up!' };
+    if (visit.requestedStartAt) {
+        const diffMinutes = (Date.now() - new Date(visit.requestedStartAt).getTime()) / (1000 * 60);
+        if (diffMinutes > 5) {
+            performanceFeedback = { 
+                isLate: true, 
+                message: `You are ${Math.round(diffMinutes)} minutes late. Your reporting authority has been automatically notified.`
+            };
+        }
+    }
+
+    return c.json({ ...event, performanceFeedback }, 200);
 });
 
 // POST Check-Out

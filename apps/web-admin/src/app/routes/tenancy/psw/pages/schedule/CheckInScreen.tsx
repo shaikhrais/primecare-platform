@@ -126,10 +126,20 @@ export default function CheckInScreen() {
                     if (response.ok) {
                         setGpsStatus('verified');
                         showToast('GPS Verified. Visit Started.', 'success');
+                        
+                        // Phase 18: Caregiver Performance & Latency Feedback
+                        const data = await response.json();
+                        if (data.performanceFeedback) {
+                            // Show a secondary persistent toast with performance feedback
+                            setTimeout(() => {
+                                showToast(data.performanceFeedback.message, data.performanceFeedback.isLate ? 'warning' : 'success');
+                            }, 500);
+                        }
+
                         // Small delay for visual feedback of "Verified" state
                         setTimeout(() => {
                             navigate(`${AdminRegistry.RouteRegistry.PSW.LIVE_VISIT.replace(':id', id!)}`);
-                        }, 1200);
+                        }, 2500); // Increased delay so they can read the feedback
                     } else {
                         const err = await response.json();
                         showToast(err.error || 'Check-in failed', 'error');

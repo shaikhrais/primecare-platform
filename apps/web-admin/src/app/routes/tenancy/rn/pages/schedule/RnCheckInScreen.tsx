@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import './RnCheckInScreen.css';
 
@@ -20,6 +21,7 @@ export default function RnCheckInScreen() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user } = useAuth();
+    const { showToast } = useNotification();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -103,7 +105,7 @@ export default function RnCheckInScreen() {
         setLoading(true);
         setError(null);
         try {
-            await apiClient.post(`/v1/tenancy/rn/visits/${id}/check-in`, {
+            const response: any = await apiClient.post(`/v1/tenancy/rn/visits/${id}/check-in`, {
                 timestamp: new Date().toISOString(),
                 location: {
                     lat: mockProviderCoords.lat,
@@ -113,8 +115,23 @@ export default function RnCheckInScreen() {
                 deviceCheck: true 
             });
 
-            // Redirect back to RN Dashboard or Visit details upon success
-            navigate(RouteRegistry.RN.DASHBOARD);
+            // Phase 18: RN Caregiver Performance & Latency Feedback
+            // Parse response if it's a Fetch Response object
+            let parsedData = response;
+            if (response && typeof response.json === 'function') {
+                parsedData = await response.json();
+            }
+            
+            if (parsedData?.performanceFeedback) {
+                 showToast(parsedData.performanceFeedback.message, parsedData.performanceFeedback.isLate ? 'warning' : 'success');
+                 
+                 setTimeout(() => {
+                     navigate(RouteRegistry.RN.DASHBOARD);
+                 }, 2500);
+            } else {
+                 navigate(RouteRegistry.RN.DASHBOARD);
+            }
+
         } catch (err: any) {
             console.error(err);
             setError(err.message || 'Failed to complete physical check-in. Ensure GPS is enabled.');
