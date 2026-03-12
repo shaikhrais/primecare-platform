@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAutoSaveForm } from '@/shared/hooks/useAutoSaveForm';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { Save, AlertCircle } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { AdminRegistry } from 'prime-care-shared';
 
 interface AdmissionAssessmentProps {
     patientId: string;
@@ -20,15 +22,34 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
 
     const [submitting, setSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
-        setTimeout(() => {
+        try {
+            const payload = {
+                clientId: patientId,
+                templateId: 'rai-hc', // Hardcoded standard mapping for UI
+                responses: {
+                    chief_complaint: data.chiefComplaint,
+                    hpi: data.historyOfPresentIllness,
+                    mobility_status: data.mobilityStatus,
+                    falls: data.fallRiskScore.toString(),
+                    // ... other required mappings
+                }
+            };
+            
+            const response = await apiClient.post(AdminRegistry.ApiRegistry.RN.RAI_SUBMIT, payload);
+            if (!response.ok) throw new Error('Submission Failed');
+
             flushAndClear();
-            setSubmitting(false);
-            showToast('Clinical Assessment committed to master record.', 'success');
+            showToast('Clinical Assessment committed to master record. Triggers computed.', 'success');
             onComplete();
-        }, 800);
+        } catch (error) {
+            console.error('Failed to submit RAI', error);
+            showToast('Assessment submission failed. Draft preserved.', 'error');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (

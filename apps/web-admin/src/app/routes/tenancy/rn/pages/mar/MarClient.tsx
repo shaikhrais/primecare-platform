@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AlertCircle, CheckCircle, WifiOff, FileSignature } from 'lucide-react';
 import { SignaturePad } from '../assessments/components/SignaturePad';
-
 import { apiClient } from '@/shared/utils/apiClient';
+import { AdminRegistry } from 'prime-care-shared';
 
 interface Medication {
     id: string;
@@ -37,10 +37,15 @@ export const MarClient: React.FC = () => {
             }
 
             try {
-                // Hardcoding demo client ID for testing
-                const response = await apiClient.get('/v1/rn/clinical/mar/demo-client-1');
-                setMeds(response as unknown as Medication[]);
-                localStorage.setItem('primecare_emar_cache_123', JSON.stringify(response));
+                // Hitting the actual schedule mapping in worker-api
+                const response = await apiClient.get(AdminRegistry.ApiRegistry.RN.MAR_SCHEDULE('demo-client-1'));
+                if (response.ok) {
+                    const data = await response.json();
+                    setMeds(data as Medication[]);
+                    localStorage.setItem('primecare_emar_cache_123', JSON.stringify(data));
+                } else {
+                    throw new Error('Failed to fetch from network');
+                }
             } catch (error) {
                 console.error('Failed to load meds:', error);
                 
@@ -90,7 +95,7 @@ export const MarClient: React.FC = () => {
             // Commit administered medications back to the server
             const administeredMeds = meds.filter(m => m.status === 'administered');
             for (const med of administeredMeds) {
-                await apiClient.post('/v1/rn/clinical/mar/administer', {
+                await apiClient.post(AdminRegistry.ApiRegistry.RN.MAR_ADMINISTER, {
                     clientId: 'demo-client-1',
                     medicationName: med.name,
                     dosage: med.dose,
