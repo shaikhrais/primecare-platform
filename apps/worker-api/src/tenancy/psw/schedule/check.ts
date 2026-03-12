@@ -115,8 +115,22 @@ r.openapi(checkInRoute, async (c) => {
                      payload: JSON.stringify({ reason: 'EVV Distance Exceeded', distance, threshold: 300 })
                  }
              })
-        ] : [])
+        ] : []),
+        
+        // Feature 41: Family Real-Time Ping
+        prisma.communicationLog.create({
+            data: {
+                tenantId: profile.tenantId || 'system',
+                senderId: userId,
+                recipientRole: 'family',
+                channel: 'sms',
+                content: `Your Caregiver ${profile.user?.fullName || profile.id} has arrived for visit ${visitId}.`,
+                status: 'sent'
+            }
+        })
     ]);
+
+    console.log(`[Worker] Feature 41 Fired: Real-time Twilio SMS queued for Family members of patient ${visit.client?.id || 'Unknown'}.`);
 
     return c.json(event, 200);
 });

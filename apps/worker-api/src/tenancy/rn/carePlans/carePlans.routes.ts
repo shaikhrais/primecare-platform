@@ -94,8 +94,34 @@ r.openapi(reviewCarePlanRoute, async (c) => {
         data: {
             ...body,
             reviewDate: body.reviewDate ? new Date(body.reviewDate) : undefined,
-        }
+        },
+        include: { client: true }
     });
+
+    // Feature 49: FHIR Interoperability Sync
+    if (plan.client) {
+         const fhirPayload = {
+             resourceType: "CarePlan",
+             id: plan.id,
+             status: plan.status,
+             intent: "plan",
+             subject: { reference: `Patient/${plan.clientId}`, display: plan.client.fullName },
+             period: { start: new Date().toISOString() },
+             addresses: plan.diagnoses?.map((d: string) => ({ reference: `Condition/${d}` })) || [],
+             goal: plan.clinicalGoals?.map((g: any) => ({ description: { text: g } })) || []
+         };
+
+         await prisma.webhookDelivery.create({
+             data: {
+                 tenantId: plan.tenantId || 'system',
+                 endpointUrl: 'https://fhir.regionalhealth.example.gov/r4/CarePlan',
+                 payload: JSON.stringify(fhirPayload),
+                 status: 'pending',
+                 attempts: 0
+             }
+         });
+         console.log(`[Worker] Feature 49 Fired: CarePlan ${plan.id} changes packaged as FHIR R4 JSON. Webhook queued for regional sync.`);
+    }
 
     await logAudit(prisma, userId, 'REVIEW_CARE_PLAN', 'CARE_PLAN', id, body);
 

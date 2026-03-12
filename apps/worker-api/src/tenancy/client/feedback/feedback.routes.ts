@@ -40,6 +40,31 @@ feedback.openapi(submitRoute, async (c) => {
         },
     });
 
+    // Feature 46: Care Feedback Resolution (1-Star Escalation)
+    if (body.rating === 1 && client?.id) {
+        // Look up the visit to find the Supervising RN and Family Member
+        const visit = await prisma.visit.findUnique({
+             where: { id: body.visitId }, include: { psw: { include: { user: true } } }
+        });
+        const rnUser = await prisma.user.findFirst({ where: { tenantId, role: 'rn' } });
+        
+        if (visit && rnUser) {
+             const thread = await prisma.messageThread.create({
+                 data: {
+                     tenantId, relatedEntityId: fb.id, relatedEntityType: 'FeedbackEscalation',
+                     participants: { connect: [{ id: userId }, { id: rnUser.id }] }
+                 }
+             });
+             await prisma.message.create({
+                 data: {
+                     tenantId, threadId: thread.id, senderId: 'system',
+                     content: `CRITICAL ESCALATION: A 1-star feedback was received for Visit ${visit.id} (PSW: ${visit.psw?.user?.fullName || 'Unknown'}). Please contact the family regarding: "${body.comment}"`
+                 }
+             });
+             console.log(`[Worker] Feature 46 Fired: 1-Star feedback generated emergency MessageThread ${thread.id} between Family ${userId} and RN ${rnUser.id}.`);
+        }
+    }
+
     return c.json({ id: fb.id }, 200);
 });
 
