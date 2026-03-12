@@ -10,10 +10,11 @@ interface AssignmentFieldsProps extends SharedProps {
     psws: any[];
     onTypeChange: (type: 'open' | 'direct') => void;
     onPswChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    onCreatePsw?: () => void;
 }
 
 export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
-    assignmentType, assignedPswId, psws, onTypeChange, onPswChange, disabled
+    assignmentType, assignedPswId, psws, onTypeChange, onPswChange, disabled, onCreatePsw
 }) => {
     return (
         <>
@@ -47,7 +48,14 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
 
             {assignmentType === 'direct' && (
                 <div>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Select PSW</label>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Select PSW</label>
+                        {onCreatePsw && (
+                            <button type="button" onClick={onCreatePsw} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                                + Create PSW
+                            </button>
+                        )}
+                    </div>
                     <select
                         data-cy="inp-psw-id"
                         required={assignmentType === 'direct'}

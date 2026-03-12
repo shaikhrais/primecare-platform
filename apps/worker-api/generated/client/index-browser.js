@@ -229,6 +229,8 @@ exports.Prisma.VisitScalarFieldEnum = {
   serviceId: 'serviceId',
   requestedStartAt: 'requestedStartAt',
   durationMinutes: 'durationMinutes',
+  recurrenceRuleString: 'recurrenceRuleString',
+  recurrenceEndDate: 'recurrenceEndDate',
   status: 'status',
   assignedPswId: 'assignedPswId',
   serviceAddressLine1: 'serviceAddressLine1',
@@ -486,9 +488,27 @@ exports.Prisma.StaffTaskScalarFieldEnum = {
   priority: 'priority',
   dueDate: 'dueDate',
   assigneeId: 'assigneeId',
+  groupId: 'groupId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StaffGroupScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StaffGroupMemberScalarFieldEnum = {
+  id: 'id',
+  groupId: 'groupId',
+  userId: 'userId',
+  role: 'role',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PswDocumentScalarFieldEnum = {
@@ -1423,6 +1443,8 @@ exports.Prisma.ModelName = {
   ShiftAssignment: 'ShiftAssignment',
   BlogPost: 'BlogPost',
   StaffTask: 'StaffTask',
+  StaffGroup: 'StaffGroup',
+  StaffGroupMember: 'StaffGroupMember',
   PswDocument: 'PswDocument',
   FAQ: 'FAQ',
   DailyEntry: 'DailyEntry',

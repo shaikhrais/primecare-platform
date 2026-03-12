@@ -3,6 +3,7 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../bindings';
 import { logAudit } from '../../../../_shared/utils/audit';
 import { ROUTE_METADATA } from '../../../../_shared/constants/route_metadata';
+import { rrulestr } from 'rrule';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -22,6 +23,8 @@ const CreateVisitSchema = z.object({
     clientNotes: z.string().optional(),
     priority: z.string().optional().default('normal'),
     requiredSkills: z.array(z.string()).optional().default([]),
+    recurrenceRuleString: z.string().optional(),
+    recurrenceEndDate: z.string().datetime().nullable().optional(),
 });
 
 // POST /
@@ -57,11 +60,21 @@ r.openapi(createVisitRoute, async (c) => {
 
     const status: string = data.assignedPswId ? 'scheduled' : 'requested';
 
-    const visit = await prisma.visit.create({
-        data: {
+    if (data.recurrenceRuleString) {
+        // Expand the series
+        const start = new Date(data.requestedStartAt);
+        const endLimit = data.recurrenceEndDate ? new Date(data.recurrenceEndDate) : new Date(start.getTime() + 90 * 24 * 60 * 60 * 1000);
+        
+        const rule = rrulestr(data.recurrenceRuleString, { dtstart: start });
+        let occurrences = rule.between(start, endLimit, true);
+        
+        // Safety cap: max 90 shifts at once per request to avoid payload bloat
+        occurrences = occurrences.slice(0, 90);
+
+        const visitsToCreate = occurrences.map(date => ({
             clientId: data.clientId,
             serviceId: data.serviceId,
-            requestedStartAt: new Date(data.requestedStartAt),
+            requestedStartAt: date,
             durationMinutes: data.durationMinutes,
             assignedPswId: data.assignedPswId,
             status: status,
@@ -69,15 +82,46 @@ r.openapi(createVisitRoute, async (c) => {
             tenantId: payload.tenantId,
             priority: data.priority || 'normal',
             requiredSkills: data.requiredSkills || [],
-        },
-    });
+            recurrenceRuleString: data.recurrenceRuleString,
+            recurrenceEndDate: data.recurrenceEndDate ? new Date(data.recurrenceEndDate) : null,
+        }));
 
-    await logAudit(prisma, payload.sub, 'CREATE_VISIT', 'VISIT', visit.id, {
-        assignedPswId: data.assignedPswId,
-        status: status
-    });
+        await prisma.visit.createMany({ data: visitsToCreate });
 
-    return c.json(visit, 201);
+        const firstVisit = await prisma.visit.findFirst({
+            where: { clientId: data.clientId, tenantId: payload.tenantId, requestedStartAt: start },
+        });
+
+        await logAudit(prisma, payload.sub, 'CREATE_VISIT_SERIES', 'VISIT', firstVisit?.id || 'batch', {
+            assignedPswId: data.assignedPswId,
+            status: status,
+            count: visitsToCreate.length
+        });
+        
+        return c.json(firstVisit || { message: 'Series created' }, 201);
+    } else {
+        const visit = await prisma.visit.create({
+            data: {
+                clientId: data.clientId,
+                serviceId: data.serviceId,
+                requestedStartAt: new Date(data.requestedStartAt),
+                durationMinutes: data.durationMinutes,
+                assignedPswId: data.assignedPswId,
+                status: status,
+                clientNotes: data.clientNotes,
+                tenantId: payload.tenantId,
+                priority: data.priority || 'normal',
+                requiredSkills: data.requiredSkills || [],
+            },
+        });
+
+        await logAudit(prisma, payload.sub, 'CREATE_VISIT', 'VISIT', visit.id, {
+            assignedPswId: data.assignedPswId,
+            status: status
+        });
+
+        return c.json(visit, 201);
+    }
 });
 
 // PATCH /{id}

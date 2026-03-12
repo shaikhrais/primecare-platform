@@ -144,6 +144,16 @@ export type BlogPost = $Result.DefaultSelection<Prisma.$BlogPostPayload>
  */
 export type StaffTask = $Result.DefaultSelection<Prisma.$StaffTaskPayload>
 /**
+ * Model StaffGroup
+ * 
+ */
+export type StaffGroup = $Result.DefaultSelection<Prisma.$StaffGroupPayload>
+/**
+ * Model StaffGroupMember
+ * 
+ */
+export type StaffGroupMember = $Result.DefaultSelection<Prisma.$StaffGroupMemberPayload>
+/**
  * Model PswDocument
  * 
  */
@@ -896,6 +906,26 @@ export class PrismaClient<
     * ```
     */
   get staffTask(): Prisma.StaffTaskDelegate<ExtArgs>;
+
+  /**
+   * `prisma.staffGroup`: Exposes CRUD operations for the **StaffGroup** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffGroups
+    * const staffGroups = await prisma.staffGroup.findMany()
+    * ```
+    */
+  get staffGroup(): Prisma.StaffGroupDelegate<ExtArgs>;
+
+  /**
+   * `prisma.staffGroupMember`: Exposes CRUD operations for the **StaffGroupMember** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffGroupMembers
+    * const staffGroupMembers = await prisma.staffGroupMember.findMany()
+    * ```
+    */
+  get staffGroupMember(): Prisma.StaffGroupMemberDelegate<ExtArgs>;
 
   /**
    * `prisma.pswDocument`: Exposes CRUD operations for the **PswDocument** model.
@@ -2103,6 +2133,8 @@ export namespace Prisma {
     ShiftAssignment: 'ShiftAssignment',
     BlogPost: 'BlogPost',
     StaffTask: 'StaffTask',
+    StaffGroup: 'StaffGroup',
+    StaffGroupMember: 'StaffGroupMember',
     PswDocument: 'PswDocument',
     FAQ: 'FAQ',
     DailyEntry: 'DailyEntry',
@@ -2192,7 +2224,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "staffGroup" | "staffGroupMember" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4013,6 +4045,146 @@ export namespace Prisma {
           count: {
             args: Prisma.StaffTaskCountArgs<ExtArgs>
             result: $Utils.Optional<StaffTaskCountAggregateOutputType> | number
+          }
+        }
+      }
+      StaffGroup: {
+        payload: Prisma.$StaffGroupPayload<ExtArgs>
+        fields: Prisma.StaffGroupFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffGroupFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffGroupFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffGroupFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffGroupFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          findMany: {
+            args: Prisma.StaffGroupFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>[]
+          }
+          create: {
+            args: Prisma.StaffGroupCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          createMany: {
+            args: Prisma.StaffGroupCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffGroupCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffGroupDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          update: {
+            args: Prisma.StaffGroupUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffGroupDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffGroupUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StaffGroupUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffGroupAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffGroup>
+          }
+          groupBy: {
+            args: Prisma.StaffGroupGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffGroupGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffGroupCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffGroupCountAggregateOutputType> | number
+          }
+        }
+      }
+      StaffGroupMember: {
+        payload: Prisma.$StaffGroupMemberPayload<ExtArgs>
+        fields: Prisma.StaffGroupMemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffGroupMemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffGroupMemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffGroupMemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffGroupMemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          findMany: {
+            args: Prisma.StaffGroupMemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>[]
+          }
+          create: {
+            args: Prisma.StaffGroupMemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          createMany: {
+            args: Prisma.StaffGroupMemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffGroupMemberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffGroupMemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          update: {
+            args: Prisma.StaffGroupMemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffGroupMemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffGroupMemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StaffGroupMemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffGroupMemberPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffGroupMemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffGroupMember>
+          }
+          groupBy: {
+            args: Prisma.StaffGroupMemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffGroupMemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffGroupMemberCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffGroupMemberCountAggregateOutputType> | number
           }
         }
       }
@@ -9370,6 +9542,8 @@ export namespace Prisma {
     reviewedTimesheets: number
     telehealthSessions: number
     VisitCheckEvent: number
+    StaffGroupMember: number
+    assignedTasks: number
     carePlansAuthored: number
     assessments: number
     medicationRecons: number
@@ -9395,6 +9569,8 @@ export namespace Prisma {
     reviewedTimesheets?: boolean | UserCountOutputTypeCountReviewedTimesheetsArgs
     telehealthSessions?: boolean | UserCountOutputTypeCountTelehealthSessionsArgs
     VisitCheckEvent?: boolean | UserCountOutputTypeCountVisitCheckEventArgs
+    StaffGroupMember?: boolean | UserCountOutputTypeCountStaffGroupMemberArgs
+    assignedTasks?: boolean | UserCountOutputTypeCountAssignedTasksArgs
     carePlansAuthored?: boolean | UserCountOutputTypeCountCarePlansAuthoredArgs
     assessments?: boolean | UserCountOutputTypeCountAssessmentsArgs
     medicationRecons?: boolean | UserCountOutputTypeCountMedicationReconsArgs
@@ -9482,6 +9658,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVisitCheckEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VisitCheckEventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStaffGroupMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffGroupMemberWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffTaskWhereInput
   }
 
   /**
@@ -9657,6 +9847,7 @@ export namespace Prisma {
     familyMembers: number
     performanceReviews: number
     webhookEndpoints: number
+    staffGroups: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9736,6 +9927,7 @@ export namespace Prisma {
     familyMembers?: boolean | TenantCountOutputTypeCountFamilyMembersArgs
     performanceReviews?: boolean | TenantCountOutputTypeCountPerformanceReviewsArgs
     webhookEndpoints?: boolean | TenantCountOutputTypeCountWebhookEndpointsArgs
+    staffGroups?: boolean | TenantCountOutputTypeCountStaffGroupsArgs
   }
 
   // Custom InputTypes
@@ -10279,6 +10471,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountWebhookEndpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WebhookEndpointWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountStaffGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffGroupWhereInput
   }
 
 
@@ -10972,6 +11171,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type StaffGroupCountOutputType
+   */
+
+  export type StaffGroupCountOutputType = {
+    members: number
+    tasks: number
+  }
+
+  export type StaffGroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | StaffGroupCountOutputTypeCountMembersArgs
+    tasks?: boolean | StaffGroupCountOutputTypeCountTasksArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StaffGroupCountOutputType without action
+   */
+  export type StaffGroupCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupCountOutputType
+     */
+    select?: StaffGroupCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StaffGroupCountOutputType without action
+   */
+  export type StaffGroupCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffGroupMemberWhereInput
+  }
+
+  /**
+   * StaffGroupCountOutputType without action
+   */
+  export type StaffGroupCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffTaskWhereInput
+  }
+
+
+  /**
    * Count Type TrainingModuleCountOutputType
    */
 
@@ -11605,6 +11844,8 @@ export namespace Prisma {
     telehealthSessions?: boolean | User$telehealthSessionsArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
+    StaffGroupMember?: boolean | User$StaffGroupMemberArgs<ExtArgs>
+    assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     carePlansAuthored?: boolean | User$carePlansAuthoredArgs<ExtArgs>
     assessments?: boolean | User$assessmentsArgs<ExtArgs>
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
@@ -11668,6 +11909,8 @@ export namespace Prisma {
     telehealthSessions?: boolean | User$telehealthSessionsArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     VisitCheckEvent?: boolean | User$VisitCheckEventArgs<ExtArgs>
+    StaffGroupMember?: boolean | User$StaffGroupMemberArgs<ExtArgs>
+    assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     carePlansAuthored?: boolean | User$carePlansAuthoredArgs<ExtArgs>
     assessments?: boolean | User$assessmentsArgs<ExtArgs>
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
@@ -11703,6 +11946,8 @@ export namespace Prisma {
       telehealthSessions: Prisma.$TelehealthSessionPayload<ExtArgs>[]
       tenant: Prisma.$TenantPayload<ExtArgs>
       VisitCheckEvent: Prisma.$VisitCheckEventPayload<ExtArgs>[]
+      StaffGroupMember: Prisma.$StaffGroupMemberPayload<ExtArgs>[]
+      assignedTasks: Prisma.$StaffTaskPayload<ExtArgs>[]
       carePlansAuthored: Prisma.$CarePlanPayload<ExtArgs>[]
       assessments: Prisma.$ClinicalAssessmentPayload<ExtArgs>[]
       medicationRecons: Prisma.$MedicationReconPayload<ExtArgs>[]
@@ -12108,6 +12353,8 @@ export namespace Prisma {
     telehealthSessions<T extends User$telehealthSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$telehealthSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelehealthSessionPayload<ExtArgs>, T, "findMany"> | Null>
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     VisitCheckEvent<T extends User$VisitCheckEventArgs<ExtArgs> = {}>(args?: Subset<T, User$VisitCheckEventArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VisitCheckEventPayload<ExtArgs>, T, "findMany"> | Null>
+    StaffGroupMember<T extends User$StaffGroupMemberArgs<ExtArgs> = {}>(args?: Subset<T, User$StaffGroupMemberArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findMany"> | Null>
+    assignedTasks<T extends User$assignedTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany"> | Null>
     carePlansAuthored<T extends User$carePlansAuthoredArgs<ExtArgs> = {}>(args?: Subset<T, User$carePlansAuthoredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany"> | Null>
     assessments<T extends User$assessmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$assessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicalAssessmentPayload<ExtArgs>, T, "findMany"> | Null>
     medicationRecons<T extends User$medicationReconsArgs<ExtArgs> = {}>(args?: Subset<T, User$medicationReconsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicationReconPayload<ExtArgs>, T, "findMany"> | Null>
@@ -12689,6 +12936,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VisitCheckEventScalarFieldEnum | VisitCheckEventScalarFieldEnum[]
+  }
+
+  /**
+   * User.StaffGroupMember
+   */
+  export type User$StaffGroupMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    where?: StaffGroupMemberWhereInput
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    cursor?: StaffGroupMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffGroupMemberScalarFieldEnum | StaffGroupMemberScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedTasks
+   */
+  export type User$assignedTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    where?: StaffTaskWhereInput
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    cursor?: StaffTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
   }
 
   /**
@@ -13400,6 +13687,7 @@ export namespace Prisma {
     familyMembers?: boolean | Tenant$familyMembersArgs<ExtArgs>
     performanceReviews?: boolean | Tenant$performanceReviewsArgs<ExtArgs>
     webhookEndpoints?: boolean | Tenant$webhookEndpointsArgs<ExtArgs>
+    staffGroups?: boolean | Tenant$staffGroupsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -13532,6 +13820,7 @@ export namespace Prisma {
     familyMembers?: boolean | Tenant$familyMembersArgs<ExtArgs>
     performanceReviews?: boolean | Tenant$performanceReviewsArgs<ExtArgs>
     webhookEndpoints?: boolean | Tenant$webhookEndpointsArgs<ExtArgs>
+    staffGroups?: boolean | Tenant$staffGroupsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13618,6 +13907,7 @@ export namespace Prisma {
       familyMembers: Prisma.$FamilyMemberPayload<ExtArgs>[]
       performanceReviews: Prisma.$PerformanceReviewPayload<ExtArgs>[]
       webhookEndpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
+      staffGroups: Prisma.$StaffGroupPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14083,6 +14373,7 @@ export namespace Prisma {
     familyMembers<T extends Tenant$familyMembersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$familyMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamilyMemberPayload<ExtArgs>, T, "findMany"> | Null>
     performanceReviews<T extends Tenant$performanceReviewsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$performanceReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerformanceReviewPayload<ExtArgs>, T, "findMany"> | Null>
     webhookEndpoints<T extends Tenant$webhookEndpointsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$webhookEndpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany"> | Null>
+    staffGroups<T extends Tenant$staffGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$staffGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15984,6 +16275,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.staffGroups
+   */
+  export type Tenant$staffGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    where?: StaffGroupWhereInput
+    orderBy?: StaffGroupOrderByWithRelationInput | StaffGroupOrderByWithRelationInput[]
+    cursor?: StaffGroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffGroupScalarFieldEnum | StaffGroupScalarFieldEnum[]
   }
 
   /**
@@ -21170,6 +21481,8 @@ export namespace Prisma {
     serviceId: string | null
     requestedStartAt: Date | null
     durationMinutes: number | null
+    recurrenceRuleString: string | null
+    recurrenceEndDate: Date | null
     status: string | null
     assignedPswId: string | null
     serviceAddressLine1: string | null
@@ -21199,6 +21512,8 @@ export namespace Prisma {
     serviceId: string | null
     requestedStartAt: Date | null
     durationMinutes: number | null
+    recurrenceRuleString: string | null
+    recurrenceEndDate: Date | null
     status: string | null
     assignedPswId: string | null
     serviceAddressLine1: string | null
@@ -21228,6 +21543,8 @@ export namespace Prisma {
     serviceId: number
     requestedStartAt: number
     durationMinutes: number
+    recurrenceRuleString: number
+    recurrenceEndDate: number
     status: number
     assignedPswId: number
     serviceAddressLine1: number
@@ -21273,6 +21590,8 @@ export namespace Prisma {
     serviceId?: true
     requestedStartAt?: true
     durationMinutes?: true
+    recurrenceRuleString?: true
+    recurrenceEndDate?: true
     status?: true
     assignedPswId?: true
     serviceAddressLine1?: true
@@ -21302,6 +21621,8 @@ export namespace Prisma {
     serviceId?: true
     requestedStartAt?: true
     durationMinutes?: true
+    recurrenceRuleString?: true
+    recurrenceEndDate?: true
     status?: true
     assignedPswId?: true
     serviceAddressLine1?: true
@@ -21331,6 +21652,8 @@ export namespace Prisma {
     serviceId?: true
     requestedStartAt?: true
     durationMinutes?: true
+    recurrenceRuleString?: true
+    recurrenceEndDate?: true
     status?: true
     assignedPswId?: true
     serviceAddressLine1?: true
@@ -21447,6 +21770,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date
     durationMinutes: number
+    recurrenceRuleString: string | null
+    recurrenceEndDate: Date | null
     status: string | null
     assignedPswId: string | null
     serviceAddressLine1: string | null
@@ -21495,6 +21820,8 @@ export namespace Prisma {
     serviceId?: boolean
     requestedStartAt?: boolean
     durationMinutes?: boolean
+    recurrenceRuleString?: boolean
+    recurrenceEndDate?: boolean
     status?: boolean
     assignedPswId?: boolean
     serviceAddressLine1?: boolean
@@ -21542,6 +21869,8 @@ export namespace Prisma {
     serviceId?: boolean
     requestedStartAt?: boolean
     durationMinutes?: boolean
+    recurrenceRuleString?: boolean
+    recurrenceEndDate?: boolean
     status?: boolean
     assignedPswId?: boolean
     serviceAddressLine1?: boolean
@@ -21576,6 +21905,8 @@ export namespace Prisma {
     serviceId?: boolean
     requestedStartAt?: boolean
     durationMinutes?: boolean
+    recurrenceRuleString?: boolean
+    recurrenceEndDate?: boolean
     status?: boolean
     assignedPswId?: boolean
     serviceAddressLine1?: boolean
@@ -21654,6 +21985,8 @@ export namespace Prisma {
       serviceId: string
       requestedStartAt: Date
       durationMinutes: number
+      recurrenceRuleString: string | null
+      recurrenceEndDate: Date | null
       status: string | null
       assignedPswId: string | null
       serviceAddressLine1: string | null
@@ -22090,6 +22423,8 @@ export namespace Prisma {
     readonly serviceId: FieldRef<"Visit", 'String'>
     readonly requestedStartAt: FieldRef<"Visit", 'DateTime'>
     readonly durationMinutes: FieldRef<"Visit", 'Int'>
+    readonly recurrenceRuleString: FieldRef<"Visit", 'String'>
+    readonly recurrenceEndDate: FieldRef<"Visit", 'DateTime'>
     readonly status: FieldRef<"Visit", 'String'>
     readonly assignedPswId: FieldRef<"Visit", 'String'>
     readonly serviceAddressLine1: FieldRef<"Visit", 'String'>
@@ -41230,6 +41565,7 @@ export namespace Prisma {
     priority: string | null
     dueDate: Date | null
     assigneeId: string | null
+    groupId: string | null
     tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -41243,6 +41579,7 @@ export namespace Prisma {
     priority: string | null
     dueDate: Date | null
     assigneeId: string | null
+    groupId: string | null
     tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -41256,6 +41593,7 @@ export namespace Prisma {
     priority: number
     dueDate: number
     assigneeId: number
+    groupId: number
     tenantId: number
     createdAt: number
     updatedAt: number
@@ -41271,6 +41609,7 @@ export namespace Prisma {
     priority?: true
     dueDate?: true
     assigneeId?: true
+    groupId?: true
     tenantId?: true
     createdAt?: true
     updatedAt?: true
@@ -41284,6 +41623,7 @@ export namespace Prisma {
     priority?: true
     dueDate?: true
     assigneeId?: true
+    groupId?: true
     tenantId?: true
     createdAt?: true
     updatedAt?: true
@@ -41297,6 +41637,7 @@ export namespace Prisma {
     priority?: true
     dueDate?: true
     assigneeId?: true
+    groupId?: true
     tenantId?: true
     createdAt?: true
     updatedAt?: true
@@ -41383,6 +41724,7 @@ export namespace Prisma {
     priority: string
     dueDate: Date | null
     assigneeId: string | null
+    groupId: string | null
     tenantId: string
     createdAt: Date
     updatedAt: Date
@@ -41413,10 +41755,13 @@ export namespace Prisma {
     priority?: boolean
     dueDate?: boolean
     assigneeId?: boolean
+    groupId?: boolean
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    group?: boolean | StaffTask$groupArgs<ExtArgs>
+    assignee?: boolean | StaffTask$assigneeArgs<ExtArgs>
   }, ExtArgs["result"]["staffTask"]>
 
   export type StaffTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -41427,10 +41772,13 @@ export namespace Prisma {
     priority?: boolean
     dueDate?: boolean
     assigneeId?: boolean
+    groupId?: boolean
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    group?: boolean | StaffTask$groupArgs<ExtArgs>
+    assignee?: boolean | StaffTask$assigneeArgs<ExtArgs>
   }, ExtArgs["result"]["staffTask"]>
 
   export type StaffTaskSelectScalar = {
@@ -41441,6 +41789,7 @@ export namespace Prisma {
     priority?: boolean
     dueDate?: boolean
     assigneeId?: boolean
+    groupId?: boolean
     tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -41448,15 +41797,21 @@ export namespace Prisma {
 
   export type StaffTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    group?: boolean | StaffTask$groupArgs<ExtArgs>
+    assignee?: boolean | StaffTask$assigneeArgs<ExtArgs>
   }
   export type StaffTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    group?: boolean | StaffTask$groupArgs<ExtArgs>
+    assignee?: boolean | StaffTask$assigneeArgs<ExtArgs>
   }
 
   export type $StaffTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "StaffTask"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
+      group: Prisma.$StaffGroupPayload<ExtArgs> | null
+      assignee: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41466,6 +41821,7 @@ export namespace Prisma {
       priority: string
       dueDate: Date | null
       assigneeId: string | null
+      groupId: string | null
       tenantId: string
       createdAt: Date
       updatedAt: Date
@@ -41834,6 +42190,8 @@ export namespace Prisma {
   export interface Prisma__StaffTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    group<T extends StaffTask$groupArgs<ExtArgs> = {}>(args?: Subset<T, StaffTask$groupArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    assignee<T extends StaffTask$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, StaffTask$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -41870,6 +42228,7 @@ export namespace Prisma {
     readonly priority: FieldRef<"StaffTask", 'String'>
     readonly dueDate: FieldRef<"StaffTask", 'DateTime'>
     readonly assigneeId: FieldRef<"StaffTask", 'String'>
+    readonly groupId: FieldRef<"StaffTask", 'String'>
     readonly tenantId: FieldRef<"StaffTask", 'String'>
     readonly createdAt: FieldRef<"StaffTask", 'DateTime'>
     readonly updatedAt: FieldRef<"StaffTask", 'DateTime'>
@@ -42191,6 +42550,36 @@ export namespace Prisma {
   }
 
   /**
+   * StaffTask.group
+   */
+  export type StaffTask$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    where?: StaffGroupWhereInput
+  }
+
+  /**
+   * StaffTask.assignee
+   */
+  export type StaffTask$assigneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * StaffTask without action
    */
   export type StaffTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -42202,6 +42591,1940 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: StaffTaskInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffGroup
+   */
+
+  export type AggregateStaffGroup = {
+    _count: StaffGroupCountAggregateOutputType | null
+    _min: StaffGroupMinAggregateOutputType | null
+    _max: StaffGroupMaxAggregateOutputType | null
+  }
+
+  export type StaffGroupMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffGroupMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StaffGroupCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    tenantId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StaffGroupMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffGroupMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StaffGroupCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StaffGroupAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffGroup to aggregate.
+     */
+    where?: StaffGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroups to fetch.
+     */
+    orderBy?: StaffGroupOrderByWithRelationInput | StaffGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffGroups
+    **/
+    _count?: true | StaffGroupCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffGroupMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffGroupMaxAggregateInputType
+  }
+
+  export type GetStaffGroupAggregateType<T extends StaffGroupAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffGroup]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffGroup[P]>
+      : GetScalarType<T[P], AggregateStaffGroup[P]>
+  }
+
+
+
+
+  export type StaffGroupGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffGroupWhereInput
+    orderBy?: StaffGroupOrderByWithAggregationInput | StaffGroupOrderByWithAggregationInput[]
+    by: StaffGroupScalarFieldEnum[] | StaffGroupScalarFieldEnum
+    having?: StaffGroupScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffGroupCountAggregateInputType | true
+    _min?: StaffGroupMinAggregateInputType
+    _max?: StaffGroupMaxAggregateInputType
+  }
+
+  export type StaffGroupGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    tenantId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: StaffGroupCountAggregateOutputType | null
+    _min: StaffGroupMinAggregateOutputType | null
+    _max: StaffGroupMaxAggregateOutputType | null
+  }
+
+  type GetStaffGroupGroupByPayload<T extends StaffGroupGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffGroupGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffGroupGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffGroupGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffGroupGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffGroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    members?: boolean | StaffGroup$membersArgs<ExtArgs>
+    tasks?: boolean | StaffGroup$tasksArgs<ExtArgs>
+    _count?: boolean | StaffGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffGroup"]>
+
+  export type StaffGroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffGroup"]>
+
+  export type StaffGroupSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StaffGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    members?: boolean | StaffGroup$membersArgs<ExtArgs>
+    tasks?: boolean | StaffGroup$tasksArgs<ExtArgs>
+    _count?: boolean | StaffGroupCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StaffGroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffGroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffGroup"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      members: Prisma.$StaffGroupMemberPayload<ExtArgs>[]
+      tasks: Prisma.$StaffTaskPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      tenantId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["staffGroup"]>
+    composites: {}
+  }
+
+  type StaffGroupGetPayload<S extends boolean | null | undefined | StaffGroupDefaultArgs> = $Result.GetResult<Prisma.$StaffGroupPayload, S>
+
+  type StaffGroupCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StaffGroupFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StaffGroupCountAggregateInputType | true
+    }
+
+  export interface StaffGroupDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffGroup'], meta: { name: 'StaffGroup' } }
+    /**
+     * Find zero or one StaffGroup that matches the filter.
+     * @param {StaffGroupFindUniqueArgs} args - Arguments to find a StaffGroup
+     * @example
+     * // Get one StaffGroup
+     * const staffGroup = await prisma.staffGroup.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffGroupFindUniqueArgs>(args: SelectSubset<T, StaffGroupFindUniqueArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StaffGroup that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StaffGroupFindUniqueOrThrowArgs} args - Arguments to find a StaffGroup
+     * @example
+     * // Get one StaffGroup
+     * const staffGroup = await prisma.staffGroup.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffGroupFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffGroupFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StaffGroup that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupFindFirstArgs} args - Arguments to find a StaffGroup
+     * @example
+     * // Get one StaffGroup
+     * const staffGroup = await prisma.staffGroup.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffGroupFindFirstArgs>(args?: SelectSubset<T, StaffGroupFindFirstArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StaffGroup that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupFindFirstOrThrowArgs} args - Arguments to find a StaffGroup
+     * @example
+     * // Get one StaffGroup
+     * const staffGroup = await prisma.staffGroup.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffGroupFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffGroupFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StaffGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffGroups
+     * const staffGroups = await prisma.staffGroup.findMany()
+     * 
+     * // Get first 10 StaffGroups
+     * const staffGroups = await prisma.staffGroup.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const staffGroupWithIdOnly = await prisma.staffGroup.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StaffGroupFindManyArgs>(args?: SelectSubset<T, StaffGroupFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StaffGroup.
+     * @param {StaffGroupCreateArgs} args - Arguments to create a StaffGroup.
+     * @example
+     * // Create one StaffGroup
+     * const StaffGroup = await prisma.staffGroup.create({
+     *   data: {
+     *     // ... data to create a StaffGroup
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffGroupCreateArgs>(args: SelectSubset<T, StaffGroupCreateArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StaffGroups.
+     * @param {StaffGroupCreateManyArgs} args - Arguments to create many StaffGroups.
+     * @example
+     * // Create many StaffGroups
+     * const staffGroup = await prisma.staffGroup.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffGroupCreateManyArgs>(args?: SelectSubset<T, StaffGroupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffGroups and returns the data saved in the database.
+     * @param {StaffGroupCreateManyAndReturnArgs} args - Arguments to create many StaffGroups.
+     * @example
+     * // Create many StaffGroups
+     * const staffGroup = await prisma.staffGroup.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffGroups and only return the `id`
+     * const staffGroupWithIdOnly = await prisma.staffGroup.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffGroupCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffGroupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StaffGroup.
+     * @param {StaffGroupDeleteArgs} args - Arguments to delete one StaffGroup.
+     * @example
+     * // Delete one StaffGroup
+     * const StaffGroup = await prisma.staffGroup.delete({
+     *   where: {
+     *     // ... filter to delete one StaffGroup
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffGroupDeleteArgs>(args: SelectSubset<T, StaffGroupDeleteArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StaffGroup.
+     * @param {StaffGroupUpdateArgs} args - Arguments to update one StaffGroup.
+     * @example
+     * // Update one StaffGroup
+     * const staffGroup = await prisma.staffGroup.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffGroupUpdateArgs>(args: SelectSubset<T, StaffGroupUpdateArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StaffGroups.
+     * @param {StaffGroupDeleteManyArgs} args - Arguments to filter StaffGroups to delete.
+     * @example
+     * // Delete a few StaffGroups
+     * const { count } = await prisma.staffGroup.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffGroupDeleteManyArgs>(args?: SelectSubset<T, StaffGroupDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffGroups
+     * const staffGroup = await prisma.staffGroup.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffGroupUpdateManyArgs>(args: SelectSubset<T, StaffGroupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StaffGroup.
+     * @param {StaffGroupUpsertArgs} args - Arguments to update or create a StaffGroup.
+     * @example
+     * // Update or create a StaffGroup
+     * const staffGroup = await prisma.staffGroup.upsert({
+     *   create: {
+     *     // ... data to create a StaffGroup
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffGroup we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffGroupUpsertArgs>(args: SelectSubset<T, StaffGroupUpsertArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StaffGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupCountArgs} args - Arguments to filter StaffGroups to count.
+     * @example
+     * // Count the number of StaffGroups
+     * const count = await prisma.staffGroup.count({
+     *   where: {
+     *     // ... the filter for the StaffGroups we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffGroupCountArgs>(
+      args?: Subset<T, StaffGroupCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffGroupCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffGroupAggregateArgs>(args: Subset<T, StaffGroupAggregateArgs>): Prisma.PrismaPromise<GetStaffGroupAggregateType<T>>
+
+    /**
+     * Group by StaffGroup.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffGroupGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffGroupGroupByArgs['orderBy'] }
+        : { orderBy?: StaffGroupGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffGroupGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffGroupGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffGroup model
+   */
+  readonly fields: StaffGroupFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffGroup.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffGroupClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    members<T extends StaffGroup$membersArgs<ExtArgs> = {}>(args?: Subset<T, StaffGroup$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findMany"> | Null>
+    tasks<T extends StaffGroup$tasksArgs<ExtArgs> = {}>(args?: Subset<T, StaffGroup$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffGroup model
+   */ 
+  interface StaffGroupFieldRefs {
+    readonly id: FieldRef<"StaffGroup", 'String'>
+    readonly name: FieldRef<"StaffGroup", 'String'>
+    readonly description: FieldRef<"StaffGroup", 'String'>
+    readonly tenantId: FieldRef<"StaffGroup", 'String'>
+    readonly createdAt: FieldRef<"StaffGroup", 'DateTime'>
+    readonly updatedAt: FieldRef<"StaffGroup", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffGroup findUnique
+   */
+  export type StaffGroupFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroup to fetch.
+     */
+    where: StaffGroupWhereUniqueInput
+  }
+
+  /**
+   * StaffGroup findUniqueOrThrow
+   */
+  export type StaffGroupFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroup to fetch.
+     */
+    where: StaffGroupWhereUniqueInput
+  }
+
+  /**
+   * StaffGroup findFirst
+   */
+  export type StaffGroupFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroup to fetch.
+     */
+    where?: StaffGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroups to fetch.
+     */
+    orderBy?: StaffGroupOrderByWithRelationInput | StaffGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffGroups.
+     */
+    cursor?: StaffGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffGroups.
+     */
+    distinct?: StaffGroupScalarFieldEnum | StaffGroupScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroup findFirstOrThrow
+   */
+  export type StaffGroupFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroup to fetch.
+     */
+    where?: StaffGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroups to fetch.
+     */
+    orderBy?: StaffGroupOrderByWithRelationInput | StaffGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffGroups.
+     */
+    cursor?: StaffGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffGroups.
+     */
+    distinct?: StaffGroupScalarFieldEnum | StaffGroupScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroup findMany
+   */
+  export type StaffGroupFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroups to fetch.
+     */
+    where?: StaffGroupWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroups to fetch.
+     */
+    orderBy?: StaffGroupOrderByWithRelationInput | StaffGroupOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffGroups.
+     */
+    cursor?: StaffGroupWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroups.
+     */
+    skip?: number
+    distinct?: StaffGroupScalarFieldEnum | StaffGroupScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroup create
+   */
+  export type StaffGroupCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffGroup.
+     */
+    data: XOR<StaffGroupCreateInput, StaffGroupUncheckedCreateInput>
+  }
+
+  /**
+   * StaffGroup createMany
+   */
+  export type StaffGroupCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffGroups.
+     */
+    data: StaffGroupCreateManyInput | StaffGroupCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffGroup createManyAndReturn
+   */
+  export type StaffGroupCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StaffGroups.
+     */
+    data: StaffGroupCreateManyInput | StaffGroupCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffGroup update
+   */
+  export type StaffGroupUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffGroup.
+     */
+    data: XOR<StaffGroupUpdateInput, StaffGroupUncheckedUpdateInput>
+    /**
+     * Choose, which StaffGroup to update.
+     */
+    where: StaffGroupWhereUniqueInput
+  }
+
+  /**
+   * StaffGroup updateMany
+   */
+  export type StaffGroupUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffGroups.
+     */
+    data: XOR<StaffGroupUpdateManyMutationInput, StaffGroupUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffGroups to update
+     */
+    where?: StaffGroupWhereInput
+  }
+
+  /**
+   * StaffGroup upsert
+   */
+  export type StaffGroupUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffGroup to update in case it exists.
+     */
+    where: StaffGroupWhereUniqueInput
+    /**
+     * In case the StaffGroup found by the `where` argument doesn't exist, create a new StaffGroup with this data.
+     */
+    create: XOR<StaffGroupCreateInput, StaffGroupUncheckedCreateInput>
+    /**
+     * In case the StaffGroup was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffGroupUpdateInput, StaffGroupUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffGroup delete
+   */
+  export type StaffGroupDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+    /**
+     * Filter which StaffGroup to delete.
+     */
+    where: StaffGroupWhereUniqueInput
+  }
+
+  /**
+   * StaffGroup deleteMany
+   */
+  export type StaffGroupDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffGroups to delete
+     */
+    where?: StaffGroupWhereInput
+  }
+
+  /**
+   * StaffGroup.members
+   */
+  export type StaffGroup$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    where?: StaffGroupMemberWhereInput
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    cursor?: StaffGroupMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffGroupMemberScalarFieldEnum | StaffGroupMemberScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroup.tasks
+   */
+  export type StaffGroup$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffTask
+     */
+    select?: StaffTaskSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffTaskInclude<ExtArgs> | null
+    where?: StaffTaskWhereInput
+    orderBy?: StaffTaskOrderByWithRelationInput | StaffTaskOrderByWithRelationInput[]
+    cursor?: StaffTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffTaskScalarFieldEnum | StaffTaskScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroup without action
+   */
+  export type StaffGroupDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroup
+     */
+    select?: StaffGroupSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffGroupMember
+   */
+
+  export type AggregateStaffGroupMember = {
+    _count: StaffGroupMemberCountAggregateOutputType | null
+    _min: StaffGroupMemberMinAggregateOutputType | null
+    _max: StaffGroupMemberMaxAggregateOutputType | null
+  }
+
+  export type StaffGroupMemberMinAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    userId: string | null
+    role: string | null
+    createdAt: Date | null
+  }
+
+  export type StaffGroupMemberMaxAggregateOutputType = {
+    id: string | null
+    groupId: string | null
+    userId: string | null
+    role: string | null
+    createdAt: Date | null
+  }
+
+  export type StaffGroupMemberCountAggregateOutputType = {
+    id: number
+    groupId: number
+    userId: number
+    role: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StaffGroupMemberMinAggregateInputType = {
+    id?: true
+    groupId?: true
+    userId?: true
+    role?: true
+    createdAt?: true
+  }
+
+  export type StaffGroupMemberMaxAggregateInputType = {
+    id?: true
+    groupId?: true
+    userId?: true
+    role?: true
+    createdAt?: true
+  }
+
+  export type StaffGroupMemberCountAggregateInputType = {
+    id?: true
+    groupId?: true
+    userId?: true
+    role?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StaffGroupMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffGroupMember to aggregate.
+     */
+    where?: StaffGroupMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroupMembers to fetch.
+     */
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffGroupMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffGroupMembers
+    **/
+    _count?: true | StaffGroupMemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffGroupMemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffGroupMemberMaxAggregateInputType
+  }
+
+  export type GetStaffGroupMemberAggregateType<T extends StaffGroupMemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffGroupMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffGroupMember[P]>
+      : GetScalarType<T[P], AggregateStaffGroupMember[P]>
+  }
+
+
+
+
+  export type StaffGroupMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffGroupMemberWhereInput
+    orderBy?: StaffGroupMemberOrderByWithAggregationInput | StaffGroupMemberOrderByWithAggregationInput[]
+    by: StaffGroupMemberScalarFieldEnum[] | StaffGroupMemberScalarFieldEnum
+    having?: StaffGroupMemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffGroupMemberCountAggregateInputType | true
+    _min?: StaffGroupMemberMinAggregateInputType
+    _max?: StaffGroupMemberMaxAggregateInputType
+  }
+
+  export type StaffGroupMemberGroupByOutputType = {
+    id: string
+    groupId: string
+    userId: string
+    role: string
+    createdAt: Date
+    _count: StaffGroupMemberCountAggregateOutputType | null
+    _min: StaffGroupMemberMinAggregateOutputType | null
+    _max: StaffGroupMemberMaxAggregateOutputType | null
+  }
+
+  type GetStaffGroupMemberGroupByPayload<T extends StaffGroupMemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffGroupMemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffGroupMemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffGroupMemberGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffGroupMemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffGroupMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    userId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    group?: boolean | StaffGroupDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffGroupMember"]>
+
+  export type StaffGroupMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    groupId?: boolean
+    userId?: boolean
+    role?: boolean
+    createdAt?: boolean
+    group?: boolean | StaffGroupDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffGroupMember"]>
+
+  export type StaffGroupMemberSelectScalar = {
+    id?: boolean
+    groupId?: boolean
+    userId?: boolean
+    role?: boolean
+    createdAt?: boolean
+  }
+
+  export type StaffGroupMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | StaffGroupDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type StaffGroupMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | StaffGroupDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffGroupMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffGroupMember"
+    objects: {
+      group: Prisma.$StaffGroupPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      groupId: string
+      userId: string
+      role: string
+      createdAt: Date
+    }, ExtArgs["result"]["staffGroupMember"]>
+    composites: {}
+  }
+
+  type StaffGroupMemberGetPayload<S extends boolean | null | undefined | StaffGroupMemberDefaultArgs> = $Result.GetResult<Prisma.$StaffGroupMemberPayload, S>
+
+  type StaffGroupMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StaffGroupMemberFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StaffGroupMemberCountAggregateInputType | true
+    }
+
+  export interface StaffGroupMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffGroupMember'], meta: { name: 'StaffGroupMember' } }
+    /**
+     * Find zero or one StaffGroupMember that matches the filter.
+     * @param {StaffGroupMemberFindUniqueArgs} args - Arguments to find a StaffGroupMember
+     * @example
+     * // Get one StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffGroupMemberFindUniqueArgs>(args: SelectSubset<T, StaffGroupMemberFindUniqueArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StaffGroupMember that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StaffGroupMemberFindUniqueOrThrowArgs} args - Arguments to find a StaffGroupMember
+     * @example
+     * // Get one StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffGroupMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffGroupMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StaffGroupMember that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberFindFirstArgs} args - Arguments to find a StaffGroupMember
+     * @example
+     * // Get one StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffGroupMemberFindFirstArgs>(args?: SelectSubset<T, StaffGroupMemberFindFirstArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StaffGroupMember that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberFindFirstOrThrowArgs} args - Arguments to find a StaffGroupMember
+     * @example
+     * // Get one StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffGroupMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffGroupMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StaffGroupMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffGroupMembers
+     * const staffGroupMembers = await prisma.staffGroupMember.findMany()
+     * 
+     * // Get first 10 StaffGroupMembers
+     * const staffGroupMembers = await prisma.staffGroupMember.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const staffGroupMemberWithIdOnly = await prisma.staffGroupMember.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StaffGroupMemberFindManyArgs>(args?: SelectSubset<T, StaffGroupMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StaffGroupMember.
+     * @param {StaffGroupMemberCreateArgs} args - Arguments to create a StaffGroupMember.
+     * @example
+     * // Create one StaffGroupMember
+     * const StaffGroupMember = await prisma.staffGroupMember.create({
+     *   data: {
+     *     // ... data to create a StaffGroupMember
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffGroupMemberCreateArgs>(args: SelectSubset<T, StaffGroupMemberCreateArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StaffGroupMembers.
+     * @param {StaffGroupMemberCreateManyArgs} args - Arguments to create many StaffGroupMembers.
+     * @example
+     * // Create many StaffGroupMembers
+     * const staffGroupMember = await prisma.staffGroupMember.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffGroupMemberCreateManyArgs>(args?: SelectSubset<T, StaffGroupMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffGroupMembers and returns the data saved in the database.
+     * @param {StaffGroupMemberCreateManyAndReturnArgs} args - Arguments to create many StaffGroupMembers.
+     * @example
+     * // Create many StaffGroupMembers
+     * const staffGroupMember = await prisma.staffGroupMember.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffGroupMembers and only return the `id`
+     * const staffGroupMemberWithIdOnly = await prisma.staffGroupMember.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffGroupMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffGroupMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StaffGroupMember.
+     * @param {StaffGroupMemberDeleteArgs} args - Arguments to delete one StaffGroupMember.
+     * @example
+     * // Delete one StaffGroupMember
+     * const StaffGroupMember = await prisma.staffGroupMember.delete({
+     *   where: {
+     *     // ... filter to delete one StaffGroupMember
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffGroupMemberDeleteArgs>(args: SelectSubset<T, StaffGroupMemberDeleteArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StaffGroupMember.
+     * @param {StaffGroupMemberUpdateArgs} args - Arguments to update one StaffGroupMember.
+     * @example
+     * // Update one StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffGroupMemberUpdateArgs>(args: SelectSubset<T, StaffGroupMemberUpdateArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StaffGroupMembers.
+     * @param {StaffGroupMemberDeleteManyArgs} args - Arguments to filter StaffGroupMembers to delete.
+     * @example
+     * // Delete a few StaffGroupMembers
+     * const { count } = await prisma.staffGroupMember.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffGroupMemberDeleteManyArgs>(args?: SelectSubset<T, StaffGroupMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffGroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffGroupMembers
+     * const staffGroupMember = await prisma.staffGroupMember.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffGroupMemberUpdateManyArgs>(args: SelectSubset<T, StaffGroupMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StaffGroupMember.
+     * @param {StaffGroupMemberUpsertArgs} args - Arguments to update or create a StaffGroupMember.
+     * @example
+     * // Update or create a StaffGroupMember
+     * const staffGroupMember = await prisma.staffGroupMember.upsert({
+     *   create: {
+     *     // ... data to create a StaffGroupMember
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffGroupMember we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffGroupMemberUpsertArgs>(args: SelectSubset<T, StaffGroupMemberUpsertArgs<ExtArgs>>): Prisma__StaffGroupMemberClient<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StaffGroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberCountArgs} args - Arguments to filter StaffGroupMembers to count.
+     * @example
+     * // Count the number of StaffGroupMembers
+     * const count = await prisma.staffGroupMember.count({
+     *   where: {
+     *     // ... the filter for the StaffGroupMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffGroupMemberCountArgs>(
+      args?: Subset<T, StaffGroupMemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffGroupMemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffGroupMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffGroupMemberAggregateArgs>(args: Subset<T, StaffGroupMemberAggregateArgs>): Prisma.PrismaPromise<GetStaffGroupMemberAggregateType<T>>
+
+    /**
+     * Group by StaffGroupMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupMemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffGroupMemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffGroupMemberGroupByArgs['orderBy'] }
+        : { orderBy?: StaffGroupMemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffGroupMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffGroupMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffGroupMember model
+   */
+  readonly fields: StaffGroupMemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffGroupMember.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffGroupMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends StaffGroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffGroupDefaultArgs<ExtArgs>>): Prisma__StaffGroupClient<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffGroupMember model
+   */ 
+  interface StaffGroupMemberFieldRefs {
+    readonly id: FieldRef<"StaffGroupMember", 'String'>
+    readonly groupId: FieldRef<"StaffGroupMember", 'String'>
+    readonly userId: FieldRef<"StaffGroupMember", 'String'>
+    readonly role: FieldRef<"StaffGroupMember", 'String'>
+    readonly createdAt: FieldRef<"StaffGroupMember", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffGroupMember findUnique
+   */
+  export type StaffGroupMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroupMember to fetch.
+     */
+    where: StaffGroupMemberWhereUniqueInput
+  }
+
+  /**
+   * StaffGroupMember findUniqueOrThrow
+   */
+  export type StaffGroupMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroupMember to fetch.
+     */
+    where: StaffGroupMemberWhereUniqueInput
+  }
+
+  /**
+   * StaffGroupMember findFirst
+   */
+  export type StaffGroupMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroupMember to fetch.
+     */
+    where?: StaffGroupMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroupMembers to fetch.
+     */
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffGroupMembers.
+     */
+    cursor?: StaffGroupMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffGroupMembers.
+     */
+    distinct?: StaffGroupMemberScalarFieldEnum | StaffGroupMemberScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroupMember findFirstOrThrow
+   */
+  export type StaffGroupMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroupMember to fetch.
+     */
+    where?: StaffGroupMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroupMembers to fetch.
+     */
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffGroupMembers.
+     */
+    cursor?: StaffGroupMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffGroupMembers.
+     */
+    distinct?: StaffGroupMemberScalarFieldEnum | StaffGroupMemberScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroupMember findMany
+   */
+  export type StaffGroupMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffGroupMembers to fetch.
+     */
+    where?: StaffGroupMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffGroupMembers to fetch.
+     */
+    orderBy?: StaffGroupMemberOrderByWithRelationInput | StaffGroupMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffGroupMembers.
+     */
+    cursor?: StaffGroupMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffGroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffGroupMembers.
+     */
+    skip?: number
+    distinct?: StaffGroupMemberScalarFieldEnum | StaffGroupMemberScalarFieldEnum[]
+  }
+
+  /**
+   * StaffGroupMember create
+   */
+  export type StaffGroupMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffGroupMember.
+     */
+    data: XOR<StaffGroupMemberCreateInput, StaffGroupMemberUncheckedCreateInput>
+  }
+
+  /**
+   * StaffGroupMember createMany
+   */
+  export type StaffGroupMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffGroupMembers.
+     */
+    data: StaffGroupMemberCreateManyInput | StaffGroupMemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffGroupMember createManyAndReturn
+   */
+  export type StaffGroupMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StaffGroupMembers.
+     */
+    data: StaffGroupMemberCreateManyInput | StaffGroupMemberCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffGroupMember update
+   */
+  export type StaffGroupMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffGroupMember.
+     */
+    data: XOR<StaffGroupMemberUpdateInput, StaffGroupMemberUncheckedUpdateInput>
+    /**
+     * Choose, which StaffGroupMember to update.
+     */
+    where: StaffGroupMemberWhereUniqueInput
+  }
+
+  /**
+   * StaffGroupMember updateMany
+   */
+  export type StaffGroupMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffGroupMembers.
+     */
+    data: XOR<StaffGroupMemberUpdateManyMutationInput, StaffGroupMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffGroupMembers to update
+     */
+    where?: StaffGroupMemberWhereInput
+  }
+
+  /**
+   * StaffGroupMember upsert
+   */
+  export type StaffGroupMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffGroupMember to update in case it exists.
+     */
+    where: StaffGroupMemberWhereUniqueInput
+    /**
+     * In case the StaffGroupMember found by the `where` argument doesn't exist, create a new StaffGroupMember with this data.
+     */
+    create: XOR<StaffGroupMemberCreateInput, StaffGroupMemberUncheckedCreateInput>
+    /**
+     * In case the StaffGroupMember was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffGroupMemberUpdateInput, StaffGroupMemberUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffGroupMember delete
+   */
+  export type StaffGroupMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
+    /**
+     * Filter which StaffGroupMember to delete.
+     */
+    where: StaffGroupMemberWhereUniqueInput
+  }
+
+  /**
+   * StaffGroupMember deleteMany
+   */
+  export type StaffGroupMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffGroupMembers to delete
+     */
+    where?: StaffGroupMemberWhereInput
+  }
+
+  /**
+   * StaffGroupMember without action
+   */
+  export type StaffGroupMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffGroupMember
+     */
+    select?: StaffGroupMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffGroupMemberInclude<ExtArgs> | null
   }
 
 
@@ -116880,6 +119203,8 @@ export namespace Prisma {
     serviceId: 'serviceId',
     requestedStartAt: 'requestedStartAt',
     durationMinutes: 'durationMinutes',
+    recurrenceRuleString: 'recurrenceRuleString',
+    recurrenceEndDate: 'recurrenceEndDate',
     status: 'status',
     assignedPswId: 'assignedPswId',
     serviceAddressLine1: 'serviceAddressLine1',
@@ -117194,12 +119519,36 @@ export namespace Prisma {
     priority: 'priority',
     dueDate: 'dueDate',
     assigneeId: 'assigneeId',
+    groupId: 'groupId',
     tenantId: 'tenantId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type StaffTaskScalarFieldEnum = (typeof StaffTaskScalarFieldEnum)[keyof typeof StaffTaskScalarFieldEnum]
+
+
+  export const StaffGroupScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StaffGroupScalarFieldEnum = (typeof StaffGroupScalarFieldEnum)[keyof typeof StaffGroupScalarFieldEnum]
+
+
+  export const StaffGroupMemberScalarFieldEnum: {
+    id: 'id',
+    groupId: 'groupId',
+    userId: 'userId',
+    role: 'role',
+    createdAt: 'createdAt'
+  };
+
+  export type StaffGroupMemberScalarFieldEnum = (typeof StaffGroupMemberScalarFieldEnum)[keyof typeof StaffGroupMemberScalarFieldEnum]
 
 
   export const PswDocumentScalarFieldEnum: {
@@ -118451,6 +120800,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionListRelationFilter
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     VisitCheckEvent?: VisitCheckEventListRelationFilter
+    StaffGroupMember?: StaffGroupMemberListRelationFilter
+    assignedTasks?: StaffTaskListRelationFilter
     carePlansAuthored?: CarePlanListRelationFilter
     assessments?: ClinicalAssessmentListRelationFilter
     medicationRecons?: MedicationReconListRelationFilter
@@ -118493,6 +120844,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionOrderByRelationAggregateInput
     tenant?: TenantOrderByWithRelationInput
     VisitCheckEvent?: VisitCheckEventOrderByRelationAggregateInput
+    StaffGroupMember?: StaffGroupMemberOrderByRelationAggregateInput
+    assignedTasks?: StaffTaskOrderByRelationAggregateInput
     carePlansAuthored?: CarePlanOrderByRelationAggregateInput
     assessments?: ClinicalAssessmentOrderByRelationAggregateInput
     medicationRecons?: MedicationReconOrderByRelationAggregateInput
@@ -118538,6 +120891,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionListRelationFilter
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     VisitCheckEvent?: VisitCheckEventListRelationFilter
+    StaffGroupMember?: StaffGroupMemberListRelationFilter
+    assignedTasks?: StaffTaskListRelationFilter
     carePlansAuthored?: CarePlanListRelationFilter
     assessments?: ClinicalAssessmentListRelationFilter
     medicationRecons?: MedicationReconListRelationFilter
@@ -118695,6 +121050,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberListRelationFilter
     performanceReviews?: PerformanceReviewListRelationFilter
     webhookEndpoints?: WebhookEndpointListRelationFilter
+    staffGroups?: StaffGroupListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -118797,6 +121153,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberOrderByRelationAggregateInput
     performanceReviews?: PerformanceReviewOrderByRelationAggregateInput
     webhookEndpoints?: WebhookEndpointOrderByRelationAggregateInput
+    staffGroups?: StaffGroupOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -118902,6 +121259,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberListRelationFilter
     performanceReviews?: PerformanceReviewListRelationFilter
     webhookEndpoints?: WebhookEndpointListRelationFilter
+    staffGroups?: StaffGroupListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -119466,6 +121824,8 @@ export namespace Prisma {
     serviceId?: StringFilter<"Visit"> | string
     requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
     durationMinutes?: IntFilter<"Visit"> | number
+    recurrenceRuleString?: StringNullableFilter<"Visit"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Visit"> | Date | string | null
     status?: StringNullableFilter<"Visit"> | string | null
     assignedPswId?: StringNullableFilter<"Visit"> | string | null
     serviceAddressLine1?: StringNullableFilter<"Visit"> | string | null
@@ -119512,6 +121872,8 @@ export namespace Prisma {
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
     durationMinutes?: SortOrder
+    recurrenceRuleString?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     assignedPswId?: SortOrderInput | SortOrder
     serviceAddressLine1?: SortOrderInput | SortOrder
@@ -119561,6 +121923,8 @@ export namespace Prisma {
     serviceId?: StringFilter<"Visit"> | string
     requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
     durationMinutes?: IntFilter<"Visit"> | number
+    recurrenceRuleString?: StringNullableFilter<"Visit"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Visit"> | Date | string | null
     status?: StringNullableFilter<"Visit"> | string | null
     assignedPswId?: StringNullableFilter<"Visit"> | string | null
     serviceAddressLine1?: StringNullableFilter<"Visit"> | string | null
@@ -119607,6 +121971,8 @@ export namespace Prisma {
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
     durationMinutes?: SortOrder
+    recurrenceRuleString?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     assignedPswId?: SortOrderInput | SortOrder
     serviceAddressLine1?: SortOrderInput | SortOrder
@@ -119644,6 +122010,8 @@ export namespace Prisma {
     serviceId?: StringWithAggregatesFilter<"Visit"> | string
     requestedStartAt?: DateTimeWithAggregatesFilter<"Visit"> | Date | string
     durationMinutes?: IntWithAggregatesFilter<"Visit"> | number
+    recurrenceRuleString?: StringNullableWithAggregatesFilter<"Visit"> | string | null
+    recurrenceEndDate?: DateTimeNullableWithAggregatesFilter<"Visit"> | Date | string | null
     status?: StringNullableWithAggregatesFilter<"Visit"> | string | null
     assignedPswId?: StringNullableWithAggregatesFilter<"Visit"> | string | null
     serviceAddressLine1?: StringNullableWithAggregatesFilter<"Visit"> | string | null
@@ -121175,10 +123543,13 @@ export namespace Prisma {
     priority?: StringFilter<"StaffTask"> | string
     dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
     assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    groupId?: StringNullableFilter<"StaffTask"> | string | null
     tenantId?: StringFilter<"StaffTask"> | string
     createdAt?: DateTimeFilter<"StaffTask"> | Date | string
     updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    group?: XOR<StaffGroupNullableRelationFilter, StaffGroupWhereInput> | null
+    assignee?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type StaffTaskOrderByWithRelationInput = {
@@ -121189,10 +123560,13 @@ export namespace Prisma {
     priority?: SortOrder
     dueDate?: SortOrderInput | SortOrder
     assigneeId?: SortOrderInput | SortOrder
+    groupId?: SortOrderInput | SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
+    group?: StaffGroupOrderByWithRelationInput
+    assignee?: UserOrderByWithRelationInput
   }
 
   export type StaffTaskWhereUniqueInput = Prisma.AtLeast<{
@@ -121206,10 +123580,13 @@ export namespace Prisma {
     priority?: StringFilter<"StaffTask"> | string
     dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
     assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    groupId?: StringNullableFilter<"StaffTask"> | string | null
     tenantId?: StringFilter<"StaffTask"> | string
     createdAt?: DateTimeFilter<"StaffTask"> | Date | string
     updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    group?: XOR<StaffGroupNullableRelationFilter, StaffGroupWhereInput> | null
+    assignee?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type StaffTaskOrderByWithAggregationInput = {
@@ -121220,6 +123597,7 @@ export namespace Prisma {
     priority?: SortOrder
     dueDate?: SortOrderInput | SortOrder
     assigneeId?: SortOrderInput | SortOrder
+    groupId?: SortOrderInput | SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -121239,9 +123617,135 @@ export namespace Prisma {
     priority?: StringWithAggregatesFilter<"StaffTask"> | string
     dueDate?: DateTimeNullableWithAggregatesFilter<"StaffTask"> | Date | string | null
     assigneeId?: StringNullableWithAggregatesFilter<"StaffTask"> | string | null
+    groupId?: StringNullableWithAggregatesFilter<"StaffTask"> | string | null
     tenantId?: StringWithAggregatesFilter<"StaffTask"> | string
     createdAt?: DateTimeWithAggregatesFilter<"StaffTask"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"StaffTask"> | Date | string
+  }
+
+  export type StaffGroupWhereInput = {
+    AND?: StaffGroupWhereInput | StaffGroupWhereInput[]
+    OR?: StaffGroupWhereInput[]
+    NOT?: StaffGroupWhereInput | StaffGroupWhereInput[]
+    id?: StringFilter<"StaffGroup"> | string
+    name?: StringFilter<"StaffGroup"> | string
+    description?: StringNullableFilter<"StaffGroup"> | string | null
+    tenantId?: StringFilter<"StaffGroup"> | string
+    createdAt?: DateTimeFilter<"StaffGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffGroup"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    members?: StaffGroupMemberListRelationFilter
+    tasks?: StaffTaskListRelationFilter
+  }
+
+  export type StaffGroupOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    members?: StaffGroupMemberOrderByRelationAggregateInput
+    tasks?: StaffTaskOrderByRelationAggregateInput
+  }
+
+  export type StaffGroupWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: StaffGroupWhereInput | StaffGroupWhereInput[]
+    OR?: StaffGroupWhereInput[]
+    NOT?: StaffGroupWhereInput | StaffGroupWhereInput[]
+    name?: StringFilter<"StaffGroup"> | string
+    description?: StringNullableFilter<"StaffGroup"> | string | null
+    tenantId?: StringFilter<"StaffGroup"> | string
+    createdAt?: DateTimeFilter<"StaffGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffGroup"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    members?: StaffGroupMemberListRelationFilter
+    tasks?: StaffTaskListRelationFilter
+  }, "id">
+
+  export type StaffGroupOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StaffGroupCountOrderByAggregateInput
+    _max?: StaffGroupMaxOrderByAggregateInput
+    _min?: StaffGroupMinOrderByAggregateInput
+  }
+
+  export type StaffGroupScalarWhereWithAggregatesInput = {
+    AND?: StaffGroupScalarWhereWithAggregatesInput | StaffGroupScalarWhereWithAggregatesInput[]
+    OR?: StaffGroupScalarWhereWithAggregatesInput[]
+    NOT?: StaffGroupScalarWhereWithAggregatesInput | StaffGroupScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StaffGroup"> | string
+    name?: StringWithAggregatesFilter<"StaffGroup"> | string
+    description?: StringNullableWithAggregatesFilter<"StaffGroup"> | string | null
+    tenantId?: StringWithAggregatesFilter<"StaffGroup"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StaffGroup"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"StaffGroup"> | Date | string
+  }
+
+  export type StaffGroupMemberWhereInput = {
+    AND?: StaffGroupMemberWhereInput | StaffGroupMemberWhereInput[]
+    OR?: StaffGroupMemberWhereInput[]
+    NOT?: StaffGroupMemberWhereInput | StaffGroupMemberWhereInput[]
+    id?: StringFilter<"StaffGroupMember"> | string
+    groupId?: StringFilter<"StaffGroupMember"> | string
+    userId?: StringFilter<"StaffGroupMember"> | string
+    role?: StringFilter<"StaffGroupMember"> | string
+    createdAt?: DateTimeFilter<"StaffGroupMember"> | Date | string
+    group?: XOR<StaffGroupRelationFilter, StaffGroupWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type StaffGroupMemberOrderByWithRelationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    group?: StaffGroupOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type StaffGroupMemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    groupId_userId?: StaffGroupMemberGroupIdUserIdCompoundUniqueInput
+    AND?: StaffGroupMemberWhereInput | StaffGroupMemberWhereInput[]
+    OR?: StaffGroupMemberWhereInput[]
+    NOT?: StaffGroupMemberWhereInput | StaffGroupMemberWhereInput[]
+    groupId?: StringFilter<"StaffGroupMember"> | string
+    userId?: StringFilter<"StaffGroupMember"> | string
+    role?: StringFilter<"StaffGroupMember"> | string
+    createdAt?: DateTimeFilter<"StaffGroupMember"> | Date | string
+    group?: XOR<StaffGroupRelationFilter, StaffGroupWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "groupId_userId">
+
+  export type StaffGroupMemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    _count?: StaffGroupMemberCountOrderByAggregateInput
+    _max?: StaffGroupMemberMaxOrderByAggregateInput
+    _min?: StaffGroupMemberMinOrderByAggregateInput
+  }
+
+  export type StaffGroupMemberScalarWhereWithAggregatesInput = {
+    AND?: StaffGroupMemberScalarWhereWithAggregatesInput | StaffGroupMemberScalarWhereWithAggregatesInput[]
+    OR?: StaffGroupMemberScalarWhereWithAggregatesInput[]
+    NOT?: StaffGroupMemberScalarWhereWithAggregatesInput | StaffGroupMemberScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StaffGroupMember"> | string
+    groupId?: StringWithAggregatesFilter<"StaffGroupMember"> | string
+    userId?: StringWithAggregatesFilter<"StaffGroupMember"> | string
+    role?: StringWithAggregatesFilter<"StaffGroupMember"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"StaffGroupMember"> | Date | string
   }
 
   export type PswDocumentWhereInput = {
@@ -127080,6 +129584,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -127121,6 +129627,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -127162,6 +129670,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -127203,6 +129713,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -127365,6 +129877,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -127466,6 +129979,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -127567,6 +130081,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -127668,6 +130183,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -128325,6 +130841,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -128368,6 +130886,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -128407,6 +130927,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -128450,6 +130972,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -128491,6 +131015,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -128518,6 +131044,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -128544,6 +131072,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -130141,10 +132671,11 @@ export namespace Prisma {
     status?: string
     priority?: string
     dueDate?: Date | string | null
-    assigneeId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutStaffTasksInput
+    group?: StaffGroupCreateNestedOneWithoutTasksInput
+    assignee?: UserCreateNestedOneWithoutAssignedTasksInput
   }
 
   export type StaffTaskUncheckedCreateInput = {
@@ -130155,6 +132686,7 @@ export namespace Prisma {
     priority?: string
     dueDate?: Date | string | null
     assigneeId?: string | null
+    groupId?: string | null
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -130167,10 +132699,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutStaffTasksNestedInput
+    group?: StaffGroupUpdateOneWithoutTasksNestedInput
+    assignee?: UserUpdateOneWithoutAssignedTasksNestedInput
   }
 
   export type StaffTaskUncheckedUpdateInput = {
@@ -130181,6 +132714,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -130194,6 +132728,7 @@ export namespace Prisma {
     priority?: string
     dueDate?: Date | string | null
     assigneeId?: string | null
+    groupId?: string | null
     tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -130206,7 +132741,6 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130219,9 +132753,134 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffGroupsInput
+    members?: StaffGroupMemberCreateNestedManyWithoutGroupInput
+    tasks?: StaffTaskCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: StaffGroupMemberUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: StaffTaskUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffGroupsNestedInput
+    members?: StaffGroupMemberUpdateManyWithoutGroupNestedInput
+    tasks?: StaffTaskUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: StaffGroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: StaffTaskUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffGroupUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupMemberCreateInput = {
+    id?: string
+    role?: string
+    createdAt?: Date | string
+    group: StaffGroupCreateNestedOneWithoutMembersInput
+    user: UserCreateNestedOneWithoutStaffGroupMemberInput
+  }
+
+  export type StaffGroupMemberUncheckedCreateInput = {
+    id?: string
+    groupId: string
+    userId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffGroupMemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: StaffGroupUpdateOneRequiredWithoutMembersNestedInput
+    user?: UserUpdateOneRequiredWithoutStaffGroupMemberNestedInput
+  }
+
+  export type StaffGroupMemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupMemberCreateManyInput = {
+    id?: string
+    groupId: string
+    userId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffGroupMemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupMemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PswDocumentCreateInput = {
@@ -136504,6 +139163,18 @@ export namespace Prisma {
     none?: VisitCheckEventWhereInput
   }
 
+  export type StaffGroupMemberListRelationFilter = {
+    every?: StaffGroupMemberWhereInput
+    some?: StaffGroupMemberWhereInput
+    none?: StaffGroupMemberWhereInput
+  }
+
+  export type StaffTaskListRelationFilter = {
+    every?: StaffTaskWhereInput
+    some?: StaffTaskWhereInput
+    none?: StaffTaskWhereInput
+  }
+
   export type CarePlanListRelationFilter = {
     every?: CarePlanWhereInput
     some?: CarePlanWhereInput
@@ -136619,6 +139290,14 @@ export namespace Prisma {
   }
 
   export type VisitCheckEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffGroupMemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -136855,12 +139534,6 @@ export namespace Prisma {
     every?: ShiftAssignmentWhereInput
     some?: ShiftAssignmentWhereInput
     none?: ShiftAssignmentWhereInput
-  }
-
-  export type StaffTaskListRelationFilter = {
-    every?: StaffTaskWhereInput
-    some?: StaffTaskWhereInput
-    none?: StaffTaskWhereInput
   }
 
   export type LeadListRelationFilter = {
@@ -137168,6 +139841,12 @@ export namespace Prisma {
     none?: WebhookEndpointWhereInput
   }
 
+  export type StaffGroupListRelationFilter = {
+    every?: StaffGroupWhereInput
+    some?: StaffGroupWhereInput
+    none?: StaffGroupWhereInput
+  }
+
   export type BookingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -137197,10 +139876,6 @@ export namespace Prisma {
   }
 
   export type ShiftAssignmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StaffTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -137401,6 +140076,10 @@ export namespace Prisma {
   }
 
   export type WebhookEndpointOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffGroupOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -137849,6 +140528,8 @@ export namespace Prisma {
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
     durationMinutes?: SortOrder
+    recurrenceRuleString?: SortOrder
+    recurrenceEndDate?: SortOrder
     status?: SortOrder
     assignedPswId?: SortOrder
     serviceAddressLine1?: SortOrder
@@ -137885,6 +140566,8 @@ export namespace Prisma {
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
     durationMinutes?: SortOrder
+    recurrenceRuleString?: SortOrder
+    recurrenceEndDate?: SortOrder
     status?: SortOrder
     assignedPswId?: SortOrder
     serviceAddressLine1?: SortOrder
@@ -137914,6 +140597,8 @@ export namespace Prisma {
     serviceId?: SortOrder
     requestedStartAt?: SortOrder
     durationMinutes?: SortOrder
+    recurrenceRuleString?: SortOrder
+    recurrenceEndDate?: SortOrder
     status?: SortOrder
     assignedPswId?: SortOrder
     serviceAddressLine1?: SortOrder
@@ -138778,6 +141463,11 @@ export namespace Prisma {
     category?: SortOrder
   }
 
+  export type StaffGroupNullableRelationFilter = {
+    is?: StaffGroupWhereInput | null
+    isNot?: StaffGroupWhereInput | null
+  }
+
   export type StaffTaskCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -138786,6 +141476,7 @@ export namespace Prisma {
     priority?: SortOrder
     dueDate?: SortOrder
     assigneeId?: SortOrder
+    groupId?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -138799,6 +141490,7 @@ export namespace Prisma {
     priority?: SortOrder
     dueDate?: SortOrder
     assigneeId?: SortOrder
+    groupId?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -138812,9 +141504,71 @@ export namespace Prisma {
     priority?: SortOrder
     dueDate?: SortOrder
     assigneeId?: SortOrder
+    groupId?: SortOrder
     tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type StaffGroupCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffGroupMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffGroupMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StaffGroupRelationFilter = {
+    is?: StaffGroupWhereInput
+    isNot?: StaffGroupWhereInput
+  }
+
+  export type StaffGroupMemberGroupIdUserIdCompoundUniqueInput = {
+    groupId: string
+    userId: string
+  }
+
+  export type StaffGroupMemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StaffGroupMemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StaffGroupMemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    groupId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type PswDocumentCountOrderByAggregateInput = {
@@ -142085,6 +144839,20 @@ export namespace Prisma {
     connect?: VisitCheckEventWhereUniqueInput | VisitCheckEventWhereUniqueInput[]
   }
 
+  export type StaffGroupMemberCreateNestedManyWithoutUserInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput> | StaffGroupMemberCreateWithoutUserInput[] | StaffGroupMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutUserInput | StaffGroupMemberCreateOrConnectWithoutUserInput[]
+    createMany?: StaffGroupMemberCreateManyUserInputEnvelope
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+  }
+
+  export type StaffTaskCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput> | StaffTaskCreateWithoutAssigneeInput[] | StaffTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutAssigneeInput | StaffTaskCreateOrConnectWithoutAssigneeInput[]
+    createMany?: StaffTaskCreateManyAssigneeInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+  }
+
   export type CarePlanCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CarePlanCreateWithoutAuthorInput, CarePlanUncheckedCreateWithoutAuthorInput> | CarePlanCreateWithoutAuthorInput[] | CarePlanUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CarePlanCreateOrConnectWithoutAuthorInput | CarePlanCreateOrConnectWithoutAuthorInput[]
@@ -142255,6 +145023,20 @@ export namespace Prisma {
     connectOrCreate?: VisitCheckEventCreateOrConnectWithoutOverriddenByInput | VisitCheckEventCreateOrConnectWithoutOverriddenByInput[]
     createMany?: VisitCheckEventCreateManyOverriddenByInputEnvelope
     connect?: VisitCheckEventWhereUniqueInput | VisitCheckEventWhereUniqueInput[]
+  }
+
+  export type StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput> | StaffGroupMemberCreateWithoutUserInput[] | StaffGroupMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutUserInput | StaffGroupMemberCreateOrConnectWithoutUserInput[]
+    createMany?: StaffGroupMemberCreateManyUserInputEnvelope
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+  }
+
+  export type StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput> | StaffTaskCreateWithoutAssigneeInput[] | StaffTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutAssigneeInput | StaffTaskCreateOrConnectWithoutAssigneeInput[]
+    createMany?: StaffTaskCreateManyAssigneeInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
   }
 
   export type CarePlanUncheckedCreateNestedManyWithoutAuthorInput = {
@@ -142522,6 +145304,34 @@ export namespace Prisma {
     update?: VisitCheckEventUpdateWithWhereUniqueWithoutOverriddenByInput | VisitCheckEventUpdateWithWhereUniqueWithoutOverriddenByInput[]
     updateMany?: VisitCheckEventUpdateManyWithWhereWithoutOverriddenByInput | VisitCheckEventUpdateManyWithWhereWithoutOverriddenByInput[]
     deleteMany?: VisitCheckEventScalarWhereInput | VisitCheckEventScalarWhereInput[]
+  }
+
+  export type StaffGroupMemberUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput> | StaffGroupMemberCreateWithoutUserInput[] | StaffGroupMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutUserInput | StaffGroupMemberCreateOrConnectWithoutUserInput[]
+    upsert?: StaffGroupMemberUpsertWithWhereUniqueWithoutUserInput | StaffGroupMemberUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StaffGroupMemberCreateManyUserInputEnvelope
+    set?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    disconnect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    delete?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    update?: StaffGroupMemberUpdateWithWhereUniqueWithoutUserInput | StaffGroupMemberUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StaffGroupMemberUpdateManyWithWhereWithoutUserInput | StaffGroupMemberUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+  }
+
+  export type StaffTaskUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput> | StaffTaskCreateWithoutAssigneeInput[] | StaffTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutAssigneeInput | StaffTaskCreateOrConnectWithoutAssigneeInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutAssigneeInput | StaffTaskUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: StaffTaskCreateManyAssigneeInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutAssigneeInput | StaffTaskUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutAssigneeInput | StaffTaskUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
   }
 
   export type CarePlanUpdateManyWithoutAuthorNestedInput = {
@@ -142860,6 +145670,34 @@ export namespace Prisma {
     update?: VisitCheckEventUpdateWithWhereUniqueWithoutOverriddenByInput | VisitCheckEventUpdateWithWhereUniqueWithoutOverriddenByInput[]
     updateMany?: VisitCheckEventUpdateManyWithWhereWithoutOverriddenByInput | VisitCheckEventUpdateManyWithWhereWithoutOverriddenByInput[]
     deleteMany?: VisitCheckEventScalarWhereInput | VisitCheckEventScalarWhereInput[]
+  }
+
+  export type StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput> | StaffGroupMemberCreateWithoutUserInput[] | StaffGroupMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutUserInput | StaffGroupMemberCreateOrConnectWithoutUserInput[]
+    upsert?: StaffGroupMemberUpsertWithWhereUniqueWithoutUserInput | StaffGroupMemberUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StaffGroupMemberCreateManyUserInputEnvelope
+    set?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    disconnect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    delete?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    update?: StaffGroupMemberUpdateWithWhereUniqueWithoutUserInput | StaffGroupMemberUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StaffGroupMemberUpdateManyWithWhereWithoutUserInput | StaffGroupMemberUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput> | StaffTaskCreateWithoutAssigneeInput[] | StaffTaskUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutAssigneeInput | StaffTaskCreateOrConnectWithoutAssigneeInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutAssigneeInput | StaffTaskUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: StaffTaskCreateManyAssigneeInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutAssigneeInput | StaffTaskUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutAssigneeInput | StaffTaskUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
   }
 
   export type CarePlanUncheckedUpdateManyWithoutAuthorNestedInput = {
@@ -143592,6 +146430,13 @@ export namespace Prisma {
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
   }
 
+  export type StaffGroupCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput> | StaffGroupCreateWithoutTenantInput[] | StaffGroupUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTenantInput | StaffGroupCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffGroupCreateManyTenantInputEnvelope
+    connect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -144122,6 +146967,13 @@ export namespace Prisma {
     connectOrCreate?: WebhookEndpointCreateOrConnectWithoutTenantInput | WebhookEndpointCreateOrConnectWithoutTenantInput[]
     createMany?: WebhookEndpointCreateManyTenantInputEnvelope
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+  }
+
+  export type StaffGroupUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput> | StaffGroupCreateWithoutTenantInput[] | StaffGroupUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTenantInput | StaffGroupCreateOrConnectWithoutTenantInput[]
+    createMany?: StaffGroupCreateManyTenantInputEnvelope
+    connect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -145218,6 +148070,20 @@ export namespace Prisma {
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
   }
 
+  export type StaffGroupUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput> | StaffGroupCreateWithoutTenantInput[] | StaffGroupUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTenantInput | StaffGroupCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffGroupUpsertWithWhereUniqueWithoutTenantInput | StaffGroupUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffGroupCreateManyTenantInputEnvelope
+    set?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    disconnect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    delete?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    connect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    update?: StaffGroupUpdateWithWhereUniqueWithoutTenantInput | StaffGroupUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffGroupUpdateManyWithWhereWithoutTenantInput | StaffGroupUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffGroupScalarWhereInput | StaffGroupScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -146280,6 +149146,20 @@ export namespace Prisma {
     update?: WebhookEndpointUpdateWithWhereUniqueWithoutTenantInput | WebhookEndpointUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: WebhookEndpointUpdateManyWithWhereWithoutTenantInput | WebhookEndpointUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+  }
+
+  export type StaffGroupUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput> | StaffGroupCreateWithoutTenantInput[] | StaffGroupUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTenantInput | StaffGroupCreateOrConnectWithoutTenantInput[]
+    upsert?: StaffGroupUpsertWithWhereUniqueWithoutTenantInput | StaffGroupUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: StaffGroupCreateManyTenantInputEnvelope
+    set?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    disconnect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    delete?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    connect?: StaffGroupWhereUniqueInput | StaffGroupWhereUniqueInput[]
+    update?: StaffGroupUpdateWithWhereUniqueWithoutTenantInput | StaffGroupUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: StaffGroupUpdateManyWithWhereWithoutTenantInput | StaffGroupUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: StaffGroupScalarWhereInput | StaffGroupScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutRegistriesInput = {
@@ -149508,12 +152388,170 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput
   }
 
+  export type StaffGroupCreateNestedOneWithoutTasksInput = {
+    create?: XOR<StaffGroupCreateWithoutTasksInput, StaffGroupUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTasksInput
+    connect?: StaffGroupWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAssignedTasksInput = {
+    create?: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTasksInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type TenantUpdateOneRequiredWithoutStaffTasksNestedInput = {
     create?: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
     connectOrCreate?: TenantCreateOrConnectWithoutStaffTasksInput
     upsert?: TenantUpsertWithoutStaffTasksInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutStaffTasksInput, TenantUpdateWithoutStaffTasksInput>, TenantUncheckedUpdateWithoutStaffTasksInput>
+  }
+
+  export type StaffGroupUpdateOneWithoutTasksNestedInput = {
+    create?: XOR<StaffGroupCreateWithoutTasksInput, StaffGroupUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutTasksInput
+    upsert?: StaffGroupUpsertWithoutTasksInput
+    disconnect?: StaffGroupWhereInput | boolean
+    delete?: StaffGroupWhereInput | boolean
+    connect?: StaffGroupWhereUniqueInput
+    update?: XOR<XOR<StaffGroupUpdateToOneWithWhereWithoutTasksInput, StaffGroupUpdateWithoutTasksInput>, StaffGroupUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type UserUpdateOneWithoutAssignedTasksNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedTasksInput
+    upsert?: UserUpsertWithoutAssignedTasksInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedTasksInput, UserUpdateWithoutAssignedTasksInput>, UserUncheckedUpdateWithoutAssignedTasksInput>
+  }
+
+  export type TenantCreateNestedOneWithoutStaffGroupsInput = {
+    create?: XOR<TenantCreateWithoutStaffGroupsInput, TenantUncheckedCreateWithoutStaffGroupsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffGroupsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type StaffGroupMemberCreateNestedManyWithoutGroupInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput> | StaffGroupMemberCreateWithoutGroupInput[] | StaffGroupMemberUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutGroupInput | StaffGroupMemberCreateOrConnectWithoutGroupInput[]
+    createMany?: StaffGroupMemberCreateManyGroupInputEnvelope
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+  }
+
+  export type StaffTaskCreateNestedManyWithoutGroupInput = {
+    create?: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput> | StaffTaskCreateWithoutGroupInput[] | StaffTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutGroupInput | StaffTaskCreateOrConnectWithoutGroupInput[]
+    createMany?: StaffTaskCreateManyGroupInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+  }
+
+  export type StaffGroupMemberUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput> | StaffGroupMemberCreateWithoutGroupInput[] | StaffGroupMemberUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutGroupInput | StaffGroupMemberCreateOrConnectWithoutGroupInput[]
+    createMany?: StaffGroupMemberCreateManyGroupInputEnvelope
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+  }
+
+  export type StaffTaskUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput> | StaffTaskCreateWithoutGroupInput[] | StaffTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutGroupInput | StaffTaskCreateOrConnectWithoutGroupInput[]
+    createMany?: StaffTaskCreateManyGroupInputEnvelope
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutStaffGroupsNestedInput = {
+    create?: XOR<TenantCreateWithoutStaffGroupsInput, TenantUncheckedCreateWithoutStaffGroupsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutStaffGroupsInput
+    upsert?: TenantUpsertWithoutStaffGroupsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutStaffGroupsInput, TenantUpdateWithoutStaffGroupsInput>, TenantUncheckedUpdateWithoutStaffGroupsInput>
+  }
+
+  export type StaffGroupMemberUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput> | StaffGroupMemberCreateWithoutGroupInput[] | StaffGroupMemberUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutGroupInput | StaffGroupMemberCreateOrConnectWithoutGroupInput[]
+    upsert?: StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput | StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: StaffGroupMemberCreateManyGroupInputEnvelope
+    set?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    disconnect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    delete?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    update?: StaffGroupMemberUpdateWithWhereUniqueWithoutGroupInput | StaffGroupMemberUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: StaffGroupMemberUpdateManyWithWhereWithoutGroupInput | StaffGroupMemberUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+  }
+
+  export type StaffTaskUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput> | StaffTaskCreateWithoutGroupInput[] | StaffTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutGroupInput | StaffTaskCreateOrConnectWithoutGroupInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutGroupInput | StaffTaskUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: StaffTaskCreateManyGroupInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutGroupInput | StaffTaskUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutGroupInput | StaffTaskUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+  }
+
+  export type StaffGroupMemberUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput> | StaffGroupMemberCreateWithoutGroupInput[] | StaffGroupMemberUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffGroupMemberCreateOrConnectWithoutGroupInput | StaffGroupMemberCreateOrConnectWithoutGroupInput[]
+    upsert?: StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput | StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: StaffGroupMemberCreateManyGroupInputEnvelope
+    set?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    disconnect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    delete?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    connect?: StaffGroupMemberWhereUniqueInput | StaffGroupMemberWhereUniqueInput[]
+    update?: StaffGroupMemberUpdateWithWhereUniqueWithoutGroupInput | StaffGroupMemberUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: StaffGroupMemberUpdateManyWithWhereWithoutGroupInput | StaffGroupMemberUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput> | StaffTaskCreateWithoutGroupInput[] | StaffTaskUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: StaffTaskCreateOrConnectWithoutGroupInput | StaffTaskCreateOrConnectWithoutGroupInput[]
+    upsert?: StaffTaskUpsertWithWhereUniqueWithoutGroupInput | StaffTaskUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: StaffTaskCreateManyGroupInputEnvelope
+    set?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    disconnect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    delete?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    connect?: StaffTaskWhereUniqueInput | StaffTaskWhereUniqueInput[]
+    update?: StaffTaskUpdateWithWhereUniqueWithoutGroupInput | StaffTaskUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: StaffTaskUpdateManyWithWhereWithoutGroupInput | StaffTaskUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+  }
+
+  export type StaffGroupCreateNestedOneWithoutMembersInput = {
+    create?: XOR<StaffGroupCreateWithoutMembersInput, StaffGroupUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutMembersInput
+    connect?: StaffGroupWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutStaffGroupMemberInput = {
+    create?: XOR<UserCreateWithoutStaffGroupMemberInput, UserUncheckedCreateWithoutStaffGroupMemberInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStaffGroupMemberInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StaffGroupUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<StaffGroupCreateWithoutMembersInput, StaffGroupUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: StaffGroupCreateOrConnectWithoutMembersInput
+    upsert?: StaffGroupUpsertWithoutMembersInput
+    connect?: StaffGroupWhereUniqueInput
+    update?: XOR<XOR<StaffGroupUpdateToOneWithWhereWithoutMembersInput, StaffGroupUpdateWithoutMembersInput>, StaffGroupUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutStaffGroupMemberNestedInput = {
+    create?: XOR<UserCreateWithoutStaffGroupMemberInput, UserUncheckedCreateWithoutStaffGroupMemberInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStaffGroupMemberInput
+    upsert?: UserUpsertWithoutStaffGroupMemberInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStaffGroupMemberInput, UserUpdateWithoutStaffGroupMemberInput>, UserUncheckedUpdateWithoutStaffGroupMemberInput>
   }
 
   export type PswProfileCreateNestedOneWithoutDocumentsInput = {
@@ -152682,6 +155720,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -152782,6 +155821,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -152834,6 +155874,66 @@ export namespace Prisma {
 
   export type VisitCheckEventCreateManyOverriddenByInputEnvelope = {
     data: VisitCheckEventCreateManyOverriddenByInput | VisitCheckEventCreateManyOverriddenByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffGroupMemberCreateWithoutUserInput = {
+    id?: string
+    role?: string
+    createdAt?: Date | string
+    group: StaffGroupCreateNestedOneWithoutMembersInput
+  }
+
+  export type StaffGroupMemberUncheckedCreateWithoutUserInput = {
+    id?: string
+    groupId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffGroupMemberCreateOrConnectWithoutUserInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    create: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput>
+  }
+
+  export type StaffGroupMemberCreateManyUserInputEnvelope = {
+    data: StaffGroupMemberCreateManyUserInput | StaffGroupMemberCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffTaskCreateWithoutAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffTasksInput
+    group?: StaffGroupCreateNestedOneWithoutTasksInput
+  }
+
+  export type StaffTaskUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    groupId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskCreateOrConnectWithoutAssigneeInput = {
+    where: StaffTaskWhereUniqueInput
+    create: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type StaffTaskCreateManyAssigneeInputEnvelope = {
+    data: StaffTaskCreateManyAssigneeInput | StaffTaskCreateManyAssigneeInput[]
     skipDuplicates?: boolean
   }
 
@@ -153858,6 +156958,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -153958,6 +157059,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -153997,6 +157099,66 @@ export namespace Prisma {
     overrideReason?: StringNullableFilter<"VisitCheckEvent"> | string | null
     createdAt?: DateTimeFilter<"VisitCheckEvent"> | Date | string
     tenantId?: StringFilter<"VisitCheckEvent"> | string
+  }
+
+  export type StaffGroupMemberUpsertWithWhereUniqueWithoutUserInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    update: XOR<StaffGroupMemberUpdateWithoutUserInput, StaffGroupMemberUncheckedUpdateWithoutUserInput>
+    create: XOR<StaffGroupMemberCreateWithoutUserInput, StaffGroupMemberUncheckedCreateWithoutUserInput>
+  }
+
+  export type StaffGroupMemberUpdateWithWhereUniqueWithoutUserInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    data: XOR<StaffGroupMemberUpdateWithoutUserInput, StaffGroupMemberUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StaffGroupMemberUpdateManyWithWhereWithoutUserInput = {
+    where: StaffGroupMemberScalarWhereInput
+    data: XOR<StaffGroupMemberUpdateManyMutationInput, StaffGroupMemberUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StaffGroupMemberScalarWhereInput = {
+    AND?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+    OR?: StaffGroupMemberScalarWhereInput[]
+    NOT?: StaffGroupMemberScalarWhereInput | StaffGroupMemberScalarWhereInput[]
+    id?: StringFilter<"StaffGroupMember"> | string
+    groupId?: StringFilter<"StaffGroupMember"> | string
+    userId?: StringFilter<"StaffGroupMember"> | string
+    role?: StringFilter<"StaffGroupMember"> | string
+    createdAt?: DateTimeFilter<"StaffGroupMember"> | Date | string
+  }
+
+  export type StaffTaskUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: StaffTaskWhereUniqueInput
+    update: XOR<StaffTaskUpdateWithoutAssigneeInput, StaffTaskUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<StaffTaskCreateWithoutAssigneeInput, StaffTaskUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type StaffTaskUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: StaffTaskWhereUniqueInput
+    data: XOR<StaffTaskUpdateWithoutAssigneeInput, StaffTaskUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type StaffTaskUpdateManyWithWhereWithoutAssigneeInput = {
+    where: StaffTaskScalarWhereInput
+    data: XOR<StaffTaskUpdateManyMutationInput, StaffTaskUncheckedUpdateManyWithoutAssigneeInput>
+  }
+
+  export type StaffTaskScalarWhereInput = {
+    AND?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+    OR?: StaffTaskScalarWhereInput[]
+    NOT?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
+    id?: StringFilter<"StaffTask"> | string
+    title?: StringFilter<"StaffTask"> | string
+    description?: StringNullableFilter<"StaffTask"> | string | null
+    status?: StringFilter<"StaffTask"> | string
+    priority?: StringFilter<"StaffTask"> | string
+    dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
+    assigneeId?: StringNullableFilter<"StaffTask"> | string | null
+    groupId?: StringNullableFilter<"StaffTask"> | string | null
+    tenantId?: StringFilter<"StaffTask"> | string
+    createdAt?: DateTimeFilter<"StaffTask"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
   }
 
   export type CarePlanUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -154961,9 +158123,10 @@ export namespace Prisma {
     status?: string
     priority?: string
     dueDate?: Date | string | null
-    assigneeId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    group?: StaffGroupCreateNestedOneWithoutTasksInput
+    assignee?: UserCreateNestedOneWithoutAssignedTasksInput
   }
 
   export type StaffTaskUncheckedCreateWithoutTenantInput = {
@@ -154974,6 +158137,7 @@ export namespace Prisma {
     priority?: string
     dueDate?: Date | string | null
     assigneeId?: string | null
+    groupId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -155054,6 +158218,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -155094,6 +158260,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -155172,6 +158340,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -155214,6 +158384,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -156386,6 +159558,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChildTenantsInput = {
@@ -156486,6 +159659,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChildTenantsInput = {
@@ -156591,6 +159765,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutParentTenantInput = {
@@ -156691,6 +159866,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutParentTenantInput = {
@@ -157585,6 +160761,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StaffGroupCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: StaffGroupMemberCreateNestedManyWithoutGroupInput
+    tasks?: StaffTaskCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: StaffGroupMemberUncheckedCreateNestedManyWithoutGroupInput
+    tasks?: StaffTaskUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupCreateOrConnectWithoutTenantInput = {
+    where: StaffGroupWhereUniqueInput
+    create: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffGroupCreateManyTenantInputEnvelope = {
+    data: StaffGroupCreateManyTenantInput | StaffGroupCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuditLogUpsertWithWhereUniqueWithoutTenantInput = {
     where: AuditLogWhereUniqueInput
     update: XOR<AuditLogUpdateWithoutTenantInput, AuditLogUncheckedUpdateWithoutTenantInput>
@@ -157925,22 +161131,6 @@ export namespace Prisma {
     data: XOR<StaffTaskUpdateManyMutationInput, StaffTaskUncheckedUpdateManyWithoutTenantInput>
   }
 
-  export type StaffTaskScalarWhereInput = {
-    AND?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
-    OR?: StaffTaskScalarWhereInput[]
-    NOT?: StaffTaskScalarWhereInput | StaffTaskScalarWhereInput[]
-    id?: StringFilter<"StaffTask"> | string
-    title?: StringFilter<"StaffTask"> | string
-    description?: StringNullableFilter<"StaffTask"> | string | null
-    status?: StringFilter<"StaffTask"> | string
-    priority?: StringFilter<"StaffTask"> | string
-    dueDate?: DateTimeNullableFilter<"StaffTask"> | Date | string | null
-    assigneeId?: StringNullableFilter<"StaffTask"> | string | null
-    tenantId?: StringFilter<"StaffTask"> | string
-    createdAt?: DateTimeFilter<"StaffTask"> | Date | string
-    updatedAt?: DateTimeFilter<"StaffTask"> | Date | string
-  }
-
   export type LeadUpsertWithWhereUniqueWithoutTenantInput = {
     where: LeadWhereUniqueInput
     update: XOR<LeadUpdateWithoutTenantInput, LeadUncheckedUpdateWithoutTenantInput>
@@ -158053,6 +161243,8 @@ export namespace Prisma {
     serviceId?: StringFilter<"Visit"> | string
     requestedStartAt?: DateTimeFilter<"Visit"> | Date | string
     durationMinutes?: IntFilter<"Visit"> | number
+    recurrenceRuleString?: StringNullableFilter<"Visit"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Visit"> | Date | string | null
     status?: StringNullableFilter<"Visit"> | string | null
     assignedPswId?: StringNullableFilter<"Visit"> | string | null
     serviceAddressLine1?: StringNullableFilter<"Visit"> | string | null
@@ -159086,6 +162278,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChildTenantsInput = {
@@ -159186,6 +162379,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUpsertWithWhereUniqueWithoutParentTenantInput = {
@@ -159956,6 +163150,34 @@ export namespace Prisma {
     tenantId?: StringFilter<"WebhookEndpoint"> | string
   }
 
+  export type StaffGroupUpsertWithWhereUniqueWithoutTenantInput = {
+    where: StaffGroupWhereUniqueInput
+    update: XOR<StaffGroupUpdateWithoutTenantInput, StaffGroupUncheckedUpdateWithoutTenantInput>
+    create: XOR<StaffGroupCreateWithoutTenantInput, StaffGroupUncheckedCreateWithoutTenantInput>
+  }
+
+  export type StaffGroupUpdateWithWhereUniqueWithoutTenantInput = {
+    where: StaffGroupWhereUniqueInput
+    data: XOR<StaffGroupUpdateWithoutTenantInput, StaffGroupUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type StaffGroupUpdateManyWithWhereWithoutTenantInput = {
+    where: StaffGroupScalarWhereInput
+    data: XOR<StaffGroupUpdateManyMutationInput, StaffGroupUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type StaffGroupScalarWhereInput = {
+    AND?: StaffGroupScalarWhereInput | StaffGroupScalarWhereInput[]
+    OR?: StaffGroupScalarWhereInput[]
+    NOT?: StaffGroupScalarWhereInput | StaffGroupScalarWhereInput[]
+    id?: StringFilter<"StaffGroup"> | string
+    name?: StringFilter<"StaffGroup"> | string
+    description?: StringNullableFilter<"StaffGroup"> | string | null
+    tenantId?: StringFilter<"StaffGroup"> | string
+    createdAt?: DateTimeFilter<"StaffGroup"> | Date | string
+    updatedAt?: DateTimeFilter<"StaffGroup"> | Date | string
+  }
+
   export type TenantCreateWithoutRegistriesInput = {
     id?: string
     name: string
@@ -160054,6 +163276,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegistriesInput = {
@@ -160154,6 +163377,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegistriesInput = {
@@ -160270,6 +163494,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegistriesInput = {
@@ -160370,6 +163595,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutApiKeysInput = {
@@ -160470,6 +163696,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -160570,6 +163797,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -160686,6 +163914,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -160786,6 +164015,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookingCreateWithoutClientInput = {
@@ -160924,6 +164154,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -161024,6 +164255,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -161055,6 +164287,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -161095,6 +164329,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -161228,6 +164464,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -161269,6 +164507,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -162110,6 +165350,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -162210,6 +165451,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -162247,6 +165489,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -162287,6 +165531,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -162916,6 +166162,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswProfilesInput = {
@@ -163016,6 +166263,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswProfilesInput = {
@@ -163047,6 +166295,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -163087,6 +166337,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -163274,6 +166526,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -163316,6 +166570,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -163776,6 +167032,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswProfilesInput = {
@@ -163876,6 +167133,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutPswProfileInput = {
@@ -163913,6 +167171,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -163953,6 +167213,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -164848,6 +168110,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -164948,6 +168211,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
@@ -165560,6 +168824,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -165660,6 +168925,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ShiftHandoverUpsertWithWhereUniqueWithoutVisitInput = {
@@ -165821,6 +169087,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -165921,6 +169188,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -165932,6 +169200,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -165973,6 +169243,8 @@ export namespace Prisma {
     clientId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -166159,6 +169431,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -166259,6 +169532,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -166317,6 +169591,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -166357,6 +169633,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -166547,6 +169825,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCheckEventsInput = {
@@ -166647,6 +169926,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCheckEventsInput = {
@@ -166658,6 +169938,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -166700,6 +169982,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -166774,6 +170058,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -166814,6 +170100,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -167016,6 +170304,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCheckEventsInput = {
@@ -167116,6 +170405,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -167133,6 +170423,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167175,6 +170467,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167284,6 +170578,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -167326,6 +170622,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -167457,6 +170755,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167499,6 +170799,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167608,6 +170910,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -167650,6 +170954,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -167781,6 +171087,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167823,6 +171131,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -167882,6 +171192,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -167922,6 +171234,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -167966,6 +171280,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -168006,6 +171322,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -168125,6 +171443,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -168225,6 +171544,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -168236,6 +171556,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -168278,6 +171600,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -168353,6 +171677,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -168393,6 +171719,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -168443,6 +171771,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -168483,6 +171813,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -168608,6 +171940,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -168708,6 +172041,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -168725,6 +172059,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -168767,6 +172103,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -168920,6 +172258,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -168960,6 +172300,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -169079,6 +172421,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -169179,6 +172522,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -169314,6 +172658,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -169354,6 +172700,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -169479,6 +172827,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -169579,6 +172928,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -169618,6 +172968,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -169660,6 +173012,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -169753,6 +173107,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -169795,6 +173151,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -170020,6 +173378,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -170120,6 +173479,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -170363,6 +173723,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -170463,6 +173824,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -170852,6 +174214,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -170952,6 +174315,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -171260,6 +174624,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -171360,6 +174725,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -171386,6 +174752,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -171426,6 +174794,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -171505,6 +174875,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -171545,6 +174917,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -171614,6 +174988,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -171654,6 +175030,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -171773,6 +175151,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -171873,6 +175252,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -171915,6 +175295,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -171955,6 +175337,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -172080,6 +175464,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -172180,6 +175565,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemEventsInput = {
@@ -172280,6 +175666,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemEventsInput = {
@@ -172380,6 +175767,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemEventsInput = {
@@ -172412,6 +175800,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -172452,6 +175842,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -172581,6 +175973,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemEventsInput = {
@@ -172681,6 +176074,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSystemEventsInput = {
@@ -172719,6 +176113,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -172759,6 +176155,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -172872,6 +176270,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeadsInput = {
@@ -172972,6 +176371,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeadsInput = {
@@ -173088,6 +176488,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeadsInput = {
@@ -173188,6 +176589,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingsInput = {
@@ -173381,6 +176783,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingsInput = {
@@ -173481,6 +176884,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingsInput = {
@@ -173492,6 +176896,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -173534,6 +176940,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -173786,6 +177194,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingsInput = {
@@ -173886,6 +177295,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
@@ -174073,6 +177483,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
@@ -174173,6 +177584,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
@@ -174366,6 +177778,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
@@ -174466,6 +177879,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutAssignmentsInput = {
@@ -174637,6 +178051,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -174737,6 +178152,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -174748,6 +178164,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -174790,6 +178208,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -175015,6 +178435,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -175115,6 +178536,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutAssignmentsInput = {
@@ -175132,6 +178554,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -175174,6 +178598,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -175232,6 +178658,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -175272,6 +178700,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -175328,6 +178758,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -175368,6 +178800,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -175482,6 +178916,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffTasksInput = {
@@ -175582,11 +179017,126 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffTasksInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutStaffTasksInput, TenantUncheckedCreateWithoutStaffTasksInput>
+  }
+
+  export type StaffGroupCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffGroupsInput
+    members?: StaffGroupMemberCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupUncheckedCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: StaffGroupMemberUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupCreateOrConnectWithoutTasksInput = {
+    where: StaffGroupWhereUniqueInput
+    create: XOR<StaffGroupCreateWithoutTasksInput, StaffGroupUncheckedCreateWithoutTasksInput>
+  }
+
+  export type UserCreateWithoutAssignedTasksInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedTasksInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedTasksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
   }
 
   export type TenantUpsertWithoutStaffTasksInput = {
@@ -175698,6 +179248,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffTasksInput = {
@@ -175798,6 +179349,885 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffGroupUpsertWithoutTasksInput = {
+    update: XOR<StaffGroupUpdateWithoutTasksInput, StaffGroupUncheckedUpdateWithoutTasksInput>
+    create: XOR<StaffGroupCreateWithoutTasksInput, StaffGroupUncheckedCreateWithoutTasksInput>
+    where?: StaffGroupWhereInput
+  }
+
+  export type StaffGroupUpdateToOneWithWhereWithoutTasksInput = {
+    where?: StaffGroupWhereInput
+    data: XOR<StaffGroupUpdateWithoutTasksInput, StaffGroupUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type StaffGroupUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffGroupsNestedInput
+    members?: StaffGroupMemberUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupUncheckedUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: StaffGroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedTasksInput = {
+    update: XOR<UserUpdateWithoutAssignedTasksInput, UserUncheckedUpdateWithoutAssignedTasksInput>
+    create: XOR<UserCreateWithoutAssignedTasksInput, UserUncheckedCreateWithoutAssignedTasksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedTasksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedTasksInput, UserUncheckedUpdateWithoutAssignedTasksInput>
+  }
+
+  export type UserUpdateWithoutAssignedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type TenantCreateWithoutStaffGroupsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutStaffGroupsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutStaffGroupsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutStaffGroupsInput, TenantUncheckedCreateWithoutStaffGroupsInput>
+  }
+
+  export type StaffGroupMemberCreateWithoutGroupInput = {
+    id?: string
+    role?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStaffGroupMemberInput
+  }
+
+  export type StaffGroupMemberUncheckedCreateWithoutGroupInput = {
+    id?: string
+    userId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffGroupMemberCreateOrConnectWithoutGroupInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    create: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput>
+  }
+
+  export type StaffGroupMemberCreateManyGroupInputEnvelope = {
+    data: StaffGroupMemberCreateManyGroupInput | StaffGroupMemberCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffTaskCreateWithoutGroupInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffTasksInput
+    assignee?: UserCreateNestedOneWithoutAssignedTasksInput
+  }
+
+  export type StaffTaskUncheckedCreateWithoutGroupInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffTaskCreateOrConnectWithoutGroupInput = {
+    where: StaffTaskWhereUniqueInput
+    create: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput>
+  }
+
+  export type StaffTaskCreateManyGroupInputEnvelope = {
+    data: StaffTaskCreateManyGroupInput | StaffTaskCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutStaffGroupsInput = {
+    update: XOR<TenantUpdateWithoutStaffGroupsInput, TenantUncheckedUpdateWithoutStaffGroupsInput>
+    create: XOR<TenantCreateWithoutStaffGroupsInput, TenantUncheckedCreateWithoutStaffGroupsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutStaffGroupsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutStaffGroupsInput, TenantUncheckedUpdateWithoutStaffGroupsInput>
+  }
+
+  export type TenantUpdateWithoutStaffGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutStaffGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    update: XOR<StaffGroupMemberUpdateWithoutGroupInput, StaffGroupMemberUncheckedUpdateWithoutGroupInput>
+    create: XOR<StaffGroupMemberCreateWithoutGroupInput, StaffGroupMemberUncheckedCreateWithoutGroupInput>
+  }
+
+  export type StaffGroupMemberUpdateWithWhereUniqueWithoutGroupInput = {
+    where: StaffGroupMemberWhereUniqueInput
+    data: XOR<StaffGroupMemberUpdateWithoutGroupInput, StaffGroupMemberUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type StaffGroupMemberUpdateManyWithWhereWithoutGroupInput = {
+    where: StaffGroupMemberScalarWhereInput
+    data: XOR<StaffGroupMemberUpdateManyMutationInput, StaffGroupMemberUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type StaffTaskUpsertWithWhereUniqueWithoutGroupInput = {
+    where: StaffTaskWhereUniqueInput
+    update: XOR<StaffTaskUpdateWithoutGroupInput, StaffTaskUncheckedUpdateWithoutGroupInput>
+    create: XOR<StaffTaskCreateWithoutGroupInput, StaffTaskUncheckedCreateWithoutGroupInput>
+  }
+
+  export type StaffTaskUpdateWithWhereUniqueWithoutGroupInput = {
+    where: StaffTaskWhereUniqueInput
+    data: XOR<StaffTaskUpdateWithoutGroupInput, StaffTaskUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type StaffTaskUpdateManyWithWhereWithoutGroupInput = {
+    where: StaffTaskScalarWhereInput
+    data: XOR<StaffTaskUpdateManyMutationInput, StaffTaskUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type StaffGroupCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffGroupsInput
+    tasks?: StaffTaskCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupUncheckedCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tasks?: StaffTaskUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type StaffGroupCreateOrConnectWithoutMembersInput = {
+    where: StaffGroupWhereUniqueInput
+    create: XOR<StaffGroupCreateWithoutMembersInput, StaffGroupUncheckedCreateWithoutMembersInput>
+  }
+
+  export type UserCreateWithoutStaffGroupMemberInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutStaffGroupMemberInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutStaffGroupMemberInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStaffGroupMemberInput, UserUncheckedCreateWithoutStaffGroupMemberInput>
+  }
+
+  export type StaffGroupUpsertWithoutMembersInput = {
+    update: XOR<StaffGroupUpdateWithoutMembersInput, StaffGroupUncheckedUpdateWithoutMembersInput>
+    create: XOR<StaffGroupCreateWithoutMembersInput, StaffGroupUncheckedCreateWithoutMembersInput>
+    where?: StaffGroupWhereInput
+  }
+
+  export type StaffGroupUpdateToOneWithWhereWithoutMembersInput = {
+    where?: StaffGroupWhereInput
+    data: XOR<StaffGroupUpdateWithoutMembersInput, StaffGroupUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type StaffGroupUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffGroupsNestedInput
+    tasks?: StaffTaskUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: StaffTaskUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type UserUpsertWithoutStaffGroupMemberInput = {
+    update: XOR<UserUpdateWithoutStaffGroupMemberInput, UserUncheckedUpdateWithoutStaffGroupMemberInput>
+    create: XOR<UserCreateWithoutStaffGroupMemberInput, UserUncheckedCreateWithoutStaffGroupMemberInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStaffGroupMemberInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStaffGroupMemberInput, UserUncheckedUpdateWithoutStaffGroupMemberInput>
+  }
+
+  export type UserUpdateWithoutStaffGroupMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStaffGroupMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -175895,6 +180325,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -175935,6 +180367,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -176068,6 +180502,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -176108,6 +180544,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -176241,6 +180679,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -176281,6 +180721,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -176400,6 +180842,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -176500,6 +180943,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -176511,6 +180955,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -176553,6 +180999,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -176726,6 +181174,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -176766,6 +181216,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -176891,6 +181343,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -176991,6 +181444,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -177008,6 +181462,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -177050,6 +181506,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -177109,6 +181567,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -177149,6 +181609,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -177205,6 +181667,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -177245,6 +181709,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -177358,6 +181824,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceListingsInput = {
@@ -177458,6 +181925,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceListingsInput = {
@@ -177574,6 +182042,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceListingsInput = {
@@ -177674,6 +182143,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFeedbacksInput = {
@@ -177867,6 +182337,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeedbacksInput = {
@@ -177967,6 +182438,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeedbacksInput = {
@@ -177978,6 +182450,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -178020,6 +182494,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -178267,6 +182743,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeedbacksInput = {
@@ -178367,6 +182844,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutFeedbacksInput = {
@@ -178384,6 +182862,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -178426,6 +182906,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -178651,6 +183133,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlansInput = {
@@ -178751,6 +183234,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlansInput = {
@@ -178783,6 +183267,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -178823,6 +183309,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -179051,6 +183539,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlansInput = {
@@ -179151,6 +183640,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutCarePlansAuthoredInput = {
@@ -179189,6 +183679,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -179229,6 +183721,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -179342,6 +183836,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingModulesInput = {
@@ -179442,6 +183937,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingModulesInput = {
@@ -179586,6 +184082,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
@@ -179686,6 +184183,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
@@ -179875,6 +184373,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSurveysInput = {
@@ -179975,6 +184474,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSurveysInput = {
@@ -180115,6 +184615,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSurveysInput = {
@@ -180215,6 +184716,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
@@ -180398,6 +184900,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegionsInput = {
@@ -180498,6 +185001,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegionsInput = {
@@ -180644,6 +185148,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegionsInput = {
@@ -180744,6 +185249,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BranchCapacityUpsertWithWhereUniqueWithoutRegionInput = {
@@ -180934,6 +185440,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalRecordsInput = {
@@ -181034,6 +185541,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalRecordsInput = {
@@ -181150,6 +185658,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalRecordsInput = {
@@ -181250,6 +185759,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFhirSyncLogsInput = {
@@ -181350,6 +185860,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFhirSyncLogsInput = {
@@ -181450,6 +185961,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFhirSyncLogsInput = {
@@ -181566,6 +186078,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFhirSyncLogsInput = {
@@ -181666,6 +186179,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiRecommendationsInput = {
@@ -181766,6 +186280,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRecommendationsInput = {
@@ -181866,6 +186381,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRecommendationsInput = {
@@ -181982,6 +186498,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRecommendationsInput = {
@@ -182082,6 +186599,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSentimentAnalysesInput = {
@@ -182182,6 +186700,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSentimentAnalysesInput = {
@@ -182282,6 +186801,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSentimentAnalysesInput = {
@@ -182398,6 +186918,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSentimentAnalysesInput = {
@@ -182498,6 +187019,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSecurityThreatsInput = {
@@ -182598,6 +187120,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSecurityThreatsInput = {
@@ -182698,6 +187221,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSecurityThreatsInput = {
@@ -182814,6 +187338,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSecurityThreatsInput = {
@@ -182914,6 +187439,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSlasInput = {
@@ -183014,6 +187540,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSlasInput = {
@@ -183114,6 +187641,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSlasInput = {
@@ -183230,6 +187758,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSlasInput = {
@@ -183330,6 +187859,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutFleetStatusInput = {
@@ -183484,6 +188014,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -183526,6 +188058,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -183734,6 +188268,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitMatchesInput = {
@@ -183834,6 +188369,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitMatchesInput = {
@@ -183856,6 +188392,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -183898,6 +188436,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -184118,6 +188658,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitMatchesInput = {
@@ -184218,6 +188759,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutWaitlistEntriesInput = {
@@ -184446,6 +188988,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -184546,6 +189089,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -184802,6 +189346,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -184902,6 +189447,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBranchStatsInput = {
@@ -185002,6 +189548,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBranchStatsInput = {
@@ -185102,6 +189649,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBranchStatsInput = {
@@ -185218,6 +189766,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBranchStatsInput = {
@@ -185318,6 +189867,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutComplianceRecordsInput = {
@@ -185418,6 +189968,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutComplianceRecordsInput = {
@@ -185518,6 +190069,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutComplianceRecordsInput = {
@@ -185634,6 +190186,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutComplianceRecordsInput = {
@@ -185734,6 +190287,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFranchisesInput = {
@@ -185834,6 +190388,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFranchisesInput = {
@@ -185934,6 +190489,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFranchisesInput = {
@@ -186176,6 +190732,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFranchisesInput = {
@@ -186276,6 +190833,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ResellerAgreementUpsertWithWhereUniqueWithoutFranchiseInput = {
@@ -186527,6 +191085,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInventoryItemsInput = {
@@ -186627,6 +191186,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInventoryItemsInput = {
@@ -186836,6 +191396,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInventoryItemsInput = {
@@ -186936,6 +191497,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutInventoryItemsInput = {
@@ -187162,6 +191724,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -187262,6 +191825,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -187504,6 +192068,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -187604,6 +192169,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPurchaseOrdersInput = {
@@ -187803,6 +192369,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -187903,6 +192470,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -188027,6 +192595,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -188067,6 +192637,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -188197,6 +192769,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -188297,6 +192870,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutTelehealthSessionsInput = {
@@ -188433,6 +193007,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -188473,6 +193049,8 @@ export namespace Prisma {
     pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -188779,6 +193357,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPatientAlertsInput = {
@@ -188879,6 +193458,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPatientAlertsInput = {
@@ -189088,6 +193668,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPatientAlertsInput = {
@@ -189188,6 +193769,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPatientAlertsInput = {
@@ -189387,6 +193969,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInsuranceProvidersInput = {
@@ -189487,6 +194070,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInsuranceProvidersInput = {
@@ -189635,6 +194219,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInsuranceProvidersInput = {
@@ -189735,6 +194320,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClaimUpsertWithWhereUniqueWithoutProviderInput = {
@@ -189851,6 +194437,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClaimsInput = {
@@ -189951,6 +194538,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClaimsInput = {
@@ -190185,6 +194773,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClaimsInput = {
@@ -190285,6 +194874,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutClaimsInput = {
@@ -190571,6 +195161,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPrescriptionsInput = {
@@ -190671,6 +195262,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPrescriptionsInput = {
@@ -190933,6 +195525,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPrescriptionsInput = {
@@ -191033,6 +195626,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPrescriptionsInput = {
@@ -191524,6 +196118,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -191566,6 +196162,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -191703,6 +196301,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHandoversInput = {
@@ -191803,6 +196402,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHandoversInput = {
@@ -191902,6 +196502,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191944,6 +196546,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -192087,6 +196691,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHandoversInput = {
@@ -192187,6 +196792,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutOverridesInput = {
@@ -192358,6 +196964,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAvailabilityOverridesInput = {
@@ -192458,6 +197065,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAvailabilityOverridesInput = {
@@ -192651,6 +197259,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAvailabilityOverridesInput = {
@@ -192751,6 +197360,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutPayoutsInput = {
@@ -192922,6 +197532,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayoutsInput = {
@@ -193022,6 +197633,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayoutsInput = {
@@ -193215,6 +197827,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayoutsInput = {
@@ -193315,6 +197928,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutAssessmentsInput = {
@@ -193435,6 +198049,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -193475,6 +198091,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -193593,6 +198211,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalAssessmentsInput = {
@@ -193693,6 +198312,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalAssessmentsInput = {
@@ -193835,6 +198455,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -193875,6 +198497,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -193999,6 +198623,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalAssessmentsInput = {
@@ -194099,6 +198724,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutMedicationReconsInput = {
@@ -194219,6 +198845,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -194259,6 +198887,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -194377,6 +199007,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicationReconsInput = {
@@ -194477,6 +199108,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicationReconsInput = {
@@ -194619,6 +199251,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -194659,6 +199293,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -194783,6 +199419,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicationReconsInput = {
@@ -194883,6 +199520,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutSupervisionLogsInput = {
@@ -194981,6 +199619,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -195021,6 +199661,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -195139,6 +199781,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSupervisionLogsInput = {
@@ -195239,6 +199882,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSupervisionLogsInput = {
@@ -195359,6 +200003,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -195399,6 +200045,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -195523,6 +200171,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -195623,6 +200272,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyNotificationsInput = {
@@ -195816,6 +200466,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -195916,6 +200567,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -196131,6 +200783,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -196231,6 +200884,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutCareFeedbacksInput = {
@@ -196330,6 +200984,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -196372,6 +201028,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -196509,6 +201167,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCareFeedbacksInput = {
@@ -196609,6 +201268,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCareFeedbacksInput = {
@@ -196730,6 +201390,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -196772,6 +201434,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -196915,6 +201579,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -197015,6 +201680,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutPerformedAuditsInput = {
@@ -197042,6 +201708,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -197082,6 +201750,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -197200,6 +201870,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
@@ -197300,6 +201971,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
@@ -197343,6 +202015,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -197383,6 +202057,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -197507,6 +202183,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
@@ -197607,6 +202284,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingRequestsInput = {
@@ -197800,6 +202478,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingRequestsInput = {
@@ -197900,6 +202579,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingRequestsInput = {
@@ -198115,6 +202795,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
@@ -198215,6 +202896,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDailyAuditSignOffsInput = {
@@ -198242,6 +202924,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -198282,6 +202966,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -198400,6 +203086,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -198500,6 +203187,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -198511,6 +203199,8 @@ export namespace Prisma {
     id?: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -198553,6 +203243,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -198628,6 +203320,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -198668,6 +203362,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -198792,6 +203488,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -198892,6 +203589,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyAuditSignOffInput = {
@@ -198909,6 +203607,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -198951,6 +203651,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -199010,6 +203712,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -199050,6 +203754,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -199168,6 +203874,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
@@ -199268,6 +203975,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
@@ -199311,6 +204019,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -199351,6 +204061,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -199475,6 +204187,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -199575,6 +204288,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemTouchpointsInput = {
@@ -199675,6 +204389,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
@@ -199775,6 +204490,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
@@ -199891,6 +204607,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
@@ -199991,6 +204708,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFinancialAccountsInput = {
@@ -200091,6 +204809,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialAccountsInput = {
@@ -200191,6 +204910,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialAccountsInput = {
@@ -200341,6 +205061,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialAccountsInput = {
@@ -200441,6 +205162,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutAccountInput = {
@@ -200557,6 +205279,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialTransactionsInput = {
@@ -200657,6 +205380,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialTransactionsInput = {
@@ -200833,6 +205557,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialTransactionsInput = {
@@ -200933,6 +205658,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutTransactionInput = {
@@ -201123,6 +205849,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialJournalEntriesInput = {
@@ -201223,6 +205950,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialJournalEntriesInput = {
@@ -201409,6 +206137,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialJournalEntriesInput = {
@@ -201509,6 +206238,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionCreateWithoutReconciliationsInput = {
@@ -201669,6 +206399,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialReconciliationsInput = {
@@ -201769,6 +206500,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialReconciliationsInput = {
@@ -201957,6 +206689,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialReconciliationsInput = {
@@ -202057,6 +206790,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBankTransactionsInput = {
@@ -202157,6 +206891,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBankTransactionsInput = {
@@ -202257,6 +206992,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBankTransactionsInput = {
@@ -202399,6 +207135,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBankTransactionsInput = {
@@ -202499,6 +207236,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput = {
@@ -202615,6 +207353,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvvRecordsInput = {
@@ -202715,6 +207454,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvvRecordsInput = {
@@ -202831,6 +207571,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvvRecordsInput = {
@@ -202931,6 +207672,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutServiceAuthorizationsInput = {
@@ -203124,6 +207866,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServiceAuthorizationsInput = {
@@ -203224,6 +207967,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServiceAuthorizationsInput = {
@@ -203439,6 +208183,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServiceAuthorizationsInput = {
@@ -203539,6 +208284,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutConsentFormsInput = {
@@ -203732,6 +208478,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConsentFormsInput = {
@@ -203832,6 +208579,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConsentFormsInput = {
@@ -204047,6 +208795,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConsentFormsInput = {
@@ -204147,6 +208896,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutMileageLogsInput = {
@@ -204318,6 +209068,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMileageLogsInput = {
@@ -204418,6 +209169,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMileageLogsInput = {
@@ -204611,6 +209363,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMileageLogsInput = {
@@ -204711,6 +209464,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutReferralsInput = {
@@ -204811,6 +209565,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutReferralsInput = {
@@ -204911,6 +209666,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutReferralsInput = {
@@ -205027,6 +209783,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutReferralsInput = {
@@ -205127,6 +209884,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyMembersInput = {
@@ -205320,6 +210078,7 @@ export namespace Prisma {
     referrals?: ReferralCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyMembersInput = {
@@ -205420,6 +210179,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyMembersInput = {
@@ -205635,6 +210395,7 @@ export namespace Prisma {
     referrals?: ReferralUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyMembersInput = {
@@ -205735,6 +210496,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutPerformanceReviewsInput = {
@@ -205833,6 +210595,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -205873,6 +210637,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -205991,6 +210757,7 @@ export namespace Prisma {
     referrals?: ReferralCreateNestedManyWithoutTenantInput
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPerformanceReviewsInput = {
@@ -206091,6 +210858,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPerformanceReviewsInput = {
@@ -206211,6 +210979,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -206251,6 +211021,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -206375,6 +211147,7 @@ export namespace Prisma {
     referrals?: ReferralUpdateManyWithoutTenantNestedInput
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPerformanceReviewsInput = {
@@ -206475,6 +211248,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookDeliveryCreateWithoutEndpointInput = {
@@ -206605,6 +211379,7 @@ export namespace Prisma {
     referrals?: ReferralCreateNestedManyWithoutTenantInput
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebhookEndpointsInput = {
@@ -206705,6 +211480,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebhookEndpointsInput = {
@@ -206851,6 +211627,7 @@ export namespace Prisma {
     referrals?: ReferralUpdateManyWithoutTenantNestedInput
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebhookEndpointsInput = {
@@ -206951,6 +211728,7 @@ export namespace Prisma {
     referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookEndpointCreateWithoutDeliveriesInput = {
@@ -207119,6 +211897,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIotEventsInput = {
@@ -207219,6 +211998,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIotEventsInput = {
@@ -207251,6 +212031,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -207291,6 +212073,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -207420,6 +212204,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIotEventsInput = {
@@ -207520,6 +212305,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIotEventsInput = {
@@ -207558,6 +212344,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -207598,6 +212386,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -207711,6 +212501,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAppNotificationsInput = {
@@ -207811,6 +212602,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAppNotificationsInput = {
@@ -207843,6 +212635,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -207883,6 +212677,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -208012,6 +212808,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAppNotificationsInput = {
@@ -208112,6 +212909,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAppNotificationsInput = {
@@ -208150,6 +212948,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -208190,6 +212990,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -208303,6 +213105,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGamificationProfilesInput = {
@@ -208403,6 +213206,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGamificationProfilesInput = {
@@ -208435,6 +213239,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
@@ -208475,6 +213281,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
     telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
@@ -208604,6 +213412,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGamificationProfilesInput = {
@@ -208704,6 +213513,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutGamificationProfileInput = {
@@ -208742,6 +213552,8 @@ export namespace Prisma {
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -208782,6 +213594,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -208895,6 +213709,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiInferencesInput = {
@@ -208995,6 +213810,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiInferencesInput = {
@@ -209111,6 +213927,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiInferencesInput = {
@@ -209211,6 +214028,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutCommunicationLogsInput = {
@@ -209311,6 +214129,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCommunicationLogsInput = {
@@ -209411,6 +214230,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCommunicationLogsInput = {
@@ -209527,6 +214347,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCommunicationLogsInput = {
@@ -209627,6 +214448,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -209749,6 +214571,26 @@ export namespace Prisma {
     overrideReason?: string | null
     createdAt?: Date | string
     tenantId: string
+  }
+
+  export type StaffGroupMemberCreateManyUserInput = {
+    id?: string
+    groupId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffTaskCreateManyAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    groupId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CarePlanCreateManyAuthorInput = {
@@ -210277,6 +215119,66 @@ export namespace Prisma {
     overrideReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type StaffGroupMemberUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: StaffGroupUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type StaffGroupMemberUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupMemberUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffTasksNestedInput
+    group?: StaffGroupUpdateOneWithoutTasksNestedInput
+  }
+
+  export type StaffTaskUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CarePlanUpdateWithoutAuthorInput = {
@@ -210922,6 +215824,7 @@ export namespace Prisma {
     priority?: string
     dueDate?: Date | string | null
     assigneeId?: string | null
+    groupId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -210982,6 +215885,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -211682,6 +216587,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type StaffGroupCreateManyTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AuditLogUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
@@ -212248,9 +217161,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: StaffGroupUpdateOneWithoutTasksNestedInput
+    assignee?: UserUpdateOneWithoutAssignedTasksNestedInput
   }
 
   export type StaffTaskUncheckedUpdateWithoutTenantInput = {
@@ -212261,6 +217175,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -212273,6 +217188,7 @@ export namespace Prisma {
     priority?: StringFieldUpdateOperationsInput | string
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -212349,6 +217265,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
@@ -212389,6 +217307,8 @@ export namespace Prisma {
     reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
     telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
@@ -212481,6 +217401,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -212523,6 +217445,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -212563,6 +217487,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -213728,6 +218654,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutParentTenantInput = {
@@ -213828,6 +218755,7 @@ export namespace Prisma {
     familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantInput = {
@@ -214795,6 +219723,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StaffGroupUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: StaffGroupMemberUpdateManyWithoutGroupNestedInput
+    tasks?: StaffTaskUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: StaffGroupMemberUncheckedUpdateManyWithoutGroupNestedInput
+    tasks?: StaffTaskUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type StaffGroupUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BookingCreateManyClientInput = {
     id?: string
     branchId?: string | null
@@ -214850,6 +219806,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -215259,6 +220217,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -215300,6 +220260,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -215340,6 +220302,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -216132,6 +221096,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     serviceAddressLine1?: string | null
     serviceAddressLine2?: string | null
@@ -216493,6 +221459,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -216535,6 +221503,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -216575,6 +221545,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217328,6 +222300,8 @@ export namespace Prisma {
     clientId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -217366,6 +222340,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217407,6 +222383,8 @@ export namespace Prisma {
     clientId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217447,6 +222425,8 @@ export namespace Prisma {
     clientId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217601,6 +222581,8 @@ export namespace Prisma {
     serviceId: string
     requestedStartAt: Date | string
     durationMinutes: number
+    recurrenceRuleString?: string | null
+    recurrenceEndDate?: Date | string | null
     status?: string | null
     assignedPswId?: string | null
     serviceAddressLine1?: string | null
@@ -217627,6 +222609,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine2?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217669,6 +222653,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217709,6 +222695,8 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     requestedStartAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMinutes?: IntFieldUpdateOperationsInput | number
+    recurrenceRuleString?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     assignedPswId?: NullableStringFieldUpdateOperationsInput | string | null
     serviceAddressLine1?: NullableStringFieldUpdateOperationsInput | string | null
@@ -217729,6 +222717,86 @@ export namespace Prisma {
     requiredSkills?: StringFieldUpdateOperationsInput | string
     isSurgeActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
     surgeMultiplier?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type StaffGroupMemberCreateManyGroupInput = {
+    id?: string
+    userId: string
+    role?: string
+    createdAt?: Date | string
+  }
+
+  export type StaffTaskCreateManyGroupInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: string
+    priority?: string
+    dueDate?: Date | string | null
+    assigneeId?: string | null
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StaffGroupMemberUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStaffGroupMemberNestedInput
+  }
+
+  export type StaffGroupMemberUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffGroupMemberUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffTasksNestedInput
+    assignee?: UserUpdateOneWithoutAssignedTasksNestedInput
+  }
+
+  export type StaffTaskUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffTaskUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    priority?: StringFieldUpdateOperationsInput | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TrainingAssignmentCreateManyModuleInput = {
@@ -218423,6 +223491,10 @@ export namespace Prisma {
      */
     export type BookingCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookingCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use StaffGroupCountOutputTypeDefaultArgs instead
+     */
+    export type StaffGroupCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffGroupCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use TrainingModuleCountOutputTypeDefaultArgs instead
      */
     export type TrainingModuleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TrainingModuleCountOutputTypeDefaultArgs<ExtArgs>
@@ -218574,6 +223646,14 @@ export namespace Prisma {
      * @deprecated Use StaffTaskDefaultArgs instead
      */
     export type StaffTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffTaskDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffGroupDefaultArgs instead
+     */
+    export type StaffGroupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffGroupDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffGroupMemberDefaultArgs instead
+     */
+    export type StaffGroupMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffGroupMemberDefaultArgs<ExtArgs>
     /**
      * @deprecated Use PswDocumentDefaultArgs instead
      */

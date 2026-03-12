@@ -39,6 +39,8 @@ model User {
   telehealthSessions TelehealthSession[]
   tenant             Tenant              @relation(fields: [tenantId], references: [id])
   VisitCheckEvent    VisitCheckEvent[]
+  StaffGroupMember   StaffGroupMember[]
+  assignedTasks      StaffTask[]         @relation("AssignedTasks")
 
   // RN Mastery Extensions
   carePlansAuthored          CarePlan[]           @relation("CarePlanAuthor")
@@ -174,6 +176,7 @@ model Tenant {
   familyMembers         FamilyMember[]
   performanceReviews    PerformanceReview[]
   webhookEndpoints      WebhookEndpoint[]
+  staffGroups           StaffGroup[]
 
   @@map("tenants")
 }
@@ -303,49 +306,51 @@ model PswProfile {
 }
 
 model Visit {
-  id                  String             @id @default(uuid())
-  clientId            String             @map("client_id")
-  serviceId           String             @map("service_id")
-  requestedStartAt    DateTime           @map("requested_start_at")
-  durationMinutes     Int                @map("duration_minutes")
-  status              String?            @default("requested")
-  assignedPswId       String?            @map("assigned_psw_id")
-  serviceAddressLine1 String?            @map("service_address_line1")
-  serviceAddressLine2 String?            @map("service_address_line2")
-  serviceCity         String?            @map("service_city")
-  serviceProvince     String?            @map("service_province")
-  servicePostalCode   String?            @map("service_postal_code")
-  serviceLat          Float?             @map("service_lat")
-  serviceLng          Float?             @map("service_lng")
-  clientNotes         String?            @map("client_notes")
-  coordinatorNotes    String?            @map("coordinator_notes")
-  cancellationReason  String?            @map("cancellation_reason")
-  createdAt           DateTime           @default(now()) @map("created_at")
-  updatedAt           DateTime           @updatedAt @map("updated_at")
-  tenantId            String             @map("tenant_id")
-  bookingId           String?            @map("booking_id")
-  crisisMode          Boolean?           @default(false) @map("crisis_mode")
-  priority            String?            @default("normal")
-  requiredSkills      String             @map("required_skills")
-  isSurgeActive       Boolean?           @default(false) @map("is_surge_active")
-  surgeMultiplier     Float?             @default(1.0) @map("surge_multiplier")
-  DailyEntry          DailyEntry[]
-  incidents           Incident[]
-  assignments         ShiftAssignment[]
-  timesheetItems      TimesheetItem[]
-  checkEvents         VisitCheckEvent[]
-  checklists          VisitChecklist[]
-  notes               VisitNote[]
-  feedbacks           Feedback[]
-  matches             VisitMatch[]
-  psw                 PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
-  booking             Booking?           @relation(fields: [bookingId], references: [id])
-  client              ClientProfile      @relation(fields: [clientId], references: [id])
-  service             Service            @relation(fields: [serviceId], references: [id])
-  tenant              Tenant             @relation(fields: [tenantId], references: [id])
-  handovers           ShiftHandover[]
-  careFeedbacks       CareFeedback[]
-  dailyAuditSignOff   DailyAuditSignOff?
+  id                   String             @id @default(uuid())
+  clientId             String             @map("client_id")
+  serviceId            String             @map("service_id")
+  requestedStartAt     DateTime           @map("requested_start_at")
+  durationMinutes      Int                @map("duration_minutes")
+  recurrenceRuleString String?            @map("recurrence_rule_string")
+  recurrenceEndDate    DateTime?          @map("recurrence_end_date")
+  status               String?            @default("requested")
+  assignedPswId        String?            @map("assigned_psw_id")
+  serviceAddressLine1  String?            @map("service_address_line1")
+  serviceAddressLine2  String?            @map("service_address_line2")
+  serviceCity          String?            @map("service_city")
+  serviceProvince      String?            @map("service_province")
+  servicePostalCode    String?            @map("service_postal_code")
+  serviceLat           Float?             @map("service_lat")
+  serviceLng           Float?             @map("service_lng")
+  clientNotes          String?            @map("client_notes")
+  coordinatorNotes     String?            @map("coordinator_notes")
+  cancellationReason   String?            @map("cancellation_reason")
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+  tenantId             String             @map("tenant_id")
+  bookingId            String?            @map("booking_id")
+  crisisMode           Boolean?           @default(false) @map("crisis_mode")
+  priority             String?            @default("normal")
+  requiredSkills       String             @map("required_skills")
+  isSurgeActive        Boolean?           @default(false) @map("is_surge_active")
+  surgeMultiplier      Float?             @default(1.0) @map("surge_multiplier")
+  DailyEntry           DailyEntry[]
+  incidents            Incident[]
+  assignments          ShiftAssignment[]
+  timesheetItems       TimesheetItem[]
+  checkEvents          VisitCheckEvent[]
+  checklists           VisitChecklist[]
+  notes                VisitNote[]
+  feedbacks            Feedback[]
+  matches              VisitMatch[]
+  psw                  PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  booking              Booking?           @relation(fields: [bookingId], references: [id])
+  client               ClientProfile      @relation(fields: [clientId], references: [id])
+  service              Service            @relation(fields: [serviceId], references: [id])
+  tenant               Tenant             @relation(fields: [tenantId], references: [id])
+  handovers            ShiftHandover[]
+  careFeedbacks        CareFeedback[]
+  dailyAuditSignOff    DailyAuditSignOff?
 
   @@index([tenantId])
   @@map("visits")
@@ -683,13 +688,48 @@ model StaffTask {
   priority    String    @default("medium") // low, medium, high, urgent
   dueDate     DateTime? @map("due_date")
   assigneeId  String?   @map("assignee_id")
+  groupId     String?   @map("group_id") // Assigned to a specific Admin Group rather than an individual
   tenantId    String    @map("tenant_id")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
-  tenant Tenant @relation(fields: [tenantId], references: [id])
+  tenant   Tenant      @relation(fields: [tenantId], references: [id])
+  group    StaffGroup? @relation(fields: [groupId], references: [id])
+  assignee User?       @relation("AssignedTasks", fields: [assigneeId], references: [id])
 
+  @@index([tenantId])
   @@map("staff_tasks")
+}
+
+model StaffGroup {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  tenantId    String   @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant  Tenant             @relation(fields: [tenantId], references: [id])
+  members StaffGroupMember[]
+  tasks   StaffTask[]
+
+  @@index([tenantId])
+  @@map("staff_groups")
+}
+
+model StaffGroupMember {
+  id        String   @id @default(uuid())
+  groupId   String   @map("group_id")
+  userId    String   @map("user_id")
+  role      String   @default("member") // admin/leader, member
+  createdAt DateTime @default(now()) @map("created_at")
+
+  group StaffGroup @relation(fields: [groupId], references: [id])
+  user  User       @relation(fields: [userId], references: [id])
+
+  @@unique([groupId, userId])
+  @@index([userId])
+  @@map("staff_group_members")
 }
 
 model PswDocument {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
@@ -20,6 +21,7 @@ interface CreateVisitModalProps {
 export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     isOpen, onClose, onSuccess, initialClientId, initialClientName, visit
 }) => {
+    const navigate = useNavigate();
     const { showToast } = useNotification();
     const [loading, setLoading] = useState(false);
     const [clients, setClients] = useState<any[]>([]);
@@ -119,7 +121,14 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
 
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto' }}>
+            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto', position: 'relative' }}>
+                <button 
+                    onClick={onClose} 
+                    style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#6b7280' }}
+                    aria-label="Close modal"
+                >
+                    &times;
+                </button>
                 <h3 id="modal-title" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
                 <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <ClientServiceFields
@@ -128,6 +137,8 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         onServiceChange={(e) => setFormData(p => ({ ...p, serviceId: e.target.value }))}
                         fixedClientName={visit ? (clients.find(c => c.id === formData.clientId)?.fullName || 'Loading...') : (initialClientId ? initialClientName : undefined)}
                         disabled={loading}
+                        onCreateClient={() => { onClose(); navigate('/clients'); }}
+                        onCreateService={() => { onClose(); navigate('/services'); }}
                     />
                     <DateTimeFields
                         requestedStartAt={formData.requestedStartAt} durationMinutes={formData.durationMinutes}
@@ -140,6 +151,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         onTypeChange={(type) => setFormData(p => ({ ...p, assignmentType: type }))}
                         onPswChange={(e) => setFormData(p => ({ ...p, assignedPswId: e.target.value }))}
                         disabled={loading}
+                        onCreatePsw={() => { onClose(); navigate('/users'); }}
                     />
                     <SecondaryVisitFields
                         priority={formData.priority} recurrence={formData.recurrence} clientNotes={formData.clientNotes}

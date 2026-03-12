@@ -12,15 +12,25 @@ interface ClientServiceFieldsProps extends SharedProps {
     onClientChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     onServiceChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     fixedClientName?: string;
+    onCreateClient?: () => void;
+    onCreateService?: () => void;
 }
 
 export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
-    clientId, serviceId, clients, services, onClientChange, onServiceChange, fixedClientName, disabled
+    clientId, serviceId, clients, services, onClientChange, onServiceChange, fixedClientName, disabled,
+    onCreateClient, onCreateService
 }) => {
     return (
         <>
             <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Client</label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Client</label>
+                    {onCreateClient && (
+                        <button type="button" onClick={onCreateClient} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                            + Create Client
+                        </button>
+                    )}
+                </div>
                 {fixedClientName ? (
                     <div style={{ padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #d1d5db', fontWeight: '600' }}>
                         {fixedClientName}
@@ -43,7 +53,14 @@ export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
             </div>
 
             <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Type</label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Service Type</label>
+                    {onCreateService && (
+                        <button type="button" onClick={onCreateService} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                            + Create Service
+                        </button>
+                    )}
+                </div>
                 <select
                     data-cy="inp-service-id"
                     required

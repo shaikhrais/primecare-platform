@@ -14,6 +14,7 @@ const StaffTaskSchema = z.object({
     priority: z.enum(['low', 'medium', 'high', 'urgent']).default('medium'),
     dueDate: z.string().datetime().optional().nullable(),
     assigneeId: z.string().uuid().optional().nullable(),
+    groupId: z.string().uuid().optional().nullable(),
 });
 
 const listTasksRoute = createRoute({
@@ -96,6 +97,10 @@ r.openapi(listTasksRoute, async (c) => {
     const tasks = await prisma.staffTask.findMany({
         where: { tenantId },
         orderBy: { createdAt: 'desc' },
+        include: {
+            assignee: { select: { id: true, email: true, roles: true, pswProfile: { select: { fullName: true } }, clientProfile: { select: { fullName: true } } } },
+            group: { select: { id: true, name: true } }
+        }
     });
 
     return c.json(tasks, 200);
