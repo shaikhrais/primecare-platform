@@ -52,6 +52,26 @@ fleet.openapi(heartbeatRoute, async (c) => {
         },
     });
 
+    // Feature 19: Fleet Battery Warning
+    if (body.batteryLevel && body.batteryLevel < 10 && body.status === 'en_route' && psw.user?.tenantId) {
+        const dispatchManager = await prisma.user.findFirst({
+            where: { tenantId: psw.user.tenantId, role: 'manager' }
+        });
+
+        if (dispatchManager) {
+            await prisma.appNotification.create({
+                data: {
+                    userId: dispatchManager.id,
+                    tenantId: psw.user.tenantId,
+                    title: 'Fleet Tracking: Critical Battery En-Route',
+                    message: `PSW ${psw.user.fullName} is en route to Client with ${body.batteryLevel}% battery. They may lose connectivity shortly.`,
+                    type: 'critical'
+                }
+            });
+            console.log(`[Fleet Watchdog] Feature 19 Fired: Critical battery alert sent for ${psw.userId}`);
+        }
+    }
+
     return c.json({ success: true }, 200);
 });
 

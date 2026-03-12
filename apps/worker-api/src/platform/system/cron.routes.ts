@@ -137,8 +137,90 @@ r.openapi(runSystemSweepsRoute, async (c) => {
         }
     }
 
-    console.log(`[Cron] System Sweeps: Processed ${processed} SLA breaches. Embedded Handover & Supervision triggers.`);
-    return c.json({ processed, message: `System Sweeps successful.` }, 200);
+    // Feature 13: Timesheet Auto-Approval (Perfect Timesheets)
+    // Scan all PENDING timesheets and auto-approve if underlying VisitCheckEvents are 100% clean
+    const pendingTimesheets = await prisma.timesheet.findMany({
+        where: { status: 'PENDING' },
+        include: {
+            items: {
+                include: {
+                    visit: {
+                        include: { checkEvents: true }
+                    }
+                }
+            }
+        }
+    });
+
+    let autoApprovedCount = 0;
+    for (const sheet of pendingTimesheets) {
+        let hasFlags = false;
+        
+        // Loop through the timesheet line items -> visits -> check events
+        for (const item of sheet.items) {
+            if (item.visit?.checkEvents) {
+                for (const ev of item.visit.checkEvents) {
+                    if (ev.result === 'flagged_distance' || ev.result === 'manual_override') {
+                        hasFlags = true;
+                    }
+                }
+            }
+        }
+
+        if (!hasFlags && sheet.items.length > 0) {
+            await prisma.timesheet.update({
+                where: { id: sheet.id },
+                data: { status: 'APPROVED' as any, reviewedBy: 'SYSTEM_CRON', reviewedAt: new Date() }
+            });
+            await logAudit(prisma, 'SYSTEM', 'AUTO_APPROVE_TIMESHEET', 'TIMESHEET', sheet.id, { reason: 'clean_evv_logs' });
+            autoApprovedCount++;
+        }
+    }
+
+    // Feature 16: Missed Shift Alert
+    // Identify `scheduled` shifts where `requestedStartAt` is > 15 minutes ago and no `check_in` event exists
+    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
+    const missedShifts = await prisma.visit.findMany({
+        where: {
+            status: 'scheduled',
+            requestedStartAt: { lt: fifteenMinutesAgo },
+            checkEvents: { none: { eventType: 'check_in' } }
+        },
+        include: { client: true, assignedPsw: { include: { user: true } } }
+    });
+
+    let missedShiftCount = 0;
+    for (const shift of missedShifts) {
+        if (shift.tenantId) {
+            const coordinator = await prisma.user.findFirst({
+                where: { tenantId: shift.tenantId, role: 'manager' } // Or 'coordinator' if it exists. Reverted to manager as standard default administrative mapping.
+            });
+
+            if (coordinator) {
+                await prisma.communicationLog.create({
+                    data: {
+                        direction: 'outbound',
+                        channel: 'email',
+                        recipient: coordinator.email,
+                        subject: `[URGENT] Missed Shift Alert - ${shift.client?.fullName}`,
+                        bodyText: `PSW ${shift.assignedPsw?.user?.fullName} has not checked into their scheduled visit for Client ${shift.client?.fullName} which began 15+ minutes ago. Please re-staff immediately.`,
+                        status: 'queued',
+                        tenantId: shift.tenantId
+                    }
+                });
+                // Update shift status to prevent duplicate triggers
+                await prisma.visit.update({
+                    where: { id: shift.id },
+                    data: { status: 'missed' as any }
+                });
+                await logAudit(prisma, 'SYSTEM', 'MISSED_SHIFT_FLAGGED', 'VISIT', shift.id, { delay: '>15m' });
+                missedShiftCount++;
+            }
+        }
+    }
+
+    console.log(`[Cron] System Sweeps: Processed ${processed} SLA breaches. Embedded Handover & Supervision triggers. Auto-approved ${autoApprovedCount} perfect timesheets. Flagged ${missedShiftCount} missed shifts.`);
+    return c.json({ processed, autoApprovedCount, missedShiftCount, message: `System Sweeps successful.` }, 200);
 });
 
 export default r;

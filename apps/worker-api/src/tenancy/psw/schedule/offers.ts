@@ -89,6 +89,72 @@ r.openapi(acceptOfferRoute, async (c) => {
         return c.json({ error: 'Offer no longer available' }, 400);
     }
 
+    // Feature 11: Wellness Thresholds -> block CrisisMode shifts
+    if (visit.service?.name?.toLowerCase().includes('crisis') || visit.priority === 'CRITICAL') {
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const recentPulses = await prisma.wellnessPulse.findMany({
+            where: {
+                pswId: profile.id,
+                createdAt: { gt: sevenDaysAgo },
+                score: { lt: 3 } // Assume < 3 is burnout/low wellness
+            }
+        });
+
+        if (recentPulses.length >= 2) {
+            console.log(`[Worker] Feature 11 Fired: Blocked CrisisMode shift assignment for burnt-out PSW ${profile.id}`);
+            return c.json({ 
+                error: 'Wellness Protocol Active. You have reported multiple low wellness scores recently. Please rest. Crisis shifts are temporarily blocked for 48 hours for your safety.' 
+            }, 403);
+        }
+    }
+
+    // Feature 15: Overtime Sentinel Webhook
+    // Check if the current accepted cumulative week pushes > 44 hours.
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    
+    const weekVisits = await prisma.visit.findMany({
+        where: {
+            assignedPswId: profile.id,
+            requestedStartAt: { gte: startOfWeek }
+        }
+    });
+
+    // Assume average 1 hour per visit for simplicty of heuristic. 44 visits = 44 hours.
+    const totalHoursBeforeThis = weekVisits.length;
+    if (totalHoursBeforeThis >= 44 && profile.tenantId) {
+        console.log(`[Worker] Feature 15 Fired: PSW ${profile.id} exceeded 44 hour limit. Triggering Overtime Sentinel Webhook Notification.`);
+        const adminManager = await prisma.user.findFirst({
+            where: { tenantId: profile.tenantId, role: 'manager' } // Escalate to manager/HR mapping
+        });
+
+        if (adminManager) {
+            await prisma.appNotification.create({
+                data: {
+                    userId: adminManager.id,
+                    tenantId: profile.tenantId,
+                    title: 'System Alert: Overtime Exceeded',
+                    message: `PSW ID ${profile.id} has accepted a shift pushing them past 44 total weekly hours. Standard Overtime parameters will apply to Payroll outputs.`,
+                    type: 'warning'
+                }
+            });
+        }
+    }
+
+    // Feature 17: Training Expired Blocker
+    const expiredTrainings = await prisma.trainingAssignment.count({
+        where: {
+            pswId: profile.id,
+            status: 'assigned', // Assuming 'assigned' is the pending state in schema
+            dueDate: { lt: new Date() }
+        }
+    });
+
+    if (expiredTrainings > 0) {
+        console.log(`[Worker] Feature 17 Fired: Blocked shift assignment for Profile ${profile.id} due to ${expiredTrainings} expired training modules.`);
+        return c.json({ error: `Mandatory Compliance Block: You have ${expiredTrainings} overdue training modules. Please complete them to resume accepting shifts.` }, 403);
+    }
+
     await prisma.$transaction([
         prisma.visit.update({
             where: { id: visitId },

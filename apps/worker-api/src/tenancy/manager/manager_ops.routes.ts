@@ -511,5 +511,67 @@ r.openapi(rejectItemRoute, async (c) => {
     return c.json({ success: true }, 200);
 });
 
+// POST Crisis Pay Authorization (Feature 20)
+const authorizeCrisisPayRoute = createRoute({
+    method: 'post',
+    path: '/schedule/logistics-board/{visitId}/crisis-pay',
+    tags: ['Manager Operations'],
+    request: { params: z.object({ visitId: z.string() }) },
+    responses: {
+        200: { content: { 'application/json': { schema: z.object({ success: z.boolean(), payoutId: z.string() }) } }, description: 'Crisis pay authorized' },
+        404: { description: 'Visit or assignment not found' }
+    }
+});
+
+r.openapi(authorizeCrisisPayRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { visitId } = c.req.valid('param');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const visit = await prisma.visit.findUnique({
+        where: { id: visitId, tenantId },
+        include: { service: true }
+    });
+
+    if (!visit || !visit.assignedPswId) {
+        return c.json({ error: 'Visit is not assigned to a PSW.' }, 404);
+    }
+
+    // Feature 20 Logic: Execute Crisis Pay injection
+    const targetSurgeMultiplier = 1.5;
+    const baseAmount = visit.service?.hourlyRate || 25; // fallback
+    const crisisBonusAmount = (baseAmount * targetSurgeMultiplier) - baseAmount; 
+
+    const [updatedVisit, retroactivePayout] = await prisma.$transaction([
+        prisma.visit.update({
+            where: { id: visitId },
+            data: { isSurgeActive: true, surgeMultiplier: targetSurgeMultiplier }
+        }),
+        prisma.payout.create({
+            data: {
+                pswId: visit.assignedPswId,
+                amount: crisisBonusAmount,
+                currency: 'CAD',
+                status: 'pending',
+                notes: `Retroactive Crisis Pay Authorization for Visit ${visitId}`
+            }
+        }),
+        prisma.auditLog.create({
+            data: {
+                actorUserId: c.get('jwtPayload').sub,
+                action: 'AUTHORIZE_CRISIS_PAY',
+                resourceType: 'VISIT',
+                resourceId: visitId,
+                metadataString: JSON.stringify({ surgeMultiplier: targetSurgeMultiplier, bonusAmount: crisisBonusAmount }),
+                tenantId
+            }
+        })
+    ]);
+
+    console.log(`[Worker] Feature 20 Fired: Retroactive Crisis Pay authorized for Visit ${visitId}. Payout ${retroactivePayout.id} queued.`);
+    
+    return c.json({ success: true, payoutId: retroactivePayout.id }, 200);
+});
+
 export default r;
 

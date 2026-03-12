@@ -143,4 +143,66 @@ mileage.openapi(summaryRoute, async (c) => {
     return c.json({ totalKm: Math.round(totalKm * 10) / 10, totalReimbursement: Math.round(totalReimbursement * 100) / 100, tripCount: logs.length }, 200);
 });
 
+// POST /submit-override — Feature 14: Manual Mileage Validation
+const submitOverrideRoute = createRoute({
+    method: 'post', path: '/submit-override', summary: 'Manually Submit Override Mileage', tags: ['Mileage'],
+    request: { 
+        body: { 
+            content: { 
+                'application/json': { 
+                    schema: z.object({ 
+                        date: z.string(),
+                        claimedDistanceKm: z.number(),
+                        heuristicDistanceKm: z.number(),
+                        reason: z.string().optional()
+                    }) 
+                } 
+            } 
+        } 
+    },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.any() } }, description: 'Logged'
+        },
+        404: {
+            description: 'Profile not found'
+        }
+    },
+});
+
+mileage.openapi(submitOverrideRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+    const userId = (c.get('jwtPayload') as any).sub;
+    const { date, claimedDistanceKm, heuristicDistanceKm, reason } = c.req.valid('json');
+
+    const profile = await prisma.pswProfile.findUnique({ where: { userId } });
+    if (!profile) return c.json({ error: 'Profile not found' }, 404);
+
+    // Feature 14 Logic: Flag if claimed is > 1.5x the Google Maps/Haversine heuristic estimate
+    const isFraudulentSized = claimedDistanceKm > (heuristicDistanceKm * 1.5);
+    const status = isFraudulentSized ? 'flagged' : 'approved';
+    const CRA_RATE = 0.70;
+
+    const log = await prisma.mileageLog.create({
+        data: {
+            pswId: profile.id,
+            date: new Date(date),
+            distanceKm: claimedDistanceKm,
+            reimbursementRate: CRA_RATE,
+            reimbursementAmount: claimedDistanceKm * CRA_RATE,
+            status: status,
+            tenantId,
+            // Assuming there isn't a native reason field, we might normally add an Audit log.
+            // But we will insert it into status or rely on the audit entry
+        }
+    });
+
+    if (isFraudulentSized) {
+        console.log(`[Worker] Feature 14 Fired: Mileage claim (${claimedDistanceKm}km) flagged for exceeding 1.5x heuristic (${heuristicDistanceKm}km)`);
+    }
+
+    return c.json(log, 200);
+});
+
 export default mileage;

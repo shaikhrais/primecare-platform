@@ -43,6 +43,34 @@ r.openapi(updateAvailabilityRoute, async (c) => {
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
+    // Feature 18: Availability Conflict Resolver
+    const upcomingVisits = await prisma.visit.findMany({
+        where: {
+            assignedPswId: profile.id,
+            status: 'scheduled',
+            requestedStartAt: { gt: new Date() }
+        }
+    });
+
+    if (upcomingVisits.length > 0 && profile.tenantId) {
+        const adminManager = await prisma.user.findFirst({
+            where: { tenantId: profile.tenantId, role: 'manager' }
+        });
+
+        if (adminManager) {
+            await prisma.appNotification.create({
+                data: {
+                    userId: adminManager.id,
+                    tenantId: profile.tenantId,
+                    title: 'Urgent: Schedule Conflict Detected',
+                    message: `PSW ${profile.userId} modified structural availability while assigned to ${upcomingVisits.length} upcoming shifts. Some blocks may now collide. Please review.`,
+                    type: 'critical'
+                }
+            });
+            console.log(`[Worker] Feature 18 Fired: Availability conflict flag generated for PSW ${profile.id}`);
+        }
+    }
+
     // Simplified update logic for demonstration
     const updated = await prisma.pswProfile.update({
         where: { id: profile.id },

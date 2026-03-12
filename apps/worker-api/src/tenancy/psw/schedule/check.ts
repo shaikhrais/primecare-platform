@@ -79,10 +79,14 @@ r.openapi(checkInRoute, async (c) => {
         return c.json({ error: 'Visit not found or not assigned' }, 404);
     }
 
+    // Feature 12: EVV GPS Validation
+    let isEvvFlagged = false;
+    let distance = 0;
     if (visit.client?.lat && visit.client?.lng) {
-        const distance = calculateDistance(lat, lng, visit.client.lat, visit.client.lng);
-        if (distance > 500) {
-            return c.json({ error: 'Too far', distance: Math.round(distance), threshold: 500 }, 400);
+        distance = calculateDistance(lat, lng, visit.client.lat, visit.client.lng);
+        if (distance > 300) {
+            isEvvFlagged = true;
+            console.log(`[Worker] Feature 12 Fired: EVV validation failed (>300m). Creating Technical Audit.`);
         }
     }
 
@@ -90,16 +94,28 @@ r.openapi(checkInRoute, async (c) => {
         prisma.visitCheckEvent.create({
             data: {
                 visitId, pswId: profile.id, eventType: 'check_in',
-                lat, lng, accuracyM: accuracy, result: 'success', tenantId: profile.tenantId
+                lat, lng, accuracyM: accuracy, result: isEvvFlagged ? 'flagged_distance' : 'success', tenantId: profile.tenantId
             },
         }),
         prisma.visit.update({ where: { id: visitId }, data: { status: 'in_progress' } }),
         prisma.auditLog.create({
             data: {
                 actorUserId: userId, action: 'CHECK_IN', resourceType: 'VISIT',
-                resourceId: visitId, metadataJson: { lat, lng }, tenantId: profile.tenantId
+                resourceId: visitId, metadataString: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId
             }
-        })
+        }),
+        // Only run if flagged
+        ...(isEvvFlagged ? [
+             prisma.systemEvent.create({
+                 data: {
+                     tenantId: profile.tenantId,
+                     operation: 'AUDIT_FAILURE',
+                     modelName: 'VisitCheckEvent',
+                     entityId: visitId,
+                     payload: JSON.stringify({ reason: 'EVV Distance Exceeded', distance, threshold: 300 })
+                 }
+             })
+        ] : [])
     ]);
 
     return c.json(event, 200);
@@ -140,18 +156,29 @@ r.openapi(checkOutRoute, async (c) => {
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
+    let distance = 0;
+    let isEvvFlagged = false;
+    const visit = await prisma.visit.findUnique({ where: { id: visitId }, include: { client: true } });
+
+    if (visit?.client?.lat && visit?.client?.lng) {
+        distance = calculateDistance(lat, lng, visit.client.lat, visit.client.lng);
+        if (distance > 300) {
+            isEvvFlagged = true;
+        }
+    }
+
     const [event] = await prisma.$transaction([
         prisma.visitCheckEvent.create({
             data: {
                 visitId, pswId: profile.id, eventType: 'check_out',
-                lat, lng, accuracyM: accuracy, result: 'success', tenantId: profile.tenantId
+                lat, lng, accuracyM: accuracy, result: isEvvFlagged ? 'flagged_distance' : 'success', tenantId: profile.tenantId
             },
         }),
         prisma.visit.update({ where: { id: visitId }, data: { status: 'completed' } }),
         prisma.auditLog.create({
             data: {
                 actorUserId: userId, action: 'CHECK_OUT', resourceType: 'VISIT',
-                resourceId: visitId, metadataJson: { lat, lng }, tenantId: profile.tenantId
+                resourceId: visitId, metadataString: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId
             }
         })
     ]);
