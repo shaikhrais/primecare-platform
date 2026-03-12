@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 // Components
 import { DashboardStatus } from './components/DashboardStatus';
@@ -22,6 +24,20 @@ export default function ScrumMasterDashboard() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [drillType, setDrillType] = useState<'endpoints' | 'pages' | 'flows' | 'mesh' | null>(null);
+    const { showToast } = useNotification();
+
+    const handleAction = async (endpoint: string, successMsg: string) => {
+        try {
+            const response = await apiClient.post(endpoint, {});
+            if (response.ok) {
+                showToast(successMsg, 'success');
+            } else {
+                showToast('API Request Failed', 'error');
+            }
+        } catch {
+            showToast('Unable to connect to Node endpoint', 'error');
+        }
+    };
 
     const closeModal = () => setDrillType(null);
     const handleNavigation = (path: string) => navigate(path);
@@ -88,9 +104,9 @@ export default function ScrumMasterDashboard() {
 
             {/* Phase 13 actions */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '2rem' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Flushing Audits...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-flush-audits')?.label || 'Flush Audits'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Reseeding DB...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-db-reseed')?.label || 'Reseed Database'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Deploying...')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-build-deploy')?.label || 'Deploy Build'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.LOG_FLUSH || '/v1/scrum-master/forensics/flush', 'System audits purged.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-flush-audits')?.label || 'Flush Audits'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.DB_RESEED || '/v1/scrum-master/governance/reseed', 'Governance reseed synchronized.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-db-reseed')?.label || 'Reseed Database'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction('/v1/scrum-master/system/deploy', 'System deployment instantiated.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-build-deploy')?.label || 'Deploy Build'}</button>
             </div>
 
             {/* AI Copilot & Technical Governance (The "Future" layer) */}

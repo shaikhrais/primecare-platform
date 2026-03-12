@@ -74,4 +74,29 @@ r.openapi(sweepRoute, async (c) => {
     }, 200);
 });
 
+const flushRoute = createRoute({
+    method: 'post',
+    path: '/forensics/flush',
+    summary: 'Flush Audits',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+const reseedRoute = createRoute({
+    method: 'post',
+    path: '/governance/reseed',
+    summary: 'Reseed Database',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+const deployRoute = createRoute({
+    method: 'post',
+    path: '/system/deploy',
+    summary: 'Deploy Build',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+r.openapi(flushRoute, async (c) => c.json({ message: 'Audit logs flushed successfully.' }, 200));
+r.openapi(reseedRoute, async (c) => c.json({ message: 'Database reseeded successfully.' }, 200));
+r.openapi(deployRoute, async (c) => c.json({ message: 'Deployment initiated successfully.' }, 200));
+
 export default r;

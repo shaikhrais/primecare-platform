@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 const { InteractionARegistry, ApiRegistry, ButtonRegistry, LinkRegistry, RouteRegistry } = AdminRegistry;
 
@@ -8,6 +9,7 @@ export default function ResponseBot() {
     const [auditRunning, setAuditRunning] = useState(false);
     const [results, setResults] = useState<any[]>([]);
     const [progress, setProgress] = useState(0);
+    const { showToast } = useNotification();
 
     const pulseApi = async (path: any) => {
         try {
@@ -72,11 +74,15 @@ export default function ResponseBot() {
                 ...LinkRegistry.map(l => ({ externalId: l.id, type: 'link', label: l.label, role: l.role, module: l.module, action: 'NAVIGATION', targetPath: l.path, description: l.description })),
                 ...InteractionARegistry.map(ia => ({ externalId: ia.id, type: 'interaction', label: ia.label, role: ia.role, module: ia.module, action: ia.consequence, targetPath: ia.target, description: ia.description }))
             ];
-            await apiClient.post(ApiRegistry.SCRUM_MASTER.REGISTRY_SYNC, { entries: allEntries });
-            alert('Registries synchronized successfully!');
+            const result = await apiClient.post(ApiRegistry.SCRUM_MASTER.REGISTRY_SYNC, { entries: allEntries });
+            if (result.ok) {
+                showToast('Registries synchronized successfully!', 'success');
+            } else {
+                showToast('Failed to synchronize registries.', 'error');
+            }
         } catch (e) {
-            console.error('Failed to sync registries');
-            alert('Failed to synchronize registries.');
+            console.error('Failed to sync registries', e);
+            showToast('Failed to synchronize registries.', 'error');
         } finally {
             setAuditRunning(false);
         }

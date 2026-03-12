@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Skull, AlertTriangle, ShieldAlert, WifiOff, Power, Database, Users, Activity, RefreshCw } from 'lucide-react';
+import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 
 export const GlobalDigitalKillSwitch: React.FC = () => {
     const [isArmed, setIsArmed] = useState(false);
@@ -7,6 +9,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
     const [killSwitchActive, setKillSwitchActive] = useState(false);
     const [countdown, setCountdown] = useState(10);
     const [pin, setPin] = useState('');
+    const { showToast } = useNotification();
 
     const toggleArm = () => {
         if (killSwitchActive) return; // Cannot disarm easily once fired
@@ -16,14 +19,14 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
 
     const handleFire = () => {
         if (pin !== '1984') {
-            alert("Invalid Executive Override PIN.");
+            showToast("Invalid Executive Override PIN.", 'error');
             return;
         }
         
         setIsEngaging(true);
         
         let timer = 10;
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
             timer -= 1;
             setCountdown(timer);
             
@@ -31,18 +34,29 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                 clearInterval(interval);
                 setIsEngaging(false);
                 setKillSwitchActive(true);
-                alert("CRITICAL SECURITY PROTOCOL ENGAGED.\n\nAll external connections severed. Client devices force-disconnected. PostgreSQL database connections destroyed.\n\nApplication is now in STATIC MODE.");
+                
+                try {
+                    await apiClient.post('/v1/system/kill-switch/engage', {});
+                    showToast("CRITICAL SECURITY PROTOCOL ENGAGED.\n\nAll external connections severed. Client devices force-disconnected. PostgreSQL database connections destroyed.\n\nApplication is now in STATIC MODE.", 'error');
+                } catch (e) {
+                    showToast("Failed to communicate with master kill-switch relay.", 'error');
+                }
             }
         }, 1000);
     };
 
-    const handleReset = () => {
+    const handleReset = async () => {
         if (window.confirm("Are you absolutely sure you want to attempt platform reboot? This requires full cloud-provider redeployment verification.")) {
-            setIsArmed(false);
-            setKillSwitchActive(false);
-            setCountdown(10);
-            setPin('');
-            alert("Digital kill switch disengaged. Re-establishing network proxies and DNS routing...");
+            try {
+                await apiClient.post('/v1/system/kill-switch/disengage', {});
+                setIsArmed(false);
+                setKillSwitchActive(false);
+                setCountdown(10);
+                setPin('');
+                showToast("Digital kill switch disengaged. Re-establishing network proxies and DNS routing...", 'success');
+            } catch (e) {
+                showToast("Failed to disconnect master kill-switch relay. Manual intervention required.", 'error');
+            }
         }
     };
 

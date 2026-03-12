@@ -7,6 +7,7 @@ import storageRoutes from './storage/storage.routes';
 import voiceRoutes from './voice/voice.routes';
 import platformRoutes from './platform/platform.routes';
 import stripeRoutes from './platform/stripe.routes';
+import killSwitchRoutes from './kill-switch.routes';
 
 const system = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -23,5 +24,6 @@ system.route('/storage', storageRoutes);
 system.route('/voice', voiceRoutes);
 system.route('/platform', platformRoutes);
 system.route('/platform/stripe', stripeRoutes);
+system.route('/kill-switch', killSwitchRoutes);
 
 export default system;
