@@ -29,7 +29,8 @@ import debugModule from './platform/system/debug.routes';
 import cronRoutes from './platform/system/cron.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
-export { ChatServer };
+import { RealtimeSync } from './durable_objects/RealtimeSync';
+export { ChatServer, RealtimeSync };
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

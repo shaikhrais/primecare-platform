@@ -132,6 +132,18 @@ r.openapi(checkInRoute, async (c) => {
 
     console.log(`[Worker] Feature 41 Fired: Real-time Twilio SMS queued for Family members of patient ${visit.client?.id || 'Unknown'}.`);
 
+    try {
+        const doId = c.env.REALTIME_SYNC.idFromName(profile.tenantId || 'global');
+        const stub = c.env.REALTIME_SYNC.get(doId);
+        
+        await stub.fetch(new Request('https://worker/broadcast', {
+            method: 'POST',
+            body: JSON.stringify({ type: 'VISIT_UPDATE', visitId, status: 'in_progress', lat, lng, time: new Date().toISOString() })
+        }));
+    } catch (e) {
+        console.error('Realtime broadcast failed:', e);
+    }
+
     return c.json(event, 200);
 });
 

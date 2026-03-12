@@ -5,6 +5,7 @@ export type Bindings = {
     STRIPE_SECRET_KEY: string;
     SITE_URL?: string;
     CHAT_SERVER: DurableObjectNamespace;
+    REALTIME_SYNC: DurableObjectNamespace;
     ENVIRONMENT?: string;
     OSM_CLIENT_ID?: string;
     OSM_CLIENT_SECRET?: string;

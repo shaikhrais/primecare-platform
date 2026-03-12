@@ -26,12 +26,17 @@ bucket_name = "primecare-docs"
 
 [durable_objects]
 bindings = [
-  { name = "CHAT_SERVER", class_name = "ChatServer" }
+  { name = "CHAT_SERVER", class_name = "ChatServer" },
+  { name = "REALTIME_SYNC", class_name = "RealtimeSync" }
 ]
 
 [[migrations]]
 tag = "v1"
 new_classes = ["ChatServer"]
+
+[[migrations]]
+tag = "v2"
+new_classes = ["RealtimeSync"]
 
 # Keep worker warm — prevent Prisma cold start crashes
 [triggers]
