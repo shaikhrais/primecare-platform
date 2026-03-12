@@ -76,4 +76,63 @@ r.openapi(updateLeadStatusRoute, async (c) => {
     return c.json(lead, 200);
 });
 
+// Convert Lead to Client
+const convertLeadRoute = createRoute({
+    ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE, // Assuming metadata covers this path pattern
+    method: 'post',
+    path: '/{id}/convert',
+    request: {
+        params: LeadParamsSchema,
+    },
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.any() } },
+            description: 'Lead converted successfully',
+        },
+        400: { description: 'Lead already converted' },
+        404: { description: 'Lead not found' },
+    },
+});
+
+r.openapi(convertLeadRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { id } = c.req.valid('param');
+
+    const lead = await prisma.lead.findUnique({ where: { id } });
+    if (!lead) return c.json({ error: 'Lead not found' }, 404);
+    if (lead.status === 'converted') return c.json({ error: 'Lead already converted' }, 400);
+
+    const result = await prisma.$transaction(async (tx: any) => {
+        // 1. Provision Auth User Profile
+        const user = await tx.user.create({
+            data: {
+                email: lead.email,
+                role: 'client',
+                firstName: lead.firstName,
+                lastName: lead.lastName,
+                tenantId: lead.tenantId, // Ensure it scopes properly
+            },
+        });
+
+        // 2. Provision Clinical Profile
+        const client = await tx.clientProfile.create({
+            data: {
+                userId: user.id,
+                fullName: `${lead.firstName} ${lead.lastName}`,
+                riskLevel: 'medium', // Default
+            },
+        });
+
+        // 3. Update Lead mapping
+        await tx.lead.update({
+            where: { id },
+            data: { status: 'converted' },
+        });
+
+        return { user, client };
+    });
+
+    return c.json(result, 200);
+});
+
 export default r;

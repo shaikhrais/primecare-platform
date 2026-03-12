@@ -57,8 +57,9 @@ export default function LeadsPage() {
             // Optimistic update
             setLeads(prev => prev.map(l => l.id === id ? { ...l, status: newStatus } : l));
 
-            // API call logic would be here
-            // await apiClient.patch(`${ApiRegistry.ADMIN.LEADS}/${id}`, { status: newStatus });
+            // API call logic
+            const res = await apiClient.patch(ApiRegistry.ADMIN.LEADS_UPDATE(id), { status: newStatus });
+            if (!res.ok) throw new Error('Network response non-ok');
 
             showToast(t(ContentRegistry.LEADS.MESSAGES.SUCCESS_UPDATE), 'success');
         } catch (error) {

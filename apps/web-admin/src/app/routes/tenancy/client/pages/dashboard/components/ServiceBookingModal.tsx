@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 
+import { apiClient } from '@/shared/utils/apiClient';
+
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
 
 interface Service {
     id: string;
@@ -32,18 +33,16 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
     const handleSubmitRequest = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.BOOKINGS}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...newRequest,
-                    recurrenceRule: newRequest.recurrence !== 'none' ? { pattern: newRequest.recurrence } : undefined
-                })
-            });
+            const payload = {
+                ...newRequest,
+                serviceType: services.find((s) => s.id === newRequest.serviceId)?.name || newRequest.serviceId,
+                preferredDate: newRequest.requestedStartAt || new Date().toISOString(),
+                preferredTime: 'morning',
+                notes: `Priority: ${newRequest.priority}, Recurrence: ${newRequest.recurrence}`
+            };
+
+            const response = await apiClient.post(ApiRegistry.CLIENT.BOOKING_REQUEST_LIST, payload);
+
             if (response.ok) {
                 showToast('Care request submitted successfully!', 'success');
                 setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60, priority: 'normal', recurrence: 'none' });
@@ -54,6 +53,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                 showToast(`Submission failed: ${data.error || 'Unknown error'}`, 'error');
             }
         } catch (error) {
+            console.error('Submission error:', error);
             showToast('Failed to submit request', 'error');
         }
     };

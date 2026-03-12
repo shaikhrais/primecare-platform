@@ -14,16 +14,33 @@ export default function LeadConversion() {
     const [leadName, setLeadName] = useState('Loading...');
 
     useEffect(() => {
- // fetch or actual fetch if needed
-        setLeadName('John Doe'); // Placeholder
+        const loadLead = async () => {
+            try {
+                // Fetch the full list and find the lead to get its name (since we don't have a GET /:id route natively exposed yet)
+                const res = await apiClient.get(ApiRegistry.ADMIN.LEADS);
+                if (res.ok) {
+                    const leads = await res.json();
+                    const lead = leads.find((l: any) => l.id === id);
+                    if (lead) setLeadName(`${lead.firstName} ${lead.lastName}`);
+                    else setLeadName('Unknown Lead');
+                }
+            } catch (e) {
+                console.error('Error finding lead', e);
+            }
+        };
+        loadLead();
     }, [id]);
 
     const handleConvert = async () => {
         setLoading(true);
         try {
             const apiPath = ApiRegistry.ADMIN.LEADS_CONVERT(id!);
- // of API call
-            // const response = await apiClient.post(apiPath, {});
+            const response = await apiClient.post(apiPath, {});
+            
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || 'Conversion Failed');
+            }
 
             showToast('Lead converted successfully to Client!', 'success');
             navigate(RouteRegistry.ADMIN.CUSTOMERS);
