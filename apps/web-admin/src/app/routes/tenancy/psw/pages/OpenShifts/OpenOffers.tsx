@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
@@ -7,6 +8,7 @@ const { ApiRegistry } = AdminRegistry;
 
 export default function OpenOffers() {
     const { showToast } = useNotification();
+    const navigate = useNavigate();
     const [offers, setOffers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -33,7 +35,11 @@ export default function OpenOffers() {
             const res = await apiClient.post(`/v1/psw/schedule/offers/${id}/${action}`);
             if (res.ok) {
                 showToast(`Offer ${action}ed successfully`, 'success');
-                fetchOffers();
+                if (action === 'accept') {
+                    navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
+                } else {
+                    fetchOffers();
+                }
             } else {
                 showToast(`Failed to ${action} offer`, 'error');
             }

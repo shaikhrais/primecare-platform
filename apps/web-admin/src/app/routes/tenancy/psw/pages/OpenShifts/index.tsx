@@ -71,7 +71,7 @@ export default function OpenShifts() {
             if (res.ok) {
                 showToast('Shift accepted successfully!', 'success');
                 if (window.navigator?.vibrate) window.navigator.vibrate([50]);
-                setShifts(prev => prev.filter(s => s.id !== id));
+                navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
             } else {
                 const data = await res.json();
                 showToast(data.error || 'Failed to accept shift. It may no longer be available.', 'error');
