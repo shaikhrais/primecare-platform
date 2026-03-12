@@ -155,20 +155,71 @@ r.openapi(acceptOfferRoute, async (c) => {
         return c.json({ error: `Mandatory Compliance Block: You have ${expiredTrainings} overdue training modules. Please complete them to resume accepting shifts.` }, 403);
     }
 
-    await prisma.$transaction([
-        prisma.visit.update({
+    await prisma.$transaction(async (tx: any) => {
+        await tx.visit.update({
             where: { id: visitId },
             data: { status: 'scheduled', assignedPswId: profile.id },
-        }),
-        prisma.shiftOffer.updateMany({
+        });
+        await tx.shiftOffer.updateMany({
             where: { visitId, pswId: profile.id },
             data: { status: 'accepted' },
-        }),
-        prisma.shiftOffer.updateMany({
+        });
+        await tx.shiftOffer.updateMany({
             where: { visitId, pswId: { not: profile.id } },
             data: { status: 'expired' },
-        }),
-    ]);
+        });
+
+        // Feature 32: Gamified Picking
+        const coinsAwarded = (visit.priority === 'CRITICAL' || visit.priority === 'HIGH') ? 100 : 50;
+        
+        let gamification = await tx.gamificationProfile.findUnique({
+            where: { pswId: profile.id }
+        });
+        
+        if (!gamification) {
+             gamification = await tx.gamificationProfile.create({
+                 data: { pswId: profile.id, tenantId: profile.tenantId || 'system', careCoins: 0, currentLevel: 1, currentTier: 'Bronze' }
+             });
+        }
+        
+        const updatedGamification = await tx.gamificationProfile.update({
+            where: { id: gamification.id },
+            data: { careCoins: { increment: coinsAwarded } }
+        });
+        
+        // Feature 35: Tier Progression Webhook
+        if (updatedGamification.careCoins >= 1000 && updatedGamification.currentTier === 'Bronze') {
+             await tx.gamificationProfile.update({
+                 where: { id: gamification.id },
+                 data: { currentTier: 'Silver', currentLevel: 2 }
+             });
+             
+             // Trigger WebhookDelivery requesting a physical certificate print and shipment
+             await tx.webhookDelivery.create({
+                 data: {
+                     tenantId: profile.tenantId || 'system',
+                     endpointUrl: 'https://api.printmail.example.com/certificates',
+                     payload: JSON.stringify({
+                         pswId: profile.id,
+                         award: 'Bronze to Silver Promotion',
+                         instruction: 'Print and mail physical certificate'
+                     }),
+                     status: 'pending',
+                     attempts: 0
+                 }
+             });
+             console.log(`[Worker] Feature 35 Fired: Promoted PSW ${profile.id} to Silver. WebhookDelivery queued for physical certificate printing.`);
+        }
+        
+        await tx.auditLog.create({
+            data: {
+                tenantId: profile.tenantId || 'system', actorUserId: userId,
+                action: 'GAMIFIED_PICKING_REWARD', resourceType: 'GAMIFICATION', resourceId: gamification.id,
+                metadataString: JSON.stringify({ visitId, priority: visit.priority, coinsAwarded })
+            }
+        });
+        console.log(`[Worker] Feature 32 Fired: Awarded ${coinsAwarded} CareCoins to PSW ${profile.id} for accepting ${visit.priority || 'ROUTINE'} shift ${visit.id}.`);
+    });
 
     return c.json({ success: true }, 200);
 });

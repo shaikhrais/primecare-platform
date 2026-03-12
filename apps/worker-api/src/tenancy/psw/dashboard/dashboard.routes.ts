@@ -170,5 +170,65 @@ r.openapi(postIncidentRoute, async (c) => {
 r.openapi(postWellnessRoute, async (c) => {
     return c.json({ message: 'Wellness pulse recorded. Thank you!' }, 200);
 });
+// Feature 34: CareCoin Redemption Store
+const redeemStoreRoute = createRoute({
+    method: 'post',
+    path: '/store/redeem',
+    summary: 'CareCoin Redemption Store',
+    middleware: [requireRole(['psw'])],
+    request: {
+        body: {
+            content: {
+                'application/json': { schema: z.object({ itemId: z.string(), cost: z.number() }) }
+            }
+        }
+    },
+    responses: {
+        200: { content: { 'application/json': { schema: z.any() } }, description: 'Reward redeemed successfully' },
+        400: { description: 'Insufficient funds' }
+    },
+});
+
+r.openapi(redeemStoreRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const { itemId, cost } = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+
+    const pswProfile = await prisma.pswProfile.findUnique({
+        where: { userId }, include: { gamification: true }
+    });
+
+    if (!pswProfile?.gamification || pswProfile.gamification.careCoins < cost) {
+        return c.json({ error: 'Insufficient CareCoins' }, 400);
+    }
+
+    await prisma.$transaction(async (tx: any) => {
+        await tx.gamificationProfile.update({
+            where: { id: pswProfile.gamification.id },
+            data: { careCoins: { decrement: cost } }
+        });
+
+        if (itemId === 'gas-card-50') {
+            await tx.payout.create({
+                data: {
+                    pswId: pswProfile.id,
+                    tenantId: pswProfile.tenantId,
+                    amount: 50.0,
+                    status: 'pending'
+                }
+            });
+        }
+        
+        await tx.auditLog.create({
+            data: {
+                tenantId: pswProfile.tenantId, actorUserId: userId,
+                action: 'CARECOIN_REDEEMED', resourceType: 'GAMIFICATION', resourceId: pswProfile.gamification.id,
+                metadataString: JSON.stringify({ item: itemId, cost })
+            }
+        });
+    });
+
+    return c.json({ success: true, newBalance: pswProfile.gamification.careCoins - cost }, 200);
+});
 
 export default r;

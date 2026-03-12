@@ -254,5 +254,49 @@ r.openapi(updateStatusRoute, async (c) => {
     await logAudit(prisma, userRole.id, 'UPDATE_USER_STATUS', 'User', id, { status });
     return c.json(updatedUser);
 });
+// Feature 33: Churn Risk Heatmap (Burnout vs Engagement)
+const churnHeatmapRoute = createRoute({
+    method: 'get',
+    path: '/churn-heatmap',
+    summary: 'Churn Risk X/Y Matrix',
+    responses: {
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Heatmap coordinates' }
+    },
+});
+
+r.openapi(churnHeatmapRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = (c.get('jwtPayload') as any).tenantId;
+
+    const profiles = await prisma.pswProfile.findMany({
+        where: { tenantId },
+        include: {
+            user: { select: { fullName: true, id: true } },
+            gamification: true,
+            wellnessPulse: {
+                orderBy: { createdAt: 'desc' },
+                take: 5
+            }
+        }
+    });
+
+    const data = profiles.map((p: any) => {
+        const avgBurnout = p.wellnessPulse.length > 0 
+            ? p.wellnessPulse.reduce((acc: number, curr: any) => acc + curr.score, 0) / p.wellnessPulse.length 
+            : 5; // default center score
+        const coins = p.gamification?.careCoins || 0;
+        
+        return {
+            pswId: p.id,
+            name: p.user?.fullName || 'Unknown',
+            xBurnoutScore: avgBurnout,
+            yCareCoins: coins,
+            riskLevel: (avgBurnout <= 3 && coins < 200) ? 'HIGH' : (avgBurnout >= 4 && coins > 1000) ? 'LOW' : 'MEDIUM'
+        };
+    });
+
+    console.log(`[Admin] Feature 33 Fired: Generated Churn Risk Heatmap matrix for ${data.length} profiles.`);
+    return c.json(data);
+});
 
 export default r;
