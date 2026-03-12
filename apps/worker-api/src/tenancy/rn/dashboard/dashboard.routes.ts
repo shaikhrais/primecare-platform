@@ -70,6 +70,17 @@ r.openapi(getRnStatsRoute, async (c) => {
         incidentData.push({ type: 1, severity: 2, count: 1 });
     }
 
+    // Feature 10: Clinical KPI Aggregation (Flagged vs Verified 7 days)
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const recentAudits = await prisma.dailyAuditSignOff.findMany({
+        where: { createdAt: { gt: sevenDaysAgo } }
+    });
+
+    const flaggedCount = recentAudits.filter((a: any) => a.status === 'flagged').length;
+    const verifiedCount = recentAudits.filter((a: any) => a.status === 'verified').length;
+    const totalAudits = flaggedCount + verifiedCount;
+    const auditFlagRate = totalAudits > 0 ? Math.round((flaggedCount / totalAudits) * 100) : 0;
+
     // 4. KPI Stats (Real Data)
     const kpiData = {
         pendingCarePlans: await prisma.visit.count({ where: { status: 'requested' } }),
@@ -79,7 +90,9 @@ r.openapi(getRnStatsRoute, async (c) => {
                 createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) }
             }
         }),
-        supervisedPswCount: await prisma.pswProfile.count({ where: { isApproved: true } })
+        supervisedPswCount: await prisma.pswProfile.count({ where: { isApproved: true } }),
+        auditFlagRate: `${auditFlagRate}%`,
+        recentAuditsTotal: totalAudits
     };
 
     return c.json({

@@ -11,6 +11,8 @@ import payoutsRoutes from './payouts/payouts.routes';
 import wellnessRoutes from './wellness/wellness.routes';
 import mileageRoutes from './mileage/mileage.routes';
 import trainingRoutes from './training/training.routes';
+import visitNoteRoutes from './visitNote/visitNote.routes';
+import marRoutes from './mar/mar.routes';
 
 const psw = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -31,5 +33,7 @@ psw.route('/payouts', payoutsRoutes);
 psw.route('/wellness', wellnessRoutes);
 psw.route('/mileage', mileageRoutes);
 psw.route('/training', trainingRoutes);
+psw.route('/visit-notes', visitNoteRoutes);
+psw.route('/mar', marRoutes);
 
 export default psw;
