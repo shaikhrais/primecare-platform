@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -7,6 +9,7 @@ export default function TelehealthCenter() {
     const [sessions, setSessions] = useState<any[]>([]);
     const [vitals, setVitals] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { showToast } = useNotification();
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -57,7 +60,12 @@ export default function TelehealthCenter() {
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Encrypted video consultations and live remote patient monitoring.</p>
                     </div>
                 </div>
-                <button className="btn primary" onClick={() => alert('Initiating video consulting...')}>
+                <button className="btn primary" onClick={async () => {
+                    try {
+                        const res: any = await apiClient.post('/v1/admin/telehealth/session/start', {});
+                        showToast(res?.message || 'Started consultation session.', 'success');
+                    } catch { showToast('Session creation failed.', 'error'); }
+                }}>
                     {startBtn?.label || 'Start Virtual Visit'}
                 </button>
             </div>
@@ -118,10 +126,20 @@ export default function TelehealthCenter() {
                     <div className="pc-card" style={{ padding: '24px' }}>
                         <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '800' }}>Quick Actions</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={() => alert('Opening triage portal...')}>
+                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
+                                try {
+                                    const res: any = await apiClient.post('/v1/admin/telehealth/triage/open', {});
+                                    showToast(res?.message || 'Opened portal.', 'success');
+                                } catch { showToast('Portal failed.', 'error'); }
+                            }}>
                                 Open Triage Portal
                             </button>
-                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={() => alert('Verifying patient data...')}>
+                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
+                                try {
+                                    const res: any = await apiClient.post('/v1/admin/telehealth/vitals/verify', {});
+                                    showToast(res?.message || 'Verified.', 'success');
+                                } catch { showToast('Verify failed.', 'error'); }
+                            }}>
                                 {verifyBtn?.label || 'Verify Remote Vitals'}
                             </button>
                         </div>

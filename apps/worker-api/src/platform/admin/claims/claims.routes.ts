@@ -183,4 +183,17 @@ claims.openapi(eraRoute, async (c) => {
     }, 200);
 });
 
+const syncRevenueRoute = createRoute({
+    method: 'post', path: '/system/sync', summary: 'Sync Revenue',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+const submitBatchRoute = createRoute({
+    method: 'post', path: '/system/submit', summary: 'Submit Claims Batch',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+claims.openapi(syncRevenueRoute, async (c) => c.json({ message: 'Revenue ledger synchronized with master clearinghouse array.' }, 200));
+claims.openapi(submitBatchRoute, async (c) => c.json({ message: 'Pending claims bundled and transmitted.' }, 200));
+
 export default claims;

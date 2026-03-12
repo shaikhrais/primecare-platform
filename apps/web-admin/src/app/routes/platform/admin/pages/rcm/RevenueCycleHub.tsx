@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
 export default function RevenueCycleHub() {
     const [claims, setClaims] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { showToast } = useNotification();
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -44,10 +47,20 @@ export default function RevenueCycleHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={() => alert('Syncing revenue...')}>
+                    <button className="btn secondary" onClick={async () => {
+                        try {
+                            const res: any = await apiClient.post('/v1/admin/claims/system/sync', {});
+                            showToast(res?.message || 'Revenue synced via clearinghouse.', 'success');
+                        } catch { showToast('Revenue sync failed.', 'error'); }
+                    }}>
                         {syncBtn?.label || 'Sync Revenue'}
                     </button>
-                    <button className="btn primary" onClick={() => alert('Submitting claim...')}>
+                    <button className="btn primary" onClick={async () => {
+                        try {
+                            const res: any = await apiClient.post('/v1/admin/claims/system/submit', {});
+                            showToast(res?.message || 'Claims package aggregated and transmitted.', 'success');
+                        } catch { showToast('Claim submission failed.', 'error'); }
+                    }}>
                         {submitBtn?.label || 'Submit Claim'}
                     </button>
                 </div>

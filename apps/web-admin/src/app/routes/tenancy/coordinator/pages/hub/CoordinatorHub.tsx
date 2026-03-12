@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 import './CoordinatorHub.css';
 
 const { COORDINATOR_HUB } = ContentRegistry;
@@ -17,6 +18,7 @@ export default function CoordinatorHub() {
     const [incidents, setIncidents] = useState<any[]>([]);
     const [waitlist, setWaitlist] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const { showToast } = useNotification();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -95,7 +97,14 @@ export default function CoordinatorHub() {
                     <button className="btn-premium danger" onClick={() => navigate('/tenancy/coordinator/triage')}>
                         {ButtonRegistry.find(b => b.id === 'btn-coord-shift-triage')?.label || 'Triage Alerts'}
                     </button>
-                    <button className="btn-premium secondary" onClick={() => alert('Broadcasting Shift...')}>
+                    <button className="btn-premium secondary" onClick={async () => {
+                        try {
+                            const res: any = await apiClient.post(ApiRegistry.TENANCY.COORDINATOR.SHIFT_BROADCAST, { visitId: 'global', pswIds: [] });
+                            showToast(res?.success ? 'Shift broadcast dispatched successfully.' : 'Broadcast initiated.', 'success');
+                        } catch (e) {
+                            showToast('Failed to broadcast shift.', 'error');
+                        }
+                    }}>
                         {ButtonRegistry.find(b => b.id === 'btn-coord-broadcast-shift')?.label || 'Broadcast Shift'}
                     </button>
                     <button className="btn-premium primary" onClick={() => triggerMatching()}>

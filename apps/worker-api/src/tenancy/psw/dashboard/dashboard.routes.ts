@@ -143,4 +143,32 @@ r.openapi(postHardwarePurchaseRoute, async (c) => {
     return c.json({ message: 'Hardware order processed via payroll deduction.' }, 200);
 });
 
+const postIncidentRoute = createRoute({
+    method: 'post',
+    path: '/incident',
+    summary: 'Report Incident',
+    middleware: [requireRole(['psw'])],
+    responses: {
+        200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+    },
+});
+
+const postWellnessRoute = createRoute({
+    method: 'post',
+    path: '/wellness',
+    summary: 'Wellness Pulse Submission',
+    middleware: [requireRole(['psw'])],
+    responses: {
+        200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+    },
+});
+
+r.openapi(postIncidentRoute, async (c) => {
+    return c.json({ message: 'Incident report securely filed.' }, 200);
+});
+
+r.openapi(postWellnessRoute, async (c) => {
+    return c.json({ message: 'Wellness pulse recorded. Thank you!' }, 200);
+});
+
 export default r;

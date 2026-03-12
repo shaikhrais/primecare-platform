@@ -4,6 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+import { apiClient } from '@/shared/utils/apiClient';
 
 
 // Components
@@ -207,7 +208,14 @@ export default function PswDashboard() {
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
                     <button
                         className="btn-premium danger"
-                        onClick={() => alert('Launching Incident Reporting Flow...')}
+                        onClick={async () => {
+                            try {
+                                const response: any = await apiClient.post('/v1/psw/dashboard/incident', {});
+                                showToast(response?.message || 'Incident report flow launched centrally.', 'success');
+                            } catch (e) {
+                                showToast('Failed to trigger incident flow.', 'error');
+                            }
+                        }}
                         style={{
                             padding: '12px 24px',
                             fontWeight: '600',
@@ -237,7 +245,14 @@ export default function PswDashboard() {
                         </button>
                     </Link>
                     <button
-                        onClick={() => alert('Opening Wellness Pulse...')}
+                        onClick={async () => {
+                            try {
+                                const response: any = await apiClient.post('/v1/psw/dashboard/wellness', {});
+                                showToast(response?.message || 'Wellness pulse recorded on blockchain ledger.', 'success');
+                            } catch (e) {
+                                showToast('Failed to log wellness pulse.', 'error');
+                            }
+                        }}
                         style={{
                             padding: '12px 24px',
                             backgroundColor: '#10b981',

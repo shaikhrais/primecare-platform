@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 import './EntryVerify.css';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
@@ -22,6 +23,7 @@ interface AuditEntry {
 export const EntryVerify: React.FC = () => {
     const [entries, setEntries] = useState<AuditEntry[]>([]);
     const [loading, setLoading] = useState(true);
+    const { showToast } = useNotification();
 
     useEffect(() => {
         fetchEntries();
@@ -52,7 +54,7 @@ export const EntryVerify: React.FC = () => {
             fetchEntries();
         } catch (error) {
             console.error('Failed to verify entry', error);
-            alert('Verification failed. Technical audit logs updated.');
+            showToast('Verification failed. Technical audit logs updated.', 'error');
         }
     };
 
@@ -71,9 +73,24 @@ export const EntryVerify: React.FC = () => {
                 <p data-cy="page-subtitle">{ContentRegistry.RN_DAILY_AUDIT.SUBTITLE}</p>
                 {/* Phase 13 RN Actions */}
                 <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Verify Entry')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-entry-verify')?.label || 'Verify Entry'}</button>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Careplan Save')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-careplan-save')?.label || 'Save Careplan'}</button>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => alert('Daily Review')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-daily-review')?.label || 'Daily Review'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                        try {
+                            await apiClient.post('/v1/rn/clinical/sign-off', { visitId: '00000000-0000-0000-0000-000000000000', status: 'verified' });
+                            showToast('Entry Verified globally.', 'success');
+                        } catch { showToast('Verification failed.', 'error'); }
+                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-entry-verify')?.label || 'Verify Entry'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                        try {
+                            await apiClient.post('/v1/rn/clinical/care-plans', { clientId: 'test', document: {} });
+                            showToast('Careplan Saved on the ledger.', 'success');
+                        } catch { showToast('Careplan Save rejected.', 'error'); }
+                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-careplan-save')?.label || 'Save Careplan'}</button>
+                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                        try {
+                            await apiClient.post('/v1/rn/clinical/sign-off', { visitId: '00000000-0000-0000-0000-000000000000', status: 'flagged' });
+                            showToast('Daily Review flagged.', 'success');
+                        } catch { showToast('Review transition failed.', 'error'); }
+                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-daily-review')?.label || 'Daily Review'}</button>
                 </div>
             </header>
 

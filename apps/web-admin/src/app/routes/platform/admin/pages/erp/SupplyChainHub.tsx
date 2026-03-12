@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
+import { useNotification } from '@/shared/context/NotificationContext';
+import { apiClient } from '@/shared/utils/apiClient';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -7,6 +9,7 @@ export default function SupplyChainHub() {
     const [inventory, setInventory] = useState<any[]>([]);
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { showToast } = useNotification();
 
     const fetchInventory = async () => {
         setIsLoading(true);
@@ -48,10 +51,20 @@ export default function SupplyChainHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={() => alert('Opening PO wizard...')}>
+                    <button className="btn secondary" onClick={async () => {
+                        try {
+                            const res: any = await apiClient.post('/v1/admin/erp/po/create', {});
+                            showToast(res?.message || 'New PO draft initiated.', 'success');
+                        } catch { showToast('Failed to spawn PO wizard.', 'error'); }
+                    }}>
                         {poBtn?.label || 'New Purchase Order'}
                     </button>
-                    <button className="btn primary" onClick={() => alert('Registering stock...')}>
+                    <button className="btn primary" onClick={async () => {
+                        try {
+                            const res: any = await apiClient.post('/v1/admin/erp/inventory/add', {});
+                            showToast(res?.message || 'Equipment item allocated to enterprise ledger.', 'success');
+                        } catch { showToast('Registry allocation failed.', 'error'); }
+                    }}>
                         {addBtn?.label || 'Add Item'}
                     </button>
                 </div>

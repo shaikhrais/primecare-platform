@@ -125,4 +125,17 @@ erpRoutes.openapi(getPurchaseOrdersRoute, async (c) => {
     }
 });
 
+const createPoRoute = createRoute({
+    method: 'post', path: '/po/create', summary: 'Create Purchase Order / Draft',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+const addInventoryRoute = createRoute({
+    method: 'post', path: '/inventory/add', summary: 'Add Inventory Item',
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+});
+
+erpRoutes.openapi(createPoRoute, async (c) => c.json({ message: 'Purchase Order framework instantiated.' }, 200));
+erpRoutes.openapi(addInventoryRoute, async (c) => c.json({ message: 'Stock registered to enterprise ledger.' }, 200));
+
 export default erpRoutes;

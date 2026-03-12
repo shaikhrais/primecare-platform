@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -40,6 +41,7 @@ export default function DispatchMap() {
     const [activeVisits, setActiveVisits] = useState<any[]>([]);
     const [recentEvents, setRecentEvents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const { showToast } = useNotification();
 
     useEffect(() => {
         const fetchMapData = async () => {
@@ -89,7 +91,14 @@ export default function DispatchMap() {
                 <div>
                     <button
                         className="btn-premium secondary"
-                        onClick={() => alert('Pinging active fleet nodes...')}
+                        onClick={async () => {
+                            try {
+                                const response: any = await apiClient.post('/v1/coordinator/fleet/ping', {});
+                                showToast(response?.message || 'Nodes pinged successfully.', 'success');
+                            } catch (e) {
+                                showToast('Ping failed across the mesh.', 'error');
+                            }
+                        }}
                         style={{ background: 'white', color: '#475569', border: '1px solid #cbd5e1' }}
                     >
                         {ButtonRegistry.find(b => b.id === 'btn-coord-gps-ping')?.label || 'Ping Location'}
