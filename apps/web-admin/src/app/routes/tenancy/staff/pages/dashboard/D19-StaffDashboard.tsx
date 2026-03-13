@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@/shared/context/AuthContext';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import { PageActionBar } from '@/shared/components/ui/PageActionBar';
 import './StaffDashboard.css';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
@@ -62,16 +63,7 @@ export default function StaffDashboard() {
                     </div>
                 </div>
                 <div className="staff-quick-actions">
-                    <Link to={RouteRegistry.LEARN} className="btn-modern btn-modern-secondary text-decoration-none">
-                        🎓 {t(ContentRegistry.LEARN.TITLE)}
-                    </Link>
-                    <button
-                        className="btn-modern btn-modern-primary"
-                        data-cy="btn-staff-task-add"
-                        onClick={() => {/* Registry-driven navigation or modal */ }}
-                    >
-                        + Create Task
-                    </button>
+                    <PageActionBar pageId="staff.dashboard" size="sm" />
                 </div>
             </header>
 

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D7 � Manager Dashboard
+// PAGE IDENTITY: D7 — Manager Dashboard
 // Type: Dashboard | Owner: manager
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { PageActionBar } from '@/shared/components/ui/PageActionBar';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
 import './ManagerDashboard.css';
@@ -118,12 +119,10 @@ export default function ManagerDashboard() {
                     </p>
                 </div>
                 <div className="mgr-controls">
-                    <Link to={RouteRegistry.LEARN} className="btn-modern btn-outline" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        🎓 {t(ContentRegistry.MENU.KNOWLEDGE_BASE)}
-                    </Link>
+                    <PageActionBar pageId="manager.dashboard" size="sm" />
                     <div className="btn-perspective-group">
                         {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map((p: string) => (
-                            <button data-cy="btn-manager.manager-dashboard-0"
+                            <button data-cy="btn-mgr-perspective"
                                 key={p}
                                 onClick={() => setPerspective(p)}
                                 className={`btn-perspective ${p === perspective ? 'active' : ''}`}

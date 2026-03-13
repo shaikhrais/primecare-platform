@@ -9,6 +9,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 import { apiClient } from '@/shared/utils/apiClient';
+import { PageActionBar } from '@/shared/components/ui/PageActionBar';
 
 
 // Components
@@ -209,94 +210,23 @@ export default function PswDashboard() {
                         {user?.email ? `${user.email} • Independent Provider` : t(ContentRegistry.PSW_DASHBOARD.SUBTITLE)}
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
-                    <button data-cy="btn-psw.psw-dashboard-1"
-                        className="btn-premium danger"
-                        onClick={async () => {
-                            try {
-                                const response: any = await apiClient.post('/v1/psw/dashboard/incident', {});
-                                showToast(response?.message || 'Incident report flow launched centrally.', 'success');
-                            } catch (e) {
-                                showToast('Failed to trigger incident flow.', 'error');
-                            }
-                        }}
-                        style={{
-                            padding: '12px 24px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            flex: '1 1 auto',
-                            maxWidth: '200px'
-                        }}
-                    >
-                        🚨 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-incident-report')?.label || 'Report Incident'}
-                    </button>
-                    <Link to={RouteRegistry.LEARN} style={{ textDecoration: 'none', flex: '1 1 auto', maxWidth: '200px' }}>
-                        <button data-cy="btn-psw.psw-dashboard-2" style={{
-                            padding: '12px 24px',
-                            backgroundColor: '#FFFFFF',
-                            color: '#000000',
-                            border: '1px solid #E5E7EB',
-                            borderRadius: '8px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px'
-                        }}>
-                            🎓 {t(ContentRegistry.LEARN.TITLE)}
-                        </button>
-                    </Link>
-                    <button data-cy="btn-psw.psw-dashboard-3"
-                        onClick={async () => {
-                            try {
-                                const response: any = await apiClient.post('/v1/psw/dashboard/wellness', {});
-                                showToast(response?.message || 'Wellness pulse recorded on blockchain ledger.', 'success');
-                            } catch (e) {
-                                showToast('Failed to log wellness pulse.', 'error');
-                            }
-                        }}
-                        style={{
-                            padding: '12px 24px',
-                            backgroundColor: '#10b981',
-                            color: '#FFFFFF',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            flex: '1 1 auto',
-                            maxWidth: '200px'
-                        }}
-                    >
-                        ❤️ {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-wellness-pulse')?.label || 'Report Status'}
-                    </button>
-                    <button
-                        data-cy="btn-view-all-shifts"
-                        onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
-                        style={{
-                            padding: '12px 24px',
-                            backgroundColor: 'var(--brand-500, #0f172a)',
-                            color: '#FFFFFF',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            flex: '1 1 auto',
-                            maxWidth: '200px'
-                        }}
-                    >
-                        {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-view-schedule')?.label || 'View Schedule'}
-                    </button>
-                </div>
+                <PageActionBar pageId="psw.dashboard" size="sm" handlers={{
+                    'btn-psw-incident-report': async () => {
+                        try {
+                            const response: any = await apiClient.post('/v1/psw/dashboard/incident', {});
+                            showToast(response?.message || 'Incident report flow launched.', 'success');
+                        } catch { showToast('Failed to trigger incident flow.', 'error'); }
+                    },
+                    'btn-psw-wellness-pulse': async () => {
+                        try {
+                            const response: any = await apiClient.post('/v1/psw/dashboard/wellness', {});
+                            showToast(response?.message || 'Wellness pulse recorded.', 'success');
+                        } catch { showToast('Failed to log wellness pulse.', 'error'); }
+                    },
+                }} />
             </div>
 
-            {/* Phase 13 extra PSW actions */}
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-availability-sync" onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.AVAILABILITY)}>{t('psw.btn_sync_availability', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-availability-sync')?.label || 'Sync Availability' })}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-offer-accept" onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.OFFERS)}>{t('psw.btn_accept_offer', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-offer-accept')?.label || 'Review Offers' })}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-psw-live-visit" onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.LIVE_VISIT)}>{t('psw.btn_live_visit', { defaultValue: AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-psw-live-visit')?.label || 'Live Visit' })}</button>
-            </div>
+            {/* Phase 13 actions — now rendered by PageActionBar above */}
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '32px' }}>
                 <EarningsProjections currentEarnings={chartData?.earnings?.[chartData.earnings.length - 1]?.earnings || 0} targetEarnings={1000} trendData={chartData?.earnings?.map((e: any) => e.earnings) || [0]} />
