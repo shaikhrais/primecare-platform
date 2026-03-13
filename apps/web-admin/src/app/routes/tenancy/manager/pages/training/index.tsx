@@ -1,2 +1,2 @@
-import TrainingHub from './TrainingHub';
-export default TrainingHub;
+// Re-export from identity file: H11-TrainingHub.tsx
+export { default } from './H11-TrainingHub';
