@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H1 · Telehealth Center
+// PAGE IDENTITY: H1 ï¿½ Telehealth Center
 // Registry ID:   page.admin.telehealth
 // Type:          Hub
 // Owner:         admin
@@ -55,14 +55,14 @@ export default function TelehealthCenter() {
     const verifyBtn = ButtonRegistry.find((b: any) => b.id === 'btn-rpm-vitals-verify');
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>
                         ðŸ©º
                     </div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Telehealth & RPM Center</h1>
+                        <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Telehealth & RPM Center</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Encrypted video consultations and live remote patient monitoring.</p>
                     </div>
                 </div>

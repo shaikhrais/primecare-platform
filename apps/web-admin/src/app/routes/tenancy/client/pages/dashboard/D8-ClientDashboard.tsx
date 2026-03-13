@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D8 · Client Dashboard
+// PAGE IDENTITY: D8 ï¿½ Client Dashboard
 // Type: Dashboard | Owner: client
 // ================================================================
 import React from 'react';
@@ -47,10 +47,10 @@ export default function ClientDashboard() {
     if (loading) return <div style={{ padding: '48px', textAlign: 'center' }}>Loading your care summary...</div>;
 
     return (
-        <div style={{ padding: '0 0 100px 0', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+        <div data-cy="page.container" style={{ padding: '0 0 100px 0', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
             
             <header>
-                <h1 style={{ fontSize: '3rem', fontWeight: 900, color: '#0F172A', margin: '0 0 12px 0', lineHeight: 1.1 }}>
+                <h1 data-cy="page.title" style={{ fontSize: '3rem', fontWeight: 900, color: '#0F172A', margin: '0 0 12px 0', lineHeight: 1.1 }}>
                     Good afternoon,<br />
                     <span style={{ color: '#3B82F6' }}>{clientName}</span>.
                 </h1>

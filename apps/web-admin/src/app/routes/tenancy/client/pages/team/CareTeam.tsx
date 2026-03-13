@@ -21,7 +21,7 @@ export default function CareTeam() {
     ]);
 
     return (
-        <div className="care-team-container" style={{ fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div data-cy="page.container" className="care-team-container" style={{ fontFamily: 'var(--font-sans)', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <header className="care-team-header">
                 <div className="care-team-header-bg">
                     🤝
@@ -31,7 +31,7 @@ export default function CareTeam() {
                         <span className="care-team-subtitle-dot" />
                         <span className="care-team-subtitle-text">Active Care Circle</span>
                     </div>
-                    <h1 className="care-team-title">My Care Team</h1>
+                    <h1 data-cy="page.title" className="care-team-title">My Care Team</h1>
                     <p className="care-team-desc">Meet the dedicated professionals supporting your family's health journey.</p>
                 </div>
             </header>

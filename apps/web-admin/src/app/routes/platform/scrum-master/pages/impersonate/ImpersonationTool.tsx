@@ -42,9 +42,9 @@ export default function ImpersonationTool() {
     };
 
     return (
-        <div className="p-8 max-w-6xl mx-auto space-y-8">
+        <div data-cy="page.container" className="p-8 max-w-6xl mx-auto space-y-8">
             <header className="space-y-2">
-                <h1 className="text-3xl font-black tracking-tight flex items-center gap-3">
+                <h1 data-cy="page.title" className="text-3xl font-black tracking-tight flex items-center gap-3">
                     <span>👥</span> {t(CONTENT.TITLE)}
                 </h1>
                 <p className="text-muted-foreground">{t(CONTENT.SUBTITLE)}</p>

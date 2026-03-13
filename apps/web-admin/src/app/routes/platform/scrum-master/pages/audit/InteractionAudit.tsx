@@ -58,10 +58,10 @@ const InteractionAudit: React.FC = () => {
     };
 
     return (
-        <div className="p-6 space-y-6 max-w-7xl mx-auto">
+        <div data-cy="page.container" className="p-6 space-y-6 max-w-7xl mx-auto">
             <header className="flex justify-between items-start">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">RESPONSE BOT</h1>
+                    <h1 data-cy="page.title" className="text-3xl font-black text-slate-900 tracking-tight">RESPONSE BOT</h1>
                     <p className="text-slate-500 font-medium">Platform-wide Interaction & Registry Integrity Audit</p>
                 </div>
                 <button

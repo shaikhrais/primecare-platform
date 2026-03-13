@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: R4 · Payout History
+// PAGE IDENTITY: R4 ï¿½ Payout History
 // Type: Report | Owner: psw
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -42,7 +42,7 @@ export default function PayoutHistory() {
     };
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div data-cy="page.container" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{
                 background: 'rgba(255, 255, 255, 0.8)',
                 backdropFilter: 'blur(12px)',
@@ -53,7 +53,7 @@ export default function PayoutHistory() {
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
                     <div>
-                        <h1 style={{
+                        <h1 data-cy="page.title" style={{
                             fontSize: '2.5rem',
                             fontWeight: 900,
                             color: '#1a237e',

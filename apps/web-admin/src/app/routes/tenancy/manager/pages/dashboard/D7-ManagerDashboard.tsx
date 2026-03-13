@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D7 · Manager Dashboard
+// PAGE IDENTITY: D7 ï¿½ Manager Dashboard
 // Type: Dashboard | Owner: manager
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -99,7 +99,7 @@ export default function ManagerDashboard() {
 
     if (loading) {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
+            <div data-cy="page.container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
                 <div className="spinner"></div>
                 <p style={{ color: 'var(--text-300)' }}>{t(ContentRegistry.MANAGER_DASHBOARD.MESSAGES.LOADING)}</p>
             </div>
@@ -112,7 +112,7 @@ export default function ManagerDashboard() {
         <div className="mgr-dashboard-container">
             <header className="mgr-header">
                 <div className="mgr-title-group">
-                    <h1>{t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}</h1>
+                    <h1 data-cy="page.title">{t(ContentRegistry.MANAGER_DASHBOARD.TITLE)}</h1>
                     <p className="mgr-subtitle">
                         {user?.email ? `${user.email} â€¢ ${t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}` : t(ContentRegistry.MANAGER_DASHBOARD.SUBTITLE)}
                     </p>

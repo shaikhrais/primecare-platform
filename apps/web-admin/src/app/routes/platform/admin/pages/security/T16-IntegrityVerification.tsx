@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T16 � Integrity Verification
+// PAGE IDENTITY: T16 � Integrity Verification
 // Registry ID:   page.admin.integrity
 // Type:          Tool
 // Owner:         admin
@@ -32,7 +32,7 @@ const IntegrityVerification: React.FC = () => {
     };
 
     return (
-        <div className="pc-page" style={{ padding: '24px', maxWidth: '1000px' }}>
+        <div data-cy="page.container" className="pc-page" style={{ padding: '24px', maxWidth: '1000px' }}>
             <header style={{ marginBottom: '32px' }}>
                 <h2 style={{ fontSize: '28px', fontWeight: '800', color: '#111827', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <span style={{ fontSize: '32px' }}>🛡️</span> Cryptographic Integrity Scan

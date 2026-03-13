@@ -5,7 +5,7 @@ export default function NotFound() {
     const navigate = useNavigate();
 
     return (
-        <div style={{
+        <div data-cy="page.container" style={{
             minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
@@ -22,7 +22,7 @@ export default function NotFound() {
 
             <div style={{ fontSize: '120px', fontWeight: 900, color: '#F3F4F6', lineHeight: 1, marginBottom: '1rem' }}>404</div>
 
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#111827', margin: '0 0 1rem 0' }}>Page Not Found</h1>
+            <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#111827', margin: '0 0 1rem 0' }}>Page Not Found</h1>
             <p style={{ fontSize: '1.125rem', color: '#6B7280', maxWidth: '400px', margin: '0 0 2.5rem 0', lineHeight: 1.6 }}>
                 The page you are looking for doesn't exist or has been moved.
             </p>

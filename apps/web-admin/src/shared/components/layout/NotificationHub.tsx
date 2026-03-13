@@ -16,7 +16,7 @@ export default function NotificationHub() {
     };
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div data-cy="page.container" style={{ position: 'relative' }}>
             <button
                 data-cy="btn-notifications"
                 onClick={() => setIsOpen(!isOpen)}

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T43 · Task Grid
+// PAGE IDENTITY: T43 ï¿½ Task Grid
 // Type: Tool | Owner: staff
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ export default function TaskGrid() {
 
     if (loading) {
         return (
-            <div className="task-board" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+            <div data-cy="page.container" className="task-board" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
                 <div className="animate-pulse text-muted-foreground font-black uppercase tracking-widest">
                     Synchronizing Tasks...
                 </div>
@@ -63,7 +63,7 @@ export default function TaskGrid() {
         <div className="task-board">
             <header className="task-board-header">
                 <div className="header-content">
-                    <h1>{STAFF_PORTAL.TASKS?.TITLE || 'Service Intake Board'}</h1>
+                    <h1 data-cy="page.title">{STAFF_PORTAL.TASKS?.TITLE || 'Service Intake Board'}</h1>
                     <p className="subtitle">{STAFF_PORTAL.TASKS?.SUBTITLE || 'Real-time operational coordination'}</p>
                 </div>
                 <button className="btn-modern btn-primary">

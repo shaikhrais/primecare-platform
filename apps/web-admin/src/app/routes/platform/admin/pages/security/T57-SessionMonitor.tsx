@@ -1,14 +1,14 @@
 // ================================================================
-// PAGE IDENTITY: T57 · Session Monitor
+// PAGE IDENTITY: T57 ï¿½ Session Monitor
 // Type: Tool | Owner: admin
 // ================================================================
 import React from 'react';
 
 export default function SessionMonitor() {
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ marginBottom: '32px' }}>
-                <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Session Monitor</h1>
+                <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Session Monitor</h1>
                 <p style={{ color: '#6B7280' }}>Real-time user session status and anomaly detection.</p>
             </div>
 

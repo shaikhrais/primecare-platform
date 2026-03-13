@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T23 · Staff Ranker
+// PAGE IDENTITY: T23 ï¿½ Staff Ranker
 // Type: Tool | Owner: manager
 // ================================================================
 import React, { useState } from 'react';
@@ -28,10 +28,10 @@ export default function StaffRanker() {
     ];
 
     return (
-        <div className="staff-ranker-container">
+        <div data-cy="page.container" className="staff-ranker-container">
             <header className="staff-ranker-header">
                 <div>
-                    <h1>Staff Performance Ranker</h1>
+                    <h1 data-cy="page.title">Staff Performance Ranker</h1>
                     <p>Identify top performers and optimize branch clinical reliability.</p>
                 </div>
                 <div className="period-toggle">

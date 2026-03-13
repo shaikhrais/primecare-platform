@@ -60,7 +60,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
     };
 
     return (
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div data-cy="page.container" style={{ display: 'flex', gap: '0.5rem' }}>
             <button
                 data-cy="btn-quick-post-shift"
                 onClick={() => setIsPostShiftModalOpen(true)}

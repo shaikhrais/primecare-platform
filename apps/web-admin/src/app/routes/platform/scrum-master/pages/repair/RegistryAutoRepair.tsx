@@ -48,10 +48,10 @@ export default function RegistryAutoRepair() {
     };
 
     return (
-        <div className="p-8 max-w-5xl mx-auto space-y-8">
+        <div data-cy="page.container" className="p-8 max-w-5xl mx-auto space-y-8">
             <header className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-extrabold tracking-tight">Registry Auto-Repair</h1>
+                    <h1 data-cy="page.title" className="text-3xl font-extrabold tracking-tight">Registry Auto-Repair</h1>
                     <p className="text-muted-foreground mt-2">Self-healing utility for synchronizing platform-wide API and Route registries.</p>
                 </div>
                 <div className="bg-primary/5 px-4 py-2 rounded-lg border border-primary/20">

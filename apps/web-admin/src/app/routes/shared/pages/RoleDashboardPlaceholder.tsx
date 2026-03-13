@@ -6,8 +6,8 @@ interface RoleDashboardPlaceholderProps {
 
 const RoleDashboardPlaceholder: React.FC<RoleDashboardPlaceholderProps> = ({ role }) => {
     return (
-        <div style={{ padding: '2rem', textAlign: 'center', color: '#6B7280' }}>
-            <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1rem', color: '#111827' }}>
+        <div data-cy="page.container" style={{ padding: '2rem', textAlign: 'center', color: '#6B7280' }}>
+            <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1rem', color: '#111827' }}>
                 {role.charAt(0).toUpperCase() + role.slice(1)} Dashboard
             </h1>
             <div style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D3 · Accounting Dashboard
+// PAGE IDENTITY: D3 ï¿½ Accounting Dashboard
 // Registry ID:   page.admin.accounting
 // Type:          Dashboard
 // Owner:         admin
@@ -122,7 +122,7 @@ export default function AccountingDashboard() {
     );
 
     return (
-        <div style={{
+        <div data-cy="page.container" style={{
             padding: '40px',
             background: '#0f172a',
             minHeight: '100vh',
@@ -139,7 +139,7 @@ export default function AccountingDashboard() {
                 paddingBottom: '24px'
             }}>
                 <div>
-                    <h1 style={{ fontSize: '36px', fontWeight: '800', margin: '0', background: 'linear-gradient(to right, #60a5fa, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    <h1 data-cy="page.title" style={{ fontSize: '36px', fontWeight: '800', margin: '0', background: 'linear-gradient(to right, #60a5fa, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         {strings.TITLE}
                     </h1>
                     <p style={{ color: '#94a3b8', fontSize: '16px', marginTop: '8px' }}>{strings.SUBTITLE}</p>

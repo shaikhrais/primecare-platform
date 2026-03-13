@@ -15,10 +15,10 @@ export default function TrainingHub() {
     ]);
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Training Hub</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Training Hub</h1>
                     <p style={{ color: '#6b7280' }}>Manage clinical training modules and staff certifications.</p>
                 </div>
                 <button

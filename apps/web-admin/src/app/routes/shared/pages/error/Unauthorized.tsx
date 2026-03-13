@@ -5,7 +5,7 @@ export default function Unauthorized() {
     const navigate = useNavigate();
 
     return (
-        <div style={{
+        <div data-cy="page.container" style={{
             minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
@@ -22,7 +22,7 @@ export default function Unauthorized() {
 
             <div style={{ fontSize: '120px', fontWeight: 900, color: '#FEE2E2', lineHeight: 1, marginBottom: '1rem' }}>401</div>
 
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#111827', margin: '0 0 1rem 0' }}>Access Denied</h1>
+            <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#111827', margin: '0 0 1rem 0' }}>Access Denied</h1>
             <p style={{ fontSize: '1.125rem', color: '#6B7280', maxWidth: '400px', margin: '0 0 2.5rem 0', lineHeight: 1.6 }}>
                 You don't have permission to access this page. Please contact your administrator if you believe this is an error.
             </p>

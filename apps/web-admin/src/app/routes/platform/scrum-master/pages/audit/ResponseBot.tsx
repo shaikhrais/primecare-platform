@@ -91,10 +91,10 @@ export default function ResponseBot() {
     const auditAction = InteractionARegistry.find((ia: any) => ia.id === 'ia-sm-response-bot-audit');
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Response Bot Diagnostic center</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Response Bot Diagnostic center</h1>
                     <p style={{ color: '#6B7280' }}>Autonomous platform-wide heartbeat and registry integrity verification.</p>
                 </div>
                 <div style={{ textAlign: 'right', display: 'flex', gap: '12px', alignItems: 'center' }}>

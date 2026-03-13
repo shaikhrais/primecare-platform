@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T48 · KB Article
+// PAGE IDENTITY: T48 ï¿½ KB Article
 // Type: Tool | Owner: admin
 // ================================================================
 import { AdminRegistry } from 'prime-care-shared';
@@ -37,7 +37,7 @@ const KnowledgeBaseArticle: React.FC = () => {
     }, [slug]);
 
     return (
-        <div style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
             <Link
                 to={AdminRegistry.RouteRegistry.SUPPORT}
                 style={{

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L18 · Assessments Hub
+// PAGE IDENTITY: L18 ï¿½ Assessments Hub
 // Type: List | Owner: rn
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ export const AssessmentsHub: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="assessments-loading">
+            <div data-cy="page.container" className="assessments-loading">
                 <div className="spinner"></div>
                 <p>Synchronizing Clinical Ledger...</p>
             </div>

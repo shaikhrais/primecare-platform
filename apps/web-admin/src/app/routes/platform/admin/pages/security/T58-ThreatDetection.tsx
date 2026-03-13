@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T58 · Threat Detection
+// PAGE IDENTITY: T58 ï¿½ Threat Detection
 // Type: Tool | Owner: admin
 // ================================================================
 import React from 'react';
@@ -11,10 +11,10 @@ export default function ThreatDetection() {
     const scanBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sec-threat-scan');
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Threat Detection & Response</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Threat Detection & Response</h1>
                     <p style={{ color: '#6B7280' }}>Real-time anomalous behavior analysis and mitigation.</p>
                 </div>
                 <button

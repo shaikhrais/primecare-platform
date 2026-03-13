@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T9 · AI Insights
+// PAGE IDENTITY: T9 ï¿½ AI Insights
 // Registry ID:   page.admin.insights
 // Type:          Tool
 // Owner:         admin
@@ -23,10 +23,10 @@ export default function AIInsights() {
     const refreshBtn = ButtonRegistry.find((b: any) => b.id === 'btn-ai-insights-refresh');
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>{ContentRegistry.INSIGHTS.TITLE}</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>{ContentRegistry.INSIGHTS.TITLE}</h1>
                     <p style={{ color: '#6B7280' }}>{ContentRegistry.INSIGHTS.SUBTITLE}</p>
                 </div>
                 <button

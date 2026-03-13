@@ -9,14 +9,14 @@ const PrivateMarketplace: React.FC = () => {
     ]);
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: '#FDF4FF', padding: '16px', borderRadius: '12px', fontSize: '32px' }}>
                         🏪
                     </div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: '#111827' }}>Private Marketplace</h1>
+                        <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: '#111827' }}>Private Marketplace</h1>
                         <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>Internal resources, courses, and B2B services shared exclusively within your Tenant network.</p>
                     </div>
                 </div>

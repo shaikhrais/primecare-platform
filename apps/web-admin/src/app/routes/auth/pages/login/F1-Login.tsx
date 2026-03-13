@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F1 · Login
+// PAGE IDENTITY: F1 ï¿½ Login
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
@@ -128,7 +128,7 @@ export default function Login() {
 
     if (authStep === 'select-role' && tempUser) {
         return (
-            <div style={{
+            <div data-cy="page.container" style={{
                 display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)'
             }}>
                 <div style={{
@@ -137,7 +137,7 @@ export default function Login() {
                     <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                         <img src="/logo.png" alt="PrimeCare" style={{ width: '120px', height: 'auto' }} />
                     </div>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
+                    <h1 data-cy="page.title" style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>
                         Select Your Perspective
                     </h1>
                     <p style={{ textAlign: 'center', color: 'var(--text-300)', marginBottom: '2rem' }}>

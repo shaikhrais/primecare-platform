@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H2 · Pharmacy Hub
+// PAGE IDENTITY: H2 ï¿½ Pharmacy Hub
 // Registry ID:   page.admin.pharmacy
 // Type:          Hub
 // Owner:         admin
@@ -108,7 +108,7 @@ export default function PharmacyHub() {
     const syncBtn = ButtonRegistry.find((b: any) => b.id === 'btn-pharmacy-mar-sync');
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: '#EEF2FF', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid #E0E7FF' }}>
@@ -116,7 +116,7 @@ export default function PharmacyHub() {
                     </div>
                     <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Pharmacy & Medication Hub</h1>
+                            <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Pharmacy & Medication Hub</h1>
                             {scannerStatus === 'IDLE' && <div title="BCMA Scanner Ready" className="pc-badge secondary" style={{ padding: '4px 8px', display: 'flex', gap: '4px', alignItems: 'center' }}><ScanBarcode size={14} /> Scanner IDLE</div>}
                             {scannerStatus === 'VERIFYING' && <div className="pc-badge warning" style={{ padding: '4px 8px' }}>Verifying NDC...</div>}
                             {scannerStatus === 'MATCH' && <div className="pc-badge success" style={{ padding: '4px 8px', display: 'flex', gap: '4px', alignItems: 'center' }}><ShieldCheck size={14} /> MATCH</div>}

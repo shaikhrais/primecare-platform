@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T12 · Business Status
+// PAGE IDENTITY: T12 ï¿½ Business Status
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -107,9 +107,9 @@ export default function BusinessStatus() {
     }
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+        <div data-cy="page.container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
             <div style={{ marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: '900', color: '#111827', margin: 0 }}>
+                <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: '900', color: '#111827', margin: 0 }}>
                     {t(ContentRegistry.BUSINESS_STATUS.TITLE)}
                 </h1>
                 <p style={{ fontSize: '1.125rem', color: '#6b7280', marginTop: '0.5rem' }}>

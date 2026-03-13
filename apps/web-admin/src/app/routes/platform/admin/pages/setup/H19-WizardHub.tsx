@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H19 · Wizard Hub
+// PAGE IDENTITY: H19 ï¿½ Wizard Hub
 // Type: Hub | Owner: admin
 // ================================================================
 import React from 'react';
@@ -49,9 +49,9 @@ export default function WizardHub() {
     ];
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div data-cy="page.container" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>
+                <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>
                     {t(ContentRegistry.WIZARD_HUB.TITLE)}
                 </h1>
                 <p style={{ fontSize: '1.125rem', color: '#6b7280' }}>

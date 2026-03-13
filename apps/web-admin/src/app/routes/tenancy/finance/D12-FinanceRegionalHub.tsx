@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D12 · Finance Regional Hub
+// PAGE IDENTITY: D12 ï¿½ Finance Regional Hub
 // Type: Dashboard | Owner: finance
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -32,10 +32,10 @@ const FinanceRegionalHub: React.FC = () => {
     ];
 
     return (
-        <div className="finance-regional-hub">
+        <div data-cy="page.container" className="finance-regional-hub">
             <header className="finance-header">
                 <div className="mgr-title-group">
-                    <h1>FINANCE & GOVERNANCE</h1>
+                    <h1 data-cy="page.title">FINANCE & GOVERNANCE</h1>
                     <p>Regional Profitability & Operational Health</p>
                 </div>
                 <div className="finance-btn-group">

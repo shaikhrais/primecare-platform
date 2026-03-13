@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: W4 � Revenue Wizard
+// PAGE IDENTITY: W4 � Revenue Wizard
 // Registry ID:   page.admin.revenue-wizard
 // Type:          Wizard
 // Owner:         admin
@@ -45,9 +45,9 @@ export default function RevenueWizard() {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '2.5rem', background: '#fff', borderRadius: '2rem', border: '1px solid #e5e7eb', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+        <div data-cy="page.container" style={{ maxWidth: '800px', margin: '2rem auto', padding: '2.5rem', background: '#fff', borderRadius: '2rem', border: '1px solid #e5e7eb', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>💰 {t(ContentRegistry.REVENUE_WIZARD.TITLE)}</h1>
+                <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>💰 {t(ContentRegistry.REVENUE_WIZARD.TITLE)}</h1>
                 <p style={{ color: '#6b7280' }}>{t(ContentRegistry.REVENUE_WIZARD.SUBTITLE)}</p>
             </div>
 

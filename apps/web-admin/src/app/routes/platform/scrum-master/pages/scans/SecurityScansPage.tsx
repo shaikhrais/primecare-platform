@@ -7,10 +7,10 @@ const SecurityScansPage: React.FC = () => {
     const scanBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sm-scan-security');
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ margin: 0 }}>Security & Vulnerability Scans</h1>
+                    <h1 data-cy="page.title" style={{ margin: 0 }}>Security & Vulnerability Scans</h1>
                     <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>Continuous SAST auditing and dependency risk assessment.</p>
                 </div>
                 <button className="btn danger">

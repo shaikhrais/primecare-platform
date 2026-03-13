@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T59 · Reconciliation
+// PAGE IDENTITY: T59 ï¿½ Reconciliation
 // Type: Tool | Owner: admin
 // ================================================================
 import React from 'react';
@@ -11,10 +11,10 @@ export default function FinancialReconciliation() {
     const { bankFeeds, ledgerEntries, loading, matchItems, refresh } = useReconciliation();
 
     return (
-        <div style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#fff', fontFamily: "'Outfit', 'Inter', sans-serif" }}>
+        <div data-cy="page.container" style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#fff', fontFamily: "'Outfit', 'Inter', sans-serif" }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px' }}>
                 <div>
-                    <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <h1 data-cy="page.title" style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0', display: 'flex', alignItems: 'center', gap: '16px' }}>
                         <ShieldCheck color="#4ade80" size={36} />
                         Financial Reconciliation Hub
                     </h1>

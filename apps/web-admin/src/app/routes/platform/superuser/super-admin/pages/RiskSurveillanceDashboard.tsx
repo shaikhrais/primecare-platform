@@ -47,13 +47,13 @@ export default function RiskSurveillanceDashboard() {
     };
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '16px' }}>
                 <div style={{ backgroundColor: '#EFF6FF', padding: '12px', borderRadius: '12px', color: '#2563EB', fontSize: '32px' }}>
                     🛡️
                 </div>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0' }}>Platform Risk Surveillance</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0' }}>Platform Risk Surveillance</h1>
                     <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>Global oversight of tenant compliance and operational health.</p>
                 </div>
                 <div style={{ marginLeft: 'auto' }}>

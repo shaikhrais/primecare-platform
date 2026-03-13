@@ -2,10 +2,10 @@ import React from 'react';
 
 const CoordinatorHub: React.FC = () => {
     return (
-        <div className="p-6 space-y-6 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div data-cy="page.container" className="p-6 space-y-6 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
             <header className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">OPERATIONS HUB</h1>
+                    <h1 data-cy="page.title" className="text-3xl font-black text-slate-900 tracking-tight">OPERATIONS HUB</h1>
                     <p className="text-slate-500 font-medium">Real-time Coordination & Emergency Dispatch</p>
                 </div>
                 <div className="flex gap-3">

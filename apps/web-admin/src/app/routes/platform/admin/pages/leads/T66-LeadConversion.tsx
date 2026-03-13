@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T66 · Lead Conversion
+// PAGE IDENTITY: T66 ï¿½ Lead Conversion
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -56,7 +56,7 @@ export default function LeadConversion() {
     };
 
     return (
-        <div style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
             <div className="pc-card">
                 <div className="pc-card-h">Convert Lead to Client</div>
                 <div className="pc-card-b">

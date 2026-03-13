@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H16 · Supervision Hub
+// PAGE IDENTITY: H16 ï¿½ Supervision Hub
 // Type: Hub | Owner: rn
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ export const SupervisionHub: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="supervision-loading">
+            <div data-cy="page.container" className="supervision-loading">
                 <p>Synchronizing Clinical Oversight...</p>
             </div>
         );

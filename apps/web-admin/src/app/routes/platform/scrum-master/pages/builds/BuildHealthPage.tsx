@@ -2,8 +2,8 @@ import React from 'react';
 
 const BuildHealthPage: React.FC = () => {
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Build & Deployment Health</h1>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
+            <h1 data-cy="page.title">Build & Deployment Health</h1>
             <p>CI/CD pipeline status and deployment transparency log.</p>
             <table style={{ width: '100%', marginTop: '2rem', borderCollapse: 'collapse' }}>
                 <thead>

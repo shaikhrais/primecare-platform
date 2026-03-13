@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T60 · Open Offers
+// PAGE IDENTITY: T60 ï¿½ Open Offers
 // Type: Tool | Owner: psw
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -55,7 +55,7 @@ export default function OpenOffers() {
     if (loading) return <div style={{ padding: '2rem' }}>Loading offers...</div>;
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Personalized Shift Offers</h2>
 
             {offers.length === 0 ? (

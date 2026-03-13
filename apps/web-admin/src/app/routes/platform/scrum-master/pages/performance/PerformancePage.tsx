@@ -2,8 +2,8 @@ import React from 'react';
 
 const PerformancePage: React.FC = () => {
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Performance Orchestration</h1>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
+            <h1 data-cy="page.title">Performance Orchestration</h1>
             <p>Real-time Lighthouse scores and API latency percentiles.</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginTop: '2rem' }}>
                 <div style={{ padding: '1.5rem', background: '#eff6ff', borderRadius: '12px', border: '1px solid #dbeafe' }}>

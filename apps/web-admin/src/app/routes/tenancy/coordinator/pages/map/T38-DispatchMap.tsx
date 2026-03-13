@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T38 · Dispatch Map
+// PAGE IDENTITY: T38 ï¿½ Dispatch Map
 // Type: Tool | Owner: coordinator
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -106,11 +106,11 @@ export default function DispatchMap() {
     if (loading) return <div className="dispatch-map-container"><p>Syncing Field Intel...</p></div>;
 
     return (
-        <div className="dispatch-map-container">
+        <div data-cy="page.container" className="dispatch-map-container">
             <header className="map-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div>
-                        <h1>{COORDINATOR_MAP.TITLE}</h1>
+                        <h1 data-cy="page.title">{COORDINATOR_MAP.TITLE}</h1>
                         <p>{COORDINATOR_MAP.SUBTITLE}</p>
                     </div>
                     {/* Synchrony Indicator */}

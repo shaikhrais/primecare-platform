@@ -210,7 +210,7 @@ const ThemeCoreCenter: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="main-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
+            <div data-cy="page.container" className="main-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
                 <div style={{ fontSize: 16, color: '#94a3b8' }}>Loading theme configuration...</div>
             </div>
         );
@@ -221,7 +221,7 @@ const ThemeCoreCenter: React.FC = () => {
             {/* ─── Hero Banner ─── */}
             <div style={S.hero}>
                 <div style={S.heroGlow as any} />
-                <h1 style={S.heroTitle}>
+                <h1 data-cy="page.title" style={S.heroTitle}>
                     <span style={S.heroIcon}>🎨</span>
                     Theme Core Center
                 </h1>

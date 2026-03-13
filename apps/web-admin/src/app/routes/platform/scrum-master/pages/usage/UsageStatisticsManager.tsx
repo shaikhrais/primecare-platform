@@ -143,11 +143,11 @@ const UsageStatisticsManager: React.FC = () => {
     ];
 
     return (
-        <div style={S.page} className="main-content">
+        <div data-cy="page.container" style={S.page} className="main-content">
             {/* ─── Hero ─── */}
             <div style={S.hero}>
                 <div style={S.heroGlow as any} />
-                <h1 style={S.heroTitle}><span style={S.heroIcon}>📊</span> Usage Statistics Manager</h1>
+                <h1 data-cy="page.title" style={S.heroTitle}><span style={S.heroIcon}>📊</span> Usage Statistics Manager</h1>
                 <p style={S.heroSub}>Routes · Clicks · Forms · API calls · Scroll depth · Unused components</p>
             </div>
 

@@ -104,7 +104,7 @@ export default function DevPerspectiveSwitcher() {
     ).slice(0, 5);
 
     return (
-        <div className="pc-umbrella-role-switcher" style={{ margin: '12px' }}>
+        <div data-cy="page.container" className="pc-umbrella-role-switcher" style={{ margin: '12px' }}>
             <button
                 onClick={() => setIsOpen(true)}
                 style={{

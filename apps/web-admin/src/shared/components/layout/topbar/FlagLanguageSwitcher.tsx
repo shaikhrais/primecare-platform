@@ -27,7 +27,7 @@ export default function FlagLanguageSwitcher() {
     };
 
     return (
-        <div ref={ref} style={{ position: 'relative' }}>
+        <div data-cy="page.container" ref={ref} style={{ position: 'relative' }}>
             {/* Trigger Button */}
             <button
                 onClick={() => setOpen(!open)}

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F2 · Register
+// PAGE IDENTITY: F2 ï¿½ Register
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
@@ -93,7 +93,7 @@ export default function Register() {
     };
 
     return (
-        <div style={{
+        <div data-cy="page.container" style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '1rem', paddingBottom: '6rem', backgroundColor: 'var(--bg)', position: 'relative', boxSizing: 'border-box'
         }}>
             <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>

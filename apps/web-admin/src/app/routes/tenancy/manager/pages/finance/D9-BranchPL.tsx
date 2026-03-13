@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D9 · Branch P&L
+// PAGE IDENTITY: D9 ï¿½ Branch P&L
 // Type: Dashboard | Owner: manager
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -44,7 +44,7 @@ export default function BranchPL() {
 
     if (loading) {
         return (
-            <div className="finance-hub-container">
+            <div data-cy="page.container" className="finance-hub-container">
                 <div style={{ textAlign: 'center', padding: '100px' }}>
                     <p style={{ fontWeight: 700, color: '#64748b' }}>Calculating Branch Profitability Ledger...</p>
                 </div>
@@ -56,7 +56,7 @@ export default function BranchPL() {
         <div className="finance-hub-container">
             <header className="finance-header">
                 <div>
-                    <h1>Branch Profit & Loss</h1>
+                    <h1 data-cy="page.title">Branch Profit & Loss</h1>
                     <p>Real-time financial performance and operational expense audit.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>

@@ -100,14 +100,14 @@ export const RegistrySummaryDashboard: React.FC = () => {
     };
 
     return (
-        <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+        <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
             {/* Header */}
             <header style={{
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem'
             }}>
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                    <h1 data-cy="page.title" style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
                         📊 Platform Summary Dashboard
                     </h1>
                     <p style={{ color: '#64748b', marginTop: '0.25rem', fontSize: '0.9rem' }}>

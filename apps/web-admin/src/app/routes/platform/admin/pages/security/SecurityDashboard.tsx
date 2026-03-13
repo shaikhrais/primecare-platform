@@ -7,10 +7,10 @@ export default function SecurityDashboard() {
     const flushBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sec-session-flush');
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Security & Sovereignty</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Security & Sovereignty</h1>
                     <p style={{ color: '#6B7280' }}>Platform-wide threat intelligence and session governance.</p>
                 </div>
                 <button

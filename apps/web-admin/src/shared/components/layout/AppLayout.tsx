@@ -98,7 +98,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
     };
 
     return (
-        <div className="pc-app-container" style={{
+        <div data-cy="page.container" className="pc-app-container" style={{
             display: 'flex',
             minHeight: '100vh',
             backgroundColor: '#FFFFFF',

@@ -257,11 +257,11 @@ const DigitalPropertyManager: React.FC = () => {
     };
 
     return (
-        <div style={S.page} className="main-content">
+        <div data-cy="page.container" style={S.page} className="main-content">
             {/* Hero */}
             <div style={S.hero}>
                 <div style={S.heroGlow as any} />
-                <h1 style={S.heroTitle}><span style={S.heroIcon}>🏛️</span> Digital Property Manager</h1>
+                <h1 data-cy="page.title" style={S.heroTitle}><span style={S.heroIcon}>🏛️</span> Digital Property Manager</h1>
                 <p style={S.heroSub}>Complete inventory of all platform digital assets — routes, APIs, buttons, content, theme tokens, and interactions</p>
             </div>
 

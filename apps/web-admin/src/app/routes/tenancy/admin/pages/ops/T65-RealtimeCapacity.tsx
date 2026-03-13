@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T65 · Realtime Capacity
+// PAGE IDENTITY: T65 ï¿½ Realtime Capacity
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useState } from 'react';
@@ -13,9 +13,9 @@ export default function RealtimeCapacity() {
     ]);
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
             <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Realtime Capacity</h1>
+                <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Realtime Capacity</h1>
                 <p style={{ color: '#6b7280' }}>Live visibility into staffing availability and service demand.</p>
             </div>
 

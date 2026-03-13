@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T46 · Compliance Monitor
+// PAGE IDENTITY: T46 ï¿½ Compliance Monitor
 // Type: Tool | Owner: staff
 // ================================================================
 import React, { useState } from 'react';
@@ -55,9 +55,9 @@ export default function ComplianceMonitor() {
     ];
 
     return (
-        <div className="compliance-monitor">
+        <div data-cy="page.container" className="compliance-monitor">
             <header className="compliance-header">
-                <h1>{t(ContentRegistry.MANAGER_COMPLIANCE.TITLE)}</h1>
+                <h1 data-cy="page.title">{t(ContentRegistry.MANAGER_COMPLIANCE.TITLE)}</h1>
                 <p className="text-lg font-medium text-muted-foreground">{t(ContentRegistry.MANAGER_COMPLIANCE.SUBTITLE)}</p>
             </header>
 

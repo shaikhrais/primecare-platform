@@ -2,13 +2,13 @@ import React from 'react';
 
 const GrowthStrategy: React.FC = () => {
     return (
-        <div style={{ padding: '24px', maxWidth: '1000px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1000px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: '#F0F9FF', padding: '16px', borderRadius: '12px', fontSize: '32px' }}>
                     📈
                 </div>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: '#111827' }}>Franchise Growth Model</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: '#111827' }}>Franchise Growth Model</h1>
                     <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>The Fractal SaaS Architecture: Empowering Master Tenants to scale their own networks.</p>
                 </div>
             </div>

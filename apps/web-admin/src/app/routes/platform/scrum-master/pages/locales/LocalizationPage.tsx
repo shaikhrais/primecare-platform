@@ -2,8 +2,8 @@ import React from 'react';
 
 const LocalizationPage: React.FC = () => {
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Localization Health</h1>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
+            <h1 data-cy="page.title">Localization Health</h1>
             <p>Audit of i18n coverage and translation registry integrity.</p>
             <div style={{ marginTop: '2rem' }}>
                 <div style={{ margin: '1rem 0' }}>

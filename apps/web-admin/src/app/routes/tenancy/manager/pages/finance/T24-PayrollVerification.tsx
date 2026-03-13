@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T24 · Payroll Verification
+// PAGE IDENTITY: T24 ï¿½ Payroll Verification
 // Type: Tool | Owner: manager
 // ================================================================
 import React, { useState } from 'react';
@@ -32,10 +32,10 @@ export default function PayrollVerification() {
     ];
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in zoom-in-95 duration-700">
+        <div data-cy="page.container" className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in zoom-in-95 duration-700">
             <header className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight uppercase">Payroll Verification</h1>
+                    <h1 data-cy="page.title" className="text-3xl font-black tracking-tight uppercase">Payroll Verification</h1>
                     <p className="text-muted-foreground font-medium">Audit clinical hours and finalize regional caregiver payouts.</p>
                 </div>
                 <div className="flex gap-4">

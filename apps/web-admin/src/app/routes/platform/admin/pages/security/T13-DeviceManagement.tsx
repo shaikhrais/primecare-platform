@@ -101,9 +101,9 @@ export default function DeviceManagement() {
     if (loading) return <div style={{ padding: '24px' }}>Loading device registry...</div>;
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div data-cy="page.container" style={{ padding: '24px' }}>
             <div style={{ marginBottom: '32px' }}>
-                <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Device Registry</h1>
+                <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Device Registry</h1>
                 <p style={{ color: '#6B7280' }}>Monitor and manage all hardware authorized to access the platform. Force logout sessions if suspicious activity is detected.</p>
             </div>
 

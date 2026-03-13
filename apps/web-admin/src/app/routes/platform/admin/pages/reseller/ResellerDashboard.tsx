@@ -80,13 +80,13 @@ const ResellerDashboard: React.FC = () => {
     const provisionBtn = ButtonRegistry.find((b: any) => b.id === 'btn-reseller-provision');
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>
                     🏢
                 </div>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>White-Label Reseller Hub</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>White-Label Reseller Hub</h1>
                     <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Spawn and manage your child agencies in the Fractal SaaS network.</p>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H14 · Credential Vault
+// PAGE IDENTITY: H14 ï¿½ Credential Vault
 // Type: Hub | Owner: psw
 // ================================================================
 import React, { useState } from 'react';
@@ -35,10 +35,10 @@ export default function CredentialVault() {
     };
 
     return (
-        <div className="p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div data-cy="page.container" className="p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <header className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-black tracking-tight">Credential Vault</h1>
+                    <h1 data-cy="page.title" className="text-3xl font-black tracking-tight">Credential Vault</h1>
                     <p className="text-muted-foreground">Manage your clinical certifications and compliance documentation.</p>
                 </div>
                 <button className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all flex items-center gap-2">

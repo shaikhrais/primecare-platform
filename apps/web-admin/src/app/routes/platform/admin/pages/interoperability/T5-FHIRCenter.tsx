@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T5 · FHIR Center
+// PAGE IDENTITY: T5 ï¿½ FHIR Center
 // Registry ID:   page.admin.fhir
 // Type:          Tool
 // Owner:         admin
@@ -32,10 +32,10 @@ export default function FHIRCenter() {
     };
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div data-cy="page.container" style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
                 <div>
-                    <h1 style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>Interoperability & FHIR</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold' }}>Interoperability & FHIR</h1>
                     <p style={{ color: '#6b7280' }}>HL7 FHIR R4 clinical data exchange gateway.</p>
                 </div>
                 <div style={{ backgroundColor: '#ecfdf5', color: '#059669', padding: '0.5rem 1rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 'bold' }}>

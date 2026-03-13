@@ -3,8 +3,8 @@ import EmptyState from '@/shared/components/layout/EmptyState';
 
 export const EvvDashboard: React.FC = () => {
     return (
-        <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-            <h1 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>Evv Dashboard</h1>
+        <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>Evv Dashboard</h1>
             <p style={{ color: 'var(--text-light)', marginBottom: '2rem' }}>Platform feature currently undergoing active development.</p>
             
             <EmptyState 

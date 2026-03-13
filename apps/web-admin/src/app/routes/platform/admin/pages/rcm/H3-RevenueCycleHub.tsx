@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H3 · Revenue Cycle Hub
+// PAGE IDENTITY: H3 ï¿½ Revenue Cycle Hub
 // Registry ID:   page.admin.rcm
 // Type:          Hub
 // Owner:         admin
@@ -41,14 +41,14 @@ export default function RevenueCycleHub() {
     const syncBtn = ButtonRegistry.find((b: any) => b.id === 'btn-rcm-revenue-sync');
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>
                         ðŸ’µ
                     </div>
                     <div>
-                        <h1 style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Revenue Cycle Management (RCM)</h1>
+                        <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Revenue Cycle Management (RCM)</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Manage insurance claims, adjudications, and financial health.</p>
                     </div>
                 </div>
