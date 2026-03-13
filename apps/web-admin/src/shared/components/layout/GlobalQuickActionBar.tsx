@@ -18,7 +18,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
     const handleEmergency = async () => {
         if (confirm('🚨 ACTIVATE EMERGENCY PROTOCOL?\n\nThis will alert all available staff and supervisors.')) {
             try {
-                await apiClient.post('/v1/system/emergency/trigger', {});
+                await apiClient.post('/v1/admin/actions/emergency/trigger', {});
                 showToast('Emergency Alert Broadcasted! All staff notified.', 'error');
             } catch {
                 showToast('Emergency Protocol Failed — check connection.', 'error');
@@ -29,7 +29,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
     const handleBackup = async () => {
         setBackingUp(true);
         try {
-            const res = await apiClient.post('/v1/admin/system/backup', {});
+            const res = await apiClient.post('/v1/admin/actions/backup', {});
             if (res.ok) {
                 showToast('System backup initiated successfully.', 'success');
             } else {

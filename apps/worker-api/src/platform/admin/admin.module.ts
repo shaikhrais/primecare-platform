@@ -45,6 +45,7 @@ import erpRoutes from './erp/erp.routes';
 import damRoutes from './dam/dam.routes';
 import { systemDataRoutes } from './system-data/system-data.routes';
 import staffGroupsRoutes from './staff-groups/staff-groups.routes';
+import adminActionsRoutes from './actions/admin-actions.routes';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -111,6 +112,7 @@ adminModule.route('/erp', erpRoutes);
 adminModule.route('/dam', damRoutes);
 admin.route('/system-data', systemDataRoutes);
 admin.route('/staff-groups', staffGroupsRoutes);
+admin.route('/actions', adminActionsRoutes);
 
 const statsRoute = createRoute({
     method: 'get',

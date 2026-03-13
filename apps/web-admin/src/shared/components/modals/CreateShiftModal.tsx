@@ -64,7 +64,7 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
                 notes: form.notes,
                 priority: form.priority,
             };
-            const res = await apiClient.post('/v1/admin/shifts', payload);
+            const res = await apiClient.post('/v1/admin/actions/shifts', payload);
             if (res.ok) {
                 showToast(mode === 'assign' ? 'Staff assigned successfully!' : 'Shift created successfully!', 'success');
                 onClose();

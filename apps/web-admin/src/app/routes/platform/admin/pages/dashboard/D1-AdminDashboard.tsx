@@ -53,7 +53,7 @@ export default function AdminDashboard() {
 
     const handleExport = async () => {
         try {
-            const res = await apiClient.get('/v1/admin/export?format=csv');
+            const res = await apiClient.get('/v1/admin/actions/export?format=csv');
             if (res.ok) {
                 const blob = await res.blob();
                 const url = URL.createObjectURL(blob);
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
 
     const handleSuspendReseller = async () => {
         if (!confirm('⚠️ Are you sure you want to suspend the reseller agreement? This cannot be undone easily.')) return;
-        await handleApiAction('/v1/admin/resellers/suspend', 'Reseller agreement suspended', 'Failed to suspend reseller');
+        await handleApiAction('/v1/admin/actions/suspend-reseller', 'Reseller agreement suspended', 'Failed to suspend reseller');
     };
 
     return (
@@ -93,7 +93,7 @@ export default function AdminDashboard() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem'
-                    }} onClick={() => handleApiAction('/v1/admin/settings/commit', 'UI overrides committed to registry', 'Failed to commit overrides')}>
+                    }} onClick={() => handleApiAction('/v1/admin/actions/commit-overrides', 'UI overrides committed to registry', 'Failed to commit overrides')}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-ui-override')?.label || 'Commit UI Overrides'}
                     </button>
                     <button style={{
@@ -141,11 +141,11 @@ export default function AdminDashboard() {
             </div>
             {/* Phase 13 exhaustive button group */}
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/cron/trigger', 'Automation triggered — tasks queued', 'Automation trigger failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-automation-trigger')?.label || 'Trigger Automation'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/system/optimize', 'Operations optimized — metrics recalculated', 'Optimization failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-ops-optimize')?.label || 'Optimize Ops'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/actions/trigger-automation', 'Automation triggered — tasks queued', 'Automation trigger failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-automation-trigger')?.label || 'Trigger Automation'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/actions/optimize', 'Operations optimized — metrics recalculated', 'Optimization failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-ops-optimize')?.label || 'Optimize Ops'}</button>
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/settings', 'Platform settings saved', 'Failed to save settings')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-settings-save')?.label || 'Save Settings'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/content/publish', 'Content published to production', 'Publish failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-content-publish')?.label || 'Publish'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/search/reindex', 'Search index rebuilt successfully', 'Reindex failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/actions/publish-content', 'Content published to production', 'Publish failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-content-publish')?.label || 'Publish'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/actions/reindex-search', 'Search index rebuilt successfully', 'Reindex failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => navigate('/platform/admin/tenants/new')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-superuser-tenant-new')?.label || 'New Tenant'}</button>
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={handleSuspendReseller}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-reseller-suspend')?.label || 'Suspend Reseller'}</button>
             </div>
