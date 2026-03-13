@@ -60,7 +60,9 @@ export interface FormEntry {
 // ── Import domain sub-files ──────────────────────────────────────────────────
 
 import { AUTH_FORMS } from './FormRegistry/auth-forms';
-import { ADMIN_FORMS, ADMIN_WIZARD_FORMS } from './FormRegistry/admin-forms';
+import { ADMIN_FORMS } from './FormRegistry/admin-forms';
+import { ADMIN_OPS_FORMS } from './FormRegistry/admin-ops-forms';
+import { ADMIN_WIZARD_FORMS } from './FormRegistry/admin-wizard-forms';
 import { CLIENT_FORMS } from './FormRegistry/client-forms';
 import { PSW_FORMS } from './FormRegistry/psw-forms';
 import { MANAGER_FORMS } from './FormRegistry/manager-forms';
@@ -73,6 +75,7 @@ import { MARKETING_FORMS, PLATFORM_FORMS, COORDINATOR_FORMS } from './FormRegist
 export const FormRegistry = [
     ...AUTH_FORMS,
     ...ADMIN_FORMS,
+    ...ADMIN_OPS_FORMS,
     ...ADMIN_WIZARD_FORMS,
     ...CLIENT_FORMS,
     ...PSW_FORMS,
