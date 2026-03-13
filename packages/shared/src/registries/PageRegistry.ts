@@ -451,11 +451,11 @@ export interface MasterEntry {
 
 export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     // ── Auth Forms (F1–F5) ──
-    F1:  { file: 'apps/web-admin/src/app/routes/auth/Login.tsx',           label: 'Login',           type: 'form', owner: 'auth', associates: ['F2', 'F3'] },
-    F2:  { file: 'apps/web-admin/src/app/routes/auth/Register.tsx',        label: 'Register',        type: 'form', owner: 'auth', associates: ['F1'] },
-    F3:  { file: 'apps/web-admin/src/app/routes/auth/ForgotPassword.tsx',  label: 'Forgot Password', type: 'form', owner: 'auth', associates: ['F1', 'F4'] },
-    F4:  { file: 'apps/web-admin/src/app/routes/auth/ResetPassword.tsx',   label: 'Reset Password',  type: 'form', owner: 'auth', associates: ['F3'] },
-    F5:  { file: 'apps/web-admin/src/app/routes/auth/BusinessOnboard.tsx', label: 'Business Onboard',type: 'form', owner: 'auth', associates: ['W1'] },
+    F1:  { file: 'apps/web-admin/src/app/routes/auth/pages/login/F1-Login.tsx',                     label: 'Login',           type: 'form', owner: 'auth', associates: ['F2', 'F3'] },
+    F2:  { file: 'apps/web-admin/src/app/routes/auth/pages/register/F2-Register.tsx',               label: 'Register',        type: 'form', owner: 'auth', associates: ['F1'] },
+    F3:  { file: 'apps/web-admin/src/app/routes/auth/pages/forgot-password/F3-ForgotPassword.tsx',  label: 'Forgot Password', type: 'form', owner: 'auth', associates: ['F1', 'F4'] },
+    F4:  { file: 'apps/web-admin/src/app/routes/auth/pages/reset-password/F4-ResetPassword.tsx',    label: 'Reset Password',  type: 'form', owner: 'auth', associates: ['F3'] },
+    F5:  { file: 'apps/web-admin/src/app/routes/auth/pages/onboard-business/F5-BusinessOnboard.tsx',label: 'Business Onboard',type: 'form', owner: 'auth', associates: ['W1'] },
     // ── Admin Dashboards (D1–D6) ──
     D1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx',     label: 'Admin Dashboard',     type: 'dashboard', owner: 'admin', associates: ['D2', 'G1', 'G2'] },
     D2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx',    label: 'Registry Summary',    type: 'dashboard', owner: 'admin', associates: ['D1', 'G1', 'G2'] },
