@@ -93,7 +93,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                                 }}
                             />
                         ) : (
-                            <select data-cy="select-client.service-booking-modal-0"
+                            <select
                                 value={newRequest.serviceId}
                                 onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
@@ -109,7 +109,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Preferred Date & Time</label>
-                        <input data-cy="input-client.service-booking-modal-0"
+                        <input
                             type="datetime-local"
                             value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
                             onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
@@ -120,7 +120,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Duration (Minutes)</label>
-                        <select data-cy="select-client.service-booking-modal-1"
+                        <select
                             value={newRequest.durationMinutes}
                             onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
@@ -148,7 +148,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Recurrence</label>
-                            <select data-cy="select-client.service-booking-modal-2"
+                            <select
                                 value={newRequest.recurrence}
                                 onChange={(e) => setNewRequest({ ...newRequest, recurrence: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}

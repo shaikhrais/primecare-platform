@@ -65,7 +65,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 {/* Mobile Toggle */}
                 {isMobile && (
-                    <button data-cy="btn-shared.top-bar-0"
+                    <button
                         onClick={() => setIsSidebarOpen(true)}
                         data-cy="btn-drawer-toggle-mobile"
                         style={{
@@ -96,7 +96,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
                 {/* Desktop Toggle */}
                 {!isMobile && (
-                    <button data-cy="btn-shared.top-bar-1"
+                    <button
                         onClick={() => setIsCollapsed(!isCollapsed)}
                         data-cy="btn-drawer-toggle-desktop"
                         style={{

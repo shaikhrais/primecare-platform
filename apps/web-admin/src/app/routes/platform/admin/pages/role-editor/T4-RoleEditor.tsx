@@ -60,7 +60,7 @@ export default function RoleEditor() {
                     </div>
                 ))}
                 <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                    <button data-cy="btn-admin.role-editor-0"
+                    <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

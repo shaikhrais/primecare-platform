@@ -78,7 +78,7 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
                                 }}
                             />
                         ) : (
-                            <select data-cy="select-client.booking-request-modal-0"
+                            <select
                                 value={selectedService}
                                 onChange={e => setSelectedService(e.target.value)}
                                 required

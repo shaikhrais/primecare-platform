@@ -12,6 +12,7 @@ export * from './registries/InteractiveRegistry';
 export * from './registries/SummaryRegistry';
 export * from './registries/FormRegistry';
 export * from './registries/PageRegistry';
+export * from './registries/PageActionRegistry';
 
 // Existing
 export * from './theme';

@@ -151,7 +151,7 @@ export default function LocationForm() {
                 </div>
 
                 <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button data-cy="btn-admin.index-0"
+                    <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

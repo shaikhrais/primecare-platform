@@ -103,7 +103,7 @@ export const iMessageThread: React.FC = () => {
 
             {/* Input Form */}
             <form data-cy="form-i-message-thread" onSubmit={handleSend} style={{ display: 'flex', gap: '12px', padding: '16px', borderTop: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-                <input data-cy="input-i-message-thread-0" 
+                <input
                     type="text" 
                     value={inputText}
                     onChange={e => setInputText(e.target.value)}

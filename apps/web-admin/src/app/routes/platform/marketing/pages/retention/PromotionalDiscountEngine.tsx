@@ -74,7 +74,7 @@ export const PromotionalDiscountEngine: React.FC = () => {
                      <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Code Phrase</label>
                         <div style={{ display: 'flex', gap: '8px' }}>
-                            <input data-cy="input-promotional-discount-engine-0" 
+                            <input
                                 type="text" 
                                 value={newCode}
                                 onChange={(e) => setNewCode(e.target.value.toUpperCase())}

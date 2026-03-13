@@ -281,7 +281,7 @@ export default function Login() {
                         <span style={{ position: 'relative', backgroundColor: '#FFFFFF', padding: '0 10px', fontSize: '0.75rem', color: '#6B7280', zIndex: 2 }}>OR</span>
                     </div>
 
-                    <button data-cy="btn-login-1"
+                    <button
                         type="button"
                         onClick={() => window.location.href = `${API_URL}/v1/auth/osm`}
                         data-cy="btn-auth-osm-login"

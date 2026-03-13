@@ -43,7 +43,7 @@ export default function TemplateEditor() {
                     style={{ width: '100%', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '300px', fontFamily: 'monospace' }}
                 />
                 <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                    <button data-cy="btn-admin.template-editor-0"
+                    <button
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

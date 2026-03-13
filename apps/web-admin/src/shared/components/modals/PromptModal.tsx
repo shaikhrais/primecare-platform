@@ -87,7 +87,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                     {message}
                 </p>
 
-                <input data-cy="input-shared.prompt-modal-0"
+                <input
                     ref={inputRef}
                     type="text"
                     value={inputValue}

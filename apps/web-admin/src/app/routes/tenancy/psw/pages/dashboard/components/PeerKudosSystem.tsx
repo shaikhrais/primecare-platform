@@ -64,7 +64,7 @@ export const PeerKudosSystem: React.FC = () => {
                 style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #D1D5DB', marginBottom: '12px', boxSizing: 'border-box' }}
             />
 
-            <textarea data-cy="textarea-psw.peer-kudos-system"
+            <textarea
                 value={note}
                 onChange={e => setNote(e.target.value)}
                 placeholder="Optional shoutout note..."

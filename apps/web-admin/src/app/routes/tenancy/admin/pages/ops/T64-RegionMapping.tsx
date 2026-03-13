@@ -24,7 +24,7 @@ export default function RegionMapping() {
                     <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Region Mapping</h1>
                     <p style={{ color: '#6b7280' }}>Define and visualize operational geographic zones.</p>
                 </div>
-                <button data-cy="btn-admin.region-mapping-0"
+                <button
                     className="btn secondary"
                     onClick={async () => { const name = prompt('Enter region name:'); if (!name) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/regions', { name }); if (res.ok) showToast('Region created: ' + name, 'success'); else showToast('Failed to create region', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-adm-region-new"

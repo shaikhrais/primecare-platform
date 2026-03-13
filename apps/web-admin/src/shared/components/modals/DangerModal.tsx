@@ -104,7 +104,7 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                     >
                         {t('common.cancel', 'Cancel')}
                     </button>
-                    <button data-cy="btn-shared.danger-modal-2"
+                    <button
                         type="button"
                         onClick={() => { if (isMatch) onConfirm(); }}
                         disabled={!isMatch}

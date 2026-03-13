@@ -51,7 +51,7 @@ export const NotesAndSignature: React.FC<NotesAndSignatureProps> = ({
                     />
                 </div>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <button data-cy="btn-manager.notes-and-signature-0"
+                    <button
                         onClick={() => {
                             setIsDirty(false);
                             handleSubmit(true);
@@ -62,7 +62,7 @@ export const NotesAndSignature: React.FC<NotesAndSignatureProps> = ({
                     >
                         {ContentRegistry.DAILY_ENTRY.SAVE_DRAFT}
                     </button>
-                    <button data-cy="btn-manager.notes-and-signature-1"
+                    <button
                         onClick={() => {
                             setIsDirty(false);
                             handleSubmit(false);

@@ -76,7 +76,7 @@ export default function SettingsPage() {
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_ALERTS)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_DESC)}</div>
                         </div>
-                        <input data-cy="input-admin.settings-0"
+                        <input
                             type="checkbox"
                             checked={settings.emailAlerts}
                             onChange={(e) => { setSettings({ ...settings, emailAlerts: e.target.checked }); setIsDirty(true); }}
@@ -93,7 +93,7 @@ export default function SettingsPage() {
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_ASSIGN)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_DESC)}</div>
                         </div>
-                        <input data-cy="input-admin.settings-1"
+                        <input
                             type="checkbox"
                             checked={settings.autoAssignment}
                             onChange={(e) => { setSettings({ ...settings, autoAssignment: e.target.checked }); setIsDirty(true); }}
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_PERIOD)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_DESC)}</div>
                         </div>
-                        <select data-cy="select-admin.settings-0"
+                        <select
                             value={settings.gracePeriod}
                             onChange={(e) => { setSettings({ ...settings, gracePeriod: e.target.value }); setIsDirty(true); }}
                             style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}

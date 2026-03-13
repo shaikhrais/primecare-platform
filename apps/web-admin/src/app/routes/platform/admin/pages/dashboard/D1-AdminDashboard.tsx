@@ -6,8 +6,8 @@ import { useAuth } from '@/shared/context/AuthContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { useTranslation } from 'react-i18next';
-
-// Components
+import { PageActionBar } from '@/shared/components/ui/PageActionBar';
+import { PcButton } from '@/shared/components/ui/PcButton';
 import { SetupBanner } from './components/SetupBanner';
 import { DashboardStats } from './components/DashboardStats';
 import { HealthAlerts } from './components/HealthAlerts';
@@ -102,76 +102,15 @@ export default function AdminDashboard() {
                         {user?.email} • Franchise Command Center
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button data-cy="btn-admin.admin-dashboard-0" style={{
-                        padding: '0.5rem 1rem',
-                        background: '#0f172a',
-                        color: '#ffffff',
-                        border: 'none',
-                        borderRadius: '0.75rem',
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem'
-                    }} onClick={() => handleApiAction('/v1/admin/actions/commit-overrides', 'UI overrides committed to registry', 'Failed to commit overrides')}>
-                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-ui-override')?.label || 'Commit UI Overrides'}
-                    </button>
-                    <button data-cy="btn-admin.admin-dashboard-1" style={{
-                        padding: '0.5rem 1rem',
-                        background: 'var(--brand-500)',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '0.75rem',
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        cursor: 'pointer'
-                    }} onClick={() => navigate('/platform/admin/users?action=invite')}>
-                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-user-invite')?.label || 'Invite User'}
-                    </button>
-                    <button data-cy="btn-admin.admin-dashboard-2" style={{
-                        padding: '0.5rem 1rem',
-                        background: '#f3f4f6',
-                        color: '#4b5563',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: '0.75rem',
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        cursor: 'pointer'
-                    }} onClick={handleExport}>
-                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-report-export')?.label || 'Export'}
-                    </button>
-                    <Link to={RouteRegistry.SCRUM_MASTER.DEV_KB}>
-                        <button data-cy="btn-admin.admin-dashboard-3" style={{
-                            padding: '0.5rem 1rem',
-                            background: '#f3f4f6',
-                            color: '#4b5563',
-                            border: '1px solid #e5e7eb',
-                            borderRadius: '0.75rem',
-                            fontSize: '0.875rem',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem'
-                        }}>
-                            {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-universal-sweep')?.label || '🛠️ Developer Audit'}
-                        </button>
-                    </Link>
-                </div>
+                <PageActionBar pageId="admin.dashboard" size="sm" handlers={{
+                    'btn-admin-report-export': handleExport,
+                    'btn-reseller-suspend': handleSuspendReseller,
+                }} />
             </div>
-            {/* Phase 13 exhaustive button group */}
-            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-trigger-automation" onClick={() => handleApiAction('/v1/admin/actions/trigger-automation', 'Automation triggered — tasks queued', 'Automation trigger failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-automation-trigger')?.label || 'Trigger Automation'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-optimize-ops" onClick={() => handleApiAction('/v1/admin/actions/optimize', 'Operations optimized — metrics recalculated', 'Optimization failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-ops-optimize')?.label || 'Optimize Ops'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-save-settings" onClick={() => handleApiAction('/v1/admin/settings', 'Platform settings saved', 'Failed to save settings')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-settings-save')?.label || 'Save Settings'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-publish-content" onClick={() => handleApiAction('/v1/admin/actions/publish-content', 'Content published to production', 'Publish failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-content-publish')?.label || 'Publish'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-reindex-search" onClick={() => handleApiAction('/v1/admin/actions/reindex-search', 'Search index rebuilt successfully', 'Reindex failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-new-tenant" onClick={() => navigate('/platform/admin/tenants/new')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-superuser-tenant-new')?.label || 'New Tenant'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} data-cy="btn-suspend-reseller" onClick={handleSuspendReseller}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-reseller-suspend')?.label || 'Suspend Reseller'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', background: '#059669', color: 'white' }} data-cy="btn-verify-chain" onClick={handleVerifyChain}>🛡️ Verify Chain</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} data-cy="btn-audit-stats" onClick={handleAuditStats}>📊 Audit Stats</button>
+            {/* Custom audit actions (not in ButtonRegistry) */}
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                <PcButton variant="primary" size="xs" label="🛡️ Verify Chain" onClick={handleVerifyChain} data-cy="btn-verify-chain" />
+                <PcButton variant="secondary" size="xs" label="📊 Audit Stats" onClick={handleAuditStats} data-cy="btn-audit-stats" />
             </div>
 
             {/* Business Model Score & Setup Wizard Banner */}

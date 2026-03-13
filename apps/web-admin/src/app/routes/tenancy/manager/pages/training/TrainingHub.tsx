@@ -21,7 +21,7 @@ export default function TrainingHub() {
                     <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Training Hub</h1>
                     <p style={{ color: '#6b7280' }}>Manage clinical training modules and staff certifications.</p>
                 </div>
-                <button data-cy="btn-manager.training-hub-0"
+                <button
                     className="btn primary"
                     onClick={async () => { const title = prompt('Enter module title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/training-modules', { title }); if (res.ok) showToast('Module created: ' + title, 'success'); else showToast('Failed to create module', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-mgr-training-create"
