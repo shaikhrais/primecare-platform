@@ -523,6 +523,11 @@ export type AIInference = $Result.DefaultSelection<Prisma.$AIInferencePayload>
  * 
  */
 export type CommunicationLog = $Result.DefaultSelection<Prisma.$CommunicationLogPayload>
+/**
+ * Model TransactionLedger
+ * 
+ */
+export type TransactionLedger = $Result.DefaultSelection<Prisma.$TransactionLedgerPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1666,6 +1671,16 @@ export class PrismaClient<
     * ```
     */
   get communicationLog(): Prisma.CommunicationLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.transactionLedger`: Exposes CRUD operations for the **TransactionLedger** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TransactionLedgers
+    * const transactionLedgers = await prisma.transactionLedger.findMany()
+    * ```
+    */
+  get transactionLedger(): Prisma.TransactionLedgerDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2208,7 +2223,8 @@ export namespace Prisma {
     AppNotification: 'AppNotification',
     GamificationProfile: 'GamificationProfile',
     AIInference: 'AIInference',
-    CommunicationLog: 'CommunicationLog'
+    CommunicationLog: 'CommunicationLog',
+    TransactionLedger: 'TransactionLedger'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2224,7 +2240,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "staffGroup" | "staffGroupMember" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "timesheet" | "timesheetItem" | "invoice" | "payment" | "messageThread" | "message" | "auditLog" | "systemEvent" | "lead" | "booking" | "pswAvailability" | "shiftAssignment" | "blogPost" | "staffTask" | "staffGroup" | "staffGroupMember" | "pswDocument" | "fAQ" | "dailyEntry" | "userDevice" | "marketplaceListing" | "feedback" | "carePlan" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "clinicalRecord" | "healthID" | "fhirSyncLog" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "tenantSLA" | "systemPolicy" | "fleetStatus" | "responseBotAudit" | "visitMatch" | "waitlistEntry" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "vitalSign" | "patientAlert" | "insuranceProvider" | "claim" | "billingCode" | "medication" | "prescription" | "mAR_Entry" | "shiftHandover" | "availabilityOverride" | "payout" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "familyNotification" | "careFeedback" | "technicalAudit" | "registryEntry" | "bookingRequest" | "dailyAuditSignOff" | "wellnessPulse" | "systemTouchpoint" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "mileageLog" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "transactionLedger"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -9368,6 +9384,76 @@ export namespace Prisma {
           }
         }
       }
+      TransactionLedger: {
+        payload: Prisma.$TransactionLedgerPayload<ExtArgs>
+        fields: Prisma.TransactionLedgerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransactionLedgerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransactionLedgerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          findFirst: {
+            args: Prisma.TransactionLedgerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransactionLedgerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          findMany: {
+            args: Prisma.TransactionLedgerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>[]
+          }
+          create: {
+            args: Prisma.TransactionLedgerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          createMany: {
+            args: Prisma.TransactionLedgerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransactionLedgerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>[]
+          }
+          delete: {
+            args: Prisma.TransactionLedgerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          update: {
+            args: Prisma.TransactionLedgerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransactionLedgerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransactionLedgerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransactionLedgerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionLedgerPayload>
+          }
+          aggregate: {
+            args: Prisma.TransactionLedgerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransactionLedger>
+          }
+          groupBy: {
+            args: Prisma.TransactionLedgerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransactionLedgerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransactionLedgerCountArgs<ExtArgs>
+            result: $Utils.Optional<TransactionLedgerCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -9545,6 +9631,7 @@ export namespace Prisma {
     StaffGroupMember: number
     assignedTasks: number
     carePlansAuthored: number
+    ledgerEntries: number
     assessments: number
     medicationRecons: number
     supervisionLogs: number
@@ -9572,6 +9659,7 @@ export namespace Prisma {
     StaffGroupMember?: boolean | UserCountOutputTypeCountStaffGroupMemberArgs
     assignedTasks?: boolean | UserCountOutputTypeCountAssignedTasksArgs
     carePlansAuthored?: boolean | UserCountOutputTypeCountCarePlansAuthoredArgs
+    ledgerEntries?: boolean | UserCountOutputTypeCountLedgerEntriesArgs
     assessments?: boolean | UserCountOutputTypeCountAssessmentsArgs
     medicationRecons?: boolean | UserCountOutputTypeCountMedicationReconsArgs
     supervisionLogs?: boolean | UserCountOutputTypeCountSupervisionLogsArgs
@@ -9679,6 +9767,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCarePlansAuthoredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CarePlanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLedgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionLedgerWhereInput
   }
 
   /**
@@ -9821,6 +9916,7 @@ export namespace Prisma {
     gamificationProfiles: number
     aiInferences: number
     communicationLogs: number
+    transactionLedger: number
     childTenants: number
     franchises: number
     marketplaceListings: number
@@ -9901,6 +9997,7 @@ export namespace Prisma {
     gamificationProfiles?: boolean | TenantCountOutputTypeCountGamificationProfilesArgs
     aiInferences?: boolean | TenantCountOutputTypeCountAiInferencesArgs
     communicationLogs?: boolean | TenantCountOutputTypeCountCommunicationLogsArgs
+    transactionLedger?: boolean | TenantCountOutputTypeCountTransactionLedgerArgs
     childTenants?: boolean | TenantCountOutputTypeCountChildTenantsArgs
     franchises?: boolean | TenantCountOutputTypeCountFranchisesArgs
     marketplaceListings?: boolean | TenantCountOutputTypeCountMarketplaceListingsArgs
@@ -10289,6 +10386,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountCommunicationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommunicationLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountTransactionLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionLedgerWhereInput
   }
 
   /**
@@ -11847,6 +11951,7 @@ export namespace Prisma {
     StaffGroupMember?: boolean | User$StaffGroupMemberArgs<ExtArgs>
     assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     carePlansAuthored?: boolean | User$carePlansAuthoredArgs<ExtArgs>
+    ledgerEntries?: boolean | User$ledgerEntriesArgs<ExtArgs>
     assessments?: boolean | User$assessmentsArgs<ExtArgs>
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
@@ -11912,6 +12017,7 @@ export namespace Prisma {
     StaffGroupMember?: boolean | User$StaffGroupMemberArgs<ExtArgs>
     assignedTasks?: boolean | User$assignedTasksArgs<ExtArgs>
     carePlansAuthored?: boolean | User$carePlansAuthoredArgs<ExtArgs>
+    ledgerEntries?: boolean | User$ledgerEntriesArgs<ExtArgs>
     assessments?: boolean | User$assessmentsArgs<ExtArgs>
     medicationRecons?: boolean | User$medicationReconsArgs<ExtArgs>
     supervisionLogs?: boolean | User$supervisionLogsArgs<ExtArgs>
@@ -11949,6 +12055,7 @@ export namespace Prisma {
       StaffGroupMember: Prisma.$StaffGroupMemberPayload<ExtArgs>[]
       assignedTasks: Prisma.$StaffTaskPayload<ExtArgs>[]
       carePlansAuthored: Prisma.$CarePlanPayload<ExtArgs>[]
+      ledgerEntries: Prisma.$TransactionLedgerPayload<ExtArgs>[]
       assessments: Prisma.$ClinicalAssessmentPayload<ExtArgs>[]
       medicationRecons: Prisma.$MedicationReconPayload<ExtArgs>[]
       supervisionLogs: Prisma.$SupervisionLogPayload<ExtArgs>[]
@@ -12356,6 +12463,7 @@ export namespace Prisma {
     StaffGroupMember<T extends User$StaffGroupMemberArgs<ExtArgs> = {}>(args?: Subset<T, User$StaffGroupMemberArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupMemberPayload<ExtArgs>, T, "findMany"> | Null>
     assignedTasks<T extends User$assignedTasksArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffTaskPayload<ExtArgs>, T, "findMany"> | Null>
     carePlansAuthored<T extends User$carePlansAuthoredArgs<ExtArgs> = {}>(args?: Subset<T, User$carePlansAuthoredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CarePlanPayload<ExtArgs>, T, "findMany"> | Null>
+    ledgerEntries<T extends User$ledgerEntriesArgs<ExtArgs> = {}>(args?: Subset<T, User$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findMany"> | Null>
     assessments<T extends User$assessmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$assessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClinicalAssessmentPayload<ExtArgs>, T, "findMany"> | Null>
     medicationRecons<T extends User$medicationReconsArgs<ExtArgs> = {}>(args?: Subset<T, User$medicationReconsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicationReconPayload<ExtArgs>, T, "findMany"> | Null>
     supervisionLogs<T extends User$supervisionLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$supervisionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupervisionLogPayload<ExtArgs>, T, "findMany"> | Null>
@@ -12996,6 +13104,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CarePlanScalarFieldEnum | CarePlanScalarFieldEnum[]
+  }
+
+  /**
+   * User.ledgerEntries
+   */
+  export type User$ledgerEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    where?: TransactionLedgerWhereInput
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    cursor?: TransactionLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionLedgerScalarFieldEnum | TransactionLedgerScalarFieldEnum[]
   }
 
   /**
@@ -13660,6 +13788,7 @@ export namespace Prisma {
     gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
     aiInferences?: boolean | Tenant$aiInferencesArgs<ExtArgs>
     communicationLogs?: boolean | Tenant$communicationLogsArgs<ExtArgs>
+    transactionLedger?: boolean | Tenant$transactionLedgerArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -13793,6 +13922,7 @@ export namespace Prisma {
     gamificationProfiles?: boolean | Tenant$gamificationProfilesArgs<ExtArgs>
     aiInferences?: boolean | Tenant$aiInferencesArgs<ExtArgs>
     communicationLogs?: boolean | Tenant$communicationLogsArgs<ExtArgs>
+    transactionLedger?: boolean | Tenant$transactionLedgerArgs<ExtArgs>
     parentTenant?: boolean | Tenant$parentTenantArgs<ExtArgs>
     childTenants?: boolean | Tenant$childTenantsArgs<ExtArgs>
     franchises?: boolean | Tenant$franchisesArgs<ExtArgs>
@@ -13880,6 +14010,7 @@ export namespace Prisma {
       gamificationProfiles: Prisma.$GamificationProfilePayload<ExtArgs>[]
       aiInferences: Prisma.$AIInferencePayload<ExtArgs>[]
       communicationLogs: Prisma.$CommunicationLogPayload<ExtArgs>[]
+      transactionLedger: Prisma.$TransactionLedgerPayload<ExtArgs>[]
       parentTenant: Prisma.$TenantPayload<ExtArgs> | null
       childTenants: Prisma.$TenantPayload<ExtArgs>[]
       franchises: Prisma.$FranchisePayload<ExtArgs>[]
@@ -14346,6 +14477,7 @@ export namespace Prisma {
     gamificationProfiles<T extends Tenant$gamificationProfilesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$gamificationProfilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findMany"> | Null>
     aiInferences<T extends Tenant$aiInferencesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$aiInferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInferencePayload<ExtArgs>, T, "findMany"> | Null>
     communicationLogs<T extends Tenant$communicationLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$communicationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunicationLogPayload<ExtArgs>, T, "findMany"> | Null>
+    transactionLedger<T extends Tenant$transactionLedgerArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$transactionLedgerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findMany"> | Null>
     parentTenant<T extends Tenant$parentTenantArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$parentTenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     childTenants<T extends Tenant$childTenantsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$childTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany"> | Null>
     franchises<T extends Tenant$franchisesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$franchisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FranchisePayload<ExtArgs>, T, "findMany"> | Null>
@@ -15740,6 +15872,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommunicationLogScalarFieldEnum | CommunicationLogScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.transactionLedger
+   */
+  export type Tenant$transactionLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    where?: TransactionLedgerWhereInput
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    cursor?: TransactionLedgerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionLedgerScalarFieldEnum | TransactionLedgerScalarFieldEnum[]
   }
 
   /**
@@ -119309,6 +119461,1138 @@ export namespace Prisma {
 
 
   /**
+   * Model TransactionLedger
+   */
+
+  export type AggregateTransactionLedger = {
+    _count: TransactionLedgerCountAggregateOutputType | null
+    _avg: TransactionLedgerAvgAggregateOutputType | null
+    _sum: TransactionLedgerSumAggregateOutputType | null
+    _min: TransactionLedgerMinAggregateOutputType | null
+    _max: TransactionLedgerMaxAggregateOutputType | null
+  }
+
+  export type TransactionLedgerAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionLedgerSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionLedgerMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    transactionType: string | null
+    referenceType: string | null
+    referenceId: string | null
+    debitAccount: string | null
+    creditAccount: string | null
+    amount: Decimal | null
+    currency: string | null
+    description: string | null
+    actorUserId: string | null
+    ipAddress: string | null
+    checksum: string | null
+    previousChecksum: string | null
+    status: string | null
+    voidedByEntryId: string | null
+    createdAt: Date | null
+  }
+
+  export type TransactionLedgerMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    transactionType: string | null
+    referenceType: string | null
+    referenceId: string | null
+    debitAccount: string | null
+    creditAccount: string | null
+    amount: Decimal | null
+    currency: string | null
+    description: string | null
+    actorUserId: string | null
+    ipAddress: string | null
+    checksum: string | null
+    previousChecksum: string | null
+    status: string | null
+    voidedByEntryId: string | null
+    createdAt: Date | null
+  }
+
+  export type TransactionLedgerCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    transactionType: number
+    referenceType: number
+    referenceId: number
+    debitAccount: number
+    creditAccount: number
+    amount: number
+    currency: number
+    description: number
+    actorUserId: number
+    ipAddress: number
+    checksum: number
+    previousChecksum: number
+    status: number
+    voidedByEntryId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TransactionLedgerAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionLedgerSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionLedgerMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionType?: true
+    referenceType?: true
+    referenceId?: true
+    debitAccount?: true
+    creditAccount?: true
+    amount?: true
+    currency?: true
+    description?: true
+    actorUserId?: true
+    ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
+    status?: true
+    voidedByEntryId?: true
+    createdAt?: true
+  }
+
+  export type TransactionLedgerMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionType?: true
+    referenceType?: true
+    referenceId?: true
+    debitAccount?: true
+    creditAccount?: true
+    amount?: true
+    currency?: true
+    description?: true
+    actorUserId?: true
+    ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
+    status?: true
+    voidedByEntryId?: true
+    createdAt?: true
+  }
+
+  export type TransactionLedgerCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionType?: true
+    referenceType?: true
+    referenceId?: true
+    debitAccount?: true
+    creditAccount?: true
+    amount?: true
+    currency?: true
+    description?: true
+    actorUserId?: true
+    ipAddress?: true
+    checksum?: true
+    previousChecksum?: true
+    status?: true
+    voidedByEntryId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TransactionLedgerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransactionLedger to aggregate.
+     */
+    where?: TransactionLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransactionLedgers to fetch.
+     */
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransactionLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransactionLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransactionLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TransactionLedgers
+    **/
+    _count?: true | TransactionLedgerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TransactionLedgerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransactionLedgerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransactionLedgerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransactionLedgerMaxAggregateInputType
+  }
+
+  export type GetTransactionLedgerAggregateType<T extends TransactionLedgerAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransactionLedger]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransactionLedger[P]>
+      : GetScalarType<T[P], AggregateTransactionLedger[P]>
+  }
+
+
+
+
+  export type TransactionLedgerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionLedgerWhereInput
+    orderBy?: TransactionLedgerOrderByWithAggregationInput | TransactionLedgerOrderByWithAggregationInput[]
+    by: TransactionLedgerScalarFieldEnum[] | TransactionLedgerScalarFieldEnum
+    having?: TransactionLedgerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransactionLedgerCountAggregateInputType | true
+    _avg?: TransactionLedgerAvgAggregateInputType
+    _sum?: TransactionLedgerSumAggregateInputType
+    _min?: TransactionLedgerMinAggregateInputType
+    _max?: TransactionLedgerMaxAggregateInputType
+  }
+
+  export type TransactionLedgerGroupByOutputType = {
+    id: string
+    tenantId: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal
+    currency: string
+    description: string | null
+    actorUserId: string | null
+    ipAddress: string | null
+    checksum: string
+    previousChecksum: string | null
+    status: string
+    voidedByEntryId: string | null
+    createdAt: Date
+    _count: TransactionLedgerCountAggregateOutputType | null
+    _avg: TransactionLedgerAvgAggregateOutputType | null
+    _sum: TransactionLedgerSumAggregateOutputType | null
+    _min: TransactionLedgerMinAggregateOutputType | null
+    _max: TransactionLedgerMaxAggregateOutputType | null
+  }
+
+  type GetTransactionLedgerGroupByPayload<T extends TransactionLedgerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransactionLedgerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransactionLedgerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransactionLedgerGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionLedgerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransactionLedgerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    transactionType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debitAccount?: boolean
+    creditAccount?: boolean
+    amount?: boolean
+    currency?: boolean
+    description?: boolean
+    actorUserId?: boolean
+    ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
+    status?: boolean
+    voidedByEntryId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["transactionLedger"]>
+
+  export type TransactionLedgerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    transactionType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debitAccount?: boolean
+    creditAccount?: boolean
+    amount?: boolean
+    currency?: boolean
+    description?: boolean
+    actorUserId?: boolean
+    ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
+    status?: boolean
+    voidedByEntryId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
+  }, ExtArgs["result"]["transactionLedger"]>
+
+  export type TransactionLedgerSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    transactionType?: boolean
+    referenceType?: boolean
+    referenceId?: boolean
+    debitAccount?: boolean
+    creditAccount?: boolean
+    amount?: boolean
+    currency?: boolean
+    description?: boolean
+    actorUserId?: boolean
+    ipAddress?: boolean
+    checksum?: boolean
+    previousChecksum?: boolean
+    status?: boolean
+    voidedByEntryId?: boolean
+    createdAt?: boolean
+  }
+
+  export type TransactionLedgerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
+  }
+  export type TransactionLedgerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    actor?: boolean | TransactionLedger$actorArgs<ExtArgs>
+  }
+
+  export type $TransactionLedgerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TransactionLedger"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      actor: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      transactionType: string
+      referenceType: string
+      referenceId: string
+      debitAccount: string
+      creditAccount: string
+      amount: Prisma.Decimal
+      currency: string
+      description: string | null
+      actorUserId: string | null
+      ipAddress: string | null
+      checksum: string
+      previousChecksum: string | null
+      status: string
+      voidedByEntryId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["transactionLedger"]>
+    composites: {}
+  }
+
+  type TransactionLedgerGetPayload<S extends boolean | null | undefined | TransactionLedgerDefaultArgs> = $Result.GetResult<Prisma.$TransactionLedgerPayload, S>
+
+  type TransactionLedgerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TransactionLedgerFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TransactionLedgerCountAggregateInputType | true
+    }
+
+  export interface TransactionLedgerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TransactionLedger'], meta: { name: 'TransactionLedger' } }
+    /**
+     * Find zero or one TransactionLedger that matches the filter.
+     * @param {TransactionLedgerFindUniqueArgs} args - Arguments to find a TransactionLedger
+     * @example
+     * // Get one TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransactionLedgerFindUniqueArgs>(args: SelectSubset<T, TransactionLedgerFindUniqueArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TransactionLedger that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TransactionLedgerFindUniqueOrThrowArgs} args - Arguments to find a TransactionLedger
+     * @example
+     * // Get one TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransactionLedgerFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionLedgerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TransactionLedger that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerFindFirstArgs} args - Arguments to find a TransactionLedger
+     * @example
+     * // Get one TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransactionLedgerFindFirstArgs>(args?: SelectSubset<T, TransactionLedgerFindFirstArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TransactionLedger that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerFindFirstOrThrowArgs} args - Arguments to find a TransactionLedger
+     * @example
+     * // Get one TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransactionLedgerFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionLedgerFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TransactionLedgers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TransactionLedgers
+     * const transactionLedgers = await prisma.transactionLedger.findMany()
+     * 
+     * // Get first 10 TransactionLedgers
+     * const transactionLedgers = await prisma.transactionLedger.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const transactionLedgerWithIdOnly = await prisma.transactionLedger.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TransactionLedgerFindManyArgs>(args?: SelectSubset<T, TransactionLedgerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TransactionLedger.
+     * @param {TransactionLedgerCreateArgs} args - Arguments to create a TransactionLedger.
+     * @example
+     * // Create one TransactionLedger
+     * const TransactionLedger = await prisma.transactionLedger.create({
+     *   data: {
+     *     // ... data to create a TransactionLedger
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransactionLedgerCreateArgs>(args: SelectSubset<T, TransactionLedgerCreateArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TransactionLedgers.
+     * @param {TransactionLedgerCreateManyArgs} args - Arguments to create many TransactionLedgers.
+     * @example
+     * // Create many TransactionLedgers
+     * const transactionLedger = await prisma.transactionLedger.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransactionLedgerCreateManyArgs>(args?: SelectSubset<T, TransactionLedgerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TransactionLedgers and returns the data saved in the database.
+     * @param {TransactionLedgerCreateManyAndReturnArgs} args - Arguments to create many TransactionLedgers.
+     * @example
+     * // Create many TransactionLedgers
+     * const transactionLedger = await prisma.transactionLedger.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TransactionLedgers and only return the `id`
+     * const transactionLedgerWithIdOnly = await prisma.transactionLedger.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransactionLedgerCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionLedgerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TransactionLedger.
+     * @param {TransactionLedgerDeleteArgs} args - Arguments to delete one TransactionLedger.
+     * @example
+     * // Delete one TransactionLedger
+     * const TransactionLedger = await prisma.transactionLedger.delete({
+     *   where: {
+     *     // ... filter to delete one TransactionLedger
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransactionLedgerDeleteArgs>(args: SelectSubset<T, TransactionLedgerDeleteArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TransactionLedger.
+     * @param {TransactionLedgerUpdateArgs} args - Arguments to update one TransactionLedger.
+     * @example
+     * // Update one TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransactionLedgerUpdateArgs>(args: SelectSubset<T, TransactionLedgerUpdateArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TransactionLedgers.
+     * @param {TransactionLedgerDeleteManyArgs} args - Arguments to filter TransactionLedgers to delete.
+     * @example
+     * // Delete a few TransactionLedgers
+     * const { count } = await prisma.transactionLedger.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransactionLedgerDeleteManyArgs>(args?: SelectSubset<T, TransactionLedgerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TransactionLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TransactionLedgers
+     * const transactionLedger = await prisma.transactionLedger.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransactionLedgerUpdateManyArgs>(args: SelectSubset<T, TransactionLedgerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TransactionLedger.
+     * @param {TransactionLedgerUpsertArgs} args - Arguments to update or create a TransactionLedger.
+     * @example
+     * // Update or create a TransactionLedger
+     * const transactionLedger = await prisma.transactionLedger.upsert({
+     *   create: {
+     *     // ... data to create a TransactionLedger
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TransactionLedger we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransactionLedgerUpsertArgs>(args: SelectSubset<T, TransactionLedgerUpsertArgs<ExtArgs>>): Prisma__TransactionLedgerClient<$Result.GetResult<Prisma.$TransactionLedgerPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TransactionLedgers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerCountArgs} args - Arguments to filter TransactionLedgers to count.
+     * @example
+     * // Count the number of TransactionLedgers
+     * const count = await prisma.transactionLedger.count({
+     *   where: {
+     *     // ... the filter for the TransactionLedgers we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransactionLedgerCountArgs>(
+      args?: Subset<T, TransactionLedgerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransactionLedgerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TransactionLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransactionLedgerAggregateArgs>(args: Subset<T, TransactionLedgerAggregateArgs>): Prisma.PrismaPromise<GetTransactionLedgerAggregateType<T>>
+
+    /**
+     * Group by TransactionLedger.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionLedgerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransactionLedgerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransactionLedgerGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionLedgerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransactionLedgerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionLedgerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TransactionLedger model
+   */
+  readonly fields: TransactionLedgerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TransactionLedger.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransactionLedgerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    actor<T extends TransactionLedger$actorArgs<ExtArgs> = {}>(args?: Subset<T, TransactionLedger$actorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TransactionLedger model
+   */ 
+  interface TransactionLedgerFieldRefs {
+    readonly id: FieldRef<"TransactionLedger", 'String'>
+    readonly tenantId: FieldRef<"TransactionLedger", 'String'>
+    readonly transactionType: FieldRef<"TransactionLedger", 'String'>
+    readonly referenceType: FieldRef<"TransactionLedger", 'String'>
+    readonly referenceId: FieldRef<"TransactionLedger", 'String'>
+    readonly debitAccount: FieldRef<"TransactionLedger", 'String'>
+    readonly creditAccount: FieldRef<"TransactionLedger", 'String'>
+    readonly amount: FieldRef<"TransactionLedger", 'Decimal'>
+    readonly currency: FieldRef<"TransactionLedger", 'String'>
+    readonly description: FieldRef<"TransactionLedger", 'String'>
+    readonly actorUserId: FieldRef<"TransactionLedger", 'String'>
+    readonly ipAddress: FieldRef<"TransactionLedger", 'String'>
+    readonly checksum: FieldRef<"TransactionLedger", 'String'>
+    readonly previousChecksum: FieldRef<"TransactionLedger", 'String'>
+    readonly status: FieldRef<"TransactionLedger", 'String'>
+    readonly voidedByEntryId: FieldRef<"TransactionLedger", 'String'>
+    readonly createdAt: FieldRef<"TransactionLedger", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TransactionLedger findUnique
+   */
+  export type TransactionLedgerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which TransactionLedger to fetch.
+     */
+    where: TransactionLedgerWhereUniqueInput
+  }
+
+  /**
+   * TransactionLedger findUniqueOrThrow
+   */
+  export type TransactionLedgerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which TransactionLedger to fetch.
+     */
+    where: TransactionLedgerWhereUniqueInput
+  }
+
+  /**
+   * TransactionLedger findFirst
+   */
+  export type TransactionLedgerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which TransactionLedger to fetch.
+     */
+    where?: TransactionLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransactionLedgers to fetch.
+     */
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransactionLedgers.
+     */
+    cursor?: TransactionLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransactionLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransactionLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransactionLedgers.
+     */
+    distinct?: TransactionLedgerScalarFieldEnum | TransactionLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * TransactionLedger findFirstOrThrow
+   */
+  export type TransactionLedgerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which TransactionLedger to fetch.
+     */
+    where?: TransactionLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransactionLedgers to fetch.
+     */
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransactionLedgers.
+     */
+    cursor?: TransactionLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransactionLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransactionLedgers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransactionLedgers.
+     */
+    distinct?: TransactionLedgerScalarFieldEnum | TransactionLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * TransactionLedger findMany
+   */
+  export type TransactionLedgerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter, which TransactionLedgers to fetch.
+     */
+    where?: TransactionLedgerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransactionLedgers to fetch.
+     */
+    orderBy?: TransactionLedgerOrderByWithRelationInput | TransactionLedgerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TransactionLedgers.
+     */
+    cursor?: TransactionLedgerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransactionLedgers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransactionLedgers.
+     */
+    skip?: number
+    distinct?: TransactionLedgerScalarFieldEnum | TransactionLedgerScalarFieldEnum[]
+  }
+
+  /**
+   * TransactionLedger create
+   */
+  export type TransactionLedgerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TransactionLedger.
+     */
+    data: XOR<TransactionLedgerCreateInput, TransactionLedgerUncheckedCreateInput>
+  }
+
+  /**
+   * TransactionLedger createMany
+   */
+  export type TransactionLedgerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TransactionLedgers.
+     */
+    data: TransactionLedgerCreateManyInput | TransactionLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TransactionLedger createManyAndReturn
+   */
+  export type TransactionLedgerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TransactionLedgers.
+     */
+    data: TransactionLedgerCreateManyInput | TransactionLedgerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TransactionLedger update
+   */
+  export type TransactionLedgerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TransactionLedger.
+     */
+    data: XOR<TransactionLedgerUpdateInput, TransactionLedgerUncheckedUpdateInput>
+    /**
+     * Choose, which TransactionLedger to update.
+     */
+    where: TransactionLedgerWhereUniqueInput
+  }
+
+  /**
+   * TransactionLedger updateMany
+   */
+  export type TransactionLedgerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TransactionLedgers.
+     */
+    data: XOR<TransactionLedgerUpdateManyMutationInput, TransactionLedgerUncheckedUpdateManyInput>
+    /**
+     * Filter which TransactionLedgers to update
+     */
+    where?: TransactionLedgerWhereInput
+  }
+
+  /**
+   * TransactionLedger upsert
+   */
+  export type TransactionLedgerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TransactionLedger to update in case it exists.
+     */
+    where: TransactionLedgerWhereUniqueInput
+    /**
+     * In case the TransactionLedger found by the `where` argument doesn't exist, create a new TransactionLedger with this data.
+     */
+    create: XOR<TransactionLedgerCreateInput, TransactionLedgerUncheckedCreateInput>
+    /**
+     * In case the TransactionLedger was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransactionLedgerUpdateInput, TransactionLedgerUncheckedUpdateInput>
+  }
+
+  /**
+   * TransactionLedger delete
+   */
+  export type TransactionLedgerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+    /**
+     * Filter which TransactionLedger to delete.
+     */
+    where: TransactionLedgerWhereUniqueInput
+  }
+
+  /**
+   * TransactionLedger deleteMany
+   */
+  export type TransactionLedgerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransactionLedgers to delete
+     */
+    where?: TransactionLedgerWhereInput
+  }
+
+  /**
+   * TransactionLedger.actor
+   */
+  export type TransactionLedger$actorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * TransactionLedger without action
+   */
+  export type TransactionLedgerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransactionLedger
+     */
+    select?: TransactionLedgerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionLedgerInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -120921,6 +122205,29 @@ export namespace Prisma {
   export type CommunicationLogScalarFieldEnum = (typeof CommunicationLogScalarFieldEnum)[keyof typeof CommunicationLogScalarFieldEnum]
 
 
+  export const TransactionLedgerScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    transactionType: 'transactionType',
+    referenceType: 'referenceType',
+    referenceId: 'referenceId',
+    debitAccount: 'debitAccount',
+    creditAccount: 'creditAccount',
+    amount: 'amount',
+    currency: 'currency',
+    description: 'description',
+    actorUserId: 'actorUserId',
+    ipAddress: 'ipAddress',
+    checksum: 'checksum',
+    previousChecksum: 'previousChecksum',
+    status: 'status',
+    voidedByEntryId: 'voidedByEntryId',
+    createdAt: 'createdAt'
+  };
+
+  export type TransactionLedgerScalarFieldEnum = (typeof TransactionLedgerScalarFieldEnum)[keyof typeof TransactionLedgerScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -121062,6 +122369,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberListRelationFilter
     assignedTasks?: StaffTaskListRelationFilter
     carePlansAuthored?: CarePlanListRelationFilter
+    ledgerEntries?: TransactionLedgerListRelationFilter
     assessments?: ClinicalAssessmentListRelationFilter
     medicationRecons?: MedicationReconListRelationFilter
     supervisionLogs?: SupervisionLogListRelationFilter
@@ -121106,6 +122414,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberOrderByRelationAggregateInput
     assignedTasks?: StaffTaskOrderByRelationAggregateInput
     carePlansAuthored?: CarePlanOrderByRelationAggregateInput
+    ledgerEntries?: TransactionLedgerOrderByRelationAggregateInput
     assessments?: ClinicalAssessmentOrderByRelationAggregateInput
     medicationRecons?: MedicationReconOrderByRelationAggregateInput
     supervisionLogs?: SupervisionLogOrderByRelationAggregateInput
@@ -121153,6 +122462,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberListRelationFilter
     assignedTasks?: StaffTaskListRelationFilter
     carePlansAuthored?: CarePlanListRelationFilter
+    ledgerEntries?: TransactionLedgerListRelationFilter
     assessments?: ClinicalAssessmentListRelationFilter
     medicationRecons?: MedicationReconListRelationFilter
     supervisionLogs?: SupervisionLogListRelationFilter
@@ -121282,6 +122592,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileListRelationFilter
     aiInferences?: AIInferenceListRelationFilter
     communicationLogs?: CommunicationLogListRelationFilter
+    transactionLedger?: TransactionLedgerListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -121385,6 +122696,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileOrderByRelationAggregateInput
     aiInferences?: AIInferenceOrderByRelationAggregateInput
     communicationLogs?: CommunicationLogOrderByRelationAggregateInput
+    transactionLedger?: TransactionLedgerOrderByRelationAggregateInput
     parentTenant?: TenantOrderByWithRelationInput
     childTenants?: TenantOrderByRelationAggregateInput
     franchises?: FranchiseOrderByRelationAggregateInput
@@ -121491,6 +122803,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileListRelationFilter
     aiInferences?: AIInferenceListRelationFilter
     communicationLogs?: CommunicationLogListRelationFilter
+    transactionLedger?: TransactionLedgerListRelationFilter
     parentTenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     childTenants?: TenantListRelationFilter
     franchises?: FranchiseListRelationFilter
@@ -129895,6 +131208,126 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"CommunicationLog"> | Date | string
   }
 
+  export type TransactionLedgerWhereInput = {
+    AND?: TransactionLedgerWhereInput | TransactionLedgerWhereInput[]
+    OR?: TransactionLedgerWhereInput[]
+    NOT?: TransactionLedgerWhereInput | TransactionLedgerWhereInput[]
+    id?: StringFilter<"TransactionLedger"> | string
+    tenantId?: StringFilter<"TransactionLedger"> | string
+    transactionType?: StringFilter<"TransactionLedger"> | string
+    referenceType?: StringFilter<"TransactionLedger"> | string
+    referenceId?: StringFilter<"TransactionLedger"> | string
+    debitAccount?: StringFilter<"TransactionLedger"> | string
+    creditAccount?: StringFilter<"TransactionLedger"> | string
+    amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"TransactionLedger"> | string
+    description?: StringNullableFilter<"TransactionLedger"> | string | null
+    actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
+    ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
+    checksum?: StringFilter<"TransactionLedger"> | string
+    previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
+    status?: StringFilter<"TransactionLedger"> | string
+    voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }
+
+  export type TransactionLedgerOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debitAccount?: SortOrder
+    creditAccount?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    description?: SortOrderInput | SortOrder
+    actorUserId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrderInput | SortOrder
+    status?: SortOrder
+    voidedByEntryId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    actor?: UserOrderByWithRelationInput
+  }
+
+  export type TransactionLedgerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TransactionLedgerWhereInput | TransactionLedgerWhereInput[]
+    OR?: TransactionLedgerWhereInput[]
+    NOT?: TransactionLedgerWhereInput | TransactionLedgerWhereInput[]
+    tenantId?: StringFilter<"TransactionLedger"> | string
+    transactionType?: StringFilter<"TransactionLedger"> | string
+    referenceType?: StringFilter<"TransactionLedger"> | string
+    referenceId?: StringFilter<"TransactionLedger"> | string
+    debitAccount?: StringFilter<"TransactionLedger"> | string
+    creditAccount?: StringFilter<"TransactionLedger"> | string
+    amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"TransactionLedger"> | string
+    description?: StringNullableFilter<"TransactionLedger"> | string | null
+    actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
+    ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
+    checksum?: StringFilter<"TransactionLedger"> | string
+    previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
+    status?: StringFilter<"TransactionLedger"> | string
+    voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    actor?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type TransactionLedgerOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debitAccount?: SortOrder
+    creditAccount?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    description?: SortOrderInput | SortOrder
+    actorUserId?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrderInput | SortOrder
+    status?: SortOrder
+    voidedByEntryId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: TransactionLedgerCountOrderByAggregateInput
+    _avg?: TransactionLedgerAvgOrderByAggregateInput
+    _max?: TransactionLedgerMaxOrderByAggregateInput
+    _min?: TransactionLedgerMinOrderByAggregateInput
+    _sum?: TransactionLedgerSumOrderByAggregateInput
+  }
+
+  export type TransactionLedgerScalarWhereWithAggregatesInput = {
+    AND?: TransactionLedgerScalarWhereWithAggregatesInput | TransactionLedgerScalarWhereWithAggregatesInput[]
+    OR?: TransactionLedgerScalarWhereWithAggregatesInput[]
+    NOT?: TransactionLedgerScalarWhereWithAggregatesInput | TransactionLedgerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    tenantId?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    transactionType?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    referenceType?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    referenceId?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    debitAccount?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    creditAccount?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    amount?: DecimalWithAggregatesFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    description?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    actorUserId?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    checksum?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    previousChecksum?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    status?: StringWithAggregatesFilter<"TransactionLedger"> | string
+    voidedByEntryId?: StringNullableWithAggregatesFilter<"TransactionLedger"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TransactionLedger"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -129923,6 +131356,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -129966,6 +131400,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -130009,6 +131444,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -130052,6 +131488,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -130186,6 +131623,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -130289,6 +131727,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -130390,6 +131829,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -130493,6 +131933,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -139483,6 +140924,144 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionLedgerCreateInput = {
+    id?: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransactionLedgerInput
+    actor?: UserCreateNestedOneWithoutLedgerEntriesInput
+  }
+
+  export type TransactionLedgerUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    actorUserId?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransactionLedgerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransactionLedgerNestedInput
+    actor?: UserUpdateOneWithoutLedgerEntriesNestedInput
+  }
+
+  export type TransactionLedgerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionLedgerCreateManyInput = {
+    id?: string
+    tenantId: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    actorUserId?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransactionLedgerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionLedgerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -139622,6 +141201,12 @@ export namespace Prisma {
     none?: CarePlanWhereInput
   }
 
+  export type TransactionLedgerListRelationFilter = {
+    every?: TransactionLedgerWhereInput
+    some?: TransactionLedgerWhereInput
+    none?: TransactionLedgerWhereInput
+  }
+
   export type ClinicalAssessmentListRelationFilter = {
     every?: ClinicalAssessmentWhereInput
     some?: ClinicalAssessmentWhereInput
@@ -139743,6 +141328,10 @@ export namespace Prisma {
   }
 
   export type CarePlanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionLedgerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -145252,6 +146841,74 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type TransactionLedgerCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debitAccount?: SortOrder
+    creditAccount?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    description?: SortOrder
+    actorUserId?: SortOrder
+    ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
+    status?: SortOrder
+    voidedByEntryId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TransactionLedgerAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type TransactionLedgerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debitAccount?: SortOrder
+    creditAccount?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    description?: SortOrder
+    actorUserId?: SortOrder
+    ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
+    status?: SortOrder
+    voidedByEntryId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TransactionLedgerMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionType?: SortOrder
+    referenceType?: SortOrder
+    referenceId?: SortOrder
+    debitAccount?: SortOrder
+    creditAccount?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    description?: SortOrder
+    actorUserId?: SortOrder
+    ipAddress?: SortOrder
+    checksum?: SortOrder
+    previousChecksum?: SortOrder
+    status?: SortOrder
+    voidedByEntryId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TransactionLedgerSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
   export type AuditLogCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -145352,6 +147009,13 @@ export namespace Prisma {
     connectOrCreate?: CarePlanCreateOrConnectWithoutAuthorInput | CarePlanCreateOrConnectWithoutAuthorInput[]
     createMany?: CarePlanCreateManyAuthorInputEnvelope
     connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+  }
+
+  export type TransactionLedgerCreateNestedManyWithoutActorInput = {
+    create?: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput> | TransactionLedgerCreateWithoutActorInput[] | TransactionLedgerUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutActorInput | TransactionLedgerCreateOrConnectWithoutActorInput[]
+    createMany?: TransactionLedgerCreateManyActorInputEnvelope
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
   }
 
   export type ClinicalAssessmentCreateNestedManyWithoutRnInput = {
@@ -145538,6 +147202,13 @@ export namespace Prisma {
     connectOrCreate?: CarePlanCreateOrConnectWithoutAuthorInput | CarePlanCreateOrConnectWithoutAuthorInput[]
     createMany?: CarePlanCreateManyAuthorInputEnvelope
     connect?: CarePlanWhereUniqueInput | CarePlanWhereUniqueInput[]
+  }
+
+  export type TransactionLedgerUncheckedCreateNestedManyWithoutActorInput = {
+    create?: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput> | TransactionLedgerCreateWithoutActorInput[] | TransactionLedgerUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutActorInput | TransactionLedgerCreateOrConnectWithoutActorInput[]
+    createMany?: TransactionLedgerCreateManyActorInputEnvelope
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
   }
 
   export type ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput = {
@@ -145840,6 +147511,20 @@ export namespace Prisma {
     update?: CarePlanUpdateWithWhereUniqueWithoutAuthorInput | CarePlanUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: CarePlanUpdateManyWithWhereWithoutAuthorInput | CarePlanUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
+  export type TransactionLedgerUpdateManyWithoutActorNestedInput = {
+    create?: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput> | TransactionLedgerCreateWithoutActorInput[] | TransactionLedgerUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutActorInput | TransactionLedgerCreateOrConnectWithoutActorInput[]
+    upsert?: TransactionLedgerUpsertWithWhereUniqueWithoutActorInput | TransactionLedgerUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: TransactionLedgerCreateManyActorInputEnvelope
+    set?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    disconnect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    delete?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    update?: TransactionLedgerUpdateWithWhereUniqueWithoutActorInput | TransactionLedgerUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: TransactionLedgerUpdateManyWithWhereWithoutActorInput | TransactionLedgerUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
   }
 
   export type ClinicalAssessmentUpdateManyWithoutRnNestedInput = {
@@ -146206,6 +147891,20 @@ export namespace Prisma {
     update?: CarePlanUpdateWithWhereUniqueWithoutAuthorInput | CarePlanUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: CarePlanUpdateManyWithWhereWithoutAuthorInput | CarePlanUpdateManyWithWhereWithoutAuthorInput[]
     deleteMany?: CarePlanScalarWhereInput | CarePlanScalarWhereInput[]
+  }
+
+  export type TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput = {
+    create?: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput> | TransactionLedgerCreateWithoutActorInput[] | TransactionLedgerUncheckedCreateWithoutActorInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutActorInput | TransactionLedgerCreateOrConnectWithoutActorInput[]
+    upsert?: TransactionLedgerUpsertWithWhereUniqueWithoutActorInput | TransactionLedgerUpsertWithWhereUniqueWithoutActorInput[]
+    createMany?: TransactionLedgerCreateManyActorInputEnvelope
+    set?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    disconnect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    delete?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    update?: TransactionLedgerUpdateWithWhereUniqueWithoutActorInput | TransactionLedgerUpdateWithWhereUniqueWithoutActorInput[]
+    updateMany?: TransactionLedgerUpdateManyWithWhereWithoutActorInput | TransactionLedgerUpdateManyWithWhereWithoutActorInput[]
+    deleteMany?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
   }
 
   export type ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput = {
@@ -146734,6 +148433,13 @@ export namespace Prisma {
     connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
     createMany?: CommunicationLogCreateManyTenantInputEnvelope
     connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+  }
+
+  export type TransactionLedgerCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput> | TransactionLedgerCreateWithoutTenantInput[] | TransactionLedgerUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutTenantInput | TransactionLedgerCreateOrConnectWithoutTenantInput[]
+    createMany?: TransactionLedgerCreateManyTenantInputEnvelope
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
   }
 
   export type TenantCreateNestedOneWithoutChildTenantsInput = {
@@ -147279,6 +148985,13 @@ export namespace Prisma {
     connectOrCreate?: CommunicationLogCreateOrConnectWithoutTenantInput | CommunicationLogCreateOrConnectWithoutTenantInput[]
     createMany?: CommunicationLogCreateManyTenantInputEnvelope
     connect?: CommunicationLogWhereUniqueInput | CommunicationLogWhereUniqueInput[]
+  }
+
+  export type TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput> | TransactionLedgerCreateWithoutTenantInput[] | TransactionLedgerUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutTenantInput | TransactionLedgerCreateOrConnectWithoutTenantInput[]
+    createMany?: TransactionLedgerCreateManyTenantInputEnvelope
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
   }
 
   export type TenantUncheckedCreateNestedManyWithoutParentTenantInput = {
@@ -148188,6 +149901,20 @@ export namespace Prisma {
     update?: CommunicationLogUpdateWithWhereUniqueWithoutTenantInput | CommunicationLogUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CommunicationLogUpdateManyWithWhereWithoutTenantInput | CommunicationLogUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
+  }
+
+  export type TransactionLedgerUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput> | TransactionLedgerCreateWithoutTenantInput[] | TransactionLedgerUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutTenantInput | TransactionLedgerCreateOrConnectWithoutTenantInput[]
+    upsert?: TransactionLedgerUpsertWithWhereUniqueWithoutTenantInput | TransactionLedgerUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TransactionLedgerCreateManyTenantInputEnvelope
+    set?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    disconnect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    delete?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    update?: TransactionLedgerUpdateWithWhereUniqueWithoutTenantInput | TransactionLedgerUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TransactionLedgerUpdateManyWithWhereWithoutTenantInput | TransactionLedgerUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
   }
 
   export type TenantUpdateOneWithoutChildTenantsNestedInput = {
@@ -149276,6 +151003,20 @@ export namespace Prisma {
     update?: CommunicationLogUpdateWithWhereUniqueWithoutTenantInput | CommunicationLogUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: CommunicationLogUpdateManyWithWhereWithoutTenantInput | CommunicationLogUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: CommunicationLogScalarWhereInput | CommunicationLogScalarWhereInput[]
+  }
+
+  export type TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput> | TransactionLedgerCreateWithoutTenantInput[] | TransactionLedgerUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransactionLedgerCreateOrConnectWithoutTenantInput | TransactionLedgerCreateOrConnectWithoutTenantInput[]
+    upsert?: TransactionLedgerUpsertWithWhereUniqueWithoutTenantInput | TransactionLedgerUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TransactionLedgerCreateManyTenantInputEnvelope
+    set?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    disconnect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    delete?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    connect?: TransactionLedgerWhereUniqueInput | TransactionLedgerWhereUniqueInput[]
+    update?: TransactionLedgerUpdateWithWhereUniqueWithoutTenantInput | TransactionLedgerUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TransactionLedgerUpdateManyWithWhereWithoutTenantInput | TransactionLedgerUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantNestedInput = {
@@ -155368,6 +157109,36 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCommunicationLogsInput, TenantUpdateWithoutCommunicationLogsInput>, TenantUncheckedUpdateWithoutCommunicationLogsInput>
   }
 
+  export type TenantCreateNestedOneWithoutTransactionLedgerInput = {
+    create?: XOR<TenantCreateWithoutTransactionLedgerInput, TenantUncheckedCreateWithoutTransactionLedgerInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTransactionLedgerInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLedgerEntriesInput = {
+    create?: XOR<UserCreateWithoutLedgerEntriesInput, UserUncheckedCreateWithoutLedgerEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLedgerEntriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutTransactionLedgerNestedInput = {
+    create?: XOR<TenantCreateWithoutTransactionLedgerInput, TenantUncheckedCreateWithoutTransactionLedgerInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTransactionLedgerInput
+    upsert?: TenantUpsertWithoutTransactionLedgerInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTransactionLedgerInput, TenantUpdateWithoutTransactionLedgerInput>, TenantUncheckedUpdateWithoutTransactionLedgerInput>
+  }
+
+  export type UserUpdateOneWithoutLedgerEntriesNestedInput = {
+    create?: XOR<UserCreateWithoutLedgerEntriesInput, UserUncheckedCreateWithoutLedgerEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLedgerEntriesInput
+    upsert?: UserUpsertWithoutLedgerEntriesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLedgerEntriesInput, UserUpdateWithoutLedgerEntriesInput>, UserUncheckedUpdateWithoutLedgerEntriesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -156195,6 +157966,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -156297,6 +158069,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -156478,6 +158251,54 @@ export namespace Prisma {
 
   export type CarePlanCreateManyAuthorInputEnvelope = {
     data: CarePlanCreateManyAuthorInput | CarePlanCreateManyAuthorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionLedgerCreateWithoutActorInput = {
+    id?: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransactionLedgerInput
+  }
+
+  export type TransactionLedgerUncheckedCreateWithoutActorInput = {
+    id?: string
+    tenantId: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransactionLedgerCreateOrConnectWithoutActorInput = {
+    where: TransactionLedgerWhereUniqueInput
+    create: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput>
+  }
+
+  export type TransactionLedgerCreateManyActorInputEnvelope = {
+    data: TransactionLedgerCreateManyActorInput | TransactionLedgerCreateManyActorInput[]
     skipDuplicates?: boolean
   }
 
@@ -157443,6 +159264,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -157545,6 +159367,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -157707,6 +159530,45 @@ export namespace Prisma {
     version?: IntFilter<"CarePlan"> | number
     isArchived?: BoolFilter<"CarePlan"> | boolean
     outcomeNotes?: StringNullableFilter<"CarePlan"> | string | null
+  }
+
+  export type TransactionLedgerUpsertWithWhereUniqueWithoutActorInput = {
+    where: TransactionLedgerWhereUniqueInput
+    update: XOR<TransactionLedgerUpdateWithoutActorInput, TransactionLedgerUncheckedUpdateWithoutActorInput>
+    create: XOR<TransactionLedgerCreateWithoutActorInput, TransactionLedgerUncheckedCreateWithoutActorInput>
+  }
+
+  export type TransactionLedgerUpdateWithWhereUniqueWithoutActorInput = {
+    where: TransactionLedgerWhereUniqueInput
+    data: XOR<TransactionLedgerUpdateWithoutActorInput, TransactionLedgerUncheckedUpdateWithoutActorInput>
+  }
+
+  export type TransactionLedgerUpdateManyWithWhereWithoutActorInput = {
+    where: TransactionLedgerScalarWhereInput
+    data: XOR<TransactionLedgerUpdateManyMutationInput, TransactionLedgerUncheckedUpdateManyWithoutActorInput>
+  }
+
+  export type TransactionLedgerScalarWhereInput = {
+    AND?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
+    OR?: TransactionLedgerScalarWhereInput[]
+    NOT?: TransactionLedgerScalarWhereInput | TransactionLedgerScalarWhereInput[]
+    id?: StringFilter<"TransactionLedger"> | string
+    tenantId?: StringFilter<"TransactionLedger"> | string
+    transactionType?: StringFilter<"TransactionLedger"> | string
+    referenceType?: StringFilter<"TransactionLedger"> | string
+    referenceId?: StringFilter<"TransactionLedger"> | string
+    debitAccount?: StringFilter<"TransactionLedger"> | string
+    creditAccount?: StringFilter<"TransactionLedger"> | string
+    amount?: DecimalFilter<"TransactionLedger"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"TransactionLedger"> | string
+    description?: StringNullableFilter<"TransactionLedger"> | string | null
+    actorUserId?: StringNullableFilter<"TransactionLedger"> | string | null
+    ipAddress?: StringNullableFilter<"TransactionLedger"> | string | null
+    checksum?: StringFilter<"TransactionLedger"> | string
+    previousChecksum?: StringNullableFilter<"TransactionLedger"> | string | null
+    status?: StringFilter<"TransactionLedger"> | string
+    voidedByEntryId?: StringNullableFilter<"TransactionLedger"> | string | null
+    createdAt?: DateTimeFilter<"TransactionLedger"> | Date | string
   }
 
   export type ClinicalAssessmentUpsertWithWhereUniqueWithoutRnInput = {
@@ -158739,6 +160601,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -158781,6 +160644,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -159984,6 +161848,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TransactionLedgerCreateWithoutTenantInput = {
+    id?: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+    actor?: UserCreateNestedOneWithoutLedgerEntriesInput
+  }
+
+  export type TransactionLedgerUncheckedCreateWithoutTenantInput = {
+    id?: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    actorUserId?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TransactionLedgerCreateOrConnectWithoutTenantInput = {
+    where: TransactionLedgerWhereUniqueInput
+    create: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TransactionLedgerCreateManyTenantInputEnvelope = {
+    data: TransactionLedgerCreateManyTenantInput | TransactionLedgerCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantCreateWithoutChildTenantsInput = {
     id?: string
     name: string
@@ -160056,6 +161968,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -160158,6 +162071,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -160263,6 +162177,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -160364,6 +162279,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -162696,6 +164612,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CommunicationLog"> | Date | string
   }
 
+  export type TransactionLedgerUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TransactionLedgerWhereUniqueInput
+    update: XOR<TransactionLedgerUpdateWithoutTenantInput, TransactionLedgerUncheckedUpdateWithoutTenantInput>
+    create: XOR<TransactionLedgerCreateWithoutTenantInput, TransactionLedgerUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TransactionLedgerUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TransactionLedgerWhereUniqueInput
+    data: XOR<TransactionLedgerUpdateWithoutTenantInput, TransactionLedgerUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TransactionLedgerUpdateManyWithWhereWithoutTenantInput = {
+    where: TransactionLedgerScalarWhereInput
+    data: XOR<TransactionLedgerUpdateManyMutationInput, TransactionLedgerUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantUpsertWithoutChildTenantsInput = {
     update: XOR<TenantUpdateWithoutChildTenantsInput, TenantUncheckedUpdateWithoutChildTenantsInput>
     create: XOR<TenantCreateWithoutChildTenantsInput, TenantUncheckedCreateWithoutChildTenantsInput>
@@ -162779,6 +164711,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -162881,6 +164814,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -163778,6 +165712,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -163880,6 +165815,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -163996,6 +165932,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -164098,6 +166035,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -164197,6 +166135,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -164299,6 +166238,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -164415,6 +166355,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -164517,6 +166458,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -164655,6 +166597,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -164757,6 +166700,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -164818,6 +166762,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -164860,6 +166805,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -165869,6 +167815,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -165971,6 +167918,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -166038,6 +167986,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -166080,6 +168029,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -166689,6 +168639,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -166791,6 +168742,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -166852,6 +168804,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -166894,6 +168847,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -167563,6 +169517,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -167665,6 +169620,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -167732,6 +169688,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -167774,6 +169731,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -168645,6 +170603,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -168747,6 +170706,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -169359,6 +171319,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -169461,6 +171422,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -169622,6 +171584,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -169724,6 +171687,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -169968,6 +171932,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -170070,6 +172035,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -170158,6 +172124,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -170200,6 +172167,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -170362,6 +172330,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -170464,6 +172433,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -170627,6 +172597,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -170669,6 +172640,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -170843,6 +172815,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -170945,6 +172918,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -171771,6 +173745,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -171813,6 +173788,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -171859,6 +173835,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -171901,6 +173878,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -171992,6 +173970,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -172094,6 +174073,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -172258,6 +174238,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -172300,6 +174281,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -172352,6 +174334,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -172394,6 +174377,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -172491,6 +174475,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -172593,6 +174578,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -172841,6 +174827,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -172883,6 +174870,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -172974,6 +174962,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -173076,6 +175065,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -173241,6 +175231,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -173283,6 +175274,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -173380,6 +175372,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -173482,6 +175475,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -173935,6 +175929,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -174037,6 +176032,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -174280,6 +176276,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -174382,6 +176379,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -174771,6 +176769,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -174873,6 +176872,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -175181,6 +177181,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -175283,6 +177284,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -175339,6 +177341,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -175381,6 +177384,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -175462,6 +177466,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -175504,6 +177509,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -175575,6 +177581,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -175617,6 +177624,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -175708,6 +177716,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -175810,6 +177819,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -175882,6 +177892,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -175924,6 +177935,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -176021,6 +178033,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -176123,6 +178136,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -176224,6 +178238,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -176326,6 +178341,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -176387,6 +178403,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -176429,6 +178446,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -176531,6 +178549,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -176633,6 +178652,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -176700,6 +178720,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -176742,6 +178763,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -176827,6 +178849,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -176929,6 +178952,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -177045,6 +179069,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -177147,6 +179172,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -177340,6 +179366,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -177442,6 +179469,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -177753,6 +179781,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -177855,6 +179884,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -178042,6 +180072,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -178144,6 +180175,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -178337,6 +180369,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -178439,6 +180472,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -178610,6 +180644,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -178712,6 +180747,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -178996,6 +181032,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -179098,6 +181135,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -179251,6 +181289,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -179293,6 +181332,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -179351,6 +181391,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -179393,6 +181434,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -179479,6 +181521,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -179581,6 +181624,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -179667,6 +181711,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -179709,6 +181754,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -179811,6 +181857,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -179913,6 +181960,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -180011,6 +182059,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -180053,6 +182102,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -180140,6 +182190,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -180242,6 +182293,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -180418,6 +182470,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -180520,6 +182573,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -180632,6 +182686,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -180674,6 +182729,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -180763,6 +182819,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -180805,6 +182862,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -180918,6 +182976,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -180960,6 +183019,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -181095,6 +183155,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -181137,6 +183198,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -181272,6 +183334,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -181314,6 +183377,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -181405,6 +183469,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -181507,6 +183572,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -181769,6 +183835,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -181811,6 +183878,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -181908,6 +183976,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -182010,6 +184079,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -182164,6 +184234,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -182206,6 +184277,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -182264,6 +184336,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -182306,6 +184379,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -182392,6 +184466,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -182494,6 +184569,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -182610,6 +184686,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -182712,6 +184789,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -182904,6 +184982,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -183006,6 +185085,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -183312,6 +185392,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -183414,6 +185495,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -183704,6 +185786,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -183806,6 +185889,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -183867,6 +185951,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -183909,6 +185994,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -184110,6 +186196,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -184212,6 +186299,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -184279,6 +186367,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -184321,6 +186410,7 @@ export namespace Prisma {
     VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -184407,6 +186497,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -184509,6 +186600,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -184655,6 +186747,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -184757,6 +186850,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -184947,6 +187041,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -185049,6 +187144,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -185189,6 +187285,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -185291,6 +187388,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -185474,6 +187572,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -185576,6 +187675,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -185722,6 +187822,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -185824,6 +187925,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -186014,6 +188116,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -186116,6 +188219,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -186232,6 +188336,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -186334,6 +188439,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -186434,6 +188540,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -186536,6 +188643,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -186652,6 +188760,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -186754,6 +188863,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -186854,6 +188964,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -186956,6 +189067,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -187072,6 +189184,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -187174,6 +189287,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -187274,6 +189388,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -187376,6 +189491,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -187492,6 +189608,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -187594,6 +189711,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -187694,6 +189812,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -187796,6 +189915,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -187912,6 +190032,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -188014,6 +190135,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -188114,6 +190236,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -188216,6 +190339,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -188332,6 +190456,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -188434,6 +190559,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -188844,6 +190970,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -188946,6 +191073,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -189236,6 +191364,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -189338,6 +191467,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -189566,6 +191696,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -189668,6 +191799,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -189924,6 +192056,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -190026,6 +192159,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -190126,6 +192260,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -190228,6 +192363,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -190344,6 +192480,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -190446,6 +192583,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -190546,6 +192684,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -190648,6 +192787,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -190764,6 +192904,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -190866,6 +193007,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -190967,6 +193109,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
@@ -191069,6 +193212,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
     handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
@@ -191311,6 +193455,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -191413,6 +193558,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
     handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
@@ -191664,6 +193810,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -191766,6 +193913,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -191975,6 +194123,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -192077,6 +194226,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -192303,6 +194453,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -192405,6 +194556,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -192647,6 +194799,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -192749,6 +194902,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -192947,6 +195101,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -193049,6 +195204,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -193203,6 +195359,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -193245,6 +195402,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -193347,6 +195505,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -193449,6 +195608,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -193615,6 +195775,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -193657,6 +195818,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -193935,6 +196097,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -194037,6 +196200,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -194246,6 +196410,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -194348,6 +196513,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -194547,6 +196713,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -194649,6 +196816,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -194797,6 +196965,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -194899,6 +197068,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -195015,6 +197185,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -195117,6 +197288,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -195351,6 +197523,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -195453,6 +197626,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -195739,6 +197913,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -195841,6 +198016,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -196119,6 +198295,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -196221,6 +198398,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -196898,6 +199076,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -197000,6 +199179,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -197290,6 +199470,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -197392,6 +199573,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -197563,6 +199745,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -197665,6 +199848,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -197858,6 +200042,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -197960,6 +200145,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -198131,6 +200317,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -198233,6 +200420,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -198426,6 +200614,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -198528,6 +200717,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -198677,6 +200867,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
@@ -198719,6 +200910,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
@@ -198810,6 +201002,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -198912,6 +201105,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -199083,6 +201277,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
@@ -199125,6 +201320,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
@@ -199222,6 +201418,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -199324,6 +201521,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -199473,6 +201671,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
@@ -199515,6 +201714,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
@@ -199606,6 +201806,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -199708,6 +201909,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -199879,6 +202081,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
@@ -199921,6 +202124,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
@@ -200018,6 +202222,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -200120,6 +202325,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -200247,6 +202453,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
@@ -200289,6 +202496,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
@@ -200380,6 +202588,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -200482,6 +202691,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -200631,6 +202841,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
@@ -200673,6 +202884,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
@@ -200770,6 +202982,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -200872,6 +203085,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -201064,6 +203278,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -201166,6 +203381,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -201381,6 +203597,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -201483,6 +203700,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -201767,6 +203985,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -201869,6 +204088,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -202181,6 +204401,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -202283,6 +204504,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -202340,6 +204562,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -202382,6 +204605,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -202472,6 +204696,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -202574,6 +204799,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -202647,6 +204873,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -202689,6 +204916,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -202785,6 +205013,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -202887,6 +205116,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -203080,6 +205310,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -203182,6 +205413,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -203397,6 +205629,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -203499,6 +205732,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -203556,6 +205790,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -203598,6 +205833,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -203688,6 +205924,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -203790,6 +206027,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -203954,6 +206192,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -203996,6 +206235,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -204092,6 +206332,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -204194,6 +206435,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -204348,6 +206590,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -204390,6 +206633,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -204480,6 +206724,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -204582,6 +206827,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -204655,6 +206901,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -204697,6 +206944,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -204793,6 +207041,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -204895,6 +207144,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -204995,6 +207245,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -205097,6 +207348,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -205213,6 +207465,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -205315,6 +207568,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -205416,6 +207670,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -205518,6 +207773,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -205668,6 +207924,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -205770,6 +208027,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -205886,6 +208144,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -205988,6 +208247,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -206164,6 +208424,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -206266,6 +208527,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -206456,6 +208718,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -206558,6 +208821,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -206744,6 +209008,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -206846,6 +209111,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -207006,6 +209272,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -207108,6 +209375,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -207296,6 +209564,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -207398,6 +209667,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -207498,6 +209768,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -207600,6 +209871,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -207742,6 +210014,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -207844,6 +210117,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -207960,6 +210234,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -208062,6 +210337,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -208178,6 +210454,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -208280,6 +210557,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -208473,6 +210751,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -208575,6 +210854,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -208790,6 +211070,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -208892,6 +211173,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -209085,6 +211367,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -209187,6 +211470,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -209402,6 +211686,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -209504,6 +211789,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -209675,6 +211961,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -209777,6 +212064,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -209970,6 +212258,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -210072,6 +212361,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -210172,6 +212462,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -210274,6 +212565,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -210390,6 +212682,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -210492,6 +212785,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -210685,6 +212979,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -210787,6 +213082,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -211002,6 +213298,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -211104,6 +213401,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -211231,6 +213529,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -211273,6 +213572,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -211364,6 +213664,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -211466,6 +213767,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -211615,6 +213917,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -211657,6 +213960,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -211754,6 +214058,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -211856,6 +214161,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -211986,6 +214292,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -212088,6 +214395,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -212234,6 +214542,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -212336,6 +214645,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -212503,6 +214813,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -212605,6 +214916,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -212667,6 +214979,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -212709,6 +215022,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -212810,6 +215124,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -212912,6 +215227,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -212980,6 +215296,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -213022,6 +215339,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -213107,6 +215425,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -213209,6 +215528,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -213271,6 +215591,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -213313,6 +215634,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -213414,6 +215736,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -213516,6 +215839,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -213584,6 +215908,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -213626,6 +215951,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -213711,6 +216037,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -213813,6 +216140,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -213875,6 +216203,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
@@ -213917,6 +216246,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
     assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
     carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
     assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
     medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
     supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
@@ -214018,6 +216348,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -214120,6 +216451,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -214188,6 +216520,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -214230,6 +216563,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -214315,6 +216649,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -214417,6 +216752,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -214533,6 +216869,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -214635,6 +216972,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -214735,6 +217073,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
     parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
     childTenants?: TenantCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseCreateNestedManyWithoutResellerInput
@@ -214837,6 +217176,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
     gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
     aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
     childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
     franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
     marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
@@ -214953,6 +217293,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
@@ -215055,6 +217396,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -215082,6 +217424,618 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutTransactionLedgerInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutTransactionLedgerInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: string | null
+    brandingConfig?: string | null
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: string
+    corsAllowedMethods: string
+    corsAllowedHeaders: string
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutTransactionLedgerInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutTransactionLedgerInput, TenantUncheckedCreateWithoutTransactionLedgerInput>
+  }
+
+  export type UserCreateWithoutLedgerEntriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLedgerEntriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLedgerEntriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLedgerEntriesInput, UserUncheckedCreateWithoutLedgerEntriesInput>
+  }
+
+  export type TenantUpsertWithoutTransactionLedgerInput = {
+    update: XOR<TenantUpdateWithoutTransactionLedgerInput, TenantUncheckedUpdateWithoutTransactionLedgerInput>
+    create: XOR<TenantCreateWithoutTransactionLedgerInput, TenantUncheckedCreateWithoutTransactionLedgerInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutTransactionLedgerInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutTransactionLedgerInput, TenantUncheckedUpdateWithoutTransactionLedgerInput>
+  }
+
+  export type TenantUpdateWithoutTransactionLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutTransactionLedgerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableStringFieldUpdateOperationsInput | string | null
+    brandingConfig?: NullableStringFieldUpdateOperationsInput | string | null
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: StringFieldUpdateOperationsInput | string
+    corsAllowedMethods?: StringFieldUpdateOperationsInput | string
+    corsAllowedHeaders?: StringFieldUpdateOperationsInput | string
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutLedgerEntriesInput = {
+    update: XOR<UserUpdateWithoutLedgerEntriesInput, UserUncheckedUpdateWithoutLedgerEntriesInput>
+    create: XOR<UserCreateWithoutLedgerEntriesInput, UserUncheckedCreateWithoutLedgerEntriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLedgerEntriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLedgerEntriesInput, UserUncheckedUpdateWithoutLedgerEntriesInput>
+  }
+
+  export type UserUpdateWithoutLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLedgerEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -215242,6 +218196,25 @@ export namespace Prisma {
     version?: number
     isArchived?: boolean
     outcomeNotes?: string | null
+  }
+
+  export type TransactionLedgerCreateManyActorInput = {
+    id?: string
+    tenantId: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
   }
 
   export type ClinicalAssessmentCreateManyRnInput = {
@@ -215872,6 +218845,63 @@ export namespace Prisma {
     version?: IntFieldUpdateOperationsInput | number
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     outcomeNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionLedgerUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransactionLedgerNestedInput
+  }
+
+  export type TransactionLedgerUncheckedUpdateWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionLedgerUncheckedUpdateManyWithoutActorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicalAssessmentUpdateWithoutRnInput = {
@@ -216916,6 +219946,25 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type TransactionLedgerCreateManyTenantInput = {
+    id?: string
+    transactionType: string
+    referenceType: string
+    referenceId: string
+    debitAccount: string
+    creditAccount: string
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    description?: string | null
+    actorUserId?: string | null
+    ipAddress?: string | null
+    checksum?: string
+    previousChecksum?: string | null
+    status?: string
+    voidedByEntryId?: string | null
+    createdAt?: Date | string
+  }
+
   export type TenantCreateManyParentTenantInput = {
     id?: string
     name: string
@@ -217937,6 +220986,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
@@ -217979,6 +221029,7 @@ export namespace Prisma {
     StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
     assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
     carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
     assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
     medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
     supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
@@ -219234,6 +222285,63 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionLedgerUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    actor?: UserUpdateOneWithoutLedgerEntriesNestedInput
+  }
+
+  export type TransactionLedgerUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionLedgerUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionType?: StringFieldUpdateOperationsInput | string
+    referenceType?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    debitAccount?: StringFieldUpdateOperationsInput | string
+    creditAccount?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    actorUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    checksum?: StringFieldUpdateOperationsInput | string
+    previousChecksum?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    voidedByEntryId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantUpdateWithoutParentTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -219306,6 +222414,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
@@ -219407,6 +222516,7 @@ export namespace Prisma {
     gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
     aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
     communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
     childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
     franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
     marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
@@ -224727,6 +227837,10 @@ export namespace Prisma {
      * @deprecated Use CommunicationLogDefaultArgs instead
      */
     export type CommunicationLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CommunicationLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TransactionLedgerDefaultArgs instead
+     */
+    export type TransactionLedgerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransactionLedgerDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

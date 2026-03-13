@@ -44,6 +44,7 @@ model User {
 
   // RN Mastery Extensions
   carePlansAuthored          CarePlan[]           @relation("CarePlanAuthor")
+  ledgerEntries              TransactionLedger[]  @relation("LedgerActor")
   assessments                ClinicalAssessment[]
   medicationRecons           MedicationRecon[]
   supervisionLogs            SupervisionLog[]
@@ -119,6 +120,7 @@ model Tenant {
   gamificationProfiles GamificationProfile[]
   aiInferences         AIInference[]
   communicationLogs    CommunicationLog[]
+  transactionLedger    TransactionLedger[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -2020,4 +2022,36 @@ model CommunicationLog {
 
   @@index([tenantId])
   @@map("communication_logs")
+}
+
+// ─── Immutable Transaction Ledger ─────────────────────────────────────
+// Append-only financial entries with SHA-256 hash chaining.
+// NO updatedAt — records are NEVER modified. Corrections are reversal entries.
+model TransactionLedger {
+  id               String   @id @default(uuid())
+  tenantId         String   @map("tenant_id")
+  transactionType  String   @map("transaction_type") // PAYMENT, REFUND, ADJUSTMENT, REVERSAL, PAYOUT
+  referenceType    String   @map("reference_type") // Invoice, Payout, Claim
+  referenceId      String   @map("reference_id")
+  debitAccount     String   @map("debit_account") // e.g. "accounts_receivable", "cash"
+  creditAccount    String   @map("credit_account") // e.g. "revenue", "refund_payable"
+  amount           Decimal
+  currency         String   @default("CAD")
+  description      String?
+  actorUserId      String?  @map("actor_user_id")
+  ipAddress        String?  @map("ip_address")
+  checksum         String   @default("") // SHA-256 of this entry
+  previousChecksum String?  @map("previous_checksum") // SHA-256 of previous entry
+  status           String   @default("sealed") // sealed = immutable, voided = reversed by another entry
+  voidedByEntryId  String?  @map("voided_by_entry_id") // links to the reversal entry
+  createdAt        DateTime @default(now()) @map("created_at")
+  // NO updatedAt — records are immutable
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  actor  User?  @relation("LedgerActor", fields: [actorUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([referenceType, referenceId])
+  @@index([createdAt])
+  @@map("transaction_ledger")
 }

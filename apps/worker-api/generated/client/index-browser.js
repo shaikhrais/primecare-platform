@@ -1415,6 +1415,26 @@ exports.Prisma.CommunicationLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TransactionLedgerScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  transactionType: 'transactionType',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  debitAccount: 'debitAccount',
+  creditAccount: 'creditAccount',
+  amount: 'amount',
+  currency: 'currency',
+  description: 'description',
+  actorUserId: 'actorUserId',
+  ipAddress: 'ipAddress',
+  checksum: 'checksum',
+  previousChecksum: 'previousChecksum',
+  status: 'status',
+  voidedByEntryId: 'voidedByEntryId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1533,7 +1553,8 @@ exports.Prisma.ModelName = {
   AppNotification: 'AppNotification',
   GamificationProfile: 'GamificationProfile',
   AIInference: 'AIInference',
-  CommunicationLog: 'CommunicationLog'
+  CommunicationLog: 'CommunicationLog',
+  TransactionLedger: 'TransactionLedger'
 };
 
 /**
