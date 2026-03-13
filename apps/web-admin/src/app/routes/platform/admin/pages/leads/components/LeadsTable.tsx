@@ -28,6 +28,7 @@ interface LeadsTableProps {
 }
 
 export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTerm, onStatusChange, onDelete }) => {
+    const { confirm, DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const CONTENT = AdminRegistry.ContentRegistry.ADMIN_LEADS;
     const COMMON = AdminRegistry.ContentRegistry.COMMON;

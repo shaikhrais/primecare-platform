@@ -30,6 +30,7 @@ interface Service {
 }
 
 export default function BookingsPage() {
+    const { confirm, DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [services, setServices] = useState<Service[]>([]);

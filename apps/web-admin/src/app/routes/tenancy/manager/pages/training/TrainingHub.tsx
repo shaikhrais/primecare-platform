@@ -6,6 +6,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 const { ButtonRegistry } = AdminRegistry;
 
 export default function TrainingHub() {
+    const { DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const [modules] = useState([
         { id: '1', title: 'Clinical Compliance 2026', category: 'Compliance', status: 'Published', trainees: 45 },

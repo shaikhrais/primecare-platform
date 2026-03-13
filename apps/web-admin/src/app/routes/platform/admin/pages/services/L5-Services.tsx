@@ -26,6 +26,7 @@ interface Service {
 }
 
 export default function ServicesPage() {
+    const { confirm, DialogRenderer } = useDialog();
     const { t } = useTranslation();
     const { showToast } = useNotification();
     const [services, setServices] = useState<Service[]>([]);

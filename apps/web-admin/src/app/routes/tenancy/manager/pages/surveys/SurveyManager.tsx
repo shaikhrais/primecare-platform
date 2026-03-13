@@ -6,6 +6,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 const { ButtonRegistry } = AdminRegistry;
 
 export default function SurveyManager() {
+    const { DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const [surveys] = useState([
         { id: '1', title: 'Annual Staff Happiness 2026', target: 'Staff', responses: 88, status: 'Active' },

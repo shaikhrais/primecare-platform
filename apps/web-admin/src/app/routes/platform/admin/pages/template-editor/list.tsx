@@ -4,6 +4,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { useDialog } from '@/shared/hooks/useDialog';
 
 export default function TemplatesList() {
+    const { confirm, DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [templates, setTemplates] = useState<any[]>([]);

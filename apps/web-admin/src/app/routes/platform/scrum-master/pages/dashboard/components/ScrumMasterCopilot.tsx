@@ -12,9 +12,10 @@ export const ScrumMasterCopilot: React.FC = () => {
     const { t } = useTranslation();
     const [isPushing, setIsPushing] = useState(false);
     const { showToast } = useNotification();
+    const { confirm, DialogRenderer } = useDialog();
 
     const handleSchemaPush = async () => {
-        if (!(await confirm('Push Schema Changes', "Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment.")) return;
+        if (!(await confirm('Push Schema Changes', "Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment."))) return;
         setIsPushing(true);
         try {
             const res = await apiClient.post('/v1/admin/developer/db-push', {}) as any;
@@ -89,7 +90,7 @@ export const ScrumMasterCopilot: React.FC = () => {
                     </div>
                 ))}
             </div>
-        <DialogRenderer />
+            <DialogRenderer />
             </div>
     );
 };

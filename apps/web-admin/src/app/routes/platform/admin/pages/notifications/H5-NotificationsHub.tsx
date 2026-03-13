@@ -12,6 +12,7 @@ import { apiClient } from '@/shared/utils/apiClient';
 import { useDialog } from '@/shared/hooks/useDialog';
 
 export default function NotificationsHub() {
+    const { DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const { t } = useTranslation();
     const [notifications, setNotifications] = useState<any[]>([]);

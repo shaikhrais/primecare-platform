@@ -18,6 +18,7 @@ interface ServicesListProps {
 }
 
 export const ServicesList: React.FC<ServicesListProps> = ({ services, searchTerm, loading, onEdit, onDelete }) => {
+    const { confirm, DialogRenderer } = useDialog();
     const filteredServices = services.filter(s =>
         s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         s.code.toLowerCase().includes(searchTerm.toLowerCase())

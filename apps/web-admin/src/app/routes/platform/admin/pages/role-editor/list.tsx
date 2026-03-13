@@ -7,6 +7,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 export default function RolesList() {
     const navigate = useNavigate();
     const { showToast } = useNotification();
+    const { confirm, DialogRenderer } = useDialog();
     const [roles, setRoles] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -80,7 +81,7 @@ export default function RolesList() {
                                     {role.type !== 'System' && (
                                         <button
                                             onClick={async () => {
-                                                if (!(await confirm('Delete Role', `Delete role "${role.name}"? Users with this role will lose their permissions.`)) return;
+                                                if (!(await confirm('Delete Role', `Delete role "${role.name}"? Users with this role will lose their permissions.`))) return;
                                                 try {
                                                     const { apiClient } = await import('@/shared/utils/apiClient');
                                                     await apiClient.delete(`/v1/admin/roles/${role.id}`);
@@ -99,7 +100,7 @@ export default function RolesList() {
                     </tbody>
                 </table>
             </div>
-        <DialogRenderer />
+            <DialogRenderer />
             </div>
     );
 }

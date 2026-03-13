@@ -10,6 +10,7 @@ interface GlobalQuickActionBarProps {
 }
 
 export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps) {
+    const { DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [shiftOpen, setShiftOpen] = useState(false);

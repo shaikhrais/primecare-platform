@@ -7,6 +7,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default function LocationsList() {
+    const { confirm, DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [locations, setLocations] = useState<any[]>([]);

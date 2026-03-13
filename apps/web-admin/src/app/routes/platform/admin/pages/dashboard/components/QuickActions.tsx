@@ -11,6 +11,7 @@ interface QuickActionsProps {
 }
 
 export const QuickActions: React.FC<QuickActionsProps> = ({ onPostShift }) => {
+    const { DialogRenderer } = useDialog();
     const { t } = useTranslation();
 
     return (

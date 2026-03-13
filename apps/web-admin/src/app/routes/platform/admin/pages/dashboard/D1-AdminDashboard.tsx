@@ -20,6 +20,7 @@ const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
 export default function AdminDashboard() {
     const { t } = useTranslation();
+    const { confirm, DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function AdminDashboard() {
     };
 
     const handleSuspendReseller = async () => {
-        if (!(await confirm('Suspend Reseller Agreement', 'Are you sure you want to suspend the reseller agreement? This cannot be undone easily.')) return;
+        if (!(await confirm('Suspend Reseller Agreement', 'Are you sure you want to suspend the reseller agreement? This cannot be undone easily.'))) return;
         await handleApiAction('/v1/admin/actions/suspend-reseller', 'Reseller agreement suspended', 'Failed to suspend reseller');
     };
 
@@ -188,8 +189,7 @@ export default function AdminDashboard() {
             <div className="grid" style={{ marginTop: '2rem' }}>
                 <QuickActions onPostShift={() => setIsPostShiftModalOpen(true)} />
                 <OperationalStatus />
-            <DialogRenderer />
-            </div>
+                </div>
 
             <CreateVisitModal
                 isOpen={isPostShiftModalOpen}
@@ -199,6 +199,7 @@ export default function AdminDashboard() {
                     showToast(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.POST_SUCCESS, 'success');
                 }}
             />
+            <DialogRenderer />
         </div >
     );
 }

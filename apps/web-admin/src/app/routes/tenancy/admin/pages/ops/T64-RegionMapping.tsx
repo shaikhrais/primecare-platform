@@ -10,6 +10,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 const { ButtonRegistry } = AdminRegistry;
 
 export default function RegionMapping() {
+    const { DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const [regions] = useState([
         { id: '1', name: 'Downtown Central', city: 'Toronto', postalCodes: 'M5V, M5T, M5G', status: 'Active' },
