@@ -21,7 +21,7 @@ export default function TrainingHub() {
                 </div>
                 <button
                     className="btn primary"
-                    onClick={() => showToast('Module creation modal opened', 'success')}
+                    onClick={async () => { const title = prompt('Enter module title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/training-modules', { title }); if (res.ok) showToast('Module created: ' + title, 'success'); else showToast('Failed to create module', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-mgr-training-create"
                 >
                     {ButtonRegistry.find((b: any) => b.id === 'btn-mgr-training-create')?.label || 'Create Module'}

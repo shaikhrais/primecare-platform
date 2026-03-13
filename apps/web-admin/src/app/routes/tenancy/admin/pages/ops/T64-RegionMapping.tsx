@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T64 · Region Mapping
+// PAGE IDENTITY: T64 ï¿½ Region Mapping
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useState } from 'react';
@@ -24,7 +24,7 @@ export default function RegionMapping() {
                 </div>
                 <button
                     className="btn secondary"
-                    onClick={() => showToast('New region creation opened', 'success')}
+                    onClick={async () => { const name = prompt('Enter region name:'); if (!name) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/regions', { name }); if (res.ok) showToast('Region created: ' + name, 'success'); else showToast('Failed to create region', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-adm-region-new"
                 >
                     {ButtonRegistry.find((b: any) => b.id === 'btn-adm-region-new')?.label || 'Define New Region'}

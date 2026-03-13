@@ -78,7 +78,15 @@ export default function RolesList() {
                                     </button>
                                     {role.type !== 'System' && (
                                         <button
-                                            onClick={() => showToast('Delete not implemented yet', 'info')}
+                                            onClick={async () => {
+                                                if (!confirm(`Delete role "${role.name}"? Users with this role will lose their permissions.`)) return;
+                                                try {
+                                                    const { apiClient } = await import('@/shared/utils/apiClient');
+                                                    await apiClient.delete(`/v1/admin/roles/${role.id}`);
+                                                    setRoles(prev => prev.filter(r => r.id !== role.id));
+                                                    showToast(`Role "${role.name}" deleted`, 'success');
+                                                } catch { showToast('Failed to delete role', 'error'); }
+                                            }}
                                             style={{ color: '#991b1b', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}
                                         >
                                             Delete

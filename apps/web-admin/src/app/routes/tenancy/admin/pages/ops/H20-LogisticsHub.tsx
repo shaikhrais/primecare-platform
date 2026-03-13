@@ -1,7 +1,8 @@
 // ================================================================
-// PAGE IDENTITY: H20 · Logistics Hub
+// PAGE IDENTITY: H20 ï¿½ Logistics Hub
 // Type: Hub | Owner: admin
 // ================================================================
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
@@ -9,6 +10,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 const { ButtonRegistry, InteractionARegistry } = AdminRegistry;
 
 export default function LogisticsHub() {
+    const navigate = useNavigate();
     const { showToast } = useNotification();
     const [isOptimizing, setIsOptimizing] = useState(false);
     const [stats] = useState([
@@ -37,7 +39,7 @@ export default function LogisticsHub() {
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button
                         className="btn secondary"
-                        onClick={() => showToast('Fleet tracker initialized', 'info')}
+                        onClick={() => navigate('/coordinator/fleet')}
                     >
                         Track Real-time Fleet
                     </button>

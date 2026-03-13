@@ -1,12 +1,5 @@
-// ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: D1 · Admin Dashboard
-// Registry ID:   page.admin.dashboard
-// Type:          Dashboard
-// Owner:         admin
-// Route:         /platform/admin
-// ═══════════════════════════════════════════════════════════════
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
@@ -28,6 +21,7 @@ export default function AdminDashboard() {
     const { t } = useTranslation();
     const { showToast } = useNotification();
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [stats, setStats] = useState({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, healthAlerts: null });
     const [loading, setLoading] = useState(true);
     const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
@@ -48,6 +42,32 @@ export default function AdminDashboard() {
         };
         fetchStats();
     }, []);
+
+    const handleApiAction = async (endpoint: string, successMsg: string, errorMsg: string) => {
+        try {
+            const res = await apiClient.post(endpoint, {});
+            if (res.ok) { showToast(successMsg, 'success'); }
+            else { const err = await res.json(); showToast(err.error || errorMsg, 'error'); }
+        } catch { showToast(errorMsg, 'error'); }
+    };
+
+    const handleExport = async () => {
+        try {
+            const res = await apiClient.get('/v1/admin/export?format=csv');
+            if (res.ok) {
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = `export-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+                showToast('Export downloaded successfully', 'success');
+            } else { showToast('Export failed — check permissions', 'error'); }
+        } catch { showToast('Network error during export', 'error'); }
+    };
+
+    const handleSuspendReseller = async () => {
+        if (!confirm('⚠️ Are you sure you want to suspend the reseller agreement? This cannot be undone easily.')) return;
+        await handleApiAction('/v1/admin/resellers/suspend', 'Reseller agreement suspended', 'Failed to suspend reseller');
+    };
 
     return (
         <div data-cy="page.container">
@@ -73,7 +93,7 @@ export default function AdminDashboard() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem'
-                    }} onClick={() => showToast('Committing local UI overrides...', 'success')}>
+                    }} onClick={() => handleApiAction('/v1/admin/settings/commit', 'UI overrides committed to registry', 'Failed to commit overrides')}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-ui-override')?.label || 'Commit UI Overrides'}
                     </button>
                     <button style={{
@@ -85,7 +105,7 @@ export default function AdminDashboard() {
                         fontSize: '0.875rem',
                         fontWeight: '600',
                         cursor: 'pointer'
-                    }} onClick={() => showToast('User invite modal opened', 'info')}>
+                    }} onClick={() => navigate('/platform/admin/users?action=invite')}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-user-invite')?.label || 'Invite User'}
                     </button>
                     <button style={{
@@ -97,7 +117,7 @@ export default function AdminDashboard() {
                         fontSize: '0.875rem',
                         fontWeight: '600',
                         cursor: 'pointer'
-                    }} onClick={() => showToast('Global export initiated', 'success')}>
+                    }} onClick={handleExport}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-report-export')?.label || 'Export'}
                     </button>
                     <Link to={RouteRegistry.SCRUM_MASTER.DEV_KB}>
@@ -121,13 +141,13 @@ export default function AdminDashboard() {
             </div>
             {/* Phase 13 exhaustive button group */}
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('Triggering automation', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-automation-trigger')?.label || 'Trigger Automation'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('Optimizing Ops', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-ops-optimize')?.label || 'Optimize Ops'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('Settings Saved', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-settings-save')?.label || 'Save Settings'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('Content Published', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-content-publish')?.label || 'Publish'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('Search Reindexed', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => showToast('New Tenant Created', 'success')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-superuser-tenant-new')?.label || 'New Tenant'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={() => showToast('Reseller Suspended', 'error')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-reseller-suspend')?.label || 'Suspend Reseller'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/cron/trigger', 'Automation triggered — tasks queued', 'Automation trigger failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-automation-trigger')?.label || 'Trigger Automation'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/system/optimize', 'Operations optimized — metrics recalculated', 'Optimization failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-ops-optimize')?.label || 'Optimize Ops'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/settings', 'Platform settings saved', 'Failed to save settings')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-settings-save')?.label || 'Save Settings'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/content/publish', 'Content published to production', 'Publish failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-content-publish')?.label || 'Publish'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/search/reindex', 'Search index rebuilt successfully', 'Reindex failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => navigate('/platform/admin/tenants/new')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-superuser-tenant-new')?.label || 'New Tenant'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={handleSuspendReseller}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-reseller-suspend')?.label || 'Suspend Reseller'}</button>
             </div>
 
             {/* Business Model Score & Setup Wizard Banner */}

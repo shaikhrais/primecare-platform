@@ -76,7 +76,15 @@ export default function TemplatesList() {
                                         Edit
                                     </button>
                                     <button
-                                        onClick={() => showToast('Delete not implemented yet', 'info')}
+                                        onClick={async () => {
+                                            if (!confirm(`Delete template "${tpl.name}"? This cannot be undone.`)) return;
+                                            try {
+                                                const { apiClient } = await import('@/shared/utils/apiClient');
+                                                await apiClient.delete(`/v1/admin/templates/${tpl.id}`);
+                                                setTemplates(prev => prev.filter(t => t.id !== tpl.id));
+                                                showToast(`Template "${tpl.name}" deleted`, 'success');
+                                            } catch { showToast('Failed to delete template', 'error'); }
+                                        }}
                                         style={{ color: '#991b1b', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}
                                     >
                                         Delete

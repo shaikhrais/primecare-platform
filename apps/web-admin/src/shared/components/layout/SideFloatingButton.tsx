@@ -78,7 +78,7 @@ export default function SideFloatingButton() {
                     <button data-cy="mbtn-new-incident" style={menuItemStyle} onClick={() => navigate('/incidents')}>
                         ⚠️ New Incident
                     </button>
-                    <button data-cy="mbtn-new-client" style={menuItemStyle} onClick={() => { }}>
+                    <button data-cy="mbtn-new-client" style={menuItemStyle} onClick={() => { navigate('/platform/admin/admission'); setIsOpen(false); }}>
                         🏥 New Client
                     </button>
                     <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={async () => {

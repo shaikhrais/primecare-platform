@@ -93,7 +93,15 @@ export default function LocationsList() {
                                             Edit
                                         </button>
                                         <button
-                                            onClick={() => showToast('Delete not implemented yet', 'info')}
+                                            onClick={async () => {
+                                                if (!confirm(`Delete "${loc.name}"? This action cannot be undone.`)) return;
+                                                try {
+                                                    const token = localStorage.getItem('token');
+                                                    await fetch(`${API_URL}/v1/admin/locations/${loc.id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+                                                    setLocations(prev => prev.filter(l => l.id !== loc.id));
+                                                    showToast(`Location "${loc.name}" deleted`, 'success');
+                                                } catch { showToast('Failed to delete location', 'error'); }
+                                            }}
                                             style={{ color: '#991b1b', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}
                                         >
                                             Delete
