@@ -10,6 +10,8 @@ const complianceScanRoute = createRoute({
     ...ROUTE_METADATA.STAFF.COMPLIANCE_SCAN,
     method: 'post',
     path: '/compliance/scan',
+    summary: 'Compliance Scan',
+    tags: ['Staff', 'Ops'],
     middleware: [requireRole(['staff', 'coordinator', 'admin'])],
     responses: {
         200: {

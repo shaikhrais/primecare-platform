@@ -52,6 +52,8 @@ branding.get('/public', async (c) => {
 const updateBrandingRoute = createRoute({
     method: 'patch',
     path: '/',
+    summary: 'Update Branding',
+    tags: ['Admin', 'Settings'],
     request: {
         body: {
             content: {

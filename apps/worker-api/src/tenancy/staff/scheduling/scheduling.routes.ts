@@ -12,6 +12,8 @@ const createStaffVisitRoute = createRoute({
     ...ROUTE_METADATA.STAFF.SCHEDULING_CREATE,
     method: 'post',
     path: '/visits',
+    summary: 'Create Staff Visit',
+    tags: ['Staff', 'Scheduling'],
     request: {
         body: {
             content: {

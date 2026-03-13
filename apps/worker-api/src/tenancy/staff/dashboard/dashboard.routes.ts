@@ -10,6 +10,8 @@ const getStaffStatsRoute = createRoute({
     ...ROUTE_METADATA.STAFF.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
+    summary: 'Get Staff Stats',
+    tags: ['Staff', 'Dashboard'],
     middleware: [requireRole(['staff', 'admin'])],
     responses: {
         200: {

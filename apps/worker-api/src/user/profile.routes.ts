@@ -9,6 +9,8 @@ const getProfileRoute = createRoute({
     ...ROUTE_METADATA.USER.GET_PROFILE,
     method: 'get',
     path: '/',
+    summary: 'Get Profile',
+    tags: ['User'],
     responses: {
         200: {
             content: {
@@ -84,6 +86,8 @@ const updateProfileRoute = createRoute({
     ...ROUTE_METADATA.USER.UPDATE_PROFILE,
     method: 'put',
     path: '/',
+    summary: 'Update Profile',
+    tags: ['User'],
     request: {
         body: {
             content: {

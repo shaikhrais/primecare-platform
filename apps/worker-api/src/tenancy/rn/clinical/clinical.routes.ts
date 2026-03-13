@@ -19,6 +19,8 @@ const submitAssessmentRoute = createRoute({
     ...ROUTE_METADATA.RN.CLINICAL_ASSESS,
     method: 'post',
     path: '/assessments',
+    summary: 'Submit Assessment',
+    tags: ['RN', 'Clinical'],
     middleware: [requirePermission('CARE_PLAN_UPDATE')],
     request: {
         body: {
@@ -54,6 +56,8 @@ const syncMedicationReconRoute = createRoute({
     ...ROUTE_METADATA.RN.MEDICATION_RECON,
     method: 'post',
     path: '/recon',
+    summary: 'Sync Medication Recon',
+    tags: ['RN', 'Clinical'],
     middleware: [requirePermission('CARE_PLAN_UPDATE')],
     request: {
         body: {
@@ -87,6 +91,8 @@ const recordSupervisionRoute = createRoute({
     ...ROUTE_METADATA.RN.SUPERVISION_LOG,
     method: 'post',
     path: '/supervision',
+    summary: 'Record Supervision',
+    tags: ['RN', 'Clinical'],
     middleware: [requirePermission('PSW_SUPERVISE')],
     request: {
         body: {
@@ -201,6 +207,8 @@ const dailyAuditSignOffRoute = createRoute({
     ...ROUTE_METADATA.RN.DAILY_AUDIT_SIGN_OFF,
     method: 'post',
     path: '/sign-off',
+    summary: 'Daily Audit Sign Off',
+    tags: ['RN', 'Clinical'],
     middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
     request: {
         body: {

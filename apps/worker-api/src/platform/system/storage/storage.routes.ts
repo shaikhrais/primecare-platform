@@ -24,6 +24,8 @@ const uploadFileRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.STORAGE_UPLOAD,
     method: 'put',
     path: '/upload',
+    summary: 'Upload File',
+    tags: ['System', 'Storage'],
     request: {
         body: {
             content: {
@@ -102,6 +104,8 @@ const getFileRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.STORAGE_GET,
     method: 'get',
     path: '/file/{key}',
+    summary: 'Get File',
+    tags: ['System', 'Storage'],
     request: {
         params: StorageParamsSchema,
     },

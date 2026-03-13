@@ -16,6 +16,8 @@ const getPswSupervisionOverviewRoute = createRoute({
     ...ROUTE_METADATA.RN.SUPERVISION_OVERVIEW,
     method: 'get',
     path: '/psw/{pswId}/overview',
+    summary: 'Get Psw Supervision Overview',
+    tags: ['RN', 'Supervision'],
     middleware: [requirePermission('PSW_SUPERVISE')],
     request: {
         params: PswParamsSchema,
@@ -76,6 +78,8 @@ r.openapi(getPswSupervisionOverviewRoute, async (c) => {
 const getRosterRoute = createRoute({
     method: 'get',
     path: '/roster',
+    summary: 'Get Roster',
+    tags: ['RN', 'Supervision'],
     middleware: [requirePermission('PSW_SUPERVISE')],
     responses: {
         200: {

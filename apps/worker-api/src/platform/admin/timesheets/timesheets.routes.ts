@@ -17,6 +17,8 @@ const listTimesheetsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_LIST,
     method: 'get',
     path: '/',
+    summary: 'List Timesheets',
+    tags: ['Admin', 'Timesheets'],
     responses: {
         200: {
             content: {
@@ -46,6 +48,8 @@ const updateTimesheetStatusRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.TIMESHEETS_UPDATE,
     method: 'patch',
     path: '/{id}',
+    summary: 'Update Timesheet Status',
+    tags: ['Admin', 'Timesheets'],
     request: {
         params: TimesheetParamsSchema,
         body: {

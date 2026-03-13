@@ -15,6 +15,8 @@ const listTicketsRoute = createRoute({
     ...ROUTE_METADATA.STAFF.SUPPORT_LIST,
     method: 'get',
     path: '/tickets',
+    summary: 'List Tickets',
+    tags: ['Staff', 'Support'],
     responses: {
         200: {
             content: {
@@ -50,6 +52,8 @@ const getTicketMessagesRoute = createRoute({
     ...ROUTE_METADATA.STAFF.SUPPORT_MESSAGES,
     method: 'get',
     path: '/tickets/{id}/messages',
+    summary: 'Get Ticket Messages',
+    tags: ['Staff', 'Support'],
     request: {
         params: TicketParamsSchema,
     },
@@ -82,6 +86,8 @@ const replyTicketRoute = createRoute({
     ...ROUTE_METADATA.STAFF.SUPPORT_REPLY,
     method: 'post',
     path: '/tickets/{id}/reply',
+    summary: 'Reply Ticket',
+    tags: ['Staff', 'Support'],
     request: {
         params: TicketParamsSchema,
         body: {

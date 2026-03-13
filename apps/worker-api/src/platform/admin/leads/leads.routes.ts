@@ -16,6 +16,8 @@ const listLeadsRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_LIST,
     method: 'get',
     path: '/',
+    summary: 'List Leads',
+    tags: ['Admin', 'Leads'],
     responses: {
         200: {
             content: {
@@ -41,6 +43,8 @@ const updateLeadStatusRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE,
     method: 'patch',
     path: '/{id}',
+    summary: 'Update Lead Status',
+    tags: ['Admin', 'Leads'],
     request: {
         params: LeadParamsSchema,
         body: {
@@ -81,6 +85,8 @@ const convertLeadRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE, // Assuming metadata covers this path pattern
     method: 'post',
     path: '/{id}/convert',
+    summary: 'Convert Lead',
+    tags: ['Admin', 'Leads'],
     request: {
         params: LeadParamsSchema,
     },

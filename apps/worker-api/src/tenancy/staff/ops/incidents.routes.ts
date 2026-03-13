@@ -37,6 +37,8 @@ const incidentSubmitRoute = createRoute({
     ...ROUTE_METADATA.STAFF.INCIDENT_SUBMIT,
     method: 'post',
     path: '/submit',
+    summary: 'Incident Submit',
+    tags: ['Staff', 'Ops'],
     middleware: [requireRole(['staff', 'coordinator', 'admin'])],
     request: {
         body: {

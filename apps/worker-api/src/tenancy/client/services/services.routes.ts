@@ -10,6 +10,8 @@ const listInvoicesRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.INVOICES,
     method: 'get',
     path: '/invoices',
+    summary: 'List Invoices',
+    tags: ['Client', 'Services'],
     middleware: [requireRole(['client'])],
     responses: {
         200: {
@@ -47,6 +49,8 @@ const listServicesRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.SERVICES,
     method: 'get',
     path: '/services',
+    summary: 'List Services',
+    tags: ['Client', 'Services'],
     responses: {
         200: {
             content: {

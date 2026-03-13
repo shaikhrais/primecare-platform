@@ -25,6 +25,8 @@ const createEntryRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_CREATE,
     method: 'post',
     path: '/',
+    summary: 'Create Entry',
+    tags: ['PSW', 'DailyEntry'],
     middleware: [
         requirePermission('DAILY_ENTRY_CREATE'),
         requireClientAssignedToPSW
@@ -67,6 +69,8 @@ const getHistoryRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DAILY_ENTRY_HISTORY,
     method: 'get',
     path: '/history',
+    summary: 'Get History',
+    tags: ['PSW', 'DailyEntry'],
     request: {
         query: z.object({
             clientId: z.string().optional()

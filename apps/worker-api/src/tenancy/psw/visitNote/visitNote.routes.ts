@@ -8,6 +8,8 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const createNoteRoute = createRoute({
     method: 'post',
     path: '/',
+    summary: 'Create Note',
+    tags: ['PSW', 'VisitNote'],
     description: 'Create a VisitNote for a specific Visit. Features 4 & 5 active: Supports wound care photos and #CarePlanUpdate tags.',
     request: {
         body: {

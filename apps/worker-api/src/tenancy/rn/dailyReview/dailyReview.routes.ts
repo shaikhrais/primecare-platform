@@ -17,6 +17,8 @@ const reviewDailyEntryRoute = createRoute({
     ...ROUTE_METADATA.RN.DAILY_REVIEW,
     method: 'post',
     path: '/{id}/review',
+    summary: 'Review Daily Entry',
+    tags: ['RN', 'DailyReview'],
     middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
     request: {
         params: DailyEntryParamsSchema,

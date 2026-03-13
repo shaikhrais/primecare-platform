@@ -7,6 +7,8 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const getCustomersRoute = createRoute({
     method: 'get',
     path: '/customers',
+    summary: 'Get Customers',
+    tags: ['Staff'],
     middleware: [requireRole(['staff', 'admin'])],
     responses: {
         200: {

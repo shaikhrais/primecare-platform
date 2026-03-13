@@ -12,6 +12,8 @@ const uploadVoiceRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.VOICE,
     method: 'post',
     path: '/upload',
+    summary: 'Upload Voice',
+    tags: ['System', 'Voice'],
     request: {
         body: {
             content: {

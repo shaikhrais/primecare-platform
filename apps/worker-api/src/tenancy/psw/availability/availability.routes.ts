@@ -18,6 +18,8 @@ const syncAvailabilityRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.AVAILABILITY_OVERRIDE_SYNC,
     method: 'post',
     path: '/sync',
+    summary: 'Sync Availability',
+    tags: ['PSW', 'Availability'],
     request: {
         body: {
             content: {

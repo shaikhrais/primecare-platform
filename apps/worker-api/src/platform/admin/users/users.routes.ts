@@ -21,6 +21,8 @@ const listUsersRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_LIST,
     method: 'get',
     path: '/',
+    summary: 'List Users',
+    tags: ['Admin', 'Users'],
     responses: {
         200: {
             content: {
@@ -45,6 +47,8 @@ const createUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_CREATE,
     method: 'post',
     path: '/',
+    summary: 'Create User',
+    tags: ['Admin', 'Users'],
     request: {
         body: {
             content: {
@@ -91,6 +95,8 @@ const verifyUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY,
     method: 'post',
     path: '/{id}/verify',
+    summary: 'Verify User',
+    tags: ['Admin', 'Users'],
     request: {
         params: UserParamsSchema,
     },
@@ -119,6 +125,8 @@ const updateRolesRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES,
     method: 'patch',
     path: '/{id}/roles',
+    summary: 'Update Roles',
+    tags: ['Admin', 'Users'],
     request: {
         params: UserParamsSchema,
         body: {
@@ -161,6 +169,8 @@ const elevateUserRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ELEVATE,
     method: 'post',
     path: '/{id}/elevate',
+    summary: 'Elevate User',
+    tags: ['Admin', 'Users'],
     request: {
         params: UserParamsSchema,
     },
@@ -200,6 +210,8 @@ const updateStatusRoute = createRoute({
     ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES,
     method: 'patch',
     path: '/{id}/status',
+    summary: 'Update Status',
+    tags: ['Admin', 'Users'],
     request: {
         params: UserParamsSchema,
         body: {

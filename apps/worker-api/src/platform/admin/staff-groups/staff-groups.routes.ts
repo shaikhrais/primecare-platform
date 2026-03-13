@@ -22,6 +22,8 @@ const AddMemberSchema = z.object({
 const getGroups = createRoute({
     method: 'get',
     path: '/',
+    summary: 'Get Groups',
+    tags: ['Admin', 'Staff Groups'],
     description: 'Get all staff groups for tenant',
     responses: {
         200: { content: { 'application/json': { schema: z.array(GroupSchema) } }, description: 'List of groups' },
@@ -41,6 +43,8 @@ r.openapi(getGroups, async (c) => {
 const createGroup = createRoute({
     method: 'post',
     path: '/',
+    summary: 'Create Group',
+    tags: ['Admin', 'Staff Groups'],
     description: 'Create a new staff group',
     request: { body: { content: { 'application/json': { schema: CreateGroupSchema } } } },
     responses: {
@@ -62,6 +66,8 @@ r.openapi(createGroup, async (c) => {
 const getMembers = createRoute({
     method: 'get',
     path: '/{id}/members',
+    summary: 'Get Members',
+    tags: ['Admin', 'Staff Groups'],
     description: 'Get members of a group',
     request: { params: z.object({ id: z.string() }) },
     responses: {
@@ -82,6 +88,8 @@ r.openapi(getMembers, async (c) => {
 const addMember = createRoute({
     method: 'post',
     path: '/{id}/members',
+    summary: 'Add Member',
+    tags: ['Admin', 'Staff Groups'],
     description: 'Add a user to a group',
     request: { 
         params: z.object({ id: z.string() }),
@@ -106,6 +114,8 @@ r.openapi(addMember, async (c) => {
 const removeMember = createRoute({
     method: 'delete',
     path: '/{id}/members/{userId}',
+    summary: 'Remove Member',
+    tags: ['Admin', 'Staff Groups'],
     description: 'Remove a user from a group',
     request: { params: z.object({ id: z.string(), userId: z.string() }) },
     responses: {

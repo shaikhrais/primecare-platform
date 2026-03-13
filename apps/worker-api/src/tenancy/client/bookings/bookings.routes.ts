@@ -25,6 +25,8 @@ const listBookingsRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.LIST_BOOKINGS,
     method: 'get',
     path: '/',
+    summary: 'List Bookings',
+    tags: ['Client', 'Bookings'],
     middleware: [requireRole(['client', 'admin', 'rn'])],
     responses: {
         200: {
@@ -66,6 +68,8 @@ const createBookingRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CREATE_BOOKING,
     method: 'post',
     path: '/',
+    summary: 'Create Booking',
+    tags: ['Client', 'Bookings'],
     middleware: [requireRole(['client'])],
     request: {
         body: {
@@ -139,6 +143,8 @@ const updateBookingRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.UPDATE_BOOKING,
     method: 'patch',
     path: '/{id}',
+    summary: 'Update Booking',
+    tags: ['Client', 'Bookings'],
     middleware: [requireRole(['client', 'admin'])],
     request: {
         params: BookingParamsSchema,
@@ -185,6 +191,8 @@ const createBookingRequestRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.BOOKING_REQUESTS,
     method: 'post',
     path: '/requests',
+    summary: 'Create Booking Request',
+    tags: ['Client', 'Bookings'],
     middleware: [requireRole(['client'])],
     request: {
         body: {

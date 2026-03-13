@@ -7,6 +7,8 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const getProfileRoute = createRoute({
     method: 'get',
     path: '/profile',
+    summary: 'Get Profile',
+    tags: ['Client'],
     middleware: [requireRole(['client', 'admin'])],
     responses: {
         200: {

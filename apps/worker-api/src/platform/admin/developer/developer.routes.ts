@@ -19,6 +19,8 @@ developer.get('/keys', async (c) => {
 const createKeyRoute = createRoute({
     method: 'post',
     path: '/keys',
+    summary: 'Create Key',
+    tags: ['Admin', 'Developer'],
     request: {
         body: {
             content: {
@@ -80,6 +82,8 @@ developer.delete('/keys/:id', async (c) => {
 const dbPushRoute = createRoute({
     method: 'post',
     path: '/db-push',
+    summary: 'Db Push',
+    tags: ['Admin', 'Developer'],
     responses: {
         200: {
             content: {

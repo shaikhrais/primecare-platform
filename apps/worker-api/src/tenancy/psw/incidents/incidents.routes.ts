@@ -11,6 +11,8 @@ const reportIncidentRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.INCIDENTS_REPORT,
     method: 'post',
     path: '/',
+    summary: 'Report Incident',
+    tags: ['PSW', 'Incidents'],
     request: {
         body: {
             content: {

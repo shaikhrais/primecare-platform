@@ -16,6 +16,8 @@ const submitHandoverRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.HANDOVER_SUBMIT,
     method: 'post',
     path: '/',
+    summary: 'Submit Handover',
+    tags: ['PSW', 'Handover'],
     request: {
         body: {
             content: {

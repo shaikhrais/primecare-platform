@@ -10,6 +10,8 @@ const getRnStatsRoute = createRoute({
     ...ROUTE_METADATA.RN.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
+    summary: 'Get Rn Stats',
+    tags: ['RN', 'Dashboard'],
     middleware: [requireRole(['rn', 'admin'])],
     responses: {
         200: {

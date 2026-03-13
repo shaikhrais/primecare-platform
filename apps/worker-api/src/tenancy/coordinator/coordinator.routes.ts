@@ -44,6 +44,8 @@ const matchOverrideRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.MATCH_OVERRIDE,
     method: 'post',
     path: '/match/override',
+    summary: 'Match Override',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {
@@ -77,6 +79,8 @@ const waitlistSyncRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.WAITLIST_SYNC,
     method: 'post',
     path: '/waitlist/sync',
+    summary: 'Waitlist Sync',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {
@@ -111,6 +115,8 @@ const sosAckRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.SOS_ACK,
     method: 'post',
     path: '/incident/ack',
+    summary: 'Sos Ack',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {
@@ -143,6 +149,8 @@ const dashboardStatsRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
     method: 'get',
     path: '/dashboard/stats',
+    summary: 'Dashboard Stats',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     responses: {
         200: {
@@ -163,6 +171,8 @@ const dispatchMapRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.DISPATCH_MAP,
     method: 'get',
     path: '/dispatch-map',
+    summary: 'Dispatch Map',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     responses: {
         200: {
@@ -188,6 +198,8 @@ const matchingEngineRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.MATCHING_ENGINE,
     method: 'post',
     path: '/matching/run',
+    summary: 'Matching Engine',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {
@@ -240,6 +252,8 @@ const sosDispatchRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.SOS_DISPATCH,
     method: 'post',
     path: '/sos-dispatch',
+    summary: 'Sos Dispatch',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {
@@ -273,6 +287,8 @@ const masterScheduleRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.MASTER_SCHEDULE,
     method: 'get',
     path: '/schedule/master',
+    summary: 'Master Schedule',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     responses: {
         200: {
@@ -293,6 +309,8 @@ const shiftBroadcastRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.SHIFT_BROADCAST,
     method: 'post',
     path: '/shifts/broadcast',
+    summary: 'Shift Broadcast',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     request: {
         body: {

@@ -8,6 +8,8 @@ const listMessagesRoute = createRoute({
     ...ROUTE_METADATA.STAFF.MESSAGES,
     method: 'get',
     path: '/hub',
+    summary: 'List Messages',
+    tags: ['Staff', 'Messages'],
     responses: {
         200: {
             content: {

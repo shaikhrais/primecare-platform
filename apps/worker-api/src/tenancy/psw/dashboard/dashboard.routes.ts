@@ -10,6 +10,8 @@ const getDashboardStatsRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
+    summary: 'Get Dashboard Stats',
+    tags: ['PSW', 'Dashboard'],
     middleware: [requireRole(['psw'])],
     responses: {
         200: {
@@ -118,6 +120,8 @@ r.openapi(getDashboardStatsRoute, async (c) => {
 const postHardwarePurchaseRoute = createRoute({
     method: 'post',
     path: '/hardware/purchase',
+    summary: 'Post Hardware Purchase',
+    tags: ['PSW', 'Dashboard'],
     description: 'Process a hardware purchase with payroll deduction',
     middleware: [requireRole(['psw'])],
     request: {

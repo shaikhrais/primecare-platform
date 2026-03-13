@@ -8,6 +8,8 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const createMarEntryRoute = createRoute({
     method: 'post',
     path: '/',
+    summary: 'Create Mar Entry',
+    tags: ['PSW', 'Mar'],
     description: 'Record a Medication Administration Record (MAR) entry. Supports medication refusal escalations.',
     request: {
         body: {

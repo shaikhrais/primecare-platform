@@ -17,6 +17,8 @@ const listCarePlansRoute = createRoute({
     ...ROUTE_METADATA.RN.CARE_PLAN_LIST,
     method: 'get',
     path: '/',
+    summary: 'List Care Plans',
+    tags: ['RN', 'CarePlans'],
     middleware: [requirePermission('CARE_PLAN_VIEW')],
     responses: {
         200: {
@@ -37,6 +39,8 @@ const reviewCarePlanRoute = createRoute({
     ...ROUTE_METADATA.RN.CARE_PLAN_REVIEW,
     method: 'post',
     path: '/{id}/review',
+    summary: 'Review Care Plan',
+    tags: ['RN', 'CarePlans'],
     middleware: [requirePermission('CARE_PLAN_UPDATE')],
     request: {
         params: CarePlanParamsSchema,

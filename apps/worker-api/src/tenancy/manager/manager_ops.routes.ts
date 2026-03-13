@@ -55,6 +55,8 @@ const LogisticsBoardResponseSchema = z.object({
 const branchHealthRoute = createRoute({
     method: 'get',
     path: '/branch-health',
+    summary: 'Branch Health',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -79,6 +81,8 @@ const branchHealthRoute = createRoute({
 const statsRoute = createRoute({
     method: 'get',
     path: '/stats',
+    summary: 'Stats',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -96,6 +100,8 @@ const statsRoute = createRoute({
 const complianceSyncRoute = createRoute({
     method: 'post',
     path: '/compliance/sync',
+    summary: 'Compliance Sync',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -113,6 +119,8 @@ const complianceSyncRoute = createRoute({
 const feedbackTriageRoute = createRoute({
     method: 'patch',
     path: '/feedback/{id}/triage',
+    summary: 'Feedback Triage',
+    tags: ['Manager'],
     request: {
         params: z.object({
             id: z.string().openapi({ example: '123' }),
@@ -141,6 +149,8 @@ const feedbackTriageRoute = createRoute({
 const waitlistRoute = createRoute({
     method: 'get',
     path: '/intake/waitlist',
+    summary: 'Waitlist',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -160,6 +170,8 @@ const waitlistRoute = createRoute({
 const logisticsBoardRoute = createRoute({
     method: 'get',
     path: '/schedule/logistics-board',
+    summary: 'Logistics Board',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -342,6 +354,8 @@ r.openapi(logisticsBoardRoute, async (c) => {
 const getIncidentsRoute = createRoute({
     method: 'get',
     path: '/incidents',
+    summary: 'Get Incidents',
+    tags: ['Manager'],
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Recent incidents' }
     }
@@ -369,6 +383,8 @@ r.openapi(getIncidentsRoute, async (c) => {
 const getLocationsRoute = createRoute({
     method: 'get',
     path: '/locations',
+    summary: 'Get Locations',
+    tags: ['Manager'],
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Real-time staff coordinates' }
     }
@@ -405,6 +421,8 @@ r.openapi(getLocationsRoute, async (c) => {
 const getApprovalsRoute = createRoute({
     method: 'get',
     path: '/approvals',
+    summary: 'Get Approvals',
+    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -419,6 +437,8 @@ const getApprovalsRoute = createRoute({
 const approveItemRoute = createRoute({
     method: 'post',
     path: '/approvals/{id}/approve',
+    summary: 'Approve Item',
+    tags: ['Manager'],
     request: { params: z.object({ id: z.string() }) },
     responses: {
         200: {
@@ -431,6 +451,8 @@ const approveItemRoute = createRoute({
 const rejectItemRoute = createRoute({
     method: 'post',
     path: '/approvals/{id}/reject',
+    summary: 'Reject Item',
+    tags: ['Manager'],
     request: { params: z.object({ id: z.string() }) },
     responses: {
         200: {
@@ -514,6 +536,8 @@ r.openapi(rejectItemRoute, async (c) => {
 const authorizeCrisisPayRoute = createRoute({
     method: 'post',
     path: '/schedule/logistics-board/{visitId}/crisis-pay',
+    summary: 'Authorize Crisis Pay',
+    tags: ['Manager'],
     tags: ['Manager Operations'],
     request: { params: z.object({ visitId: z.string() }) },
     responses: {

@@ -16,6 +16,8 @@ const submitWellnessPulseRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.WELLNESS_PULSE,
     method: 'post',
     path: '/pulse',
+    summary: 'Submit Wellness Pulse',
+    tags: ['PSW', 'Wellness'],
     middleware: [requireRole(['psw'])],
     request: {
         body: {

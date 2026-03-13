@@ -17,6 +17,8 @@ const registerDeviceRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.REGISTER_DEVICE,
     method: 'post',
     path: '/register-device',
+    summary: 'Register Device',
+    tags: ['System', 'Notifications'],
     request: {
         body: {
             content: {
@@ -48,6 +50,8 @@ const listNotificationsRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.LIST_NOTIFICATIONS,
     method: 'get',
     path: '/',
+    summary: 'List Notifications',
+    tags: ['System', 'Notifications'],
     responses: {
         200: {
             content: {
@@ -83,6 +87,8 @@ const markNotificationReadRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.READ_NOTIFICATION,
     method: 'patch',
     path: '/{id}/read',
+    summary: 'Mark Notification Read',
+    tags: ['System', 'Notifications'],
     request: {
         params: NotificationParamsSchema,
     },

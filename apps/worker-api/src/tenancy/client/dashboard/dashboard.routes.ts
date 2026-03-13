@@ -22,6 +22,8 @@ const getProfileRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.GET_PROFILE,
     method: 'get',
     path: '/profile',
+    summary: 'Get Profile',
+    tags: ['Client', 'Dashboard'],
     middleware: [requireRole(['client', 'rn', 'admin'])],
     responses: {
         200: {
@@ -56,6 +58,8 @@ const updateProfileRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.UPDATE_PROFILE,
     method: 'put',
     path: '/profile',
+    summary: 'Update Profile',
+    tags: ['Client', 'Dashboard'],
     middleware: [requireRole(['client'])],
     request: {
         body: {
@@ -138,6 +142,8 @@ const getClientStatsRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.STATS,
     method: 'get',
     path: '/stats',
+    summary: 'Get Client Stats',
+    tags: ['Client', 'Dashboard'],
     middleware: [requireRole(['client'])],
     responses: {
         200: {

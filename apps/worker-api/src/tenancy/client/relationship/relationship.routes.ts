@@ -16,6 +16,8 @@ const teamRosterRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.TEAM_ROSTER,
     method: 'get',
     path: '/team/roster',
+    summary: 'Team Roster',
+    tags: ['Client', 'Relationship'],
     responses: {
         200: {
             content: {
@@ -35,6 +37,8 @@ const feedbackSubmitRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.FEEDBACK_SUBMIT,
     method: 'post',
     path: '/support/feedback',
+    summary: 'Feedback Submit',
+    tags: ['Client', 'Relationship'],
     request: {
         body: {
             content: {

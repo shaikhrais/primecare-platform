@@ -24,6 +24,8 @@ usage.get('/', async (c) => {
 const saveUsageRoute = createRoute({
     method: 'patch',
     path: '/',
+    summary: 'Save Usage',
+    tags: ['Admin', 'Settings'],
     request: {
         body: {
             content: {

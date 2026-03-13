@@ -9,6 +9,8 @@ const payrollAuditRoute = createRoute({
     ...ROUTE_METADATA.MANAGER.PAYROLL_AUDIT,
     method: 'get',
     path: '/payroll-audit',
+    summary: 'Payroll Audit',
+    tags: ['Manager', 'Finance'],
     middleware: [requireRole(['manager', 'admin', 'finance'])],
     responses: {
         200: {

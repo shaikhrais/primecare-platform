@@ -22,6 +22,8 @@ const createCarePlanRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CARE_PLAN_CREATE,
     method: 'post',
     path: '/{clientId}',
+    summary: 'Create Care Plan',
+    tags: ['Client', 'CarePlan'],
     middleware: [requirePermission('CARE_PLAN_CREATE')],
     request: {
         params: ClientParamsSchema,
@@ -65,6 +67,8 @@ const updateCarePlanRoute = createRoute({
     ...ROUTE_METADATA.CLIENT.CARE_PLAN_UPDATE,
     method: 'patch',
     path: '/{clientId}',
+    summary: 'Update Care Plan',
+    tags: ['Client', 'CarePlan'],
     middleware: [requirePermission('CARE_PLAN_UPDATE')],
     request: {
         params: ClientParamsSchema,

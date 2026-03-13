@@ -21,6 +21,8 @@ const listTasksRoute = createRoute({
     ...ROUTE_METADATA.STAFF.TASKS,
     method: 'get',
     path: '/grid',
+    summary: 'List Tasks',
+    tags: ['Staff', 'Ops'],
     responses: {
         200: {
             content: {

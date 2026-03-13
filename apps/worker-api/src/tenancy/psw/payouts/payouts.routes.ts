@@ -8,6 +8,8 @@ const getPayoutHistoryRoute = createRoute({
     ...ROUTE_METADATA.PSW_EXTRA.PAYOUT_HISTORY,
     method: 'get',
     path: '/history',
+    summary: 'Get Payout History',
+    tags: ['PSW', 'Payouts'],
     responses: {
         200: {
             content: {

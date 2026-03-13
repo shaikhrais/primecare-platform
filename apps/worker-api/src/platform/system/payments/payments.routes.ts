@@ -15,6 +15,8 @@ const createPaymentIntentRoute = createRoute({
     ...ROUTE_METADATA.SYSTEM.PAYMENT_INTENT,
     method: 'post',
     path: '/create-payment-intent',
+    summary: 'Create Payment Intent',
+    tags: ['System', 'Payments'],
     request: {
         body: {
             content: {
