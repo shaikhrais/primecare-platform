@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: F9 · Invoice Entry
+// Type: Form | Owner: admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';

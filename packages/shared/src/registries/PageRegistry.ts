@@ -606,6 +606,13 @@ export const FILE_IDENTITY_MAP: Record<string, string> = {
     T63: 'apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx',
     T64: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T64-RegionMapping.tsx',
     T65: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity.tsx',
+    // ── Final Pages ──
+    L3:  'apps/web-admin/src/app/routes/platform/admin/pages/leads/L3-LeadList.tsx',
+    L3a: 'apps/web-admin/src/app/routes/platform/admin/pages/users/L3a-UserList.tsx',
+    F9:  'apps/web-admin/src/app/routes/platform/admin/pages/invoices/F9-InvoiceEntry.tsx',
+    F9a: 'apps/web-admin/src/app/routes/platform/admin/pages/users/F9a-UserEntry.tsx',
+    T66: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx',
+    T67: 'apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx',
     // ── Registries (G1-G2) ──
     G1:  'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',
     G2:  'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',

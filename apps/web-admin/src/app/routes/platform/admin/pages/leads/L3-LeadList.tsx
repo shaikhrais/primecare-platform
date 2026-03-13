@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L3 · Lead List
+// Type: List | Owner: admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

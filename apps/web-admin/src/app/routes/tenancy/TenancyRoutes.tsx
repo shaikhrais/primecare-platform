@@ -9,7 +9,7 @@ const { RouteRegistry } = AdminRegistry;
 // Manager Pages
 const Portfolio = lazy(() => import('./manager/pages/portfolio/T19-Portfolio'));
 const DailyEntry = lazy(() => import('./manager/pages/daily-entry/T20-DailyEntry'));
-const UserList = lazy(() => import('../platform/admin/pages/users').then(m => ({ default: m.UserList })));
+const UserList = lazy(() => import('../platform/admin/pages/users/L3a-UserList'));
 const Evaluations = lazy(() => import('./manager/pages/evaluations/L13-Evaluations'));
 const ServiceReview = lazy(() => import('./manager/pages/service-review/T21-ServiceReview'));
 const ManagerDashboard = lazy(() => import('./manager/pages/dashboard/D7-ManagerDashboard'));
