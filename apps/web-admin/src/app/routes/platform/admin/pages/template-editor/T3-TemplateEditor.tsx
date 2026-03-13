@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T3 · Template Editor
+// Registry ID:   page.admin.template-editor
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';

@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T18 · Tax Compliance Hub
+// Registry ID:   page.admin.tax-compliance
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';

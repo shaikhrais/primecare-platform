@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T1 · Global Search
+// Registry ID:   page.admin.search
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';

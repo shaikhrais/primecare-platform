@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T16 · Integrity Verification
+// Registry ID:   page.admin.integrity
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 
 const IntegrityVerification: React.FC = () => {

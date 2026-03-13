@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T17 · Financial Ledger
+// Registry ID:   page.admin.financial-ledger
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';

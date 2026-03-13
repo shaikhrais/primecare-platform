@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: W4 · Revenue Wizard
+// Registry ID:   page.admin.revenue-wizard
+// Type:          Wizard
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

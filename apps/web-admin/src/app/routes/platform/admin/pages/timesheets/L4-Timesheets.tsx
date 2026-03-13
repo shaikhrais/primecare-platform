@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L4 · Timesheets
+// Registry ID:   page.admin.timesheets
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TimesheetDetailModal } from '@/shared/components/modals/TimesheetDetailModal';

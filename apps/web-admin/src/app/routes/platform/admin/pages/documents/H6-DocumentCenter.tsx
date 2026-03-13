@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H6 · Document Center
+// Registry ID:   page.admin.documents
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';

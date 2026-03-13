@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T5 · FHIR Center
+// Registry ID:   page.admin.fhir
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 

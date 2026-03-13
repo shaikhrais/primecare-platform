@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L12 · Booking Queue
+// Registry ID:   page.admin.booking-queue
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';

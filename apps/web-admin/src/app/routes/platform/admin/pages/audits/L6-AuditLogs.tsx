@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L6 · Audit Logs
+// Registry ID:   page.admin.audits
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import { useTranslation } from 'react-i18next';

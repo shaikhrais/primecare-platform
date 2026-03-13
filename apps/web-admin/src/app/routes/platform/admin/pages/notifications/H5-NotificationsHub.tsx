@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H5 · Notifications Hub
+// Registry ID:   page.admin.notifications
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';

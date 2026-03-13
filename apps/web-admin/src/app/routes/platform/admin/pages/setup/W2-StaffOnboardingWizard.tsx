@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: W2 · Staff Onboarding Wizard
+// Registry ID:   page.admin.staff-onboarding
+// Type:          Wizard
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

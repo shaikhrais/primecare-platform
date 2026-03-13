@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H1 · Telehealth Center
+// Registry ID:   page.admin.telehealth
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

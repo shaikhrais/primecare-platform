@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H7 · Payroll Hub
+// Registry ID:   page.admin.payroll
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';

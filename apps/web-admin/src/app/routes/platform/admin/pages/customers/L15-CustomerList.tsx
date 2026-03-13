@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L15 · Customer List
+// Registry ID:   page.admin.customers
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

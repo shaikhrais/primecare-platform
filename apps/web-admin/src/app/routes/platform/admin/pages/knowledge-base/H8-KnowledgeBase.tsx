@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H8 · Knowledge Base
+// Registry ID:   page.admin.knowledge-base
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import { Link } from 'react-router-dom';
 

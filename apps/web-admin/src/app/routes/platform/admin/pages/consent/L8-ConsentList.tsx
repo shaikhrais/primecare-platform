@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L8 · Consent List
+// Registry ID:   page.admin.consents
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

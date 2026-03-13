@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L11 · Webhook List
+// Registry ID:   page.admin.webhooks
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

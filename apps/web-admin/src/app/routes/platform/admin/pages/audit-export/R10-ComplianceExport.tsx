@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R10 · Compliance Export
+// Registry ID:   page.admin.compliance-export
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

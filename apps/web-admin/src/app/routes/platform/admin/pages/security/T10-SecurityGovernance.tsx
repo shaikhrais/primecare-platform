@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T10 · Security Governance
+// Registry ID:   page.admin.security-governance
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '../../../../../../shared/utils/apiClient';

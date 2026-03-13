@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T2 · Content Manager
+// Registry ID:   page.admin.content
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL;

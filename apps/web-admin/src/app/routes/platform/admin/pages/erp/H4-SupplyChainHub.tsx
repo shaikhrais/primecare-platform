@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H4 · Supply Chain Hub
+// Registry ID:   page.admin.erp
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

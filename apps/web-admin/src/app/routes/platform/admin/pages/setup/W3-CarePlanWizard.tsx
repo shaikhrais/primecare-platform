@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: W3 · Care Plan Wizard
+// Registry ID:   page.admin.care-plan
+// Type:          Wizard
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

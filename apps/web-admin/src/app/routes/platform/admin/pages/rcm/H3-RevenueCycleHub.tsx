@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H3 · Revenue Cycle Hub
+// Registry ID:   page.admin.rcm
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

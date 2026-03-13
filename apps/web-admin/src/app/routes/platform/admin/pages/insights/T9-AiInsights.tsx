@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T9 · AI Insights
+// Registry ID:   page.admin.insights
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';

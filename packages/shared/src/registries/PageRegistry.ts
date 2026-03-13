@@ -430,35 +430,81 @@ export const PAGE_REGISTRY_COUNT = PageRegistry.length;
 // Maps category codes → source file paths for quick identification.
 // Use: FILE_IDENTITY_MAP['F6'] → 'apps/web-admin/.../admission/index.tsx'
 export const FILE_IDENTITY_MAP: Record<string, string> = {
-    // Dashboards (D1-D7)
+    // ── Dashboards (D1-D6) ──
     D1:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx',
     D2:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx',
+    D3:  'apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx',
     D4:  'apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx',
     D5:  'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx',
     D6:  'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx',
-    // Auth Forms (F1-F5)
+    // ── Forms (F1-F18) ──
     F1:  'apps/web-admin/src/app/routes/auth/Login.tsx',
     F2:  'apps/web-admin/src/app/routes/auth/Register.tsx',
     F3:  'apps/web-admin/src/app/routes/auth/ForgotPassword.tsx',
     F4:  'apps/web-admin/src/app/routes/auth/ResetPassword.tsx',
     F5:  'apps/web-admin/src/app/routes/auth/BusinessOnboard.tsx',
-    // Admin Forms (F6-F12)
     F6:  'apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx',
     F7:  'apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx',
     F8:  'apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx',
-    F9:  'apps/web-admin/src/app/routes/platform/admin/pages/users/UserForm.tsx',
     F10: 'apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx',
     F11: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx',
-    F12: 'apps/web-admin/src/app/routes/platform/admin/pages/locations/index.tsx',
-    // PSW Forms (F13-F15)
     F13: 'apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx',
     F14: 'apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx',
-    F15: 'apps/web-admin/src/app/routes/tenancy/psw/pages/availability/index.tsx',
-    // Client Forms (F16-F18)
     F16: 'apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx',
-    F17: 'apps/web-admin/src/app/routes/tenancy/client/pages/bookings/RequestBooking.tsx',
-    F18: 'apps/web-admin/src/app/routes/shared/pages/profile/index.tsx',
-    // Registries (G1-G2)
+    // ── Lists (L2-L15) ──
+    L2:  'apps/web-admin/src/app/routes/platform/admin/pages/incidents/L2-IncidentList.tsx',
+    L4:  'apps/web-admin/src/app/routes/platform/admin/pages/timesheets/L4-Timesheets.tsx',
+    L5:  'apps/web-admin/src/app/routes/platform/admin/pages/services/L5-Services.tsx',
+    L6:  'apps/web-admin/src/app/routes/platform/admin/pages/audits/L6-AuditLogs.tsx',
+    L7:  'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/L7-AuthList.tsx',
+    L8:  'apps/web-admin/src/app/routes/platform/admin/pages/consent/L8-ConsentList.tsx',
+    L9:  'apps/web-admin/src/app/routes/platform/admin/pages/referrals/L9-ReferralList.tsx',
+    L10: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/L10-ClaimsList.tsx',
+    L11: 'apps/web-admin/src/app/routes/platform/admin/pages/webhooks/L11-WebhookList.tsx',
+    L12: 'apps/web-admin/src/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue.tsx',
+    L15: 'apps/web-admin/src/app/routes/platform/admin/pages/customers/L15-CustomerList.tsx',
+    // ── Hubs (H1-H9) ──
+    H1:  'apps/web-admin/src/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter.tsx',
+    H2:  'apps/web-admin/src/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub.tsx',
+    H3:  'apps/web-admin/src/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub.tsx',
+    H4:  'apps/web-admin/src/app/routes/platform/admin/pages/erp/H4-SupplyChainHub.tsx',
+    H5:  'apps/web-admin/src/app/routes/platform/admin/pages/notifications/H5-NotificationsHub.tsx',
+    H6:  'apps/web-admin/src/app/routes/platform/admin/pages/documents/H6-DocumentCenter.tsx',
+    H7:  'apps/web-admin/src/app/routes/platform/admin/pages/payroll/H7-PayrollHub.tsx',
+    H8:  'apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase.tsx',
+    H9:  'apps/web-admin/src/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub.tsx',
+    // ── Wizards (W1-W5) ──
+    W1:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard.tsx',
+    W2:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard.tsx',
+    W3:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W3-CarePlanWizard.tsx',
+    W4:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W4-RevenueWizard.tsx',
+    W5:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard.tsx',
+    // ── Reports (R1-R12) ──
+    R1:  'apps/web-admin/src/app/routes/platform/admin/pages/reports/R1-ReportCenter.tsx',
+    R2:  'apps/web-admin/src/app/routes/platform/admin/pages/reports/R2-ExportPage.tsx',
+    R8:  'apps/web-admin/src/app/routes/platform/admin/pages/evv/R8-EvvExport.tsx',
+    R9:  'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R9-AuditDownload.tsx',
+    R10: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R10-ComplianceExport.tsx',
+    R11: 'apps/web-admin/src/app/routes/platform/admin/pages/referrals/R11-ReferralAnalytics.tsx',
+    R12: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/R12-ClaimsEra.tsx',
+    // ── Tools (T1-T18) ──
+    T1:  'apps/web-admin/src/app/routes/platform/admin/pages/search/T1-SearchPage.tsx',
+    T2:  'apps/web-admin/src/app/routes/platform/admin/pages/content/T2-ContentManager.tsx',
+    T3:  'apps/web-admin/src/app/routes/platform/admin/pages/template-editor/T3-TemplateEditor.tsx',
+    T4:  'apps/web-admin/src/app/routes/platform/admin/pages/role-editor/T4-RoleEditor.tsx',
+    T5:  'apps/web-admin/src/app/routes/platform/admin/pages/interoperability/T5-FHIRCenter.tsx',
+    T6:  'apps/web-admin/src/app/routes/platform/admin/pages/sovereign/T6-SovereignWallet.tsx',
+    T7:  'apps/web-admin/src/app/routes/platform/admin/pages/automation/T7-AutoPilot.tsx',
+    T8:  'apps/web-admin/src/app/routes/platform/admin/pages/clinical-assistant/T8-ClinicalAssistant.tsx',
+    T9:  'apps/web-admin/src/app/routes/platform/admin/pages/insights/T9-AiInsights.tsx',
+    T10: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T10-SecurityGovernance.tsx',
+    T13: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T13-DeviceManagement.tsx',
+    T14: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T14-ForensicTrails.tsx',
+    T15: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T15-CorsSettings.tsx',
+    T16: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T16-IntegrityVerification.tsx',
+    T17: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T17-FinancialLedger.tsx',
+    T18: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T18-TaxComplianceHub.tsx',
+    // ── Registries (G1-G2) ──
     G1:  'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',
     G2:  'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',
 };

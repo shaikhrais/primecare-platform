@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: D3 · Accounting Dashboard
+// Registry ID:   page.admin.accounting
+// Type:          Dashboard
+// Owner:         admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';

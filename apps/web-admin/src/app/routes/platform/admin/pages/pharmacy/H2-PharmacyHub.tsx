@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H2 · Pharmacy Hub
+// Registry ID:   page.admin.pharmacy
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

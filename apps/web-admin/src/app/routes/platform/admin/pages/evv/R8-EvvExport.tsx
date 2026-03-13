@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R8 · EVV Export
+// Registry ID:   page.admin.evv-export
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

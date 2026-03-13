@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T6 · Sovereign Wallet
+// Registry ID:   page.admin.sovereign
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

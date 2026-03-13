@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L5 · Service Catalog
+// Registry ID:   page.admin.services
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';

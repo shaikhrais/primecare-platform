@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R2 · Data Export
+// Registry ID:   page.admin.export
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';

@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T15 · CORS Settings
+// Registry ID:   page.admin.cors
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 

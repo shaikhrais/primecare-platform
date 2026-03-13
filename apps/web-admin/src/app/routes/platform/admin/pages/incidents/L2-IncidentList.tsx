@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L2 · Incident List
+// Registry ID:   page.admin.incident-list
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate, Link } from 'react-router-dom';

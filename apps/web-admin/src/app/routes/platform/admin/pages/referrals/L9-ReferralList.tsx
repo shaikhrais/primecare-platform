@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L9 · Referral List
+// Registry ID:   page.admin.referrals
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: W5 · Business Model Wizard
+// Registry ID:   page.admin.biz-model
+// Type:          Wizard
+// Owner:         admin
+// ================================================================
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

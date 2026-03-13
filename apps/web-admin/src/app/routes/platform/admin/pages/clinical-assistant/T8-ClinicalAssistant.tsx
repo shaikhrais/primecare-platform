@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T8 · Clinical Assistant
+// Registry ID:   page.admin.clinical-assistant
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React, { useState } from 'react';
 

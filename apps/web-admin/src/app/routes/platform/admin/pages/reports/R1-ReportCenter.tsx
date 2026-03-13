@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R1 · Report Center
+// Registry ID:   page.admin.reports
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { RevenueTrendChart } from '@/shared/components/charts/RevenueTrendChart';

@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T13 · Device Management
+// Registry ID:   page.admin.device-mgmt
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '../../../../../../shared/utils/apiClient';

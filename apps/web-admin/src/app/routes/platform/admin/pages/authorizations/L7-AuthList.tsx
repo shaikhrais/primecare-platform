@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L7 · Authorization List
+// Registry ID:   page.admin.authorizations
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

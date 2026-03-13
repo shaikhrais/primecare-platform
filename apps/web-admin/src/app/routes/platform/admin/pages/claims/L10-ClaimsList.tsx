@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: L10 · Claims List
+// Registry ID:   page.admin.claims
+// Type:          List
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

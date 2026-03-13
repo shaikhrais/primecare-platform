@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T14 · Forensic Trails
+// Registry ID:   page.admin.forensic-trails
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import EmptyState from '../../../../../../shared/components/layout/EmptyState';

@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R11 · Referral Analytics
+// Registry ID:   page.admin.referral-analytics
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

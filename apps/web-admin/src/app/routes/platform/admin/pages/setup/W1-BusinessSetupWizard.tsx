@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: W1 · Business Setup Wizard
+// Registry ID:   page.admin.business-setup
+// Type:          Wizard
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

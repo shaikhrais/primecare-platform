@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: R12 · Claims ERA
+// Registry ID:   page.admin.claims-era
+// Type:          Report
+// Owner:         admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

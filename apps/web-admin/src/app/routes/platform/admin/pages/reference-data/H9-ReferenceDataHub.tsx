@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: H9 · Reference Data Hub
+// Registry ID:   page.admin.reference-data
+// Type:          Hub
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';

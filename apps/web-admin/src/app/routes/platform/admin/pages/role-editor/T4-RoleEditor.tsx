@@ -1,3 +1,9 @@
+// ================================================================
+// PAGE IDENTITY: T4 · Role Editor
+// Registry ID:   page.admin.role-editor
+// Type:          Tool
+// Owner:         admin
+// ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
