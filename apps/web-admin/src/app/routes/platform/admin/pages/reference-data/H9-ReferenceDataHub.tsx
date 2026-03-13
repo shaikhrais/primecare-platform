@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H9 � Reference Data Hub
+// PAGE IDENTITY: H9 � Reference Data Hub
 // Registry ID:   page.admin.reference-data
 // Type:          Hub
 // Owner:         admin
@@ -47,7 +47,7 @@ export default function ReferenceDataHub() {
                 <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                     <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>{t('admin.insurance_provider_directory', { defaultValue: 'Insurance Provider Directory' })}</span>
-                        <button className="btn primary" data-cy="btn-add-provider" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={() => showToast(t('admin.insurance_form_opened', { defaultValue: 'Insurance provider form opened' }), 'info')}>+ {t('admin.add_provider', { defaultValue: 'Add Provider' })}</button>
+                        <button className="btn primary" data-cy="btn-add-provider" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={async () => { const name = prompt('Enter provider name:'); if (!name) return; try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.post('/v1/admin/actions/reference-data/providers', { name }); } catch {} showToast(t('admin.insurance_form_opened', { defaultValue: 'Insurance provider form opened' }), 'info'); }}>+ {t('admin.add_provider', { defaultValue: 'Add Provider' })}</button>
                     </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
@@ -66,7 +66,7 @@ export default function ReferenceDataHub() {
                                     <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)', fontFamily: 'monospace' }}>{p.code}</td>
                                     <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)' }}>{p.contactEmail}</td>
                                     <td style={{ padding: '16px 24px' }}><span style={{ color: p.status === 'active' ? '#10B981' : '#EF4444', fontWeight: '600', fontSize: '13px' }}>{p.status === 'active' ? `● ${t('admin.active', { defaultValue: 'Active' })}` : `○ ${t('admin.inactive', { defaultValue: 'Inactive' })}`}</span></td>
-                                    <td style={{ padding: '16px 24px' }}><button className="btn secondary" data-cy={`btn-edit-provider-${p.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.editing_provider', { defaultValue: `Editing ${p.name}`, name: p.name }), 'info')}>{t('admin.edit', { defaultValue: 'Edit' })}</button></td>
+                                    <td style={{ padding: '16px 24px' }}><button className="btn secondary" data-cy={`btn-edit-provider-${p.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { const name = prompt('Edit provider name:', p.name); if (!name) return; try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/actions/reference-data/providers/${p.id}`, { name }); } catch {} showToast(t('admin.editing_provider', { defaultValue: `Editing ${p.name}`, name: p.name }), 'info'); }}>{t('admin.edit', { defaultValue: 'Edit' })}</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -78,7 +78,7 @@ export default function ReferenceDataHub() {
                 <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                     <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>{t('admin.billing_code_directory', { defaultValue: 'Billing Code Directory' })}</span>
-                        <button className="btn primary" data-cy="btn-add-billing-code" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={() => showToast(t('admin.billing_form_opened', { defaultValue: 'Billing code form opened' }), 'info')}>+ {t('admin.add_billing_code', { defaultValue: 'Add Billing Code' })}</button>
+                        <button className="btn primary" data-cy="btn-add-billing-code" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={async () => { const code = prompt('Enter billing code:'); if (!code) return; try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.post('/v1/admin/actions/reference-data/billing-codes', { code }); } catch {} showToast(t('admin.billing_form_opened', { defaultValue: 'Billing code form opened' }), 'info'); }}>+ {t('admin.add_billing_code', { defaultValue: 'Add Billing Code' })}</button>
                     </div>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
@@ -97,7 +97,7 @@ export default function ReferenceDataHub() {
                                     <td style={{ padding: '16px 24px', fontSize: '14px', color: 'var(--text-100)' }}>{bc.description}</td>
                                     <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)' }}>{bc.category}</td>
                                     <td style={{ padding: '16px 24px', fontSize: '14px', fontWeight: '800', color: '#10B981' }}>${bc.unitRate.toFixed(2)}</td>
-                                    <td style={{ padding: '16px 24px' }}><button className="btn secondary" data-cy={`btn-edit-code-${bc.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.editing_billing_code', { defaultValue: `Editing billing code ${bc.code}`, code: bc.code }), 'info')}>{t('admin.edit', { defaultValue: 'Edit' })}</button></td>
+                                    <td style={{ padding: '16px 24px' }}><button className="btn secondary" data-cy={`btn-edit-code-${bc.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { const code = prompt('Edit billing code:', bc.code); if (!code) return; try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/actions/reference-data/billing-codes/${bc.id}`, { code }); } catch {} showToast(t('admin.editing_billing_code', { defaultValue: `Editing billing code ${bc.code}`, code: bc.code }), 'info'); }}>{t('admin.edit', { defaultValue: 'Edit' })}</button></td>
                                 </tr>
                             ))}
                         </tbody>

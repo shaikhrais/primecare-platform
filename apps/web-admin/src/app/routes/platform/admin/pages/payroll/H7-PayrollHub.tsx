@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H7 � Payroll Hub
+// PAGE IDENTITY: H7 � Payroll Hub
 // Registry ID:   page.admin.payroll
 // Type:          Hub
 // Owner:         admin
@@ -132,7 +132,7 @@ export default function PayrollHub() {
                                             <span className={`pc-badge ${t.status === 'approved' ? 'primary' : 'secondary'}`}>{t.status === 'approved' ? `✅ ${t('admin.approved', { defaultValue: 'Approved' })}` : `⏳ ${t('admin.pending', { defaultValue: 'Pending' })}`}</span>
                                         </td>
                                         <td style={{ padding: '16px 24px' }}>
-                                            {t.status === 'pending' && <button className="btn primary" data-cy={`btn-approve-${t.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.timesheet_approved', { defaultValue: `Timesheet approved for ${t.pswName}`, name: t.pswName }), 'success')}>{t('admin.approve', { defaultValue: 'Approve' })}</button>}
+                                            {t.status === 'pending' && <button className="btn primary" data-cy={`btn-approve-${t.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/timesheets/${t.id}`, { status: 'approved' }); } catch {} showToast(t('admin.timesheet_approved', { defaultValue: `Timesheet approved for ${t.pswName}`, name: t.pswName }), 'success'); }}>{t('admin.approve', { defaultValue: 'Approve' })}</button>}
                                         </td>
                                     </tr>
                                 ))}

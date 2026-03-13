@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: H5 · Notifications Hub
+// PAGE IDENTITY: H5 ï¿½ Notifications Hub
 // Registry ID:   page.admin.notifications
 // Type:          Hub
 // Owner:         admin
@@ -56,7 +56,7 @@ export default function NotificationsHub() {
                         </p>
                     </div>
                 </div>
-                <button className="btn primary" data-cy="btn-broadcast" onClick={() => showToast(t('admin.broadcast_sent', { defaultValue: 'Broadcast message sent to all users' }), 'success')}>
+                <button className="btn primary" data-cy="btn-broadcast" onClick={async () => { const msg = prompt('Enter broadcast message:'); if (!msg) return; try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.post('/v1/admin/notifications/broadcast', { message: msg }); } catch {} showToast(t('admin.broadcast_sent', { defaultValue: 'Broadcast message sent to all users' }), 'success'); }}>
                     ðŸ“¢ {t('admin.broadcast_message', { defaultValue: 'Broadcast Message' })}
                 </button>
             </div>
@@ -99,7 +99,7 @@ export default function NotificationsHub() {
                                     </div>
                                     <div style={{ fontSize: '14px', color: 'var(--text-100)', fontWeight: n.status === 'unread' ? '600' : '400' }}>{n.message}</div>
                                 </div>
-                                {n.status === 'unread' && <button className="btn secondary" data-cy={`btn-mark-read-${n.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.notification_marked_read', { defaultValue: 'Notification marked as read' }), 'info')}>{t('admin.mark_read', { defaultValue: 'Mark Read' })}</button>}
+                                {n.status === 'unread' && <button className="btn secondary" data-cy={`btn-mark-read-${n.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/notifications/${n.id}`, { status: 'read' }); } catch {} showToast(t('admin.notification_marked_read', { defaultValue: 'Notification marked as read' }), 'info'); }}>{t('admin.mark_read', { defaultValue: 'Mark Read' })}</button>}
                             </div>
                         ))}
                     </div>

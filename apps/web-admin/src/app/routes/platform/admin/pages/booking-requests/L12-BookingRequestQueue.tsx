@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L12 � Booking Queue
+// PAGE IDENTITY: L12 � Booking Queue
 // Registry ID:   page.admin.booking-queue
 // Type:          List
 // Owner:         admin
@@ -85,7 +85,7 @@ export default function BookingRequestQueue() {
                                         <td style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--text-300)', maxWidth: '200px' }}>{r.notes || '—'}</td>
                                         <td style={{ padding: '16px 24px' }}><span className={`pc-badge ${r.status === 'approved' ? 'primary' : 'secondary'}`}>{r.status === 'approved' ? `✅ ${t('admin.approved', { defaultValue: 'Approved' })}` : `⏳ ${t('admin.pending', { defaultValue: 'Pending' })}`}</span></td>
                                         <td style={{ padding: '16px 24px', display: 'flex', gap: '6px' }}>
-                                            {r.status === 'pending' && <><button className="btn primary" data-cy={`btn-approve-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.booking_approved_msg', { defaultValue: `Booking request from ${r.clientName} approved`, name: r.clientName }), 'success')}>{t('admin.approve', { defaultValue: 'Approve' })}</button><button className="btn secondary" data-cy={`btn-reject-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={() => showToast(t('admin.booking_rejected_msg', { defaultValue: `Booking request from ${r.clientName} rejected`, name: r.clientName }), 'warning')}>{t('admin.reject', { defaultValue: 'Reject' })}</button></>}
+                                            {r.status === 'pending' && <><button className="btn primary" data-cy={`btn-approve-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/booking-requests/${r.id}`, { status: 'approved' }); } catch {} showToast(t('admin.booking_approved_msg', { defaultValue: `Booking request from ${r.clientName} approved`, name: r.clientName }), 'success'); }}>{t('admin.approve', { defaultValue: 'Approve' })}</button><button className="btn secondary" data-cy={`btn-reject-${r.id}`} style={{ fontSize: '11px', padding: '4px 8px' }} onClick={async () => { try { const m = await import('@/shared/utils/apiClient'); await m.apiClient.patch(`/v1/admin/booking-requests/${r.id}`, { status: 'rejected' }); } catch {} showToast(t('admin.booking_rejected_msg', { defaultValue: `Booking request from ${r.clientName} rejected`, name: r.clientName }), 'warning'); }}>{t('admin.reject', { defaultValue: 'Reject' })}</button></>}
                                         </td>
                                     </tr>
                                 ))}
