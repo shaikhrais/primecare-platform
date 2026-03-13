@@ -2,6 +2,7 @@ import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const { RouteRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -129,7 +130,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                     </button>
                                     <button
                                         onClick={() => {
-                                            if (window.confirm(CONTENT.MESSAGES.CONFIRM_DELETE)) onDelete(lead.id);
+                                            confirm('Delete Lead', CONTENT.MESSAGES.CONFIRM_DELETE).then(ok => { if (ok) onDelete(lead.id); });
                                         }}
                                         style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500', fontSize: '0.75rem' }}
                                         data-cy={`btn-delete-${lead.id}`}
@@ -152,6 +153,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                     )}
                 </tbody>
             </table>
-        </div>
+        <DialogRenderer />
+            </div>
     );
 };

@@ -9,6 +9,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 export default function NotificationsHub() {
     const { showToast } = useNotification();

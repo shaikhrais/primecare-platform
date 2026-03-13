@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 export default function TemplatesList() {
     const navigate = useNavigate();
@@ -77,7 +78,7 @@ export default function TemplatesList() {
                                     </button>
                                     <button
                                         onClick={async () => {
-                                            if (!confirm(`Delete template "${tpl.name}"? This cannot be undone.`)) return;
+                                            if (!(await confirm('Delete Template', `Delete template "${tpl.name}"? This cannot be undone.`))) return;
                                             try {
                                                 const { apiClient } = await import('@/shared/utils/apiClient');
                                                 await apiClient.delete(`/v1/admin/templates/${tpl.id}`);
@@ -95,6 +96,7 @@ export default function TemplatesList() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        <DialogRenderer />
+            </div>
     );
 }

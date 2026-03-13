@@ -2,6 +2,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 export default function RolesList() {
     const navigate = useNavigate();
@@ -79,7 +80,7 @@ export default function RolesList() {
                                     {role.type !== 'System' && (
                                         <button
                                             onClick={async () => {
-                                                if (!confirm(`Delete role "${role.name}"? Users with this role will lose their permissions.`)) return;
+                                                if (!(await confirm('Delete Role', `Delete role "${role.name}"? Users with this role will lose their permissions.`)) return;
                                                 try {
                                                     const { apiClient } = await import('@/shared/utils/apiClient');
                                                     await apiClient.delete(`/v1/admin/roles/${role.id}`);
@@ -98,6 +99,7 @@ export default function RolesList() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        <DialogRenderer />
+            </div>
     );
 }

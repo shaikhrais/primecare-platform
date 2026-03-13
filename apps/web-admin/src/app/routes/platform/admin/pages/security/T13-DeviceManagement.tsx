@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T13 · Device Management
+// PAGE IDENTITY: T13 ï¿½ Device Management
 // Registry ID:   page.admin.device-mgmt
 // Type:          Tool
 // Owner:         admin
@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 interface Device {
     id: string;
@@ -37,6 +38,7 @@ interface AuditLog {
 }
 
 export default function DeviceManagement() {
+    const { confirm, DialogRenderer } = useDialog();
     const [devices, setDevices] = useState<Device[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
@@ -71,7 +73,7 @@ export default function DeviceManagement() {
     };
 
     const handleRevoke = async (id: string) => {
-        if (!confirm('Are you sure you want to force logout and revoke access for this device?')) return;
+        if (!(await confirm('Force Logout Device', 'Are you sure you want to force logout and revoke access for this device?'))) return;
         try {
             const res = await apiClient.post(`/v1/admin/settings/security/devices/${id}/revoke`);
             if (res.ok) fetchDevices();
@@ -252,6 +254,7 @@ export default function DeviceManagement() {
                     </div>
                 </div>
             )}
-        </div>
+            <DialogRenderer />
+            </div>
     );
 }

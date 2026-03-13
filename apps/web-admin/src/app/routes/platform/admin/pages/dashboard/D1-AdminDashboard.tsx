@@ -14,6 +14,7 @@ import { HealthAlerts } from './components/HealthAlerts';
 import { DashboardCharts } from './components/DashboardCharts';
 import { QuickActions } from './components/QuickActions';
 import { OperationalStatus } from './components/OperationalStatus';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -65,7 +66,7 @@ export default function AdminDashboard() {
     };
 
     const handleSuspendReseller = async () => {
-        if (!confirm('⚠️ Are you sure you want to suspend the reseller agreement? This cannot be undone easily.')) return;
+        if (!(await confirm('Suspend Reseller Agreement', 'Are you sure you want to suspend the reseller agreement? This cannot be undone easily.')) return;
         await handleApiAction('/v1/admin/actions/suspend-reseller', 'Reseller agreement suspended', 'Failed to suspend reseller');
     };
 
@@ -187,6 +188,7 @@ export default function AdminDashboard() {
             <div className="grid" style={{ marginTop: '2rem' }}>
                 <QuickActions onPostShift={() => setIsPostShiftModalOpen(true)} />
                 <OperationalStatus />
+            <DialogRenderer />
             </div>
 
             <CreateVisitModal

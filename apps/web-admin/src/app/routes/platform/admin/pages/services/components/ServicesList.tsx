@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 interface Service {
     id: string;
@@ -58,7 +59,7 @@ export const ServicesList: React.FC<ServicesListProps> = ({ services, searchTerm
                                     </button>
                                     <button
                                         onClick={() => {
-                                            if (window.confirm('Delete this service?')) onDelete(service.id);
+                                            confirm('Delete Service', 'Are you sure you want to delete this service? This action cannot be undone.').then(ok => { if (ok) onDelete(service.id); });
                                         }}
                                         style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}
                                         data-cy={`btn-delete-${service.id}`}
@@ -77,6 +78,7 @@ export const ServicesList: React.FC<ServicesListProps> = ({ services, searchTerm
                     )}
                 </tbody>
             </table>
-        </div>
+        <DialogRenderer />
+            </div>
     );
 };

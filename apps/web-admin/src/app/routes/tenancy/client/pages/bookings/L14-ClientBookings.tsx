@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L14 · Client Bookings
+// PAGE IDENTITY: L14 ï¿½ Client Bookings
 // Type: List | Owner: client
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -9,6 +9,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 // Components
 import { BookingsList } from './components/BookingsList';
 import { BookingRequestModal } from './components/BookingRequestModal';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -111,7 +112,7 @@ export default function BookingsPage() {
     };
 
     const handleCancel = async (bookingId: string) => {
-        if (!window.confirm('Are you sure you want to cancel this booking?')) return;
+        if (!(await confirm('Cancel Booking', 'Are you sure you want to cancel this booking?'))) return;
 
         try {
             const token = localStorage.getItem('token');
@@ -170,6 +171,7 @@ export default function BookingsPage() {
                 submitting={submitting}
                 onRefreshServices={fetchServices}
             />
-        </div>
+        <DialogRenderer />
+            </div>
     );
 }

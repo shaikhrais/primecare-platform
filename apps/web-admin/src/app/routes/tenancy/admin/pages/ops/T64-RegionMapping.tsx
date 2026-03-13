@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ButtonRegistry } = AdminRegistry;
 

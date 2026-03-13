@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useDialog } from '@/shared/hooks/useDialog';
 // import { apiClient } from '@/shared/utils/apiClient'; // Assuming this exists or using fetch
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -94,7 +95,7 @@ export default function LocationsList() {
                                         </button>
                                         <button
                                             onClick={async () => {
-                                                if (!confirm(`Delete "${loc.name}"? This action cannot be undone.`)) return;
+                                                if (!(await confirm('Delete Location', `Delete "${loc.name}"? This action cannot be undone.`))) return;
                                                 try {
                                                     const token = localStorage.getItem('token');
                                                     await fetch(`${API_URL}/v1/admin/locations/${loc.id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
@@ -115,6 +116,7 @@ export default function LocationsList() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        <DialogRenderer />
+            </div>
     );
 }

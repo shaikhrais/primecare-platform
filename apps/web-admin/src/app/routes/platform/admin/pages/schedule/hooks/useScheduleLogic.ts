@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
@@ -196,7 +197,7 @@ export const useScheduleLogic = () => {
 
     const handleDeleteVisit = async () => {
         if (!selectedVisit) return;
-        if (!confirm(t(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE))) return;
+        if (!(await confirm('Delete Shift', t(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE)))) return;
 
         try {
             const token = localStorage.getItem('token');

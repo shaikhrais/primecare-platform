@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L5 · Service Catalog
+// PAGE IDENTITY: L5 ï¿½ Service Catalog
 // Registry ID:   page.admin.services
 // Type:          List
 // Owner:         admin
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { ServicesTable } from './components/ServicesTable';
 import { ServiceFormModal } from './components/ServiceFormModal';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -85,7 +86,7 @@ export default function ServicesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm(t(ContentRegistry.SERVICES.MESSAGES.CONFIRM_DELETE))) return;
+        if (!(await confirm('Delete Service', t(ContentRegistry.SERVICES.MESSAGES.CONFIRM_DELETE)))) return;
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/v1/admin/services/${id}`, {
@@ -132,6 +133,7 @@ export default function ServicesPage() {
                 onSave={handleSave}
                 service={currentService}
             />
-        </div>
+        <DialogRenderer />
+            </div>
     );
 }

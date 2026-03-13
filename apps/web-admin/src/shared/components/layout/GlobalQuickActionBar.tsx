@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import { CreateShiftModal } from '@/shared/components/modals/CreateShiftModal';
+import { useDialog } from '@/shared/hooks/useDialog';
 
 interface GlobalQuickActionBarProps {
     role: string;
@@ -129,6 +130,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                     🚨 EMERGENCY ALERT
                 </button>
 
+            <DialogRenderer />
             </div>
 
             <CreateShiftModal
