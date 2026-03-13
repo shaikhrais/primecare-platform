@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T33 · RAI Assessment Detail
+// Type: Tool | Owner: rn
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

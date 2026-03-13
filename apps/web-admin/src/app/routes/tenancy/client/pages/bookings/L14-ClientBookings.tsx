@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L14 · Client Bookings
+// Type: List | Owner: client
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

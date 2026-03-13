@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D16 · MAR Dashboard
+// Type: Dashboard | Owner: rn
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

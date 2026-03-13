@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D14 · PSW Dashboard
+// Type: Dashboard | Owner: psw
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

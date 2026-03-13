@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H12 · Operations Hub
+// Type: Hub | Owner: manager
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from '@/shared/context/NotificationContext';

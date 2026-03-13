@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T25 · Compliance Sync
+// Type: Tool | Owner: manager
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

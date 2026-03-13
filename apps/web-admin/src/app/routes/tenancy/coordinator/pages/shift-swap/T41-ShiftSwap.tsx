@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T41 · Shift Swap
+// Type: Tool | Owner: coordinator
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

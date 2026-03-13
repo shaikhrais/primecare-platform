@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D9 · Branch P&L
+// Type: Dashboard | Owner: manager
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: F15 · Availability
+// Type: Form | Owner: psw
+// ================================================================
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

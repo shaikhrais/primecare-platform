@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T27 · Provider Social
+// Type: Tool | Owner: psw
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

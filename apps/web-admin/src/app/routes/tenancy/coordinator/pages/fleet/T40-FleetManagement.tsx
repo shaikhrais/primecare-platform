@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T40 · Fleet Management
+// Type: Tool | Owner: coordinator
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

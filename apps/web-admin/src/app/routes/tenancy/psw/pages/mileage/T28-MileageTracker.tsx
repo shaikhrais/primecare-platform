@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T28 · Mileage Tracker
+// Type: Tool | Owner: psw
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

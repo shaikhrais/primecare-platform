@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H16 · Supervision Hub
+// Type: Hub | Owner: rn
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

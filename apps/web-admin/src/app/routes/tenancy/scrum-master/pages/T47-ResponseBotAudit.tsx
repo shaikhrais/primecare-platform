@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T47 · Response Bot Audit
+// Type: Tool | Owner: scrum-master
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { Shield, ServerCrash, Cpu, AlertTriangle, Key } from 'lucide-react';

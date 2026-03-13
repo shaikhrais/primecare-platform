@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L19 · RAI Assessments
+// Type: List | Owner: rn
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

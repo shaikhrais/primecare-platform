@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H14 · Credential Vault
+// Type: Hub | Owner: psw
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

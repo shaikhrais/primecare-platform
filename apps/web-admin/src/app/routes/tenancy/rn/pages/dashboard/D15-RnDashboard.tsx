@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D15 · RN Dashboard
+// Type: Dashboard | Owner: rn
+// ================================================================
 import React, { useState } from 'react';
 import { useAuth } from '@/shared/context/AuthContext';
 import { ClinicalSplitView } from './components/ClinicalSplitView';

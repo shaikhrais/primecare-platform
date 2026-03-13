@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D11 · Marketing Dashboard
+// Type: Dashboard | Owner: marketing
+// ================================================================
 import React from 'react';
 import { CorePieChart, CoreBarChart } from '@/shared/components/charts/core';
 

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H18 · Coordinator Hub
+// Type: Hub | Owner: coordinator
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';

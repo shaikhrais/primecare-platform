@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: R3 · PSW Earnings
+// Type: Report | Owner: psw
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

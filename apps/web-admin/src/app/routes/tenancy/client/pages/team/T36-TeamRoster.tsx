@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T36 · Team Roster
+// Type: Tool | Owner: client
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { Users, Star, MessageSquare, Shield, Award, Heart } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';

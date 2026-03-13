@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T23 · Staff Ranker
+// Type: Tool | Owner: manager
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CoreBarChart, CorePieChart } from '@/shared/components/charts/core';

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D19 · Staff Dashboard
+// Type: Dashboard | Owner: staff
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/shared/context/AuthContext';

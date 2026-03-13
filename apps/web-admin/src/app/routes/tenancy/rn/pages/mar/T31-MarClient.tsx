@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T31 · MAR Client
+// Type: Tool | Owner: rn
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AlertCircle, CheckCircle, WifiOff, FileSignature } from 'lucide-react';

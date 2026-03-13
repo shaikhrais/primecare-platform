@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L17 · Open Shifts
+// Type: List | Owner: psw
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

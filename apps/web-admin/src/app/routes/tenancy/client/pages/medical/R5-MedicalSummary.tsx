@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: R5 · Medical Summary
+// Type: Report | Owner: client
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L20 · Waitlist Manager
+// Type: List | Owner: coordinator
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ContentRegistry, ApiRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

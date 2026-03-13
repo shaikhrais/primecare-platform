@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D13 · Clinical QA Dashboard
+// Type: Dashboard | Owner: qa
+// ================================================================
 import React from 'react';
 
 const ClinicalQaDashboard: React.FC = () => {

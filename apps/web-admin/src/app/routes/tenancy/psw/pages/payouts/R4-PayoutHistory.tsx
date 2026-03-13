@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: R4 · Payout History
+// Type: Report | Owner: psw
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useNavigate } from 'react-router-dom';

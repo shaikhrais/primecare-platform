@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T26 · Shift Confirmation
+// Type: Tool | Owner: psw
+// ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

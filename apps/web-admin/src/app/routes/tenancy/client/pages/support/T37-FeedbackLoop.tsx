@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T37 · Feedback Loop
+// Type: Tool | Owner: client
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

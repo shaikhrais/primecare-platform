@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T19 · Portfolio
+// Type: Tool | Owner: manager
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ChartCard } from '@/shared/components/charts/ChartCard';
 import { RevenueChart } from '@/shared/components/charts/RevenueChart';

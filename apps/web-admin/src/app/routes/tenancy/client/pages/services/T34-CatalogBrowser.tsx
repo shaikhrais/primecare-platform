@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T34 · Catalog Browser
+// Type: Tool | Owner: client
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

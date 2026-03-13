@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H15 · PSW Training Hub
+// Type: Hub | Owner: psw
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

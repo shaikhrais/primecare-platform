@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D18 · Allied Health Dashboard
+// Type: Dashboard | Owner: allied
+// ================================================================
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';

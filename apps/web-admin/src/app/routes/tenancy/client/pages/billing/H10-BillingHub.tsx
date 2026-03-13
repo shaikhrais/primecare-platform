@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H10 · Billing Hub
+// Type: Hub | Owner: client
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { CreditCard, History, Clock, CheckCircle, AlertTriangle, Download, ArrowRight } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';

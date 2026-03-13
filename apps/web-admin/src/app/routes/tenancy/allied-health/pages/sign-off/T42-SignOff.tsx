@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T42 · Sign Off
+// Type: Tool | Owner: allied
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T38 · Dispatch Map
+// Type: Tool | Owner: coordinator
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

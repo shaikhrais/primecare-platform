@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: P1 · Family Portal
+// Type: Portal | Owner: client
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

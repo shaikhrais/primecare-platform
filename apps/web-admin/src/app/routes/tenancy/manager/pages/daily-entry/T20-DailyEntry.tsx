@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T20 · Daily Entry
+// Type: Tool | Owner: manager
+// ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

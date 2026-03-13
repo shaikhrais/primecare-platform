@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L16 · PSW Schedule
+// Type: List | Owner: psw
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

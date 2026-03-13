@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T32 · Wound Care Client
+// Type: Tool | Owner: rn
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

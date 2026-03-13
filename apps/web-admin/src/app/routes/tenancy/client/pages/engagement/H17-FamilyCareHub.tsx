@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H17 · Family Care Hub
+// Type: Hub | Owner: client
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from '@/shared/context/NotificationContext';

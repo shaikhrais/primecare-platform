@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D8 · Client Dashboard
+// Type: Dashboard | Owner: client
+// ================================================================
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/shared/context/AuthContext';

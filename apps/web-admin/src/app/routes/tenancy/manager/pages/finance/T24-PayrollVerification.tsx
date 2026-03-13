@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T24 · Payroll Verification
+// Type: Tool | Owner: manager
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CoreAreaChart } from '@/shared/components/charts/core';

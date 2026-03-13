@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L21 · Treatment List
+// Type: List | Owner: allied
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

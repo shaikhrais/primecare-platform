@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T30 · Entry Verify
+// Type: Tool | Owner: rn
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

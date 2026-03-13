@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T46 · Compliance Monitor
+// Type: Tool | Owner: staff
+// ================================================================
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';

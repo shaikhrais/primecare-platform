@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H13 · HR Recruitment Portal
+// Type: Hub | Owner: hr
+// ================================================================
 import React from 'react';
 
 const HrRecruitmentPortal: React.FC = () => {

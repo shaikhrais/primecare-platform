@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: D12 · Finance Regional Hub
+// Type: Dashboard | Owner: finance
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { CoreBarChart, CorePieChart } from '@/shared/components/charts/core';
 import { AdminRegistry } from 'prime-care-shared';
