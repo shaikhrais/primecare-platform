@@ -2,7 +2,7 @@
 // PageRegistry — Master catalogue of EVERY page in the platform, classified
 // by type. Sub-registries (DashboardRegistry, FormRegistry, ListRegistry, etc.)
 // provide type-specific metadata. This is the single source of truth for all
-// page discovery, navigation, and govquernance.
+// page discovery, navigation, and governance.
 // ──────────────────────────────────────────────────────────────────────────────
 
 // ── Page Type Definitions ────────────────────────────────────────────────────

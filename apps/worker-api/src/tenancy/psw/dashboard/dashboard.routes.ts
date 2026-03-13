@@ -37,12 +37,9 @@ const getDashboardStatsRoute = createRoute({
 r.openapi(getDashboardStatsRoute, async (c) => {
     const prisma = c.get('prisma');
     try {
-        console.log('1. Fetching userId');
         const userId = c.get('jwtPayload').sub;
-        console.log('2. Fetching profile for userId:', userId);
 
         const pswProfile = await prisma.pswProfile.findUnique({ where: { userId } });
-        console.log('3. Fetched profile:', pswProfile);
     if (!pswProfile) return c.json({ error: 'Profile not found' }, 404);
 
     const timesheets = await prisma.timesheet.findMany({
