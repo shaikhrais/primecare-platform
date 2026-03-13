@@ -100,6 +100,7 @@ export const AssetPermissionMatrix: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button 
+                        data-cy="btn-enforce-rbac"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#8B5CF6', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -134,6 +135,7 @@ export const AssetPermissionMatrix: React.FC = () => {
                                         </td>
                                         <td style={{ padding: '12px', textAlign: 'center' }}>
                                             <input 
+                                                data-cy={`rbac-${category.id}-${perm.roleId}-view`}
                                                 type="checkbox" 
                                                 checked={perm.canView} 
                                                 onChange={() => togglePermission(category.id, perm.roleId, 'canView')}
@@ -142,6 +144,7 @@ export const AssetPermissionMatrix: React.FC = () => {
                                         </td>
                                         <td style={{ padding: '12px', textAlign: 'center' }}>
                                             <input 
+                                                data-cy={`rbac-${category.id}-${perm.roleId}-edit`}
                                                 type="checkbox" 
                                                 checked={perm.canEdit} 
                                                 onChange={() => togglePermission(category.id, perm.roleId, 'canEdit')}
@@ -150,6 +153,7 @@ export const AssetPermissionMatrix: React.FC = () => {
                                         </td>
                                         <td style={{ padding: '12px', textAlign: 'center' }}>
                                             <input 
+                                                data-cy={`rbac-${category.id}-${perm.roleId}-delete`}
                                                 type="checkbox" 
                                                 checked={perm.canDelete} 
                                                 onChange={() => togglePermission(category.id, perm.roleId, 'canDelete')}

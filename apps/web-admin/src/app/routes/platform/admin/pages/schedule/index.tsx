@@ -19,7 +19,7 @@ export default function Schedule() {
         isSurgeModalOpen, surgeTargetVisit,
         setSelectedVisit, setIsAssignModalOpen, setAssignedPswId,
         setIsCreateVisitModalOpen, setViewMode, setIsSurgeModalOpen, setSurgeTargetVisit,
-        fetchVisits, handleAssign, fetchSuggestions, handleOffer,
+        fetchVisits, fetchPsws, handleAssign, fetchSuggestions, handleOffer,
         handleApplySurge, handleDeleteVisit, handleSelectEvent, getStatusColor
     } = useScheduleLogic();
 
@@ -88,6 +88,7 @@ export default function Schedule() {
                 surgeTargetVisit={surgeTargetVisit}
                 setIsSurgeModalOpen={setIsSurgeModalOpen}
                 handleApplySurge={handleApplySurge}
+                fetchPsws={fetchPsws}
             />
         </div>
     );

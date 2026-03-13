@@ -52,6 +52,7 @@ export const AssetExpirationManager: React.FC = () => {
                 </div>
 
                 <button 
+                    data-cy="btn-deploy-ttl"
                     onClick={handleSave}
                     disabled={isSaving}
                     style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', opacity: isSaving ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -100,6 +101,7 @@ export const AssetExpirationManager: React.FC = () => {
                                 </td>
                                 <td style={{ padding: '12px' }}>
                                     <input 
+                                        data-cy={`asset-expiry-${asset.id}`}
                                         type="datetime-local" 
                                         value={asset.expiresAt ? asset.expiresAt.substring(0, 16) : ''}
                                         onChange={(e) => handleDateChange(asset.id, e.target.value)}

@@ -59,6 +59,7 @@ export const ApiEndpointRegistry: React.FC = () => {
                 <div style={{ position: 'relative' }}>
                     <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '10px', top: '10px' }} />
                     <input 
+                        data-cy="api-endpoint-search"
                         type="text" 
                         placeholder="Search routes..." 
                         value={searchTerm}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import { InlineCreatePsw } from '@/shared/components/modals/components/InlineCreationForms';
 
 const { ContentRegistry } = AdminRegistry;
 
@@ -25,6 +26,7 @@ interface AssignShiftModalProps {
     onFetchSuggestions: () => void;
     onOffer: (pswIds: string[]) => void;
     isSuggesting: boolean;
+    onRefreshPsws?: () => void;
 }
 
 export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
@@ -40,9 +42,11 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
     suggestions,
     onFetchSuggestions,
     onOffer,
-    isSuggesting
+    isSuggesting,
+    onRefreshPsws
 }) => {
     const { t } = useTranslation();
+    const [isCreatingPsw, setIsCreatingPsw] = useState(false);
     if (!isOpen || !selectedVisit) return null;
 
     return (
@@ -56,20 +60,43 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                 </div>
 
                 <div style={{ marginTop: '1.5rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.SCHEDULE.MODAL.SELECT_PSW)}</label>
-                    <select
-                        data-cy="modal-select-psw"
-                        value={assignedPswId}
-                        onChange={(e) => setAssignedPswId(e.target.value)}
-                        style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                    >
-                        <option value="">{t(ContentRegistry.SCHEDULE.MODAL.CHOOSE_WORKER)}</option>
-                        {psws.map(psw => (
-                            <option key={psw.id} value={psw.PswProfile?.id}>
-                                {psw.PswProfile?.fullName} (Verified)
-                            </option>
-                        ))}
-                    </select>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>{t(ContentRegistry.SCHEDULE.MODAL.SELECT_PSW)}</label>
+                        {!isCreatingPsw && (
+                            <button
+                                data-cy="btn-create-psw-inline"
+                                type="button"
+                                onClick={() => setIsCreatingPsw(true)}
+                                style={{ fontSize: '0.75rem', color: '#9333ea', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                            >
+                                + Create New
+                            </button>
+                        )}
+                    </div>
+                    {isCreatingPsw ? (
+                        <InlineCreatePsw
+                            onCancel={() => setIsCreatingPsw(false)}
+                            onSuccess={(newId) => {
+                                setAssignedPswId(newId);
+                                setIsCreatingPsw(false);
+                                onRefreshPsws?.();
+                            }}
+                        />
+                    ) : (
+                        <select
+                            data-cy="modal-select-psw"
+                            value={assignedPswId}
+                            onChange={(e) => setAssignedPswId(e.target.value)}
+                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                        >
+                            <option value="">{t(ContentRegistry.SCHEDULE.MODAL.CHOOSE_WORKER)}</option>
+                            {psws.map(psw => (
+                                <option key={psw.id} value={psw.PswProfile?.id}>
+                                    {psw.PswProfile?.fullName} (Verified)
+                                </option>
+                            ))}
+                        </select>
+                    )}
                 </div>
 
                 {/* Suggestions Section */}

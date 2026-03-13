@@ -10,6 +10,8 @@ export * from './registries/LinkRegistry';
 export * from './registries/InteractionARegistry';
 export * from './registries/InteractiveRegistry';
 export * from './registries/SummaryRegistry';
+export * from './registries/FormRegistry';
+export * from './registries/PageRegistry';
 
 // Existing
 export * from './theme';

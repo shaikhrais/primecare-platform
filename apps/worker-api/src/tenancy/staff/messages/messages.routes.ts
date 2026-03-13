@@ -33,10 +33,24 @@ r.openapi(listMessagesRoute, async (c) => {
                 take: 1
             }
         },
-        orderBy: { updatedAt: 'desc' }
+        orderBy: { createdAt: 'desc' }
     });
 
-    return c.json(threads, 200);
+    // Map to UI-expected shape: { id, sender, role, lastMessage, time, unread, status }
+    const mapped = threads.map((t: any) => {
+        const lastMsg = t.messages?.[0];
+        return {
+            id: t.id,
+            sender: lastMsg?.senderUserId || 'Unknown',
+            role: t.threadType === 'multidisciplinary' ? 'Coordinator' : 'Staff',
+            lastMessage: lastMsg?.bodyText || '',
+            time: lastMsg?.createdAt ? new Date(lastMsg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
+            unread: false,
+            status: 'online' as const,
+        };
+    });
+
+    return c.json(mapped, 200);
 });
 // Feature 42: Secure Chat Auditing
 const auditChatsRoute = createRoute({
@@ -61,8 +75,8 @@ r.openapi(auditChatsRoute, async (c) => {
     }
 
     const threads = await prisma.messageThread.findMany({
-        where: { participants: { some: { id: targetUserId } } },
-        include: { messages: true, participants: { select: { id: true, fullName: true, role: true } } }
+        where: { OR: [{ clientId: targetUserId }, { pswId: targetUserId }] },
+        include: { messages: true, client: { select: { id: true, fullName: true } } }
     });
 
     await prisma.auditLog.create({
@@ -95,14 +109,14 @@ r.openapi(multiDisciplinaryThreadRoute, async (c) => {
     const tenantId = c.get('jwtPayload').tenantId;
 
     // Look up connected profiles
-    const client = await prisma.client.findUnique({ where: { id: clientId } });
+    const client = await prisma.clientProfile.findUnique({ where: { id: clientId } });
     if (!client) return c.json({ error: 'Client not found' }, 404);
 
     const activeVisit = await prisma.visit.findFirst({
         where: { clientId, status: { in: ['scheduled', 'in_progress'] } }, include: { psw: { include: { user: true } } }
     });
     
-    const supervisingRn = await prisma.user.findFirst({ where: { tenantId, role: 'rn' } });
+    const supervisingRn = await prisma.user.findFirst({ where: { tenantId, roles: { contains: 'rn' } } });
     const participantIds = [];
     if (activeVisit?.psw?.user?.id) participantIds.push({ id: activeVisit.psw.user.id });
     if (supervisingRn) participantIds.push({ id: supervisingRn.id });
@@ -116,16 +130,15 @@ r.openapi(multiDisciplinaryThreadRoute, async (c) => {
     const thread = await prisma.messageThread.create({
         data: {
             tenantId,
-            relatedEntityId: clientId,
-            relatedEntityType: 'Client',
-            participants: { connect: participantIds }
+            threadType: 'multidisciplinary',
+            clientId,
         }
     });
 
     await prisma.message.create({
         data: {
-            threadId: thread.id, senderId: supervisingRn?.id || guardianUser?.id || '',
-            content: `Multi-Disciplinary Thread initialized regarding Care Plan for ${client.fullName}.`, tenantId
+            threadId: thread.id, senderUserId: supervisingRn?.id || guardianUser?.id || '',
+            bodyText: `Multi-Disciplinary Thread initialized regarding Care Plan for ${client.fullName}.`
         }
     });
 

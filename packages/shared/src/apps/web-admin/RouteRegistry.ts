@@ -238,6 +238,8 @@ const PLATFORM = {
         BOOKING_REQUESTS: '/platform/admin/booking-requests',
         REFERENCE_DATA: '/platform/admin/reference-data',
         CRON_DASHBOARD: '/platform/admin/cron-dashboard',
+        FORM_REGISTRY: '/platform/admin/form-registry',
+        PAGE_REGISTRY: '/platform/admin/page-registry',
     },
     SUPERUSER: {
         DASHBOARD: '/platform',

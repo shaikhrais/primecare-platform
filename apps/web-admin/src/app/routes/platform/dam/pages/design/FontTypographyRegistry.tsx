@@ -59,6 +59,7 @@ export const FontTypographyRegistry: React.FC = () => {
                         {totalPayload} KB Render Payload
                     </div>
                     <button 
+                        data-cy="btn-enforce-typography"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#0D9488', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -105,6 +106,7 @@ export const FontTypographyRegistry: React.FC = () => {
                             </td>
                             <td style={{ padding: '12px', textAlign: 'right' }}>
                                 <select 
+                                    data-cy={`font-status-${font.id}`}
                                     value={font.status}
                                     onChange={(e) => handleStatusChange(font.id, e.target.value as any)}
                                     style={{ 

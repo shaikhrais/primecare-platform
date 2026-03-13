@@ -91,7 +91,7 @@ r.openapi(updateTimesheetStatusRoute, async (c) => {
                 action: 'REVIEW_TIMESHEET',
                 resourceType: 'TIMESHEET',
                 resourceId: id,
-                metadataJson: { status },
+                metadataString: JSON.stringify({ status }),
                 tenantId: payload.tenantId
             }
         })

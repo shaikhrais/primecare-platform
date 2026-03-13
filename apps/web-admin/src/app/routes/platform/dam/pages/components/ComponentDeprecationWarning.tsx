@@ -51,6 +51,7 @@ export const ComponentDeprecationWarning: React.FC<DeprecationProps> = ({
                         </span>
                     </div>
                     <button 
+                        data-cy="btn-dismiss-deprecation"
                         onClick={() => setDismissed(true)}
                         style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', padding: '0', display: 'flex' }}
                         title="Dismiss Warning"

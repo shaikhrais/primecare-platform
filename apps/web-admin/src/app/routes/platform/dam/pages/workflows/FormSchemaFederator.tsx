@@ -64,6 +64,7 @@ export const FormSchemaFederator: React.FC = () => {
                     </div>
                     <div>
                         <input 
+                            data-cy="dam.schema.inp-name"
                             value={formName}
                             onChange={(e) => setFormName(e.target.value)}
                             style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800, border: 'none', borderBottom: '1px dashed #CBD5E1', padding: '2px 0', outline: 'none', backgroundColor: 'transparent', width: '300px' }}
@@ -74,14 +75,15 @@ export const FormSchemaFederator: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '8px' }}>
                     <div style={{ backgroundColor: '#1E293B', color: 'white', padding: '8px', borderRadius: '8px', display: 'flex', gap: '4px' }}>
-                        <button onClick={() => handleAddField('string')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Short Text"><Type size={18} /></button>
-                        <button onClick={() => handleAddField('text')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Long Text"><AlignLeft size={18} /></button>
-                        <button onClick={() => handleAddField('number')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Number"><Hash size={18} /></button>
-                        <button onClick={() => handleAddField('boolean')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Checkbox"><CheckSquare size={18} /></button>
-                        <button onClick={() => handleAddField('date')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Date"><Calendar size={18} /></button>
+                        <button data-cy="dam.schema.btn-add-string" onClick={() => handleAddField('string')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Short Text"><Type size={18} /></button>
+                        <button data-cy="dam.schema.btn-add-text" onClick={() => handleAddField('text')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Long Text"><AlignLeft size={18} /></button>
+                        <button data-cy="dam.schema.btn-add-number" onClick={() => handleAddField('number')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Number"><Hash size={18} /></button>
+                        <button data-cy="dam.schema.btn-add-boolean" onClick={() => handleAddField('boolean')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Checkbox"><CheckSquare size={18} /></button>
+                        <button data-cy="dam.schema.btn-add-date" onClick={() => handleAddField('date')} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} title="Add Date"><Calendar size={18} /></button>
                     </div>
 
                     <button 
+                        data-cy="dam.schema.btn-publish"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#2563EB', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -101,6 +103,7 @@ export const FormSchemaFederator: React.FC = () => {
                             </div>
                             
                             <input 
+                                data-cy={`dam.schema.inp-label-${field.id}`}
                                 value={field.label}
                                 onChange={(e) => handleUpdateField(field.id, 'label', e.target.value)}
                                 style={{ flex: 1, border: 'none', borderBottom: '1px solid #E2E8F0', padding: '4px 0', fontSize: '0.9rem', color: '#0F172A', fontWeight: 600, outline: 'none' }}
@@ -108,13 +111,14 @@ export const FormSchemaFederator: React.FC = () => {
 
                             <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', color: '#475569', cursor: 'pointer' }}>
                                 <input 
+                                    data-cy={`dam.schema.chk-required-${field.id}`}
                                     type="checkbox" 
                                     checked={field.required}
                                     onChange={(e) => handleUpdateField(field.id, 'required', e.target.checked)}
                                 /> Required API payload
                             </label>
 
-                            <button onClick={() => handleRemoveField(field.id)} style={{ background: 'transparent', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '4px' }}>
+                            <button data-cy={`dam.schema.btn-remove-${field.id}`} onClick={() => handleRemoveField(field.id)} style={{ background: 'transparent', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '4px' }}>
                                 <Trash2 size={16} />
                             </button>
                         </div>

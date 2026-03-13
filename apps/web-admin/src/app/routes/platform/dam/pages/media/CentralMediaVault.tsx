@@ -59,6 +59,7 @@ export const CentralMediaVault: React.FC = () => {
                     <div style={{ position: 'relative' }}>
                         <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '10px', top: '10px' }} />
                         <input 
+                            data-cy="media-vault-search"
                             type="text" 
                             placeholder="Search vault..." 
                             value={searchTerm}
@@ -67,6 +68,7 @@ export const CentralMediaVault: React.FC = () => {
                         />
                     </div>
                     <button 
+                        data-cy="btn-upload-file"
                         onClick={handleLocalUpload}
                         disabled={isUploading}
                         style={{ backgroundColor: '#2563EB', color: 'white', border: 'none', borderRadius: '6px', padding: '0 16px', fontWeight: 700, cursor: isUploading ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
@@ -94,10 +96,10 @@ export const CentralMediaVault: React.FC = () => {
 
                         {asset.type !== 'FOLDER' && (
                             <div style={{ display: 'flex', gap: '8px', marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid #E2E8F0', width: '100%', justifyContent: 'center' }}>
-                                <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748B', padding: '4px' }} title="Download">
+                                <button data-cy={`btn-download-${asset.id}`} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748B', padding: '4px' }} title="Download">
                                     <Download size={16} />
                                 </button>
-                                <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#EF4444', padding: '4px' }} title="Delete">
+                                <button data-cy={`btn-delete-${asset.id}`} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#EF4444', padding: '4px' }} title="Delete">
                                     <Trash2 size={16} />
                                 </button>
                             </div>

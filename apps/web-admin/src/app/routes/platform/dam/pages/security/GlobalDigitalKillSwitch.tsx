@@ -104,6 +104,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '32px', borderTop: '1px solid #334155', paddingTop: '24px' }}>
                                 <button 
+                                    data-cy="btn-kill-switch-arm"
                                     onClick={toggleArm}
                                     style={{ 
                                         backgroundColor: isArmed ? '#F59E0B' : '#334155', 
@@ -117,6 +118,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                                 {isArmed && (
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         <input 
+                                            data-cy="inp-kill-switch-pin"
                                             type="password" 
                                             value={pin}
                                             onChange={(e) => setPin(e.target.value)}
@@ -125,6 +127,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                                             style={{ padding: '12px', borderRadius: '8px', border: '1px solid #DC2626', backgroundColor: '#450A0A', color: '#FECACA', outline: 'none', width: '160px', fontFamily: 'monospace', fontSize: '1.1rem', letterSpacing: '4px', textAlign: 'center' }}
                                         />
                                         <button 
+                                            data-cy="btn-kill-switch-fire"
                                             onClick={handleFire}
                                             disabled={isEngaging}
                                             style={{ 
@@ -164,6 +167,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                         </p>
                         
                         <button 
+                            data-cy="btn-kill-switch-reboot"
                             onClick={handleReset}
                             style={{ backgroundColor: '#1E293B', color: '#E2E8F0', border: '1px solid #334155', borderRadius: '8px', padding: '12px 24px', fontWeight: 700, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                         >

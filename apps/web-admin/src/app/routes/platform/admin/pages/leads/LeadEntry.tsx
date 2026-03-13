@@ -1,96 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
-import { useTranslation } from 'react-i18next';
+import { DynamicFormRenderer } from '@/shared/components/forms';
 
-const { ContentRegistry, RouteRegistry } = AdminRegistry;
+const { getFormById, RouteRegistry } = AdminRegistry;
 
+/**
+ * Lead Entry Form — powered by centralized FormRegistry.
+ * Previously 97 lines with setTimeout mock submission and hardcoded source dropdown.
+ * Now uses DynamicFormRenderer with real API POST to /v1/admin/leads.
+ */
 export default function LeadEntryForm() {
-    const { t } = useTranslation();
     const navigate = useNavigate();
-    const { showToast } = useNotification();
-    const [isDirty, setIsDirty] = useState(false);
-    const [showGuard, setShowGuard] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-
-    const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        phone: '',
-        source: 'Website',
-        notes: ''
-    });
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setSubmitting(true);
-        setTimeout(() => {
-            showToast(ContentRegistry.LEADS.FORM.SUCCESS_MSG, 'success');
-            setIsDirty(false);
-            navigate(RouteRegistry.ADMIN.LEADS);
-            setSubmitting(false);
-        }, 800);
-    };
+    const formEntry = getFormById('admin.lead-entry');
+    if (!formEntry) return null;
 
     return (
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="form.lead.page">
-            {showGuard && (
-                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2>{t(ContentRegistry.LEADS.FORM.DISCARD_TITLE)}</h2>
-                        <div style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>{t(ContentRegistry.USERS.MODAL.DISCARD_BTN)}</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>{t(ContentRegistry.USERS.MODAL.STAY_BTN)}</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }} data-cy="page.title">{t(ContentRegistry.LEADS.FORM.TITLE)}</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{t(ContentRegistry.LEADS.FORM.SUBTITLE)}</p>
-            </div>
-
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{t(ContentRegistry.LEADS.FORM.SOURCE_LABEL)}</label>
-                        <select
-                            data-cy="form.lead.source"
-                            value={formData.source}
-                            onChange={(e) => { setFormData({ ...formData, source: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option>Website</option>
-                            <option>Phone Call</option>
-                            <option>Referral</option>
-                            <option>Walk-in</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: 500 }}>{t(ContentRegistry.LEADS.FORM.NAME_LABEL)}</label>
-                        <input
-                            data-cy="form.lead.fullName"
-                            required
-                            value={formData.fullName}
-                            onChange={(e) => { setFormData({ ...formData, fullName: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        />
-                    </div>
-                </div>
-
-                <div style={{ marginTop: '2rem' }}>
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        data-cy="form.lead.save"
-                        style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                        {submitting ? t(ContentRegistry.LEADS.FORM.SAVING) : t(ContentRegistry.LEADS.FORM.SUBMIT_BTN)}
-                    </button>
-                </div>
-            </form>
+        <div style={{ padding: '2rem' }} data-cy="form.lead.page">
+            <DynamicFormRenderer
+                formEntry={formEntry}
+                onSuccess={() => navigate(RouteRegistry.ADMIN.LEADS)}
+                onCancel={() => navigate(-1)}
+            />
         </div>
     );
 }

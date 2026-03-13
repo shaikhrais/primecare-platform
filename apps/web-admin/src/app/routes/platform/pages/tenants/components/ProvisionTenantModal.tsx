@@ -53,7 +53,7 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
     if (!isOpen) return null;
 
     return (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} role="dialog" aria-modal="true">
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} role="dialog" aria-modal="true" data-cy="modal-provision-tenant">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }}>
                 <button 
                     onClick={onClose} 
@@ -66,11 +66,12 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
                     Spin up a new dedicated fractal workspace. This allocates a siloed ledger and generates the initial root Administrator account.
                 </p>
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} data-cy="form-provision-tenant">
                     
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>Organization Name</label>
                         <input 
+                            data-cy="tenant.inp-name"
                             type="text" required placeholder="e.g. North Star Health" 
                             value={formData.name} onChange={e => {
                                 const newName = e.target.value;
@@ -88,6 +89,7 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <span style={{ padding: '0.5rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', borderRight: 'none', borderRadius: '0.375rem 0 0 0.375rem', color: '#6B7280' }}>https://</span>
                             <input 
+                                data-cy="tenant.inp-slug"
                                 type="text" required placeholder="northstar" 
                                 value={formData.slug} onChange={e => setFormData(p => ({ ...p, slug: e.target.value.toLowerCase().replace(/[^a-z0-9]/g, '') }))} 
                                 disabled={loading}
@@ -103,6 +105,7 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>Full Name</label>
                         <input 
+                            data-cy="tenant.inp-admin-name"
                             type="text" required placeholder="Admin Name" 
                             value={formData.adminName} onChange={e => setFormData(p => ({ ...p, adminName: e.target.value }))} 
                             disabled={loading}
@@ -113,6 +116,7 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>Email Address</label>
                         <input 
+                            data-cy="tenant.inp-admin-email"
                             type="email" required placeholder="admin@domain.com" 
                             value={formData.adminEmail} onChange={e => setFormData(p => ({ ...p, adminEmail: e.target.value }))} 
                             disabled={loading}
@@ -121,8 +125,8 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
                     </div>
 
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                        <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Cancel</button>
-                        <button type="submit" disabled={loading} style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', background: '#4F46E5', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
+                        <button data-cy="tenant.btn-cancel" type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Cancel</button>
+                        <button data-cy="tenant.btn-submit" type="submit" disabled={loading} style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', background: '#4F46E5', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
                             {loading ? 'Provisioning Ledger...' : 'Provision Tenant'}
                         </button>
                     </div>

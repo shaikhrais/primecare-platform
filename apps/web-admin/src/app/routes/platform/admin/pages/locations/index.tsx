@@ -33,6 +33,23 @@ export default function LocationForm() {
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
 
+    const [managers, setManagers] = useState<any[]>([]);
+    useEffect(() => {
+        const fetchManagers = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${API_URL}/v1/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setManagers(Array.isArray(data) ? data.filter((u: any) => u.role === 'manager' || u.role === 'admin') : []);
+                }
+            } catch (e) { console.error(e); }
+        };
+        fetchManagers();
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
@@ -104,8 +121,9 @@ export default function LocationForm() {
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                         >
                             <option value="">{ContentRegistry.LOCATIONS.FORM.MANAGER_SELECT}</option>
-                            <option value="m-1">Sarah Connor</option>
-                            <option value="m-2">James Miller</option>
+                            {managers.map(m => (
+                                <option key={m.id} value={m.id}>{m.fullName || m.email}</option>
+                            ))}
                         </select>
                     </div>
 

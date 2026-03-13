@@ -49,6 +49,7 @@ export const AssetCostAttribution: React.FC = () => {
                         <Server size={18} /> {totalBandwidth.toLocaleString()} GB Total Egress
                     </div>
                     <button 
+                        data-cy="btn-sync-billing"
                         onClick={handleRefresh}
                         style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >

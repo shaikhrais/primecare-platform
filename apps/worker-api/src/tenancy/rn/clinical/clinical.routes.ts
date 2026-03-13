@@ -168,7 +168,8 @@ clinical.openapi(recordSupervisionRoute, async (c) => {
 
     // Feature 23: CareCoin Deduction on Negative Evaluation
     if (body.isSatisfactory === false) {
-        const gamificationProfile = await prisma.gamificationProfile.findUnique({ where: { pswId: body.pswId } });
+        const pswUser = await prisma.user.findFirst({ where: { pswProfile: { id: body.pswId } } });
+        const gamificationProfile = pswUser ? await prisma.gamificationProfile.findUnique({ where: { userId: pswUser.id } }) : null;
         if (gamificationProfile && gamificationProfile.careCoins >= 50) {
             await prisma.gamificationProfile.update({
                 where: { id: gamificationProfile.id },
@@ -367,7 +368,7 @@ clinical.openapi(reconciliationApproveRoute, async (c) => {
     try {
         await prisma.medicationRecon.update({
             where: { id },
-            data: { status: 'approved', reviewedBy: userId, reviewNotes: body.notes },
+            data: { status: 'completed', discrepancies: body.notes ? `Approved by RN: ${body.notes}` : 'Approved by RN' },
         });
 
         await logAudit(prisma, userId, 'APPROVE_RECONCILIATION', 'MEDICATION_RECON', id, body);

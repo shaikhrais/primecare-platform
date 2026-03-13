@@ -81,6 +81,7 @@ export const SecureDocumentRedactor: React.FC = () => {
                 </div>
 
                 <button 
+                    data-cy="btn-apply-redactions"
                     onClick={handleSave}
                     disabled={isSaving || redactions.length === 0}
                     style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (isSaving || redactions.length === 0) ? 'not-allowed' : 'pointer', opacity: (isSaving || redactions.length === 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -118,6 +119,7 @@ export const SecureDocumentRedactor: React.FC = () => {
                 {/* Canvas Area ( PDF) */}
                 <div style={{ flex: 1, backgroundColor: '#F1F5F9', border: '1px solid #E2E8F0', borderRadius: '8px', display: 'flex', justifyContent: 'center', padding: '32px', overflow: 'auto' }}>
                     <div 
+                        data-cy="redactor-canvas"
                         onMouseDown={handleMouseDown}
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}

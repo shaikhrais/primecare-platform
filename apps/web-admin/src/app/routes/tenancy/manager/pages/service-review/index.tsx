@@ -2,8 +2,8 @@ import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiClient } from '@/shared/utils/apiClient';
+import { InlineCreateClient } from '@/shared/components/modals/components/InlineCreationForms';
 
 export default function ServiceReviewForm() {
     const { showToast } = useNotification();
@@ -11,6 +11,8 @@ export default function ServiceReviewForm() {
     const [isDirty, setIsDirty] = useState(false);
     const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [clients, setClients] = useState<any[]>([]);
+    const [isCreatingClient, setIsCreatingClient] = useState(false);
 
     const [formData, setFormData] = useState({
         clientId: '',
@@ -31,21 +33,23 @@ export default function ServiceReviewForm() {
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
 
+    useEffect(() => {
+        const fetchClients = async () => {
+            try {
+                const data = await apiClient.get('/v1/admin/clients');
+                if (data && Array.isArray(data)) setClients(data);
+            } catch (e) { console.error('Failed to load clients', e); }
+        };
+        fetchClients();
+    }, []);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/v1/manager/service-reviews`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            const res = await apiClient.post('/v1/manager/service-reviews', formData);
 
-            if (response.ok) {
+            if (res.ok) {
                 showToast('Service review completed successfully!', 'success');
                 setIsDirty(false);
                 navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
@@ -82,18 +86,45 @@ export default function ServiceReviewForm() {
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Client Name</label>
-                        <select
-                            data-cy="form.serviceReview.client"
-                            required
-                            value={formData.clientId}
-                            onChange={(e) => { setFormData({ ...formData, clientId: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="">Select Client...</option>
-                            <option value="c-1">Alice Thompson</option>
-                            <option value="c-2">Robert Miller</option>
-                        </select>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <label style={{ fontWeight: 500 }}>Client Name</label>
+                            {!isCreatingClient && (
+                                <button
+                                    data-cy="btn-create-client-inline"
+                                    type="button"
+                                    onClick={() => setIsCreatingClient(true)}
+                                    style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                                >
+                                    + Create New
+                                </button>
+                            )}
+                        </div>
+                        {isCreatingClient ? (
+                            <InlineCreateClient
+                                onCancel={() => setIsCreatingClient(false)}
+                                onSuccess={(newId) => {
+                                    setFormData({ ...formData, clientId: newId });
+                                    setIsCreatingClient(false);
+                                    setIsDirty(true);
+                                    apiClient.get('/v1/admin/clients').then((data: any) => {
+                                        if (data && Array.isArray(data)) setClients(data);
+                                    }).catch(() => {});
+                                }}
+                            />
+                        ) : (
+                            <select
+                                data-cy="form.serviceReview.client"
+                                required
+                                value={formData.clientId}
+                                onChange={(e) => { setFormData({ ...formData, clientId: e.target.value }); setIsDirty(true); }}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                            >
+                                <option value="">Select Client...</option>
+                                {clients.map((c: any) => (
+                                    <option key={c.id} value={c.id}>{c.fullName || c.email}</option>
+                                ))}
+                            </select>
+                        )}
                     </div>
 
                     <div>

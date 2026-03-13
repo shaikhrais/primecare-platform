@@ -91,12 +91,15 @@ export default function UserList() {
     const handleInvite = async (email: string) => {
         setSubmitting(true);
         try {
- // API call for now (as per original logic)
-            await new Promise(resolve => setTimeout(resolve, 800));
+            const res = await apiClient.post('/v1/admin/users/invite', { email });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error((data as any).error || 'Invite failed');
+            }
             showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
             setIsModalOpen(false);
-        } catch (error) {
-            showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_ACTION), 'error');
+        } catch (error: any) {
+            showToast(error?.message || t(ContentRegistry.USERS.MESSAGES.ERROR_ACTION), 'error');
         } finally {
             setSubmitting(false);
         }

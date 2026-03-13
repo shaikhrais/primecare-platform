@@ -63,6 +63,7 @@ export const BrowserMatrixTelemetry: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button 
+                        data-cy="btn-enforce-browser-matrix"
                         onClick={handleDeploy}
                         disabled={isSaving}
                         style={{ backgroundColor: '#6366F1', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -106,6 +107,7 @@ export const BrowserMatrixTelemetry: React.FC = () => {
                             </td>
                             <td style={{ padding: '12px', textAlign: 'right' }}>
                                 <select 
+                                    data-cy={`browser-status-${b.id}`}
                                     value={b.status}
                                     onChange={(e) => handleStatusChange(b.id, e.target.value as any)}
                                     style={{ 

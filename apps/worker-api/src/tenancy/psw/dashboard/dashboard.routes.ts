@@ -195,24 +195,28 @@ r.openapi(redeemStoreRoute, async (c) => {
     const userId = c.get('jwtPayload').sub;
 
     const pswProfile = await prisma.pswProfile.findUnique({
-        where: { userId }, include: { gamification: true }
+        where: { userId }
     });
 
-    if (!pswProfile?.gamification || pswProfile.gamification.careCoins < cost) {
+    const gamification = await prisma.gamificationProfile.findUnique({
+        where: { userId }
+    });
+
+    if (!gamification || gamification.careCoins < cost) {
         return c.json({ error: 'Insufficient CareCoins' }, 400);
     }
 
     await prisma.$transaction(async (tx: any) => {
         await tx.gamificationProfile.update({
-            where: { id: pswProfile.gamification.id },
+            where: { id: gamification.id },
             data: { careCoins: { decrement: cost } }
         });
 
         if (itemId === 'gas-card-50') {
             await tx.payout.create({
                 data: {
-                    pswId: pswProfile.id,
-                    tenantId: pswProfile.tenantId,
+                    pswId: pswProfile!.id,
+                    tenantId: pswProfile!.tenantId,
                     amount: 50.0,
                     status: 'pending'
                 }
@@ -221,14 +225,14 @@ r.openapi(redeemStoreRoute, async (c) => {
         
         await tx.auditLog.create({
             data: {
-                tenantId: pswProfile.tenantId, actorUserId: userId,
-                action: 'CARECOIN_REDEEMED', resourceType: 'GAMIFICATION', resourceId: pswProfile.gamification.id,
+                tenantId: pswProfile!.tenantId, actorUserId: userId,
+                action: 'CARECOIN_REDEEMED', resourceType: 'GAMIFICATION', resourceId: gamification.id,
                 metadataString: JSON.stringify({ item: itemId, cost })
             }
         });
     });
 
-    return c.json({ success: true, newBalance: pswProfile.gamification.careCoins - cost }, 200);
+    return c.json({ success: true, newBalance: gamification.careCoins - cost }, 200);
 });
 
 export default r;

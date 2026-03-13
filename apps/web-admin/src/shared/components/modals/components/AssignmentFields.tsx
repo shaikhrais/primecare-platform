@@ -53,7 +53,7 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Select PSW</label>
                         {onCreatePsw && !isCreatingPsw && (
-                            <button type="button" onClick={onCreatePsw} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                            <button data-cy="btn-create-psw-inline" type="button" onClick={onCreatePsw} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
                                 + Create PSW
                             </button>
                         )}

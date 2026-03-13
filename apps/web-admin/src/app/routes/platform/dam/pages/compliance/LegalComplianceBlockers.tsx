@@ -50,10 +50,11 @@ export const LegalComplianceBlockers: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="btn-add-blocker-rule" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <Plus size={16} color="#DC2626" /> Add Blocker Rule
                     </button>
                     <button 
+                        data-cy="btn-enforce-compliance"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -78,6 +79,7 @@ export const LegalComplianceBlockers: React.FC = () => {
                         <tr key={rule.id} style={{ borderBottom: '1px solid #E2E8F0', backgroundColor: rule.isActive ? 'white' : '#F8FAFC', opacity: rule.isActive ? 1 : 0.6 }}>
                             <td style={{ padding: '12px', textAlign: 'center' }}>
                                 <input 
+                                    data-cy={`compliance-rule-${rule.id}`}
                                     type="checkbox" 
                                     checked={rule.isActive}
                                     onChange={() => toggleRuleActive(rule.id)}
@@ -97,7 +99,7 @@ export const LegalComplianceBlockers: React.FC = () => {
                                 {rule.region !== 'GLOBAL' && <span style={{ backgroundColor: '#EFF6FF', color: '#3B82F6', border: '1px solid #BFDBFE', padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>REGION: {rule.region}</span>}
                             </td>
                             <td style={{ padding: '12px', textAlign: 'right' }}>
-                                <button style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer' }}><Settings size={18} /></button>
+                                <button data-cy={`btn-settings-rule-${rule.id}`} style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer' }}><Settings size={18} /></button>
                             </td>
                         </tr>
                     ))}

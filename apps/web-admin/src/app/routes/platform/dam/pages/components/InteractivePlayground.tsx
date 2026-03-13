@@ -37,6 +37,7 @@ export const InteractivePlayground: React.FC = () => {
 
         return (
             <button 
+                data-cy="playground-preview-btn"
                 disabled={isDisabled}
                 style={{
                     backgroundColor: isDisabled ? '#E2E8F0' : bg,
@@ -65,10 +66,10 @@ export const InteractivePlayground: React.FC = () => {
                     <Settings2 size={20} color="#38BDF8" /> UI Component Sandbox
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: 'transparent', color: '#94A3B8', border: '1px solid #334155', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="btn-reset-props" style={{ backgroundColor: 'transparent', color: '#94A3B8', border: '1px solid #334155', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <RotateCcw size={14} /> Reset Props
                     </button>
-                    <button style={{ backgroundColor: '#38BDF8', color: '#0F172A', border: 'none', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="btn-update-registry" style={{ backgroundColor: '#38BDF8', color: '#0F172A', border: 'none', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <Save size={14} /> Update Global Registry
                     </button>
                 </div>
@@ -83,6 +84,7 @@ export const InteractivePlayground: React.FC = () => {
                             <Type size={14} /> Content String
                         </label>
                         <input 
+                            data-cy="playground-text-input"
                             type="text" 
                             value={buttonText} 
                             onChange={(e) => setButtonText(e.target.value)}
@@ -96,6 +98,7 @@ export const InteractivePlayground: React.FC = () => {
                             {['primary', 'secondary', 'danger', 'ghost'].map(v => (
                                 <button 
                                     key={v}
+                                    data-cy={`playground-variant-${v}`}
                                     onClick={() => setSelectedVariant(v as any)}
                                     style={{ 
                                         padding: '6px', fontSize: '0.8rem', borderRadius: '4px', cursor: 'pointer',
@@ -118,6 +121,7 @@ export const InteractivePlayground: React.FC = () => {
                             {['sm', 'md', 'lg'].map(s => (
                                 <button 
                                     key={s}
+                                    data-cy={`playground-size-${s}`}
                                     onClick={() => setSelectedSize(s as any)}
                                     style={{ 
                                         flex: 1, padding: '6px', fontSize: '0.8rem', borderRadius: '4px', cursor: 'pointer',
@@ -136,6 +140,7 @@ export const InteractivePlayground: React.FC = () => {
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                         <input 
+                            data-cy="playground-disabled-toggle"
                             type="checkbox" 
                             id="disabledToggle" 
                             checked={isDisabled} 

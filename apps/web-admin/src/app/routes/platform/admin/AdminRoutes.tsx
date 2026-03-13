@@ -71,6 +71,8 @@ const PayrollHub = lazy(() => import('./pages/payroll/PayrollHub'));
 const BookingRequestQueue = lazy(() => import('./pages/booking-requests/BookingRequestQueue'));
 const ReferenceDataHub = lazy(() => import('./pages/reference-data/ReferenceDataHub'));
 const CronDashboard = lazy(() => import('./pages/cron/CronDashboard'));
+const FormRegistryPage = lazy(() => import('./pages/form-registry'));
+const PageRegistryPage = lazy(() => import('./pages/page-registry'));
 
 const EvvDashboard = lazy(() => import('./pages/evv/EvvDashboard'));
 const EvvExceptions = lazy(() => import('./pages/evv/EvvExceptions'));
@@ -164,6 +166,8 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.BOOKING_REQUESTS} element={<BookingRequestQueue />} />
         <Route path={RouteRegistry.ADMIN.REFERENCE_DATA} element={<ReferenceDataHub />} />
         <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronDashboard />} />
+        <Route path={RouteRegistry.ADMIN.FORM_REGISTRY} element={<FormRegistryPage />} />
+        <Route path={RouteRegistry.ADMIN.PAGE_REGISTRY} element={<PageRegistryPage />} />
             <Route path={RouteRegistry.ADMIN.EVV.DASHBOARD} element={<EvvDashboard />} />
         <Route path={RouteRegistry.ADMIN.EVV.EXCEPTIONS} element={<EvvExceptions />} />
         <Route path={RouteRegistry.ADMIN.EVV.EXPORT} element={<EvvExport />} />

@@ -160,11 +160,11 @@ r.openapi(acceptOfferRoute, async (c) => {
             where: { id: visitId },
             data: { status: 'scheduled', assignedPswId: profile.id },
         });
-        await tx.shiftOffer.updateMany({
+        await tx.shiftAssignment.updateMany({
             where: { visitId, pswId: profile.id },
             data: { status: 'accepted' },
         });
-        await tx.shiftOffer.updateMany({
+        await tx.shiftAssignment.updateMany({
             where: { visitId, pswId: { not: profile.id } },
             data: { status: 'expired' },
         });
@@ -173,12 +173,12 @@ r.openapi(acceptOfferRoute, async (c) => {
         const coinsAwarded = (visit.priority === 'CRITICAL' || visit.priority === 'HIGH') ? 100 : 50;
         
         let gamification = await tx.gamificationProfile.findUnique({
-            where: { pswId: profile.id }
+            where: { userId: userId }
         });
         
         if (!gamification) {
              gamification = await tx.gamificationProfile.create({
-                 data: { pswId: profile.id, tenantId: profile.tenantId || 'system', careCoins: 0, currentLevel: 1, currentTier: 'Bronze' }
+                 data: { userId: userId, tenantId: profile.tenantId || 'system', careCoins: 0, lifetimePoints: 0, currentTier: 'Bronze' }
              });
         }
         
@@ -191,21 +191,35 @@ r.openapi(acceptOfferRoute, async (c) => {
         if (updatedGamification.careCoins >= 1000 && updatedGamification.currentTier === 'Bronze') {
              await tx.gamificationProfile.update({
                  where: { id: gamification.id },
-                 data: { currentTier: 'Silver', currentLevel: 2 }
+                 data: { currentTier: 'Silver', lifetimePoints: { increment: 1 } }
              });
              
              // Trigger WebhookDelivery requesting a physical certificate print and shipment
+             // Find or create a webhook endpoint for certificate printing
+             let endpoint = await tx.webhookEndpoint.findFirst({
+                 where: { tenantId: profile.tenantId || 'system', url: 'https://api.printmail.example.com/certificates' }
+             });
+             if (!endpoint) {
+                 endpoint = await tx.webhookEndpoint.create({
+                     data: {
+                         tenantId: profile.tenantId || 'system',
+                         url: 'https://api.printmail.example.com/certificates',
+                         events: 'gamification.tier_promotion',
+                         secret: 'auto-generated',
+                         status: 'active'
+                     }
+                 });
+             }
              await tx.webhookDelivery.create({
                  data: {
-                     tenantId: profile.tenantId || 'system',
-                     endpointUrl: 'https://api.printmail.example.com/certificates',
+                     endpointId: endpoint.id,
+                     event: 'gamification.tier_promotion',
                      payload: JSON.stringify({
                          pswId: profile.id,
                          award: 'Bronze to Silver Promotion',
                          instruction: 'Print and mail physical certificate'
                      }),
-                     status: 'pending',
-                     attempts: 0
+                     retryCount: 0
                  }
              });
              console.log(`[Worker] Feature 35 Fired: Promoted PSW ${profile.id} to Silver. WebhookDelivery queued for physical certificate printing.`);
@@ -255,7 +269,7 @@ r.openapi(declineOfferRoute, async (c) => {
     const profile = await prisma.pswProfile.findUnique({ where: { userId } });
     if (!profile) return c.json({ error: 'Profile not found' }, 404);
 
-    await prisma.shiftOffer.updateMany({
+    await prisma.shiftAssignment.updateMany({
         where: { visitId, pswId: profile.id },
         data: { status: 'declined' },
     });

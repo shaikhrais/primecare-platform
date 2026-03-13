@@ -66,13 +66,14 @@ export const CoreWebVitalsTracker: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button 
+                        data-cy="btn-sync-telemetry"
                         onClick={handleRefresh}
                         disabled={isRefreshing}
                         style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: isRefreshing ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
                         <RefreshCw size={16} className={isRefreshing ? "animate-spin" : ""} /> Sync Telemetry
                     </button>
-                    <button style={{ backgroundColor: '#0EA5E9', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="btn-export-csv" style={{ backgroundColor: '#0EA5E9', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <BarChart size={16} /> Export CSV Report
                     </button>
                 </div>

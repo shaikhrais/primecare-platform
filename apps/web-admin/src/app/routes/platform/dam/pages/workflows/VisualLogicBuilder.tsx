@@ -66,7 +66,7 @@ export const VisualLogicBuilder: React.FC = () => {
                         
                         {node.state === 'DRAFT' && <span style={{ display: 'inline-block', marginTop: '8px', backgroundColor: '#FEF3C7', color: '#D97706', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700 }}>NEEDS CONFIG</span>}
                     </div>
-                    <button onClick={() => handleRemoveNode(node.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#94A3B8', position: 'absolute', top: '12px', right: '12px' }}>
+                    <button data-cy={`dam.workflow.btn-remove-${node.id}`} onClick={() => handleRemoveNode(node.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#94A3B8', position: 'absolute', top: '12px', right: '12px' }}>
                         <Trash2 size={16} />
                     </button>
                 </div>
@@ -88,10 +88,11 @@ export const VisualLogicBuilder: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="dam.workflow.btn-test" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <Play size={16} color="#16A34A" /> Test Flow
                     </button>
                     <button 
+                        data-cy="dam.workflow.btn-publish"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
@@ -107,6 +108,7 @@ export const VisualLogicBuilder: React.FC = () => {
                 {nodes.map((node, i) => renderNode(node, i))}
 
                 <button 
+                    data-cy="dam.workflow.btn-add-node"
                     onClick={handleAddNode}
                     style={{ marginTop: '24px', backgroundColor: 'white', border: '2px dashed #94A3B8', borderRadius: '50%', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748B', transition: 'all 0.2s', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
                     title="Add Node"

@@ -35,7 +35,7 @@ export const DischargePlannerPortal: React.FC = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                             <div>
                                 <label style={{ fontWeight: 700, color: '#475569', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>Referring Facility</label>
-                                <select style={{ width: '100%', padding: '16px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', backgroundColor: '#F8FAFC', color: '#0F172A', fontWeight: 600 }}>
+                                <select data-cy="form.discharge.facility" style={{ width: '100%', padding: '16px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', backgroundColor: '#F8FAFC', color: '#0F172A', fontWeight: 600 }}>
                                     <option>St. Jude Regional Hospital</option>
                                     <option>Mount Sinai Westside</option>
                                     <option>Downtown Rehab Center</option>
@@ -43,9 +43,10 @@ export const DischargePlannerPortal: React.FC = () => {
                             </div>
                             <div>
                                 <label style={{ fontWeight: 700, color: '#475569', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>Case Manager NPI / ID</label>
-                                <input type="text" placeholder="e.g. 192837465" style={{ width: '100%', boxSizing: 'border-box', padding: '16px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none' }} />
+                                <input data-cy="form.discharge.npi" type="text" placeholder="e.g. 192837465" style={{ width: '100%', boxSizing: 'border-box', padding: '16px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none' }} />
                             </div>
                             <button 
+                                data-cy="form.discharge.btn-continue"
                                 onClick={() => setStep(2)}
                                 style={{ backgroundColor: '#0369A1', color: 'white', border: 'none', padding: '16px', borderRadius: '8px', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', marginTop: '8px', transition: 'all 0.2s' }}
                             >
@@ -61,6 +62,7 @@ export const DischargePlannerPortal: React.FC = () => {
                                     <User size={16}/> Patient Legal Name
                                 </label>
                                 <input 
+                                    data-cy="form.discharge.patient-name"
                                     type="text" 
                                     required
                                     value={patientName}
@@ -74,13 +76,14 @@ export const DischargePlannerPortal: React.FC = () => {
                                 <FileText size={48} color="#64748B" style={{ margin: '0 auto 16px auto', opacity: 0.5 }} />
                                 <h4 style={{ margin: '0 0 8px 0', color: '#334155' }}>Upload Clinical Facesheet</h4>
                                 <p style={{ margin: '0 0 16px 0', color: '#64748B', fontSize: '0.85rem' }}>Drag & drop the patient's PDF facesheet or medication list here. (Limit 25MB, HIPAA Secure)</p>
-                                <button type="button" style={{ backgroundColor: 'white', border: '1px solid #CBD5E1', padding: '8px 16px', borderRadius: '6px', color: '#0F172A', fontWeight: 600, cursor: 'pointer' }}>
+                                <button data-cy="form.discharge.btn-browse" type="button" style={{ backgroundColor: 'white', border: '1px solid #CBD5E1', padding: '8px 16px', borderRadius: '6px', color: '#0F172A', fontWeight: 600, cursor: 'pointer' }}>
                                     Browse Files...
                                 </button>
                             </div>
 
                             <button 
                                 type="submit"
+                                data-cy="form.discharge.btn-submit"
                                 disabled={isUploading || !patientName}
                                 style={{ backgroundColor: '#0369A1', color: 'white', border: 'none', padding: '16px', borderRadius: '8px', fontWeight: 800, fontSize: '1.1rem', cursor: isUploading ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}
                             >
@@ -93,6 +96,7 @@ export const DischargePlannerPortal: React.FC = () => {
                             
                             <button 
                                 type="button"
+                                data-cy="form.discharge.btn-back"
                                 onClick={() => setStep(1)}
                                 style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', fontWeight: 600, textDecoration: 'underline' }}
                             >
@@ -114,6 +118,7 @@ export const DischargePlannerPortal: React.FC = () => {
                             </div>
 
                             <button 
+                                data-cy="form.discharge.btn-another"
                                 onClick={() => { setStep(1); setPatientName(''); }}
                                 style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', padding: '12px 24px', borderRadius: '8px', fontWeight: 600, cursor: 'pointer', marginTop: '32px' }}
                             >

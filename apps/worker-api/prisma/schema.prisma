@@ -331,6 +331,7 @@ model Visit {
   bookingId           String?            @map("booking_id")
   crisisMode          Boolean?           @default(false) @map("crisis_mode")
   priority            String?            @default("normal")
+  managementNotes     String?            @map("management_notes")
   requiredSkills      String             @map("required_skills")
   isSurgeActive       Boolean?           @default(false) @map("is_surge_active")
   surgeMultiplier     Float?             @default(1.0) @map("surge_multiplier")
@@ -437,6 +438,8 @@ model Incident {
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
   tenantId        String    @map("tenant_id")
+  severity        String?   @default("medium") // low, medium, high, critical
+  reportedAt      DateTime? @map("reported_at")
   acknowledgedAt  DateTime? @map("acknowledged_at")
   acknowledgedBy  String?   @map("acknowledged_by")
   acknowledger    User?     @relation("Acknowledger", fields: [acknowledgedBy], references: [id])
@@ -890,6 +893,7 @@ model TrainingAssignment {
   status      String         @default("assigned") // assigned, completed
   completedAt DateTime?      @map("completed_at")
   assignedAt  DateTime       @default(now()) @map("assigned_at")
+  dueDate     DateTime?      @map("due_date")
   module      TrainingModule @relation(fields: [moduleId], references: [id])
 
   @@map("training_assignments")
@@ -1361,17 +1365,27 @@ model Prescription {
 }
 
 model MAR_Entry {
-  id             String   @id @default(uuid())
-  patientId      String   @map("patient_id")
-  prescriptionId String   @map("prescription_id")
-  administerId   String?  @map("administer_id") // User ID (PSW, RN)
-  adminTime      DateTime @default(now()) @map("admin_time")
-  status         String   @default("administered") // administered, missed, refused
-  notes          String?
+  id              String    @id @default(uuid())
+  patientId       String?   @map("patient_id")
+  clientId        String?   @map("client_id")
+  prescriptionId  String?   @map("prescription_id")
+  administerId    String?   @map("administer_id") // User ID (PSW, RN)
+  administeredById String?  @map("administered_by_id")
+  adminTime       DateTime  @default(now()) @map("admin_time")
+  scheduledTime   DateTime? @map("scheduled_time")
+  administeredAt  DateTime? @map("administered_at")
+  status          String    @default("administered") // administered, missed, refused, given, held, not_available
+  notes           String?
+  medicationName  String?   @map("medication_name")
+  dosage          String?
+  route           String?
+  tenantId        String?   @map("tenant_id")
 
-  patient      ClientProfile @relation(fields: [patientId], references: [id])
-  prescription Prescription  @relation(fields: [prescriptionId], references: [id])
+  patient      ClientProfile? @relation(fields: [patientId], references: [id])
+  prescription Prescription?  @relation(fields: [prescriptionId], references: [id])
 
+  @@index([clientId])
+  @@index([tenantId])
   @@map("mar_entries")
 }
 
@@ -1414,6 +1428,7 @@ model Payout {
   amount      Decimal
   currency    String    @default("CAD")
   status      String    @default("pending") // pending, paid, failed
+  notes       String?
   processedAt DateTime? @map("processed_at")
   createdAt   DateTime  @default(now()) @map("created_at")
 
@@ -1581,14 +1596,17 @@ model DailyAuditSignOff {
 model WellnessPulse {
   id        String   @id @default(uuid())
   userId    String   @map("user_id")
+  pswId     String?  @map("psw_id")
   tenantId  String   @map("tenant_id")
   status    String // great, okay, struggling, burnout
+  score     Int?     @default(5) // 1-10 wellness score
   note      String?
   createdAt DateTime @default(now()) @map("created_at")
 
   user   User   @relation(fields: [userId], references: [id])
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
+  @@index([pswId])
   @@map("wellness_pulses")
 }
 

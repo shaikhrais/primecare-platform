@@ -26,7 +26,7 @@ export const PostVisitRatingModal: React.FC = () => {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             zIndex: 99999, // Absolute top
             padding: '24px'
-        }}>
+        }} data-cy="modal-post-visit-rating">
             <div style={{ 
                 backgroundColor: 'white', 
                 borderRadius: '24px', // Softer radii for seniors
@@ -48,6 +48,7 @@ export const PostVisitRatingModal: React.FC = () => {
                 <div style={{ display: 'flex', gap: '24px', justifyContent: 'center' }}>
                     {/* Massive Hit Areas (> 120px) */}
                     <button 
+                        data-cy="rating.btn-good"
                         onClick={() => handleRate(true)}
                         style={{ 
                             flex: 1, 
@@ -68,6 +69,7 @@ export const PostVisitRatingModal: React.FC = () => {
                     </button>
 
                     <button 
+                         data-cy="rating.btn-bad"
                          onClick={() => handleRate(false)}
                          style={{ 
                              flex: 1, 

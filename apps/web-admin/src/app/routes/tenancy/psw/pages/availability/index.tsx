@@ -61,7 +61,7 @@ export default function AvailabilityPage() {
                     <p style={{ color: '#6B7280', margin: 0 }}>Tap blocks to 'paint' your general weekly availability for Dispatch.</p>
                 </header>
 
-                <form onSubmit={handleSaveMatrix}>
+                <form data-cy="form.availability" onSubmit={handleSaveMatrix}>
                     <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
                         <table style={{ minWidth: '100%', borderCollapse: 'collapse', backgroundColor: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                             <thead>
@@ -81,6 +81,7 @@ export default function AvailabilityPage() {
                                                 <td key={day} style={{ padding: '8px', borderBottom: '1px solid #E5E7EB', textAlign: 'center' }}>
                                                     <button
                                                         type="button"
+                                                        data-cy={`form.availability.toggle-${day}-${block.split(' ')[0].toLowerCase()}`}
                                                         onClick={() => toggleBlock(day, block)}
                                                         style={{
                                                             width: '100%', height: '48px',
@@ -102,8 +103,8 @@ export default function AvailabilityPage() {
                     </div>
 
                     <div className="availability-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px' }}>
-                        <button type="button" onClick={() => navigate(-1)} style={{ padding: '12px 24px', backgroundColor: 'transparent', border: '1px solid #D1D5DB', borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
-                        <button type="submit" disabled={submitting} style={{ padding: '12px 24px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>
+                        <button data-cy="form.availability.btn-cancel" type="button" onClick={() => navigate(-1)} style={{ padding: '12px 24px', backgroundColor: 'transparent', border: '1px solid #D1D5DB', borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
+                        <button data-cy="form.availability.btn-save" type="submit" disabled={submitting} style={{ padding: '12px 24px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>
                             {submitting ? 'Saving...' : 'Save Canvas'}
                         </button>
                     </div>

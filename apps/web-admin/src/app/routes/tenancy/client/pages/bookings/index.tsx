@@ -164,6 +164,7 @@ export default function BookingsPage() {
                 onSubmit={handleRequest}
                 services={services}
                 submitting={submitting}
+                onRefreshServices={fetchServices}
             />
         </div>
     );

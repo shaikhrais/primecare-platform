@@ -1,6 +1,6 @@
 // PrimeCare Service Worker — Offline-First Strategy
 // Version-based cache busting
-const CACHE_VERSION = 'pc-v1';
+const CACHE_VERSION = 'pc-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const API_CACHE = `${CACHE_VERSION}-api`;
 const OFFLINE_QUEUE_KEY = 'pc-offline-queue';
@@ -85,7 +85,10 @@ async function cacheFirstStrategy(request) {
 async function networkFirstStrategy(request) {
     try {
         const response = await fetch(request);
-        if (response.ok) {
+        // CRITICAL FIX: Only cache strict HTTP 200 OK responses to prevent 
+        // 401 Unauthorized or 500 Internal Server Error payloads from 
+        // poisoning the PWA cache and creating infinite deadlocks.
+        if (response.ok && response.status === 200) {
             const cache = await caches.open(API_CACHE);
             cache.put(request, response.clone());
         }

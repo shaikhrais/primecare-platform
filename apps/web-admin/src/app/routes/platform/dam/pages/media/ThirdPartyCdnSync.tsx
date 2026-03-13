@@ -42,6 +42,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                         <RefreshCw size={14} color="#94A3B8" /> Last Sync: {lastSync}
                     </div>
                     <button 
+                        data-cy="btn-cdn-sync"
                         onClick={handleSync}
                         disabled={isSyncing || !bucketUrl}
                         style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (isSyncing || !bucketUrl) ? 'not-allowed' : 'pointer', opacity: (isSyncing || !bucketUrl) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -60,6 +61,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '8px' }}>Select Infrastructure Provider</label>
                         <div style={{ display: 'flex', gap: '12px' }}>
                             <div 
+                                data-cy="cdn-provider-aws"
                                 onClick={() => setProvider('aws')}
                                 style={{ flex: 1, padding: '16px', border: `2px solid ${provider === 'aws' ? '#F59E0B' : '#E2E8F0'}`, borderRadius: '8px', cursor: 'pointer', backgroundColor: provider === 'aws' ? '#FFFBEB' : 'white', display: 'flex', alignItems: 'center', gap: '12px' }}
                             >
@@ -70,6 +72,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                                 </div>
                             </div>
                             <div 
+                                data-cy="cdn-provider-cloudflare"
                                 onClick={() => setProvider('cloudflare')}
                                 style={{ flex: 1, padding: '16px', border: `2px solid ${provider === 'cloudflare' ? '#F97316' : '#E2E8F0'}`, borderRadius: '8px', cursor: 'pointer', backgroundColor: provider === 'cloudflare' ? '#FFF7ED' : 'white', display: 'flex', alignItems: 'center', gap: '12px' }}
                             >
@@ -85,6 +88,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '8px' }}>Target Public Bucket URL</label>
                         <input 
+                            data-cy="cdn-bucket-url"
                             type="text" 
                             placeholder="e.g. s3://primecare-public-assets"
                             value={bucketUrl}
@@ -96,6 +100,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                     <div>
                         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '8px' }}>{provider === 'aws' ? 'IAM Secret Access Key' : 'API Token Secret'}</label>
                         <input 
+                            data-cy="cdn-access-key"
                             type="password" 
                             placeholder="•••••••••••••••••••••••••"
                             value={accessKey}

@@ -60,6 +60,7 @@ export const AbVariantManager: React.FC = () => {
                 </div>
                 
                 <button 
+                    data-cy="dam.traffic.btn-deploy"
                     onClick={handleDeploy}
                     disabled={isDeploying || !weightIsValid}
                     style={{ 
@@ -94,6 +95,7 @@ export const AbVariantManager: React.FC = () => {
                         
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '300px' }}>
                             <input 
+                                data-cy={`dam.traffic.slider-${v.id}`}
                                 type="range" 
                                 min="0" max="100" 
                                 value={v.trafficWeight} 

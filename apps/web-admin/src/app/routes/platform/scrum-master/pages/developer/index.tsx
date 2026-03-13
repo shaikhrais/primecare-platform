@@ -53,7 +53,7 @@ export default function DeveloperPortal() {
     };
 
     return (
-        <div style={{ padding: '24px' }}>
+        <div style={{ padding: '24px' }} data-cy="developer-portal-page">
             <div style={{ marginBottom: '40px' }}>
                 <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Developer Portal</h1>
                 <p style={{ color: '#6B7280' }}>Integrate PrimeCare into your own applications using professional-grade APIs.</p>
@@ -70,6 +70,7 @@ export default function DeveloperPortal() {
                             <a
                                 href="/doc"
                                 target="_blank"
+                                data-cy="btn-open-docs"
                                 className="btn btn-primary"
                                 style={{ textDecoration: 'none' }}
                             >
@@ -91,7 +92,7 @@ export default function DeveloperPortal() {
                 <div className="pc-card">
                     <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>My API Keys</span>
-                        <button onClick={handleCreateKey} className="btn" style={{ fontSize: '12px', padding: '6px 12px' }}>+ New Key</button>
+                        <button data-cy="btn-create-api-key" onClick={handleCreateKey} className="btn" style={{ fontSize: '12px', padding: '6px 12px' }}>+ New Key</button>
                     </div>
                     <div className="pc-card-b">
                         {loading ? <p>Loading...</p> : keys.length === 0 ? <p style={{ color: '#6B7280', textAlign: 'center' }}>No keys generated yet.</p> : (
@@ -104,7 +105,7 @@ export default function DeveloperPortal() {
                                                 {k.key.substring(0, 8)}••••••••
                                             </div>
                                         </div>
-                                        <button onClick={() => handleDeleteKey(k.id)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>🗑️</button>
+                                        <button data-cy={`btn-delete-key-${k.id}`} onClick={() => handleDeleteKey(k.id)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>🗑️</button>
                                     </div>
                                 ))}
                             </div>

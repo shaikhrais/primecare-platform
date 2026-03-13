@@ -46,10 +46,11 @@ export const DynamicPageRouter: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="btn-map-new-route" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <PlusCircle size={16} color="#4F46E5" /> Map New Route
                     </button>
                     <button 
+                        data-cy="btn-publish-route-map"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -79,6 +80,7 @@ export const DynamicPageRouter: React.FC = () => {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <Link2 size={16} color="#4F46E5" />
                                     <input 
+                                        data-cy={`route-slug-${alias.id}`}
                                         type="text" 
                                         value={alias.publicUrlSlug} 
                                         readOnly

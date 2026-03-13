@@ -49,19 +49,19 @@ export default function DailyEntryPage() {
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
 
-    // Load available clients/visits
+    const fetchClients = async () => {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/v1/staff/customers`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+            const data = await res.json();
+            setClients(data);
+            if (data.length > 0 && !selectedClient) setSelectedClient(data[0].id);
+        }
+    };
+
     useEffect(() => {
-        const fetchClients = async () => {
-            const token = localStorage.getItem('token');
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/v1/staff/customers`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setClients(data);
-                if (data.length > 0) setSelectedClient(data[0].id);
-            }
-        };
         fetchClients();
     }, []);
 
@@ -116,6 +116,7 @@ export default function DailyEntryPage() {
                 selectedClient={selectedClient}
                 setSelectedClient={setSelectedClient}
                 setIsDirty={setIsDirty}
+                onRefreshClients={fetchClients}
             />
 
             <div style={{ flex: 1, background: 'var(--bg-elev)', padding: '32px', borderRadius: '16px', border: '1px solid var(--line)', overflowY: 'auto' }}>

@@ -62,6 +62,7 @@ export const MicroCopyAbTesting: React.FC = () => {
                                 </div>
                                 
                                 <button 
+                                    data-cy={`btn-toggle-ab-test-${test.id}`}
                                     onClick={() => toggleTest(test.id, test.status)}
                                     disabled={test.status === 'CONCLUDED'}
                                     style={{ 

@@ -52,6 +52,7 @@ export const ComponentRegistryGrid: React.FC = () => {
                 <div style={{ flex: 1, position: 'relative' }}>
                     <Search size={18} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
                     <input 
+                        data-cy="component-registry-search"
                         type="text" 
                         placeholder="Search components by export name..." 
                         value={searchTerm}

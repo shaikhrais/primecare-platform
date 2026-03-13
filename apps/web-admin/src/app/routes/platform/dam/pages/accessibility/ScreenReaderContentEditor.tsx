@@ -72,6 +72,7 @@ export const ScreenReaderContentEditor: React.FC = () => {
                 </div>
 
                 <button 
+                    data-cy="dam.a11y.btn-save"
                     onClick={handleSave}
                     disabled={isSaving || missingCount > 0}
                     style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (isSaving || missingCount > 0) ? 'not-allowed' : 'pointer', opacity: (isSaving || missingCount > 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -112,6 +113,7 @@ export const ScreenReaderContentEditor: React.FC = () => {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 <label style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>Screen Reader Text (aria-label):</label>
                                 <textarea 
+                                    data-cy={`dam.a11y.inp-aria-${asset.id}`}
                                     value={asset.ariaLabel}
                                     placeholder="Describe this visual element in detail for visually impaired users..."
                                     onChange={(e) => handleAriaChange(asset.id, e.target.value)}

@@ -100,7 +100,7 @@ reviews.openapi(kpiRoute, async (c) => {
 
     const [visits, incidents, feedbacks, checkEvents] = await Promise.all([
         prisma.visit.count({ where: { assignedPswId: pswId } }),
-        prisma.incident.count({ where: { reportedById: pswId, tenantId } }),
+        prisma.incident.count({ where: { reporterUserId: pswId, tenantId } }),
         prisma.feedback.findMany({ where: { tenantId } }),
         prisma.visitCheckEvent.findMany({ where: { pswId, eventType: 'check_in' } }),
     ]);

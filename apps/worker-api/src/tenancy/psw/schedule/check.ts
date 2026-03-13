@@ -121,10 +121,10 @@ r.openapi(checkInRoute, async (c) => {
         prisma.communicationLog.create({
             data: {
                 tenantId: profile.tenantId || 'system',
-                senderId: userId,
-                recipientRole: 'family',
+                sender: userId,
+                recipient: 'family',
                 channel: 'sms',
-                content: `Your Caregiver ${profile.user?.fullName || profile.id} has arrived for visit ${visitId}.`,
+                bodyText: `Your Caregiver ${profile.user?.fullName || profile.id} has arrived for visit ${visitId}.`,
                 status: 'sent'
             }
         })

@@ -70,7 +70,7 @@ r.openapi(listNotificationsRoute, async (c) => {
 
     const userId = payload.sub;
 
-    const notifications = await prisma.notification.findMany({
+    const notifications = await prisma.appNotification.findMany({
         where: { userId },
         orderBy: { createdAt: 'desc' },
         take: 50
@@ -103,7 +103,7 @@ r.openapi(markNotificationReadRoute, async (c) => {
     const { id } = c.req.valid('param');
     const payload = c.get('jwtPayload');
 
-    const notification = await prisma.notification.update({
+    const notification = await prisma.appNotification.update({
         where: { id, userId: payload.sub },
         data: { isRead: true }
     });

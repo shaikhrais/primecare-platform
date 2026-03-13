@@ -52,10 +52,11 @@ export const ApiRateLimitConfig: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <button data-cy="dam.ratelimit.btn-sync" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <RefreshCw size={16} /> Sync Live Traffic
                     </button>
                     <button 
+                        data-cy="dam.ratelimit.btn-save"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#F97316', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
@@ -95,6 +96,7 @@ export const ApiRateLimitConfig: React.FC = () => {
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                                         <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B' }}>Permitted RPM</label>
                                         <input 
+                                            data-cy={`dam.ratelimit.inp-rpm-${policy.id}`}
                                             type="number"
                                             value={policy.hardCapRpm}
                                             onChange={(e) => handleLimitChange(policy.id, parseInt(e.target.value) || 0)}

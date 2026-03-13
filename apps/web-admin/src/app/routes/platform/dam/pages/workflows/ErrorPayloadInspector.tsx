@@ -54,6 +54,7 @@ export const ErrorPayloadInspector: React.FC = () => {
                     {mockPayloads.map(payload => (
                         <div 
                             key={payload.id}
+                            data-cy={`error-payload-${payload.id}`}
                             onClick={() => setSelectedPayload(payload)}
                             style={{ 
                                 padding: '16px', borderRadius: '8px', cursor: 'pointer',

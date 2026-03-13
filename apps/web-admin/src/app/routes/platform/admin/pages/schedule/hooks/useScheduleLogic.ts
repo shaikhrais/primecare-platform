@@ -232,7 +232,7 @@ export const useScheduleLogic = () => {
         isSurgeModalOpen, surgeTargetVisit,
         setSelectedVisit, setIsAssignModalOpen, setAssignedPswId,
         setIsCreateVisitModalOpen, setViewMode, setIsSurgeModalOpen, setSurgeTargetVisit,
-        fetchVisits, handleAssign, fetchSuggestions, handleOffer,
+        fetchVisits, fetchPsws, handleAssign, fetchSuggestions, handleOffer,
         handleApplySurge, handleDeleteVisit, handleSelectEvent, getStatusColor
     };
 };

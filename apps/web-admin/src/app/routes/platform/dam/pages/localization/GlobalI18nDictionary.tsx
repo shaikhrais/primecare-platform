@@ -75,6 +75,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                     <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '4px', backgroundColor: '#F8FAFC' }}>
                         <Filter size={16} color="#94A3B8" style={{ marginLeft: '8px' }} />
                         <select 
+                            data-cy="i18n-filter-status"
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
                             style={{ border: 'none', background: 'transparent', outline: 'none', padding: '6px', color: '#0F172A', fontWeight: 600, fontSize: '0.85rem' }}
@@ -86,6 +87,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                         </select>
                     </div>
                     <button 
+                        data-cy="btn-publish-translations"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -98,6 +100,7 @@ export const GlobalI18nDictionary: React.FC = () => {
             <div style={{ position: 'relative', marginBottom: '16px' }}>
                 <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '12px' }} />
                 <input 
+                    data-cy="i18n-search"
                     type="text" 
                     placeholder="Search by key (e.g., auth.login) or English phrase..." 
                     value={searchTerm}
@@ -124,6 +127,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                                 </td>
                                 <td style={{ padding: '12px', verticalAlign: 'top' }}>
                                     <textarea 
+                                        data-cy={`i18n-${t.id}-en`}
                                         value={t.en}
                                         onChange={(e) => handleUpdate(t.id, 'en', e.target.value)}
                                         style={{ width: '100%', minHeight: '60px', padding: '8px', borderRadius: '6px', border: '1px solid #CBD5E1', outline: 'none', resize: 'vertical', fontFamily: 'sans-serif' }}
@@ -131,6 +135,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                                 </td>
                                 <td style={{ padding: '12px', verticalAlign: 'top' }}>
                                     <textarea 
+                                        data-cy={`i18n-${t.id}-es`}
                                         value={t.es}
                                         placeholder="Missing translation..."
                                         onChange={(e) => handleUpdate(t.id, 'es', e.target.value)}
@@ -139,6 +144,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                                 </td>
                                 <td style={{ padding: '12px', verticalAlign: 'top' }}>
                                     <textarea 
+                                        data-cy={`i18n-${t.id}-fr`}
                                         value={t.fr}
                                         placeholder="Missing translation..."
                                         onChange={(e) => handleUpdate(t.id, 'fr', e.target.value)}

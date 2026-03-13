@@ -5,6 +5,8 @@ import { useNotification } from '@/shared/context/NotificationContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+interface StaffMember { id: string; fullName: string; role: string; }
+
 export default function EvaluationForm() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
@@ -31,6 +33,23 @@ export default function EvaluationForm() {
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
+
+    const [staffList, setStaffList] = useState<StaffMember[]>([]);
+    useEffect(() => {
+        const fetchStaff = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch(`${API_URL}${AdminRegistry.ApiRegistry.ADMIN.USERS}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setStaffList(Array.isArray(data) ? data.filter((u: any) => u.role === 'psw' || u.role === 'rn') : []);
+                }
+            } catch (e) { console.error(e); }
+        };
+        fetchStaff();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -92,8 +111,9 @@ export default function EvaluationForm() {
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
                         >
                             <option value="">Select Staff...</option>
-                            <option value="psw-1">John Walker (PSW)</option>
-                            <option value="psw-2">Sarah Jenkins (PSW)</option>
+                            {staffList.map(s => (
+                                <option key={s.id} value={s.id}>{s.fullName} ({s.role?.toUpperCase()})</option>
+                            ))}
                         </select>
                     </div>
 

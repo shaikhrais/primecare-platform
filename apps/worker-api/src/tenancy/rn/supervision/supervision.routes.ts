@@ -72,4 +72,70 @@ r.openapi(getPswSupervisionOverviewRoute, async (c) => {
     }, 200);
 });
 
+// GET /roster — Supervision roster for RN hub
+const getRosterRoute = createRoute({
+    method: 'get',
+    path: '/roster',
+    middleware: [requirePermission('PSW_SUPERVISE')],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.array(z.object({
+                        id: z.string(),
+                        fullName: z.string(),
+                        role: z.string(),
+                        stats: z.object({
+                            visitsCount: z.number(),
+                            qualityScore: z.number(),
+                        }).optional(),
+                        complianceStatus: z.string(),
+                        riskLevel: z.string(),
+                    })),
+                },
+            },
+            description: 'Supervision roster of PSW profiles with aggregated stats',
+        },
+    },
+});
+
+r.openapi(getRosterRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const pswProfiles = await prisma.pswProfile.findMany({
+        where: { tenantId },
+        include: {
+            user: { select: { fullName: true, roles: true } },
+        },
+    });
+
+    // Aggregate stats per PSW
+    const roster = await Promise.all(pswProfiles.map(async (psw: any) => {
+        const [visitsCount, incidentCount] = await Promise.all([
+            prisma.visit.count({ where: { assignedPswId: psw.id } }),
+            prisma.incident.count({ where: { reporterUserId: psw.userId } }),
+        ]);
+
+        // Quality score: simple heuristic (100 - incidents * 5, min 50)
+        const qualityScore = Math.max(50, 100 - incidentCount * 5);
+
+        // Compliance: check if documents are current
+        const expiredDocs = await prisma.pswDocument.count({
+            where: { pswId: psw.id, expiresAt: { lt: new Date() } }
+        });
+
+        return {
+            id: psw.id,
+            fullName: psw.user?.fullName || psw.fullName || 'Unknown',
+            role: 'PSW',
+            stats: { visitsCount, qualityScore },
+            complianceStatus: expiredDocs > 0 ? 'At Risk' : 'Compliant',
+            riskLevel: incidentCount > 3 ? 'High' : incidentCount > 1 ? 'Medium' : 'Low',
+        };
+    }));
+
+    return c.json(roster, 200);
+});
+
 export default r;

@@ -46,19 +46,19 @@ feedback.openapi(submitRoute, async (c) => {
         const visit = await prisma.visit.findUnique({
              where: { id: body.visitId }, include: { psw: { include: { user: true } } }
         });
-        const rnUser = await prisma.user.findFirst({ where: { tenantId, role: 'rn' } });
+        const rnUser = await prisma.user.findFirst({ where: { tenantId, roles: { contains: 'rn' } } });
         
         if (visit && rnUser) {
              const thread = await prisma.messageThread.create({
                  data: {
-                     tenantId, relatedEntityId: fb.id, relatedEntityType: 'FeedbackEscalation',
-                     participants: { connect: [{ id: userId }, { id: rnUser.id }] }
+                     tenantId, threadType: 'escalation',
+                     clientId: client?.id,
                  }
              });
              await prisma.message.create({
                  data: {
-                     tenantId, threadId: thread.id, senderId: 'system',
-                     content: `CRITICAL ESCALATION: A 1-star feedback was received for Visit ${visit.id} (PSW: ${visit.psw?.user?.fullName || 'Unknown'}). Please contact the family regarding: "${body.comment}"`
+                     threadId: thread.id, senderUserId: 'system',
+                     bodyText: `CRITICAL ESCALATION: A 1-star feedback was received for Visit ${visit.id} (PSW: ${visit.psw?.user?.fullName || 'Unknown'}). Please contact the family regarding: "${body.comment}"`
                  }
              });
              console.log(`[Worker] Feature 46 Fired: 1-Star feedback generated emergency MessageThread ${thread.id} between Family ${userId} and RN ${rnUser.id}.`);

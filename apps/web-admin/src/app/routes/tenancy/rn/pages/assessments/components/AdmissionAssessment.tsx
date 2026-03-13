@@ -53,7 +53,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
+        <form data-cy="form.admission-assessment" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #E2E8F0', paddingBottom: '16px' }}>
                 <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Initial RN Admission Assessment</h2>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -74,6 +74,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
                 <div>
                     <label style={{ display: 'block', fontWeight: 700, marginBottom: '8px', color: '#334155' }}>1. Chief Complaint / Reason for Admission</label>
                     <textarea
+                        data-cy="form.admission-assessment.chief-complaint"
                         value={data.chiefComplaint}
                         onChange={(e) => updateField('chiefComplaint', e.target.value)}
                         placeholder="Patient presented with..."
@@ -84,6 +85,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
                 <div>
                     <label style={{ display: 'block', fontWeight: 700, marginBottom: '8px', color: '#334155' }}>2. History of Present Illness (HPI)</label>
                     <textarea
+                        data-cy="form.admission-assessment.hpi"
                         value={data.historyOfPresentIllness}
                         onChange={(e) => updateField('historyOfPresentIllness', e.target.value)}
                         style={{ width: '100%', minHeight: '120px', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', fontFamily: 'inherit' }}
@@ -94,6 +96,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
                     <div>
                         <label style={{ display: 'block', fontWeight: 700, marginBottom: '8px', color: '#334155' }}>3. Standard Mobility Status</label>
                         <select
+                            data-cy="form.admission-assessment.mobility"
                             value={data.mobilityStatus}
                             onChange={(e) => updateField('mobilityStatus', e.target.value)}
                             style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: 'white' }}
@@ -108,6 +111,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
                     <div>
                         <label style={{ display: 'block', fontWeight: 700, marginBottom: '8px', color: '#334155' }}>4. Fall Risk Tool Score (Morse)</label>
                         <input
+                            data-cy="form.admission-assessment.fall-risk"
                             type="number"
                             value={data.fallRiskScore}
                             onChange={(e) => updateField('fallRiskScore', parseInt(e.target.value) || 0)}
@@ -120,6 +124,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
             <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid #E2E8F0' }}>
                 <button
                     type="submit"
+                    data-cy="form.admission-assessment.btn-submit"
                     disabled={submitting}
                     style={{ padding: '14px 28px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 800, fontSize: '1rem', cursor: 'pointer' }}
                 >

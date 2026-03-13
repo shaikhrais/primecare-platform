@@ -56,6 +56,7 @@ export const CostOfCareCalculator: React.FC = () => {
                             <span style={{ fontSize: '1.2rem', fontWeight: 900, color: '#6366F1' }}>{hours} hrs</span>
                         </div>
                         <input 
+                            data-cy="form.calculator.hours"
                             type="range" 
                             min="4" 
                             max="168" 
@@ -79,6 +80,7 @@ export const CostOfCareCalculator: React.FC = () => {
                             {['LOW', 'MEDIUM', 'HIGH'].map(level => (
                                 <button 
                                     key={level}
+                                    data-cy={`form.calculator.acuity-${level.toLowerCase()}`}
                                     onClick={() => setAcuity(level as any)}
                                     style={{ 
                                         flex: 1, padding: '12px', borderRadius: '8px', cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem', transition: 'all 0.2s',
@@ -96,6 +98,7 @@ export const CostOfCareCalculator: React.FC = () => {
                     </div>
 
                     <button 
+                        data-cy="form.calculator.btn-calculate"
                         onClick={() => setStep(2)}
                         style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '16px', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                     >
@@ -114,6 +117,7 @@ export const CostOfCareCalculator: React.FC = () => {
 
                     <form onSubmit={handleGenerateCost} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <input 
+                            data-cy="form.calculator.name"
                             type="text" 
                             required 
                             placeholder="Your Name"
@@ -122,6 +126,7 @@ export const CostOfCareCalculator: React.FC = () => {
                             style={{ padding: '16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', outline: 'none' }}
                         />
                         <input 
+                            data-cy="form.calculator.email"
                             type="email" 
                             required 
                             placeholder="Email Address"
@@ -132,6 +137,7 @@ export const CostOfCareCalculator: React.FC = () => {
                         
                         <button 
                             type="submit"
+                            data-cy="form.calculator.btn-reveal"
                             disabled={isSubmitting}
                             style={{ backgroundColor: '#6366F1', color: 'white', border: 'none', borderRadius: '8px', padding: '16px', fontWeight: 800, fontSize: '1.1rem', cursor: isSubmitting ? 'wait' : 'pointer', marginTop: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                         >
@@ -163,11 +169,12 @@ export const CostOfCareCalculator: React.FC = () => {
                         </div>
                     </div>
 
-                    <button style={{ backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '8px', padding: '16px 24px', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%' }}>
+                    <button data-cy="form.calculator.btn-consult" style={{ backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '8px', padding: '16px 24px', fontWeight: 800, fontSize: '1.1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%' }}>
                         Schedule a Free Consultation
                     </button>
                     
                     <button 
+                        data-cy="form.calculator.btn-restart"
                         onClick={() => { setStep(1); setHours(20); setAcuity('LOW'); }}
                         style={{ background: 'none', border: 'none', color: '#64748B', fontWeight: 600, marginTop: '24px', cursor: 'pointer', textDecoration: 'underline' }}
                     >

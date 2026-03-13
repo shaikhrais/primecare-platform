@@ -55,6 +55,7 @@ export const WorkflowVersionControl: React.FC = () => {
                 <div style={{ position: 'relative' }}>
                     <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '10px', top: '10px' }} />
                     <input 
+                        data-cy="workflow-vc-search"
                         type="text" 
                         placeholder="Search commits..." 
                         style={{ padding: '8px 12px 8px 32px', borderRadius: '6px', border: '1px solid #CBD5E1', outline: 'none', width: '250px' }}
@@ -80,6 +81,7 @@ export const WorkflowVersionControl: React.FC = () => {
                             </div>
 
                             <div 
+                                data-cy={`workflow-commit-${commit.id}`}
                                 onClick={() => setSelectedCommit(commit)}
                                 style={{ 
                                     flex: 1, border: `1px solid ${selectedCommit?.id === commit.id ? '#3B82F6' : '#E2E8F0'}`, 
@@ -132,6 +134,7 @@ export const WorkflowVersionControl: React.FC = () => {
 
                             {!selectedCommit.isActive && (
                                 <button 
+                                    data-cy="btn-revert-workflow"
                                     onClick={() => handleRevert(selectedCommit)}
                                     disabled={isReverting}
                                     style={{ 

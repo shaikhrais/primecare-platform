@@ -54,12 +54,14 @@ export const NoCodeBuilderMock: React.FC = () => {
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     <div style={{ display: 'flex', backgroundColor: '#E2E8F0', borderRadius: '6px', padding: '2px' }}>
                         <button 
+                            data-cy="dam.template.btn-mobile"
                             onClick={() => setViewMode('MOBILE')}
                             style={{ padding: '6px 12px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: viewMode === 'MOBILE' ? 'white' : 'transparent', boxShadow: viewMode === 'MOBILE' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', color: viewMode === 'MOBILE' ? '#0F172A' : '#64748B' }}
                         >
                             <Smartphone size={16} />
                         </button>
                         <button 
+                            data-cy="dam.template.btn-desktop"
                             onClick={() => setViewMode('DESKTOP')}
                             style={{ padding: '6px 12px', borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: viewMode === 'DESKTOP' ? 'white' : 'transparent', boxShadow: viewMode === 'DESKTOP' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', color: viewMode === 'DESKTOP' ? '#0F172A' : '#64748B' }}
                         >
@@ -68,6 +70,7 @@ export const NoCodeBuilderMock: React.FC = () => {
                     </div>
 
                     <button 
+                        data-cy="dam.template.btn-export"
                         onClick={handleSaveTemplate}
                         disabled={isSaving}
                         style={{ padding: '8px 16px', backgroundColor: '#2563EB', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', fontSize: '0.85rem' }}
@@ -84,24 +87,28 @@ export const NoCodeBuilderMock: React.FC = () => {
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <div 
+                            data-cy="dam.template.add-hero"
                             onClick={() => handleAddBlock('HERO', 'Hero Banner')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
                             <PlusCircle size={16} color="#6366F1" /> Hero Banner
                         </div>
                         <div 
+                            data-cy="dam.template.add-stat-grid"
                             onClick={() => handleAddBlock('STAT_GRID', 'Metrics Grid (3-Col)')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
                             <PlusCircle size={16} color="#6366F1" /> Metrics Grid (3-Col)
                         </div>
                         <div 
+                            data-cy="dam.template.add-form"
                             onClick={() => handleAddBlock('FORM', 'Authentication Form')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
                             <PlusCircle size={16} color="#6366F1" /> Authentication Form
                         </div>
                         <div 
+                            data-cy="dam.template.add-text"
                             onClick={() => handleAddBlock('TEXT_BLOCK', 'Markdown Text Area')}
                             style={{ padding: '12px', backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155' }}
                         >
@@ -135,7 +142,7 @@ export const NoCodeBuilderMock: React.FC = () => {
                                         <Move size={16} color="#94A3B8" />
                                         <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A' }}>{block.label}</div>
                                     </div>
-                                    <button onClick={() => handleRemoveBlock(block.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#EF4444' }}>
+                                    <button data-cy={`dam.template.btn-remove-${block.id}`} onClick={() => handleRemoveBlock(block.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#EF4444' }}>
                                         <Trash2 size={16} />
                                     </button>
                                 </div>

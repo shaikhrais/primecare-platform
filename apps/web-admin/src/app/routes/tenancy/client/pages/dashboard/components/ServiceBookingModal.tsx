@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import { InlineCreateService } from '@/shared/components/modals/components/InlineCreationForms';
 
 import { apiClient } from '@/shared/utils/apiClient';
 
@@ -18,10 +19,12 @@ interface ServiceBookingModalProps {
     services: Service[];
     onSuccess: () => void;
     showToast: (message: string, type: 'success' | 'error' | 'info' | 'warning') => void;
+    onRefreshServices?: () => void;
 }
 
-export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen, onClose, services, onSuccess, showToast }) => {
+export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen, onClose, services, onSuccess, showToast, onRefreshServices }) => {
     const { t } = useTranslation();
+    const [isCreatingService, setIsCreatingService] = useState(false);
     const [newRequest, setNewRequest] = useState({
         serviceId: '',
         requestedStartAt: '',
@@ -61,25 +64,48 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
     if (!isOpen) return null;
 
     return (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }}>
-            <form onSubmit={handleSubmitRequest} className="pc-card" style={{ padding: '2.5rem', maxWidth: '500px', width: '90%', border: '1px solid var(--brand-500)' }}>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }} data-cy="modal-service-booking">
+            <form onSubmit={handleSubmitRequest} className="pc-card" style={{ padding: '2.5rem', maxWidth: '500px', width: '90%', border: '1px solid var(--brand-500)' }} data-cy="form-service-booking">
                 <h3 className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE)}</h3>
                 <p style={{ color: 'var(--text-300)', marginBottom: '2rem' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE)}</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Select Care Service</label>
-                        <select
-                            value={newRequest.serviceId}
-                            onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
-                            data-cy="form.booking.service"
-                            required
-                        >
-                            <option value="" style={{ background: '#12233C' }}>-- Choose a Service --</option>
-                            {services.map(s => (
-                                <option key={s.id} value={s.id} style={{ background: '#12233C' }}>{s.name} (${parseFloat(s.baseRateHourly).toFixed(2)}/hr)</option>
-                            ))}
-                        </select>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <label style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Select Care Service</label>
+                            {!isCreatingService && (
+                                <button
+                                    data-cy="btn-create-service-inline"
+                                    type="button"
+                                    onClick={() => setIsCreatingService(true)}
+                                    style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                                >
+                                    + Create New
+                                </button>
+                            )}
+                        </div>
+                        {isCreatingService ? (
+                            <InlineCreateService
+                                onCancel={() => setIsCreatingService(false)}
+                                onSuccess={(newId) => {
+                                    setNewRequest({ ...newRequest, serviceId: newId });
+                                    setIsCreatingService(false);
+                                    onRefreshServices?.();
+                                }}
+                            />
+                        ) : (
+                            <select
+                                value={newRequest.serviceId}
+                                onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
+                                data-cy="form.booking.service"
+                                required
+                            >
+                                <option value="" style={{ background: '#12233C' }}>-- Choose a Service --</option>
+                                {services.map(s => (
+                                    <option key={s.id} value={s.id} style={{ background: '#12233C' }}>{s.name} (${parseFloat(s.baseRateHourly).toFixed(2)}/hr)</option>
+                                ))}
+                            </select>
+                        )}
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Preferred Date & Time</label>
@@ -111,6 +137,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                         <div style={{ flex: 1 }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Priority</label>
                             <select
+                                data-cy="form.booking.priority"
                                 value={newRequest.priority}
                                 onChange={(e) => setNewRequest({ ...newRequest, priority: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}

@@ -46,16 +46,17 @@ export const InlineCreateClient: React.FC<InlineCreateProps> = ({ onSuccess, onC
     };
 
     return (
-        <div style={{ padding: '1rem', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.5rem', marginBottom: '1rem' }}
+        <div data-cy="inline.client.container" style={{ padding: '1rem', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '0.5rem', marginBottom: '1rem' }}
              onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(); }}>
             <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', color: '#166534' }}>Quick Create: Client</h4>
             <input 
+                data-cy="inline.client.name"
                 type="text" required placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} disabled={loading}
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', marginBottom: '0.5rem' }} 
             />
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
-                <button type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#16a34a', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
+                <button data-cy="inline.client.cancel" type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
+                <button data-cy="inline.client.save" type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#16a34a', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
             </div>
         </div>
     );
@@ -93,22 +94,24 @@ export const InlineCreateService: React.FC<InlineCreateProps> = ({ onSuccess, on
     };
 
     return (
-        <div style={{ padding: '1rem', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.5rem', marginBottom: '1rem' }}
+        <div data-cy="inline.service.container" style={{ padding: '1rem', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '0.5rem', marginBottom: '1rem' }}
              onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(); }}>
             <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', color: '#1e40af' }}>Quick Create: Service</h4>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
                 <input 
+                    data-cy="inline.service.name"
                     type="text" required placeholder="Service Name (e.g. RN Shift)" value={name} onChange={e => setName(e.target.value)} disabled={loading}
                     style={{ flex: 2, padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }} 
                 />
                 <input 
+                    data-cy="inline.service.rate"
                     type="number" min="0" step="0.01" required placeholder="Hourly Rate" value={rate} onChange={e => setRate(e.target.value)} disabled={loading}
                     style={{ flex: 1, padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }} 
                 />
             </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
-                <button type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#2563eb', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
+                <button data-cy="inline.service.cancel" type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
+                <button data-cy="inline.service.save" type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#2563eb', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
             </div>
         </div>
     );
@@ -149,16 +152,17 @@ export const InlineCreatePsw: React.FC<InlineCreateProps> = ({ onSuccess, onCanc
     };
 
     return (
-        <div style={{ padding: '1rem', backgroundColor: '#faf5ff', border: '1px solid #e9d5ff', borderRadius: '0.5rem', marginBottom: '1rem' }}
+        <div data-cy="inline.psw.container" style={{ padding: '1rem', backgroundColor: '#faf5ff', border: '1px solid #e9d5ff', borderRadius: '0.5rem', marginBottom: '1rem' }}
              onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(); }}>
             <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', color: '#6b21a8' }}>Quick Create: Caregiver (PSW)</h4>
             <input 
+                data-cy="inline.psw.name"
                 type="text" required placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} disabled={loading}
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db', marginBottom: '0.5rem' }} 
             />
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
-                <button type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#9333ea', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
+                <button data-cy="inline.psw.cancel" type="button" onClick={onCancel} disabled={loading} style={{ flex: 1, padding: '0.5rem', background: 'transparent', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer' }}>Cancel</button>
+                <button data-cy="inline.psw.save" type="button" onClick={handleSubmit} disabled={loading || !name} style={{ flex: 1, padding: '0.5rem', background: '#9333ea', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 'bold' }}>Save</button>
             </div>
         </div>
     );

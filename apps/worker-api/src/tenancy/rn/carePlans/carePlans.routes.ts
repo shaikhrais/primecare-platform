@@ -111,13 +111,26 @@ r.openapi(reviewCarePlanRoute, async (c) => {
              goal: plan.clinicalGoals?.map((g: any) => ({ description: { text: g } })) || []
          };
 
+         let fhirEndpoint = await prisma.webhookEndpoint.findFirst({
+             where: { tenantId: plan.tenantId || 'system', url: 'https://fhir.regionalhealth.example.gov/r4/CarePlan' }
+         });
+         if (!fhirEndpoint) {
+             fhirEndpoint = await prisma.webhookEndpoint.create({
+                 data: {
+                     tenantId: plan.tenantId || 'system',
+                     url: 'https://fhir.regionalhealth.example.gov/r4/CarePlan',
+                     events: 'careplan.updated',
+                     secret: 'fhir-sync-secret',
+                     status: 'active'
+                 }
+             });
+         }
          await prisma.webhookDelivery.create({
              data: {
-                 tenantId: plan.tenantId || 'system',
-                 endpointUrl: 'https://fhir.regionalhealth.example.gov/r4/CarePlan',
+                 endpointId: fhirEndpoint.id,
+                 event: 'careplan.updated',
                  payload: JSON.stringify(fhirPayload),
-                 status: 'pending',
-                 attempts: 0
+                 retryCount: 0
              }
          });
          console.log(`[Worker] Feature 49 Fired: CarePlan ${plan.id} changes packaged as FHIR R4 JSON. Webhook queued for regional sync.`);

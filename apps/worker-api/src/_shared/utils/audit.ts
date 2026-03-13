@@ -20,8 +20,7 @@ export async function logAudit(
                 action,
                 resourceType,
                 resourceId,
-                metadataJson: metadata,
-                deviceId,
+                metadataString: typeof metadata === 'string' ? metadata : JSON.stringify(metadata),
                 createdAt: new Date(),
             },
         });

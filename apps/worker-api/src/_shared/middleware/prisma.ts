@@ -3,9 +3,8 @@ import { Bindings, Variables } from '../../bindings';
 import { tenantExtension } from '../prisma/tenant.extension';
 import { auditExtension } from '../prisma/audit.extension';
 import { forensicExtension } from '../prisma/forensic.extension';
-import { PrismaClient } from '../../../generated/client';
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../../../generated/client/edge';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 let prismaInstance: any = null;
 
@@ -30,9 +29,15 @@ export const prismaMiddleware = () => {
             const dbUrl = c.env.DATABASE_URL;
 
             try {
-                const pool = new Pool({ connectionString: dbUrl });
-                const adapter = new PrismaPg(pool);
-                prismaInstance = new PrismaClient({ adapter });
+                // Determine if we need to enforce the Prisma Accelerate protocol for Cloudflare Edge
+                let edgeUri = dbUrl;
+                if (edgeUri.includes('db.prisma.io') && edgeUri.startsWith('postgres://')) {
+                    edgeUri = edgeUri.replace('postgres://', 'prisma://');
+                }
+
+                // Discard the unreliable `pg` TCP socket polyfill and strictly enforce Accelerate
+                const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
+                prismaInstance = baseClient.$extends(withAccelerate());
             } catch (err: any) {
                 // We must store the error so we can return it if init fails
                 c.set('prismaError' as any, err.message);

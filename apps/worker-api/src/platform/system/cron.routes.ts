@@ -762,24 +762,24 @@ r.openapi(runSystemSweepsRoute, async (c) => {
 
   // Feature 43: IoT Sensor Bridge
   let welfareChecks = 0;
-  const highRiskClients = await prisma.client.findMany({
-    where: { status: "active" }, // mocked high-risk tag
+  const highRiskClients = await prisma.clientProfile.findMany({
+    where: { tenantId: { not: undefined } }, // mocked high-risk tag
     take: 5,
   });
   for (const client of highRiskClients) {
     // Simulated IoT check: if (last_fridge_open > 24h)
     const hasGuardian = await prisma.user.findFirst({
-      where: { roles: { has: "client" }, tenantId: client.tenantId },
+      where: { roles: { contains: 'client' }, tenantId: client.tenantId },
     }); // mocked guardian mapping
     if (hasGuardian) {
       await prisma.communicationLog.create({
         data: {
           tenantId: client.tenantId,
-          senderId: "system",
-          recipientRole: "family",
-          channel: "sms",
-          status: "sent",
-          content: `SYSTEM ALERT: PrimeCare IoT sensors indicate anomalous inactivity (0 movement detected in 24h) at ${client.fullName}'s residence. A welfare check has been dispatched.`,
+          sender: 'system',
+          recipient: 'family',
+          channel: 'sms',
+          status: 'sent',
+          bodyText: `SYSTEM ALERT: PrimeCare IoT sensors indicate anomalous inactivity (0 movement detected in 24h) at ${client.fullName}'s residence. A welfare check has been dispatched.`,
         },
       });
       welfareChecks++;
@@ -824,9 +824,9 @@ r.openapi(runSystemSweepsRoute, async (c) => {
     if (profileMonthDay === todayMonthDay) {
       const alreadySentToday = await prisma.communicationLog.findFirst({
         where: {
-          senderId: "system",
-          recipientRole: "psw",
-          content: { contains: "Happy Birthday" },
+          sender: "system",
+          recipient: "psw",
+          bodyText: { contains: "Happy Birthday" },
           createdAt: { gt: new Date(Date.now() - 24 * 60 * 60 * 1000) },
         },
       });
@@ -835,11 +835,11 @@ r.openapi(runSystemSweepsRoute, async (c) => {
         await prisma.communicationLog.create({
           data: {
             tenantId: profile.tenantId || "system",
-            senderId: "system",
-            recipientRole: "psw",
+            sender: "system",
+            recipient: "psw",
             channel: "sms",
             status: "sent",
-            content: `Happy Birthday ${profile.user.fullName}! From all of us at PrimeCare, we've gifted you 50 CareCoins. Thank you for your service!`,
+            bodyText: `Happy Birthday ${profile.user.fullName}! From all of us at PrimeCare, we've gifted you 50 CareCoins. Thank you for your service!`,
           },
         });
         await prisma.gamificationProfile.updateMany({

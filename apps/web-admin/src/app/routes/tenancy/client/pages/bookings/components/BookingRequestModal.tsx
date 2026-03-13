@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { InlineCreateService } from '@/shared/components/modals/components/InlineCreationForms';
 
 interface Service {
     id: string;
@@ -13,14 +14,16 @@ interface BookingRequestModalProps {
     onSubmit: (data: any) => Promise<void>;
     services: Service[];
     submitting: boolean;
+    onRefreshServices?: () => void;
 }
 
-export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen, onClose, onSubmit, services, submitting }) => {
+export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen, onClose, onSubmit, services, submitting, onRefreshServices }) => {
     const [selectedService, setSelectedService] = useState('');
     const [activeDate, setActiveDate] = useState('');
     const [activeTime, setActiveTime] = useState('');
     const [duration, setDuration] = useState(60);
     const [notes, setNotes] = useState('');
+    const [isCreatingService, setIsCreatingService] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,9 +35,7 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
             notes
         });
 
-        // Reset form is handled by parent or effect, but mainly parent closes modal which destroys this state if unmounted
-        // Or if persistent, we might need reset logic. For now, matching original behavior which cleared on success in parent.
-        if (!isOpen) { // If closed, clear
+        if (!isOpen) {
             setNotes('');
             setActiveDate('');
             setActiveTime('');
@@ -48,25 +49,48 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
         <div style={{
             position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
             backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
-        }}>
+        }} data-cy="modal-booking-request">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', width: '90%', maxWidth: '500px' }}>
                 <h3 style={{ marginTop: 0, fontSize: '1.25rem' }}>Request New Care Visit</h3>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }} data-cy="form-booking">
                     <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>Service Type</label>
-                        <select
-                            value={selectedService}
-                            onChange={e => setSelectedService(e.target.value)}
-                            required
-                            style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
-                            data-cy="sel-service"
-                        >
-                            <option value="">-- Select Service --</option>
-                            {services.map(s => (
-                                <option key={s.id} value={s.id}>{s.name} (${s.hourlyRate}/hr)</option>
-                            ))}
-                        </select>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <label style={{ fontSize: '0.875rem', fontWeight: '600' }}>Service Type</label>
+                            {!isCreatingService && (
+                                <button
+                                    data-cy="btn-create-service-inline"
+                                    type="button"
+                                    onClick={() => setIsCreatingService(true)}
+                                    style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                                >
+                                    + Create New
+                                </button>
+                            )}
+                        </div>
+                        {isCreatingService ? (
+                            <InlineCreateService
+                                onCancel={() => setIsCreatingService(false)}
+                                onSuccess={(newId) => {
+                                    setSelectedService(newId);
+                                    setIsCreatingService(false);
+                                    onRefreshServices?.();
+                                }}
+                            />
+                        ) : (
+                            <select
+                                value={selectedService}
+                                onChange={e => setSelectedService(e.target.value)}
+                                required
+                                style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
+                                data-cy="sel-service"
+                            >
+                                <option value="">-- Select Service --</option>
+                                {services.map(s => (
+                                    <option key={s.id} value={s.id}>{s.name} (${s.hourlyRate}/hr)</option>
+                                ))}
+                            </select>
+                        )}
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>

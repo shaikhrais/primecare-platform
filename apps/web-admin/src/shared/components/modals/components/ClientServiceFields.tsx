@@ -30,7 +30,7 @@ export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Client</label>
                     {onCreateClient && (
-                        <button type="button" onClick={onCreateClient} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                        <button data-cy="btn-create-client-inline" type="button" onClick={onCreateClient} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
                             + Create Client
                         </button>
                     )}
@@ -62,7 +62,7 @@ export const ClientServiceFields: React.FC<ClientServiceFieldsProps> = ({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: '500' }}>Service Type</label>
                     {onCreateService && !isCreatingService && (
-                        <button type="button" onClick={onCreateService} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                        <button data-cy="btn-create-service-inline" type="button" onClick={onCreateService} disabled={disabled} style={{ background: 'none', border: 'none', color: '#004d40', fontSize: '0.75rem', fontWeight: 'bold', cursor: 'pointer' }}>
                             + Create Service
                         </button>
                     )}

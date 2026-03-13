@@ -19,7 +19,7 @@ export async function sendNotification(prisma: any, options: NotificationOptions
     const { userId, tenantId, title, message, type = 'info', channels = ['in_app'], metadata } = options;
 
     // In-app notification (always)
-    const notification = await prisma.notification.create({
+    const notification = await prisma.appNotification.create({
         data: {
             userId,
             tenantId,
@@ -27,7 +27,7 @@ export async function sendNotification(prisma: any, options: NotificationOptions
             message,
             type,
             isRead: false,
-            ...(metadata ? { metadataJson: metadata } : {}),
+            ...(metadata?.link ? { link: metadata.link } : {}),
         }
     });
 

@@ -60,6 +60,7 @@ export const DynamicTokenEditor: React.FC = () => {
                 </div>
                 
                 <button 
+                    data-cy="dam.tokens.btn-deploy"
                     onClick={handleSaveGlobal}
                     disabled={isSaving}
                     style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -86,6 +87,7 @@ export const DynamicTokenEditor: React.FC = () => {
                                 {token.type === 'color' ? (
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         <input 
+                                            data-cy={`dam.tokens.inp-${token.id}`}
                                             type="color" 
                                             value={token.value} 
                                             onChange={(e) => handleTokenChange(token.id, e.target.value)}
@@ -95,6 +97,7 @@ export const DynamicTokenEditor: React.FC = () => {
                                     </div>
                                 ) : (
                                     <input 
+                                        data-cy={`dam.tokens.inp-${token.id}`}
                                         type="text" 
                                         value={token.value}
                                         onChange={(e) => handleTokenChange(token.id, e.target.value)}

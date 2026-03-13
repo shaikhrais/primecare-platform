@@ -70,7 +70,7 @@ auditExport.openapi(complianceDashRoute, async (c) => {
 
     const [expiredCreds, unsignedConsents, lateCheckIns, incompleteTraining, recentActions] = await Promise.all([
         // Expired credentials — PSWs with credential expiry in the past
-        prisma.credential.count({ where: { tenantId, expiresAt: { lt: now } } }).catch(() => 0),
+        prisma.pswDocument.count({ where: { psw: { tenantId }, expiryDate: { lt: now } } }).catch(() => 0),
         // Unsigned consent forms
         prisma.consentForm.count({ where: { tenantId, status: 'pending' } }).catch(() => 0),
         // Late check-ins (exceptions in EVV)

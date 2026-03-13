@@ -39,7 +39,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
         <div style={{
             position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
-        }}>
+        }} data-cy="modal-surge-pricing">
             <div style={{
                 backgroundColor: 'white', padding: '24px', borderRadius: '12px',
                 width: '100%', maxWidth: '400px', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
@@ -55,6 +55,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
                 <div style={{ marginBottom: '20px' }}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', marginBottom: '16px' }}>
                         <input
+                            data-cy="surge.chk-active"
                             type="checkbox"
                             checked={active}
                             onChange={(e) => setActive(e.target.checked)}
@@ -71,6 +72,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
                             <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#EF4444' }}>{multiplier.toFixed(1)}x</span>
                         </div>
                         <input
+                            data-cy="surge.rng-multiplier"
                             type="range"
                             min="1.0"
                             max="3.0"
@@ -98,6 +100,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
                     <button
+                        data-cy="surge.btn-cancel"
                         onClick={onClose}
                         disabled={loading}
                         style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid #D1D5DB', backgroundColor: 'white', color: '#374151', cursor: 'pointer', fontWeight: 500 }}
@@ -105,6 +108,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
                         Cancel
                     </button>
                     <button
+                        data-cy="surge.btn-save"
                         onClick={handleSave}
                         disabled={loading}
                         style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: '#EF4444', color: 'white', cursor: loading ? 'not-allowed' : 'pointer', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '8px' }}

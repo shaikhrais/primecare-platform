@@ -249,6 +249,7 @@ exports.Prisma.VisitScalarFieldEnum = {
   bookingId: 'bookingId',
   crisisMode: 'crisisMode',
   priority: 'priority',
+  managementNotes: 'managementNotes',
   requiredSkills: 'requiredSkills',
   isSurgeActive: 'isSurgeActive',
   surgeMultiplier: 'surgeMultiplier'
@@ -315,6 +316,8 @@ exports.Prisma.IncidentScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   tenantId: 'tenantId',
+  severity: 'severity',
+  reportedAt: 'reportedAt',
   acknowledgedAt: 'acknowledgedAt',
   acknowledgedBy: 'acknowledgedBy'
 };
@@ -626,7 +629,8 @@ exports.Prisma.TrainingAssignmentScalarFieldEnum = {
   moduleId: 'moduleId',
   status: 'status',
   completedAt: 'completedAt',
-  assignedAt: 'assignedAt'
+  assignedAt: 'assignedAt',
+  dueDate: 'dueDate'
 };
 
 exports.Prisma.SurveyScalarFieldEnum = {
@@ -965,11 +969,19 @@ exports.Prisma.PrescriptionScalarFieldEnum = {
 exports.Prisma.MAR_EntryScalarFieldEnum = {
   id: 'id',
   patientId: 'patientId',
+  clientId: 'clientId',
   prescriptionId: 'prescriptionId',
   administerId: 'administerId',
+  administeredById: 'administeredById',
   adminTime: 'adminTime',
+  scheduledTime: 'scheduledTime',
+  administeredAt: 'administeredAt',
   status: 'status',
-  notes: 'notes'
+  notes: 'notes',
+  medicationName: 'medicationName',
+  dosage: 'dosage',
+  route: 'route',
+  tenantId: 'tenantId'
 };
 
 exports.Prisma.ShiftHandoverScalarFieldEnum = {
@@ -1000,6 +1012,7 @@ exports.Prisma.PayoutScalarFieldEnum = {
   amount: 'amount',
   currency: 'currency',
   status: 'status',
+  notes: 'notes',
   processedAt: 'processedAt',
   createdAt: 'createdAt'
 };
@@ -1117,8 +1130,10 @@ exports.Prisma.DailyAuditSignOffScalarFieldEnum = {
 exports.Prisma.WellnessPulseScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  pswId: 'pswId',
   tenantId: 'tenantId',
   status: 'status',
+  score: 'score',
   note: 'note',
   createdAt: 'createdAt'
 };

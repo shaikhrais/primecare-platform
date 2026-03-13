@@ -249,13 +249,12 @@ r.openapi(waitlistRoute, async (c) => {
     const tenantId = c.get('jwtPayload').tenantId;
 
     // Fetch patients who don't have an active care plan
-    const patients = await prisma.patientProfile.findMany({
+    const patients = await prisma.clientProfile.findMany({
         where: { 
             tenantId,
-            status: 'pending' // Assuming pending status means waitlist
         },
         include: {
-            client: true
+            user: true
         },
         orderBy: {
             createdAt: 'asc' // Oldest first
@@ -269,11 +268,11 @@ r.openapi(waitlistRoute, async (c) => {
 
         return {
             id: patient.id,
-            fullName: patient.client ? patient.client.fullName : 'Unknown Client',
+            fullName: patient.fullName || 'Unknown Client',
             riskScore,
             daysOnWaitlist,
             primaryCondition: 'General Care', // Awaiting schema updates for specific conditions
-            location: patient.client ? patient.client.address : 'Unknown',
+            location: patient.city || 'Unknown',
             status: patient.status
         };
     });
@@ -303,7 +302,7 @@ r.openapi(logisticsBoardRoute, async (c) => {
         prisma.pswProfile.findMany({
             where: {
                 tenantId,
-                isActive: true
+                isApproved: true
             },
             include: {
                 user: true

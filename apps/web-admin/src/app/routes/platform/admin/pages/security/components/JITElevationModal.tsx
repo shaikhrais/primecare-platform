@@ -13,14 +13,12 @@ export const JITElevationModal: React.FC<JITProps> = ({ onElevate, onCancel }) =
     const handleSubmit = () => {
         if (justification.length < 15) return;
         setRequesting(true);
-        setTimeout(() => {
-            onElevate(justification);
-            setRequesting(false);
-        }, 1500);
+        onElevate(justification);
+        setRequesting(false);
     };
 
     return (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10000, backdropFilter: 'blur(4px)' }}>
+        <div data-cy="modal-jit-elevation" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10000, backdropFilter: 'blur(4px)' }}>
             <div style={{ backgroundColor: 'white', borderRadius: '16px', width: '100%', maxWidth: '450px', padding: '24px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                     <div style={{ backgroundColor: '#FEF2F2', padding: '16px', borderRadius: '50%' }}>
@@ -43,6 +41,7 @@ export const JITElevationModal: React.FC<JITProps> = ({ onElevate, onCancel }) =
                         Required Justification (min 15 chars)
                     </label>
                     <textarea 
+                        data-cy="jit.inp-justification"
                         value={justification}
                         onChange={(e) => setJustification(e.target.value)}
                         placeholder="e.g., Investigating critical payroll discrepancy for worker psw_882..."
@@ -56,10 +55,11 @@ export const JITElevationModal: React.FC<JITProps> = ({ onElevate, onCancel }) =
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={onCancel} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid #CBD5E1', borderRadius: '8px', color: '#475569', fontWeight: 600, cursor: 'pointer' }}>
+                    <button data-cy="jit.btn-cancel" onClick={onCancel} style={{ flex: 1, padding: '12px', backgroundColor: 'transparent', border: '1px solid #CBD5E1', borderRadius: '8px', color: '#475569', fontWeight: 600, cursor: 'pointer' }}>
                         Cancel Let Me Out
                     </button>
                     <button 
+                        data-cy="jit.btn-elevate"
                         onClick={handleSubmit} 
                         disabled={justification.length < 15 || requesting}
                         style={{ 

@@ -58,6 +58,7 @@ export const RichTextGovernance: React.FC = () => {
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <button 
+                        data-cy="btn-deploy-dom-policies"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -82,7 +83,7 @@ export const RichTextGovernance: React.FC = () => {
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     width: '24px', height: '24px', borderRadius: '6px', cursor: 'pointer',
                                     color: 'white'
-                                }} onClick={() => toggleRule(rule.tag)}>
+                                }} data-cy={`richtext-rule-${rule.tag.replace(/[<> /]/g, '')}`} onClick={() => toggleRule(rule.tag)}>
                                     {rule.isPermitted && <CheckSquare size={16} />}
                                 </div>
                                 <div>

@@ -46,6 +46,7 @@ export const ScrumMasterCopilot: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
                     <button 
+                        data-cy="btn-push-schema"
                         onClick={handleSchemaPush} 
                         disabled={isPushing}
                         style={{ 

@@ -159,10 +159,11 @@ const ResellerDashboard: React.FC = () => {
                 {/* Provisioning Form */}
                 <div className="pc-card" style={{ padding: '24px', height: 'fit-content' }}>
                     <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px', color: 'var(--text-100)' }}>Provision New Agency</h2>
-                    <form onSubmit={handleProvision} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    <form data-cy="reseller.form-provision" onSubmit={handleProvision} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         <div className="pc-input-group">
                             <label className="pc-label">Agency Name</label>
                             <input
+                                data-cy="reseller.inp-name"
                                 required
                                 className="pc-input"
                                 value={newTenant.name}
@@ -173,6 +174,7 @@ const ResellerDashboard: React.FC = () => {
                         <div className="pc-input-group">
                             <label className="pc-label">Routing Slug</label>
                             <input
+                                data-cy="reseller.inp-slug"
                                 required
                                 className="pc-input"
                                 value={newTenant.slug}
@@ -184,6 +186,7 @@ const ResellerDashboard: React.FC = () => {
                         <div className="pc-input-group">
                             <label className="pc-label">Admin Login Email</label>
                             <input
+                                data-cy="reseller.inp-email"
                                 required
                                 type="email"
                                 className="pc-input"
@@ -195,6 +198,7 @@ const ResellerDashboard: React.FC = () => {
                         <div className="pc-input-group">
                             <label className="pc-label">Temporary Password</label>
                             <input
+                                data-cy="reseller.inp-password"
                                 required
                                 type="password"
                                 minLength={8}

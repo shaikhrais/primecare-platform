@@ -42,12 +42,14 @@ export const MediaUsageHeatmap: React.FC = () => {
 
                 <div style={{ display: 'flex', backgroundColor: '#F1F5F9', borderRadius: '8px', padding: '4px' }}>
                     <button 
+                        data-cy="btn-metric-bandwidth"
                         onClick={() => setViewMetric('bandwidth')}
                         style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer', backgroundColor: viewMetric === 'bandwidth' ? 'white' : 'transparent', color: viewMetric === 'bandwidth' ? '#0F172A' : '#64748B', fontWeight: viewMetric === 'bandwidth' ? 700 : 500, boxShadow: viewMetric === 'bandwidth' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex', alignItems: 'center', gap: '6px' }}
                     >
                         <HardDrive size={16} /> Bandwidth Volume
                     </button>
                     <button 
+                        data-cy="btn-metric-requests"
                         onClick={() => setViewMetric('requests')}
                         style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer', backgroundColor: viewMetric === 'requests' ? 'white' : 'transparent', color: viewMetric === 'requests' ? '#0F172A' : '#64748B', fontWeight: viewMetric === 'requests' ? 700 : 500, boxShadow: viewMetric === 'requests' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', display: 'flex', alignItems: 'center', gap: '6px' }}
                     >

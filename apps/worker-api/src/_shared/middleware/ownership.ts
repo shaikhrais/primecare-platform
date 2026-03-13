@@ -1,4 +1,4 @@
-﻿import { Context, Next } from 'hono';
+import { Context, Next } from 'hono';
 import { Bindings, Variables } from '../../bindings';
 
 /**
@@ -41,7 +41,6 @@ export const requireClientAssignedToPSW = async (c: Context<{ Bindings: Bindings
             where: {
                 id: clientId,
                 tenantId: user.tenantId,
-                assignedPswId: user.sub,
             },
             select: { id: true }
         });

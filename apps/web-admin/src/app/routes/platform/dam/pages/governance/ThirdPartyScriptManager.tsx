@@ -59,6 +59,7 @@ export const ThirdPartyScriptManager: React.FC = () => {
                         {totalActivePayload} KB External Payload
                     </div>
                     <button 
+                        data-cy="btn-deploy-script-manifest"
                         onClick={handleSave}
                         disabled={isSaving}
                         style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -98,6 +99,7 @@ export const ThirdPartyScriptManager: React.FC = () => {
                             </td>
                             <td style={{ padding: '12px', textAlign: 'right' }}>
                                 <button 
+                                    data-cy={`btn-toggle-script-${script.id}`}
                                     onClick={() => toggleScript(script.id)}
                                     style={{ 
                                         padding: '6px 16px', borderRadius: '6px', outline: 'none', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', border: 'none',

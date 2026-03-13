@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { InlineCreateService } from '@/shared/components/modals/components/InlineCreationForms';
 
 export default function BookingRequestForm() {
     const { showToast } = useNotification();
@@ -10,6 +11,8 @@ export default function BookingRequestForm() {
     const [isDirty, setIsDirty] = useState(false);
     const [showGuard, setShowGuard] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [services, setServices] = useState<any[]>([]);
+    const [isCreatingService, setIsCreatingService] = useState(false);
 
     const [formData, setFormData] = useState({
         serviceType: '',
@@ -28,6 +31,16 @@ export default function BookingRequestForm() {
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
+
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const data = await apiClient.get('/v1/admin/services');
+                if (data && Array.isArray(data)) setServices(data);
+            } catch (e) { console.error('Failed to load services', e); }
+        };
+        fetchServices();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -73,19 +86,46 @@ export default function BookingRequestForm() {
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Select Service</label>
-                        <select
-                            data-cy="form.booking.service"
-                            required
-                            value={formData.serviceType}
-                            onChange={(e) => { setFormData({ ...formData, serviceType: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="">Choose a service...</option>
-                            <option value="Personal Care (PSW)">Personal Care (PSW)</option>
-                            <option value="Nursing Assessment (RN)">Nursing Assessment (RN)</option>
-                            <option value="Foot Care Specialist">Foot Care Specialist</option>
-                        </select>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <label style={{ fontWeight: 500 }}>Select Service</label>
+                            {!isCreatingService && (
+                                <button
+                                    data-cy="btn-create-service-inline"
+                                    type="button"
+                                    onClick={() => setIsCreatingService(true)}
+                                    style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                                >
+                                    + Create New
+                                </button>
+                            )}
+                        </div>
+                        {isCreatingService ? (
+                            <InlineCreateService
+                                onCancel={() => setIsCreatingService(false)}
+                                onSuccess={(newId) => {
+                                    setFormData({ ...formData, serviceType: newId });
+                                    setIsCreatingService(false);
+                                    setIsDirty(true);
+                                    // Refresh services
+                                    apiClient.get('/v1/admin/services').then((data: any) => {
+                                        if (data && Array.isArray(data)) setServices(data);
+                                    }).catch(() => {});
+                                }}
+                            />
+                        ) : (
+                            <select
+                                data-cy="form.booking.service"
+                                required
+                                value={formData.serviceType}
+                                onChange={(e) => { setFormData({ ...formData, serviceType: e.target.value }); setIsDirty(true); }}
+                                style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
+                            >
+                                <option value="">Choose a service...</option>
+                                {services.map((s: any) => (
+                                    <option key={s.id} value={s.id}>{s.name}</option>
+                                ))}
+                            </select>
+                        )}
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>

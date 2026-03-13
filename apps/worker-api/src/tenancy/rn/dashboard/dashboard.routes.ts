@@ -73,7 +73,7 @@ r.openapi(getRnStatsRoute, async (c) => {
     // Feature 10: Clinical KPI Aggregation (Flagged vs Verified 7 days)
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const recentAudits = await prisma.dailyAuditSignOff.findMany({
-        where: { createdAt: { gt: sevenDaysAgo } }
+        where: { signedAt: { gt: sevenDaysAgo } }
     });
 
     const flaggedCount = recentAudits.filter((a: any) => a.status === 'flagged').length;

@@ -24,6 +24,7 @@ interface ScheduleModalsContainerProps {
     surgeTargetVisit: any;
     setIsSurgeModalOpen: (open: boolean) => void;
     handleApplySurge: (visitId: string, surgeMultiplier: number, isSurgeActive: boolean) => Promise<void>;
+    fetchPsws?: () => Promise<void>;
 }
 
 export function ScheduleModalsContainer({
@@ -46,7 +47,8 @@ export function ScheduleModalsContainer({
     isSurgeModalOpen,
     surgeTargetVisit,
     setIsSurgeModalOpen,
-    handleApplySurge
+    handleApplySurge,
+    fetchPsws
 }: ScheduleModalsContainerProps) {
     return (
         <>
@@ -67,6 +69,7 @@ export function ScheduleModalsContainer({
                 onFetchSuggestions={fetchSuggestions}
                 onOffer={handleOffer}
                 isSuggesting={isSuggesting}
+                onRefreshPsws={fetchPsws}
             />
 
             <CreateVisitModal

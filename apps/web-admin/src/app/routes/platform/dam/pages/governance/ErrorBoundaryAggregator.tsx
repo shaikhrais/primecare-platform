@@ -59,6 +59,7 @@ export const ErrorBoundaryAggregator: React.FC = () => {
                         <Activity size={18} /> {totalOpenCrashes} Active Unhandled Crashes
                     </div>
                     <button 
+                        data-cy="btn-sync-error-telemetry"
                         onClick={handleRefresh}
                         style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
@@ -103,6 +104,7 @@ export const ErrorBoundaryAggregator: React.FC = () => {
                             </td>
                             <td style={{ padding: '12px', verticalAlign: 'top', textAlign: 'right' }}>
                                 <select 
+                                    data-cy={`error-status-${error.id}`}
                                     value={error.status}
                                     onChange={(e) => handleStatusChange(error.id, e.target.value as any)}
                                     style={{ 

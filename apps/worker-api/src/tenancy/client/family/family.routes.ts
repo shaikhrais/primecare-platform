@@ -142,7 +142,7 @@ family.openapi(messageRoute, async (c) => {
         data: {
             actorUserId: userId, action: 'FAMILY_MESSAGE', resourceType: 'CLIENT',
             resourceId: body.clientId,
-            metadataJson: { subject: body.subject, body: body.body },
+            metadataString: JSON.stringify({ subject: body.subject, body: body.body }),
             tenantId,
         },
     });

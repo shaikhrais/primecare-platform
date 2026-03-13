@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ContentRegistry, ApiRegistry, ButtonRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { InlineCreatePsw } from '@/shared/components/modals/components/InlineCreationForms';
 import './SosCenter.css';
 
 const { COORDINATOR_SOS } = ContentRegistry;
@@ -34,6 +35,7 @@ export default function SosCenter() {
     const [psws, setPsws] = useState<any[]>([]);
     const [selectedPsw, setSelectedPsw] = useState('');
     const [isDispatching, setIsDispatching] = useState(false);
+    const [isCreatingPsw, setIsCreatingPsw] = useState(false);
 
     useEffect(() => {
         const fetchPsws = async () => {
@@ -139,12 +141,14 @@ export default function SosCenter() {
                             <div className="sos-form">
                                 <label>{COORDINATOR_SOS.FORM.INCIDENT_LOG}</label>
                                 <textarea
+                                    data-cy="sos.inp-log"
                                     value={log}
                                     onChange={(e) => setLog(e.target.value)}
                                     placeholder="Detail immediate actions taken, police involvement, or clinical triage..."
                                 />
                                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                                     <button
+                                        data-cy="sos.btn-resolve"
                                         className="btn-premium danger"
                                         onClick={handleResolve}
                                         disabled={isResolving || currentInc.status === 'investigating' || currentInc.status === 'resolved'}
@@ -172,25 +176,54 @@ export default function SosCenter() {
                             {/* EMERGENCY DISPATCH SECTION */}
                             {currentInc.status === 'open' && (
                                 <div className="emergency-dispatch" style={{ marginTop: '20px', padding: '15px', border: '1px solid #fee2e2', borderRadius: '8px', backgroundColor: '#fef2f2' }}>
-                                    <h4 style={{ color: '#991b1b', marginBottom: '10px' }}>Dispatch Emergency Replacement</h4>
-                                    <select
-                                        value={selectedPsw}
-                                        onChange={(e) => setSelectedPsw(e.target.value)}
-                                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ef4444', marginBottom: '10px' }}
-                                    >
-                                        <option value="">-- Select Replacement Caregiver --</option>
-                                        {psws.map(p => (
-                                            <option key={p.id} value={p.id}>{p.fullName} ({p.email})</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        onClick={handleDispatch}
-                                        disabled={isDispatching || !selectedPsw}
-                                        className="pc-button danger"
-                                        style={{ width: '100%', backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}
-                                    >
-                                        {isDispatching ? 'DISPATCHING...' : 'INITIALIZE EMERGENCY DISPATCH'}
-                                    </button>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                                        <h4 style={{ color: '#991b1b', margin: 0 }}>Dispatch Emergency Replacement</h4>
+                                        {!isCreatingPsw && (
+                                            <button
+                                                data-cy="btn-create-psw-inline"
+                                                type="button"
+                                                onClick={() => setIsCreatingPsw(true)}
+                                                style={{ fontSize: '0.75rem', color: '#9333ea', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
+                                            >
+                                                + Create New
+                                            </button>
+                                        )}
+                                    </div>
+                                    {isCreatingPsw ? (
+                                        <InlineCreatePsw
+                                            onCancel={() => setIsCreatingPsw(false)}
+                                            onSuccess={(newId) => {
+                                                setSelectedPsw(newId);
+                                                setIsCreatingPsw(false);
+                                                apiClient.get('/v1/admin/users?role=psw').then((data: any) => {
+                                                    if (data && Array.isArray(data)) setPsws(data);
+                                                }).catch(() => {});
+                                            }}
+                                        />
+                                    ) : (
+                                        <>
+                                            <select
+                                                data-cy="sos.sel-psw"
+                                                value={selectedPsw}
+                                                onChange={(e) => setSelectedPsw(e.target.value)}
+                                                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ef4444', marginBottom: '10px' }}
+                                            >
+                                                <option value="">-- Select Replacement Caregiver --</option>
+                                                {psws.map(p => (
+                                                    <option key={p.id} value={p.id}>{p.fullName} ({p.email})</option>
+                                                ))}
+                                            </select>
+                                            <button
+                                                data-cy="sos.btn-dispatch"
+                                                onClick={handleDispatch}
+                                                disabled={isDispatching || !selectedPsw}
+                                                className="pc-button danger"
+                                                style={{ width: '100%', backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '10px', borderRadius: '6px', fontWeight: 600, cursor: 'pointer' }}
+                                            >
+                                                {isDispatching ? 'DISPATCHING...' : 'INITIALIZE EMERGENCY DISPATCH'}
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </>
