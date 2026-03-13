@@ -8,7 +8,7 @@ const { RouteRegistry } = AdminRegistry;
 
 // Admin components (Eagerly loaded to avoid layout shifts on dashboard)
 import AdminDashboard from './pages/dashboard';
-import RegistrySummaryDashboard from './pages/dashboard/RegistrySummaryDashboard';
+import RegistrySummaryDashboard from './pages/dashboard/D2-RegistrySummary';
 import { UserList, UserEntry } from './pages/users';
 import AdminEarningsPage from './pages/earnings';
 
@@ -70,11 +70,11 @@ const DocumentCenter = lazy(() => import('./pages/documents/DocumentCenter'));
 const PayrollHub = lazy(() => import('./pages/payroll/PayrollHub'));
 const BookingRequestQueue = lazy(() => import('./pages/booking-requests/BookingRequestQueue'));
 const ReferenceDataHub = lazy(() => import('./pages/reference-data/ReferenceDataHub'));
-const CronDashboard = lazy(() => import('./pages/cron/CronDashboard'));
+const CronDashboard = lazy(() => import('./pages/cron/D6-CronDashboard'));
 const FormRegistryPage = lazy(() => import('./pages/form-registry'));
 const PageRegistryPage = lazy(() => import('./pages/page-registry'));
 
-const EvvDashboard = lazy(() => import('./pages/evv/EvvDashboard'));
+const EvvDashboard = lazy(() => import('./pages/evv/D4-EvvDashboard'));
 const EvvExceptions = lazy(() => import('./pages/evv/EvvExceptions'));
 const EvvExport = lazy(() => import('./pages/evv/EvvExport'));
 const AuthList = lazy(() => import('./pages/authorizations/AuthList'));

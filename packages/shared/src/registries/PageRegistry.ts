@@ -430,6 +430,12 @@ export const PAGE_REGISTRY_COUNT = PageRegistry.length;
 // Maps category codes → source file paths for quick identification.
 // Use: FILE_IDENTITY_MAP['F6'] → 'apps/web-admin/.../admission/index.tsx'
 export const FILE_IDENTITY_MAP: Record<string, string> = {
+    // Dashboards (D1-D7)
+    D1:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx',
+    D2:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx',
+    D4:  'apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx',
+    D5:  'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx',
+    D6:  'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx',
     // Auth Forms (F1-F5)
     F1:  'apps/web-admin/src/app/routes/auth/Login.tsx',
     F2:  'apps/web-admin/src/app/routes/auth/Register.tsx',
