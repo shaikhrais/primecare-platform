@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCommandPalette } from '@/shared/context/CommandPaletteContext';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, ButtonRegistry, type ButtonDef } from 'prime-care-shared';
 
-// RouteRegistry is usually exported as AdminRegistry.RouteRegistry in newer shared packages
-// or directly if using the specific app export.
-// For now, let's assume it's directly on AdminRegistry based on previous code usage
 const { RouteRegistry } = AdminRegistry;
 
 interface Command {
@@ -17,6 +14,10 @@ interface Command {
     action: () => void;
 }
 
+const ACTION_ICONS: Record<string, string> = {
+    ROUTE: '🔗', API: '⚡', STATE: '🔄', PRIMARY: '🎯',
+};
+
 export const CommandPalette: React.FC = () => {
     const { isOpen, close } = useCommandPalette();
     const navigate = useNavigate();
@@ -24,21 +25,25 @@ export const CommandPalette: React.FC = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Initial Commands (We can expand this to be dynamic later)
-    const commands: Command[] = useMemo(() => [
-        // Navigation
-        { id: 'nav-home', label: 'Go to Dashboard', category: 'Navigation', icon: '🏠', action: () => navigate(RouteRegistry.ADMIN.DASHBOARD) },
-        { id: 'nav-users', label: 'Go to Users', category: 'Navigation', icon: '👥', action: () => navigate(RouteRegistry.ADMIN.USERS) },
-        { id: 'nav-leads', label: 'Go to Leads', category: 'Navigation', icon: '📥', action: () => navigate(RouteRegistry.ADMIN.LEADS) },
-        { id: 'nav-schedule', label: 'Go to Schedule', category: 'Navigation', icon: '📅', action: () => navigate(RouteRegistry.ADMIN.SCHEDULE) },
-        { id: 'nav-earnings', label: 'Go to Earnings', category: 'Navigation', icon: '💰', action: () => navigate(RouteRegistry.ADMIN.EARNINGS) },
-        { id: 'nav-settings', label: 'Go to Settings', category: 'Navigation', icon: '⚙️', action: () => navigate(RouteRegistry.ADMIN.SETTINGS) },
-
-        // Actions
-        { id: 'act-new-visit', label: 'Create New Visit', category: 'Action', icon: '➕', action: () => { navigate(RouteRegistry.ADMIN.SCHEDULE); close(); } },
-        { id: 'act-new-user', label: 'Invite New User', category: 'Action', icon: '✉️', action: () => { navigate(RouteRegistry.ADMIN.USERS); close(); } },
-
-    ], [navigate, close]);
+    // Auto-generate commands from ButtonRegistry — every button is searchable!
+    const commands: Command[] = useMemo(() => {
+        return ButtonRegistry.map((b: ButtonDef) => ({
+            id: b.id,
+            label: b.label,
+            icon: ACTION_ICONS[b.action] || '🔘',
+            category: (b.action === 'ROUTE' ? 'Navigation' : 'Action') as Command['category'],
+            action: () => {
+                // Resolve route from routeKey (e.g. 'ADMIN.USERS_NEW' → RouteRegistry.ADMIN.USERS_NEW)
+                if (b.action === 'ROUTE' && b.routeKey) {
+                    const parts = b.routeKey.split('.');
+                    let route: any = RouteRegistry;
+                    for (const p of parts) { route = route?.[p]; }
+                    if (typeof route === 'string') navigate(route);
+                }
+                close();
+            },
+        }));
+    }, [navigate, close]);
 
     // Filter Logic
     const filteredCommands = useMemo(() => {

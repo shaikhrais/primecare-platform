@@ -4,13 +4,25 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import { CreateShiftModal } from '@/shared/components/modals/CreateShiftModal';
 import { useDialog } from '@/shared/hooks/useDialog';
+import { PageActionBar } from '@/shared/components/ui/PageActionBar';
 
 interface GlobalQuickActionBarProps {
     role: string;
 }
 
+// Map each role → its dashboard page ID in PageActionRegistry
+const ROLE_PAGE: Record<string, string> = {
+    admin: 'admin.dashboard',
+    manager: 'manager.dashboard',
+    coordinator: 'coordinator.hub',
+    psw: 'psw.dashboard',
+    rn: 'rn.dashboard',
+    staff: 'staff.dashboard',
+    client: 'client.dashboard',
+};
+
 export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps) {
-    const { DialogRenderer } = useDialog();
+    const { showConfirmDialog, DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [shiftOpen, setShiftOpen] = useState(false);
@@ -18,13 +30,18 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
     const [backingUp, setBackingUp] = useState(false);
 
     const handleEmergency = async () => {
-        if (confirm('🚨 ACTIVATE EMERGENCY PROTOCOL?\n\nThis will alert all available staff and supervisors.')) {
-            try {
-                await apiClient.post('/v1/admin/actions/emergency/trigger', {});
-                showToast('Emergency Alert Broadcasted! All staff notified.', 'error');
-            } catch {
-                showToast('Emergency Protocol Failed — check connection.', 'error');
-            }
+        const confirmed = await showConfirmDialog({
+            title: '🚨 EMERGENCY PROTOCOL',
+            message: 'This will alert all available staff and supervisors. Proceed?',
+            confirmLabel: 'Activate',
+            variant: 'danger',
+        });
+        if (!confirmed) return;
+        try {
+            await apiClient.post('/v1/admin/actions/emergency/trigger', {});
+            showToast('Emergency Alert Broadcasted! All staff notified.', 'error');
+        } catch {
+            showToast('Emergency Protocol Failed — check connection.', 'error');
         }
     };
 
@@ -42,31 +59,21 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
         } finally { setBackingUp(false); }
     };
 
-    const openShiftModal = (mode: 'shift' | 'assign') => {
-        setShiftMode(mode);
-        setShiftOpen(true);
-    };
+    const pageId = ROLE_PAGE[role] || 'admin.dashboard';
 
-    const actionButtonStyle = {
-        background: 'rgba(255,255,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.2)',
+    const emergencyStyle = {
+        background: '#e53935',
+        border: 'none',
         color: 'white',
         padding: '6px 12px',
         borderRadius: '6px',
         cursor: 'pointer',
-        fontWeight: 600,
+        fontWeight: 600 as const,
         fontSize: '0.8rem',
-        display: 'flex',
-        alignItems: 'center',
+        display: 'flex' as const,
+        alignItems: 'center' as const,
         gap: '6px',
-        transition: 'all 0.2s'
-    };
-
-    const emergencyStyle = {
-        ...actionButtonStyle,
-        background: '#e53935',
-        border: 'none',
-        boxShadow: '0 2px 8px rgba(229, 57, 53, 0.4)'
+        boxShadow: '0 2px 8px rgba(229, 57, 53, 0.4)',
     };
 
     return (
@@ -87,41 +94,19 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                     Quick Actions
                 </span>
 
-                {/* Common Actions */}
-                <button  style={actionButtonStyle} onClick={() => navigate('/manager/daily-entry')} data-cy="qa-daily-entry">
-                    📝 Daily Entry
-                </button>
+                {/* Registry-driven: auto-renders buttons for current role's dashboard page */}
+                <PageActionBar pageId={pageId} size="xs" compact />
 
-                <button  style={actionButtonStyle} onClick={() => openShiftModal('shift')} data-cy="qa-create-shift">
-                    ⏱️ Create Shift
-                </button>
-
-                <button  style={actionButtonStyle} onClick={() => navigate('/incidents')} data-cy="qa-incident">
-                    ⚠️ Log Incident
-                </button>
-
-                {/* Manager/Admin Extras */}
-                {(role === 'manager' || role === 'admin') && (
-                    <>
-                        <button  style={actionButtonStyle} onClick={() => openShiftModal('assign')} data-cy="qa-assign-staff">
-                            👥 Assign Staff
-                        </button>
-                        <button  style={actionButtonStyle} onClick={() => navigate('/schedule')} data-cy="qa-schedule">
-                            📅 Today Schedule
-                        </button>
-                    </>
-                )}
-
-                {/* Admin Extras */}
+                {/* Admin extras */}
                 {role === 'admin' && (
-                    <>
-                        <button  style={actionButtonStyle} onClick={() => navigate('/users')} data-cy="qa-add-user">
-                            👤 Add User
-                        </button>
-                        <button style={actionButtonStyle} onClick={handleBackup} disabled={backingUp} data-cy="qa-backup">
-                            {backingUp ? '⏳ Backing up...' : '💾 Backup'}
-                        </button>
-                    </>
+                    <button style={{
+                        background: 'rgba(255,255,255,0.1)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        color: 'white', padding: '6px 12px', borderRadius: '6px',
+                        cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem',
+                    }} onClick={handleBackup} disabled={backingUp} data-cy="qa-backup">
+                        {backingUp ? '⏳ Backing up...' : '💾 Backup'}
+                    </button>
                 )}
 
                 <div style={{ flex: 1 }}></div>
