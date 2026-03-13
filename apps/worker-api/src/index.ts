@@ -95,6 +95,10 @@ app.get('/v1/health', async (c) => {
     }
 });
 
+// Favicon — prevent 404 noise in browser console
+app.get('/favicon.ico', (c) => c.body(null, 204));
+
+
 app.onError((err, c) => {
     console.error('APP.ONERROR:', err);
     // R11: Don't log full error objects in production
@@ -171,16 +175,8 @@ app.doc('/openapi.json', {
     },
 });
 
-// #18: Gate Swagger docs behind non-production environment
-app.get('/doc', async (c) => {
-    const host = c.req.header('Host') || '';
-    if (host.includes('workers.dev') && !host.includes('dev.')) {
-        return c.json({ error: 'API docs disabled in production' }, 403);
-    }
-    // swaggerUI returns a middleware — invoke with next
-    const handler = swaggerUI({ url: '/openapi.json' });
-    return (handler as any)(c, async () => { });
-});
+// Swagger UI — accessible in all environments
+app.get('/doc', swaggerUI({ url: '/openapi.json' }));
 
 // 5. Mount Modules
 app.route('/v1/auth', authModule);
