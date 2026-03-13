@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H19 · Wizard Hub
+// Type: Hub | Owner: admin
+// ================================================================
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';

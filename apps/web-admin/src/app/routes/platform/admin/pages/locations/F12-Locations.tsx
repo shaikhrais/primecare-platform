@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: F12 · Locations
+// Type: Form | Owner: admin
+// ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

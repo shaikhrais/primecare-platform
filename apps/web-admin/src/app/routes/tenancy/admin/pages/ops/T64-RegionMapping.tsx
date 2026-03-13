@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T64 · Region Mapping
+// Type: Tool | Owner: admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

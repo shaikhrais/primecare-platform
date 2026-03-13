@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T58 · Threat Detection
+// Type: Tool | Owner: admin
+// ================================================================
 import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 

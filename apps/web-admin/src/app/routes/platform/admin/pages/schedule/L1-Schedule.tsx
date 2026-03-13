@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L1 · Schedule
+// Type: List | Owner: admin
+// ================================================================
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 

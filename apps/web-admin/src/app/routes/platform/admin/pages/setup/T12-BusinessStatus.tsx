@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T12 · Business Status
+// Type: Tool | Owner: admin
+// ================================================================
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

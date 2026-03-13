@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T65 · Realtime Capacity
+// Type: Tool | Owner: admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 

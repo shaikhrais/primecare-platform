@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T51 · Webhook Deliveries
+// Type: Tool | Owner: admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

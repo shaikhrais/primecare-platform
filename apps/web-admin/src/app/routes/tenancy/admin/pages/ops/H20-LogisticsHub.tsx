@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: H20 · Logistics Hub
+// Type: Hub | Owner: admin
+// ================================================================
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T60 · Open Offers
+// Type: Tool | Owner: psw
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiClient } from '@/shared/utils/apiClient';

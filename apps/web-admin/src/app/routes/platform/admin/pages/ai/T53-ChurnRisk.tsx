@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T53 · Churn Risk
+// Type: Tool | Owner: admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T11 · Settings
+// Type: Tool | Owner: admin
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';

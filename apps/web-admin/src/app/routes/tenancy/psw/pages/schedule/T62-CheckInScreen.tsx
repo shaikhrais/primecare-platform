@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T62 · Check-In Screen
+// Type: Tool | Owner: psw
+// ================================================================
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';

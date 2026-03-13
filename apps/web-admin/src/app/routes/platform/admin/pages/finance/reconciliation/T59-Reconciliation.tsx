@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T59 · Reconciliation
+// Type: Tool | Owner: admin
+// ================================================================
 import React from 'react';
 import { useReconciliation } from './hooks/useReconciliation';
 import { FuzzyMatcher } from './components/FuzzyMatcher';

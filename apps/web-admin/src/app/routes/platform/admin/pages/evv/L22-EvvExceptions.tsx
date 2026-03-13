@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: L22 · EVV Exceptions
+// Type: List | Owner: admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 

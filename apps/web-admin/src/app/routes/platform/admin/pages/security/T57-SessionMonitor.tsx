@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: T57 · Session Monitor
+// Type: Tool | Owner: admin
+// ================================================================
 import React from 'react';
 
 export default function SessionMonitor() {

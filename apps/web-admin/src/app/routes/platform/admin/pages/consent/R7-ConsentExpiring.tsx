@@ -1,3 +1,7 @@
+// ================================================================
+// PAGE IDENTITY: R7 · Consent Expiring
+// Type: Report | Owner: admin
+// ================================================================
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 
