@@ -15,23 +15,23 @@ import AdminEarningsPage from './pages/earnings';
 // Admin Pages (Lazy loaded)
 const Schedule = lazy(() => import('./pages/schedule/L1-Schedule'));
 const IncidentList = lazy(() => import('./pages/incidents/L2-IncidentList'));
-const IncidentEntry = lazy(() => import('./pages/incidents').then(m => ({ default: m.IncidentEntry })));
-const LeadsPage = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadsPage })));
-const LeadEntryForm = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadEntryForm })));
-const LeadConversion = lazy(() => import('./pages/leads').then(m => ({ default: m.LeadConversion })));
+const IncidentEntry = lazy(() => import('./pages/incidents/F10-IncidentEntry'));
+const LeadsPage = lazy(() => import('./pages/leads/L3-LeadList'));
+const LeadEntryForm = lazy(() => import('./pages/leads/F11-LeadEntry'));
+const LeadConversion = lazy(() => import('./pages/leads/T66-LeadConversion'));
 const LogisticsHub = lazy(() => import('../../tenancy/admin/pages/ops/H20-LogisticsHub'));
 const RegionMapping = lazy(() => import('../../tenancy/admin/pages/ops/T64-RegionMapping'));
 const RealtimeCapacity = lazy(() => import('../../tenancy/admin/pages/ops/T65-RealtimeCapacity'));
 const Timesheets = lazy(() => import('./pages/timesheets/L4-Timesheets'));
-const TimesheetAdjustment = lazy(() => import('./pages/timesheet-adjustment'));
+const TimesheetAdjustment = lazy(() => import('./pages/timesheet-adjustment/F8-TimesheetAdjustment'));
 const Services = lazy(() => import('./pages/services/L5-Services'));
 const Settings = lazy(() => import('./pages/settings/T11-Settings'));
 const ContentManager = lazy(() => import('./pages/content/T2-ContentManager'));
 const AuditLogs = lazy(() => import('./pages/audits/L6-AuditLogs'));
-const LeadAdmission = lazy(() => import('./pages/admission'));
-const Onboarding = lazy(() => import('./pages/onboarding'));
+const LeadAdmission = lazy(() => import('./pages/admission/F6-ClientAdmission'));
+const Onboarding = lazy(() => import('./pages/onboarding/F7-StaffOnboarding'));
 const ReportCenter = lazy(() => import('./pages/reports/R1-ReportCenter'));
-const InvoicesNew = lazy(() => import('./pages/invoices').then(m => ({ default: m.InvoiceEntry })));
+const InvoicesNew = lazy(() => import('./pages/invoices/F9-InvoiceEntry'));
 const BusinessSetupWizard = lazy(() => import('./pages/setup/W1-BusinessSetupWizard'));
 const WizardHub = lazy(() => import('./pages/setup/H19-WizardHub'));
 const StaffOnboardingWizard = lazy(() => import('./pages/setup/W2-StaffOnboardingWizard'));
@@ -71,8 +71,8 @@ const PayrollHub = lazy(() => import('./pages/payroll/H7-PayrollHub'));
 const BookingRequestQueue = lazy(() => import('./pages/booking-requests/L12-BookingRequestQueue'));
 const ReferenceDataHub = lazy(() => import('./pages/reference-data/H9-ReferenceDataHub'));
 const CronDashboard = lazy(() => import('./pages/cron/D6-CronDashboard'));
-const FormRegistryPage = lazy(() => import('./pages/form-registry'));
-const PageRegistryPage = lazy(() => import('./pages/page-registry'));
+const FormRegistryPage = lazy(() => import('./pages/form-registry')); // G1
+const PageRegistryPage = lazy(() => import('./pages/page-registry')); // G2
 
 const EvvDashboard = lazy(() => import('./pages/evv/D4-EvvDashboard'));
 const EvvExceptions = lazy(() => import('./pages/evv/L22-EvvExceptions'));
@@ -100,7 +100,7 @@ const SentimentAnalysis = lazy(() => import('./pages/ai/T55-SentimentAnalysis'))
 const PermissionGrid = lazy(() => import('./pages/security/T56-PermissionGrid'));
 const SessionMonitor = lazy(() => import('./pages/security/T57-SessionMonitor'));
 const ThreatDetection = lazy(() => import('./pages/security/T58-ThreatDetection'));
-const SupplyDemand = lazy(() => import('./pages/ops/SupplyDemand'));
+const SupplyDemand = lazy(() => import('./pages/ops/T67-SupplyDemand'));
 
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>

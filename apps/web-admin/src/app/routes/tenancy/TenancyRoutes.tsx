@@ -39,13 +39,13 @@ const PswOpenShifts = lazy(() => import('./psw/pages/OpenShifts/L17-OpenShifts')
 const PswOpenOffers = lazy(() => import('./psw/pages/OpenShifts/T60-OpenOffers'));
 const PswAvailability = lazy(() => import('./psw/pages/availability/F15-Availability'));
 const PswEarnings = lazy(() => import('./psw/pages/earnings/R3-PswEarnings'));
-const PswExpenses = lazy(() => import('./psw/pages/expenses'));
+const PswExpenses = lazy(() => import('./psw/pages/expenses/F14-ExpenseClaim'));
 const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation/T26-ShiftConfirmation'));
 const CredentialVault = lazy(() => import('./psw/pages/credentials/H14-CredentialVault'));
 const ProviderSocial = lazy(() => import('./psw/pages/feed/T27-ProviderSocial'));
 const LiveVisit = lazy(() => import('./psw/pages/schedule/T61-LiveVisit'));
 const CheckInScreen = lazy(() => import('./psw/pages/schedule/T62-CheckInScreen'));
-const PswHandover = lazy(() => import('./psw/pages/handover'));
+const PswHandover = lazy(() => import('./psw/pages/handover/F13-ShiftHandover'));
 const PswPayoutHistory = lazy(() => import('./psw/pages/payouts/R4-PayoutHistory'));
 
 // RN Pages
@@ -60,7 +60,7 @@ const RnCheckInScreen = lazy(() => import('./rn/pages/schedule/T63-RnCheckInScre
 const ClientDashboard = lazy(() => import('./client/pages/dashboard/D8-ClientDashboard'));
 const ClientBookings = lazy(() => import('./client/pages/bookings/L14-ClientBookings'));
 const ClientBilling = lazy(() => import('./client/pages/billing/H10-BillingHub'));
-const ClientFeedback = lazy(() => import('./client/pages/feedback'));
+const ClientFeedback = lazy(() => import('./client/pages/feedback/F16-SubmitFeedback'));
 const RequestBooking = lazy(() => import('./client/pages/request-booking/F17-RequestBooking'));
 const CatalogBrowser = lazy(() => import('./client/pages/services/T34-CatalogBrowser'));
 const ClientMessaging = lazy(() => import('./client/pages/support/T35-ClientMessaging'));
