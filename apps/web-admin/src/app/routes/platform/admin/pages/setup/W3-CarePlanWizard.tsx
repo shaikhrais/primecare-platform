@@ -1,180 +1,41 @@
 // ================================================================
-// PAGE IDENTITY: W3 � Care Plan Wizard
-// Registry ID:   page.admin.care-plan
-// Type:          Wizard
-// Owner:         admin
+// PAGE IDENTITY: W3 · Care Plan Wizard
+// Type: Wizard | Owner: admin
 // ================================================================
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import { useNotification } from '@/shared/context/NotificationContext';
-import { useTranslation } from 'react-i18next';
 
-const { RouteRegistry, ApiRegistry, ContentRegistry } = AdminRegistry;
+const STEPS = ['Client Selection','Goals','Interventions','Schedule','Review'];
 
 export default function CarePlanWizard() {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
-    const { showToast } = useNotification();
-    const [step, setStep] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        phone: '',
-        address: '',
-        emergencyContact: '',
-        medicalNotes: '',
-        activities: [] as string[]
-    });
-
-    const handleAdmitClient = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await apiClient.post(ApiRegistry.ADMIN.CLIENTS, {
-                email: formData.email,
-                fullName: formData.fullName,
-                phone: formData.phone,
-                address: formData.address,
-                emergencyContact: formData.emergencyContact,
-                medicalNotes: formData.medicalNotes
-            });
-            if (response.ok) {
-                showToast(ContentRegistry.CARE_WIZARD.FORM.ADMITTING, 'success');
-                setStep(2);
-            } else {
-                showToast('Admission failed', 'error');
-            }
-        } catch (error) {
-            showToast('Network error', 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const toggleActivity = (activity: string) => {
-        setFormData(prev => ({
-            ...prev,
-            activities: prev.activities.includes(activity)
-                ? prev.activities.filter(a => a !== activity)
-                : [...prev.activities, activity]
-        }));
-    };
-
+    const [step, setStep] = useState(0);
     return (
-        <div style={{ maxWidth: '900px', margin: '2rem auto', padding: '2.5rem', background: 'white', borderRadius: '2rem', border: '1px solid #e5e7eb', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)' }}>
-            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2.25rem', fontWeight: '900', color: '#111827', marginBottom: '0.5rem' }}>🏥 {t(ContentRegistry.CARE_WIZARD.TITLE)}</h1>
-                <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>{t(ContentRegistry.CARE_WIZARD.SUBTITLE)}</p>
+        <div data-cy="W3-page" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '28px' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📋 Care Plan Wizard</h1>
+                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Step {step + 1} of {STEPS.length}: {STEPS[step]}</p>
             </div>
-
-            <div style={{ marginBottom: '3.5rem', display: 'flex', gap: '1.5rem' }}>
-                {ContentRegistry.CARE_WIZARD.STEPS.map((label, i) => (
-                    <div key={label} style={{ flex: 1 }}>
-                        <div style={{ height: '6px', background: (i + 1) <= step ? '#004d40' : '#e5e7eb', borderRadius: '3px', marginBottom: '0.75rem', transition: 'all 0.4s ease' }} />
-                        <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: (i + 1) === step ? '#004d40' : '#9ca3af' }}>{label}</span>
-                    </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '32px', flexWrap: 'wrap' }}>
+                {STEPS.map((s, i) => (
+                    <React.Fragment key={i}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => setStep(i)}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 700, background: step >= i ? '#5B21B6' : '#E2E8F0', color: step >= i ? 'white' : '#94A3B8' }}>{i + 1}</div>
+                            <span style={{ fontSize: '0.8rem', fontWeight: step === i ? 700 : 400, color: step >= i ? '#0F172A' : '#94A3B8' }}>{s}</span>
+                        </div>
+                        {i < STEPS.length - 1 && <div style={{ width: '40px', height: '2px', background: step > i ? '#5B21B6' : '#E2E8F0' }} />}
+                    </React.Fragment>
                 ))}
             </div>
-
-            {step === 1 && (
-                <form onSubmit={handleAdmitClient}>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '2rem', color: '#111827' }}>Step 1: {ContentRegistry.CARE_WIZARD.STEPS[0]}</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.CARE_WIZARD.FORM.NAME_LABEL)}</label>
-                            <input
-                                placeholder={t(ContentRegistry.CARE_WIZARD.FORM.NAME_PLACEHOLDER)}
-                                value={formData.fullName}
-                                onChange={e => setFormData({ ...formData, fullName: e.target.value })}
-                                style={{ width: '100%', padding: '0.875rem', border: '1px solid #d1d5db', borderRadius: '0.75rem' }}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.CARE_WIZARD.FORM.EMAIL_LABEL)}</label>
-                            <input
-                                type="email"
-                                placeholder={t(ContentRegistry.CARE_WIZARD.FORM.EMAIL_PLACEHOLDER)}
-                                value={formData.email}
-                                onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                style={{ width: '100%', padding: '0.875rem', border: '1px solid #d1d5db', borderRadius: '0.75rem' }}
-                                required
-                            />
-                        </div>
-                        <div style={{ gridColumn: 'span 2' }}>
-                            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.CARE_WIZARD.FORM.ADDR_LABEL)}</label>
-                            <input
-                                placeholder={t(ContentRegistry.CARE_WIZARD.FORM.ADDR_PLACEHOLDER)}
-                                value={formData.address}
-                                onChange={e => setFormData({ ...formData, address: e.target.value })}
-                                style={{ width: '100%', padding: '0.875rem', border: '1px solid #d1d5db', borderRadius: '0.75rem' }}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                        <button type="button" onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ padding: '0.875rem 1.75rem', borderRadius: '1rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>Cancel</button>
-                        <button type="submit" disabled={loading} style={{ padding: '0.875rem 2.5rem', background: '#004d40', color: 'white', fontWeight: '800', borderRadius: '1rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0,77,64,0.39)' }}>
-                            {loading ? t(ContentRegistry.CARE_WIZARD.FORM.ADMITTING) : t(ContentRegistry.CARE_WIZARD.FORM.NEXT_BTN)}
-                        </button>
-                    </div>
-                </form>
-            )}
-
-            {step === 2 && (
-                <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.5rem', color: '#111827' }}>Step 2: {t(ContentRegistry.CARE_WIZARD.FORM.MEDICAL_TITLE)}</h2>
-                    <div style={{ background: '#f9fafb', padding: '2rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb', marginBottom: '2rem' }}>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.75rem' }}>{t(ContentRegistry.CARE_WIZARD.FORM.MEDICAL_LABEL)}</label>
-                        <textarea
-                            rows={4}
-                            placeholder={t(ContentRegistry.CARE_WIZARD.FORM.MEDICAL_PLACEHOLDER)}
-                            value={formData.medicalNotes}
-                            onChange={e => setFormData({ ...formData, medicalNotes: e.target.value })}
-                            style={{ width: '100%', padding: '1rem', border: '1px solid #d1d5db', borderRadius: '1rem', resize: 'none' }}
-                        />
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                        <button onClick={() => setStep(1)} style={{ padding: '0.875rem 1.75rem', borderRadius: '1rem', border: '1px solid #d1d5db', background: 'white', fontWeight: '600' }}>{t(ContentRegistry.CARE_WIZARD.FORM.BACK_BTN)}</button>
-                        <button onClick={() => setStep(3)} style={{ padding: '0.875rem 2.5rem', background: '#004d40', color: 'white', fontWeight: '800', borderRadius: '1rem', border: 'none', cursor: 'pointer' }}>Proceed to ADLs</button>
-                    </div>
+            <div style={{ background: 'white', borderRadius: '12px', padding: '32px', border: '1px solid #E2E8F0', minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+                <div style={{ textAlign: 'center', color: '#94A3B8' }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '12px' }}>📋</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#0F172A' }}>{STEPS[step]}</div>
+                    <div style={{ fontSize: '0.85rem', marginTop: '4px' }}>Wizard step content renders here</div>
                 </div>
-            )}
-
-            {step === 3 && (
-                <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.5rem', color: '#111827' }}>Step 3: {t(ContentRegistry.CARE_WIZARD.FORM.ADL_TITLE)}</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
-                        {['Bathing', 'Dressing', 'Medication', 'Meal Prep', 'Mobility', 'Toileting'].map(adl => (
-                            <div
-                                key={adl}
-                                onClick={() => toggleActivity(adl)}
-                                style={{
-                                    padding: '1.5rem',
-                                    borderRadius: '1.25rem',
-                                    border: '2px solid',
-                                    borderColor: formData.activities.includes(adl) ? '#004d40' : '#e5e7eb',
-                                    background: formData.activities.includes(adl) ? '#f0fdf4' : 'white',
-                                    textAlign: 'center',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s'
-                                }}
-                            >
-                                <span style={{ fontWeight: '700', color: formData.activities.includes(adl) ? '#004d40' : '#374151' }}>{adl}</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <button onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ padding: '1.25rem', background: '#004d40', color: 'white', fontWeight: '900', borderRadius: '1.25rem', border: 'none', cursor: 'pointer', fontSize: '1.125rem', boxShadow: '0 10px 15px -3px rgba(0, 77, 64, 0.4)' }}>
-                            {t(ContentRegistry.CARE_WIZARD.FORM.SUBMIT_BTN)}
-                        </button>
-                        <button onClick={() => setStep(1)} style={{ padding: '1rem', background: 'transparent', color: '#6b7280', fontWeight: '600', border: 'none', cursor: 'pointer' }}>Restart Wizard</button>
-                    </div>
-                </div>
-            )}
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <button onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} style={{ padding: '10px 24px', borderRadius: '8px', border: '1px solid #CBD5E1', background: 'white', color: step === 0 ? '#CBD5E1' : '#334155', fontWeight: 600, cursor: step === 0 ? 'default' : 'pointer' }}>← Back</button>
+                <button onClick={() => setStep(Math.min(STEPS.length - 1, step + 1))} style={{ padding: '10px 24px', borderRadius: '8px', border: 'none', background: step === STEPS.length - 1 ? '#059669' : '#5B21B6', color: 'white', fontWeight: 700, cursor: 'pointer' }}>{step === STEPS.length - 1 ? '✓ Complete' : 'Next →'}</button>
+            </div>
         </div>
     );
 }

@@ -1,131 +1,41 @@
 // ================================================================
-// PAGE IDENTITY: T36 � Team Roster
+// PAGE IDENTITY: T36 · Team Roster
 // Type: Tool | Owner: client
 // ================================================================
-import React, { useState, useEffect } from 'react';
-import { Users, Star, MessageSquare, Shield, Award, Heart } from 'lucide-react';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import './TeamRoster.css';
+import React, { useState } from 'react';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
-
-interface TeamMember {
-    id: string;
-    fullName: string;
-    roleLabel: string;
-    specialty?: string;
-    rating: number;
-    visitCount: number;
-    bio?: string;
-    avatarUrl?: string;
-}
-
-const TeamRoster: React.FC = () => {
-    const [team, setTeam] = useState<TeamMember[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchTeam = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.CLIENT.CARE_TEAM);
-                const data = await response.json();
-                setTeam(data);
-            } catch (error) {
-                console.error('Failed to fetch care team', error);
- // Fallback to if API fails for demo/Face One realization
-                setTeam([
-                    { id: '1', fullName: 'Sarah Jenkins', roleLabel: 'Primary PSW', specialty: 'Dementia Care', rating: 4.9, visitCount: 124, bio: 'Sarah has over 8 years of experience in geriatric support.' },
-                    { id: '2', fullName: 'Michael Chen', roleLabel: 'Relief PSW', specialty: 'Post-Op Recovery', rating: 4.8, visitCount: 42, bio: 'Michael specializes in assisting clients during recovery.' }
-                ]);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTeam();
-    }, []);
-
-    if (loading) {
-        return (
-            <div className="roster-loading">
-                <div className="spinner"></div>
-                <p>Synchronizing Care Circle...</p>
-            </div>
-        );
-    }
-
+export default function TeamRoster() {
+    const [tab, setTab] = useState(0);
+    const tabs = ['Assigned Caregivers','Specializations','Contact Info','Availability'];
     return (
-        <div className="team-roster-container">
-            <header className="roster-header">
-                <div className="header-badge">
-                    <Shield size={14} />
-                    <span>Verified Care Circle</span>
-                </div>
-                <h1>{ContentRegistry.CLIENT_DASHBOARD.FAMILY_HUB.TEAM_TITLE}</h1>
-                <p>{ContentRegistry.CLIENT_DASHBOARD.SUBTITLE}</p>
-            </header>
-
-            <div className="roster-grid">
-                {team.map(member => (
-                    <div key={member.id} className="member-card-premium">
-                        <div className="card-top">
-                            <div className="avatar-wrapper">
-                                {member.avatarUrl ? (
-                                    <img src={member.avatarUrl} alt={member.fullName} />
-                                ) : (
-                                    <div className="avatar-placeholder">{member.fullName[0]}</div>
-                                )}
-                                <div className="rating-pill">
-                                    <Star size={10} fill="#fadb14" />
-                                    <span>{member.rating}</span>
-                                </div>
-                            </div>
-                            <div className="member-meta">
-                                <h3>{member.fullName}</h3>
-                                <span className="role-tag">{member.roleLabel}</span>
-                            </div>
-                        </div>
-
-                        <div className="stats-row">
-                            <div className="stat-item">
-                                <span className="stat-label">Visits</span>
-                                <span className="stat-value">{member.visitCount}</span>
-                            </div>
-                            <div className="stat-divider" />
-                            <div className="stat-item">
-                                <span className="stat-label">Specialty</span>
-                                <span className="stat-value">{member.specialty || 'General Care'}</span>
-                            </div>
-                        </div>
-
-                        <p className="member-bio">"{member.bio || 'Dedicated to providing compassionate care.'}"</p>
-
-                        <button className="btn-contact">
-                            <MessageSquare size={14} />
-                            Contact Provider
-                        </button>
-                    </div>
-                ))}
-
-                <div className="add-request-card">
-                    <div className="icon-circle">
-                        <Heart size={24} />
-                    </div>
-                    <h3>Expand Your Team</h3>
-                    <p>Discuss adding new specialists to your loved one's care plan.</p>
-                    <button className="btn-request-specialist">Request Coordinator Sync</button>
-                </div>
+        <div data-cy="T36-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>👥 Team Roster</h1>
+                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
             </div>
-
-            <footer className="roster-footer">
-                <Award size={20} className="footer-icon" />
-                <div className="footer-content">
-                    <h4>Clinical Assurance</h4>
-                    <p>Every member of your care team is fully vetted, background-checked, and clinically certified to PrimeCare standards.</p>
-                </div>
-            </footer>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                {tabs.map((t, i) => (
+                    <button key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #059669':'1px solid #E2E8F0', background: tab===i?'#05966910':'white', color: tab===i?'#059669':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
+                ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Assigned Caregivers</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Specializations</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Contact Info</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Availability</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+            </div>
         </div>
     );
-};
-
-export default TeamRoster;
+}

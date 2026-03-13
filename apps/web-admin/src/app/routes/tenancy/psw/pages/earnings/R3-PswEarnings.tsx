@@ -1,167 +1,51 @@
 // ================================================================
-// PAGE IDENTITY: R3 � PSW Earnings
+// PAGE IDENTITY: R3 · PSW Earnings
 // Type: Report | Owner: psw
 // ================================================================
-import React, { useState, useEffect } from 'react';
-import { ApiRegistry, AdminRegistry, ContentRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
-import { useNavigate } from 'react-router-dom';
-import { apiClient } from '@/shared/utils/apiClient';
-import EmptyState from '@/shared/components/layout/EmptyState';
-import './EarningsPage.css';
+import React, { useState } from 'react';
 
-const CONTENT = ContentRegistry.PSW_PAYOUTS;
-const API = AdminRegistry.ApiRegistry.PSW;
-
-export default function EarningsPage() {
-    const { showToast } = useNotification();
-    const navigate = useNavigate();
-    const [visits, setVisits] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [requesting, setRequesting] = useState(false);
-    const hourlyRate = 25;
-
-    useEffect(() => {
-        const fetchVisits = async () => {
-            try {
-                const response = await apiClient.get(API.VISITS);
-                if (response.ok) {
-                    const data = await response.json();
-                    setVisits(data.filter((v: any) => v.status === 'completed'));
-                }
-            } catch (error) {
-                showToast('Failed to load earnings data', 'error');
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchVisits();
-    }, []);
-
-    const calculateEarnings = (duration: number) => (duration / 60) * hourlyRate;
-    const totalEarnings = visits.reduce((acc, v) => acc + calculateEarnings(v.durationMinutes || 60), 0);
-
-    const handlePayout = async () => {
-        if (totalEarnings === 0) {
-            showToast('No earnings available to payout.', 'info');
-            return;
-        }
-        setRequesting(true);
-        try {
-            const response = await apiClient.post(API.PAYOUT_REQUEST, {});
-            if (response.ok) {
-                showToast(CONTENT.SUCCESS_REQUEST, 'success');
-            } else {
-                showToast(CONTENT.ERROR_REQUEST, 'error');
-            }
-        } catch (error) {
-            showToast('Error processing payout request.', 'error');
-        } finally {
-            setRequesting(false);
-        }
-    };
-
+export default function PswEarnings() {
+    const [dateRange, setDateRange] = useState('last-30');
+    const [fmt, setFmt] = useState('pdf');
     return (
-        <div className="earnings-page-container">
-            <header className="earnings-top-header">
-                <div className="earnings-title-group">
-                    <h1>{CONTENT.TITLE}</h1>
-                    <p>{CONTENT.SUBTITLE}</p>
+        <div data-cy="R3-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>💵 PSW Earnings</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Generate and export reports</p>
                 </div>
-
-                <button
-                    className="history-btn"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.PSW.PAYOUTS)}
-                    style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#FFFFFF',
-                        color: 'var(--brand-500, #0f172a)',
-                        border: '1px solid #E5E7EB',
-                        borderRadius: '8px',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
-                    }}
-                >
-                    <span>🧾</span> {CONTENT.HISTORY_TITLE}
-                </button>
-            </header>
-
-            <div className="earnings-main-layout">
-                <div className="shift-log-card">
-                    <h3>Verified Shift Log</h3>
-                    <table className="earnings-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Client</th>
-                                <th>Duration</th>
-                                <th style={{ textAlign: 'right' }}>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading ? (
-                                <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>Loading...</td></tr>
-                            ) : visits.length > 0 ? visits.map((v) => (
-                                <tr key={v.id}>
-                                    <td>{new Date(v.requestedStartAt).toLocaleDateString()}</td>
-                                    <td className="client-name">{v.client?.fullName || 'Registry Node'}</td>
-                                    <td>{v.durationMinutes || 60}m</td>
-                                    <td className="amount-cell">${calculateEarnings(v.durationMinutes || 60).toFixed(2)}</td>
-                                </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan={4} style={{ padding: 0, borderBottom: 'none' }}>
-                                        <EmptyState
-                                            title="No Verified Shifts"
-                                            description="You have no completed shifts finalized for payout yet. Complete your assigned visits to build your balance."
-                                            actionLabel="View Schedule"
-                                            onAction={() => navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE)}
-                                        />
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <select value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
+                        <option value="last-7">Last 7 Days</option><option value="last-30">Last 30 Days</option><option value="last-90">Last 90 Days</option><option value="ytd">Year to Date</option>
+                    </select>
+                    <select value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
+                        <option value="pdf">PDF</option><option value="csv">CSV</option><option value="xlsx">Excel</option>
+                    </select>
+                    <button style={{ padding: '8px 20px', background: '#065F46', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
                 </div>
-
-                <div className="earnings-sidebar">
-                    <div className="balance-card">
-                        <span className="balance-label">Available Balance</span>
-                        <div className="balance-amount">${totalEarnings.toFixed(2)}</div>
-                        <button
-                            className="payout-btn"
-                            disabled={requesting || totalEarnings === 0}
-                            onClick={handlePayout}
-                            style={{
-                                width: '100%',
-                                padding: '14px',
-                                backgroundColor: (requesting || totalEarnings === 0) ? '#9CA3AF' : 'var(--brand-500, #0f172a)',
-                                color: '#FFFFFF',
-                                border: 'none',
-                                borderRadius: '8px',
-                                fontWeight: '700',
-                                cursor: (requesting || totalEarnings === 0) ? 'not-allowed' : 'pointer',
-                                transition: 'all 0.2s',
-                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                            }}
-                        >
-                            {requesting ? 'Processing...' : (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-payout-sync')?.label || 'Sync to Bank')}
-                        </button>
+            </div>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>This Period</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#065F46' }}>—</div>
                     </div>
-
-                    <div className="security-box">
-                        <h4>Security Note</h4>
-                        <p>
-                            All shifts are verified by clinical managers before being released to balance. Manual adjustments may take 24-48 hours.
-                        </p>
+                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Year to Date</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#065F46' }}>—</div>
                     </div>
-                </div>
+                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Pending Pay</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#065F46' }}>—</div>
+                    </div>
+                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Hours Worked</div>
+                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#065F46' }}>—</div>
+                    </div>
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
+                <div style={{ height: '300px', background: 'linear-gradient(135deg, #065F4605 0%, #065F4610 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>Report data renders here</div>
             </div>
         </div>
     );
 }
-

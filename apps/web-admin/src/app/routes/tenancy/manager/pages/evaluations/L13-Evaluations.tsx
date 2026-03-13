@@ -1,188 +1,57 @@
 // ================================================================
-// PAGE IDENTITY: L13 � Evaluations
+// PAGE IDENTITY: L13 · Evaluations
 // Type: List | Owner: manager
 // ================================================================
-import { AdminRegistry } from 'prime-care-shared';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
+import React, { useState } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
-interface StaffMember { id: string; fullName: string; role: string; }
-
-export default function EvaluationForm() {
-    const { showToast } = useNotification();
-    const navigate = useNavigate();
-    const [isDirty, setIsDirty] = useState(false);
-    const [showGuard, setShowGuard] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-
-    const [formData, setFormData] = useState({
-        staffId: '',
-        performanceScore: 5,
-        attendanceScore: 5,
-        technicalSkills: 5,
-        actionPlan: '',
-        comments: ''
-    });
-
-    useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [isDirty]);
-
-    const [staffList, setStaffList] = useState<StaffMember[]>([]);
-    useEffect(() => {
-        const fetchStaff = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const res = await fetch(`${API_URL}${AdminRegistry.ApiRegistry.ADMIN.USERS}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    setStaffList(Array.isArray(data) ? data.filter((u: any) => u.role === 'psw' || u.role === 'rn') : []);
-                }
-            } catch (e) { console.error(e); }
-        };
-        fetchStaff();
-    }, []);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setSubmitting(true);
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${AdminRegistry.ApiRegistry.TENANCY.MANAGER.EVALUATIONS}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                showToast('Staff evaluation submitted successfully!', 'success');
-                setIsDirty(false);
-                navigate(AdminRegistry.RouteRegistry.MANAGER.DASHBOARD);
-            } else {
-                showToast('Failed to submit evaluation', 'error');
-            }
-        } catch (error) {
-            showToast('Error during submission', 'error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
+export default function Evaluations() {
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }} data-cy="form.evaluation.page">
-            {showGuard && (
-                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>Unsaved Evaluation</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes in this staff evaluation. Discard them?</p>
-                        <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
-                        </div>
-                    </div>
+        <div data-cy="L13-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📝 Evaluations</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
                 </div>
-            )}
-
-            <div style={{ marginBottom: '2rem' }} data-cy="page.header">
-                <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Staff Performance Evaluation</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Conduct a formal performance and compliance review for care staff.</p>
+                <button style={{ padding: '10px 20px', background: '#7C3AED', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
-
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Staff Member</label>
-                        <select
-                            data-cy="form.evaluation.staff"
-                            required
-                            value={formData.staffId}
-                            onChange={(e) => { setFormData({ ...formData, staffId: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}
-                        >
-                            <option value="">Select Staff...</option>
-                            {staffList.map(s => (
-                                <option key={s.id} value={s.id}>{s.fullName} ({s.role?.toUpperCase()})</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {['performance', 'attendance', 'technical'].map((metric) => (
-                        <div key={metric}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, textTransform: 'capitalize' }}>{metric} Score (1-10)</label>
-                            <input
-                                data-cy={`form.evaluation.${metric}`}
-                                type="range"
-                                min="1"
-                                max="10"
-                                value={(formData as any)[metric + 'Score'] || formData.technicalSkills}
-                                onChange={(e) => {
-                                    const key = metric === 'technical' ? 'technicalSkills' : metric + 'Score';
-                                    setFormData({ ...formData, [key]: parseInt(e.target.value) });
-                                    setIsDirty(true);
-                                }}
-                                style={{ width: '100%', cursor: 'pointer' }}
-                            />
-                            <div style={{ textAlign: 'center', fontWeight: 'bold', marginTop: '0.5rem' }}>
-                                {(formData as any)[metric === 'technical' ? 'technicalSkills' : metric + 'Score']} / 10
-                            </div>
-                        </div>
-                    ))}
-
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Action Plan for Improvement</label>
-                        <textarea
-                            data-cy="form.evaluation.plan"
-                            value={formData.actionPlan}
-                            onChange={(e) => { setFormData({ ...formData, actionPlan: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '80px' }}
-                            placeholder="Describe development goals..."
-                        />
-                    </div>
-
-                    <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>General Comments</label>
-                        <textarea
-                            data-cy="form.evaluation.comments"
-                            value={formData.comments}
-                            onChange={(e) => { setFormData({ ...formData, comments: e.target.value }); setIsDirty(true); }}
-                            style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '80px' }}
-                        />
-                    </div>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #7C3AED' : '1px solid #E2E8F0', background: filter === s ? '#7C3AED10' : 'white', color: filter === s ? '#7C3AED' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Staff</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Review Period</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Evaluator</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Score</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Date</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                        </tr>
+                    ))}</tbody>
+                </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #7C3AED':'1px solid #E2E8F0', background: n===1?'#7C3AED10':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#7C3AED':'#64748B' }}>{n}</button>
+                    ))}</div>
                 </div>
-
-                <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
-                        type="button"
-                        onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="submit"
-                        disabled={submitting}
-                        data-cy="btn-mgr-evaluation-new"
-                        style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: 'none', background: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}
-                    >
-                        {submitting ? 'Submitting...' : (AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-mgr-evaluation-new')?.label || 'Submit Evaluation')}
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     );
 }

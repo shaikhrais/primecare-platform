@@ -1,136 +1,40 @@
 // ================================================================
-// PAGE IDENTITY: T45 � Incident Portal
+// PAGE IDENTITY: T45 · Incident Portal
 // Type: Tool | Owner: staff
 // ================================================================
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
-import './IncidentPortal.css';
-
-const { ContentRegistry } = AdminRegistry;
 
 export default function IncidentPortal() {
-    const { t } = useTranslation();
-    const [type, setType] = useState('other');
-    const [description, setDescription] = useState('');
-    const [submitting, setSubmitting] = useState(false);
-    const [success, setSuccess] = useState(false);
-
-    const handleSubmit = async () => {
-        if (!description) return;
-        setSubmitting(true);
-        try {
-            const token = localStorage.getItem('token');
-            const res = await fetch(`${import.meta.env.VITE_API_URL}${ApiRegistry.TENANCY.STAFF.INCIDENT_SUBMIT}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    type,
-                    description,
-                }),
-            });
-            if (res.ok) {
-                setSuccess(true);
-                setDescription('');
-            }
-        } catch (error) {
-            console.error('Failed to report incident:', error);
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const protocolSteps = [
-        { title: 'Immediate Stabilization', desc: 'Secure the area and provide immediate clinical support.' },
-        { title: 'Witness statements', desc: 'Identify and document statements from present staff or family.' },
-        { title: 'Evidence Preservation', desc: 'Secure any involved equipment or medical supplies.' },
-        { title: 'Branch Notification', desc: 'Notify the clinical manager or regional operator immediately.' },
-    ];
-
-    if (success) {
-        return (
-            <div className="incident-portal flex flex-col items-center justify-center h-[60vh]">
-                <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6">✓</div>
-                <h1 className="text-2xl font-black mb-2">Incident Reported</h1>
-                <p className="text-muted-foreground mb-8">The operational team has been notified and triage has begun.</p>
-                <button className="btn-modern btn-modern-primary" onClick={() => setSuccess(false)}>Report Another Event</button>
-            </div>
-        );
-    }
-
+    const [tab, setTab] = useState(0);
+    const tabs = ['Report Incident','My Reports','Team Incidents','Follow-Up'];
     return (
-        <div className="incident-portal">
-            <header className="incident-header">
-                <h1>{t(ContentRegistry.INCIDENTS.TITLE)}</h1>
-                <p>{t(ContentRegistry.INCIDENTS.SUBTITLE)}</p>
-            </header>
-
-            <div className="incident-grid">
-                <main className="incident-form-container">
-                    <div className="field-group">
-                        <label className="field-label">{t(ContentRegistry.INCIDENTS.FORM.TYPE_LABEL)}</label>
-                        <select
-                            className="modern-select"
-                            value={type}
-                            onChange={(e) => setType(e.target.value)}
-                        >
-                            <option value="fall_risk">Clinical: Fall Risk</option>
-                            <option value="medical_emergency">Clinical: Medical Emergency</option>
-                            <option value="safety">Operational: Safety Risk</option>
-                            <option value="refusal">Operational: Service Refusal</option>
-                            <option value="no_show">Staffing: No Show</option>
-                            <option value="other">Other / Miscellaneous</option>
-                        </select>
-                    </div>
-
-                    <div className="field-group">
-                        <label className="field-label">{t(ContentRegistry.INCIDENTS.FORM.DESC_LABEL)}</label>
-                        <textarea
-                            className="modern-textarea"
-                            rows={6}
-                            placeholder="Provide a factual, clinical description of the event..."
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="flex justify-between items-center pt-8 border-t border-slate-100">
-                        <button className="btn-modern btn-modern-secondary" disabled={submitting}>Save Draft</button>
-                        <button
-                            className="btn-modern btn-modern-primary"
-                            disabled={submitting || !description}
-                            onClick={handleSubmit}
-                        >
-                            {submitting ? 'Submitting...' : t(ContentRegistry.INCIDENTS.FORM.SUBMIT_BTN)}
-                        </button>
-                    </div>
-                </main>
-
-                <aside className="triage-assistance">
-                    <h2>Staff Emergency Protocol</h2>
-                    <div className="space-y-4">
-                        {protocolSteps.map((step, i) => (
-                            <div key={i} className="protocol-step">
-                                <div className="step-number">{i + 1}</div>
-                                <div className="step-text">
-                                    <h4>{step.title}</h4>
-                                    <p>{step.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="emergency-hotline">
-                        <div className="w-12 h-12 rounded-2xl bg-red-500 flex items-center justify-center text-xl">📞</div>
-                        <div>
-                            <div className="text-[10px] font-black uppercase opacity-60">Emergency Hotline</div>
-                            <div className="hotline-number">1-800-CARE-911</div>
+        <div data-cy="T45-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🚨 Incident Portal</h1>
+                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                {tabs.map((t, i) => (
+                    <button key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #DC2626':'1px solid #E2E8F0', background: tab===i?'#DC262610':'white', color: tab===i?'#DC2626':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
+                ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Report Incident</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
                         </div>
-                    </div>
-                </aside>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>My Reports</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Team Incidents</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Follow-Up</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
             </div>
         </div>
     );

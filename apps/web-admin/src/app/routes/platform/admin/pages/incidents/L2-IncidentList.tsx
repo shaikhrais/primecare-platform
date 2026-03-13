@@ -1,245 +1,59 @@
 // ================================================================
-// PAGE IDENTITY: L2 � Incident List
-// Registry ID:   page.admin.incident-list
-// Type:          List
-// Owner:         admin
+// PAGE IDENTITY: L2 · Incident List
+// Type: List | Owner: admin
 // ================================================================
-import React, { useEffect, useState } from 'react';
-import EmptyState from '@/shared/components/layout/EmptyState';
-import { useNavigate, Link } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import { useTranslation } from 'react-i18next';
-import { useNotification } from '@/shared/context/NotificationContext';
+import React, { useState } from 'react';
 
-// Components
-import { IncidentResolutionModal } from './components/IncidentResolutionModal';
-import DangerModal from '@/shared/components/modals/DangerModal';
-
-const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
 export default function IncidentList() {
-    const { t } = useTranslation();
-    const navigate = useNavigate();
-    const { showToast } = useNotification();
-    const [incidents, setIncidents] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedIncident, setSelectedIncident] = useState<string | null>(null);
-    const [submitting, setSubmitting] = useState(false);
-
-    // Deletion mechanics
-    const [isDangerModalOpen, setIsDangerModalOpen] = useState(false);
-    const [incidentToDelete, setIncidentToDelete] = useState<any>(null);
-
-    // Filters
-    const [statusFilter, setStatusFilter] = useState<string>('all');
-    const [typeFilter, setTypeFilter] = useState<string>('all');
-
-    const filteredIncidents = incidents.filter(inc => {
-        if (statusFilter !== 'all' && inc.status !== statusFilter) return false;
-        if (typeFilter !== 'all' && inc.type?.toLowerCase() !== typeFilter) return false;
-        return true;
-    });
-
-    useEffect(() => {
-        fetchIncidents();
-    }, []);
-
-    const fetchIncidents = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.get(ApiRegistry.ADMIN.INCIDENTS);
-            if (response.ok) {
-                const data = await response.json();
-                setIncidents(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch incidents', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleResolve = async (resolutionNotes: string) => {
-        if (!selectedIncident) return;
-        setSubmitting(true);
-
-        try {
-            const response = await apiClient.patch(`${ApiRegistry.ADMIN.INCIDENTS}/${selectedIncident}`, {
-                status: 'resolved',
-                resolutionNotes
-            });
-
-            if (response.ok) {
-                setIncidents(incidents.map((inc: any) => inc.id === selectedIncident ? { ...inc, status: 'resolved', resolutionNotes } : inc));
-                setIsModalOpen(false);
-                showToast(t(ContentRegistry.INCIDENTS.RESOLVE.SUCCESS), 'success');
-            }
-        } catch (error) {
-            showToast(t(ContentRegistry.INCIDENTS.RESOLVE.ERROR), 'error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const handleDelete = async () => {
-        if (!incidentToDelete) return;
-        try {
-            const response = await apiClient.delete(`${ApiRegistry.ADMIN.INCIDENTS}/${incidentToDelete.id}`);
-            if (response.ok) {
-                setIncidents(incidents.filter((inc: any) => inc.id !== incidentToDelete.id));
-                showToast(t('incidents.delete_success', 'Incident deleted successfully'), 'success');
-            } else {
-                showToast(t('incidents.delete_error', 'Failed to delete incident'), 'error');
-            }
-        } catch (error) {
-            showToast(t('incidents.delete_error', 'Failed to delete incident'), 'error');
-        } finally {
-            setIsDangerModalOpen(false);
-        }
-    };
-
-    if (loading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.INCIDENTS.TABLE.LOADING)}</div>;
-
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div style={{ padding: '2rem' }} data-cy="incident-list-page">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">{t(ContentRegistry.INCIDENTS.TITLE)}</h2>
-                <button
-                    data-cy="btn.incident.report"
-                    onClick={() => navigate(RouteRegistry.ADMIN.INCIDENTS_NEW)}
-                    style={{ padding: '0.625rem 1.25rem', backgroundColor: '#e11d48', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                >
-                    {t(ContentRegistry.INCIDENTS.ADD_BTN)}
-                </button>
-            </div>
-
-            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', backgroundColor: 'var(--bg-200, #f9fafb)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--border, #e5e7eb)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-100, #374151)' }}>{t('incidents.filter_status', { defaultValue: 'Status:' })}</label>
-                    <select
-                        value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                        style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid var(--border, #d1d5db)', fontSize: '0.875rem', backgroundColor: 'var(--bg)' }}
-                    >
-                        <option value="all">{t('incidents.status_all', { defaultValue: 'All Statuses' })}</option>
-                        <option value="open">{t('incidents.status_open', { defaultValue: 'Open' })}</option>
-                        <option value="investigating">{t('incidents.status_investigating', { defaultValue: 'Investigating' })}</option>
-                        <option value="resolved">{t('incidents.status_resolved', { defaultValue: 'Resolved' })}</option>
-                    </select>
+        <div data-cy="L2-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🚨 Incident List</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <label style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-100, #374151)' }}>{t('incidents.filter_type', { defaultValue: 'Type:' })}</label>
-                    <select
-                        value={typeFilter}
-                        onChange={(e) => setTypeFilter(e.target.value)}
-                        style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid var(--border, #d1d5db)', fontSize: '0.875rem', backgroundColor: 'var(--bg)' }}
-                    >
-                        <option value="all">{t('incidents.type_all', { defaultValue: 'All Types' })}</option>
-                        <option value="clinical">{t('incidents.type_clinical', { defaultValue: 'Clinical' })}</option>
-                        <option value="operational">{t('incidents.type_operational', { defaultValue: 'Operational' })}</option>
-                        <option value="security">{t('incidents.type_security', { defaultValue: 'Security' })}</option>
-                    </select>
-                </div>
+                <button style={{ padding: '10px 20px', background: '#DC2626', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
-
-            <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }} data-cy="tbl-incidents">
-                    <thead style={{ backgroundColor: '#f9fafb' }}>
-                        <tr>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{t(ContentRegistry.INCIDENTS.TABLE.TYPE)}</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{t(ContentRegistry.INCIDENTS.TABLE.REPORTER)}</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{t(ContentRegistry.INCIDENTS.TABLE.STATUS)}</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{t(ContentRegistry.INCIDENTS.TABLE.DATE)}</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{t(ContentRegistry.INCIDENTS.TABLE.ACTIONS)}</th>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #DC2626' : '1px solid #E2E8F0', background: filter === s ? '#DC262610' : 'white', color: filter === s ? '#DC2626' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>ID</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Type</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Client</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Reporter</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Date</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Severity</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {filteredIncidents.length === 0 ? (
-                            <tr>
-                                <td colSpan={5} style={{ padding: '2rem' }}>
-                                    <EmptyState
-                                        title={t('incidents.empty_title', { defaultValue: 'No Incidents Found' })}
-                                        description={t('incidents.empty_desc', { defaultValue: 'There are currently no incidents matching the selected criteria.' })}
-                                        icon="🚨"
-                                        actionLabel={t(ContentRegistry.INCIDENTS?.ADD_BTN || 'Report Incident')}
-                                        onAction={() => navigate(RouteRegistry.ADMIN.INCIDENTS_NEW)}
-                                    />
-                                </td>
-                            </tr>
-                        ) : (
-                            filteredIncidents.map((incident: any) => (
-                                <tr key={incident.id} data-cy={`incident-row-${incident.id}`}>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="incident-type">{incident.type}</td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid var(--line, #e5e7eb)' }} data-cy="incident-reporter">
-                                        <Link
-                                            to={`${AdminRegistry.RouteRegistry.ADMIN.USERS}?search=${incident.reporter?.email}`}
-                                            style={{ color: 'var(--brand-500, #00875A)', textDecoration: 'none', fontWeight: 500 }}
-                                        >
-                                            {incident.reporter?.email}
-                                        </Link>
-                                    </td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid var(--line, #e5e7eb)' }}>
-                                        <span data-cy="incident-status" style={{
-                                            padding: '0.25rem 0.5rem',
-                                            borderRadius: '9999px',
-                                            fontSize: '0.75rem',
-                                            backgroundColor: incident.status === 'open' ? 'var(--bg-danger, #fee2e2)' : 'var(--bg-success, #d1fae5)',
-                                            color: incident.status === 'open' ? 'var(--text-danger, #991b1b)' : 'var(--text-success, #065f46)'
-                                        }}>
-                                            {t(`incidents.status_${incident.status}`, { defaultValue: incident.status })}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{new Date(incident.createdAt).toLocaleDateString()}</td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                                            {incident.status === 'open' && (
-                                                <button
-                                                    data-cy="btn.incident.resolve"
-                                                    onClick={() => {
-                                                        setSelectedIncident(incident.id);
-                                                        setIsModalOpen(true);
-                                                    }}
-                                                    style={{ color: '#00875A', border: 'none', background: 'none', cursor: 'pointer', padding: 0, fontWeight: 500 }}
-                                                >
-                                                    {t(ContentRegistry.INCIDENTS.RESOLVE.BTN)}
-                                                </button>
-                                            )}
-                                            <button
-                                                data-cy="btn.incident.delete"
-                                                onClick={() => {
-                                                    setIncidentToDelete(incident);
-                                                    setIsDangerModalOpen(true);
-                                                }}
-                                                style={{ color: '#ef4444', border: 'none', background: 'none', cursor: 'pointer', padding: 0, fontWeight: 500 }}
-                                            >
-                                                {t('common.delete', 'Delete')}
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
+                    ))}</tbody>
                 </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #DC2626':'1px solid #E2E8F0', background: n===1?'#DC262610':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#DC2626':'#64748B' }}>{n}</button>
+                    ))}</div>
+                </div>
             </div>
-
-            <IncidentResolutionModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onResolve={handleResolve}
-                submitting={submitting}
-            />
-
-            <DangerModal
-                isOpen={isDangerModalOpen}
-                title={t('incidents.delete_modal_title', 'Delete Incident')}
-                description={t('incidents.delete_modal_desc', 'This action cannot be undone. This will permanently delete the incident record from the database.')}
-                targetName={incidentToDelete?.type || 'INCIDENT'}
-                onClose={() => setIsDangerModalOpen(false)}
-                onConfirm={handleDelete}
-            />
-        </div >
+        </div>
     );
 }

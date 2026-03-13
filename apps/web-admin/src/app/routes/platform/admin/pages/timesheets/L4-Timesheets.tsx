@@ -1,143 +1,59 @@
 // ================================================================
-// PAGE IDENTITY: L4 � Timesheets
-// Registry ID:   page.admin.timesheets
-// Type:          List
-// Owner:         admin
+// PAGE IDENTITY: L4 · Timesheets
+// Type: List | Owner: admin
 // ================================================================
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { TimesheetDetailModal } from '@/shared/components/modals/TimesheetDetailModal';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import EmptyState from '@/shared/components/layout/EmptyState';
+import React, { useState } from 'react';
 
-const { RouteRegistry, ContentRegistry } = AdminRegistry;
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
-export default function TimesheetList() {
-    const navigate = useNavigate();
-    const [timesheets, setTimesheets] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const [selectedTimesheet, setSelectedTimesheet] = useState<any>(null);
-
-    useEffect(() => {
-        apiClient.get('/v1/admin/timesheets')
-            .then(res => res.json())
-            .then(data => {
-                setTimesheets(data);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, []);
-
-    const handleApprove = (id: string, status: string, e: React.MouseEvent) => {
-        e.stopPropagation(); // Prevent modal opening
-        apiClient.patch(`/v1/admin/timesheets/${id}`, { status })
-            .then(() => {
-                setTimesheets(timesheets.map((ts: any) => ts.id === id ? { ...ts, status } : ts));
-            });
-    };
-
-    if (loading) return <div>Loading timesheets...</div>;
-
+export default function Timesheets() {
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div style={{ padding: '2rem' }} data-cy="timesheet-list-page">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 }} data-cy="page.title">Timesheet Review</h2>
-                <button
-                    data-cy="btn.timesheet.adjust"
-                    onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.TIMESHEET_ADJUST)}
-                    style={{ padding: '0.625rem 1.25rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: '600', cursor: 'pointer' }}
-                >
-                    Manual Adjustment
-                </button>
+        <div data-cy="L4-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>⏱️ Timesheets</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
+                </div>
+                <button style={{ padding: '10px 20px', background: '#92400E', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
-            <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #92400E' : '1px solid #E2E8F0', background: filter === s ? '#92400E10' : 'white', color: filter === s ? '#92400E' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead style={{ backgroundColor: '#f9fafb' }}>
-                        <tr>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Service Provider</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Week</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Minutes</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Status</th>
-                            <th style={{ textAlign: 'left', padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>Actions</th>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Employee</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Date</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Clock In</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Clock Out</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Hours</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Overtime</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {timesheets.length === 0 ? (
-                            <tr>
-                                <td colSpan={5} style={{ padding: '2rem' }}>
-                                    <EmptyState
-                                        title="No Timesheets"
-                                        description="There are currently no timesheets pending review."
-                                        icon="⏱️"
-                                    />
-                                </td>
-                            </tr>
-                        ) : (
-                            timesheets.map((ts: any) => (
-                                <tr
-                                    key={ts.id}
-                                    data-cy={`timesheet-row-${ts.id}`}
-                                    onClick={() => setSelectedTimesheet(ts)}
-                                    style={{ cursor: 'pointer', transition: 'background-color 0.2s' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                                >
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-service-provider">
-                                        <Link
-                                            to={`${RouteRegistry.ADMIN.USERS}?search=${ts.psw?.email}`}
-                                            onClick={(e) => e.stopPropagation()}
-                                            style={{ color: '#00875A', fontWeight: 600, textDecoration: 'none' }}
-                                        >
-                                            {ts.psw?.fullName}
-                                        </Link>
-                                    </td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>{ts.weekId}</td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }} data-cy="ts-minutes">{ts.totalMinutes}</td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                        <span data-cy="ts-status" style={{
-                                            padding: '0.25rem 0.5rem',
-                                            borderRadius: '9999px',
-                                            fontSize: '0.75rem',
-                                            backgroundColor: ts.status === 'submitted' ? '#fef3c7' : ts.status === 'approved' ? '#d1fae5' : '#f3f4f6',
-                                            color: ts.status === 'submitted' ? '#92400e' : ts.status === 'approved' ? '#065f46' : '#374151'
-                                        }}>
-                                            {ts.status}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                                        {ts.status === 'submitted' && (
-                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                                <button
-                                                    data-cy="btn-approve-ts"
-                                                    onClick={(e) => handleApprove(ts.id, 'approved', e)}
-                                                    style={{ color: '#4db6ac', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
-                                                >
-                                                    Approve
-                                                </button>
-                                                <button
-                                                    data-cy="btn-reject-ts"
-                                                    onClick={(e) => handleApprove(ts.id, 'rejected', e)}
-                                                    style={{ color: '#dc2626', border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
-                                                >
-                                                    Reject
-                                                </button>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
+                    ))}</tbody>
                 </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #92400E':'1px solid #E2E8F0', background: n===1?'#92400E10':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#92400E':'#64748B' }}>{n}</button>
+                    ))}</div>
+                </div>
             </div>
-
-            <TimesheetDetailModal
-                isOpen={!!selectedTimesheet}
-                onClose={() => setSelectedTimesheet(null)}
-                timesheet={selectedTimesheet}
-            />
         </div>
     );
 }

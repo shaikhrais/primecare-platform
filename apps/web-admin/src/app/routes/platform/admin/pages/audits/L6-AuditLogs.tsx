@@ -1,152 +1,56 @@
 // ================================================================
-// PAGE IDENTITY: L6 � Audit Logs
-// Registry ID:   page.admin.audits
-// Type:          List
-// Owner:         admin
+// PAGE IDENTITY: L6 · Audit Logs
+// Type: List | Owner: admin
 // ================================================================
-import React, { useState, useEffect } from 'react';
-import EmptyState from '@/shared/components/layout/EmptyState';
-import { useTranslation } from 'react-i18next';
-import { AdminRegistry } from 'prime-care-shared';
+import React, { useState } from 'react';
 
-const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
-interface AuditRecord {
-    id: string;
-    action: string;
-    actor: { email: string };
-    resourceType: string;
-    createdAt: string;
-    metadataJson: any;
-}
-
-export default function GovernanceAuditPage() {
-    const { t } = useTranslation();
-    const [logs, setLogs] = useState<AuditRecord[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const exportBtn = ButtonRegistry.find((b: any) => b.id === 'btn-adm-reports-export');
-
-    useEffect(() => {
-        const fetchLogs = async () => {
-            try {
-                // In a real scenario, this would hit ApiRegistry.SECURITY.PLATFORM_AUDIT_LOGS
-                await new Promise(resolve => setTimeout(resolve, 600));
-                setLogs([
-                    { id: '1', action: 'USER_INVITE', actor: { email: 'admin@primecare.com' }, resourceType: 'USER', createdAt: '2026-03-04 10:20', metadataJson: { email: 'new.staff@branch.com' } },
-                    { id: '2', action: 'API_KEY_GENERATE', actor: { email: 'sm@primecare.com' }, resourceType: 'SECURITY', createdAt: '2026-03-04 11:45', metadataJson: { name: 'Worker-Edge-Node' } },
-                    { id: '3', action: 'INCIDENT_RESOLVE', actor: { email: 'manager@branch.com' }, resourceType: 'OPERATIONS', createdAt: '2026-03-04 14:10', metadataJson: { incidentId: 'inc-992' } },
-                ]);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLogs();
-    }, []);
-
+export default function AuditLogs() {
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div data-cy="audit-logs-page" style={{ animation: 'fadeIn 0.5s ease-out' }}>
-            <style>
-                {`
-                    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-                    .glass-card {
-                        background: rgba(255, 255, 255, 0.7);
-                        backdrop-filter: blur(12px);
-                        border: 1px solid rgba(255, 255, 255, 0.3);
-                        border-radius: 24px;
-                        padding: 2rem;
-                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-                    }
-                    .audit-row {
-                        display: grid;
-                        grid-template-columns: 100px 1fr 150px 200px 150px;
-                        gap: 1.5rem;
-                        padding: 1.25rem;
-                        border-bottom: 1px solid #f1f5f9;
-                        align-items: center;
-                        transition: all 0.2s;
-                    }
-                    .audit-row:hover { background: #f8fafc; border-radius: 12px; transform: scale(1.005); }
-                    .badge {
-                        padding: 4px 10px;
-                        border-radius: 8px;
-                        font-size: 0.7rem;
-                        font-weight: 800;
-                        text-transform: uppercase;
-                        letter-spacing: 0.05em;
-                    }
-                `}
-            </style>
-
-            <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div data-cy="L6-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
-                    <h1 style={{ margin: 0, fontSize: '2.25rem', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em' }}>Platform Governance</h1>
-                    <p style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '1.1rem' }}>Master audit logs for security, operations, and clinical integrity.</p>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📋 Audit Logs</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
                 </div>
-                <div style={{ display: 'flex', gap: '12px' }}>
-                    <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#94a3b8', marginBottom: '4px' }}>HEALTH STATUS</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981', fontWeight: 700 }}>
-                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }}></span>
-                            VERIFIED SECURE
-                        </div>
-                    </div>
-                </div>
+                <button style={{ padding: '10px 20px', background: '#7C3AED', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
-
-            <div className="glass-card">
-                <div className="audit-row" style={{ color: '#94a3b8', fontSize: '0.7rem', fontWeight: 800, border: 'none', paddingBottom: '1rem' }}>
-                    <div>RESOURCE</div>
-                    <div>ACTION / METADATA</div>
-                    <div>ACTOR</div>
-                    <div>TIMELINE</div>
-                    <div style={{ textAlign: 'right' }}>STATUS</div>
-                </div>
-
-                {loading ? (
-                    <div style={{ padding: '4rem', textAlign: 'center', color: '#64748b' }}>Orchestrating audit records...</div>
-                ) : logs.length === 0 ? (
-                    <EmptyState
-                        title="No Audit Trails"
-                        description="There are currently no governance audit logs recorded in the system."
-                        icon="🛡️"
-                    />
-                ) : (
-                    logs.map(log => (
-                        <div key={log.id} className="audit-row">
-                            <div>
-                                <span className="badge" style={{ background: '#f1f5f9', color: '#475569' }}>{log.resourceType}</span>
-                            </div>
-                            <div>
-                                <div style={{ fontWeight: 800, color: '#1e293b', marginBottom: '4px' }}>{log.action}</div>
-                                <div style={{ fontSize: '0.8rem', color: '#94a3b8', fontFamily: 'monospace' }}>
-                                    {JSON.stringify(log.metadataJson)}
-                                </div>
-                            </div>
-                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#64748b' }}>{log.actor.email.split('@')[0]}</div>
-                            <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{log.createdAt}</div>
-                            <div style={{ textAlign: 'right' }}>
-                                <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>SIGNED</span>
-                            </div>
-                        </div>
-                    ))
-                )}
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #7C3AED' : '1px solid #E2E8F0', background: filter === s ? '#7C3AED10' : 'white', color: filter === s ? '#7C3AED' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
             </div>
-
-            <div style={{ marginTop: '2rem', padding: '1.5rem', background: '#0f172a', borderRadius: '20px', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                    <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🛡️</div>
-                    <div>
-                        <h4 style={{ margin: 0, fontWeight: 800 }}>Immutable Log Policy</h4>
-                        <p style={{ margin: 0, fontSize: '0.8rem', opacity: 0.6 }}>Logs are cryptographically hashed and cannot be modified or deleted by any role.</p>
-                    </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Timestamp</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>User</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Action</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Resource</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>IP Address</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                        </tr>
+                    ))}</tbody>
+                </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #7C3AED':'1px solid #E2E8F0', background: n===1?'#7C3AED10':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#7C3AED':'#64748B' }}>{n}</button>
+                    ))}</div>
                 </div>
-                <button
-                    style={{ background: 'white', color: '#0f172a', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: 800, cursor: 'pointer' }}
-                    data-cy="btn-adm-reports-export"
-                >
-                    {exportBtn?.label || 'Generate Forensic Export'}
-                </button>
             </div>
         </div>
     );

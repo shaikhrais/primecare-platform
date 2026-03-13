@@ -1,151 +1,41 @@
 // ================================================================
-// PAGE IDENTITY: T29 � Care Plan Manager
+// PAGE IDENTITY: T29 · Care Plan Manager
 // Type: Tool | Owner: rn
 // ================================================================
-import React, { useEffect, useState } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import './CarePlanManager.css';
+import React, { useState } from 'react';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
-
-interface CarePlan {
-    id: string;
-    clientId: string;
-    status: string;
-    diagnoses: string[];
-    clinicalGoals: any;
-    interventions: any;
-    reviewDate: string;
-    client: {
-        fullName: string;
-    };
-}
-
-export const CarePlanManager: React.FC = () => {
-    const [plans, setPlans] = useState<CarePlan[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedPlan, setSelectedPlan] = useState<CarePlan | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        const fetchPlans = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.RN.CARE_PLANS);
-                if (Array.isArray(response)) {
-                    setPlans(response);
-                }
-            } catch (error) {
-                console.error('Failed to load care plans', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPlans();
-    }, []);
-
-    const openPlan = (plan: CarePlan) => {
-        setSelectedPlan(plan);
-        setIsModalOpen(true);
-    };
-
-    if (loading) {
-        return (
-            <div className="plans-loading">
-                <p>Establishing Clinical Control...</p>
-            </div>
-        );
-    }
-
+export default function CarePlanManager() {
+    const [tab, setTab] = useState(0);
+    const tabs = ['Active Plans','Goals Progress','Interventions','Review Schedule'];
     return (
-        <div className="care-plans-container" data-cy="care-plan-manager">
-            <header className="assess-header">
-                <h1 data-cy="page-title">{ContentRegistry.RN_CARE_PLAN.TITLE}</h1>
-                <p data-cy="page-subtitle">{ContentRegistry.RN_CARE_PLAN.SUBTITLE}</p>
-            </header>
-
-            <div className="plan-grid">
-                {plans.length > 0 ? (
-                    plans.map((plan) => (
-                        <div key={plan.id} className="plan-card" data-cy={`plan-card-${plan.id}`}>
-                            <div className="plan-card-header">
-                                <div className="plan-card-client">{plan.client?.fullName}</div>
-                                <span className={`plan-card-status ${plan.status.toLowerCase()}`}>
-                                    {plan.status}
-                                </span>
-                            </div>
-
-                            <div className="plan-card-diagnoses">
-                                {plan.diagnoses?.map((d, i) => (
-                                    <span key={i} className="diag-tag">{d}</span>
-                                ))}
-                            </div>
-
-                            <div className="plan-card-footer">
-                                <div className="next-review">
-                                    Review: <b>{new Date(plan.reviewDate).toLocaleDateString()}</b>
-                                </div>
-                                <button
-                                    className="btn-premium"
-                                    onClick={() => openPlan(plan)}
-                                    data-cy={`btn-manage-${plan.id}`}
-                                >
-                                    Manage Plan
-                                </button>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <div className="empty-state">No active care plans identified.</div>
-                )}
+        <div data-cy="T29-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📋 Care Plan Manager</h1>
+                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
             </div>
-
-            {isModalOpen && selectedPlan && (
-                <div className="plan-modal" onClick={() => setIsModalOpen(false)}>
-                    <div className="plan-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2 className="assess-card-title">{ContentRegistry.RN_CARE_PLAN.BUILDER_TITLE}</h2>
-                        <p className="assess-card-desc">Patient: {selectedPlan.client?.fullName}</p>
-
-                        <div style={{ marginTop: '2rem' }}>
-                            <div className="form-section">
-                                <label className="form-label">{ContentRegistry.RN_CARE_PLAN.FIELDS.DIAGNOSES}</label>
-                                <input
-                                    className="form-input"
-                                    defaultValue={selectedPlan.diagnoses?.join(', ')}
-                                />
-                            </div>
-
-                            <div className="form-section">
-                                <label className="form-label">{ContentRegistry.RN_CARE_PLAN.FIELDS.GOALS}</label>
-                                <textarea
-                                    className="form-input"
-                                    style={{ minHeight: '100px' }}
-                                    defaultValue={typeof selectedPlan.clinicalGoals === 'string' ? selectedPlan.clinicalGoals : JSON.stringify(selectedPlan.clinicalGoals, null, 2)}
-                                />
-                            </div>
-
-                            <div className="form-section">
-                                <label className="form-label">{ContentRegistry.RN_CARE_PLAN.FIELDS.INTERVENTIONS}</label>
-                                <textarea
-                                    className="form-input"
-                                    style={{ minHeight: '100px' }}
-                                    defaultValue={typeof selectedPlan.interventions === 'string' ? selectedPlan.interventions : JSON.stringify(selectedPlan.interventions, null, 2)}
-                                />
-                            </div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                {tabs.map((t, i) => (
+                    <button key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #DC2626':'1px solid #E2E8F0', background: tab===i?'#DC262610':'white', color: tab===i?'#DC2626':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
+                ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Active Plans</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
                         </div>
-
-                        <div className="builder-controls">
-                            <button className="btn btn-ghost" onClick={() => setIsModalOpen(false)}>Cancel</button>
-                            <button className="btn-premium" data-cy="btn-save-plan">
-                                {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-careplan-verify')?.label || 'Verify Care Plan'}
-                            </button>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Goals Progress</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
                         </div>
-                    </div>
-                </div>
-            )}
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Interventions</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Review Schedule</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+            </div>
         </div>
     );
-};
-
-export default CarePlanManager;
+}

@@ -1,144 +1,41 @@
 // ================================================================
-// PAGE IDENTITY: T30 � Entry Verify
+// PAGE IDENTITY: T30 · Entry Verify
 // Type: Tool | Owner: rn
 // ================================================================
-import React, { useEffect, useState } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import { useNotification } from '@/shared/context/NotificationContext';
-import './EntryVerify.css';
+import React, { useState } from 'react';
 
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
-
-interface AuditEntry {
-    id: string;
-    visitId: string;
-    psw: {
-        fullName: string;
-    };
-    client: {
-        fullName: string;
-    };
-    visitTime: string;
-    highlights: string;
-    verificationStatus: string;
-}
-
-export const EntryVerify: React.FC = () => {
-    const [entries, setEntries] = useState<AuditEntry[]>([]);
-    const [loading, setLoading] = useState(true);
-    const { showToast } = useNotification();
-
-    useEffect(() => {
-        fetchEntries();
-    }, []);
-
-    const fetchEntries = async () => {
-        try {
-            setLoading(true);
-            const response = await apiClient.get(ApiRegistry.TENANCY.RN.DAILY_AUDIT_LIST);
-            if (Array.isArray(response)) {
-                setEntries(response);
-            }
-        } catch (error) {
-            console.error('Failed to load audit entries', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleVerify = async (entry: AuditEntry) => {
-        try {
-            await apiClient.post(ApiRegistry.TENANCY.RN.DAILY_AUDIT_SIGN_OFF, {
-                visitId: entry.visitId,
-                status: 'verified',
-                clinicalComment: 'Verified via Phase 1 Foundation Sync.'
-            });
-            // Refresh list
-            fetchEntries();
-        } catch (error) {
-            console.error('Failed to verify entry', error);
-            showToast('Verification failed. Technical audit logs updated.', 'error');
-        }
-    };
-
-    if (loading) {
-        return (
-            <div className="audit-loading">
-                <p>Retrieving Clinical Ledger...</p>
-            </div>
-        );
-    }
-
+export default function EntryVerify() {
+    const [tab, setTab] = useState(0);
+    const tabs = ['Pending Entries','Verified','Flagged','Audit Trail'];
     return (
-        <div className="audit-container" data-cy="audit-ledger">
-            <header className="assess-header">
-                <h1 data-cy="page-title">{ContentRegistry.RN_DAILY_AUDIT.TITLE}</h1>
-                <p data-cy="page-subtitle">{ContentRegistry.RN_DAILY_AUDIT.SUBTITLE}</p>
-                {/* Phase 13 RN Actions */}
-                <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
-                        try {
-                            await apiClient.post('/v1/rn/clinical/sign-off', { visitId: '00000000-0000-0000-0000-000000000000', status: 'verified' });
-                            showToast('Entry Verified globally.', 'success');
-                        } catch { showToast('Verification failed.', 'error'); }
-                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-entry-verify')?.label || 'Verify Entry'}</button>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
-                        try {
-                            await apiClient.post('/v1/rn/clinical/care-plans', { clientId: 'test', document: {} });
-                            showToast('Careplan Saved on the ledger.', 'success');
-                        } catch { showToast('Careplan Save rejected.', 'error'); }
-                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-careplan-save')?.label || 'Save Careplan'}</button>
-                    <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
-                        try {
-                            await apiClient.post('/v1/rn/clinical/sign-off', { visitId: '00000000-0000-0000-0000-000000000000', status: 'flagged' });
-                            showToast('Daily Review flagged.', 'success');
-                        } catch { showToast('Review transition failed.', 'error'); }
-                    }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-daily-review')?.label || 'Daily Review'}</button>
-                </div>
-            </header>
-
-            <div className="audit-stack">
-                {entries.length > 0 ? (
-                    entries.map((entry) => (
-                        <div key={entry.id} className="audit-card" data-cy={`audit-card-${entry.id}`}>
-                            <div className="audit-card-main">
-                                <div className="audit-card-meta">
-                                    <span className="visit-tag">{entry.visitId}</span>
-                                    <span style={{ color: 'var(--text-400)', fontSize: '0.8rem' }}>{new Date(entry.visitTime).toLocaleString()}</span>
-                                </div>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '8px 0' }}>{entry.client?.fullName}</h3>
-                                <p style={{ fontSize: '0.9rem', color: 'var(--text-400)' }}>
-                                    Documented by <b style={{ color: 'var(--text-200)' }}>{entry.psw?.fullName}</b>
-                                </p>
-                                <div className="audit-card-content">
-                                    {entry.highlights}
-                                </div>
-                            </div>
-
-                            <div className="audit-card-actions">
-                                <button
-                                    className="btn-premium"
-                                    data-cy={`btn-verify-${entry.id}`}
-                                    onClick={() => handleVerify(entry)}
-                                >
-                                    {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-sign-off')?.label || 'Approve Visit'}
-                                </button>
-                                <button className="btn btn-ghost" style={{ fontSize: '12px' }}>Flag for Review</button>
-                                <button className="btn btn-ghost" style={{ fontSize: '12px', color: 'var(--brand-primary)' }}>Full Visit Profile →</button>
-                            </div>
+        <div data-cy="T30-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>✔️ Entry Verify</h1>
+                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                {tabs.map((t, i) => (
+                    <button key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #DC2626':'1px solid #E2E8F0', background: tab===i?'#DC262610':'white', color: tab===i?'#DC2626':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
+                ))}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Pending Entries</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
                         </div>
-                    ))
-                ) : (
-                    <div className="audit-empty-state">
-                        <div className="audit-empty-icon">✅</div>
-                        <h3 className="assess-card-title">Daily Audit in Good Standing</h3>
-                        <p className="assess-card-desc">No high-risk entries requiring clinical intervention detected.</p>
-                    </div>
-                )}
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Verified</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Flagged</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
+                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
+                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Audit Trail</div>
+                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
+                        </div>
             </div>
         </div>
     );
-};
-
-export default EntryVerify;
+}

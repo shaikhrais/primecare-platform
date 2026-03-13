@@ -1,195 +1,59 @@
 // ================================================================
-// PAGE IDENTITY: L17 � Open Shifts
+// PAGE IDENTITY: L17 · Open Shifts
 // Type: List | Owner: psw
 // ================================================================
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
-import EmptyState from '@/shared/components/layout/EmptyState';
-import { ArrowRightLeft, MapPin, Check, X as XIcon } from 'lucide-react';
+import React, { useState } from 'react';
 
-const { RouteRegistry } = AdminRegistry;
-
-interface Shift {
-    id: string;
-    client: { city: string; postalCode?: string };
-    service: { name: string };
-    requestedStartAt: string;
-    durationMinutes: number;
-    serviceAddressLine1: string;
-    offeredBy?: string; // For peer swaps
-    offeredByRole?: string;
-    note?: string;
-}
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
 export default function OpenShifts() {
-    const { showToast } = useNotification();
-    const navigate = useNavigate();
-    const [shifts, setShifts] = useState<Shift[]>([]);
-    const [peerSwaps, setPeerSwaps] = useState<Shift[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'marketplace' | 'swap_board'>('marketplace');
-
-    const fetchMarketplaceShifts = async () => {
-        setLoading(true);
-        try {
-            const [shiftsRes, swapsRes] = await Promise.all([
-                apiClient.get('/v1/psw/schedule/marketplace'),
-                apiClient.get('/v1/psw/schedule/marketplace/swaps')
-            ]);
-            
-            if (shiftsRes.ok) {
-                const data = await shiftsRes.json();
-                setShifts(data);
-            } else {
-                showToast('Failed to load marketplace shifts', 'error');
-            }
-
-            if (swapsRes.ok) {
-                const swapData = await swapsRes.json();
-                setPeerSwaps(swapData);
-            }
-        } catch (error) {
-            console.error('Error fetching marketplace shifts:', error);
-            showToast('Network error loading shifts', 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchMarketplaceShifts();
-    }, []);
-
-    const handleAcceptShift = async (id: string, isSwap = false) => {
-        if (isSwap) {
-            showToast('Swap request sent to manager for approval.', 'success');
-            setPeerSwaps(prev => prev.filter(s => s.id !== id));
-            return;
-        }
-
-        try {
-            const res = await apiClient.post(`/v1/psw/schedule/marketplace/${id}/accept`);
-            if (res.ok) {
-                showToast('Shift accepted successfully!', 'success');
-                if (window.navigator?.vibrate) window.navigator.vibrate([50]);
-                navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
-            } else {
-                const data = await res.json();
-                showToast(data.error || 'Failed to accept shift. It may no longer be available.', 'error');
-                fetchMarketplaceShifts(); // Refresh list to remove taken shift
-            }
-        } catch (error) {
-            showToast('Network error while accepting shift', 'error');
-        }
-    };
-
-    // Suggestion 46: Guilt-Free Rejection UI
-    const handlePassShift = (id: string, isSwap = false) => {
-        if (isSwap) setPeerSwaps(prev => prev.filter(s => s.id !== id));
-        else setShifts(prev => prev.filter(s => s.id !== id));
-    };
-
-    const renderShiftCard = (shift: Shift, isSwap: boolean) => (
-        <div key={shift.id} style={{
-            backgroundColor: '#FFFFFF', padding: '1.5rem', borderRadius: '16px', border: '1px solid #E5E7EB',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', display: 'flex', flexDirection: 'column'
-        }}>
-            {isSwap && (
-                <div style={{ backgroundColor: '#EEF2FF', color: '#4F46E5', padding: '8px 12px', borderRadius: '8px', marginBottom: '16px', fontSize: '0.85rem', fontWeight: 700, display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <ArrowRightLeft size={16} />
-                    <span>Offered by {shift.offeredBy}</span>
-                </div>
-            )}
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <span style={{ backgroundColor: '#F3F4F6', color: '#374151', padding: '4px 12px', borderRadius: '20px', fontWeight: 700, fontSize: '0.75rem' }}>
-                    {shift.service?.name}
-                </span>
-                <span style={{ fontSize: '0.875rem', color: '#6B7280', fontWeight: 600 }}>{shift.durationMinutes / 60} hrs</span>
-            </div>
-
-            <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.2rem', color: '#111827' }}>
-                {new Date(shift.requestedStartAt).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
-            </h3>
-            <p style={{ margin: '0 0 1rem 0', fontSize: '1.4rem', fontWeight: 800, color: '#3B82F6' }}>
-                {new Date(shift.requestedStartAt).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
-            </p>
-
-            <div style={{ marginBottom: '1.5rem', color: '#4B5563', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <MapPin size={16} /> {shift.client?.city} Area
-            </div>
-
-            {isSwap && shift.note && (
-                <div style={{ padding: '12px', backgroundColor: '#F9FAFB', borderLeft: '3px solid #D1D5DB', marginBottom: '16px', fontSize: '0.85rem', color: '#6B7280', fontStyle: 'italic' }}>
-                    "{shift.note}"
-                </div>
-            )}
-
-            <div style={{ marginTop: 'auto', display: 'flex', gap: '12px' }}>
-                {/* Frictionless, neutral 'Pass' button removes it immediately without guilt modals */}
-                <button
-                    onClick={() => handlePassShift(shift.id, isSwap)}
-                    style={{
-                        flex: 1, padding: '12px', backgroundColor: '#F3F4F6', color: '#4B5563', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                    }}
-                >
-                    <XIcon size={18} /> Pass
-                </button>
-                <button
-                    onClick={() => handleAcceptShift(shift.id, isSwap)}
-                    style={{
-                        flex: 2, padding: '12px', backgroundColor: '#0F172A', color: '#FFFFFF', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                    }}
-                >
-                    <Check size={18} /> Accept
-                </button>
-            </div>
-        </div>
-    );
-
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: 900, margin: '0 0 16px 0', color: '#111827' }}>Shift Marketplace</h1>
-
-                <div style={{ display: 'flex', gap: '12px', borderBottom: '2px solid #E5E7EB', paddingBottom: '0' }}>
-                    <button
-                        onClick={() => setActiveTab('marketplace')}
-                        style={{ padding: '12px 24px', background: 'none', border: 'none', borderBottom: activeTab === 'marketplace' ? '3px solid #3B82F6' : '3px solid transparent', color: activeTab === 'marketplace' ? '#3B82F6' : '#6B7280', fontWeight: 800, fontSize: '1rem', cursor: 'pointer' }}
-                    >
-                        Open Agency Shifts ({shifts.length})
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('swap_board')}
-                        style={{ padding: '12px 24px', background: 'none', border: 'none', borderBottom: activeTab === 'swap_board' ? '3px solid #4F46E5' : '3px solid transparent', color: activeTab === 'swap_board' ? '#4F46E5' : '#6B7280', fontWeight: 800, fontSize: '1rem', cursor: 'pointer' }}
-                    >
-                        Peer Swap Board ({peerSwaps.length})
-                    </button>
+        <div data-cy="L17-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📅 Open Shifts</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
+                </div>
+                <button style={{ padding: '10px 20px', background: '#065F46', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
+            </div>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #065F46' : '1px solid #E2E8F0', background: filter === s ? '#065F4610' : 'white', color: filter === s ? '#065F46' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Shift Date</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Time</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Client</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Location</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Pay Rate</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Distance</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                        </tr>
+                    ))}</tbody>
+                </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #065F46':'1px solid #E2E8F0', background: n===1?'#065F4610':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#065F46':'#64748B' }}>{n}</button>
+                    ))}</div>
                 </div>
             </div>
-
-            {loading ? (
-                <div style={{ padding: '3rem', textAlign: 'center', color: '#6B7280' }}>Loading available shifts...</div>
-            ) : activeTab === 'marketplace' ? (
-                shifts.length > 0 ? (
-                    <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
-                        {shifts.map(shift => renderShiftCard(shift, false))}
-                    </div>
-                ) : (
-                    <EmptyState title="No Open Shifts Available" description="There are currently no unfilled shifts in your service area." />
-                )
-            ) : (
-                peerSwaps.length > 0 ? (
-                    <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
-                        {peerSwaps.map(shift => renderShiftCard(shift, true))}
-                    </div>
-                ) : (
-                    <EmptyState title="No Swaps Requested" description="None of your peers have posted shifts to the Swap Board recently." />
-                )
-            )}
         </div>
     );
 }

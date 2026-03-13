@@ -1,155 +1,59 @@
 // ================================================================
-// PAGE IDENTITY: L16 � PSW Schedule
+// PAGE IDENTITY: L16 · PSW Schedule
 // Type: List | Owner: psw
 // ================================================================
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useNotification } from '@/shared/context/NotificationContext';
-import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
-import EmptyState from '@/shared/components/layout/EmptyState';
-import './ShiftsPage.css';
+import React, { useState } from 'react';
 
-const CONTENT = ContentRegistry.PSW_SCHEDULE;
-const DASH_CONTENT = ContentRegistry.PSW_DASHBOARD;
-const API = AdminRegistry.ApiRegistry.PSW;
+const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
 
-export default function ShiftsPage() {
-    const { t } = useTranslation();
-    const { showToast } = useNotification();
-    const navigate = useNavigate();
-    const [shifts, setShifts] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const fetchShifts = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.get(API.VISITS);
-            if (response.ok) {
-                const data = await response.json();
-                setShifts(Array.isArray(data) ? data : []);
-            } else {
-                setShifts([]);
-            }
-        } catch (error) {
-            console.error('Failed to fetch shifts', error);
-            setShifts([]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchShifts();
-    }, []);
-
-    const getStatusClass = (status: string) => {
-        switch ((status || '').toLowerCase()) {
-            case 'scheduled': return 'status-scheduled';
-            case 'in_progress': return 'status-in-progress';
-            case 'completed': return 'status-completed';
-            default: return '';
-        }
-    };
-
-    const COMMON = ContentRegistry.COMMON;
-
+export default function PswSchedule() {
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('all');
     return (
-        <div className="shifts-page-container" data-cy="page.container">
-            <header className="shifts-header">
-                <div className="header-group">
-                    <h1>{CONTENT.TITLE}</h1>
-                    <p>{CONTENT.SUBTITLE}</p>
+        <div data-cy="L16-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📆 PSW Schedule</h1>
+                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
                 </div>
-            </header>
-
-            <div className="shifts-stats-grid">
-                <div className="stats-card">
-                    <span className="stats-label">{DASH_CONTENT.STATS.WEEKLY_HOURS}</span>
-                    <span className="stats-value">38.5{COMMON.UNITS.HOURS}</span>
-                </div>
-                <div className="stats-card" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white' }}>
-                    <span className="stats-label" style={{ color: 'rgba(255,255,255,0.6)' }}>{DASH_CONTENT.STATS.NEXT_VISIT}</span>
-                    <span className="stats-value" style={{ color: 'white' }}>2h 15m</span>
-                </div>
-                <div className="stats-card">
-                    <span className="stats-label">{DASH_CONTENT.STATS.PENDING_PAYOUT}</span>
-                    <span className="stats-value">$1,240.00</span>
-                </div>
+                <button style={{ padding: '10px 20px', background: '#065F46', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
-
-            <div className="schedule-container">
-                <div className="schedule-title-bar">
-                    <h3>{DASH_CONTENT.SECTION_SHIFTS}</h3>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                {['all','active','pending','closed'].map(s => (
+                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #065F46' : '1px solid #E2E8F0', background: filter === s ? '#065F4610' : 'white', color: filter === s ? '#065F46' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                ))}
+            </div>
+            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Date</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Time</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Client</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Service</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Location</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Duration</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
+                    </tr></thead>
+                    <tbody>{MOCK.map(r => (
+                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
+                        </tr>
+                    ))}</tbody>
+                </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
+                    <span>Showing 1–10 of 48</span>
+                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
+                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #065F46':'1px solid #E2E8F0', background: n===1?'#065F4610':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#065F46':'#64748B' }}>{n}</button>
+                    ))}</div>
                 </div>
-
-                {loading ? (
-                    <div className="loading-state">
-                        <div className="loading-spinner"></div>
-                        <p>{CONTENT.MESSAGES.LOADING}</p>
-                    </div>
-                ) : shifts.length > 0 ? (
-                    <table className="schedule-table">
-                        <thead>
-                            <tr>
-                                <th>{CONTENT.TABLE.CLIENT}</th>
-                                <th>{CONTENT.TABLE.LOCATION}</th>
-                                <th>{CONTENT.TABLE.DATETIME}</th>
-                                <th>{CONTENT.TABLE.SERVICE}</th>
-                                <th>{CONTENT.TABLE.STATUS}</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {shifts.map((shift) => (
-                                <tr
-                                    key={shift.id}
-                                    className="schedule-row"
-                                    data-cy={`row-shift-${shift.id}`}
-                                >
-                                    <td>
-                                        <span className="client-name">{shift.client?.fullName || COMMON.FALLBACKS.REGISTRY_NODE}</span>
-                                    </td>
-                                    <td>
-                                        <span className="client-location">
-                                            {shift.client?.addressLine1 || COMMON.FALLBACKS.NA}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span className="visit-time">
-                                            {shift.requestedStartAt ? new Date(shift.requestedStartAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : COMMON.FALLBACKS.TBD}
-                                        </span>
-                                    </td>
-                                    <td>{shift.service?.name || COMMON.FALLBACKS.CARE_SERVICE}</td>
-                                    <td>
-                                        <span className={`status-badge ${getStatusClass(shift.status)}`}>
-                                            {shift.status}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button
-                                            className="btn-primary-pc"
-                                            data-cy={`btn-view-shift-${shift.id}`}
-                                            onClick={() => navigate(`${AdminRegistry.RouteRegistry.PSW.CHECK_IN.replace(':id', shift.id)}`)}
-                                        >
-                                            {t('psw.view_shift', { defaultValue: 'View Shift' })}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <EmptyState
-                        title="No Upcoming Shifts"
-                        description="You currently have no scheduled visits. Please check the Open Shifts board for available opportunities."
-                        actionLabel="Find Open Shifts"
-                        onAction={() => navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD)}
-                    />
-                )}
             </div>
         </div>
     );
 }
-
