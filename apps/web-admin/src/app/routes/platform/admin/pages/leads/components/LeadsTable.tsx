@@ -127,7 +127,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                         style={{ color: '#059669', background: '#ecfdf5', border: '1px solid #10b981', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', cursor: 'pointer', fontWeight: '600', fontSize: '0.75rem' }}
                                         data-cy={`btn-adm-leads-convert-${lead.id}`}
                                     >
-                                        {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-leads-convert')?.label || 'Convert'}
+                                        {getButtonById('btn-adm-leads-convert')?.label || 'Convert'}
                                     </button>
                                     <button data-cy="btn-admin.leads-table-1"
                                         onClick={() => {

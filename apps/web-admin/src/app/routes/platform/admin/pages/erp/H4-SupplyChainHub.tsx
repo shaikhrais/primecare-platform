@@ -41,8 +41,8 @@ export default function SupplyChainHub() {
         fetchInventory();
     }, []);
 
-    const addBtn = ButtonRegistry.find((b: any) => b.id === 'btn-erp-inventory-add');
-    const poBtn = ButtonRegistry.find((b: any) => b.id === 'btn-erp-po-create');
+    const addBtn = getButtonById('btn-erp-inventory-add');
+    const poBtn = getButtonById('btn-erp-po-create');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>

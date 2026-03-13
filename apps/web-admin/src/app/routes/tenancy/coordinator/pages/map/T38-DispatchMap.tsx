@@ -132,7 +132,7 @@ export default function DispatchMap() {
                         }}
                         style={{ background: 'white', color: '#475569', border: '1px solid #cbd5e1' }}
                     >
-                        {ButtonRegistry.find(b => b.id === 'btn-coord-gps-ping')?.label || 'Ping Location'}
+                        {getButtonById('btn-coord-gps-ping')?.label || 'Ping Location'}
                     </button>
                 </div>
             </header>

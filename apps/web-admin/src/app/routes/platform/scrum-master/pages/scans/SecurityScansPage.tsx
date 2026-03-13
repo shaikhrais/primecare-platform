@@ -4,7 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 const { ButtonRegistry } = AdminRegistry;
 
 const SecurityScansPage: React.FC = () => {
-    const scanBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sm-scan-security');
+    const scanBtn = getButtonById('btn-sm-scan-security');
 
     return (
         <div data-cy="page.container" style={{ padding: '2rem' }}>

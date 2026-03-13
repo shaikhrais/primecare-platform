@@ -71,7 +71,7 @@ export default function SovereignWallet() {
                             disabled={isSharing}
                             data-cy="btn-wallet-did-verify"
                         >
-                            {isSharing ? 'Sharing Proof...' : (ButtonRegistry.find((b: any) => b.id === 'btn-wallet-did-verify')?.label || 'Authorize Secure Access')}
+                            {isSharing ? 'Sharing Proof...' : (getButtonById('btn-wallet-did-verify')?.label || 'Authorize Secure Access')}
                         </button>
                     </div>
                 </div>

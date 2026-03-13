@@ -4,7 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 const { ContentRegistry, ButtonRegistry } = AdminRegistry;
 
 export default function SecurityDashboard() {
-    const flushBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sec-session-flush');
+    const flushBtn = getButtonById('btn-sec-session-flush');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px' }}>

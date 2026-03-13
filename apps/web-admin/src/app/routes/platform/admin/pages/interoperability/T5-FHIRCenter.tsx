@@ -57,7 +57,7 @@ export default function FHIRCenter() {
                                 onClick={generateFHIRRecord}
                                 data-cy="btn-adm-fhir-export"
                             >
-                                {ButtonRegistry.find((b: any) => b.id === 'btn-adm-fhir-export')?.label || 'Export FHIR Record'}
+                                {getButtonById('btn-adm-fhir-export')?.label || 'Export FHIR Record'}
                             </button>
                         </div>
                         {json && (

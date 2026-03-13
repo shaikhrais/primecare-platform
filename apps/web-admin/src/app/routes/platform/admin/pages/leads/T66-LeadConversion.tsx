@@ -78,7 +78,7 @@ export default function LeadConversion() {
                             disabled={loading}
                             style={{ flex: 1 }}
                         >
-                            {loading ? 'Converting...' : (ButtonRegistry.find((b: any) => b.id === 'btn-adm-leads-convert')?.label || 'Confirm Conversion')}
+                            {loading ? 'Converting...' : (getButtonById('btn-adm-leads-convert')?.label || 'Confirm Conversion')}
                         </button>
                     </div>
                 </div>

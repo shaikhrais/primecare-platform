@@ -15,7 +15,7 @@ const AutoPilotDashboard: React.FC = () => {
     const [result, setResult] = useState<{ processedVisits: number, offersCreated: number, message: string } | null>(null);
     const { showToast } = useNotification();
 
-    const engageBtn = ButtonRegistry.find((b: any) => b.id === 'btn-ai-autopilot-engage');
+    const engageBtn = getButtonById('btn-ai-autopilot-engage');
 
     const handleRunAutoPilot = async () => {
         setIsProcessing(true);

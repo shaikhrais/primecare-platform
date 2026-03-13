@@ -51,9 +51,9 @@ export const AssessmentsHub: React.FC = () => {
         return 'vital';
     };
 
-    const btnAdl = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-adl');
-    const btnMobility = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-mobility');
-    const btnMental = AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-assess-start-mental');
+    const btnAdl = getButtonById('btn-rn-assess-start-adl');
+    const btnMobility = getButtonById('btn-rn-assess-start-mobility');
+    const btnMental = getButtonById('btn-rn-assess-start-mental');
 
     if (loading) {
         return (
@@ -83,7 +83,7 @@ export const AssessmentsHub: React.FC = () => {
                         }
                     }}
                 >
-                    {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-rn-new-assessment')?.label || 'Start New Assessment'}
+                    {getButtonById('btn-rn-new-assessment')?.label || 'Start New Assessment'}
                 </button>
             </header>
 
@@ -96,7 +96,7 @@ export const AssessmentsHub: React.FC = () => {
                     } catch (e) {
                         showToast('Transmission rejected.', 'error');
                     }
-                }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-assess-submit')?.label || 'Submit Assess'}</button>
+                }}>{getButtonById('btn-rn-assess-submit')?.label || 'Submit Assess'}</button>
                 <button data-cy="btn-rn.assessments-hub-2" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
                     try {
                         await apiClient.post('/v1/rn/clinical/supervision', { pswId: 'test-psw', competencies: {}, isSatisfactory: true });
@@ -104,7 +104,7 @@ export const AssessmentsHub: React.FC = () => {
                     } catch (e) {
                         showToast('Failed to secure supervision footprint.', 'error');
                     }
-                }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-supervision-log')?.label || 'Log Supervision'}</button>
+                }}>{getButtonById('btn-rn-supervision-log')?.label || 'Log Supervision'}</button>
                 <button data-cy="btn-rn.assessments-hub-3" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
                     try {
                         await apiClient.post('/v1/rn/clinical/recon', { clientId: 'test-client', reconData: {} });
@@ -112,7 +112,7 @@ export const AssessmentsHub: React.FC = () => {
                     } catch (e) {
                         showToast('Synchronization collision.', 'error');
                     }
-                }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-recon-sync')?.label || 'Sync Recon'}</button>
+                }}>{getButtonById('btn-rn-recon-sync')?.label || 'Sync Recon'}</button>
             </div>
 
             <div className="bento-grid">

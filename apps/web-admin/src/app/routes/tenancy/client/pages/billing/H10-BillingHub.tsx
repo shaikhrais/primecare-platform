@@ -47,7 +47,7 @@ const BillingHub: React.FC = () => {
     }, []);
 
     const handlePayment = async (inv: Invoice) => {
-        const btn = ButtonRegistry.find(b => b.id === 'btn-client-pay-invoice');
+        const btn = getButtonById('btn-client-pay-invoice');
         if (!btn?.apiPath) return;
 
         try {

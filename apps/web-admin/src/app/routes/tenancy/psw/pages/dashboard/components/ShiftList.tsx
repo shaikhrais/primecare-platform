@@ -167,8 +167,8 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                             }}
                                         >
                                             {shifts[0].status.toLowerCase() === 'in_progress' ?
-                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-out')?.label || 'Clock Out') :
-                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-in')?.label || 'Clock In')
+                                                (getButtonById('btn-psw-clock-out')?.label || 'Clock Out') :
+                                                (getButtonById('btn-psw-clock-in')?.label || 'Clock In')
                                             }
                                         </button>
                                     )}
@@ -257,8 +257,8 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                             }}
                                         >
                                             {shift.status.toLowerCase() === 'in_progress' ?
-                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-out')?.label || 'Clock Out') :
-                                                (AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-clock-in')?.label || 'Clock In')
+                                                (getButtonById('btn-psw-clock-out')?.label || 'Clock Out') :
+                                                (getButtonById('btn-psw-clock-in')?.label || 'Clock In')
                                             }
                                         </button>
                                     )}

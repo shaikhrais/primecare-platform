@@ -29,7 +29,7 @@ export default function RegionMapping() {
                     onClick={async () => { const name = prompt('Enter region name:'); if (!name) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/regions', { name }); if (res.ok) showToast('Region created: ' + name, 'success'); else showToast('Failed to create region', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-adm-region-new"
                 >
-                    {ButtonRegistry.find((b: any) => b.id === 'btn-adm-region-new')?.label || 'Define New Region'}
+                    {getButtonById('btn-adm-region-new')?.label || 'Define New Region'}
                 </button>
             </div>
 

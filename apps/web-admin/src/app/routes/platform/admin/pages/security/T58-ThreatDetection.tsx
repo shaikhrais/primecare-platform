@@ -8,7 +8,7 @@ import { AdminRegistry } from 'prime-care-shared';
 const { ButtonRegistry } = AdminRegistry;
 
 export default function ThreatDetection() {
-    const scanBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sec-threat-scan');
+    const scanBtn = getButtonById('btn-sec-threat-scan');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px' }}>

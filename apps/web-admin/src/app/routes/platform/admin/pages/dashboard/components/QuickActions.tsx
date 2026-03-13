@@ -29,7 +29,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onPostShift }) => {
                     </Link>
                     <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
                         <button data-cy="btn-admin.quick-actions-1" className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
-                            <div style={{ color: 'var(--brand-500)' }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-schedule-optimize')?.label || t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_SCHEDULE)}</div>
+                            <div style={{ color: 'var(--brand-500)' }}>{getButtonById('btn-adm-schedule-optimize')?.label || t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_SCHEDULE)}</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.MANAGE_ASSIGNMENTS)}</div>
                         </button>
                     </Link>

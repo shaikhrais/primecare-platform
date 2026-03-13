@@ -77,7 +77,7 @@ const ResellerDashboard: React.FC = () => {
         }
     };
 
-    const provisionBtn = ButtonRegistry.find((b: any) => b.id === 'btn-reseller-provision');
+    const provisionBtn = getButtonById('btn-reseller-provision');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>

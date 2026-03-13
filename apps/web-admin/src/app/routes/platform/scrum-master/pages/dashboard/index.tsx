@@ -91,7 +91,7 @@ export default function ScrumMasterDashboard() {
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <Link to={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} className="btn-utility" style={{ background: 'var(--brand-gradient)', color: 'white' }}>
-                        📊 {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-summary-registry')?.label || t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}
+                        📊 {getButtonById('btn-sm-summary-registry')?.label || t(ContentRegistry.SUMMARY_DASHBOARD.CARDS.REGISTRY_HUB.TITLE)}
                     </Link>
                     <Link to={RouteRegistry.LEARN} className="btn-utility" style={{ background: 'var(--brand-50)', color: 'var(--brand-600)' }}>
                         🎓 {t(ContentRegistry.LEARN.TITLE)}
@@ -104,9 +104,9 @@ export default function ScrumMasterDashboard() {
 
             {/* Phase 13 actions */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '2rem' }}>
-                <button data-cy="btn-index-0" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.LOG_FLUSH || '/v1/scrum-master/forensics/flush', 'System audits purged.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-flush-audits')?.label || 'Flush Audits'}</button>
-                <button data-cy="btn-index-1" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.DB_RESEED || '/v1/scrum-master/governance/reseed', 'Governance reseed synchronized.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-db-reseed')?.label || 'Reseed Database'}</button>
-                <button data-cy="btn-index-2" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction('/v1/scrum-master/system/deploy', 'System deployment instantiated.')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-build-deploy')?.label || 'Deploy Build'}</button>
+                <button data-cy="btn-index-0" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.LOG_FLUSH || '/v1/scrum-master/forensics/flush', 'System audits purged.')}>{getButtonById('btn-sm-flush-audits')?.label || 'Flush Audits'}</button>
+                <button data-cy="btn-index-1" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction(AdminRegistry.ApiRegistry?.SCRUM_MASTER?.DB_RESEED || '/v1/scrum-master/governance/reseed', 'Governance reseed synchronized.')}>{getButtonById('btn-sm-db-reseed')?.label || 'Reseed Database'}</button>
+                <button data-cy="btn-index-2" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleAction('/v1/scrum-master/system/deploy', 'System deployment instantiated.')}>{getButtonById('btn-sm-build-deploy')?.label || 'Deploy Build'}</button>
             </div>
 
             {/* AI Copilot & Technical Governance (The "Future" layer) */}
@@ -204,7 +204,7 @@ export default function ScrumMasterDashboard() {
                 <Link to={RouteRegistry.SCRUM_MASTER.SECURITY_SCANS} style={{ textDecoration: 'none' }}>
                     <div className="sm-card">
                         <div style={{ background: 'linear-gradient(135deg, #f87171, #b91c1c)', width: '60px', height: '60px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', marginBottom: '1.5rem', color: 'white', filter: 'drop-shadow(0 4px 12px rgba(248, 113, 113, 0.3))' }}>🛡️</div>
-                        <h3 data-cy="h3-index-6" style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-sm-scan-security')?.label || 'Security Scans'}</h3>
+                        <h3 data-cy="h3-index-6" style={{ margin: '0 0 12px 0', color: 'var(--text-100)', fontSize: '1.5rem', fontWeight: 800 }}>{getButtonById('btn-sm-scan-security')?.label || 'Security Scans'}</h3>
                         <p style={{ margin: 0, color: 'var(--text-300)', lineHeight: 1.6 }}>
                             {t(ContentRegistry.SCRUM_MASTER.SECURITY_SCANS.SUBTITLE)}
                         </p>

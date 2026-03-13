@@ -67,7 +67,7 @@ export default function TaskGrid() {
                     <p className="subtitle">{STAFF_PORTAL.TASKS?.SUBTITLE || 'Real-time operational coordination'}</p>
                 </div>
                 <button data-cy="btn-staff.task-grid-0" className="btn-modern btn-primary">
-                    {ButtonRegistry.find(b => b.id === 'btn-staff-task-add')?.label || '+ New Task'}
+                    {getButtonById('btn-staff-task-add')?.label || '+ New Task'}
                 </button>
             </header>
 

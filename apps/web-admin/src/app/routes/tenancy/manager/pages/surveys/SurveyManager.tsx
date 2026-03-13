@@ -25,7 +25,7 @@ export default function SurveyManager() {
                     onClick={async () => { const title = prompt('Enter survey title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/surveys', { title }); if (res.ok) showToast('Survey created: ' + title, 'success'); else showToast('Failed to create survey', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-mgr-survey-new"
                 >
-                    {ButtonRegistry.find((b: any) => b.id === 'btn-mgr-survey-new')?.label || 'New Survey'}
+                    {getButtonById('btn-mgr-survey-new')?.label || 'New Survey'}
                 </button>
             </div>
 

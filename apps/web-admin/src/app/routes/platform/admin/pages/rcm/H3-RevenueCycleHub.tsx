@@ -37,8 +37,8 @@ export default function RevenueCycleHub() {
 
     useEffect(() => { fetchData(); }, []);
 
-    const submitBtn = ButtonRegistry.find((b: any) => b.id === 'btn-rcm-claim-submit');
-    const syncBtn = ButtonRegistry.find((b: any) => b.id === 'btn-rcm-revenue-sync');
+    const submitBtn = getButtonById('btn-rcm-claim-submit');
+    const syncBtn = getButtonById('btn-rcm-revenue-sync');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>

@@ -104,8 +104,8 @@ export default function PharmacyHub() {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
-    const orderBtn = ButtonRegistry.find((b: any) => b.id === 'btn-pharmacy-order');
-    const syncBtn = ButtonRegistry.find((b: any) => b.id === 'btn-pharmacy-mar-sync');
+    const orderBtn = getButtonById('btn-pharmacy-order');
+    const syncBtn = getButtonById('btn-pharmacy-mar-sync');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>

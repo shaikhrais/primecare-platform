@@ -51,8 +51,8 @@ export default function TelehealthCenter() {
         fetchData();
     }, []);
 
-    const startBtn = ButtonRegistry.find((b: any) => b.id === 'btn-telehealth-session-start');
-    const verifyBtn = ButtonRegistry.find((b: any) => b.id === 'btn-rpm-vitals-verify');
+    const startBtn = getButtonById('btn-telehealth-session-start');
+    const verifyBtn = getButtonById('btn-rpm-vitals-verify');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>

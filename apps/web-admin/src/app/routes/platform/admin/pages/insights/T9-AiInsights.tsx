@@ -20,7 +20,7 @@ const data = [
 ];
 
 export default function AIInsights() {
-    const refreshBtn = ButtonRegistry.find((b: any) => b.id === 'btn-ai-insights-refresh');
+    const refreshBtn = getButtonById('btn-ai-insights-refresh');
 
     return (
         <div data-cy="page.container" style={{ padding: '24px' }}>

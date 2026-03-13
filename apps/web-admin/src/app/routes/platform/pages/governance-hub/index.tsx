@@ -4,8 +4,8 @@ import { AdminRegistry } from 'prime-care-shared';
 const { ButtonRegistry } = AdminRegistry;
 
 export default function GovernanceHub() {
-    const healthBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sup-health-refresh');
-    const policyBtn = ButtonRegistry.find((b: any) => b.id === 'btn-sup-policy-push');
+    const healthBtn = getButtonById('btn-sup-health-refresh');
+    const policyBtn = getButtonById('btn-sup-policy-push');
 
     return (
         <div style={{ padding: '24px' }}>
