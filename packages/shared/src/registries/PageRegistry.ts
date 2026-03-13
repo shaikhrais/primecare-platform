@@ -47,6 +47,8 @@ export interface PageEntry {
     formRegistryId?: string;
     /** Reference to DashboardRegistry entry (if type === 'dashboard') */
     dashboardRegistryId?: string;
+    /** Associated page codes — pages in the same feature domain */
+    associates?: string[];
 }
 
 /** Category code prefixes for each page type */
@@ -616,4 +618,265 @@ export const FILE_IDENTITY_MAP: Record<string, string> = {
     // ── Registries (G1-G2) ──
     G1:  'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',
     G2:  'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',
+};
+
+// ── FILE ASSOCIATE MAP ─────────────────────────────────────────────────────
+// Links identity codes to their related pages within the same feature domain.
+// Use: FILE_ASSOCIATE_MAP['D4'] → ['L22', 'R8'] (EVV Dashboard → EVV Exceptions + EVV Export)
+export const FILE_ASSOCIATE_MAP: Record<string, string[]> = {
+    // ── Dashboard & Registry Hub ──
+    D1:  ['D2', 'G1', 'G2'],           // Admin Dashboard ↔ Registry Summary ↔ Registries
+    D2:  ['D1', 'G1', 'G2'],           // Registry Summary ↔ Admin Dashboard
+    G1:  ['G2', 'D2'],                 // Form Registry ↔ Page Registry
+    G2:  ['G1', 'D2'],                 // Page Registry ↔ Form Registry
+
+    // ── Incidents ──
+    L2:  ['F10'],                      // Incident List ↔ Incident Entry
+    F10: ['L2'],                       // Incident Entry ↔ Incident List
+
+    // ── Leads ──
+    L3:  ['F11', 'T66'],               // Lead List ↔ Lead Entry ↔ Lead Conversion
+    F11: ['L3', 'T66'],                // Lead Entry ↔ Lead List ↔ Lead Conversion
+    T66: ['L3', 'F11'],                // Lead Conversion ↔ Lead List ↔ Lead Entry
+
+    // ── Users / Staff ──
+    L3a: ['F9a'],                      // User List ↔ User Entry
+    F9a: ['L3a'],                      // User Entry ↔ User List
+
+    // ── Timesheets ──
+    L4:  ['F8'],                       // Timesheets ↔ Timesheet Adjustment
+    F8:  ['L4'],                       // Timesheet Adjustment ↔ Timesheets
+
+    // ── Services ──
+    L5:  ['T34'],                      // Services ↔ Catalog Browser (client view)
+    T34: ['L5'],                       // Catalog Browser ↔ Services
+
+    // ── Audits ──
+    L6:  ['R9', 'R10', 'R13'],         // Audit Logs ↔ Audit Download ↔ Compliance Export ↔ Regulatory
+    R9:  ['L6', 'R10', 'R13'],         // Audit Download ↔ Audit Logs
+    R10: ['L6', 'R9', 'R13'],          // Compliance Export ↔ Audit Logs
+    R13: ['L6', 'R9', 'R10'],          // Regulatory Export ↔ Audit Logs
+
+    // ── Authorizations ──
+    L7:  ['T49', 'R6'],                // Auth List ↔ Auth Alerts ↔ Auth Utilization
+    T49: ['L7', 'R6'],                 // Auth Alerts ↔ Auth List
+    R6:  ['L7', 'T49'],                // Auth Utilization ↔ Auth List
+
+    // ── Consent ──
+    L8:  ['T50', 'R7'],                // Consent List ↔ Consent Templates ↔ Consent Expiring
+    T50: ['L8', 'R7'],                 // Consent Templates ↔ Consent List
+    R7:  ['L8', 'T50'],                // Consent Expiring ↔ Consent List
+
+    // ── Referrals ──
+    L9:  ['R11'],                      // Referral List ↔ Referral Analytics
+    R11: ['L9'],                       // Referral Analytics ↔ Referral List
+
+    // ── Claims ──
+    L10: ['R12'],                      // Claims List ↔ Claims ERA
+    R12: ['L10'],                      // Claims ERA ↔ Claims List
+
+    // ── Webhooks ──
+    L11: ['T51'],                      // Webhook List ↔ Webhook Deliveries
+    T51: ['L11'],                      // Webhook Deliveries ↔ Webhook List
+
+    // ── Booking Requests ──
+    L12: ['L14', 'F17'],               // Booking Queue ↔ Client Bookings ↔ Request Booking
+    L14: ['L12', 'F17'],               // Client Bookings ↔ Booking Queue
+    F17: ['L12', 'L14'],               // Request Booking ↔ Booking Queue
+
+    // ── EVV ──
+    D4:  ['L22', 'R8'],                // EVV Dashboard ↔ EVV Exceptions ↔ EVV Export
+    L22: ['D4', 'R8'],                 // EVV Exceptions ↔ EVV Dashboard
+    R8:  ['D4', 'L22'],                // EVV Export ↔ EVV Dashboard
+
+    // ── AI ──
+    D5:  ['T52', 'T53', 'T54', 'T55'], // AI Dashboard ↔ Predictive ↔ Churn ↔ Visit ↔ Sentiment
+    T52: ['D5', 'T53', 'T54', 'T55'],  // Predictive Analytics → AI family
+    T53: ['D5', 'T52', 'T54', 'T55'],  // Churn Risk → AI family
+    T54: ['D5', 'T52', 'T53', 'T55'],  // Visit Optimization → AI family
+    T55: ['D5', 'T52', 'T53', 'T54'],  // Sentiment Analysis → AI family
+
+    // ── Security / Governance ──
+    T10: ['T13', 'T14', 'T15', 'T16', 'T56', 'T57', 'T58'], // Security Governance → full security suite
+    T13: ['T10'],                      // Device Management ↔ Security Governance
+    T14: ['T10'],                      // Forensic Trails ↔ Security Governance
+    T15: ['T10'],                      // CORS Settings ↔ Security Governance
+    T16: ['T10'],                      // Integrity Verification ↔ Security Governance
+    T56: ['T10'],                      // Permission Grid ↔ Security Governance
+    T57: ['T10'],                      // Session Monitor ↔ Security Governance
+    T58: ['T10'],                      // Threat Detection ↔ Security Governance
+
+    // ── Finance / Accounting ──
+    D3:  ['T17', 'T18', 'T59'],        // Accounting Dashboard ↔ Ledger ↔ Tax ↔ Reconciliation
+    T17: ['D3', 'T18', 'T59'],         // Financial Ledger ↔ Accounting
+    T18: ['D3', 'T17'],                // Tax Compliance ↔ Accounting
+    T59: ['D3', 'T17'],                // Reconciliation ↔ Accounting
+
+    // ── Admission / Onboarding ──
+    F6:  ['F7'],                       // Client Admission ↔ Staff Onboarding
+    F7:  ['F6'],                       // Staff Onboarding ↔ Client Admission
+
+    // ── Invoices ──
+    F9:  ['H3'],                       // Invoice Entry ↔ Revenue Cycle Hub
+    H3:  ['F9'],                       // Revenue Cycle Hub ↔ Invoice Entry
+
+    // ── Expenses / Payouts (PSW) ──
+    F14: ['R4'],                       // Expense Claim ↔ Payout History
+    R4:  ['F14', 'R3'],                // Payout History ↔ Expense Claim ↔ Earnings
+    R3:  ['R4'],                       // PSW Earnings ↔ Payout History
+
+    // ── Telehealth ──
+    H1:  ['T8'],                       // Telehealth Center ↔ Clinical Assistant
+    T8:  ['H1', 'T9'],                 // Clinical Assistant ↔ Telehealth ↔ AI Insights
+    T9:  ['T8', 'D5'],                 // AI Insights ↔ Clinical Assistant ↔ AI Dashboard
+
+    // ── Knowledge Base ──
+    H8:  ['T48'],                      // Knowledge Base ↔ KB Article
+    T48: ['H8'],                       // KB Article ↔ Knowledge Base
+
+    // ── Setup / Wizards ──
+    H19: ['W1', 'W2', 'W3', 'W4', 'W5', 'T12'], // Wizard Hub ↔ all wizards
+    W1:  ['H19', 'T12'],               // Business Setup ↔ Wizard Hub ↔ Business Status
+    W2:  ['H19', 'F7'],                // Staff Onboarding Wizard ↔ Wizard Hub ↔ Staff Onboarding
+    W3:  ['H19'],                      // Care Plan Wizard ↔ Wizard Hub
+    W4:  ['H19', 'H3'],                // Revenue Wizard ↔ Wizard Hub ↔ Revenue Cycle
+    W5:  ['H19'],                      // Business Model Wizard ↔ Wizard Hub
+    T12: ['H19', 'W1'],                // Business Status ↔ Wizard Hub
+
+    // ── Reports / Exports ──
+    R1:  ['R2'],                       // Report Center ↔ Export Page
+    R2:  ['R1'],                       // Export Page ↔ Report Center
+
+    // ── Search / Content ──
+    T1:  ['T2'],                       // Search ↔ Content Manager
+    T2:  ['T1', 'T3'],                 // Content Manager ↔ Search ↔ Template Editor
+    T3:  ['T2'],                       // Template Editor ↔ Content Manager
+
+    // ── Roles / Customers ──
+    T4:  ['L15'],                      // Role Editor ↔ Customer List
+    L15: ['T4'],                       // Customer List ↔ Role Editor
+
+    // ── FHIR / Sovereign / Interop ──
+    T5:  ['T6'],                       // FHIR Center ↔ Sovereign Wallet
+    T6:  ['T5'],                       // Sovereign Wallet ↔ FHIR Center
+
+    // ── Automation / Cron ──
+    T7:  ['D6'],                       // AutoPilot ↔ Cron Dashboard
+    D6:  ['T7'],                       // Cron Dashboard ↔ AutoPilot
+
+    // ── Notifications / Documents ──
+    H5:  ['H6'],                       // Notifications Hub ↔ Document Center
+    H6:  ['H5'],                       // Document Center ↔ Notifications Hub
+
+    // ── Payroll ──
+    H7:  ['T24', 'D9'],                // Payroll Hub ↔ Payroll Verification ↔ Branch P&L
+    T24: ['H7', 'D9'],                 // Payroll Verification ↔ Payroll Hub
+    D9:  ['H7', 'T24'],                // Branch P&L ↔ Payroll Hub
+
+    // ── Ops / Logistics ──
+    H20: ['T64', 'T65', 'T67', 'H4'], // Logistics Hub ↔ Region Mapping ↔ Capacity ↔ Supply
+    T64: ['H20', 'T65'],               // Region Mapping ↔ Logistics Hub
+    T65: ['H20', 'T64'],               // Realtime Capacity ↔ Logistics Hub
+    T67: ['H20'],                      // Supply & Demand ↔ Logistics Hub
+    H4:  ['H20'],                      // Supply Chain Hub ↔ Logistics Hub
+
+    // ── PSW Schedule ──
+    L16: ['L17', 'T60', 'T61', 'T62'], // PSW Schedule ↔ Open Shifts ↔ Offers ↔ Live Visit ↔ Check-In
+    L17: ['L16', 'T60'],               // Open Shifts ↔ Schedule ↔ Open Offers
+    T60: ['L17', 'L16'],               // Open Offers ↔ Open Shifts
+    T61: ['L16', 'T62'],               // Live Visit ↔ Schedule ↔ Check-In
+    T62: ['L16', 'T61'],               // Check-In Screen ↔ Schedule ↔ Live Visit
+
+    // ── PSW Dashboard & Support ──
+    D14: ['L16', 'F13', 'F14', 'F15', 'R3'], // PSW Dashboard ↔ Schedule ↔ Handover ↔ Expenses ↔ Availability ↔ Earnings
+    F13: ['D14'],                      // Shift Handover ↔ PSW Dashboard
+    F15: ['D14'],                      // Availability ↔ PSW Dashboard
+    T26: ['D14'],                      // Shift Confirmation ↔ PSW Dashboard
+    H14: ['H15'],                      // Credential Vault ↔ PSW Training Hub
+    H15: ['H14'],                      // PSW Training Hub ↔ Credential Vault
+    T27: ['D14'],                      // Provider Social ↔ PSW Dashboard
+    T28: ['D14'],                      // Mileage Tracker ↔ PSW Dashboard
+
+    // ── RN Portal ──
+    D15: ['T29', 'T30', 'H16', 'L18'], // RN Dashboard ↔ Care Plans ↔ Entry Verify ↔ Supervision ↔ Assessments
+    T29: ['D15'],                      // Care Plan Manager ↔ RN Dashboard
+    T30: ['D15'],                      // Entry Verify ↔ RN Dashboard
+    H16: ['D15'],                      // Supervision Hub ↔ RN Dashboard
+    L18: ['D15'],                      // Assessments Hub ↔ RN Dashboard
+    T63: ['D15'],                      // RN Check-In ↔ RN Dashboard
+    D16: ['T31'],                      // MAR Dashboard ↔ MAR Client
+    T31: ['D16'],                      // MAR Client ↔ MAR Dashboard
+    D17: ['T32'],                      // Wound Care Dashboard ↔ Wound Care Client
+    T32: ['D17'],                      // Wound Care Client ↔ Wound Care Dashboard
+    L19: ['T33'],                      // RAI Assessments ↔ RAI Assessment Detail
+    T33: ['L19'],                      // RAI Assessment Detail ↔ RAI Assessments
+
+    // ── Client Portal ──
+    D8:  ['L14', 'H10', 'F16', 'F17', 'T34', 'T35', 'T36', 'T37', 'H17', 'R5', 'P1'],
+    H10: ['D8'],                       // Billing Hub ↔ Client Dashboard
+    F16: ['D8'],                       // Submit Feedback ↔ Client Dashboard
+    T35: ['D8', 'T37'],                // Client Messaging ↔ Client Dashboard ↔ Feedback Loop
+    T36: ['D8'],                       // Team Roster ↔ Client Dashboard
+    T37: ['D8', 'T35'],                // Feedback Loop ↔ Client Dashboard ↔ Client Messaging
+    H17: ['D8', 'P1'],                 // Family Care Hub ↔ Client Dashboard ↔ Family Portal
+    R5:  ['D8'],                       // Medical Summary ↔ Client Dashboard
+    P1:  ['D8', 'H17'],                // Family Portal ↔ Client Dashboard ↔ Family Care Hub
+
+    // ── Coordinator Portal ──
+    H18: ['T38', 'T39', 'L20', 'T40', 'T41'], // Coordinator Hub ↔ all coordinator tools
+    T38: ['H18'],                      // Dispatch Map ↔ Coordinator Hub
+    T39: ['H18'],                      // SOS Center ↔ Coordinator Hub
+    L20: ['H18'],                      // Waitlist Manager ↔ Coordinator Hub
+    T40: ['H18'],                      // Fleet Management ↔ Coordinator Hub
+    T41: ['H18'],                      // Shift Swap ↔ Coordinator Hub
+
+    // ── Allied Health ──
+    D18: ['L21', 'T42'],               // Allied Health Dashboard ↔ Treatments ↔ Sign Off
+    L21: ['D18', 'T42'],               // Treatment List ↔ Dashboard ↔ Sign Off
+    T42: ['D18', 'L21'],               // Sign Off ↔ Dashboard ↔ Treatment List
+
+    // ── Staff Portal ──
+    D19: ['T43', 'T44', 'T45', 'T46'], // Staff Dashboard ↔ all staff tools
+    T43: ['D19'],                      // Task Grid ↔ Staff Dashboard
+    T44: ['D19'],                      // Message Center ↔ Staff Dashboard
+    T45: ['D19'],                      // Incident Portal ↔ Staff Dashboard
+    T46: ['D19'],                      // Compliance Monitor ↔ Staff Dashboard
+
+    // ── Manager Portal ──
+    D7:  ['H12', 'D10', 'T25', 'D9', 'T19', 'L13', 'T21', 'H11', 'T22', 'T23'],
+    H12: ['D7'],                       // Operations Hub ↔ Manager Dashboard
+    D10: ['D7'],                       // Regional Stats ↔ Manager Dashboard
+    T25: ['D7'],                       // Compliance Sync ↔ Manager Dashboard
+    T19: ['D7'],                       // Portfolio ↔ Manager Dashboard
+    T20: ['D7'],                       // Daily Entry ↔ Manager Dashboard
+    L13: ['D7'],                       // Evaluations ↔ Manager Dashboard
+    T21: ['D7'],                       // Service Review ↔ Manager Dashboard
+    H11: ['D7'],                       // Training Hub ↔ Manager Dashboard
+    T22: ['D7'],                       // Survey Manager ↔ Manager Dashboard
+    T23: ['D7'],                       // Staff Ranker ↔ Manager Dashboard
+
+    // ── Marketing / HR / Finance / QA ──
+    D11: ['D7'],                       // Marketing Dashboard ↔ Manager Dashboard
+    H13: ['D7'],                       // HR Recruitment ↔ Manager Dashboard
+    D12: ['D7', 'D9'],                 // Finance Regional Hub ↔ Manager ↔ Branch P&L
+    D13: ['D15'],                      // Clinical QA ↔ RN Dashboard
+
+    // ── Scrum Master ──
+    T47: ['T7'],                       // Response Bot Audit ↔ AutoPilot
+
+    // ── Auth Forms ──
+    F1:  ['F2', 'F3'],                 // Login ↔ Register ↔ Forgot Password
+    F2:  ['F1'],                       // Register ↔ Login
+    F3:  ['F1', 'F4'],                 // Forgot Password ↔ Login ↔ Reset Password
+    F4:  ['F3'],                       // Reset Password ↔ Forgot Password
+    F5:  ['W1'],                       // Business Onboard ↔ Business Setup Wizard
+
+    // ── Schedule / Locations ──
+    L1:  ['L16'],                      // Admin Schedule ↔ PSW Schedule
+    F12: ['T64'],                      // Locations ↔ Region Mapping
+    T11: ['D1'],                       // Settings ↔ Admin Dashboard
+
+    // ── Pharmacy / Reference ──
+    H2:  ['H4'],                       // Pharmacy Hub ↔ Supply Chain Hub
+    H9:  ['T11'],                      // Reference Data Hub ↔ Settings
 };
