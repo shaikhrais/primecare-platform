@@ -428,455 +428,236 @@ export const getMasterList = (): { srNo: number; categoryCode: string; label: st
 
 export const PAGE_REGISTRY_COUNT = PageRegistry.length;
 
-// ── FILE IDENTITY MAP ────────────────────────────────────────────────────────
-// Maps category codes → source file paths for quick identification.
-// Use: FILE_IDENTITY_MAP['F6'] → 'apps/web-admin/.../admission/index.tsx'
-export const FILE_IDENTITY_MAP: Record<string, string> = {
-    // ── Dashboards (D1-D6) ──
-    D1:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx',
-    D2:  'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx',
-    D3:  'apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx',
-    D4:  'apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx',
-    D5:  'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx',
-    D6:  'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx',
-    // ── Forms (F1-F18) ──
-    F1:  'apps/web-admin/src/app/routes/auth/Login.tsx',
-    F2:  'apps/web-admin/src/app/routes/auth/Register.tsx',
-    F3:  'apps/web-admin/src/app/routes/auth/ForgotPassword.tsx',
-    F4:  'apps/web-admin/src/app/routes/auth/ResetPassword.tsx',
-    F5:  'apps/web-admin/src/app/routes/auth/BusinessOnboard.tsx',
-    F6:  'apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx',
-    F7:  'apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx',
-    F8:  'apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx',
-    F10: 'apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx',
-    F11: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx',
-    F13: 'apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx',
-    F14: 'apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx',
-    F16: 'apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx',
-    // ── Lists (L2-L15) ──
-    L2:  'apps/web-admin/src/app/routes/platform/admin/pages/incidents/L2-IncidentList.tsx',
-    L4:  'apps/web-admin/src/app/routes/platform/admin/pages/timesheets/L4-Timesheets.tsx',
-    L5:  'apps/web-admin/src/app/routes/platform/admin/pages/services/L5-Services.tsx',
-    L6:  'apps/web-admin/src/app/routes/platform/admin/pages/audits/L6-AuditLogs.tsx',
-    L7:  'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/L7-AuthList.tsx',
-    L8:  'apps/web-admin/src/app/routes/platform/admin/pages/consent/L8-ConsentList.tsx',
-    L9:  'apps/web-admin/src/app/routes/platform/admin/pages/referrals/L9-ReferralList.tsx',
-    L10: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/L10-ClaimsList.tsx',
-    L11: 'apps/web-admin/src/app/routes/platform/admin/pages/webhooks/L11-WebhookList.tsx',
-    L12: 'apps/web-admin/src/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue.tsx',
-    L15: 'apps/web-admin/src/app/routes/platform/admin/pages/customers/L15-CustomerList.tsx',
-    // ── Hubs (H1-H9) ──
-    H1:  'apps/web-admin/src/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter.tsx',
-    H2:  'apps/web-admin/src/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub.tsx',
-    H3:  'apps/web-admin/src/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub.tsx',
-    H4:  'apps/web-admin/src/app/routes/platform/admin/pages/erp/H4-SupplyChainHub.tsx',
-    H5:  'apps/web-admin/src/app/routes/platform/admin/pages/notifications/H5-NotificationsHub.tsx',
-    H6:  'apps/web-admin/src/app/routes/platform/admin/pages/documents/H6-DocumentCenter.tsx',
-    H7:  'apps/web-admin/src/app/routes/platform/admin/pages/payroll/H7-PayrollHub.tsx',
-    H8:  'apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase.tsx',
-    H9:  'apps/web-admin/src/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub.tsx',
-    // ── Wizards (W1-W5) ──
-    W1:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard.tsx',
-    W2:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard.tsx',
-    W3:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W3-CarePlanWizard.tsx',
-    W4:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W4-RevenueWizard.tsx',
-    W5:  'apps/web-admin/src/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard.tsx',
-    // ── Reports (R1-R12) ──
-    R1:  'apps/web-admin/src/app/routes/platform/admin/pages/reports/R1-ReportCenter.tsx',
-    R2:  'apps/web-admin/src/app/routes/platform/admin/pages/reports/R2-ExportPage.tsx',
-    R8:  'apps/web-admin/src/app/routes/platform/admin/pages/evv/R8-EvvExport.tsx',
-    R9:  'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R9-AuditDownload.tsx',
-    R10: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R10-ComplianceExport.tsx',
-    R11: 'apps/web-admin/src/app/routes/platform/admin/pages/referrals/R11-ReferralAnalytics.tsx',
-    R12: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/R12-ClaimsEra.tsx',
-    // ── Tools (T1-T18) ──
-    T1:  'apps/web-admin/src/app/routes/platform/admin/pages/search/T1-SearchPage.tsx',
-    T2:  'apps/web-admin/src/app/routes/platform/admin/pages/content/T2-ContentManager.tsx',
-    T3:  'apps/web-admin/src/app/routes/platform/admin/pages/template-editor/T3-TemplateEditor.tsx',
-    T4:  'apps/web-admin/src/app/routes/platform/admin/pages/role-editor/T4-RoleEditor.tsx',
-    T5:  'apps/web-admin/src/app/routes/platform/admin/pages/interoperability/T5-FHIRCenter.tsx',
-    T6:  'apps/web-admin/src/app/routes/platform/admin/pages/sovereign/T6-SovereignWallet.tsx',
-    T7:  'apps/web-admin/src/app/routes/platform/admin/pages/automation/T7-AutoPilot.tsx',
-    T8:  'apps/web-admin/src/app/routes/platform/admin/pages/clinical-assistant/T8-ClinicalAssistant.tsx',
-    T9:  'apps/web-admin/src/app/routes/platform/admin/pages/insights/T9-AiInsights.tsx',
-    T10: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T10-SecurityGovernance.tsx',
-    T13: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T13-DeviceManagement.tsx',
-    T14: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T14-ForensicTrails.tsx',
-    T15: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T15-CorsSettings.tsx',
-    T16: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T16-IntegrityVerification.tsx',
-    T17: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T17-FinancialLedger.tsx',
-    T18: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T18-TaxComplianceHub.tsx',
+
+// ── MASTER REGISTRY ─────────────────────────────────────────────────────────
+// UNIFIED single source of truth: code → { file, associates, type, owner, label }
+// Merges the old FILE_IDENTITY_MAP + FILE_ASSOCIATE_MAP into ONE record.
+// Use: MASTER_REGISTRY['D4'].file        → '.../evv/D4-EvvDashboard.tsx'
+//      MASTER_REGISTRY['D4'].associates  → ['L22', 'R8']
+//      MASTER_REGISTRY['D4'].type        → 'dashboard'
+
+export interface MasterEntry {
+    /** Source file path (identity-named) */
+    file: string;
+    /** Human-readable label */
+    label: string;
+    /** Page type */
+    type: PageType;
+    /** Owner domain */
+    owner: PageEntry['owner'];
+    /** Associated page codes in the same feature domain */
+    associates: string[];
+}
+
+export const MASTER_REGISTRY: Record<string, MasterEntry> = {
+    // ── Auth Forms (F1–F5) ──
+    F1:  { file: 'apps/web-admin/src/app/routes/auth/Login.tsx',           label: 'Login',           type: 'form', owner: 'auth', associates: ['F2', 'F3'] },
+    F2:  { file: 'apps/web-admin/src/app/routes/auth/Register.tsx',        label: 'Register',        type: 'form', owner: 'auth', associates: ['F1'] },
+    F3:  { file: 'apps/web-admin/src/app/routes/auth/ForgotPassword.tsx',  label: 'Forgot Password', type: 'form', owner: 'auth', associates: ['F1', 'F4'] },
+    F4:  { file: 'apps/web-admin/src/app/routes/auth/ResetPassword.tsx',   label: 'Reset Password',  type: 'form', owner: 'auth', associates: ['F3'] },
+    F5:  { file: 'apps/web-admin/src/app/routes/auth/BusinessOnboard.tsx', label: 'Business Onboard',type: 'form', owner: 'auth', associates: ['W1'] },
+    // ── Admin Dashboards (D1–D6) ──
+    D1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx',     label: 'Admin Dashboard',     type: 'dashboard', owner: 'admin', associates: ['D2', 'G1', 'G2'] },
+    D2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx',    label: 'Registry Summary',    type: 'dashboard', owner: 'admin', associates: ['D1', 'G1', 'G2'] },
+    D3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx', label: 'Accounting Dashboard',type: 'dashboard', owner: 'admin', associates: ['T17', 'T18', 'T59'] },
+    D4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx',             label: 'EVV Dashboard',       type: 'dashboard', owner: 'admin', associates: ['L22', 'R8'] },
+    D5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx',               label: 'AI Dashboard',        type: 'dashboard', owner: 'admin', associates: ['T52', 'T53', 'T54', 'T55'] },
+    D6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx',           label: 'Cron Dashboard',      type: 'dashboard', owner: 'admin', associates: ['T7'] },
+    // ── Admin Forms (F6–F12) ──
+    F6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx',              label: 'Client Admission',     type: 'form', owner: 'admin', associates: ['F7'] },
+    F7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx',             label: 'Staff Onboarding',     type: 'form', owner: 'admin', associates: ['F6', 'W2'] },
+    F8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx',label: 'Timesheet Adjustment', type: 'form', owner: 'admin', associates: ['L4'] },
+    F9:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/invoices/F9-InvoiceEntry.tsx',                  label: 'Invoice Entry',        type: 'form', owner: 'admin', associates: ['H3'] },
+    F9a: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/users/F9a-UserEntry.tsx',                       label: 'User Entry',           type: 'form', owner: 'admin', associates: ['L3a'] },
+    F10: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx',               label: 'Incident Entry',       type: 'form', owner: 'admin', associates: ['L2'] },
+    F11: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx',                       label: 'Lead Entry',           type: 'form', owner: 'admin', associates: ['L3', 'T66'] },
+    F12: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/locations/F12-Locations.tsx',                   label: 'Locations',            type: 'form', owner: 'admin', associates: ['T64'] },
+    // ── Admin Lists (L1–L15, L22) ──
+    L1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/schedule/L1-Schedule.tsx',                label: 'Schedule',           type: 'list', owner: 'admin', associates: ['L16'] },
+    L2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/incidents/L2-IncidentList.tsx',           label: 'Incident List',      type: 'list', owner: 'admin', associates: ['F10'] },
+    L3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/L3-LeadList.tsx',                   label: 'Lead List',          type: 'list', owner: 'admin', associates: ['F11', 'T66'] },
+    L3a: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/users/L3a-UserList.tsx',                  label: 'User List',          type: 'list', owner: 'admin', associates: ['F9a'] },
+    L4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/timesheets/L4-Timesheets.tsx',            label: 'Timesheets',         type: 'list', owner: 'admin', associates: ['F8'] },
+    L5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/services/L5-Services.tsx',                label: 'Services',           type: 'list', owner: 'admin', associates: ['T34'] },
+    L6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/audits/L6-AuditLogs.tsx',                 label: 'Audit Logs',         type: 'list', owner: 'admin', associates: ['R9', 'R10', 'R13'] },
+    L7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/L7-AuthList.tsx',          label: 'Auth List',          type: 'list', owner: 'admin', associates: ['T49', 'R6'] },
+    L8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/consent/L8-ConsentList.tsx',              label: 'Consent List',       type: 'list', owner: 'admin', associates: ['T50', 'R7'] },
+    L9:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/referrals/L9-ReferralList.tsx',           label: 'Referral List',      type: 'list', owner: 'admin', associates: ['R11'] },
+    L10: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/L10-ClaimsList.tsx',               label: 'Claims List',        type: 'list', owner: 'admin', associates: ['R12'] },
+    L11: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/webhooks/L11-WebhookList.tsx',            label: 'Webhook List',       type: 'list', owner: 'admin', associates: ['T51'] },
+    L12: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue.tsx', label: 'Booking Queue', type: 'list', owner: 'admin', associates: ['L14', 'F17'] },
+    L15: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/customers/L15-CustomerList.tsx',          label: 'Customer List',      type: 'list', owner: 'admin', associates: ['T4'] },
+    L22: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/evv/L22-EvvExceptions.tsx',               label: 'EVV Exceptions',     type: 'list', owner: 'admin', associates: ['D4', 'R8'] },
+    // ── Admin Hubs (H1–H9, H19) ──
+    H1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter.tsx',  label: 'Telehealth Center', type: 'hub', owner: 'admin', associates: ['T8'] },
+    H2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub.tsx',         label: 'Pharmacy Hub',      type: 'hub', owner: 'admin', associates: ['H4'] },
+    H3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub.tsx',          label: 'Revenue Cycle Hub', type: 'hub', owner: 'admin', associates: ['F9'] },
+    H4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/erp/H4-SupplyChainHub.tsx',           label: 'Supply Chain Hub',  type: 'hub', owner: 'admin', associates: ['H20'] },
+    H5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/notifications/H5-NotificationsHub.tsx',label: 'Notifications Hub', type: 'hub', owner: 'admin', associates: ['H6'] },
+    H6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/documents/H6-DocumentCenter.tsx',     label: 'Document Center',   type: 'hub', owner: 'admin', associates: ['H5'] },
+    H7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/payroll/H7-PayrollHub.tsx',            label: 'Payroll Hub',       type: 'hub', owner: 'admin', associates: ['T24', 'D9'] },
+    H8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase.tsx', label: 'Knowledge Base',    type: 'hub', owner: 'admin', associates: ['T48'] },
+    H9:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub.tsx',label: 'Reference Data',   type: 'hub', owner: 'admin', associates: ['T11'] },
+    H19: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/H19-WizardHub.tsx',             label: 'Wizard Hub',        type: 'hub', owner: 'admin', associates: ['W1', 'W2', 'W3', 'W4', 'W5', 'T12'] },
+    // ── Admin Wizards (W1–W5) ──
+    W1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard.tsx',    label: 'Business Setup',    type: 'wizard', owner: 'admin', associates: ['H19', 'T12'] },
+    W2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard.tsx',  label: 'Staff Onboarding',  type: 'wizard', owner: 'admin', associates: ['H19', 'F7'] },
+    W3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/W3-CarePlanWizard.tsx',         label: 'Care Plan',         type: 'wizard', owner: 'admin', associates: ['H19'] },
+    W4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/W4-RevenueWizard.tsx',          label: 'Revenue',           type: 'wizard', owner: 'admin', associates: ['H19', 'H3'] },
+    W5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard.tsx',    label: 'Business Model',    type: 'wizard', owner: 'admin', associates: ['H19'] },
+    // ── Admin Reports (R1–R2, R6–R13) ──
+    R1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/reports/R1-ReportCenter.tsx',            label: 'Report Center',     type: 'report', owner: 'admin', associates: ['R2'] },
+    R2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/reports/R2-ExportPage.tsx',              label: 'Export Page',       type: 'report', owner: 'admin', associates: ['R1'] },
+    R6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/R6-AuthUtilization.tsx', label: 'Auth Utilization',  type: 'report', owner: 'admin', associates: ['L7', 'T49'] },
+    R7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/consent/R7-ConsentExpiring.tsx',        label: 'Consent Expiring',  type: 'report', owner: 'admin', associates: ['L8', 'T50'] },
+    R8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/evv/R8-EvvExport.tsx',                  label: 'EVV Export',        type: 'report', owner: 'admin', associates: ['D4', 'L22'] },
+    R9:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R9-AuditDownload.tsx',     label: 'Audit Download',    type: 'report', owner: 'admin', associates: ['L6', 'R10', 'R13'] },
+    R10: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R10-ComplianceExport.tsx', label: 'Compliance Export', type: 'report', owner: 'admin', associates: ['L6', 'R9', 'R13'] },
+    R11: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/referrals/R11-ReferralAnalytics.tsx',   label: 'Referral Analytics',type: 'report', owner: 'admin', associates: ['L9'] },
+    R12: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/claims/R12-ClaimsEra.tsx',              label: 'Claims ERA',        type: 'report', owner: 'admin', associates: ['L10'] },
+    R13: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R13-RegulatoryExport.tsx', label: 'Regulatory Export', type: 'report', owner: 'admin', associates: ['L6', 'R9', 'R10'] },
+    // ── Admin Tools (T1–T18, T48–T59, T66–T67) ──
+    T1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/search/T1-SearchPage.tsx',              label: 'Search',            type: 'tool', owner: 'admin', associates: ['T2'] },
+    T2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/content/T2-ContentManager.tsx',         label: 'Content Manager',   type: 'tool', owner: 'admin', associates: ['T1', 'T3'] },
+    T3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/template-editor/T3-TemplateEditor.tsx', label: 'Template Editor',   type: 'tool', owner: 'admin', associates: ['T2'] },
+    T4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/role-editor/T4-RoleEditor.tsx',         label: 'Role Editor',       type: 'tool', owner: 'admin', associates: ['L15'] },
+    T5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/interoperability/T5-FHIRCenter.tsx',    label: 'FHIR Center',       type: 'tool', owner: 'admin', associates: ['T6'] },
+    T6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/sovereign/T6-SovereignWallet.tsx',      label: 'Sovereign Wallet',  type: 'tool', owner: 'admin', associates: ['T5'] },
+    T7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/automation/T7-AutoPilot.tsx',           label: 'AutoPilot',         type: 'tool', owner: 'admin', associates: ['D6'] },
+    T8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/clinical-assistant/T8-ClinicalAssistant.tsx', label: 'Clinical Assistant', type: 'tool', owner: 'admin', associates: ['H1', 'T9'] },
+    T9:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/insights/T9-AiInsights.tsx',            label: 'AI Insights',       type: 'tool', owner: 'admin', associates: ['T8', 'D5'] },
+    T10: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T10-SecurityGovernance.tsx',   label: 'Security Gov',      type: 'tool', owner: 'admin', associates: ['T13', 'T14', 'T15', 'T16', 'T56', 'T57', 'T58'] },
+    T11: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/settings/T11-Settings.tsx',             label: 'Settings',          type: 'tool', owner: 'admin', associates: ['D1'] },
+    T12: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/T12-BusinessStatus.tsx',          label: 'Business Status',   type: 'tool', owner: 'admin', associates: ['H19', 'W1'] },
+    T13: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T13-DeviceManagement.tsx',     label: 'Device Mgmt',       type: 'tool', owner: 'admin', associates: ['T10'] },
+    T14: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T14-ForensicTrails.tsx',       label: 'Forensic Trails',   type: 'tool', owner: 'admin', associates: ['T10'] },
+    T15: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T15-CorsSettings.tsx',         label: 'CORS Settings',     type: 'tool', owner: 'admin', associates: ['T10'] },
+    T16: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T16-IntegrityVerification.tsx',label: 'Integrity Verify',  type: 'tool', owner: 'admin', associates: ['T10'] },
+    T17: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T17-FinancialLedger.tsx',      label: 'Financial Ledger',  type: 'tool', owner: 'admin', associates: ['D3', 'T18', 'T59'] },
+    T18: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T18-TaxComplianceHub.tsx',     label: 'Tax Compliance',    type: 'tool', owner: 'admin', associates: ['D3', 'T17'] },
+    T48: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/T48-KBArticle.tsx',     label: 'KB Article',        type: 'tool', owner: 'admin', associates: ['H8'] },
+    T49: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/T49-AuthAlerts.tsx',     label: 'Auth Alerts',       type: 'tool', owner: 'admin', associates: ['L7', 'R6'] },
+    T50: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/consent/T50-ConsentTemplates.tsx',      label: 'Consent Templates', type: 'tool', owner: 'admin', associates: ['L8', 'R7'] },
+    T51: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/webhooks/T51-WebhookDeliveries.tsx',    label: 'Webhook Deliveries',type: 'tool', owner: 'admin', associates: ['L11'] },
+    T52: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T52-PredictiveAnalytics.tsx',        label: 'Predictive Analytics',type: 'tool', owner: 'admin', associates: ['D5', 'T53', 'T54', 'T55'] },
+    T53: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T53-ChurnRisk.tsx',                  label: 'Churn Risk',        type: 'tool', owner: 'admin', associates: ['D5', 'T52', 'T54', 'T55'] },
+    T54: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T54-VisitOptimization.tsx',          label: 'Visit Optimization',type: 'tool', owner: 'admin', associates: ['D5', 'T52', 'T53', 'T55'] },
+    T55: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T55-SentimentAnalysis.tsx',          label: 'Sentiment Analysis',type: 'tool', owner: 'admin', associates: ['D5', 'T52', 'T53', 'T54'] },
+    T56: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T56-PermissionGrid.tsx',       label: 'Permission Grid',   type: 'tool', owner: 'admin', associates: ['T10'] },
+    T57: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T57-SessionMonitor.tsx',       label: 'Session Monitor',   type: 'tool', owner: 'admin', associates: ['T10'] },
+    T58: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T58-ThreatDetection.tsx',      label: 'Threat Detection',  type: 'tool', owner: 'admin', associates: ['T10'] },
+    T59: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/finance/reconciliation/T59-Reconciliation.tsx', label: 'Reconciliation', type: 'tool', owner: 'admin', associates: ['D3', 'T17'] },
+    T66: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx',          label: 'Lead Conversion',   type: 'tool', owner: 'admin', associates: ['L3', 'F11'] },
+    T67: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx',              label: 'Supply & Demand',   type: 'tool', owner: 'admin', associates: ['H20'] },
     // ── Manager Portal ──
-    D7:  'apps/web-admin/src/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard.tsx',
-    D9:  'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx',
-    D10: 'apps/web-admin/src/app/routes/tenancy/manager/pages/D10-RegionalStats.tsx',
-    D11: 'apps/web-admin/src/app/routes/tenancy/marketing/D11-MarketingDashboard.tsx',
-    D12: 'apps/web-admin/src/app/routes/tenancy/finance/D12-FinanceRegionalHub.tsx',
-    D13: 'apps/web-admin/src/app/routes/tenancy/qa/D13-ClinicalQaDashboard.tsx',
-    H11: 'apps/web-admin/src/app/routes/tenancy/manager/pages/training/H11-TrainingHub.tsx',
-    H12: 'apps/web-admin/src/app/routes/tenancy/manager/pages/operations/H12-OperationsHub.tsx',
-    H13: 'apps/web-admin/src/app/routes/tenancy/hr/H13-HrRecruitmentPortal.tsx',
-    L13: 'apps/web-admin/src/app/routes/tenancy/manager/pages/evaluations/L13-Evaluations.tsx',
-    T19: 'apps/web-admin/src/app/routes/tenancy/manager/pages/portfolio/T19-Portfolio.tsx',
-    T20: 'apps/web-admin/src/app/routes/tenancy/manager/pages/daily-entry/T20-DailyEntry.tsx',
-    T21: 'apps/web-admin/src/app/routes/tenancy/manager/pages/service-review/T21-ServiceReview.tsx',
-    T22: 'apps/web-admin/src/app/routes/tenancy/manager/pages/surveys/T22-SurveyManager.tsx',
-    T23: 'apps/web-admin/src/app/routes/tenancy/manager/pages/performance/T23-StaffRanker.tsx',
-    T24: 'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification.tsx',
-    T25: 'apps/web-admin/src/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync.tsx',
+    D7:  { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard.tsx', label: 'Manager Dashboard', type: 'dashboard', owner: 'manager', associates: ['H12', 'D9', 'D10', 'T19', 'L13', 'T21', 'H11', 'T22', 'T23', 'T25'] },
+    D9:  { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx',           label: 'Branch P&L',       type: 'dashboard', owner: 'manager', associates: ['H7', 'T24'] },
+    D10: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/D10-RegionalStats.tsx',             label: 'Regional Stats',   type: 'dashboard', owner: 'manager', associates: ['D7'] },
+    D11: { file: 'apps/web-admin/src/app/routes/tenancy/marketing/D11-MarketingDashboard.tsx',            label: 'Marketing',        type: 'dashboard', owner: 'manager', associates: ['D7'] },
+    D12: { file: 'apps/web-admin/src/app/routes/tenancy/finance/D12-FinanceRegionalHub.tsx',              label: 'Finance Regional', type: 'dashboard', owner: 'manager', associates: ['D7', 'D9'] },
+    D13: { file: 'apps/web-admin/src/app/routes/tenancy/qa/D13-ClinicalQaDashboard.tsx',                  label: 'Clinical QA',      type: 'dashboard', owner: 'manager', associates: ['D15'] },
+    H11: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/training/H11-TrainingHub.tsx',      label: 'Training Hub',     type: 'hub', owner: 'manager', associates: ['D7'] },
+    H12: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/operations/H12-OperationsHub.tsx',  label: 'Operations Hub',   type: 'hub', owner: 'manager', associates: ['D7'] },
+    H13: { file: 'apps/web-admin/src/app/routes/tenancy/hr/H13-HrRecruitmentPortal.tsx',                  label: 'HR Recruitment',   type: 'hub', owner: 'manager', associates: ['D7'] },
+    L13: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/evaluations/L13-Evaluations.tsx',   label: 'Evaluations',      type: 'list', owner: 'manager', associates: ['D7'] },
+    T19: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/portfolio/T19-Portfolio.tsx',        label: 'Portfolio',        type: 'tool', owner: 'manager', associates: ['D7'] },
+    T20: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/daily-entry/T20-DailyEntry.tsx',    label: 'Daily Entry',      type: 'tool', owner: 'manager', associates: ['D7'] },
+    T21: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/service-review/T21-ServiceReview.tsx',label: 'Service Review',  type: 'tool', owner: 'manager', associates: ['D7'] },
+    T22: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/surveys/T22-SurveyManager.tsx',     label: 'Survey Manager',   type: 'tool', owner: 'manager', associates: ['D7'] },
+    T23: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/performance/T23-StaffRanker.tsx',   label: 'Staff Ranker',     type: 'tool', owner: 'manager', associates: ['D7'] },
+    T24: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification.tsx',label: 'Payroll Verify',   type: 'tool', owner: 'manager', associates: ['H7', 'D9'] },
+    T25: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync.tsx', label: 'Compliance Sync',  type: 'tool', owner: 'manager', associates: ['D7'] },
     // ── PSW Portal ──
-    D14: 'apps/web-admin/src/app/routes/tenancy/psw/pages/dashboard/D14-PswDashboard.tsx',
-    F15: 'apps/web-admin/src/app/routes/tenancy/psw/pages/availability/F15-Availability.tsx',
-    H14: 'apps/web-admin/src/app/routes/tenancy/psw/pages/credentials/H14-CredentialVault.tsx',
-    H15: 'apps/web-admin/src/app/routes/tenancy/psw/pages/training/H15-PswTrainingHub.tsx',
-    L16: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/L16-PswSchedule.tsx',
-    L17: 'apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/L17-OpenShifts.tsx',
-    R3:  'apps/web-admin/src/app/routes/tenancy/psw/pages/earnings/R3-PswEarnings.tsx',
-    R4:  'apps/web-admin/src/app/routes/tenancy/psw/pages/payouts/R4-PayoutHistory.tsx',
-    T26: 'apps/web-admin/src/app/routes/tenancy/psw/pages/shift-confirmation/T26-ShiftConfirmation.tsx',
-    T27: 'apps/web-admin/src/app/routes/tenancy/psw/pages/feed/T27-ProviderSocial.tsx',
-    T28: 'apps/web-admin/src/app/routes/tenancy/psw/pages/mileage/T28-MileageTracker.tsx',
+    D14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/dashboard/D14-PswDashboard.tsx',              label: 'PSW Dashboard',    type: 'dashboard', owner: 'psw', associates: ['L16', 'F13', 'F14', 'F15', 'R3'] },
+    F13: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx',              label: 'Shift Handover',   type: 'form', owner: 'psw', associates: ['D14'] },
+    F14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx',               label: 'Expense Claim',    type: 'form', owner: 'psw', associates: ['R4'] },
+    F15: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/availability/F15-Availability.tsx',           label: 'Availability',     type: 'form', owner: 'psw', associates: ['D14'] },
+    H14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/credentials/H14-CredentialVault.tsx',         label: 'Credential Vault', type: 'hub', owner: 'psw', associates: ['H15'] },
+    H15: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/training/H15-PswTrainingHub.tsx',             label: 'PSW Training',     type: 'hub', owner: 'psw', associates: ['H14'] },
+    L16: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/L16-PswSchedule.tsx',                label: 'PSW Schedule',     type: 'list', owner: 'psw', associates: ['L17', 'T60', 'T61', 'T62'] },
+    L17: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/L17-OpenShifts.tsx',               label: 'Open Shifts',      type: 'list', owner: 'psw', associates: ['L16', 'T60'] },
+    R3:  { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/earnings/R3-PswEarnings.tsx',                 label: 'PSW Earnings',     type: 'report', owner: 'psw', associates: ['R4'] },
+    R4:  { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/payouts/R4-PayoutHistory.tsx',                label: 'Payout History',   type: 'report', owner: 'psw', associates: ['F14', 'R3'] },
+    T26: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/shift-confirmation/T26-ShiftConfirmation.tsx',label: 'Shift Confirm',    type: 'tool', owner: 'psw', associates: ['D14'] },
+    T27: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/feed/T27-ProviderSocial.tsx',                 label: 'Provider Social',  type: 'tool', owner: 'psw', associates: ['D14'] },
+    T28: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/mileage/T28-MileageTracker.tsx',              label: 'Mileage Tracker',  type: 'tool', owner: 'psw', associates: ['D14'] },
+    T60: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/T60-OpenOffers.tsx',               label: 'Open Offers',      type: 'tool', owner: 'psw', associates: ['L17', 'L16'] },
+    T61: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T61-LiveVisit.tsx',                  label: 'Live Visit',       type: 'tool', owner: 'psw', associates: ['L16', 'T62'] },
+    T62: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T62-CheckInScreen.tsx',              label: 'Check-In',         type: 'tool', owner: 'psw', associates: ['L16', 'T61'] },
     // ── RN Portal ──
-    D15: 'apps/web-admin/src/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard.tsx',
-    D16: 'apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx',
-    D17: 'apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard.tsx',
-    H16: 'apps/web-admin/src/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub.tsx',
-    L18: 'apps/web-admin/src/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub.tsx',
-    L19: 'apps/web-admin/src/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments.tsx',
-    T29: 'apps/web-admin/src/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager.tsx',
-    T30: 'apps/web-admin/src/app/routes/tenancy/rn/pages/audit/T30-EntryVerify.tsx',
-    T31: 'apps/web-admin/src/app/routes/tenancy/rn/pages/mar/T31-MarClient.tsx',
-    T32: 'apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient.tsx',
-    T33: 'apps/web-admin/src/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail.tsx',
+    D15: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard.tsx',         label: 'RN Dashboard',    type: 'dashboard', owner: 'rn', associates: ['T29', 'T30', 'H16', 'L18'] },
+    D16: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx',              label: 'MAR Dashboard',   type: 'dashboard', owner: 'rn', associates: ['T31'] },
+    D17: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard.tsx', label: 'Wound Care',      type: 'dashboard', owner: 'rn', associates: ['T32'] },
+    H16: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub.tsx',    label: 'Supervision Hub', type: 'hub', owner: 'rn', associates: ['D15'] },
+    L18: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub.tsx',    label: 'Assessments Hub', type: 'list', owner: 'rn', associates: ['D15'] },
+    L19: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments.tsx',            label: 'RAI Assessments', type: 'list', owner: 'rn', associates: ['T33'] },
+    T29: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager.tsx',    label: 'Care Plan Mgr',   type: 'tool', owner: 'rn', associates: ['D15'] },
+    T30: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/audit/T30-EntryVerify.tsx',             label: 'Entry Verify',    type: 'tool', owner: 'rn', associates: ['D15'] },
+    T31: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/mar/T31-MarClient.tsx',                 label: 'MAR Client',      type: 'tool', owner: 'rn', associates: ['D16'] },
+    T32: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient.tsx',    label: 'Wound Client',    type: 'tool', owner: 'rn', associates: ['D17'] },
+    T33: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail.tsx',       label: 'RAI Detail',      type: 'tool', owner: 'rn', associates: ['L19'] },
+    T63: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx',      label: 'RN Check-In',     type: 'tool', owner: 'rn', associates: ['D15'] },
     // ── Client Portal ──
-    D8:  'apps/web-admin/src/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard.tsx',
-    F17: 'apps/web-admin/src/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking.tsx',
-    H10: 'apps/web-admin/src/app/routes/tenancy/client/pages/billing/H10-BillingHub.tsx',
-    H17: 'apps/web-admin/src/app/routes/tenancy/client/pages/engagement/H17-FamilyCareHub.tsx',
-    L14: 'apps/web-admin/src/app/routes/tenancy/client/pages/bookings/L14-ClientBookings.tsx',
-    R5:  'apps/web-admin/src/app/routes/tenancy/client/pages/medical/R5-MedicalSummary.tsx',
-    P1:  'apps/web-admin/src/app/routes/tenancy/client/pages/family/P1-FamilyPortal.tsx',
-    T34: 'apps/web-admin/src/app/routes/tenancy/client/pages/services/T34-CatalogBrowser.tsx',
-    T35: 'apps/web-admin/src/app/routes/tenancy/client/pages/support/T35-ClientMessaging.tsx',
-    T36: 'apps/web-admin/src/app/routes/tenancy/client/pages/team/T36-TeamRoster.tsx',
-    T37: 'apps/web-admin/src/app/routes/tenancy/client/pages/support/T37-FeedbackLoop.tsx',
+    D8:  { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard.tsx',      label: 'Client Dashboard', type: 'dashboard', owner: 'client', associates: ['L14', 'H10', 'F16', 'F17', 'T34', 'T35', 'T36', 'T37', 'H17', 'R5', 'P1'] },
+    F16: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx',       label: 'Submit Feedback',  type: 'form', owner: 'client', associates: ['D8'] },
+    F17: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking.tsx',label: 'Request Booking',  type: 'form', owner: 'client', associates: ['L12', 'L14'] },
+    H10: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/billing/H10-BillingHub.tsx',            label: 'Billing Hub',      type: 'hub', owner: 'client', associates: ['D8'] },
+    H17: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/engagement/H17-FamilyCareHub.tsx',      label: 'Family Care Hub',  type: 'hub', owner: 'client', associates: ['D8', 'P1'] },
+    L14: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/bookings/L14-ClientBookings.tsx',       label: 'Client Bookings',  type: 'list', owner: 'client', associates: ['L12', 'F17'] },
+    R5:  { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/medical/R5-MedicalSummary.tsx',         label: 'Medical Summary',  type: 'report', owner: 'client', associates: ['D8'] },
+    P1:  { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/family/P1-FamilyPortal.tsx',            label: 'Family Portal',    type: 'portal', owner: 'client', associates: ['D8', 'H17'] },
+    T34: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/services/T34-CatalogBrowser.tsx',       label: 'Catalog Browser',  type: 'tool', owner: 'client', associates: ['L5'] },
+    T35: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/support/T35-ClientMessaging.tsx',       label: 'Client Messaging', type: 'tool', owner: 'client', associates: ['D8', 'T37'] },
+    T36: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/team/T36-TeamRoster.tsx',               label: 'Team Roster',      type: 'tool', owner: 'client', associates: ['D8'] },
+    T37: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/support/T37-FeedbackLoop.tsx',          label: 'Feedback Loop',    type: 'tool', owner: 'client', associates: ['D8', 'T35'] },
     // ── Coordinator Portal ──
-    H18: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/hub/H18-CoordinatorHub.tsx',
-    L20: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/waitlist/L20-WaitlistManager.tsx',
-    T38: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/map/T38-DispatchMap.tsx',
-    T39: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/sos/T39-SosCenter.tsx',
-    T40: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/fleet/T40-FleetManagement.tsx',
-    T41: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/shift-swap/T41-ShiftSwap.tsx',
-    // ── Allied Health Portal ──
-    D18: 'apps/web-admin/src/app/routes/tenancy/allied-health/D18-AlliedHealthDashboard.tsx',
-    L21: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList.tsx',
-    T42: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff.tsx',
-    // ── Staff Portal ──
-    D19: 'apps/web-admin/src/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard.tsx',
-    T43: 'apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx',
-    T44: 'apps/web-admin/src/app/routes/tenancy/staff/pages/messages/T44-MessageCenter.tsx',
-    T45: 'apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal.tsx',
-    T46: 'apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T46-ComplianceMonitor.tsx',
-    // ── Scrum Master ──
-    T47: 'apps/web-admin/src/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit.tsx',
-    // ── Secondary Admin Pages ──
-    L1:  'apps/web-admin/src/app/routes/platform/admin/pages/schedule/L1-Schedule.tsx',
-    L22: 'apps/web-admin/src/app/routes/platform/admin/pages/evv/L22-EvvExceptions.tsx',
-    F12: 'apps/web-admin/src/app/routes/platform/admin/pages/locations/F12-Locations.tsx',
-    H19: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/H19-WizardHub.tsx',
-    H20: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/H20-LogisticsHub.tsx',
-    R6:  'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/R6-AuthUtilization.tsx',
-    R7:  'apps/web-admin/src/app/routes/platform/admin/pages/consent/R7-ConsentExpiring.tsx',
-    R13: 'apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R13-RegulatoryExport.tsx',
-    T11: 'apps/web-admin/src/app/routes/platform/admin/pages/settings/T11-Settings.tsx',
-    T12: 'apps/web-admin/src/app/routes/platform/admin/pages/setup/T12-BusinessStatus.tsx',
-    T48: 'apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/T48-KBArticle.tsx',
-    T49: 'apps/web-admin/src/app/routes/platform/admin/pages/authorizations/T49-AuthAlerts.tsx',
-    T50: 'apps/web-admin/src/app/routes/platform/admin/pages/consent/T50-ConsentTemplates.tsx',
-    T51: 'apps/web-admin/src/app/routes/platform/admin/pages/webhooks/T51-WebhookDeliveries.tsx',
-    T52: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T52-PredictiveAnalytics.tsx',
-    T53: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T53-ChurnRisk.tsx',
-    T54: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T54-VisitOptimization.tsx',
-    T55: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/T55-SentimentAnalysis.tsx',
-    T56: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T56-PermissionGrid.tsx',
-    T57: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T57-SessionMonitor.tsx',
-    T58: 'apps/web-admin/src/app/routes/platform/admin/pages/security/T58-ThreatDetection.tsx',
-    T59: 'apps/web-admin/src/app/routes/platform/admin/pages/finance/reconciliation/T59-Reconciliation.tsx',
-    T60: 'apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/T60-OpenOffers.tsx',
-    T61: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T61-LiveVisit.tsx',
-    T62: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T62-CheckInScreen.tsx',
-    T63: 'apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx',
-    T64: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T64-RegionMapping.tsx',
-    T65: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity.tsx',
-    // ── Final Pages ──
-    L3:  'apps/web-admin/src/app/routes/platform/admin/pages/leads/L3-LeadList.tsx',
-    L3a: 'apps/web-admin/src/app/routes/platform/admin/pages/users/L3a-UserList.tsx',
-    F9:  'apps/web-admin/src/app/routes/platform/admin/pages/invoices/F9-InvoiceEntry.tsx',
-    F9a: 'apps/web-admin/src/app/routes/platform/admin/pages/users/F9a-UserEntry.tsx',
-    T66: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx',
-    T67: 'apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx',
-    // ── Registries (G1-G2) ──
-    G1:  'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',
-    G2:  'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',
+    H18: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/hub/H18-CoordinatorHub.tsx',       label: 'Coordinator Hub',  type: 'hub', owner: 'coordinator', associates: ['T38', 'T39', 'L20', 'T40', 'T41'] },
+    L20: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/waitlist/L20-WaitlistManager.tsx', label: 'Waitlist Manager', type: 'list', owner: 'coordinator', associates: ['H18'] },
+    T38: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/map/T38-DispatchMap.tsx',          label: 'Dispatch Map',     type: 'tool', owner: 'coordinator', associates: ['H18'] },
+    T39: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/sos/T39-SosCenter.tsx',            label: 'SOS Center',       type: 'tool', owner: 'coordinator', associates: ['H18'] },
+    T40: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/fleet/T40-FleetManagement.tsx',    label: 'Fleet Management', type: 'tool', owner: 'coordinator', associates: ['H18'] },
+    T41: { file: 'apps/web-admin/src/app/routes/tenancy/coordinator/pages/shift-swap/T41-ShiftSwap.tsx',     label: 'Shift Swap',       type: 'tool', owner: 'coordinator', associates: ['H18'] },
+    // ── Allied Health / Staff / Ops ──
+    D18: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/D18-AlliedHealthDashboard.tsx',               label: 'Allied Health',     type: 'dashboard', owner: 'allied', associates: ['L21', 'T42'] },
+    L21: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList.tsx',      label: 'Treatment List',    type: 'list', owner: 'allied', associates: ['D18', 'T42'] },
+    T42: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff.tsx',              label: 'Sign Off',          type: 'tool', owner: 'allied', associates: ['D18', 'L21'] },
+    D19: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard.tsx',              label: 'Staff Dashboard',   type: 'dashboard', owner: 'staff', associates: ['T43', 'T44', 'T45', 'T46'] },
+    T43: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx',                        label: 'Task Grid',         type: 'tool', owner: 'staff', associates: ['D19'] },
+    T44: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/messages/T44-MessageCenter.tsx',                label: 'Message Center',    type: 'tool', owner: 'staff', associates: ['D19'] },
+    T45: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal.tsx',             label: 'Incident Portal',   type: 'tool', owner: 'staff', associates: ['D19'] },
+    T46: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T46-ComplianceMonitor.tsx',          label: 'Compliance Monitor',type: 'tool', owner: 'staff', associates: ['D19'] },
+    H20: { file: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/H20-LogisticsHub.tsx',                      label: 'Logistics Hub',     type: 'hub', owner: 'admin', associates: ['T64', 'T65', 'T67', 'H4'] },
+    T64: { file: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T64-RegionMapping.tsx',                     label: 'Region Mapping',    type: 'tool', owner: 'admin', associates: ['H20', 'T65'] },
+    T65: { file: 'apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity.tsx',                  label: 'Realtime Capacity', type: 'tool', owner: 'admin', associates: ['H20', 'T64'] },
+    // ── Scrum Master / Registries ──
+    T47: { file: 'apps/web-admin/src/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit.tsx', label: 'Response Bot Audit', type: 'tool', owner: 'scrum-master', associates: ['T7'] },
+    G1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',        label: 'Form Registry',     type: 'registry', owner: 'admin', associates: ['G2', 'D2'] },
+    G2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',        label: 'Page Registry',     type: 'registry', owner: 'admin', associates: ['G1', 'D2'] },
 };
 
-// ── FILE ASSOCIATE MAP ─────────────────────────────────────────────────────
-// Links identity codes to their related pages within the same feature domain.
-// Use: FILE_ASSOCIATE_MAP['D4'] → ['L22', 'R8'] (EVV Dashboard → EVV Exceptions + EVV Export)
-export const FILE_ASSOCIATE_MAP: Record<string, string[]> = {
-    // ── Dashboard & Registry Hub ──
-    D1:  ['D2', 'G1', 'G2'],           // Admin Dashboard ↔ Registry Summary ↔ Registries
-    D2:  ['D1', 'G1', 'G2'],           // Registry Summary ↔ Admin Dashboard
-    G1:  ['G2', 'D2'],                 // Form Registry ↔ Page Registry
-    G2:  ['G1', 'D2'],                 // Page Registry ↔ Form Registry
+// ── Backward compatibility (derived from MASTER_REGISTRY) ────────────────────
+/** @deprecated Use MASTER_REGISTRY[code].file instead */
+export const FILE_IDENTITY_MAP: Record<string, string> = Object.fromEntries(
+    Object.entries(MASTER_REGISTRY).map(([code, entry]) => [code, entry.file])
+);
+/** @deprecated Use MASTER_REGISTRY[code].associates instead */
+export const FILE_ASSOCIATE_MAP: Record<string, string[]> = Object.fromEntries(
+    Object.entries(MASTER_REGISTRY).map(([code, entry]) => [code, entry.associates])
+);
 
-    // ── Incidents ──
-    L2:  ['F10'],                      // Incident List ↔ Incident Entry
-    F10: ['L2'],                       // Incident Entry ↔ Incident List
+// ── MASTER REGISTRY HELPERS ──────────────────────────────────────────────────
+export const getMasterEntry = (code: string): MasterEntry | undefined => MASTER_REGISTRY[code];
 
-    // ── Leads ──
-    L3:  ['F11', 'T66'],               // Lead List ↔ Lead Entry ↔ Lead Conversion
-    F11: ['L3', 'T66'],                // Lead Entry ↔ Lead List ↔ Lead Conversion
-    T66: ['L3', 'F11'],                // Lead Conversion ↔ Lead List ↔ Lead Entry
-
-    // ── Users / Staff ──
-    L3a: ['F9a'],                      // User List ↔ User Entry
-    F9a: ['L3a'],                      // User Entry ↔ User List
-
-    // ── Timesheets ──
-    L4:  ['F8'],                       // Timesheets ↔ Timesheet Adjustment
-    F8:  ['L4'],                       // Timesheet Adjustment ↔ Timesheets
-
-    // ── Services ──
-    L5:  ['T34'],                      // Services ↔ Catalog Browser (client view)
-    T34: ['L5'],                       // Catalog Browser ↔ Services
-
-    // ── Audits ──
-    L6:  ['R9', 'R10', 'R13'],         // Audit Logs ↔ Audit Download ↔ Compliance Export ↔ Regulatory
-    R9:  ['L6', 'R10', 'R13'],         // Audit Download ↔ Audit Logs
-    R10: ['L6', 'R9', 'R13'],          // Compliance Export ↔ Audit Logs
-    R13: ['L6', 'R9', 'R10'],          // Regulatory Export ↔ Audit Logs
-
-    // ── Authorizations ──
-    L7:  ['T49', 'R6'],                // Auth List ↔ Auth Alerts ↔ Auth Utilization
-    T49: ['L7', 'R6'],                 // Auth Alerts ↔ Auth List
-    R6:  ['L7', 'T49'],                // Auth Utilization ↔ Auth List
-
-    // ── Consent ──
-    L8:  ['T50', 'R7'],                // Consent List ↔ Consent Templates ↔ Consent Expiring
-    T50: ['L8', 'R7'],                 // Consent Templates ↔ Consent List
-    R7:  ['L8', 'T50'],                // Consent Expiring ↔ Consent List
-
-    // ── Referrals ──
-    L9:  ['R11'],                      // Referral List ↔ Referral Analytics
-    R11: ['L9'],                       // Referral Analytics ↔ Referral List
-
-    // ── Claims ──
-    L10: ['R12'],                      // Claims List ↔ Claims ERA
-    R12: ['L10'],                      // Claims ERA ↔ Claims List
-
-    // ── Webhooks ──
-    L11: ['T51'],                      // Webhook List ↔ Webhook Deliveries
-    T51: ['L11'],                      // Webhook Deliveries ↔ Webhook List
-
-    // ── Booking Requests ──
-    L12: ['L14', 'F17'],               // Booking Queue ↔ Client Bookings ↔ Request Booking
-    L14: ['L12', 'F17'],               // Client Bookings ↔ Booking Queue
-    F17: ['L12', 'L14'],               // Request Booking ↔ Booking Queue
-
-    // ── EVV ──
-    D4:  ['L22', 'R8'],                // EVV Dashboard ↔ EVV Exceptions ↔ EVV Export
-    L22: ['D4', 'R8'],                 // EVV Exceptions ↔ EVV Dashboard
-    R8:  ['D4', 'L22'],                // EVV Export ↔ EVV Dashboard
-
-    // ── AI ──
-    D5:  ['T52', 'T53', 'T54', 'T55'], // AI Dashboard ↔ Predictive ↔ Churn ↔ Visit ↔ Sentiment
-    T52: ['D5', 'T53', 'T54', 'T55'],  // Predictive Analytics → AI family
-    T53: ['D5', 'T52', 'T54', 'T55'],  // Churn Risk → AI family
-    T54: ['D5', 'T52', 'T53', 'T55'],  // Visit Optimization → AI family
-    T55: ['D5', 'T52', 'T53', 'T54'],  // Sentiment Analysis → AI family
-
-    // ── Security / Governance ──
-    T10: ['T13', 'T14', 'T15', 'T16', 'T56', 'T57', 'T58'], // Security Governance → full security suite
-    T13: ['T10'],                      // Device Management ↔ Security Governance
-    T14: ['T10'],                      // Forensic Trails ↔ Security Governance
-    T15: ['T10'],                      // CORS Settings ↔ Security Governance
-    T16: ['T10'],                      // Integrity Verification ↔ Security Governance
-    T56: ['T10'],                      // Permission Grid ↔ Security Governance
-    T57: ['T10'],                      // Session Monitor ↔ Security Governance
-    T58: ['T10'],                      // Threat Detection ↔ Security Governance
-
-    // ── Finance / Accounting ──
-    D3:  ['T17', 'T18', 'T59'],        // Accounting Dashboard ↔ Ledger ↔ Tax ↔ Reconciliation
-    T17: ['D3', 'T18', 'T59'],         // Financial Ledger ↔ Accounting
-    T18: ['D3', 'T17'],                // Tax Compliance ↔ Accounting
-    T59: ['D3', 'T17'],                // Reconciliation ↔ Accounting
-
-    // ── Admission / Onboarding ──
-    F6:  ['F7'],                       // Client Admission ↔ Staff Onboarding
-    F7:  ['F6'],                       // Staff Onboarding ↔ Client Admission
-
-    // ── Invoices ──
-    F9:  ['H3'],                       // Invoice Entry ↔ Revenue Cycle Hub
-    H3:  ['F9'],                       // Revenue Cycle Hub ↔ Invoice Entry
-
-    // ── Expenses / Payouts (PSW) ──
-    F14: ['R4'],                       // Expense Claim ↔ Payout History
-    R4:  ['F14', 'R3'],                // Payout History ↔ Expense Claim ↔ Earnings
-    R3:  ['R4'],                       // PSW Earnings ↔ Payout History
-
-    // ── Telehealth ──
-    H1:  ['T8'],                       // Telehealth Center ↔ Clinical Assistant
-    T8:  ['H1', 'T9'],                 // Clinical Assistant ↔ Telehealth ↔ AI Insights
-    T9:  ['T8', 'D5'],                 // AI Insights ↔ Clinical Assistant ↔ AI Dashboard
-
-    // ── Knowledge Base ──
-    H8:  ['T48'],                      // Knowledge Base ↔ KB Article
-    T48: ['H8'],                       // KB Article ↔ Knowledge Base
-
-    // ── Setup / Wizards ──
-    H19: ['W1', 'W2', 'W3', 'W4', 'W5', 'T12'], // Wizard Hub ↔ all wizards
-    W1:  ['H19', 'T12'],               // Business Setup ↔ Wizard Hub ↔ Business Status
-    W2:  ['H19', 'F7'],                // Staff Onboarding Wizard ↔ Wizard Hub ↔ Staff Onboarding
-    W3:  ['H19'],                      // Care Plan Wizard ↔ Wizard Hub
-    W4:  ['H19', 'H3'],                // Revenue Wizard ↔ Wizard Hub ↔ Revenue Cycle
-    W5:  ['H19'],                      // Business Model Wizard ↔ Wizard Hub
-    T12: ['H19', 'W1'],                // Business Status ↔ Wizard Hub
-
-    // ── Reports / Exports ──
-    R1:  ['R2'],                       // Report Center ↔ Export Page
-    R2:  ['R1'],                       // Export Page ↔ Report Center
-
-    // ── Search / Content ──
-    T1:  ['T2'],                       // Search ↔ Content Manager
-    T2:  ['T1', 'T3'],                 // Content Manager ↔ Search ↔ Template Editor
-    T3:  ['T2'],                       // Template Editor ↔ Content Manager
-
-    // ── Roles / Customers ──
-    T4:  ['L15'],                      // Role Editor ↔ Customer List
-    L15: ['T4'],                       // Customer List ↔ Role Editor
-
-    // ── FHIR / Sovereign / Interop ──
-    T5:  ['T6'],                       // FHIR Center ↔ Sovereign Wallet
-    T6:  ['T5'],                       // Sovereign Wallet ↔ FHIR Center
-
-    // ── Automation / Cron ──
-    T7:  ['D6'],                       // AutoPilot ↔ Cron Dashboard
-    D6:  ['T7'],                       // Cron Dashboard ↔ AutoPilot
-
-    // ── Notifications / Documents ──
-    H5:  ['H6'],                       // Notifications Hub ↔ Document Center
-    H6:  ['H5'],                       // Document Center ↔ Notifications Hub
-
-    // ── Payroll ──
-    H7:  ['T24', 'D9'],                // Payroll Hub ↔ Payroll Verification ↔ Branch P&L
-    T24: ['H7', 'D9'],                 // Payroll Verification ↔ Payroll Hub
-    D9:  ['H7', 'T24'],                // Branch P&L ↔ Payroll Hub
-
-    // ── Ops / Logistics ──
-    H20: ['T64', 'T65', 'T67', 'H4'], // Logistics Hub ↔ Region Mapping ↔ Capacity ↔ Supply
-    T64: ['H20', 'T65'],               // Region Mapping ↔ Logistics Hub
-    T65: ['H20', 'T64'],               // Realtime Capacity ↔ Logistics Hub
-    T67: ['H20'],                      // Supply & Demand ↔ Logistics Hub
-    H4:  ['H20'],                      // Supply Chain Hub ↔ Logistics Hub
-
-    // ── PSW Schedule ──
-    L16: ['L17', 'T60', 'T61', 'T62'], // PSW Schedule ↔ Open Shifts ↔ Offers ↔ Live Visit ↔ Check-In
-    L17: ['L16', 'T60'],               // Open Shifts ↔ Schedule ↔ Open Offers
-    T60: ['L17', 'L16'],               // Open Offers ↔ Open Shifts
-    T61: ['L16', 'T62'],               // Live Visit ↔ Schedule ↔ Check-In
-    T62: ['L16', 'T61'],               // Check-In Screen ↔ Schedule ↔ Live Visit
-
-    // ── PSW Dashboard & Support ──
-    D14: ['L16', 'F13', 'F14', 'F15', 'R3'], // PSW Dashboard ↔ Schedule ↔ Handover ↔ Expenses ↔ Availability ↔ Earnings
-    F13: ['D14'],                      // Shift Handover ↔ PSW Dashboard
-    F15: ['D14'],                      // Availability ↔ PSW Dashboard
-    T26: ['D14'],                      // Shift Confirmation ↔ PSW Dashboard
-    H14: ['H15'],                      // Credential Vault ↔ PSW Training Hub
-    H15: ['H14'],                      // PSW Training Hub ↔ Credential Vault
-    T27: ['D14'],                      // Provider Social ↔ PSW Dashboard
-    T28: ['D14'],                      // Mileage Tracker ↔ PSW Dashboard
-
-    // ── RN Portal ──
-    D15: ['T29', 'T30', 'H16', 'L18'], // RN Dashboard ↔ Care Plans ↔ Entry Verify ↔ Supervision ↔ Assessments
-    T29: ['D15'],                      // Care Plan Manager ↔ RN Dashboard
-    T30: ['D15'],                      // Entry Verify ↔ RN Dashboard
-    H16: ['D15'],                      // Supervision Hub ↔ RN Dashboard
-    L18: ['D15'],                      // Assessments Hub ↔ RN Dashboard
-    T63: ['D15'],                      // RN Check-In ↔ RN Dashboard
-    D16: ['T31'],                      // MAR Dashboard ↔ MAR Client
-    T31: ['D16'],                      // MAR Client ↔ MAR Dashboard
-    D17: ['T32'],                      // Wound Care Dashboard ↔ Wound Care Client
-    T32: ['D17'],                      // Wound Care Client ↔ Wound Care Dashboard
-    L19: ['T33'],                      // RAI Assessments ↔ RAI Assessment Detail
-    T33: ['L19'],                      // RAI Assessment Detail ↔ RAI Assessments
-
-    // ── Client Portal ──
-    D8:  ['L14', 'H10', 'F16', 'F17', 'T34', 'T35', 'T36', 'T37', 'H17', 'R5', 'P1'],
-    H10: ['D8'],                       // Billing Hub ↔ Client Dashboard
-    F16: ['D8'],                       // Submit Feedback ↔ Client Dashboard
-    T35: ['D8', 'T37'],                // Client Messaging ↔ Client Dashboard ↔ Feedback Loop
-    T36: ['D8'],                       // Team Roster ↔ Client Dashboard
-    T37: ['D8', 'T35'],                // Feedback Loop ↔ Client Dashboard ↔ Client Messaging
-    H17: ['D8', 'P1'],                 // Family Care Hub ↔ Client Dashboard ↔ Family Portal
-    R5:  ['D8'],                       // Medical Summary ↔ Client Dashboard
-    P1:  ['D8', 'H17'],                // Family Portal ↔ Client Dashboard ↔ Family Care Hub
-
-    // ── Coordinator Portal ──
-    H18: ['T38', 'T39', 'L20', 'T40', 'T41'], // Coordinator Hub ↔ all coordinator tools
-    T38: ['H18'],                      // Dispatch Map ↔ Coordinator Hub
-    T39: ['H18'],                      // SOS Center ↔ Coordinator Hub
-    L20: ['H18'],                      // Waitlist Manager ↔ Coordinator Hub
-    T40: ['H18'],                      // Fleet Management ↔ Coordinator Hub
-    T41: ['H18'],                      // Shift Swap ↔ Coordinator Hub
-
-    // ── Allied Health ──
-    D18: ['L21', 'T42'],               // Allied Health Dashboard ↔ Treatments ↔ Sign Off
-    L21: ['D18', 'T42'],               // Treatment List ↔ Dashboard ↔ Sign Off
-    T42: ['D18', 'L21'],               // Sign Off ↔ Dashboard ↔ Treatment List
-
-    // ── Staff Portal ──
-    D19: ['T43', 'T44', 'T45', 'T46'], // Staff Dashboard ↔ all staff tools
-    T43: ['D19'],                      // Task Grid ↔ Staff Dashboard
-    T44: ['D19'],                      // Message Center ↔ Staff Dashboard
-    T45: ['D19'],                      // Incident Portal ↔ Staff Dashboard
-    T46: ['D19'],                      // Compliance Monitor ↔ Staff Dashboard
-
-    // ── Manager Portal ──
-    D7:  ['H12', 'D10', 'T25', 'D9', 'T19', 'L13', 'T21', 'H11', 'T22', 'T23'],
-    H12: ['D7'],                       // Operations Hub ↔ Manager Dashboard
-    D10: ['D7'],                       // Regional Stats ↔ Manager Dashboard
-    T25: ['D7'],                       // Compliance Sync ↔ Manager Dashboard
-    T19: ['D7'],                       // Portfolio ↔ Manager Dashboard
-    T20: ['D7'],                       // Daily Entry ↔ Manager Dashboard
-    L13: ['D7'],                       // Evaluations ↔ Manager Dashboard
-    T21: ['D7'],                       // Service Review ↔ Manager Dashboard
-    H11: ['D7'],                       // Training Hub ↔ Manager Dashboard
-    T22: ['D7'],                       // Survey Manager ↔ Manager Dashboard
-    T23: ['D7'],                       // Staff Ranker ↔ Manager Dashboard
-
-    // ── Marketing / HR / Finance / QA ──
-    D11: ['D7'],                       // Marketing Dashboard ↔ Manager Dashboard
-    H13: ['D7'],                       // HR Recruitment ↔ Manager Dashboard
-    D12: ['D7', 'D9'],                 // Finance Regional Hub ↔ Manager ↔ Branch P&L
-    D13: ['D15'],                      // Clinical QA ↔ RN Dashboard
-
-    // ── Scrum Master ──
-    T47: ['T7'],                       // Response Bot Audit ↔ AutoPilot
-
-    // ── Auth Forms ──
-    F1:  ['F2', 'F3'],                 // Login ↔ Register ↔ Forgot Password
-    F2:  ['F1'],                       // Register ↔ Login
-    F3:  ['F1', 'F4'],                 // Forgot Password ↔ Login ↔ Reset Password
-    F4:  ['F3'],                       // Reset Password ↔ Forgot Password
-    F5:  ['W1'],                       // Business Onboard ↔ Business Setup Wizard
-
-    // ── Schedule / Locations ──
-    L1:  ['L16'],                      // Admin Schedule ↔ PSW Schedule
-    F12: ['T64'],                      // Locations ↔ Region Mapping
-    T11: ['D1'],                       // Settings ↔ Admin Dashboard
-
-    // ── Pharmacy / Reference ──
-    H2:  ['H4'],                       // Pharmacy Hub ↔ Supply Chain Hub
-    H9:  ['T11'],                      // Reference Data Hub ↔ Settings
+export const getAssociates = (code: string): { code: string; label: string; type: PageType }[] => {
+    const entry = MASTER_REGISTRY[code];
+    if (!entry) return [];
+    return entry.associates.filter(c => MASTER_REGISTRY[c]).map(c => ({ code: c, label: MASTER_REGISTRY[c].label, type: MASTER_REGISTRY[c].type }));
 };
+
+export const getMasterByType = (type: PageType): { code: string; entry: MasterEntry }[] =>
+    Object.entries(MASTER_REGISTRY).filter(([, e]) => e.type === type).map(([code, entry]) => ({ code, entry }));
+
+export const getMasterByOwner = (owner: PageEntry['owner']): { code: string; entry: MasterEntry }[] =>
+    Object.entries(MASTER_REGISTRY).filter(([, e]) => e.owner === owner).map(([code, entry]) => ({ code, entry }));
+
+export const MASTER_REGISTRY_COUNT = Object.keys(MASTER_REGISTRY).length;
