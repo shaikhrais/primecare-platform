@@ -36,15 +36,15 @@ const FinanceHub = lazy(() => import('./manager/pages/finance/D9-BranchPL'));
 const PswDashboard = lazy(() => import('./psw/pages/dashboard/D14-PswDashboard'));
 const PswSchedule = lazy(() => import('./psw/pages/schedule/L16-PswSchedule'));
 const PswOpenShifts = lazy(() => import('./psw/pages/OpenShifts/L17-OpenShifts'));
-const PswOpenOffers = lazy(() => import('./psw/pages/OpenShifts/OpenOffers'));
+const PswOpenOffers = lazy(() => import('./psw/pages/OpenShifts/T60-OpenOffers'));
 const PswAvailability = lazy(() => import('./psw/pages/availability/F15-Availability'));
 const PswEarnings = lazy(() => import('./psw/pages/earnings/R3-PswEarnings'));
 const PswExpenses = lazy(() => import('./psw/pages/expenses'));
 const PswShiftConfirmation = lazy(() => import('./psw/pages/shift-confirmation/T26-ShiftConfirmation'));
 const CredentialVault = lazy(() => import('./psw/pages/credentials/H14-CredentialVault'));
 const ProviderSocial = lazy(() => import('./psw/pages/feed/T27-ProviderSocial'));
-const LiveVisit = lazy(() => import('./psw/pages/schedule/LiveVisit'));
-const CheckInScreen = lazy(() => import('./psw/pages/schedule/CheckInScreen'));
+const LiveVisit = lazy(() => import('./psw/pages/schedule/T61-LiveVisit'));
+const CheckInScreen = lazy(() => import('./psw/pages/schedule/T62-CheckInScreen'));
 const PswHandover = lazy(() => import('./psw/pages/handover'));
 const PswPayoutHistory = lazy(() => import('./psw/pages/payouts/R4-PayoutHistory'));
 
@@ -54,7 +54,7 @@ const CarePlanManager = lazy(() => import('./rn/pages/care-plans/T29-CarePlanMan
 const EntryVerify = lazy(() => import('./rn/pages/audit/T30-EntryVerify'));
 const SupervisionHub = lazy(() => import('./rn/pages/supervision/H16-SupervisionHub'));
 const AssessmentsHub = lazy(() => import('./rn/pages/assessments/L18-AssessmentsHub'));
-const RnCheckInScreen = lazy(() => import('./rn/pages/schedule/RnCheckInScreen'));
+const RnCheckInScreen = lazy(() => import('./rn/pages/schedule/T63-RnCheckInScreen'));
 
 // Client Pages
 const ClientDashboard = lazy(() => import('./client/pages/dashboard/D8-ClientDashboard'));
