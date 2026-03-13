@@ -1,9 +1,9 @@
 // ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F11 · Create Lead
-// Registry ID:   page.admin.lead-entry
+// PAGE IDENTITY: F14 · Expense Claim
+// Registry ID:   page.psw.expenses
 // Type:          Form
-// Owner:         admin
-// Route:         /platform/admin/leads/new
+// Owner:         psw
+// Route:         /tenancy/psw/expenses
 // ═══════════════════════════════════════════════════════════════
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,20 +13,18 @@ import { DynamicFormRenderer } from '@/shared/components/forms';
 const { getFormById, RouteRegistry } = AdminRegistry;
 
 /**
- * [F11] Lead Entry Form — powered by centralized FormRegistry.
- * Previously 97 lines with setTimeout mock submission and hardcoded source dropdown.
- * Now uses DynamicFormRenderer with real API POST to /v1/admin/leads.
+ * [F14] Expense Claim Form — powered by centralized FormRegistry.
  */
-export default function LeadEntryForm() {
+export default function ExpenseReportForm() {
     const navigate = useNavigate();
-    const formEntry = getFormById('admin.lead-entry');
+    const formEntry = getFormById('psw.expenses');
     if (!formEntry) return null;
 
     return (
-        <div style={{ padding: '2rem' }} data-cy="form.lead.page">
+        <div style={{ padding: '2rem' }} data-cy="form.expense.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.LEADS)}
+                onSuccess={() => navigate(RouteRegistry.ADMIN.EARNINGS)}
                 onCancel={() => navigate(-1)}
             />
         </div>

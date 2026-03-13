@@ -14,8 +14,6 @@ const { getFormById, RouteRegistry } = AdminRegistry;
 
 /**
  * [F11] Lead Entry Form — powered by centralized FormRegistry.
- * Previously 97 lines with setTimeout mock submission and hardcoded source dropdown.
- * Now uses DynamicFormRenderer with real API POST to /v1/admin/leads.
  */
 export default function LeadEntryForm() {
     const navigate = useNavigate();

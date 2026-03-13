@@ -425,3 +425,34 @@ export const getMasterList = (): { srNo: number; categoryCode: string; label: st
     }));
 
 export const PAGE_REGISTRY_COUNT = PageRegistry.length;
+
+// ── FILE IDENTITY MAP ────────────────────────────────────────────────────────
+// Maps category codes → source file paths for quick identification.
+// Use: FILE_IDENTITY_MAP['F6'] → 'apps/web-admin/.../admission/index.tsx'
+export const FILE_IDENTITY_MAP: Record<string, string> = {
+    // Auth Forms (F1-F5)
+    F1:  'apps/web-admin/src/app/routes/auth/Login.tsx',
+    F2:  'apps/web-admin/src/app/routes/auth/Register.tsx',
+    F3:  'apps/web-admin/src/app/routes/auth/ForgotPassword.tsx',
+    F4:  'apps/web-admin/src/app/routes/auth/ResetPassword.tsx',
+    F5:  'apps/web-admin/src/app/routes/auth/BusinessOnboard.tsx',
+    // Admin Forms (F6-F12)
+    F6:  'apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx',
+    F7:  'apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx',
+    F8:  'apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx',
+    F9:  'apps/web-admin/src/app/routes/platform/admin/pages/users/UserForm.tsx',
+    F10: 'apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx',
+    F11: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx',
+    F12: 'apps/web-admin/src/app/routes/platform/admin/pages/locations/index.tsx',
+    // PSW Forms (F13-F15)
+    F13: 'apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx',
+    F14: 'apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx',
+    F15: 'apps/web-admin/src/app/routes/tenancy/psw/pages/availability/index.tsx',
+    // Client Forms (F16-F18)
+    F16: 'apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx',
+    F17: 'apps/web-admin/src/app/routes/tenancy/client/pages/bookings/RequestBooking.tsx',
+    F18: 'apps/web-admin/src/app/routes/shared/pages/profile/index.tsx',
+    // Registries (G1-G2)
+    G1:  'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',
+    G2:  'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',
+};

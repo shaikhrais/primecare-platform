@@ -1,3 +1,10 @@
+// ═══════════════════════════════════════════════════════════════
+// PAGE IDENTITY: F10 · Create Incident
+// Registry ID:   page.admin.incident-entry
+// Type:          Form
+// Owner:         admin
+// Route:         /platform/admin/incidents/new
+// ═══════════════════════════════════════════════════════════════
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
@@ -6,7 +13,7 @@ import { DynamicFormRenderer } from '@/shared/components/forms';
 const { getFormById, RouteRegistry } = AdminRegistry;
 
 /**
- * Incident Entry Form — powered by centralized FormRegistry.
+ * [F10] Incident Entry Form — powered by centralized FormRegistry.
  * Previously 139 lines with hardcoded type/severity dropdowns and manual API calls.
  * Now uses DynamicFormRenderer with inline Client & PSW creators from FormRegistry.
  */

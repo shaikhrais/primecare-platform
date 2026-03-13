@@ -1,9 +1,9 @@
 // ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F11 · Create Lead
-// Registry ID:   page.admin.lead-entry
+// PAGE IDENTITY: F8 · Timesheet Adjustment
+// Registry ID:   page.admin.timesheet-adjust
 // Type:          Form
 // Owner:         admin
-// Route:         /platform/admin/leads/new
+// Route:         /platform/admin/timesheets/adjust
 // ═══════════════════════════════════════════════════════════════
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,20 +13,18 @@ import { DynamicFormRenderer } from '@/shared/components/forms';
 const { getFormById, RouteRegistry } = AdminRegistry;
 
 /**
- * [F11] Lead Entry Form — powered by centralized FormRegistry.
- * Previously 97 lines with setTimeout mock submission and hardcoded source dropdown.
- * Now uses DynamicFormRenderer with real API POST to /v1/admin/leads.
+ * [F8] Timesheet Adjustment Form — powered by centralized FormRegistry.
  */
-export default function LeadEntryForm() {
+export default function TimesheetAdjForm() {
     const navigate = useNavigate();
-    const formEntry = getFormById('admin.lead-entry');
+    const formEntry = getFormById('admin.timesheet-adjust');
     if (!formEntry) return null;
 
     return (
-        <div style={{ padding: '2rem' }} data-cy="form.lead.page">
+        <div style={{ padding: '2rem' }} data-cy="form.timesheet.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.LEADS)}
+                onSuccess={() => navigate(RouteRegistry.ADMIN.TIMESHEETS)}
                 onCancel={() => navigate(-1)}
             />
         </div>
