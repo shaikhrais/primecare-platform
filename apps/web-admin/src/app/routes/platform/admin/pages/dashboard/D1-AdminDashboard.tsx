@@ -69,6 +69,26 @@ export default function AdminDashboard() {
         await handleApiAction('/v1/admin/actions/suspend-reseller', 'Reseller agreement suspended', 'Failed to suspend reseller');
     };
 
+    const handleVerifyChain = async () => {
+        try {
+            const res = await apiClient.get('/v1/admin/actions/audit-chain/verify');
+            if (res.ok) {
+                const data = await res.json();
+                showToast(data.message, data.chain?.valid ? 'success' : 'error');
+            } else { showToast('Chain verification failed', 'error'); }
+        } catch { showToast('Network error during verification', 'error'); }
+    };
+
+    const handleAuditStats = async () => {
+        try {
+            const res = await apiClient.get('/v1/admin/actions/audit-chain/stats');
+            if (res.ok) {
+                const data = await res.json();
+                const s = data.stats;
+                showToast(`📊 Audit Chain: ${s.totalEntries} entries (${s.entriesToday} today)`, 'success');
+            } else { showToast('Failed to fetch stats', 'error'); }
+        } catch { showToast('Network error', 'error'); }
+    };
     return (
         <div data-cy="page.container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
@@ -148,6 +168,8 @@ export default function AdminDashboard() {
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => handleApiAction('/v1/admin/actions/reindex-search', 'Search index rebuilt successfully', 'Reindex failed')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-search-reindex')?.label || 'Reindex Search'}</button>
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={() => navigate('/platform/admin/tenants/new')}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-superuser-tenant-new')?.label || 'New Tenant'}</button>
                 <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', color: 'red' }} onClick={handleSuspendReseller}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-reseller-suspend')?.label || 'Suspend Reseller'}</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px', background: '#059669', color: 'white' }} onClick={handleVerifyChain}>🛡️ Verify Chain</button>
+                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={handleAuditStats}>📊 Audit Stats</button>
             </div>
 
             {/* Business Model Score & Setup Wizard Banner */}
