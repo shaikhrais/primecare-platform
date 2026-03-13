@@ -8,6 +8,7 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 const runSystemSweepsRoute = createRoute({
   method: "post",
   path: "/incident-sla", // Maintained legacy path to avoid breaking index.js fetch
+    tags: ['System', 'Cron'],
   description:
     "Internal cron to ping RNs about unacknowledged Fall incidents, handover digests, and supervision compliance.",
   responses: {

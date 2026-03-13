@@ -185,11 +185,13 @@ claims.openapi(eraRoute, async (c) => {
 
 const syncRevenueRoute = createRoute({
     method: 'post', path: '/system/sync', summary: 'Sync Revenue',
+    tags: ['Admin', 'Claims'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
 const submitBatchRoute = createRoute({
     method: 'post', path: '/system/submit', summary: 'Submit Claims Batch',
+    tags: ['Admin', 'Claims'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 

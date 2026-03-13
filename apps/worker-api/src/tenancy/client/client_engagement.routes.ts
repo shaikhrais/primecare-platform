@@ -10,6 +10,7 @@ engagement.openapi(
         ...ROUTE_METADATA.CLIENT.FAMILY_FEED,
         method: 'get',
         path: '/feed',
+    tags: ['Client', 'Engagement'],
         responses: {
             200: {
                 description: 'Success',
@@ -93,6 +94,7 @@ engagement.openapi(
         ...ROUTE_METADATA.CLIENT.INVOICE_PAY,
         method: 'post',
         path: '/pay-invoice',
+    tags: ['Client', 'Engagement'],
         request: {
             body: {
                 content: {

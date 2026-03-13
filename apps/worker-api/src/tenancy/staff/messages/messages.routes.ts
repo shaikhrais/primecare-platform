@@ -59,6 +59,7 @@ const auditChatsRoute = createRoute({
     method: 'get',
     path: '/hub/audit',
     summary: 'QA Encrypted Pull of target Message Threads',
+    tags: ['Staff', 'Messages'],
     request: { query: z.object({ targetUserId: z.string() }) },
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Audit pulled' },
@@ -97,6 +98,7 @@ const multiDisciplinaryThreadRoute = createRoute({
     method: 'post',
     path: '/hub/multidisciplinary',
     summary: 'Establish a shared Care Thread connecting RN, PSW, and Client',
+    tags: ['Staff', 'Messages'],
     request: { body: { content: { 'application/json': { schema: z.object({ clientId: z.string() }) } } } },
     responses: {
         200: { content: { 'application/json': { schema: z.any() } }, description: 'Thread created' },

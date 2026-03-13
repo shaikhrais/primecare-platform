@@ -9,6 +9,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/churn-risks',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Algorithmic Churn Risks',
         responses: { 200: { description: 'Success' } }
     }),
@@ -28,6 +29,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/drip-sequences',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Drip Sequence Configuration and Performance',
         responses: { 200: { description: 'Success' } }
     }),
@@ -48,6 +50,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/revenue-attribution',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Marketing Revenue Attribution',
         responses: { 200: { description: 'Success' } }
     }),
@@ -66,6 +69,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/subscribers',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Newsletter Subscribers',
         responses: { 200: { description: 'Success' } }
     }),
@@ -85,6 +89,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/promotions',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Promotional Code Engine Status',
         responses: { 200: { description: 'Success' } }
     }),
@@ -101,6 +106,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'get',
         path: '/syndication/vault',
+    tags: ['Admin', 'Marketing'],
         summary: 'Get Social Media Vault Status',
         responses: { 200: { description: 'Success' } }
     }),
@@ -126,6 +132,7 @@ marketingRoutes.openapi(
     createRoute({
         method: 'post',
         path: '/syndication/post',
+    tags: ['Admin', 'Marketing'],
         summary: 'Trigger Social Media Auto-Poster',
         request: {
             body: {

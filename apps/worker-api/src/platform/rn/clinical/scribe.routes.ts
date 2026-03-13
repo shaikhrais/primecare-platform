@@ -12,6 +12,7 @@ scribeRoutes.openapi(
     createRoute({
         method: 'post',
         path: '/parse',
+    tags: ['RN', 'Clinical Scribe'],
         summary: 'Parse Raw Clinical Dictation into SOAPIER Format',
         request: {
             body: {

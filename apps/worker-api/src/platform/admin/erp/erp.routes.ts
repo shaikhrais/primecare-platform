@@ -127,11 +127,13 @@ erpRoutes.openapi(getPurchaseOrdersRoute, async (c) => {
 
 const createPoRoute = createRoute({
     method: 'post', path: '/po/create', summary: 'Create Purchase Order / Draft',
+    tags: ['Admin', 'Erp'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
 const addInventoryRoute = createRoute({
     method: 'post', path: '/inventory/add', summary: 'Add Inventory Item',
+    tags: ['Admin', 'Erp'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 

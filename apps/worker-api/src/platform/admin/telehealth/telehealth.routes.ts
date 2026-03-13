@@ -125,6 +125,7 @@ const startSessionRoute = createRoute({
     method: 'post',
     path: '/session/start',
     summary: 'Start Telehealth Session',
+    tags: ['Admin', 'Telehealth'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
@@ -132,6 +133,7 @@ const openTriageRoute = createRoute({
     method: 'post',
     path: '/triage/open',
     summary: 'Open Triage Portal',
+    tags: ['Admin', 'Telehealth'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
@@ -139,6 +141,7 @@ const verifyVitalsRoute = createRoute({
     method: 'post',
     path: '/vitals/verify',
     summary: 'Verify Remote Vitals',
+    tags: ['Admin', 'Telehealth'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 

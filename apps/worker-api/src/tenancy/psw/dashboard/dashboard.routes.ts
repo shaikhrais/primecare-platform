@@ -151,6 +151,7 @@ const postIncidentRoute = createRoute({
     method: 'post',
     path: '/incident',
     summary: 'Report Incident',
+    tags: ['PSW', 'Dashboard'],
     middleware: [requireRole(['psw'])],
     responses: {
         200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
@@ -161,6 +162,7 @@ const postWellnessRoute = createRoute({
     method: 'post',
     path: '/wellness',
     summary: 'Wellness Pulse Submission',
+    tags: ['PSW', 'Dashboard'],
     middleware: [requireRole(['psw'])],
     responses: {
         200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
@@ -179,6 +181,7 @@ const redeemStoreRoute = createRoute({
     method: 'post',
     path: '/store/redeem',
     summary: 'CareCoin Redemption Store',
+    tags: ['PSW', 'Dashboard'],
     middleware: [requireRole(['psw'])],
     request: {
         body: {

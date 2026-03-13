@@ -229,6 +229,7 @@ const matchingEngineRoute = createRoute({
  */
 const listSosRoute = createRoute({
     summary: 'List SOS Incidents',
+    tags: ['Coordinator'],
     description: 'Retrieve a list of active SOS emergency alerts.',
     method: 'get',
     path: '/incidents',
@@ -600,6 +601,7 @@ const fleetPingRoute = createRoute({
     method: 'post',
     path: '/fleet/ping',
     summary: 'Ping Active Fleet',
+    tags: ['Coordinator'],
     middleware: [requirePermission('COORDINATOR_DISPATCH')],
     responses: {
         200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },

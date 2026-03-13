@@ -22,6 +22,7 @@ const RegistrySweepSchema = z.object({
 
 const sweepRoute = createRoute({
     summary: 'Response Bot Registry Sweep',
+    tags: ['API', 'Scrum Master'],
     description: 'Programmatically audit all button and link registries against the ApiRegistry and RouteRegistry.',
     method: 'post',
     path: '/registry/sweep',
@@ -78,6 +79,7 @@ const flushRoute = createRoute({
     method: 'post',
     path: '/forensics/flush',
     summary: 'Flush Audits',
+    tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
@@ -85,6 +87,7 @@ const reseedRoute = createRoute({
     method: 'post',
     path: '/governance/reseed',
     summary: 'Reseed Database',
+    tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
@@ -92,6 +95,7 @@ const deployRoute = createRoute({
     method: 'post',
     path: '/system/deploy',
     summary: 'Deploy Build',
+    tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 

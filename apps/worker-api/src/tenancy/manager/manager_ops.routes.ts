@@ -150,7 +150,6 @@ const waitlistRoute = createRoute({
     method: 'get',
     path: '/intake/waitlist',
     summary: 'Waitlist',
-    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -171,7 +170,6 @@ const logisticsBoardRoute = createRoute({
     method: 'get',
     path: '/schedule/logistics-board',
     summary: 'Logistics Board',
-    tags: ['Manager'],
     request: {},
     responses: {
         200: {
@@ -537,7 +535,6 @@ const authorizeCrisisPayRoute = createRoute({
     method: 'post',
     path: '/schedule/logistics-board/{visitId}/crisis-pay',
     summary: 'Authorize Crisis Pay',
-    tags: ['Manager'],
     tags: ['Manager Operations'],
     request: { params: z.object({ visitId: z.string() }) },
     responses: {

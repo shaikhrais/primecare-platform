@@ -7,6 +7,7 @@ const connectRoute = createRoute({
     method: 'get',
     path: '/connect',
     summary: 'Upgrade connection to standard WebSocket',
+    tags: ['System', 'Realtime'],
     responses: {
         101: { description: 'Switching Protocols' },
         400: { description: 'Missing Tenant ID' }

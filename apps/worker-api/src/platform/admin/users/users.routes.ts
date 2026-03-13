@@ -271,6 +271,7 @@ const churnHeatmapRoute = createRoute({
     method: 'get',
     path: '/churn-heatmap',
     summary: 'Churn Risk X/Y Matrix',
+    tags: ['Admin', 'Users'],
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Heatmap coordinates' }
     },

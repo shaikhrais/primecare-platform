@@ -17,6 +17,7 @@ const hashRoute = createRoute({
     method: 'get',
     path: '/hash',
     summary: 'Debug Hashing Utility',
+    tags: ['System', 'Debug'],
     description: 'Generates a hash for a given password string. DEV ONLY.',
     request: {
         query: z.object({
