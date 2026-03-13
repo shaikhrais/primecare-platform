@@ -1,11 +1,35 @@
-import { Hono } from 'hono';
-import { PrismaClient } from '@prisma/client';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 
-const platformStats = new Hono();
+type Env = { Bindings: any; Variables: any };
+const platformStats = new OpenAPIHono<Env>();
 
-platformStats.get('/stats', async (c: any) => {
-    // Aggregating across ALL tenants (bypass tenant isolation if needed or use system context)
-    // Note: The Super Admin role in our middleware already allows bypassing tenant filters.
+const getPlatformStatsRoute = createRoute({
+    method: 'get',
+    path: '/stats',
+    summary: 'Get Platform Statistics',
+    description: 'Returns aggregated platform-wide statistics across all tenants: total tenants, users, visits, network revenue, system health, and critical incidents.',
+    tags: ['Admin', 'Platform Stats'],
+    responses: {
+        200: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        tenants: z.number().openapi({ example: 12 }),
+                        users: z.number().openapi({ example: 150 }),
+                        visits: z.number().openapi({ example: 4200 }),
+                        networkRevenue: z.number().openapi({ example: 10500 }),
+                        systemHealth: z.number().openapi({ example: 99.98 }),
+                        activeCriticalIncidents: z.number().openapi({ example: 0 }),
+                    }),
+                },
+            },
+            description: 'Platform-wide statistics',
+        },
+        500: { description: 'Server error' },
+    },
+});
+
+platformStats.openapi(getPlatformStatsRoute, async (c) => {
     const prisma = c.get('prisma');
 
     const [tenants, users, visits] = await Promise.all([
@@ -14,8 +38,7 @@ platformStats.get('/stats', async (c: any) => {
         prisma.visit.count()
     ]);
 
-    // Calculate Platform Revenue (simplified example: 5% of total visit revenue)
-    const totalFees = visits * 2.50; // platform fee per visit
+    const totalFees = visits * 2.50;
 
     return c.json({
         tenants,
@@ -24,7 +47,7 @@ platformStats.get('/stats', async (c: any) => {
         networkRevenue: totalFees,
         systemHealth: 99.98,
         activeCriticalIncidents: 0
-    });
+    }, 200);
 });
 
 export { platformStats };

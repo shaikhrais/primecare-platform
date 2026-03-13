@@ -167,7 +167,7 @@ app.doc('/openapi.json', {
     info: {
         title: 'PrimeCare Worker API',
         version: '1.0.0',
-        description: 'API for PrimeCare workers, admins, and managers.',
+        description: 'Comprehensive API for the PrimeCare home healthcare platform. 375+ endpoints across Admin, Manager, Coordinator, PSW, RN, Client, Staff, and System domains. Includes SHA-256 audit chain security, double-entry financial ledger, and real-time operational dashboards.',
     },
 });
 
