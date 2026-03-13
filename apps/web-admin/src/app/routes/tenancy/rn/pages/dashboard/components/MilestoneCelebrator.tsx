@@ -56,7 +56,7 @@ export const MilestoneCelebrator: React.FC = () => {
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                 animation: 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
             }}>
-                <button 
+                <button data-cy="btn-rn.milestone-celebrator-0" 
                     onClick={() => setIsVisible(false)}
                     style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
                 >
@@ -74,7 +74,7 @@ export const MilestoneCelebrator: React.FC = () => {
                     <Award size={40} color="#D97706" />
                 </div>
 
-                <h2 style={{ margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.8rem', fontWeight: 900 }}>Happy Work Anniversary!</h2>
+                <h2 data-cy="h2-rn.milestone-celebrator-0" style={{ margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.8rem', fontWeight: 900 }}>Happy Work Anniversary!</h2>
                 
                 <p style={{ margin: 0, color: '#475569', fontSize: '1rem', lineHeight: '1.6' }}>
                     It's been exactly <strong style={{ color: '#0F172A' }}>2 years</strong> since you joined PrimeCare. 
@@ -93,7 +93,7 @@ export const MilestoneCelebrator: React.FC = () => {
                      </div>
                 </div>
 
-                <button 
+                <button data-cy="btn-rn.milestone-celebrator-1" 
                     onClick={() => setIsVisible(false)}
                     style={{ 
                         width: '100%', padding: '14px', backgroundColor: '#0F172A', color: 'white', 

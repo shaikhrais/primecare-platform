@@ -106,7 +106,7 @@ export const CommandPalette: React.FC = () => {
             }} onClick={e => e.stopPropagation()}>
                 <div style={{ padding: '16px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <span style={{ fontSize: '1.2rem' }}>🔍</span>
-                    <input
+                    <input data-cy="input-shared.command-palette-0"
                         ref={inputRef}
                         value={search}
                         onChange={e => setSearch(e.target.value)}

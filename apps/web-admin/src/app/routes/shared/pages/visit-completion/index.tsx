@@ -75,7 +75,7 @@ export default function VisitCompletionForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>Discard Completion?</h2>
+                        <h2 data-cy="h2-shared.index-0" style={{ marginTop: 0 }}>Discard Completion?</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>Visit details are not saved. If you leave, you will lose progress.</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
@@ -90,13 +90,13 @@ export default function VisitCompletionForm() {
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Record tasks performed and capture electronic signature for Visit #{id}.</p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
+            <form data-cy="form-shared.index" onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ marginBottom: '2rem' }}>
                     <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 600 }}>Care Tasks Performed</label>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} data-cy="form.visitComplete.tasks">
                         {['Personal Hygiene', 'Meal Preparation', 'Medication Assist', 'Mobility Support'].map(task => (
                             <label key={task} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', borderRadius: '0.5rem', background: '#f9fafb', cursor: 'pointer' }}>
-                                <input
+                                <input data-cy="input-shared.index-0"
                                     type="checkbox"
                                     checked={formData.tasksPerformed.includes(task)}
                                     onChange={() => handleTaskToggle(task)}
@@ -131,7 +131,7 @@ export default function VisitCompletionForm() {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-shared.index-0"
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}

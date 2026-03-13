@@ -69,12 +69,12 @@ export const BusinessDomainCard: React.FC<DomainCardProps> = ({ domain }) => {
             </div>
 
             <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>{domain.name}</h3>
+                <h3 data-cy="h3-admin.business-domain-card-0" style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>{domain.name}</h3>
                 <p style={{ fontSize: '1rem', color: '#6b7280', margin: '0.25rem 0 0 0' }}>{domain.count}</p>
             </div>
 
             <div style={{ marginTop: 'auto', display: 'flex', gap: '0.75rem' }}>
-                <button
+                <button data-cy="btn-admin.business-domain-card-0"
                     onClick={() => navigate(domain.route)}
                     style={{
                         flex: 1,
@@ -91,7 +91,7 @@ export const BusinessDomainCard: React.FC<DomainCardProps> = ({ domain }) => {
                     {domain.action}
                 </button>
                 <Link to={RouteRegistry.ADMIN.WIZARD_HUB} style={{ flex: 1 }}>
-                    <button style={{
+                    <button data-cy="btn-admin.business-domain-card-1" style={{
                         width: '100%',
                         padding: '0.75rem',
                         background: 'white',

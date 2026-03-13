@@ -31,7 +31,7 @@ export const PersonalityMatcher: React.FC = () => {
         return (
             <div style={{ padding: '24px', backgroundColor: '#F0FDF4', borderRadius: '12px', border: '1px solid #BBF7D0', textAlign: 'center' }}>
                 <Heart size={32} color="#16A34A" fill="#16A34A" style={{ marginBottom: '12px' }} />
-                <h3 style={{ margin: 0, color: '#14532D', fontSize: '1.2rem' }}>Preferences Saved!</h3>
+                <h3 data-cy="h3-client.personality-matcher-0" style={{ margin: 0, color: '#14532D', fontSize: '1.2rem' }}>Preferences Saved!</h3>
                 <p style={{ margin: '8px 0 0 0', color: '#166534', fontSize: '0.9rem' }}>
                     We've updated your patient profile. Our dispatcher will prioritize caregivers matching these traits.
                 </p>
@@ -45,7 +45,7 @@ export const PersonalityMatcher: React.FC = () => {
     return (
         <div style={{ backgroundColor: '#F8FAFC', borderRadius: '16px', padding: '24px', border: '1px solid #E2E8F0', marginTop: '16px', overflow: 'hidden', position: 'relative' }}>
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px' }}>Caregiver Matcher</h3>
+                <h3 data-cy="h3-client.personality-matcher-1" style={{ margin: 0, fontSize: '1.1rem', color: '#64748B', textTransform: 'uppercase', letterSpacing: '1px' }}>Caregiver Matcher</h3>
                 <div style={{ fontSize: '0.8rem', color: '#94A3B8', marginTop: '4px' }}>{currentIndex + 1} of {traits.length}</div>
             </div>
 
@@ -65,7 +65,7 @@ export const PersonalityMatcher: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', marginTop: '24px' }}>
-                <button 
+                <button data-cy="btn-client.personality-matcher-0" 
                     onClick={() => handleSwipe(currentTrait.id, 'N')}
                     style={{ 
                         width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'white', 
@@ -75,7 +75,7 @@ export const PersonalityMatcher: React.FC = () => {
                 >
                     <X size={28} color="#EF4444" />
                 </button>
-                <button 
+                <button data-cy="btn-client.personality-matcher-1" 
                     onClick={() => handleSwipe(currentTrait.id, 'Y')}
                     style={{ 
                         width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'white', 

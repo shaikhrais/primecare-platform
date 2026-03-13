@@ -44,7 +44,7 @@ export const LegalComplianceBlockers: React.FC = () => {
                         <ShieldCheck size={24} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Legal Compliance Blockers</h3>
+                        <h3 data-cy="h3-legal-compliance-blockers-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Legal Compliance Blockers</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Force specific components to be mandatory before users can submit regional documents.</p>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export const LegalComplianceBlockers: React.FC = () => {
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', marginBottom: '24px' }}>
+            <table data-cy="table-legal-compliance-blockers" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', marginBottom: '24px' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700, width: '40px' }}>State</th>

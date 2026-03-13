@@ -15,7 +15,7 @@ export const EarningsTable: React.FC<EarningsTableProps> = ({ earnings }) => {
             border: '1px solid #F3F4F6'
         }}>
             <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-admin.earnings-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
                         <tr>
                             {['Invoice ID', 'Date', 'Shift ID', 'Client', 'PSW', 'Revenue', 'Profit', 'Status', 'Actions'].map(header => (
@@ -44,7 +44,7 @@ export const EarningsTable: React.FC<EarningsTableProps> = ({ earnings }) => {
                                     }}>{record.paymentStatus}</span>
                                 </td>
                                 <td style={{ padding: '20px' }}>
-                                    <button style={{ padding: '8px 12px', background: '#F3F4F6', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>View Details</button>
+                                    <button data-cy="btn-admin.earnings-table-0" style={{ padding: '8px 12px', background: '#F3F4F6', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>View Details</button>
                                 </td>
                             </tr>
                         )) : (

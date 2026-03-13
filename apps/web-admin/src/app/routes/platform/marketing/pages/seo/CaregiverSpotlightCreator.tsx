@@ -39,7 +39,7 @@ export const CaregiverSpotlightCreator: React.FC = () => {
                         <Star size={28} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Social Media Asset Generator: Caregiver Spotlights</h3>
+                        <h3 data-cy="h3-caregiver-spotlight-creator-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Social Media Asset Generator: Caregiver Spotlights</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Automatically extracts metrics from the HR database to generate Instagram/LinkedIn ready PR graphics.</p>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ export const CaregiverSpotlightCreator: React.FC = () => {
                     
                     <div style={{ padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '8px' }}>Select Top Performer (Ranked by 5-Star Reviews)</label>
-                        <select style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: 'white' }}>
+                        <select data-cy="select-caregiver-spotlight-creator-0" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: 'white' }}>
                             <option value="1">Maria G. (4.9 Stars - 142 Reviews)</option>
                             <option value="2">David T. (4.9 Stars - 98 Reviews)</option>
                             <option value="3">Sarah L. (4.8 Stars - 210 Reviews)</option>
@@ -67,14 +67,14 @@ export const CaregiverSpotlightCreator: React.FC = () => {
 
                     <div style={{ padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '8px' }}>Curated PR Quote</label>
-                        <textarea 
+                        <textarea data-cy="textarea-caregiver-spotlight-creator" 
                             value={selectedCaregiver.quote}
                             onChange={(e) => setSelectedCaregiver({...selectedCaregiver, quote: e.target.value})}
                             style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', resize: 'vertical', minHeight: '80px', fontSize: '0.95rem', boxSizing: 'border-box' }}
                         />
                     </div>
 
-                     <button 
+                     <button data-cy="btn-caregiver-spotlight-creator-0" 
                         onClick={handleExport}
                         disabled={isExporting}
                         style={{ width: '100%', padding: '16px', backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.05rem', fontWeight: 800, cursor: isExporting ? 'wait' : 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', transition: 'background-color 0.2s' }}

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T2 · Content Manager
+// PAGE IDENTITY: T2 ï¿½ Content Manager
 // Registry ID:   page.admin.content
 // Type:          Tool
 // Owner:         admin
@@ -80,13 +80,13 @@ export default function ContentManager() {
 
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-                    <h3 style={{ margin: 0, textTransform: 'capitalize' }}>{activeTab} List</h3>
+                    <h3 data-cy="h3-admin.content-manager-0" style={{ margin: 0, textTransform: 'capitalize' }}>{activeTab} List</h3>
                     <button data-cy="btn-add-content" style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}>
                         + Add New {activeTab === 'blogs' ? 'Post' : 'Item'}
                     </button>
                 </div>
 
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-admin.content-manager" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ textAlign: 'left', color: '#6b7280', fontSize: '0.875rem', borderBottom: '1px solid #f3f4f6' }}>
                             <th style={{ padding: '1rem' }} data-cy="tbl-content-header-title">{activeTab === 'blogs' ? 'Title' : 'Question'}</th>
@@ -123,8 +123,8 @@ export default function ContentManager() {
                                         <span data-cy="faq-status" style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#065f46', fontSize: '0.75rem' }}>Active</span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        <button style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
-                                        <button style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
+                                        <button data-cy="btn-admin.content-manager-0" style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
+                                        <button data-cy="btn-admin.content-manager-1" style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
                                     </td>
                                 </tr>
                             )) : <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>No FAQs found.</td></tr>

@@ -55,7 +55,7 @@ const CookieConsent: React.FC = () => {
                     </svg>
                 </div>
                 <div>
-                    <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#111827' }}>Cookie Consent</h3>
+                    <h3 data-cy="h3-shared.cookie-consent-0" style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#111827' }}>Cookie Consent</h3>
                     <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#4b5563', lineHeight: 1.5 }}>
                         We use cookies to enhance your experience, serve personalized content, and analyze our traffic. Please choose your preferences.
                     </p>

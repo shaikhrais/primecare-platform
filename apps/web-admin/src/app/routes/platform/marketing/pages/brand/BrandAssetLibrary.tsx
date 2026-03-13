@@ -36,7 +36,7 @@ export const BrandAssetLibrary: React.FC = () => {
                         <Lock size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Locked Brand Asset Library</h3>
+                        <h3 data-cy="h3-brand-asset-library-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Locked Brand Asset Library</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>The single source of truth for Legal-approved logos, typography, and PR headshots.</p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ export const BrandAssetLibrary: React.FC = () => {
                                 <div style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: 700 }}>{asset.size}</div>
                                 
                                 {asset.legalApproved ? (
-                                    <button style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem' }}>
+                                    <button data-cy="btn-brand-asset-library-0" style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem' }}>
                                         <Download size={14} /> Download File
                                     </button>
                                 ) : (

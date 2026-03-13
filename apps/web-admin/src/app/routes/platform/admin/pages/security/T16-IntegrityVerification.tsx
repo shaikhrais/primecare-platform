@@ -34,7 +34,7 @@ const IntegrityVerification: React.FC = () => {
     return (
         <div data-cy="page.container" className="pc-page" style={{ padding: '24px', maxWidth: '1000px' }}>
             <header style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: '28px', fontWeight: '800', color: '#111827', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <h2 data-cy="h2-admin.integrity-verification-0" style={{ fontSize: '28px', fontWeight: '800', color: '#111827', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <span style={{ fontSize: '32px' }}>🛡️</span> Cryptographic Integrity Scan
                 </h2>
                 <p style={{ color: '#6B7280', fontSize: '16px', marginTop: '8px' }}>
@@ -47,11 +47,11 @@ const IntegrityVerification: React.FC = () => {
                     {status === 'idle' && (
                         <>
                             <div style={{ fontSize: '64px', marginBottom: '24px' }}>🔍</div>
-                            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>Ready for Security Audit</h3>
+                            <h3 data-cy="h3-admin.integrity-verification-0" style={{ fontSize: '20px', fontWeight: '600', marginBottom: '12px' }}>Ready for Security Audit</h3>
                             <p style={{ color: '#6B7280', maxWidth: '400px', marginBottom: '32px' }}>
                                 The scan will validate every mutation event in the ledger against its cryptographic signature.
                             </p>
-                            <button className="pc-button pc-button-primary" onClick={handleVerify} style={{ padding: '12px 32px', fontSize: '16px' }}>
+                            <button data-cy="btn-admin.integrity-verification-0" className="pc-button pc-button-primary" onClick={handleVerify} style={{ padding: '12px 32px', fontSize: '16px' }}>
                                 Start Full Ledger Scan
                             </button>
                         </>
@@ -60,7 +60,7 @@ const IntegrityVerification: React.FC = () => {
                     {status === 'scanning' && (
                         <>
                             <div className="pc-loader" style={{ marginBottom: '24px', width: '64px', height: '64px', border: '4px solid #E5E7EB', borderTopColor: '#2563EB', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-                            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>Verifying Hash Chain...</h3>
+                            <h3 data-cy="h3-admin.integrity-verification-1" style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>Verifying Hash Chain...</h3>
                             <p style={{ color: '#6B7280' }}>Computing SHA-256 signatures for historical records.</p>
                         </>
                     )}
@@ -68,12 +68,12 @@ const IntegrityVerification: React.FC = () => {
                     {status === 'success' && result && (
                         <>
                             <div style={{ fontSize: '64px', marginBottom: '24px' }}>✅</div>
-                            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#059669', marginBottom: '12px' }}>Ledger Integrity Verified</h3>
+                            <h3 data-cy="h3-admin.integrity-verification-2" style={{ fontSize: '24px', fontWeight: '700', color: '#059669', marginBottom: '12px' }}>Ledger Integrity Verified</h3>
                             <p style={{ color: '#374151', fontSize: '18px', marginBottom: '8px' }}>{result.totalEvents} events checked.</p>
                             <p style={{ color: '#6B7280', maxWidth: '500px' }}>
                                 No unauthorized modifications detected. The forensic trail is 100% consistent with the original cryptographic signatures.
                             </p>
-                            <button className="pc-button" onClick={handleVerify} style={{ marginTop: '32px', color: '#6B7280' }}>
+                            <button data-cy="btn-admin.integrity-verification-1" className="pc-button" onClick={handleVerify} style={{ marginTop: '32px', color: '#6B7280' }}>
                                 Run Scan Again
                             </button>
                         </>
@@ -82,7 +82,7 @@ const IntegrityVerification: React.FC = () => {
                     {status === 'failure' && result && !result.isValid && (
                         <>
                             <div style={{ fontSize: '64px', marginBottom: '24px' }}>🚨</div>
-                            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#DC2626', marginBottom: '12px' }}>INTEGRITY BREACH DETECTED</h3>
+                            <h3 data-cy="h3-admin.integrity-verification-3" style={{ fontSize: '24px', fontWeight: '700', color: '#DC2626', marginBottom: '12px' }}>INTEGRITY BREACH DETECTED</h3>
                             <p style={{ color: '#991B1B', fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>
                                 Found {result.brokenEvents.length} tampered records.
                             </p>
@@ -101,9 +101,9 @@ const IntegrityVerification: React.FC = () => {
                     {status === 'failure' && !result && (
                         <>
                             <div style={{ fontSize: '64px', marginBottom: '24px' }}>⚠️</div>
-                            <h3 style={{ fontSize: '20px', fontWeight: '600', color: '#D97706', marginBottom: '12px' }}>Scan Interrupted</h3>
+                            <h3 data-cy="h3-admin.integrity-verification-4" style={{ fontSize: '20px', fontWeight: '600', color: '#D97706', marginBottom: '12px' }}>Scan Interrupted</h3>
                             <p style={{ color: '#6B7280' }}>An error occurred while communicating with the security service.</p>
-                            <button className="pc-button" onClick={handleVerify} style={{ marginTop: '24px' }}>Retry Scan</button>
+                            <button data-cy="btn-admin.integrity-verification-2" className="pc-button" onClick={handleVerify} style={{ marginTop: '24px' }}>Retry Scan</button>
                         </>
                     )}
                 </div>

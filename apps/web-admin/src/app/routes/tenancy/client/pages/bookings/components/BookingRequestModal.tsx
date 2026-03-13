@@ -51,7 +51,7 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
             backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
         }} data-cy="modal-booking-request">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', width: '90%', maxWidth: '500px' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem' }}>Request New Care Visit</h3>
+                <h3 data-cy="h3-client.booking-request-modal-0" style={{ marginTop: 0, fontSize: '1.25rem' }}>Request New Care Visit</h3>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }} data-cy="form-booking">
                     <div>
@@ -78,7 +78,7 @@ export const BookingRequestModal: React.FC<BookingRequestModalProps> = ({ isOpen
                                 }}
                             />
                         ) : (
-                            <select
+                            <select data-cy="select-client.booking-request-modal-0"
                                 value={selectedService}
                                 onChange={e => setSelectedService(e.target.value)}
                                 required

@@ -53,7 +53,7 @@ export default function RevenueCycleHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={async () => {
+                    <button data-cy="btn-admin.revenue-cycle-hub-0" className="btn secondary" onClick={async () => {
                         try {
                             const res: any = await apiClient.post('/v1/admin/claims/system/sync', {});
                             showToast(res?.message || 'Revenue synced via clearinghouse.', 'success');
@@ -61,7 +61,7 @@ export default function RevenueCycleHub() {
                     }}>
                         {syncBtn?.label || 'Sync Revenue'}
                     </button>
-                    <button className="btn primary" onClick={async () => {
+                    <button data-cy="btn-admin.revenue-cycle-hub-1" className="btn primary" onClick={async () => {
                         try {
                             const res: any = await apiClient.post('/v1/admin/claims/system/submit', {});
                             showToast(res?.message || 'Claims package aggregated and transmitted.', 'success');
@@ -93,7 +93,7 @@ export default function RevenueCycleHub() {
 
             <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                 <div className="pc-card-h">Claims Management Ledger</div>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-admin.revenue-cycle-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                         <tr>
                             <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>Patient</th>
@@ -115,7 +115,7 @@ export default function RevenueCycleHub() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '16px 24px' }}>
-                                    <button className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }}>View Details</button>
+                                    <button data-cy="btn-admin.revenue-cycle-hub-2" className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }}>View Details</button>
                                 </td>
                             </tr>
                         ))}

@@ -57,7 +57,7 @@ export default function SupplyChainHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={async () => {
+                    <button data-cy="btn-admin.supply-chain-hub-0" className="btn secondary" onClick={async () => {
                         try {
                             const res: any = await apiClient.post('/v1/admin/erp/po/create', {});
                             showToast(res?.message || 'New PO draft initiated.', 'success');
@@ -65,7 +65,7 @@ export default function SupplyChainHub() {
                     }}>
                         {poBtn?.label || 'New Purchase Order'}
                     </button>
-                    <button className="btn primary" onClick={async () => {
+                    <button data-cy="btn-admin.supply-chain-hub-1" className="btn primary" onClick={async () => {
                         try {
                             const res: any = await apiClient.post('/v1/admin/erp/inventory/add', {});
                             showToast(res?.message || 'Equipment item allocated to enterprise ledger.', 'success');
@@ -98,14 +98,14 @@ export default function SupplyChainHub() {
             <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                 <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span>Systemic Inventory Ledger</span>
-                    <input
+                    <input data-cy="input-admin.supply-chain-hub-0"
                         type="text"
                         placeholder="Filter by SKU or Name..."
                         style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid var(--border)', fontSize: '13px', width: '240px' }}
                     />
                 </div>
                 <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.supply-chain-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                             <tr>
                                 <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>SKU</th>

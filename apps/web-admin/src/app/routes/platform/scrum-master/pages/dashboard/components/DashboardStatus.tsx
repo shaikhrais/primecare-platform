@@ -58,7 +58,7 @@ export const DashboardStatus: React.FC<DashboardStatusProps> = ({
             <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'var(--brand-500)', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
             <div style={{ position: 'absolute', bottom: '-50px', left: '-50px', width: '200px', height: '200px', background: '#ec4899', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
 
-            <h2 style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '2rem', fontWeight: 800 }}>
+            <h2 data-cy="h2-dashboard-status-0" style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '2rem', fontWeight: 800 }}>
                 <span>🚀</span> {t(ContentRegistry.SCRUM_MASTER.DASHBOARD.TITLE)} {t(ContentRegistry.SHARED.STATUS)}
             </h2>
 

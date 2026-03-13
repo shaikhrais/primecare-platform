@@ -47,12 +47,12 @@ export function PredictiveStaffingWidget() {
         <div className="pc-card" style={{ borderTop: '4px solid #7C3AED' }}>
             <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h2 style={{ fontSize: '18px', fontWeight: '700', margin: 0 }}>Predictive Staffing: Burnout Risk</h2>
+                    <h2 data-cy="h2-admin.predictive-staffing-widget-0" style={{ fontSize: '18px', fontWeight: '700', margin: 0 }}>Predictive Staffing: Burnout Risk</h2>
                     <p style={{ fontSize: '14px', color: '#6B7280', margin: '4px 0 0 0', fontWeight: '400' }}>
                         AI-driven analysis of timesheets and incident reports to predict field staff fatigue.
                     </p>
                 </div>
-                <button
+                <button data-cy="btn-admin.predictive-staffing-widget-0"
                     onClick={() => window.location.reload()}
                     style={{ padding: '6px 12px', border: '1px solid #D1D5DB', backgroundColor: 'white', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', fontWeight: '500' }}
                 >
@@ -70,7 +70,7 @@ export function PredictiveStaffingWidget() {
                         No active staff data available for prediction.
                     </div>
                 ) : (
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+                    <table data-cy="table-admin.predictive-staffing-widget" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
                         <thead>
                             <tr style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                                 <th style={{ padding: '12px 16px', fontWeight: '600', color: '#4B5563' }}>Field Staff</th>
@@ -108,7 +108,7 @@ export function PredictiveStaffingWidget() {
                                         </div>
                                     </td>
                                     <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                                        <button style={{
+                                        <button data-cy="btn-admin.predictive-staffing-widget-1" style={{
                                             padding: '6px 12px',
                                             backgroundColor: s.riskLevel === 'High' ? '#DC2626' : 'transparent',
                                             color: s.riskLevel === 'High' ? 'white' : '#4B5563',

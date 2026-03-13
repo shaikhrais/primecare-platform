@@ -48,7 +48,7 @@ export const FontTypographyRegistry: React.FC = () => {
                         <Brush size={24} color="#0D9488" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Typography & Font Governance</h3>
+                        <h3 data-cy="h3-font-typography-registry-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Typography & Font Governance</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Control which external font families are injected to protect Core Web Vitals.</p>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ export const FontTypographyRegistry: React.FC = () => {
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+            <table data-cy="table-font-typography-registry" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Font Family</th>

@@ -47,7 +47,7 @@ export const MarketingRevenueAttribution: React.FC = () => {
                         <HandCoins size={28} color="#4D7C0F" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Marketing Revenue Attribution (MRA)</h3>
+                        <h3 data-cy="h3-marketing-revenue-attribution-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Marketing Revenue Attribution (MRA)</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>The Holy Grail. Maps exact $ spend to actual invoiced patient revenue (LTV).</p>
                     </div>
                 </div>

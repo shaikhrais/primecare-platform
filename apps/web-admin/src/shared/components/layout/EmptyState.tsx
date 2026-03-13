@@ -18,7 +18,7 @@ export default function EmptyState({ title, description, icon, actionLabel, onAc
             <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: '0.6', filter: 'grayscale(100%)' }}>
                 {icon || '📁'}
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--text-100)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+            <h3 data-cy="h3-shared.empty-state-0" style={{ fontSize: '1.25rem', fontWeight: '800', color: 'var(--text-100)', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 {title}
             </h3>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-300)', maxWidth: '400px', lineHeight: '1.6', marginBottom: actionLabel ? '1.5rem' : '0' }}>

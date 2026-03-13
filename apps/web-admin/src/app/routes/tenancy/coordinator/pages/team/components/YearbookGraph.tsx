@@ -41,11 +41,11 @@ export const YearbookGraph: React.FC = () => {
                         <Users size={20} color="#9333EA" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Agency Yearbook</h3>
+                        <h3 data-cy="h3-coordinator.yearbook-graph-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Agency Yearbook</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Visualizing shift-coverage tribal loyalty.</p>
                     </div>
                 </div>
-                <button style={{ backgroundColor: 'transparent', border: '1px solid #E2E8F0', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, color: '#475569', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
+                <button data-cy="btn-coordinator.yearbook-graph-0" style={{ backgroundColor: 'transparent', border: '1px solid #E2E8F0', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 600, color: '#475569', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
                     Expand View <ExternalLink size={14} />
                 </button>
             </div>

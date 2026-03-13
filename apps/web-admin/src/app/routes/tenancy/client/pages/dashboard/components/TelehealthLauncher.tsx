@@ -13,14 +13,14 @@ export const TelehealthLauncher: React.FC = () => {
                         <div style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#334155', margin: '0 auto 24px auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                              <UserPlaceholder />
                         </div>
-                        <h2 style={{ fontSize: '2rem', fontWeight: 900, margin: 0 }}>Dr. Emily Chen</h2>
+                        <h2 data-cy="h2-client.telehealth-launcher-0" style={{ fontSize: '2rem', fontWeight: 900, margin: 0 }}>Dr. Emily Chen</h2>
                         <div style={{ color: '#10B981', fontSize: '1.25rem', marginTop: '8px' }}>Connected - 00:14</div>
                     </div>
                 </div>
 
                 {/* Overlaid Controls */}
                 <div style={{ position: 'absolute', bottom: '32px', left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
-                    <button 
+                    <button data-cy="btn-client.telehealth-launcher-0" 
                         onClick={() => setIsInCall(false)}
                         style={{ backgroundColor: '#EF4444', color: 'white', border: 'none', borderRadius: '50%', width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 10px 15px -3px rgba(239, 68, 68, 0.5)' }}
                     >
@@ -34,11 +34,11 @@ export const TelehealthLauncher: React.FC = () => {
     return (
         <section style={{ backgroundColor: 'white', borderRadius: '24px', border: '4px solid #E2E8F0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div>
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0' }}>Doctor Notified</h2>
+                <h2 data-cy="h2-client.telehealth-launcher-1" style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0' }}>Doctor Notified</h2>
                 <p style={{ fontSize: '1.25rem', color: '#64748B', margin: 0 }}>Dr. Chen is ready to see you now. Press the button below to join the secure video room.</p>
             </div>
 
-            <button 
+            <button data-cy="btn-client.telehealth-launcher-1" 
                 onClick={() => setIsInCall(true)}
                 style={{ 
                     backgroundColor: '#6366F1', 

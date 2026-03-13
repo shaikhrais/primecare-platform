@@ -51,7 +51,7 @@ export const ApiEndpointRegistry: React.FC = () => {
                         <Route size={24} color="#9333EA" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>API Endpoint Registry</h3>
+                        <h3 data-cy="h3-api-endpoint-registry-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>API Endpoint Registry</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Global view of all active service routes, handlers, and latency metrics.</p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ export const ApiEndpointRegistry: React.FC = () => {
             <div style={{ display: 'flex', gap: '24px' }}>
                 {/* Main Table */}
                 <div style={{ flex: 3 }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                    <table data-cy="table-api-endpoint-registry" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                         <thead>
                             <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                                 <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Method</th>

@@ -29,14 +29,14 @@ export default function WoundCareDashboard() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     
                     <div style={{ backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-                        <h3 style={{ margin: '0 0 16px 0', fontSize: '1.25rem', color: '#0F172A', fontWeight: 800 }}>Clinical Directive</h3>
+                        <h3 data-cy="h3-rn.index-0" style={{ margin: '0 0 16px 0', fontSize: '1.25rem', color: '#0F172A', fontWeight: 800 }}>Clinical Directive</h3>
                         <p style={{ color: '#475569', lineHeight: '1.5', margin: 0 }}>
                             Assess sacral ulcer. Trace boundaries of necrotic tissue using the red draw tool. Drop pins at deepest points for measurement documentation.
                         </p>
                     </div>
 
                     <div style={{ backgroundColor: '#FEF2F2', padding: '24px', borderRadius: '16px', border: '1px solid #FECACA' }}>
-                        <h3 style={{ margin: '0 0 16px 0', fontSize: '1.1rem', color: '#991B1B', fontWeight: 800 }}>Previous Reading (7 days ago)</h3>
+                        <h3 data-cy="h3-rn.index-1" style={{ margin: '0 0 16px 0', fontSize: '1.1rem', color: '#991B1B', fontWeight: 800 }}>Previous Reading (7 days ago)</h3>
                         <ul style={{ margin: 0, paddingLeft: '20px', color: '#B91C1C' }}>
                             <li>Size: 4cm x 3cm</li>
                             <li>Depth: 0.5cm</li>

@@ -65,11 +65,11 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                             <Wand2 size={24} color="#3B82F6" />
                         </div>
                         <div>
-                            <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Clinical AI Scribe</h2>
+                            <h2 data-cy="h2-rn.scribe-a-i-0" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Clinical AI Scribe</h2>
                             <p style={{ color: '#64748B', margin: 0 }}>Dictate your raw notes and let AI format them.</p>
                         </div>
                     </div>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}>
+                    <button data-cy="btn-rn.scribe-a-i-0" onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}>
                         <X size={24} />
                     </button>
                 </header>
@@ -79,7 +79,7 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                     {/* Dictation Area */}
                     <div style={{ display: 'flex', gap: '24px' }}>
                         
-                        <button 
+                        <button data-cy="btn-rn.scribe-a-i-1" 
                             onClick={() => setIsRecording(!isRecording)}
                             style={{ 
                                 width: '120px', height: '120px', borderRadius: '50%', cursor: 'pointer',
@@ -124,7 +124,7 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                     {/* AI Processing Action */}
                     {transcript && !structuredNotes && (
                         <div style={{ textAlign: 'center' }}>
-                            <button 
+                            <button data-cy="btn-rn.scribe-a-i-2" 
                                 onClick={handleProcessAI}
                                 disabled={isProcessing || isRecording}
                                 style={{ 
@@ -161,10 +161,10 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
 
                 {/* Footer Actions */}
                 <footer style={{ backgroundColor: '#F8FAFC', padding: '24px', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '16px' }}>
-                     <button onClick={onClose} style={{ padding: '12px 24px', backgroundColor: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, cursor: 'pointer' }}>
+                     <button data-cy="btn-rn.scribe-a-i-3" onClick={onClose} style={{ padding: '12px 24px', backgroundColor: 'transparent', border: 'none', color: '#64748B', fontWeight: 700, cursor: 'pointer' }}>
                         Cancel
                     </button>
-                    <button 
+                    <button data-cy="btn-rn.scribe-a-i-4" 
                         onClick={() => structuredNotes && onSaveNotes(structuredNotes)}
                         disabled={!structuredNotes}
                         style={{ padding: '12px 32px', backgroundColor: structuredNotes ? '#10B981' : '#E2E8F0', color: structuredNotes ? 'white' : '#94A3B8', border: 'none', borderRadius: '8px', fontWeight: 800, fontSize: '1rem', cursor: structuredNotes ? 'pointer' : 'default', display: 'flex', alignItems: 'center', gap: '8px' }}

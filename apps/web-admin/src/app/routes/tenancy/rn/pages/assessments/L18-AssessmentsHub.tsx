@@ -71,7 +71,7 @@ export const AssessmentsHub: React.FC = () => {
                     <h1 data-cy="page-title">{ContentRegistry.RN_ASSESSMENTS.TITLE}</h1>
                     <p data-cy="page-subtitle">{ContentRegistry.RN_ASSESSMENTS.SUBTITLE}</p>
                 </div>
-                <button
+                <button data-cy="btn-rn.assessments-hub-0"
                     className="btn-premium primary"
                     onClick={async () => {
                         try {
@@ -89,7 +89,7 @@ export const AssessmentsHub: React.FC = () => {
 
             {/* Phase 13 RN Assess Extra actions */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                <button data-cy="btn-rn.assessments-hub-1" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
                     try {
                         await apiClient.post(ApiRegistry.TENANCY.RN.CLINICAL_ASSESS, { clientId: 'test-client', type: 'Quick Ad-Hoc', assessmentData: {} });
                         showToast('Assessment payload injected into PostgREST network.', 'success');
@@ -97,7 +97,7 @@ export const AssessmentsHub: React.FC = () => {
                         showToast('Transmission rejected.', 'error');
                     }
                 }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-assess-submit')?.label || 'Submit Assess'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                <button data-cy="btn-rn.assessments-hub-2" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
                     try {
                         await apiClient.post('/v1/rn/clinical/supervision', { pswId: 'test-psw', competencies: {}, isSatisfactory: true });
                         showToast('Supervision cryptographically stamped.', 'success');
@@ -105,7 +105,7 @@ export const AssessmentsHub: React.FC = () => {
                         showToast('Failed to secure supervision footprint.', 'error');
                     }
                 }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-rn-supervision-log')?.label || 'Log Supervision'}</button>
-                <button className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
+                <button data-cy="btn-rn.assessments-hub-3" className="btn" style={{ fontSize: '0.8rem', padding: '4px 8px' }} onClick={async () => {
                     try {
                         await apiClient.post('/v1/rn/clinical/recon', { clientId: 'test-client', reconData: {} });
                         showToast('Meds delta successfully synchronized.', 'success');
@@ -118,7 +118,7 @@ export const AssessmentsHub: React.FC = () => {
             <div className="bento-grid">
                 <div className="bento-item featured">
                     <span className="pill adl">Clinical Priority</span>
-                    <h3 className="assess-card-title">Initial Health Intake</h3>
+                    <h3 data-cy="h3-rn.assessments-hub-0" className="assess-card-title">Initial Health Intake</h3>
                     <p className="assess-card-desc">
                         Comprehensive baseline for new patients. Covers 12 clinical domains including
                         nutrition, social determinants, and medical history.
@@ -132,7 +132,7 @@ export const AssessmentsHub: React.FC = () => {
 
                 <div className="bento-item">
                     <span className="pill mobility">Risk Assessment</span>
-                    <h3 className="assess-card-title">Mobility & Fall Risk</h3>
+                    <h3 data-cy="h3-rn.assessments-hub-1" className="assess-card-title">Mobility & Fall Risk</h3>
                     <p className="assess-card-desc">
                         Standardized Berg Scale and TUG assessment for environmental safety.
                     </p>
@@ -145,7 +145,7 @@ export const AssessmentsHub: React.FC = () => {
 
                 <div className="bento-item">
                     <span className="pill cognitive">Mental Health</span>
-                    <h3 className="assess-card-title">Cognitive Mapping</h3>
+                    <h3 data-cy="h3-rn.assessments-hub-2" className="assess-card-title">Cognitive Mapping</h3>
                     <p className="assess-card-desc">
                         MMSE and geriatric depression screening for long-term care planning.
                     </p>
@@ -159,7 +159,7 @@ export const AssessmentsHub: React.FC = () => {
 
             <section className="patient-list-section">
                 <div className="patient-list-header">
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Recent Assessments</h2>
+                    <h2 data-cy="h2-rn.assessments-hub-0" style={{ fontSize: '1.5rem', fontWeight: 700 }}>Recent Assessments</h2>
                     <div className="search-bar">
                         {/* Search implementation here */}
                     </div>

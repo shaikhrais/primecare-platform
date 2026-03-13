@@ -101,7 +101,7 @@ export const OrgHierarchyChart: React.FC = () => {
         <div style={{ backgroundColor: '#F8FAFC', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', gap: '24px', overflowX: 'auto', minHeight: '500px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h2 data-cy="h2-manager.org-hierarchy-chart-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Users color="#6366F1" /> Hierarchy & Burnout Topology
                     </h2>
                     <p style={{ color: '#64748B', margin: 0, fontSize: '0.9rem' }}>Visualizing management lines and cascading retention risk.</p>
@@ -166,7 +166,7 @@ export const OrgHierarchyChart: React.FC = () => {
                             <span style={{ fontWeight: 800, color: selectedNode.kpi < 70 ? '#EF4444' : '#10B981' }}>{selectedNode.kpi}%</span>
                         </div>
                         {selectedNode.kpi < 70 && (
-                            <button style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <button data-cy="btn-manager.org-hierarchy-chart-0" style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <TrendingDown size={16} /> Intervene
                             </button>
                         )}

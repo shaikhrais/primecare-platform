@@ -33,8 +33,8 @@ export default function CarePlanWizard() {
                 </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <button onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} style={{ padding: '10px 24px', borderRadius: '8px', border: '1px solid #CBD5E1', background: 'white', color: step === 0 ? '#CBD5E1' : '#334155', fontWeight: 600, cursor: step === 0 ? 'default' : 'pointer' }}>← Back</button>
-                <button onClick={() => setStep(Math.min(STEPS.length - 1, step + 1))} style={{ padding: '10px 24px', borderRadius: '8px', border: 'none', background: step === STEPS.length - 1 ? '#059669' : '#5B21B6', color: 'white', fontWeight: 700, cursor: 'pointer' }}>{step === STEPS.length - 1 ? '✓ Complete' : 'Next →'}</button>
+                <button data-cy="btn-admin.care-plan-wizard-0" onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} style={{ padding: '10px 24px', borderRadius: '8px', border: '1px solid #CBD5E1', background: 'white', color: step === 0 ? '#CBD5E1' : '#334155', fontWeight: 600, cursor: step === 0 ? 'default' : 'pointer' }}>← Back</button>
+                <button data-cy="btn-admin.care-plan-wizard-1" onClick={() => setStep(Math.min(STEPS.length - 1, step + 1))} style={{ padding: '10px 24px', borderRadius: '8px', border: 'none', background: step === STEPS.length - 1 ? '#059669' : '#5B21B6', color: 'white', fontWeight: 700, cursor: 'pointer' }}>{step === STEPS.length - 1 ? '✓ Complete' : 'Next →'}</button>
             </div>
         </div>
     );

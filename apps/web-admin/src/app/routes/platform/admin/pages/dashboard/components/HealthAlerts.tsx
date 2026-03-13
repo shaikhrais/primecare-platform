@@ -18,7 +18,7 @@ export const HealthAlerts: React.FC<HealthAlertsProps> = ({ alerts }) => {
 
     return (
         <>
-            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
+            <h2 data-cy="h2-admin.health-alerts-0" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
                 {t(ContentRegistry.HEALTH_ALERTS.TITLE)}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
@@ -30,7 +30,7 @@ export const HealthAlerts: React.FC<HealthAlertsProps> = ({ alerts }) => {
                         <div style={{ fontSize: '0.75rem', color: '#E53E3E' }}>{t(ContentRegistry.HEALTH_ALERTS.COMPLIANCE.DESC)}</div>
                     </div>
                     <Link to={RouteRegistry.ADMIN.STAFF_ONBOARDING} style={{ marginLeft: 'auto' }}>
-                        <button style={{ background: '#C53030', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.FIX)}</button>
+                        <button data-cy="btn-admin.health-alerts-0" style={{ background: '#C53030', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.FIX)}</button>
                     </Link>
                 </div>
 
@@ -42,7 +42,7 @@ export const HealthAlerts: React.FC<HealthAlertsProps> = ({ alerts }) => {
                         <div style={{ fontSize: '0.75rem', color: '#B45309' }}>{t(ContentRegistry.HEALTH_ALERTS.COVERAGE.DESC)}</div>
                     </div>
                     <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ marginLeft: 'auto' }}>
-                        <button style={{ background: '#D97706', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW)}</button>
+                        <button data-cy="btn-admin.health-alerts-1" style={{ background: '#D97706', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW)}</button>
                     </Link>
                 </div>
 
@@ -54,7 +54,7 @@ export const HealthAlerts: React.FC<HealthAlertsProps> = ({ alerts }) => {
                         <div style={{ fontSize: '0.75rem', color: '#2F855A' }}>{t(ContentRegistry.HEALTH_ALERTS.PIPELINE.DESC)}</div>
                     </div>
                     <Link to={RouteRegistry.ADMIN.LEADS} style={{ marginLeft: 'auto' }}>
-                        <button style={{ background: '#38A169', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.ACTION)}</button>
+                        <button data-cy="btn-admin.health-alerts-2" style={{ background: '#38A169', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.ACTION)}</button>
                     </Link>
                 </div>
             </div>

@@ -87,7 +87,7 @@ export default function RiskSurveillanceDashboard() {
 
             <div className="pc-card" style={{ borderTop: '4px solid #1E3A8A' }}>
                 <div className="pc-card-h">
-                    <h2 style={{ fontSize: '18px', margin: 0 }}>Tenant Risk Registry</h2>
+                    <h2 data-cy="h2-risk-surveillance-dashboard-0" style={{ fontSize: '18px', margin: 0 }}>Tenant Risk Registry</h2>
                 </div>
                 <div className="pc-card-b" style={{ padding: 0 }}>
                     {loading ? (
@@ -95,7 +95,7 @@ export default function RiskSurveillanceDashboard() {
                     ) : risks.length === 0 ? (
                         <div style={{ padding: '48px', textAlign: 'center', color: '#9CA3AF' }}>No risk data available.</div>
                     ) : (
-                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
+                        <table data-cy="table-risk-surveillance-dashboard" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '14px' }}>
                             <thead style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                                 <tr>
                                     <th style={{ padding: '16px', fontWeight: '600', color: '#4B5563' }}>Tenant</th>
@@ -138,7 +138,7 @@ export default function RiskSurveillanceDashboard() {
                                             </div>
                                         </td>
                                         <td style={{ padding: '16px', textAlign: 'right' }}>
-                                            <button style={{
+                                            <button data-cy="btn-risk-surveillance-dashboard-0" style={{
                                                 padding: '6px 12px',
                                                 backgroundColor: '#EFF6FF',
                                                 color: '#2563EB',

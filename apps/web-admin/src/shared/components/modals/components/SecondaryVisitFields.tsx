@@ -22,7 +22,7 @@ export const SecondaryVisitFields: React.FC<SecondaryVisitFieldsProps> = ({
             <div style={{ display: 'flex', gap: '1rem' }}>
                 <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Priority</label>
-                    <select
+                    <select data-cy="select-shared.secondary-visit-fields-0"
                         value={priority}
                         onChange={onPriorityChange}
                         disabled={disabled}
@@ -34,7 +34,7 @@ export const SecondaryVisitFields: React.FC<SecondaryVisitFieldsProps> = ({
                 </div>
                 <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Recurrence</label>
-                    <select
+                    <select data-cy="select-shared.secondary-visit-fields-1"
                         value={recurrence}
                         onChange={onRecurrenceChange}
                         style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db' }}

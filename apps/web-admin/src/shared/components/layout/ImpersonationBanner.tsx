@@ -37,7 +37,7 @@ export const ImpersonationBanner: React.FC = () => {
                 <ShieldAlert size={18} color="#F59E0B" />
                 <span>HAZARD: You are currently mutating foreign data. Spoofing Tenant: </span>
                 <span style={{ color: '#FCD34D', textDecoration: 'underline' }}>{spoofedTenantName}</span>
-                <button 
+                <button data-cy="btn-shared.impersonation-banner-0" 
                     onClick={() => window.location.reload()} // Reload interface
                     style={{ marginLeft: '12px', backgroundColor: '#DC2626', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 800 }}
                 >

@@ -20,7 +20,7 @@ const PrivateMarketplace: React.FC = () => {
                         <p style={{ color: '#6B7280', margin: '4px 0 0 0' }}>Internal resources, courses, and B2B services shared exclusively within your Tenant network.</p>
                     </div>
                 </div>
-                <button
+                <button data-cy="btn-admin.private-marketplace-0"
                     style={{
                         backgroundColor: '#C026D3',
                         color: 'white',
@@ -51,11 +51,11 @@ const PrivateMarketplace: React.FC = () => {
                                 <span style={{ fontSize: '12px', fontWeight: '600', color: '#C026D3', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{listing.type}</span>
                                 <span style={{ fontSize: '14px', fontWeight: '700', color: '#111827' }}>{listing.price}</span>
                             </div>
-                            <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: '700', color: '#111827' }}>{listing.title}</h3>
+                            <h3 data-cy="h3-admin.private-marketplace-0" style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: '700', color: '#111827' }}>{listing.title}</h3>
                             <p style={{ margin: '0 0 16px 0', fontSize: '14px', color: '#6B7280' }}>Provided by: <span style={{ fontWeight: '500' }}>{listing.provider}</span></p>
 
                             <div style={{ marginTop: 'auto' }}>
-                                <button style={{ width: '100%', padding: '10px', backgroundColor: '#FDF4FF', color: '#C026D3', border: '1px solid #F0ABFC', borderRadius: '6px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}>
+                                <button data-cy="btn-admin.private-marketplace-1" style={{ width: '100%', padding: '10px', backgroundColor: '#FDF4FF', color: '#C026D3', border: '1px solid #F0ABFC', borderRadius: '6px', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}>
                                     View Details
                                 </button>
                             </div>

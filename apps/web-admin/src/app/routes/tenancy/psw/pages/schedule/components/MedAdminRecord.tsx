@@ -28,7 +28,7 @@ export const MedAdminRecord: React.FC<MedAdminRecordProps> = ({ medications, onM
 
     return (
         <div style={{ marginBottom: '24px' }}>
-            <h3 style={{ margin: '0 0 12px 0', fontSize: '1.2rem', color: '#111827', fontWeight: 800 }}>
+            <h3 data-cy="h3-psw.med-admin-record-0" style={{ margin: '0 0 12px 0', fontSize: '1.2rem', color: '#111827', fontWeight: 800 }}>
                 💊 Medication Administration (MAR)
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -59,7 +59,7 @@ export const MedAdminRecord: React.FC<MedAdminRecordProps> = ({ medications, onM
 
                         {/* Segmented Controls for explicit logging */}
                         <div style={{ display: 'flex', gap: '8px', backgroundColor: '#F3F4F6', padding: '4px', borderRadius: '8px' }}>
-                            <button
+                            <button data-cy="btn-psw.med-admin-record-0"
                                 onClick={() => handleStatusChange(med.id, 'GIVEN')}
                                 style={{
                                     flex: 1, padding: '8px', border: 'none', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s',
@@ -69,7 +69,7 @@ export const MedAdminRecord: React.FC<MedAdminRecordProps> = ({ medications, onM
                             >
                                 ✅ Given
                             </button>
-                            <button
+                            <button data-cy="btn-psw.med-admin-record-1"
                                 onClick={() => handleStatusChange(med.id, 'REFUSED')}
                                 style={{
                                     flex: 1, padding: '8px', border: 'none', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s',
@@ -79,7 +79,7 @@ export const MedAdminRecord: React.FC<MedAdminRecordProps> = ({ medications, onM
                             >
                                 ❌ Refused
                             </button>
-                            <button
+                            <button data-cy="btn-psw.med-admin-record-2"
                                 onClick={() => handleStatusChange(med.id, 'HELD')}
                                 style={{
                                     flex: 1, padding: '8px', border: 'none', borderRadius: '6px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s',

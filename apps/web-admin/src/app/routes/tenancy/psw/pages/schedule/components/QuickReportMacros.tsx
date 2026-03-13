@@ -19,7 +19,7 @@ export const QuickReportMacros: React.FC<QuickReportMacrosProps> = ({ onSelectMa
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
             <span style={{ width: '100%', fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Quick Macros:</span>
             {macros.map((macro, i) => (
-                <button
+                <button data-cy="btn-psw.quick-report-macros-0"
                     key={i}
                     onClick={() => onSelectMacro(macro)}
                     style={{

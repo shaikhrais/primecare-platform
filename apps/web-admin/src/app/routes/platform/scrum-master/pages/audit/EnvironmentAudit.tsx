@@ -29,7 +29,7 @@ export default function EnvironmentAudit() {
             </div>
 
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-environment-audit" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem' }}>
                         <tr>
                             <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SHARED.VARIABLE_KEY)}</th>

@@ -39,8 +39,8 @@ const FinanceRegionalHub: React.FC = () => {
                     <p>Regional Profitability & Operational Health</p>
                 </div>
                 <div className="finance-btn-group">
-                    <button className="btn-finance-secondary">P&L Export</button>
-                    <button className="btn-finance-primary">Audit Request</button>
+                    <button data-cy="btn-finance-regional-hub-0" className="btn-finance-secondary">P&L Export</button>
+                    <button data-cy="btn-finance-regional-hub-1" className="btn-finance-primary">Audit Request</button>
                 </div>
             </header>
 
@@ -58,7 +58,7 @@ const FinanceRegionalHub: React.FC = () => {
 
             <div className="charts-row">
                 <div className="finance-chart-card">
-                    <h3 className="chart-title">Revenue Velocity (Rolling 4-Week)</h3>
+                    <h3 data-cy="h3-finance-regional-hub-0" className="chart-title">Revenue Velocity (Rolling 4-Week)</h3>
                     <div className="h-64">
                         <CoreBarChart
                             data={revenueData}
@@ -69,7 +69,7 @@ const FinanceRegionalHub: React.FC = () => {
                 </div>
 
                 <div className="finance-chart-card flex flex-col items-center">
-                    <h3 className="chart-title w-full">Expense Distribution</h3>
+                    <h3 data-cy="h3-finance-regional-hub-1" className="chart-title w-full">Expense Distribution</h3>
                     <div className="w-full h-64">
                         <CorePieChart
                             data={expenseSplit}

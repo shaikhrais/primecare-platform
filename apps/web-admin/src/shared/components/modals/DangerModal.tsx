@@ -60,11 +60,11 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                         <div style={{ backgroundColor: '#fee2e2', padding: '10px', borderRadius: '50%', color: '#ef4444' }}>
                             <AlertTriangle size={24} />
                         </div>
-                        <h3 id="danger-modal-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>
+                        <h3 data-cy="h3-shared.danger-modal-0" id="danger-modal-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>
                             {title}
                         </h3>
                     </div>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#6b7280' }}>
+                    <button data-cy="btn-shared.danger-modal-0" onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#6b7280' }}>
                         <X size={20} />
                     </button>
                 </div>
@@ -94,7 +94,7 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                    <button
+                    <button data-cy="btn-shared.danger-modal-1"
                         type="button"
                         onClick={onClose}
                         style={{
@@ -104,7 +104,7 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                     >
                         {t('common.cancel', 'Cancel')}
                     </button>
-                    <button
+                    <button data-cy="btn-shared.danger-modal-2"
                         type="button"
                         onClick={() => { if (isMatch) onConfirm(); }}
                         disabled={!isMatch}

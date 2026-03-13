@@ -23,7 +23,7 @@ export default function FinancialReconciliation() {
                     </p>
                 </div>
                 
-                <button 
+                <button data-cy="btn-admin.reconciliation-0" 
                     onClick={refresh} 
                     disabled={loading}
                     style={{ background: 'rgba(255,255,255,0.05)', color: '#e2e8f0', border: '1px solid rgba(255,255,255,0.1)', padding: '12px 24px', borderRadius: '12px', fontSize: '0.85rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -41,7 +41,7 @@ export default function FinancialReconciliation() {
             ) : bankFeeds.length === 0 ? (
                 <div style={{ background: 'rgba(74, 222, 128, 0.05)', border: '1px solid rgba(74, 222, 128, 0.2)', borderRadius: '24px', padding: '60px', textAlign: 'center' }}>
                     <ShieldCheck size={64} color="#4ade80" style={{ margin: '0 auto 24px auto', opacity: 0.8 }} />
-                    <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', marginBottom: '12px' }}>Ledger Perfectly Reconciled.</h2>
+                    <h2 data-cy="h2-admin.reconciliation-0" style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', marginBottom: '12px' }}>Ledger Perfectly Reconciled.</h2>
                     <p style={{ color: '#94a3b8', fontSize: '15px' }}>There are no unmatched bank feed transactions remaining. The ledger represents immutable reality.</p>
                 </div>
             ) : (

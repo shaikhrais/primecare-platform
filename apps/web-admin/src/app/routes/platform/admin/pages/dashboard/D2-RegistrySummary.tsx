@@ -124,7 +124,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
                         </span>}
                     </p>
                 </div>
-                <button
+                <button data-cy="btn-admin.registry-summary-0"
                     onClick={fetchAll}
                     disabled={loading}
                     style={{
@@ -151,7 +151,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
 
             {/* KPI Grid */}
             <section style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <h2 data-cy="h2-admin.registry-summary-0" style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     Core Metrics
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '0.75rem' }}>
@@ -185,7 +185,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
 
             {/* Health Alerts */}
             <section style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <h2 data-cy="h2-admin.registry-summary-1" style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     Health Alerts
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
@@ -216,7 +216,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
 
             {/* Registry DB Summary */}
             <section>
-                <h2 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <h2 data-cy="h2-admin.registry-summary-2" style={{ fontSize: '0.9rem', fontWeight: 700, color: '#64748b', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     🗄️ Registry Database
                 </h2>
                 <div style={{

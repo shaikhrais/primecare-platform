@@ -20,7 +20,7 @@ export default function SurveyManager() {
                     <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Survey Manager</h1>
                     <p style={{ color: '#6b7280' }}>Launch and monitor satisfaction surveys across the organization.</p>
                 </div>
-                <button
+                <button data-cy="btn-manager.survey-manager-0"
                     className="btn primary"
                     onClick={async () => { const title = prompt('Enter survey title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/surveys', { title }); if (res.ok) showToast('Survey created: ' + title, 'success'); else showToast('Failed to create survey', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-mgr-survey-new"
@@ -30,7 +30,7 @@ export default function SurveyManager() {
             </div>
 
             <div className="pc-card">
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-manager.survey-manager" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr style={{ borderBottom: '1px solid #e5e7eb', textAlign: 'left' }}>
                             <th style={{ padding: '1rem' }}>Survey Title</th>
@@ -52,7 +52,7 @@ export default function SurveyManager() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                    <button className="btn secondary small">View Results</button>
+                                    <button data-cy="btn-manager.survey-manager-1" className="btn secondary small">View Results</button>
                                 </td>
                             </tr>
                         ))}

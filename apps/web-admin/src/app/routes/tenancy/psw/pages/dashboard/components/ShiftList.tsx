@@ -148,7 +148,7 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                                 <div style={{ fontWeight: 800, color: '#34d399', fontSize: '0.85rem', textTransform: 'uppercase', marginBottom: '4px' }}>Gap Fill Suggestion</div>
                                                 <div style={{ color: 'white', fontSize: '0.95rem' }}>You have a 2-hour gap after this shift. Want to pick up a nearby 1-hour visit?</div>
                                             </div>
-                                            <button style={{ padding: '8px 16px', backgroundColor: '#34d399', color: '#0f172a', border: 'none', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}>
+                                            <button data-cy="btn-psw.shift-list-0" style={{ padding: '8px 16px', backgroundColor: '#34d399', color: '#0f172a', border: 'none', borderRadius: '8px', fontWeight: 800, cursor: 'pointer' }}>
                                                 View Shift
                                             </button>
                                         </div>
@@ -174,7 +174,7 @@ export const ShiftList: React.FC<ShiftListProps> = ({ shifts, loading, isMobile,
                                     )}
                                     {/* Suggestion 35: Running Late Quick-Action wrapper on hero shift */}
                                     {shifts[0].status.toLowerCase() !== 'in_progress' && shifts[0].status.toLowerCase() !== 'completed' && (
-                                        <button
+                                        <button data-cy="btn-psw.shift-list-1"
                                             onClick={handleRunningLate}
                                             style={{
                                                 flexShrink: 0, padding: '16px', backgroundColor: 'transparent',

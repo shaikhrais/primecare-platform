@@ -46,7 +46,7 @@ export const ApiRateLimitConfig: React.FC = () => {
                         <Gauge size={24} color="#F97316" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>API Rate Governance</h3>
+                        <h3 data-cy="h3-api-rate-limit-config-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>API Rate Governance</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Enforce tenant consumption quotas to prevent noisy-neighbor outages.</p>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ export const ApiRateLimitConfig: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#475569', fontSize: '0.85rem' }}>
                     <Zap size={16} color="#3B82F6" /> Spike Protection is currently <strong>Active</strong>.
                 </div>
-                <button style={{ background: 'transparent', border: 'none', color: '#3B82F6', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <button data-cy="btn-api-rate-limit-config-0" style={{ background: 'transparent', border: 'none', color: '#3B82F6', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     View Blocked Client IP Logs <ArrowUpRight size={14} />
                 </button>
             </div>

@@ -33,10 +33,10 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
             }} onClick={e => e.stopPropagation()}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '2rem' }}>
                     <div>
-                        <h2 style={{ margin: 0, fontSize: '1.5rem', color: '#111827' }}>Timesheet Details</h2>
+                        <h2 data-cy="h2-shared.timesheet-detail-modal-0" style={{ margin: 0, fontSize: '1.5rem', color: '#111827' }}>Timesheet Details</h2>
                         <p style={{ margin: '0.5rem 0 0 0', color: '#6b7280' }}>Week: {timesheet.weekId}</p>
                     </div>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#9ca3af' }}>×</button>
+                    <button data-cy="btn-shared.timesheet-detail-modal-0" onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#9ca3af' }}>×</button>
                 </div>
 
                 <div style={{ marginBottom: '2rem', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.75rem' }}>
@@ -48,7 +48,7 @@ export const TimesheetDetailModal: React.FC<TimesheetDetailModalProps> = ({ isOp
                     </div>
                 </div>
 
-                <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', marginBottom: '1rem' }}>Shift Breakdown</h3>
+                <h3 data-cy="h3-shared.timesheet-detail-modal-0" style={{ fontSize: '1rem', fontWeight: 600, color: '#111827', marginBottom: '1rem' }}>Shift Breakdown</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
                     {timesheet.items && timesheet.items.length > 0 ? timesheet.items.map((item: any) => (

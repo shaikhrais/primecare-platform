@@ -25,7 +25,7 @@ export const DischargePlannerPortal: React.FC = () => {
                         <Building2 color="#0369A1" size={24} />
                         <span style={{ fontWeight: 900, color: '#0F172A', fontSize: '1.2rem', letterSpacing: '1px' }}>PRIMECARE HOME HEALTH</span>
                     </div>
-                    <h2 style={{ marginTop: '24px', color: '#334155', fontWeight: 800 }}>B2B Discharge Triage Portal</h2>
+                    <h2 data-cy="h2-discharge-planner-portal-0" style={{ marginTop: '24px', color: '#334155', fontWeight: 800 }}>B2B Discharge Triage Portal</h2>
                     <p style={{ color: '#64748B', fontSize: '0.95rem' }}>Secure, streamlined referral ingestion for Case Managers & Social Workers.</p>
                 </div>
 
@@ -56,7 +56,7 @@ export const DischargePlannerPortal: React.FC = () => {
                     )}
 
                     {step === 2 && (
-                        <form onSubmit={handleUpload} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                        <form data-cy="form-discharge-planner-portal" onSubmit={handleUpload} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                             <div>
                                 <label style={{ fontWeight: 700, color: '#475569', fontSize: '0.9rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <User size={16}/> Patient Legal Name
@@ -108,7 +108,7 @@ export const DischargePlannerPortal: React.FC = () => {
                     {step === 3 && (
                         <div style={{ textAlign: 'center', padding: '16px 0' }}>
                             <CheckCircle size={64} color="#10B981" style={{ margin: '0 auto 24px auto' }} />
-                            <h3 style={{ margin: '0 0 12px 0', color: '#0F172A', fontSize: '1.4rem' }}>Referral Successfully Received</h3>
+                            <h3 data-cy="h3-discharge-planner-portal-0" style={{ margin: '0 0 12px 0', color: '#0F172A', fontSize: '1.4rem' }}>Referral Successfully Received</h3>
                             <p style={{ color: '#475569', lineHeight: 1.6, marginBottom: '32px' }}>
                                 The facesheet for <strong>{patientName}</strong> has been securely routed to our Intake Triage queue.
                             </p>

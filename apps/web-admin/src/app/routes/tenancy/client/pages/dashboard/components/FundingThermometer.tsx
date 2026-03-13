@@ -45,7 +45,7 @@ export const FundingThermometer: React.FC<FundingThermometerProps> = ({ totalHou
 
             {/* Typography & Stats */}
             <div style={{ flex: 1 }}>
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <h2 data-cy="h2-client.funding-thermometer-0" style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <DollarSign size={32} color={getLiquidColor()} /> Care Funding
                 </h2>
                 

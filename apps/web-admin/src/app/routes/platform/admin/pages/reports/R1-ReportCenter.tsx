@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: R1 · Report Center
+// PAGE IDENTITY: R1 ï¿½ Report Center
 // Registry ID:   page.admin.reports
 // Type:          Report
 // Owner:         admin
@@ -32,11 +32,11 @@ export default function ReportsPage() {
         <div data-cy="page.reports">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.REPORTS.TITLE}</h2>
+                    <h2 data-cy="h2-admin.report-center-0" style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.REPORTS.TITLE}</h2>
                     <p style={{ color: '#6B7280', margin: '0.5rem 0 0 0' }}>{ContentRegistry.REPORTS.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <select
+                    <select data-cy="select-admin.report-center-0"
                         value={dateRange}
                         onChange={(e) => setDateRange(e.target.value)}
                         style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #D1D5DB' }}
@@ -46,7 +46,7 @@ export default function ReportsPage() {
                         <option value="90d">{ContentRegistry.REPORTS.DATE_RANGES[90]}</option>
                         <option value="ytd">{ContentRegistry.REPORTS.DATE_RANGES.YEAR}</option>
                     </select>
-                    <button
+                    <button data-cy="btn-admin.report-center-0"
                         onClick={handleExport}
                         style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', cursor: 'pointer', fontWeight: 600 }}
                     >
@@ -65,7 +65,7 @@ export default function ReportsPage() {
                 ].map((tab) => {
                     const { key, label } = tab;
                     return (
-                        <button
+                        <button data-cy="btn-admin.report-center-1"
                             key={key}
                             onClick={() => setActiveTab(key as any)}
                             style={{

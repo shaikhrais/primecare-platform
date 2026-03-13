@@ -22,7 +22,7 @@ export const TechnicalGovernance: React.FC = () => {
     return (
         <div className="sm-card" style={{ padding: '2.5rem', background: '#ffffff', marginBottom: '3rem', borderTop: '4px solid var(--brand-500)', borderRadius: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
-                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 900 }}>
+                <h3 data-cy="h3-technical-governance-0" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 900 }}>
                     🛡️ {t(ContentRegistry.SCRUM_MASTER.GOVERNANCE.TITLE)}
                 </h3>
             </div>

@@ -23,7 +23,7 @@ export const AllergyBanner: React.FC<AllergyBannerProps> = ({ allergies }) => {
         }}>
             <AlertTriangle size={24} color="#EF4444" style={{ flexShrink: 0, marginTop: '2px' }} />
             <div>
-                <h3 style={{ margin: '0 0 4px 0', color: '#991B1B', fontSize: '1rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <h3 data-cy="h3-psw.allergy-banner-0" style={{ margin: '0 0 4px 0', color: '#991B1B', fontSize: '1rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                     CRITICAL ALLERGIES DETECTED
                 </h3>
                 <ul style={{ margin: 0, paddingLeft: '16px', color: '#B91C1C', fontWeight: 600, fontSize: '0.9rem' }}>

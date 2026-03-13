@@ -60,7 +60,7 @@ export const PromotionalDiscountEngine: React.FC = () => {
                         <Ticket size={28} color="#CA8A04" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Promotional Discount Engine</h3>
+                        <h3 data-cy="h3-promotional-discount-engine-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Promotional Discount Engine</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Generate expiring, trackable coupon codes for the sales team to close hesitant families.</p>
                     </div>
                 </div>
@@ -74,32 +74,32 @@ export const PromotionalDiscountEngine: React.FC = () => {
                      <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Code Phrase</label>
                         <div style={{ display: 'flex', gap: '8px' }}>
-                            <input 
+                            <input data-cy="input-promotional-discount-engine-0" 
                                 type="text" 
                                 value={newCode}
                                 onChange={(e) => setNewCode(e.target.value.toUpperCase())}
                                 placeholder="e.g., SUMMER50"
                                 style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '1rem', boxSizing: 'border-box', fontFamily: 'monospace' }}
                             />
-                            <button onClick={handleGenerate} style={{ padding: '10px', backgroundColor: '#E2E8F0', color: '#334155', border: 'none', borderRadius: '6px', fontWeight: 700, cursor: 'pointer' }}>Auto</button>
+                            <button data-cy="btn-promotional-discount-engine-0" onClick={handleGenerate} style={{ padding: '10px', backgroundColor: '#E2E8F0', color: '#334155', border: 'none', borderRadius: '6px', fontWeight: 700, cursor: 'pointer' }}>Auto</button>
                         </div>
                      </div>
 
                      <div style={{ display: 'flex', gap: '12px' }}>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Type</label>
-                            <select value={discountType} onChange={(e: any) => setDiscountType(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.9rem' }}>
+                            <select data-cy="select-promotional-discount-engine-0" value={discountType} onChange={(e: any) => setDiscountType(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.9rem' }}>
                                 <option value="PERCENTAGE">% Off (Monthly)</option>
                                 <option value="FIXED_AMOUNT">$ Off (One-time)</option>
                             </select>
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Value</label>
-                            <input type="number" value={discountValue} onChange={(e) => setDiscountValue(e.target.value)} placeholder="e.g., 10" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.9rem', boxSizing: 'border-box' }}/>
+                            <input data-cy="input-promotional-discount-engine-1" type="number" value={discountValue} onChange={(e) => setDiscountValue(e.target.value)} placeholder="e.g., 10" style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.9rem', boxSizing: 'border-box' }}/>
                         </div>
                      </div>
 
-                     <button style={{ width: '100%', padding: '12px', backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.95rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                     <button data-cy="btn-promotional-discount-engine-1" style={{ width: '100%', padding: '12px', backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '6px', fontSize: '0.95rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                         <Tag size={18} /> GENERATE LIVE CODE
                     </button>
                 </div>
@@ -140,7 +140,7 @@ export const PromotionalDiscountEngine: React.FC = () => {
                                         <div style={{ fontSize: '0.8rem', color: '#16A34A', fontWeight: 800, padding: '4px 12px', backgroundColor: '#F0FDF4', borderRadius: '4px' }}>ACTIVE</div>
                                     )}
                                     
-                                    <button 
+                                    <button data-cy="btn-promotional-discount-engine-2" 
                                         onClick={() => handleCopy(promo.code, promo.id)}
                                         disabled={isDepleted}
                                         style={{ backgroundColor: 'transparent', color: '#64748B', border: '1px solid #CBD5E1', borderRadius: '6px', padding: '8px', cursor: isDepleted ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}

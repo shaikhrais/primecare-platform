@@ -96,7 +96,7 @@ export const CommandPalette: React.FC = () => {
             >
                 <div style={{ display: 'flex', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid #E2E8F0' }}>
                     <Search color="#94A3B8" size={24} />
-                    <input
+                    <input data-cy="input-shared.command-palette-0"
                         ref={inputRef}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -111,7 +111,7 @@ export const CommandPalette: React.FC = () => {
                             color: '#0F172A'
                         }}
                     />
-                    <button
+                    <button data-cy="btn-shared.command-palette-0"
                         onClick={() => setIsOpen(false)}
                         style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer', padding: '4px', display: 'flex' }}
                     >
@@ -128,7 +128,7 @@ export const CommandPalette: React.FC = () => {
                         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                             {results.map((result, idx) => (
                                 <li key={result.id}>
-                                    <button
+                                    <button data-cy="btn-shared.command-palette-1"
                                         onClick={() => {
                                             setIsOpen(false);
                                             navigate(result.route);

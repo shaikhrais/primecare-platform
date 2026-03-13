@@ -41,7 +41,7 @@ export default function CredentialVault() {
                     <h1 data-cy="page.title" className="text-3xl font-black tracking-tight">Credential Vault</h1>
                     <p className="text-muted-foreground">Manage your clinical certifications and compliance documentation.</p>
                 </div>
-                <button className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all flex items-center gap-2">
+                <button data-cy="btn-psw.credential-vault-0" className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all flex items-center gap-2">
                     <span>➕</span> Upload New
                 </button>
             </header>
@@ -59,7 +59,7 @@ export default function CredentialVault() {
                                 </span>
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold group-hover:text-primary transition-colors">{cred.name}</h3>
+                                <h3 data-cy="h3-psw.credential-vault-0" className="text-lg font-bold group-hover:text-primary transition-colors">{cred.name}</h3>
                                 <p className="text-xs text-muted-foreground font-medium">{cred.issuer}</p>
                             </div>
                             <div className="flex justify-between text-xs pt-4 border-t border-dashed">
@@ -76,10 +76,10 @@ export default function CredentialVault() {
                             </div>
                         </div>
                         <div className="mt-6 flex gap-3">
-                            <button className="flex-1 py-2 bg-secondary hover:bg-zinc-200 rounded-lg text-xs font-bold transition-all">
+                            <button data-cy="btn-psw.credential-vault-1" className="flex-1 py-2 bg-secondary hover:bg-zinc-200 rounded-lg text-xs font-bold transition-all">
                                 View File
                             </button>
-                            <button className="flex-1 py-2 border hover:bg-accent rounded-lg text-xs font-bold transition-all">
+                            <button data-cy="btn-psw.credential-vault-2" className="flex-1 py-2 border hover:bg-accent rounded-lg text-xs font-bold transition-all">
                                 Update
                             </button>
                         </div>
@@ -89,7 +89,7 @@ export default function CredentialVault() {
 
             <div className="bg-zinc-900 text-white rounded-3xl p-8 flex items-center justify-between gap-8 border-4 border-zinc-800">
                 <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-primary">Compliance Status: <span className="text-orange-400">ACTION REQUIRED</span></h3>
+                    <h3 data-cy="h3-psw.credential-vault-1" className="text-xl font-bold text-primary">Compliance Status: <span className="text-orange-400">ACTION REQUIRED</span></h3>
                     <p className="text-sm text-zinc-400 max-w-lg">
                         You have <span className="text-red-400 font-bold">1 expired</span> and <span className="text-orange-400 font-bold">1 expiring</span> credential. Failure to update these by next week will trigger a temporary hold on your ability to claim open shifts.
                     </p>

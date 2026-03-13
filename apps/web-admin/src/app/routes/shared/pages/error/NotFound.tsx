@@ -28,7 +28,7 @@ export default function NotFound() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-                <button
+                <button data-cy="btn-shared.not-found-0"
                     onClick={() => navigate(-1)}
                     style={{
                         padding: '12px 24px',
@@ -44,7 +44,7 @@ export default function NotFound() {
                 >
                     ← Go Back
                 </button>
-                <button
+                <button data-cy="btn-shared.not-found-1"
                     onClick={() => navigate('/')}
                     style={{
                         padding: '12px 24px',

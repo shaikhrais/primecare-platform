@@ -40,7 +40,7 @@ export const VehicleReservationTable: React.FC = () => {
                         <Car size={24} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Fleet Reservations</h3>
+                        <h3 data-cy="h3-psw.vehicle-reservation-table-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Fleet Reservations</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Book an agency vehicle for your rural routes.</p>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ export const VehicleReservationTable: React.FC = () => {
             <div style={{ backgroundColor: '#F8FAFC', padding: '16px', borderRadius: '8px', border: '1px solid #E2E8F0', marginBottom: '24px', display: 'flex', gap: '16px', alignItems: 'flex-end' }}>
                 <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '6px' }}>Select Available Vehicle</label>
-                    <select 
+                    <select data-cy="select-psw.vehicle-reservation-table-0" 
                         value={selectedVehicle} 
                         onChange={(e) => setSelectedVehicle(e.target.value)}
                         style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: 'white' }}
@@ -62,9 +62,9 @@ export const VehicleReservationTable: React.FC = () => {
                 </div>
                 <div style={{ flex: 1 }}>
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '6px' }}>Date & Time</label>
-                    <input type="text" value="Tomorrow, 10:00 AM - 04:00 PM" disabled style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#F1F5F9', color: '#94A3B8' }} />
+                    <input data-cy="input-psw.vehicle-reservation-table-0" type="text" value="Tomorrow, 10:00 AM - 04:00 PM" disabled style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#F1F5F9', color: '#94A3B8' }} />
                 </div>
-                <button 
+                <button data-cy="btn-psw.vehicle-reservation-table-0" 
                     onClick={handleBooking}
                     disabled={!selectedVehicle || bookingActive}
                     style={{ 
@@ -78,7 +78,7 @@ export const VehicleReservationTable: React.FC = () => {
             </div>
 
             {/* Existing Reservations Table */}
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+            <table data-cy="table-psw.vehicle-reservation-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Vehicle</th>

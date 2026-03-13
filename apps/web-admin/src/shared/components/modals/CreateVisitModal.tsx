@@ -144,15 +144,15 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-visit" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '550px', width: '90%', maxHeight: '90vh', overflowY: 'auto', position: 'relative' }}>
-                <button 
+                <button data-cy="btn-shared.create-visit-modal-0" 
                     onClick={onClose} 
                     style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#6b7280' }}
                     aria-label="Close modal"
                 >
                     &times;
                 </button>
-                <h3 id="modal-title" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
-                <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <h3 data-cy="h3-shared.create-visit-modal-0" id="modal-title" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>{visit ? ContentRegistry.MODALS.CREATE_VISIT.TITLE_EDIT : ContentRegistry.MODALS.CREATE_VISIT.TITLE_CREATE}</h3>
+                <form data-cy="form-shared.create-visit-modal" onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <ClientServiceFields
                         clientId={formData.clientId} serviceId={formData.serviceId} clients={clients} services={services}
                         onClientChange={(e) => setFormData(p => ({ ...p, clientId: e.target.value }))}
@@ -208,7 +208,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         </div>
                     )}
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                        <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}>{ContentRegistry.MODALS.CREATE_VISIT.CANCEL}</button>
+                        <button data-cy="btn-shared.create-visit-modal-1" type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}>{ContentRegistry.MODALS.CREATE_VISIT.CANCEL}</button>
                         <button type="submit" disabled={loading} data-cy="btn-submit-visit" style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: loading ? 0.7 : 1 }}>
                             {loading ? ContentRegistry.MODALS.CREATE_VISIT.PROCESSING : (visit ? ContentRegistry.MODALS.CREATE_VISIT.SUBMIT_SAVE : ContentRegistry.MODALS.CREATE_VISIT.SUBMIT_CREATE)}
                         </button>

@@ -98,8 +98,8 @@ export default function FinancialLedger() {
                     <p style={{ color: '#6B7280', fontSize: '16px' }}>Advanced ledger matching, real-time balances, and GAAP reporting.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <button className="btn secondary" onClick={loadData}>Refresh Data</button>
-                    <button className="btn primary">Export Ledger</button>
+                    <button data-cy="btn-admin.financial-ledger-0" className="btn secondary" onClick={loadData}>Refresh Data</button>
+                    <button data-cy="btn-admin.financial-ledger-1" className="btn primary">Export Ledger</button>
                 </div>
             </div>
 
@@ -128,7 +128,7 @@ export default function FinancialLedger() {
             {/* Navigation Tabs */}
             <div style={{ display: 'flex', gap: '32px', borderBottom: '1px solid #E5E7EB', marginBottom: '24px' }}>
                 {['ledger', 'reconciliation', 'reports'].map(tab => (
-                    <button
+                    <button data-cy="btn-admin.financial-ledger-2"
                         key={tab}
                         onClick={() => setActiveTab(tab as any)}
                         style={{
@@ -152,7 +152,7 @@ export default function FinancialLedger() {
             {/* Tab Secret Content */}
             {activeTab === 'ledger' && (
                 <div className="pc-card" style={{ padding: '0px', overflow: 'hidden' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.financial-ledger" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                             <tr>
                                 <th style={{ textAlign: 'left', padding: '16px', fontSize: '11px', fontWeight: '800', color: '#6B7280', textTransform: 'uppercase' }}>Date</th>
@@ -185,7 +185,7 @@ export default function FinancialLedger() {
                                             }}>{tx.status}</span>
                                         </td>
                                         <td style={{ padding: '16px', textAlign: 'right' }}>
-                                            <button className="btn secondary sm" onClick={() => setExpandedTx(expandedTx === tx.id ? null : tx.id)}>Inspect</button>
+                                            <button data-cy="btn-admin.financial-ledger-3" className="btn secondary sm" onClick={() => setExpandedTx(expandedTx === tx.id ? null : tx.id)}>Inspect</button>
                                         </td>
                                     </tr>
                                     {expandedTx === tx.id && (
@@ -193,7 +193,7 @@ export default function FinancialLedger() {
                                             <td colSpan={6} style={{ padding: '24px' }}>
                                                 <div style={{ background: '#fff', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '20px' }}>
                                                     <h4 style={{ fontSize: '12px', fontWeight: '900', marginBottom: '16px', textTransform: 'uppercase', color: '#64748B' }}>Audit Trail & Ledger Impact</h4>
-                                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                                    <table data-cy="table-admin.financial-ledger" style={{ width: '100%', borderCollapse: 'collapse' }}>
                                                         <thead>
                                                             <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                                                                 <th style={{ textAlign: 'left', padding: '12px', fontSize: '11px', color: '#94A3B8' }}>Account</th>
@@ -256,7 +256,7 @@ export default function FinancialLedger() {
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                         <div style={{ fontWeight: '800' }}>${Number(tx.amount).toFixed(2)}</div>
-                                        <button className="btn secondary sm" onClick={() => handleReconcile(transactions.find(inv => inv.type === 'INVOICE' && Number(inv.amount) === Number(tx.amount))?.id || '', tx.id)}>Auto-Match</button>
+                                        <button data-cy="btn-admin.financial-ledger-4" className="btn secondary sm" onClick={() => handleReconcile(transactions.find(inv => inv.type === 'INVOICE' && Number(inv.amount) === Number(tx.amount))?.id || '', tx.id)}>Auto-Match</button>
                                     </div>
                                 </div>
                             ))}
@@ -276,7 +276,7 @@ export default function FinancialLedger() {
                             </div>
                             <div className="pc-card-b" style={{ padding: '24px' }}>
                                 <section style={{ marginBottom: '24px' }}>
-                                    <h3 style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E2E8F0', paddingBottom: '4px', marginBottom: '12px' }}>Revenue</h3>
+                                    <h3 data-cy="h3-admin.financial-ledger-0" style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E2E8F0', paddingBottom: '4px', marginBottom: '12px' }}>Revenue</h3>
                                     {Object.entries(pAndL.breakdown.revenue || {}).map(([name, amount]: any) => (
                                         <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
                                             <span>{name}</span>
@@ -289,7 +289,7 @@ export default function FinancialLedger() {
                                     </div>
                                 </section>
                                 <section style={{ marginBottom: '24px' }}>
-                                    <h3 style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E2E8F0', paddingBottom: '4px', marginBottom: '12px' }}>Expenses</h3>
+                                    <h3 data-cy="h3-admin.financial-ledger-1" style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E2E8F0', paddingBottom: '4px', marginBottom: '12px' }}>Expenses</h3>
                                     {Object.entries(pAndL.breakdown.expenses || {}).map(([name, amount]: any) => (
                                         <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
                                             <span>{name}</span>
@@ -318,7 +318,7 @@ export default function FinancialLedger() {
                             </div>
                             <div className="pc-card-b" style={{ padding: '24px' }}>
                                 <section style={{ marginBottom: '24px' }}>
-                                    <h3 style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #BAE6FD', paddingBottom: '4px', marginBottom: '12px' }}>Assets</h3>
+                                    <h3 data-cy="h3-admin.financial-ledger-2" style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #BAE6FD', paddingBottom: '4px', marginBottom: '12px' }}>Assets</h3>
                                     {Object.entries(balanceSheet.assets.accounts || {}).map(([name, amount]: any) => (
                                         <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
                                             <span>{name}</span>
@@ -331,7 +331,7 @@ export default function FinancialLedger() {
                                     </div>
                                 </section>
                                 <section style={{ marginBottom: '24px' }}>
-                                    <h3 style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #FED7AA', paddingBottom: '4px', marginBottom: '12px' }}>Liabilities</h3>
+                                    <h3 data-cy="h3-admin.financial-ledger-3" style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #FED7AA', paddingBottom: '4px', marginBottom: '12px' }}>Liabilities</h3>
                                     {Object.entries(balanceSheet.liabilities.accounts || {}).map(([name, amount]: any) => (
                                         <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
                                             <span>{name}</span>
@@ -344,7 +344,7 @@ export default function FinancialLedger() {
                                     </div>
                                 </section>
                                 <section style={{ marginBottom: '24px' }}>
-                                    <h3 style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E9D5FF', paddingBottom: '4px', marginBottom: '12px' }}>Equity</h3>
+                                    <h3 data-cy="h3-admin.financial-ledger-4" style={{ fontSize: '11px', fontWeight: '900', textTransform: 'uppercase', color: '#1E293B', borderBottom: '1px solid #E9D5FF', paddingBottom: '4px', marginBottom: '12px' }}>Equity</h3>
                                     {Object.entries(balanceSheet.equity.accounts || {}).map(([name, amount]: any) => (
                                         <div key={name} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
                                             <span>{name}</span>

@@ -56,7 +56,7 @@ export default function OpenOffers() {
 
     return (
         <div data-cy="page.container" style={{ padding: '2rem' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Personalized Shift Offers</h2>
+            <h2 data-cy="h2-psw.open-offers-0" style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Personalized Shift Offers</h2>
 
             {offers.length === 0 ? (
                 <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: '#f9fafb', borderRadius: '1rem' }}>
@@ -76,7 +76,7 @@ export default function OpenOffers() {
                                 <span style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '0.75rem' }}>Expires soon</span>
                             </div>
 
-                            <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{offer.service?.name || 'Care Visit'}</h3>
+                            <h3 data-cy="h3-psw.open-offers-0" style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{offer.service?.name || 'Care Visit'}</h3>
                             <p style={{ margin: '0 0 1rem 0', color: '#4b5563', fontSize: '0.875rem' }}>
                                 <strong>Date:</strong> {new Date(offer.requestedStartAt).toLocaleDateString()}<br />
                                 <strong>Time:</strong> {new Date(offer.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ({offer.durationMinutes} mins)<br />
@@ -84,13 +84,13 @@ export default function OpenOffers() {
                             </p>
 
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-                                <button
+                                <button data-cy="btn-psw.open-offers-0"
                                     onClick={() => handleAction(offer.id, 'decline')}
                                     style={{ flex: 1, padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.5rem', backgroundColor: 'transparent', cursor: 'pointer', fontSize: '0.875rem' }}
                                 >
                                     Decline
                                 </button>
-                                <button
+                                <button data-cy="btn-psw.open-offers-1"
                                     onClick={() => handleAction(offer.id, 'accept')}
                                     style={{ flex: 2, padding: '0.75rem', border: 'none', borderRadius: '0.5rem', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.875rem' }}
                                 >

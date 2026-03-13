@@ -67,7 +67,7 @@ export const AuditTimeline: React.FC = () => {
 
     return (
         <div style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '600px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h2 data-cy="h2-shared.audit-timeline-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Clock color="#64748B" /> Immutable Forensic Log
             </h2>
             <p style={{ color: '#64748B', margin: '0 0 32px 0', fontSize: '0.9rem' }}>Entity ID: <code style={{ backgroundColor: '#F1F5F9', padding: '2px 6px', borderRadius: '4px' }}>TS-88492-X</code></p>

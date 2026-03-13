@@ -52,10 +52,10 @@ export function RoleSwitcherModal({
                 {/* Header */}
                 <div style={{ padding: '20px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Role Perspective</h3>
+                        <h3 data-cy="h3-shared.role-switcher-modal-0" style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#111827' }}>Role Perspective</h3>
                         <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#6B7280' }}>Switch your view or impersonate active profiles</p>
                     </div>
-                    <button
+                    <button data-cy="btn-shared.role-switcher-modal-0"
                         onClick={onClose}
                         style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#9CA3AF', lineHeight: 1 }}
                     >
@@ -72,7 +72,7 @@ export function RoleSwitcherModal({
                         </h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {availableRoles.filter(r => !isAdmin || !systemRoles.includes(r) || r === 'admin' || r === 'manager').map(role => (
-                                <button
+                                <button data-cy="btn-shared.role-switcher-modal-1"
                                     key={role}
                                     onClick={() => handleSwitch(role)}
                                     style={{
@@ -110,7 +110,7 @@ export function RoleSwitcherModal({
                             </h4>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                                 {systemRoles.map(role => (
-                                    <button
+                                    <button data-cy="btn-shared.role-switcher-modal-2"
                                         key={role}
                                         onClick={() => handleSwitch(role)}
                                         style={{
@@ -139,7 +139,7 @@ export function RoleSwitcherModal({
 
                 {/* Footer */}
                 <div style={{ padding: '20px', background: '#F9FAFB', borderTop: '1px solid #E5E7EB' }}>
-                    <button
+                    <button data-cy="btn-shared.role-switcher-modal-3"
                         onClick={onClose}
                         style={{
                             width: '100%',

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D14 � PSW Dashboard
+// PAGE IDENTITY: D14 � PSW Dashboard
 // Type: Dashboard | Owner: psw
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -185,7 +185,7 @@ export default function PswDashboard() {
         <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <AccessibilityControls onOpenIdBadge={() => setIsIdBadgeOpen(true)} />
-                <button
+                <button data-cy="btn-psw.psw-dashboard-0"
                     onClick={() => setIsSettingsOpen(true)}
                     style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}
                 >
@@ -210,7 +210,7 @@ export default function PswDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
-                    <button
+                    <button data-cy="btn-psw.psw-dashboard-1"
                         className="btn-premium danger"
                         onClick={async () => {
                             try {
@@ -231,7 +231,7 @@ export default function PswDashboard() {
                         🚨 {AdminRegistry.ButtonRegistry.find(b => b.id === 'btn-psw-incident-report')?.label || 'Report Incident'}
                     </button>
                     <Link to={RouteRegistry.LEARN} style={{ textDecoration: 'none', flex: '1 1 auto', maxWidth: '200px' }}>
-                        <button style={{
+                        <button data-cy="btn-psw.psw-dashboard-2" style={{
                             padding: '12px 24px',
                             backgroundColor: '#FFFFFF',
                             color: '#000000',
@@ -248,7 +248,7 @@ export default function PswDashboard() {
                             🎓 {t(ContentRegistry.LEARN.TITLE)}
                         </button>
                     </Link>
-                    <button
+                    <button data-cy="btn-psw.psw-dashboard-3"
                         onClick={async () => {
                             try {
                                 const response: any = await apiClient.post('/v1/psw/dashboard/wellness', {});
@@ -349,7 +349,7 @@ export default function PswDashboard() {
 
             {/* Floating Dispatch Chat Trigger */}
             {!isChatOpen && (
-                <button
+                <button data-cy="btn-psw.psw-dashboard-4"
                     onClick={() => setIsChatOpen(true)}
                     style={{
                         position: 'fixed',

@@ -16,7 +16,7 @@ export const SelfHealingAudit: React.FC = () => {
     return (
         <div className="sm-card" style={{ padding: '2rem', background: '#ffffff', marginBottom: '3rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+                <h3 data-cy="h3-self-healing-audit-0" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                     🛡️ {t(ContentRegistry.SCRUM_MASTER.SELF_HEALING.TITLE)}
                 </h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: '#ecfdf5', color: '#059669', borderRadius: '30px', fontSize: '0.75rem', fontWeight: 800 }}>

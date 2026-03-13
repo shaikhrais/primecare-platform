@@ -40,7 +40,7 @@ export const ReferralProgramTracker: React.FC = () => {
                         <Gift size={28} color="#C026D3" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Organic Referral Program Tracker</h3>
+                        <h3 data-cy="h3-referral-program-tracker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Organic Referral Program Tracker</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.95rem' }}>Track "Refer-a-Friend" lead progression and issue $500 Statement Credits upon maturity.</p>
                     </div>
                 </div>
@@ -98,14 +98,14 @@ export const ReferralProgramTracker: React.FC = () => {
                             {/* Payout Action button */}
                             <div style={{ width: '180px', display: 'flex', justifyContent: 'flex-end' }}>
                                 {isEligible ? (
-                                    <button 
+                                    <button data-cy="btn-referral-program-tracker-0" 
                                         onClick={() => handleIssueCredit(ref.id)}
                                         style={{ backgroundColor: '#E11D48', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', width: '100%', justifyContent: 'center', boxShadow: '0 2px 4px rgba(225, 29, 72, 0.2)' }}
                                     >
                                         <DollarSign size={16} /> Issue $500 Credit
                                     </button>
                                 ) : (
-                                    <button disabled style={{ backgroundColor: '#F1F5F9', color: '#94A3B8', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: 'not-allowed', width: '100%', fontSize: '0.9rem' }}>
+                                    <button data-cy="btn-referral-program-tracker-1" disabled style={{ backgroundColor: '#F1F5F9', color: '#94A3B8', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: 'not-allowed', width: '100%', fontSize: '0.9rem' }}>
                                         {ref.status === 'REWARD_CLAIMED' ? 'Paid Out' : 'Locked'}
                                     </button>
                                 )}

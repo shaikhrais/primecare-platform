@@ -24,7 +24,7 @@ export const NotesAndSignature: React.FC<NotesAndSignatureProps> = ({
 }) => {
     return (
         <div style={{ marginTop: '32px' }}>
-            <h3 style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.NOTES_TITLE}</h3>
+            <h3 data-cy="h3-manager.notes-and-signature-0" style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.NOTES_TITLE}</h3>
             <textarea
                 data-cy="form.daily.notes"
                 placeholder={ContentRegistry.DAILY_ENTRY.NOTES_PLACEHOLDER}
@@ -51,7 +51,7 @@ export const NotesAndSignature: React.FC<NotesAndSignatureProps> = ({
                     />
                 </div>
                 <div style={{ display: 'flex', gap: '16px' }}>
-                    <button
+                    <button data-cy="btn-manager.notes-and-signature-0"
                         onClick={() => {
                             setIsDirty(false);
                             handleSubmit(true);
@@ -62,7 +62,7 @@ export const NotesAndSignature: React.FC<NotesAndSignatureProps> = ({
                     >
                         {ContentRegistry.DAILY_ENTRY.SAVE_DRAFT}
                     </button>
-                    <button
+                    <button data-cy="btn-manager.notes-and-signature-1"
                         onClick={() => {
                             setIsDirty(false);
                             handleSubmit(false);

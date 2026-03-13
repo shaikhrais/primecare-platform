@@ -381,7 +381,7 @@ export default function RoleFlowsPage() {
                     ))}
                 </div>
 
-                <button
+                <button data-cy="btn-role-flows-page-0"
                     onClick={handleVerifyAll}
                     disabled={isVerifying}
                     style={{
@@ -426,14 +426,14 @@ export default function RoleFlowsPage() {
                 </div>
 
                 <div className="bento-item" style={{ gridColumn: 'span 5' }}>
-                    <h3 style={{ margin: '0 0 15px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-400)' }}>ROLE DISTRIBUTION</h3>
+                    <h3 data-cy="h3-role-flows-page-0" style={{ margin: '0 0 15px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-400)' }}>ROLE DISTRIBUTION</h3>
                     <div style={{ height: '180px' }}>
                         <CorePieChart data={stats.roleDistribution} dataKey="value" nameKey="name" colors={['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#ec4899']} />
                     </div>
                 </div>
 
                 <div className="bento-item" style={{ gridColumn: 'span 4' }}>
-                    <h3 style={{ margin: '0 0 15px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-400)' }}>COMPLEXITY SCORE</h3>
+                    <h3 data-cy="h3-role-flows-page-1" style={{ margin: '0 0 15px 0', fontSize: '0.9rem', fontWeight: 800, color: 'var(--text-400)' }}>COMPLEXITY SCORE</h3>
                     <div style={{ height: '180px' }}>
                         <CoreBarChart
                             data={stats.roleDistribution}
@@ -449,7 +449,7 @@ export default function RoleFlowsPage() {
                         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                             <span style={{ fontSize: '2.5rem' }}>{roleFlows[selectedRole].icon}</span>
                             <div>
-                                <h2 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900 }}>{roleFlows[selectedRole].label}</h2>
+                                <h2 data-cy="h2-role-flows-page-0" style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900 }}>{roleFlows[selectedRole].label}</h2>
                                 <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
                                     <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', background: 'var(--bg-200)', borderRadius: '6px' }}>ROLE_ID: {selectedRole.toUpperCase()}</span>
                                     <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '4px 10px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '6px' }}>SECURE ACCESS</span>
@@ -458,7 +458,7 @@ export default function RoleFlowsPage() {
                         </div>
 
                         <div style={{ display: 'flex', gap: '4px', background: 'var(--bg-100)', padding: '4px', borderRadius: '12px' }}>
-                            <button
+                            <button data-cy="btn-role-flows-page-1"
                                 onClick={() => setActiveTab('workflow')}
                                 style={{
                                     padding: '10px 20px',
@@ -473,7 +473,7 @@ export default function RoleFlowsPage() {
                             >
                                 🔄 Journey Paths
                             </button>
-                            <button
+                            <button data-cy="btn-role-flows-page-2"
                                 onClick={() => setActiveTab('blueprint')}
                                 style={{
                                     padding: '10px 20px',
@@ -536,7 +536,7 @@ export default function RoleFlowsPage() {
                             <div style={{ marginBottom: '2rem', padding: '2rem', background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', borderRadius: '24px', border: '1px solid #e2e8f0', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}>
                                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
                                     <span style={{ fontSize: '1.5rem' }}>🎯</span>
-                                    <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-400)' }}>Role Mission Statement</h3>
+                                    <h3 data-cy="h3-role-flows-page-2" style={{ margin: 0, fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-400)' }}>Role Mission Statement</h3>
                                 </div>
                                 <p style={{ margin: 0, color: 'var(--text-100)', fontSize: '1.2rem', fontWeight: 600, lineHeight: '1.6', fontStyle: 'italic' }}>
                                     "{stats.mission}"
@@ -546,14 +546,14 @@ export default function RoleFlowsPage() {
                             {/* Implemented Section */}
                             <div style={{ marginBottom: '3rem' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                    <h3 style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#10b981', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <h3 data-cy="h3-role-flows-page-3" style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#10b981', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <span style={{ fontSize: '1.5rem' }}>✅</span> Implemented Features
                                     </h3>
                                     <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '4px 12px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderRadius: '20px' }}>
                                         {stats.implemented.length} MODULES READY
                                     </span>
                                 </div>
-                                <table className="blueprint-table">
+                                <table data-cy="table-role-flows-page" className="blueprint-table">
                                     <thead>
                                         <tr>
                                             <th style={{ width: '20%' }}>Requirement / Task</th>
@@ -578,14 +578,14 @@ export default function RoleFlowsPage() {
                             {/* Missing Section */}
                             <div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                    <h3 style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#ef4444', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <h3 data-cy="h3-role-flows-page-4" style={{ margin: 0, fontSize: '1.3rem', fontWeight: 900, color: '#ef4444', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <span style={{ fontSize: '1.5rem' }}>🚧</span> Missing Platform Gaps
                                     </h3>
                                     <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '4px 12px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '20px' }}>
                                         {stats.missing.length} PENDING MODULES
                                     </span>
                                 </div>
-                                <table className="blueprint-table">
+                                <table data-cy="table-role-flows-page" className="blueprint-table">
                                     <thead>
                                         <tr>
                                             <th style={{ width: '20%' }}>Unmet Requirement</th>
@@ -615,7 +615,7 @@ export default function RoleFlowsPage() {
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.3)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }} onClick={() => setSelectedStep(null)}>
                     <div className="bento-item" style={{ width: '550px', padding: '2.5rem', background: 'white', border: 'none' }} onClick={e => e.stopPropagation()}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                            <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 900 }}>Technical Audit</h2>
+                            <h2 data-cy="h2-role-flows-page-1" style={{ margin: 0, fontSize: '1.4rem', fontWeight: 900 }}>Technical Audit</h2>
                             <span style={{ fontSize: '2rem' }}>{roleFlows[selectedStep.role].icon}</span>
                         </div>
 
@@ -642,7 +642,7 @@ export default function RoleFlowsPage() {
                             </div>
                         </div>
 
-                        <button
+                        <button data-cy="btn-role-flows-page-3"
                             onClick={() => setSelectedStep(null)}
                             style={{
                                 marginTop: '2rem',

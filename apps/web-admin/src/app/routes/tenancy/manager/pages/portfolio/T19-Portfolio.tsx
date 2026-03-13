@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T19 · Portfolio
+// PAGE IDENTITY: T19 ï¿½ Portfolio
 // Type: Tool | Owner: manager
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -60,7 +60,7 @@ export default function ManagementPortfolio() {
                 </div>
             </div>
 
-            <h2 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', color: 'var(--text-200)' }}>Departmental Health</h2>
+            <h2 data-cy="h2-manager.portfolio-0" style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', color: 'var(--text-200)' }}>Departmental Health</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '24px' }}>
                 <ChartCard title="Marketing & Sales" subtitle="Lead conversion and campaign ROI">
                     <RevenueChart data={stats.revenue} isDemo={false} />

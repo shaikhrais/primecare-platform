@@ -29,10 +29,10 @@ const MarketingDashboard: React.FC = () => {
                     <p className="text-slate-500 font-medium">Marketing & Lead Conversion Intelligence</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
+                    <button data-cy="btn-marketing-dashboard-0" className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
                         Export CRM
                     </button>
-                    <button className="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">
+                    <button data-cy="btn-marketing-dashboard-1" className="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all">
                         New Campaign
                     </button>
                 </div>
@@ -40,7 +40,7 @@ const MarketingDashboard: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-center items-center">
-                    <h3 className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-4">Lead Distribution</h3>
+                    <h3 data-cy="h3-marketing-dashboard-0" className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-4">Lead Distribution</h3>
                     <div className="w-full h-48">
                         <CorePieChart
                             data={leadStats}
@@ -62,7 +62,7 @@ const MarketingDashboard: React.FC = () => {
                     <div className="absolute top-0 right-0 p-8 opacity-10">
                         <span className="text-8xl font-black tracking-tighter">📈</span>
                     </div>
-                    <h3 className="text-indigo-400 font-black text-[10px] uppercase tracking-widest mb-6">Client Acquisition Trend</h3>
+                    <h3 data-cy="h3-marketing-dashboard-1" className="text-indigo-400 font-black text-[10px] uppercase tracking-widest mb-6">Client Acquisition Trend</h3>
                     <div className="h-64">
                         <CoreBarChart
                             data={growthData}
@@ -93,7 +93,7 @@ const MarketingDashboard: React.FC = () => {
 
             <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
                 <div className="p-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-                    <h2 className="font-bold text-slate-800">Recent High-Value Targets</h2>
+                    <h2 data-cy="h2-marketing-dashboard-0" className="font-bold text-slate-800">Recent High-Value Targets</h2>
                     <span className="text-xs font-bold text-indigo-600 cursor-pointer hover:underline">View CRM</span>
                 </div>
                 <div className="divide-y divide-slate-50">

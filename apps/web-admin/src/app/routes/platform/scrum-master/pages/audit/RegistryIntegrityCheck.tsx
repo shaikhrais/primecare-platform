@@ -108,9 +108,9 @@ export default function RegistryIntegrityCheck() {
                 </div>
             </div>
 
-            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-100)' }}>🔍 {t(ContentRegistry.SCRUM_MASTER.ANOMALIES.TITLE)}</h3>
+            <h3 data-cy="h3-registry-integrity-check-0" style={{ margin: '0 0 1.5rem 0', color: 'var(--text-100)' }}>🔍 {t(ContentRegistry.SCRUM_MASTER.ANOMALIES.TITLE)}</h3>
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-registry-integrity-check" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#fef2f2', color: '#991b1b', fontSize: '0.85rem' }}>
                         <tr>
                             <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.ANOMALIES.SEVERITY)}</th>

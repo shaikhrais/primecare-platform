@@ -43,7 +43,7 @@ export const ScrumMasterCopilot: React.FC = () => {
         }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div>
-                    <h3 style={{ margin: '0 0 5px 0', fontSize: '1.5rem', fontWeight: 800 }}>✨ {t(ContentRegistry.SCRUM_MASTER.COPILOT.TITLE)}</h3>
+                    <h3 data-cy="h3-scrum-master-copilot-0" style={{ margin: '0 0 5px 0', fontSize: '1.5rem', fontWeight: 800 }}>✨ {t(ContentRegistry.SCRUM_MASTER.COPILOT.TITLE)}</h3>
                     <p style={{ margin: 0, opacity: 0.8, fontSize: '0.9rem' }}>{t(ContentRegistry.SCRUM_MASTER.COPILOT.SUBTITLE)}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>

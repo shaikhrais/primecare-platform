@@ -52,7 +52,7 @@ export const MassDataGrid: React.FC = () => {
                 <div style={{ display: 'flex', gap: '12px' }}>
                     <div style={{ position: 'relative' }}>
                         <Search size={16} color="#94A3B8" style={{ position: 'absolute', left: '12px', top: '10px' }} />
-                        <input 
+                        <input data-cy="input-admin.mass-data-grid-0" 
                             type="text" 
                             placeholder="Search Hash or ID..."
                             value={searchTerm}
@@ -60,10 +60,10 @@ export const MassDataGrid: React.FC = () => {
                             style={{ padding: '8px 16px 8px 36px', borderRadius: '6px', border: '1px solid #CBD5E1', width: '250px', fontSize: '0.9rem' }}
                         />
                     </div>
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: 'white', border: '1px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, color: '#475569' }}>
+                    <button data-cy="btn-admin.mass-data-grid-0" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: 'white', border: '1px solid #CBD5E1', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, color: '#475569' }}>
                         <Filter size={16} /> Filter
                     </button>
-                    <button style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: '#10B981', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, color: 'white' }}>
+                    <button data-cy="btn-admin.mass-data-grid-1" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: '#10B981', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, color: 'white' }}>
                         <Download size={16} /> CSV
                     </button>
                 </div>
@@ -71,7 +71,7 @@ export const MassDataGrid: React.FC = () => {
 
             {/* Hyper-Dense Excel-style Table */}
             <div style={{ flex: 1, overflow: 'auto', backgroundColor: 'white' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                <table data-cy="table-admin.mass-data-grid" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                     <thead style={{ position: 'sticky', top: 0, backgroundColor: '#F1F5F9', borderBottom: '2px solid #CBD5E1', zIndex: 1, textAlign: 'left', fontWeight: 800, color: '#475569' }}>
                         <tr>
                             <th style={{ padding: '12px' }}>Ledger ID</th>

@@ -15,7 +15,7 @@ export default function SLAMonitoring() {
                     <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>SLA Monitoring</h1>
                     <p style={{ color: '#6B7280' }}>Tenant-level performance targets and compliance tracking.</p>
                 </div>
-                <button className="btn primary">Run Compliance Sweep</button>
+                <button data-cy="btn-index-0" className="btn primary">Run Compliance Sweep</button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '40px' }}>
@@ -31,7 +31,7 @@ export default function SLAMonitoring() {
             <div className="pc-card">
                 <div className="pc-card-h">Tenant SLA Compliance Breakdown</div>
                 <div className="pc-card-b">
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-index" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
                                 <th style={{ padding: '12px' }}>Tenant</th>

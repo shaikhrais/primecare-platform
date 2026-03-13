@@ -138,8 +138,8 @@ const PerspectiveModalWrap: React.FC<{ title: string; onClose: () => void; child
         <div onClick={onClose} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }} />
         <div style={{ position: 'relative', width: '100%', maxWidth: '500px', background: 'white', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', animation: 'modalEntry 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div style={{ padding: '24px', borderBottom: '1px solid #F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-400)' }}>{title}</h3>
-                <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: '#94a3b8' }}>×</button>
+                <h3 data-cy="h3-drill-down-modals-0" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-400)' }}>{title}</h3>
+                <button data-cy="btn-drill-down-modals-0" onClick={onClose} style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: '#94a3b8' }}>×</button>
             </div>
             <div style={{ padding: '24px' }}>{children}</div>
             <style>{`@keyframes modalEntry { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>

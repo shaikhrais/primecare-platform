@@ -28,7 +28,7 @@ export default function Unauthorized() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-                <button
+                <button data-cy="btn-shared.unauthorized-0"
                     onClick={() => navigate(-1)}
                     style={{
                         padding: '12px 24px',
@@ -44,7 +44,7 @@ export default function Unauthorized() {
                 >
                     ← Go Back
                 </button>
-                <button
+                <button data-cy="btn-shared.unauthorized-1"
                     onClick={() => navigate('/')}
                     style={{
                         padding: '12px 24px',

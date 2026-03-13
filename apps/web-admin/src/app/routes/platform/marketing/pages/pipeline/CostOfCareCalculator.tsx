@@ -38,7 +38,7 @@ export const CostOfCareCalculator: React.FC = () => {
                     <Calculator size={28} color="#6366F1" />
                 </div>
                 <div>
-                    <h2 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Care Cost Estimator</h2>
+                    <h2 data-cy="h2-cost-of-care-calculator-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Care Cost Estimator</h2>
                     <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Customize a care plan to see transparent weekly pricing.</p>
                 </div>
             </div>
@@ -111,11 +111,11 @@ export const CostOfCareCalculator: React.FC = () => {
             {step === 2 && (
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ backgroundColor: '#F0F9FF', border: '1px solid #BAE6FD', padding: '24px', borderRadius: '12px', marginBottom: '24px' }}>
-                        <h3 style={{ margin: '0 0 12px 0', color: '#0369A1', fontSize: '1.1rem' }}>Your customized estimate is ready!</h3>
+                        <h3 data-cy="h3-cost-of-care-calculator-0" style={{ margin: '0 0 12px 0', color: '#0369A1', fontSize: '1.1rem' }}>Your customized estimate is ready!</h3>
                         <p style={{ margin: 0, color: '#0CA5E9', fontSize: '0.9rem' }}>Where should we email your pricing breakdown and care guide?</p>
                     </div>
 
-                    <form onSubmit={handleGenerateCost} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <form data-cy="form-cost-of-care-calculator" onSubmit={handleGenerateCost} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <input 
                             data-cy="form.calculator.name"
                             type="text" 
@@ -155,7 +155,7 @@ export const CostOfCareCalculator: React.FC = () => {
             {step === 3 && (
                 <div style={{ textAlign: 'center' }}>
                     <CheckCircle2 size={64} color="#10B981" style={{ margin: '0 auto 24px auto' }}/>
-                    <h3 style={{ margin: '0 0 8px 0', fontSize: '1.4rem', color: '#0F172A' }}>Here is your expected cost.</h3>
+                    <h3 data-cy="h3-cost-of-care-calculator-1" style={{ margin: '0 0 8px 0', fontSize: '1.4rem', color: '#0F172A' }}>Here is your expected cost.</h3>
                     <p style={{ margin: '0 0 32px 0', color: '#64748B', fontSize: '0.95rem' }}>We've also emailed a detailed copy to {email}.</p>
                     
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', padding: '32px', borderRadius: '16px', marginBottom: '32px' }}>

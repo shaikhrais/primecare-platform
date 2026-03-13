@@ -60,7 +60,7 @@ export default function BranchPL() {
                     <p>Real-time financial performance and operational expense audit.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <select
+                    <select data-cy="select-manager.branch-p-l-0"
                         className="btn-secondary-pc"
                         value={period}
                         onChange={(e) => setPeriod(e.target.value)}
@@ -70,7 +70,7 @@ export default function BranchPL() {
                         <option>Quarterly</option>
                         <option>Year-to-Date</option>
                     </select>
-                    <button className="export-btn-premium">Export Statement</button>
+                    <button data-cy="btn-manager.branch-p-l-0" className="export-btn-premium">Export Statement</button>
                 </div>
             </header>
 
@@ -101,7 +101,7 @@ export default function BranchPL() {
 
                 <div className="finance-card finance-card-large">
                     <div className="card-header" style={{ background: 'none', border: 'none', padding: 0 }}>
-                        <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Revenue vs Expense Trend</h2>
+                        <h2 data-cy="h2-manager.branch-p-l-0" style={{ fontSize: '1.25rem', fontWeight: 800 }}>Revenue vs Expense Trend</h2>
                     </div>
                     <div className="chart-container-premium">
                         <p style={{ color: '#94a3b8', fontWeight: 700 }}>[ INTERACTIVE P&L PROJECTION ENGINE ]</p>
@@ -110,7 +110,7 @@ export default function BranchPL() {
 
                 <div className="finance-card">
                     <div className="card-header" style={{ background: 'none', border: 'none', padding: 0 }}>
-                        <h2 style={{ fontSize: '1rem', fontWeight: 800 }}>Expense Distribution</h2>
+                        <h2 data-cy="h2-manager.branch-p-l-1" style={{ fontSize: '1rem', fontWeight: 800 }}>Expense Distribution</h2>
                     </div>
                     <div className="expense-breakdown">
                         {[
@@ -134,13 +134,13 @@ export default function BranchPL() {
             <article className="finance-card" style={{ background: '#0f172a', color: 'white' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                        <h3 style={{ fontSize: '1.125rem', fontWeight: 800, color: '#3b82f6' }}>Efficiency Insight</h3>
+                        <h3 data-cy="h3-manager.branch-p-l-0" style={{ fontSize: '1.125rem', fontWeight: 800, color: '#3b82f6' }}>Efficiency Insight</h3>
                         <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginTop: '0.5rem', maxWidth: '600px' }}>
                             Branch profit margins have increased by 4.2% this quarter due to optimized travel routing for PSWs,
                             reducing average fuel reimbursement costs.
                         </p>
                     </div>
-                    <button className="btn-secondary-pc" style={{ background: 'transparent', color: 'white', borderColor: '#334155' }}>
+                    <button data-cy="btn-manager.branch-p-l-1" className="btn-secondary-pc" style={{ background: 'transparent', color: 'white', borderColor: '#334155' }}>
                         VIEW LOGISTICS AUDIT →
                     </button>
                 </div>

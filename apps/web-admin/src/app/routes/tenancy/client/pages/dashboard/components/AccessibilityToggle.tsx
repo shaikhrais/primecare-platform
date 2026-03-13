@@ -23,7 +23,7 @@ export const AccessibilityToggle: React.FC = () => {
     };
 
     return (
-        <button 
+        <button data-cy="btn-client.accessibility-toggle-0" 
             onClick={toggleScaling}
             title="Toggle Large Text"
             style={{ 

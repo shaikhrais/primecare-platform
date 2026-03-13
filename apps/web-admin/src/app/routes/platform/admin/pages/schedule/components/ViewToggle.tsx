@@ -8,7 +8,7 @@ interface ViewToggleProps {
 export const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, setViewMode }) => {
     return (
         <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-            <button
+            <button data-cy="btn-admin.view-toggle-0"
                 onClick={() => setViewMode('calendar')}
                 style={{
                     padding: '0.5rem 1rem',
@@ -21,7 +21,7 @@ export const ViewToggle: React.FC<ViewToggleProps> = ({ viewMode, setViewMode })
             >
                 Calendar
             </button>
-            <button
+            <button data-cy="btn-admin.view-toggle-1"
                 onClick={() => setViewMode('list')}
                 style={{
                     padding: '0.5rem 1rem',

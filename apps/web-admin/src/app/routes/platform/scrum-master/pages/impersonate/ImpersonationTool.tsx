@@ -56,7 +56,7 @@ export default function ImpersonationTool() {
                         <div className="flex gap-4">
                             <div className="relative flex-1">
                                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg opacity-50">🔍</span>
-                                <input
+                                <input data-cy="input-impersonation-tool-0"
                                     type="text"
                                     placeholder={t(CONTENT.SEARCH_PLACEHOLDER)}
                                     className="w-full pl-12 pr-4 py-3 rounded-xl border bg-background focus:ring-2 focus:ring-primary outline-none transition-all"
@@ -65,7 +65,7 @@ export default function ImpersonationTool() {
                                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                                 />
                             </div>
-                            <button
+                            <button data-cy="btn-impersonation-tool-0"
                                 onClick={handleSearch}
                                 disabled={loading}
                                 className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-50"
@@ -76,7 +76,7 @@ export default function ImpersonationTool() {
                     </div>
 
                     <div className="space-y-4">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex justify-between items-center px-2">
+                        <h2 data-cy="h2-impersonation-tool-0" className="text-sm font-bold uppercase tracking-widest text-muted-foreground flex justify-between items-center px-2">
                             <span>{t(CONTENT.RESULTS_TITLE)}</span>
                             <span>{CONTENT.MATCH_COUNT(users.length)}</span>
                         </h2>
@@ -102,7 +102,7 @@ export default function ImpersonationTool() {
                                             </div>
                                         </div>
                                     </div>
-                                    <button
+                                    <button data-cy="btn-impersonation-tool-1"
                                         onClick={() => setSelectedUser(user)}
                                         className="px-4 py-2 text-sm font-bold bg-secondary hover:bg-primary hover:text-primary-foreground rounded-lg transition-all opacity-0 group-hover:opacity-100"
                                     >
@@ -130,7 +130,7 @@ export default function ImpersonationTool() {
                                     <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center text-4xl mx-auto mb-4 border-4 border-background shadow-xl">
                                         💎
                                     </div>
-                                    <h3 className="text-xl font-black">{selectedUser.email}</h3>
+                                    <h3 data-cy="h3-impersonation-tool-0" className="text-xl font-black">{selectedUser.email}</h3>
                                     <p className="text-sm text-muted-foreground">{AdminRegistry.ContentRegistry.USERS.TENANT_ID}: {selectedUser.tenantId || 'GLOBAL'}</p>
                                 </div>
 
@@ -150,7 +150,7 @@ export default function ImpersonationTool() {
                                 </div>
 
                                 <div className="pt-6">
-                                    <button
+                                    <button data-cy="btn-impersonation-tool-2"
                                         onClick={() => handleImpersonate(selectedUser)}
                                         disabled={isImpersonating}
                                         className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50"

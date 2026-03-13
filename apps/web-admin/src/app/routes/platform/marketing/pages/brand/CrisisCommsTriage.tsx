@@ -45,7 +45,7 @@ export const CrisisCommsTriage: React.FC = () => {
                         <AlertOctagon size={36} color="#FECACA" className="animate-pulse" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.8rem', color: '#FCA5A5', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px' }}>Global Crisis Communications Triage</h3>
+                        <h3 data-cy="h3-crisis-comms-triage-0" style={{ margin: 0, fontSize: '1.8rem', color: '#FCA5A5', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px' }}>Global Crisis Communications Triage</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#9CA3AF', fontSize: '0.95rem' }}>DEFCON 1: Rapidly deploy synchronized emergency broadcasts to mitigate brand damage during PR/Operational crises.</p>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ export const CrisisCommsTriage: React.FC = () => {
             <div style={{ display: 'flex', gap: '32px' }}>
                 <div style={{ flex: 1, backgroundColor: '#1F2937', padding: '24px', borderRadius: '12px', border: '1px solid #4B5563' }}>
                     <h4 style={{ margin: '0 0 16px 0', color: '#E5E7EB', fontSize: '1.1rem', fontWeight: 800 }}>1. Select Incident Type</h4>
-                    <select 
+                    <select data-cy="select-crisis-comms-triage-0" 
                         value={crisisType} 
                         onChange={(e) => setCrisisType(e.target.value)}
                         style={{ width: '100%', padding: '12px', borderRadius: '8px', backgroundColor: '#374151', color: 'white', border: '1px solid #6B7280', fontSize: '1rem', outline: 'none', marginBottom: '24px' }}
@@ -100,7 +100,7 @@ export const CrisisCommsTriage: React.FC = () => {
                     </div>
 
                     {!deploymentSuccess ? (
-                         <button 
+                         <button data-cy="btn-crisis-comms-triage-0" 
                             onClick={handleDeploy}
                             disabled={isDeploying || (!audiences.families && !audiences.partners && !audiences.media)}
                             style={{ width: '100%', padding: '20px', backgroundColor: isDeploying ? '#991B1B' : '#DC2626', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.2rem', fontWeight: 900, textTransform: 'uppercase', cursor: (isDeploying || (!audiences.families && !audiences.partners && !audiences.media)) ? 'not-allowed' : 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginTop: '24px', transition: 'background-color 0.2s' }}

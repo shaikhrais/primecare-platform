@@ -27,7 +27,7 @@ export const LiveMarginThermometer: React.FC = () => {
     return (
         <div style={{ backgroundColor: '#1E293B', borderRadius: '12px', padding: '20px', color: 'white', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 600, color: '#94A3B8' }}>Live Gross Margin</h3>
+                <h3 data-cy="h3-manager.live-margin-thermometer-0" style={{ margin: 0, fontSize: '0.95rem', fontWeight: 600, color: '#94A3B8' }}>Live Gross Margin</h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: isHealthy ? '#064E3B' : '#7F1D1D', padding: '4px 8px', borderRadius: '8px', color: isHealthy ? '#34D399' : '#FCA5A5', fontSize: '0.8rem', fontWeight: 700 }}>
                     {isHealthy ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                     {stats.margin.toFixed(1)}%

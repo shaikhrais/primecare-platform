@@ -25,7 +25,7 @@ const AlliedHealthDashboard: React.FC = () => {
                     <p className="text-slate-500 font-medium">Clinical RMT / RPT / RCH Operations</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
+                    <button data-cy="btn-allied-health-dashboard-0" className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
                         Treatment History
                     </button>
                     <button

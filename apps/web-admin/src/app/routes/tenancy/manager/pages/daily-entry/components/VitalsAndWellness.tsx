@@ -20,7 +20,7 @@ export const VitalsAndWellness: React.FC<VitalsAndWellnessProps> = ({
 }) => {
     return (
         <div>
-            <h3 style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.VITALS_TITLE}</h3>
+            <h3 data-cy="h3-manager.vitals-and-wellness-0" style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.VITALS_TITLE}</h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '24px' }}>
                 <div>

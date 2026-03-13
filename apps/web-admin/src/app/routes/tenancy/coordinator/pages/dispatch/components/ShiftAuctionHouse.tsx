@@ -71,7 +71,7 @@ export const ShiftAuctionHouse: React.FC = () => {
                         <Gavel size={20} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Live Reverse Auction</h3>
+                        <h3 data-cy="h3-coordinator.shift-auction-house-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Live Reverse Auction</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Bidding drives rate down.</p>
                     </div>
                 </div>

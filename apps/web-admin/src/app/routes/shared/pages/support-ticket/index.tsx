@@ -64,7 +64,7 @@ export default function SupportTicketForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>Discard Ticket?</h2>
+                        <h2 data-cy="h2-shared.index-0" style={{ marginTop: 0 }}>Discard Ticket?</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>Your support request is not yet submitted. Discard it?</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
@@ -79,7 +79,7 @@ export default function SupportTicketForm() {
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Open a support ticket for technical issues or clinical inquiries.</p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
+            <form data-cy="form-shared.index" onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Subject Line</label>
@@ -149,7 +149,7 @@ export default function SupportTicketForm() {
                 </div>
 
                 <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-shared.index-0"
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}

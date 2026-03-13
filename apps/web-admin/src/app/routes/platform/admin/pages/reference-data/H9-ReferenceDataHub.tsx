@@ -69,8 +69,8 @@ export default function ReferenceDataHub() {
             </div>
 
             <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
-                <button className={`btn ${tab === 'insurance' ? 'primary' : 'secondary'}`} onClick={() => setTab('insurance')}>🏥 {t('admin.insurance_providers', { defaultValue: 'Insurance Providers' })}</button>
-                <button className={`btn ${tab === 'billing' ? 'primary' : 'secondary'}`} onClick={() => setTab('billing')}>💲 {t('admin.billing_codes', { defaultValue: 'Billing Codes' })}</button>
+                <button data-cy="btn-admin.reference-data-hub-0" className={`btn ${tab === 'insurance' ? 'primary' : 'secondary'}`} onClick={() => setTab('insurance')}>🏥 {t('admin.insurance_providers', { defaultValue: 'Insurance Providers' })}</button>
+                <button data-cy="btn-admin.reference-data-hub-1" className={`btn ${tab === 'billing' ? 'primary' : 'secondary'}`} onClick={() => setTab('billing')}>💲 {t('admin.billing_codes', { defaultValue: 'Billing Codes' })}</button>
             </div>
 
             {tab === 'insurance' && (
@@ -79,7 +79,7 @@ export default function ReferenceDataHub() {
                         <span>{t('admin.insurance_provider_directory', { defaultValue: 'Insurance Provider Directory' })}</span>
                         <button className="btn primary" data-cy="btn-add-provider" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={handleAddProvider}>+ {t('admin.add_provider', { defaultValue: 'Add Provider' })}</button>
                     </div>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.reference-data-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                             <tr>
                                 <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>{t('admin.provider_name', { defaultValue: 'Provider Name' })}</th>
@@ -110,7 +110,7 @@ export default function ReferenceDataHub() {
                         <span>{t('admin.billing_code_directory', { defaultValue: 'Billing Code Directory' })}</span>
                         <button className="btn primary" data-cy="btn-add-billing-code" style={{ fontSize: '12px', padding: '6px 12px' }} onClick={handleAddBillingCode}>+ {t('admin.add_billing_code', { defaultValue: 'Add Billing Code' })}</button>
                     </div>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.reference-data-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                             <tr>
                                 <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>{t('admin.code', { defaultValue: 'Code' })}</th>

@@ -128,7 +128,7 @@ const ResellerDashboard: React.FC = () => {
                                 <p style={{ margin: '0', fontSize: '14px' }}>Use the provisioning tool to spawn your first sub-tenant.</p>
                             </div>
                         ) : (
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <table data-cy="table-admin.reseller-dashboard" style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                                     <tr>
                                         <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>Agency Name</th>
@@ -158,7 +158,7 @@ const ResellerDashboard: React.FC = () => {
 
                 {/* Provisioning Form */}
                 <div className="pc-card" style={{ padding: '24px', height: 'fit-content' }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px', color: 'var(--text-100)' }}>Provision New Agency</h2>
+                    <h2 data-cy="h2-admin.reseller-dashboard-0" style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px', color: 'var(--text-100)' }}>Provision New Agency</h2>
                     <form data-cy="reseller.form-provision" onSubmit={handleProvision} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         <div className="pc-input-group">
                             <label className="pc-label">Agency Name</label>

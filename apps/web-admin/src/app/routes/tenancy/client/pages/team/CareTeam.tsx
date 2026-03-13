@@ -51,7 +51,7 @@ export default function CareTeam() {
                             </div>
 
                             <div>
-                                <h3 className="care-team-member-name">{member.name}</h3>
+                                <h3 data-cy="h3-client.care-team-0" className="care-team-member-name">{member.name}</h3>
                                 <div className="care-team-member-role">{member.role}</div>
                             </div>
 
@@ -71,7 +71,7 @@ export default function CareTeam() {
                                 "{member.bio}"
                             </p>
 
-                            <button className="care-team-action-btn">
+                            <button data-cy="btn-client.care-team-0" className="care-team-action-btn">
                                 Send Message
                             </button>
                         </div>
@@ -90,7 +90,7 @@ export default function CareTeam() {
             <div className="care-team-footer">
                 <div className="care-team-footer-icon">🔐</div>
                 <div>
-                    <h3 className="care-team-footer-title">Clinically Verified Network</h3>
+                    <h3 data-cy="h3-client.care-team-1" className="care-team-footer-title">Clinically Verified Network</h3>
                     <p className="care-team-footer-desc">
                         Every professional in your care circle has undergone a mandatory criminal background check, vulnerable sector screening, and rigorous clinical credential verification.
                     </p>

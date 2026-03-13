@@ -60,7 +60,7 @@ export function IncidentResolutionModal({
                 </div>
             )}
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }} data-cy="modal.incident.resolve.container">
-                <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.INCIDENTS.RESOLVE.TITLE)}</h3>
+                <h3 data-cy="h3-admin.incident-resolution-modal-0" style={{ marginTop: 0 }}>{t(ContentRegistry.INCIDENTS.RESOLVE.TITLE)}</h3>
                 <div style={{ marginTop: '1.5rem' }}>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.INCIDENTS.RESOLVE.NOTES_LABEL)}</label>
                     <textarea

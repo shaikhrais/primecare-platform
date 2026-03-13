@@ -44,7 +44,7 @@ export const DenialTriageQueue: React.FC = () => {
                 <div style={{ backgroundColor: '#FEF2F2', padding: '8px', borderRadius: '8px' }}>
                     <FileMinus size={20} color="#DC2626" />
                 </div>
-                <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Clearinghouse Denials Queue</h3>
+                <h3 data-cy="h3-admin.denial-triage-queue-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Clearinghouse Denials Queue</h3>
                 <span style={{ backgroundColor: '#EF4444', color: 'white', padding: '2px 8px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 800 }}>
                     {queue.length} Pending
                 </span>
@@ -65,7 +65,7 @@ export const DenialTriageQueue: React.FC = () => {
                             </div>
                         </div>
 
-                        <button 
+                        <button data-cy="btn-admin.denial-triage-queue-0" 
                             onClick={() => handleDelegate(item)}
                             disabled={processingId === item.id}
                             style={{ 

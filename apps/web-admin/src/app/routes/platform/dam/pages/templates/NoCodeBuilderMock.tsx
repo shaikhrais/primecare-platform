@@ -46,7 +46,7 @@ export const NoCodeBuilderMock: React.FC = () => {
                         <LayoutTemplate size={20} color="#6366F1" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>No-Code Page Templater</h3>
+                        <h3 data-cy="h3-no-code-builder-mock-0" style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>No-Code Page Templater</h3>
                         <p style={{ margin: '2px 0 0 0', color: '#64748B', fontSize: '0.8rem' }}>Assemble layout schemas using registered components.</p>
                     </div>
                 </div>

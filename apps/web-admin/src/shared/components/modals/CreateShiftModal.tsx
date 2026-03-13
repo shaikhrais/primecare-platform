@@ -84,19 +84,19 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} data-cy="modal-create-shift">
             <div style={{ backgroundColor: 'white', padding: '28px', borderRadius: '16px', maxWidth: '520px', width: '90%', maxHeight: '90vh', overflowY: 'auto', position: 'relative' }}>
-                <button onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#94A3B8' }}>&times;</button>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
+                <button data-cy="btn-shared.create-shift-modal-0" onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#94A3B8' }}>&times;</button>
+                <h3 data-cy="h3-shared.create-shift-modal-0" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
                     {mode === 'assign' ? '👥 Assign Staff to Shift' : '⏱️ Create New Shift'}
                 </h3>
                 <p style={{ color: '#94A3B8', fontSize: '0.8rem', margin: '4px 0 20px' }}>
                     {mode === 'assign' ? 'Select a staff member and assign to a shift' : 'Schedule a new shift for client care'}
                 </p>
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <form data-cy="form-shared.create-shift-modal" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {mode === 'assign' && (
                         <div>
                             <label style={labelStyle}>Staff Member *</label>
-                            <select value={form.staffId} onChange={e => setForm(p => ({ ...p, staffId: e.target.value }))} style={inputStyle} required>
+                            <select data-cy="select-shared.create-shift-modal-0" value={form.staffId} onChange={e => setForm(p => ({ ...p, staffId: e.target.value }))} style={inputStyle} required>
                                 <option value="">Select staff...</option>
                                 {staff.map(s => <option key={s.id} value={s.id}>{s.fullName || s.email}</option>)}
                             </select>
@@ -105,7 +105,7 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
 
                     <div>
                         <label style={labelStyle}>Client</label>
-                        <select value={form.clientId} onChange={e => setForm(p => ({ ...p, clientId: e.target.value }))} style={inputStyle}>
+                        <select data-cy="select-shared.create-shift-modal-1" value={form.clientId} onChange={e => setForm(p => ({ ...p, clientId: e.target.value }))} style={inputStyle}>
                             <option value="">Select client (optional)...</option>
                             {clients.map(c => <option key={c.id} value={c.id}>{c.fullName || c.user?.fullName || c.user?.email}</option>)}
                         </select>
@@ -113,7 +113,7 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
 
                     <div>
                         <label style={labelStyle}>Service</label>
-                        <select value={form.serviceId} onChange={e => setForm(p => ({ ...p, serviceId: e.target.value }))} style={inputStyle}>
+                        <select data-cy="select-shared.create-shift-modal-2" value={form.serviceId} onChange={e => setForm(p => ({ ...p, serviceId: e.target.value }))} style={inputStyle}>
                             <option value="">Select service...</option>
                             {services.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                         </select>
@@ -122,22 +122,22 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
                         <div>
                             <label style={labelStyle}>Date *</label>
-                            <input type="date" value={form.date} onChange={e => setForm(p => ({ ...p, date: e.target.value }))} style={inputStyle} required />
+                            <input data-cy="input-shared.create-shift-modal-0" type="date" value={form.date} onChange={e => setForm(p => ({ ...p, date: e.target.value }))} style={inputStyle} required />
                         </div>
                         <div>
                             <label style={labelStyle}>Start *</label>
-                            <input type="time" value={form.startTime} onChange={e => setForm(p => ({ ...p, startTime: e.target.value }))} style={inputStyle} required />
+                            <input data-cy="input-shared.create-shift-modal-1" type="time" value={form.startTime} onChange={e => setForm(p => ({ ...p, startTime: e.target.value }))} style={inputStyle} required />
                         </div>
                         <div>
                             <label style={labelStyle}>End *</label>
-                            <input type="time" value={form.endTime} onChange={e => setForm(p => ({ ...p, endTime: e.target.value }))} style={inputStyle} required />
+                            <input data-cy="input-shared.create-shift-modal-2" type="time" value={form.endTime} onChange={e => setForm(p => ({ ...p, endTime: e.target.value }))} style={inputStyle} required />
                         </div>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                         <div>
                             <label style={labelStyle}>Priority</label>
-                            <select value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as any }))} style={inputStyle}>
+                            <select data-cy="select-shared.create-shift-modal-3" value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value as any }))} style={inputStyle}>
                                 <option value="normal">Normal</option>
                                 <option value="urgent">Urgent</option>
                             </select>
@@ -145,7 +145,7 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
                         {mode !== 'assign' && (
                             <div>
                                 <label style={labelStyle}>Assign Staff</label>
-                                <select value={form.staffId} onChange={e => setForm(p => ({ ...p, staffId: e.target.value }))} style={inputStyle}>
+                                <select data-cy="select-shared.create-shift-modal-4" value={form.staffId} onChange={e => setForm(p => ({ ...p, staffId: e.target.value }))} style={inputStyle}>
                                     <option value="">Open (unassigned)</option>
                                     {staff.map(s => <option key={s.id} value={s.id}>{s.fullName || s.email}</option>)}
                                 </select>
@@ -155,11 +155,11 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
 
                     <div>
                         <label style={labelStyle}>Notes</label>
-                        <textarea value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} placeholder="Optional shift notes..." rows={3} style={{ ...inputStyle, resize: 'vertical' as const }} />
+                        <textarea data-cy="textarea-shared.create-shift-modal" value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} placeholder="Optional shift notes..." rows={3} style={{ ...inputStyle, resize: 'vertical' as const }} />
                     </div>
 
                     <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
-                        <button type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', background: 'white', color: '#64748B', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                        <button data-cy="btn-shared.create-shift-modal-1" type="button" onClick={onClose} disabled={loading} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', background: 'white', color: '#64748B', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
                         <button type="submit" disabled={loading} data-cy="btn-submit-shift" style={{ flex: 2, padding: '12px', borderRadius: '8px', border: 'none', background: loading ? '#94A3B8' : '#004d40', color: 'white', fontWeight: 700, cursor: 'pointer' }}>
                             {loading ? 'Creating...' : (mode === 'assign' ? 'Assign Staff' : 'Create Shift')}
                         </button>

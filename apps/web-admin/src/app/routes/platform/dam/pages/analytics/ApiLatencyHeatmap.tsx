@@ -37,7 +37,7 @@ export const ApiLatencyHeatmap: React.FC = () => {
                         <Network size={24} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Component-API Latency Heatmap</h3>
+                        <h3 data-cy="h3-api-latency-heatmap-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Component-API Latency Heatmap</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Correlate slow React UI renders directly to backend network bottlenecks.</p>
                     </div>
                 </div>

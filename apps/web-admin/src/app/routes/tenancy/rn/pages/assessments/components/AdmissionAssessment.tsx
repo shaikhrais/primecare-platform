@@ -55,7 +55,7 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
     return (
         <form data-cy="form.admission-assessment" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #E2E8F0', paddingBottom: '16px' }}>
-                <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Initial RN Admission Assessment</h2>
+                <h2 data-cy="h2-rn.admission-assessment-0" style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>Initial RN Admission Assessment</h2>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     {isRestored && (
                         <span style={{ backgroundColor: '#FEF2F2', color: '#B91C1C', padding: '6px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px' }}>

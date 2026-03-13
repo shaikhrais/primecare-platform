@@ -77,7 +77,7 @@ export default function DocumentCenter() {
 
                     <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                         <div className="pc-card-h">{t('admin.document_registry', { defaultValue: 'Document Registry' })}</div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <table data-cy="table-admin.document-center" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                                 <tr>
                                     <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>{t('admin.provider', { defaultValue: 'Provider' })}</th>

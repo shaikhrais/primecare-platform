@@ -20,7 +20,7 @@ export const DashboardCharts: React.FC = () => {
 
     return (
         <>
-            <h2 style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
+            <h2 data-cy="h2-admin.dashboard-charts-0" style={{ fontSize: '0.75rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', color: 'var(--text-300)' }}>
                 {t(ContentRegistry.ADMIN_DASHBOARD.TITLES.ANALYTICS)}
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>

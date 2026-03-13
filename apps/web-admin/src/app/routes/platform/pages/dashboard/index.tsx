@@ -42,12 +42,12 @@ const PlatformDashboard: React.FC = () => {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '3rem' }}>
                 <div style={{ padding: '1.5rem', backgroundColor: '#F9FAFB', borderRadius: '0.75rem', border: '1px solid #E5E7EB' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#374151' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.HEALTH.TITLE)}</h2>
+                    <h2 data-cy="h2-index-0" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#374151' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.HEALTH.TITLE)}</h2>
                     <p style={{ color: '#6B7280', marginTop: '0.5rem' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.HEALTH.DESC)}</p>
                 </div>
 
                 <div style={{ padding: '1.5rem', backgroundColor: '#EFF6FF', borderRadius: '0.75rem', border: '1px solid #BFDBFE' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1E3A8A' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.RISK.TITLE)}</h2>
+                    <h2 data-cy="h2-index-1" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1E3A8A' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.RISK.TITLE)}</h2>
                     <p style={{ color: '#3B82F6', marginTop: '0.5rem' }}>{t(ContentRegistry.PLATFORM_DASHBOARD.RISK.DESC)}</p>
                 </div>
             </div>

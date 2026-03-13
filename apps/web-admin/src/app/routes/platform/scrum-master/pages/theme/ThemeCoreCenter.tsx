@@ -237,9 +237,9 @@ const ThemeCoreCenter: React.FC = () => {
                     <span style={{ ...S.statusBadge, background: '#fee2e2', color: '#991b1b' }}>✗ Failed to save</span>
                 )}
                 {hasChanges && (
-                    <button style={S.resetBtn} onClick={resetToSaved}>Reset</button>
+                    <button data-cy="btn-theme-core-center-0" style={S.resetBtn} onClick={resetToSaved}>Reset</button>
                 )}
-                <button
+                <button data-cy="btn-theme-core-center-1"
                     style={{ ...S.saveBtn, ...((!hasChanges || saving) ? S.saveBtnDisabled : {}) }}
                     onClick={saveTheme}
                     disabled={!hasChanges || saving}
@@ -258,7 +258,7 @@ const ThemeCoreCenter: React.FC = () => {
                         const preset = (ThemeRegistry.PRESETS as any)[key];
                         const isActive = activePreset === key;
                         return (
-                            <button key={key} onClick={() => applyPreset(key)} style={{ ...S.preset, ...(isActive ? S.presetActive : {}), boxShadow: isActive ? '0 0 0 3px rgba(59,130,246,0.2), 0 4px 12px rgba(0,0,0,0.08)' : '0 1px 4px rgba(0,0,0,0.08)' }}>
+                            <button data-cy="btn-theme-core-center-2" key={key} onClick={() => applyPreset(key)} style={{ ...S.preset, ...(isActive ? S.presetActive : {}), boxShadow: isActive ? '0 0 0 3px rgba(59,130,246,0.2), 0 4px 12px rgba(0,0,0,0.08)' : '0 1px 4px rgba(0,0,0,0.08)' }}>
                                 <div style={{ ...S.presetGradient, background: buildGradient(preset) }}>
                                     {isActive && <div style={S.presetCheck}>✓</div>}
                                 </div>
@@ -295,7 +295,7 @@ const ThemeCoreCenter: React.FC = () => {
                 <div style={S.codeCard}>
                     <div style={S.codeHeader}>
                         <span style={S.codeTitle}>Live CSS Tokens</span>
-                        <button style={S.codeCopy} onClick={copyCSS}>{copied ? '✓ Copied!' : '⎘ Copy'}</button>
+                        <button data-cy="btn-theme-core-center-3" style={S.codeCopy} onClick={copyCSS}>{copied ? '✓ Copied!' : '⎘ Copy'}</button>
                     </div>
                     <div style={S.codeBody}>
                         <div style={S.codeBrace}>:root {'{'}</div>
@@ -321,9 +321,9 @@ const ThemeCoreCenter: React.FC = () => {
                         <div style={S.previewBox}>
                             <div style={S.previewTitle}>Button System</div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                <button style={{ ...S.btnPrimary, background: colors.primary }}>Primary Action</button>
-                                <button style={{ ...S.btnSecondary, border: `2px solid ${colors.primary}`, color: colors.primary }}>Secondary</button>
-                                <button style={S.btnGhost}>Ghost Button</button>
+                                <button data-cy="btn-theme-core-center-4" style={{ ...S.btnPrimary, background: colors.primary }}>Primary Action</button>
+                                <button data-cy="btn-theme-core-center-5" style={{ ...S.btnSecondary, border: `2px solid ${colors.primary}`, color: colors.primary }}>Secondary</button>
+                                <button data-cy="btn-theme-core-center-6" style={S.btnGhost}>Ghost Button</button>
                             </div>
                         </div>
                         <div style={S.previewBox}>
@@ -358,7 +358,7 @@ const ThemeCoreCenter: React.FC = () => {
                                 </div>
                             </div>
                             <div>
-                                <h3 style={S.typoH1}>Heading</h3>
+                                <h3 data-cy="h3-theme-core-center-0" style={S.typoH1}>Heading</h3>
                                 <p style={S.typoP}>Body text using the current theme palette for consistent visual identity.</p>
                             </div>
                         </div>
@@ -375,13 +375,13 @@ const ColorRow: React.FC<{ k: string; label: string; variable: string; value: st
     return (
         <div style={S.colorRow}>
             <div style={{ ...S.colorSwatch, background: value }} onClick={() => inputRef.current?.click()}>
-                <input ref={inputRef} type="color" value={value} onChange={e => onChange(k, e.target.value)} style={S.colorHiddenInput as any} />
+                <input data-cy="input-theme-core-center-0" ref={inputRef} type="color" value={value} onChange={e => onChange(k, e.target.value)} style={S.colorHiddenInput as any} />
             </div>
             <div style={{ flex: 1 }}>
                 <div style={S.colorLabel}>{label}</div>
                 <div style={S.colorVar}>{variable}</div>
             </div>
-            <input type="text" value={value} onChange={e => onChange(k, e.target.value)} style={S.colorHex} />
+            <input data-cy="input-theme-core-center-1" type="text" value={value} onChange={e => onChange(k, e.target.value)} style={S.colorHex} />
         </div>
     );
 };

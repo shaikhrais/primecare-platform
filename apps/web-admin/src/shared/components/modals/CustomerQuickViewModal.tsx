@@ -28,15 +28,15 @@ export const CustomerQuickViewModal: React.FC<CustomerQuickViewModalProps> = ({ 
                 boxShadow: '-4px 0 20px rgba(0,0,0,0.1)'
             }} onClick={e => e.stopPropagation()}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                    <h2 style={{ margin: 0 }}>Client Profile</h2>
-                    <button onClick={onClose} style={{ border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                    <h2 data-cy="h2-shared.customer-quick-view-modal-0" style={{ margin: 0 }}>Client Profile</h2>
+                    <button data-cy="btn-shared.customer-quick-view-modal-0" onClick={onClose} style={{ border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
                 </div>
 
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#dcfce7', color: '#166534', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', margin: '0 auto 1rem auto' }}>
                         {customer.fullName?.charAt(0) || '?'}
                     </div>
-                    <h3 style={{ margin: '0 0 0.5rem 0' }}>{customer.fullName || 'Anonymous Client'}</h3>
+                    <h3 data-cy="h3-shared.customer-quick-view-modal-0" style={{ margin: '0 0 0.5rem 0' }}>{customer.fullName || 'Anonymous Client'}</h3>
                     <p style={{ margin: 0, color: '#6b7280' }}>{customer.user?.email}</p>
                     <div style={{ marginTop: '1rem' }}>
                         <span style={{
@@ -67,10 +67,10 @@ export const CustomerQuickViewModal: React.FC<CustomerQuickViewModalProps> = ({ 
                 <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '2rem' }}>
                     <h4 style={{ color: '#6b7280', textTransform: 'uppercase', fontSize: '0.75rem', marginBottom: '1rem' }}>Actions</h4>
                     <div style={{ display: 'grid', gap: '1rem' }}>
-                        <button style={{ width: '100%', padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                        <button data-cy="btn-shared.customer-quick-view-modal-1" style={{ width: '100%', padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
                             View Full Medical Record
                         </button>
-                        <button style={{ width: '100%', padding: '0.75rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                        <button data-cy="btn-shared.customer-quick-view-modal-2" style={{ width: '100%', padding: '0.75rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
                             Create New Care Plan
                         </button>
                     </div>

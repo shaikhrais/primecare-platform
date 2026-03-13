@@ -100,7 +100,7 @@ export const SecureCamera: React.FC<SecureCameraProps> = ({ onCapture, onClose }
                     <div style={{ padding: '4px 8px', backgroundColor: '#3B82F6', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700 }}>SECURE CAPTURE</div>
                     <span style={{ fontSize: '0.9rem' }}>No Camera Roll Data</span>
                 </div>
-                <button onClick={() => { stopCamera(); onClose(); }} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
+                <button data-cy="btn-shared.secure-camera-0" onClick={() => { stopCamera(); onClose(); }} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
                     <X size={28} />
                 </button>
             </div>
@@ -137,13 +137,13 @@ export const SecureCamera: React.FC<SecureCameraProps> = ({ onCapture, onClose }
             }}>
                 {photo ? (
                     <>
-                        <button onClick={handleRetake} style={{ background: 'none', border: 'none', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                        <button data-cy="btn-shared.secure-camera-1" onClick={handleRetake} style={{ background: 'none', border: 'none', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                             <div style={{ width: '56px', height: '56px', borderRadius: '28px', backgroundColor: '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <RefreshCw size={24} />
                             </div>
                             <span>Retake</span>
                         </button>
-                        <button onClick={handleApprove} style={{ background: 'none', border: 'none', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                        <button data-cy="btn-shared.secure-camera-2" onClick={handleApprove} style={{ background: 'none', border: 'none', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                             <div style={{ width: '72px', height: '72px', borderRadius: '36px', backgroundColor: '#10B981', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <Check size={36} color="white" />
                             </div>
@@ -151,7 +151,7 @@ export const SecureCamera: React.FC<SecureCameraProps> = ({ onCapture, onClose }
                         </button>
                     </>
                 ) : (
-                    <button
+                    <button data-cy="btn-shared.secure-camera-3"
                         onClick={takePhoto}
                         disabled={!!error}
                         style={{

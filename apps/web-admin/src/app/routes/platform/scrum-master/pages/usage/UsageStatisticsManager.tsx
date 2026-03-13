@@ -184,14 +184,14 @@ const UsageStatisticsManager: React.FC = () => {
             <div style={S.topBar}>
                 <div style={S.tabRow}>
                     {TABS.map(t => (
-                        <button key={t.key} onClick={() => setTab(t.key)} style={{ ...S.tab, ...(tab === t.key ? S.tabActive : {}) }}>
+                        <button data-cy="btn-usage-statistics-manager-0" key={t.key} onClick={() => setTab(t.key)} style={{ ...S.tab, ...(tab === t.key ? S.tabActive : {}) }}>
                             {t.label} ({t.count})
                         </button>
                     ))}
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
-                    <button style={S.refreshBtn} onClick={refresh}>↻ Refresh</button>
-                    <button style={S.resetBtn} onClick={handleReset}>🗑 Reset All</button>
+                    <button data-cy="btn-usage-statistics-manager-1" style={S.refreshBtn} onClick={refresh}>↻ Refresh</button>
+                    <button data-cy="btn-usage-statistics-manager-2" style={S.resetBtn} onClick={handleReset}>🗑 Reset All</button>
                 </div>
             </div>
 
@@ -205,7 +205,7 @@ const UsageStatisticsManager: React.FC = () => {
                     {sortedRoutes.length === 0 ? (
                         <div style={S.emptyState}>No routes tracked yet. Navigate around to start.</div>
                     ) : (
-                        <table style={S.table}>
+                        <table data-cy="table-usage-statistics-manager" style={S.table}>
                             <thead><tr>
                                 <th style={S.th}>Route</th>
                                 <th style={S.th}>Visits</th>
@@ -258,7 +258,7 @@ const UsageStatisticsManager: React.FC = () => {
                     {sortedClicks.length === 0 ? (
                         <div style={S.emptyState}>No clicks tracked yet. Interact with buttons and links to start.</div>
                     ) : (
-                        <table style={S.table}>
+                        <table data-cy="table-usage-statistics-manager" style={S.table}>
                             <thead><tr>
                                 <th style={S.th}>Element</th>
                                 <th style={S.th}>Type</th>
@@ -299,7 +299,7 @@ const UsageStatisticsManager: React.FC = () => {
                     {sortedForms.length === 0 ? (
                         <div style={S.emptyState}>No form submissions tracked yet. Submit any form to start.</div>
                     ) : (
-                        <table style={S.table}>
+                        <table data-cy="table-usage-statistics-manager" style={S.table}>
                             <thead><tr><th style={S.th}>Form</th><th style={S.th}>Submissions</th><th style={S.th}>Last Entry</th></tr></thead>
                             <tbody>{sortedForms.map(f => (
                                 <tr key={f.formId}><td style={S.td}><div style={{ fontWeight: 600 }}>{f.label || f.formId}</div></td><td style={{ ...S.td, fontWeight: 700, fontSize: 16 }}>{f.count}</td><td style={{ ...S.td, color: '#94a3b8' }}>{timeAgo(f.lastEntry)}</td></tr>
@@ -316,7 +316,7 @@ const UsageStatisticsManager: React.FC = () => {
                     {sortedApi.length === 0 ? (
                         <div style={S.emptyState}>No API calls tracked yet.</div>
                     ) : (
-                        <table style={S.table}>
+                        <table data-cy="table-usage-statistics-manager" style={S.table}>
                             <thead><tr><th style={S.th}>Endpoint</th><th style={S.th}>Method</th><th style={S.th}>Calls</th><th style={S.th}>Errors</th><th style={S.th}>Last Call</th></tr></thead>
                             <tbody>{sortedApi.map(a => (
                                 <tr key={`${a.method}:${a.endpoint}`}>
@@ -342,7 +342,7 @@ const UsageStatisticsManager: React.FC = () => {
                     {unusedRoutes.length === 0 ? (
                         <div style={S.emptyState}>🎉 All registered routes have been visited!</div>
                     ) : (
-                        <table style={S.table}>
+                        <table data-cy="table-usage-statistics-manager" style={S.table}>
                             <thead><tr><th style={S.th}>Route</th><th style={S.th}>Section</th><th style={S.th}>Path</th><th style={S.th}>Status</th></tr></thead>
                             <tbody>{unusedRoutes.map(r => (
                                 <tr key={r.path}>

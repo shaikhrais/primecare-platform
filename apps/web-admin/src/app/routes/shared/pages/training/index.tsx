@@ -102,11 +102,11 @@ const UserTrainingPage: React.FC = () => {
                             {module.icon}
                         </div>
                         <div style={{ flex: 1 }}>
-                            <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>{module.title}</h2>
+                            <h2 data-cy="h2-shared.index-0" style={{ fontSize: '22px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>{module.title}</h2>
                             <p style={{ color: '#4B5563', marginBottom: '24px', lineHeight: '1.6' }}>{module.description}</p>
 
                             <div style={{ backgroundColor: '#F9FAFB', borderRadius: '16px', padding: '24px' }}>
-                                <h3 style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#6B7280', marginBottom: '16px' }}>
+                                <h3 data-cy="h3-shared.index-0" style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#6B7280', marginBottom: '16px' }}>
                                     {t(ContentRegistry.LEARN.WHAT_YOU_CAN_DO)}
                                 </h3>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -137,9 +137,9 @@ const UserTrainingPage: React.FC = () => {
             </div>
 
             <footer style={{ marginTop: '64px', padding: '32px', backgroundColor: '#F0FDFA', borderRadius: '24px', textAlign: 'center', border: '1px solid #CCFBF1' }}>
-                <h3 style={{ color: '#134E4A', fontSize: '20px', fontWeight: '800', marginBottom: '8px' }}>Need more help?</h3>
+                <h3 data-cy="h3-shared.index-1" style={{ color: '#134E4A', fontSize: '20px', fontWeight: '800', marginBottom: '8px' }}>Need more help?</h3>
                 <p style={{ color: '#115E59', marginBottom: '20px' }}>Our premium support team is available 24/7 to assist with complex cases.</p>
-                <button style={{
+                <button data-cy="btn-shared.index-0" style={{
                     backgroundColor: '#004d40',
                     color: 'white',
                     padding: '12px 32px',

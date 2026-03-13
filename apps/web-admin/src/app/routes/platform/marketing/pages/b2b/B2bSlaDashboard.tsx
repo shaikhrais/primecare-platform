@@ -48,7 +48,7 @@ export const B2bSlaDashboard: React.FC = () => {
                         <Timer size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>B2B Service Level Agreement (SLA) Tracker</h3>
+                        <h3 data-cy="h3-b2b-sla-dashboard-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>B2B Service Level Agreement (SLA) Tracker</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Enforcing the 30-minute Referral Response Guarantee for Hospital Partners.</p>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ export const B2bSlaDashboard: React.FC = () => {
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+            <table data-cy="table-b2b-sla-dashboard" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Referring Partner</th>
@@ -90,7 +90,7 @@ export const B2bSlaDashboard: React.FC = () => {
                                 
                                 <td style={{ padding: '16px 12px', verticalAlign: 'middle' }}>
                                     {ref.slaStatus === 'PENDING' ? (
-                                        <button 
+                                        <button data-cy="btn-b2b-sla-dashboard-0" 
                                             onClick={() => handleAcknowledge(ref.id)}
                                             style={{ backgroundColor: '#0369A1', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
                                         >

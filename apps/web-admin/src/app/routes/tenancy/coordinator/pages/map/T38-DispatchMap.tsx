@@ -120,7 +120,7 @@ export default function DispatchMap() {
                     </div>
                 </div>
                 <div>
-                    <button
+                    <button data-cy="btn-coordinator.dispatch-map-0"
                         className="btn-premium secondary"
                         onClick={async () => {
                             try {

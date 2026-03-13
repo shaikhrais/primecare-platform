@@ -166,7 +166,7 @@ export default function E2eRunner() {
                             <Activity className="e2e-header-icon" />
                             <h3>Validation Sequence</h3>
                         </div>
-                        <button
+                        <button data-cy="btn-index-0"
                             className="e2e-action-btn"
                             onClick={startExecution}
                             disabled={isRunning}

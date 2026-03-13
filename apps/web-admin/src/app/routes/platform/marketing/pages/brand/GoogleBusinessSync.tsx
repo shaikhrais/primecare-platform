@@ -35,7 +35,7 @@ export const GoogleBusinessSync: React.FC = () => {
                         <Store size={28} color="#0284C7" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Google Business Profile Multi-Sync</h3>
+                        <h3 data-cy="h3-google-business-sync-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Google Business Profile Multi-Sync</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Push hours, holiday updates, and COVID-19 compliance to 20+ local listings instantly.</p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export const GoogleBusinessSync: React.FC = () => {
 
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}><BriefcaseMedical size={16}/> Global Agency Announcement</label>
-                        <textarea placeholder="e.g., We are offering priority Intake for flu season..." style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', resize: 'vertical', minHeight: '80px', boxSizing: 'border-box' }}></textarea>
+                        <textarea data-cy="textarea-google-business-sync" placeholder="e.g., We are offering priority Intake for flu season..." style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', resize: 'vertical', minHeight: '80px', boxSizing: 'border-box' }}></textarea>
                     </div>
 
                     <div>
@@ -58,7 +58,7 @@ export const GoogleBusinessSync: React.FC = () => {
                         </div>
                     </div>
 
-                    <button 
+                    <button data-cy="btn-google-business-sync-0" 
                         onClick={handleBulkPush}
                         disabled={isPushing}
                         style={{ backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '8px', padding: '16px', fontWeight: 800, fontSize: '1rem', cursor: isPushing ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '12px' }}

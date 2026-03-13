@@ -236,7 +236,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
 
             case 'hidden':
                 return (
-                    <input
+                    <input data-cy="input-shared.dynamic-form-renderer-0"
                         key={field.name}
                         type="hidden"
                         value={formData[field.name] || ''}
@@ -337,7 +337,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
                     <FileText size={22} color="var(--brand-500, #2563EB)" />
                 </div>
                 <div>
-                    <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-100, #0F172A)' }}>
+                    <h2 data-cy="h2-shared.dynamic-form-renderer-0" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-100, #0F172A)' }}>
                         {formEntry.label}
                     </h2>
                     <p style={{ margin: '2px 0 0 0', fontSize: '0.8rem', color: 'var(--text-300, #94A3B8)' }}>

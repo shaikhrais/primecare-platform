@@ -48,14 +48,14 @@ export const ReportGenerator: React.FC = () => {
     return (
         <div style={{ backgroundColor: '#F8FAFC', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', height: '100%', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <div>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h2 data-cy="h2-manager.report-generator-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <DatabaseZap color="#6366F1" /> Async Compliance Engine
                 </h2>
                 <p style={{ color: '#64748B', margin: 0, fontSize: '0.9rem' }}>Massive ledger queries (500k+ rows) are automatically offloaded to Cloudflare Workers to prevent UI thrashing.</p>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <button 
+                <button data-cy="btn-manager.report-generator-0" 
                     onClick={() => generateReport('Q3 Financial Forensics')}
                     style={{ padding: '16px', backgroundColor: 'white', border: '1px solid #CBD5E1', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
                     onMouseEnter={e => e.currentTarget.style.borderColor = '#6366F1'}
@@ -64,7 +64,7 @@ export const ReportGenerator: React.FC = () => {
                     <div style={{ fontWeight: 800, color: '#0F172A' }}>Q3 Financial Forensics</div>
                     <div style={{ fontSize: '0.8rem', color: '#64748B' }}>1.2M Ledger Entries • ~4s</div>
                 </button>
-                <button 
+                <button data-cy="btn-manager.report-generator-1" 
                     onClick={() => generateReport('State Compliance (Full)')}
                     style={{ padding: '16px', backgroundColor: 'white', border: '1px solid #CBD5E1', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px', cursor: 'pointer', transition: 'all 0.2s' }}
                     onMouseEnter={e => e.currentTarget.style.borderColor = '#6366F1'}
@@ -76,7 +76,7 @@ export const ReportGenerator: React.FC = () => {
             </div>
 
             <div style={{ flex: 1, backgroundColor: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', padding: '16px' }}>
-                <h3 style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '1px' }}>Background Queue</h3>
+                <h3 data-cy="h3-manager.report-generator-0" style={{ margin: '0 0 16px 0', fontSize: '0.9rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '1px' }}>Background Queue</h3>
                 
                 {queue.length === 0 ? (
                     <div style={{ color: '#94A3B8', fontSize: '0.9rem', fontStyle: 'italic', textAlign: 'center', padding: '24px 0' }}>Queue is empty.</div>
@@ -100,7 +100,7 @@ export const ReportGenerator: React.FC = () => {
                                 <div>
                                     {report.status === 'processing' && <span style={{ color: '#6366F1', fontWeight: 700, fontSize: '0.85rem' }}>Crunching Data...</span>}
                                     {report.status === 'ready' && (
-                                        <button 
+                                        <button data-cy="btn-manager.report-generator-2" 
                                             onClick={() => handleDownload(report.id, report.name)}
                                             style={{ backgroundColor: '#10B981', color: 'white', border: 'none', padding: '6px 16px', borderRadius: '6px', fontWeight: 700, cursor: 'pointer' }}
                                         >

@@ -13,10 +13,10 @@ const ClinicalQaDashboard: React.FC = () => {
                     <p className="text-slate-500 font-medium">Quality Assurance & Medication Compliance Monitoring</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
+                    <button data-cy="btn-clinical-qa-dashboard-0" className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
                         Safety Report
                     </button>
-                    <button className="px-4 py-2 bg-rose-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-100 hover:bg-rose-700 transition-all">
+                    <button data-cy="btn-clinical-qa-dashboard-1" className="px-4 py-2 bg-rose-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-rose-100 hover:bg-rose-700 transition-all">
                         Flag Incident
                     </button>
                 </div>
@@ -42,7 +42,7 @@ const ClinicalQaDashboard: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
                     <div className="p-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center">
-                        <h3 className="font-black text-slate-800 tracking-tight uppercase text-sm">Medication Compliance Heatmap</h3>
+                        <h3 data-cy="h3-clinical-qa-dashboard-0" className="font-black text-slate-800 tracking-tight uppercase text-sm">Medication Compliance Heatmap</h3>
                         <div className="flex gap-2">
                             <div className="px-3 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-black rounded-lg">ACTIVE</div>
                         </div>
@@ -60,7 +60,7 @@ const ClinicalQaDashboard: React.FC = () => {
                         <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:scale-125 transition-transform">
                             <span className="text-6xl font-black">⚠️</span>
                         </div>
-                        <h3 className="text-rose-200 font-black text-[10px] uppercase tracking-widest mb-4">Critical Safety Alerts</h3>
+                        <h3 data-cy="h3-clinical-qa-dashboard-1" className="text-rose-200 font-black text-[10px] uppercase tracking-widest mb-4">Critical Safety Alerts</h3>
                         <div className="space-y-4 relative z-10">
                             <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md">
                                 <p className="text-xs font-bold leading-tight">MAR Discrepancy detected in North Region</p>
@@ -71,13 +71,13 @@ const ClinicalQaDashboard: React.FC = () => {
                                 <p className="text-[10px] opacity-60 mt-1">1h ago</p>
                             </div>
                         </div>
-                        <button className="w-full mt-8 py-3 bg-white text-rose-600 rounded-2xl text-xs font-bold hover:bg-rose-50 transition-all">
+                        <button data-cy="btn-clinical-qa-dashboard-2" className="w-full mt-8 py-3 bg-white text-rose-600 rounded-2xl text-xs font-bold hover:bg-rose-50 transition-all">
                             Investigate All
                         </button>
                     </div>
 
                     <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm">
-                        <h3 className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-6">QA Audit Progress</h3>
+                        <h3 data-cy="h3-clinical-qa-dashboard-2" className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-6">QA Audit Progress</h3>
                         <div className="space-y-4">
                             {[
                                 { name: 'Medication Safety', progress: 100 },

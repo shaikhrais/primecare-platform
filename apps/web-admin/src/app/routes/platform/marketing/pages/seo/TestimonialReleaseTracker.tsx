@@ -46,13 +46,13 @@ export const TestimonialReleaseTracker: React.FC = () => {
                         <ShieldCheck size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>HIPAA Testimonial Release Ledger</h3>
+                        <h3 data-cy="h3-testimonial-release-tracker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>HIPAA Testimonial Release Ledger</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Enforces strict legal compliance before using any patient feedback in public marketing materials.</p>
                     </div>
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+            <table data-cy="table-testimonial-release-tracker" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Patient Quote</th>
@@ -81,7 +81,7 @@ export const TestimonialReleaseTracker: React.FC = () => {
                                     <span style={{ color: '#16A34A', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}><CheckCircle2 size={16}/> Signed ({t.date})</span>
                                 ) : (
                                     t.status !== 'REJECTED' && (
-                                        <button 
+                                        <button data-cy="btn-testimonial-release-tracker-0" 
                                             onClick={() => handleSendWaiver(t.id)}
                                             style={{ backgroundColor: '#F1F5F9', color: '#334155', border: '1px solid #CBD5E1', borderRadius: '6px', padding: '6px 12px', fontWeight: 700, cursor: 'pointer', fontSize: '0.8rem' }}
                                         >

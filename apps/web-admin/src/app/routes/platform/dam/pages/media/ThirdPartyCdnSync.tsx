@@ -32,7 +32,7 @@ export const ThirdPartyCdnSync: React.FC = () => {
                         <Cloud size={24} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>External Edge Synchronization</h3>
+                        <h3 data-cy="h3-third-party-cdn-sync-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>External Edge Synchronization</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Mirror internal digital assets to public-facing edge networks.</p>
                     </div>
                 </div>

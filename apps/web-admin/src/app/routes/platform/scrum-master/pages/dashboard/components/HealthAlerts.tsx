@@ -33,7 +33,7 @@ export const HealthAlerts: React.FC = () => {
 
     return (
         <div className="sm-card" style={{ padding: '2rem', background: '#ffffff', marginBottom: '3rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+            <h3 data-cy="h3-health-alerts-0" style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                 {t(ContentRegistry.SCRUM_MASTER.ALERTS.TITLE)}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -65,7 +65,7 @@ export const HealthAlerts: React.FC = () => {
                                     <div style={{ fontSize: '0.75rem', color: style.color, opacity: 0.7 }}>{alert.timestamp}</div>
                                 </div>
                             </div>
-                            <button
+                            <button data-cy="btn-health-alerts-0"
                                 onClick={() => removeAlert(alert.id)}
                                 style={{
                                     padding: '6px 12px',

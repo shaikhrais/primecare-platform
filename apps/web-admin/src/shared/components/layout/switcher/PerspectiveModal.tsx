@@ -86,7 +86,7 @@ export function PerspectiveModal({
                     alignItems: 'center'
                 }}>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: 'var(--text-400)' }}>
+                        <h3 data-cy="h3-shared.perspective-modal-0" style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: 'var(--text-400)' }}>
                             {isImpersonating
                                 ? ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.TITLE_IMPERSONATE
                                 : ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.TITLE_MAIN}
@@ -97,7 +97,7 @@ export function PerspectiveModal({
                                 : ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.SUBTITLE_MAIN}
                         </p>
                     </div>
-                    <button
+                    <button data-cy="btn-shared.perspective-modal-0"
                         onClick={onClose}
                         style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: 'var(--text-300)' }}
                     >
@@ -128,7 +128,7 @@ export function PerspectiveModal({
 
                 {/* Footer */}
                 <div style={{ padding: '16px 24px', background: '#F9FAFB', borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'flex-end' }}>
-                    <button
+                    <button data-cy="btn-shared.perspective-modal-1"
                         onClick={onClose}
                         style={{ padding: '10px 20px', fontSize: '13px', fontWeight: 700, color: 'var(--text-300)', background: 'none', border: 'none', cursor: 'pointer' }}
                     >

@@ -89,7 +89,7 @@ export default function RoleSwitcher() {
                 margin: '12px',
                 borderTop: '1px solid var(--line)'
             }}>
-                <button
+                <button data-cy="btn-shared.role-switcher-0"
                     onClick={() => setIsOpen(true)}
                     style={{
                         width: '100%',

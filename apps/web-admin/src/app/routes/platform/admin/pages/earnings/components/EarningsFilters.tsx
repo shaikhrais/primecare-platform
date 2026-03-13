@@ -17,7 +17,7 @@ export const EarningsFilters: React.FC<EarningsFiltersProps> = ({ searchTerm, se
             alignItems: 'center'
         }}>
             <div style={{ flex: 1 }}>
-                <input
+                <input data-cy="input-admin.earnings-filters-0"
                     type="text"
                     placeholder="Search by Invoice, Shift, or Name..."
                     value={searchTerm}
@@ -32,7 +32,7 @@ export const EarningsFilters: React.FC<EarningsFiltersProps> = ({ searchTerm, se
                     }}
                 />
             </div>
-            <select style={{ padding: '12px', borderRadius: '12px', border: '1px solid #E5E7EB', outline: 'none', fontWeight: 600 }}>
+            <select data-cy="select-admin.earnings-filters-0" style={{ padding: '12px', borderRadius: '12px', border: '1px solid #E5E7EB', outline: 'none', fontWeight: 600 }}>
                 <option>All Statuses</option>
                 <option>Paid</option>
                 <option>Unpaid</option>

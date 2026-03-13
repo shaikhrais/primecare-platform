@@ -55,7 +55,7 @@ export const SeoCoreWebVitals: React.FC = () => {
                         <Gauge size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>SEO Core Web Vitals Monitor</h3>
+                        <h3 data-cy="h3-seo-core-web-vitals-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>SEO Core Web Vitals Monitor</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Tracks Google's strict technical page-speed metrics. Slow pages are algorithmically punished.</p>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export const SeoCoreWebVitals: React.FC = () => {
                         <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', paddingLeft: '24px', borderLeft: `1px solid ${getStatusColor(metric.status)}30` }}>
                             <div style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>Current Measurement</div>
                             <div style={{ fontSize: '1.8rem', fontWeight: 900, color: getStatusColor(metric.status) }}>{metric.currentValue}</div>
-                            {metric.status === 'POOR' && <button style={{ marginTop: '8px', padding: '4px 12px', backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800, cursor: 'pointer' }}>Generate Dev Ticket</button>}
+                            {metric.status === 'POOR' && <button data-cy="btn-seo-core-web-vitals-0" style={{ marginTop: '8px', padding: '4px 12px', backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 800, cursor: 'pointer' }}>Generate Dev Ticket</button>}
                         </div>
                     </div>
                 ))}

@@ -77,7 +77,7 @@ export const LiveETATracker: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <img src="https://i.pravatar.cc/100?img=47" alt="Sarah J." style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #E2E8F0' }} />
                     <div>
-                        <h3 style={{ margin: '0 0 4px 0', fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>Sarah Jenkins</h3>
+                        <h3 data-cy="h3-live-e-t-a-tracker-0" style={{ margin: '0 0 4px 0', fontSize: '1.25rem', fontWeight: 900, color: '#0F172A' }}>Sarah Jenkins</h3>
                         <div style={{ color: '#64748B', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <Car size={14} /> License: AB-1234
                         </div>

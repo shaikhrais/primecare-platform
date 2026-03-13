@@ -93,9 +93,9 @@ export const VrHoardingSimulator: React.FC = () => {
                 {isComplete && (
                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.8)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'fadeIn 0.5s' }}>
                         <CheckCircle2 size={64} color="#10B981" style={{ marginBottom: '16px' }} />
-                        <h2 style={{ margin: 0, fontSize: '2rem', fontWeight: 900 }}>Module Passed!</h2>
+                        <h2 data-cy="h2-vr-hoarding-simulator-0" style={{ margin: 0, fontSize: '2rem', fontWeight: 900 }}>Module Passed!</h2>
                         <p style={{ color: '#94A3B8', marginTop: '8px' }}>You successfully identified all physical hazards.</p>
-                        <button style={{ marginTop: '24px', backgroundColor: '#2563EB', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>
+                        <button data-cy="btn-vr-hoarding-simulator-0" style={{ marginTop: '24px', backgroundColor: '#2563EB', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>
                             Continue to Final Exam
                         </button>
                     </div>

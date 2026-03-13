@@ -126,10 +126,10 @@ export default function PharmacyHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button className="btn secondary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.MAR_SYNC, 'MAR synchronized successfully!')}>
+                    <button data-cy="btn-admin.pharmacy-hub-0" className="btn secondary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.MAR_SYNC, 'MAR synchronized successfully!')}>
                         {syncBtn?.label || 'Sync MAR'}
                     </button>
-                    <button className="btn primary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.ORDER_DRUGS, 'Medication order requested!')}>
+                    <button data-cy="btn-admin.pharmacy-hub-1" className="btn primary" onClick={() => handleAction(ApiRegistry.PLATFORM.ADMIN.PHARMACY.ORDER_DRUGS, 'Medication order requested!')}>
                         {orderBtn?.label || 'Order Medication'}
                     </button>
                 </div>
@@ -156,7 +156,7 @@ export default function PharmacyHub() {
 
             <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                 <div className="pc-card-h">Active Medication Records</div>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-admin.pharmacy-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                         <tr>
                             <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>Medication</th>
@@ -181,7 +181,7 @@ export default function PharmacyHub() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '16px 24px' }}>
-                                    <button className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }} onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.DASHBOARD)}>View MAR</button>
+                                    <button data-cy="btn-admin.pharmacy-hub-2" className="btn secondary" style={{ padding: '4px 8px', fontSize: '11px' }} onClick={() => navigate(AdminRegistry.RouteRegistry.ADMIN.DASHBOARD)}>View MAR</button>
                                 </td>
                             </tr>
                         ))}

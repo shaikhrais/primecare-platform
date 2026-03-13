@@ -20,7 +20,7 @@ export const ProposalBoard: React.FC = () => {
 
     return (
         <div className="sm-card" style={{ padding: '2.5rem', background: '#ffffff', marginBottom: '3rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+            <h3 data-cy="h3-proposal-board-0" style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                 💡 {t(ContentRegistry.SCRUM_MASTER.PROPOSAL_BOARD.TITLE)}
             </h3>
             <p style={{ margin: '0 0 2rem 0', color: 'var(--text-300)', fontSize: '0.9rem' }}>
@@ -35,7 +35,7 @@ export const ProposalBoard: React.FC = () => {
                             <div style={{ fontWeight: 900, fontSize: '1.2rem', color: 'var(--brand-500)' }}>{votes[p.id]}</div>
                         </div>
                         <div style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-400)', minHeight: '3em' }}>{p.title}</div>
-                        <button
+                        <button data-cy="btn-proposal-board-0"
                             onClick={() => handleVote(p.id)}
                             style={{
                                 padding: '10px',

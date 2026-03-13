@@ -75,7 +75,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                             <Skull size={32} color={killSwitchActive ? 'white' : '#94A3B8'} className={killSwitchActive ? "animate-pulse" : ""} />
                         </div>
                         <div>
-                            <h3 style={{ margin: 0, fontSize: '1.6rem', color: killSwitchActive ? '#EF4444' : '#F8FAFC', fontWeight: 900, letterSpacing: '1px' }}>GLOBAL DIGITAL KILL SWITCH</h3>
+                            <h3 data-cy="h3-global-digital-kill-switch-0" style={{ margin: 0, fontSize: '1.6rem', color: killSwitchActive ? '#EF4444' : '#F8FAFC', fontWeight: 900, letterSpacing: '1px' }}>GLOBAL DIGITAL KILL SWITCH</h3>
                             <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.95rem' }}>Extreme Emergency Override Protocol (EEOP)</p>
                         </div>
                     </div>
@@ -161,7 +161,7 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
                 ) : (
                     <div style={{ backgroundColor: '#450A0A', border: '2px dashed #DC2626', borderRadius: '12px', padding: '32px', textAlign: 'center' }}>
                         <ShieldAlert size={64} color="#EF4444" style={{ marginBottom: '16px' }} />
-                        <h2 style={{ color: '#FECACA', margin: '0 0 16px 0', fontSize: '1.8rem', letterSpacing: '2px' }}>SYSTEM SEVERED</h2>
+                        <h2 data-cy="h2-global-digital-kill-switch-0" style={{ color: '#FECACA', margin: '0 0 16px 0', fontSize: '1.8rem', letterSpacing: '2px' }}>SYSTEM SEVERED</h2>
                         <p style={{ color: '#F81144', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto 32px auto', lineHeight: 1.6 }}>
                             All inbound HTTP traffic is currently returning a static HTTP 503 Maintenance Mode payload. All PostgreSQL and Redis connections have been destroyed.
                         </p>

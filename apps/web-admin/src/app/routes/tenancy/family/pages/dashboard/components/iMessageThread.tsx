@@ -69,7 +69,7 @@ export const iMessageThread: React.FC = () => {
                         <div style={{ fontSize: '0.85rem', color: '#10B981', fontWeight: 700 }}>Online (Care Coordinator)</div>
                     </div>
                 </div>
-                <button style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', border: 'none', padding: '10px', borderRadius: '50%', cursor: 'pointer' }}>
+                <button data-cy="btn-i-message-thread-0" style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', border: 'none', padding: '10px', borderRadius: '50%', cursor: 'pointer' }}>
                     <Phone size={20} />
                 </button>
             </header>
@@ -102,15 +102,15 @@ export const iMessageThread: React.FC = () => {
             </div>
 
             {/* Input Form */}
-            <form onSubmit={handleSend} style={{ display: 'flex', gap: '12px', padding: '16px', borderTop: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-                <input 
+            <form data-cy="form-i-message-thread" onSubmit={handleSend} style={{ display: 'flex', gap: '12px', padding: '16px', borderTop: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
+                <input data-cy="input-i-message-thread-0" 
                     type="text" 
                     value={inputText}
                     onChange={e => setInputText(e.target.value)}
                     placeholder="iMessage Coordinator..."
                     style={{ flex: 1, borderRadius: '24px', border: '1px solid #CBD5E1', padding: '12px 24px', fontSize: '1rem', outline: 'none' }}
                 />
-                <button type="submit" disabled={!inputText.trim()} style={{ backgroundColor: inputText.trim() ? '#3B82F6' : '#94A3B8', color: 'white', border: 'none', borderRadius: '50%', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: inputText.trim() ? 'pointer' : 'default', transition: 'background-color 0.2s' }}>
+                <button data-cy="btn-i-message-thread-1" type="submit" disabled={!inputText.trim()} style={{ backgroundColor: inputText.trim() ? '#3B82F6' : '#94A3B8', color: 'white', border: 'none', borderRadius: '50%', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: inputText.trim() ? 'pointer' : 'default', transition: 'background-color 0.2s' }}>
                     <Send size={20} style={{ marginLeft: '4px' }} />
                 </button>
             </form>

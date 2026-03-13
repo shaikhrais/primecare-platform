@@ -44,7 +44,7 @@ export default function TenantList() {
                     <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Tenant Management</h1>
                     <p style={{ color: '#6B7280' }}>Provision and manage active fractal SaaS organizations.</p>
                 </div>
-                <button className="btn primary" onClick={() => setIsProvisionModalOpen(true)}>
+                <button data-cy="btn-index-0" className="btn primary" onClick={() => setIsProvisionModalOpen(true)}>
                     + Provision New Tenant
                 </button>
             </div>
@@ -55,7 +55,7 @@ export default function TenantList() {
                     onClose={() => setIsProvisionModalOpen(false)} 
                     onSuccess={() => fetchTenants()} 
                 />
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-index" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                         <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
                             <th style={{ padding: '16px' }}>Organization</th>
@@ -85,7 +85,7 @@ export default function TenantList() {
                                     </span>
                                 </td>
                                 <td style={{ padding: '16px' }}>
-                                    <button className="btn secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>Manage</button>
+                                    <button data-cy="btn-index-1" className="btn secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>Manage</button>
                                 </td>
                             </tr>
                         ))}

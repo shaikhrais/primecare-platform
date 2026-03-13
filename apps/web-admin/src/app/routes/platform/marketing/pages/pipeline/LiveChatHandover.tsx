@@ -34,7 +34,7 @@ export const LiveChatHandover: React.FC = () => {
                         <UserSearch size={28} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Live Chat Overwatch</h3>
+                        <h3 data-cy="h3-live-chat-handover-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Live Chat Overwatch</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Monitor AI bot conversations and manually intervene on high-value leads.</p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ export const LiveChatHandover: React.FC = () => {
                             </div>
                             
                             {session.status === 'BOT_HANDLING' && session.priorityScore > 80 && (
-                                <button 
+                                <button data-cy="btn-live-chat-handover-0" 
                                     onClick={(e) => { e.stopPropagation(); handleIntervene(session.id); }}
                                     style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
                                 >
@@ -116,7 +116,7 @@ export const LiveChatHandover: React.FC = () => {
                             </div>
                             {sessions.find(s => s.id === activeChat)?.status === 'HUMAN_INTERVENED' && (
                                 <div style={{ padding: '16px', borderTop: '1px solid #E2E8F0', backgroundColor: 'white' }}>
-                                    <input type="text" placeholder="Type your reply to the visitor..." style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', boxSizing: 'border-box' }}/>
+                                    <input data-cy="input-live-chat-handover-0" type="text" placeholder="Type your reply to the visitor..." style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', outline: 'none', boxSizing: 'border-box' }}/>
                                 </div>
                             )}
                         </>

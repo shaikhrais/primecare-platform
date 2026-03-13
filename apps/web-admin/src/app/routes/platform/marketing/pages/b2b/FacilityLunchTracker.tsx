@@ -28,7 +28,7 @@ export const FacilityLunchTracker: React.FC = () => {
                         <Coffee size={28} color="#EA580C" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>B2B Facility Lunch & Learn Tracker</h3>
+                        <h3 data-cy="h3-facility-lunch-tracker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>B2B Facility Lunch & Learn Tracker</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Track catering expenses against actual hospital referral volume to calculate ROI.</p>
                     </div>
                 </div>

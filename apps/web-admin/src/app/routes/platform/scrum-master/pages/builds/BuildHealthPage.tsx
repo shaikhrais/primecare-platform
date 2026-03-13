@@ -5,7 +5,7 @@ const BuildHealthPage: React.FC = () => {
         <div data-cy="page.container" style={{ padding: '2rem' }}>
             <h1 data-cy="page.title">Build & Deployment Health</h1>
             <p>CI/CD pipeline status and deployment transparency log.</p>
-            <table style={{ width: '100%', marginTop: '2rem', borderCollapse: 'collapse' }}>
+            <table data-cy="table-build-health-page" style={{ width: '100%', marginTop: '2rem', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ textAlign: 'left', borderBottom: '2px solid #e5e7eb' }}>
                         <th style={{ padding: '0.75rem' }}>Environment</th>

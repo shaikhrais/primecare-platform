@@ -60,7 +60,7 @@ export const Toast: React.FC<ToastProps> = ({ message, type, onClose, duration =
         >
             <span style={{ fontSize: '1.2em' }}>{icon}</span>
             <span>{message}</span>
-            <button
+            <button data-cy="btn-shared.toast-0"
                 onClick={() => { setIsVisible(false); setTimeout(onClose, 300); }}
                 style={{
                     background: 'none',

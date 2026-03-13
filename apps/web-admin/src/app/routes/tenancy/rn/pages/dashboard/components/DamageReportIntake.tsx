@@ -16,11 +16,11 @@ export const DamageReportIntake: React.FC = () => {
         return (
             <div style={{ padding: '24px', backgroundColor: '#F0FDF4', borderRadius: '12px', border: '1px solid #BBF7D0', textAlign: 'center', marginTop: '16px' }}>
                 <CheckCircle2 size={40} color="#16A34A" style={{ margin: '0 auto 12px auto' }} />
-                <h3 style={{ margin: 0, color: '#14532D', fontSize: '1.2rem' }}>Report Submitted</h3>
+                <h3 data-cy="h3-rn.damage-report-intake-0" style={{ margin: 0, color: '#14532D', fontSize: '1.2rem' }}>Report Submitted</h3>
                 <p style={{ margin: '8px 0 0 0', color: '#166534', fontSize: '0.9rem' }}>
                     The Property Manager has been notified. A replacement asset will be routed to your branch.
                 </p>
-                <button 
+                <button data-cy="btn-rn.damage-report-intake-0" 
                     onClick={() => { setStatus('IDLE'); setFileName(''); }}
                     style={{ marginTop: '16px', padding: '8px 16px', backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}
                 >
@@ -37,7 +37,7 @@ export const DamageReportIntake: React.FC = () => {
                     <AlertTriangle size={20} color="#DC2626" />
                 </div>
                 <div>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Report Damaged Equipment</h3>
+                    <h3 data-cy="h3-rn.damage-report-intake-1" style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Report Damaged Equipment</h3>
                     <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Send a photo to Property Management for quick replacement.</p>
                 </div>
             </div>
@@ -45,12 +45,12 @@ export const DamageReportIntake: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div>
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '6px' }}>Asset ID / Serial Number (Optional)</label>
-                    <input type="text" placeholder="e.g. ECG-5912" style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.95rem' }} />
+                    <input data-cy="input-rn.damage-report-intake-0" type="text" placeholder="e.g. ECG-5912" style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.95rem' }} />
                 </div>
 
                 <div>
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '6px' }}>Issue Description</label>
-                    <textarea rows={3} placeholder="Describe the damage..." style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.95rem', resize: 'vertical' }} />
+                    <textarea data-cy="textarea-rn.damage-report-intake" rows={3} placeholder="Describe the damage..." style={{ padding: '10px', width: '100%', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.95rem', resize: 'vertical' }} />
                 </div>
 
                 {/* Upload Zone */}
@@ -75,7 +75,7 @@ export const DamageReportIntake: React.FC = () => {
                     )}
                 </div>
 
-                <button 
+                <button data-cy="btn-rn.damage-report-intake-1" 
                     onClick={handleUpload}
                     disabled={status === 'UPLOADING' || !fileName}
                     style={{ 

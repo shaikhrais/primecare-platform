@@ -66,12 +66,12 @@ export default function RegistryAutoRepair() {
                         <div className="bg-card border rounded-2xl p-12 text-center space-y-6">
                             <div className="text-6xl">🛡️</div>
                             <div className="space-y-2">
-                                <h2 className="text-xl font-bold">Platform Integrity Scan</h2>
+                                <h2 data-cy="h2-registry-auto-repair-0" className="text-xl font-bold">Platform Integrity Scan</h2>
                                 <p className="text-muted-foreground max-w-md mx-auto">
                                     Before performing repairs, we must analyze the consistency between the Master Registry and local application bundles.
                                 </p>
                             </div>
-                            <button
+                            <button data-cy="btn-registry-auto-repair-0"
                                 onClick={handleScan}
                                 disabled={isScanning}
                                 className="px-8 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all disabled:opacity-50"
@@ -84,7 +84,7 @@ export default function RegistryAutoRepair() {
                     {scanResults && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                             <div className="bg-destructive/5 border border-destructive/20 rounded-2xl p-6">
-                                <h3 className="text-lg font-bold text-destructive flex items-center gap-2 mb-4">
+                                <h3 data-cy="h3-registry-auto-repair-0" className="text-lg font-bold text-destructive flex items-center gap-2 mb-4">
                                     <span>⚠️</span> Potential Inconsistencies Detected
                                 </h3>
                                 <div className="divide-y border rounded-xl bg-background">
@@ -103,13 +103,13 @@ export default function RegistryAutoRepair() {
                             </div>
 
                             <div className="flex gap-4">
-                                <button
+                                <button data-cy="btn-registry-auto-repair-1"
                                     onClick={handleRepair}
                                     className="flex-1 py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all"
                                 >
                                     ⚡ Execute Autonomous Repair
                                 </button>
-                                <button
+                                <button data-cy="btn-registry-auto-repair-2"
                                     onClick={() => setScanResults(null)}
                                     className="px-6 py-4 border rounded-xl font-bold hover:bg-accent transition-all"
                                 >
@@ -134,7 +134,7 @@ export default function RegistryAutoRepair() {
 
                 <div className="space-y-6">
                     <div className="bg-primary text-primary-foreground p-6 rounded-2xl space-y-4">
-                        <h3 className="font-bold flex items-center gap-2">
+                        <h3 data-cy="h3-registry-auto-repair-1" className="font-bold flex items-center gap-2">
                             <span>📡</span> Registry Hub
                         </h3>
                         <div className="space-y-3">
@@ -157,7 +157,7 @@ export default function RegistryAutoRepair() {
                     </div>
 
                     <div className="bg-card border rounded-2xl p-6 space-y-4">
-                        <h3 className="font-bold text-sm uppercase tracking-widest text-muted-foreground">Technical Docs</h3>
+                        <h3 data-cy="h3-registry-auto-repair-2" className="font-bold text-sm uppercase tracking-widest text-muted-foreground">Technical Docs</h3>
                         <ul className="space-y-3 text-sm">
                             <li className="flex items-center gap-2 hover:text-primary cursor-pointer transition-colors">
                                 <span>📖</span> Understanding Registry Shadowing

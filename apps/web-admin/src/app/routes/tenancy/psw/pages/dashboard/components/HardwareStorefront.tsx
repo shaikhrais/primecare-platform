@@ -43,7 +43,7 @@ export const HardwareStorefront: React.FC = () => {
         <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', marginTop: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                 <ShoppingBag size={20} color="#0F172A" />
-                <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Hardware & Gear Store</h3>
+                <h3 data-cy="h3-psw.hardware-storefront-0" style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Hardware & Gear Store</h3>
             </div>
             <p style={{ color: '#64748B', fontSize: '0.85rem', marginBottom: '20px', lineHeight: '1.4' }}>
                 Order agency-approved medical hardware and apparel directly to your home. 
@@ -67,7 +67,7 @@ export const HardwareStorefront: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button 
+                            <button data-cy="btn-psw.hardware-storefront-0" 
                                 onClick={() => handlePurchase(item.id)}
                                 disabled={purchasing !== null}
                                 style={{ 

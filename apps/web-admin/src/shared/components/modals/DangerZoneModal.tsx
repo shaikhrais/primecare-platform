@@ -31,7 +31,7 @@ export const DangerZoneModal: React.FC<DangerZoneModalProps> = ({ isOpen, onClos
                         <AlertTriangle size={32} color="#DC2626" />
                     </div>
                     <div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>{title}</h2>
+                        <h2 data-cy="h2-shared.danger-zone-modal-0" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>{title}</h2>
                         <div style={{ color: '#EF4444', fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Irreversible Action</div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ export const DangerZoneModal: React.FC<DangerZoneModalProps> = ({ isOpen, onClos
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '8px' }}>
                         To confirm this catastrophic action, please type <span style={{ backgroundColor: '#FEE2E2', color: '#B91C1C', padding: '2px 4px', borderRadius: '4px', border: '1px solid #FECACA', fontFamily: 'monospace' }}>{targetEntityName}</span> below:
                     </label>
-                    <input 
+                    <input data-cy="input-shared.danger-zone-modal-0" 
                         type="text"
                         value={inputValue}
                         onChange={e => setInputValue(e.target.value)}
@@ -56,13 +56,13 @@ export const DangerZoneModal: React.FC<DangerZoneModalProps> = ({ isOpen, onClos
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px' }}>
-                    <button 
+                    <button data-cy="btn-shared.danger-zone-modal-0" 
                         onClick={onClose}
                         style={{ padding: '12px 24px', backgroundColor: 'transparent', color: '#475569', border: 'none', fontWeight: 800, cursor: 'pointer' }}
                     >
                         CANCEL ABORT
                     </button>
-                    <button 
+                    <button data-cy="btn-shared.danger-zone-modal-1" 
                         onClick={() => { if(isMatch) onConfirm(); }}
                         disabled={!isMatch}
                         style={{ padding: '12px 24px', backgroundColor: isMatch ? '#DC2626' : '#E2E8F0', color: isMatch ? 'white' : '#94A3B8', border: 'none', borderRadius: '6px', fontWeight: 800, cursor: isMatch ? 'pointer' : 'not-allowed', transition: 'all 0.2s ease' }}

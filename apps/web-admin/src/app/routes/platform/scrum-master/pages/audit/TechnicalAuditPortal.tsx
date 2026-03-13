@@ -124,11 +124,11 @@ export default function TechnicalAuditPortal() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
                 <div className="pc-card" style={{ height: '350px' }}>
-                    <h3 style={{ margin: '0 0 20px 0', fontSize: '1rem', fontWeight: 700 }}>Module Distribution</h3>
+                    <h3 data-cy="h3-technical-audit-portal-0" style={{ margin: '0 0 20px 0', fontSize: '1rem', fontWeight: 700 }}>Module Distribution</h3>
                     <CorePieChart data={stats.distribution} dataKey="value" nameKey="name" colors={['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']} />
                 </div>
                 <div className="pc-card" style={{ height: '350px' }}>
-                    <h3 style={{ margin: '0 0 20px 0', fontSize: '1rem', fontWeight: 700 }}>Route Saturation by Layer</h3>
+                    <h3 data-cy="h3-technical-audit-portal-1" style={{ margin: '0 0 20px 0', fontSize: '1rem', fontWeight: 700 }}>Route Saturation by Layer</h3>
                     <CoreBarChart
                         data={stats.distribution}
                         xKey="name"
@@ -139,7 +139,7 @@ export default function TechnicalAuditPortal() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem' }}>
                 <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--border)', paddingBottom: '12px' }}>
-                    <button
+                    <button data-cy="btn-technical-audit-portal-0"
                         onClick={() => setActiveTab('pages')}
                         style={{
                             padding: '10px 24px',
@@ -154,7 +154,7 @@ export default function TechnicalAuditPortal() {
                     >
                         📁 {t(ContentRegistry.AUDIT.TABS.ROUTES)}
                     </button>
-                    <button
+                    <button data-cy="btn-technical-audit-portal-1"
                         onClick={() => setActiveTab('components')}
                         style={{
                             padding: '10px 24px',
@@ -172,7 +172,7 @@ export default function TechnicalAuditPortal() {
                 </div>
 
                 {activeTab === 'pages' && (
-                    <button
+                    <button data-cy="btn-technical-audit-portal-2"
                         onClick={handleTestAll}
                         disabled={isTestingAll}
                         style={{
@@ -194,7 +194,7 @@ export default function TechnicalAuditPortal() {
 
             <div className="pc-card" style={{ padding: 0, overflowX: 'auto', maxWidth: '100%' }}>
                 {activeTab === 'pages' ? (
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                    <table data-cy="table-technical-audit-portal" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem' }}>
                             <tr>
                                 <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.AUDIT.TABLE.ROUTE_NAME)}</th>
@@ -230,7 +230,7 @@ export default function TechnicalAuditPortal() {
                         </tbody>
                     </table>
                 ) : (
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                    <table data-cy="table-technical-audit-portal" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                         <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem' }}>
                             <tr>
                                 <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.AUDIT.TABLE.COMPONENT_NAME)}</th>
@@ -260,7 +260,7 @@ export default function TechnicalAuditPortal() {
             {selectedPage && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000, backdropFilter: 'blur(4px)' }} onClick={() => setSelectedPage(null)}>
                     <div className="pc-card" style={{ width: '500px', padding: '2.5rem', position: 'relative' }} onClick={e => e.stopPropagation()}>
-                        <h2 style={{ margin: '0 0 20px 0', fontSize: '1.5rem', fontWeight: 800 }}>Page Detail</h2>
+                        <h2 data-cy="h2-technical-audit-portal-0" style={{ margin: '0 0 20px 0', fontSize: '1.5rem', fontWeight: 800 }}>Page Detail</h2>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             <div>
                                 <label style={{ fontSize: '0.7rem', color: 'var(--text-400)', textTransform: 'uppercase', marginBottom: '4px', display: 'block' }}>Relative Path</label>
@@ -281,7 +281,7 @@ export default function TechnicalAuditPortal() {
                                 </div>
                             </div>
                         </div>
-                        <button
+                        <button data-cy="btn-technical-audit-portal-3"
                             onClick={() => setSelectedPage(null)}
                             style={{ marginTop: '2.5rem', width: '100%', padding: '12px', backgroundColor: 'var(--bg-200)', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}
                         >

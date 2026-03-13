@@ -18,11 +18,11 @@ export const DigitalIdBadge: React.FC<DigitalIdBadgeProps> = ({ onClose, pswName
             }}>
                 {/* Header Strip */}
                 <div style={{ backgroundColor: '#0F172A', padding: '24px 24px 64px 24px', position: 'relative', textAlign: 'center' }}>
-                    <button onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', border: 'none', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', padding: '6px', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <button data-cy="btn-psw.digital-id-badge-0" onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', border: 'none', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', padding: '6px', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <X size={20} />
                     </button>
                     <ShieldCheck size={40} color="#10B981" style={{ marginBottom: '12px' }} />
-                    <h2 style={{ margin: 0, color: 'white', fontSize: '1.4rem', fontWeight: 900, letterSpacing: '1px' }}>VERIFIED PROVIDER</h2>
+                    <h2 data-cy="h2-psw.digital-id-badge-0" style={{ margin: 0, color: 'white', fontSize: '1.4rem', fontWeight: 900, letterSpacing: '1px' }}>VERIFIED PROVIDER</h2>
                     <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.9rem' }}>{agencyName}</p>
                 </div>
 
@@ -35,7 +35,7 @@ export const DigitalIdBadge: React.FC<DigitalIdBadgeProps> = ({ onClose, pswName
 
                 {/* Body Details */}
                 <div style={{ padding: '20px 24px 32px 24px', textAlign: 'center' }}>
-                    <h3 style={{ margin: '0 0 4px 0', fontSize: '1.8rem', fontWeight: 900, color: '#111827' }}>{pswName}</h3>
+                    <h3 data-cy="h3-psw.digital-id-badge-0" style={{ margin: '0 0 4px 0', fontSize: '1.8rem', fontWeight: 900, color: '#111827' }}>{pswName}</h3>
                     <p style={{ margin: 0, color: '#4F46E5', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.5px' }}>{pswRole}</p>
 
                     <div style={{ margin: '24px auto', width: '180px', height: '180px', backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '16px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -52,7 +52,7 @@ export const DigitalIdBadge: React.FC<DigitalIdBadgeProps> = ({ onClose, pswName
                 </div>
             </div>
 
-            <button style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', padding: '12px 24px', backgroundColor: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '24px', color: 'white', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <button data-cy="btn-psw.digital-id-badge-1" style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', padding: '12px 24px', backgroundColor: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '24px', color: 'white', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <Download size={18} /> Save for Offline Use
             </button>
         </div>

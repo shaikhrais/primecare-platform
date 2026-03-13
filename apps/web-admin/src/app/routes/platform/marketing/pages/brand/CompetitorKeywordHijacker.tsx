@@ -35,7 +35,7 @@ export const CompetitorKeywordHijacker: React.FC = () => {
                         <Target size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Competitor Keyword SEM Hijacker</h3>
+                        <h3 data-cy="h3-competitor-keyword-hijacker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Competitor Keyword SEM Hijacker</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Automatically detect when rival agencies stop bidding on their own branded search terms.</p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ export const CompetitorKeywordHijacker: React.FC = () => {
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+            <table data-cy="table-competitor-keyword-hijacker" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Rival Agency</th>
@@ -82,7 +82,7 @@ export const CompetitorKeywordHijacker: React.FC = () => {
 
                                 <td style={{ padding: '16px 12px', verticalAlign: 'middle', textAlign: 'center' }}>
                                     {isVulnerable ? (
-                                        <button 
+                                        <button data-cy="btn-competitor-keyword-hijacker-0" 
                                             onClick={(e) => handleHijack(kw.id, e)}
                                             style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 800, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', whiteSpace: 'nowrap' }}
                                         >

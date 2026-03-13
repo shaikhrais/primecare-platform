@@ -73,7 +73,7 @@ export default function CronDashboard() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                                        <h3 style={{ fontSize: '18px', fontWeight: '700', margin: '0', color: 'var(--text-100)' }}>{j.name}</h3>
+                                        <h3 data-cy="h3-admin.cron-dashboard-0" style={{ fontSize: '18px', fontWeight: '700', margin: '0', color: 'var(--text-100)' }}>{j.name}</h3>
                                         <span style={{ backgroundColor: j.status === 'success' ? '#DCFCE7' : '#FEF3C7', color: j.status === 'success' ? '#15803D' : '#92400E', padding: '2px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700' }}>
                                             {j.status === 'success' ? `✅ ${t('admin.healthy', { defaultValue: 'Healthy' })}` : `⚠️ ${t('admin.warning', { defaultValue: 'Warning' })}`}
                                         </span>

@@ -98,7 +98,7 @@ export default function ResponseBot() {
                     <p style={{ color: '#6B7280' }}>Autonomous platform-wide heartbeat and registry integrity verification.</p>
                 </div>
                 <div style={{ textAlign: 'right', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <button
+                    <button data-cy="btn-response-bot-0"
                         onClick={syncRegistries}
                         disabled={auditRunning}
                         className="btn secondary"
@@ -106,7 +106,7 @@ export default function ResponseBot() {
                         Sync Master Registries
                     </button>
                     <div style={{ textAlign: 'right' }}>
-                        <button
+                        <button data-cy="btn-response-bot-1"
                             onClick={runSweep}
                             disabled={auditRunning}
                             className={`btn ${auditRunning ? 'secondary' : 'primary'}`}
@@ -139,7 +139,7 @@ export default function ResponseBot() {
             <div className="pc-card">
                 <div className="pc-card-h">Audit History & Live Feed</div>
                 <div className="pc-card-b" style={{ padding: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-response-bot" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                             <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
                                 <th style={{ padding: '16px' }}>Diagnostic Engine</th>

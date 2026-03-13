@@ -88,25 +88,25 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                 </span>
 
                 {/* Common Actions */}
-                <button style={actionButtonStyle} onClick={() => navigate('/manager/daily-entry')} data-cy="qa-daily-entry">
+                <button data-cy="btn-shared.global-quick-action-bar-0" style={actionButtonStyle} onClick={() => navigate('/manager/daily-entry')} data-cy="qa-daily-entry">
                     📝 Daily Entry
                 </button>
 
-                <button style={actionButtonStyle} onClick={() => openShiftModal('shift')} data-cy="qa-create-shift">
+                <button data-cy="btn-shared.global-quick-action-bar-1" style={actionButtonStyle} onClick={() => openShiftModal('shift')} data-cy="qa-create-shift">
                     ⏱️ Create Shift
                 </button>
 
-                <button style={actionButtonStyle} onClick={() => navigate('/incidents')} data-cy="qa-incident">
+                <button data-cy="btn-shared.global-quick-action-bar-2" style={actionButtonStyle} onClick={() => navigate('/incidents')} data-cy="qa-incident">
                     ⚠️ Log Incident
                 </button>
 
                 {/* Manager/Admin Extras */}
                 {(role === 'manager' || role === 'admin') && (
                     <>
-                        <button style={actionButtonStyle} onClick={() => openShiftModal('assign')} data-cy="qa-assign-staff">
+                        <button data-cy="btn-shared.global-quick-action-bar-3" style={actionButtonStyle} onClick={() => openShiftModal('assign')} data-cy="qa-assign-staff">
                             👥 Assign Staff
                         </button>
-                        <button style={actionButtonStyle} onClick={() => navigate('/schedule')} data-cy="qa-schedule">
+                        <button data-cy="btn-shared.global-quick-action-bar-4" style={actionButtonStyle} onClick={() => navigate('/schedule')} data-cy="qa-schedule">
                             📅 Today Schedule
                         </button>
                     </>
@@ -115,7 +115,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                 {/* Admin Extras */}
                 {role === 'admin' && (
                     <>
-                        <button style={actionButtonStyle} onClick={() => navigate('/users')} data-cy="qa-add-user">
+                        <button data-cy="btn-shared.global-quick-action-bar-5" style={actionButtonStyle} onClick={() => navigate('/users')} data-cy="qa-add-user">
                             👤 Add User
                         </button>
                         <button style={actionButtonStyle} onClick={handleBackup} disabled={backingUp} data-cy="qa-backup">

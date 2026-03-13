@@ -22,7 +22,7 @@ export default function RealtimeCapacity() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                 {capacity.map(c => (
                     <div key={c.branch} className="pc-card" style={{ padding: '1.5rem' }}>
-                        <h3 style={{ marginBottom: '1rem' }}>{c.branch}</h3>
+                        <h3 data-cy="h3-admin.realtime-capacity-0" style={{ marginBottom: '1rem' }}>{c.branch}</h3>
                         <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px', overflow: 'hidden', marginBottom: '1rem' }}>
                             <div style={{ height: '100%', width: `${c.utilized}%`, background: c.utilized > 90 ? '#ef4444' : '#2563eb' }} />
                         </div>

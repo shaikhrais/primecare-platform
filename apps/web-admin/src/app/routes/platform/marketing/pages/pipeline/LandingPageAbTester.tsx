@@ -52,21 +52,21 @@ export const LandingPageAbTester: React.FC = () => {
                         <SplitSquareHorizontal size={28} color="#9333EA" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Landing Page A/B Testing</h3>
+                        <h3 data-cy="h3-landing-page-ab-tester-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Landing Page A/B Testing</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.95rem' }}>Split live web traffic to determine optimal messaging for lead conversion.</p>
                     </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
                     {isStatisticallySignificant && variants[0].active && variants[1].active && (
-                       <button 
+                       <button data-cy="btn-landing-page-ab-tester-0" 
                             onClick={handleHaltExperiment}
                             style={{ backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem' }}
                         >
                             <Power size={16} /> END EXPERIMENT (DECLARE "{winningVariant.id}" WINNER)
                         </button>
                     )}
-                    <button style={{ backgroundColor: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem' }}>
+                    <button data-cy="btn-landing-page-ab-tester-1" style={{ backgroundColor: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem' }}>
                         <RefreshCw size={16} /> Reset
                     </button>
                 </div>

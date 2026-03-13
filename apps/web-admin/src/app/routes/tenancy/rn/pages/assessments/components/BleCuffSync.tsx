@@ -77,12 +77,12 @@ export const BleCuffSync: React.FC = () => {
                         <Bluetooth size={20} color="#4F46E5" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.05rem', color: '#0F172A', fontWeight: 800 }}>Bluetooth Cuff Sync</h3>
+                        <h3 data-cy="h3-rn.ble-cuff-sync-0" style={{ margin: 0, fontSize: '1.05rem', color: '#0F172A', fontWeight: 800 }}>Bluetooth Cuff Sync</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Omron & Welch Allyn Supported</p>
                     </div>
                 </div>
                 
-                <button 
+                <button data-cy="btn-rn.ble-cuff-sync-0" 
                     onClick={handlePairing}
                     disabled={pairing || reading !== null}
                     style={{ 

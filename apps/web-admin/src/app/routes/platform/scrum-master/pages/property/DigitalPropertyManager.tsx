@@ -289,11 +289,11 @@ const DigitalPropertyManager: React.FC = () => {
 
             {/* Filter bar */}
             <div style={S.filterBar}>
-                <input type="text" placeholder="Search assets by name, path, or section..." value={search} onChange={e => setSearch(e.target.value)} style={S.search} />
-                <select value={sectionFilter} onChange={e => setSectionFilter(e.target.value)} style={S.select}>
+                <input data-cy="input-digital-property-manager-0" type="text" placeholder="Search assets by name, path, or section..." value={search} onChange={e => setSearch(e.target.value)} style={S.search} />
+                <select data-cy="select-digital-property-manager-0" value={sectionFilter} onChange={e => setSectionFilter(e.target.value)} style={S.select}>
                     {allSections.map(s => <option key={s} value={s}>{s === 'all' ? '📁 All Sections' : s}</option>)}
                 </select>
-                <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} style={S.select}>
+                <select data-cy="select-digital-property-manager-1" value={statusFilter} onChange={e => setStatusFilter(e.target.value)} style={S.select}>
                     <option value="all">🔵 All Status</option>
                     <option value="active">🟢 Active</option>
                     <option value="unused">🔴 Unused</option>
@@ -316,7 +316,7 @@ const DigitalPropertyManager: React.FC = () => {
             {/* Main table */}
             <div style={S.card}>
                 <div style={{ overflowX: 'auto', maxHeight: '70vh', overflowY: 'auto' }}>
-                    <table style={S.table}>
+                    <table data-cy="table-digital-property-manager" style={S.table}>
                         <thead>
                             <tr>
                                 <th style={S.th}>Asset</th>
@@ -363,16 +363,16 @@ const DigitalPropertyManager: React.FC = () => {
                 <div style={S.footer}>
                     <span>Showing {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, filtered.length)} of {filtered.length} assets</span>
                     <div style={S.pagination}>
-                        <button style={S.pageBtn} onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0}>‹ Prev</button>
+                        <button data-cy="btn-digital-property-manager-0" style={S.pageBtn} onClick={() => setPage(Math.max(0, page - 1))} disabled={page === 0}>‹ Prev</button>
                         {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
                             const p = totalPages <= 7 ? i : page < 3 ? i : page > totalPages - 4 ? totalPages - 7 + i : page - 3 + i;
                             return (
-                                <button key={p} onClick={() => setPage(p)} style={{ ...S.pageBtn, ...(p === page ? S.pageBtnActive : {}) }}>
+                                <button data-cy="btn-digital-property-manager-1" key={p} onClick={() => setPage(p)} style={{ ...S.pageBtn, ...(p === page ? S.pageBtnActive : {}) }}>
                                     {p + 1}
                                 </button>
                             );
                         })}
-                        <button style={S.pageBtn} onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}>Next ›</button>
+                        <button data-cy="btn-digital-property-manager-2" style={S.pageBtn} onClick={() => setPage(Math.min(totalPages - 1, page + 1))} disabled={page >= totalPages - 1}>Next ›</button>
                     </div>
                 </div>
             </div>

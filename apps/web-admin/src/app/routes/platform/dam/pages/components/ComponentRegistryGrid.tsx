@@ -37,7 +37,7 @@ export const ComponentRegistryGrid: React.FC = () => {
                         <PackageSearch size={24} color="#6366F1" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Component Registry</h3>
+                        <h3 data-cy="h3-component-registry-grid-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Component Registry</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Global directory of all active React UI digital assets.</p>
                     </div>
                 </div>

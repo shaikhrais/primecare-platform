@@ -19,7 +19,7 @@ export const CoPaySlider: React.FC<CoPaySliderProps> = ({ totalInvoiceAmount, pr
         <section style={{ backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
             
             <div>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <h2 data-cy="h2-co-pay-slider-0" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <CreditCard color="#10B981" /> Co-Pay Invoice Splitter
                 </h2>
                 <p style={{ color: '#64748B', margin: 0 }}>Adjust the slider below to divide this month's ${totalInvoiceAmount} out-of-pocket invoice between family members.</p>
@@ -39,7 +39,7 @@ export const CoPaySlider: React.FC<CoPaySliderProps> = ({ totalInvoiceAmount, pr
                 </div>
 
                 {/* The actual input over top (invisible track, visible thumb) */}
-                <input 
+                <input data-cy="input-co-pay-slider-0" 
                     type="range"
                     min="0"
                     max="100"

@@ -12,7 +12,7 @@ interface ADLChecklistProps {
 export const ADLChecklist: React.FC<ADLChecklistProps> = ({ adl, setAdl, setIsDirty }) => {
     return (
         <div>
-            <h3 style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.ADL_TITLE}</h3>
+            <h3 data-cy="h3-manager.a-d-l-checklist-0" style={{ borderBottom: '2px solid var(--line)', paddingBottom: '8px', marginBottom: '16px' }}>{ContentRegistry.DAILY_ENTRY.ADL_TITLE}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {Object.keys(adl).map(key => (
                     <label key={key} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', padding: '12px', background: 'var(--bg)', borderRadius: '8px', border: '1px solid var(--line)' }}>

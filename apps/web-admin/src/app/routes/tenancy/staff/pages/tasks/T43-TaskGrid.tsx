@@ -66,7 +66,7 @@ export default function TaskGrid() {
                     <h1 data-cy="page.title">{STAFF_PORTAL.TASKS?.TITLE || 'Service Intake Board'}</h1>
                     <p className="subtitle">{STAFF_PORTAL.TASKS?.SUBTITLE || 'Real-time operational coordination'}</p>
                 </div>
-                <button className="btn-modern btn-primary">
+                <button data-cy="btn-staff.task-grid-0" className="btn-modern btn-primary">
                     {ButtonRegistry.find(b => b.id === 'btn-staff-task-add')?.label || '+ New Task'}
                 </button>
             </header>
@@ -90,7 +90,7 @@ export default function TaskGrid() {
                                     <div className={`task-priority-tag priority-${task.priority}`}>
                                         {task.priority} Priority
                                     </div>
-                                    <h3 className="task-title">{task.title}</h3>
+                                    <h3 data-cy="h3-staff.task-grid-0" className="task-title">{task.title}</h3>
                                     <div className="task-patient">
                                         <p className="text-xs opacity-70 line-clamp-2">{task.description}</p>
                                     </div>

@@ -59,7 +59,7 @@ export const VoiceDictationButton: React.FC<VoiceDictationButtonProps> = ({ onRe
     if (!supported) return null;
 
     return (
-        <button
+        <button data-cy="btn-shared.voice-dictation-button-0"
             onClick={toggleListen}
             style={{
                 background: isListening ? '#EF4444' : 'transparent',

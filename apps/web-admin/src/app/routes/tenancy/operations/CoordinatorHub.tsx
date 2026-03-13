@@ -9,7 +9,7 @@ const CoordinatorHub: React.FC = () => {
                     <p className="text-slate-500 font-medium">Real-time Coordination & Emergency Dispatch</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
+                    <button data-cy="btn-coordinator-hub-0" className="px-4 py-2 bg-white border border-slate-200 rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition-all">
                         Live Map
                     </button>
                     <button
@@ -49,7 +49,7 @@ const CoordinatorHub: React.FC = () => {
                     <div className="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-79.3832,43.6532,11/1200x500?access_token=pk.placeholder')] bg-cover opacity-40grayscale mix-blend-overlay" />
                     <div className="relative z-10 flex flex-col h-full">
                         <div className="flex justify-between items-center mb-auto">
-                            <h3 className="font-black tracking-tight uppercase text-sm border-b-2 border-emerald-500 pb-1">Live Pulse Map</h3>
+                            <h3 data-cy="h3-coordinator-hub-0" className="font-black tracking-tight uppercase text-sm border-b-2 border-emerald-500 pb-1">Live Pulse Map</h3>
                             <div className="flex gap-2">
                                 <span className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-lg text-[10px] font-black">
                                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
@@ -79,16 +79,16 @@ const CoordinatorHub: React.FC = () => {
                         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-125 transition-transform duration-500">
                             <span className="text-8xl font-black text-rose-600">🆘</span>
                         </div>
-                        <h3 className="text-rose-600 font-black text-[10px] uppercase tracking-widest mb-6 border-b border-rose-200 pb-2">Active SOS Queue</h3>
+                        <h3 data-cy="h3-coordinator-hub-1" className="text-rose-600 font-black text-[10px] uppercase tracking-widest mb-6 border-b border-rose-200 pb-2">Active SOS Queue</h3>
                         <div className="space-y-4">
                             <div className="p-5 bg-white rounded-2xl shadow-sm border-l-4 border-rose-500">
                                 <p className="text-xs font-black text-slate-800">Visit #9021 • SOS Trigger</p>
                                 <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">PSW: Sarah J. • Client: Robert M.</p>
                                 <div className="mt-4 flex gap-2">
-                                    <button className="flex-1 py-2 bg-rose-600 text-white rounded-xl text-[10px] font-black hover:bg-rose-700 transition-all">
+                                    <button data-cy="btn-coordinator-hub-1" className="flex-1 py-2 bg-rose-600 text-white rounded-xl text-[10px] font-black hover:bg-rose-700 transition-all">
                                         RESPOND
                                     </button>
-                                    <button className="px-3 py-2 bg-slate-100 text-slate-400 rounded-xl text-[10px] font-black">
+                                    <button data-cy="btn-coordinator-hub-2" className="px-3 py-2 bg-slate-100 text-slate-400 rounded-xl text-[10px] font-black">
                                         MAP
                                     </button>
                                 </div>
@@ -97,7 +97,7 @@ const CoordinatorHub: React.FC = () => {
                     </div>
 
                     <div className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm">
-                        <h3 className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-6">Coverage Alerts</h3>
+                        <h3 data-cy="h3-coordinator-hub-2" className="text-slate-400 font-black text-[10px] uppercase tracking-widest mb-6">Coverage Alerts</h3>
                         <div className="space-y-3">
                             {[
                                 { time: '18:00', task: 'Medication Assist', client: 'Alice W.', dist: '2.4km' },

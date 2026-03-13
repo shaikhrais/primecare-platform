@@ -26,7 +26,7 @@ export const JITElevationModal: React.FC<JITProps> = ({ onElevate, onCancel }) =
                     </div>
                 </div>
 
-                <h2 style={{ textAlign: 'center', margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.25rem', fontWeight: 800 }}>High-Privilege Area</h2>
+                <h2 data-cy="h2-admin.j-i-t-elevation-modal-0" style={{ textAlign: 'center', margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.25rem', fontWeight: 800 }}>High-Privilege Area</h2>
                 <p style={{ textAlign: 'center', color: '#64748B', fontSize: '0.9rem', marginBottom: '24px', lineHeight: '1.5' }}>
                     You are requesting Just-In-Time (JIT) elevation into God-Mode. This action will be immutably logged to the Compliance Forensic Audit Trail.
                 </p>

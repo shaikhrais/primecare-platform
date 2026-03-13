@@ -105,8 +105,8 @@ export default function ComplianceMonitor() {
 
             <section className="compliance-list-section">
                 <header className="compliance-list-header">
-                    <h3 className="text-xl font-black uppercase tracking-tight">Requirement Inventory</h3>
-                    <button className="btn-modern btn-modern-primary">{t(ContentRegistry.MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS).split(' ')[0]} Audit Sync</button>
+                    <h3 data-cy="h3-staff.compliance-monitor-0" className="text-xl font-black uppercase tracking-tight">Requirement Inventory</h3>
+                    <button data-cy="btn-staff.compliance-monitor-0" className="btn-modern btn-modern-primary">{t(ContentRegistry.MANAGER_COMPLIANCE.MESSAGES.SYNC_SUCCESS).split(' ')[0]} Audit Sync</button>
                 </header>
 
                 <div className="compliance-list">

@@ -48,7 +48,7 @@ export default function FHIRCenter() {
                     <div className="pc-card-h">Visual Record Generator</div>
                     <div className="pc-card-b">
                         <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-                            <select style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+                            <select data-cy="select-admin.f-h-i-r-center-0" style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
                                 <option>Select Patient Record...</option>
                                 <option>John Smith (pc-123)</option>
                             </select>

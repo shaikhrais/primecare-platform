@@ -36,7 +36,7 @@ export const CarePlanEvolution: React.FC<AmendmentProps> = ({ patientId }) => {
 
     return (
         <div style={{ backgroundColor: '#EEF2FF', border: '1px solid #C7D2FE', borderRadius: '12px', padding: '16px', marginBottom: '24px', position: 'relative' }}>
-            <button style={{ position: 'absolute', top: '12px', right: '12px', background: 'none', border: 'none', color: '#818CF8', cursor: 'pointer' }} onClick={() => setSuggestion(null)}>
+            <button data-cy="btn-rn.care-plan-evolution-0" style={{ position: 'absolute', top: '12px', right: '12px', background: 'none', border: 'none', color: '#818CF8', cursor: 'pointer' }} onClick={() => setSuggestion(null)}>
                 <X size={18} />
             </button>
             
@@ -44,7 +44,7 @@ export const CarePlanEvolution: React.FC<AmendmentProps> = ({ patientId }) => {
                 <div style={{ backgroundColor: '#4F46E5', borderRadius: '50%', padding: '6px' }}>
                     <Sparkles size={16} color="white" />
                 </div>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: '#3730A3' }}>AI Care Plan Amendment Suggested</h3>
+                <h3 data-cy="h3-rn.care-plan-evolution-0" style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: '#3730A3' }}>AI Care Plan Amendment Suggested</h3>
                 <span style={{ backgroundColor: '#C7D2FE', color: '#3730A3', fontSize: '0.75rem', fontWeight: 800, padding: '2px 8px', borderRadius: '12px' }}>
                     {(suggestion.confidence * 100).toFixed(0)}% Match
                 </span>
@@ -56,7 +56,7 @@ export const CarePlanEvolution: React.FC<AmendmentProps> = ({ patientId }) => {
 
             <div style={{ backgroundColor: 'white', borderRadius: '8px', padding: '12px', border: '1px solid #E0E7FF', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontWeight: 600, color: '#1E293B', fontSize: '0.95rem' }}>{suggestion.recommendation}</span>
-                <button style={{ backgroundColor: '#4F46E5', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <button data-cy="btn-rn.care-plan-evolution-1" style={{ backgroundColor: '#4F46E5', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Apply to Chart <ArrowRight size={16} />
                 </button>
             </div>

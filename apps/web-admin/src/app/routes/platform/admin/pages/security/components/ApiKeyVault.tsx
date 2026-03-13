@@ -19,7 +19,7 @@ export const ApiKeyVault: React.FC = () => {
 
     return (
         <div style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '600px' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h2 data-cy="h2-admin.api-key-vault-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Key color="#8B5CF6" /> Infrastructure API Playground
             </h2>
             <p style={{ color: '#64748B', margin: '0 0 24px 0', fontSize: '0.9rem', lineHeight: '1.5' }}>
@@ -63,7 +63,7 @@ export const ApiKeyVault: React.FC = () => {
                         </div>
                     </div>
 
-                    <button 
+                    <button data-cy="btn-admin.api-key-vault-0" 
                         onClick={copyToClipboard}
                         style={{ 
                             backgroundColor: copied ? '#10B981' : '#E2E8F0', 
@@ -87,7 +87,7 @@ export const ApiKeyVault: React.FC = () => {
                     <div style={{ fontWeight: 800, color: '#991B1B', fontSize: '0.9rem' }}>Compromised Key?</div>
                     <div style={{ fontSize: '0.8rem', color: '#B91C1C' }}>Rolling the root key will instantly sever all active external integrations.</div>
                 </div>
-                <button style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                <button data-cy="btn-admin.api-key-vault-1" style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                     <RefreshCw size={16} /> ROLL KEY
                 </button>
             </div>

@@ -24,7 +24,7 @@ interface ScheduleListProps {
 export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusColor, onEdit, onAssign, onSurge }) => {
     return (
         <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <table data-cy="table-admin.schedule-list" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                     <tr>
                         <th style={{ padding: '1rem' }}>Date & Time</th>
@@ -73,7 +73,7 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                             </td>
                             <td style={{ padding: '1rem' }}>
                                 <div style={{ display: 'flex', gap: '0.75rem', opacity: 0.8 }}>
-                                    <button
+                                    <button data-cy="btn-admin.schedule-list-0"
                                         onClick={() => onEdit(visit)}
                                         style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
                                     >
@@ -81,14 +81,14 @@ export const ScheduleList: React.FC<ScheduleListProps> = ({ visits, getStatusCol
                                     </button>
                                     {!visit.psw && (
                                         <>
-                                            <button
+                                            <button data-cy="btn-admin.schedule-list-1"
                                                 onClick={() => onAssign(visit)}
                                                 style={{ color: '#0369a1', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
                                             >
                                                 Assign
                                             </button>
                                             {onSurge && (
-                                                <button
+                                                <button data-cy="btn-admin.schedule-list-2"
                                                     onClick={() => onSurge(visit)}
                                                     style={{ color: '#EF4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
                                                 >

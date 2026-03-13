@@ -64,7 +64,7 @@ const InteractionAudit: React.FC = () => {
                     <h1 data-cy="page.title" className="text-3xl font-black text-slate-900 tracking-tight">RESPONSE BOT</h1>
                     <p className="text-slate-500 font-medium">Platform-wide Interaction & Registry Integrity Audit</p>
                 </div>
-                <button
+                <button data-cy="btn-interaction-audit-0"
                     onClick={runAudit}
                     disabled={isAuditing}
                     className={`px-6 py-3 rounded-2xl font-bold transition-all shadow-lg flex items-center gap-2 ${isAuditing ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
@@ -80,7 +80,7 @@ const InteractionAudit: React.FC = () => {
                         <span className="text-indigo-600 font-black text-xs uppercase tracking-widest">Active Scan</span>
                         <span className="text-slate-400 font-mono text-xs">{Math.round(progress)}% Complete</span>
                     </div>
-                    <h2 className="text-xl font-bold text-slate-800 mb-2">Analyzing: <span className="text-indigo-600 font-mono">{currentAudit}</span></h2>
+                    <h2 data-cy="h2-interaction-audit-0" className="text-xl font-bold text-slate-800 mb-2">Analyzing: <span className="text-indigo-600 font-mono">{currentAudit}</span></h2>
                     <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
                         <div
                             className="bg-indigo-600 h-full transition-all duration-300"
@@ -93,13 +93,13 @@ const InteractionAudit: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="md:col-span-3 bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                     <div className="p-6 border-b border-slate-100 flex justify-between items-center">
-                        <h2 className="font-bold text-slate-800">Audit Inventory</h2>
+                        <h2 data-cy="h2-interaction-audit-1" className="font-bold text-slate-800">Audit Inventory</h2>
                         <span className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">
                             {results.length} Touched
                         </span>
                     </div>
                     <div className="max-h-[600px] overflow-y-auto">
-                        <table className="w-full text-left">
+                        <table data-cy="table-interaction-audit" className="w-full text-left">
                             <thead className="bg-slate-50 text-slate-400 text-[10px] uppercase font-black tracking-widest">
                                 <tr>
                                     <th className="px-6 py-4">Touchpoint</th>
@@ -142,7 +142,7 @@ const InteractionAudit: React.FC = () => {
 
                 <div className="space-y-6">
                     <div className="bg-slate-900 p-6 rounded-3xl shadow-xl text-white">
-                        <h3 className="font-black text-xs uppercase tracking-widest text-indigo-400 mb-4">Integrity Health</h3>
+                        <h3 data-cy="h3-interaction-audit-0" className="font-black text-xs uppercase tracking-widest text-indigo-400 mb-4">Integrity Health</h3>
                         <div className="space-y-4">
                             <div>
                                 <div className="flex justify-between text-sm mb-1">
@@ -166,7 +166,7 @@ const InteractionAudit: React.FC = () => {
                     </div>
 
                     <div className="bg-emerald-50 p-6 rounded-3xl border border-emerald-100 shadow-sm transition-all hover:shadow-md">
-                        <h3 className="text-emerald-900 font-bold text-lg mb-2 flex items-center gap-2">
+                        <h3 data-cy="h3-interaction-audit-1" className="text-emerald-900 font-bold text-lg mb-2 flex items-center gap-2">
                             <span>🛡️</span> Zero-404 Policy
                         </h3>
                         <p className="text-emerald-700 text-sm leading-relaxed">
@@ -175,7 +175,7 @@ const InteractionAudit: React.FC = () => {
                     </div>
 
                     <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm border-l-4 border-l-indigo-600">
-                        <h3 className="text-slate-900 font-black text-xs uppercase tracking-widest mb-3">Audit Logs</h3>
+                        <h3 data-cy="h3-interaction-audit-2" className="text-slate-900 font-black text-xs uppercase tracking-widest mb-3">Audit Logs</h3>
                         <div className="space-y-3">
                             <div className="text-[10px] text-slate-400 border-b border-slate-50 pb-2">
                                 [SYSTEM] Initialized programmatic sweep...

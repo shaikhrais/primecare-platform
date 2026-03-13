@@ -65,7 +65,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
                         <div style={{ backgroundColor: v.bg, padding: '10px', borderRadius: '50%', color: v.accent }}>
                             <Icon size={22} />
                         </div>
-                        <h3 id="confirm-modal-title" style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
+                        <h3 data-cy="h3-shared.confirm-modal-0" id="confirm-modal-title" style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
                             {title}
                         </h3>
                     </div>

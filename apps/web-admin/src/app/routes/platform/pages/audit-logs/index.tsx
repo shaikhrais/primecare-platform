@@ -29,7 +29,7 @@ const PlatformAuditLogs: React.FC = () => {
             <h1 style={{ marginBottom: '2rem', fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Global Audit Logs</h1>
 
             <div style={{ overflowX: 'auto', backgroundColor: '#FFFFFF', borderRadius: '0.75rem', border: '1px solid #E5E7EB' }}>
-                <table style={{ minWidth: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-index" style={{ minWidth: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                         <tr>
                             <th style={{ padding: '0.75rem 1rem', fontSize: '0.75rem', fontWeight: 'semibold', color: '#4B5563', textTransform: 'uppercase' }}>Tenant</th>

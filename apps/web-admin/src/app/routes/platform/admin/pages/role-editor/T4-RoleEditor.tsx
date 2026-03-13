@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T4 · Role Editor
+// PAGE IDENTITY: T4 ï¿½ Role Editor
 // Registry ID:   page.admin.role-editor
 // Type:          Tool
 // Owner:         admin
@@ -51,7 +51,7 @@ export default function RoleEditor() {
                 {permissions.map(p => (
                     <div key={p.key} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0', borderBottom: '1px solid #f3f4f6' }}>
                         <span>{p.label}</span>
-                        <input
+                        <input data-cy="input-admin.role-editor-0"
                             type="checkbox"
                             checked={!!rolePerms[p.key]}
                             onChange={() => togglePerm(p.key)}
@@ -60,7 +60,7 @@ export default function RoleEditor() {
                     </div>
                 ))}
                 <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-admin.role-editor-0"
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

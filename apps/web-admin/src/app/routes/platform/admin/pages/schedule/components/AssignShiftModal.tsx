@@ -52,7 +52,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%' }}>
-                <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.SCHEDULE.ACTIONS.ASSIGN)}</h3>
+                <h3 data-cy="h3-admin.assign-shift-modal-0" style={{ marginTop: 0 }}>{t(ContentRegistry.SCHEDULE.ACTIONS.ASSIGN)}</h3>
                 <div style={{ margin: '1rem 0' }}>
                     <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Client:</strong> {selectedVisit.client?.fullName || 'N/A'}</p>
                     <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}><strong>Visit:</strong> {new Date(selectedVisit.requestedStartAt).toLocaleString()}</p>
@@ -103,7 +103,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                 <div style={{ marginTop: '1.5rem', borderTop: '1px solid #f3f4f6', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                         <label style={{ fontSize: '0.875rem', fontWeight: 'bold' }}>Smart Suggestions</label>
-                        <button
+                        <button data-cy="btn-admin.assign-shift-modal-0"
                             onClick={onFetchSuggestions}
                             disabled={isSuggesting}
                             style={{ fontSize: '0.75rem', color: '#004d40', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer' }}
@@ -122,7 +122,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                                     </div>
                                     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                         <span style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#059669' }}>{s.score}%</span>
-                                        <button
+                                        <button data-cy="btn-admin.assign-shift-modal-1"
                                             onClick={() => setAssignedPswId(s.id)}
                                             style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', backgroundColor: '#e5e7eb', border: 'none', borderRadius: '0.25rem', cursor: 'pointer' }}
                                         >
@@ -131,7 +131,7 @@ export const AssignShiftModal: React.FC<AssignShiftModalProps> = ({
                                     </div>
                                 </div>
                             ))}
-                            <button
+                            <button data-cy="btn-admin.assign-shift-modal-2"
                                 onClick={() => onOffer(suggestions.map(s => s.id))}
                                 style={{ marginTop: '0.5rem', padding: '0.5rem', backgroundColor: '#ecfdf5', color: '#065f46', border: '1px solid #a7f3d0', borderRadius: '0.5rem', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer' }}
                             >

@@ -66,7 +66,7 @@ export default function TelehealthCenter() {
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Encrypted video consultations and live remote patient monitoring.</p>
                     </div>
                 </div>
-                <button className="btn primary" onClick={async () => {
+                <button data-cy="btn-admin.telehealth-center-0" className="btn primary" onClick={async () => {
                     try {
                         const res: any = await apiClient.post('/v1/admin/telehealth/session/start', {});
                         showToast(res?.message || 'Started consultation session.', 'success');
@@ -101,9 +101,9 @@ export default function TelehealthCenter() {
                     <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                         <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span>Live Vitals Stream</span>
-                            <button className="btn secondary" style={{ padding: '4px 12px', fontSize: '12px' }} onClick={fetchData}>Refresh Feed</button>
+                            <button data-cy="btn-admin.telehealth-center-1" className="btn secondary" style={{ padding: '4px 12px', fontSize: '12px' }} onClick={fetchData}>Refresh Feed</button>
                         </div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <table data-cy="table-admin.telehealth-center" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                                 <tr>
                                     <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>Patient</th>
@@ -130,9 +130,9 @@ export default function TelehealthCenter() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     <div className="pc-card" style={{ padding: '24px' }}>
-                        <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '800' }}>Quick Actions</h3>
+                        <h3 data-cy="h3-admin.telehealth-center-0" style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '800' }}>Quick Actions</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
+                            <button data-cy="btn-admin.telehealth-center-2" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
                                 try {
                                     const res: any = await apiClient.post('/v1/admin/telehealth/triage/open', {});
                                     showToast(res?.message || 'Opened portal.', 'success');
@@ -140,7 +140,7 @@ export default function TelehealthCenter() {
                             }}>
                                 Open Triage Portal
                             </button>
-                            <button className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
+                            <button data-cy="btn-admin.telehealth-center-3" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
                                 try {
                                     const res: any = await apiClient.post('/v1/admin/telehealth/vitals/verify', {});
                                     showToast(res?.message || 'Verified.', 'success');

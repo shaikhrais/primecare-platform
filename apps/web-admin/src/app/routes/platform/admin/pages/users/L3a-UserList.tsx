@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L3a · User List
+// PAGE IDENTITY: L3a ï¿½ User List
 // Type: List | Owner: admin
 // ================================================================
 import React, { useEffect, useState, useMemo } from 'react';
@@ -118,7 +118,7 @@ export default function UserList() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.USERS.TITLE)}</h2>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <button
+                    <button data-cy="btn-admin.l3a-user-list-0"
                         onClick={() => setIsModalOpen(true)}
                         style={{ padding: '0.5rem 1rem', backgroundColor: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db', borderRadius: '0.375rem', cursor: 'pointer', fontSize: '0.875rem' }}
                     >
@@ -137,7 +137,7 @@ export default function UserList() {
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', alignItems: 'center', backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#374151' }}>Role:</label>
-                    <select
+                    <select data-cy="select-admin.l3a-user-list-0"
                         value={searchParams.get('role') || ''}
                         onChange={(e) => {
                             const newParams = new URLSearchParams(searchParams);
@@ -157,7 +157,7 @@ export default function UserList() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#374151' }}>Status:</label>
-                    <select
+                    <select data-cy="select-admin.l3a-user-list-1"
                         value={searchParams.get('status') || ''}
                         onChange={(e) => {
                             const newParams = new URLSearchParams(searchParams);
@@ -187,7 +187,7 @@ export default function UserList() {
                             {t(ContentRegistry.USERS.STATUS as any)}: {searchParams.get('status')}
                         </span>
                     )}
-                    <button onClick={() => navigate(RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>
+                    <button data-cy="btn-admin.l3a-user-list-1" onClick={() => navigate(RouteRegistry.ADMIN.USERS)} style={{ border: 'none', background: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.875rem' }}>
                         {t(ContentRegistry.USERS.CLEAR_FILTERS)}
                     </button>
                 </div>

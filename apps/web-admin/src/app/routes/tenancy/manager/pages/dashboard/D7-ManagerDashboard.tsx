@@ -123,7 +123,7 @@ export default function ManagerDashboard() {
                     </Link>
                     <div className="btn-perspective-group">
                         {ContentRegistry.MANAGER_DASHBOARD.PERSPECTIVES.map((p: string) => (
-                            <button
+                            <button data-cy="btn-manager.manager-dashboard-0"
                                 key={p}
                                 onClick={() => setPerspective(p)}
                                 className={`btn-perspective ${p === perspective ? 'active' : ''}`}

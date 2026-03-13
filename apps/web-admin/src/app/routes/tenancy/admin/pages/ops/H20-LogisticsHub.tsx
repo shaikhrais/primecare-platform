@@ -37,7 +37,7 @@ export default function LogisticsHub() {
                     <p style={{ color: '#6b7280' }}>Global monitoring and AI optimization for regional care delivery.</p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button
+                    <button data-cy="btn-admin.logistics-hub-0"
                         className="btn secondary"
                         onClick={() => navigate('/coordinator/fleet')}
                     >
@@ -80,7 +80,7 @@ export default function LogisticsHub() {
             <div className="pc-card">
                 <div className="pc-card-h">Regional Capacity Oversight</div>
                 <div className="pc-card-b" style={{ padding: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.logistics-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ background: '#F9FAFB', borderBottom: '1px solid #e5e7eb', textAlign: 'left', color: '#6B7280', fontSize: '12px' }}>
                                 <th style={{ padding: '16px' }}>Region</th>
@@ -111,7 +111,7 @@ export default function LogisticsHub() {
                                         </span>
                                     </td>
                                     <td style={{ padding: '16px', textAlign: 'right' }}>
-                                        <button className="btn secondary small">Drilldown</button>
+                                        <button data-cy="btn-admin.logistics-hub-1" className="btn secondary small">Drilldown</button>
                                     </td>
                                 </tr>
                             ))}

@@ -153,14 +153,14 @@ export default function AdminEarningsPage() {
                     <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                         {showDatePicker && (
                             <div style={{ display: 'flex', gap: '8px', backgroundColor: 'white', padding: '8px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                                <input
+                                <input data-cy="input-admin.index-0"
                                     type="date"
                                     value={dateRange.start}
                                     onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
                                     style={{ border: '1px solid #E5E7EB', borderRadius: '8px', padding: '4px' }}
                                 />
                                 <span style={{ alignSelf: 'center' }}>-</span>
-                                <input
+                                <input data-cy="input-admin.index-1"
                                     type="date"
                                     value={dateRange.end}
                                     onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
@@ -168,13 +168,13 @@ export default function AdminEarningsPage() {
                                 />
                             </div>
                         )}
-                        <button
+                        <button data-cy="btn-admin.index-0"
                             onClick={() => setShowDatePicker(!showDatePicker)}
                             style={{ padding: '12px 20px', backgroundColor: showDatePicker ? '#E5E7EB' : '#F3F4F6', border: '1px solid #E5E7EB', borderRadius: '12px', fontWeight: 700, cursor: 'pointer' }}
                         >
                             📅 {dateRange.start || dateRange.end ? t(ContentRegistry.EARNINGS.ACTIONS.FILTER_ACTIVE) : t(ContentRegistry.EARNINGS.ACTIONS.DATE_RANGE)}
                         </button>
-                        <button
+                        <button data-cy="btn-admin.index-1"
                             onClick={handleExport}
                             style={{ padding: '12px 24px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '12px', fontWeight: 800, cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0, 0, 0, 0.2)' }}
                         >
@@ -193,7 +193,7 @@ export default function AdminEarningsPage() {
                         t(ContentRegistry.EARNINGS.TABS.PAYOUTS),
                         t(ContentRegistry.EARNINGS.TABS.REPORTS)
                     ].map(tab => (
-                        <button
+                        <button data-cy="btn-admin.index-2"
                             key={tab}
                             onClick={() => handleTabChange(tab)}
                             style={{

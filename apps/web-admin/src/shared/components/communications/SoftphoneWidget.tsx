@@ -141,7 +141,7 @@ export const SoftphoneWidget: React.FC = () => {
                     <div style={{ color: 'white', fontSize: '1.25rem', fontWeight: 800, marginTop: '4px' }}>{contactName}</div>
                     <div style={{ color: '#CBD5E1', fontSize: '0.9rem' }}>{phoneNumber}</div>
                 </div>
-                <button
+                <button data-cy="btn-shared.softphone-widget-0"
                     onClick={() => setIsMinimized(true)}
                     style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer' }}
                 >
@@ -156,7 +156,7 @@ export const SoftphoneWidget: React.FC = () => {
             )}
 
             <div style={{ padding: '24px', display: 'flex', justifyContent: 'center', gap: '20px', backgroundColor: '#1E293B' }}>
-                <button
+                <button data-cy="btn-shared.softphone-widget-1"
                     onClick={() => setIsMuted(prev => !prev)}
                     style={{
                         width: '56px', height: '56px', borderRadius: '50%',
@@ -167,7 +167,7 @@ export const SoftphoneWidget: React.FC = () => {
                     {isMuted ? <MicOff size={24} /> : <Mic size={24} />}
                 </button>
 
-                <button
+                <button data-cy="btn-shared.softphone-widget-2"
                     onClick={handleHangUp}
                     style={{
                         width: '56px', height: '56px', borderRadius: '50%',

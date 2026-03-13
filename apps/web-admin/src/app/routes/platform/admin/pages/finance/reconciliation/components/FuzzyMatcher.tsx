@@ -46,7 +46,7 @@ export const FuzzyMatcher: React.FC<Props> = ({ bankTx, ledgerCandidates, onMatc
                     <span style={{ color: '#94a3b8', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>External Bank Feed</span>
                 </div>
                 
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0, color: '#f8fafc', marginBottom: '8px' }}>
+                <h3 data-cy="h3-admin.fuzzy-matcher-0" style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0, color: '#f8fafc', marginBottom: '8px' }}>
                     {bankTx.description || 'Unknown Electronic Deposit'}
                 </h3>
                 
@@ -89,7 +89,7 @@ export const FuzzyMatcher: React.FC<Props> = ({ bankTx, ledgerCandidates, onMatc
                                     <div style={{ fontSize: '0.7re', fontWeight: 800, color: ledger.score > 90 ? '#4ade80' : '#fbbf24', background: ledger.score > 90 ? 'rgba(74,222,128,0.1)' : 'rgba(251,191,36,0.1)', padding: '4px 8px', borderRadius: '4px' }}>
                                         {ledger.score}% MATCH
                                     </div>
-                                    <button 
+                                    <button data-cy="btn-admin.fuzzy-matcher-0" 
                                         onClick={() => handleMatch(ledger.id)}
                                         disabled={matching}
                                         style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}

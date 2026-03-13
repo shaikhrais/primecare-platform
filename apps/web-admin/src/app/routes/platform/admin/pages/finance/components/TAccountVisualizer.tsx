@@ -60,7 +60,7 @@ export const TAccountVisualizer: React.FC = () => {
         <div style={{ backgroundColor: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', fontFamily: 'monospace' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'system-ui, sans-serif' }}>
+                    <h2 data-cy="h2-admin.t-account-visualizer-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: '0 0 8px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'system-ui, sans-serif' }}>
                         <ArrowLeftRight color="#6366F1" /> Double-Entry Ledger Validation
                     </h2>
                     <p style={{ color: '#64748B', margin: 0, fontSize: '0.9rem', fontFamily: 'system-ui, sans-serif' }}>Live visualizer for debit/credit symmetry across isolated transactions.</p>

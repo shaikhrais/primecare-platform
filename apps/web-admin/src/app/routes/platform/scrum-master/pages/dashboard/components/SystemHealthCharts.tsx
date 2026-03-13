@@ -30,7 +30,7 @@ export const SystemHealthCharts: React.FC = () => {
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
             <div className="sm-card" style={{ padding: '2rem', background: '#ffffff' }}>
-                <h3 style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+                <h3 data-cy="h3-system-health-charts-0" style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                     📈 {t(ContentRegistry.SCRUM_MASTER.ANALYTICS.LATENCY)}
                 </h3>
                 <div style={{ height: '300px' }}>
@@ -46,7 +46,7 @@ export const SystemHealthCharts: React.FC = () => {
             </div>
 
             <div className="sm-card" style={{ padding: '2rem', background: '#ffffff' }}>
-                <h3 style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+                <h3 data-cy="h3-system-health-charts-1" style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                     📊 {t(ContentRegistry.SCRUM_MASTER.ANALYTICS.ERRORS)}
                 </h3>
                 <div style={{ height: '300px' }}>

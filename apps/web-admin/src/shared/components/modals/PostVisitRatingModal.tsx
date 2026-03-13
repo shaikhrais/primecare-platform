@@ -37,7 +37,7 @@ export const PostVisitRatingModal: React.FC = () => {
                 textAlign: 'center',
                 animation: 'slide-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)' 
             }}>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', lineHeight: 1.2 }}>
+                <h2 data-cy="h2-shared.post-visit-rating-modal-0" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', lineHeight: 1.2 }}>
                     How was your visit with <span style={{ color: '#3B82F6' }}>Sarah</span> today?
                 </h2>
                 

@@ -100,7 +100,7 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
             
             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                 <span style={{ fontSize: '0.875rem', color: '#475569' }}>Repeat every</span>
-                <input 
+                <input data-cy="input-shared.advanced-recurrence-builder-0" 
                     type="number" 
                     min={1} 
                     value={interval} 
@@ -108,7 +108,7 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
                     disabled={disabled}
                     style={{ width: '60px', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
                 />
-                <select 
+                <select data-cy="select-shared.advanced-recurrence-builder-0" 
                     value={freq} 
                     onChange={e => setFreq(parseInt(e.target.value))}
                     disabled={disabled}
@@ -125,7 +125,7 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
                     {days.map((d, i) => {
                         const isSelected = byweekday.some(w => w.weekday === d.val.weekday);
                         return (
-                            <button
+                            <button data-cy="btn-shared.advanced-recurrence-builder-0"
                                 key={`day-${i}`}
                                 type="button"
                                 onClick={() => toggleDay(d.val)}
@@ -154,14 +154,14 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
                 <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#334155' }}>Ends</span>
                 
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', color: '#475569', cursor: disabled ? 'not-allowed' : 'pointer' }}>
-                    <input type="radio" name="endType" checked={endType === 'never'} onChange={() => setEndType('never')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
+                    <input data-cy="input-shared.advanced-recurrence-builder-1" type="radio" name="endType" checked={endType === 'never'} onChange={() => setEndType('never')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
                     Never (Continuous)
                 </label>
                 
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', color: '#475569', cursor: disabled ? 'not-allowed' : 'pointer' }}>
-                    <input type="radio" name="endType" checked={endType === 'after'} onChange={() => setEndType('after')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
+                    <input data-cy="input-shared.advanced-recurrence-builder-2" type="radio" name="endType" checked={endType === 'after'} onChange={() => setEndType('after')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
                     After
-                    <input 
+                    <input data-cy="input-shared.advanced-recurrence-builder-3" 
                         type="number" min={1} value={count} onChange={e => setCount(parseInt(e.target.value) || 1)} disabled={disabled || endType !== 'after'}
                         style={{ width: '70px', padding: '0.375rem 0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem', opacity: endType !== 'after' ? 0.5 : 1 }}
                     />
@@ -169,9 +169,9 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
                 </label>
 
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.875rem', color: '#475569', cursor: disabled ? 'not-allowed' : 'pointer' }}>
-                    <input type="radio" name="endType" checked={endType === 'date'} onChange={() => setEndType('date')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
+                    <input data-cy="input-shared.advanced-recurrence-builder-4" type="radio" name="endType" checked={endType === 'date'} onChange={() => setEndType('date')} disabled={disabled} style={{ width: '1rem', height: '1rem', accentColor: '#3b82f6' }} />
                     On
-                    <input 
+                    <input data-cy="input-shared.advanced-recurrence-builder-5" 
                         type="date" value={until} onChange={e => setUntil(e.target.value)} disabled={disabled || endType !== 'date'}
                         style={{ padding: '0.375rem 0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem', opacity: endType !== 'date' ? 0.5 : 1 }}
                     />

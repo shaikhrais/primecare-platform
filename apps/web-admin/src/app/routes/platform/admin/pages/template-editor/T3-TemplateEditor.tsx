@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T3 · Template Editor
+// PAGE IDENTITY: T3 ï¿½ Template Editor
 // Registry ID:   page.admin.template-editor
 // Type:          Tool
 // Owner:         admin
@@ -43,7 +43,7 @@ export default function TemplateEditor() {
                     style={{ width: '100%', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', minHeight: '300px', fontFamily: 'monospace' }}
                 />
                 <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-admin.template-editor-0"
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

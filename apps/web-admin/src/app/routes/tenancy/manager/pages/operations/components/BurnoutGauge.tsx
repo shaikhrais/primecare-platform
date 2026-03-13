@@ -67,7 +67,7 @@ export const BurnoutGauge: React.FC<BurnoutGaugeProps> = ({ staffName, metrics }
             {/* Metrics Breakdown */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '200px' }}>
                 <div>
-                    <h3 style={{ margin: '0 0 4px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h3 data-cy="h3-manager.burnout-gauge-0" style={{ margin: '0 0 4px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <HeartPulse color={getRiskColor()} /> Burnout Telemetry
                     </h3>
                     <p style={{ margin: 0, color: '#64748B', fontSize: '0.85rem' }}>Forecasting flight-risk for <strong>{staffName}</strong>.</p>

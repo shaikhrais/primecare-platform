@@ -59,7 +59,7 @@ export const TerminalStream: React.FC = () => {
                     root@primecare-worker-api:~/system/cron/payroll
                 </div>
                 <div>
-                    <button 
+                    <button data-cy="btn-admin.terminal-stream-0" 
                         onClick={startStream}
                         disabled={isStreaming}
                         style={{ backgroundColor: isStreaming ? '#475569' : '#10B981', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '4px', cursor: isStreaming ? 'not-allowed' : 'pointer', fontSize: '0.75rem', fontWeight: 700 }}

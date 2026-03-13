@@ -46,7 +46,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({ on
 
     return (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
-            <button
+            <button data-cy="btn-psw.accessibility-controls-0"
                 onClick={toggleDark}
                 style={{
                     display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px',
@@ -59,7 +59,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({ on
                 {isDarkMode ? 'Light Mode' : 'AMOLED Dark'}
             </button>
 
-            <button
+            <button data-cy="btn-psw.accessibility-controls-1"
                 onClick={cycleFontSize}
                 style={{
                     display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px',
@@ -72,7 +72,7 @@ export const AccessibilityControls: React.FC<AccessibilityControlsProps> = ({ on
                 {fontSizeLevel === 0 ? 'Normal text' : fontSizeLevel === 1 ? 'Large text' : 'XL text'}
             </button>
 
-            <button
+            <button data-cy="btn-psw.accessibility-controls-2"
                 onClick={onOpenIdBadge}
                 style={{
                     display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px',

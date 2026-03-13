@@ -58,7 +58,7 @@ export const OfflineIndicator: React.FC = () => {
                     </div>
 
                     <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontSize: '0.85rem', cursor: 'pointer' }}>
-                        <input
+                        <input data-cy="input-shared.offline-indicator-0"
                             type="checkbox"
                             checked={lowBandwidthMode}
                             onChange={(e) => setLowBandwidthMode(e.target.checked)}
@@ -91,7 +91,7 @@ export const OfflineIndicator: React.FC = () => {
                                 ))}
                             </div>
                             {isOnline && (
-                                <button
+                                <button data-cy="btn-shared.offline-indicator-0"
                                     onClick={retrySync}
                                     disabled={isSyncing}
                                     style={{

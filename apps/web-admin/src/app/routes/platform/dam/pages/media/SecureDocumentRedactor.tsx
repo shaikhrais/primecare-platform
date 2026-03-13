@@ -75,7 +75,7 @@ export const SecureDocumentRedactor: React.FC = () => {
                         <Shield size={24} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Secure Document Redactor</h3>
+                        <h3 data-cy="h3-secure-document-redactor-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Secure Document Redactor</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Scrub PHI and SSNs from documents before vaulting.</p>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ export const SecureDocumentRedactor: React.FC = () => {
                         }}
                     >
                         <div style={{ position: 'absolute', top: '150px', left: '40px', right: '40px', color: '#64748B', fontFamily: 'serif', fontSize: '1.2rem', lineHeight: '2' }}>
-                            <h2 style={{ color: '#0F172A', textAlign: 'center' }}>Patient Consent to Treat</h2>
+                            <h2 data-cy="h2-secure-document-redactor-0" style={{ color: '#0F172A', textAlign: 'center' }}>Patient Consent to Treat</h2>
                             <p>Patient Name: John Doe</p>
                             <p>Social Security Number: XXX-XX-XXXX</p>
                             <p>Date of Birth: 05/14/1982</p>

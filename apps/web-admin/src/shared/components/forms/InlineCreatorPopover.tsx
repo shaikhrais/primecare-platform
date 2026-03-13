@@ -112,7 +112,7 @@ export const InlineCreatorPopover: React.FC<InlineCreatorPopoverProps> = ({ depe
                 Quick Create: {dependency.entityType.charAt(0).toUpperCase() + dependency.entityType.slice(1)}
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <form data-cy="form-shared.inline-creator-popover" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <input
                     data-cy={`inline-input-name-${dependency.entityType}`}
                     type="text"

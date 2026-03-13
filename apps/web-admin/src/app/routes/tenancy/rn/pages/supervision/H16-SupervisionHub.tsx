@@ -62,21 +62,21 @@ export const SupervisionHub: React.FC = () => {
             <div className="bento-grid">
                 <div className="bento-item">
                     <span className="pill mobility">Performance</span>
-                    <h3 className="assess-card-title">Avg Quality Score</h3>
+                    <h3 data-cy="h3-rn.supervision-hub-0" className="assess-card-title">Avg Quality Score</h3>
                     <div className="score-badge" style={{ fontSize: '2.5rem', marginTop: '0.5rem' }}>92%</div>
                     <p className="assess-card-desc">Branch average across 24 supervised caregivers.</p>
                 </div>
 
                 <div className="bento-item">
                     <span className="pill vital">Compliance</span>
-                    <h3 className="assess-card-title">Certs at Risk</h3>
+                    <h3 data-cy="h3-rn.supervision-hub-1" className="assess-card-title">Certs at Risk</h3>
                     <div className="score-badge" style={{ fontSize: '2.5rem', marginTop: '0.5rem', color: '#ff9800' }}>3</div>
                     <p className="assess-card-desc">Providers with expiring clinical certifications.</p>
                 </div>
 
                 <div className="bento-item">
                     <span className="pill adl">Operational</span>
-                    <h3 className="assess-card-title">Pending Audits</h3>
+                    <h3 data-cy="h3-rn.supervision-hub-2" className="assess-card-title">Pending Audits</h3>
                     <div className="score-badge" style={{ fontSize: '2.5rem', marginTop: '0.5rem' }}>8</div>
                     <p className="assess-card-desc">Required field supervisions due this week.</p>
                 </div>
@@ -84,8 +84,8 @@ export const SupervisionHub: React.FC = () => {
 
             <section className="roster-card">
                 <div className="roster-header">
-                    <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{ContentRegistry.RN_SUPERVISION.TITLE}</h2>
-                    <button className="btn btn-ghost" style={{ fontSize: '12px' }}>View All Providers</button>
+                    <h2 data-cy="h2-rn.supervision-hub-0" style={{ fontSize: '1.2rem', fontWeight: 800 }}>{ContentRegistry.RN_SUPERVISION.TITLE}</h2>
+                    <button data-cy="btn-rn.supervision-hub-0" className="btn btn-ghost" style={{ fontSize: '12px' }}>View All Providers</button>
                 </div>
 
                 <table className="roster-table" data-cy="caregiver-roster">
@@ -142,7 +142,7 @@ export const SupervisionHub: React.FC = () => {
             </section>
 
             <section className="audit-stack">
-                <h3 className="form-label" style={{ marginBottom: '1.5rem' }}>Required Field Audits</h3>
+                <h3 data-cy="h3-rn.supervision-hub-3" className="form-label" style={{ marginBottom: '1.5rem' }}>Required Field Audits</h3>
                 <div className="audit-item" data-cy="audit-item-1">
                     <div className="provider-info">
                         <div className="provider-avatar" style={{ background: '#eee', color: '#666' }}>JD</div>

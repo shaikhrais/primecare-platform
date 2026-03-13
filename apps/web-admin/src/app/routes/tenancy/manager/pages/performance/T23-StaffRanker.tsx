@@ -36,7 +36,7 @@ export default function StaffRanker() {
                 </div>
                 <div className="period-toggle">
                     {['7d', '30d', '90d'].map(p => (
-                        <button
+                        <button data-cy="btn-manager.staff-ranker-0"
                             key={p}
                             onClick={() => setPeriod(p)}
                             className={`period-btn ${period === p ? 'active' : ''}`}
@@ -66,11 +66,11 @@ export default function StaffRanker() {
                 </div>
 
                 <div className="ranker-card">
-                    <h3 className="leaderboard-title">
+                    <h3 data-cy="h3-manager.staff-ranker-0" className="leaderboard-title">
                         <span>🏆</span> Leaderboard: Clinical Excellence
                     </h3>
                     <div className="leaderboard-table-wrapper">
-                        <table className="leaderboard-table">
+                        <table data-cy="table-manager.staff-ranker" className="leaderboard-table">
                             <thead>
                                 <tr>
                                     <th>Staff Member</th>
@@ -116,7 +116,7 @@ export default function StaffRanker() {
 
             <div className="ranker-bottom-grid">
                 <div className="ranker-card">
-                    <h3 className="ranker-card-label">Attendance Trends</h3>
+                    <h3 data-cy="h3-manager.staff-ranker-1" className="ranker-card-label">Attendance Trends</h3>
                     <div style={{ height: '250px' }}>
                         <CoreBarChart
                             data={[
@@ -133,11 +133,11 @@ export default function StaffRanker() {
 
                 <div className="ranker-card review-cycle-card">
                     <div className="review-icon">📅</div>
-                    <h3 className="review-title">Next Review Cycle</h3>
+                    <h3 data-cy="h3-manager.staff-ranker-2" className="review-title">Next Review Cycle</h3>
                     <p className="review-desc">
                         Your next automated performance sweep is scheduled for <strong>Monday, March 9th</strong>. You can manually trigger a review for specific staff members.
                     </p>
-                    <button className="btn-primary-pc">
+                    <button data-cy="btn-manager.staff-ranker-1" className="btn-primary-pc">
                         Schedule Evaluation
                     </button>
                 </div>

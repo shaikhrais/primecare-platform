@@ -66,7 +66,7 @@ export const ScreenReaderContentEditor: React.FC = () => {
                         <EyeOff size={24} color="#C026D3" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Screen Reader Accessibility Editor</h3>
+                        <h3 data-cy="h3-screen-reader-content-editor-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Screen Reader Accessibility Editor</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Enforce explicit aria-labels on visually complex charts and UI elements.</p>
                     </div>
                 </div>

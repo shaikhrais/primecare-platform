@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F4 · Reset Password
+// PAGE IDENTITY: F4 ï¿½ Reset Password
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
@@ -87,7 +87,7 @@ export default function ResetPassword() {
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
                 {message && <div style={{ marginBottom: '1rem', color: '#059669', fontSize: '0.875rem', textAlign: 'center' }}>{message}</div>}
 
-                <form onSubmit={handleSubmit}>
+                <form data-cy="form-reset-password" onSubmit={handleSubmit}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t('auth.new_password', { defaultValue: 'New Password' })}
@@ -102,7 +102,7 @@ export default function ResetPassword() {
                                 required
                                 minLength={8}
                             />
-                            <button
+                            <button data-cy="btn-reset-password-0"
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6b7280', padding: '4px' }}
@@ -126,7 +126,7 @@ export default function ResetPassword() {
                                 required
                                 minLength={8}
                             />
-                            <button
+                            <button data-cy="btn-reset-password-1"
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6b7280', padding: '4px' }}

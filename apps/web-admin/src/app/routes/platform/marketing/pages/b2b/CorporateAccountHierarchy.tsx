@@ -135,7 +135,7 @@ export const CorporateAccountHierarchy: React.FC = () => {
                         <Network size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Corporate Account Hierarchy</h3>
+                        <h3 data-cy="h3-corporate-account-hierarchy-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Corporate Account Hierarchy</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Map independent clinics to their parent conglomerate to enforce Master Service Agreements.</p>
                     </div>
                 </div>

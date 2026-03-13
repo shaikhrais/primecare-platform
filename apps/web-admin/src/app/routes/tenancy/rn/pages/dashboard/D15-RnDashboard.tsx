@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D15 · RN Dashboard
+// PAGE IDENTITY: D15 ï¿½ RN Dashboard
 // Type: Dashboard | Owner: rn
 // ================================================================
 import React, { useState } from 'react';
@@ -26,13 +26,13 @@ export const Dashboard: React.FC = () => {
                     <User size={24} color="#475569" />
                 </div>
                 <div>
-                    <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>Beatrice Morrison</h2>
+                    <h2 data-cy="h2-rn.rn-dashboard-0" style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>Beatrice Morrison</h2>
                     <div style={{ color: '#64748B', fontSize: '0.85rem', fontWeight: 600 }}>DOB: 1942-08-15 (84F)</div>
                 </div>
             </div>
 
             <div>
-                <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <h3 data-cy="h3-rn.rn-dashboard-0" style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <Activity size={14} /> Vital Trends
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -43,7 +43,7 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div>
-                <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <h3 data-cy="h3-rn.rn-dashboard-1" style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <AlertTriangle size={14} /> Active Alerts
                 </h3>
                 <div style={{ backgroundColor: '#FEF2F2', borderLeft: '4px solid #EF4444', padding: '12px', borderRadius: '0 8px 8px 0', fontSize: '0.85rem' }}>
@@ -53,7 +53,7 @@ export const Dashboard: React.FC = () => {
             </div>
 
             <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <h3 data-cy="h3-rn.rn-dashboard-2" style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#94A3B8', letterSpacing: '1px', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <Pill size={14} /> Current Meds
                 </h3>
                 <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '0.85rem', color: '#334155', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -74,13 +74,13 @@ export const Dashboard: React.FC = () => {
                 </div>
                 {activeAssessment && (
                     <div style={{ display: 'flex', gap: '12px' }}>
-                        <button 
+                        <button data-cy="btn-rn.rn-dashboard-0" 
                             onClick={() => setShowScribe(true)}
                             style={{ backgroundColor: '#EEF2FF', color: '#4F46E5', border: '1px solid #C7D2FE', padding: '10px 16px', borderRadius: '8px', cursor: 'pointer', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}
                         >
                             <Wand2 size={18} /> Auto-Scribe SOAPIER
                         </button>
-                        <button 
+                        <button data-cy="btn-rn.rn-dashboard-1" 
                             onClick={() => setShowPad(true)}
                             style={{ backgroundColor: '#10B981', color: 'white', border: 'none', padding: '10px 16px', borderRadius: '8px', cursor: 'pointer', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.3)' }}
                         >

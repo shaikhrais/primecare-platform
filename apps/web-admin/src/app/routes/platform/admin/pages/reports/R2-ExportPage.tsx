@@ -63,7 +63,7 @@ const ExportPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                     <section className="space-y-4">
-                        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Select Collection</h2>
+                        <h2 data-cy="h2-admin.export-page-0" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Select Collection</h2>
                         <div className="grid grid-cols-2 gap-3">
                             <ExportOption
                                 selected={exportType === 'users'}
@@ -93,22 +93,22 @@ const ExportPage: React.FC = () => {
                     </section>
 
                     <section className="space-y-4">
-                        <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Export Format</h2>
+                        <h2 data-cy="h2-admin.export-page-1" className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Export Format</h2>
                         <div className="flex gap-4">
                             <label className={`flex-1 flex items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${format === 'csv' ? 'border-primary bg-primary/5' : 'border-transparent bg-secondary'}`}>
-                                <input type="radio" value="csv" checked={format === 'csv'} onChange={() => setFormat('csv')} className="hidden" />
+                                <input data-cy="input-admin.export-page-0" type="radio" value="csv" checked={format === 'csv'} onChange={() => setFormat('csv')} className="hidden" />
                                 <span className="text-xl">📄</span>
                                 <span className="font-medium">CSV (Excel)</span>
                             </label>
                             <label className={`flex-1 flex items-center justify-center gap-2 p-4 rounded-xl border-2 cursor-pointer transition-all ${format === 'pdf' ? 'border-primary bg-primary/5' : 'border-transparent bg-secondary'}`}>
-                                <input type="radio" value="pdf" checked={format === 'pdf'} onChange={() => setFormat('pdf')} className="hidden" />
+                                <input data-cy="input-admin.export-page-1" type="radio" value="pdf" checked={format === 'pdf'} onChange={() => setFormat('pdf')} className="hidden" />
                                 <span className="text-xl">📕</span>
                                 <span className="font-medium">PDF Document</span>
                             </label>
                         </div>
                     </section>
 
-                    <button
+                    <button data-cy="btn-admin.export-page-0"
                         onClick={handleExport}
                         disabled={exporting}
                         className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -133,7 +133,7 @@ const ExportPage: React.FC = () => {
                 </div>
 
                 <div className="bg-card border rounded-2xl p-6 space-y-4 hidden md:block">
-                    <h3 className="font-semibold text-lg">Export Summary</h3>
+                    <h3 data-cy="h3-admin.export-page-0" className="font-semibold text-lg">Export Summary</h3>
                     <div className="space-y-4 text-sm">
                         <div className="flex justify-between border-b pb-2">
                             <span className="text-muted-foreground">Target Collection</span>

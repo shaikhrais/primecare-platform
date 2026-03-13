@@ -62,11 +62,11 @@ export const DirectDispatchChat: React.FC<DirectDispatchChatProps> = ({ isOpen, 
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <div style={{ width: '10px', height: '10px', backgroundColor: '#10B981', borderRadius: '50%' }} />
-                    <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>Active Dispatch</h3>
+                    <h3 data-cy="h3-psw.direct-dispatch-chat-0" style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>Active Dispatch</h3>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: 0 }}><Phone size={18} /></button>
-                    <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: 0 }}><X size={18} /></button>
+                    <button data-cy="btn-psw.direct-dispatch-chat-0" style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: 0 }}><Phone size={18} /></button>
+                    <button data-cy="btn-psw.direct-dispatch-chat-1" onClick={onClose} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: 0 }}><X size={18} /></button>
                 </div>
             </div>
 
@@ -98,7 +98,7 @@ export const DirectDispatchChat: React.FC<DirectDispatchChatProps> = ({ isOpen, 
 
             {/* Input Area */}
             <div style={{ padding: '12px', backgroundColor: 'white', borderTop: '1px solid #E2E8F0', display: 'flex', gap: '8px' }}>
-                <input
+                <input data-cy="input-psw.direct-dispatch-chat-0"
                     type="text"
                     value={inputValue}
                     onChange={e => setInputValue(e.target.value)}
@@ -113,7 +113,7 @@ export const DirectDispatchChat: React.FC<DirectDispatchChatProps> = ({ isOpen, 
                         fontSize: '0.9rem'
                     }}
                 />
-                <button
+                <button data-cy="btn-psw.direct-dispatch-chat-2"
                     onClick={handleSend}
                     style={{
                         backgroundColor: '#3B82F6',

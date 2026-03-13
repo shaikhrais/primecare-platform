@@ -95,9 +95,9 @@ export default function WizardHub() {
                         }}>
                             {w.icon}
                         </div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.75rem', color: '#111827' }}>{w.title}</h2>
+                        <h2 data-cy="h2-admin.wizard-hub-0" style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.75rem', color: '#111827' }}>{w.title}</h2>
                         <p style={{ color: '#6b7280', marginBottom: '2rem', flex: 1 }}>{w.desc}</p>
-                        <button
+                        <button data-cy="btn-admin.wizard-hub-0"
                             onClick={() => navigate(w.route)}
                             style={{
                                 width: '100%',

@@ -29,7 +29,7 @@ export default function FlagLanguageSwitcher() {
     return (
         <div data-cy="page.container" ref={ref} style={{ position: 'relative' }}>
             {/* Trigger Button */}
-            <button
+            <button data-cy="btn-shared.flag-language-switcher-0"
                 onClick={() => setOpen(!open)}
                 aria-label="Change language"
                 aria-expanded={open}
@@ -74,7 +74,7 @@ export default function FlagLanguageSwitcher() {
                 }}>
                     <div style={{ padding: '6px' }}>
                         {LANGUAGES.map(lang => (
-                            <button
+                            <button data-cy="btn-shared.flag-language-switcher-1"
                                 key={lang.code}
                                 onClick={() => handleSelect(lang.code)}
                                 style={{

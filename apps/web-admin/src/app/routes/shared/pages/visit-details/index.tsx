@@ -48,13 +48,13 @@ export default function VisitDetails() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Client Information</h3>
+                    <h3 data-cy="h3-shared.index-0" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Client Information</h3>
                     <p><strong>Name:</strong> {visit.client.fullName}</p>
                     <p><strong>Address:</strong> {visit.client.addressLine1}</p>
                 </div>
 
                 <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Service Provider Information</h3>
+                    <h3 data-cy="h3-shared.index-1" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Service Provider Information</h3>
                     {visit.psw ? (
                         <>
                             <p><strong>Name:</strong> {visit.psw.fullName}</p>
@@ -66,7 +66,7 @@ export default function VisitDetails() {
                 </div>
 
                 <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: 'span 2' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Operational Details</h3>
+                    <h3 data-cy="h3-shared.index-2" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Operational Details</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                         <div>
                             <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Status</span>
@@ -84,7 +84,7 @@ export default function VisitDetails() {
                 </div>
 
                 <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: 'span 2' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Logs & Notes</h3>
+                    <h3 data-cy="h3-shared.index-3" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Logs & Notes</h3>
                     <div style={{ borderLeft: '2px solid #e5e7eb', paddingLeft: '1.5rem', marginLeft: '0.5rem' }}>
                         <div style={{ marginBottom: '1rem' }}>
                             <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>Request Logged</span>

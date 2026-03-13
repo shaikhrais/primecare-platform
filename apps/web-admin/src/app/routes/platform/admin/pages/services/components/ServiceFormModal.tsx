@@ -66,7 +66,7 @@ export function ServiceFormModal({
                 </div>
             )}
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }} data-cy="modal.service.container">
-                <h3 style={{ marginTop: 0 }}>{currentService.id ? t(ContentRegistry.SERVICES.FORM.TITLE_EDIT) : t(ContentRegistry.SERVICES.FORM.TITLE_CREATE)}</h3>
+                <h3 data-cy="h3-admin.service-form-modal-0" style={{ marginTop: 0 }}>{currentService.id ? t(ContentRegistry.SERVICES.FORM.TITLE_EDIT) : t(ContentRegistry.SERVICES.FORM.TITLE_CREATE)}</h3>
                 <div style={{ display: 'grid', gap: '1rem', marginTop: '1.5rem' }}>
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.SERVICES.FORM.NAME_LABEL)}</label>

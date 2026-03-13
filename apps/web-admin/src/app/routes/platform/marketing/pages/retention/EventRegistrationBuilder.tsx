@@ -25,7 +25,7 @@ export const EventRegistrationBuilder: React.FC = () => {
                         <Calendar size={28} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Community Event Landing Page Builder</h3>
+                        <h3 data-cy="h3-event-registration-builder-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Community Event Landing Page Builder</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Instantly launch RSVP pages for local events without waiting 3 weeks for an IT support ticket.</p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export const EventRegistrationBuilder: React.FC = () => {
                     
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Event Name</label>
-                        <input 
+                        <input data-cy="input-event-registration-builder-0" 
                             type="text" 
                             value={eventName}
                             onChange={(e) => setEventName(e.target.value)}
@@ -48,7 +48,7 @@ export const EventRegistrationBuilder: React.FC = () => {
                     <div style={{ display: 'flex', gap: '16px' }}>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Date & Time</label>
-                            <input 
+                            <input data-cy="input-event-registration-builder-1" 
                                 type="datetime-local" 
                                 value={eventDate}
                                 onChange={(e) => setEventDate(e.target.value)}
@@ -57,7 +57,7 @@ export const EventRegistrationBuilder: React.FC = () => {
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Max Capacity (Cutoff)</label>
-                            <input 
+                            <input data-cy="input-event-registration-builder-2" 
                                 type="number" 
                                 value={capacity}
                                 onChange={(e) => setCapacity(e.target.value)}
@@ -68,7 +68,7 @@ export const EventRegistrationBuilder: React.FC = () => {
 
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Location / Venue</label>
-                        <input 
+                        <input data-cy="input-event-registration-builder-3" 
                             type="text" 
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
@@ -78,14 +78,14 @@ export const EventRegistrationBuilder: React.FC = () => {
                     
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Value Proposition (Why should families attend?)</label>
-                        <textarea 
+                        <textarea data-cy="textarea-event-registration-builder" 
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', resize: 'vertical', minHeight: '100px', fontSize: '0.95rem', boxSizing: 'border-box' }}
                         />
                     </div>
 
-                    <button style={{ padding: '16px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.05rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                    <button data-cy="btn-event-registration-builder-0" style={{ padding: '16px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.05rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                         <Globe size={20} /> PUBLISH LANDING PAGE TO LIVE SITE
                     </button>
                 </div>
@@ -100,7 +100,7 @@ export const EventRegistrationBuilder: React.FC = () => {
                         <div style={{ backgroundColor: 'white', border: '1px dashed #CBD5E1', borderRadius: '8px', padding: '12px', color: '#0F172A', wordBreak: 'break-all', fontFamily: 'monospace', fontSize: '0.9rem', marginBottom: '8px' }}>
                             {previewUrl}
                         </div>
-                        <button 
+                        <button data-cy="btn-event-registration-builder-1" 
                             onClick={handleCopy}
                             style={{ width: '100%', padding: '10px', backgroundColor: copied ? '#10B981' : '#E2E8F0', color: copied ? 'white' : '#334155', border: 'none', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
                         >

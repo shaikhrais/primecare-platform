@@ -53,7 +53,7 @@ export default function ServiceReviewsList() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-manager.list" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Date</th>
@@ -85,7 +85,7 @@ export default function ServiceReviewsList() {
                                         </span>
                                     </td>
                                     <td style={{ padding: '1rem' }}>
-                                        <button
+                                        <button data-cy="btn-manager.list-0"
                                             onClick={() => navigate(`/manager/service-reviews/${review.id}`)}
                                             style={{ color: '#004d40', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer' }}
                                         >

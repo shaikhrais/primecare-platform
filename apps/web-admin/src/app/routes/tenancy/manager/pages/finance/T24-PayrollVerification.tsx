@@ -39,10 +39,10 @@ export default function PayrollVerification() {
                     <p className="text-muted-foreground font-medium">Audit clinical hours and finalize regional caregiver payouts.</p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="bg-zinc-100 hover:bg-zinc-200 text-zinc-900 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+                    <button data-cy="btn-manager.payroll-verification-0" className="bg-zinc-100 hover:bg-zinc-200 text-zinc-900 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
                         Export Report
                     </button>
-                    <button className="bg-primary text-primary-foreground px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    <button data-cy="btn-manager.payroll-verification-1" className="bg-primary text-primary-foreground px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
                         Finalize Regional Payroll
                     </button>
                 </div>
@@ -63,10 +63,10 @@ export default function PayrollVerification() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 bg-card border-2 border-zinc-100 rounded-[2.5rem] p-8 shadow-sm">
                     <div className="flex justify-between items-center mb-8">
-                        <h3 className="font-black uppercase tracking-widest text-sm text-muted-foreground">Provider Ledger</h3>
+                        <h3 data-cy="h3-manager.payroll-verification-0" className="font-black uppercase tracking-widest text-sm text-muted-foreground">Provider Ledger</h3>
                         <div className="flex gap-2">
                             {['all', 'pending', 'flagged'].map(f => (
-                                <button key={f} className="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-all">
+                                <button data-cy="btn-manager.payroll-verification-2" key={f} className="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-all">
                                     {f}
                                 </button>
                             ))}
@@ -103,7 +103,7 @@ export default function PayrollVerification() {
                                             }`}>
                                             {record.status}
                                         </span>
-                                        <button className="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-zinc-200 hover:border-primary transition-all text-sm opacity-0 group-hover:opacity-100">
+                                        <button data-cy="btn-manager.payroll-verification-3" className="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-zinc-200 hover:border-primary transition-all text-sm opacity-0 group-hover:opacity-100">
                                             ✓
                                         </button>
                                     </div>
@@ -126,7 +126,7 @@ export default function PayrollVerification() {
                         <div className="flex items-center gap-4 mb-8">
                             <div className="bg-primary/20 p-3 rounded-2xl text-xl">📉</div>
                             <div>
-                                <h3 className="font-black uppercase tracking-widest text-xs">Payroll Trends</h3>
+                                <h3 data-cy="h3-manager.payroll-verification-1" className="font-black uppercase tracking-widest text-xs">Payroll Trends</h3>
                                 <p className="text-[10px] font-medium text-white/50">Regional variance analysis</p>
                             </div>
                         </div>
@@ -154,7 +154,7 @@ export default function PayrollVerification() {
                                     Overtime threshold surpassed for 2 providers.
                                 </p>
                             </div>
-                            <button className="w-full bg-white text-zinc-900 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
+                            <button data-cy="btn-manager.payroll-verification-4" className="w-full bg-white text-zinc-900 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
                                 Review Flags
                             </button>
                         </div>

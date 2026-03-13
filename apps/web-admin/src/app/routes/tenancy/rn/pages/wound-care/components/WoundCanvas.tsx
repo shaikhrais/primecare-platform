@@ -117,11 +117,11 @@ export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://im
             <div style={{ backgroundColor: '#F8FAFC', padding: '16px 24px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <ImageIcon size={20} color="#64748B" />
-                    <h2 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Wound Analysis Canvas</h2>
+                    <h2 data-cy="h2-rn.wound-canvas-0" style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Wound Analysis Canvas</h2>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <button 
+                    <button data-cy="btn-rn.wound-canvas-0" 
                         onClick={() => setMode('draw')}
                         style={{ 
                             padding: '8px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', cursor: 'pointer', fontWeight: 700,
@@ -131,7 +131,7 @@ export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://im
                     >
                         Trace Boundary
                     </button>
-                    <button 
+                    <button data-cy="btn-rn.wound-canvas-1" 
                         onClick={() => setMode('pin')}
                         style={{ 
                             padding: '8px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px',
@@ -178,10 +178,10 @@ export const WoundCanvas: React.FC<WoundCanvasProps> = ({ imageUrl = "https://im
                 </div>
                 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={handleClear} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'none', border: 'none', color: '#EF4444', fontWeight: 700, cursor: 'pointer' }}>
+                    <button data-cy="btn-rn.wound-canvas-2" onClick={handleClear} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'none', border: 'none', color: '#EF4444', fontWeight: 700, cursor: 'pointer' }}>
                         <XCircle size={18} /> Clear Markups
                     </button>
-                    <button style={{ backgroundColor: '#10B981', color: 'white', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <button data-cy="btn-rn.wound-canvas-3" style={{ backgroundColor: '#10B981', color: 'white', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <FileCheck size={18} /> Save to Chart
                     </button>
                 </div>

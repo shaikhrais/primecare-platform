@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F9a · User Entry
+// PAGE IDENTITY: F9a ï¿½ User Entry
 // Type: Form | Owner: admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -127,7 +127,7 @@ export default function UserEntryForm() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '2rem', alignItems: 'start' }}>
-                <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
+                <form data-cy="form-admin.f9a-user-entry" onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                         <UserBasicInfo
                             fullName={formData.fullName}
@@ -156,7 +156,7 @@ export default function UserEntryForm() {
                     </div>
 
                     <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem', borderTop: '1px solid #f3f4f6', paddingTop: '1.5rem' }}>
-                        <button
+                        <button data-cy="btn-admin.f9a-user-entry-0"
                             type="button"
                             onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                             style={{ padding: '0.75rem 2rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', fontWeight: 500 }}

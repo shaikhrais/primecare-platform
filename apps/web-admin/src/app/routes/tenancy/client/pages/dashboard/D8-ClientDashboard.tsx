@@ -69,7 +69,7 @@ export default function ClientDashboard() {
                     />
                 ) : (
                     <div style={{ padding: '24px', backgroundColor: '#F8FAFC', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
-                        <h3 style={{ margin: '0 0 8px 0', color: '#64748B' }}>No Upcoming Visits</h3>
+                        <h3 data-cy="h3-client.client-dashboard-0" style={{ margin: '0 0 8px 0', color: '#64748B' }}>No Upcoming Visits</h3>
                         <p style={{ margin: 0, color: '#94A3B8' }}>You have no scheduled visits for today.</p>
                     </div>
                 )}

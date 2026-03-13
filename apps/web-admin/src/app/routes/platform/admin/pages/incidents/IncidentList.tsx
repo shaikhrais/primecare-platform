@@ -112,7 +112,7 @@ export default function IncidentList() {
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', backgroundColor: 'var(--bg-200, #f9fafb)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--border, #e5e7eb)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-100, #374151)' }}>{t('incidents.filter_status', { defaultValue: 'Status:' })}</label>
-                    <select
+                    <select data-cy="select-admin.incident-list-0"
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
                         style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid var(--border, #d1d5db)', fontSize: '0.875rem', backgroundColor: 'var(--bg)' }}
@@ -125,7 +125,7 @@ export default function IncidentList() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <label style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-100, #374151)' }}>{t('incidents.filter_type', { defaultValue: 'Type:' })}</label>
-                    <select
+                    <select data-cy="select-admin.incident-list-1"
                         value={typeFilter}
                         onChange={(e) => setTypeFilter(e.target.value)}
                         style={{ padding: '0.375rem 0.75rem', borderRadius: '0.375rem', border: '1px solid var(--border, #d1d5db)', fontSize: '0.875rem', backgroundColor: 'var(--bg)' }}

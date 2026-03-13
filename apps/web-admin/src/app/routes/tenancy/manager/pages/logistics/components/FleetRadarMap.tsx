@@ -73,7 +73,7 @@ export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = fal
                 </div>
 
                 {!isStandalone && (
-                    <button
+                    <button data-cy="btn-manager.fleet-radar-map-0"
                         onClick={handleTearOff}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', backgroundColor: '#38BDF8', color: '#0F172A', border: 'none', borderRadius: '6px', fontWeight: 800, cursor: 'pointer' }}
                     >

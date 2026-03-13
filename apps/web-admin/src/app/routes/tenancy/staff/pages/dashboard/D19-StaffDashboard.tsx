@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: D19 · Staff Dashboard
+// PAGE IDENTITY: D19 ï¿½ Staff Dashboard
 // Type: Dashboard | Owner: staff
 // ================================================================
 import React, { useEffect, useState } from 'react';
@@ -150,7 +150,7 @@ export default function StaffDashboard() {
                             <h3>{t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_TITLE)}</h3>
                             <p>22 {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_DESC)}</p>
                         </div>
-                        <button className="btn-modern btn-modern-secondary">
+                        <button data-cy="btn-staff.staff-dashboard-0" className="btn-modern btn-modern-secondary">
                             {t(ContentRegistry.STAFF_DASHBOARD.PRIORITIES.TIMESHEETS_BTN)}
                         </button>
                     </div>

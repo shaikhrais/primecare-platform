@@ -40,7 +40,7 @@ export const UmbrellaRoleSwitcher: React.FC<UmbrellaRoleSwitcherProps> = ({
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '8px' }}>
                                 {userGroupRoles.map(role => (
-                                    <button
+                                    <button data-cy="btn-shared.umbrella-role-switcher-0"
                                         key={role}
                                         onClick={() => handleSwitchRole(role)}
                                         disabled={loading || role === activeRole}

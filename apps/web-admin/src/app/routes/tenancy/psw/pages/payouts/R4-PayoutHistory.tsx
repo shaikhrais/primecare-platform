@@ -66,7 +66,7 @@ export default function PayoutHistory() {
                             Transparency into your processed income.
                         </p>
                     </div>
-                    <button
+                    <button data-cy="btn-psw.payout-history-0"
                         onClick={() => navigate(-1)}
                         style={{ padding: '0.75rem 1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', background: 'white', cursor: 'pointer', fontWeight: 600 }}
                     >
@@ -75,7 +75,7 @@ export default function PayoutHistory() {
                 </div>
 
                 <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 1rem' }}>
+                    <table data-cy="table-psw.payout-history" style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 1rem' }}>
                         <thead>
                             <tr style={{ color: '#90a4ae', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '1px' }}>
                                 <th style={{ padding: '0 1rem', textAlign: 'left' }}>Reference</th>

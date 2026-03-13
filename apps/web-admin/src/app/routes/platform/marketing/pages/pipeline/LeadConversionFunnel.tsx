@@ -31,7 +31,7 @@ export const LeadConversionFunnel: React.FC = () => {
                         <ArrowDownToLine size={28} color="#6366F1" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Lead Conversion Funnel (30 Days)</h3>
+                        <h3 data-cy="h3-lead-conversion-funnel-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Lead Conversion Funnel (30 Days)</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.95rem' }}>Visualize exactly where potential clients are dropping out of the sales pipeline.</p>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ export default function DatabaseSchemaAudit() {
             </div>
 
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-database-schema-audit" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#f8fafc', color: '#64748b', fontSize: '0.85rem' }}>
                         <tr>
                             <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.MODEL_NAME)}</th>
@@ -64,7 +64,7 @@ export default function DatabaseSchemaAudit() {
             </div>
 
             <div style={{ marginTop: '2.5rem', padding: '2rem', backgroundColor: '#f1f5f9', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                <h3 style={{ margin: '0 0 1rem 0', color: '#1e293b' }}>🧠 {t(ContentRegistry.SHARED.ARCHITECTURE_INSIGHT)}</h3>
+                <h3 data-cy="h3-database-schema-audit-0" style={{ margin: '0 0 1rem 0', color: '#1e293b' }}>🧠 {t(ContentRegistry.SHARED.ARCHITECTURE_INSIGHT)}</h3>
                 <p style={{ margin: 0, color: '#475569', lineHeight: 1.6, fontSize: '0.95rem' }}>
                     {t(ContentRegistry.SCRUM_MASTER.DATABASE_SCHEMA.INSIGHT)}
                 </p>

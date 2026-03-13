@@ -66,7 +66,7 @@ export const GlobalI18nDictionary: React.FC = () => {
                         <Globe size={24} color="#3B82F6" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Global i18n Dictionary</h3>
+                        <h3 data-cy="h3-global-i18n-dictionary-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Global i18n Dictionary</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Manage and edit application text strings dynamically across localized regions.</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export const GlobalI18nDictionary: React.FC = () => {
             </div>
 
             <div style={{ border: '1px solid #E2E8F0', borderRadius: '8px', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                <table data-cy="table-global-i18n-dictionary" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                     <thead>
                         <tr style={{ backgroundColor: '#F1F5F9', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                             <th style={{ padding: '12px', width: '25%', color: '#475569', fontWeight: 700 }}>Abstract Key</th>

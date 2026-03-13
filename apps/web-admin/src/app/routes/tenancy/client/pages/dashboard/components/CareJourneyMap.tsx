@@ -53,7 +53,7 @@ export const CareJourneyMap: React.FC = () => {
 
     return (
         <section style={{ backgroundColor: '#F8FAFC', borderRadius: '16px', border: '2px solid #E2E8F0', padding: '32px', position: 'relative', overflow: 'hidden' }}>
-            <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0', zIndex: 1, position: 'relative' }}>Your Care Journey</h2>
+            <h2 data-cy="h2-client.care-journey-map-0" style={{ fontSize: '1.75rem', fontWeight: 900, color: '#0F172A', margin: '0 0 8px 0', zIndex: 1, position: 'relative' }}>Your Care Journey</h2>
             <p style={{ fontSize: '1.2rem', color: '#64748B', margin: '0 0 32px 0', zIndex: 1, position: 'relative' }}>Tracking your physical therapy goals.</p>
             
             <div style={{ position: 'relative', height: '420px', width: '100%' }}>

@@ -15,7 +15,7 @@ export default function TeamRoster() {
             </div>
             <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
                 {tabs.map((t, i) => (
-                    <button key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #059669':'1px solid #E2E8F0', background: tab===i?'#05966910':'white', color: tab===i?'#059669':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
+                    <button data-cy="btn-client.team-roster-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #059669':'1px solid #E2E8F0', background: tab===i?'#05966910':'white', color: tab===i?'#059669':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
                 ))}
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>

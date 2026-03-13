@@ -23,7 +23,7 @@ export const DailyEntryContext: React.FC<DailyEntryContextProps> = ({
     const [isCreatingClient, setIsCreatingClient] = useState(false);
     return (
         <div style={{ width: '300px', background: 'var(--bg-elev)', padding: '24px', borderRadius: '16px', border: '1px solid var(--line)' }}>
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '20px' }}>{ContentRegistry.DAILY_ENTRY.LEFT_PANEL_TITLE}</h2>
+            <h2 data-cy="h2-manager.daily-entry-context-0" style={{ fontSize: '1.2rem', marginBottom: '20px' }}>{ContentRegistry.DAILY_ENTRY.LEFT_PANEL_TITLE}</h2>
 
             <div style={{ marginBottom: '20px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>

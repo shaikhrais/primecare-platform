@@ -33,7 +33,7 @@ export const ProductRoadmap: React.FC = () => {
 
     return (
         <div className="sm-card" style={{ padding: '3rem', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white' }}>
-            <h3 style={{ margin: '0 0 2.5rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '1.5rem', fontWeight: 800 }}>
+            <h3 data-cy="h3-product-roadmap-0" style={{ margin: '0 0 2.5rem 0', display: 'flex', alignItems: 'center', gap: '15px', fontSize: '1.5rem', fontWeight: 800 }}>
                 🚀 {t(ContentRegistry.SCRUM_MASTER.ROADMAP.TITLE)}
             </h3>
 

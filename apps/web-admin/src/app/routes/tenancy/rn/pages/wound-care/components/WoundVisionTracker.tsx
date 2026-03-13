@@ -24,11 +24,11 @@ export const WoundVisionTracker: React.FC<TrackerProps> = ({ patientId }) => {
     return (
         <div style={{ padding: '16px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0', marginTop: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <h3 style={{ margin: 0, fontSize: '1rem', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h3 data-cy="h3-rn.wound-vision-tracker-0" style={{ margin: 0, fontSize: '1rem', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Zap size={18} color="#8B5CF6" />
                     AI Vision Analysis
                 </h3>
-                <button 
+                <button data-cy="btn-rn.wound-vision-tracker-0" 
                     onClick={triggerVisionAnalysis}
                     disabled={analyzing}
                     style={{ 

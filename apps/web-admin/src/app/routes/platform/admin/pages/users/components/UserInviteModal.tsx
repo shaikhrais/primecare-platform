@@ -50,7 +50,7 @@ export function UserInviteModal({ isOpen, onClose, onSubmit, submitting }: UserI
                 </div>
             )}
             <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', width: '90%', position: 'relative' }} data-cy="modal.user.invite.container">
-                <h3 style={{ marginTop: 0 }}>{t(ContentRegistry.USERS.MODAL.INVITE_TITLE)}</h3>
+                <h3 data-cy="h3-admin.user-invite-modal-0" style={{ marginTop: 0 }}>{t(ContentRegistry.USERS.MODAL.INVITE_TITLE)}</h3>
                 <div style={{ marginTop: '1.5rem' }}>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>{t(ContentRegistry.AUTH.EMAIL_LABEL)}</label>
                     <input

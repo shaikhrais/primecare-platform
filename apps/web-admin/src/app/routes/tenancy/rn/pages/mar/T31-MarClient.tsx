@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T31 · MAR Client
+// PAGE IDENTITY: T31 ï¿½ MAR Client
 // Type: Tool | Owner: rn
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -146,7 +146,7 @@ export const MarClient: React.FC = () => {
                     }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 200px', gap: '16px', padding: '20px', alignItems: 'center' }}>
                             <div>
-                                <h3 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>{med.name}</h3>
+                                <h3 data-cy="h3-rn.mar-client-0" style={{ margin: '0 0 4px 0', fontSize: '1.2rem', fontWeight: 800, color: '#0F172A' }}>{med.name}</h3>
                                 <div style={{ color: '#64748B', fontSize: '0.9rem', fontWeight: 600 }}>{med.dose} â€¢ {med.route}</div>
                             </div>
                             <div style={{ color: '#334155', fontWeight: 600 }}>{med.frequency}</div>
@@ -161,7 +161,7 @@ export const MarClient: React.FC = () => {
 
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gridColumn: '5 / 6' }}>
                                 {med.status === 'pending' && (
-                                    <button
+                                    <button data-cy="btn-rn.mar-client-0"
                                         onClick={() => handleAdminister(med.id)}
                                         disabled={med.interactionLevel === 'critical' && !acknowledgements[med.id]}
                                         style={{
@@ -188,7 +188,7 @@ export const MarClient: React.FC = () => {
                                 <div style={{ flex: 1 }}>
                                     <div style={{ color: '#991B1B', fontWeight: 800, marginBottom: '8px' }}>{med.interactionMessage}</div>
                                     <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none' }}>
-                                        <input
+                                        <input data-cy="input-rn.mar-client-0"
                                             type="checkbox"
                                             checked={!!acknowledgements[med.id]}
                                             onChange={() => toggleAcknowledge(med.id)}
@@ -205,7 +205,7 @@ export const MarClient: React.FC = () => {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '24px 0', borderTop: '2px solid #E2E8F0' }}>
                 {!isSigning ? (
-                    <button
+                    <button data-cy="btn-rn.mar-client-1"
                         onClick={beginSignOff}
                         style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 24px', backgroundColor: '#3B82F6', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
                     >
@@ -213,7 +213,7 @@ export const MarClient: React.FC = () => {
                     </button>
                 ) : (
                     <div style={{ backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '12px', border: '1px solid #CBD5E1', width: '100%', maxWidth: '500px' }}>
-                        <h3 style={{ margin: '0 0 16px 0', color: '#0F172A', fontWeight: 800 }}>Nurse Electronic Signature</h3>
+                        <h3 data-cy="h3-rn.mar-client-1" style={{ margin: '0 0 16px 0', color: '#0F172A', fontWeight: 800 }}>Nurse Electronic Signature</h3>
                         <SignaturePad
                             width={450}
                             height={150}
@@ -222,7 +222,7 @@ export const MarClient: React.FC = () => {
                         />
                         {signature && (
                             <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-                                <button
+                                <button data-cy="btn-rn.mar-client-2"
                                     onClick={handleFinalSubmit}
                                     style={{ padding: '12px 32px', backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
                                 >

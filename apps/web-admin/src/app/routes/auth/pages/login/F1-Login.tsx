@@ -199,7 +199,7 @@ export default function Login() {
                 {error && <div data-cy="login-error" style={{ marginBottom: '1.1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center', backgroundColor: '#fee2e2', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
 
                 <div style={{ marginBottom: '1.5rem' }}>
-                    <button
+                    <button data-cy="btn-login-0"
                         type="button"
                         onClick={() => setShowBiometric(true)}
                         style={{
@@ -216,7 +216,7 @@ export default function Login() {
                     </div>
                 </div>
 
-                <form onSubmit={handleLogin}>
+                <form data-cy="form-login" onSubmit={handleLogin}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t(ContentRegistry.AUTH.EMAIL_LABEL)}
@@ -257,7 +257,7 @@ export default function Login() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                         <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: '#4B5563' }}>
-                            <input type="checkbox" style={{ accentColor: 'var(--brand-500)', width: '16px', height: '16px' }} />
+                            <input data-cy="input-login-0" type="checkbox" style={{ accentColor: 'var(--brand-500)', width: '16px', height: '16px' }} />
                             {t('auth.remember_me', { defaultValue: 'Remember me' })}
                         </label>
                         <a href="/forgot-password" data-cy="link-forgot-password" style={{ fontSize: '0.875rem', color: 'var(--brand-500)', textDecoration: 'none' }}>
@@ -281,7 +281,7 @@ export default function Login() {
                         <span style={{ position: 'relative', backgroundColor: '#FFFFFF', padding: '0 10px', fontSize: '0.75rem', color: '#6B7280', zIndex: 2 }}>OR</span>
                     </div>
 
-                    <button
+                    <button data-cy="btn-login-1"
                         type="button"
                         onClick={() => window.location.href = `${API_URL}/v1/auth/osm`}
                         data-cy="btn-auth-osm-login"

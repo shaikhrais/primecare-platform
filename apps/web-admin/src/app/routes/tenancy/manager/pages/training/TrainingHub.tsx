@@ -21,7 +21,7 @@ export default function TrainingHub() {
                     <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Training Hub</h1>
                     <p style={{ color: '#6b7280' }}>Manage clinical training modules and staff certifications.</p>
                 </div>
-                <button
+                <button data-cy="btn-manager.training-hub-0"
                     className="btn primary"
                     onClick={async () => { const title = prompt('Enter module title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/training-modules', { title }); if (res.ok) showToast('Module created: ' + title, 'success'); else showToast('Failed to create module', 'error'); } catch { showToast('Network error', 'error'); } }}
                     data-cy="btn-mgr-training-create"
@@ -39,13 +39,13 @@ export default function TrainingHub() {
                             </span>
                             <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>{mod.category}</span>
                         </div>
-                        <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{mod.title}</h3>
+                        <h3 data-cy="h3-manager.training-hub-0" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '0.5rem' }}>{mod.title}</h3>
                         <p style={{ fontSize: '0.875rem', color: '#4b5563', marginBottom: '1.5rem' }}>
                             Active Trainees: <strong>{mod.trainees}</strong>
                         </p>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button className="btn secondary small" style={{ flex: 1 }}>Edit</button>
-                            <button className="btn outline small" style={{ flex: 1 }}>Assign</button>
+                            <button data-cy="btn-manager.training-hub-1" className="btn secondary small" style={{ flex: 1 }}>Edit</button>
+                            <button data-cy="btn-manager.training-hub-2" className="btn outline small" style={{ flex: 1 }}>Assign</button>
                         </div>
                     </div>
                 ))}

@@ -29,7 +29,7 @@ export const AgencyLeaderboard: React.FC = () => {
         <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', marginTop: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                 <Trophy size={20} color="#F59E0B" />
-                <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Toronto Branch Leaderboard</h3>
+                <h3 data-cy="h3-psw.agency-leaderboard-0" style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Toronto Branch Leaderboard</h3>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

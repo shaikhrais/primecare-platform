@@ -74,7 +74,7 @@ export const CalendarExportList: React.FC = () => {
         <section style={{ backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '32px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                 <CalendarIcon color="#8B5CF6" size={28} />
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Sync Care Schedule</h2>
+                <h2 data-cy="h2-calendar-export-list-0" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Sync Care Schedule</h2>
             </div>
             <p style={{ color: '#64748B', marginBottom: '24px', lineHeight: '1.5' }}>
                 Download events directly to your personal Apple, Google, or Outlook calendar to stay up to date on when staff will be at the house.

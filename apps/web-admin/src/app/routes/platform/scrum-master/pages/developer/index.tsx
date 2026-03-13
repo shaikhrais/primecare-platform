@@ -65,7 +65,7 @@ export default function DeveloperPortal() {
                     <div className="pc-card-b">
                         <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '12px', border: '1px dashed #E5E7EB' }}>
                             <span style={{ fontSize: '3rem' }}>📖</span>
-                            <h3 style={{ marginTop: '1rem', fontWeight: '700' }}>Platform API v1.0</h3>
+                            <h3 data-cy="h3-index-0" style={{ marginTop: '1rem', fontWeight: '700' }}>Platform API v1.0</h3>
                             <p style={{ color: '#6B7280', marginBottom: '2rem' }}>Our OpenAPI specification is automatically synced with the backend.</p>
                             <a
                                 href="/doc"

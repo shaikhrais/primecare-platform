@@ -70,7 +70,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                         <div style={{ backgroundColor: '#dbeafe', padding: '10px', borderRadius: '50%', color: '#3b82f6' }}>
                             <Edit3 size={22} />
                         </div>
-                        <h3 id="prompt-modal-title" style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
+                        <h3 data-cy="h3-shared.prompt-modal-0" id="prompt-modal-title" style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
                             {title}
                         </h3>
                     </div>
@@ -87,7 +87,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                     {message}
                 </p>
 
-                <input
+                <input data-cy="input-shared.prompt-modal-0"
                     ref={inputRef}
                     type="text"
                     value={inputValue}

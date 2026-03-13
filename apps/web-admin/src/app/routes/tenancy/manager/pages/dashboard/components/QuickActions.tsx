@@ -25,7 +25,7 @@ export const QuickActions: React.FC = () => {
 
     return (
         <div className="qa-section">
-            <h2 className="section-title">
+            <h2 data-cy="h2-manager.quick-actions-0" className="section-title">
                 {t(ContentRegistry.MANAGER_DASHBOARD.QUICK_ACTIONS)}
             </h2>
             <div className="qa-grid">

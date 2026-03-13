@@ -114,7 +114,7 @@ export default function Register() {
 
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
 
-                <form onSubmit={handleRegister}>
+                <form data-cy="form-register" onSubmit={handleRegister}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t(ContentRegistry.AUTH.EMAIL_LABEL)}
@@ -142,7 +142,7 @@ export default function Register() {
                                 required
                                 minLength={8}
                             />
-                            <button
+                            <button data-cy="btn-register-0"
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }}
@@ -178,7 +178,7 @@ export default function Register() {
                                 required
                                 minLength={8}
                             />
-                            <button
+                            <button data-cy="btn-register-1"
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.1rem', color: '#6B7280', padding: '4px' }}
@@ -190,7 +190,7 @@ export default function Register() {
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '1.5rem' }}>
-                        <input
+                        <input data-cy="input-register-0"
                             type="checkbox"
                             id="terms"
                             checked={termsAccepted}

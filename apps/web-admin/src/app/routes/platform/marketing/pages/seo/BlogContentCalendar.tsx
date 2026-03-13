@@ -39,7 +39,7 @@ export const BlogContentCalendar: React.FC = () => {
                         <Kanban size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>SEO Content Publishing Pipeline</h3>
+                        <h3 data-cy="h3-blog-content-calendar-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>SEO Content Publishing Pipeline</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Kanban board enforcing medical and legal clearances before organic SEO content is pushed live.</p>
                     </div>
                 </div>
@@ -77,10 +77,10 @@ export const BlogContentCalendar: React.FC = () => {
 
                                         {/* Action buttons (simplified for visualization) */}
                                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px', gap: '8px' }}>
-                                            {col.id === 'IDEATION' && <button onClick={() => movePost(post.id, 'DRAFTING')} style={{ background: 'none', border: 'none', color: '#3B82F6', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Draft</button>}
-                                            {col.id === 'DRAFTING' && <button onClick={() => movePost(post.id, 'MEDICAL_REVIEW')} style={{ background: 'none', border: 'none', color: '#F59E0B', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Med Review</button>}
-                                            {col.id === 'MEDICAL_REVIEW' && <button onClick={() => movePost(post.id, 'LEGAL_REVIEW')} style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Leg Review</button>}
-                                            {col.id === 'LEGAL_REVIEW' && <button onClick={() => movePost(post.id, 'PUBLISHED')} style={{ background: 'none', border: 'none', color: '#10B981', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Publish</button>}
+                                            {col.id === 'IDEATION' && <button data-cy="btn-blog-content-calendar-0" onClick={() => movePost(post.id, 'DRAFTING')} style={{ background: 'none', border: 'none', color: '#3B82F6', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Draft</button>}
+                                            {col.id === 'DRAFTING' && <button data-cy="btn-blog-content-calendar-1" onClick={() => movePost(post.id, 'MEDICAL_REVIEW')} style={{ background: 'none', border: 'none', color: '#F59E0B', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Med Review</button>}
+                                            {col.id === 'MEDICAL_REVIEW' && <button data-cy="btn-blog-content-calendar-2" onClick={() => movePost(post.id, 'LEGAL_REVIEW')} style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Leg Review</button>}
+                                            {col.id === 'LEGAL_REVIEW' && <button data-cy="btn-blog-content-calendar-3" onClick={() => movePost(post.id, 'PUBLISHED')} style={{ background: 'none', border: 'none', color: '#10B981', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', fontWeight: 700 }}><ArrowRight size={14}/> Publish</button>}
                                         </div>
                                     </div>
                                 ))}

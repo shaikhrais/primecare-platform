@@ -46,7 +46,7 @@ export const ReviewSentimentAnalyzer: React.FC = () => {
                         <MessageCircleWarning size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Public Sentiment Analyzer</h3>
+                        <h3 data-cy="h3-review-sentiment-analyzer-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Public Sentiment Analyzer</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>NLP-driven dashboard flagging negative reviews containing toxic keywords for immediate damage control.</p>
                     </div>
                 </div>
@@ -108,7 +108,7 @@ export const ReviewSentimentAnalyzer: React.FC = () => {
 
                             <div style={{ width: '160px', paddingLeft: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                 {review.status === 'NEEDS_ATTENTION' ? (
-                                    <button 
+                                    <button data-cy="btn-review-sentiment-analyzer-0" 
                                         onClick={(e) => handleAcknowledge(review.id, e)}
                                         style={{ backgroundColor: '#DC2626', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.85rem', boxShadow: '0 2px 4px rgba(220, 38, 38, 0.2)' }}
                                     >

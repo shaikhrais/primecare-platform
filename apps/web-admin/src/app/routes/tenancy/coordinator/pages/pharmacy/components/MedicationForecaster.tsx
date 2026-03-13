@@ -55,7 +55,7 @@ export const MedicationForecaster: React.FC<ForecasterProps> = ({ patientId }) =
                         </span>
                     </div>
                 </div>
-                <button style={{ backgroundColor: isUrgent ? '#DC2626' : '#F1F5F9', color: isUrgent ? 'white' : '#64748B', border: 'none', padding: '0 16px', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>
+                <button data-cy="btn-coordinator.medication-forecaster-0" style={{ backgroundColor: isUrgent ? '#DC2626' : '#F1F5F9', color: isUrgent ? 'white' : '#64748B', border: 'none', padding: '0 16px', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>
                     Dispatch Pharmacy Refill
                 </button>
             </div>

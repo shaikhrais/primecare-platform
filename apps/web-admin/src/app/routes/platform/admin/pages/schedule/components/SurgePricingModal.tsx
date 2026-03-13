@@ -44,7 +44,7 @@ export const SurgePricingModal: React.FC<SurgePricingModalProps> = ({
                 backgroundColor: 'white', padding: '24px', borderRadius: '12px',
                 width: '100%', maxWidth: '400px', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
             }}>
-                <h2 style={{ margin: '0 0 16px', fontSize: '1.25rem', fontWeight: 600, color: '#111827' }}>
+                <h2 data-cy="h2-admin.surge-pricing-modal-0" style={{ margin: '0 0 16px', fontSize: '1.25rem', fontWeight: 600, color: '#111827' }}>
                     Surge Pricing Configuration
                 </h2>
 

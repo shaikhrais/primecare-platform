@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F12 · Locations
+// PAGE IDENTITY: F12 ï¿½ Locations
 // Type: Form | Owner: admin
 // ================================================================
 import { AdminRegistry } from 'prime-care-shared';
@@ -87,7 +87,7 @@ export default function LocationForm() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', maxWidth: '400px', textAlign: 'center' }}>
-                        <h2 style={{ marginTop: 0 }}>{ContentRegistry.LOCATIONS.FORM.DISCARD_TITLE}</h2>
+                        <h2 data-cy="h2-admin.locations-0" style={{ marginTop: 0 }}>{ContentRegistry.LOCATIONS.FORM.DISCARD_TITLE}</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>{ContentRegistry.LOCATIONS.FORM.DISCARD_DESC}</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Leave</button>
@@ -102,7 +102,7 @@ export default function LocationForm() {
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">{ContentRegistry.LOCATIONS.SUBTITLE}</p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
+            <form data-cy="form-admin.locations" onSubmit={handleSubmit} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', border: '1px solid #e5e7eb' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                     <div style={{ gridColumn: 'span 2' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>{ContentRegistry.LOCATIONS.FORM.NAME}</label>
@@ -155,7 +155,7 @@ export default function LocationForm() {
                 </div>
 
                 <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-admin.locations-0"
                         type="button"
                         onClick={() => isDirty ? setShowGuard(true) : navigate(-1)}
                         data-cy="btn-cancel"

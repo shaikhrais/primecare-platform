@@ -147,7 +147,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                         <Lock size={28} color="#9333EA" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Social Media Credential Vault</h3>
+                        <h3 data-cy="h3-social-media-credential-vault-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Social Media Credential Vault</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Securely manage OAuth 2.0 access tokens to allow backend workers to auto-publish content.</p>
                     </div>
                 </div>
@@ -209,7 +209,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
 
                             <div style={{ flex: '0 0 150px', display: 'flex', justifyContent: 'flex-end' }}>
                                 {(platform.status === 'DISCONNECTED' || platform.status === 'EXPIRED') ? (
-                                    <button 
+                                    <button data-cy="btn-social-media-credential-vault-0" 
                                         onClick={() => handleConnect(platform.id)}
                                         disabled={isConnecting === platform.id}
                                         style={{ backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontSize: '0.9rem', fontWeight: 800, cursor: isConnecting === platform.id ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
@@ -218,7 +218,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
                                         {isExpired ? 'Re-Authenticate' : 'Connect via OAuth'}
                                     </button>
                                 ) : (
-                                    <button 
+                                    <button data-cy="btn-social-media-credential-vault-1" 
                                         onClick={() => handleDisconnect(platform.id)}
                                         style={{ backgroundColor: 'white', color: '#DC2626', border: '1px solid #FECACA', borderRadius: '6px', padding: '10px 16px', fontSize: '0.9rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                                     >

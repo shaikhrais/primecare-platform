@@ -68,7 +68,7 @@ export const BookingsList: React.FC<BookingsListProps> = ({ bookings, loading, o
                                             {booking.status}
                                         </span>
                                         {['requested', 'scheduled'].includes(booking.status.toLowerCase()) && (
-                                            <button
+                                            <button data-cy="btn-client.bookings-list-0"
                                                 onClick={() => onCancel(booking.id)}
                                                 style={{
                                                     padding: '0.25rem 0.75rem',

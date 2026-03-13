@@ -25,12 +25,12 @@ export const SetupBanner: React.FC<SetupBannerProps> = ({ modelScore }) => {
                 boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
             }} data-cy="setup-wizard-banner">
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TITLE)}</h2>
+                    <h2 data-cy="h2-admin.setup-banner-0" style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '0.5rem' }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.TITLE)}</h2>
                     <p style={{ opacity: 0.9 }}>{t(ContentRegistry.ADMIN_DASHBOARD.SETUP_BANNER.SUBTITLE)}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <Link to={RouteRegistry.LEARN}>
-                        <button style={{
+                        <button data-cy="btn-admin.setup-banner-0" style={{
                             padding: '1rem 2rem',
                             background: 'rgba(255,255,255,0.1)',
                             color: 'white',
@@ -43,7 +43,7 @@ export const SetupBanner: React.FC<SetupBannerProps> = ({ modelScore }) => {
                         </button>
                     </Link>
                     <Link to={RouteRegistry.ADMIN.BUSINESS_STATUS}>
-                        <button style={{
+                        <button data-cy="btn-admin.setup-banner-1" style={{
                             padding: '1rem 2rem',
                             background: 'white',
                             color: '#004d40',

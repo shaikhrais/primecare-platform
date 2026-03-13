@@ -145,7 +145,7 @@ export default function AccountingDashboard() {
                     <p style={{ color: '#94a3b8', fontSize: '16px', marginTop: '8px' }}>{strings.SUBTITLE}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={loadData} style={{
+                    <button data-cy="btn-admin.accounting-dashboard-0" onClick={loadData} style={{
                         background: 'rgba(255,255,255,0.05)',
                         border: '1px solid rgba(255,255,255,0.1)',
                         color: '#fff',
@@ -155,7 +155,7 @@ export default function AccountingDashboard() {
                         fontWeight: '600',
                         backdropFilter: 'blur(10px)'
                     }}>{strings.REFRESH}</button>
-                    <button style={{
+                    <button data-cy="btn-admin.accounting-dashboard-1" style={{
                         background: 'linear-gradient(to right, #3b82f6, #2563eb)',
                         border: 'none',
                         color: '#fff',
@@ -189,7 +189,7 @@ export default function AccountingDashboard() {
                             </div>
                         </div>
                     </div>
-                    <button
+                    <button data-cy="btn-admin.accounting-dashboard-2"
                         onClick={handleAutoReconcile}
                         style={{
                             background: '#fff',
@@ -228,7 +228,7 @@ export default function AccountingDashboard() {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#34d399' }}></div>
-                        <h2 style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Trading Account</h2>
+                        <h2 data-cy="h2-admin.accounting-dashboard-0" style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Trading Account</h2>
                     </div>
                     <div style={{ marginBottom: '32px' }}>
                         <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>Gross Profit</div>
@@ -260,7 +260,7 @@ export default function AccountingDashboard() {
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#60a5fa' }}></div>
-                        <h2 style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Profit & Loss</h2>
+                        <h2 data-cy="h2-admin.accounting-dashboard-1" style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Profit & Loss</h2>
                     </div>
                     <div style={{ marginBottom: '32px' }}>
                         <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600' }}>Net Income</div>
@@ -294,7 +294,7 @@ export default function AccountingDashboard() {
                 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                         <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#a855f7' }}></div>
-                        <h2 style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Balance Sheet</h2>
+                        <h2 data-cy="h2-admin.accounting-dashboard-2" style={{ fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94a3b8' }}>Balance Sheet</h2>
                     </div>
                     <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '24px', padding: '0 20px' }}>
                         <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
@@ -331,10 +331,10 @@ export default function AccountingDashboard() {
                     border: '1px solid rgba(255,255,255,0.05)',
                     backdropFilter: 'blur(20px)'
                 }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px', color: '#f8fafc' }}>Expenditure Intelligence</h2>
+                    <h2 data-cy="h2-admin.accounting-dashboard-3" style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px', color: '#f8fafc' }}>Expenditure Intelligence</h2>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
                         <div>
-                            <h3 style={{ fontSize: '12px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', marginBottom: '16px' }}>Operating Expenses Breakdown</h3>
+                            <h3 data-cy="h3-admin.accounting-dashboard-0" style={{ fontSize: '12px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', marginBottom: '16px' }}>Operating Expenses Breakdown</h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                 {Object.entries(pAndL?.breakdown.indirectExpenses || {}).map(([name, amount], i) => (
                                     <div key={name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -358,7 +358,7 @@ export default function AccountingDashboard() {
                             </span>
                         </div>
                         <div style={{ padding: '24px', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
-                            <h3 style={{ fontSize: '12px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', marginBottom: '16px' }}>Tax Liability Tracking</h3>
+                            <h3 data-cy="h3-admin.accounting-dashboard-1" style={{ fontSize: '12px', fontWeight: '900', color: '#64748b', textTransform: 'uppercase', marginBottom: '16px' }}>Tax Liability Tracking</h3>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                                 <div>
                                     <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '700' }}>SALES TAX PAYABLE (HST/GST)</div>
@@ -387,7 +387,7 @@ export default function AccountingDashboard() {
                     boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
                     color: '#fff'
                 }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px' }}>AI Compliance Guard</h2>
+                    <h2 data-cy="h2-admin.accounting-dashboard-4" style={{ fontSize: '18px', fontWeight: '800', marginBottom: '24px' }}>AI Compliance Guard</h2>
                     <ul style={{ listStyle: 'none', padding: '0', margin: '0', display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         <li style={{ display: 'flex', gap: '16px' }}>
                             <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -436,7 +436,7 @@ export default function AccountingDashboard() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f472b6' }}></div>
-                            <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#f8fafc' }}>AI Projection Hub</h2>
+                            <h2 data-cy="h2-admin.accounting-dashboard-5" style={{ fontSize: '18px', fontWeight: '800', color: '#f8fafc' }}>AI Projection Hub</h2>
                         </div>
                         <div style={{ display: 'flex', gap: '24px' }}>
                             <div style={{ textAlign: 'right' }}>

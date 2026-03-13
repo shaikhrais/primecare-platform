@@ -30,7 +30,7 @@ export const SalesTerritoryMap: React.FC = () => {
                         <Map size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Sales Territory Alignment</h3>
+                        <h3 data-cy="h3-sales-territory-map-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Sales Territory Alignment</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Prevent internal cannibalization by assigning explicit ZIP codes and hospital networks.</p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ export const SalesTerritoryMap: React.FC = () => {
                                 ))}
                             </div>
                             
-                            <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '12px', fontWeight: 600, cursor: 'pointer', marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                            <button data-cy="btn-sales-territory-map-0" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '8px', padding: '12px', fontWeight: 600, cursor: 'pointer', marginTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                                 Reassign Territory Boundaries
                             </button>
                         </>

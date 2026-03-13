@@ -20,11 +20,11 @@ export const BrandingStep: React.FC<BrandingStepProps> = ({
 }) => {
     return (
         <div style={{ animation: 'fadeIn 0.3s' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.STEPS.BRANDING}</h2>
+            <h2 data-cy="h2-admin.branding-step-0" style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.STEPS.BRANDING}</h2>
             <div style={{ display: 'grid', gap: '1.5rem' }}>
                 <div>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.BRANDING.EMAIL_LABEL}</label>
-                    <input
+                    <input data-cy="input-admin.branding-step-0"
                         type="email"
                         placeholder={ContentRegistry.STRATEGY_WIZARD.BRANDING.EMAIL_PLACEHOLDER}
                         value={config.supportEmail}
@@ -33,7 +33,7 @@ export const BrandingStep: React.FC<BrandingStepProps> = ({
                     />
                 </div>
                 <div style={{ border: '2px dashed #e5e7eb', padding: '2rem', textAlign: 'center', borderRadius: '1rem', position: 'relative' }}>
-                    <input
+                    <input data-cy="input-admin.branding-step-1"
                         type="file"
                         ref={fileInputRef}
                         style={{ display: 'none' }}
@@ -45,7 +45,7 @@ export const BrandingStep: React.FC<BrandingStepProps> = ({
                             <div style={{ width: '64px', height: '64px', background: '#f3f4f6', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                                 <img src={config.logoUrl} alt="Logo Preview" style={{ maxWidth: '100%', maxHeight: '100%' }} />
                             </div>
-                            <button
+                            <button data-cy="btn-admin.branding-step-0"
                                 onClick={() => fileInputRef.current?.click()}
                                 style={{ color: '#4f46e5', fontWeight: 'bold', background: 'none', border: 'none', cursor: 'pointer' }}
                             >
@@ -55,7 +55,7 @@ export const BrandingStep: React.FC<BrandingStepProps> = ({
                     ) : (
                         <>
                             <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{uploading ? '⌛' : '🖼️'}</div>
-                            <button
+                            <button data-cy="btn-admin.branding-step-1"
                                 onClick={() => fileInputRef.current?.click()}
                                 disabled={uploading}
                                 style={{ color: '#4f46e5', fontWeight: 'bold', background: 'none', border: 'none', cursor: 'pointer' }}

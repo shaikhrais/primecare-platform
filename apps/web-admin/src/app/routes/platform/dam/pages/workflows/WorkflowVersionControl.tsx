@@ -47,7 +47,7 @@ export const WorkflowVersionControl: React.FC = () => {
                         <History size={24} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Workflow Version Control</h3>
+                        <h3 data-cy="h3-workflow-version-control-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Workflow Version Control</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Track and rollback changes made inside your visual logic trees.</p>
                     </div>
                 </div>

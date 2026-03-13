@@ -52,7 +52,7 @@ const AutoPilotDashboard: React.FC = () => {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                 <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E5E7EB' }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>⚙️ Shift Matchmaking Engine</h2>
+                    <h2 data-cy="h2-admin.auto-pilot-0" style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>⚙️ Shift Matchmaking Engine</h2>
                     <p style={{ color: '#4B5563', fontSize: '14px', marginBottom: '24px' }}>
                         Autonomous staffing engine scans all upcoming visits and dispatches offers based on skill mapping and geofencing.
                     </p>
@@ -83,7 +83,7 @@ const AutoPilotDashboard: React.FC = () => {
                 </div>
 
                 <div style={{ backgroundColor: '#111827', borderRadius: '12px', padding: '24px', color: 'white' }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>💸 Instant Settlements</h2>
+                    <h2 data-cy="h2-admin.auto-pilot-1" style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>💸 Instant Settlements</h2>
                     <p style={{ opacity: 0.8, fontSize: '14px', marginBottom: '24px' }}>
                         Platform Treasury status for immediate provider payouts upon visit completion.
                     </p>

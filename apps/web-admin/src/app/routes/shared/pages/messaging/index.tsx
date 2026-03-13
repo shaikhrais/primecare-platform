@@ -111,7 +111,7 @@ export default function MessagingPortal() {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSend} style={{ padding: '1.25rem', borderTop: '1px solid #e5e7eb', display: 'flex', gap: '0.75rem' }}>
+            <form data-cy="form-shared.index" onSubmit={handleSend} style={{ padding: '1.25rem', borderTop: '1px solid #e5e7eb', display: 'flex', gap: '0.75rem' }}>
                 <input
                     data-cy="inp-message"
                     type="text"

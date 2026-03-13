@@ -101,7 +101,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onSave, onCa
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
                 <Pen size={24} color="#3B82F6" />
-                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>Provider Signature Required</h3>
+                <h3 data-cy="h3-rn.signature-pad-0" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>Provider Signature Required</h3>
             </div>
             
             <p style={{ color: '#64748B', marginBottom: '24px', fontSize: '0.9rem' }}>
@@ -132,7 +132,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onSave, onCa
 
             {/* Actions */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '24px' }}>
-                <button 
+                <button data-cy="btn-rn.signature-pad-0" 
                     onClick={clearSignature}
                     style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '8px', color: '#64748B', fontWeight: 700, cursor: 'pointer', padding: '8px 16px', borderRadius: '8px', transition: 'background-color 0.2s' }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F1F5F9'}
@@ -142,10 +142,10 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onSign, onSave, onCa
                 </button>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button onClick={onCancel} style={{ background: 'none', border: '1px solid #CBD5E1', color: '#64748B', fontWeight: 800, padding: '12px 24px', borderRadius: '8px', cursor: 'pointer' }}>
+                    <button data-cy="btn-rn.signature-pad-1" onClick={onCancel} style={{ background: 'none', border: '1px solid #CBD5E1', color: '#64748B', fontWeight: 800, padding: '12px 24px', borderRadius: '8px', cursor: 'pointer' }}>
                         Cancel
                     </button>
-                    <button 
+                    <button data-cy="btn-rn.signature-pad-2" 
                         onClick={handleConfirm}
                         disabled={!hasSigned}
                         style={{ backgroundColor: hasSigned ? '#10B981' : '#E2E8F0', color: hasSigned ? 'white' : '#94A3B8', border: 'none', fontWeight: 800, padding: '12px 24px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px', cursor: hasSigned ? 'pointer' : 'default', transition: 'background-color 0.2s' }}

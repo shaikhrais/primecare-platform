@@ -82,7 +82,7 @@ export default function NotificationHub() {
                         <div style={{ padding: '16px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span style={{ fontWeight: 700, fontSize: '1.1rem', color: '#111827' }}>Notifications</span>
                             {unreadCount > 0 && (
-                                <button
+                                <button data-cy="btn-shared.notification-hub-0"
                                     onClick={markAllAsRead}
                                     style={{ fontSize: '0.75rem', color: '#00875A', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}
                                 >
@@ -138,7 +138,7 @@ export default function NotificationHub() {
                             )}
                         </div>
                         <div style={{ padding: '12px', textAlign: 'center', borderTop: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-                            <button style={{ fontSize: '0.85rem', color: '#6B7280', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>
+                            <button data-cy="btn-shared.notification-hub-1" style={{ fontSize: '0.85rem', color: '#6B7280', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500 }}>
                                 View All History
                             </button>
                         </div>

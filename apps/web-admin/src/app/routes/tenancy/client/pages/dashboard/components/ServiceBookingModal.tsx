@@ -66,7 +66,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(8px)' }} data-cy="modal-service-booking">
             <form onSubmit={handleSubmitRequest} className="pc-card" style={{ padding: '2.5rem', maxWidth: '500px', width: '90%', border: '1px solid var(--brand-500)' }} data-cy="form-service-booking">
-                <h3 className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE)}</h3>
+                <h3 data-cy="h3-client.service-booking-modal-0" className="pc-card-h" style={{ padding: 0, marginBottom: '0.5rem', color: 'var(--brand-500)' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_TITLE)}</h3>
                 <p style={{ color: 'var(--text-300)', marginBottom: '2rem' }}>{t(ContentRegistry.CLIENT_DASHBOARD.MODAL_SUBTITLE)}</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                     <div>
@@ -93,7 +93,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                                 }}
                             />
                         ) : (
-                            <select
+                            <select data-cy="select-client.service-booking-modal-0"
                                 value={newRequest.serviceId}
                                 onChange={(e) => setNewRequest({ ...newRequest, serviceId: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
@@ -109,7 +109,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Preferred Date & Time</label>
-                        <input
+                        <input data-cy="input-client.service-booking-modal-0"
                             type="datetime-local"
                             value={newRequest.requestedStartAt ? new Date(new Date(newRequest.requestedStartAt).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''}
                             onChange={(e) => setNewRequest({ ...newRequest, requestedStartAt: new Date(e.target.value).toISOString() })}
@@ -120,7 +120,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                     </div>
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Duration (Minutes)</label>
-                        <select
+                        <select data-cy="select-client.service-booking-modal-1"
                             value={newRequest.durationMinutes}
                             onChange={(e) => setNewRequest({ ...newRequest, durationMinutes: parseInt(e.target.value) })}
                             style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}
@@ -148,7 +148,7 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-200)' }}>Recurrence</label>
-                            <select
+                            <select data-cy="select-client.service-booking-modal-2"
                                 value={newRequest.recurrence}
                                 onChange={(e) => setNewRequest({ ...newRequest, recurrence: e.target.value })}
                                 style={{ width: '100%', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--card-border)', backgroundColor: 'rgba(255,255,255,0.05)', color: 'white' }}

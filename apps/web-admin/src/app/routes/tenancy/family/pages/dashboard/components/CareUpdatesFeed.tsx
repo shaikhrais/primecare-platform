@@ -48,7 +48,7 @@ export const CareUpdatesFeed: React.FC = () => {
 
     return (
         <section style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', maxHeight: '800px', overflowY: 'auto' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0, position: 'sticky', top: '-24px', backgroundColor: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', padding: '24px 0', borderBottom: '1px solid #F1F5F9', zIndex: 10 }}>Care Feed</h2>
+            <h2 data-cy="h2-care-updates-feed-0" style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0F172A', margin: 0, position: 'sticky', top: '-24px', backgroundColor: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)', padding: '24px 0', borderBottom: '1px solid #F1F5F9', zIndex: 10 }}>Care Feed</h2>
             
             {posts.map(post => (
                 <article key={post.id} style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -100,7 +100,7 @@ export const CareUpdatesFeed: React.FC = () => {
 
                     {/* Action Bar ( social engagement) */}
                     <div style={{ display: 'flex', gap: '16px', color: '#94A3B8' }}>
-                        <button style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: 'inherit', fontWeight: 700 }} title="Acknowledge">
+                        <button data-cy="btn-care-updates-feed-0" style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', color: 'inherit', fontWeight: 700 }} title="Acknowledge">
                             <Heart size={18} /> Acknowledge
                         </button>
                     </div>

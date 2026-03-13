@@ -22,25 +22,25 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onPostShift }) => {
             <div className="pc-card-b">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
                     <Link to={RouteRegistry.ADMIN.USERS} style={{ textDecoration: 'none' }} data-cy="qa-link-users">
-                        <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
+                        <button data-cy="btn-admin.quick-actions-0" className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                             <div style={{ color: 'var(--brand-500)' }}>{AdminRegistry.LinkRegistry.find((l: any) => l.path === RouteRegistry.ADMIN.USERS)?.label || t(ContentRegistry.USERS.TITLE)}</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.CHECK_CERTS)}</div>
                         </button>
                     </Link>
                     <Link to={RouteRegistry.ADMIN.SCHEDULE} style={{ textDecoration: 'none' }} data-cy="qa-link-schedule">
-                        <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
+                        <button data-cy="btn-admin.quick-actions-1" className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                             <div style={{ color: 'var(--brand-500)' }}>{AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-adm-schedule-optimize')?.label || t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.VIEW_SCHEDULE)}</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.MANAGE_ASSIGNMENTS)}</div>
                         </button>
                     </Link>
                     <Link to={RouteRegistry.ADMIN.LEADS} style={{ textDecoration: 'none' }} data-cy="qa-link-leads">
-                        <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
+                        <button data-cy="btn-admin.quick-actions-2" className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                             <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.REVIEW_LEADS)}</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.RESPOND_INQUIRIES)}</div>
                         </button>
                     </Link>
                     <Link to={RouteRegistry.ADMIN.SETTINGS} style={{ textDecoration: 'none' }} data-cy="qa-link-settings">
-                        <button className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
+                        <button data-cy="btn-admin.quick-actions-3" className="btn" style={{ width: '100%', textAlign: 'left', background: '#F9FAFB' }}>
                             <div style={{ color: 'var(--brand-500)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.SYSTEM_CONFIG)}</div>
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-300)' }}>{t(ContentRegistry.ADMIN_DASHBOARD.ACTIONS.APP_ADJUSTS)}</div>
                         </button>

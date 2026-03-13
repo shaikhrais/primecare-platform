@@ -53,12 +53,12 @@ export default function RevenueWizard() {
 
             <div style={{ display: 'grid', gap: '2rem' }}>
                 <div style={{ background: '#f9fafb', padding: '2rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb' }}>
-                    <h2 style={{ fontSize: '1.125rem', fontWeight: '800', marginBottom: '1.5rem', color: '#374151' }}>{t(ContentRegistry.REVENUE_WIZARD.ECONOMICS_TITLE)}</h2>
+                    <h2 data-cy="h2-admin.revenue-wizard-0" style={{ fontSize: '1.125rem', fontWeight: '800', marginBottom: '1.5rem', color: '#374151' }}>{t(ContentRegistry.REVENUE_WIZARD.ECONOMICS_TITLE)}</h2>
                     <div style={{ marginBottom: '1.5rem' }}>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.REVENUE_WIZARD.RATE_LABEL)}</label>
                         <div style={{ position: 'relative' }}>
                             <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', fontWeight: 'bold' }}>$</span>
-                            <input
+                            <input data-cy="input-admin.revenue-wizard-0"
                                 type="number"
                                 value={formData.hourlyRate}
                                 onChange={e => setFormData({ ...formData, hourlyRate: Number(e.target.value) })}
@@ -70,7 +70,7 @@ export default function RevenueWizard() {
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '700', marginBottom: '0.5rem' }}>{t(ContentRegistry.REVENUE_WIZARD.CYCLE_LABEL)}</label>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                             {['weekly', 'bi-weekly', 'monthly'].map(cycle => (
-                                <button
+                                <button data-cy="btn-admin.revenue-wizard-0"
                                     key={cycle}
                                     onClick={() => setFormData({ ...formData, billingCycle: cycle })}
                                     style={{
@@ -95,11 +95,11 @@ export default function RevenueWizard() {
 
                 <div style={{ background: '#f0fdf4', padding: '2rem', borderRadius: '1.5rem', border: '1px solid #dcfce7', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                        <h3 style={{ fontWeight: '800', color: '#166534' }}>{t(ContentRegistry.REVENUE_WIZARD.TAX_TITLE)}</h3>
+                        <h3 data-cy="h3-admin.revenue-wizard-0" style={{ fontWeight: '800', color: '#166534' }}>{t(ContentRegistry.REVENUE_WIZARD.TAX_TITLE)}</h3>
                         <p style={{ fontSize: '0.875rem', color: '#166534' }}>{t(ContentRegistry.REVENUE_WIZARD.TAX_DESC)}</p>
                     </div>
                     <label style={{ position: 'relative', display: 'inline-block', width: '50px', height: '26px' }}>
-                        <input
+                        <input data-cy="input-admin.revenue-wizard-1"
                             type="checkbox"
                             checked={formData.taxEnabled}
                             onChange={e => setFormData({ ...formData, taxEnabled: e.target.checked })}
@@ -129,8 +129,8 @@ export default function RevenueWizard() {
             </div>
 
             <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <button onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ color: '#6b7280', fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer' }}>Skip setup</button>
-                <button
+                <button data-cy="btn-admin.revenue-wizard-1" onClick={() => navigate(RouteRegistry.ADMIN.BUSINESS_STATUS)} style={{ color: '#6b7280', fontWeight: 'bold', border: 'none', background: 'none', cursor: 'pointer' }}>Skip setup</button>
+                <button data-cy="btn-admin.revenue-wizard-2"
                     onClick={handleSaveRevenue}
                     disabled={loading}
                     style={{ padding: '0.875rem 3rem', background: '#004d40', color: 'white', fontWeight: '900', borderRadius: '1.25rem', border: 'none', cursor: 'pointer', boxShadow: '0 4px 14px 0 rgba(0,77,64,0.39)' }}

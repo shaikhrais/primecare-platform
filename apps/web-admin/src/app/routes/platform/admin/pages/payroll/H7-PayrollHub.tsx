@@ -110,7 +110,7 @@ export default function PayrollHub() {
 
                     <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                         <div className="pc-card-h">{t('admin.timesheet_approval_queue', { defaultValue: 'Timesheet Approval Queue — Pay Period' })} 2026-W10</div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <table data-cy="table-admin.payroll-hub" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                                 <tr>
                                     <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>{t('admin.provider', { defaultValue: 'Provider' })}</th>

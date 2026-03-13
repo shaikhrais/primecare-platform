@@ -65,7 +65,7 @@ export default function BookingRequestQueue() {
 
                     <div className="pc-card" style={{ padding: '0', overflow: 'hidden' }}>
                         <div className="pc-card-h">{t('admin.booking_requests', { defaultValue: 'Booking Requests' })}</div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <table data-cy="table-admin.booking-request-queue" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead style={{ backgroundColor: 'var(--bg-200)', borderBottom: '1px solid var(--border)' }}>
                                 <tr>
                                     <th style={{ padding: '12px 24px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: 'var(--text-300)', textTransform: 'uppercase' }}>{t('admin.client', { defaultValue: 'Client' })}</th>

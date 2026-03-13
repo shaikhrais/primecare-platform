@@ -26,7 +26,7 @@ export default function SuperAdminDashboard() {
 
             <section>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h2 data-cy="h2-index-0" style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Terminal color="#6366F1" /> SSE Pipeline Monitors
                     </h2>
                 </div>
@@ -37,25 +37,25 @@ export default function SuperAdminDashboard() {
             
             <section style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '32px' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                    <h2 data-cy="h2-index-1" style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                         <Database color="#10B981" /> Financial Node Validation
                     </h2>
                     <TAccountVisualizer />
                 </div>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                    <h2 data-cy="h2-index-2" style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                         <Key color="#8B5CF6" /> IAM Playground
                     </h2>
                     <ApiKeyVault />
                     
                     <div style={{ marginTop: '32px', backgroundColor: '#FEF2F2', padding: '24px', borderRadius: '16px', border: '1px solid #FECACA' }}>
-                        <h3 style={{ margin: '0 0 8px 0', color: '#991B1B', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h3 data-cy="h3-index-0" style={{ margin: '0 0 8px 0', color: '#991B1B', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <AlertOctagon size={20} /> Tenant Orchestration (Danger)
                         </h3>
                         <p style={{ color: '#B91C1C', fontSize: '0.9rem', marginBottom: '16px' }}>
                             Test the structural safety barrier protecting the `purge_tenant` RPC command.
                         </p>
-                        <button 
+                        <button data-cy="btn-index-0" 
                             onClick={() => setIsDangerModalOpen(true)}
                             style={{ backgroundColor: '#DC2626', color: 'white', fontWeight: 800, border: 'none', padding: '12px 24px', borderRadius: '8px', cursor: 'pointer' }}
                         >
@@ -66,7 +66,7 @@ export default function SuperAdminDashboard() {
             </section>
 
             <section>
-                 <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                 <h2 data-cy="h2-index-3" style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                     <Activity color="#3B82F6" /> Universal Ledger (Read-Only Replica)
                 </h2>
                 <MassDataGrid />

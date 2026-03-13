@@ -32,7 +32,7 @@ export const PostDischargeSuccess: React.FC = () => {
                         <Presentation size={32} color="#7C3AED" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.6rem', color: '#0F172A', fontWeight: 900 }}>B2B Executive Pitch Deck: Post-Discharge Clinical Success</h3>
+                        <h3 data-cy="h3-post-discharge-success-0" style={{ margin: 0, fontSize: '1.6rem', color: '#0F172A', fontWeight: 900 }}>B2B Executive Pitch Deck: Post-Discharge Clinical Success</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.95rem' }}>A presentation-ready view proving PrimeCare reduces hospital Medicare fines via world-class home care.</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export const PostDischargeSuccess: React.FC = () => {
                 </div>
             </div>
             
-             <table style={{ width: '100%', marginTop: '32px', borderCollapse: 'collapse' }}>
+             <table data-cy="table-post-discharge-success" style={{ width: '100%', marginTop: '32px', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Partner / Specialty Cohort</th>

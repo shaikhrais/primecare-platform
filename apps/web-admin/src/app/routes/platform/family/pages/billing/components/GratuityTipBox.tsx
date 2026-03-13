@@ -37,7 +37,7 @@ export const GratuityTipBox: React.FC = () => {
                 <div style={{ backgroundColor: '#DCFCE7', width: '64px', height: '64px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto' }}>
                     <HeartHandshake size={32} color="#16A34A" />
                 </div>
-                <h3 style={{ margin: 0, color: '#166534', fontSize: '1.4rem', fontWeight: 800 }}>Gratuity Sent!</h3>
+                <h3 data-cy="h3-gratuity-tip-box-0" style={{ margin: 0, color: '#166534', fontSize: '1.4rem', fontWeight: 800 }}>Gratuity Sent!</h3>
                 <p style={{ color: '#15803D', fontSize: '0.95rem', margin: '8px 0 0 0', lineHeight: '1.5' }}>
                     100% of your ${amount} tip has been routed securely to {recentShift.caregiverName}. Thank you for recognizing exceptional care!
                 </p>
@@ -52,7 +52,7 @@ export const GratuityTipBox: React.FC = () => {
                     <Gift size={20} color="#D97706" />
                 </div>
                 <div>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Recognize Exceptional Care</h3>
+                    <h3 data-cy="h3-gratuity-tip-box-1" style={{ margin: 0, fontSize: '1.1rem', color: '#0F172A', fontWeight: 800 }}>Recognize Exceptional Care</h3>
                     <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Send a direct, out-of-pocket gratuity.</p>
                 </div>
             </div>
@@ -71,7 +71,7 @@ export const GratuityTipBox: React.FC = () => {
 
             <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
                 {[5, 10, 20].map(val => (
-                    <button
+                    <button data-cy="btn-gratuity-tip-box-0"
                         key={val}
                         onClick={() => { setAmount(val); setCustomAmount(''); }}
                         style={{
@@ -87,7 +87,7 @@ export const GratuityTipBox: React.FC = () => {
                 ))}
             </div>
 
-            <button 
+            <button data-cy="btn-gratuity-tip-box-1" 
                 onClick={handleTip}
                 disabled={processing || amount <= 0}
                 style={{ 

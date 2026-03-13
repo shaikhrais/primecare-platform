@@ -43,14 +43,14 @@ export const TopBarActions: React.FC<TopBarActionsProps> = ({
                         <span style={{ opacity: 0.7 }}>🕒</span>
                         {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}
                     </div>
-                    <button className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title={ContentRegistry.LAYOUT.SEARCH_LABEL}>
+                    <button data-cy="btn-shared.top-bar-actions-0" className="btn-icon" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }} title={ContentRegistry.LAYOUT.SEARCH_LABEL}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </button>
                     <NotificationHub />
-                    <button
+                    <button data-cy="btn-shared.top-bar-actions-1"
                         onClick={toggleFullscreen}
                         className="btn-icon"
                         style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}

@@ -60,13 +60,13 @@ export const NewsletterSubscriberDb: React.FC = () => {
                         <Users size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Newsletter Subscriber Database</h3>
+                        <h3 data-cy="h3-newsletter-subscriber-db-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Newsletter Subscriber Database</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Segment audiences to ensure highly relevant, high-converting email newsletter blasts.</p>
                     </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button style={{ backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem' }}>
+                    <button data-cy="btn-newsletter-subscriber-db-0" style={{ backgroundColor: '#0284C7', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.95rem' }}>
                         <Mail size={18}/> Draft Campaign to Segment
                     </button>
                 </div>
@@ -95,7 +95,7 @@ export const NewsletterSubscriberDb: React.FC = () => {
 
                 {/* Data Table */}
                 <div style={{ flex: 1 }}>
-                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+                     <table data-cy="table-newsletter-subscriber-db" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                         <thead>
                             <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                                 <th style={{ padding: '12px', width: '40px' }}><Square size={16} color="#94A3B8" /></th>

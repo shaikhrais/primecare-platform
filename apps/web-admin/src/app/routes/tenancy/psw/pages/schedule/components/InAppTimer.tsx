@@ -39,7 +39,7 @@ export const InAppTimer: React.FC<InAppTimerProps> = ({ onSave }) => {
                 {formatTime(seconds)}
             </span>
             <div style={{ display: 'flex', gap: '8px' }}>
-                <button
+                <button data-cy="btn-psw.in-app-timer-0"
                     onClick={() => setIsRunning(!isRunning)}
                     style={{
                         padding: '8px',
@@ -56,7 +56,7 @@ export const InAppTimer: React.FC<InAppTimerProps> = ({ onSave }) => {
                     {isRunning ? <Pause size={18} /> : <Play size={18} />}
                 </button>
                 {seconds > 0 && !isRunning && (
-                    <button
+                    <button data-cy="btn-psw.in-app-timer-1"
                         onClick={() => {
                             onSave(seconds);
                             setSeconds(0);

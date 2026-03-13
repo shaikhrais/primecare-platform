@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: F3 · Forgot Password
+// PAGE IDENTITY: F3 ï¿½ Forgot Password
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
@@ -72,7 +72,7 @@ export default function ForgotPassword() {
                 {error && <div style={{ marginBottom: '1rem', color: '#dc2626', fontSize: '0.875rem', textAlign: 'center' }}>{error}</div>}
                 {message && <div style={{ marginBottom: '1rem', color: '#059669', fontSize: '0.875rem', textAlign: 'center' }}>{message}</div>}
 
-                <form onSubmit={handleSubmit}>
+                <form data-cy="form-forgot-password" onSubmit={handleSubmit}>
                     <div style={{ marginBottom: '1rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
                             {t(ContentRegistry.AUTH.EMAIL_LABEL || 'auth.email', { defaultValue: 'Email Address' })}

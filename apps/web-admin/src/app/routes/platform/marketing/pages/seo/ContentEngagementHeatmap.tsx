@@ -48,7 +48,7 @@ export const ContentEngagementHeatmap: React.FC = () => {
                         <MousePointer2 size={28} color="#94A3B8" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#F8FAFC', fontWeight: 800 }}>Content Scrolling Heatmap: /services/dementia</h3>
+                        <h3 data-cy="h3-content-engagement-heatmap-0" style={{ margin: 0, fontSize: '1.4rem', color: '#F8FAFC', fontWeight: 800 }}>Content Scrolling Heatmap: /services/dementia</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.9rem' }}>Visualizes user scroll depth and click interaction to identify UX friction points.</p>
                     </div>
                 </div>

@@ -55,13 +55,13 @@ export const ProvisionTenantModal: React.FC<ProvisionTenantModalProps> = ({ isOp
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }} role="dialog" aria-modal="true" data-cy="modal-provision-tenant">
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '500px', width: '90%', position: 'relative' }}>
-                <button 
+                <button data-cy="btn-provision-tenant-modal-0" 
                     onClick={onClose} 
                     style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#6b7280' }}
                 >
                     &times;
                 </button>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>Provision New Tenant</h3>
+                <h3 data-cy="h3-provision-tenant-modal-0" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>Provision New Tenant</h3>
                 <p style={{ fontSize: '0.875rem', color: '#6B7280', marginBottom: '1.5rem' }}>
                     Spin up a new dedicated fractal workspace. This allocates a siloed ledger and generates the initial root Administrator account.
                 </p>

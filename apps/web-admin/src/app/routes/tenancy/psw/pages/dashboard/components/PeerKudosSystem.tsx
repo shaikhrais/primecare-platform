@@ -30,7 +30,7 @@ export const PeerKudosSystem: React.FC = () => {
 
     return (
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E5E7EB', padding: '24px' }}>
-            <h3 style={{ margin: '0 0 16px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h3 data-cy="h3-psw.peer-kudos-system-0" style={{ margin: '0 0 16px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Award size={20} color="#F59E0B" /> Send Peer Kudos
             </h3>
             <p style={{ color: '#4B5563', fontSize: '0.9rem', marginBottom: '20px' }}>
@@ -39,7 +39,7 @@ export const PeerKudosSystem: React.FC = () => {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '20px' }}>
                 {badges.map(b => (
-                    <button
+                    <button data-cy="btn-psw.peer-kudos-system-0"
                         key={b.id}
                         onClick={() => setSelectedBadge(b.id)}
                         style={{
@@ -56,7 +56,7 @@ export const PeerKudosSystem: React.FC = () => {
                 ))}
             </div>
 
-            <input
+            <input data-cy="input-psw.peer-kudos-system-0"
                 type="text"
                 value={recipient}
                 onChange={e => setRecipient(e.target.value)}
@@ -64,14 +64,14 @@ export const PeerKudosSystem: React.FC = () => {
                 style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #D1D5DB', marginBottom: '12px', boxSizing: 'border-box' }}
             />
 
-            <textarea
+            <textarea data-cy="textarea-psw.peer-kudos-system"
                 value={note}
                 onChange={e => setNote(e.target.value)}
                 placeholder="Optional shoutout note..."
                 style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #D1D5DB', minHeight: '60px', marginBottom: '16px', boxSizing: 'border-box' }}
             />
 
-            <button
+            <button data-cy="btn-psw.peer-kudos-system-1"
                 onClick={handleSubmit}
                 style={{
                     width: '100%', padding: '14px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer'

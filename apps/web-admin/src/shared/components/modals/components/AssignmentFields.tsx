@@ -24,7 +24,7 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Shift Type</label>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                        <input
+                        <input data-cy="input-shared.assignment-fields-0"
                             type="radio"
                             name="assignmentType"
                             value="open"
@@ -35,7 +35,7 @@ export const AssignmentFields: React.FC<AssignmentFieldsProps> = ({
                         Open Shift (Any PSW)
                     </label>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                        <input
+                        <input data-cy="input-shared.assignment-fields-1"
                             type="radio"
                             name="assignmentType"
                             value="direct"

@@ -57,7 +57,7 @@ export const KeywordCannibalizationMonitor: React.FC = () => {
                         <Target size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Keyword Cannibalization Monitor</h3>
+                        <h3 data-cy="h3-keyword-cannibalization-monitor-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Keyword Cannibalization Monitor</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Detect when multiple PrimeCare pages are fighting each other for the same Google rank.</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export const KeywordCannibalizationMonitor: React.FC = () => {
                                             <AlertTriangle size={16} /> SEO DILUTION DETECTED
                                         </div>
                                         <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748B' }}>Google is confused about which page to rank, keeping both off Page 1.</p>
-                                        <button style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.85rem', width: '100%' }}>
+                                        <button data-cy="btn-keyword-cannibalization-monitor-0" style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.85rem', width: '100%' }}>
                                             <Zap size={14} /> Setup 301 Redirect
                                         </button>
                                     </>

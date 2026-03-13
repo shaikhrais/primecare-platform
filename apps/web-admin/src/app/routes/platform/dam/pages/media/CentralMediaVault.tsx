@@ -50,7 +50,7 @@ export const CentralMediaVault: React.FC = () => {
                         <HardDrive size={24} color="#0F172A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Central Media Vault</h3>
+                        <h3 data-cy="h3-central-media-vault-0" style={{ margin: 0, fontSize: '1.2rem', color: '#0F172A', fontWeight: 800 }}>Central Media Vault</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Global repository for static files, graphics, and video blobs.</p>
                     </div>
                 </div>

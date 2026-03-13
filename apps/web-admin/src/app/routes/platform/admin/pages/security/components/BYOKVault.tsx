@@ -24,7 +24,7 @@ export const BYOKVault: React.FC = () => {
                     <Server size={24} color="#0F172A" />
                 </div>
                 <div>
-                    <h3 style={{ margin: 0, color: '#0F172A', fontSize: '1.1rem', fontWeight: 800 }}>Bring-Your-Own-Key (BYOK)</h3>
+                    <h3 data-cy="h3-admin.b-y-o-k-vault-0" style={{ margin: 0, color: '#0F172A', fontSize: '1.1rem', fontWeight: 800 }}>Bring-Your-Own-Key (BYOK)</h3>
                     <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>Enterprise Tenant Database Encryption</p>
                 </div>
             </div>
@@ -40,7 +40,7 @@ export const BYOKVault: React.FC = () => {
                 </label>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#F8FAFC', padding: '8px', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
                     <Lock size={16} color="#64748B" style={{ marginLeft: '8px' }} />
-                    <input 
+                    <input data-cy="input-admin.b-y-o-k-vault-0" 
                         type="text" 
                         value={kmsArn}
                         onChange={(e) => setKmsArn(e.target.value)}
@@ -52,7 +52,7 @@ export const BYOKVault: React.FC = () => {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '12px' }}>
                 {saved && <span style={{ color: '#10B981', fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}><CheckCircle2 size={16} /> Key Verified & Activated</span>}
-                <button 
+                <button data-cy="btn-admin.b-y-o-k-vault-0" 
                     onClick={handleSave}
                     disabled={saving || !kmsArn.includes('arn:')}
                     style={{ 

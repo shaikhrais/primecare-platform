@@ -37,7 +37,7 @@ export const ReferralSourceHeatmap: React.FC = () => {
                         <Map size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Referral Source Heatmap</h3>
+                        <h3 data-cy="h3-referral-source-heatmap-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Referral Source Heatmap</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Visualizing the geographic density of incoming institutional leads.</p>
                     </div>
                 </div>
@@ -114,7 +114,7 @@ export const ReferralSourceHeatmap: React.FC = () => {
             </div>
             
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                <button style={{ backgroundColor: 'white', border: '1px solid #CBD5E1', padding: '10px 16px', borderRadius: '8px', fontWeight: 600, color: '#334155', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                <button data-cy="btn-referral-source-heatmap-0" style={{ backgroundColor: 'white', border: '1px solid #CBD5E1', padding: '10px 16px', borderRadius: '8px', fontWeight: 600, color: '#334155', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                     <Search size={16} /> Load Expansion Markets
                 </button>
             </div>

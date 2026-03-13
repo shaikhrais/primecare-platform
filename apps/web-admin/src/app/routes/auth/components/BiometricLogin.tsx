@@ -89,7 +89,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                 </div>
 
                 <div>
-                    <h2 style={{ color: 'white', margin: '0 0 8px 0', fontSize: '1.5rem' }}>
+                    <h2 data-cy="h2-biometric-login-0" style={{ color: 'white', margin: '0 0 8px 0', fontSize: '1.5rem' }}>
                         {status === 'success' ? 'Verified' : 'Quick Access'}
                     </h2>
                     <p style={{ color: '#94A3B8', margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
@@ -103,7 +103,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', marginTop: '24px' }}>
                     
                     {status === 'prompt' && (
-                        <button
+                        <button data-cy="btn-biometric-login-0"
                          onClick={() => {
                              setStatus('scanning');
                              setTimeout(() => {
@@ -137,7 +137,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                         </button>
                     )}
 
-                    <button
+                    <button data-cy="btn-biometric-login-1"
                         onClick={handleAuthenticate}
                         disabled={status === 'scanning' || status === 'success' || !isSupported}
                         style={{
@@ -158,7 +158,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onCan
                     </button>
 
                     {status === 'prompt' && (
-                        <button
+                        <button data-cy="btn-biometric-login-2"
                             onClick={onCancel}
                             style={{
                                 padding: '16px',

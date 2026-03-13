@@ -32,8 +32,8 @@ export const TaskCarouselWizard: React.FC<TaskCarouselWizardProps> = ({ taskName
 
                 {/* Header */}
                 <div style={{ padding: '16px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>{taskName}</h2>
-                    <button onClick={onClose} style={{ border: 'none', background: '#F3F4F6', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontWeight: 600 }}>✕</button>
+                    <h2 data-cy="h2-psw.task-carousel-wizard-0" style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>{taskName}</h2>
+                    <button data-cy="btn-psw.task-carousel-wizard-0" onClick={onClose} style={{ border: 'none', background: '#F3F4F6', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontWeight: 600 }}>✕</button>
                 </div>
 
                 {/* Content */}
@@ -42,7 +42,7 @@ export const TaskCarouselWizard: React.FC<TaskCarouselWizardProps> = ({ taskName
                         Step {currentStep + 1} of {steps.length}
                     </div>
 
-                    <h3 style={{ margin: '0 0 16px 0', fontSize: '1.5rem', fontWeight: 900, lineHeight: 1.2 }}>
+                    <h3 data-cy="h3-psw.task-carousel-wizard-0" style={{ margin: '0 0 16px 0', fontSize: '1.5rem', fontWeight: 900, lineHeight: 1.2 }}>
                         {steps[currentStep].title}
                     </h3>
 
@@ -65,7 +65,7 @@ export const TaskCarouselWizard: React.FC<TaskCarouselWizardProps> = ({ taskName
 
                 {/* Footer Controls */}
                 <div style={{ padding: '16px', borderTop: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F9FAFB' }}>
-                    <button
+                    <button data-cy="btn-psw.task-carousel-wizard-1"
                         onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
                         disabled={currentStep === 0}
                         style={{ border: 'none', background: 'transparent', padding: '12px', color: currentStep === 0 ? '#D1D5DB' : '#4B5563', cursor: currentStep === 0 ? 'default' : 'pointer', display: 'flex', alignItems: 'center' }}
@@ -79,7 +79,7 @@ export const TaskCarouselWizard: React.FC<TaskCarouselWizardProps> = ({ taskName
                         ))}
                     </div>
 
-                    <button
+                    <button data-cy="btn-psw.task-carousel-wizard-2"
                         onClick={handleNext}
                         style={{
                             border: 'none', background: currentStep === steps.length - 1 ? '#10B981' : '#4F46E5', color: 'white',

@@ -11,11 +11,11 @@ interface ComplianceStepProps {
 export const ComplianceStep: React.FC<ComplianceStepProps> = ({ config, setConfig }) => {
     return (
         <div style={{ animation: 'fadeIn 0.3s' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.STEPS.COMPLIANCE}</h2>
+            <h2 data-cy="h2-admin.compliance-step-0" style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.STEPS.COMPLIANCE}</h2>
             <div style={{ display: 'grid', gap: '1.5rem' }}>
                 <div>
                     <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.5rem' }}>{ContentRegistry.STRATEGY_WIZARD.COMPLIANCE.BN_LABEL}</label>
-                    <input
+                    <input data-cy="input-admin.compliance-step-0"
                         placeholder={ContentRegistry.STRATEGY_WIZARD.COMPLIANCE.BN_PLACEHOLDER}
                         value={config.businessNumber}
                         onChange={e => setConfig({ ...config, businessNumber: e.target.value })}
@@ -23,7 +23,7 @@ export const ComplianceStep: React.FC<ComplianceStepProps> = ({ config, setConfi
                     />
                 </div>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', background: '#f9fafb', borderRadius: '0.75rem', cursor: 'pointer' }}>
-                    <input
+                    <input data-cy="input-admin.compliance-step-1"
                         type="checkbox"
                         checked={config.taxEnabled}
                         onChange={e => setConfig({ ...config, taxEnabled: e.target.checked })}

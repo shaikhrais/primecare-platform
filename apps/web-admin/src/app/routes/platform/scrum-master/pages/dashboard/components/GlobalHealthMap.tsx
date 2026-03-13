@@ -15,7 +15,7 @@ export const GlobalHealthMap: React.FC = () => {
 
     return (
         <div className="sm-card" style={{ padding: '2.5rem', background: '#ffffff', marginBottom: '3rem', position: 'relative', overflow: 'hidden' }}>
-            <h3 style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+            <h3 data-cy="h3-global-health-map-0" style={{ margin: '0 0 2rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                 🌍 {t(ContentRegistry.SCRUM_MASTER.GLOBAL_NODES.TITLE)}
             </h3>
 

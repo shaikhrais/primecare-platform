@@ -13,7 +13,7 @@ export const WhosComingCard: React.FC<WhosComingCardProps> = ({ workerName, work
 
     return (
         <section style={{ backgroundColor: 'white', borderRadius: '16px', border: '2px solid #E2E8F0', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Who's Coming?</h2>
+            <h2 data-cy="h2-client.whos-coming-card-0" style={{ fontSize: '2rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>Who's Coming?</h2>
             
             <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
                 {/* Massive Trust Photo */}
@@ -37,7 +37,7 @@ export const WhosComingCard: React.FC<WhosComingCardProps> = ({ workerName, work
                 {/* Identity & Bio */}
                 <div style={{ flex: 1, minWidth: '300px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                        <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: 0, lineHeight: 1 }}>{workerName}</h3>
+                        <h3 data-cy="h3-client.whos-coming-card-0" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: 0, lineHeight: 1 }}>{workerName}</h3>
                         <ShieldCheck size={32} color="#10B981" />
                     </div>
                     

@@ -28,7 +28,7 @@ export default function ThreatDetection() {
             <div className="pc-card" style={{ marginBottom: '32px' }}>
                 <div className="pc-card-h">Live Threat Feed</div>
                 <div className="pc-card-b">
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.threat-detection" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
                                 <th style={{ padding: '12px' }}>Severity</th>

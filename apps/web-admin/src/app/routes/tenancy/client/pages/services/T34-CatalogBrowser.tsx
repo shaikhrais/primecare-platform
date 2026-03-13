@@ -47,7 +47,7 @@ export default function CatalogBrowser() {
             <div className="space-y-8">
                 <nav className="flex flex-wrap gap-4 items-center">
                     {['All', 'Clinical', 'Support', 'Specialized'].map(cat => (
-                        <button
+                        <button data-cy="btn-client.catalog-browser-0"
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
                             className={`px-8 py-3 rounded-2xl font-bold text-sm transition-all border-2 ${selectedCategory === cat ? 'bg-primary border-primary text-primary-foreground shadow-xl shadow-primary/20 scale-105' : 'bg-card border-zinc-100 text-muted-foreground hover:border-primary/20'}`}
@@ -68,7 +68,7 @@ export default function CatalogBrowser() {
                                 </div>
                                 <div>
                                     <div className="text-[10px] font-black uppercase text-primary tracking-widest mb-1">{mod.category}</div>
-                                    <h3 className="text-2xl font-black tracking-tight mb-3">{mod.title}</h3>
+                                    <h3 data-cy="h3-client.catalog-browser-0" className="text-2xl font-black tracking-tight mb-3">{mod.title}</h3>
                                     <p className="text-sm text-muted-foreground leading-relaxed font-medium">
                                         {mod.description}
                                     </p>
@@ -80,7 +80,7 @@ export default function CatalogBrowser() {
                                     <div className="text-[10px] font-black text-muted-foreground uppercase opacity-50">Starting From</div>
                                     <div className="text-xl font-black text-primary">{mod.price}</div>
                                 </div>
-                                <button className="px-6 py-3 bg-zinc-900 text-white rounded-2xl font-bold text-xs hover:bg-primary hover:shadow-xl hover:shadow-primary/20 transition-all">
+                                <button data-cy="btn-client.catalog-browser-1" className="px-6 py-3 bg-zinc-900 text-white rounded-2xl font-bold text-xs hover:bg-primary hover:shadow-xl hover:shadow-primary/20 transition-all">
                                     Book Module
                                 </button>
                             </div>
@@ -92,12 +92,12 @@ export default function CatalogBrowser() {
             <footer className="bg-zinc-100 rounded-[3rem] p-12 flex flex-col items-center text-center space-y-6">
                 <div className="text-4xl">📞</div>
                 <div className="space-y-2">
-                    <h3 className="text-2xl font-black">Need a Custom Plan?</h3>
+                    <h3 data-cy="h3-client.catalog-browser-1" className="text-2xl font-black">Need a Custom Plan?</h3>
                     <p className="text-muted-foreground max-w-md mx-auto font-medium">
                         Our clinical coordinators can design a bespoke care ecosystem for complex medical requirements.
                     </p>
                 </div>
-                <button className="px-10 py-4 bg-white border-2 border-zinc-900 rounded-[2rem] font-black text-sm hover:bg-zinc-900 hover:text-white transition-all shadow-xl shadow-zinc-200">
+                <button data-cy="btn-client.catalog-browser-2" className="px-10 py-4 bg-white border-2 border-zinc-900 rounded-[2rem] font-black text-sm hover:bg-zinc-900 hover:text-white transition-all shadow-xl shadow-zinc-200">
                     Consult a Coordinator
                 </button>
             </footer>

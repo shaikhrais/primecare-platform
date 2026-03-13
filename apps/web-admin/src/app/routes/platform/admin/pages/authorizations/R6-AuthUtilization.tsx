@@ -15,13 +15,13 @@ export default function AuthUtilization() {
                     <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Generate and export reports</p>
                 </div>
                 <div style={{ display: 'flex', gap: '8px' }}>
-                    <select value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
+                    <select data-cy="select-admin.auth-utilization-0" value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
                         <option value="last-7">Last 7 Days</option><option value="last-30">Last 30 Days</option><option value="last-90">Last 90 Days</option><option value="ytd">Year to Date</option>
                     </select>
-                    <select value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
+                    <select data-cy="select-admin.auth-utilization-1" value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
                         <option value="pdf">PDF</option><option value="csv">CSV</option><option value="xlsx">Excel</option>
                     </select>
-                    <button style={{ padding: '8px 20px', background: '#1D4ED8', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
+                    <button data-cy="btn-admin.auth-utilization-0" style={{ padding: '8px 20px', background: '#1D4ED8', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
                 </div>
             </div>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
@@ -43,7 +43,7 @@ export default function AuthUtilization() {
                     </div>
             </div>
             <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
+                <h3 data-cy="h3-admin.auth-utilization-0" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
                 <div style={{ height: '300px', background: 'linear-gradient(135deg, #1D4ED805 0%, #1D4ED810 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>Report data renders here</div>
             </div>
         </div>

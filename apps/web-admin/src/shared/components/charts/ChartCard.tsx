@@ -39,7 +39,7 @@ export const ChartCard = ({
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-900)' }}>{title}</h3>
+                        <h3 data-cy="h3-shared.chart-card-0" style={{ margin: 0, fontSize: '1.125rem', fontWeight: 700, color: 'var(--text-900)' }}>{title}</h3>
                         {isDemo && (
                             <span style={{
                                 backgroundColor: '#FEF3C7',

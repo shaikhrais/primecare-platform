@@ -109,7 +109,7 @@ export const ApprovalSwipeStack: React.FC = () => {
         return (
             <div style={{ backgroundColor: '#F8FAFC', padding: '48px 24px', borderRadius: '16px', border: '2px dashed #CBD5E1', textAlign: 'center' }}>
                 <CheckCircle size={48} color="#10B981" style={{ marginBottom: '16px' }} />
-                <h3 style={{ margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.25rem' }}>Inbox Zero</h3>
+                <h3 data-cy="h3-manager.approval-swipe-stack-0" style={{ margin: '0 0 8px 0', color: '#0F172A', fontSize: '1.25rem' }}>Inbox Zero</h3>
                 <p style={{ color: '#64748B', margin: 0 }}>All pending timesheets and expenses have been triaged.</p>
             </div>
         );
@@ -126,7 +126,7 @@ export const ApprovalSwipeStack: React.FC = () => {
     return (
         <div style={{ backgroundColor: '#F8FAFC', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Rapid Approval Triage</h2>
+                <h2 data-cy="h2-manager.approval-swipe-stack-0" style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Rapid Approval Triage</h2>
                 <div style={{ backgroundColor: '#DBEAFE', color: '#1E40AF', padding: '4px 12px', borderRadius: '12px', fontWeight: 800, fontSize: '0.85rem' }}>
                     {stack.length} Remaining
                 </div>

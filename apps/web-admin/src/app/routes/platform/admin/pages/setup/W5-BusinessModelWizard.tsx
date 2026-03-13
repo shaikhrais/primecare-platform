@@ -114,13 +114,13 @@ export default function BusinessModelWizard() {
             )}
 
             <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem' }}>
-                <button
+                <button data-cy="btn-admin.business-model-wizard-0"
                     onClick={() => step > 1 ? setStep(step - 1) : navigate(RouteRegistry.ADMIN.WIZARD_HUB)}
                     style={{ flex: 1, padding: '1rem', background: 'white', border: '1px solid #d1d5db', borderRadius: '1rem', fontWeight: '600', cursor: 'pointer' }}
                 >
                     {step === 1 ? ContentRegistry.STRATEGY_WIZARD.BUTTONS.CANCEL : ContentRegistry.STRATEGY_WIZARD.BUTTONS.BACK}
                 </button>
-                <button
+                <button data-cy="btn-admin.business-model-wizard-1"
                     onClick={handleSave}
                     disabled={loading || uploading}
                     style={{

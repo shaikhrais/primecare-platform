@@ -126,7 +126,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             <div className="sidebar-footer" style={{ padding: isCollapsed ? '10px' : '20px', borderTop: '1px solid #F3F4F6', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {!isMobile && (
-                    <button
+                    <button data-cy="btn-shared.sidebar-0"
                         onClick={() => setIsCollapsed(!isCollapsed)}
                         data-cy="btn-sidebar-collapse"
                         style={{

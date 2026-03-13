@@ -43,7 +43,7 @@ export const MilestoneCelebration: React.FC = () => {
                 animation: 'bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
             }}>
                 
-                <button onClick={() => setIsOpen(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}>
+                <button data-cy="btn-shared.milestone-celebration-0" onClick={() => setIsOpen(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}>
                     <X size={24} />
                 </button>
 
@@ -51,7 +51,7 @@ export const MilestoneCelebration: React.FC = () => {
                     <Award size={48} color="#D97706" />
                 </div>
                 
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', lineHeight: 1.1 }}>
+                <h2 data-cy="h2-shared.milestone-celebration-0" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 16px 0', lineHeight: 1.1 }}>
                     Care Goal Reached!
                 </h2>
                 
@@ -59,7 +59,7 @@ export const MilestoneCelebration: React.FC = () => {
                     <strong style={{ color: '#0F172A' }}>John</strong> has officially graduated from Physical Therapy! No further assisted mobility sessions are required.
                 </p>
 
-                <button onClick={() => setIsOpen(false)} style={{ backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '12px', padding: '16px 32px', fontSize: '1.25rem', fontWeight: 800, cursor: 'pointer', width: '100%', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.4)' }}>
+                <button data-cy="btn-shared.milestone-celebration-1" onClick={() => setIsOpen(false)} style={{ backgroundColor: '#10B981', color: 'white', border: 'none', borderRadius: '12px', padding: '16px 32px', fontSize: '1.25rem', fontWeight: 800, cursor: 'pointer', width: '100%', boxShadow: '0 4px 6px -1px rgba(16, 185, 129, 0.4)' }}>
                     AWESOME!
                 </button>
             </div>

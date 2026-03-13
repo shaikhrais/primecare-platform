@@ -30,7 +30,7 @@ const GrowthStrategy: React.FC = () => {
                         <div style={{ position: 'absolute', top: '-16px', left: '24px', backgroundColor: '#0F172A', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                             Level 1
                         </div>
-                        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#0F172A', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h2 data-cy="h2-admin.growth-strategy-0" style={{ fontSize: '20px', fontWeight: '700', color: '#0F172A', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             🏛️ The Platform (HQ)
                         </h2>
                         <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.5' }}>
@@ -43,7 +43,7 @@ const GrowthStrategy: React.FC = () => {
                         <div style={{ position: 'absolute', top: '-16px', left: '24px', backgroundColor: '#166534', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                             Level 2
                         </div>
-                        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#14532D', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h2 data-cy="h2-admin.growth-strategy-1" style={{ fontSize: '20px', fontWeight: '700', color: '#14532D', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             👑 The Root Tenant
                         </h2>
                         <ul style={{ fontSize: '14px', color: '#166534', paddingLeft: '20px', margin: '12px 0 0 0', lineHeight: '1.5', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -57,7 +57,7 @@ const GrowthStrategy: React.FC = () => {
                         <div style={{ position: 'absolute', top: '-16px', left: '24px', backgroundColor: '#1E40AF', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                             Level 3
                         </div>
-                        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#1E3A8A', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h2 data-cy="h2-admin.growth-strategy-2" style={{ fontSize: '20px', fontWeight: '700', color: '#1E3A8A', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             🏢 Child Tenants
                         </h2>
                         <p style={{ fontSize: '14px', color: '#1E40AF', lineHeight: '1.5', margin: '12px 0 0 0' }}>
@@ -70,7 +70,7 @@ const GrowthStrategy: React.FC = () => {
                         <div style={{ position: 'absolute', top: '-16px', left: '24px', backgroundColor: '#991B1B', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>
                             Level 4
                         </div>
-                        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#7F1D1D', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <h2 data-cy="h2-admin.growth-strategy-3" style={{ fontSize: '20px', fontWeight: '700', color: '#7F1D1D', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             👩‍⚕️ Service Providers
                         </h2>
                         <ul style={{ fontSize: '14px', color: '#991B1B', paddingLeft: '20px', margin: '12px 0 0 0', lineHeight: '1.5', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -84,7 +84,7 @@ const GrowthStrategy: React.FC = () => {
                 <div style={{ backgroundColor: '#FFFBEB', borderRadius: '12px', padding: '32px', border: '1px solid #FDE68A', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
                     <div style={{ fontSize: '40px' }}>🚀</div>
                     <div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#92400E', margin: '0 0 12px 0' }}>Go-To-Market Execution</h3>
+                        <h3 data-cy="h3-admin.growth-strategy-0" style={{ fontSize: '20px', fontWeight: '700', color: '#92400E', margin: '0 0 12px 0' }}>Go-To-Market Execution</h3>
                         <p style={{ fontSize: '16px', color: '#B45309', margin: '0 0 16px 0', lineHeight: '1.6' }}>
                             Instead of trying to sell software to 1,000 tiny local agencies (which is slow and expensive), you only need to sell to <strong>5 large Master Distributors</strong>.
                         </p>

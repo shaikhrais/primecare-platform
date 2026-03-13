@@ -113,7 +113,7 @@ export const DripEmailSequenceBuilder: React.FC = () => {
                         <Workflow size={32} color="#0284C7" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.8rem', color: '#0F172A', fontWeight: 900 }}>Drip Email Nurture Sequence</h3>
+                        <h3 data-cy="h3-drip-email-sequence-builder-0" style={{ margin: 0, fontSize: '1.8rem', color: '#0F172A', fontWeight: 900 }}>Drip Email Nurture Sequence</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '1rem' }}>Automatically nurture cold leads over 14 days to keep PrimeCare top-of-mind.</p>
                     </div>
                 </div>

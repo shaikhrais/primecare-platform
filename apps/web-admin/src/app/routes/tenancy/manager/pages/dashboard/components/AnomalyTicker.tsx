@@ -75,7 +75,7 @@ export const AnomalyTicker: React.FC = () => {
                             <span style={{ color: anomalies[0].severity === 'critical' ? '#FCA5A5' : '#FDE68A', fontWeight: 600, fontSize: '0.9rem' }}>
                                 [{anomalies[0].timestamp.toLocaleTimeString()}] {anomalies[0].message}
                             </span>
-                            <button style={{ marginLeft: '16px', background: 'transparent', border: '1px solid #334155', color: '#94A3B8', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>Acknowledge</button>
+                            <button data-cy="btn-manager.anomaly-ticker-0" style={{ marginLeft: '16px', background: 'transparent', border: '1px solid #334155', color: '#94A3B8', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>Acknowledge</button>
                         </div>
                     )}
                 </div>

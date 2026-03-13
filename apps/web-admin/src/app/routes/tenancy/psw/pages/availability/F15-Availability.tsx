@@ -67,7 +67,7 @@ export default function AvailabilityPage() {
 
                 <form data-cy="form.availability" onSubmit={handleSaveMatrix}>
                     <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
-                        <table style={{ minWidth: '100%', borderCollapse: 'collapse', backgroundColor: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                        <table data-cy="table-psw.availability" style={{ minWidth: '100%', borderCollapse: 'collapse', backgroundColor: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                             <thead>
                                 <tr>
                                     <th style={{ padding: '16px', backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB', textAlign: 'left', color: '#6B7280' }}>Shift</th>

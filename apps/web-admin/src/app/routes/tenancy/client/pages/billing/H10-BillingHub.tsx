@@ -85,7 +85,7 @@ const BillingHub: React.FC = () => {
             <section className="invoice-section">
                 <div className="section-header">
                     <h2>Invoice History</h2>
-                    <button className="btn-export">
+                    <button data-cy="btn-client.billing-hub-0" className="btn-export">
                         <Download size={14} /> Export CSV
                     </button>
                 </div>
@@ -110,7 +110,7 @@ const BillingHub: React.FC = () => {
                             <div className="inv-bottom">
                                 <span className="inv-price">${inv.amount.toFixed(2)} {inv.currency}</span>
                                 {inv.status !== 'paid' ? (
-                                    <button className="btn-pay-now" onClick={() => handlePayment(inv)}>
+                                    <button data-cy="btn-client.billing-hub-1" className="btn-pay-now" onClick={() => handlePayment(inv)}>
                                         Pay Now <ArrowRight size={14} />
                                     </button>
                                 ) : (

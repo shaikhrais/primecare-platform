@@ -29,13 +29,13 @@ export const PhysicianRoiTracker: React.FC = () => {
                         <Stethoscope size={28} color="#16A34A" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Physician Referral ROI Ledger</h3>
+                        <h3 data-cy="h3-physician-roi-tracker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Physician Referral ROI Ledger</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Correlate referring doctors to exact lifetime revenue to identify high-value "Whale" accounts.</p>
                     </div>
                 </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+            <table data-cy="table-physician-roi-tracker" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Referring Physician</th>
@@ -88,7 +88,7 @@ export const PhysicianRoiTracker: React.FC = () => {
 
                                 <td style={{ padding: '16px 12px', verticalAlign: 'middle', textAlign: 'center' }}>
                                     {needsGifting ? (
-                                        <button style={{ backgroundColor: '#F59E0B', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'center', margin: '0 auto', boxShadow: '0 2px 4px rgba(245, 158, 11, 0.2)' }}>
+                                        <button data-cy="btn-physician-roi-tracker-0" style={{ backgroundColor: '#F59E0B', color: 'white', border: 'none', borderRadius: '6px', padding: '8px 16px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'center', margin: '0 auto', boxShadow: '0 2px 4px rgba(245, 158, 11, 0.2)' }}>
                                             <Gift size={16} /> Send Golf Promo
                                         </button>
                                     ) : (

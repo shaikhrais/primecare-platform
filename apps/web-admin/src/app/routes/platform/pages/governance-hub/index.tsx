@@ -40,7 +40,7 @@ export default function GovernanceHub() {
             <div className="pc-card">
                 <div className="pc-card-h">Infrastructure & Tenant Health</div>
                 <div className="pc-card-b">
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-index" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
                                 <th style={{ padding: '12px' }}>Regime / Cluster</th>

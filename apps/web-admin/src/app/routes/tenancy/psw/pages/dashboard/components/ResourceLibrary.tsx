@@ -21,7 +21,7 @@ export const ResourceLibrary: React.FC = () => {
 
     return (
         <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E5E7EB', padding: '24px' }}>
-            <h3 style={{ margin: '0 0 16px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h3 data-cy="h3-psw.resource-library-0" style={{ margin: '0 0 16px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <BookOpen size={20} color="#3B82F6" /> Clinical Resource Library
             </h3>
             <p style={{ color: '#4B5563', fontSize: '0.9rem', marginBottom: '20px' }}>
@@ -30,7 +30,7 @@ export const ResourceLibrary: React.FC = () => {
 
             <div style={{ position: 'relative', marginBottom: '16px' }}>
                 <Search size={18} color="#9CA3AF" style={{ position: 'absolute', left: '12px', top: '14px' }} />
-                <input
+                <input data-cy="input-psw.resource-library-0"
                     type="text"
                     placeholder="Search Hoyer lift, Catheter, CPR..."
                     value={query}
@@ -41,7 +41,7 @@ export const ResourceLibrary: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {filtered.map(r => (
-                    <button
+                    <button data-cy="btn-psw.resource-library-0"
                         key={r.id}
                         onClick={() => handleOpen(r.title)}
                         style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', transition: 'background 0.2s' }}

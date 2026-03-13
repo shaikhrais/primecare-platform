@@ -48,7 +48,7 @@ export const UserRoles: React.FC<UserRolesProps> = ({ selectedRoles, onChange })
                             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
                                 {groupRoles.map(role => (
                                     <label key={role} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer', color: '#374151' }}>
-                                        <input
+                                        <input data-cy="input-admin.user-roles-0"
                                             type="checkbox"
                                             checked={selectedRoles.includes(role)}
                                             onChange={(e) => {

@@ -34,12 +34,12 @@ export default function Marketplace() {
                     <div key={item.id} className="pc-card" style={{ display: 'flex', flexDirection: 'column' }}>
                         <div style={{ padding: '20px', flex: 1 }}>
                             <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--brand-500)', marginBottom: '8px' }}>{item.category.toUpperCase()}</div>
-                            <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '4px' }}>{item.title}</h3>
+                            <h3 data-cy="h3-admin.index-0" style={{ fontSize: '18px', fontWeight: '800', marginBottom: '4px' }}>{item.title}</h3>
                             <p style={{ fontSize: '14px', color: '#6B7280' }}>Offered by <b>{item.tenant}</b></p>
                             <div style={{ marginTop: '20px', fontSize: '20px', fontWeight: '800' }}>${item.price}<span style={{ fontSize: '14px', color: '#6B7280', fontWeight: '400' }}>{ContentRegistry.MARKETPLACE.PRICE_UNIT}</span></div>
                         </div>
                         <div style={{ borderTop: '1px solid var(--line)', padding: '16px' }}>
-                            <button className="btn btn-primary" style={{ width: '100%' }}>{ContentRegistry.MARKETPLACE.INQUIRE_BTN}</button>
+                            <button data-cy="btn-admin.index-0" className="btn btn-primary" style={{ width: '100%' }}>{ContentRegistry.MARKETPLACE.INQUIRE_BTN}</button>
                         </div>
                     </div>
                 ))}
@@ -49,7 +49,7 @@ export default function Marketplace() {
                         <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📦</div>
                         <h4 style={{ fontWeight: '700' }}>{ContentRegistry.MARKETPLACE.OFFER_TITLE}</h4>
                         <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '1.5rem' }}>{ContentRegistry.MARKETPLACE.OFFER_DESC}</p>
-                        <button className="btn">{ContentRegistry.MARKETPLACE.CREATE_BTN}</button>
+                        <button data-cy="btn-admin.index-1" className="btn">{ContentRegistry.MARKETPLACE.CREATE_BTN}</button>
                     </div>
                 </div>
             </div>

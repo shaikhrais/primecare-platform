@@ -65,14 +65,14 @@ export default function LeadConversion() {
                         This will provision a user account and clinical profile.
                     </p>
                     <div style={{ display: 'flex', gap: '1rem' }}>
-                        <button
+                        <button data-cy="btn-admin.lead-conversion-0"
                             className="btn secondary"
                             onClick={() => navigate(-1)}
                             disabled={loading}
                         >
                             Cancel
                         </button>
-                        <button
+                        <button data-cy="btn-admin.lead-conversion-1"
                             className="btn primary"
                             onClick={handleConvert}
                             disabled={loading}

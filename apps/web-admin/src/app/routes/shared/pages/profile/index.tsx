@@ -110,7 +110,7 @@ export default function ProfilePage() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
-                        <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
+                        <h2 data-cy="h2-shared.index-0" style={{ marginTop: 0 }}>Unsaved Changes</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes. Navigating away will discard them. Would you like to stay and save?</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', color: '#374151' }}>Leave</button>
@@ -125,7 +125,7 @@ export default function ProfilePage() {
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage your personal information and preferences.</p>
             </div>
 
-            <form onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <form data-cy="form-shared.index" onSubmit={handleSave} style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                     <div style={{ gridColumn: 'span 2' }}>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>Full Name</label>

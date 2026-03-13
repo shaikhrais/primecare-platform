@@ -41,7 +41,7 @@ export default function RolesList() {
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-admin.list" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
                             <th style={{ padding: '1rem', fontSize: '0.875rem', fontWeight: '600', color: '#374151' }}>Role Name</th>
@@ -72,14 +72,14 @@ export default function RolesList() {
                                 <td style={{ padding: '1rem', color: '#4b5563' }}>{role.usersCount} users</td>
                                 <td style={{ padding: '1rem', color: '#4b5563' }}>{role.permissionsCount} capabilities</td>
                                 <td style={{ padding: '1rem' }}>
-                                    <button
+                                    <button data-cy="btn-admin.list-0"
                                         onClick={() => navigate(`/roles/${role.id}`)}
                                         style={{ color: '#004d40', fontWeight: '500', border: 'none', background: 'none', cursor: 'pointer', marginRight: '1rem' }}
                                     >
                                         Edit
                                     </button>
                                     {role.type !== 'System' && (
-                                        <button
+                                        <button data-cy="btn-admin.list-1"
                                             onClick={async () => {
                                                 if (!(await confirm('Delete Role', `Delete role "${role.name}"? Users with this role will lose their permissions.`))) return;
                                                 try {

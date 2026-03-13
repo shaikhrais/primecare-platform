@@ -28,15 +28,15 @@ export const UserQuickViewModal: React.FC<UserQuickViewModalProps> = ({ isOpen, 
                 boxShadow: '-4px 0 20px rgba(0,0,0,0.1)'
             }} onClick={e => e.stopPropagation()}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                    <h2 style={{ margin: 0 }}>User Details</h2>
-                    <button onClick={onClose} style={{ border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
+                    <h2 data-cy="h2-shared.user-quick-view-modal-0" style={{ margin: 0 }}>User Details</h2>
+                    <button data-cy="btn-shared.user-quick-view-modal-0" onClick={onClose} style={{ border: 'none', background: 'none', fontSize: '1.5rem', cursor: 'pointer' }}>×</button>
                 </div>
 
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', margin: '0 auto 1rem auto' }}>
                         {user.profile?.fullName?.charAt(0) || user.email.charAt(0)}
                     </div>
-                    <h3 style={{ margin: '0 0 0.5rem 0' }}>{user.profile?.fullName}</h3>
+                    <h3 data-cy="h3-shared.user-quick-view-modal-0" style={{ margin: '0 0 0.5rem 0' }}>{user.profile?.fullName}</h3>
                     <p style={{ margin: 0, color: '#6b7280' }}>{user.email}</p>
                     <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                         {user.roles.map((r: string) => (
@@ -74,10 +74,10 @@ export const UserQuickViewModal: React.FC<UserQuickViewModalProps> = ({ isOpen, 
                 </div>
 
                 <div style={{ marginTop: '3rem', display: 'grid', gap: '1rem' }}>
-                    <button style={{ width: '100%', padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                    <button data-cy="btn-shared.user-quick-view-modal-1" style={{ width: '100%', padding: '0.75rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
                         View Full Profile
                     </button>
-                    <button style={{ width: '100%', padding: '0.75rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
+                    <button data-cy="btn-shared.user-quick-view-modal-2" style={{ width: '100%', padding: '0.75rem', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}>
                         Download Compliance Report
                     </button>
                 </div>

@@ -103,7 +103,7 @@ export default function AdminDashboard() {
                     </p>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button style={{
+                    <button data-cy="btn-admin.admin-dashboard-0" style={{
                         padding: '0.5rem 1rem',
                         background: '#0f172a',
                         color: '#ffffff',
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
                     }} onClick={() => handleApiAction('/v1/admin/actions/commit-overrides', 'UI overrides committed to registry', 'Failed to commit overrides')}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-ui-override')?.label || 'Commit UI Overrides'}
                     </button>
-                    <button style={{
+                    <button data-cy="btn-admin.admin-dashboard-1" style={{
                         padding: '0.5rem 1rem',
                         background: 'var(--brand-500)',
                         color: 'white',
@@ -130,7 +130,7 @@ export default function AdminDashboard() {
                     }} onClick={() => navigate('/platform/admin/users?action=invite')}>
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-user-invite')?.label || 'Invite User'}
                     </button>
-                    <button style={{
+                    <button data-cy="btn-admin.admin-dashboard-2" style={{
                         padding: '0.5rem 1rem',
                         background: '#f3f4f6',
                         color: '#4b5563',
@@ -143,7 +143,7 @@ export default function AdminDashboard() {
                         {AdminRegistry.ButtonRegistry.find((b: any) => b.id === 'btn-admin-report-export')?.label || 'Export'}
                     </button>
                     <Link to={RouteRegistry.SCRUM_MASTER.DEV_KB}>
-                        <button style={{
+                        <button data-cy="btn-admin.admin-dashboard-3" style={{
                             padding: '0.5rem 1rem',
                             background: '#f3f4f6',
                             color: '#4b5563',

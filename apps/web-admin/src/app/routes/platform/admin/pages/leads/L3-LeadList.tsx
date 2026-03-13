@@ -16,16 +16,16 @@ export default function LeadList() {
                     <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🎯 Lead List</h1>
                     <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
                 </div>
-                <button style={{ padding: '10px 20px', background: '#0891B2', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
+                <button data-cy="btn-admin.lead-list-0" style={{ padding: '10px 20px', background: '#0891B2', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
             </div>
             <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
-                <input type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
+                <input data-cy="input-admin.lead-list-0" type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
                 {['all','active','pending','closed'].map(s => (
-                    <button key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #0891B2' : '1px solid #E2E8F0', background: filter === s ? '#0891B210' : 'white', color: filter === s ? '#0891B2' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
+                    <button data-cy="btn-admin.lead-list-1" key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #0891B2' : '1px solid #E2E8F0', background: filter === s ? '#0891B210' : 'white', color: filter === s ? '#0891B2' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
                 ))}
             </div>
             <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <table data-cy="table-admin.lead-list" style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
                                 <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Name</th>
                                 <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Email</th>
@@ -50,7 +50,7 @@ export default function LeadList() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
                     <span>Showing 1–10 of 48</span>
                     <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
-                        <button key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #0891B2':'1px solid #E2E8F0', background: n===1?'#0891B210':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#0891B2':'#64748B' }}>{n}</button>
+                        <button data-cy="btn-admin.lead-list-2" key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #0891B2':'1px solid #E2E8F0', background: n===1?'#0891B210':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#0891B2':'#64748B' }}>{n}</button>
                     ))}</div>
                 </div>
             </div>

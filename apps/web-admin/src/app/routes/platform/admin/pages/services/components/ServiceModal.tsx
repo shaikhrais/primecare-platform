@@ -41,14 +41,14 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, onS
     return (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', width: '90%', maxWidth: '500px' }}>
-                <h3 style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>
+                <h3 data-cy="h3-admin.service-modal-0" style={{ marginTop: 0, fontSize: '1.25rem', fontWeight: 'bold' }}>
                     {initialData ? 'Edit Service' : 'Create New Service'}
                 </h3>
 
-                <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <form data-cy="form-admin.service-modal" onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Name</label>
-                        <input
+                        <input data-cy="input-admin.service-modal-0"
                             required
                             type="text"
                             value={formData.name}
@@ -60,7 +60,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, onS
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Service Code</label>
-                            <input
+                            <input data-cy="input-admin.service-modal-1"
                                 required
                                 type="text"
                                 value={formData.code}
@@ -71,7 +71,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, onS
                         </div>
                         <div>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Hourly Rate ($)</label>
-                            <input
+                            <input data-cy="input-admin.service-modal-2"
                                 required
                                 type="number"
                                 step="0.01"
@@ -85,7 +85,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, onS
 
                     <div>
                         <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Description</label>
-                        <textarea
+                        <textarea data-cy="textarea-admin.service-modal"
                             rows={3}
                             value={formData.description}
                             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
@@ -94,14 +94,14 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, onS
                     </div>
 
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                        <button
+                        <button data-cy="btn-admin.service-modal-0"
                             type="button"
                             onClick={onClose}
                             style={{ flex: 1, padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', backgroundColor: 'transparent', cursor: 'pointer' }}
                         >
                             Cancel
                         </button>
-                        <button
+                        <button data-cy="btn-admin.service-modal-1"
                             type="submit"
                             disabled={submitting}
                             style={{ flex: 2, padding: '0.75rem', borderRadius: '0.5rem', border: 'none', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', opacity: submitting ? 0.7 : 1 }}

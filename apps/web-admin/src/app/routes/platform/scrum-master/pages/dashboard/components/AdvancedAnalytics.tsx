@@ -23,7 +23,7 @@ export const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ onDrillMes
 
     return (
         <div className="sm-card" style={{ padding: '2.5rem', background: '#ffffff', marginBottom: '3rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
+            <h3 data-cy="h3-advanced-analytics-0" style={{ margin: '0 0 1.5rem 0', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.25rem', fontWeight: 800 }}>
                 💠 {t(ContentRegistry.SCRUM_MASTER.ANALYTICS.AVAILABILITY)}
             </h3>
             <div style={{ height: '400px', display: 'flex', justifyContent: 'center' }}>

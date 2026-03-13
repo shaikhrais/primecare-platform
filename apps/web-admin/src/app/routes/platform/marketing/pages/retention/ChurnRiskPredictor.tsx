@@ -63,7 +63,7 @@ export const ChurnRiskPredictor: React.FC = () => {
                         <LineChart size={28} color="#DC2626" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Algorithmic Churn Risk Predictor</h3>
+                        <h3 data-cy="h3-churn-risk-predictor-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Algorithmic Churn Risk Predictor</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Detects patients quietly scaling back their care hours before they officially cancel the contract.</p>
                     </div>
                 </div>
@@ -113,10 +113,10 @@ export const ChurnRiskPredictor: React.FC = () => {
                         </div>
 
                         <div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '8px', borderLeft: `1px solid ${getRiskColor(patient.riskLevel)}40`, paddingLeft: '24px' }}>
-                            <button style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontSize: '0.85rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <button data-cy="btn-churn-risk-predictor-0" style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '6px', padding: '10px 16px', fontSize: '0.85rem', fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <PhoneCall size={16}/> Log Intervention Call
                             </button>
-                             <button style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '6px', padding: '10px 16px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                             <button data-cy="btn-churn-risk-predictor-1" style={{ backgroundColor: 'white', color: '#0F172A', border: '1px solid #CBD5E1', borderRadius: '6px', padding: '10px 16px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <TrendingDown size={16}/> Downgrade Contract
                             </button>
                         </div>

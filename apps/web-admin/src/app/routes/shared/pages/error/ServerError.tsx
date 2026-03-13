@@ -28,7 +28,7 @@ export default function ServerError() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem' }}>
-                <button
+                <button data-cy="btn-shared.server-error-0"
                     onClick={() => window.location.reload()}
                     style={{
                         padding: '12px 24px',
@@ -44,7 +44,7 @@ export default function ServerError() {
                 >
                     🔄 Try Again
                 </button>
-                <button
+                <button data-cy="btn-shared.server-error-1"
                     onClick={() => navigate('/')}
                     style={{
                         padding: '12px 24px',

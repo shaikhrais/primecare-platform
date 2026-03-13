@@ -187,7 +187,7 @@ export const ShiftDragBoard: React.FC = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', userSelect: 'none' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>High-Velocity Dispatch Board</h2>
+                <h2 data-cy="h2-manager.shift-drag-board-0" style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>High-Velocity Dispatch Board</h2>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isConnected ? '#10B981' : '#F59E0B' }} title={isConnected ? 'Live Sync Active' : 'Connecting to Edge Stream...'}>
                     <Wifi size={20} style={{ animation: isConnected ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none' }} />
@@ -197,7 +197,7 @@ export const ShiftDragBoard: React.FC = () => {
 
             {/* Unassigned Pool */}
             <div style={{ backgroundColor: '#EEF2F6', padding: '16px', borderRadius: '12px', border: '1px dashed #94A3B8' }}>
-                <h3 style={{ margin: '0 0 16px 0', fontSize: '1rem', fontWeight: 700, color: '#475569' }}>Unassigned / Sick Calls</h3>
+                <h3 data-cy="h3-manager.shift-drag-board-0" style={{ margin: '0 0 16px 0', fontSize: '1rem', fontWeight: 700, color: '#475569' }}>Unassigned / Sick Calls</h3>
                 <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                     {unassigned.length === 0 ? <div style={{ color: '#94A3B8', fontStyle: 'italic', fontSize: '0.9rem' }}>No pending shifts.</div> : unassigned.map(s => renderShiftCard(s))}
                 </div>
@@ -288,14 +288,14 @@ export const ShiftDragBoard: React.FC = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <button onClick={() => executeContextMenuAction('reassign')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#334155', borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#F1F5F9'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                    <button data-cy="btn-manager.shift-drag-board-0" onClick={() => executeContextMenuAction('reassign')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#334155', borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#F1F5F9'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
                         Reassign to Pool
                     </button>
-                    <button onClick={() => executeContextMenuAction('audit')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#334155', borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#F1F5F9'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                    <button data-cy="btn-manager.shift-drag-board-1" onClick={() => executeContextMenuAction('audit')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#334155', borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#F1F5F9'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
                         View Audit Log
                     </button>
                     <div style={{ height: '1px', backgroundColor: '#E2E8F0', margin: '4px 0' }} />
-                    <button onClick={() => executeContextMenuAction('cancel')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#EF4444', fontWeight: 600, borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#FEF2F2'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                    <button data-cy="btn-manager.shift-drag-board-2" onClick={() => executeContextMenuAction('cancel')} style={{ padding: '8px 12px', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer', fontSize: '0.9rem', color: '#EF4444', fontWeight: 600, borderRadius: '4px' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#FEF2F2'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
                         Cancel Shift (Emergency)
                     </button>
                 </div>

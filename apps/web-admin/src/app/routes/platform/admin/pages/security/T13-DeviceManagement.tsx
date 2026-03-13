@@ -110,7 +110,7 @@ export default function DeviceManagement() {
             <div className="pc-card">
                 <div className="pc-card-h">Active & Managed Devices</div>
                 <div className="pc-card-b" style={{ padding: '0' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <table data-cy="table-admin.device-management" style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB' }}>
                             <tr>
                                 <th style={{ textAlign: 'left', padding: '16px', fontSize: '12px', fontWeight: '600', color: '#6B7280' }}>DEVICE / USER</th>
@@ -163,7 +163,7 @@ export default function DeviceManagement() {
                                     </td>
                                     <td style={{ padding: '16px', textAlign: 'right' }}>
                                         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                                            <button
+                                            <button data-cy="btn-admin.device-management-0"
                                                 className="btn secondary sm"
                                                 onClick={() => viewActivity(device)}
                                                 style={{ fontSize: '11px', padding: '4px 12px' }}
@@ -171,7 +171,7 @@ export default function DeviceManagement() {
                                                 Logs
                                             </button>
                                             {!device.isAuthorized || device.status === 'revoked' ? (
-                                                <button
+                                                <button data-cy="btn-admin.device-management-1"
                                                     className="btn primary sm"
                                                     onClick={() => handleAuthorize(device.id)}
                                                     style={{ fontSize: '11px', padding: '4px 12px' }}
@@ -179,7 +179,7 @@ export default function DeviceManagement() {
                                                     {device.status === 'revoked' ? 'Re-Authorize' : 'Approve'}
                                                 </button>
                                             ) : (
-                                                <button
+                                                <button data-cy="btn-admin.device-management-2"
                                                     className="btn danger sm"
                                                     onClick={() => handleRevoke(device.id)}
                                                     style={{ fontSize: '11px', padding: '4px 12px' }}
@@ -215,13 +215,13 @@ export default function DeviceManagement() {
                     <div className="pc-card" style={{ width: '90%', maxWidth: '800px', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
                         <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span>Activity logs for {selectedDevice.deviceName}</span>
-                            <button onClick={() => setSelectedDevice(null)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '20px' }}>×</button>
+                            <button data-cy="btn-admin.device-management-3" onClick={() => setSelectedDevice(null)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '20px' }}>×</button>
                         </div>
                         <div className="pc-card-b" style={{ flex: 1, overflow: 'auto', padding: '0' }}>
                             {activityLoading ? (
                                 <div style={{ padding: '48px', textAlign: 'center' }}>Loading activity logs...</div>
                             ) : (
-                                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <table data-cy="table-admin.device-management" style={{ width: '100%', borderCollapse: 'collapse' }}>
                                     <thead style={{ background: '#F9FAFB', borderBottom: '1px solid #E5E7EB', position: 'sticky', top: 0 }}>
                                         <tr>
                                             <th style={{ textAlign: 'left', padding: '12px 16px', fontSize: '12px', color: '#6B7280' }}>TIME</th>
@@ -249,7 +249,7 @@ export default function DeviceManagement() {
                             )}
                         </div>
                         <div style={{ padding: '16px', borderTop: '1px solid #E5E7EB', textAlign: 'right' }}>
-                            <button className="btn secondary" onClick={() => setSelectedDevice(null)}>Close</button>
+                            <button data-cy="btn-admin.device-management-4" className="btn secondary" onClick={() => setSelectedDevice(null)}>Close</button>
                         </div>
                     </div>
                 </div>

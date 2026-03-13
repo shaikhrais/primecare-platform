@@ -35,7 +35,7 @@ export const ImpersonationSearch: React.FC<ImpersonationSearchProps> = ({
                     {ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.SECTION_IMPERSONATE}
                 </div>
                 {isImpersonating && (
-                    <button onClick={exitImpersonation} style={{
+                    <button data-cy="btn-shared.impersonation-search-0" onClick={exitImpersonation} style={{
                         padding: '6px 12px', fontSize: '11px', background: '#EF4444', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 800
                     }}>
                         {ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.EXIT_IMPERSONATE}
@@ -44,7 +44,7 @@ export const ImpersonationSearch: React.FC<ImpersonationSearchProps> = ({
             </div>
 
             <div style={{ position: 'relative' }}>
-                <input
+                <input data-cy="input-shared.impersonation-search-0"
                     type="text"
                     placeholder={ContentRegistry.LAYOUT.PERSPECTIVE_MODAL.SEARCH_PLACEHOLDER}
                     value={searchQuery}
@@ -62,7 +62,7 @@ export const ImpersonationSearch: React.FC<ImpersonationSearchProps> = ({
             {showImpersonate && searchQuery && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
                     {filteredUsers.map(user => (
-                        <button
+                        <button data-cy="btn-shared.impersonation-search-1"
                             key={user.id}
                             onClick={() => handleImpersonate(user)}
                             style={{

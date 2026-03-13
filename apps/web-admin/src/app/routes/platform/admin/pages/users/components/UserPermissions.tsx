@@ -47,7 +47,7 @@ export const UserPermissions: React.FC<UserPermissionsProps> = ({ assignedPermis
                             onChange(newPerms);
                         }}
                     >
-                        <input
+                        <input data-cy="input-admin.user-permissions-0"
                             type="checkbox"
                             checked={assignedPermissions.includes(p.key)}
                             readOnly

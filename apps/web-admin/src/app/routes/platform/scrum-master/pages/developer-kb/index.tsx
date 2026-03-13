@@ -64,7 +64,7 @@ const DeveloperKBPage: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', gap: '8px', padding: '6px', backgroundColor: '#F3F4F6', borderRadius: '12px' }}>
                     {Object.keys(auditData).map(role => (
-                        <button
+                        <button data-cy="btn-index-0"
                             key={role}
                             onClick={() => setSelectedRole(role)}
                             style={{
@@ -91,9 +91,9 @@ const DeveloperKBPage: React.FC = () => {
                 <section>
                     <div style={{ backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
                         <div style={{ padding: '24px', borderBottom: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-                            <h2 style={{ fontSize: '18px', fontWeight: '800', margin: 0 }}>Implementation Specs: {selectedRole.toUpperCase()}</h2>
+                            <h2 data-cy="h2-index-0" style={{ fontSize: '18px', fontWeight: '800', margin: 0 }}>Implementation Specs: {selectedRole.toUpperCase()}</h2>
                         </div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                        <table data-cy="table-index" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                             <thead>
                                 <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                                     <th style={{ padding: '16px 24px', fontSize: '13px', fontWeight: '700', color: '#6B7280', textTransform: 'uppercase' }}>File / Section</th>
@@ -122,7 +122,7 @@ const DeveloperKBPage: React.FC = () => {
 
                     <div style={{ marginTop: '32px', backgroundColor: 'white', borderRadius: '16px', border: '1px solid #E5E7EB', overflow: 'hidden' }}>
                         <div style={{ padding: '24px', borderBottom: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-                            <h2 style={{ fontSize: '18px', fontWeight: '800', margin: 0 }}>API Endpoint Map</h2>
+                            <h2 data-cy="h2-index-1" style={{ fontSize: '18px', fontWeight: '800', margin: 0 }}>API Endpoint Map</h2>
                         </div>
                         <div style={{ padding: '24px' }}>
                             {audit.apis.map((api, idx) => (
@@ -140,7 +140,7 @@ const DeveloperKBPage: React.FC = () => {
 
                 <aside>
                     <div style={{ backgroundColor: '#F0F9FF', borderRadius: '16px', padding: '24px', border: '1px solid #BAE6FD' }}>
-                        <h3 style={{ fontSize: '14px', fontWeight: '800', color: '#0369A1', textTransform: 'uppercase', marginBottom: '16px' }}>Summary Metrics</h3>
+                        <h3 data-cy="h3-index-0" style={{ fontSize: '14px', fontWeight: '800', color: '#0369A1', textTransform: 'uppercase', marginBottom: '16px' }}>Summary Metrics</h3>
                         <div style={{ fontSize: '48px', fontWeight: '900', color: '#0C4A6E' }}>{audit.pageCount}</div>
                         <div style={{ fontSize: '14px', color: '#0369A1', fontWeight: '600' }}>Pages Implemented</div>
                         <hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #BAE6FD' }} />

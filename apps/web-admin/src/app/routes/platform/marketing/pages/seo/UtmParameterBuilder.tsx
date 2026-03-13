@@ -41,7 +41,7 @@ export const UtmParameterBuilder: React.FC = () => {
                         <Link size={28} color="#9333EA" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Standardized UTM Campaign Builder</h3>
+                        <h3 data-cy="h3-utm-parameter-builder-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Standardized UTM Campaign Builder</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Enforces clean data hygiene for Google Analytics by restricting reps to approved tracking tags.</p>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ export const UtmParameterBuilder: React.FC = () => {
                     
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Target Destination URL *</label>
-                        <input 
+                        <input data-cy="input-utm-parameter-builder-0" 
                             type="text" 
                             value={baseUrl}
                             onChange={(e) => setBaseUrl(e.target.value)}
@@ -65,7 +65,7 @@ export const UtmParameterBuilder: React.FC = () => {
                     <div style={{ display: 'flex', gap: '16px' }}>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Traffic Source *</label>
-                            <select value={source} onChange={(e) => setSource(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: '#F8FAFC' }}>
+                            <select data-cy="select-utm-parameter-builder-0" value={source} onChange={(e) => setSource(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: '#F8FAFC' }}>
                                 <option value="google">google (Search)</option>
                                 <option value="facebook">facebook (Meta)</option>
                                 <option value="linkedin">linkedin (B2B)</option>
@@ -74,7 +74,7 @@ export const UtmParameterBuilder: React.FC = () => {
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Campaign Medium *</label>
-                            <select value={medium} onChange={(e) => setMedium(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: '#F8FAFC' }}>
+                            <select data-cy="select-utm-parameter-builder-1" value={medium} onChange={(e) => setMedium(e.target.value)} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', backgroundColor: '#F8FAFC' }}>
                                 <option value="cpc">cpc (Cost Per Click)</option>
                                 <option value="organic">organic (Free Post)</option>
                                 <option value="email">email (Blast)</option>
@@ -85,7 +85,7 @@ export const UtmParameterBuilder: React.FC = () => {
 
                     <div>
                         <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Campaign Name * (No spaces)</label>
-                        <input 
+                        <input data-cy="input-utm-parameter-builder-1" 
                             type="text" 
                             value={campaign}
                             onChange={(e) => setCampaign(e.target.value.toLowerCase().replace(/\s+/g, '_'))}
@@ -97,11 +97,11 @@ export const UtmParameterBuilder: React.FC = () => {
                     <div style={{ display: 'flex', gap: '16px' }}>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Term (Optional)</label>
-                             <input type="text" value={term} onChange={(e) => setTerm(e.target.value)} placeholder="e.g., dementia_care" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', boxSizing: 'border-box' }}/>
+                             <input data-cy="input-utm-parameter-builder-2" type="text" value={term} onChange={(e) => setTerm(e.target.value)} placeholder="e.g., dementia_care" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', boxSizing: 'border-box' }}/>
                         </div>
                         <div style={{ flex: 1 }}>
                             <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#334155', display: 'block', marginBottom: '6px' }}>Content Variant (Optional)</label>
-                            <input type="text" value={content} onChange={(e) => setContent(e.target.value)} placeholder="e.g., blue_banner_v2" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', boxSizing: 'border-box' }}/>
+                            <input data-cy="input-utm-parameter-builder-3" type="text" value={content} onChange={(e) => setContent(e.target.value)} placeholder="e.g., blue_banner_v2" style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '1rem', boxSizing: 'border-box' }}/>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@ export const UtmParameterBuilder: React.FC = () => {
                     </div>
 
                     {isValid ? (
-                         <button 
+                         <button data-cy="btn-utm-parameter-builder-0" 
                             onClick={handleCopy}
                             style={{ width: '100%', padding: '16px', backgroundColor: copied ? '#10B981' : '#9333EA', color: 'white', border: 'none', borderRadius: '8px', fontSize: '1rem', fontWeight: 800, cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '24px', transition: 'background-color 0.2s' }}
                         >

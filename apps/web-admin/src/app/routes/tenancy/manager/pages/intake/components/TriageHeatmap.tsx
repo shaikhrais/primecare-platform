@@ -82,12 +82,12 @@ export const TriageHeatmap: React.FC = () => {
         <div style={{ backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', maxWidth: '900px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h2 data-cy="h2-manager.triage-heatmap-0" style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 4px 0', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Activity color="#EF4444" /> Waitlist Triage Heatmap
                     </h2>
                     <p style={{ color: '#64748B', margin: 0, fontSize: '0.95rem' }}>Visualizing density vs. clinical urgency.</p>
                 </div>
-                <button style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>
+                <button data-cy="btn-manager.triage-heatmap-0" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>
                     <UserPlus size={18} /> New Intake
                 </button>
             </div>

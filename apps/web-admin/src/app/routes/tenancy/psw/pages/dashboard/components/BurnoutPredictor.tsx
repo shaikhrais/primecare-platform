@@ -33,7 +33,7 @@ export const BurnoutPredictor: React.FC<BurnoutPredictorProps> = ({ hoursLoggedT
                     <HeartPulse size={24} color={color} />
                 </div>
                 <div>
-                    <h3 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827' }}>My Wellness Predictor</h3>
+                    <h3 data-cy="h3-psw.burnout-predictor-0" style={{ margin: '0 0 4px 0', fontSize: '1.2rem', fontWeight: 800, color: '#111827' }}>My Wellness Predictor</h3>
                     <p style={{ margin: 0, fontWeight: 700, color: color, fontSize: '0.95rem' }}>Status: {status}</p>
                 </div>
             </div>
@@ -54,7 +54,7 @@ export const BurnoutPredictor: React.FC<BurnoutPredictorProps> = ({ hoursLoggedT
             </div>
 
             {intensityScore > 65 && (
-                <button style={{ width: '100%', padding: '12px', backgroundColor: 'transparent', border: `1px solid ${color}`, color: color, borderRadius: '8px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}>
+                <button data-cy="btn-psw.burnout-predictor-0" style={{ width: '100%', padding: '12px', backgroundColor: 'transparent', border: `1px solid ${color}`, color: color, borderRadius: '8px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }}>
                     Request Downtime Block
                 </button>
             )}

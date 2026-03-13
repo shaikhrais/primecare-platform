@@ -55,14 +55,14 @@ export const WellnessPulse: React.FC = () => {
             border: '1px solid #E5E7EB',
             marginTop: '1.5rem'
         }} data-cy="wellness-pulse">
-            <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: 700 }}>Wellness Pulse</h3>
+            <h3 data-cy="h3-psw.wellness-pulse-0" style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', fontWeight: 700 }}>Wellness Pulse</h3>
             <p style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: '#6B7280' }}>
                 How are you feeling today? Your feedback helps us support you better.
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
                 {options.map((opt) => (
-                    <button
+                    <button data-cy="btn-psw.wellness-pulse-0"
                         key={opt.status}
                         disabled={submitting}
                         onClick={() => handlePulse(opt.status)}
@@ -95,7 +95,7 @@ export const WellnessPulse: React.FC = () => {
                 ))}
             </div>
 
-            <textarea
+            <textarea data-cy="textarea-psw.wellness-pulse"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Any specific concerns? (Optional)"

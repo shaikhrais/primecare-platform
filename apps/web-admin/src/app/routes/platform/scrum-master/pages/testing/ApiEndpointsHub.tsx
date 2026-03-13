@@ -103,13 +103,13 @@ export default function ApiEndpointsHub() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button
+                    <button data-cy="btn-api-endpoints-hub-0"
                         onClick={() => setTestResults({})}
                         style={{ padding: '10px 20px', backgroundColor: 'transparent', color: 'var(--text-200)', border: '1px solid var(--border)', borderRadius: '12px', fontWeight: 600, cursor: 'pointer' }}
                     >
                         Clear Results
                     </button>
-                    <button
+                    <button data-cy="btn-api-endpoints-hub-1"
                         onClick={handleTestAll}
                         disabled={isTestingAll}
                         style={{
@@ -130,7 +130,7 @@ export default function ApiEndpointsHub() {
             </div>
 
             <div className="pc-card" style={{ padding: 0, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <table data-cy="table-api-endpoints-hub" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ backgroundColor: 'var(--bg-200)', color: 'var(--text-300)', fontSize: '0.85rem', textTransform: 'uppercase' }}>
                         <tr>
                             <th style={{ padding: '1rem 1.5rem' }}>{t(ContentRegistry.AUDIT.TABLE.MODULE)}</th>
@@ -158,7 +158,7 @@ export default function ApiEndpointsHub() {
                                     )}
                                 </td>
                                 <td style={{ padding: '1.2rem 1.5rem', textAlign: 'right' }}>
-                                    <button
+                                    <button data-cy="btn-api-endpoints-hub-2"
                                         onClick={() => handleTest(idx.toString(), ep.path)}
                                         disabled={testingId === idx.toString()}
                                         style={{

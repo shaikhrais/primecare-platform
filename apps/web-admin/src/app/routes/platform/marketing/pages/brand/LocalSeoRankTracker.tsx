@@ -43,7 +43,7 @@ export const LocalSeoRankTracker: React.FC = () => {
                         <Search size={28} color="#475569" />
                     </div>
                     <div>
-                        <h3 style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Local SEO Rank Tracker</h3>
+                        <h3 data-cy="h3-local-seo-rank-tracker-0" style={{ margin: 0, fontSize: '1.4rem', color: '#0F172A', fontWeight: 800 }}>Local SEO Rank Tracker</h3>
                         <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.9rem' }}>Monitor PrimeCare's organic Google search position isolated by high-value ZIP codes.</p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ export const LocalSeoRankTracker: React.FC = () => {
                 </div>
             )}
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+            <table data-cy="table-local-seo-rank-tracker" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0', textAlign: 'left' }}>
                         <th style={{ padding: '12px', color: '#64748B', fontWeight: 700 }}>Search Keyword</th>

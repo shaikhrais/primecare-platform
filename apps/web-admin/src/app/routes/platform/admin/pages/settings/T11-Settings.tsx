@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T11 · Settings
+// PAGE IDENTITY: T11 ï¿½ Settings
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
@@ -54,7 +54,7 @@ export default function SettingsPage() {
             {showGuard && (
                 <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
-                        <h2 style={{ marginTop: 0 }}>Unsaved Changes</h2>
+                        <h2 data-cy="h2-admin.settings-0" style={{ marginTop: 0 }}>Unsaved Changes</h2>
                         <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved configuration changes. Navigating away will discard them.</p>
                         <div style={{ display: 'flex', gap: '16px' }}>
                             <button data-cy="guard.unsaved.leave" onClick={() => { setIsDirty(false); setShowGuard(false); }} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer' }}>Discard</button>
@@ -70,13 +70,13 @@ export default function SettingsPage() {
 
             <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }} data-cy="form.settings">
                 <div style={{ marginBottom: '2.5rem' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.TITLE)}</h3>
+                    <h3 data-cy="h3-admin.settings-0" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.TITLE)}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem' }}>
                         <div>
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_ALERTS)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.NOTIFICATIONS.EMAIL_DESC)}</div>
                         </div>
-                        <input
+                        <input data-cy="input-admin.settings-0"
                             type="checkbox"
                             checked={settings.emailAlerts}
                             onChange={(e) => { setSettings({ ...settings, emailAlerts: e.target.checked }); setIsDirty(true); }}
@@ -87,13 +87,13 @@ export default function SettingsPage() {
                 </div>
 
                 <div style={{ marginBottom: '2.5rem' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.TITLE)}</h3>
+                    <h3 data-cy="h3-admin.settings-1" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.TITLE)}</h3>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #f3f4f6', borderRadius: '0.5rem', marginBottom: '1rem' }}>
                         <div>
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_ASSIGN)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.AUTO_DESC)}</div>
                         </div>
-                        <input
+                        <input data-cy="input-admin.settings-1"
                             type="checkbox"
                             checked={settings.autoAssignment}
                             onChange={(e) => { setSettings({ ...settings, autoAssignment: e.target.checked }); setIsDirty(true); }}
@@ -106,7 +106,7 @@ export default function SettingsPage() {
                             <div style={{ fontWeight: '500' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_PERIOD)}</div>
                             <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>{t(ContentRegistry.SETTINGS.SCHEDULING.GRACE_DESC)}</div>
                         </div>
-                        <select
+                        <select data-cy="select-admin.settings-0"
                             value={settings.gracePeriod}
                             onChange={(e) => { setSettings({ ...settings, gracePeriod: e.target.value }); setIsDirty(true); }}
                             style={{ padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #d1d5db' }}
@@ -120,7 +120,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div style={{ marginBottom: '2.5rem' }}>
-                    <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>System Administration</h3>
+                    <h3 data-cy="h3-admin.settings-2" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>System Administration</h3>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                         <button
                             data-cy="btn.nav.roles"

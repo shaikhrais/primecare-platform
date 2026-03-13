@@ -60,7 +60,7 @@ export default function SystemHealthMonitor() {
             </div>
 
             <div className="pc-card" style={{ padding: '2rem', backgroundColor: '#0f172a' }}>
-                <h3 style={{ margin: '0 0 1.5rem 0', color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <h3 data-cy="h3-system-health-monitor-0" style={{ margin: '0 0 1.5rem 0', color: 'white', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981', display: 'inline-block' }}></span>
                     {t((ContentRegistry.SCRUM_MASTER.MONITORING as any).LOGS_TITLE)}
                 </h3>
