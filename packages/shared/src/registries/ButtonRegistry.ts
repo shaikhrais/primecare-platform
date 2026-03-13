@@ -216,3 +216,111 @@ export const ButtonRegistry: ButtonDef[] = [
     btn('btn-wallet-did-verify',      'Authorize Secure Access',   R.CLIENT,M.SOV,T.P, A.API,   'Authenticates via Decentralized Identity (DID).', { api: ApiRegistry.PLATFORM.INTEROP.DID_VERIFY }),
     btn('btn-auth-osm-login',         'Sign in with OpenStreetMap',R.PUB, M.ADM,  T.S, A.API,   'Initializes secure identity verification via OpenStreetMap OAuth.', { api: '/v1/auth/osm' }),
 ];
+
+// ── Derived: ButtonGroups — role → module → buttons ─────────────────────────
+
+type NestedGroups = Record<string, Record<string, ButtonDef[]>>;
+
+function buildButtonGroups(): NestedGroups {
+    const groups: NestedGroups = {};
+    for (const b of ButtonRegistry) {
+        (groups[b.role] ??= {})[b.module] ??= [];
+        groups[b.role][b.module].push(b);
+    }
+    return groups;
+}
+
+/** Buttons grouped by role → module. Usage: `ButtonGroups.admin.ADMIN` */
+export const ButtonGroups: NestedGroups = buildButtonGroups();
+
+// ── Derived: ButtonsByPage — PageActionRegistry key → buttons ────────────────
+// Auto-derived by resolving PageActionRegistry (page.id → btn IDs) into actual
+// ButtonDef[] arrays. Keys are PageActionRegistry page IDs like 'admin.dashboard'.
+
+import { PageActionRegistry } from './PageActionRegistry';
+
+function buildButtonsByPage(): Record<string, ButtonDef[]> {
+    const idx = new Map(ButtonRegistry.map(b => [b.id, b]));
+    const result: Record<string, ButtonDef[]> = {};
+    for (const [pageId, pa] of Object.entries(PageActionRegistry)) {
+        const btns: ButtonDef[] = [];
+        if (pa.primary) { const b = idx.get(pa.primary); if (b) btns.push(b); }
+        for (const id of pa.actions) { const b = idx.get(id); if (b) btns.push(b); }
+        if (btns.length) result[pageId] = btns;
+    }
+    return result;
+}
+
+/**
+ * Page-keyed button map. Keys are PageActionRegistry IDs ('admin.dashboard', 'psw.schedule', etc.)
+ *
+ * Usage:
+ *   ButtonsByPage['admin.dashboard'] → [btn-admin-user-invite, btn-admin-ui-override, ...]
+ *   ButtonsByPage['coordinator.dashboard'] → [btn-coord-dispatch-center, ...]
+ *   ButtonsByPage['psw.live-visit'] → [btn-psw-check-in, btn-psw-check-out, ...]
+ *
+ * To look up by MASTER_REGISTRY code (D1, H18…), use PAGE_CODE_TO_ID first:
+ *   ButtonsByPage[PAGE_CODE_TO_ID['D1']] → Admin Dashboard buttons
+ */
+export const ButtonsByPage: Record<string, ButtonDef[]> = buildButtonsByPage();
+
+/**
+ * Maps MASTER_REGISTRY page codes (D1, F1, H18…) to PageActionRegistry IDs.
+ * Use with ButtonsByPage: `ButtonsByPage[PAGE_CODE_TO_ID['D1']]`
+ */
+export const PAGE_CODE_TO_ID: Record<string, string> = {
+    // Dashboards
+    D1:  'admin.dashboard',      D2:  'admin.summary',
+    D7:  'manager.dashboard',    D14: 'psw.dashboard',
+    D15: 'rn.dashboard',         D8:  'client.dashboard',
+    D19: 'staff.dashboard',      D18: 'allied.dashboard',
+    // Hubs / Tools / Lists
+    H18: 'coordinator.dashboard', T39: 'coordinator.sos',
+    H11: 'manager.training',     T22: 'manager.surveys',
+    L13: 'manager.evaluations',  H12: 'manager.operations',
+    // PSW
+    L16: 'psw.schedule',         T61: 'psw.live-visit',
+    R3:  'psw.earnings',
+    // RN
+    T29: 'rn.care-plans',       L18: 'rn.assessments',
+    T30: 'rn.daily-audit',
+    // Client
+    L14: 'client.bookings',     H10: 'client.billing',
+    F16: 'client.feedback',
+    // Admin sub-pages
+    L3a: 'admin.users',         L3: 'admin.leads',
+    L1:  'admin.schedule',      L5: 'admin.services',
+    L2:  'admin.incidents',     L4: 'admin.timesheets',
+    R1:  'admin.reports',       T10: 'admin.security',
+    D3:  'admin.finance',       D5: 'admin.ai',
+    H4:  'admin.erp',           H1: 'admin.telehealth',
+    H2:  'admin.pharmacy',
+    // Platform
+    'D-SU':  'superuser.dashboard',
+    'D-SM':  'scrum-master.dashboard',
+};
+
+// ── Lookup Helpers ───────────────────────────────────────────────────────────
+
+/** Get all buttons assigned to a MASTER_REGISTRY page code (D1, F1, T3…) */
+export function getButtonsForPage(code: string): ButtonDef[] {
+    return ButtonsByPage[code] ?? [];
+}
+
+/** Get all buttons belonging to a specific role */
+export function getButtonsByRole(role: string): ButtonDef[] {
+    return ButtonRegistry.filter(b => b.role === role);
+}
+
+/** Get all buttons belonging to a specific module */
+export function getButtonsByModule(module: string): ButtonDef[] {
+    return ButtonRegistry.filter(b => b.module === module);
+}
+
+/** Get a single button by ID */
+export function getButtonById(id: string): ButtonDef | undefined {
+    return ButtonRegistry.find(b => b.id === id);
+}
+
+/** Total button count */
+export const BUTTON_REGISTRY_COUNT = ButtonRegistry.length;
