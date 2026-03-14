@@ -1,38 +1,27 @@
 // ================================================================
-// PAGE IDENTITY: T60 � Open Offers
+// PAGE IDENTITY: T60 — Open Offers
 // Type: Tool | Owner: psw
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
 
 const { ApiRegistry } = AdminRegistry;
 
 export default function OpenOffers() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
-    const [offers, setOffers] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
-    const fetchOffers = async () => {
-        setLoading(true);
-        try {
-            const res = await apiClient.get('/v1/psw/schedule/offers');
-            if (res.ok) {
-                setOffers(await res.json());
-            }
-        } catch (error) {
-            console.error('Failed to fetch offers', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchOffers();
-    }, []);
+    // TanStack Query: auto-cached shift offers
+    const { data: offers = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/psw/schedule/offers', {
+        queryKey: ['psw', 'offers'],
+        staleTime: 15_000,
+    });
 
     const handleAction = async (id: string, action: 'accept' | 'decline') => {
         try {
@@ -42,7 +31,8 @@ export default function OpenOffers() {
                 if (action === 'accept') {
                     navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
                 } else {
-                    fetchOffers();
+                    // Invalidate query to trigger refetch
+                    queryClient.invalidateQueries({ queryKey: ['psw', 'offers'] });
                 }
             } else {
                 showToast(`Failed to ${action} offer`, 'error');

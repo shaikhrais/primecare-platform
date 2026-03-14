@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { AlertCircle, Clock, FileWarning, ShieldAlert } from 'lucide-react';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 interface Anomaly {
     id: string;
@@ -11,40 +11,26 @@ interface Anomaly {
     severity: 'critical' | 'warning';
 }
 
-// Removing ANOMALIES to enforce DB-only architecture
-
 export const AnomalyTicker: React.FC = () => {
-    const [anomalies, setAnomalies] = useState<Anomaly[]>([]);
-    
-    const fetchAnomalies = async () => {
-        try {
-            // Using apiClient mapped route to preserve context
-            const res = await apiClient.get('/v1/manager/ops/incidents');
-            
-            if (res.ok) {
-                const data = await res.json();
-                const mapped = data.map((d: any) => ({
-                    id: d.id,
-                    type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
-                    message: `[${d.type.toUpperCase()}] ${d.description}`,
-                    timestamp: new Date(d.createdAt),
-                    severity: d.status === 'open' ? 'critical' : 'warning'
-                }));
-                setAnomalies(mapped.slice(0, 5));
-            }
-        } catch (error) {
-            console.error('Failed to load anomalies:', error);
-        }
-    };
+    // TanStack Query: auto-cached anomalies with refetch for realtime sync
+    const { data: rawAnomalies = [], refetch } = useRegistryQuery<any[]>('/v1/manager/ops/incidents', {
+        queryKey: ['manager', 'anomalies'],
+        staleTime: 15_000,
+    });
 
-    useEffect(() => {
-        fetchAnomalies();
-    }, []);
+    // Map raw API data to Anomaly shape
+    const anomalies: Anomaly[] = rawAnomalies.map((d: any) => ({
+        id: d.id,
+        type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
+        message: `[${d.type.toUpperCase()}] ${d.description}`,
+        timestamp: new Date(d.createdAt),
+        severity: d.status === 'open' ? 'critical' : 'warning'
+    })).slice(0, 5);
 
+    // Realtime sync: refetch anomalies on relevant events
     useRealtimeSync((msg: SyncMessage) => {
-        // Only refresh anomaly list if the event might correlate to an incident
         if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY') {
-            fetchAnomalies();
+            refetch();
         }
     });
 
