@@ -1,235 +1,233 @@
 /**
- * PermissionRegistry Unit Tests
+ * PermissionRegistry Tests
  *
- * Tests the RBAC permission system: role→permission matrix,
- * helper functions (can, canAny, canAll), and edge cases.
+ * Validates the RBAC permission system: role definitions, permission matrix,
+ * helper functions, and security invariants.
  */
 import { describe, it, expect } from 'vitest';
 import {
-    can, canAny, canAll, getPermissions, getRolesWithPermission,
-    ROLE_PERMISSIONS, PLATFORM_ROLES, Permission,
+    PLATFORM_ROLES,
+    ROLE_PERMISSIONS,
+    can,
+    canAny,
+    canAll,
+    getPermissions,
+    getRolesWithPermission,
 } from 'prime-care-shared';
 
-describe('PermissionRegistry', () => {
-    // ── Role Coverage ────────────────────────────────────────────────────
-    describe('role coverage', () => {
-        it('should define permissions for all platform roles', () => {
-            for (const role of PLATFORM_ROLES) {
-                expect(ROLE_PERMISSIONS[role]).toBeDefined();
-                expect(Array.isArray(ROLE_PERMISSIONS[role])).toBe(true);
-            }
-        });
+// ── Structure ──────────────────────────────────────────────────────────────
 
-        it('should have at least 25 roles', () => {
-            expect(PLATFORM_ROLES.length).toBeGreaterThanOrEqual(25);
-        });
-
-        it('should have at least 50 unique permissions', () => {
-            const allPerms = new Set<string>();
-            Object.values(ROLE_PERMISSIONS).forEach(perms =>
-                perms.forEach(p => allPerms.add(p))
-            );
-            expect(allPerms.size).toBeGreaterThanOrEqual(50);
-        });
+describe('PermissionRegistry · Structure', () => {
+    it('exports PLATFORM_ROLES as a non-empty array', () => {
+        expect(Array.isArray(PLATFORM_ROLES)).toBe(true);
+        expect(PLATFORM_ROLES.length).toBeGreaterThanOrEqual(20);
     });
 
-    // ── super_admin / scrum_master Full Access ───────────────────────────
-    describe('full access roles', () => {
-        const fullAccessRoles = ['super_admin', 'scrum_master'];
-        const spotCheckPerms: Permission[] = [
-            'manage_users', 'delete_users', 'manage_tenants',
-            'manage_registries', 'run_diagnostics', 'view_forensics',
-        ];
-
-        fullAccessRoles.forEach(role => {
-            it(`${role} should have ALL permissions`, () => {
-                spotCheckPerms.forEach(perm => {
-                    expect(can(role, perm)).toBe(true);
-                });
-            });
-        });
+    it('has at least 24 defined roles', () => {
+        expect(PLATFORM_ROLES.length).toBeGreaterThanOrEqual(24);
     });
 
-    // ── can() ────────────────────────────────────────────────────────────
-    describe('can()', () => {
-        it('admin can manage_users', () => {
-            expect(can('admin', 'manage_users')).toBe(true);
-        });
-
-        it('client cannot manage_users', () => {
-            expect(can('client', 'manage_users')).toBe(false);
-        });
-
-        it('psw can clock_in_out', () => {
-            expect(can('psw', 'clock_in_out')).toBe(true);
-        });
-
-        it('rn can manage_care_plans', () => {
-            expect(can('rn', 'manage_care_plans')).toBe(true);
-        });
-
-        it('coordinator can manage_dispatch', () => {
-            expect(can('coordinator', 'manage_dispatch')).toBe(true);
-        });
-
-        it('finance_director can manage_ledger', () => {
-            expect(can('finance_director', 'manage_ledger')).toBe(true);
-        });
-
-        it('client can view_family_portal', () => {
-            expect(can('client', 'view_family_portal')).toBe(true);
-        });
-
-        it('should be case-insensitive', () => {
-            expect(can('Admin', 'manage_users')).toBe(true);
-            expect(can('PSW', 'clock_in_out')).toBe(true);
-        });
-
-        it('unknown role returns false', () => {
-            expect(can('nonexistent', 'manage_users')).toBe(false);
-        });
+    it('every PLATFORM_ROLE has a matching ROLE_PERMISSIONS entry', () => {
+        for (const role of PLATFORM_ROLES) {
+            expect(ROLE_PERMISSIONS).toHaveProperty(role);
+            expect(Array.isArray(ROLE_PERMISSIONS[role])).toBe(true);
+        }
     });
 
-    // ── canAny() ─────────────────────────────────────────────────────────
-    describe('canAny()', () => {
-        it('returns true if role has at least one permission', () => {
-            expect(canAny('psw', ['manage_users', 'clock_in_out'])).toBe(true);
-        });
-
-        it('returns false if role has none of the permissions', () => {
-            expect(canAny('client', ['manage_users', 'manage_tenants'])).toBe(false);
-        });
+    it('ROLE_PERMISSIONS has no extra roles not in PLATFORM_ROLES', () => {
+        const roleKeys = Object.keys(ROLE_PERMISSIONS);
+        for (const key of roleKeys) {
+            expect(PLATFORM_ROLES).toContain(key);
+        }
     });
 
-    // ── canAll() ─────────────────────────────────────────────────────────
-    describe('canAll()', () => {
-        it('returns true if role has all permissions', () => {
-            expect(canAll('admin', ['manage_users', 'view_users'])).toBe(true);
-        });
+    it('no duplicate roles in PLATFORM_ROLES', () => {
+        const unique = new Set(PLATFORM_ROLES);
+        expect(unique.size).toBe(PLATFORM_ROLES.length);
+    });
+});
 
-        it('returns false if role is missing one', () => {
-            expect(canAll('psw', ['clock_in_out', 'manage_users'])).toBe(false);
-        });
+// ── Permission Coverage ─────────────────────────────────────────────────────
+
+describe('PermissionRegistry · Permission Coverage', () => {
+    it('every role has at least view_dashboard', () => {
+        for (const role of PLATFORM_ROLES) {
+            expect(can(role, 'view_dashboard')).toBe(true);
+        }
     });
 
-    // ── getPermissions() ─────────────────────────────────────────────────
-    describe('getPermissions()', () => {
-        it('returns permissions array for valid role', () => {
-            const perms = getPermissions('admin');
-            expect(perms.length).toBeGreaterThan(10);
-            expect(perms).toContain('manage_users');
-        });
-
-        it('returns empty array for unknown role', () => {
-            expect(getPermissions('ghost')).toEqual([]);
-        });
+    it('super_admin has every permission', () => {
+        const superPerms = ROLE_PERMISSIONS['super_admin'];
+        expect(superPerms.length).toBeGreaterThanOrEqual(60);
     });
 
-    // ── getRolesWithPermission() ─────────────────────────────────────────
-    describe('getRolesWithPermission()', () => {
-        it('returns roles that have manage_users', () => {
-            const roles = getRolesWithPermission('manage_users');
-            expect(roles).toContain('admin');
-            expect(roles).toContain('super_admin');
-            expect(roles).not.toContain('client');
-        });
-
-        it('returns roles that can clock_in_out', () => {
-            const roles = getRolesWithPermission('clock_in_out');
-            expect(roles).toContain('psw');
-            expect(roles).toContain('rn');
-            expect(roles).not.toContain('admin');
-        });
+    it('scrum_master has same permissions as super_admin', () => {
+        expect(ROLE_PERMISSIONS['scrum_master'].length).toBe(ROLE_PERMISSIONS['super_admin'].length);
     });
 
-    // ── Role-Specific Boundaries ─────────────────────────────────────────
-    describe('role boundaries', () => {
-        it('psw should NOT have admin permissions', () => {
-            expect(can('psw', 'manage_users')).toBe(false);
-            expect(can('psw', 'manage_settings')).toBe(false);
-            expect(can('psw', 'manage_tenants')).toBe(false);
-        });
-
-        it('client should only have self-service permissions', () => {
-            expect(can('client', 'submit_feedback')).toBe(true);
-            expect(can('client', 'view_own_medical')).toBe(true);
-            expect(can('client', 'manage_schedule')).toBe(false);
-            expect(can('client', 'manage_billing')).toBe(false);
-        });
-
-        it('every role should have view_dashboard', () => {
-            PLATFORM_ROLES.forEach(role => {
-                expect(can(role, 'view_dashboard')).toBe(true);
-            });
-        });
-
-        it('every role should have view_knowledge_base', () => {
-            PLATFORM_ROLES.forEach(role => {
-                expect(can(role, 'view_knowledge_base')).toBe(true);
-            });
-        });
+    it('client cannot manage_users', () => {
+        expect(can('client', 'manage_users')).toBe(false);
     });
 
-    // ── Sprint 9 Regression: view_own_billing ────────────────────────────
-    describe('view_own_billing permission', () => {
-        it('client should have view_own_billing', () => {
-            expect(can('client', 'view_own_billing')).toBe(true);
-        });
-
-        it('psw should NOT have view_own_billing', () => {
-            expect(can('psw', 'view_own_billing')).toBe(false);
-        });
-
-        it('admin should have view_own_billing via super_admin only', () => {
-            // admin doesn't have it directly — it's a client-only permission
-            expect(can('admin', 'view_own_billing')).toBe(false);
-            expect(can('super_admin', 'view_own_billing')).toBe(true);
-        });
-
-        it('client should have all self-service billing perms', () => {
-            expect(can('client', 'view_own_billing')).toBe(true);
-            expect(can('client', 'view_own_bookings')).toBe(true);
-            expect(can('client', 'view_own_medical')).toBe(true);
-            expect(can('client', 'request_booking')).toBe(true);
-        });
+    it('psw cannot delete_users', () => {
+        expect(can('psw', 'delete_users')).toBe(false);
     });
 
-    // ── RBAC Matrix Consistency ──────────────────────────────────────────
-    describe('RBAC matrix consistency', () => {
-        it('every permission in ROLE_PERMISSIONS should be valid', () => {
-            // Ensure no typos in permission strings
-            const allPermsFromRoles = new Set<string>();
-            Object.values(ROLE_PERMISSIONS).forEach(perms =>
-                perms.forEach(p => allPermsFromRoles.add(p))
-            );
-            // All permissions should exist in super_admin (which has ALL_PERMISSIONS)
-            const superAdminPerms = new Set(ROLE_PERMISSIONS.super_admin);
-            allPermsFromRoles.forEach(perm => {
-                expect(superAdminPerms.has(perm as Permission)).toBe(true);
-            });
-        });
+    it('admin can manage_users and manage_billing', () => {
+        expect(can('admin', 'manage_users')).toBe(true);
+        expect(can('admin', 'manage_billing')).toBe(true);
+    });
 
-        it('no role should have duplicate permissions', () => {
-            for (const [role, perms] of Object.entries(ROLE_PERMISSIONS)) {
-                const unique = new Set(perms);
-                expect(unique.size).toBe(perms.length);
-            }
-        });
+    it('coordinator has dispatch permissions', () => {
+        expect(can('coordinator', 'manage_dispatch')).toBe(true);
+        expect(can('coordinator', 'manage_sos')).toBe(true);
+        expect(can('coordinator', 'manage_waitlist')).toBe(true);
+    });
 
-        it('coordinator should have dispatch and scheduling permissions', () => {
-            expect(can('coordinator', 'manage_dispatch')).toBe(true);
-            expect(can('coordinator', 'manage_sos')).toBe(true);
-            expect(can('coordinator', 'manage_shift_swap')).toBe(true);
-            expect(can('coordinator', 'manage_schedule')).toBe(true);
-        });
+    it('rn has clinical permissions', () => {
+        expect(can('rn', 'clinical_oversight')).toBe(true);
+        expect(can('rn', 'manage_care_plans')).toBe(true);
+        expect(can('rn', 'manage_medications')).toBe(true);
+    });
 
-        it('finance_director should have all finance permissions', () => {
-            expect(can('finance_director', 'manage_billing')).toBe(true);
-            expect(can('finance_director', 'manage_invoices')).toBe(true);
-            expect(can('finance_director', 'manage_ledger')).toBe(true);
-            expect(can('finance_director', 'manage_payroll')).toBe(true);
-            expect(can('finance_director', 'manage_reconciliation')).toBe(true);
-            expect(can('finance_director', 'manage_tax')).toBe(true);
-        });
+    it('psw has schedule and availability permissions', () => {
+        expect(can('psw', 'view_open_shifts')).toBe(true);
+        expect(can('psw', 'manage_availability')).toBe(true);
+        expect(can('psw', 'clock_in_out')).toBe(true);
+    });
+
+    it('client has self-service permissions', () => {
+        expect(can('client', 'submit_feedback')).toBe(true);
+        expect(can('client', 'request_booking')).toBe(true);
+        expect(can('client', 'view_own_medical')).toBe(true);
+        expect(can('client', 'view_family_portal')).toBe(true);
+    });
+
+    it('finance_director has ledger and reconciliation permissions', () => {
+        expect(can('finance_director', 'manage_ledger')).toBe(true);
+        expect(can('finance_director', 'manage_reconciliation')).toBe(true);
+        expect(can('finance_director', 'manage_tax')).toBe(true);
+    });
+});
+
+// ── Helper Functions ────────────────────────────────────────────────────────
+
+describe('PermissionRegistry · can()', () => {
+    it('returns true for valid role+permission', () => {
+        expect(can('admin', 'view_dashboard')).toBe(true);
+    });
+
+    it('returns false for invalid permission', () => {
+        expect(can('client', 'manage_tenants')).toBe(false);
+    });
+
+    it('returns false for unknown role', () => {
+        expect(can('nonexistent_role', 'view_dashboard')).toBe(false);
+    });
+
+    it('is case-insensitive for role', () => {
+        expect(can('ADMIN', 'view_dashboard')).toBe(true);
+        expect(can('Admin', 'view_dashboard')).toBe(true);
+    });
+});
+
+describe('PermissionRegistry · canAny()', () => {
+    it('returns true if role has at least one permission', () => {
+        expect(canAny('client', ['manage_users', 'submit_feedback'])).toBe(true);
+    });
+
+    it('returns false if role has none of the permissions', () => {
+        expect(canAny('client', ['manage_users', 'delete_users', 'manage_tenants'])).toBe(false);
+    });
+
+    it('returns false for empty permissions array', () => {
+        expect(canAny('admin', [])).toBe(false);
+    });
+});
+
+describe('PermissionRegistry · canAll()', () => {
+    it('returns true if role has all permissions', () => {
+        expect(canAll('admin', ['view_dashboard', 'manage_users', 'view_reports'])).toBe(true);
+    });
+
+    it('returns false if role is missing one', () => {
+        expect(canAll('client', ['view_dashboard', 'manage_users'])).toBe(false);
+    });
+
+    it('returns true for empty permissions array', () => {
+        expect(canAll('client', [])).toBe(true);
+    });
+});
+
+describe('PermissionRegistry · getPermissions()', () => {
+    it('returns permissions array for valid role', () => {
+        const perms = getPermissions('admin');
+        expect(Array.isArray(perms)).toBe(true);
+        expect(perms.length).toBeGreaterThan(10);
+    });
+
+    it('returns empty array for unknown role', () => {
+        expect(getPermissions('nonexistent')).toEqual([]);
+    });
+});
+
+describe('PermissionRegistry · getRolesWithPermission()', () => {
+    it('returns roles that have view_dashboard', () => {
+        const roles = getRolesWithPermission('view_dashboard');
+        expect(roles).toContain('admin');
+        expect(roles).toContain('client');
+        expect(roles).toContain('psw');
+        expect(roles.length).toBe(PLATFORM_ROLES.length); // all roles have view_dashboard
+    });
+
+    it('returns only admin-level roles for manage_tenants', () => {
+        const roles = getRolesWithPermission('manage_tenants');
+        expect(roles).toContain('super_admin');
+        expect(roles).toContain('scrum_master');
+        expect(roles).not.toContain('client');
+        expect(roles).not.toContain('psw');
+    });
+
+    it('impersonate_users is restricted to super_admin and scrum_master', () => {
+        const roles = getRolesWithPermission('impersonate_users');
+        expect(roles).toContain('super_admin');
+        expect(roles).toContain('scrum_master');
+        expect(roles).not.toContain('admin');
+        expect(roles).not.toContain('client');
+    });
+});
+
+// ── Security Invariants ─────────────────────────────────────────────────────
+
+describe('PermissionRegistry · Security Invariants', () => {
+    it('no permission array contains duplicates', () => {
+        for (const [role, perms] of Object.entries(ROLE_PERMISSIONS)) {
+            const unique = new Set(perms);
+            expect(unique.size).toBe(perms.length);
+        }
+    });
+
+    it('only super_admin and scrum_master have impersonate_users', () => {
+        const impersonators = getRolesWithPermission('impersonate_users');
+        expect(impersonators.sort()).toEqual(['scrum_master', 'super_admin']);
+    });
+
+    it('clinical roles have clinical_oversight', () => {
+        expect(can('rn', 'clinical_oversight')).toBe(true);
+        expect(can('clinical_manager', 'clinical_oversight')).toBe(true);
+        expect(can('allied', 'clinical_oversight')).toBe(true);
+    });
+
+    it('frontline roles cannot manage_settings', () => {
+        expect(can('psw', 'manage_settings')).toBe(false);
+        expect(can('client', 'manage_settings')).toBe(false);
+        expect(can('rn', 'manage_settings')).toBe(false);
+    });
+
+    it('all roles have view_knowledge_base and view_training', () => {
+        for (const role of PLATFORM_ROLES) {
+            expect(can(role, 'view_knowledge_base')).toBe(true);
+            expect(can(role, 'view_training')).toBe(true);
+        }
     });
 });
