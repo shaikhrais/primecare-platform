@@ -1,11 +1,12 @@
 // ================================================================
-// PAGE IDENTITY: H10 � Billing Hub
+// PAGE IDENTITY: H10 — Billing Hub
 // Type: Hub | Owner: client
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CreditCard, History, Clock, CheckCircle, AlertTriangle, Download, ArrowRight } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './BillingHub.css';
 import { useNotification } from '@/shared/context/NotificationContext';
 
@@ -20,31 +21,21 @@ interface Invoice {
     serviceDescription: string;
 }
 
+// Fallback mock data when API unavailable
+const FALLBACK_INVOICES: Invoice[] = [
+    { id: 'INV-001', createdAt: new Date().toISOString(), amount: 450.00, currency: 'CAD', status: 'pending', serviceDescription: 'Personal Care - 15 Hours' },
+    { id: 'INV-002', createdAt: new Date(Date.now() - 86400000 * 7).toISOString(), amount: 320.00, currency: 'CAD', status: 'paid', serviceDescription: 'Respite Care - 10 Hours' }
+];
+
 const BillingHub: React.FC = () => {
-    const [invoices, setInvoices] = useState<Invoice[]>([]);
-    const [loading, setLoading] = useState(true);
     const { showToast } = useNotification();
 
-    const fetchInvoices = async () => {
-        try {
-            const response = await apiClient.get(ApiRegistry.TENANCY.CLIENT.INVOICES);
-            const data = await response.json();
-            setInvoices(data);
-        } catch (error) {
-            console.error('Failed to fetch invoices', error);
- // for Face One realization
-            setInvoices([
-                { id: 'INV-001', createdAt: new Date().toISOString(), amount: 450.00, currency: 'CAD', status: 'pending', serviceDescription: 'Personal Care - 15 Hours' },
-                { id: 'INV-002', createdAt: new Date(Date.now() - 86400000 * 7).toISOString(), amount: 320.00, currency: 'CAD', status: 'paid', serviceDescription: 'Respite Care - 10 Hours' }
-            ]);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchInvoices();
-    }, []);
+    // TanStack Query: auto-cached invoices with fallback data
+    const { data: invoices = FALLBACK_INVOICES, isLoading: loading } = useRegistryQuery<Invoice[]>(ApiRegistry.TENANCY.CLIENT.INVOICES, {
+        queryKey: ['client', 'invoices'],
+        staleTime: 30_000,
+        placeholderData: FALLBACK_INVOICES,
+    });
 
     const handlePayment = async (inv: Invoice) => {
         const btn = getButtonById('btn-client-pay-invoice');

@@ -1,11 +1,11 @@
 // ================================================================
-// PAGE IDENTITY: T46 � Compliance Monitor
+// PAGE IDENTITY: T46 — Compliance Monitor
 // Type: Tool | Owner: staff
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { CorePieChart } from '@/shared/components/charts/core';
 import './ComplianceMonitor.css';
 
@@ -20,33 +20,25 @@ interface ComplianceItem {
     status: 'compliant' | 'warning' | 'expired' | 'active' | 'expiring' | 'missing';
 }
 
+// Fallback mock data when API unavailable
+const FALLBACK_ITEMS: ComplianceItem[] = [
+    { id: '1', staffName: 'Sarah Jenkins', document: 'CPR Level C', expiry: '2026-12-15', status: 'active' },
+    { id: '2', staffName: 'Michael Chen', document: 'Vulnerable Sector Screen', expiry: '2026-03-20', status: 'expiring' },
+    { id: '3', staffName: 'Elena Rodriguez', document: 'Clinical License', expiry: '2026-02-10', status: 'missing' },
+    { id: '4', staffName: 'David Kim', document: 'WHMIS Training', expiry: '2028-05-01', status: 'active' },
+];
+
 export default function ComplianceMonitor() {
     const { t } = useTranslation();
-    const [items, setItems] = useState<ComplianceItem[]>([]);
-    const [loading, setLoading] = useState(true);
 
-    const fetchCompliance = async () => {
-        try {
-            const response = await apiClient.get(ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN);
-            const data = await response.json();
-            if (Array.isArray(data)) setItems(data);
-        } catch (error) {
-            console.error('Failed to fetch compliance data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // TanStack Query: auto-cached compliance data
+    const { data: items = FALLBACK_ITEMS } = useRegistryQuery<ComplianceItem[]>(ApiRegistry.TENANCY.STAFF.COMPLIANCE_SCAN, {
+        queryKey: ['staff', 'compliance'],
+        staleTime: 60_000,
+        placeholderData: FALLBACK_ITEMS,
+    });
 
-    React.useEffect(() => {
-        fetchCompliance();
-    }, []);
-
-    const displayItems = items.length > 0 ? items : [
-        { id: '1', staffName: 'Sarah Jenkins', document: 'CPR Level C', expiry: '2026-12-15', status: 'active' },
-        { id: '2', staffName: 'Michael Chen', document: 'Vulnerable Sector Screen', expiry: '2026-03-20', status: 'expiring' },
-        { id: '3', staffName: 'Elena Rodriguez', document: 'Clinical License', expiry: '2026-02-10', status: 'missing' },
-        { id: '4', staffName: 'David Kim', document: 'WHMIS Training', expiry: '2028-05-01', status: 'active' },
-    ] as ComplianceItem[];
+    const displayItems = items.length > 0 ? items : FALLBACK_ITEMS;
 
     const stats = [
         { name: 'Compliant', value: 85, color: '#10b981' },

@@ -1,11 +1,11 @@
 // ================================================================
-// PAGE IDENTITY: T43 � Task Grid
+// PAGE IDENTITY: T43 — Task Grid
 // Type: Tool | Owner: staff
 // ================================================================
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './TaskGrid.css';
 
 const { ContentRegistry, ButtonRegistry, ApiRegistry } = AdminRegistry;
@@ -22,25 +22,12 @@ interface Task {
 
 export default function TaskGrid() {
     const { t } = useTranslation();
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.STAFF.TASKS);
-                const data = await response.json();
-                if (Array.isArray(data)) {
-                    setTasks(data);
-                }
-            } catch (error) {
-                console.error('Failed to fetch staff tasks:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchTasks();
-    }, []);
+    // TanStack Query: auto-cached task list with background refetch
+    const { data: tasks = [], isLoading: loading } = useRegistryQuery<Task[]>(ApiRegistry.TENANCY.STAFF.TASKS, {
+        queryKey: ['staff', 'tasks'],
+        staleTime: 15_000,
+    });
 
     const columns = [
         { id: 'todo', label: 'Backlog', icon: '📥' },
@@ -67,7 +54,7 @@ export default function TaskGrid() {
                     <p className="subtitle">{STAFF_PORTAL.TASKS?.SUBTITLE || 'Real-time operational coordination'}</p>
                 </div>
                 <button data-cy="btn-staff.task-grid-0" className="btn-modern btn-primary">
-                    {getButtonById('btn-staff-task-add')?.label || '+ New Task'}
+                    + New Task
                 </button>
             </header>
 

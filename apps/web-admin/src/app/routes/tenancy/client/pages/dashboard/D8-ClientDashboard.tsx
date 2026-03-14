@@ -1,11 +1,7 @@
-// ================================================================
-// PAGE IDENTITY: D8 � Client Dashboard
-// Type: Dashboard | Owner: client
-// ================================================================
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/shared/context/AuthContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { AdminRegistry } from 'prime-care-shared';
 
 // Client Specific Components (Zero-Data Grid Architecture)
@@ -20,25 +16,12 @@ export default function ClientDashboard() {
     const { user } = useAuth();
     
     const clientName = user?.email ? user.email.split('@')[0] : 'There';
-    const [stats, setStats] = React.useState<any>(null);
-    const [loading, setLoading] = React.useState(true);
 
-    React.useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const res = await apiClient.get('/v1/client/dashboard/stats');
-                if (res.ok) {
-                    const data = await res.json();
-                    setStats(data);
-                }
-            } catch (e) {
-                console.error('Failed to load client stats', e);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchStats();
-    }, []);
+    // TanStack Query: auto-cached, deduped, background refetch
+    const { data: stats, isLoading: loading } = useRegistryQuery<any>('/v1/client/dashboard/stats', {
+        queryKey: ['client', 'dashboard', 'stats'],
+        staleTime: 30_000,
+    });
 
     const usedBudget = stats?.budget?.find((b: any) => b.name === 'Used')?.value || 0;
     const remainingBudget = stats?.budget?.find((b: any) => b.name === 'Remaining')?.value || 0;

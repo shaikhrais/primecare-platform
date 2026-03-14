@@ -2,11 +2,11 @@
 // PAGE IDENTITY: D7 — Manager Dashboard
 // Type: Dashboard | Owner: manager
 // ================================================================
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { PageActionBar } from '@/shared/components/ui/PageActionBar';
 
 const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
@@ -38,43 +38,29 @@ interface ShiftDisplay {
 
 export default function ManagerDashboard() {
     const { t } = useTranslation();
-    const [kpi, setKpi] = useState<KPIData>({ activeClients: 0, staffOnDuty: 0, openIncidents: 0, todayShifts: 0 });
-    const [shifts, setShifts] = useState<ShiftDisplay[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [branchHealth, setBranchHealth] = useState<{ status: 'healthy' | 'warning' | 'critical', alerts: any[] }>({ status: 'healthy', alerts: [] });
     const [perspective, setPerspective] = useState('Operations');
-    const [chartData, setChartData] = useState<any>(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [kpiRes, todayRes, statsRes, healthRes]: any = await Promise.all([
-                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_KPI),
-                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_TODAY),
-                    apiClient.get(ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS),
-                    apiClient.get(ApiRegistry.TENANCY.MANAGER.BRANCH_HEALTH)
-                ]);
+    // TanStack Query: 4 parallel auto-cached queries with independent loading
+    const { data: kpi } = useRegistryQuery<KPIData>(ApiRegistry.TENANCY.MANAGER.DASHBOARD_KPI, {
+        queryKey: ['manager', 'kpi'],
+        staleTime: 30_000,
+    });
+    const { data: shifts } = useRegistryQuery<ShiftDisplay[]>(ApiRegistry.TENANCY.MANAGER.DASHBOARD_TODAY, {
+        queryKey: ['manager', 'today'],
+        staleTime: 30_000,
+    });
+    const { data: chartData } = useRegistryQuery<any>(ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS, {
+        queryKey: ['manager', 'stats'],
+        staleTime: 60_000,
+    });
+    const { data: branchHealth, isLoading: loading } = useRegistryQuery<{ status: 'healthy' | 'warning' | 'critical', alerts: any[] }>(ApiRegistry.TENANCY.MANAGER.BRANCH_HEALTH, {
+        queryKey: ['manager', 'branchHealth'],
+        staleTime: 60_000,
+    });
 
-                const [kpiData, todayData, statsData, healthData] = await Promise.all([
-                    kpiRes.json(),
-                    todayRes.json(),
-                    statsRes.json(),
-                    healthRes.json()
-                ]);
-
-                if (kpiData) setKpi(kpiData);
-                if (todayData && Array.isArray(todayData)) setShifts(todayData);
-                if (statsData) setChartData(statsData);
-                if (healthData) setBranchHealth(healthData);
-            } catch (error) {
-                console.error('Failed to load dashboard data', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const kpiData = kpi || { activeClients: 0, staffOnDuty: 0, openIncidents: 0, todayShifts: 0 };
+    const shiftData = shifts || [];
+    const healthData = branchHealth || { status: 'healthy' as const, alerts: [] };
 
     // Helper for chart data mapping
     const getChartData = (key: string, realValue: any) => {
@@ -135,12 +121,12 @@ export default function ManagerDashboard() {
             </header>
 
             <DashboardStats
-                activeClients={kpi.activeClients}
-                staffOnDuty={kpi.staffOnDuty}
-                openIncidents={kpi.openIncidents}
-                todayShifts={kpi.todayShifts}
-                healthStatus={branchHealth.status}
-                alertsCount={branchHealth.alerts.length}
+                activeClients={kpiData.activeClients}
+                staffOnDuty={kpiData.staffOnDuty}
+                openIncidents={kpiData.openIncidents}
+                todayShifts={kpiData.todayShifts}
+                healthStatus={healthData.status}
+                alertsCount={healthData.alerts.length}
             />
 
             <QuickActions />
@@ -149,7 +135,7 @@ export default function ManagerDashboard() {
                 {perspective === 'Operations' ? (
                     <>
                         <AnalyticsSection displayData={displayData} isDemo={false} />
-                        <ShiftTimeline shifts={shifts} />
+                        <ShiftTimeline shifts={shiftData} />
                     </>
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '100%' }}>
