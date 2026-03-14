@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar as CalendarIcon, Download } from 'lucide-react';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 interface ShiftItem {
     id: string;
@@ -10,33 +11,20 @@ interface ShiftItem {
     location: string;
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
-
 export const CalendarExportList: React.FC = () => {
-    const [shifts, setShifts] = React.useState<ShiftItem[]>([]);
-    const [loading, setLoading] = React.useState(true);
+    // TanStack Query: auto-cached family schedule
+    const { data: rawShifts = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/client/family/schedule/upcoming', {
+        queryKey: ['family', 'schedule', 'upcoming'],
+        staleTime: 60_000,
+    });
 
-    React.useEffect(() => {
-        const fetchSchedule = async () => {
-            try {
-                // Dynamically fetch the family schedule based on logged-in user context
-                const res = await apiClient.get('/v1/client/family/schedule/upcoming');
-                if (res.ok) {
-                    const data = await res.json();
-                    setShifts(data.map((d: any) => ({
-                        ...d,
-                        startsAt: new Date(d.startsAt),
-                        endsAt: new Date(d.endsAt)
-                    })));
-                }
-            } catch (error) {
-                console.error("Failed to load family schedule", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSchedule();
-    }, []);
+    // Parse date strings from API into Date objects
+    const shifts: ShiftItem[] = rawShifts.map((d: any) => ({
+        ...d,
+        startsAt: new Date(d.startsAt),
+        endsAt: new Date(d.endsAt)
+    }));
+
     // Generates a proper iCalendar (.ics) string format client-side
     const generateIcsBlob = (shift: ShiftItem) => {
         // Formatting function for exact iCal timestamp structure: YYYYMMDDTHHMMSSZ

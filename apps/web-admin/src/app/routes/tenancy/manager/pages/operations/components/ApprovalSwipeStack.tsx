@@ -1,32 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CheckCircle, XCircle, FileText, Check, X } from 'lucide-react';
 import { type ApprovalItem, getSwipeBackgroundColor } from './swipeHelpers';
 import { approveItem, rejectItem } from './swipeDragLogic';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const ApprovalSwipeStack: React.FC = () => {
     const { showToast } = useNotification();
-    const [stack, setStack] = useState<ApprovalItem[]>([]);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchApprovals = async () => {
-            try {
-                const res = await apiClient.get('/v1/manager/ops/approvals');
-                if (res.ok) {
-                    const data = await res.json();
-                    setStack(data);
-                }
-            } catch (error) {
-                console.error("Failed to load approvals", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchApprovals();
-    }, []);
-    
+    // TanStack Query: auto-cached approval items
+    const { data: initialStack = [], isLoading: loading } = useRegistryQuery<ApprovalItem[]>('/v1/manager/ops/approvals', {
+        queryKey: ['manager', 'approvals'],
+        staleTime: 30_000,
+    });
+
+    // Local stack state for drag/swipe UX (removes items as they're swiped)
+    const [removedIds, setRemovedIds] = useState<Set<string>>(new Set());
+    const stack = initialStack.filter(item => !removedIds.has(item.id));
+
     // Physics and dragging state
     const cardRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -67,7 +58,7 @@ export const ApprovalSwipeStack: React.FC = () => {
         try {
             await approveItem(id);
             showToast(`Approved ${stack.find(s => s.id === id)?.type} for ${stack.find(s => s.id === id)?.employee}`, 'success');
-            triggerFlyOut(1);
+            triggerFlyOut(1, id);
         } catch (e) { showToast('Failed to approve item', 'error'); setDragX(0); }
     };
 
@@ -75,14 +66,14 @@ export const ApprovalSwipeStack: React.FC = () => {
         try {
             await rejectItem(id);
             showToast(`Rejected ${stack.find(s => s.id === id)?.type}. Sent back for revision.`, 'info');
-            triggerFlyOut(-1);
+            triggerFlyOut(-1, id);
         } catch (e) { showToast('Failed to reject item', 'error'); setDragX(0); }
     };
 
-    const triggerFlyOut = (direction: number) => {
+    const triggerFlyOut = (direction: number, id: string) => {
         setDragX(direction * window.innerWidth);
         setTimeout(() => {
-            setStack(prev => prev.slice(1));
+            setRemovedIds(prev => new Set(prev).add(id));
             setDragX(0);
         }, 200); // Wait for CSS transition
     };

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Camera, Heart, Stethoscope, Clock } from 'lucide-react';
-
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 interface FeedItem {
     id: string;
@@ -15,36 +14,23 @@ interface FeedItem {
 }
 
 export const CareUpdatesFeed: React.FC = () => {
-    const [posts, setPosts] = useState<FeedItem[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const bottomRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const fetchFeed = async () => {
-            try {
-                // Hardcoding demo client ID for testing
-                const response: any = await apiClient.get('/v1/client/family/feed/demo-client-1');
+    // TanStack Query: auto-cached family care feed
+    const { data: rawResponse, isLoading } = useRegistryQuery<any>('/v1/client/family/feed/demo-client-1', {
+        queryKey: ['family', 'careFeed'],
+        staleTime: 30_000,
+    });
 
-                // Map real db entries to FeedItems
-                const mappedEntries: FeedItem[] = response.recentEntries?.map((entry: any) => ({
-                    id: entry.id,
-                    type: 'note', 
-                    authorName: 'PrimeCare Staff', // Await relation joins to get actual worker names
-                    authorRole: 'PSW / RN', 
-                    timestamp: new Date().toLocaleDateString(), // timestamp structure to UI
-                    content: entry.activities || 'Routine care visit completed.',
-                })) || [];
-
-                setPosts(mappedEntries);
-            } catch (error) {
-                console.error('Failed to fetch family feed:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchFeed();
-    }, []);
+    // Map raw API response to FeedItem shape
+    const posts: FeedItem[] = (rawResponse?.recentEntries || []).map((entry: any) => ({
+        id: entry.id,
+        type: 'note' as const,
+        authorName: 'PrimeCare Staff',
+        authorRole: 'PSW / RN',
+        timestamp: new Date().toLocaleDateString(),
+        content: entry.activities || 'Routine care visit completed.',
+    }));
 
     return (
         <section style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', maxHeight: '800px', overflowY: 'auto' }}>
