@@ -21,7 +21,8 @@ export const PcButton: React.FC<PcButtonProps> = (props) => {
     const { showToast } = useNotification();
     const [isLoading, setIsLoading] = useState(false);
     const def = resolveButtonDef(props.registryId);
-    const variant: ButtonVariant = props.variant || def?.type || 'primary';
+    const VARIANT_MAP: Record<string, ButtonVariant> = { link: 'ghost', interaction: 'secondary', touchpoint: 'ghost' };
+    const variant: ButtonVariant = props.variant || (def?.type ? (VARIANT_MAP[def.type] || def.type as ButtonVariant) : 'primary');
     const size: ButtonSize = props.size || 'md';
     const label = props.children || props.label || def?.label || 'Action';
     const dataCy = props['data-cy'] || props.registryId || undefined;
