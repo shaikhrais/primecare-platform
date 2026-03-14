@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, X, Loader2, CheckCircle2 } from 'lucide-react';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useNotification } from '@/shared/context/NotificationContext';
 import type { FormDependency } from 'prime-care-shared';
 
@@ -18,7 +19,6 @@ interface InlineCreatorPopoverProps {
  */
 export const InlineCreatorPopover: React.FC<InlineCreatorPopoverProps> = ({ dependency, onCreated }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -27,26 +27,18 @@ export const InlineCreatorPopover: React.FC<InlineCreatorPopoverProps> = ({ depe
     // Determine which fields to show based on entity type
     const needsEmail = ['client', 'psw', 'user'].includes(dependency.entityType);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!name.trim()) return;
-
-        setIsSubmitting(true);
-        try {
-            const payload: Record<string, string> = { name: name.trim() };
-            if (needsEmail && email.trim()) {
-                payload.email = email.trim();
-                // For user-like entities, split name into firstName/lastName
-                const parts = name.trim().split(' ');
-                payload.firstName = parts[0] || '';
-                payload.lastName = parts.slice(1).join(' ') || '';
-                if (dependency.entityType === 'psw') payload.role = 'psw';
+    const createMutation = useMutation({
+        mutationFn: async (payload: Record<string, string>) => {
+            const res = await apiClient.post(dependency.inlineCreateEndpoint, payload);
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({ error: 'Request failed' }));
+                throw new Error(err.error || 'Request failed');
             }
-
-            await apiClient.post(dependency.inlineCreateEndpoint, payload);
+            return res.json();
+        },
+        onSuccess: () => {
             setIsSuccess(true);
             showToast(`${dependency.entityType} "${name}" created successfully`, 'success');
-
             // Brief success animation, then close & notify parent
             setTimeout(() => {
                 setName('');
@@ -55,11 +47,28 @@ export const InlineCreatorPopover: React.FC<InlineCreatorPopoverProps> = ({ depe
                 setIsSuccess(false);
                 onCreated();
             }, 600);
-        } catch (error: any) {
+        },
+        onError: (error: any) => {
             showToast(error.message || `Failed to create ${dependency.entityType}`, 'error');
-        } finally {
-            setIsSubmitting(false);
+        },
+    });
+
+    const isSubmitting = createMutation.isPending;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!name.trim()) return;
+
+        const payload: Record<string, string> = { name: name.trim() };
+        if (needsEmail && email.trim()) {
+            payload.email = email.trim();
+            const parts = name.trim().split(' ');
+            payload.firstName = parts[0] || '';
+            payload.lastName = parts.slice(1).join(' ') || '';
+            if (dependency.entityType === 'psw') payload.role = 'psw';
         }
+
+        createMutation.mutate(payload);
     };
 
     if (!isOpen) {

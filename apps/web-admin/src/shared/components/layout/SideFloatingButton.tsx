@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 export default function SideFloatingButton() {
     const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +68,11 @@ export default function SideFloatingButton() {
         textDecoration: 'none'
     };
 
+    const emergencyMutation = useApiMutation('/v1/system/emergency/trigger', {
+        onSuccess: () => { showToast('Emergency Protocol Activated! Authorities notified.', 'error'); },
+        onError: () => { showToast('Emergency Protocol Failed!', 'error'); },
+    });
+
     return (
         <>
             {isOpen && (
@@ -81,12 +86,7 @@ export default function SideFloatingButton() {
                     <button data-cy="mbtn-new-client" style={menuItemStyle} onClick={() => { navigate('/platform/admin/admission'); setIsOpen(false); }}>
                         🏥 New Client
                     </button>
-                    <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={async () => {
-                        try {
-                            await apiClient.post('/v1/system/emergency/trigger', {});
-                            showToast('Emergency Protocol Activated! Authorities notified.', 'error');
-                        } catch { showToast('Emergency Protocol Failed!', 'error'); }
-                    }}>
+                    <button data-cy="mbtn-emergency" style={{ ...menuItemStyle, backgroundColor: '#e53935', color: 'white', border: 'none' }} onClick={() => emergencyMutation.mutate({})}>
                         🚨 EMERGENCY
                     </button>
                 </div>

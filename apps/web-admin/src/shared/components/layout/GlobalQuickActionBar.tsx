@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { CreateShiftModal } from '@/shared/components/modals/CreateShiftModal';
 import { useDialog } from '@/shared/hooks/useDialog';
 import { PageActionBar } from '@/shared/components/ui/PageActionBar';
@@ -27,7 +27,18 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
     const { showToast } = useNotification();
     const [shiftOpen, setShiftOpen] = useState(false);
     const [shiftMode, setShiftMode] = useState<'shift' | 'assign'>('shift');
-    const [backingUp, setBackingUp] = useState(false);
+
+    const emergencyMutation = useApiMutation('/v1/admin/actions/emergency/trigger', {
+        onSuccess: () => { showToast('Emergency Alert Broadcasted! All staff notified.', 'error'); },
+        onError: () => { showToast('Emergency Protocol Failed — check connection.', 'error'); },
+    });
+
+    const backupMutation = useApiMutation('/v1/admin/actions/backup', {
+        onSuccess: () => { showToast('System backup initiated successfully.', 'success'); },
+        onError: () => { showToast('Backup failed — check system logs.', 'error'); },
+    });
+
+    const backingUp = backupMutation.isPending;
 
     const handleEmergency = async () => {
         const confirmed = await showConfirmDialog({
@@ -37,27 +48,10 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
             variant: 'danger',
         });
         if (!confirmed) return;
-        try {
-            await apiClient.post('/v1/admin/actions/emergency/trigger', {});
-            showToast('Emergency Alert Broadcasted! All staff notified.', 'error');
-        } catch {
-            showToast('Emergency Protocol Failed — check connection.', 'error');
-        }
+        emergencyMutation.mutate({});
     };
 
-    const handleBackup = async () => {
-        setBackingUp(true);
-        try {
-            const res = await apiClient.post('/v1/admin/actions/backup', {});
-            if (res.ok) {
-                showToast('System backup initiated successfully.', 'success');
-            } else {
-                showToast('Backup failed — check system logs.', 'error');
-            }
-        } catch {
-            showToast('Network error during backup.', 'error');
-        } finally { setBackingUp(false); }
-    };
+    const handleBackup = () => backupMutation.mutate({});
 
     const pageId = ROLE_PAGE[role] || 'admin.dashboard';
 

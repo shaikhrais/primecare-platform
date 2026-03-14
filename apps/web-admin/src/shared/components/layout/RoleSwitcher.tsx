@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -19,7 +19,6 @@ import { RoleSwitcherModal } from './switcher/RoleSwitcherModal';
 
 export default function RoleSwitcher() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     const userStr = localStorage.getItem('user');
@@ -42,35 +41,33 @@ export default function RoleSwitcher() {
     // System roles for impersonation (Admin only)
     const systemRoles = ['staff', 'rn', 'psw', 'client', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training'];
 
+    const switchRoleMutation = useMutation({
+        mutationFn: async (targetRole: string) => {
+            if (!isAdmin) {
+                const response = await apiClient.post(ApiRegistry.AUTH.SWITCH_ROLE, { targetRole });
+                if (!response.ok) throw new Error('Switch failed');
+            }
+            return targetRole;
+        },
+        onSuccess: (targetRole: string) => {
+            const updatedUser = { ...user, activeRole: targetRole };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            setIsOpen(false);
+
+            const { RouteRegistry } = AdminRegistry;
+            const targetPath = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
+            navigate(targetPath);
+        },
+    });
+
+    const loading = switchRoleMutation.isPending;
+
     const handleSwitch = async (targetRole: string) => {
         if (targetRole === activeRole) {
             setIsOpen(false);
             return;
         }
-
-        setLoading(true);
-        try {
-            let success = true;
-            if (!isAdmin) {
-                // R13: Use apiClient instead of raw fetch + localStorage token
-                const response = await apiClient.post(ApiRegistry.AUTH.SWITCH_ROLE, { targetRole });
-                success = response.ok;
-            }
-
-            if (success) {
-                const updatedUser = { ...user, activeRole: targetRole };
-                localStorage.setItem('user', JSON.stringify(updatedUser));
-                setIsOpen(false);
-
-                const { RouteRegistry } = AdminRegistry;
-                const targetPath = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
-                navigate(targetPath);
-            }
-        } catch (err) {
-            // R13: Silent error
-        } finally {
-            setLoading(false);
-        }
+        switchRoleMutation.mutate(targetRole);
     };
 
     // Close on escape key
