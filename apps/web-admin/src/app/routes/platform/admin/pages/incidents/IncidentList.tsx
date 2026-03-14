@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { fetchIncidents as apiFetchIncidents, resolveIncident, deleteIncident, filterIncidents } from './incidentHandlers';
 
 // Components
 import { IncidentResolutionModal } from './components/IncidentResolutionModal';
 import DangerModal from '@/shared/components/modals/DangerModal';
 
-const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
+const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function IncidentList() {
     const { t } = useTranslation();
@@ -30,58 +30,34 @@ export default function IncidentList() {
     const [statusFilter, setStatusFilter] = useState<string>('all');
     const [typeFilter, setTypeFilter] = useState<string>('all');
 
-    const filteredIncidents = incidents.filter(inc => {
-        if (statusFilter !== 'all' && inc.status !== statusFilter) return false;
-        if (typeFilter !== 'all' && inc.type?.toLowerCase() !== typeFilter) return false;
-        return true;
-    });
+    const filteredIncidents = filterIncidents(incidents, statusFilter, typeFilter);
 
-    useEffect(() => {
-        fetchIncidents();
-    }, []);
+    useEffect(() => { loadIncidents(); }, []);
 
-    const fetchIncidents = async () => {
+    const loadIncidents = async () => {
         setLoading(true);
-        try {
-            const response = await apiClient.get(ApiRegistry.ADMIN.INCIDENTS);
-            if (response.ok) {
-                const data = await response.json();
-                setIncidents(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch incidents', error);
-        } finally {
-            setLoading(false);
-        }
+        setIncidents(await apiFetchIncidents());
+        setLoading(false);
     };
 
     const handleResolve = async (resolutionNotes: string) => {
         if (!selectedIncident) return;
         setSubmitting(true);
-
         try {
-            const response = await apiClient.patch(`${ApiRegistry.ADMIN.INCIDENTS}/${selectedIncident}`, {
-                status: 'resolved',
-                resolutionNotes
-            });
-
-            if (response.ok) {
+            if (await resolveIncident(selectedIncident, resolutionNotes)) {
                 setIncidents(incidents.map((inc: any) => inc.id === selectedIncident ? { ...inc, status: 'resolved', resolutionNotes } : inc));
                 setIsModalOpen(false);
                 showToast(t(ContentRegistry.INCIDENTS.RESOLVE.SUCCESS), 'success');
             }
         } catch (error) {
             showToast(t(ContentRegistry.INCIDENTS.RESOLVE.ERROR), 'error');
-        } finally {
-            setSubmitting(false);
-        }
+        } finally { setSubmitting(false); }
     };
 
     const handleDelete = async () => {
         if (!incidentToDelete) return;
         try {
-            const response = await apiClient.delete(`${ApiRegistry.ADMIN.INCIDENTS}/${incidentToDelete.id}`);
-            if (response.ok) {
+            if (await deleteIncident(incidentToDelete.id)) {
                 setIncidents(incidents.filter((inc: any) => inc.id !== incidentToDelete.id));
                 showToast(t('incidents.delete_success', 'Incident deleted successfully'), 'success');
             } else {
@@ -89,10 +65,9 @@ export default function IncidentList() {
             }
         } catch (error) {
             showToast(t('incidents.delete_error', 'Failed to delete incident'), 'error');
-        } finally {
-            setIsDangerModalOpen(false);
-        }
+        } finally { setIsDangerModalOpen(false); }
     };
+
 
     if (loading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.INCIDENTS.TABLE.LOADING)}</div>;
 

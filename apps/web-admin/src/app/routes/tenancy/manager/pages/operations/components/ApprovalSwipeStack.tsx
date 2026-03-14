@@ -1,15 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CheckCircle, XCircle, FileText, Check, X } from 'lucide-react';
-
-interface ApprovalItem {
-    id: string;
-    type: 'Timesheet' | 'Expense';
-    employee: string;
-    amount: string;
-    date: string;
-    tags: string[];
-}
+import { type ApprovalItem, getSwipeBackgroundColor } from './swipeHelpers';
 
 import { apiClient } from '@/shared/utils/apiClient';
 
@@ -116,12 +108,7 @@ export const ApprovalSwipeStack: React.FC = () => {
     }
 
     // Determine background color of the top card based on drag direction
-    const getBackgroundColor = () => {
-        if (!isDragging) return 'white';
-        if (dragX > 50) return '#ECFDF5'; // Faint Green
-        if (dragX < -50) return '#FEF2F2'; // Faint Red
-        return 'white';
-    };
+    const getBgColor = () => getSwipeBackgroundColor(isDragging, dragX);
 
     return (
         <div style={{ backgroundColor: '#F8FAFC', padding: '32px', borderRadius: '16px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
@@ -159,7 +146,7 @@ export const ApprovalSwipeStack: React.FC = () => {
                                 width: '100%',
                                 maxWidth: '350px',
                                 height: '260px',
-                                backgroundColor: isTop ? getBackgroundColor() : 'white',
+                                backgroundColor: isTop ? getBgColor() : 'white',
                                 borderRadius: '16px',
                                 border: '1px solid #CBD5E1',
                                 boxShadow: isTop 
