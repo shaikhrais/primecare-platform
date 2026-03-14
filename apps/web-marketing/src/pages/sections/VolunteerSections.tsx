@@ -50,9 +50,11 @@ export function ImpactStatsSection() {
     );
 }
 
+type VolunteerFormData = { name: string; email: string; phone: string; availability: string; interests: string; experience: string };
+
 interface VolunteerFormProps {
-    formData: { name: string; email: string; phone: string; availability: string; interests: string; experience: string };
-    setFormData: React.Dispatch<React.SetStateAction<typeof formData>>;
+    formData: VolunteerFormData;
+    setFormData: React.Dispatch<React.SetStateAction<VolunteerFormData>>;
     status: 'idle' | 'sending' | 'success' | 'error';
     onSubmit: (e: React.FormEvent) => void;
 }
