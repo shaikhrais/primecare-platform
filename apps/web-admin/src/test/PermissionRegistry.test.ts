@@ -169,4 +169,67 @@ describe('PermissionRegistry', () => {
             });
         });
     });
+
+    // ── Sprint 9 Regression: view_own_billing ────────────────────────────
+    describe('view_own_billing permission', () => {
+        it('client should have view_own_billing', () => {
+            expect(can('client', 'view_own_billing')).toBe(true);
+        });
+
+        it('psw should NOT have view_own_billing', () => {
+            expect(can('psw', 'view_own_billing')).toBe(false);
+        });
+
+        it('admin should have view_own_billing via super_admin only', () => {
+            // admin doesn't have it directly — it's a client-only permission
+            expect(can('admin', 'view_own_billing')).toBe(false);
+            expect(can('super_admin', 'view_own_billing')).toBe(true);
+        });
+
+        it('client should have all self-service billing perms', () => {
+            expect(can('client', 'view_own_billing')).toBe(true);
+            expect(can('client', 'view_own_bookings')).toBe(true);
+            expect(can('client', 'view_own_medical')).toBe(true);
+            expect(can('client', 'request_booking')).toBe(true);
+        });
+    });
+
+    // ── RBAC Matrix Consistency ──────────────────────────────────────────
+    describe('RBAC matrix consistency', () => {
+        it('every permission in ROLE_PERMISSIONS should be valid', () => {
+            // Ensure no typos in permission strings
+            const allPermsFromRoles = new Set<string>();
+            Object.values(ROLE_PERMISSIONS).forEach(perms =>
+                perms.forEach(p => allPermsFromRoles.add(p))
+            );
+            // All permissions should exist in super_admin (which has ALL_PERMISSIONS)
+            const superAdminPerms = new Set(ROLE_PERMISSIONS.super_admin);
+            allPermsFromRoles.forEach(perm => {
+                expect(superAdminPerms.has(perm as Permission)).toBe(true);
+            });
+        });
+
+        it('no role should have duplicate permissions', () => {
+            for (const [role, perms] of Object.entries(ROLE_PERMISSIONS)) {
+                const unique = new Set(perms);
+                expect(unique.size).toBe(perms.length);
+            }
+        });
+
+        it('coordinator should have dispatch and scheduling permissions', () => {
+            expect(can('coordinator', 'manage_dispatch')).toBe(true);
+            expect(can('coordinator', 'manage_sos')).toBe(true);
+            expect(can('coordinator', 'manage_shift_swap')).toBe(true);
+            expect(can('coordinator', 'manage_schedule')).toBe(true);
+        });
+
+        it('finance_director should have all finance permissions', () => {
+            expect(can('finance_director', 'manage_billing')).toBe(true);
+            expect(can('finance_director', 'manage_invoices')).toBe(true);
+            expect(can('finance_director', 'manage_ledger')).toBe(true);
+            expect(can('finance_director', 'manage_payroll')).toBe(true);
+            expect(can('finance_director', 'manage_reconciliation')).toBe(true);
+            expect(can('finance_director', 'manage_tax')).toBe(true);
+        });
+    });
 });
