@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { apiClient } from '../../../../../../../../shared/utils/apiClient';
+import { useRegistryQuery } from '../../../../../../../../shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
 
 export interface BankFeedItem {
     id: string;
@@ -18,32 +20,26 @@ export interface LedgerEntryItem {
     status: string;
 }
 
+interface ReconciliationData {
+    bankFeeds: BankFeedItem[];
+    ledgerEntries: LedgerEntryItem[];
+}
+
 export function useReconciliation() {
-    const [bankFeeds, setBankFeeds] = useState<BankFeedItem[]>([]);
-    const [ledgerEntries, setLedgerEntries] = useState<LedgerEntryItem[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [matching, setMatching] = useState(false);
 
-    const loadData = async () => {
-        setLoading(true);
-        try {
-            // Note: ApiRegistry doesn't have RECONCILIATION yet, using direct path
-            const res = await apiClient.get('/v1/admin/financial/reconciliation/unmatched');
-            if (res.ok) {
-                const data = await res.json();
-                setBankFeeds(data.bankFeeds || []);
-                setLedgerEntries(data.ledgerEntries || []);
-            }
-        } catch (error) {
-            console.error("Failed to load unmatched items", error);
-        } finally {
-            setLoading(false);
+    // TanStack Query: auto-cached unmatched reconciliation data
+    const { data, isLoading: loading } = useRegistryQuery<ReconciliationData>(
+        '/v1/admin/financial/reconciliation/unmatched',
+        {
+            queryKey: ['admin', 'financial', 'reconciliation', 'unmatched'],
+            staleTime: 15_000,
         }
-    };
+    );
 
-    useEffect(() => {
-        loadData();
-    }, []);
+    const bankFeeds = data?.bankFeeds || [];
+    const ledgerEntries = data?.ledgerEntries || [];
 
     const matchItems = async (bankTransactionId: string, ledgerTransactionId: string) => {
         setMatching(true);
@@ -54,9 +50,8 @@ export function useReconciliation() {
             });
             
             if (res.ok) {
-                // Remove matched items from state
-                setBankFeeds(prev => prev.filter(f => f.id !== bankTransactionId));
-                setLedgerEntries(prev => prev.filter(l => l.id !== ledgerTransactionId));
+                // Invalidate cache to refetch unmatched items
+                queryClient.invalidateQueries({ queryKey: ['admin', 'financial', 'reconciliation', 'unmatched'] });
                 return true;
             }
             return false;
@@ -68,12 +63,14 @@ export function useReconciliation() {
         }
     };
 
+    const refresh = () => queryClient.invalidateQueries({ queryKey: ['admin', 'financial', 'reconciliation', 'unmatched'] });
+
     return {
         bankFeeds,
         ledgerEntries,
         loading,
         matching,
         matchItems,
-        refresh: loadData
+        refresh
     };
 }

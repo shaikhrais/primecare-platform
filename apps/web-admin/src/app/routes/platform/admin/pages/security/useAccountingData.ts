@@ -1,7 +1,8 @@
 // D3 — Accounting Dashboard: TypeScript interfaces and data loading hook
-import { useState, useEffect } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';
+import { useRegistryQuery } from '../../../../../../shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -37,35 +38,41 @@ export interface ForecastingResult {
     forecast: ForecastPoint[];
 }
 
-export function useAccountingData(showToast: (msg: string, type: string) => void) {
-    const [tradingAcc, setTradingAcc] = useState<TradingAccount | null>(null);
-    const [pAndL, setPAndL] = useState<ProfitAndLoss | null>(null);
-    const [balanceSheet, setBalanceSheet] = useState<BalanceSheet | null>(null);
-    const [reconSummary, setReconSummary] = useState<{ unreconciledBankCount: number; unreconciledLedgerCount: number } | null>(null);
-    const [forecastData, setForecastData] = useState<ForecastingResult | null>(null);
-    const [loading, setLoading] = useState(true);
+const ACCOUNTING_QK = ['platform', 'admin', 'reporting'];
 
-    const loadData = async () => {
-        setLoading(true);
-        try {
-            const [taRes, plRes, bsRes, reconRes, forecastRes] = await Promise.all([
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT),
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.PROFIT_LOSS),
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET),
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.RECONCILIATION_SUMMARY),
-                apiClient.get(ApiRegistry.PLATFORM.ADMIN.REPORTING.FORECAST)
-            ]);
-            if (taRes.ok) setTradingAcc(await taRes.json());
-            if (plRes.ok) setPAndL(await plRes.json());
-            if (bsRes.ok) setBalanceSheet(await bsRes.json());
-            if (reconRes.ok) setReconSummary(await reconRes.json());
-            if (forecastRes.ok) setForecastData(await forecastRes.json());
-        } catch (error) {
-            showToast('Failed to load accounting data', 'error');
-            console.error('Failed to load accounting data:', error);
-        } finally {
-            setLoading(false);
-        }
+export function useAccountingData(showToast: (msg: string, type: string) => void) {
+    const queryClient = useQueryClient();
+
+    // 5 parallel useRegistryQuery hooks (React Query fetches independently & in parallel)
+    const { data: tradingAcc = null, isLoading: taLoading } = useRegistryQuery<TradingAccount>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT,
+        { queryKey: [...ACCOUNTING_QK, 'trading-account'], staleTime: 60_000 }
+    );
+
+    const { data: pAndL = null, isLoading: plLoading } = useRegistryQuery<ProfitAndLoss>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.PROFIT_LOSS,
+        { queryKey: [...ACCOUNTING_QK, 'profit-loss'], staleTime: 60_000 }
+    );
+
+    const { data: balanceSheet = null, isLoading: bsLoading } = useRegistryQuery<BalanceSheet>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET,
+        { queryKey: [...ACCOUNTING_QK, 'balance-sheet'], staleTime: 60_000 }
+    );
+
+    const { data: reconSummary = null, isLoading: reconLoading } = useRegistryQuery<{ unreconciledBankCount: number; unreconciledLedgerCount: number }>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.RECONCILIATION_SUMMARY,
+        { queryKey: [...ACCOUNTING_QK, 'reconciliation-summary'], staleTime: 30_000 }
+    );
+
+    const { data: forecastData = null, isLoading: fcLoading } = useRegistryQuery<ForecastingResult>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.FORECAST,
+        { queryKey: [...ACCOUNTING_QK, 'forecast'], staleTime: 60_000 }
+    );
+
+    const loading = taLoading || plLoading || bsLoading || reconLoading || fcLoading;
+
+    const loadData = () => {
+        queryClient.invalidateQueries({ queryKey: ACCOUNTING_QK });
     };
 
     const handleAutoReconcile = async () => {
@@ -81,8 +88,6 @@ export function useAccountingData(showToast: (msg: string, type: string) => void
             console.error('Auto-reconciliation failed:', error);
         }
     };
-
-    useEffect(() => { loadData(); }, []);
 
     return { tradingAcc, pAndL, balanceSheet, reconSummary, forecastData, loading, loadData, handleAutoReconcile };
 }

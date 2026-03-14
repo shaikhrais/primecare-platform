@@ -1,6 +1,7 @@
 // T17 Financial Ledger: interfaces and data loading hook
-import { useState, useEffect } from 'react';
 import { apiClient } from '../../../../../../shared/utils/apiClient';
+import { useRegistryQuery } from '../../../../../../shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
 
 export interface JournalEntry {
     id: string;
@@ -28,31 +29,36 @@ export interface AccountBalance {
     balance: number;
 }
 
-export function useLedgerData(showToast: (msg: string, type: string) => void) {
-    const [transactions, setTransactions] = useState<FinancialTransaction[]>([]);
-    const [balances, setBalances] = useState<AccountBalance[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [pAndL, setPAndL] = useState<any>(null);
-    const [balanceSheet, setBalanceSheet] = useState<any>(null);
+const LEDGER_QK = ['platform', 'admin', 'financial'];
 
-    const loadData = async () => {
-        setLoading(true);
-        try {
-            const [txRes, balRes, plRes, bsRes] = await Promise.all([
-                apiClient.get('/platform/admin/financial'),
-                apiClient.get('/platform/admin/financial/balances'),
-                apiClient.get('/platform/admin/financial/reports/p-and-l'),
-                apiClient.get('/platform/admin/financial/reports/balance-sheet')
-            ]);
-            if (txRes.ok) setTransactions(await txRes.json());
-            if (balRes.ok) setBalances(await balRes.json());
-            if (plRes.ok) setPAndL(await plRes.json());
-            if (bsRes.ok) setBalanceSheet(await bsRes.json());
-        } catch (error) {
-            console.error('Failed to load financial data:', error);
-        } finally {
-            setLoading(false);
-        }
+export function useLedgerData(showToast: (msg: string, type: string) => void) {
+    const queryClient = useQueryClient();
+
+    // 4 parallel useRegistryQuery hooks (React Query fetches them independently & in parallel)
+    const { data: transactions = [], isLoading: txLoading } = useRegistryQuery<FinancialTransaction[]>(
+        '/platform/admin/financial',
+        { queryKey: [...LEDGER_QK, 'transactions'], staleTime: 30_000 }
+    );
+
+    const { data: balances = [], isLoading: balLoading } = useRegistryQuery<AccountBalance[]>(
+        '/platform/admin/financial/balances',
+        { queryKey: [...LEDGER_QK, 'balances'], staleTime: 30_000 }
+    );
+
+    const { data: pAndL = null, isLoading: plLoading } = useRegistryQuery<any>(
+        '/platform/admin/financial/reports/p-and-l',
+        { queryKey: [...LEDGER_QK, 'p-and-l'], staleTime: 60_000 }
+    );
+
+    const { data: balanceSheet = null, isLoading: bsLoading } = useRegistryQuery<any>(
+        '/platform/admin/financial/reports/balance-sheet',
+        { queryKey: [...LEDGER_QK, 'balance-sheet'], staleTime: 60_000 }
+    );
+
+    const loading = txLoading || balLoading || plLoading || bsLoading;
+
+    const loadData = () => {
+        queryClient.invalidateQueries({ queryKey: LEDGER_QK });
     };
 
     const handleReconcile = async (invoiceTxId: string, paymentTxId: string) => {
@@ -63,8 +69,6 @@ export function useLedgerData(showToast: (msg: string, type: string) => void) {
             console.error('Reconciliation failed', error);
         }
     };
-
-    useEffect(() => { loadData(); }, []);
 
     return { transactions, balances, loading, pAndL, balanceSheet, loadData, handleReconcile };
 }
