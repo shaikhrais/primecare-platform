@@ -1,12 +1,14 @@
-import { Decimal } from 'Decimal.js'; // Prisma usually exports this or uses decimal.js
+/**
+ * Financial Service - Core Class (Skeleton)
+ * Reporting methods extracted to financial-reporting.ts
+ */
+import { Decimal } from 'Decimal.js';
 import type { PrismaClient } from '../../../generated/client/index.js';
+import { calculateBalance, getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport } from './financial-reporting';
 
 export class FinancialService {
     constructor(private prisma: PrismaClient) { }
 
-    /**
-     * Initializes a default Chart of Accounts for a new Tenant.
-     */
     async initializeChartOfAccounts(tenantId: string) {
         const defaultAccounts = [
             { code: '1000', name: 'Cash', type: 'ASSET' },
@@ -15,296 +17,78 @@ export class FinancialService {
             { code: '2100', name: 'Sales Tax Payable (HST/GST)', type: 'LIABILITY' },
             { code: '3000', name: 'Owner Equity', type: 'EQUITY' },
             { code: '4000', name: 'Service Revenue', type: 'REVENUE' },
-            { code: '5000', name: 'Caregiver Payroll (Direct)', type: 'EXPENSE' }, // DIRECT COST
+            { code: '5000', name: 'Caregiver Payroll (Direct)', type: 'EXPENSE' },
             { code: '5100', name: 'Admin Payroll (Indirect)', type: 'EXPENSE' },
             { code: '5200', name: 'Rent & Utilities', type: 'EXPENSE' },
             { code: '5300', name: 'Software & Technology', type: 'EXPENSE' },
         ];
-
         for (const account of defaultAccounts) {
-            await this.prisma.chartOfAccount.upsert({
-                where: {
-                    tenantId_code: {
-                        tenantId,
-                        code: account.code
-                    }
-                },
-                update: {},
-                create: {
-                    ...account,
-                    tenantId
-                }
-            });
+            await this.prisma.chartOfAccount.upsert({ where: { tenantId_code: { tenantId, code: account.code } }, update: {}, create: { ...account, tenantId } });
         }
     }
 
-    /**
-     * Records a master financial transaction with its balanced journal entries.
-     */
-    async recordTransaction(params: {
-        tenantId: string;
-        type: 'INVOICE' | 'PAYMENT' | 'PAYROLL' | 'EXPENSE';
-        referenceId: string;
-        amount: number | Decimal;
-        currency?: string;
-        entries: {
-            accountCode: string;
-            debit?: number | Decimal;
-            credit?: number | Decimal;
-        }[];
-    }) {
+    async recordTransaction(params: { tenantId: string; type: 'INVOICE' | 'PAYMENT' | 'PAYROLL' | 'EXPENSE'; referenceId: string; amount: number | Decimal; currency?: string; entries: { accountCode: string; debit?: number | Decimal; credit?: number | Decimal; }[]; }) {
         const { tenantId, type, referenceId, amount, currency = 'CAD', entries } = params;
-
-        // 1. Verify balance (Debits must equal Credits)
-        let totalDebit = new Decimal(0);
-        let totalCredit = new Decimal(0);
-
-        for (const entry of entries) {
-            totalDebit = totalDebit.plus(new Decimal(entry.debit || 0));
-            totalCredit = totalCredit.plus(new Decimal(entry.credit || 0));
-        }
-
-        if (!totalDebit.equals(totalCredit)) {
-            throw new Error(`Unbalanced Transaction: Debits (${totalDebit}) do not equal Credits (${totalCredit})`);
-        }
-
-        // 2. Create the FinancialTransaction and JournalEntries
-        return await this.prisma.$transaction(async (tx) => {
-            const transaction = await tx.financialTransaction.create({
-                data: {
-                    tenantId,
-                    type,
-                    referenceId,
-                    amount: new Decimal(amount),
-                    currency,
-                    status: 'posted'
-                }
-            });
-
+        let totalDebit = new Decimal(0); let totalCredit = new Decimal(0);
+        for (const entry of entries) { totalDebit = totalDebit.plus(new Decimal(entry.debit || 0)); totalCredit = totalCredit.plus(new Decimal(entry.credit || 0)); }
+        if (!totalDebit.equals(totalCredit)) throw new Error(`Unbalanced Transaction: Debits (${totalDebit}) do not equal Credits (${totalCredit})`);
+        return await (this.prisma as any).$transaction(async (tx: any) => {
+            const transaction = await tx.financialTransaction.create({ data: { tenantId, type, referenceId, amount: new Decimal(amount), currency, status: 'posted' } });
             for (const entry of entries) {
-                const account = await tx.chartOfAccount.findUnique({
-                    where: {
-                        tenantId_code: {
-                            tenantId,
-                            code: entry.accountCode
-                        }
-                    },
-                    include: {
-                        journalEntries: true // Get all past entries to calculate current balance
-                    }
-                });
-
+                const account = await tx.chartOfAccount.findUnique({ where: { tenantId_code: { tenantId, code: entry.accountCode } }, include: { journalEntries: true } });
                 if (!account) throw new Error(`Account code ${entry.accountCode} not found for tenant ${tenantId}`);
-
-                // Calculate Current Balance before this new entry
-                let balanceBefore = new Decimal(0);
-                for (const pastEntry of account.journalEntries) {
-                    if (['ASSET', 'EXPENSE'].includes(account.type)) {
-                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.debit)).minus(new Decimal(pastEntry.paidOutAmount || 0));
-                    } else {
-                        balanceBefore = balanceBefore.plus(new Decimal(pastEntry.paidOutAmount || 0)).minus(new Decimal(pastEntry.debit));
-                    }
-                }
-
-                const debit = new Decimal(entry.debit || 0);
-                const credit = new Decimal(entry.credit || 0);
+                const balanceBefore = calculateBalance(account.journalEntries, account.type);
+                const debit = new Decimal(entry.debit || 0); const credit = new Decimal(entry.credit || 0);
                 let balanceAfter = new Decimal(balanceBefore);
-
-                if (['ASSET', 'EXPENSE'].includes(account.type)) {
-                    balanceAfter = balanceAfter.plus(debit).minus(credit);
-                } else {
-                    balanceAfter = balanceAfter.plus(credit).minus(debit);
-                }
-
-                await tx.journalEntry.create({
-                    data: {
-                        tenantId,
-                        transactionId: transaction.id,
-                        accountId: account.id,
-                        debit,
-                        paidOutAmount: credit,
-                        currency,
-                        balanceBefore,
-                        balanceAfter
-                    }
-                });
+                if (['ASSET', 'EXPENSE'].includes(account.type)) { balanceAfter = balanceAfter.plus(debit).minus(credit); } else { balanceAfter = balanceAfter.plus(credit).minus(debit); }
+                await tx.journalEntry.create({ data: { tenantId, transactionId: transaction.id, accountId: account.id, debit, paidOutAmount: credit, currency, balanceBefore, balanceAfter } });
             }
-
             return transaction;
         });
     }
 
-    /**
-     * Specialized helper to record a Client Invoice.
-     * Dr Accounts Receivable
-     * Cr Service Revenue
-     */
     async recordInvoice(tenantId: string, invoiceId: string, subtotal: number | Decimal, taxAmount: number | Decimal) {
         const total = new Decimal(subtotal).plus(new Decimal(taxAmount));
-        const entries = [
-            { accountCode: '1100', debit: total }, // A/R
-            { accountCode: '4000', credit: subtotal }, // Revenue
-        ];
-
-        if (new Decimal(taxAmount).gt(0)) {
-            entries.push({ accountCode: '2100', credit: taxAmount }); // Tax Payable
-        }
-
-        return await this.recordTransaction({
-            tenantId,
-            type: 'INVOICE',
-            referenceId: invoiceId,
-            amount: total,
-            entries
-        });
+        const entries: any[] = [{ accountCode: '1100', debit: total }, { accountCode: '4000', credit: subtotal }];
+        if (new Decimal(taxAmount).gt(0)) entries.push({ accountCode: '2100', credit: taxAmount });
+        return await this.recordTransaction({ tenantId, type: 'INVOICE', referenceId: invoiceId, amount: total, entries });
     }
 
-    /**
-     * Specialized helper to record a Client Payment.
-     * Dr Cash
-     * Cr Accounts Receivable
-     */
     async recordPayment(tenantId: string, paymentId: string, amount: number | Decimal, invoiceId: string) {
-        const tx = await this.recordTransaction({
-            tenantId,
-            type: 'PAYMENT',
-            referenceId: paymentId,
-            amount: amount,
-            entries: [
-                { accountCode: '1000', debit: amount }, // Cash
-                { accountCode: '1100', credit: amount } // A/R
-            ]
-        });
-
-        // Auto-match for reconciliation
-        await this.prisma.financialReconciliation.create({
-            data: {
-                tenantId,
-                transactionId: tx.id,
-                status: 'matched',
-                matchedAt: new Date()
-            }
-        });
-
+        const tx = await this.recordTransaction({ tenantId, type: 'PAYMENT', referenceId: paymentId, amount, entries: [{ accountCode: '1000', debit: amount }, { accountCode: '1100', credit: amount }] });
+        await this.prisma.financialReconciliation.create({ data: { tenantId, transactionId: tx.id, status: 'matched', matchedAt: new Date() } });
         return tx;
     }
 
-    /**
-     * Specialized helper to record Payroll/Payout.
-     * Dr Payroll Expense
-     * Cr Cash
-     */
     async recordPayroll(tenantId: string, payoutId: string, amount: number | Decimal) {
-        return await this.recordTransaction({
-            tenantId,
-            type: 'PAYROLL',
-            referenceId: payoutId,
-            amount: amount,
-            entries: [
-                { accountCode: '5000', debit: amount }, // Expense
-                { accountCode: '1000', credit: amount } // Cash
-            ]
-        });
+        return await this.recordTransaction({ tenantId, type: 'PAYROLL', referenceId: payoutId, amount, entries: [{ accountCode: '5000', debit: amount }, { accountCode: '1000', credit: amount }] });
     }
 
-    /**
-     * Matches a Payment to an Invoice and updates statuses.
-     */
     async matchInvoiceWithPayment(tenantId: string, invoiceTxId: string, paymentTxId: string) {
         return await (this.prisma as any).$transaction(async (tx: any) => {
-            // 1. Link them in reconciliation table
-            await tx.financialReconciliation.create({
-                data: {
-                    tenantId,
-                    transactionId: invoiceTxId,
-                    status: 'matched',
-                    matchedAt: new Date()
-                }
-            });
-
-            // 2. Update statuses
-            await tx.financialTransaction.update({
-                where: { id: invoiceTxId },
-                data: { status: 'matched' }
-            });
-
-            await tx.financialTransaction.update({
-                where: { id: paymentTxId },
-                data: { status: 'matched' }
-            });
-
+            await tx.financialReconciliation.create({ data: { tenantId, transactionId: invoiceTxId, status: 'matched', matchedAt: new Date() } });
+            await tx.financialTransaction.update({ where: { id: invoiceTxId }, data: { status: 'matched' } });
+            await tx.financialTransaction.update({ where: { id: paymentTxId }, data: { status: 'matched' } });
             return { success: true };
         });
     }
 
-    /**
-     * Imports bank transactions and attempts auto-matching.
-     */
     async importBankFeed(tenantId: string, transactions: Record<string, any>[]) {
-        for (const bt of transactions) {
-            await this.prisma.bankTransaction.create({
-                data: {
-                    tenantId,
-                    bankDate: new Date(bt.date),
-                    description: bt.description,
-                    amount: new Decimal(bt.amount),
-                    externalRef: bt.ref,
-                    status: 'unreconciled'
-                }
-            });
-        }
+        for (const bt of transactions) { await this.prisma.bankTransaction.create({ data: { tenantId, bankDate: new Date(bt.date), description: bt.description, amount: new Decimal(bt.amount), externalRef: bt.ref, status: 'unreconciled' } }); }
         return await this.autoMatchBankFeed(tenantId);
     }
 
-    /**
-     * Auto-matches posted transactions with bank statements using Amount and Reference.
-     */
     async autoMatchBankFeed(tenantId: string) {
-        const unreconciledBank = await this.prisma.bankTransaction.findMany({
-            where: { tenantId, status: 'unreconciled' }
-        });
-
+        const unreconciledBank = await this.prisma.bankTransaction.findMany({ where: { tenantId, status: 'unreconciled' } });
         let matchedCount = 0;
         for (const bt of unreconciledBank) {
-            // Fuzzy Match: Amount ± 0.01 and Date ± 3 days
             const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
-            const startDate = new Date(bt.bankDate.getTime() - threeDaysMs);
-            const endDate = new Date(bt.bankDate.getTime() + threeDaysMs);
-
-            const match = await this.prisma.financialTransaction.findFirst({
-                where: {
-                    tenantId,
-                    amount: {
-                        gte: new Decimal(bt.amount).minus(0.01),
-                        lte: new Decimal(bt.amount).plus(0.01)
-                    },
-                    createdAt: {
-                        gte: startDate,
-                        lte: endDate
-                    },
-                    status: 'posted'
-                }
-            });
-
+            const match = await this.prisma.financialTransaction.findFirst({ where: { tenantId, amount: { gte: new Decimal(bt.amount).minus(0.01), lte: new Decimal(bt.amount).plus(0.01) }, createdAt: { gte: new Date(bt.bankDate.getTime() - threeDaysMs), lte: new Date(bt.bankDate.getTime() + threeDaysMs) }, status: 'posted' } });
             if (match) {
-                await this.prisma.$transaction([
-                    this.prisma.financialReconciliation.create({
-                        data: {
-                            tenantId,
-                            transactionId: match.id,
-                            bankTransactionId: bt.id,
-                            status: 'reconciled',
-                            matchedAt: new Date()
-                        }
-                    }),
-                    this.prisma.financialTransaction.update({
-                        where: { id: match.id },
-                        data: { status: 'reconciled' }
-                    }),
-                    this.prisma.bankTransaction.update({
-                        where: { id: bt.id },
-                        data: { status: 'reconciled' }
-                    })
+                await (this.prisma as any).$transaction([
+                    this.prisma.financialReconciliation.create({ data: { tenantId, transactionId: match.id, bankTransactionId: bt.id, status: 'reconciled', matchedAt: new Date() } }),
+                    this.prisma.financialTransaction.update({ where: { id: match.id }, data: { status: 'reconciled' } }),
+                    this.prisma.bankTransaction.update({ where: { id: bt.id }, data: { status: 'reconciled' } })
                 ]);
                 matchedCount++;
             }
@@ -312,276 +96,24 @@ export class FinancialService {
         return matchedCount;
     }
 
-    /**
-     * Calculates real-time balances for all accounts.
-     */
     async getAccountBalances(tenantId: string) {
-        const accounts = await this.prisma.chartOfAccount.findMany({
-            where: { tenantId },
-            include: {
-                journalEntries: true
-            }
-        });
-
-        return accounts.map((acc) => {
-            let balance = new Decimal(0);
-            for (const entry of acc.journalEntries) {
-                // Asset/Expense: Debit increases, Credit decreases
-                // Liability/Equity/Revenue: Credit increases, Debit decreases
-                if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
-                } else {
-                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
-                }
-            }
-            return {
-                id: acc.id,
-                code: acc.code,
-                name: acc.name,
-                type: acc.type,
-                balance: balance.toNumber()
-            };
-        });
+        const accounts = await (this.prisma as any).chartOfAccount.findMany({ where: { tenantId }, include: { journalEntries: true } });
+        return accounts.map((acc: any) => ({ id: acc.id, code: acc.code, name: acc.name, type: acc.type, balance: calculateBalance(acc.journalEntries, acc.type).toNumber() }));
     }
 
-    /**
-     * Calculates account balance up to a specific date (for before/after tracking).
-     */
     async getAccountBalanceAtDate(tenantId: string, accountCode: string, date: Date) {
-        const account = await this.prisma.chartOfAccount.findUnique({
-            where: { tenantId_code: { tenantId, code: accountCode } },
-            include: {
-                journalEntries: {
-                    where: { createdAt: { lt: date } }
-                }
-            }
-        });
-
+        const account = await (this.prisma as any).chartOfAccount.findUnique({ where: { tenantId_code: { tenantId, code: accountCode } }, include: { journalEntries: { where: { createdAt: { lt: date } } } } });
         if (!account) return 0;
-
-        let balance = new Decimal(0);
-        for (const entry of account.journalEntries) {
-            if (['ASSET', 'EXPENSE'].includes(account.type)) {
-                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
-            } else {
-                balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
-            }
-        }
-        return balance.toNumber();
+        return calculateBalance(account.journalEntries, account.type).toNumber();
     }
 
-    /**
-     * Generates a Trading Account (Gross Profit calculation)
-     */
-    async getTradingAccount(tenantId: string, startDate: Date, endDate: Date) {
-        const accounts = await this.prisma.chartOfAccount.findMany({
-            where: { tenantId },
-            include: {
-                journalEntries: {
-                    where: { createdAt: { gte: startDate, lte: endDate } }
-                }
-            }
-        });
+    async getTradingAccount(tenantId: string, startDate: Date, endDate: Date) { return getTradingAccount(this.prisma, tenantId, startDate, endDate); }
+    async getIncomeStatement(tenantId: string, startDate: Date, endDate: Date) { return getIncomeStatement(this.prisma, tenantId, startDate, endDate); }
+    async getBalanceSheet(tenantId: string, date: Date = new Date()) { return getBalanceSheet(this.prisma, tenantId, date); }
+    async generateDailySummary(tenantId: string, date: Date = new Date()) { return generateDailySummary(this.prisma, tenantId, date); }
+    async generateTaxFilingReport(tenantId: string, startDate: Date, endDate: Date) { return generateTaxFilingReport(this.prisma, tenantId, startDate, endDate); }
 
-        let revenue = new Decimal(0);
-        let directCosts = new Decimal(0);
-        const revenueBreakdown: Record<string, number> = {};
-        const directCostsBreakdown: Record<string, number> = {};
-
-        for (const acc of accounts) {
-            let balance = new Decimal(0);
-            for (const entry of acc.journalEntries) {
-                if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
-                } else {
-                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
-                }
-            }
-
-            if (acc.type === 'REVENUE') {
-                revenue = revenue.plus(balance);
-                revenueBreakdown[acc.name] = balance.toNumber();
-            } else if (acc.type === 'EXPENSE' && Number(acc.code) < 5100) {
-                // Codes 5000-5099 are Direct Expenses (COGS/COSS)
-                directCosts = directCosts.plus(balance);
-                directCostsBreakdown[acc.name] = balance.toNumber();
-            }
-        }
-
-        return {
-            period: { startDate, endDate },
-            revenue: revenue.toNumber(),
-            directCosts: directCosts.toNumber(),
-            grossProfit: revenue.minus(directCosts).toNumber(),
-            grossProfitMargin: revenue.isZero() ? 0 : revenue.minus(directCosts).dividedBy(revenue).times(100).toNumber(),
-            breakdown: { revenue: revenueBreakdown, directCosts: directCostsBreakdown }
-        };
-    }
-
-    /**
-     * Generates an Income Statement (P&L).
-     */
-    async getIncomeStatement(tenantId: string, startDate: Date, endDate: Date) {
-        const tradingAccount = await this.getTradingAccount(tenantId, startDate, endDate);
-
-        const accounts = await this.prisma.chartOfAccount.findMany({
-            where: { tenantId, type: 'EXPENSE', code: { gte: '5100' } }, // Indirect expenses only
-            include: {
-                journalEntries: {
-                    where: { createdAt: { gte: startDate, lte: endDate } }
-                }
-            }
-        });
-
-        let indirectExpenses = new Decimal(0);
-        const expensesBreakdown: Record<string, number> = {};
-
-        for (const acc of accounts) {
-            let balance = new Decimal(0);
-            for (const entry of acc.journalEntries) {
-                balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
-            }
-            indirectExpenses = indirectExpenses.plus(balance);
-            expensesBreakdown[acc.name] = balance.toNumber();
-        }
-
-        const netIncome = new Decimal(tradingAccount.grossProfit).minus(indirectExpenses);
-
-        return {
-            period: { startDate, endDate },
-            tradingAccount,
-            operatingExpenses: indirectExpenses.toNumber(),
-            netIncome: netIncome.toNumber(),
-            breakdown: { ...tradingAccount.breakdown, indirectExpenses: expensesBreakdown }
-        };
-    }
-
-    /**
-     * Generates a Balance Sheet (Snapshot of Assets, Liabilities, and Equity).
-     */
-    async getBalanceSheet(tenantId: string, date: Date = new Date()) {
-        const accounts = await this.prisma.chartOfAccount.findMany({
-            where: { tenantId },
-            include: {
-                journalEntries: {
-                    where: { createdAt: { lte: date } }
-                }
-            }
-        });
-
-        const report: Record<string, { total: Decimal; accounts: Record<string, number> }> = {
-            assets: { total: new Decimal(0), accounts: {} },
-            liabilities: { total: new Decimal(0), accounts: {} },
-            equity: { total: new Decimal(0), accounts: {} }
-        };
-
-        for (const acc of accounts) {
-            let balance = new Decimal(0);
-            for (const entry of acc.journalEntries) {
-                if (['ASSET', 'EXPENSE'].includes(acc.type)) {
-                    balance = balance.plus(new Decimal(entry.debit)).minus(new Decimal(entry.paidOutAmount || 0));
-                } else {
-                    balance = balance.plus(new Decimal(entry.paidOutAmount || 0)).minus(new Decimal(entry.debit));
-                }
-            }
-
-            const category = acc.type.toLowerCase();
-            if (report[category]) {
-                report[category].accounts[acc.name] = balance.toNumber();
-                report[category].total = report[category].total.plus(balance);
-            } else if (acc.type === 'REVENUE' || acc.type === 'EXPENSE') {
-                // For a Balance Sheet, Revenue - Expense = Retained Earnings (Equity)
-                report.equity.total = acc.type === 'REVENUE'
-                    ? report.equity.total.plus(balance)
-                    : report.equity.total.minus(balance);
-            }
-        }
-
-        return {
-            date,
-            assets: { ...report.assets, total: report.assets.total.toNumber() },
-            liabilities: { ...report.liabilities, total: report.liabilities.total.toNumber() },
-            equity: { ...report.equity, total: report.equity.total.toNumber() }
-        };
-    }
-
-    /**
-     * Generates a JSON summary of all financial activity for the day.
-     */
-    async generateDailySummary(tenantId: string, date: Date = new Date()) {
-        const start = new Date(date);
-        start.setHours(0, 0, 0, 0);
-        const end = new Date(date);
-        end.setHours(23, 59, 59, 999);
-
-        const transactions = await this.prisma.financialTransaction.findMany({
-            where: {
-                tenantId,
-                createdAt: { gte: start, lte: end }
-            },
-            include: { journalEntries: { include: { account: true } } }
-        });
-
-        const summary = {
-            date: start.toISOString().split('T')[0],
-            transactionCount: transactions.length,
-            totalVolume: transactions.reduce((sum: number, tx: { amount: Decimal | string | number }) => sum + Number(tx.amount), 0),
-            types: {} as Record<string, number>,
-            integrityCheck: 'PASSED'
-        };
-
-        for (const tx of transactions) {
-            summary.types[tx.type] = (summary.types[tx.type] || 0) + 1;
-        }
-
-        return summary;
-    }
-
-    /**
-     * Generates a tax filing report for a specific period.
-     */
-    async generateTaxFilingReport(tenantId: string, startDate: Date, endDate: Date) {
-        // Aggregate all journal entries for the Sales Tax Payable account (2100)
-        const entries = await this.prisma.journalEntry.findMany({
-            where: {
-                tenantId,
-                account: { code: '2100' },
-                createdAt: { gte: startDate, lte: endDate }
-            },
-            include: { transaction: true }
-        });
-
-        let totalCollected = new Decimal(0); // Credits increase liability (collected from clients)
-        let totalPaidOnExpenses = new Decimal(0); // Debits decrease liability (paid to vendors)
-
-        for (const entry of entries) {
-            totalCollected = totalCollected.plus(new Decimal(entry.paidOutAmount || 0));
-            totalPaidOnExpenses = totalPaidOnExpenses.plus(new Decimal(entry.debit));
-        }
-
-        return {
-            periodStart: startDate.toISOString().split('T')[0],
-            periodEnd: endDate.toISOString().split('T')[0],
-            totalCollected: totalCollected.toNumber(),
-            totalInputCredits: totalPaidOnExpenses.toNumber(),
-            netTaxOwed: totalCollected.minus(totalPaidOnExpenses).toNumber(),
-            entryCount: entries.length
-        };
-    }
-
-    /**
-     * Records a tax remittance payment to the revenue agency.
-     */
     async recordTaxRemittance(tenantId: string, amount: number | Decimal, reference: string) {
-        return await this.recordTransaction({
-            tenantId,
-            type: 'EXPENSE',
-            referenceId: reference,
-            amount,
-            entries: [
-                { accountCode: '2100', debit: amount }, // Decrease Tax Payable liability
-                { accountCode: '1000', credit: amount }  // Decrease Cash asset
-            ]
-        });
+        return await this.recordTransaction({ tenantId, type: 'EXPENSE', referenceId: reference, amount, entries: [{ accountCode: '2100', debit: amount }, { accountCode: '1000', credit: amount }] });
     }
 }
