@@ -2,38 +2,47 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { REGISTRY_COLORS, DEFAULT_PRESET, INITIAL_COLORS, buildGradient, PRESET_LABELS, S } from './themeConfig';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 const { ThemeRegistry } = AdminRegistry;
 
 const ThemeCoreCenter: React.FC = () => {
+    // TanStack Query: auto-cached branding config
+    const { data: brandingData, isLoading: loading } = useRegistryQuery<any>('/v1/admin/settings/branding', {
+        queryKey: ['admin', 'settings', 'branding'],
+        staleTime: 60_000,
+    });
+
+    // Derive initial colors from query data
+    const initialFromServer = brandingData?.brandingConfig
+        ? {
+            primary: brandingData.brandingConfig.primaryColor || INITIAL_COLORS.primary,
+            primaryDark: brandingData.brandingConfig.primaryDarkColor || INITIAL_COLORS.primaryDark,
+            accent: brandingData.brandingConfig.accentColor || INITIAL_COLORS.accent,
+            background: brandingData.brandingConfig.backgroundColor || INITIAL_COLORS.background,
+            surface: brandingData.brandingConfig.surfaceColor || INITIAL_COLORS.surface,
+        }
+        : { ...INITIAL_COLORS };
+
     const [colors, setColors] = useState<Record<string, string>>({ ...INITIAL_COLORS });
     const [savedColors, setSavedColors] = useState<Record<string, string>>({ ...INITIAL_COLORS });
     const [activePreset, setActivePreset] = useState(DEFAULT_PRESET);
     const [copied, setCopied] = useState(false);
     const [saving, setSaving] = useState(false);
     const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle');
-    const [loading, setLoading] = useState(true);
+    const [initialized, setInitialized] = useState(false);
 
     const hasChanges = JSON.stringify(colors) !== JSON.stringify(savedColors);
 
+    // Sync query data into local state once loaded
     useEffect(() => {
-        const loadBranding = async () => {
-            try {
-                const res = await apiClient.get('/v1/admin/settings/branding');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data?.brandingConfig) {
-                        const bc = data.brandingConfig;
-                        const loaded: Record<string, string> = { primary: bc.primaryColor || INITIAL_COLORS.primary, primaryDark: bc.primaryDarkColor || INITIAL_COLORS.primaryDark, accent: bc.accentColor || INITIAL_COLORS.accent, background: bc.backgroundColor || INITIAL_COLORS.background, surface: bc.surfaceColor || INITIAL_COLORS.surface };
-                        setColors(loaded); setSavedColors(loaded);
-                        if (bc.presetName) setActivePreset(bc.presetName);
-                    }
-                }
-            } catch { /* use defaults */ }
-            setLoading(false);
-        };
-        loadBranding();
-    }, []);
+        if (brandingData && !initialized) {
+            setColors(initialFromServer);
+            setSavedColors(initialFromServer);
+            if (brandingData?.brandingConfig?.presetName) setActivePreset(brandingData.brandingConfig.presetName);
+            setInitialized(true);
+        }
+    }, [brandingData, initialized]);
 
     useEffect(() => { const root = document.documentElement; REGISTRY_COLORS.forEach(({ key, variable }) => { root.style.setProperty(variable, colors[key]); }); }, [colors]);
 

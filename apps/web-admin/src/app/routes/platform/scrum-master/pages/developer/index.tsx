@@ -1,30 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
+import { TableSkeleton } from '@/shared/components/ui/Skeleton';
 
 export default function DeveloperPortal() {
     const [apiKey, setApiKey] = useState('');
     const { showToast } = useNotification();
-    const [keys, setKeys] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        fetchKeys();
-    }, []);
-
-    const fetchKeys = async () => {
-        try {
-            const response = await apiClient.get('/v1/admin/developer/keys');
-            if (response.ok) {
-                const data = await response.json();
-                setKeys(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch API keys', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // TanStack Query: auto-cached API keys
+    const { data: keys = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/admin/developer/keys', {
+        queryKey: ['admin', 'developer', 'keys'],
+        staleTime: 30_000,
+    });
 
     const handleCreateKey = async () => {
         const name = prompt('Enter a name for this API Key (e.g. My Website)');
@@ -35,7 +25,7 @@ export default function DeveloperPortal() {
             if (response.ok) {
                 const data = await response.json();
                 showToast(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`, 'success');
-                fetchKeys();
+                queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
             }
         } catch (error) {
             showToast('Failed to create key', 'error');
@@ -46,7 +36,7 @@ export default function DeveloperPortal() {
         if (!confirm('Are you sure you want to revoke this key?')) return;
         try {
             const response = await apiClient.delete(`/v1/admin/developer/keys/${id}`);
-            if (response.ok) fetchKeys();
+            if (response.ok) queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
         } catch (error) {
             alert('Failed to delete key');
         }
