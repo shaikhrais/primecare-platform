@@ -1,30 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
-import L from 'leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
-// Fix for default marker icon
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-let DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
-});
-L.Marker.prototype.options.icon = DefaultIcon;
-
-// Helper to update map center
-function ChangeView({ center }: { center: [number, number] }) {
-    const map = useMap();
-    map.setView(center);
-    return null;
-}
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { ChangeView, fetchProfile as apiFetchProfile, saveProfile } from './profileHelpers';
 
 export default function ProfilePage() {
     const { showToast } = useNotification();
@@ -50,56 +29,28 @@ export default function ProfilePage() {
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isDirty]);
 
-    const fetchProfile = async () => {
+    const loadProfile = async () => {
         setLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const endpoint = role === 'psw' ? '/v1/psw/profile' : role === 'admin' || role === 'staff' ? '/v1/user/profile' : '/v1/client/profile';
-            const response = await fetch(`${API_URL}${endpoint}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setProfile(data);
-            } else if (response.status === 403 || response.status === 404) {
-                // Fallback to local user data if profile endpoint not found for this role
-                setProfile({ ...user, fullName: user.fullName || user.email?.split('@')[0] });
-            }
-        } catch (error) {
-            console.error('Failed to fetch profile', error);
-            showToast('Failed to load profile data', 'error');
-        } finally {
-            setLoading(false);
-        }
+        await apiFetchProfile(
+            role,
+            (data) => setProfile(data),
+            (fallback) => setProfile(fallback),
+            (msg) => showToast(msg, 'error')
+        );
+        setLoading(false);
     };
 
-    useEffect(() => {
-        fetchProfile();
-    }, []);
+    useEffect(() => { loadProfile(); }, []);
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         setSaving(true);
-        try {
-            const token = localStorage.getItem('token');
-            const endpoint = role === 'psw' ? '/v1/psw/profile' : '/v1/client/profile';
-            const response = await fetch(`${API_URL}${endpoint}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(profile)
-            });
-            if (response.ok) {
-                showToast('Profile updated successfully!', 'success');
-                setIsDirty(false);
-            }
-        } catch (error) {
-            showToast('Failed to update profile', 'error');
-        } finally {
-            setSaving(false);
-        }
+        await saveProfile(
+            role, profile,
+            () => { showToast('Profile updated successfully!', 'success'); setIsDirty(false); },
+            () => showToast('Failed to update profile', 'error')
+        );
+        setSaving(false);
     };
 
     if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading profile...</div>;

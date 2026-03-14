@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CheckCircle, XCircle, FileText, Check, X } from 'lucide-react';
 import { type ApprovalItem, getSwipeBackgroundColor } from './swipeHelpers';
-
+import { approveItem, rejectItem } from './swipeDragLogic';
 import { apiClient } from '@/shared/utils/apiClient';
 
 export const ApprovalSwipeStack: React.FC = () => {
@@ -65,24 +65,18 @@ export const ApprovalSwipeStack: React.FC = () => {
 
     const handleApprove = async (id: string) => {
         try {
-            await apiClient.post(`/v1/manager/ops/approvals/${id}/approve`);
+            await approveItem(id);
             showToast(`Approved ${stack.find(s => s.id === id)?.type} for ${stack.find(s => s.id === id)?.employee}`, 'success');
-            triggerFlyOut(1); // 1 = right
-        } catch (e) {
-            showToast('Failed to approve item', 'error');
-            setDragX(0);
-        }
+            triggerFlyOut(1);
+        } catch (e) { showToast('Failed to approve item', 'error'); setDragX(0); }
     };
 
     const handleReject = async (id: string) => {
         try {
-            await apiClient.post(`/v1/manager/ops/approvals/${id}/reject`);
+            await rejectItem(id);
             showToast(`Rejected ${stack.find(s => s.id === id)?.type}. Sent back for revision.`, 'info');
-            triggerFlyOut(-1); // -1 = left
-        } catch (e) {
-            showToast('Failed to reject item', 'error');
-            setDragX(0);
-        }
+            triggerFlyOut(-1);
+        } catch (e) { showToast('Failed to reject item', 'error'); setDragX(0); }
     };
 
     const triggerFlyOut = (direction: number) => {
