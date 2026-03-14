@@ -3,7 +3,7 @@
  * Health, branding, stats, marketing leads, public registries
  */
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../bindings';
+import { Bindings, Variables } from './bindings';
 
 type AppType = OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>;
 
