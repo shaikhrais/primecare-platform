@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { ChangeView, fetchProfile as apiFetchProfile, saveProfile } from './profileHelpers';
+import { fetchProfile as apiFetchProfile, saveProfile } from './profileHelpers';
+import { UnsavedChangesGuard, LocationMapPreview } from './ProfileComponents';
 
 export default function ProfilePage() {
     const { showToast } = useNotification();
@@ -57,19 +57,7 @@ export default function ProfilePage() {
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="form.profile.page">
-            {/* Unsaved Changes Guard Dialog */}
-            {showGuard && (
-                <div data-cy="guard.unsaved.dialog" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ background: 'white', padding: '32px', borderRadius: '16px', border: '1px solid #e5e7eb', maxWidth: '400px', textAlign: 'center', color: '#111827' }}>
-                        <h2 data-cy="h2-shared.index-0" style={{ marginTop: 0 }}>Unsaved Changes</h2>
-                        <p style={{ opacity: 0.8, marginBottom: '24px' }}>You have unsaved changes. Navigating away will discard them. Would you like to stay and save?</p>
-                        <div style={{ display: 'flex', gap: '16px' }}>
-                            <button data-cy="guard.unsaved.leave" onClick={() => navigate(-1)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', background: 'transparent', cursor: 'pointer', color: '#374151' }}>Leave</button>
-                            <button data-cy="guard.unsaved.stay" onClick={() => setShowGuard(false)} style={{ flex: 1, padding: '12px', borderRadius: '8px', border: 'none', background: '#004d40', color: 'white', cursor: 'pointer', fontWeight: 600 }}>Stay</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {showGuard && <UnsavedChangesGuard onLeave={() => navigate(-1)} onStay={() => setShowGuard(false)} />}
 
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Account Profile</h2>
@@ -158,48 +146,8 @@ export default function ProfilePage() {
                         />
                     </div>
 
-                    {/* MAP PREVIEW & GEO-STATUS */}
                     {(role === 'client' || role === 'psw') && (
-                        <div style={{ gridColumn: 'span 2', marginTop: '1rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                <label style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>
-                                    Location Verification
-                                </label>
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    padding: '2px 8px',
-                                    borderRadius: '999px',
-                                    backgroundColor: profile.lat ? '#E1F5FE' : '#FFF3E0',
-                                    color: profile.lat ? '#0288D1' : '#E65100',
-                                    fontWeight: 600
-                                }}>
-                                    {profile.lat ? '📍 Coordinate Synced' : '⏳ Pending Sync'}
-                                </span>
-                            </div>
-
-                            <div style={{ height: '200px', width: '100%', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
-                                <MapContainer
-                                    center={[profile.lat || 43.6532, profile.lng || -79.3832]}
-                                    zoom={13}
-                                    style={{ height: '100%', width: '100%' }}
-                                    scrollWheelZoom={false}
-                                >
-                                    <TileLayer
-                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    />
-                                    {profile.lat && profile.lng && (
-                                        <>
-                                            <Marker position={[profile.lat, profile.lng]} />
-                                            <ChangeView center={[profile.lat, profile.lng]} />
-                                        </>
-                                    )}
-                                </MapContainer>
-                            </div>
-                            <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.5rem' }}>
-                                we use this for coordinate verification and secure {role === 'psw' ? 'check-ins' : 'visit security'}.
-                            </p>
-                        </div>
+                        <LocationMapPreview lat={profile.lat} lng={profile.lng} role={role} />
                     )}
                 </div>
 
