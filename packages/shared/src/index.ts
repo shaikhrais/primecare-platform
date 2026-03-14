@@ -7,6 +7,7 @@ export * from './registries/ButtonRegistry';
 export * from './registries/FormRegistry';
 export * from './registries/PageRegistry';
 export * from './registries/PageActionRegistry';
+export * from './registries/FeatureIntegrityChecker';
 
 // Existing
 export * from './theme';
