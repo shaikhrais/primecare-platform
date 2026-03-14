@@ -24,7 +24,7 @@ const createCarePlanRoute = createRoute({
     path: '/{clientId}',
     summary: 'Create Care Plan',
     tags: ['Client', 'CarePlan'],
-    middleware: [requirePermission('CARE_PLAN_CREATE')],
+    middleware: [requirePermission('manage_care_plans')],
     request: {
         params: ClientParamsSchema,
         body: {
@@ -69,7 +69,7 @@ const updateCarePlanRoute = createRoute({
     path: '/{clientId}',
     summary: 'Update Care Plan',
     tags: ['Client', 'CarePlan'],
-    middleware: [requirePermission('CARE_PLAN_UPDATE')],
+    middleware: [requirePermission('manage_care_plans')],
     request: {
         params: ClientParamsSchema,
         body: {

@@ -19,7 +19,7 @@ const listCarePlansRoute = createRoute({
     path: '/',
     summary: 'List Care Plans',
     tags: ['RN', 'CarePlans'],
-    middleware: [requirePermission('CARE_PLAN_VIEW')],
+    middleware: [requirePermission('manage_care_plans')],
     responses: {
         200: {
             content: {
@@ -41,7 +41,7 @@ const reviewCarePlanRoute = createRoute({
     path: '/{id}/review',
     summary: 'Review Care Plan',
     tags: ['RN', 'CarePlans'],
-    middleware: [requirePermission('CARE_PLAN_UPDATE')],
+    middleware: [requirePermission('manage_care_plans')],
     request: {
         params: CarePlanParamsSchema,
         body: {

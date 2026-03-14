@@ -19,7 +19,7 @@ const reviewDailyEntryRoute = createRoute({
     path: '/{id}/review',
     summary: 'Review Daily Entry',
     tags: ['RN', 'DailyReview'],
-    middleware: [requirePermission('DAILY_ENTRY_REVIEW')],
+    middleware: [requirePermission('manage_assessments')],
     request: {
         params: DailyEntryParamsSchema,
         body: {

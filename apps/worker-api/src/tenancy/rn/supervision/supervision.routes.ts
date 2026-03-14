@@ -18,7 +18,7 @@ const getPswSupervisionOverviewRoute = createRoute({
     path: '/psw/{pswId}/overview',
     summary: 'Get Psw Supervision Overview',
     tags: ['RN', 'Supervision'],
-    middleware: [requirePermission('PSW_SUPERVISE')],
+    middleware: [requirePermission('clinical_oversight')],
     request: {
         params: PswParamsSchema,
     },
@@ -80,7 +80,7 @@ const getRosterRoute = createRoute({
     path: '/roster',
     summary: 'Get Roster',
     tags: ['RN', 'Supervision'],
-    middleware: [requirePermission('PSW_SUPERVISE')],
+    middleware: [requirePermission('clinical_oversight')],
     responses: {
         200: {
             content: {
