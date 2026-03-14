@@ -14,18 +14,18 @@ export const LogisticsBoardResponseSchema = z.object({
     availableStaff: z.array(z.object({ id: z.string(), name: z.string(), role: z.string(), status: z.enum(['available', 'busy', 'offline']), utilization: z.number(), currentLocation: z.string() }))
 });
 
-export const branchHealthRoute = createRoute({ method: 'get', path: '/branch-health', summary: 'Branch Health', tags: ['Manager'], request: {},
-    responses: { 200: { content: { 'application/json': { schema: z.object({ status: z.string(), alerts: z.array(z.object({ type: z.string(), severity: z.string(), message: z.string() })) }) } }, description: 'Branch health retrieved' } }, ...ROUTE_METADATA.MANAGER.BRANCH_HEALTH });
+export const branchHealthRoute = createRoute({ ...ROUTE_METADATA.MANAGER.BRANCH_HEALTH, method: 'get', path: '/branch-health', summary: 'Branch Health', tags: ['Manager'], request: {},
+    responses: { 200: { content: { 'application/json': { schema: z.object({ status: z.string(), alerts: z.array(z.object({ type: z.string(), severity: z.string(), message: z.string() })) }) } }, description: 'Branch health retrieved' } } });
 
-export const statsRoute = createRoute({ method: 'get', path: '/stats', summary: 'Stats', tags: ['Manager'], request: {},
-    responses: { 200: { content: { 'application/json': { schema: StatsSchema } }, description: 'Regional stats retrieved' } }, ...ROUTE_METADATA.MANAGER.OPS_STATS });
+export const statsRoute = createRoute({ ...ROUTE_METADATA.MANAGER.OPS_STATS, method: 'get', path: '/stats', summary: 'Stats', tags: ['Manager'], request: {},
+    responses: { 200: { content: { 'application/json': { schema: StatsSchema } }, description: 'Regional stats retrieved' } } });
 
-export const complianceSyncRoute = createRoute({ method: 'post', path: '/compliance/sync', summary: 'Compliance Sync', tags: ['Manager'], request: {},
-    responses: { 200: { content: { 'application/json': { schema: ComplianceSchema } }, description: 'Compliance synchronized' } }, ...ROUTE_METADATA.MANAGER.COMPLIANCE_SYNC });
+export const complianceSyncRoute = createRoute({ ...ROUTE_METADATA.MANAGER.COMPLIANCE_SYNC, method: 'post', path: '/compliance/sync', summary: 'Compliance Sync', tags: ['Manager'], request: {},
+    responses: { 200: { content: { 'application/json': { schema: ComplianceSchema } }, description: 'Compliance synchronized' } } });
 
-export const feedbackTriageRoute = createRoute({ method: 'patch', path: '/feedback/{id}/triage', summary: 'Feedback Triage', tags: ['Manager'],
+export const feedbackTriageRoute = createRoute({ ...ROUTE_METADATA.MANAGER.FEEDBACK_TRIAGE, method: 'patch', path: '/feedback/{id}/triage', summary: 'Feedback Triage', tags: ['Manager'],
     request: { params: z.object({ id: z.string().openapi({ example: '123' }) }), body: { content: { 'application/json': { schema: FeedbackTriageSchema } } } },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Feedback triaged' } }, ...ROUTE_METADATA.MANAGER.FEEDBACK_TRIAGE });
+    responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Feedback triaged' } } });
 
 export const waitlistRoute = createRoute({ method: 'get', path: '/intake/waitlist', summary: 'Waitlist', request: {},
     responses: { 200: { content: { 'application/json': { schema: z.array(WaitlistResponseSchema) } }, description: 'Intake waitlist retrieved' } }, tags: ['Manager Operations'], operationId: 'getWaitlist' });
