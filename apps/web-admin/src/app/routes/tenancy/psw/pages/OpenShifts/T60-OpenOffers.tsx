@@ -9,6 +9,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { useQueryClient } from '@tanstack/react-query';
+import { CardGridSkeleton } from '@/shared/components/ui/Skeleton';
 
 const { ApiRegistry } = AdminRegistry;
 
@@ -42,7 +43,7 @@ export default function OpenOffers() {
         }
     };
 
-    if (loading) return <div style={{ padding: '2rem' }}>Loading offers...</div>;
+    if (loading) return <CardGridSkeleton cards={4} />;
 
     return (
         <div data-cy="page.container" style={{ padding: '2rem' }}>

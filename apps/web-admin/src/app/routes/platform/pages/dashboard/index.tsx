@@ -2,6 +2,7 @@ import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
@@ -14,7 +15,7 @@ const PlatformDashboard: React.FC = () => {
         staleTime: 60_000,
     });
 
-    if (loading) return <div>{t(ContentRegistry.PLATFORM_DASHBOARD.MESSAGES.LOADING)}</div>;
+    if (loading) return <DashboardSkeleton statCount={3} />;
 
     return (
         <div style={{ padding: '2rem' }}>

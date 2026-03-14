@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { TableSkeleton } from '@/shared/components/ui/Skeleton';
 
 const PlatformAuditLogs: React.FC = () => {
     // TanStack Query: auto-cached audit logs
@@ -10,7 +11,7 @@ const PlatformAuditLogs: React.FC = () => {
 
     const logs = rawData?.logs || [];
 
-    if (loading) return <div>Loading Global Audit Logs...</div>;
+    if (loading) return <TableSkeleton rows={5} columns={4} />;
 
     return (
         <div style={{ padding: '2rem' }}>
