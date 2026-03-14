@@ -2,10 +2,11 @@
 // PAGE IDENTITY: T12 � Business Status
 // Type: Tool | Owner: admin
 // ================================================================
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { useTranslation } from 'react-i18next';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 // Components
 import { BusinessProgressHeader } from './components/BusinessProgressHeader';
@@ -29,25 +30,12 @@ interface BusinessStatusData {
 
 export default function BusinessStatus() {
     const { t } = useTranslation();
-    const [stats, setStats] = useState<BusinessStatusData | null>(null);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const response = await apiClient.get('/v1/public/stats');
-                if (response.ok) {
-                    const data = await response.json();
-                    setStats(data);
-                }
-            } catch (error) {
-                console.error('Failed to fetch business status', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchStats();
-    }, []);
+    // TanStack Query: auto-cached business stats
+    const { data: stats, isLoading: loading } = useRegistryQuery<BusinessStatusData>('/v1/public/stats', {
+        queryKey: ['public', 'stats'],
+        staleTime: 60_000,
+    });
 
     const domains = [
         {
@@ -102,9 +90,7 @@ export default function BusinessStatus() {
         }
     ];
 
-    if (loading) {
-        return <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-300)' }}>{t(ContentRegistry.BUSINESS_STATUS.INITIALIZING)}</div>;
-    }
+    if (loading) return <DashboardSkeleton statCount={5} />;
 
     return (
         <div data-cy="page.container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>

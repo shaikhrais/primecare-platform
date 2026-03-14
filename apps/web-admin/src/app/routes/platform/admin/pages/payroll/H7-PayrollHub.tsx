@@ -4,54 +4,42 @@
 // Type:          Hub
 // Owner:         admin
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { useQueryClient } from '@tanstack/react-query';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 export default function PayrollHub() {
     const { showToast } = useNotification();
     const { t } = useTranslation();
-    const [timesheets, setTimesheets] = useState<any[]>([]);
-    const [summary, setSummary] = useState({ totalHours: 0, totalPayout: 0, approvedCount: 0, pendingCount: 0 });
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        fetchPayroll();
-    }, []);
+    // TanStack Query: auto-cached payroll data
+    const { data: rawData, isLoading: loading } = useRegistryQuery<any>(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.PENDING, {
+        queryKey: ['admin', 'payroll', 'pending'],
+        staleTime: 15_000,
+    });
 
-    const fetchPayroll = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.PENDING);
-            if (response.ok) {
-                const data = await response.json();
-                setTimesheets(data.timesheets || data);
-                if (data.summary) {
-                    setSummary(data.summary);
-                } else {
-                    const tsArray = data.timesheets || data;
-                    const approvedCount = tsArray.filter((t: any) => t.status === 'approved').length;
-                    const pendingCount = tsArray.filter((t: any) => t.status === 'pending').length;
-                    const totalHours = tsArray.reduce((acc: number, cur: any) => acc + (cur.hours || 0), 0);
-                    const totalPayout = tsArray.reduce((acc: number, cur: any) => acc + ((cur.hours || 0) * (cur.rate || 0)), 0);
-                    setSummary({ totalHours, totalPayout, approvedCount, pendingCount });
-                }
-            }
-        } catch (error) {
-            console.error('Failed to fetch payroll', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // Derive timesheets and summary from cached query data
+    const timesheets: any[] = rawData?.timesheets || rawData || [];
+    const summary = rawData?.summary || (() => {
+        const approvedCount = timesheets.filter((t: any) => t.status === 'approved').length;
+        const pendingCount = timesheets.filter((t: any) => t.status === 'pending').length;
+        const totalHours = timesheets.reduce((acc: number, cur: any) => acc + (cur.hours || 0), 0);
+        const totalPayout = timesheets.reduce((acc: number, cur: any) => acc + ((cur.hours || 0) * (cur.rate || 0)), 0);
+        return { totalHours, totalPayout, approvedCount, pendingCount };
+    })();
 
     const handleBulkApprove = async () => {
         try {
             const response = await apiClient.post(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.BATCH_APPROVE, { action: 'approve_all' });
             if (response.ok) {
                 showToast(t('admin.bulk_approve_success', { defaultValue: 'All pending timesheets approved' }), 'success');
-                fetchPayroll();
+                queryClient.invalidateQueries({ queryKey: ['admin', 'payroll', 'pending'] });
             } else {
                 showToast(t('admin.bulk_approve_failed', { defaultValue: 'Failed to approve timesheets' }), 'error');
             }
@@ -94,11 +82,7 @@ export default function PayrollHub() {
             </div>
 
             {loading ? (
-                <div style={{ padding: '64px 0', textAlign: 'center', color: 'var(--text-300)' }}>
-                    <div style={{ display: 'inline-block', width: '32px', height: '32px', border: '3px solid var(--brand-100)', borderTopColor: 'var(--brand-500)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
-                    <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-                    <div>{t('admin.loading_data', { defaultValue: 'Loading secure data...' })}</div>
-                </div>
+                <DashboardSkeleton statCount={4} />
             ) : (
                 <>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>

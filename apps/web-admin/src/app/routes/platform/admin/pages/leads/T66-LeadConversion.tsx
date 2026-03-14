@@ -2,11 +2,12 @@
 // PAGE IDENTITY: T66 � Lead Conversion
 // Type: Tool | Owner: admin
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 const { ApiRegistry, RouteRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -15,25 +16,14 @@ export default function LeadConversion() {
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [loading, setLoading] = useState(false);
-    const [leadName, setLeadName] = useState('Loading...');
 
-    useEffect(() => {
-        const loadLead = async () => {
-            try {
-                // Fetch the full list and find the lead to get its name (since we don't have a GET /:id route natively exposed yet)
-                const res = await apiClient.get(ApiRegistry.ADMIN.LEADS);
-                if (res.ok) {
-                    const leads = await res.json();
-                    const lead = leads.find((l: any) => l.id === id);
-                    if (lead) setLeadName(`${lead.firstName} ${lead.lastName}`);
-                    else setLeadName('Unknown Lead');
-                }
-            } catch (e) {
-                console.error('Error finding lead', e);
-            }
-        };
-        loadLead();
-    }, [id]);
+    // TanStack Query: cached leads list, derive name from query data
+    const { data: leads = [] } = useRegistryQuery<any[]>(ApiRegistry.ADMIN.LEADS, {
+        queryKey: ['admin', 'leads'],
+        staleTime: 60_000,
+    });
+    const lead = leads.find((l: any) => l.id === id);
+    const leadName = lead ? `${lead.firstName} ${lead.lastName}` : 'Loading...';
 
     const handleConvert = async () => {
         setLoading(true);

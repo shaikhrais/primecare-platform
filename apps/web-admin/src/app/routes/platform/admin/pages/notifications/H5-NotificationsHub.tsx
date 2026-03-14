@@ -4,40 +4,25 @@
 // Type:          Hub
 // Owner:         admin
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
 import { useDialog } from '@/shared/hooks/useDialog';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 export default function NotificationsHub() {
     const { DialogRenderer } = useDialog();
     const { showToast } = useNotification();
     const { t } = useTranslation();
-    const [notifications, setNotifications] = useState<any[]>([]);
-    const [unreadCount, setUnreadCount] = useState(0);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchNotifications();
-    }, []);
-
-    const fetchNotifications = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.NOTIFICATIONS.LIST);
-            if (response.ok) {
-                const data = await response.json();
-                setNotifications(data);
-                setUnreadCount(data.filter((n: any) => n.status === 'unread').length);
-            }
-        } catch (error) {
-            console.error('Failed to fetch notifications', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // TanStack Query: auto-cached notifications
+    const { data: notifications = [], isLoading: loading } = useRegistryQuery<any[]>(AdminRegistry.ApiRegistry.ADMIN.NOTIFICATIONS.LIST, {
+        queryKey: ['admin', 'notifications'],
+        staleTime: 15_000,
+    });
+    const unreadCount = notifications.filter((n: any) => n.status === 'unread').length;
 
     const typeBadge = (type: string) => {
         const colors: Record<string, string> = { COMPLIANCE: '#F59E0B', VISIT_ALERT: '#EF4444', SYSTEM: '#6366F1', SOS: '#DC2626', BOOKING: '#10B981' };
@@ -64,11 +49,7 @@ export default function NotificationsHub() {
             </div>
 
             {loading ? (
-                <div style={{ padding: '64px 0', textAlign: 'center', color: 'var(--text-300)' }}>
-                    <div style={{ display: 'inline-block', width: '32px', height: '32px', border: '3px solid var(--brand-100)', borderTopColor: 'var(--brand-500)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
-                    <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-                    <div>{t('admin.loading_data', { defaultValue: 'Loading secure data...' })}</div>
-                </div>
+                <DashboardSkeleton statCount={4} />
             ) : (
                 <>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '32px' }}>

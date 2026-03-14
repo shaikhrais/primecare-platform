@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
@@ -15,6 +15,8 @@ import { DashboardCharts } from './components/DashboardCharts';
 import { QuickActions } from './components/QuickActions';
 import { OperationalStatus } from './components/OperationalStatus';
 import { useDialog } from '@/shared/hooks/useDialog';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -24,26 +26,14 @@ export default function AdminDashboard() {
     const { showToast } = useNotification();
     const { user } = useAuth();
     const navigate = useNavigate();
-    const [stats, setStats] = useState({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, healthAlerts: null });
-    const [loading, setLoading] = useState(true);
-    const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.ADMIN.STATS);
-                if (response.ok) {
-                    const data = await response.json();
-                    setStats(data);
-                }
-            } catch (error) {
-                console.error('Failed to fetch stats', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchStats();
-    }, []);
+    // TanStack Query: auto-cached admin stats
+    const { data: stats = { totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, healthAlerts: null }, isLoading: loading } = useRegistryQuery<any>(ApiRegistry.ADMIN.STATS, {
+        queryKey: ['admin', 'stats'],
+        staleTime: 30_000,
+    });
+
+    const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
     const handleApiAction = async (endpoint: string, successMsg: string, errorMsg: string) => {
         try {

@@ -4,36 +4,22 @@
 // Type:          List
 // Owner:         admin
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 export default function BookingRequestQueue() {
     const { showToast } = useNotification();
     const { t } = useTranslation();
-    const [requests, setRequests] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchRequests();
-    }, []);
-
-    const fetchRequests = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.get(AdminRegistry.ApiRegistry.ADMIN.BOOKING_REQUESTS.LIST);
-            if (response.ok) {
-                const data = await response.json();
-                setRequests(data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch booking requests', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // TanStack Query: auto-cached booking requests
+    const { data: requests = [], isLoading: loading } = useRegistryQuery<any[]>(AdminRegistry.ApiRegistry.ADMIN.BOOKING_REQUESTS.LIST, {
+        queryKey: ['admin', 'booking-requests'],
+        staleTime: 15_000,
+    });
 
     return (
         <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
@@ -50,11 +36,7 @@ export default function BookingRequestQueue() {
             </div>
 
             {loading ? (
-                <div style={{ padding: '64px 0', textAlign: 'center', color: 'var(--text-300)' }}>
-                    <div style={{ display: 'inline-block', width: '32px', height: '32px', border: '3px solid var(--brand-100)', borderTopColor: 'var(--brand-500)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '16px' }}></div>
-                    <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-                    <div>{t('admin.loading_data', { defaultValue: 'Loading secure bookings...' })}</div>
-                </div>
+                <DashboardSkeleton statCount={3} />
             ) : (
                 <>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
