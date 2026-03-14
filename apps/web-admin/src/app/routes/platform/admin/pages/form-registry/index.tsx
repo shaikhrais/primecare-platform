@@ -3,11 +3,9 @@ import { FileText, Search, LayoutGrid, ChevronRight, ArrowLeft, Tag, Workflow, P
 import { AdminRegistry } from 'prime-care-shared';
 import { DynamicFormRenderer } from '@/shared/components/forms/DynamicFormRenderer';
 import type { FormEntry } from 'prime-care-shared';
+import { CATEGORY_COLORS } from './formRegistryConfig';
 
 const { FormRegistry, getFormsByCategory, getFormsWithDependencies, FORM_REGISTRY_COUNT } = AdminRegistry;
-
-const CATEGORY_COLORS: Record<string, { bg: string; text: string; icon: string }> = {
-    auth:          { bg: '#FEF3C7', text: '#92400E', icon: '🔐' },
     admin:         { bg: '#DBEAFE', text: '#1E40AF', icon: '⚙️' },
     'admin-wizard':{ bg: '#E0E7FF', text: '#3730A3', icon: '🧙' },
     client:        { bg: '#D1FAE5', text: '#065F46', icon: '👤' },
