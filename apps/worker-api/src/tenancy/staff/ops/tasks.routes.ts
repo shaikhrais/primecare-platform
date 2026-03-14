@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requireRole } from '../../../_shared/middleware/rbac';
+// RBAC: Inherits requireAnyPermission(['view_dashboard', 'view_ops_dashboard']) from staff.module.ts
 import { logAudit } from '../../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
