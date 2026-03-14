@@ -3,11 +3,10 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNavigate } from 'react-router-dom';
-
-// Components
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
 import { AdvancedRecurrenceBuilder } from './components/AdvancedRecurrenceBuilder';
 import { InlineCreateClient, InlineCreateService, InlineCreatePsw } from './components/InlineCreationForms';
+import { type VisitFormData, DEFAULT_FORM, formFromVisit, fetchModalData, buildPayload } from './visitModalHelpers';
 
 const { ApiRegistry, ContentRegistry } = AdminRegistry;
 
@@ -34,100 +33,30 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     const [isCreatingService, setIsCreatingService] = useState(false);
     const [isCreatingPsw, setIsCreatingPsw] = useState(false);
 
-    const [formData, setFormData] = useState({
-        clientId: initialClientId || '',
-        serviceId: '',
-        requestedStartAt: '',
-        durationMinutes: 60,
-        assignedPswId: '',
-        clientNotes: '',
-        assignmentType: 'open' as 'open' | 'direct',
-        priority: 'normal' as 'normal' | 'urgent',
-        recurrence: 'none' as 'none' | 'daily' | 'weekly' | 'monthly' | 'advanced',
-        advancedRRule: '',
-        advancedUntil: undefined as string | undefined
-    });
+    const [formData, setFormData] = useState<VisitFormData>({ ...DEFAULT_FORM, clientId: initialClientId || '' });
 
     useEffect(() => {
         if (isOpen) {
-            fetchData();
-            if (visit) {
-                setFormData({
-                    clientId: visit.client?.id || visit.clientId || '',
-                    serviceId: visit.serviceId || '',
-                    requestedStartAt: visit.requestedStartAt ? new Date(visit.requestedStartAt).toISOString().slice(0, 16) : '',
-                    durationMinutes: visit.durationMinutes || 60,
-                    assignedPswId: visit.assignedPswId || '',
-                    clientNotes: visit.clientNotes || '',
-                    assignmentType: visit.assignedPswId ? 'direct' : 'open',
-                    priority: visit.priority || 'normal',
-                    recurrence: 'none',
-                    advancedRRule: '',
-                    advancedUntil: undefined
-                });
-            } else {
-                setFormData({
-                    clientId: initialClientId || '',
-                    serviceId: '',
-                    requestedStartAt: '',
-                    durationMinutes: 60,
-                    assignedPswId: '',
-                    clientNotes: '',
-                    assignmentType: 'open',
-                    priority: 'normal',
-                    recurrence: 'none',
-                    advancedRRule: '',
-                    advancedUntil: undefined
-                });
-            }
+            loadData();
+            setFormData(visit ? formFromVisit(visit) : { ...DEFAULT_FORM, clientId: initialClientId || '' });
         }
     }, [isOpen, initialClientId, visit]);
 
-    const fetchData = async () => {
+    const loadData = async () => {
         try {
-            const [clientsRes, servicesRes, usersRes] = await Promise.all([
-                apiClient.get(ApiRegistry.STAFF.CUSTOMERS),
-                apiClient.get(ApiRegistry.ADMIN.SERVICES),
-                apiClient.get(ApiRegistry.ADMIN.USERS)
-            ]);
-            if (clientsRes.ok) setClients(await clientsRes.json());
-            if (servicesRes.ok) setServices(await servicesRes.json());
-            if (usersRes.ok) {
-                const userData = await usersRes.json();
-                setPsws(userData.filter((u: any) => u.roles.includes('psw')));
-            }
+            const data = await fetchModalData();
+            setClients(data.clients); setServices(data.services); setPsws(data.psws);
         } catch (error) { console.error('Failed to fetch modal data', error); }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        const payload: any = {
-            clientId: formData.clientId,
-            serviceId: formData.serviceId,
-            requestedStartAt: new Date(formData.requestedStartAt).toISOString(),
-            durationMinutes: Number(formData.durationMinutes),
-            assignedPswId: formData.assignmentType === 'direct' ? formData.assignedPswId : undefined,
-            clientNotes: formData.clientNotes,
-            priority: formData.priority,
-        };
-
-        if (formData.recurrence === 'advanced' && formData.advancedRRule) {
-            payload.recurrenceRuleString = formData.advancedRRule;
-            payload.recurrenceEndDate = formData.advancedUntil;
-        } else if (formData.recurrence === 'daily') {
-            payload.recurrenceRuleString = 'FREQ=DAILY';
-        } else if (formData.recurrence === 'weekly') {
-            payload.recurrenceRuleString = 'FREQ=WEEKLY';
-        } else if (formData.recurrence === 'monthly') {
-            payload.recurrenceRuleString = 'FREQ=MONTHLY';
-        }
-
+        const payload = buildPayload(formData);
         try {
             const response = visit
                 ? await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload)
                 : await apiClient.post(ApiRegistry.ADMIN.VISITS, payload);
-
             if (response.ok) {
                 showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_CREATE, 'success');
                 onSuccess(); onClose();
@@ -165,11 +94,11 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         isCreatingService={isCreatingService}
                         inlineClientForm={<InlineCreateClient 
                             onCancel={() => setIsCreatingClient(false)} 
-                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, clientId: newId })); setIsCreatingClient(false); }} 
+                            onSuccess={async (newId) => { await loadData(); setFormData(p => ({ ...p, clientId: newId })); setIsCreatingClient(false); }} 
                         />}
                         inlineServiceForm={<InlineCreateService 
                             onCancel={() => setIsCreatingService(false)} 
-                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, serviceId: newId })); setIsCreatingService(false); }} 
+                            onSuccess={async (newId) => { await loadData(); setFormData(p => ({ ...p, serviceId: newId })); setIsCreatingService(false); }} 
                         />}
                     />
                     <DateTimeFields
@@ -187,7 +116,7 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
                         isCreatingPsw={isCreatingPsw}
                         inlinePswForm={<InlineCreatePsw 
                             onCancel={() => setIsCreatingPsw(false)} 
-                            onSuccess={async (newId) => { await fetchData(); setFormData(p => ({ ...p, assignedPswId: newId })); setIsCreatingPsw(false); }} 
+                            onSuccess={async (newId) => { await loadData(); setFormData(p => ({ ...p, assignedPswId: newId })); setIsCreatingPsw(false); }} 
                         />}
                     />
                     <SecondaryVisitFields

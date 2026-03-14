@@ -7,24 +7,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';
-import { apiClient } from '@/shared/utils/apiClient';
 import { useTranslation } from 'react-i18next';
-
-// Sub-components
 import { UserTable } from './components/UserTable';
 import { UserInviteModal } from './components/UserInviteModal';
+import { type User, fetchUsers as apiFetchUsers, approveUser, inviteUser } from './userHandlers';
 
-const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
-
-interface User {
-    id: string;
-    email: string;
-    roles: string[];
-    profile?: {
-        fullName: string;
-        isVerified?: boolean;
-    };
-}
+const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function UserList() {
     const { t } = useTranslation();
@@ -53,60 +41,37 @@ export default function UserList() {
     }, [users, searchParams]);
 
     useEffect(() => {
-        fetchUsers();
+        loadUsers();
     }, []);
 
-    const fetchUsers = async () => {
+    const loadUsers = async () => {
         setLoading(true);
         try {
-            const response = await apiClient.get(ApiRegistry.ADMIN.USERS);
-            if (response.ok) {
-                const data = await response.json();
-                const mapped = data.map((u: any) => ({
-                    id: u.id,
-                    email: u.email,
-                    roles: u.roles || (u.role ? [u.role] : []),
-                    profile: {
-                        fullName: u.pswProfile?.fullName || u.clientProfile?.fullName || u.profile?.fullName || t(ContentRegistry.COMMON.FALLBACKS.REGISTRY_NODE),
-                        isVerified: u.status === 'verified'
-                    }
-                }));
-                setUsers(mapped);
-            }
+            const mapped = await apiFetchUsers(t, t(ContentRegistry.COMMON.FALLBACKS.REGISTRY_NODE));
+            setUsers(mapped);
         } catch (error) {
             showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_LOAD), 'error');
-        } finally {
-            setLoading(false);
-        }
+        } finally { setLoading(false); }
     };
 
     const handleApprove = async (id: string) => {
         try {
-            const response = await apiClient.post(ApiRegistry.ADMIN.USERS_VERIFY(id));
-            if (response.ok) {
+            if (await approveUser(id)) {
                 setUsers(prev => prev.map(u => u.id === id ? { ...u, profile: { ...u.profile!, isVerified: true } } : u));
                 showToast(t(ContentRegistry.USERS.MESSAGES.SUCCESS_VERIFY), 'success');
             }
-        } catch (error) {
-            showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY), 'error');
-        }
+        } catch (error) { showToast(t(ContentRegistry.USERS.MESSAGES.ERROR_VERIFY), 'error'); }
     };
 
     const handleInvite = async (email: string) => {
         setSubmitting(true);
         try {
-            const res = await apiClient.post('/v1/admin/users/invite', { email });
-            if (!res.ok) {
-                const data = await res.json().catch(() => ({}));
-                throw new Error((data as any).error || 'Invite failed');
-            }
+            await inviteUser(email);
             showToast(ContentRegistry.USERS.INVITE_SUCCESS(email), 'success');
             setIsModalOpen(false);
         } catch (error: any) {
             showToast(error?.message || t(ContentRegistry.USERS.MESSAGES.ERROR_ACTION), 'error');
-        } finally {
-            setSubmitting(false);
-        }
+        } finally { setSubmitting(false); }
     };
 
     const handleEdit = (user: User) => {

@@ -7,49 +7,14 @@ import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import './AssessmentsHub.css';
+import { type Assessment, getTypePillClass } from './assessmentHelpers';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
-
-interface Assessment {
-    id: string;
-    type: string;
-    clientId: string;
-    score: number;
-    createdAt: string;
-    client: {
-        fullName: string;
-    };
-}
 
 export const AssessmentsHub: React.FC = () => {
     const [assessments, setAssessments] = useState<Assessment[]>([]);
     const [loading, setLoading] = useState(true);
     const { showToast } = useNotification();
-
-    useEffect(() => {
-        const fetchAssessments = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.RN.CLINICAL_ASSESS);
-                if (Array.isArray(response)) {
-                    setAssessments(response);
-                }
-            } catch (error) {
-                console.error('Failed to load clinical assessments', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchAssessments();
-    }, []);
-
-    const getTypePillClass = (type: string) => {
-        const t = type.toLowerCase();
-        if (t.includes('adl')) return 'adl';
-        if (t.includes('mobility')) return 'mobility';
-        if (t.includes('cognitive')) return 'cognitive';
-        return 'vital';
-    };
 
     const btnAdl = getButtonById('btn-rn-assess-start-adl');
     const btnMobility = getButtonById('btn-rn-assess-start-mobility');

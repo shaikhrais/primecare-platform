@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
+import { fetchChildAgencies, provisionAgency } from './resellerHandlers';
 
-const { ApiRegistry, ButtonRegistry } = AdminRegistry;
+const { ButtonRegistry } = AdminRegistry;
 
 const ResellerDashboard: React.FC = () => {
     const [children, setChildren] = useState<any[]>([]);
@@ -10,71 +11,23 @@ const ResellerDashboard: React.FC = () => {
     const [isProvisioning, setIsProvisioning] = useState(false);
     const { showToast } = useNotification();
 
- // new tenant form state
     const [newTenant, setNewTenant] = useState({ name: '', slug: '', adminEmail: '', adminPassword: '' });
 
-    const fetchChildren = async () => {
-        setIsLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+    const loadChildren = async () => { setIsLoading(true); setChildren(await fetchChildAgencies()); setIsLoading(false); };
 
-            const response = await fetch(`${apiUrl}${ApiRegistry.ADMIN.RESELLER.DASHBOARD}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setChildren(data.children || [
-                    { id: 't1', name: 'West Coast HomeCare', slug: 'west-coast', usersCount: 24, status: 'active', revenue: '$12,400' },
-                    { id: 't2', name: 'Ontario Senior Support', slug: 'ontario-senior', usersCount: 12, status: 'pending', revenue: '$0' }
-                ]);
-            } else {
-                // Fallback for demo
-                setChildren([
-                    { id: 't1', name: 'West Coast HomeCare', slug: 'west-coast', usersCount: 24, status: 'active', revenue: '$12,400' },
-                    { id: 't2', name: 'Ontario Senior Support', slug: 'ontario-senior', usersCount: 12, status: 'pending', revenue: '$0' }
-                ]);
-            }
-        } catch (e) {
-            console.error(e);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchChildren();
-    }, []);
+    useEffect(() => { loadChildren(); }, []);
 
     const handleProvision = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsProvisioning(true);
         try {
-            const token = localStorage.getItem('token');
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-
-            const response = await fetch(`${apiUrl}${ApiRegistry.ADMIN.RESELLER.PROVISION}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(newTenant)
-            });
-
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error || 'Failed to provision');
-            }
-
+            await provisionAgency(newTenant);
             showToast('Successfully provisioned new child agency!', 'success');
             setNewTenant({ name: '', slug: '', adminEmail: '', adminPassword: '' });
-            fetchChildren();
+            loadChildren();
         } catch (e: any) {
             showToast(e.message || 'Provisioning failed', 'error');
-        } finally {
-            setIsProvisioning(false);
-        }
+        } finally { setIsProvisioning(false); }
     };
 
     const provisionBtn = getButtonById('btn-reseller-provision');

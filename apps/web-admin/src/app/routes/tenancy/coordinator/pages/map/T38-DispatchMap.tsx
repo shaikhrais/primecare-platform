@@ -11,35 +11,14 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './DispatchMap.css';
-
-// Fix for default marker icon in Leaflet + Vite
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { PulseCircle, fetchMapData as loadMapData } from './dispatchHelpers';
 
-let DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
-});
-
+let DefaultIcon = L.icon({ iconUrl: markerIcon, shadowUrl: markerShadow, iconSize: [25, 41], iconAnchor: [12, 41] });
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const { COORDINATOR_MAP } = ContentRegistry;
-
-// Custom pulse component for SOS
-const PulseCircle = ({ lat, lng }: { lat: number, lng: number }) => {
-    return (
-        <Marker position={[lat, lng]} icon={L.divIcon({
-            className: 'sos-pulse-marker',
-            html: '<div class="radar-pulse"></div>',
-            iconSize: [40, 40],
-            iconAnchor: [20, 20]
-        })}>
-            <Popup>⚠️ ACTIVE SOS ALERT</Popup>
-        </Marker>
-    );
-};
 
 export default function DispatchMap() {
     const [nodes, setNodes] = useState<any[]>([]);
@@ -48,46 +27,18 @@ export default function DispatchMap() {
     const [loading, setLoading] = useState(true);
     const { showToast } = useNotification();
 
-    const fetchMapData = async () => {
-        try {
-            const data: any = await apiClient.get(ApiRegistry.TENANCY.COORDINATOR.DISPATCH_MAP);
-            if (data) {
-                const caregivers = data.caregivers.map((p: any) => ({
-                    id: p.id,
-                    name: p.fullName,
-                    lat: p.lastLat || 43.6532,
-                    lng: p.lastLng || -79.3832,
-                    status: p.status === 'urgent' ? 'sos' : p.status === 'active' ? 'active' : 'idle',
-                    icon: p.status === 'urgent' ? '🚨' : '🚙'
-                }));
-                const clients = data.clients.map((c: any) => ({
-                    id: c.id,
-                    name: c.fullName,
-                    lat: c.lat || 43.6600,
-                    lng: c.lng || -79.3900,
-                    status: 'client',
-                    icon: '🏠'
-                }));
-                setNodes([...caregivers, ...clients]);
-                setActiveVisits(data.activeVisits || []);
-                setRecentEvents(data.recentEvents || []);
-            }
-        } catch (error) {
-            console.error('Failed to fetch dispatch map:', error);
-        } finally {
-            setLoading(false);
-        }
+    const fetchData = async () => {
+        const data = await loadMapData();
+        setNodes(data.nodes); setActiveVisits(data.activeVisits); setRecentEvents(data.recentEvents);
+        setLoading(false);
     };
 
-    useEffect(() => {
-        fetchMapData();
-    }, []);
+    useEffect(() => { fetchData(); }, []);
 
     const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
-        if (msg.type === 'VISIT_UPDATE') {
-            fetchMapData(); // Structural changes still warrant a full layout fetch
-        } else if (msg.type === 'INCIDENT') {
-            fetchMapData(); 
+        if (msg.type === 'VISIT_UPDATE') { fetchData(); }
+        else if (msg.type === 'INCIDENT') {
+            fetchData();
             // Phase 17: Real-Time Shift Latency UI Popups
             if (msg.title && msg.message) {
                 showToast(`${msg.title} - ${msg.message}`, msg.severity === 'critical' ? 'error' : 'warning');

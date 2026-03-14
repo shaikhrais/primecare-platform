@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';
+import { STRENGTH_COLORS, STRENGTH_LABELS, calculateStrength, handleRegisterAndLogin } from './registerHelpers';
 
-const { ApiRegistry, ContentRegistry, RouteRegistry } = AdminRegistry;
-const API_URL = import.meta.env.VITE_API_URL;
+const { ContentRegistry, RouteRegistry } = AdminRegistry;
 
 export default function Register() {
     const { t } = useTranslation();
@@ -23,73 +23,18 @@ export default function Register() {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const navigate = useNavigate();
 
-    // Password strength logic
-    const calculateStrength = (pass: string) => {
-        let score = 0;
-        if (pass.length >= 8) score += 1;
-        if (/[A-Z]/.test(pass)) score += 1;
-        if (/[0-9]/.test(pass)) score += 1;
-        if (/[^A-Za-z0-9]/.test(pass)) score += 1;
-        return score; // 0 to 4
-    };
     const passwordStrength = calculateStrength(password);
-    const strengthColors = ['#e5e7eb', '#ef4444', '#f59e0b', '#3b82f6', '#10b981'];
-    const strengthLabels = ['Too Short', 'Weak', 'Fair', 'Good', 'Strong'];
     const searchParams = new URLSearchParams(window.location.search);
-    const roleParam = searchParams.get('role') || 'client'; // Default to client
+    const roleParam = searchParams.get('role') || 'client';
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-
-        if (password !== confirmPassword) {
-            setError('Passwords do not match');
-            setLoading(false);
-            return;
-        }
-
-        if (!termsAccepted) {
-            setError('Please accept the Terms & Conditions');
-            setLoading(false);
-            return;
-        }
-
-        try {
-            // 1. Register
-            const registerResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.REGISTER}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-                body: JSON.stringify({ email, password, role: roleParam }),
-            });
-
-            if (!registerResponse.ok) {
-                const data = await registerResponse.json();
-                throw new Error(data.error || 'Registration failed');
-            }
-
-            // 2. Auto-Login
-            const loginResponse = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-                body: JSON.stringify({ email, password }),
-            });
-
-            if (loginResponse.ok) {
-                const data = await loginResponse.json();
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                navigate(RouteRegistry.ADMIN.DASHBOARD);
-            } else {
-                // If auto-login fails, redirect to login page
-                navigate(`${RouteRegistry.LOGIN}?role=${roleParam}`);
-            }
-
-        } catch (err: any) {
-            setError(err.message || 'Network error. Please try again.');
-        } finally {
-            setLoading(false);
-        }
+        setLoading(true); setError(null);
+        if (password !== confirmPassword) { setError('Passwords do not match'); setLoading(false); return; }
+        if (!termsAccepted) { setError('Please accept the Terms & Conditions'); setLoading(false); return; }
+        try { await handleRegisterAndLogin(email, password, roleParam, navigate); }
+        catch (err: any) { setError(err.message || 'Network error. Please try again.'); }
+        finally { setLoading(false); }
     };
 
     return (
@@ -155,11 +100,11 @@ export default function Register() {
                             <div style={{ marginTop: '0.5rem' }}>
                                 <div style={{ display: 'flex', gap: '4px', height: '4px', marginBottom: '4px' }}>
                                     {[1, 2, 3, 4].map((level) => (
-                                        <div key={level} style={{ flex: 1, backgroundColor: passwordStrength >= level ? strengthColors[passwordStrength] : strengthColors[0], borderRadius: '2px', transition: 'background-color 0.3s' }} />
+                                        <div key={level} style={{ flex: 1, backgroundColor: passwordStrength >= level ? STRENGTH_COLORS[passwordStrength] : STRENGTH_COLORS[0], borderRadius: '2px', transition: 'background-color 0.3s' }} />
                                     ))}
                                 </div>
-                                <div style={{ fontSize: '0.75rem', color: strengthColors[passwordStrength], textAlign: 'right' }}>
-                                    {strengthLabels[passwordStrength]}
+                                <div style={{ fontSize: '0.75rem', color: STRENGTH_COLORS[passwordStrength], textAlign: 'right' }}>
+                                    {STRENGTH_LABELS[passwordStrength]}
                                 </div>
                             </div>
                         )}
