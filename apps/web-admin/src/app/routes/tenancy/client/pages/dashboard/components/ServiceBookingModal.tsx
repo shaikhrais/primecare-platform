@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import { InlineCreateService } from '@/shared/components/modals/components/InlineCreationForms';
-
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
@@ -33,32 +32,34 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
         recurrence: 'none'
     });
 
-    const handleSubmitRequest = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const payload = {
-                ...newRequest,
-                serviceType: services.find((s) => s.id === newRequest.serviceId)?.name || newRequest.serviceId,
-                preferredDate: newRequest.requestedStartAt || new Date().toISOString(),
-                preferredTime: 'morning',
-                notes: `Priority: ${newRequest.priority}, Recurrence: ${newRequest.recurrence}`
-            };
-
-            const response = await apiClient.post(ApiRegistry.CLIENT.BOOKING_REQUEST_LIST, payload);
-
-            if (response.ok) {
+    // TanStack Mutation: service booking submission
+    const bookingMutation = useApiMutation<any, any>(
+        ApiRegistry.CLIENT.BOOKING_REQUEST_LIST,
+        {
+            invalidateKeys: [['client', 'bookings']],
+            onSuccess: () => {
                 showToast('Care request submitted successfully!', 'success');
                 setNewRequest({ serviceId: '', requestedStartAt: '', durationMinutes: 60, priority: 'normal', recurrence: 'none' });
                 onSuccess();
                 onClose();
-            } else {
-                const data = await response.json();
-                showToast(`Submission failed: ${data.error || 'Unknown error'}`, 'error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            showToast('Failed to submit request', 'error');
+            },
+            onError: (error) => {
+                console.error('Submission error:', error);
+                showToast(`Submission failed: ${error.message || 'Unknown error'}`, 'error');
+            },
         }
+    );
+
+    const handleSubmitRequest = (e: React.FormEvent) => {
+        e.preventDefault();
+        const payload = {
+            ...newRequest,
+            serviceType: services.find((s) => s.id === newRequest.serviceId)?.name || newRequest.serviceId,
+            preferredDate: newRequest.requestedStartAt || new Date().toISOString(),
+            preferredTime: 'morning',
+            notes: `Priority: ${newRequest.priority}, Recurrence: ${newRequest.recurrence}`
+        };
+        bookingMutation.mutate(payload);
     };
 
     if (!isOpen) return null;
@@ -164,7 +165,9 @@ export const ServiceBookingModal: React.FC<ServiceBookingModalProps> = ({ isOpen
                 </div>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem' }}>
                     <button data-cy="btn-modal-cancel" type="button" className="btn" onClick={onClose} style={{ flex: 1 }}>Cancel</button>
-                    <button data-cy="btn-modal-submit" type="submit" className="btn btn-primary" style={{ flex: 1 }}>Submit Request</button>
+                    <button data-cy="btn-modal-submit" type="submit" className="btn btn-primary" style={{ flex: 1 }} disabled={bookingMutation.isPending}>
+                        {bookingMutation.isPending ? 'Submitting...' : 'Submit Request'}
+                    </button>
                 </div>
             </form>
         </div>

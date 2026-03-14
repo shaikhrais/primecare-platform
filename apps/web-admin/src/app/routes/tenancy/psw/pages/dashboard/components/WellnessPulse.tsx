@@ -1,14 +1,46 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ApiRegistry } = AdminRegistry;
 
 export const WellnessPulse: React.FC = () => {
     const { showToast } = useNotification();
-    const [submitting, setSubmitting] = useState(false);
     const [note, setNote] = useState('');
+
+    // TanStack Mutation: wellness pulse submission
+    const pulseMutation = useApiMutation<{ status: string; note?: string }, any>(
+        ApiRegistry.TENANCY.PSW.WELLNESS_PULSE,
+        {
+            onSuccess: (_data, variables) => {
+                const { status } = variables;
+                if (status === 'struggling' || status === 'burnout') {
+                    const currentStreak = parseInt(localStorage.getItem('wellness_low_streak') || '0', 10);
+                    const newStreak = currentStreak + 1;
+                    localStorage.setItem('wellness_low_streak', newStreak.toString());
+
+                    if (newStreak >= 3) {
+                        showToast('HR Intervention Triggered: An advocate will reach out to support you today.', 'warning');
+                    } else {
+                        showToast('Thank you for checking in. We value your wellbeing.', 'success');
+                    }
+                } else {
+                    localStorage.setItem('wellness_low_streak', '0');
+                    showToast('Glad you are doing well! Thanks for checking in.', 'success');
+                }
+                setNote('');
+            },
+            onError: (error) => {
+                console.error('Pulse failed', error);
+                showToast('Failed to record pulse.', 'error');
+            },
+        }
+    );
+
+    const handlePulse = (status: string) => {
+        pulseMutation.mutate({ status, note: note || undefined });
+    };
 
     const options = [
         { status: 'great', label: 'Feeling Great', icon: '🌟' },
@@ -16,36 +48,6 @@ export const WellnessPulse: React.FC = () => {
         { status: 'struggling', label: 'Struggling', icon: '🔋' },
         { status: 'burnout', label: 'Feeling Burnout', icon: '🆘' },
     ];
-
-    const handlePulse = async (status: string) => {
-        setSubmitting(true);
-        try {
-            await apiClient.post(ApiRegistry.TENANCY.PSW.WELLNESS_PULSE, {
-                status,
-                note: note || undefined
-            });
-            if (status === 'struggling' || status === 'burnout') {
-                const currentStreak = parseInt(localStorage.getItem('wellness_low_streak') || '0', 10);
-                const newStreak = currentStreak + 1;
-                localStorage.setItem('wellness_low_streak', newStreak.toString());
-
-                if (newStreak >= 3) {
-                    showToast('HR Intervention Triggered: An advocate will reach out to support you today.', 'warning');
-                } else {
-                    showToast('Thank you for checking in. We value your wellbeing.', 'success');
-                }
-            } else {
-                localStorage.setItem('wellness_low_streak', '0');
-                showToast('Glad you are doing well! Thanks for checking in.', 'success');
-            }
-            setNote('');
-        } catch (error) {
-            console.error('Pulse failed', error);
-            showToast('Failed to record pulse.', 'error');
-        } finally {
-            setSubmitting(false);
-        }
-    };
 
     return (
         <div style={{
@@ -64,7 +66,7 @@ export const WellnessPulse: React.FC = () => {
                 {options.map((opt) => (
                     <button data-cy="btn-psw.wellness-pulse-0"
                         key={opt.status}
-                        disabled={submitting}
+                        disabled={pulseMutation.isPending}
                         onClick={() => handlePulse(opt.status)}
                         style={{
                             display: 'flex',

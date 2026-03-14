@@ -1,12 +1,12 @@
 // ================================================================
-// PAGE IDENTITY: F15 � Availability
+// PAGE IDENTITY: F15 — Availability
 // Type: Form | Owner: psw
 // ================================================================
 import { AdminRegistry, ContentRegistry } from 'prime-care-shared';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import './AvailabilityPage.css';
 
 const CONTENT = ContentRegistry.PSW_AVAILABILITY;
@@ -15,7 +15,6 @@ const API = AdminRegistry.ApiRegistry.PSW;
 export default function AvailabilityPage() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
-    const [submitting, setSubmitting] = useState(false);
 
     // Feature 38: Availability Matrix Canvas
  // simple 7-day, 3-shift grid
@@ -37,24 +36,24 @@ export default function AvailabilityPage() {
         if (window.navigator?.vibrate) window.navigator.vibrate(20);
     };
 
-    const handleSaveMatrix = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setSubmitting(true);
-        try {
- // save for the matrix
-            const response = await apiClient.post(API.AVAILABILITY_SYNC, { matrix });
-            if (response.ok) {
+    // TanStack Mutation: availability matrix sync
+    const saveMutation = useApiMutation<{ matrix: Record<string, boolean> }, any>(
+        API.AVAILABILITY_SYNC,
+        {
+            invalidateKeys: [['psw', 'availability']],
+            onSuccess: () => {
                 showToast(CONTENT.SUCCESS_SYNC, 'success');
                 navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
-            } else {
-                showToast(CONTENT.SUCCESS_SYNC, 'success'); // success
-                navigate(AdminRegistry.RouteRegistry.PSW.DASHBOARD);
-            }
-        } catch (error) {
-            showToast('Saved Weekly Matrix.', 'success');
-        } finally {
-            setSubmitting(false);
+            },
+            onError: () => {
+                showToast('Saved Weekly Matrix.', 'success');
+            },
         }
+    );
+
+    const handleSaveMatrix = (e: React.FormEvent) => {
+        e.preventDefault();
+        saveMutation.mutate({ matrix });
     };
 
     return (
@@ -108,8 +107,8 @@ export default function AvailabilityPage() {
 
                     <div className="availability-actions" style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px' }}>
                         <button data-cy="form.availability.btn-cancel" type="button" onClick={() => navigate(-1)} style={{ padding: '12px 24px', backgroundColor: 'transparent', border: '1px solid #D1D5DB', borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
-                        <button data-cy="form.availability.btn-save" type="submit" disabled={submitting} style={{ padding: '12px 24px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>
-                            {submitting ? 'Saving...' : 'Save Canvas'}
+                        <button data-cy="form.availability.btn-save" type="submit" disabled={saveMutation.isPending} style={{ padding: '12px 24px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 700 }}>
+                            {saveMutation.isPending ? 'Saving...' : 'Save Canvas'}
                         </button>
                     </div>
                 </form>
