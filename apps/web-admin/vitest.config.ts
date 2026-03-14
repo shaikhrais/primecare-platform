@@ -14,6 +14,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
+            'prime-care-shared': path.resolve(__dirname, '../../packages/shared/src/index.ts'),
         },
     },
 });

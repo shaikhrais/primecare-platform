@@ -8,23 +8,26 @@ import { CommandPaletteWrapper } from '@/shared/components/CommandPaletteWrapper
 import { ErrorBoundary } from '@/shared/components/ErrorBoundary';
 import { NetworkStatusBanner } from '@/shared/components/ui/NetworkStatusBanner';
 import { OfflineSyncProvider } from '@/shared/context/OfflineSyncContext';
+import { QueryProvider } from '@/shared/context/QueryProvider';
 
 function App() {
   return (
     <ErrorBoundary>
-      <NotificationProvider>
-        <OfflineSyncProvider>
-          <NotificationCenterProvider>
-            <NetworkStatusBanner />
-            <CookieConsent />
-            <BrowserRouter>
-              <CommandPaletteWrapper>
-                <AppRouter />
-              </CommandPaletteWrapper>
-            </BrowserRouter>
-          </NotificationCenterProvider>
-        </OfflineSyncProvider>
-      </NotificationProvider>
+      <QueryProvider>
+        <NotificationProvider>
+          <OfflineSyncProvider>
+            <NotificationCenterProvider>
+              <NetworkStatusBanner />
+              <CookieConsent />
+              <BrowserRouter>
+                <CommandPaletteWrapper>
+                  <AppRouter />
+                </CommandPaletteWrapper>
+              </BrowserRouter>
+            </NotificationCenterProvider>
+          </OfflineSyncProvider>
+        </NotificationProvider>
+      </QueryProvider>
     </ErrorBoundary>
   );
 

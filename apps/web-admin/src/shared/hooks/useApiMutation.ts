@@ -60,7 +60,7 @@ export function useApiMutation<TInput = any, TResponse = any>(
             const json = await response.json().catch(() => ({}));
             return json.data !== undefined ? json.data : json;
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: (...args) => {
             // Auto-invalidate related queries
             if (invalidateKeys) {
                 invalidateKeys.forEach(key => {
@@ -68,7 +68,7 @@ export function useApiMutation<TInput = any, TResponse = any>(
                 });
             }
             // Call user's onSuccess if provided
-            mutationOptions.onSuccess?.(data, variables, context);
+            mutationOptions.onSuccess?.(...args);
         },
         ...mutationOptions,
     });
