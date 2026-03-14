@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requireRole } from '../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -11,7 +11,7 @@ const payrollAuditRoute = createRoute({
     path: '/payroll-audit',
     summary: 'Payroll Audit',
     tags: ['Manager', 'Finance'],
-    middleware: [requireRole(['manager', 'admin', 'finance'])],
+    middleware: [requirePermission('manage_payroll')],
     responses: {
         200: {
             content: {
