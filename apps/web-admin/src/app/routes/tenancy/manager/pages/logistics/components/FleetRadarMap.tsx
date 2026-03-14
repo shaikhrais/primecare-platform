@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { Maximize, ExternalLink, Activity, Users, MapPin, Wifi } from 'lucide-react';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
-
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 interface FleetRadarMapProps {
     isStandalone?: boolean;
@@ -11,37 +10,25 @@ interface FleetRadarMapProps {
 
 export const FleetRadarMap: React.FC<FleetRadarMapProps> = ({ isStandalone = false }) => {
     const { showToast } = useNotification();
-    const [workers, setWorkers] = useState<any[]>([]);
 
-    const fetchWorkers = async () => {
-        try {
-            const res = await apiClient.get('/v1/manager/ops/locations');
-            if (res.ok) {
-                const data = await res.json();
-                setWorkers(data);
-            }
-        } catch (error) {
-            console.error("Failed to fetch radar locations", error);
-        }
-    };
+    // TanStack Query: auto-cached fleet locations with refetch for realtime sync
+    const { data: workers = [], refetch } = useRegistryQuery<any[]>('/v1/manager/ops/locations', {
+        queryKey: ['manager', 'fleet', 'locations'],
+        staleTime: 10_000,
+    });
 
     const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
         if (msg.type === 'VISIT_UPDATE' || msg.type === 'TELEMETRY') {
             // Trigger dynamic refetch to ensure Map Coordinates are strictly translated
             // by the backend projection engine
-            fetchWorkers();
+            refetch();
         }
     });
-
-    useEffect(() => {
-        fetchWorkers();
-        // Socket takes over after initial fetch. No setInterval polling needed.
-    }, []);
 
     // Suggestion 22: Dual Monitor Pop-out (Tear Off) Feature
     const handleTearOff = () => {
         // In a real app, this would route to a specific `/standalone/radar` path that only renders this component.
- // We will the `window.open` feature and show a toast since we don't have a standalone route registered currently.
+        // We will the `window.open` feature and show a toast since we don't have a standalone route registered currently.
         const standaloneUrl = window.location.origin + '/?radar_standalone=true'; // standalone flag
         window.open(standaloneUrl, '_blank', 'width=1000,height=800,menubar=no,toolbar=no,location=no');
         showToast('Fleet Radar detached to secondary monitor.', 'success');

@@ -1,45 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { User, Wifi } from 'lucide-react';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { type Shift, type Staff, renderShiftCard, DropZoneIndicator } from './dragBoardHelpers';
 
 export const ShiftDragBoard: React.FC = () => {
     const { showToast } = useNotification();
-    const [unassigned, setUnassigned] = useState<Shift[]>([]);
-    const [staffList, setStaffList] = useState<Staff[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // TanStack Query: auto-cached logistics board with refetch for realtime sync
+    const { data: rawData, refetch, isLoading: loading } = useRegistryQuery<any>('/v1/manager/schedule/logistics-board', {
+        queryKey: ['manager', 'logistics', 'board'],
+        staleTime: 15_000,
+    });
+
+    // Derive initial data from query
+    const initialUnassigned: Shift[] = (rawData?.unassignedShifts || []).map((s: any) => ({
+        id: s.id, patientName: s.clientName, time: s.time, address: s.location, duration: s.duration
+    }));
+    const initialStaff: Staff[] = (rawData?.availableStaff || []).map((st: any) => ({
+        id: st.id, name: st.name, role: st.role, shifts: []
+    }));
+
+    // Local state for drag/drop UI mutations
+    const [removedShiftIds, setRemovedShiftIds] = useState<Set<string>>(new Set());
+    const [staffAssignments, setStaffAssignments] = useState<Record<string, Shift[]>>({});
+    const unassigned = initialUnassigned.filter(s => !removedShiftIds.has(s.id));
+    const staffList = initialStaff.map(st => ({
+        ...st,
+        shifts: [...st.shifts, ...(staffAssignments[st.id] || [])]
+    }));
+
     const [draggedShift, setDraggedShift] = useState<Shift | null>(null);
     const [dragOverStaffId, setDragOverStaffId] = useState<string | null>(null);
     const [isCollisionDetected, setIsCollisionDetected] = useState(false);
     const [contextMenu, setContextMenu] = useState<{ visible: boolean; x: number; y: number; shiftId: string | null; staffId: string | null } | null>(null);
 
-    const fetchLogistics = async () => {
-        try {
-            const data: any = await apiClient.get('/v1/manager/schedule/logistics-board');
-            setUnassigned(data.unassignedShifts.map((s: any) => ({ id: s.id, patientName: s.clientName, time: s.time, address: s.location, duration: s.duration })));
-            setStaffList(data.availableStaff.map((st: any) => ({ id: st.id, name: st.name, role: st.role, shifts: [] })));
-        } catch (e) { console.error('Failed to fetch logistics board:', e); }
-        finally { setLoading(false); }
-    };
-
-    useEffect(() => { fetchLogistics(); }, []);
-    const { isConnected } = useRealtimeSync((msg: SyncMessage) => { if (msg.type === 'SHIFT_CLAIMED' || msg.type === 'VISIT_UPDATE') fetchLogistics(); });
+    const { isConnected } = useRealtimeSync((msg: SyncMessage) => {
+        if (msg.type === 'SHIFT_CLAIMED' || msg.type === 'VISIT_UPDATE') refetch();
+    });
 
     const handleDragOver = (e: React.DragEvent, staff: Staff) => { e.preventDefault(); setDragOverStaffId(staff.id); setIsCollisionDetected(staff.name.includes('James') && draggedShift?.id === 's2'); };
     const handleDrop = (e: React.DragEvent, staff: Staff) => {
         e.preventDefault(); setDragOverStaffId(null);
         if (!draggedShift) return;
         if (isCollisionDetected) { showToast('Dispatch rejected: Travel time insufficient.', 'error'); setDraggedShift(null); setIsCollisionDetected(false); return; }
-        setUnassigned(p => p.filter(s => s.id !== draggedShift.id));
-        setStaffList(p => p.map(st => st.id === staff.id ? { ...st, shifts: [...st.shifts, draggedShift] } : st));
+        setRemovedShiftIds(prev => new Set(prev).add(draggedShift.id));
+        setStaffAssignments(prev => ({ ...prev, [staff.id]: [...(prev[staff.id] || []), draggedShift] }));
         showToast(`Shift assigned to ${staff.name}. Patient notified.`, 'success'); setDraggedShift(null);
     };
 
-    useEffect(() => { const h = () => setContextMenu(null); window.addEventListener('click', h); return () => window.removeEventListener('click', h); }, []);
+    React.useEffect(() => { const h = () => setContextMenu(null); window.addEventListener('click', h); return () => window.removeEventListener('click', h); }, []);
     const handleCtx = (e: React.MouseEvent, shiftId: string, staffId: string | null) => { e.preventDefault(); setContextMenu({ visible: true, x: e.pageX, y: e.pageY, shiftId, staffId }); };
-    const execCtx = (action: string) => { if (action === 'cancel') { showToast('Shift cancelled.', 'info'); if (contextMenu?.staffId) setStaffList(p => p.map(st => st.id === contextMenu.staffId ? { ...st, shifts: st.shifts.filter(s => s.id !== contextMenu.shiftId) } : st)); else setUnassigned(p => p.filter(s => s.id !== contextMenu?.shiftId)); } setContextMenu(null); };
+    const execCtx = (action: string) => {
+        if (action === 'cancel') {
+            showToast('Shift cancelled.', 'info');
+            if (contextMenu?.staffId) {
+                setStaffAssignments(prev => {
+                    const updated = { ...prev };
+                    updated[contextMenu.staffId!] = (updated[contextMenu.staffId!] || []).filter(s => s.id !== contextMenu.shiftId);
+                    return updated;
+                });
+            } else {
+                setRemovedShiftIds(prev => new Set(prev).add(contextMenu?.shiftId || ''));
+            }
+        }
+        setContextMenu(null);
+    };
 
     if (loading) return <div style={{ padding: '24px', textAlign: 'center', color: '#64748B' }}>Loading logistics board...</div>;
 

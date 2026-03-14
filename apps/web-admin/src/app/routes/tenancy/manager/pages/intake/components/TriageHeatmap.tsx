@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNotification } from '@/shared/context/NotificationContext';
 import { AlertTriangle, Clock, Activity, UserPlus } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 interface WaitlistPatient {
     id: string;
@@ -13,22 +14,11 @@ interface WaitlistPatient {
 }
 
 export const TriageHeatmap: React.FC = () => {
-    const [waitlist, setWaitlist] = useState<WaitlistPatient[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchWaitlist = async () => {
-            try {
-                const data = await apiClient.get('/v1/manager/intake/waitlist');
-                setWaitlist(data as unknown as WaitlistPatient[]);
-            } catch (error) {
-                console.error('Failed to fetch waitlist:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchWaitlist();
-    }, []);
+    // TanStack Query: auto-cached waitlist data
+    const { data: waitlist = [], isLoading: loading } = useRegistryQuery<WaitlistPatient[]>('/v1/manager/intake/waitlist', {
+        queryKey: ['manager', 'intake', 'waitlist'],
+        staleTime: 30_000,
+    });
 
     // Helper to map DB risk score (0-100) to simple Tiers
     const getAcuityTier = (score: number) => {
