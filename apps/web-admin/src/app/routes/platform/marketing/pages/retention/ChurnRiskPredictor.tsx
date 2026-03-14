@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LineChart, AlertTriangle, ArrowDownRight, PhoneCall, History, TrendingDown } from 'lucide-react';
 
 interface ChurnRiskPatient {
@@ -12,28 +12,13 @@ interface ChurnRiskPatient {
     assignedRn: string;
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const ChurnRiskPredictor: React.FC = () => {
-    const [patients, setPatients] = useState<ChurnRiskPatient[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    React.useEffect(() => {
-        const fetchChurnRisks = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/marketing/churn-risks');
-                if (res.ok) {
-                    const data = await res.json();
-                    setPatients(data);
-                }
-            } catch (error) {
-                console.error("Failed to load churn risks", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchChurnRisks();
-    }, []);
+    const { data: patients = [], isLoading: loading } = useRegistryQuery<ChurnRiskPatient[]>('/v1/system/marketing/churn-risks', {
+        queryKey: ['marketing', 'churn-risks'],
+        staleTime: 60_000,
+    });
 
     const getRiskColor = (level: ChurnRiskPatient['riskLevel']) => {
         switch(level) {

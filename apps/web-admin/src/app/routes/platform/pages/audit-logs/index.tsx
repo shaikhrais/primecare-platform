@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { apiClient } from '@/shared/utils/apiClient';
+import React from 'react';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 const PlatformAuditLogs: React.FC = () => {
-    const [logs, setLogs] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    // TanStack Query: auto-cached audit logs
+    const { data: rawData, isLoading: loading } = useRegistryQuery<any>('/v1/system/platform/audit-logs', {
+        queryKey: ['platform', 'audit-logs'],
+        staleTime: 30_000,
+    });
 
-    useEffect(() => {
-        const fetchLogs = async () => {
-            try {
-                const response = await apiClient.get('/v1/system/platform/audit-logs');
-                if (response.ok) {
-                    const data = await response.json();
-                    setLogs(data.logs || []);
-                }
-            } catch (error) {
-                console.error('Failed to fetch platform logs', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLogs();
-    }, []);
+    const logs = rawData?.logs || [];
 
     if (loading) return <div>Loading Global Audit Logs...</div>;
 
@@ -39,7 +27,7 @@ const PlatformAuditLogs: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {logs.map((log) => (
+                        {logs.map((log: any) => (
                             <tr key={log.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
                                 <td style={{ padding: '1rem', whiteSpace: 'nowrap' }}>
                                     <span style={{ fontWeight: 'medium', color: '#111827' }}>{log.tenant?.name}</span>

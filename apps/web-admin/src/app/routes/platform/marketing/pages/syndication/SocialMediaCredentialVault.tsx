@@ -1,19 +1,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send, Loader2 } from 'lucide-react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
-import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { type SocialPlatform, getStatusColor, getStatusBg } from './vaultHelpers';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 declare global { interface Window { fbAsyncInit: () => void; FB: any; } }
 
 const SocialMediaCredentialVaultInner: React.FC = () => {
-    const [platforms, setPlatforms] = useState<SocialPlatform[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // TanStack Query: auto-cached vault data
+    const { data: initialPlatforms = [], isLoading } = useRegistryQuery<SocialPlatform[]>('/v1/system/marketing/syndication/vault', {
+        queryKey: ['marketing', 'syndication', 'vault'],
+        staleTime: 60_000,
+    });
+    // Local state for connect/disconnect UI mutations
+    const [platformOverrides, setPlatformOverrides] = useState<Record<string, Partial<SocialPlatform>>>({});
+    const platforms = initialPlatforms.map(p => ({ ...p, ...platformOverrides[p.id] }));
+    const setPlatforms = (updaterOrValue: SocialPlatform[] | ((prev: SocialPlatform[]) => SocialPlatform[])) => {
+        const updated = typeof updaterOrValue === 'function' ? updaterOrValue(platforms) : updaterOrValue;
+        const overrides: Record<string, Partial<SocialPlatform>> = {};
+        updated.forEach(p => { overrides[p.id] = p; });
+        setPlatformOverrides(overrides);
+    };
     const [isConnecting, setIsConnecting] = useState<string | null>(null);
     const { showToast } = useNotification();
-
-    useEffect(() => { const fetchVault = async () => { try { const res = await apiClient.get('/v1/system/marketing/syndication/vault'); if (res.ok) setPlatforms(await res.json()); } catch (e) { console.error("Failed to load vault:", e); } finally { setIsLoading(false); } }; fetchVault(); }, []);
 
     useEffect(() => {
         if (window.FB) return;

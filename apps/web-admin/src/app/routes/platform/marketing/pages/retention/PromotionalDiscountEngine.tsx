@@ -12,28 +12,13 @@ interface PromoCode {
     status: 'ACTIVE' | 'EXPIRED' | 'DEPLETED';
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const PromotionalDiscountEngine: React.FC = () => {
-    const [promos, setPromos] = useState<PromoCode[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    React.useEffect(() => {
-        const fetchPromos = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/marketing/promotions');
-                if (res.ok) {
-                    const data = await res.json();
-                    setPromos(data);
-                }
-            } catch (error) {
-                console.error("Failed to load promotions", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPromos();
-    }, []);
+    const { data: promos = [], isLoading: loading } = useRegistryQuery<PromoCode[]>('/v1/system/marketing/promotions', {
+        queryKey: ['marketing', 'promotions'],
+        staleTime: 60_000,
+    });
 
     const [newCode, setNewCode] = useState('');
     const [discountType, setDiscountType] = useState<'PERCENTAGE' | 'FIXED_AMOUNT'>('PERCENTAGE');

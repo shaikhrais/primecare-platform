@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DollarSign, Map, Link, ArrowRight, MousePointerClick, TrendingUp, HandCoins } from 'lucide-react';
 
 interface AttributionMetric {
@@ -12,28 +12,13 @@ interface AttributionMetric {
     actualBilledRevenue: number; // The Holy Grail Metric
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const MarketingRevenueAttribution: React.FC = () => {
-    const [metrics, setMetrics] = useState<AttributionMetric[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    React.useEffect(() => {
-        const fetchMetrics = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/marketing/revenue-attribution');
-                if (res.ok) {
-                    const data = await res.json();
-                    setMetrics(data);
-                }
-            } catch (error) {
-                console.error("Failed to load attribution metrics", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchMetrics();
-    }, []);
+    const { data: metrics = [], isLoading: loading } = useRegistryQuery<AttributionMetric[]>('/v1/system/marketing/revenue-attribution', {
+        queryKey: ['marketing', 'revenue-attribution'],
+        staleTime: 60_000,
+    });
 
     const totalSpend = metrics.reduce((sum, m) => sum + m.spend, 0);
     const totalRevenue = metrics.reduce((sum, m) => sum + m.actualBilledRevenue, 0);

@@ -1,31 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { apiClient } from '@/shared/utils/apiClient';
+import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
 const PlatformDashboard: React.FC = () => {
     const { t } = useTranslation();
-    const [stats, setStats] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.SYSTEM.PLATFORM_STATS);
-                if (response.ok) {
-                    const data = await response.json();
-                    setStats(data);
-                }
-            } catch (error) {
-                console.error('Failed to fetch platform stats', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchStats();
-    }, []);
+    // TanStack Query: auto-cached platform stats
+    const { data: stats, isLoading: loading } = useRegistryQuery<any>(ApiRegistry.SYSTEM.PLATFORM_STATS, {
+        queryKey: ['platform', 'stats'],
+        staleTime: 60_000,
+    });
 
     if (loading) return <div>{t(ContentRegistry.PLATFORM_DASHBOARD.MESSAGES.LOADING)}</div>;
 

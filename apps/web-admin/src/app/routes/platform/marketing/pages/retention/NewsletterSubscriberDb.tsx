@@ -11,28 +11,13 @@ interface Subscriber {
     status: 'SUBSCRIBED' | 'UNSUBSCRIBED' | 'BOUNCED';
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const NewsletterSubscriberDb: React.FC = () => {
-    const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    React.useEffect(() => {
-        const fetchSubscribers = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/marketing/subscribers');
-                if (res.ok) {
-                    const data = await res.json();
-                    setSubscribers(data);
-                }
-            } catch (error) {
-                console.error("Failed to load subscribers", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSubscribers();
-    }, []);
+    const { data: subscribers = [], isLoading: loading } = useRegistryQuery<Subscriber[]>('/v1/system/marketing/subscribers', {
+        queryKey: ['marketing', 'subscribers'],
+        staleTime: 60_000,
+    });
 
     const [selectedSegment, setSelectedSegment] = useState<string>('ALL');
 

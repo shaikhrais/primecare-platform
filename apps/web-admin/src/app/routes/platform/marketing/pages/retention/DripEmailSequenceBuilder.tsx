@@ -9,28 +9,13 @@ interface SequenceNode {
     metrics?: { sent: number; openRate: number; clickRate: number };
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const DripEmailSequenceBuilder: React.FC = () => {
-    const [nodes, setNodes] = useState<SequenceNode[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    React.useEffect(() => {
-        const fetchSequences = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/marketing/drip-sequences');
-                if (res.ok) {
-                    const data = await res.json();
-                    setNodes(data);
-                }
-            } catch (error) {
-                console.error("Failed to load drip sequences", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchSequences();
-    }, []);
+    const { data: nodes = [], isLoading: loading } = useRegistryQuery<SequenceNode[]>('/v1/system/marketing/drip-sequences', {
+        queryKey: ['marketing', 'drip-sequences'],
+        staleTime: 60_000,
+    });
 
     const renderNode = (node: SequenceNode, index: number) => {
         let bgColor, borderColor, icon;
