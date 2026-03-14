@@ -15,7 +15,8 @@ import { DashboardCharts } from './components/DashboardCharts';
 import { QuickActions } from './components/QuickActions';
 import { OperationalStatus } from './components/OperationalStatus';
 import { useDialog } from '@/shared/hooks/useDialog';
-import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import { useRealtimeQuery } from '@/shared/hooks/useRealtimeQuery';
+import { LiveIndicator } from '@/shared/components/ui/LiveIndicator';
 import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
@@ -27,10 +28,10 @@ export default function AdminDashboard() {
     const { user } = useAuth();
     const navigate = useNavigate();
 
-    // TanStack Query: auto-cached admin stats
-    const { data: stats = { totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, healthAlerts: null }, isLoading: loading } = useRegistryQuery<any>(ApiRegistry.ADMIN.STATS, {
+    // TanStack Query: live-updating admin stats (polls every 15s)
+    const { data: stats = { totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, healthAlerts: null }, isLoading: loading, isLive, lastUpdated } = useRealtimeQuery<any>(ApiRegistry.ADMIN.STATS, {
         queryKey: ['admin', 'stats'],
-        staleTime: 30_000,
+        interval: 15_000,
     });
 
     const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
@@ -88,8 +89,9 @@ export default function AdminDashboard() {
                     <h1 style={{ margin: '0 0 6px 0', fontSize: '32px', color: 'var(--text)' }} data-cy="page.title">
                         {user?.tenantId ? `Master Dashboard` : t(ContentRegistry.ADMIN_DASHBOARD.TITLES.WELCOME)}
                     </h1>
-                    <p style={{ margin: 0, opacity: 0.6 }} data-cy="page.subtitle">
+                    <p style={{ margin: 0, opacity: 0.6, display: 'flex', alignItems: 'center', gap: '8px' }} data-cy="page.subtitle">
                         {user?.email} • Franchise Command Center
+                        <LiveIndicator isLive={isLive} lastUpdated={lastUpdated} />
                     </p>
                 </div>
                 <PageActionBar pageId="admin.dashboard" size="sm" handlers={{
