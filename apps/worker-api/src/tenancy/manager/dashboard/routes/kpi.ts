@@ -1,13 +1,13 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../bindings';
-import { requireRole } from '../../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 const getKpiRoute = createRoute({
     method: 'get',
     path: '/kpi',
-    middleware: [requireRole(['manager', 'admin', 'coordinator'])],
+    middleware: [requirePermission('view_reports')],
     responses: {
         200: {
             content: {

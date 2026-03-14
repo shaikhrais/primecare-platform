@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requireRole } from '../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../_shared/middleware/rbac';
 import { logAudit } from '../../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -12,7 +12,7 @@ const complianceScanRoute = createRoute({
     path: '/compliance/scan',
     summary: 'Compliance Scan',
     tags: ['Staff', 'Ops'],
-    middleware: [requireRole(['staff', 'coordinator', 'admin'])],
+    middleware: [requirePermission('manage_compliance')],
     responses: {
         200: {
             content: {

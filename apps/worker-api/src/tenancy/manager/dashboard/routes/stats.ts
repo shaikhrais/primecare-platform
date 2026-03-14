@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../bindings';
-import { requireRole } from '../../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../../_shared/middleware/rbac';
 import { ROUTE_METADATA } from '../../../../_shared/constants/route_metadata';
 import { getFulfillmentStats, getRevenueStats } from './stats/fulfillment';
 import { getIncidentStats, getVolumeAndServiceStats } from './stats/indicators';
@@ -13,7 +13,7 @@ const getManagerStatsRoute = createRoute({
     ...ROUTE_METADATA.MANAGER.STATS,
     method: 'get',
     path: '/stats',
-    middleware: [requireRole(['manager', 'admin'])],
+    middleware: [requirePermission('view_reports')],
     responses: {
         200: {
             content: {

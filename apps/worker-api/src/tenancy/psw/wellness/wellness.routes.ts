@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requireRole } from '../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../_shared/middleware/rbac';
 import { logAudit } from '../../../_shared/utils/audit';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -18,7 +18,7 @@ const submitWellnessPulseRoute = createRoute({
     path: '/pulse',
     summary: 'Submit Wellness Pulse',
     tags: ['PSW', 'Wellness'],
-    middleware: [requireRole(['psw'])],
+    middleware: [requirePermission('view_dashboard')],
     request: {
         body: {
             content: {

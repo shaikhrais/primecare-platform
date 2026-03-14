@@ -1,7 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requireRole } from '../../../_shared/middleware/rbac';
+import { requirePermission } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -12,7 +12,7 @@ const listInvoicesRoute = createRoute({
     path: '/invoices',
     summary: 'List Invoices',
     tags: ['Client', 'Services'],
-    middleware: [requireRole(['client'])],
+    middleware: [requirePermission('view_own_billing')],
     responses: {
         200: {
             content: {

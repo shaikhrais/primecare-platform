@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
-import { requireRole } from '../../_shared/middleware/rbac';
+import { requireAnyPermission } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -9,7 +9,7 @@ const getProfileRoute = createRoute({
     path: '/profile',
     summary: 'Get Profile',
     tags: ['Client'],
-    middleware: [requireRole(['client', 'admin'])],
+    middleware: [requireAnyPermission(['view_own_medical', 'clinical_oversight', 'view_users'])],
     responses: {
         200: {
             content: {

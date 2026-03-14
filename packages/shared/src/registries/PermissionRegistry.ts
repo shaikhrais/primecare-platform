@@ -76,7 +76,7 @@ export type Permission =
     | 'clock_in_out' | 'view_own_earnings'
     // Client
     | 'submit_feedback' | 'request_booking' | 'view_own_medical'
-    | 'view_own_bookings' | 'view_family_portal'
+    | 'view_own_bookings' | 'view_own_billing' | 'view_family_portal'
     // Knowledge & Training
     | 'view_knowledge_base' | 'manage_knowledge_base' | 'view_training'
     // Scrum Master
@@ -110,7 +110,7 @@ const ALL_PERMISSIONS: Permission[] = [
     'view_open_shifts', 'manage_availability', 'submit_handover',
     'clock_in_out', 'view_own_earnings',
     'submit_feedback', 'request_booking', 'view_own_medical',
-    'view_own_bookings', 'view_family_portal',
+    'view_own_bookings', 'view_own_billing', 'view_family_portal',
     'view_knowledge_base', 'manage_knowledge_base', 'view_training',
     'manage_registries', 'run_diagnostics', 'manage_themes',
 ];
@@ -261,7 +261,7 @@ export const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     client: [
         'view_dashboard',
         'submit_feedback', 'request_booking',
-        'view_own_medical', 'view_own_bookings', 'view_family_portal',
+        'view_own_medical', 'view_own_bookings', 'view_own_billing', 'view_family_portal',
         'view_knowledge_base', 'view_training',
     ],
 };

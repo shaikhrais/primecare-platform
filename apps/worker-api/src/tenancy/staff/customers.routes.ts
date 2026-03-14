@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
-import { requireRole } from '../../_shared/middleware/rbac';
+import { requirePermission } from '../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -9,7 +9,7 @@ const getCustomersRoute = createRoute({
     path: '/customers',
     summary: 'Get Customers',
     tags: ['Staff'],
-    middleware: [requireRole(['staff', 'admin'])],
+    middleware: [requirePermission('view_users')],
     responses: {
         200: {
             content: {
