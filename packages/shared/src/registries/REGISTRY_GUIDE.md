@@ -1,12 +1,13 @@
 # PrimeCare Registry Architecture Guide
 
-## Registry Overview (8 Files)
+## Registry Overview (9 Files)
 
 | Registry | Purpose | Entry Count |
 |----------|---------|-------------|
 | `ButtonRegistry.ts` | **Unified** interactive elements (buttons, links, interactions, touchpoints) | ~200+ |
 | `PageRegistry.ts` | Master page catalogue (dashboards, forms, lists, hubs, etc.) | All pages |
 | `FormRegistry.ts` | Form definitions with fields, API endpoints, dependencies | All forms |
+| `PermissionRegistry.ts` | **RBAC** — 60+ permissions, 25 roles, `can()`/`canAny()`/`canAll()` helpers | 60+ perms |
 | `PageActionRegistry.ts` | Maps pages → action buttons | Per page |
 | `ContentRegistry.ts` | UI strings and localized content | All labels |
 | `ApiRegistry.ts` | API endpoint paths | All endpoints |
@@ -191,4 +192,86 @@ getFormsWithDependencies()                  // Forms with inline creators
 
 // Integrity
 runIntegrityCheck()                         // Full cross-registry validation
+
+// Permissions (RBAC)
+can('admin', 'manage_users')                // Single permission check
+canAny('psw', ['clock_in_out', 'manage_users'])  // Any of these
+canAll('admin', ['manage_users', 'view_users'])  // All of these
+getPermissions('rn')                        // All permissions for a role
+getRolesWithPermission('manage_care_plans') // Roles with this permission
 ```
+
+---
+
+## PermissionRegistry (RBAC)
+
+Single source of truth for role-based access control across frontend + API.
+
+### Key Exports
+
+| Export | Type | Description |
+|--------|------|-------------|
+| `Permission` | type | Union of 60+ permission strings |
+| `PlatformRole` | type | Union of 25 role strings |
+| `PLATFORM_ROLES` | array | All role strings |
+| `ROLE_PERMISSIONS` | record | Role → permissions matrix |
+| `can(role, permission)` | function | Check single permission |
+| `canAny(role, permissions[])` | function | Check any of |
+| `canAll(role, permissions[])` | function | Check all of |
+
+### API Usage
+
+```typescript
+import { requirePermission } from '../../_shared/middleware/rbac';
+
+app.get('/v1/admin/users', requirePermission('view_users'), handler);
+app.post('/v1/admin/users', requirePermission('create_users'), handler);
+```
+
+### Frontend Usage
+
+```tsx
+<RequireRole requiredPermission="manage_care_plans">
+    <ClinicalRoutes />
+</RequireRole>
+```
+
+---
+
+## Data Fetching Hooks
+
+### useRegistryQuery — Cached data fetching
+
+```typescript
+const { data, isLoading, error } = useRegistryQuery<User[]>('/v1/admin/users');
+```
+
+### useApiMutation — Mutations with auto-invalidation
+
+```typescript
+const createUser = useApiMutation('/v1/admin/users', {
+    invalidateKeys: [['admin', 'users']],
+});
+createUser.mutate({ name: 'Jane' });
+```
+
+### useRealtimeQuery — Live updates (SSE/polling)
+
+```typescript
+const { data, isLive } = useRealtimeQuery<Alert[]>('/v1/coordinator/sos', {
+    interval: 10_000,
+    sse: '/v1/coordinator/sos/stream',
+});
+```
+
+---
+
+## Scaffold CLI
+
+Generate a full feature in one command:
+
+```bash
+node scripts/scaffold-feature.mjs --name ShiftSwap --role coordinator --type full
+```
+
+See `scripts/scaffold-feature.mjs --help` or the `/add-feature` workflow for details.
