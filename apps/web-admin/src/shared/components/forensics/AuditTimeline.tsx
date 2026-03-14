@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Clock, Edit3, CheckCircle, FileText, AlertTriangle } from 'lucide-react';
 
 interface AuditEvent {
@@ -10,40 +10,27 @@ interface AuditEvent {
     type: 'creation' | 'modification' | 'approval' | 'system';
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const AuditTimeline: React.FC = () => {
-    const [events, setEvents] = React.useState<AuditEvent[]>([]);
-    const [loading, setLoading] = React.useState(true);
+    // TanStack Query: auto-cached audit logs
+    const { data: rawData = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/system/platform/audit-logs', {
+        queryKey: ['system', 'audit-logs'],
+        staleTime: 30_000,
+    });
 
-    React.useEffect(() => {
-        const fetchAudits = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/platform/audit-logs');
-                if (res.ok) {
-                    const data = await res.json();
-                    
-                    const mapped = data.map((d: any) => ({
-                        id: d.id,
-                        timestamp: new Date(d.createdAt || d.timestamp),
-                        actor: { name: d.actorUserId || 'System', role: 'Authorized Entity' },
-                        action: d.action,
-                        details: d.metadataJson ? JSON.stringify(d.metadataJson) : `Resource: ${d.resourceType} [${d.resourceId}]`,
-                        type: d.action.toLowerCase().includes('create') ? 'creation' 
-                              : d.action.toLowerCase().includes('approve') ? 'approval'
-                              : d.action.toLowerCase().includes('update') ? 'modification'
-                              : 'system'
-                    }));
-                    setEvents(mapped.slice(0, 10)); // keep last 10
-                }
-            } catch (error) {
-                console.error("Failed to fetch audit logs", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchAudits();
-    }, []);
+    // Transform raw data into AuditEvent format
+    const events = useMemo(() => rawData.map((d: any): AuditEvent => ({
+        id: d.id,
+        timestamp: new Date(d.createdAt || d.timestamp),
+        actor: { name: d.actorUserId || 'System', role: 'Authorized Entity' },
+        action: d.action,
+        details: d.metadataJson ? JSON.stringify(d.metadataJson) : `Resource: ${d.resourceType} [${d.resourceId}]`,
+        type: d.action.toLowerCase().includes('create') ? 'creation' 
+              : d.action.toLowerCase().includes('approve') ? 'approval'
+              : d.action.toLowerCase().includes('update') ? 'modification'
+              : 'system'
+    })).slice(0, 10), [rawData]);
 
     const getIcon = (type: string) => {
         switch (type) {

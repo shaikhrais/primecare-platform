@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 // Components
 import { UnsavedChangesGuard } from './components/UnsavedChangesGuard';
@@ -26,7 +27,7 @@ export default function UserEntryForm() {
     const { showToast } = useNotification();
     const [isDirty, setIsDirty] = useState(false);
     const [showGuard, setShowGuard] = useState(false);
-    const [loading, setLoading] = useState(id ? true : false);
+    const [loading, setLoading] = useState(false);
     const [submitting, setSubmitting] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -36,40 +37,37 @@ export default function UserEntryForm() {
         fullName: '',
         phone: '',
         status: 'active',
-        // Role-specific fields
-        sin: '', // PSW only
-        billingAccount: '', // Client only
+        sin: '',
+        billingAccount: '',
         address: ''
     });
 
-    useEffect(() => {
-        if (id) {
-            const fetchUser = async () => {
-                try {
-                    const response = await apiClient.get(`${ApiRegistry.ADMIN.USERS}/${id}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        setFormData({
-                            email: data.email || '',
-                            roles: data.roles || (data.role ? [data.role] : ['staff']),
-                            permissions: data.permissions || [],
-                            fullName: data.profile?.fullName || '',
-                            phone: data.phone || '',
-                            status: data.status || 'active',
-                            sin: data.pswProfile?.sin || '',
-                            billingAccount: data.clientProfile?.billingAccount || '',
-                            address: data.profile?.address || ''
-                        });
-                    }
-                } catch (error) {
-                    showToast(ContentRegistry.USERS.FORM.ERROR_LOAD, 'error');
-                } finally {
-                    setLoading(false);
-                }
-            };
-            fetchUser();
+    // TanStack Query: auto-cached user data (only when editing)
+    const { data: userData, isLoading: queryLoading } = useRegistryQuery<any>(
+        `${ApiRegistry.ADMIN.USERS}/${id}`,
+        {
+            queryKey: ['admin', 'users', id || ''],
+            staleTime: 30_000,
+            enabled: !!id,
         }
-    }, [id]);
+    );
+
+    // Sync query data into form state
+    useEffect(() => {
+        if (userData) {
+            setFormData({
+                email: userData.email || '',
+                roles: userData.roles || (userData.role ? [userData.role] : ['staff']),
+                permissions: userData.permissions || [],
+                fullName: userData.profile?.fullName || '',
+                phone: userData.phone || '',
+                status: userData.status || 'active',
+                sin: userData.pswProfile?.sin || '',
+                billingAccount: userData.clientProfile?.billingAccount || '',
+                address: userData.profile?.address || ''
+            });
+        }
+    }, [userData]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -111,7 +109,7 @@ export default function UserEntryForm() {
         setIsDirty(true);
     };
 
-    if (loading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.USERS.FORM.LOADING)}</div>;
+    if (queryLoading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.USERS.FORM.LOADING)}</div>;
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
