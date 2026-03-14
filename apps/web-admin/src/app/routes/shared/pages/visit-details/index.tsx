@@ -1,40 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export default function VisitDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [visit, setVisit] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
 
     const userStr = localStorage.getItem('user');
     const user = JSON.parse(userStr || '{}');
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
-    useEffect(() => {
-        const fetchVisit = async () => {
-            try {
-                let endpoint = '/v1/admin/visits';
-                if (role === 'client') endpoint = '/v1/client/bookings';
-                if (role === 'psw') endpoint = '/v1/psw/schedule/visits';
+    // Derive endpoint from role
+    const endpoint = useMemo(() => {
+        if (role === 'client') return '/v1/client/bookings';
+        if (role === 'psw') return '/v1/psw/schedule/visits';
+        return '/v1/admin/visits';
+    }, [role]);
 
-                const response = await apiClient.get(endpoint);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (Array.isArray(data)) {
-                        const found = data.find((v: any) => v.id === id);
-                        setVisit(found);
-                    }
-                }
-            } catch (err) {
-                console.error('Fetch visit details failed:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchVisit();
-    }, [id, role]);
+    // TanStack Query: auto-cached visits list, derive single visit by id
+    const { data: visits = [], isLoading: loading } = useRegistryQuery<any[]>(endpoint, {
+        queryKey: [role, 'visits'],
+        staleTime: 30_000,
+    });
+    const visit = visits.find((v: any) => v.id === id) || null;
 
     if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading visit details...</div>;
     if (!visit) return <div style={{ padding: '2rem', textAlign: 'center' }}>Visit not found.</div>;

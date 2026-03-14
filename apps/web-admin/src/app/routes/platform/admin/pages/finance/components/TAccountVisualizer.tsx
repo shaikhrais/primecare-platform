@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { ArrowLeftRight, CheckCircle, AlertOctagon } from 'lucide-react';
 
 interface LedgerEntry {
@@ -10,42 +10,32 @@ interface LedgerEntry {
     timestamp: Date;
 }
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const TAccountVisualizer: React.FC = () => {
-    const [entries, setEntries] = useState<LedgerEntry[]>([]);
-    const [loading, setLoading] = useState(true);
+    // TanStack Query: auto-cached financial ledger
+    const { data: rawData = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/system/financial', {
+        queryKey: ['system', 'financial'],
+        staleTime: 30_000,
+    });
 
-    React.useEffect(() => {
-        const fetchLedger = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/financial');
-                if (res.ok) {
-                    const data = await res.json();
-                    // Flatten transaction journal entries into individual T-account entries
-                    const mappedEntries: LedgerEntry[] = [];
-                    data.forEach((tx: any) => {
-                        tx.journalEntries.forEach((je: any) => {
-                            mappedEntries.push({
-                                id: je.id,
-                                account: `${je.account?.name || 'Unknown'} (${je.account?.code || '---'})`,
-                                description: tx.description || 'System Entry',
-                                debit: je.type === 'debit' ? je.amount : null,
-                                credit: je.type === 'credit' ? je.amount : null,
-                                timestamp: new Date(tx.createdAt)
-                            });
-                        });
-                    });
-                    setEntries(mappedEntries);
-                }
-            } catch (error) {
-                console.error("Failed to load ledger stream", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLedger();
-    }, []);
+    // Flatten transaction journal entries into individual T-account entries
+    const entries = useMemo(() => {
+        const mappedEntries: LedgerEntry[] = [];
+        rawData.forEach((tx: any) => {
+            tx.journalEntries?.forEach((je: any) => {
+                mappedEntries.push({
+                    id: je.id,
+                    account: `${je.account?.name || 'Unknown'} (${je.account?.code || '---'})`,
+                    description: tx.description || 'System Entry',
+                    debit: je.type === 'debit' ? je.amount : null,
+                    credit: je.type === 'credit' ? je.amount : null,
+                    timestamp: new Date(tx.createdAt)
+                });
+            });
+        });
+        return mappedEntries;
+    }, [rawData]);
 
     const formatCurrency = (amount: number | null) => {
         if (amount === null) return '-';

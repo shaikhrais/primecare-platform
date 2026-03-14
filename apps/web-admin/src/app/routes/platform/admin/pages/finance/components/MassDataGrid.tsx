@@ -1,37 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Database, Download, Filter, Search } from 'lucide-react';
-
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export const MassDataGrid: React.FC = () => {
-    const [rows, setRows] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    React.useEffect(() => {
-        const fetchLedger = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/financial');
-                if (res.ok) {
-                    const data = await res.json();
-                    setRows(data.map((tx: any) => ({
-                        id: tx.id.slice(0, 13), // short ID
-                        date: new Date(tx.createdAt).toISOString().split('T')[0],
-                        tenant: tx.tenantId?.slice(0, 8) || 'Global',
-                        type: tx.type || 'SYSTEM_SYNC',
-                        amount: parseFloat(tx.amount || 0).toFixed(2),
-                        status: tx.status === 'posted' ? 'CLEARED' : tx.status === 'pending' ? 'PENDING' : 'FLAGGED',
-                        hash: tx.reference || tx.id.slice(-8).toUpperCase()
-                    })));
-                }
-            } catch (error) {
-                console.error("Failed to load global ledger data", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchLedger();
-    }, []);
+    // TanStack Query: auto-cached global ledger
+    const { data: rawData = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/system/financial', {
+        queryKey: ['system', 'financial'],
+        staleTime: 30_000,
+    });
+
+    // Transform raw data into grid rows
+    const rows = useMemo(() => rawData.map((tx: any) => ({
+        id: tx.id.slice(0, 13),
+        date: new Date(tx.createdAt).toISOString().split('T')[0],
+        tenant: tx.tenantId?.slice(0, 8) || 'Global',
+        type: tx.type || 'SYSTEM_SYNC',
+        amount: parseFloat(tx.amount || 0).toFixed(2),
+        status: tx.status === 'posted' ? 'CLEARED' : tx.status === 'pending' ? 'PENDING' : 'FLAGGED',
+        hash: tx.reference || tx.id.slice(-8).toUpperCase()
+    })), [rawData]);
 
 
     const filteredRows = rows.filter(r => 

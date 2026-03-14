@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { SmartBreadcrumbs } from '@/shared/components/SmartBreadcrumbs';
 import { useSearchParams } from 'react-router-dom';
 import { EarningRecord } from './earnings.data';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { EarningStats } from './components/EarningStats';
 import { EarningsTable } from './components/EarningsTable';
 import { EarningsFilters } from './components/EarningsFilters';
@@ -19,25 +19,11 @@ export default function AdminEarningsPage() {
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [dateRange, setDateRange] = useState({ start: '', end: '' });
-    const [earnings, setEarnings] = useState<EarningRecord[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchEarnings = async () => {
-            try {
-                const res = await apiClient.get('/v1/system/financial/earnings');
-                if (res.ok) {
-                    const data = await res.json();
-                    setEarnings(data);
-                }
-            } catch (error) {
-                console.error("Failed to load earnings", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchEarnings();
-    }, []);
+    // TanStack Query: auto-cached earnings data
+    const { data: earnings = [], isLoading: loading } = useRegistryQuery<EarningRecord[]>('/v1/system/financial/earnings', {
+        queryKey: ['financial', 'earnings'],
+        staleTime: 60_000,
+    });
 
     // Sync URL with Tab Selection
     useEffect(() => {
