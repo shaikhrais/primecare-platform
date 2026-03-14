@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
-import { ButtonRegistry, LinkRegistry, ApiRegistry } from 'prime-care-shared';
+import { ButtonRegistry, LinkRegistry, ApiRegistry, runIntegrityCheck } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -28,11 +28,7 @@ const sweepRoute = createRoute({
     path: '/registry/sweep',
     responses: {
         200: {
-            content: {
-                'application/json': {
-                    schema: RegistrySweepSchema,
-                },
-            },
+            content: { 'application/json': { schema: RegistrySweepSchema } },
             description: 'Registry sweep completed',
         },
     },
@@ -43,10 +39,9 @@ r.openapi(sweepRoute, async (c) => {
     let orphans = 0;
     let warnings = 0;
 
-    // 1. Audit ButtonRegistry
-    ButtonRegistry.forEach(btn => {
+    // 1. Audit ButtonRegistry (core buttons only)
+    ButtonRegistry.filter(b => !['link', 'interaction', 'touchpoint'].includes(b.type)).forEach(btn => {
         if (btn.apiPath) {
-            // Check if apiPath exists in ApiRegistry (simplified check)
             const pathExists = JSON.stringify(ApiRegistry).includes(btn.apiPath);
             if (!pathExists) {
                 results.push({ id: btn.id, type: 'button', status: 'error', message: `Orphaned apiPath: ${btn.apiPath}` });
@@ -66,7 +61,7 @@ r.openapi(sweepRoute, async (c) => {
     return c.json({
         timestamp: new Date().toISOString(),
         stats: {
-            buttons: ButtonRegistry.length,
+            buttons: ButtonRegistry.filter(b => !['link', 'interaction', 'touchpoint'].includes(b.type)).length,
             links: LinkRegistry.length,
             orphans,
             warnings,
@@ -75,26 +70,43 @@ r.openapi(sweepRoute, async (c) => {
     }, 200);
 });
 
-const flushRoute = createRoute({
+// ── Feature Integrity Check ──────────────────────────────────────────────────
+
+const integrityRoute = createRoute({
+    summary: 'Feature Integrity Check',
+    tags: ['API', 'Scrum Master'],
+    description: 'Cross-validates all registries (Page, Button, Form, PageAction) to detect incomplete feature implementations.',
     method: 'post',
-    path: '/forensics/flush',
-    summary: 'Flush Audits',
+    path: '/registry/integrity',
+    responses: {
+        200: {
+            content: { 'application/json': { schema: z.any() } },
+            description: 'Integrity report generated',
+        },
+    },
+});
+
+r.openapi(integrityRoute, async (c) => {
+    const report = runIntegrityCheck();
+    return c.json(report, 200);
+});
+
+// ── Existing Routes ──────────────────────────────────────────────────────────
+
+const flushRoute = createRoute({
+    method: 'post', path: '/forensics/flush', summary: 'Flush Audits',
     tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
 const reseedRoute = createRoute({
-    method: 'post',
-    path: '/governance/reseed',
-    summary: 'Reseed Database',
+    method: 'post', path: '/governance/reseed', summary: 'Reseed Database',
     tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
 
 const deployRoute = createRoute({
-    method: 'post',
-    path: '/system/deploy',
-    summary: 'Deploy Build',
+    method: 'post', path: '/system/deploy', summary: 'Deploy Build',
     tags: ['API', 'Scrum Master'],
     responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
 });
