@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAutoSaveForm } from '@/shared/hooks/useAutoSaveForm';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { Save, AlertCircle } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { AdminRegistry } from 'prime-care-shared';
 
 interface AdmissionAssessmentProps {
@@ -20,36 +20,36 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
         notes: ''
     });
 
-    const [submitting, setSubmitting] = useState(false);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setSubmitting(true);
-        try {
-            const payload = {
-                clientId: patientId,
-                templateId: 'rai-hc', // Hardcoded standard mapping for UI
-                responses: {
-                    chief_complaint: data.chiefComplaint,
-                    hpi: data.historyOfPresentIllness,
-                    mobility_status: data.mobilityStatus,
-                    falls: data.fallRiskScore.toString(),
-                    // ... other required mappings
-                }
-            };
-            
-            const response = await apiClient.post(AdminRegistry.ApiRegistry.RN.RAI_SUBMIT, payload);
-            if (!response.ok) throw new Error('Submission Failed');
-
-            flushAndClear();
-            showToast('Clinical Assessment committed to master record. Triggers computed.', 'success');
-            onComplete();
-        } catch (error) {
-            console.error('Failed to submit RAI', error);
-            showToast('Assessment submission failed. Draft preserved.', 'error');
-        } finally {
-            setSubmitting(false);
+    // TanStack Mutation: RAI assessment submission
+    const submitMutation = useApiMutation<any, any>(
+        AdminRegistry.ApiRegistry.RN.RAI_SUBMIT,
+        {
+            invalidateKeys: [['rn', 'assessments']],
+            onSuccess: () => {
+                flushAndClear();
+                showToast('Clinical Assessment committed to master record. Triggers computed.', 'success');
+                onComplete();
+            },
+            onError: (error) => {
+                console.error('Failed to submit RAI', error);
+                showToast('Assessment submission failed. Draft preserved.', 'error');
+            },
         }
+    );
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const payload = {
+            clientId: patientId,
+            templateId: 'rai-hc',
+            responses: {
+                chief_complaint: data.chiefComplaint,
+                hpi: data.historyOfPresentIllness,
+                mobility_status: data.mobilityStatus,
+                falls: data.fallRiskScore.toString(),
+            }
+        };
+        submitMutation.mutate(payload);
     };
 
     return (
@@ -125,10 +125,10 @@ export const AdmissionAssessment: React.FC<AdmissionAssessmentProps> = ({ patien
                 <button
                     type="submit"
                     data-cy="form.admission-assessment.btn-submit"
-                    disabled={submitting}
+                    disabled={submitMutation.isPending}
                     style={{ padding: '14px 28px', backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 800, fontSize: '1rem', cursor: 'pointer' }}
                 >
-                    {submitting ? 'Committing...' : 'Sign & Complete Assessment'}
+                    {submitMutation.isPending ? 'Committing...' : 'Sign & Complete Assessment'}
                 </button>
             </div>
         </form>

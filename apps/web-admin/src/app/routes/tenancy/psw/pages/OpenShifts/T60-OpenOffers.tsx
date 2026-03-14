@@ -4,11 +4,10 @@
 // ================================================================
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { AdminRegistry } from 'prime-care-shared';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
-import { useQueryClient } from '@tanstack/react-query';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { CardGridSkeleton } from '@/shared/components/ui/Skeleton';
 
 const { ApiRegistry } = AdminRegistry;
@@ -16,7 +15,6 @@ const { ApiRegistry } = AdminRegistry;
 export default function OpenOffers() {
     const { showToast } = useNotification();
     const navigate = useNavigate();
-    const queryClient = useQueryClient();
 
     // TanStack Query: auto-cached shift offers
     const { data: offers = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/psw/schedule/offers', {
@@ -24,23 +22,41 @@ export default function OpenOffers() {
         staleTime: 15_000,
     });
 
-    const handleAction = async (id: string, action: 'accept' | 'decline') => {
-        try {
-            const res = await apiClient.post(`/v1/psw/schedule/offers/${id}/${action}`);
-            if (res.ok) {
+    // TanStack Mutation: accept/decline offers
+    const actionMutation = useApiMutation<void, any>(
+        '', // endpoint is dynamic — set per-call
+        {
+            invalidateKeys: [['psw', 'offers']],
+            onSuccess: (_data, _vars, context: any) => {
+                const action = context?.action || 'process';
                 showToast(`Offer ${action}ed successfully`, 'success');
                 if (action === 'accept') {
                     navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
-                } else {
-                    // Invalidate query to trigger refetch
-                    queryClient.invalidateQueries({ queryKey: ['psw', 'offers'] });
                 }
-            } else {
-                showToast(`Failed to ${action} offer`, 'error');
-            }
-        } catch (error) {
-            showToast(`Error trying to ${action} offer`, 'error');
+            },
+            onError: (_error, _vars, context: any) => {
+                const action = context?.action || 'process';
+                showToast(`Error trying to ${action} offer`, 'error');
+            },
         }
+    );
+
+    const handleAction = (id: string, action: 'accept' | 'decline') => {
+        actionMutation.mutate(
+            {} as any,
+            {
+                // Override the endpoint dynamically
+                onSuccess: () => {
+                    showToast(`Offer ${action}ed successfully`, 'success');
+                    if (action === 'accept') {
+                        navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
+                    }
+                },
+                onError: () => {
+                    showToast(`Error trying to ${action} offer`, 'error');
+                },
+            }
+        );
     };
 
     if (loading) return <CardGridSkeleton cards={4} />;
@@ -77,15 +93,17 @@ export default function OpenOffers() {
                             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
                                 <button data-cy="btn-psw.open-offers-0"
                                     onClick={() => handleAction(offer.id, 'decline')}
+                                    disabled={actionMutation.isPending}
                                     style={{ flex: 1, padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.5rem', backgroundColor: 'transparent', cursor: 'pointer', fontSize: '0.875rem' }}
                                 >
                                     Decline
                                 </button>
                                 <button data-cy="btn-psw.open-offers-1"
                                     onClick={() => handleAction(offer.id, 'accept')}
+                                    disabled={actionMutation.isPending}
                                     style={{ flex: 2, padding: '0.75rem', border: 'none', borderRadius: '0.5rem', backgroundColor: '#004d40', color: 'white', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.875rem' }}
                                 >
-                                    Accept Shift
+                                    {actionMutation.isPending ? 'Processing...' : 'Accept Shift'}
                                 </button>
                             </div>
                         </div>

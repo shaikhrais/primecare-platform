@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Check, X, Wand2, FileText, Loader2 } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 interface ScribeAIProps {
     onSaveNotes: (soapierData: any) => void;
@@ -10,7 +10,6 @@ interface ScribeAIProps {
 export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [transcript, setTranscript] = useState('');
-    const [isProcessing, setIsProcessing] = useState(false);
     const [structuredNotes, setStructuredNotes] = useState<any | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -36,22 +35,23 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
         return () => clearInterval(interval);
     }, [isRecording]);
 
-    const handleProcessAI = async () => {
-        setIsProcessing(true);
-        setError(null);
-        try {
-            const res = await apiClient.post('/v1/rn/clinical/scribe-parse/parse', { transcript });
-            if (res.ok) {
-                const data = await res.json();
+    // TanStack Mutation: AI scribe parse
+    const parseMutation = useApiMutation<{ transcript: string }, any>(
+        '/v1/rn/clinical/scribe-parse/parse',
+        {
+            onSuccess: (data) => {
                 setStructuredNotes(data);
-            } else {
+                setError(null);
+            },
+            onError: () => {
                 setError('Failed to process dictation via Scribe Engine.');
-            }
-        } catch (err) {
-            setError('Network communication failed with AI worker.');
-        } finally {
-            setIsProcessing(false);
+            },
         }
+    );
+
+    const handleProcessAI = () => {
+        setError(null);
+        parseMutation.mutate({ transcript });
     };
 
     return (
@@ -126,13 +126,13 @@ export const ScribeAI: React.FC<ScribeAIProps> = ({ onSaveNotes, onClose }) => {
                         <div style={{ textAlign: 'center' }}>
                             <button data-cy="btn-rn.scribe-a-i-2" 
                                 onClick={handleProcessAI}
-                                disabled={isProcessing || isRecording}
+                                disabled={parseMutation.isPending || isRecording}
                                 style={{ 
-                                    backgroundColor: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', padding: '12px 24px', fontSize: '1.1rem', fontWeight: 800, cursor: (isProcessing || isRecording) ? 'default' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '12px', opacity: (isProcessing || isRecording) ? 0.7 : 1
+                                    backgroundColor: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', padding: '12px 24px', fontSize: '1.1rem', fontWeight: 800, cursor: (parseMutation.isPending || isRecording) ? 'default' : 'pointer', display: 'inline-flex', alignItems: 'center', gap: '12px', opacity: (parseMutation.isPending || isRecording) ? 0.7 : 1
                                 }}
                             >
-                                {isProcessing ? <Loader2 className="spinner" size={20} /> : <Wand2 size={20} />}
-                                {isProcessing ? 'Structuring Note...' : 'Process into SOAPIER Format'}
+                                {parseMutation.isPending ? <Loader2 className="spinner" size={20} /> : <Wand2 size={20} />}
+                                {parseMutation.isPending ? 'Structuring Note...' : 'Process into SOAPIER Format'}
                             </button>
                             <style>{` .spinner { animation: spin 1s linear infinite; } @keyframes spin { 100% { transform: rotate(360deg); } } `}</style>
                         </div>

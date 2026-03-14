@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ShoppingBag, ChevronRight, Stethoscope, HeartPulse, CreditCard } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ShopItem {
@@ -12,7 +12,7 @@ interface ShopItem {
 }
 
 export const HardwareStorefront: React.FC = () => {
-    const [purchasing, setPurchasing] = useState<string | null>(null);
+    const { showToast } = useNotification();
 
     const inventory: ShopItem[] = [
         { id: 'item_1', name: 'PrimeCare Premium Scrubs (Navy)', price: 45.00, icon: ShoppingBag, description: 'Antimicrobial, wrinkle-resistant 4-way stretch.' },
@@ -20,23 +20,22 @@ export const HardwareStorefront: React.FC = () => {
         { id: 'item_3', name: 'Omron Platinum BP Monitor', price: 75.00, icon: HeartPulse, description: 'Clinically validated, Bluetooth enabled.' }
     ];
 
-    const { showToast } = useNotification();
-
-    const handlePurchase = async (id: string) => {
-        setPurchasing(id);
-        try {
-            const response = await apiClient.post('/v1/psw/dashboard/hardware/purchase', { itemId: id });
-            if (response.ok) {
+    // TanStack Mutation: hardware purchase
+    const purchaseMutation = useApiMutation<{ itemId: string }, any>(
+        '/v1/psw/dashboard/hardware/purchase',
+        {
+            onSuccess: () => {
                 showToast('Item ordered successfully. Amount will be deducted from your next pay cycle.', 'success');
-            } else {
-                throw new Error('Failed to process purchase');
-            }
-        } catch (error) {
-            console.error('Failed to buy hardware:', error);
-            showToast('Purchase could not be processed at this time.', 'error');
-        } finally {
-            setPurchasing(null);
+            },
+            onError: (error) => {
+                console.error('Failed to buy hardware:', error);
+                showToast('Purchase could not be processed at this time.', 'error');
+            },
         }
+    );
+
+    const handlePurchase = (id: string) => {
+        purchaseMutation.mutate({ itemId: id });
     };
 
     return (
@@ -53,6 +52,7 @@ export const HardwareStorefront: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {inventory.map(item => {
                     const Icon = item.icon;
+                    const isThisItemPending = purchaseMutation.isPending && (purchaseMutation.variables as any)?.itemId === item.id;
                     return (
                         <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
                             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -69,15 +69,15 @@ export const HardwareStorefront: React.FC = () => {
                             </div>
                             <button data-cy="btn-psw.hardware-storefront-0" 
                                 onClick={() => handlePurchase(item.id)}
-                                disabled={purchasing !== null}
+                                disabled={purchaseMutation.isPending}
                                 style={{ 
                                     padding: '8px 16px', backgroundColor: '#0F172A', color: 'white', 
-                                    border: 'none', borderRadius: '6px', fontWeight: 600, cursor: purchasing !== null ? 'not-allowed' : 'pointer',
-                                    display: 'flex', alignItems: 'center', gap: '6px', opacity: purchasing === item.id ? 0.7 : 1
+                                    border: 'none', borderRadius: '6px', fontWeight: 600, cursor: purchaseMutation.isPending ? 'not-allowed' : 'pointer',
+                                    display: 'flex', alignItems: 'center', gap: '6px', opacity: isThisItemPending ? 0.7 : 1
                                 }}
                             >
-                                {purchasing === item.id ? 'Processing...' : '1-Click Buy'}
-                                {purchasing !== item.id && <ChevronRight size={14} />}
+                                {isThisItemPending ? 'Processing...' : '1-Click Buy'}
+                                {!isThisItemPending && <ChevronRight size={14} />}
                             </button>
                         </div>
                     )
