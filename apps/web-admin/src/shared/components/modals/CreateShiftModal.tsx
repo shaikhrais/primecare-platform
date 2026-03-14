@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 interface CreateShiftModalProps {
     isOpen: boolean;
@@ -10,7 +11,6 @@ interface CreateShiftModalProps {
 
 export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onClose, mode = 'shift' }) => {
     const { showToast } = useNotification();
-    const [loading, setLoading] = useState(false);
     const [clients, setClients] = useState<any[]>([]);
     const [staff, setStaff] = useState<any[]>([]);
     const [services, setServices] = useState<any[]>([]);
@@ -25,6 +25,18 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
         notes: '',
         priority: 'normal' as 'normal' | 'urgent',
     });
+
+    const mutation = useApiMutation('/v1/admin/actions/shifts', {
+        onSuccess: () => {
+            showToast(mode === 'assign' ? 'Staff assigned successfully!' : 'Shift created successfully!', 'success');
+            onClose();
+        },
+        onError: () => {
+            showToast('Failed to create shift', 'error');
+        },
+    });
+
+    const loading = mutation.isPending;
 
     useEffect(() => {
         if (isOpen) {
@@ -52,28 +64,16 @@ export const CreateShiftModal: React.FC<CreateShiftModalProps> = ({ isOpen, onCl
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            const payload = {
-                clientId: form.clientId || undefined,
-                assignedUserId: form.staffId || undefined,
-                serviceId: form.serviceId || undefined,
-                scheduledDate: form.date,
-                startTime: form.startTime,
-                endTime: form.endTime,
-                notes: form.notes,
-                priority: form.priority,
-            };
-            const res = await apiClient.post('/v1/admin/actions/shifts', payload);
-            if (res.ok) {
-                showToast(mode === 'assign' ? 'Staff assigned successfully!' : 'Shift created successfully!', 'success');
-                onClose();
-            } else {
-                const err = await res.json();
-                showToast(err.error || 'Failed to create shift', 'error');
-            }
-        } catch { showToast('Network error creating shift', 'error'); }
-        finally { setLoading(false); }
+        mutation.mutate({
+            clientId: form.clientId || undefined,
+            assignedUserId: form.staffId || undefined,
+            serviceId: form.serviceId || undefined,
+            scheduledDate: form.date,
+            startTime: form.startTime,
+            endTime: form.endTime,
+            notes: form.notes,
+            priority: form.priority,
+        });
     };
 
     if (!isOpen) return null;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
 import { AdvancedRecurrenceBuilder } from './components/AdvancedRecurrenceBuilder';
@@ -24,7 +25,6 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
 }) => {
     const navigate = useNavigate();
     const { showToast } = useNotification();
-    const [loading, setLoading] = useState(false);
     const [clients, setClients] = useState<any[]>([]);
     const [services, setServices] = useState<any[]>([]);
     const [psws, setPsws] = useState<any[]>([]);
@@ -34,6 +34,28 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
     const [isCreatingPsw, setIsCreatingPsw] = useState(false);
 
     const [formData, setFormData] = useState<VisitFormData>({ ...DEFAULT_FORM, clientId: initialClientId || '' });
+
+    const mutation = useMutation({
+        mutationFn: async (payload: any) => {
+            const response = visit
+                ? await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload)
+                : await apiClient.post(ApiRegistry.ADMIN.VISITS, payload);
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ error: 'Request failed' }));
+                throw new Error(err.error || 'Request failed');
+            }
+            return response.json();
+        },
+        onSuccess: () => {
+            showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_CREATE, 'success');
+            onSuccess(); onClose();
+        },
+        onError: () => {
+            showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.ERROR_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.ERROR_CREATE, 'error');
+        },
+    });
+
+    const loading = mutation.isPending;
 
     useEffect(() => {
         if (isOpen) {
@@ -51,21 +73,8 @@ export const CreateVisitModal: React.FC<CreateVisitModalProps> = ({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
         const payload = buildPayload(formData);
-        try {
-            const response = visit
-                ? await apiClient.patch(ApiRegistry.ADMIN.VISITS_UPDATE(visit.id), payload)
-                : await apiClient.post(ApiRegistry.ADMIN.VISITS, payload);
-            if (response.ok) {
-                showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.SUCCESS_CREATE, 'success');
-                onSuccess(); onClose();
-            } else {
-                const err = await response.json();
-                showToast(err.error || (visit ? ContentRegistry.MODALS.CREATE_VISIT.ERROR_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.ERROR_CREATE), 'error');
-            }
-        } catch (error) { showToast(visit ? ContentRegistry.MODALS.CREATE_VISIT.ERROR_UPDATE : ContentRegistry.MODALS.CREATE_VISIT.ERROR_CREATE, 'error'); }
-        finally { setLoading(false); }
+        mutation.mutate(payload);
     };
 
     if (!isOpen) return null;

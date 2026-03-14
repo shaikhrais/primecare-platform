@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -15,10 +15,24 @@ export default function QuickActions({ role }: QuickActionsProps) {
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [isCrisisMode, setIsCrisisMode] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
     const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
     const CONTENT = AdminRegistry.ContentRegistry.QUICK_ACTIONS;
+
+    const crisisMutation = useApiMutation(ApiRegistry.ADMIN.CRISIS_MODE, {
+        onSuccess: () => {
+            setIsCrisisMode(!isCrisisMode);
+            showToast(
+                isCrisisMode ? CONTENT.MESSAGES.CRISIS_DEACTIVATED : CONTENT.MESSAGES.CRISIS_ACTIVATED,
+                isCrisisMode ? 'info' : 'error'
+            );
+        },
+        onError: () => {
+            showToast(CONTENT.MESSAGES.TEMP_ERROR, 'error');
+        },
+    });
+
+    const isLoading = crisisMutation.isPending;
 
     const toggleCrisisMode = async () => {
         if (role !== 'admin') {
@@ -32,25 +46,7 @@ export default function QuickActions({ role }: QuickActionsProps) {
 
         if (!window.confirm(confirmMsg)) return;
 
-        setIsLoading(true);
-        try {
-            const response = await apiClient.post(ApiRegistry.ADMIN.CRISIS_MODE, {
-                active: !isCrisisMode
-            });
-
-            if (!response.ok) throw new Error('Failed to toggle crisis mode');
-
-            setIsCrisisMode(!isCrisisMode);
-            showToast(
-                isCrisisMode ? CONTENT.MESSAGES.CRISIS_DEACTIVATED : CONTENT.MESSAGES.CRISIS_ACTIVATED,
-                isCrisisMode ? 'info' : 'error'
-            );
-        } catch (error) {
-            console.error('Crisis mode error:', error);
-            showToast(CONTENT.MESSAGES.TEMP_ERROR, 'error');
-        } finally {
-            setIsLoading(false);
-        }
+        crisisMutation.mutate({ active: !isCrisisMode });
     };
 
     if (!['admin', 'staff', 'manager'].includes(role)) return null;

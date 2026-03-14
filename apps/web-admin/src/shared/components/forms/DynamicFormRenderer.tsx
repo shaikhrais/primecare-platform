@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Save, Loader2, CheckCircle2, FileText } from 'lucide-react';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useNotification } from '@/shared/context/NotificationContext';
 import type { FormEntry, FormField, FormDependency } from 'prime-care-shared';
 import { renderField } from './renderField';
@@ -18,7 +19,6 @@ interface SelectOption { value: string; label: string; }
 export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({ formEntry, initialValues = {}, onSuccess, onCancel, compact = false }) => {
     const { showToast } = useNotification();
     const [formData, setFormData] = useState<Record<string, any>>({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [selectOptions, setSelectOptions] = useState<Record<string, SelectOption[]>>({});
     const [loadingFields, setLoadingFields] = useState<Set<string>>(new Set());
@@ -46,15 +46,25 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({ formEn
     const handleInlineCreated = (dep: FormDependency) => { const field = formEntry.fields.find(f => f.name === dep.field); if (field) fetchOptionsForField(field); };
     const handleChange = (name: string, value: any) => { setFormData(prev => ({ ...prev, [name]: value })); };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); setIsSubmitting(true); setIsSuccess(false);
-        try {
-            const endpoint = formEntry.apiEndpoint; let res: any;
-            if (formEntry.method === 'POST') { res = await apiClient.post(endpoint, formData); } else if (formEntry.method === 'PUT') { res = await apiClient.put(endpoint, formData); } else { res = await apiClient.patch(endpoint, formData); }
+    const submitMutation = useMutation({
+        mutationFn: async (data: Record<string, any>) => {
+            const endpoint = formEntry.apiEndpoint; let res: Response;
+            if (formEntry.method === 'POST') { res = await apiClient.post(endpoint, data); } else if (formEntry.method === 'PUT') { res = await apiClient.put(endpoint, data); } else { res = await apiClient.patch(endpoint, data); }
+            if (!res.ok) { const err = await res.json().catch(() => ({ error: 'Request failed' })); throw new Error(err.error || 'Request failed'); }
+            return res.json();
+        },
+        onSuccess: (res) => {
             setIsSuccess(true); showToast(`${formEntry.label} submitted successfully!`, 'success'); onSuccess?.(res);
             setTimeout(() => setIsSuccess(false), 2000);
-        } catch (error: any) { showToast(error.message || `Failed to submit ${formEntry.label}`, 'error'); }
-        finally { setIsSubmitting(false); }
+        },
+        onError: (error: any) => { showToast(error.message || `Failed to submit ${formEntry.label}`, 'error'); },
+    });
+
+    const isSubmitting = submitMutation.isPending;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        submitMutation.mutate(formData);
     };
 
     const formContent = (

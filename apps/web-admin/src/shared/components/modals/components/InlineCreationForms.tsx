@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 const { ApiRegistry } = AdminRegistry;
@@ -13,36 +13,28 @@ interface InlineCreateProps {
 export const InlineCreateClient: React.FC<InlineCreateProps> = ({ onSuccess, onCancel }) => {
     const { showToast } = useNotification();
     const [name, setName] = useState('');
-    const [loading, setLoading] = useState(false);
+
+    const mutation = useApiMutation(ApiRegistry.ADMIN.USERS, {
+        onSuccess: (data: any) => {
+            showToast('Client created successfully!', 'success');
+            onSuccess(data.clientProfile.id);
+        },
+        onError: () => {
+            showToast('Failed to create client', 'error');
+        },
+    });
+
+    const loading = mutation.isPending;
 
     const handleSubmit = async (e?: React.FormEvent | React.MouseEvent) => {
         if (e) e.preventDefault();
-        setLoading(true);
-        try {
-            // Provide a dummy email as the API requires it, but we only care about the name for strict scheduling
-            const dummyEmail = `${name.replace(/\s+/g, '.').toLowerCase()}.${Date.now()}@mock-client.com`;
-            const payload = {
-                email: dummyEmail,
-                password: 'TempPassword123!',
-                roles: ['client'],
-                profile: { fullName: name, status: 'active' }
-            };
-
-            const res = await apiClient.post(ApiRegistry.ADMIN.USERS, payload);
-            if (res.ok) {
-                const data = await res.json();
-                showToast('Client created successfully!', 'success');
-                // Pass back the *ClientProfile ID*, not the root User ID
-                onSuccess(data.clientProfile.id);
-            } else {
-                const err = await res.json();
-                showToast(err.error || 'Failed to create client', 'error');
-            }
-        } catch (err) {
-            showToast('Network error creating client', 'error');
-        } finally {
-            setLoading(false);
-        }
+        const dummyEmail = `${name.replace(/\s+/g, '.').toLowerCase()}.${Date.now()}@mock-client.com`;
+        mutation.mutate({
+            email: dummyEmail,
+            password: 'TempPassword123!',
+            roles: ['client'],
+            profile: { fullName: name, status: 'active' }
+        });
     };
 
     return (
@@ -66,31 +58,26 @@ export const InlineCreateService: React.FC<InlineCreateProps> = ({ onSuccess, on
     const { showToast } = useNotification();
     const [name, setName] = useState('');
     const [rate, setRate] = useState('50.00');
-    const [loading, setLoading] = useState(false);
+
+    const mutation = useApiMutation(ApiRegistry.ADMIN.SERVICES, {
+        onSuccess: (data: any) => {
+            showToast('Service created successfully!', 'success');
+            onSuccess(data.id);
+        },
+        onError: () => {
+            showToast('Failed to create service', 'error');
+        },
+    });
+
+    const loading = mutation.isPending;
 
     const handleSubmit = async (e?: React.FormEvent | React.MouseEvent) => {
         if (e) e.preventDefault();
-        setLoading(true);
-        try {
-            const payload = {
-                name,
-                slug: name.toLowerCase().replace(/\s+/g, '-'),
-                baseRateHourly: parseFloat(rate)
-            };
-            const res = await apiClient.post(ApiRegistry.ADMIN.SERVICES, payload);
-            if (res.ok) {
-                const data = await res.json();
-                showToast('Service created successfully!', 'success');
-                onSuccess(data.id);
-            } else {
-                const err = await res.json();
-                showToast(err.error || 'Failed to create service', 'error');
-            }
-        } catch (err) {
-            showToast('Network error creating service', 'error');
-        } finally {
-            setLoading(false);
-        }
+        mutation.mutate({
+            name,
+            slug: name.toLowerCase().replace(/\s+/g, '-'),
+            baseRateHourly: parseFloat(rate)
+        });
     };
 
     return (
@@ -120,35 +107,28 @@ export const InlineCreateService: React.FC<InlineCreateProps> = ({ onSuccess, on
 export const InlineCreatePsw: React.FC<InlineCreateProps> = ({ onSuccess, onCancel }) => {
     const { showToast } = useNotification();
     const [name, setName] = useState('');
-    const [loading, setLoading] = useState(false);
+
+    const mutation = useApiMutation(ApiRegistry.ADMIN.USERS, {
+        onSuccess: (data: any) => {
+            showToast('Caregiver created successfully!', 'success');
+            onSuccess(data.id);
+        },
+        onError: () => {
+            showToast('Failed to create caregiver', 'error');
+        },
+    });
+
+    const loading = mutation.isPending;
 
     const handleSubmit = async (e?: React.FormEvent | React.MouseEvent) => {
         if (e) e.preventDefault();
-        setLoading(true);
-        try {
-            const dummyEmail = `${name.replace(/\s+/g, '.').toLowerCase()}.${Date.now()}@mock-psw.com`;
-            const payload = {
-                email: dummyEmail,
-                password: 'TempPassword123!',
-                roles: ['psw'],
-                profile: { fullName: name, status: 'active' }
-            };
-
-            const res = await apiClient.post(ApiRegistry.ADMIN.USERS, payload);
-            if (res.ok) {
-                const data = await res.json();
-                showToast('Caregiver created successfully!', 'success');
-                // Pass back the Root User ID because Shifts are bound to Assigned PSWs via the root
-                onSuccess(data.id);
-            } else {
-                const err = await res.json();
-                showToast(err.error || 'Failed to create caregiver', 'error');
-            }
-        } catch (err) {
-            showToast('Network error creating caregiver', 'error');
-        } finally {
-            setLoading(false);
-        }
+        const dummyEmail = `${name.replace(/\s+/g, '.').toLowerCase()}.${Date.now()}@mock-psw.com`;
+        mutation.mutate({
+            email: dummyEmail,
+            password: 'TempPassword123!',
+            roles: ['psw'],
+            profile: { fullName: name, status: 'active' }
+        });
     };
 
     return (
