@@ -8,15 +8,13 @@ import React from 'react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
-import { useQueryClient } from '@tanstack/react-query';
 import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
 
 export default function PayrollHub() {
     const { showToast } = useNotification();
     const { t } = useTranslation();
-    const queryClient = useQueryClient();
 
     // TanStack Query: auto-cached payroll data
     const { data: rawData, isLoading: loading } = useRegistryQuery<any>(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.PENDING, {
@@ -34,32 +32,27 @@ export default function PayrollHub() {
         return { totalHours, totalPayout, approvedCount, pendingCount };
     })();
 
-    const handleBulkApprove = async () => {
-        try {
-            const response = await apiClient.post(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.BATCH_APPROVE, { action: 'approve_all' });
-            if (response.ok) {
-                showToast(t('admin.bulk_approve_success', { defaultValue: 'All pending timesheets approved' }), 'success');
-                queryClient.invalidateQueries({ queryKey: ['admin', 'payroll', 'pending'] });
-            } else {
-                showToast(t('admin.bulk_approve_failed', { defaultValue: 'Failed to approve timesheets' }), 'error');
-            }
-        } catch (error) {
+    const approveMutation = useApiMutation(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.BATCH_APPROVE, {
+        invalidateKeys: [['admin', 'payroll', 'pending']],
+        onSuccess: () => {
+            showToast(t('admin.bulk_approve_success', { defaultValue: 'All pending timesheets approved' }), 'success');
+        },
+        onError: () => {
             showToast(t('admin.bulk_approve_failed', { defaultValue: 'Failed to approve timesheets' }), 'error');
-        }
-    };
+        },
+    });
 
-    const handleRunPayroll = async () => {
-        try {
-            const response = await apiClient.post(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.RUN, { period: '2026-W10' });
-            if (response.ok) {
-                showToast(t('admin.payroll_run_success', { defaultValue: 'Payroll batch initiated for period 2026-W10' }), 'success');
-            } else {
-                showToast(t('admin.payroll_run_failed', { defaultValue: 'Failed to initiate payroll run.' }), 'error');
-            }
-        } catch (error) {
+    const payrollRunMutation = useApiMutation(AdminRegistry.ApiRegistry.ADMIN.PAYROLL.RUN, {
+        onSuccess: () => {
+            showToast(t('admin.payroll_run_success', { defaultValue: 'Payroll batch initiated for period 2026-W10' }), 'success');
+        },
+        onError: () => {
             showToast(t('admin.payroll_run_failed', { defaultValue: 'Failed to initiate payroll run.' }), 'error');
-        }
-    };
+        },
+    });
+
+    const handleBulkApprove = () => approveMutation.mutate({ action: 'approve_all' });
+    const handleRunPayroll = () => payrollRunMutation.mutate({ period: '2026-W10' });
 
     return (
         <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">

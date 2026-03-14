@@ -1,10 +1,10 @@
 // ================================================================
-// PAGE IDENTITY: T38 � Dispatch Map
+// PAGE IDENTITY: T38 — Dispatch Map
 // Type: Tool | Owner: coordinator
 // ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry, ButtonRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
@@ -54,6 +54,15 @@ export default function DispatchMap() {
         }
     });
 
+    const pingMutation = useApiMutation('/v1/coordinator/fleet/ping', {
+        onSuccess: (data: any) => {
+            showToast(data?.message || 'Nodes pinged successfully.', 'success');
+        },
+        onError: () => {
+            showToast('Ping failed across the mesh.', 'error');
+        },
+    });
+
     if (loading) return <div className="dispatch-map-container"><p>Syncing Field Intel...</p></div>;
 
     return (
@@ -73,14 +82,7 @@ export default function DispatchMap() {
                 <div>
                     <button data-cy="btn-coordinator.dispatch-map-0"
                         className="btn-premium secondary"
-                        onClick={async () => {
-                            try {
-                                const response: any = await apiClient.post('/v1/coordinator/fleet/ping', {});
-                                showToast(response?.message || 'Nodes pinged successfully.', 'success');
-                            } catch (e) {
-                                showToast('Ping failed across the mesh.', 'error');
-                            }
-                        }}
+                        onClick={() => pingMutation.mutate({})}
                         style={{ background: 'white', color: '#475569', border: '1px solid #cbd5e1' }}
                     >
                         {getButtonById('btn-coord-gps-ping')?.label || 'Ping Location'}

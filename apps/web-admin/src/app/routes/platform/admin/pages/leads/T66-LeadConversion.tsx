@@ -2,11 +2,12 @@
 // PAGE IDENTITY: T66 � Lead Conversion
 // Type: Tool | Owner: admin
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 const { ApiRegistry, RouteRegistry, ButtonRegistry } = AdminRegistry;
@@ -15,7 +16,6 @@ export default function LeadConversion() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { showToast } = useNotification();
-    const [loading, setLoading] = useState(false);
 
     // TanStack Query: cached leads list, derive name from query data
     const { data: leads = [] } = useRegistryQuery<any[]>(ApiRegistry.ADMIN.LEADS, {
@@ -25,25 +25,27 @@ export default function LeadConversion() {
     const lead = leads.find((l: any) => l.id === id);
     const leadName = lead ? `${lead.firstName} ${lead.lastName}` : 'Loading...';
 
-    const handleConvert = async () => {
-        setLoading(true);
-        try {
+    const convertMutation = useMutation({
+        mutationFn: async () => {
             const apiPath = ApiRegistry.ADMIN.LEADS_CONVERT(id!);
             const response = await apiClient.post(apiPath, {});
-            
             if (!response.ok) {
                 const errData = await response.json();
                 throw new Error(errData.error || 'Conversion Failed');
             }
-
+            return response.json();
+        },
+        onSuccess: () => {
             showToast('Lead converted successfully to Client!', 'success');
             navigate(RouteRegistry.ADMIN.CUSTOMERS);
-        } catch (error) {
+        },
+        onError: () => {
             showToast('Failed to convert lead', 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
+        },
+    });
+
+    const loading = convertMutation.isPending;
+    const handleConvert = () => convertMutation.mutate();
 
     return (
         <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>

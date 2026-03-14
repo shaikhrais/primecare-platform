@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Phone } from 'lucide-react';
 
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 interface ChatMessage {
     id: string;
@@ -16,6 +16,8 @@ export const iMessageThread: React.FC = () => {
         { id: '0', text: 'Hello! I am Jessica, your Care Coordinator. How can I help you regarding John today?', sender: 'coordinator', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
     ]);
     const [inputText, setInputText] = useState('');
+
+    const messageMutation = useApiMutation('/v1/client/family/message');
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,28 +35,23 @@ export const iMessageThread: React.FC = () => {
         setMessages(prev => [newMsg, ...prev]);
         setInputText('');
 
-        try {
-            // Post to backend Audit Log
-            await apiClient.post('/v1/client/family/message', {
-                clientId: 'demo-client-1',
-                subject: 'Family Portal Message',
-                body: text
-            });
+        // Post to backend Audit Log
+        messageMutation.mutate({
+            clientId: 'demo-client-1',
+            subject: 'Family Portal Message',
+            body: text
+        });
 
- // Coordinator Auto-reply for Demo UX (since no real-time sockets yet)
-            setTimeout(() => {
-                const autoReply: ChatMessage = {
-                    id: Date.now().toString(),
-                    text: "I've received your message and logged it to the patient file. I'll get back to you shortly!",
-                    sender: 'coordinator',
-                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                };
-                setMessages(prev => [autoReply, ...prev]);
-            }, 2500);
-
-        } catch (error) {
-            console.error('Failed to send message:', error);
-        }
+        // Coordinator Auto-reply for Demo UX (since no real-time sockets yet)
+        setTimeout(() => {
+            const autoReply: ChatMessage = {
+                id: Date.now().toString(),
+                text: "I've received your message and logged it to the patient file. I'll get back to you shortly!",
+                sender: 'coordinator',
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            setMessages(prev => [autoReply, ...prev]);
+        }, 2500);
     };
 
     return (

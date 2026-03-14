@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useDialog } from '@/shared/hooks/useDialog';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ButtonRegistry } = AdminRegistry;
 
@@ -14,6 +15,11 @@ export default function TrainingHub() {
         { id: '3', title: 'Emergency SOS Protocols', category: 'Operations', status: 'Draft', trainees: 0 },
     ]);
 
+    const createModuleMutation = useApiMutation('/v1/admin/training-modules', {
+        onSuccess: (_data: any, variables: any) => { showToast('Module created: ' + variables.title, 'success'); },
+        onError: () => { showToast('Failed to create module', 'error'); },
+    });
+
     return (
         <div data-cy="page.container" style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -23,7 +29,7 @@ export default function TrainingHub() {
                 </div>
                 <button
                     className="btn primary"
-                    onClick={async () => { const title = prompt('Enter module title:'); if (!title) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/training-modules', { title }); if (res.ok) showToast('Module created: ' + title, 'success'); else showToast('Failed to create module', 'error'); } catch { showToast('Network error', 'error'); } }}
+                    onClick={() => { const title = prompt('Enter module title:'); if (!title) return; createModuleMutation.mutate({ title }); }}
                     data-cy="btn-mgr-training-create"
                 >
                     {getButtonById('btn-mgr-training-create')?.label || 'Create Module'}
