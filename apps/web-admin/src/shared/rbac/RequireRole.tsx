@@ -1,22 +1,34 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, can, Permission } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
-import Unauthorized from '../../app/routes/shared/pages/error/Unauthorized';
+import Unauthorized from '@/app/routes/shared/pages/error/Unauthorized';
 
 const { RouteRegistry } = AdminRegistry;
 
 interface RequireRoleProps {
     children: React.ReactNode;
-    allowedRoles: string[];
+    /** Role-based access: user must have one of these roles */
+    allowedRoles?: string[];
+    /** Permission-based access: user must have this permission (preferred over allowedRoles) */
+    requiredPermission?: Permission;
 }
 
-export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles }) => {
+/**
+ * Route guard that supports both role-based and permission-based access control.
+ *
+ * Prefer `requiredPermission` for granular control:
+ *   <RequireRole requiredPermission="manage_care_plans"><AppLayout /></RequireRole>
+ *
+ * Legacy `allowedRoles` still works:
+ *   <RequireRole allowedRoles={['admin', 'manager']}><AppLayout /></RequireRole>
+ */
+export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles, requiredPermission }) => {
     const location = useLocation();
     const { user, loading } = useAuth();
 
     if (loading) {
-        return null; // Silent while checking session
+        return null;
     }
 
     if (!user) {
@@ -25,16 +37,24 @@ export const RequireRole: React.FC<RequireRoleProps> = ({ children, allowedRoles
 
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
 
-    // #10: Only super_admin and scrum_master get full bypass — admin still checks allowed list
+    // super_admin and scrum_master always bypass
     if (user.roles?.includes('super_admin') || user.roles?.includes('scrum_master')) {
         return <>{children}</>;
     }
 
-    // Check if user's active role or any of their roles match the allowed list
-    if (!allowedRoles.includes(role)) {
-        // Also check if any user role matches (umbrella access)
-        const hasAnyMatch = user.roles?.some((r: string) => allowedRoles.includes(r));
-        if (!hasAnyMatch) return <Unauthorized />;
+    // Permission-based check (preferred)
+    if (requiredPermission) {
+        const hasPermission = user.roles?.some((r: string) => can(r, requiredPermission)) || false;
+        if (!hasPermission) return <Unauthorized />;
+        return <>{children}</>;
+    }
+
+    // Role-based check (legacy)
+    if (allowedRoles) {
+        if (!allowedRoles.includes(role)) {
+            const hasAnyMatch = user.roles?.some((r: string) => allowedRoles.includes(r));
+            if (!hasAnyMatch) return <Unauthorized />;
+        }
     }
 
     return <>{children}</>;

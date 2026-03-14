@@ -1,25 +1,8 @@
-import { Role } from './roles';
-
-export type Permission =
-    | 'view_dashboard'
-    | 'manage_users'
-    | 'manage_leads'
-    | 'view_schedule'
-    | 'manage_incidents'
-    | 'view_reports'
-    | 'clinical_oversight';
-
-export const RolePermissions: Record<Role, Permission[]> = {
-    admin: ['view_dashboard', 'manage_users', 'manage_leads', 'view_schedule', 'manage_incidents', 'view_reports', 'clinical_oversight'],
-    manager: ['view_dashboard', 'manage_users', 'view_schedule', 'manage_incidents', 'view_reports'],
-    staff: ['view_dashboard', 'manage_leads', 'manage_users'],
-    rn: ['view_dashboard', 'clinical_oversight', 'view_schedule'],
-    psw: ['view_dashboard', 'view_schedule'],
-    client: ['view_dashboard'],
-    coordinator: ['view_dashboard', 'view_schedule'],
-    finance: ['view_dashboard', 'view_reports'],
-    hr: ['view_dashboard', 'manage_users'],
-    compliance: ['view_dashboard', 'manage_incidents', 'view_reports'],
-    crm: ['view_dashboard', 'manage_leads'],
-    training: ['view_dashboard'],
-};
+/**
+ * Frontend Permissions — Re-exports from shared PermissionRegistry
+ *
+ * All permissions and the role-permission matrix now live in the shared package.
+ * This file provides backward compatibility for existing imports.
+ */
+export type { Permission } from 'prime-care-shared';
+export { ROLE_PERMISSIONS as RolePermissions } from 'prime-care-shared';

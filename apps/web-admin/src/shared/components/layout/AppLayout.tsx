@@ -18,7 +18,7 @@ import { SystemHealthFooter } from './SystemHealthFooter';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
-import { adminMenu, clientMenu, staffMenu, pswMenu, rnMenu, managerMenu, coordinatorMenu, financeMenu, financeDirectorMenu, platformMenu, scrumMasterMenu } from './menu-configs';
+import { useMenuItems } from '@/shared/hooks/useMenuItems';
 
 interface AppLayoutProps {
     children?: React.ReactNode;
@@ -59,28 +59,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
         }
     }, [navigate, role, roleGated]);
 
-    const getMenuItems = (role: string) => {
-        const lowerRole = role.toLowerCase();
-
-        if (lowerRole === 'admin') return adminMenu;
-        if (lowerRole.includes('manager') || ['coordinator', 'crm', 'training'].includes(lowerRole)) {
-            if (lowerRole === 'coordinator') return coordinatorMenu;
-            return managerMenu;
-        }
-        if (['staff', 'finance', 'hr', 'compliance'].includes(lowerRole)) {
-            if (lowerRole === 'finance') return financeMenu;
-            return staffMenu;
-        }
-        if (lowerRole === 'finance_director') return financeDirectorMenu;
-        if (lowerRole === 'rn') return rnMenu;
-        if (['psw', 'rmt', 'rpt', 'rch'].includes(lowerRole)) return pswMenu;
-        if (lowerRole === 'super_admin') return platformMenu;
-        if (lowerRole === 'scrum_master') return scrumMasterMenu;
-
-        return clientMenu;
-    };
-
-    const menuItems = getMenuItems(role);
+    const menuItems = useMenuItems(role);
 
     const handleLogout = async () => {
         try {
