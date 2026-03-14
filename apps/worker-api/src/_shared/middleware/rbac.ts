@@ -10,7 +10,6 @@
  */
 import { Context, Next } from 'hono';
 import { Permission, can, canAny } from 'prime-care-shared';
-import { OperationPermission, LEGACY_PERMISSION_MAP, canLegacy } from '../rbac/permissions';
 
 // ── requireRole (Upgraded) ───────────────────────────────────────────────────
 export const requireRole = (allowedRoles: string[]) => {
@@ -103,22 +102,4 @@ export const requireAnyPermission = (permissions: Permission[]) => {
     };
 };
 
-// ── requireLegacyPermission (Backward compat for old SCREAMING_CASE perms) ──
-export const requireLegacyPermission = (permission: OperationPermission) => {
-    return async (c: Context, next: Next) => {
-        const payload = c.get('jwtPayload') as { sub: string; roles: string[]; activeRole?: string } | undefined;
-        const userRoles = Array.isArray(payload?.roles) ? payload.roles : (payload?.roles ? [payload.roles as unknown as string] : []);
 
-        if (userRoles.some(r => r === 'super_admin' || r === 'scrum_master')) {
-            return await next();
-        }
-
-        const hasPermission = userRoles.some(role => canLegacy(role, permission));
-
-        if (!hasPermission) {
-            return c.json({ error: 'Forbidden: Missing Required Permission' }, 403);
-        }
-
-        await next();
-    };
-};

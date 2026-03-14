@@ -1,37 +1,24 @@
 // ================================================================
-// PAGE IDENTITY: T19 � Portfolio
+// PAGE IDENTITY: T19 — Portfolio
 // Type: Tool | Owner: manager
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ChartCard } from '@/shared/components/charts/ChartCard';
 import { RevenueChart } from '@/shared/components/charts/RevenueChart';
 import { VisitVolumeChart } from '@/shared/components/charts/VisitVolumeChart';
 import { StaffUtilizationChart } from '@/shared/components/charts/StaffUtilizationChart';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+
+const FALLBACK_STATS = { revenue: [], visitVolume: [], staffUtilization: [], revenueData: 0, utilization: 0, activeProviders: 0 };
 
 export default function ManagementPortfolio() {
-    const [stats, setStats] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchPortfolio = async () => {
-            try {
-                const res = await apiClient.get(AdminRegistry.ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS);
-                if (res.ok) {
-                    const data = await res.json();
-                    setStats(data || { revenue: [], visitVolume: [], staffUtilization: [] });
-                } else {
-                    setStats({ revenue: [], visitVolume: [], staffUtilization: [] });
-                }
-            } catch (error) {
-                setStats({ revenue: [], visitVolume: [], staffUtilization: [] });
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPortfolio();
-    }, []);
+    // TanStack Query: auto-cached portfolio stats
+    const { data: stats = FALLBACK_STATS, isLoading: loading } = useRegistryQuery<any>(AdminRegistry.ApiRegistry.TENANCY.MANAGER.DASHBOARD_STATS, {
+        queryKey: ['manager', 'portfolio', 'stats'],
+        staleTime: 60_000,
+        placeholderData: FALLBACK_STATS,
+    });
 
     if (loading || !stats) return <div style={{ padding: '2rem' }}>Loading Portfolio...</div>;
 

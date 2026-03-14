@@ -1,46 +1,34 @@
 // ================================================================
-// PAGE IDENTITY: D9 � Branch P&L
+// PAGE IDENTITY: D9 — Branch P&L
 // Type: Dashboard | Owner: manager
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ApiRegistry, ContentRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './BranchP_L.css';
 
 const { REGIONAL_STATS } = ContentRegistry;
 
 export default function BranchPL() {
     const [period, setPeriod] = useState('Quarterly');
-    const [financials, setFinancials] = useState<any>({
+
+    // TanStack Query: auto-cached financials with period-based refetch
+    const { data: rawData, isLoading: loading } = useRegistryQuery<any>(ApiRegistry.TENANCY.MANAGER.OPS_STATS, {
+        queryKey: ['manager', 'branchPL', period],
+        staleTime: 60_000,
+    });
+
+    const financials = rawData ? {
+        revenue: rawData.revenueMtd || '$928,000',
+        expenses: rawData.expensesMtd || '$607,000',
+        profit: rawData.profitMtd || '$321,000',
+        margin: rawData.profitMargin || '34.5%'
+    } : {
         revenue: '$928,000',
         expenses: '$607,000',
         profit: '$321,000',
         margin: '34.5%'
-    });
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchFinancials = async () => {
-            try {
-                const res: any = await apiClient.get(ApiRegistry.TENANCY.MANAGER.OPS_STATS);
-                const d = await res.json();
-
-                if (d) {
-                    setFinancials({
-                        revenue: d.revenueMtd || '$928,000',
-                        expenses: d.expensesMtd || '$607,000',
-                        profit: d.profitMtd || '$321,000',
-                        margin: d.profitMargin || '34.5%'
-                    });
-                }
-            } catch (error) {
-                console.error('Failed to fetch financials:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchFinancials();
-    }, [period]);
+    };
 
     if (loading) {
         return (

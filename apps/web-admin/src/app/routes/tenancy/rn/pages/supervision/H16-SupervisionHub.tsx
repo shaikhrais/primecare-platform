@@ -1,10 +1,10 @@
 // ================================================================
-// PAGE IDENTITY: H16 � Supervision Hub
+// PAGE IDENTITY: H16 — Supervision Hub
 // Type: Hub | Owner: rn
 // ================================================================
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './SupervisionHub.css';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
@@ -22,25 +22,11 @@ interface Caregiver {
 }
 
 export const SupervisionHub: React.FC = () => {
-    const [providers, setProviders] = useState<Caregiver[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchRoster = async () => {
-            try {
-                const response = await apiClient.get(ApiRegistry.TENANCY.RN.SUPERVISION_ROSTER);
-                if (Array.isArray(response)) {
-                    setProviders(response);
-                }
-            } catch (error) {
-                console.error('Failed to load supervision roster', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRoster();
-    }, []);
+    // TanStack Query: auto-cached supervision roster
+    const { data: providers = [], isLoading: loading } = useRegistryQuery<Caregiver[]>(ApiRegistry.TENANCY.RN.SUPERVISION_ROSTER, {
+        queryKey: ['rn', 'supervision', 'roster'],
+        staleTime: 30_000,
+    });
 
     const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').toUpperCase();
 
