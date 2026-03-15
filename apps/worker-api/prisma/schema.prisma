@@ -402,6 +402,7 @@ model VisitCheckEvent {
   tenant            Tenant     @relation(fields: [tenantId], references: [id])
   visit             Visit      @relation(fields: [visitId], references: [id])
 
+  @@index([tenantId])
   @@map("visit_check_events")
 }
 
@@ -643,6 +644,7 @@ model PswAvailability {
   psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
   tenant    Tenant     @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("psw_availability")
 }
 
@@ -1220,6 +1222,7 @@ model InventoryItem {
   ClientProfile   ClientProfile? @relation(fields: [clientProfileId], references: [id])
   clientProfileId String?
 
+  @@index([tenantId])
   @@map("inventory_items")
 }
 
@@ -1236,6 +1239,7 @@ model PurchaseOrder {
   ClientProfile   ClientProfile? @relation(fields: [clientProfileId], references: [id])
   clientProfileId String?
 
+  @@index([tenantId])
   @@map("purchase_orders")
 }
 
@@ -1254,6 +1258,7 @@ model TelehealthSession {
   patient  ClientProfile @relation(fields: [patientId], references: [id])
   provider User          @relation(fields: [providerId], references: [id])
 
+  @@index([tenantId])
   @@map("telehealth_sessions")
 }
 
@@ -1284,6 +1289,7 @@ model PatientAlert {
   tenant  Tenant        @relation(fields: [tenantId], references: [id])
   patient ClientProfile @relation(fields: [patientId], references: [id])
 
+  @@index([tenantId])
   @@map("patient_alerts")
 }
 
@@ -1299,6 +1305,7 @@ model InsuranceProvider {
   tenant Tenant  @relation(fields: [tenantId], references: [id])
   claims Claim[]
 
+  @@index([tenantId])
   @@map("insurance_providers")
 }
 
@@ -1317,6 +1324,7 @@ model Claim {
   patient  ClientProfile     @relation(fields: [patientId], references: [id])
   provider InsuranceProvider @relation(fields: [providerId], references: [id])
 
+  @@index([tenantId])
   @@map("claims")
 }
 
@@ -1363,6 +1371,7 @@ model Prescription {
   medication Medication    @relation(fields: [medicationId], references: [id])
   marEntries MAR_Entry[]
 
+  @@index([tenantId])
   @@map("prescriptions")
 }
 
@@ -1405,6 +1414,7 @@ model ShiftHandover {
   visit  Visit      @relation(fields: [visitId], references: [id])
   tenant Tenant     @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("shift_handovers")
 }
 
@@ -1420,6 +1430,7 @@ model AvailabilityOverride {
   psw    PswProfile @relation(fields: [pswId], references: [id])
   tenant Tenant     @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("psw_availability_overrides")
 }
 
@@ -1437,6 +1448,7 @@ model Payout {
   psw    PswProfile @relation(fields: [pswId], references: [id])
   tenant Tenant     @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("payouts")
 }
 
@@ -1456,6 +1468,7 @@ model ClinicalAssessment {
   rn     User          @relation(fields: [rnId], references: [id])
   tenant Tenant        @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("clinical_assessments")
 }
 
@@ -1473,6 +1486,7 @@ model MedicationRecon {
   rn     User          @relation(fields: [rnId], references: [id])
   tenant Tenant        @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("medication_reconciliations")
 }
 
@@ -1490,6 +1504,7 @@ model SupervisionLog {
   rn     User       @relation(fields: [rnId], references: [id])
   tenant Tenant     @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("supervision_logs")
 }
 
@@ -1504,6 +1519,7 @@ model FamilyNotification {
   tenantId  String        @map("tenant_id")
   tenant    Tenant        @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("family_notifications")
 }
 
@@ -1521,6 +1537,7 @@ model CareFeedback {
   tenantId        String        @map("tenant_id")
   tenant          Tenant        @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("care_feedbacks")
 }
 
@@ -1538,6 +1555,7 @@ model TechnicalAudit {
   performedBy User?   @relation("PerformedAudits", fields: [performedById], references: [id])
   tenant      Tenant? @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("technical_audits")
 }
 
@@ -1576,6 +1594,7 @@ model BookingRequest {
   client ClientProfile @relation(fields: [clientId], references: [id])
   tenant Tenant        @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("booking_requests")
 }
 
@@ -1592,6 +1611,7 @@ model DailyAuditSignOff {
   tenant Tenant @relation(fields: [tenantId], references: [id])
   visit  Visit  @relation(fields: [visitId], references: [id])
 
+  @@index([tenantId])
   @@map("daily_audit_signoffs")
 }
 
@@ -1609,6 +1629,7 @@ model WellnessPulse {
   tenant Tenant @relation(fields: [tenantId], references: [id])
 
   @@index([pswId])
+  @@index([tenantId])
   @@map("wellness_pulses")
 }
 
@@ -1628,6 +1649,7 @@ model SystemTouchpoint {
   tenantId      String   @map("tenant_id")
   tenant        Tenant   @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("system_touchpoints")
 }
 
@@ -1649,6 +1671,7 @@ model ChartOfAccount {
   journalEntries JournalEntry[]
 
   @@unique([tenantId, code])
+  @@index([tenantId])
   @@map("financial_accounts")
 }
 
@@ -1690,6 +1713,7 @@ model JournalEntry {
 
   @@index([transactionId])
   @@index([accountId])
+  @@index([tenantId])
   @@map("financial_journal_entries")
 }
 
@@ -1705,6 +1729,7 @@ model FinancialReconciliation {
   bankTransaction BankTransaction?     @relation(fields: [bankTransactionId], references: [id])
   tenant          Tenant               @relation(fields: [tenantId], references: [id])
 
+  @@index([tenantId])
   @@map("financial_reconciliations")
 }
 
@@ -1722,6 +1747,7 @@ model BankTransaction {
   tenant          Tenant                    @relation(fields: [tenantId], references: [id])
   reconciliations FinancialReconciliation[]
 
+  @@index([tenantId])
   @@map("financial_bank_transactions")
 }
 
