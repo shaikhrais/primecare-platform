@@ -4,6 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useAuth } from '@/shared/context/AuthContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { useTranslation } from 'react-i18next';
 import { PageActionBar } from '@/shared/components/ui/PageActionBar';
@@ -36,12 +37,19 @@ export default function AdminDashboard() {
 
     const [isPostShiftModalOpen, setIsPostShiftModalOpen] = useState(false);
 
-    const handleApiAction = async (endpoint: string, successMsg: string, errorMsg: string) => {
-        try {
+    const actionMutation = useMutation({
+        mutationFn: async ({ endpoint }: { endpoint: string }) => {
             const res = await apiClient.post(endpoint, {});
-            if (res.ok) { showToast(successMsg, 'success'); }
-            else { const err = await res.json(); showToast(err.error || errorMsg, 'error'); }
-        } catch { showToast(errorMsg, 'error'); }
+            if (!res.ok) { const err = await res.json(); throw new Error(err.error || 'Action failed'); }
+            return res.json();
+        },
+    });
+
+    const handleApiAction = (endpoint: string, successMsg: string, errorMsg: string) => {
+        actionMutation.mutate({ endpoint }, {
+            onSuccess: () => showToast(successMsg, 'success'),
+            onError: (err: any) => showToast(err?.message || errorMsg, 'error'),
+        });
     };
 
     const handleExport = async () => {

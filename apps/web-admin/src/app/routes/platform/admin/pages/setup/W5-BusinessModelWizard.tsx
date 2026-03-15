@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 
 // Components
 import { BrandingStep } from './components/strategy/BrandingStep';
@@ -22,8 +23,6 @@ export default function BusinessModelWizard() {
     const { showToast } = useNotification();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [step, setStep] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [uploading, setUploading] = useState(false);
 
     // Form Data
     const [config, setConfig] = useState({
@@ -35,52 +34,50 @@ export default function BusinessModelWizard() {
         logoUrl: '',
     });
 
-    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const logoMutation = useMutation({
+        mutationFn: async (formData: FormData) => {
+            const res = await apiClient.post('/v1/admin/settings/logo', formData);
+            if (!res.ok) throw new Error('Upload failed');
+            return res.json();
+        },
+        onSuccess: (data: any) => {
+            setConfig({ ...config, logoUrl: data.logoUrl });
+            showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.SUCCESS_LOGO, 'success');
+        },
+        onError: () => { showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_LOGO, 'error'); },
+    });
+
+    const uploading = logoMutation.isPending;
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
-
         if (file.size > 2 * 1024 * 1024) {
             showToast(ContentRegistry.STRATEGY_WIZARD.BRANDING.LOGO_ERROR_SIZE, 'error');
             return;
         }
-
-        setUploading(true);
         const formData = new FormData();
         formData.append('file', file);
-
-        try {
-            const response = await apiClient.post('/v1/admin/settings/logo', formData);
-            if (response.ok) {
-                const data = await response.json();
-                setConfig({ ...config, logoUrl: data.logoUrl });
-                showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.SUCCESS_LOGO, 'success');
-            } else {
-                showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_LOGO, 'error');
-            }
-        } catch (error) {
-            showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_SERVER, 'error');
-        } finally {
-            setUploading(false);
-        }
+        logoMutation.mutate(formData);
     };
 
-    const handleSave = async () => {
-        setLoading(true);
-        try {
-            const response = await apiClient.patch('/v1/admin/settings/business-model', config);
-            if (response.ok) {
-                showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.SUCCESS_SAVE, 'success');
-                if (step < 3) setStep(step + 1);
-                else navigate(RouteRegistry.ADMIN.WIZARD_HUB);
-            } else {
-                showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_SAVE, 'error');
-            }
-        } catch (error) {
-            showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_SERVER, 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
+    const saveMutation = useMutation({
+        mutationFn: async (data: any) => {
+            const res = await apiClient.patch('/v1/admin/settings/business-model', data);
+            if (!res.ok) throw new Error('Save failed');
+            return res.json();
+        },
+        onSuccess: () => {
+            showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.SUCCESS_SAVE, 'success');
+            if (step < 3) setStep(step + 1);
+            else navigate(RouteRegistry.ADMIN.WIZARD_HUB);
+        },
+        onError: () => { showToast(ContentRegistry.STRATEGY_WIZARD.MESSAGES.ERROR_SAVE, 'error'); },
+    });
+
+    const loading = saveMutation.isPending;
+
+    const handleSave = () => saveMutation.mutate(config);
 
     return (
         <div data-cy="page.container" style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem', background: 'white', borderRadius: '1.5rem', border: '1px solid #e5e7eb' }}>

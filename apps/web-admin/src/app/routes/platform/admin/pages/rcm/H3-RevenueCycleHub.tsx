@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -15,6 +15,16 @@ export default function RevenueCycleHub() {
     const [claims, setClaims] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const { showToast } = useNotification();
+
+    const syncMutation = useApiMutation('/v1/admin/claims/system/sync', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Revenue synced via clearinghouse.', 'success'); },
+        onError: () => { showToast('Revenue sync failed.', 'error'); },
+    });
+
+    const submitMutation = useApiMutation('/v1/admin/claims/system/submit', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Claims package aggregated and transmitted.', 'success'); },
+        onError: () => { showToast('Claim submission failed.', 'error'); },
+    });
 
     const fetchData = async () => {
         setIsLoading(true);

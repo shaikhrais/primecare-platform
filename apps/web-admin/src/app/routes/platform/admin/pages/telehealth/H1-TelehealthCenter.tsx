@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -16,6 +16,21 @@ export default function TelehealthCenter() {
     const [vitals, setVitals] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const { showToast } = useNotification();
+
+    const sessionMutation = useApiMutation('/v1/admin/telehealth/session/start', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Started consultation session.', 'success'); },
+        onError: () => { showToast('Session creation failed.', 'error'); },
+    });
+
+    const triageMutation = useApiMutation('/v1/admin/telehealth/triage/open', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Opened portal.', 'success'); },
+        onError: () => { showToast('Portal failed.', 'error'); },
+    });
+
+    const verifyMutation = useApiMutation('/v1/admin/telehealth/vitals/verify', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Verified.', 'success'); },
+        onError: () => { showToast('Verify failed.', 'error'); },
+    });
 
     const fetchData = async () => {
         setIsLoading(true);

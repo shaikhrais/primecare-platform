@@ -3,6 +3,7 @@ import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 
 export default function CronDashboard() {
     const { showToast } = useNotification();
@@ -19,31 +20,32 @@ export default function CronDashboard() {
         ]);
     }, []);
 
-    const handleRunJob = async (jobId: string, jobName: string) => {
-        showToast(`Initiating cron job: ${jobName}...`, 'info');
-        try {
+    const jobMutation = useMutation({
+        mutationFn: async ({ jobId }: { jobId: string }) => {
             const apiMap: Record<string, string> = {
                 'compliance-sweep': AdminRegistry.ApiRegistry.ADMIN.CRON.COMPLIANCE_SWEEP,
                 'training-reminders': AdminRegistry.ApiRegistry.ADMIN.CRON.TRAINING_REMINDERS,
                 'auth-exhaustion': AdminRegistry.ApiRegistry.ADMIN.CRON.AUTH_EXHAUSTION,
                 'inventory-reorder': AdminRegistry.ApiRegistry.ADMIN.CRON.INVENTORY_REORDER,
             };
-
             const endpoint = apiMap[jobId];
             if (!endpoint) throw new Error('Endpoint not found');
-
             const isGet = jobId === 'inventory-reorder';
             const response = isGet ? await apiClient.get(endpoint) : await apiClient.post(endpoint, {});
+            if (!response.ok) throw new Error('API Error');
+            return { jobId };
+        },
+    });
 
-            if (response.ok) {
+    const handleRunJob = (jobId: string, jobName: string) => {
+        showToast(`Initiating cron job: ${jobName}...`, 'info');
+        jobMutation.mutate({ jobId }, {
+            onSuccess: ({ jobId: jid }) => {
                 showToast(t('admin.job_triggered', { defaultValue: `${jobName} completed successfully`, name: jobName }), 'success');
-                setJobs(jobs.map(j => j.id === jobId ? { ...j, lastRun: new Date().toISOString() } : j));
-            } else {
-                throw new Error('API Error');
-            }
-        } catch (error) {
-            showToast(`${jobName} execution failed`, 'error');
-        }
+                setJobs(jobs.map(j => j.id === jid ? { ...j, lastRun: new Date().toISOString() } : j));
+            },
+            onError: () => showToast(`${jobName} execution failed`, 'error'),
+        });
     };
 
     return (

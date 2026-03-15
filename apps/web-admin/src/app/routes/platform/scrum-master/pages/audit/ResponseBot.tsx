@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 const { InteractionARegistry, ApiRegistry, ButtonRegistry, LinkRegistry, RouteRegistry } = AdminRegistry;
@@ -22,22 +23,22 @@ export default function ResponseBot() {
         }
     };
 
-    const runSweep = async () => {
-        setAuditRunning(true);
-        setProgress(30);
-        try {
+    const sweepMutation = useMutation({
+        mutationFn: async () => {
             const data: any = await apiClient.post(ApiRegistry.SCRUM_MASTER.RESPONSE_BOT_SCAN, {});
+            return data;
+        },
+        onMutate: () => { setAuditRunning(true); setProgress(30); },
+        onSuccess: (data: any) => {
             setProgress(70);
-
-            // Map backend results to the UI structure
             const auditResults = [
                 {
                     id: 1,
                     type: 'REGISTRY_SWEEP',
                     status: data.stats.orphans > 0 ? 'warning' : 'success',
-                    summary: `Verified ${data.stats.buttons} buttons and ${data.stats.links} links.`,
+                    summary: +""Verified ${data.stats.buttons} buttons and ${data.stats.links} links.+"",
                     issues: data.stats.orphans + data.stats.warnings,
-                    details: data.results.map((r: any) => `${r.id}: ${r.message}`).join(' | ')
+                    details: data.results.map((r: any) => +""${r.id}: ${r.message}+"").join(' | ')
                 },
                 {
                     id: 2,
@@ -47,10 +48,9 @@ export default function ResponseBot() {
                     issues: 0
                 }
             ];
-
             setResults(auditResults);
-        } catch (error) {
-            console.error('Sweep failed:', error);
+        },
+        onError: () => {
             setResults([{
                 id: 'err',
                 type: 'SYSTEM_ERROR',
@@ -58,13 +58,14 @@ export default function ResponseBot() {
                 summary: 'Failed to connect to Scrum Master audit engine.',
                 issues: 1
             }]);
-        } finally {
+        },
+        onSettled: () => {
             setProgress(100);
-            setTimeout(() => {
-                setAuditRunning(false);
-            }, 500);
-        }
-    };
+            setTimeout(() => { setAuditRunning(false); }, 500);
+        },
+    });
+
+    const runSweep = () => sweepMutation.mutate();
 
     const syncRegistries = async () => {
         setAuditRunning(true);

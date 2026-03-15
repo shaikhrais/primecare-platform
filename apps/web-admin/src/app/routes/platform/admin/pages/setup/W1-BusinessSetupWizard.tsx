@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useTranslation } from 'react-i18next';
 
 // Components
@@ -27,70 +27,46 @@ export default function BusinessSetupWizard() {
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [currentStep, setCurrentStep] = useState<Step>('services');
-    const [loading, setLoading] = useState(false);
+    const loading = serviceMutation.isPending || staffMutation.isPending || clientMutation.isPending;
 
     // Form Data
     const [serviceData, setServiceData] = useState({ name: '', hourlyRate: 0, category: 'Senior Care', description: '' });
     const [staffData, setStaffData] = useState({ fullName: '', email: '', role: 'psw', sin: '' });
     const [clientData, setClientData] = useState({ fullName: '', email: '', phone: '', address: '', emergencyContact: '', medicalNotes: '' });
 
-    const handleServiceSubmit = async (e: React.FormEvent) => {
+    const serviceMutation = useApiMutation(ApiRegistry.ADMIN.SERVICES, {
+        onSuccess: () => { showToast('Service created successfully', 'success'); setCurrentStep('staff'); },
+        onError: () => { showToast('Failed to create service', 'error'); },
+    });
+
+    const handleServiceSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await apiClient.post(ApiRegistry.ADMIN.SERVICES, serviceData);
-            if (response.ok) {
-                showToast('Service created successfully', 'success');
-                setCurrentStep('staff');
-            } else {
-                showToast('Failed to create service', 'error');
-            }
-        } catch (error) {
-            showToast('Network error', 'error');
-        } finally {
-            setLoading(false);
-        }
+        serviceMutation.mutate(serviceData);
     };
 
-    const handleStaffSubmit = async (e: React.FormEvent) => {
+    const staffMutation = useApiMutation(ApiRegistry.ADMIN.USERS, {
+        onSuccess: () => { showToast('Staff onboarded successfully', 'success'); setCurrentStep('clients'); },
+        onError: () => { showToast('Failed to onboard staff', 'error'); },
+    });
+
+    const handleStaffSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await apiClient.post(ApiRegistry.ADMIN.USERS, {
-                email: staffData.email,
-                fullName: staffData.fullName,
-                roles: [staffData.role],
-                sin: staffData.sin
-            });
-            if (response.ok) {
-                showToast('Staff onboarded successfully', 'success');
-                setCurrentStep('clients');
-            } else {
-                showToast('Failed to onboard staff', 'error');
-            }
-        } catch (error) {
-            showToast('Network error', 'error');
-        } finally {
-            setLoading(false);
-        }
+        staffMutation.mutate({
+            email: staffData.email,
+            fullName: staffData.fullName,
+            roles: [staffData.role],
+            sin: staffData.sin
+        });
     };
 
-    const handleClientSubmit = async (e: React.FormEvent) => {
+    const clientMutation = useApiMutation('/v1/admin/clients', {
+        onSuccess: () => { showToast('Client admitted successfully', 'success'); setCurrentStep('success'); },
+        onError: () => { showToast('Failed to admit client', 'error'); },
+    });
+
+    const handleClientSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await apiClient.post('/v1/admin/clients', clientData);
-            if (response.ok) {
-                showToast('Client admitted successfully', 'success');
-                setCurrentStep('success');
-            } else {
-                showToast('Failed to admit client', 'error');
-            }
-        } catch (error) {
-            showToast('Network error', 'error');
-        } finally {
-            setLoading(false);
-        }
+        clientMutation.mutate(clientData);
     };
 
     return (

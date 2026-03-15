@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useMutation } from '@tanstack/react-query';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
 import { ScanBarcode, ShieldCheck, AlertOctagon } from 'lucide-react';
@@ -40,19 +41,19 @@ export default function PharmacyHub() {
 
     useEffect(() => { fetchData(); }, []);
 
-    const handleAction = async (endpoint: string, successMsg: string) => {
-        try {
-            // Using the new hardware dispatch endpoint for placing orders
+    const actionMutation = useMutation({
+        mutationFn: async (endpoint: string) => {
             const response = await apiClient.post(endpoint, {});
-            if (response.ok) {
-                showToast(successMsg, 'success');
-                fetchData(); // refresh stats
-            } else {
-                showToast('Action failed on server', 'error');
-            }
-        } catch (error) {
-            showToast('Network error while processing request', 'error');
-        }
+            if (!response.ok) throw new Error('Action failed on server');
+            return response;
+        },
+    });
+
+    const handleAction = (endpoint: string, successMsg: string) => {
+        actionMutation.mutate(endpoint, {
+            onSuccess: () => { showToast(successMsg, 'success'); fetchData(); },
+            onError: () => { showToast('Network error while processing request', 'error'); },
+        });
     };
 
     // Hardware Integration: BCMA Scanner Wedge Hook
