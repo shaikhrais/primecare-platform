@@ -4,7 +4,7 @@
 // ================================================================
 import React, { useState } from 'react';
 import { CreditCard, History, Clock, CheckCircle, AlertTriangle, Download, ArrowRight } from 'lucide-react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './BillingHub.css';

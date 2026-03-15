@@ -39,7 +39,7 @@ export default function ContentManager() {
     }, [activeTab]);
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Content Manager" style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="content-manager-page">
+        <div role="main" aria-label="Content Manager" style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="content-manager-page">
             <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Content Management</h2>
                 <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage blog posts and FAQ items for the marketing website.</p>

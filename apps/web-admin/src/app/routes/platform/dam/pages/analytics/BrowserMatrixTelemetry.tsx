@@ -59,10 +59,10 @@ export const BrowserMatrixTelemetry: React.FC = () => {
                     <button 
                         data-cy="btn-enforce-browser-matrix"
                         onClick={handleDeploy}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#6366F1', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#6366F1', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <Trash2 size={16} /> {isSaving ? 'Updating React Router...' : 'Enforce Matrix Rules'}
+                        <Trash2 size={16} /> {saveMutation.isPending ? 'Updating React Router...' : 'Enforce Matrix Rules'}
                     </button>
                 </div>
             </div>

@@ -112,7 +112,7 @@ export default function DailyEntryPage() {
     };
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Daily Entry" style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
+        <div role="main" aria-label="Daily Entry" style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
             <DailyEntryGuard showGuard={showGuard} setShowGuard={setShowGuard} />
 
             <DailyEntryContext

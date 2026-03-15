@@ -83,10 +83,10 @@ export const GlobalI18nDictionary: React.FC = () => {
                     <button 
                         data-cy="btn-publish-translations"
                         onClick={handleSave}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <Save size={16} /> {isSaving ? 'Compiling Locale JSON...' : 'Publish Translations'}
+                        <Save size={16} /> {saveMutation.isPending ? 'Compiling Locale JSON...' : 'Publish Translations'}
                     </button>
                 </div>
             </div>

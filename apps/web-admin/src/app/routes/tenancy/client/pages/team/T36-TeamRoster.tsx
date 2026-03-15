@@ -8,7 +8,7 @@ export default function TeamRoster() {
     const [tab, setTab] = useState(0);
     const tabs = ['Assigned Caregivers','Specializations','Contact Info','Availability'];
     return (
-        <div data-cy="page.container" role="main" aria-label="Team Roster" data-cy="T36-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div role="main" aria-label="Team Roster" data-cy="T36-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ marginBottom: '24px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>👥 Team Roster</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>

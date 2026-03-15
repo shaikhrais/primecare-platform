@@ -47,7 +47,7 @@ export default function CustomerList() {
     if (loading) return <div style={{ padding: '2rem' }}>{ContentRegistry.CUSTOMERS.MESSAGES.LOADING}</div>;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Customer List" style={{ padding: '2rem' }} data-cy="customer-list-page">
+        <div role="main" aria-label="Customer List" style={{ padding: '2rem' }} data-cy="customer-list-page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }} data-cy="page.header">
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }} data-cy="page.title">{ContentRegistry.CUSTOMERS.TITLE}</h2>

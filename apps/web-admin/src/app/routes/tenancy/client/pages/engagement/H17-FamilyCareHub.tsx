@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function FamilyCareHub() {
     return (
-        <div data-cy="page.container" role="main" aria-label="Family Care Hub" data-cy="H17-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div role="main" aria-label="Family Care Hub" data-cy="H17-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ marginBottom: '28px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>👪 Family Care Hub</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Central hub for all related activities</p>

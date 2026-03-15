@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: W1 � Business Setup Wizard
+// PAGE IDENTITY: W1 — Business Setup Wizard
 // Registry ID:   page.admin.business-setup
 // Type:          Wizard
 // Owner:         admin
@@ -27,7 +27,6 @@ export default function BusinessSetupWizard() {
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [currentStep, setCurrentStep] = useState<Step>('services');
-    const loading = serviceMutation.isPending || staffMutation.isPending || clientMutation.isPending;
 
     // Form Data
     const [serviceData, setServiceData] = useState({ name: '', hourlyRate: 0, category: 'Senior Care', description: '' });
@@ -68,6 +67,8 @@ export default function BusinessSetupWizard() {
         e.preventDefault();
         clientMutation.mutate(clientData);
     };
+
+    const loading = serviceMutation.isPending || staffMutation.isPending || clientMutation.isPending;
 
     return (
         <div data-cy="page.container" role="main" aria-label="Business Setup" style={{ maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>

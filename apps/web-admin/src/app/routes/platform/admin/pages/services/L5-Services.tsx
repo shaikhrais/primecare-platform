@@ -106,7 +106,7 @@ export default function ServicesPage() {
     };
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Services" style={{ padding: '1rem' }} data-cy="form.service.page">
+        <div role="main" aria-label="Services" style={{ padding: '1rem' }} data-cy="form.service.page">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }} data-cy="page.header">
                 <div>
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.SERVICES.TITLE)}</h2>

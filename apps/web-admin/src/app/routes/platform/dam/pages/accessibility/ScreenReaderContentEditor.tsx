@@ -68,10 +68,10 @@ export const ScreenReaderContentEditor: React.FC = () => {
                 <button 
                     data-cy="dam.a11y.btn-save"
                     onClick={handleSave}
-                    disabled={isSaving || missingCount > 0}
-                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (isSaving || missingCount > 0) ? 'not-allowed' : 'pointer', opacity: (isSaving || missingCount > 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
+                    disabled={saveMutation.isPending || missingCount > 0}
+                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (saveMutation.isPending || missingCount > 0) ? 'not-allowed' : 'pointer', opacity: (saveMutation.isPending || missingCount > 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                    <Save size={16} /> {isSaving ? 'Injecting Tags...' : 'Enforce Accessibility Standards'}
+                    <Save size={16} /> {saveMutation.isPending ? 'Injecting Tags...' : 'Enforce Accessibility Standards'}
                 </button>
             </div>
 

@@ -48,10 +48,10 @@ export const AssetExpirationManager: React.FC = () => {
                 <button 
                     data-cy="btn-deploy-ttl"
                     onClick={handleSave}
-                    disabled={isSaving}
-                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', opacity: isSaving ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
+                    disabled={saveMutation.isPending}
+                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', opacity: saveMutation.isPending ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                    <Save size={16} /> {isSaving ? 'Syncing...' : 'Deploy TTL Policies'}
+                    <Save size={16} /> {saveMutation.isPending ? 'Syncing...' : 'Deploy TTL Policies'}
                 </button>
             </div>
 

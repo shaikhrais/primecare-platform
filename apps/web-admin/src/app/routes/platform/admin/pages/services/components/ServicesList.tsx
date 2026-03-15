@@ -51,14 +51,14 @@ export const ServicesList: React.FC<ServicesListProps> = ({ services, searchTerm
                                     {service.description || '-'}
                                 </td>
                                 <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                    <button data-cy="btn-admin.services-list-0"
+                                    <button
                                         onClick={() => onEdit(service)}
                                         style={{ marginRight: '0.75rem', color: '#4f46e5', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}
                                         data-cy={`btn-edit-${service.id}`}
                                     >
                                         Edit
                                     </button>
-                                    <button data-cy="btn-admin.services-list-1"
+                                    <button
                                         onClick={() => {
                                             confirm('Delete Service', 'Are you sure you want to delete this service? This action cannot be undone.').then(ok => { if (ok) onDelete(service.id); });
                                         }}
@@ -79,7 +79,7 @@ export const ServicesList: React.FC<ServicesListProps> = ({ services, searchTerm
                     )}
                 </tbody>
             </table>
-        <DialogRenderer />
-            </div>
+            <DialogRenderer />
+        </div>
     );
 };

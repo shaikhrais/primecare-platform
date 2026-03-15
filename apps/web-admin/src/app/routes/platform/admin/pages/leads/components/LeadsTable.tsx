@@ -1,7 +1,7 @@
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate } from 'react-router-dom';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, getButtonById } from 'prime-care-shared';
 import { useDialog } from '@/shared/hooks/useDialog';
 
 const { RouteRegistry, ButtonRegistry } = AdminRegistry;
@@ -96,7 +96,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                     </div>
                                 </td>
                                 <td style={{ padding: '1rem' }}>
-                                    <select data-cy="select-admin.leads-table-0"
+                                    <select
                                         value={lead.status}
                                         onChange={(e) => onStatusChange(lead.id, e.target.value as any)}
                                         style={{
@@ -122,14 +122,14 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                                     {new Date(lead.createdAt).toLocaleDateString()}
                                 </td>
                                 <td style={{ padding: '1rem', textAlign: 'right', display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                    <button data-cy="btn-admin.leads-table-0"
+                                    <button
                                         onClick={() => navigate(RouteRegistry.ADMIN.LEADS_CONVERT(lead.id))}
                                         style={{ color: '#059669', background: '#ecfdf5', border: '1px solid #10b981', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', cursor: 'pointer', fontWeight: '600', fontSize: '0.75rem' }}
                                         data-cy={`btn-adm-leads-convert-${lead.id}`}
                                     >
                                         {getButtonById('btn-adm-leads-convert')?.label || 'Convert'}
                                     </button>
-                                    <button data-cy="btn-admin.leads-table-1"
+                                    <button
                                         onClick={() => {
                                             confirm('Delete Lead', CONTENT.MESSAGES.CONFIRM_DELETE).then(ok => { if (ok) onDelete(lead.id); });
                                         }}
@@ -154,7 +154,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, loading, searchTe
                     )}
                 </tbody>
             </table>
-        <DialogRenderer />
-            </div>
+            <DialogRenderer />
+        </div>
     );
 };

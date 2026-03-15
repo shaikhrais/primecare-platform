@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 
 const { ButtonRegistry } = AdminRegistry;
 

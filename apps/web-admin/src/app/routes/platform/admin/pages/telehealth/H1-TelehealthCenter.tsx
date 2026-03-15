@@ -1,11 +1,11 @@
 // ================================================================
-// PAGE IDENTITY: H1 � Telehealth Center
+// PAGE IDENTITY: H1 · Telehealth Center
 // Registry ID:   page.admin.telehealth
 // Type:          Hub
 // Owner:         admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry, getButtonById } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
@@ -77,16 +77,11 @@ export default function TelehealthCenter() {
                         🩺
                     </div>
                     <div>
-                        <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Telehealth & RPM Center</h1>
+                        <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', margin: '0', color: 'var(--text-100)' }}>Telehealth &amp; RPM Center</h1>
                         <p style={{ color: 'var(--text-300)', margin: '4px 0 0 0' }}>Encrypted video consultations and live remote patient monitoring.</p>
                     </div>
                 </div>
-                <button data-cy="btn-admin.telehealth-center-0" className="btn primary" onClick={async () => {
-                    try {
-                        const res: any = await apiClient.post('/v1/admin/telehealth/session/start', {});
-                        showToast(res?.message || 'Started consultation session.', 'success');
-                    } catch { showToast('Session creation failed.', 'error'); }
-                }}>
+                <button data-cy="btn-admin.telehealth-center-0" className="btn primary" onClick={() => sessionMutation.mutate({})}>
                     {startBtn?.label || 'Start Virtual Visit'}
                 </button>
             </div>
@@ -147,20 +142,10 @@ export default function TelehealthCenter() {
                     <div className="pc-card" style={{ padding: '24px' }}>
                         <h3 data-cy="h3-admin.telehealth-center-0" style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '800' }}>Quick Actions</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                            <button data-cy="btn-admin.telehealth-center-2" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
-                                try {
-                                    const res: any = await apiClient.post('/v1/admin/telehealth/triage/open', {});
-                                    showToast(res?.message || 'Opened portal.', 'success');
-                                } catch { showToast('Portal failed.', 'error'); }
-                            }}>
+                            <button data-cy="btn-admin.telehealth-center-2" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={() => triageMutation.mutate({})}>
                                 Open Triage Portal
                             </button>
-                            <button data-cy="btn-admin.telehealth-center-3" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={async () => {
-                                try {
-                                    const res: any = await apiClient.post('/v1/admin/telehealth/vitals/verify', {});
-                                    showToast(res?.message || 'Verified.', 'success');
-                                } catch { showToast('Verify failed.', 'error'); }
-                            }}>
+                            <button data-cy="btn-admin.telehealth-center-3" className="btn secondary" style={{ width: '100%', justifyContent: 'flex-start' }} onClick={() => verifyMutation.mutate({})}>
                                 {verifyBtn?.label || 'Verify Remote Vitals'}
                             </button>
                         </div>

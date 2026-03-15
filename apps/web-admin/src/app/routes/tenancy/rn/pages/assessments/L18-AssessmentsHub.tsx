@@ -3,7 +3,7 @@
 // Type: List | Owner: rn
 // ================================================================
 import React, { useEffect, useState } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import './AssessmentsHub.css';

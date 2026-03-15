@@ -54,10 +54,10 @@ export const RichTextGovernance: React.FC = () => {
                     <button 
                         data-cy="btn-deploy-dom-policies"
                         onClick={handleSave}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <Save size={16} /> {isSaving ? 'Updating Sanitizer...' : 'Deploy DOM Policies'}
+                        <Save size={16} /> {saveMutation.isPending ? 'Updating Sanitizer...' : 'Deploy DOM Policies'}
                     </button>
                 </div>
             </div>

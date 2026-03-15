@@ -3,7 +3,7 @@
 // Type: Tool | Owner: admin
 // ================================================================
 import React, { useState } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useDialog } from '@/shared/hooks/useDialog';
 

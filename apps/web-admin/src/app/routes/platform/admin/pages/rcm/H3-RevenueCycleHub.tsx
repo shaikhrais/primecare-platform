@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
@@ -63,20 +63,10 @@ export default function RevenueCycleHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button data-cy="btn-admin.revenue-cycle-hub-0" className="btn secondary" onClick={async () => {
-                        try {
-                            const res: any = await apiClient.post('/v1/admin/claims/system/sync', {});
-                            showToast(res?.message || 'Revenue synced via clearinghouse.', 'success');
-                        } catch { showToast('Revenue sync failed.', 'error'); }
-                    }}>
+                    <button data-cy="btn-admin.revenue-cycle-hub-0" className="btn secondary" onClick={() => syncMutation.mutate({})}>
                         {syncBtn?.label || 'Sync Revenue'}
                     </button>
-                    <button data-cy="btn-admin.revenue-cycle-hub-1" className="btn primary" onClick={async () => {
-                        try {
-                            const res: any = await apiClient.post('/v1/admin/claims/system/submit', {});
-                            showToast(res?.message || 'Claims package aggregated and transmitted.', 'success');
-                        } catch { showToast('Claim submission failed.', 'error'); }
-                    }}>
+                    <button data-cy="btn-admin.revenue-cycle-hub-1" className="btn primary" onClick={() => submitMutation.mutate({})}>
                         {submitBtn?.label || 'Submit Claim'}
                     </button>
                 </div>

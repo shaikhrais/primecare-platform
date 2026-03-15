@@ -21,7 +21,7 @@ export default function ClientAdmissionForm() {
     if (!formEntry) return null;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Client Admission" style={{ padding: '2rem' }} data-cy="form.client.page">
+        <div role="main" aria-label="Client Admission" style={{ padding: '2rem' }} data-cy="form.client.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.USERS)}

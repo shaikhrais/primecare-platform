@@ -40,7 +40,7 @@ export interface ForecastingResult {
 
 const ACCOUNTING_QK = ['platform', 'admin', 'reporting'];
 
-export function useAccountingData(showToast: (msg: string, type: string) => void) {
+export function useAccountingData(showToast: (msg: string, type: any) => void) {
     const queryClient = useQueryClient();
 
     // 5 parallel useRegistryQuery hooks (React Query fetches independently & in parallel)

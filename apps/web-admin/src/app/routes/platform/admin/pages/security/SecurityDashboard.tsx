@@ -1,5 +1,5 @@
 import React from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 
 const { ContentRegistry, ButtonRegistry } = AdminRegistry;
 

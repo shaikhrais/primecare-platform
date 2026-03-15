@@ -21,7 +21,7 @@ export default function PswOnboardingForm() {
     if (!formEntry) return null;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Staff Onboarding" style={{ padding: '2rem' }} data-cy="form.psw.page">
+        <div role="main" aria-label="Staff Onboarding" style={{ padding: '2rem' }} data-cy="form.psw.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.USERS)}

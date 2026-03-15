@@ -55,10 +55,10 @@ export const ThirdPartyScriptManager: React.FC = () => {
                     <button 
                         data-cy="btn-deploy-script-manifest"
                         onClick={handleSave}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#16A34A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <Zap size={16} /> {isSaving ? 'Syncing...' : 'Deploy Manifest'}
+                        <Zap size={16} /> {saveMutation.isPending ? 'Syncing...' : 'Deploy Manifest'}
                     </button>
                 </div>
             </div>

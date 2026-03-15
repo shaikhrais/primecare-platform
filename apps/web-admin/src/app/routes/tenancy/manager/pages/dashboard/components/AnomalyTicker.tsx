@@ -19,13 +19,13 @@ export const AnomalyTicker: React.FC = () => {
     });
 
     // Map raw API data to Anomaly shape
-    const anomalies: Anomaly[] = rawAnomalies.map((d: any) => ({
+    const anomalies: Anomaly[] = (rawAnomalies.map((d: any) => ({
         id: d.id,
-        type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident',
+        type: d.type === 'late' || d.type === 'overtime' ? d.type : 'incident' as const,
         message: `[${d.type.toUpperCase()}] ${d.description}`,
         timestamp: new Date(d.createdAt),
-        severity: d.status === 'open' ? 'critical' : 'warning'
-    })).slice(0, 5);
+        severity: d.status === 'open' ? 'critical' as const : 'warning' as const
+    })) as Anomaly[]).slice(0, 5);
 
     // Realtime sync: refetch anomalies on relevant events
     useRealtimeSync((msg: SyncMessage) => {

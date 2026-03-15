@@ -31,6 +31,9 @@ export const ToastContainer: React.FC = () => {
                 pointerEvents: 'none',
             }}
             data-cy="toast-container"
+            role="status"
+            aria-live="polite"
+            aria-label="Notifications"
         >
             {toasts.map((toast) => {
                 const typeStyle = TYPE_STYLES[toast.type];
@@ -77,6 +80,7 @@ export const ToastContainer: React.FC = () => {
                                 color: typeStyle.color, opacity: 0.5,
                                 padding: '0', lineHeight: 1, flexShrink: 0,
                             }}
+                            aria-label="Dismiss notification"
                         >×</button>
                     </div>
                 );

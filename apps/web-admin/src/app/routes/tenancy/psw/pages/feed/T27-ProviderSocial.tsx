@@ -8,7 +8,7 @@ export default function ProviderSocial() {
     const [tab, setTab] = useState(0);
     const tabs = ['Feed','Announcements','Peer Recognition','Team Updates'];
     return (
-        <div data-cy="page.container" role="main" aria-label="Provider Social" data-cy="T27-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div role="main" aria-label="Provider Social" data-cy="T27-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ marginBottom: '24px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📱 Provider Social</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>

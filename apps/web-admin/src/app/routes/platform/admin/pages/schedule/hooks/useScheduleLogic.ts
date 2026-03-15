@@ -56,7 +56,7 @@ export const useScheduleLogic = () => {
 
     const handleDeleteVisit = async () => {
         if (!selectedVisit) return;
-        if (!(await confirm('Delete Shift', t(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE)))) return;
+        if (!confirm(t(ContentRegistry.SCHEDULE.MODAL.CONFIRM_DELETE))) return;
         try { if (await apiDeleteVisit(selectedVisit.id)) { setIsAssignModalOpen(false); fetchVisits(); showToast(t(ContentRegistry.SCHEDULE.MESSAGES.SUCCESS_CANCEL), 'success'); } }
         catch { showToast(t(ContentRegistry.SCHEDULE.MESSAGES.ERROR_DELETE), 'error'); }
     };

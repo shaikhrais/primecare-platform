@@ -22,7 +22,7 @@ const ROLE_PAGE: Record<string, string> = {
 };
 
 export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps) {
-    const { showConfirmDialog, DialogRenderer } = useDialog();
+    const { confirm, DialogRenderer } = useDialog();
     const navigate = useNavigate();
     const { showToast } = useNotification();
     const [shiftOpen, setShiftOpen] = useState(false);
@@ -41,12 +41,11 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
     const backingUp = backupMutation.isPending;
 
     const handleEmergency = async () => {
-        const confirmed = await showConfirmDialog({
-            title: '🚨 EMERGENCY PROTOCOL',
-            message: 'This will alert all available staff and supervisors. Proceed?',
-            confirmLabel: 'Activate',
-            variant: 'danger',
-        });
+        const confirmed = await confirm(
+            '🚨 EMERGENCY PROTOCOL',
+            'This will alert all available staff and supervisors. Proceed?',
+            { confirmLabel: 'Activate', variant: 'danger' }
+        );
         if (!confirmed) return;
         emergencyMutation.mutate({});
     };

@@ -19,8 +19,16 @@ export const SecureDocumentRedactor: React.FC = () => {
     const [startX, setStartX] = useState(0);
     const [startY, setStartY] = useState(0);
     const [currentBox, setCurrentBox] = useState<Partial<RedactionBox> | null>(null);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
+
+    const saveMutation = useApiMutation('/platform/admin/dam/media/redact-document', {
+        onSuccess: () => {
+            showToast("Redacted PDF saved permanently to vault. Original file overwritten.", "success");
+            setRedactions([]);
+        },
+        onError: () => { showToast("Failed to lock document redactions", "error"); },
+    });
+
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -54,18 +62,7 @@ export const SecureDocumentRedactor: React.FC = () => {
         setCurrentBox(null);
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/media/redact-document', { redactions });
-            showToast("Redacted PDF saved permanently to vault. Original file overwritten.", "success");
-            setRedactions([]);
-        } catch (error) {
-            showToast("Failed to lock document redactions", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const handleSave = () => saveMutation.mutate({ redactions });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>
@@ -83,10 +80,10 @@ export const SecureDocumentRedactor: React.FC = () => {
                 <button 
                     data-cy="btn-apply-redactions"
                     onClick={handleSave}
-                    disabled={isSaving || redactions.length === 0}
-                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (isSaving || redactions.length === 0) ? 'not-allowed' : 'pointer', opacity: (isSaving || redactions.length === 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
+                    disabled={saveMutation.isPending || redactions.length === 0}
+                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: (saveMutation.isPending || redactions.length === 0) ? 'not-allowed' : 'pointer', opacity: (saveMutation.isPending || redactions.length === 0) ? 0.6 : 1, display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                    <Save size={16} /> {isSaving ? 'Processing...' : 'Apply Redactions & Lock'}
+                    <Save size={16} /> {saveMutation.isPending ? 'Processing...' : 'Apply Redactions & Lock'}
                 </button>
             </div>
 

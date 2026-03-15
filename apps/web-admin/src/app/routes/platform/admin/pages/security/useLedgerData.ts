@@ -31,7 +31,7 @@ export interface AccountBalance {
 
 const LEDGER_QK = ['platform', 'admin', 'financial'];
 
-export function useLedgerData(showToast: (msg: string, type: string) => void) {
+export function useLedgerData(showToast: (msg: string, type: any) => void) {
     const queryClient = useQueryClient();
 
     // 4 parallel useRegistryQuery hooks (React Query fetches them independently & in parallel)

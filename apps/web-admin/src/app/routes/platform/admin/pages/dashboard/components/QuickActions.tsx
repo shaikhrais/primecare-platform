@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;

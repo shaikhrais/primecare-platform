@@ -94,6 +94,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(); }}
                     placeholder={placeholder || 'Enter value...'}
+                    aria-label={title}
                     data-cy="prompt-modal-input"
                     style={{
                         width: '100%', padding: '12px', borderRadius: '8px',

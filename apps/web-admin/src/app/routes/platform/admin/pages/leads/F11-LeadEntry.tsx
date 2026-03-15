@@ -21,7 +21,7 @@ export default function LeadEntryForm() {
     if (!formEntry) return null;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Lead Entry" style={{ padding: '2rem' }} data-cy="form.lead.page">
+        <div role="main" aria-label="Lead Entry" style={{ padding: '2rem' }} data-cy="form.lead.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.LEADS)}

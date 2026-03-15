@@ -39,7 +39,7 @@ export default function PageRegistryPage() {
     const selectedEntry = selectedCode ? MASTER_REGISTRY?.[selectedCode] as MasterEntry | undefined : null;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Page Registry" data-cy="page-registry-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div role="main" aria-label="Page Registry" data-cy="page-registry-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
                 <div style={{ background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)', padding: '14px', borderRadius: '14px', boxShadow: '0 4px 12px rgba(124,58,237,0.3)' }}><Network size={28} color="white" /></div>

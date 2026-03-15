@@ -55,10 +55,10 @@ export const FontTypographyRegistry: React.FC = () => {
                     <button 
                         data-cy="btn-enforce-typography"
                         onClick={handleSave}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#0D9488', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#0D9488', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <AlertOctagon size={16} /> {isSaving ? 'Scrubbing Head tags...' : 'Enforce Typography Rules'}
+                        <AlertOctagon size={16} /> {saveMutation.isPending ? 'Scrubbing Head tags...' : 'Enforce Typography Rules'}
                     </button>
                 </div>
             </div>

@@ -56,10 +56,10 @@ export const DynamicTokenEditor: React.FC = () => {
                 <button 
                     data-cy="dam.tokens.btn-deploy"
                     onClick={handleSaveGlobal}
-                    disabled={isSaving}
-                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    disabled={saveMutation.isPending}
+                    style={{ backgroundColor: '#0F172A', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                    <Save size={16} /> {isSaving ? 'Deploying...' : 'Deploy to Production'}
+                    <Save size={16} /> {saveMutation.isPending ? 'Deploying...' : 'Deploy to Production'}
                 </button>
             </div>
 

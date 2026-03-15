@@ -73,7 +73,7 @@ export function useVisits(filters?: Record<string, string>, options?: Partial<Us
         queryKey: QueryKeys.visits(filters),
         queryFn: () => typedGet<Visit[]>('/v1/manager/visits', filters),
         staleTime: 30_000,
-        ...options,
+        ...(options as any),
     });
 }
 
@@ -108,7 +108,7 @@ export function useUsers(filters?: Record<string, string>, options?: Partial<Use
         queryKey: QueryKeys.users(filters),
         queryFn: () => typedGet<User[]>('/v1/admin/users', filters),
         staleTime: 60_000,
-        ...options,
+        ...(options as any),
     });
 }
 

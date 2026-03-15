@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { AdminRegistry } from 'prime-care-shared';
+import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
@@ -67,20 +67,10 @@ export default function SupplyChainHub() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <button data-cy="btn-admin.supply-chain-hub-0" className="btn secondary" onClick={async () => {
-                        try {
-                            const res: any = await apiClient.post('/v1/admin/erp/po/create', {});
-                            showToast(res?.message || 'New PO draft initiated.', 'success');
-                        } catch { showToast('Failed to spawn PO wizard.', 'error'); }
-                    }}>
+                    <button data-cy="btn-admin.supply-chain-hub-0" className="btn secondary" onClick={() => poMutation.mutate({})}>
                         {poBtn?.label || 'New Purchase Order'}
                     </button>
-                    <button data-cy="btn-admin.supply-chain-hub-1" className="btn primary" onClick={async () => {
-                        try {
-                            const res: any = await apiClient.post('/v1/admin/erp/inventory/add', {});
-                            showToast(res?.message || 'Equipment item allocated to enterprise ledger.', 'success');
-                        } catch { showToast('Registry allocation failed.', 'error'); }
-                    }}>
+                    <button data-cy="btn-admin.supply-chain-hub-1" className="btn primary" onClick={() => addMutation.mutate({})}>
                         {addBtn?.label || 'Add Item'}
                     </button>
                 </div>

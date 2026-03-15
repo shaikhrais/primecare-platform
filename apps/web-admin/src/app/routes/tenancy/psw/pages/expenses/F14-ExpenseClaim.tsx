@@ -21,7 +21,7 @@ export default function ExpenseReportForm() {
     if (!formEntry) return null;
 
     return (
-        <div data-cy="page.container" role="main" aria-label="Expense Claim" style={{ padding: '2rem' }} data-cy="form.expense.page">
+        <div role="main" aria-label="Expense Claim" style={{ padding: '2rem' }} data-cy="form.expense.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.EARNINGS)}

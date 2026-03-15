@@ -35,5 +35,5 @@ export const BusinessOnboardSchema = z.object({
     email: z.string().email(),
     password: PasswordSchema,
     tenantName: z.string().min(3),
-    tenantSlug: z.string().min(3).regex(/^[a-z0-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
+    tenantSlug: z.string().min(3).regex(/^[a-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
 });

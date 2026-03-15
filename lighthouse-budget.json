@@ -1,0 +1,25 @@
+{
+  "description": "PrimeCare Platform — Lighthouse Performance Budgets",
+  "budgets": [
+    {
+      "resourceSizes": [
+        { "resourceType": "script", "budget": 500 },
+        { "resourceType": "stylesheet", "budget": 100 },
+        { "resourceType": "image", "budget": 300 },
+        { "resourceType": "font", "budget": 150 },
+        { "resourceType": "total", "budget": 1500 }
+      ],
+      "resourceCounts": [
+        { "resourceType": "script", "budget": 30 },
+        { "resourceType": "third-party", "budget": 10 }
+      ],
+      "timings": [
+        { "metric": "interactive", "budget": 5000 },
+        { "metric": "first-contentful-paint", "budget": 2000 },
+        { "metric": "largest-contentful-paint", "budget": 3000 },
+        { "metric": "cumulative-layout-shift", "budget": 0.1 },
+        { "metric": "total-blocking-time", "budget": 300 }
+      ]
+    }
+  ]
+}

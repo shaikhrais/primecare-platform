@@ -10,7 +10,7 @@ export default function AuthList() {
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState('all');
     return (
-        <div data-cy="page.container" role="main" aria-label="Auth List" data-cy="L7-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div role="main" aria-label="Auth List" data-cy="L7-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
                     <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🔐 Authorization List</h1>

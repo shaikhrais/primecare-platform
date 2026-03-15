@@ -13,6 +13,18 @@ interface ErrorBoundaryState {
     errorCount: number;
 }
 
+/** Fire-and-forget error telemetry — silently fails if endpoint unavailable */
+function reportError(payload: Record<string, unknown>) {
+    try {
+        const body = JSON.stringify(payload);
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon('/v1/telemetry/errors', new Blob([body], { type: 'application/json' }));
+        } else {
+            fetch('/v1/telemetry/errors', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }, keepalive: true }).catch(() => {});
+        }
+    } catch { /* never let telemetry compound the original error */ }
+}
+
 /**
  * ErrorBoundary — Catches uncaught React errors per-route
  *
@@ -30,7 +42,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     }
 
     componentDidCatch(error: Error, info: React.ErrorInfo) {
-        console.error(JSON.stringify({
+        const payload = {
             level: 'error',
             type: 'REACT_ERROR_BOUNDARY',
             timestamp: new Date().toISOString(),
@@ -38,7 +50,12 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             retryCount: this.state.errorCount,
             error: { name: error.name, message: error.message, stack: error.stack?.split('\n').slice(0, 5).join('\n') },
             componentStack: info.componentStack?.split('\n').slice(0, 5).join('\n'),
-        }));
+            url: window.location.href,
+            userAgent: navigator.userAgent,
+        };
+        console.error(JSON.stringify(payload));
+        // Fire-and-forget telemetry report
+        reportError(payload);
     }
 
     handleRetry = () => {

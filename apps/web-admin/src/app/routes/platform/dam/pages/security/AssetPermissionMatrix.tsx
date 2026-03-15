@@ -49,8 +49,12 @@ export const AssetPermissionMatrix: React.FC = () => {
         }
     ]);
 
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
+
+    const saveMutation = useApiMutation('/platform/admin/dam/security/rbac-matrix', {
+        onSuccess: () => { showToast("Role-Based Access Control (RBAC) matrix synchronized with PostgreSQL Identity layer.", "success"); },
+        onError: () => { showToast("ACL failure", "error"); },
+    });
 
     const togglePermission = (categoryId: string, roleId: string, permissionType: 'canView' | 'canEdit' | 'canDelete') => {
         setCategories(prev => prev.map(c => {
@@ -73,17 +77,7 @@ export const AssetPermissionMatrix: React.FC = () => {
         }));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/security/rbac-matrix', { categories });
-            showToast("Role-Based Access Control (RBAC) matrix synchronized with PostgreSQL Identity layer.", "success");
-        } catch (error) {
-            showToast("ACL failure", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const handleSave = () => saveMutation.mutate({ categories });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>
@@ -102,10 +96,10 @@ export const AssetPermissionMatrix: React.FC = () => {
                     <button 
                         data-cy="btn-enforce-rbac"
                         onClick={handleSave}
-                        disabled={isSaving}
-                        style={{ backgroundColor: '#8B5CF6', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: isSaving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                        disabled={saveMutation.isPending}
+                        style={{ backgroundColor: '#8B5CF6', color: 'white', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: 700, cursor: saveMutation.isPending ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
                     >
-                        <Lock size={16} /> {isSaving ? 'Synchronizing ACL...' : 'Enforce Security Rules'}
+                        <Lock size={16} /> {saveMutation.isPending ? 'Synchronizing ACL...' : 'Enforce Security Rules'}
                     </button>
                 </div>
             </div>
