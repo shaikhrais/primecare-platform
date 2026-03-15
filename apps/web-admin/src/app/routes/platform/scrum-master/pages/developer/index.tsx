@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
+import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
@@ -16,30 +18,29 @@ export default function DeveloperPortal() {
         staleTime: 30_000,
     });
 
-    const handleCreateKey = async () => {
+    const createKeyMutation = useApiMutation('/v1/admin/developer/keys', {
+        onSuccess: (data: any) => {
+            showToast(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`, 'success');
+            queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
+        },
+        onError: () => { showToast('Failed to create key', 'error'); },
+    });
+
+    const handleCreateKey = () => {
         const name = prompt('Enter a name for this API Key (e.g. My Website)');
         if (!name) return;
-
-        try {
-            const response = await apiClient.post('/v1/admin/developer/keys', { name });
-            if (response.ok) {
-                const data = await response.json();
-                showToast(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`, 'success');
-                queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
-            }
-        } catch (error) {
-            showToast('Failed to create key', 'error');
-        }
+        createKeyMutation.mutate({ name });
     };
 
-    const handleDeleteKey = async (id: string) => {
+    const deleteKeyMutation = useMutation({
+        mutationFn: (id: string) => apiClient.delete(`/v1/admin/developer/keys/${id}`),
+        onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] }); },
+        onError: () => { alert('Failed to delete key'); },
+    });
+
+    const handleDeleteKey = (id: string) => {
         if (!confirm('Are you sure you want to revoke this key?')) return;
-        try {
-            const response = await apiClient.delete(`/v1/admin/developer/keys/${id}`);
-            if (response.ok) queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
-        } catch (error) {
-            alert('Failed to delete key');
-        }
+        deleteKeyMutation.mutate(id);
     };
 
     return (

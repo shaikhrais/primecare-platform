@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useNotification } from '@/shared/context/NotificationContext';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 
@@ -16,6 +16,16 @@ export default function SupplyChainHub() {
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const { showToast } = useNotification();
+
+    const poMutation = useApiMutation('/v1/admin/erp/po/create', {
+        onSuccess: (data: any) => { showToast(data?.message || 'New PO draft initiated.', 'success'); },
+        onError: () => { showToast('Failed to spawn PO wizard.', 'error'); },
+    });
+
+    const addMutation = useApiMutation('/v1/admin/erp/inventory/add', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Equipment item allocated to enterprise ledger.', 'success'); },
+        onError: () => { showToast('Registry allocation failed.', 'error'); },
+    });
 
     const fetchInventory = async () => {
         setIsLoading(true);

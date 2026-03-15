@@ -3,28 +3,26 @@ import { Terminal, Database } from 'lucide-react';
 import { useNotification } from '@/shared/context/NotificationContext';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useDialog } from '@/shared/hooks/useDialog';
 
 const { ContentRegistry, ApiRegistry } = AdminRegistry;
 
 export const ScrumMasterCopilot: React.FC = () => {
     const { t } = useTranslation();
-    const [isPushing, setIsPushing] = useState(false);
     const { showToast } = useNotification();
     const { confirm, DialogRenderer } = useDialog();
 
+    const schemaMutation = useApiMutation<Record<string, never>, any>('/v1/admin/developer/db-push', {
+        onSuccess: (data: any) => { showToast(data?.message || 'Schema push triggered successfully.', 'success'); },
+        onError: (error: any) => { showToast('Failed to push schema: ' + (error?.message || 'Unknown error'), 'error'); },
+    });
+
+    const isPushing = schemaMutation.isPending;
+
     const handleSchemaPush = async () => {
         if (!(await confirm('Push Schema Changes', "Are you sure you want to push pending Prisma schema changes? Note that full push requires CLI environment."))) return;
-        setIsPushing(true);
-        try {
-            const res = await apiClient.post('/v1/admin/developer/db-push', {}) as any;
-            showToast(res.message || "Schema push triggered successfully.", "success");
-        } catch (error: any) {
-            showToast("Failed to push schema: " + (error.message || "Unknown error"), "error");
-        } finally {
-            setIsPushing(false);
-        }
+        schemaMutation.mutate({} as never);
     };
 
     const suggestions = [
