@@ -6,19 +6,34 @@
  */
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useUIStore } from '@/shared/stores';
 
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 30_000,       // Data is fresh for 30s (matches old CACHE_TTL)
-            gcTime: 5 * 60_000,      // Garbage collect after 5 min
-            retry: 2,                // Retry failed queries twice
-            retryDelay: (attempt) => Math.min(800 * (attempt + 1), 5000),
-            refetchOnWindowFocus: false,  // Don't auto-refetch on tab focus
-            refetchOnReconnect: true,     // Refetch when coming back online
+            staleTime: 30_000,
+            gcTime: 5 * 60_000,
+            retry: (failureCount, error) => {
+                // Don't retry 4xx errors (client errors)
+                if (error && typeof error === 'object' && 'status' in error) {
+                    const status = (error as { status: number }).status;
+                    if (status >= 400 && status < 500) return false;
+                }
+                return failureCount < 2;
+            },
+            retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10_000),
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: true,
         },
         mutations: {
-            retry: 0,                // Don't retry mutations
+            retry: false,
+            onError: (error) => {
+                // Global mutation error → toast notification
+                const message = error instanceof Error ? error.message : 'An unexpected error occurred';
+                try {
+                    useUIStore.getState().addToast({ type: 'error', title: 'Operation Failed', message });
+                } catch { /* Store not available */ }
+            },
         },
     },
 });
