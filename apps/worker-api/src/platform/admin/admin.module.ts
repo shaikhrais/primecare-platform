@@ -115,8 +115,10 @@ admin.route('/staff-groups', staffGroupsRoutes);
 admin.route('/actions', adminActionsRoutes);
 
 import { statsRoute, handleAdminStats } from './admin-stats';
+import { opsCenterRoute, handleOpsCenter } from './ops-center';
 
 admin.openapi(statsRoute, handleAdminStats);
+admin.openapi(opsCenterRoute, handleOpsCenter);
 
 export default admin;
 

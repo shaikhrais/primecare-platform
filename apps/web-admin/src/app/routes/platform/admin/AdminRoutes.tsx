@@ -103,6 +103,7 @@ const SentimentAnalysis = lazy(() => import('./pages/ai/T55-SentimentAnalysis'))
 const PermissionGrid = lazy(() => import('./pages/security/T56-PermissionGrid'));
 const SessionMonitor = lazy(() => import('./pages/security/T57-SessionMonitor'));
 const ThreatDetection = lazy(() => import('./pages/security/T58-ThreatDetection'));
+const OperationsCenter = lazy(() => import('./pages/ops/D7-OperationsCenter'));
 const SupplyDemand = lazy(() => import('./pages/ops/T67-SupplyDemand'));
 
 export const AdminRoutes = () => (
@@ -197,6 +198,7 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.PERMISSION_GRID} element={<PermissionGrid />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.SESSION_MONITOR} element={<SessionMonitor />} />
         <Route path={RouteRegistry.ADMIN.SECURITY.THREAT_DETECTION} element={<ThreatDetection />} />
+        <Route path={RouteRegistry.ADMIN.OPERATIONS.CENTER} element={<OperationsCenter />} />
         <Route path={RouteRegistry.ADMIN.OPERATIONS.SUPPLY_DEMAND} element={<SupplyDemand />} />
     </Route>
 );

@@ -15,6 +15,7 @@ import { HealthAlerts } from './components/HealthAlerts';
 import { DashboardCharts } from './components/DashboardCharts';
 import { QuickActions } from './components/QuickActions';
 import { OperationalStatus } from './components/OperationalStatus';
+import { BusinessIntelligenceSection } from './components/BusinessIntelligence';
 import { useDialog } from '@/shared/hooks/useDialog';
 import { useRealtimeQuery } from '@/shared/hooks/useRealtimeQuery';
 import { LiveIndicator } from '@/shared/components/ui/LiveIndicator';
@@ -124,6 +125,9 @@ export default function AdminDashboard() {
 
             {/* Interactive Charts Section */}
             <DashboardCharts />
+
+            {/* Business Intelligence Section */}
+            <BusinessIntelligenceSection />
 
             <div className="grid" style={{ marginTop: '2rem' }}>
                 <QuickActions onPostShift={() => setIsPostShiftModalOpen(true)} />

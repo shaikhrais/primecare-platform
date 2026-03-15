@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, User, ClipboardList, Briefcase, X } from 'lucide-react';
+import { Search, User, ClipboardList, Briefcase, X, Zap, Clock, ArrowRight } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;
@@ -13,156 +13,242 @@ interface SearchResult {
     route: string;
 }
 
+interface QuickAction {
+    id: string;
+    label: string;
+    icon: string;
+    route: string;
+    shortcut?: string;
+}
+
+const QUICK_ACTIONS: QuickAction[] = [
+    { id: 'qa-dashboard', label: 'Go to Dashboard', icon: '📊', route: RouteRegistry.ADMIN.DASHBOARD, shortcut: 'D' },
+    { id: 'qa-schedule', label: 'Open Schedule', icon: '📅', route: RouteRegistry.ADMIN.SCHEDULE, shortcut: 'S' },
+    { id: 'qa-ops-center', label: 'Operations Center', icon: '🛰️', route: RouteRegistry.ADMIN.OPERATIONS.CENTER, shortcut: 'O' },
+    { id: 'qa-users', label: 'Manage Users', icon: '👥', route: RouteRegistry.ADMIN.USERS, shortcut: 'U' },
+    { id: 'qa-incidents', label: 'Incidents', icon: '🚨', route: RouteRegistry.ADMIN.INCIDENTS, shortcut: 'I' },
+    { id: 'qa-timesheets', label: 'Timesheets', icon: '⏱️', route: RouteRegistry.ADMIN.TIMESHEETS },
+    { id: 'qa-leads', label: 'Inquiries', icon: '📩', route: RouteRegistry.ADMIN.LEADS },
+    { id: 'qa-reports', label: 'Reports & Export', icon: '📈', route: RouteRegistry.ADMIN.REPORTS },
+    { id: 'qa-security', label: 'Security Dashboard', icon: '🛡️', route: RouteRegistry.ADMIN.SECURITY.DASHBOARD },
+    { id: 'qa-settings', label: 'Settings', icon: '⚙️', route: RouteRegistry.ADMIN.SETTINGS },
+];
+
+const RECENT_KEY = 'pc-cmd-recent';
+const MAX_RECENT = 5;
+
+function getRecent(): { label: string; route: string; icon: string; time: number }[] {
+    try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch { return []; }
+}
+
+function pushRecent(label: string, route: string, icon: string) {
+    const list = getRecent().filter(r => r.route !== route);
+    list.unshift({ label, route, icon, time: Date.now() });
+    localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, MAX_RECENT)));
+}
+
 export const CommandPalette: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchResult[]>([]);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [recent, setRecent] = useState(getRecent);
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    // Suggestion 21: Global Command Palette Listener
+    // All navigable items for keyboard support
+    const allItems = (() => {
+        if (query.trim()) {
+            // Filter quick actions + API results
+            const qLower = query.toLowerCase();
+            const filteredActions = QUICK_ACTIONS.filter(a => a.label.toLowerCase().includes(qLower));
+            return [
+                ...filteredActions.map(a => ({ id: a.id, label: a.label, subtitle: 'Quick Action', icon: a.icon, route: a.route, type: 'action' as const })),
+                ...results.map(r => ({ id: r.id, label: r.name, subtitle: r.subtitle, icon: r.type === 'patient' ? '👤' : r.type === 'staff' ? '💼' : '📋', route: r.route, type: r.type })),
+            ];
+        }
+        return [];
+    })();
+
+    // Ctrl+K toggle
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setIsOpen(prev => !prev);
-            }
-            if (e.key === 'Escape' && isOpen) {
-                setIsOpen(false);
-            }
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setIsOpen(prev => !prev); }
+            if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
-
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isOpen]);
 
+    useEffect(() => { if (isOpen && inputRef.current) inputRef.current.focus(); }, [isOpen]);
+    useEffect(() => { if (isOpen) setRecent(getRecent()); }, [isOpen]);
+    useEffect(() => { setSelectedIndex(0); }, [query, results]);
+
+    // Live search
     useEffect(() => {
-        if (isOpen && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [isOpen]);
-
-    // Fetch live search results
-    useEffect(() => {
-        if (!isOpen) return;
-
-        if (!query.trim()) {
-            setResults([]);
-            return;
-        }
-
-        const fetchResults = async () => {
-             try {
-                 const res = await fetch(`/api/v1/system/data/search?q=${encodeURIComponent(query)}`);
-                 if (res.ok) {
-                     const data = await res.json();
-                     setResults(data);
-                 }
-             } catch (e) {
-                 console.error('Command Palette Search Error', e);
-             }
-        };
-
-        const debounce = window.setTimeout(fetchResults, 300);
+        if (!isOpen || !query.trim()) { setResults([]); return; }
+        const debounce = window.setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/v1/system/data/search?q=${encodeURIComponent(query)}`);
+                if (res.ok) setResults(await res.json());
+            } catch (e) { console.error('Command Palette Search Error', e); }
+        }, 300);
         return () => window.clearTimeout(debounce);
     }, [query, isOpen]);
+
+    const handleSelect = useCallback((label: string, route: string, icon: string) => {
+        pushRecent(label, route, icon);
+        setIsOpen(false);
+        setQuery('');
+        navigate(route);
+    }, [navigate]);
+
+    const handleKeyNav = (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); setSelectedIndex(i => Math.min(i + 1, allItems.length - 1)); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); setSelectedIndex(i => Math.max(i - 1, 0)); }
+        if (e.key === 'Enter' && allItems[selectedIndex]) {
+            e.preventDefault();
+            const item = allItems[selectedIndex];
+            handleSelect(item.label, item.route, item.icon);
+        }
+    };
 
     if (!isOpen) return null;
 
     return (
         <div style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.4)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 99999,
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            paddingTop: '10vh'
+            position: 'fixed', inset: 0, backgroundColor: 'rgba(15, 23, 42, 0.5)',
+            backdropFilter: 'blur(6px)', zIndex: 99999,
+            display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '10vh'
         }}>
-            <div
-                style={{
-                    backgroundColor: 'white',
-                    width: '100%',
-                    maxWidth: '600px',
-                    borderRadius: '16px',
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
-            >
-                <div style={{ display: 'flex', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid #E2E8F0' }}>
-                    <Search color="#94A3B8" size={24} />
+            <div style={{
+                backgroundColor: 'var(--card-bg, white)', width: '100%', maxWidth: '640px',
+                borderRadius: '16px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+                overflow: 'hidden', display: 'flex', flexDirection: 'column'
+            }} onClick={(e) => e.stopPropagation()}>
+
+                {/* Search Input */}
+                <div style={{ display: 'flex', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid var(--border, #E2E8F0)' }}>
+                    <Search color="#94A3B8" size={22} />
                     <input data-cy="input-shared.command-palette-0"
-                        ref={inputRef}
-                        value={query}
+                        ref={inputRef} value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search patients, staff, or modules... (Ctrl+K)"
-                        style={{
-                            flex: 1,
-                            border: 'none',
-                            outline: 'none',
-                            fontSize: '1.2rem',
-                            padding: '0 16px',
-                            backgroundColor: 'transparent',
-                            color: '#0F172A'
-                        }}
+                        onKeyDown={handleKeyNav}
+                        placeholder="Search or jump to... (Ctrl+K)"
+                        style={{ flex: 1, border: 'none', outline: 'none', fontSize: '1.1rem', padding: '0 16px', backgroundColor: 'transparent', color: 'var(--text, #0F172A)' }}
                     />
                     <button data-cy="btn-shared.command-palette-0"
                         onClick={() => setIsOpen(false)}
-                        style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer', padding: '4px', display: 'flex' }}
-                    >
+                        style={{ background: 'transparent', border: 'none', color: '#94A3B8', cursor: 'pointer', padding: '4px', display: 'flex' }}>
                         <X size={20} />
                     </button>
                 </div>
 
-                <div style={{ padding: '8px 0', maxHeight: '400px', overflowY: 'auto' }}>
-                    {results.length === 0 ? (
-                        <div style={{ padding: '32px', textAlign: 'center', color: '#94A3B8', fontSize: '0.95rem' }}>
-                            No results found for "{query}".
+                <div style={{ padding: '8px 0', maxHeight: '440px', overflowY: 'auto' }}>
+
+                    {/* Empty state: show quick actions + recent */}
+                    {!query.trim() && (
+                        <>
+                            {/* Recent Items */}
+                            {recent.length > 0 && (
+                                <>
+                                    <div style={{ padding: '8px 24px 4px', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted, #94A3B8)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                        <Clock size={12} /> Recent
+                                    </div>
+                                    {recent.map((r, idx) => (
+                                        <button key={`recent-${idx}`} data-cy={`btn-recent-${idx}`}
+                                            onClick={() => handleSelect(r.label, r.route, r.icon)}
+                                            style={{
+                                                width: '100%', display: 'flex', alignItems: 'center', gap: '12px',
+                                                padding: '10px 24px', border: 'none', textAlign: 'left',
+                                                cursor: 'pointer', transition: 'background 0.1s',
+                                                background: 'transparent', color: 'var(--text, #0F172A)',
+                                            }}
+                                            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-elev, #F8FAFC)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                        >
+                                            <span style={{ fontSize: '1rem', width: '28px', textAlign: 'center' }}>{r.icon}</span>
+                                            <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{r.label}</span>
+                                            <ArrowRight size={14} color="#94A3B8" style={{ marginLeft: 'auto' }} />
+                                        </button>
+                                    ))}
+                                </>
+                            )}
+
+                            {/* Quick Actions */}
+                            <div style={{ padding: '8px 24px 4px', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted, #94A3B8)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <Zap size={12} /> Quick Actions
+                            </div>
+                            {QUICK_ACTIONS.map((action) => (
+                                <button key={action.id} data-cy={`btn-${action.id}`}
+                                    onClick={() => handleSelect(action.label, action.route, action.icon)}
+                                    style={{
+                                        width: '100%', display: 'flex', alignItems: 'center', gap: '12px',
+                                        padding: '10px 24px', border: 'none', textAlign: 'left',
+                                        cursor: 'pointer', transition: 'background 0.1s',
+                                        background: 'transparent', color: 'var(--text, #0F172A)',
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-elev, #F8FAFC)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                >
+                                    <span style={{ fontSize: '1rem', width: '28px', textAlign: 'center' }}>{action.icon}</span>
+                                    <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{action.label}</span>
+                                    {action.shortcut && (
+                                        <span style={{ marginLeft: 'auto', fontSize: '0.7rem', fontWeight: 600, backgroundColor: 'var(--border, #E2E8F0)', padding: '2px 8px', borderRadius: '4px', color: '#475569' }}>
+                                            {action.shortcut}
+                                        </span>
+                                    )}
+                                </button>
+                            ))}
+                        </>
+                    )}
+
+                    {/* Search results */}
+                    {query.trim() && allItems.length === 0 && (
+                        <div style={{ padding: '40px 24px', textAlign: 'center', color: 'var(--text-muted, #94A3B8)' }}>
+                            <div style={{ fontSize: '2rem', marginBottom: '8px', opacity: 0.4 }}>🔍</div>
+                            <div style={{ fontSize: '0.9rem' }}>No results for "<strong>{query}</strong>"</div>
+                            <div style={{ fontSize: '0.75rem', marginTop: '4px', opacity: 0.7 }}>Try searching by name, module, or keyword</div>
                         </div>
-                    ) : (
+                    )}
+
+                    {query.trim() && allItems.length > 0 && (
                         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                            {results.map((result, idx) => (
-                                <li key={result.id}>
+                            {allItems.map((item, idx) => (
+                                <li key={item.id}>
                                     <button data-cy="btn-shared.command-palette-1"
-                                        onClick={() => {
-                                            setIsOpen(false);
-                                            navigate(result.route);
-                                        }}
+                                        onClick={() => handleSelect(item.label, item.route, item.icon)}
                                         style={{
-                                            width: '100%',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '16px',
+                                            width: '100%', display: 'flex', alignItems: 'center', gap: '16px',
                                             padding: '12px 24px',
-                                            backgroundColor: idx === 0 && query ? '#F8FAFC' : 'transparent', // Mimic auto-focus first item if typing
-                                            border: 'none',
-                                            textAlign: 'left',
-                                            cursor: 'pointer',
-                                            transition: 'background-color 0.1s'
+                                            backgroundColor: idx === selectedIndex ? 'var(--brand-50, #EFF6FF)' : 'transparent',
+                                            border: idx === selectedIndex ? '1px solid var(--brand-200, #BFDBFE)' : '1px solid transparent',
+                                            borderRadius: idx === selectedIndex ? '8px' : '0',
+                                            textAlign: 'left', cursor: 'pointer', transition: 'all 0.1s',
+                                            margin: idx === selectedIndex ? '0 8px' : '0',
                                         }}
-                                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
-                                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-elev, #F8FAFC)'; setSelectedIndex(idx); }}
+                                        onMouseLeave={(e) => { if (idx !== selectedIndex) e.currentTarget.style.backgroundColor = 'transparent'; }}
                                     >
                                         <div style={{
-                                            width: '40px', height: '40px',
-                                            backgroundColor: result.type === 'patient' ? '#FEF2F2' : result.type === 'staff' ? '#EFF6FF' : '#F0FDF4',
-                                            color: result.type === 'patient' ? '#EF4444' : result.type === 'staff' ? '#3B82F6' : '#22C55E',
-                                            borderRadius: '8px',
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                            width: '36px', height: '36px', borderRadius: '8px',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            fontSize: '1.1rem',
+                                            backgroundColor: item.type === 'patient' ? '#FEF2F2' : item.type === 'staff' ? '#EFF6FF' : item.type === 'action' ? '#FFFBEB' : '#F0FDF4',
                                         }}>
-                                            {result.type === 'patient' && <User size={20} />}
-                                            {result.type === 'staff' && <Briefcase size={20} />}
-                                            {result.type === 'module' && <ClipboardList size={20} />}
+                                            {typeof item.icon === 'string' && item.icon.length <= 2 ? item.icon : (
+                                                <>
+                                                    {item.type === 'patient' && <User size={18} />}
+                                                    {item.type === 'staff' && <Briefcase size={18} />}
+                                                    {item.type === 'module' && <ClipboardList size={18} />}
+                                                </>
+                                            )}
                                         </div>
-                                        <div>
-                                            <div style={{ fontWeight: 700, color: '#0F172A', fontSize: '1rem' }}>{result.name}</div>
-                                            <div style={{ color: '#64748B', fontSize: '0.85rem' }}>{result.subtitle}</div>
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ fontWeight: 700, color: 'var(--text, #0F172A)', fontSize: '0.9rem' }}>{item.label}</div>
+                                            <div style={{ color: 'var(--text-muted, #64748B)', fontSize: '0.78rem' }}>{item.subtitle}</div>
                                         </div>
+                                        {idx === selectedIndex && <ArrowRight size={16} color="var(--brand-500, #2563EB)" />}
                                     </button>
                                 </li>
                             ))}
@@ -170,16 +256,17 @@ export const CommandPalette: React.FC = () => {
                     )}
                 </div>
 
-                <div style={{ padding: '12px 24px', backgroundColor: '#F8FAFC', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.8rem', color: '#94A3B8', fontWeight: 600 }}>PrimeCare Global Command Array</span>
-                    <span style={{ fontSize: '0.8rem', color: '#94A3B8', display: 'flex', gap: '8px' }}>
-                        <span style={{ backgroundColor: '#E2E8F0', padding: '2px 6px', borderRadius: '4px', color: '#475569' }}>↑↓</span> to navigate
-                        <span style={{ backgroundColor: '#E2E8F0', padding: '2px 6px', borderRadius: '4px', color: '#475569' }}>↵</span> to select
+                {/* Footer */}
+                <div style={{ padding: '10px 24px', backgroundColor: 'var(--bg-elev, #F8FAFC)', borderTop: '1px solid var(--border, #E2E8F0)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted, #94A3B8)', fontWeight: 600 }}>PrimeCare Command Center</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted, #94A3B8)', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <span style={{ backgroundColor: 'var(--border, #E2E8F0)', padding: '2px 6px', borderRadius: '4px', color: '#475569', fontSize: '0.7rem' }}>↑↓</span> navigate
+                        <span style={{ backgroundColor: 'var(--border, #E2E8F0)', padding: '2px 6px', borderRadius: '4px', color: '#475569', fontSize: '0.7rem' }}>↵</span> select
+                        <span style={{ backgroundColor: 'var(--border, #E2E8F0)', padding: '2px 6px', borderRadius: '4px', color: '#475569', fontSize: '0.7rem' }}>esc</span> close
                     </span>
                 </div>
             </div>
 
-            {/* Capture clicks outside the modal to close */}
             <div style={{ position: 'absolute', inset: 0, zIndex: -1 }} onClick={() => setIsOpen(false)} />
         </div>
     );

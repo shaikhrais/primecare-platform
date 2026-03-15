@@ -68,6 +68,7 @@ export const PLATFORM_ROUTES = {
             TAX_HUB: '/platform/admin/security/tax-hub',
         },
         OPERATIONS: {
+            CENTER: '/platform/admin/ops/center',
             REALTIME_CAPACITY: '/platform/admin/ops/capacity',
             REGION_MAPPING: '/platform/admin/ops/regions',
             SUPPLY_DEMAND: '/platform/admin/ops/supply-demand',

@@ -92,6 +92,11 @@ export const ContentRegistry = {
             LATENCY: 'Procurement Latency',
         }
     },
+    OPERATIONS: {
+        TITLE: 'Live Operations Center',
+        SUBTITLE: 'Real-time visibility into field operations, fleet tracking, and visit management.',
+        MENU: 'Operations Center',
+    },
     RESELLER: {
         TITLE: 'White-Label Reseller Hub',
         SUBTITLE: 'Spawn and manage your child agencies in the Fractal SaaS network.',

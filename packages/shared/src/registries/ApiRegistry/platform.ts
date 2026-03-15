@@ -29,6 +29,7 @@ export const PLATFORM = {
         LEADS_CONVERT: (id: string) => `/v1/admin/leads/${id}/convert`,
         UI_OVERRIDE_COMMIT: '/v1/admin/registry/ui-override/commit',
         OPERATIONS: {
+            CENTER: '/v1/admin/ops/center',
             REALTIME_CAPACITY: '/v1/admin/ops/capacity',
             REGION_MAPPING: '/v1/admin/ops/regions',
             SUPPLY_DEMAND: '/v1/admin/ops/supply-demand',
