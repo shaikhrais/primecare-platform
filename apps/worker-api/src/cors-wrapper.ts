@@ -27,7 +27,23 @@ export function registerCorsMiddleware(app: AppType) {
 
 export function registerErrorHandler(app: AppType) {
     app.onError((err, c) => {
-        console.error('APP.ONERROR:', err);
+        // Structured JSON logging for observability
+        const structuredLog = {
+            level: 'error',
+            timestamp: new Date().toISOString(),
+            correlationId: c.req.header('X-Correlation-ID') || 'unknown',
+            path: c.req.path,
+            method: c.req.method,
+            userAgent: c.req.header('User-Agent')?.substring(0, 100) || 'unknown',
+            tenantId: c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id') || 'unknown',
+            error: {
+                name: err?.name || 'UnknownError',
+                message: err?.message || 'No error message',
+                stack: err?.stack?.split('\n').slice(0, 5).join('\n') || 'No stack trace',
+            },
+        };
+        console.error(JSON.stringify(structuredLog));
+
         const origin = c.req.header('Origin'); const allowed = CORS_ORIGINS;
         const isPreview = origin && CORS_PREVIEW_RE.test(origin);
         const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0];
@@ -51,6 +67,7 @@ export function createFetchWrapper(app: AppType) {
                 const newHeaders = new Headers(response.headers); newHeaders.set('Access-Control-Allow-Origin', allowOrigin); newHeaders.set('Access-Control-Allow-Credentials', 'true');
                 return new Response(response.body, { status: response.status, statusText: response.statusText, headers: newHeaders });
             } catch (err: any) {
+                console.error(JSON.stringify({ level: 'fatal', timestamp: new Date().toISOString(), path: new URL(request.url).pathname, method: request.method, error: { name: err?.name || 'FetchWrapperError', message: err?.message || 'Unknown', stack: err?.stack?.split('\n').slice(0, 3).join('\n') || '' } }));
                 return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin, 'Access-Control-Allow-Credentials': 'true' } });
             }
         },

@@ -44,9 +44,22 @@ const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pa
 const MarketingShowcase = React.lazy(() => import('./routes/shared/pages/MarketingShowcase'));
 
 // Fallback Loader
+// Skeleton Loader for lazy-loaded route chunks
 const LoadingFallback = () => (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100%', color: '#6B7280' }}>
-        <div className="animate-spin" style={{ fontSize: '2rem' }}>⌛</div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', maxWidth: '800px', margin: '2rem auto' }}>
+        {/* Header skeleton */}
+        <div style={{ height: '2rem', width: '40%', borderRadius: '0.5rem', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
+        {/* Content skeleton bars */}
+        <div style={{ height: '1rem', width: '100%', borderRadius: '0.5rem', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
+        <div style={{ height: '1rem', width: '85%', borderRadius: '0.5rem', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
+        <div style={{ height: '1rem', width: '60%', borderRadius: '0.5rem', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
+        {/* Card skeletons */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem', marginTop: '1rem' }}>
+            {[1,2,3].map(i => (
+                <div key={i} style={{ height: '120px', borderRadius: '0.75rem', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.5s infinite' }} />
+            ))}
+        </div>
+        <style>{`@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }`}</style>
     </div>
 );
 
