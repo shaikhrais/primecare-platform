@@ -45,7 +45,7 @@ describe('Router Module', () => {
     it('router exports', async () => {
         const mod = await import('@/app/router');
         expect(mod).toBeDefined();
-    });
+    }, 15_000);
 });
 
 

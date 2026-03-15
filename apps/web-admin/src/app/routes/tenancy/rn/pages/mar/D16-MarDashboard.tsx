@@ -7,10 +7,10 @@ import React, { useState } from 'react';
 export default function MarDashboard() {
     const [period, setPeriod] = useState('This Month');
     return (
-        <div data-cy="D16-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>💊 MAR Dashboard</h1>
+                    <h1 data-cy="page.title" style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>💊 MAR Dashboard</h1>
                     <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Real-time overview and key performance indicators</p>
                 </div>
                 <select data-cy="select-rn.mar-dashboard-0" value={period} onChange={e => setPeriod(e.target.value)} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
