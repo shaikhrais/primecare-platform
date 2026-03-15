@@ -7,7 +7,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('Type Invariants: portal (1 pages)', () => {
     it('P1: Family Portal (portal) meets structural requirements', () => {
-        const dataCy = ["P1-page"];
+        const dataCy = ["page.container","P1-page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

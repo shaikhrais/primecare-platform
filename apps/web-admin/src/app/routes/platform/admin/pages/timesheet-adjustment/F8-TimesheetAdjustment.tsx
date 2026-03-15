@@ -21,7 +21,7 @@ export default function TimesheetAdjForm() {
     if (!formEntry) return null;
 
     return (
-        <div style={{ padding: '2rem' }} data-cy="form.timesheet.page">
+        <div data-cy="page.container" role="main" aria-label="Timesheet Adjustment" style={{ padding: '2rem' }} data-cy="form.timesheet.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.TIMESHEETS)}

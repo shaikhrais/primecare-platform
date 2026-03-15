@@ -70,7 +70,7 @@ export default function BusinessSetupWizard() {
     };
 
     return (
-        <div data-cy="page.container" style={{ maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div data-cy="page.container" role="main" aria-label="Business Setup" style={{ maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>{t(ContentRegistry.SETUP_WIZARD.TITLE)}</h1>
                 <p style={{ color: '#6b7280' }}>{t(ContentRegistry.SETUP_WIZARD.SUBTITLE)}</p>

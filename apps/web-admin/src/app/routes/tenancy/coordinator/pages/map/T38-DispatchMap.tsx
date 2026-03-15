@@ -66,7 +66,7 @@ export default function DispatchMap() {
     if (loading) return <div className="dispatch-map-container"><p>Syncing Field Intel...</p></div>;
 
     return (
-        <div data-cy="page.container" className="dispatch-map-container">
+        <div data-cy="page.container" role="main" aria-label="Dispatch Map" className="dispatch-map-container">
             <header className="map-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div>

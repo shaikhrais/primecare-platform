@@ -32,7 +32,7 @@ export default function DocumentCenter() {
     };
 
     return (
-        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container">
+        <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }} data-cy="page.container" role="main" aria-label="Document Center">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: 'var(--brand-50)', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid var(--brand-100)' }}>📁</div>

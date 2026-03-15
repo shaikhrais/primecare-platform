@@ -22,7 +22,7 @@ export const AssessmentsHub: React.FC = () => {
 
     if (loading) {
         return (
-            <div data-cy="page.container" className="assessments-loading">
+            <div data-cy="page.container" role="main" aria-label="Assessments Hub" className="assessments-loading">
                 <div className="spinner"></div>
                 <p>Synchronizing Clinical Ledger...</p>
             </div>

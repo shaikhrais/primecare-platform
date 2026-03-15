@@ -35,7 +35,7 @@ export default function CredentialVault() {
     };
 
     return (
-        <div data-cy="page.container" className="p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div data-cy="page.container" role="main" aria-label="Credential Vault" className="p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <header className="flex justify-between items-center">
                 <div>
                     <h1 data-cy="page.title" className="text-3xl font-black tracking-tight">Credential Vault</h1>

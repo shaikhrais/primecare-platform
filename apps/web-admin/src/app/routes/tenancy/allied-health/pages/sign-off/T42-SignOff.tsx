@@ -8,7 +8,7 @@ export default function SignOff() {
     const [tab, setTab] = useState(0);
     const tabs = ['Pending Sign-offs','Completed','Quick Approve','Batch Actions'];
     return (
-        <div data-cy="T42-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Sign Off" data-cy="T42-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ marginBottom: '24px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>✍️ Sign Off</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>

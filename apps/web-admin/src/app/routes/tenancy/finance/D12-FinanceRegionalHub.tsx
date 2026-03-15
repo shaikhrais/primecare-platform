@@ -32,7 +32,7 @@ const FinanceRegionalHub: React.FC = () => {
     ];
 
     return (
-        <div data-cy="page.container" className="finance-regional-hub">
+        <div data-cy="page.container" role="main" aria-label="Finance Regional" className="finance-regional-hub">
             <header className="finance-header">
                 <div className="mgr-title-group">
                     <h1 data-cy="page.title">FINANCE & GOVERNANCE</h1>

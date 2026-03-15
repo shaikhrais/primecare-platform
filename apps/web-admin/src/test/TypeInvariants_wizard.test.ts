@@ -19,7 +19,7 @@ describe('Type Invariants: wizard (5 pages)', () => {
     });
 
     it('W2: Staff Onboarding (wizard) meets structural requirements', () => {
-        const dataCy = ["W2-page","btn-admin.staff-onboarding-wizard-0","btn-admin.staff-onboarding-wizard-1"];
+        const dataCy = ["page.container","W2-page","btn-admin.staff-onboarding-wizard-0","btn-admin.staff-onboarding-wizard-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -31,7 +31,7 @@ describe('Type Invariants: wizard (5 pages)', () => {
     });
 
     it('W3: Care Plan (wizard) meets structural requirements', () => {
-        const dataCy = ["W3-page","btn-admin.care-plan-wizard-0","btn-admin.care-plan-wizard-1"];
+        const dataCy = ["page.container","W3-page","btn-admin.care-plan-wizard-0","btn-admin.care-plan-wizard-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

@@ -48,7 +48,7 @@ export default function LeadConversion() {
     const handleConvert = () => convertMutation.mutate();
 
     return (
-        <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Lead Conversion" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
             <div className="pc-card">
                 <div className="pc-card-h">Convert Lead to Client</div>
                 <div className="pc-card-b">

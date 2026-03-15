@@ -112,7 +112,7 @@ export default function UserEntryForm() {
     if (queryLoading) return <div style={{ padding: '2rem' }}>{t(ContentRegistry.USERS.FORM.LOADING)}</div>;
 
     return (
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
+        <div data-cy="page.container" role="main" aria-label="User Entry" style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }} data-cy="form.user.page">
             <UnsavedChangesGuard
                 isOpen={showGuard}
                 onStay={() => setShowGuard(false)}

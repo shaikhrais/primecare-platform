@@ -37,7 +37,7 @@ const KnowledgeBaseArticle: React.FC = () => {
     }, [slug]);
 
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="KB Article" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
             <Link
                 to={AdminRegistry.RouteRegistry.SUPPORT}
                 style={{

@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: L1 · Schedule
+// PAGE IDENTITY: L1 ï¿½ Schedule
 // Type: List | Owner: admin
 // ================================================================
 import React from 'react';
@@ -28,7 +28,7 @@ export default function Schedule() {
     } = useScheduleLogic();
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} data-cy="page.container">
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} data-cy="page.container" role="main" aria-label="Schedule">
             <ScheduleHeader onCreateVisit={() => {
                 setSelectedVisit(null);
                 setIsCreateVisitModalOpen(true);

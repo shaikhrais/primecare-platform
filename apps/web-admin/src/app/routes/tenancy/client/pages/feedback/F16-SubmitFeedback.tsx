@@ -21,7 +21,7 @@ export default function FeedbackForm() {
     if (!formEntry) return null;
 
     return (
-        <div style={{ padding: '2rem' }} data-cy="page.container">
+        <div style={{ padding: '2rem' }} data-cy="page.container" role="main" aria-label="Submit Feedback">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.CLIENT.BOOKINGS)}

@@ -39,7 +39,7 @@ const AutoPilotDashboard: React.FC = () => {
     };
 
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="AutoPilot" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: '#F0FDF4', padding: '16px', borderRadius: '12px', fontSize: '32px' }}>
                     🤖

@@ -24,7 +24,7 @@ export const MarClient: React.FC = () => {
     const handleFinalSubmit = async () => { if (!signature) { showToast('Signature required.', 'error'); return; } const ok = await commitAdministeredMeds(meds); if (ok) { showToast('Daily MAR Successfully Committed to Ledger.', 'success'); setIsSigning(false); setMeds([]); } else { showToast('Failed to sync MAR ledger. Data cached locally.', 'error'); } };
 
     return (
-        <div data-cy="page.container" style={{ padding: '0 24px 24px 24px', maxWidth: '1000px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="MAR Client" style={{ padding: '0 24px 24px 24px', maxWidth: '1000px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem' }}><div><h1 style={{ margin: '0 0 8px 0', fontSize: '32px', fontWeight: 900, color: '#0F172A' }}>Medication Admin Record (eMAR)</h1><div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}><span style={{ fontWeight: 800, color: '#334155' }}>Patient: Beatrice Morrison</span>{isOffline && <span style={{ display: 'flex', alignItems: 'center', gap: '6px', backgroundColor: '#FEF2F2', color: '#B91C1C', padding: '4px 12px', borderRadius: '16px', fontSize: '0.85rem', fontWeight: 700 }}><WifiOff size={14} /> Offline Mode - Local Cache Active</span>}</div></div></div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>

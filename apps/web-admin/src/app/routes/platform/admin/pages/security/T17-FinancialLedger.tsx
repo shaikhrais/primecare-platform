@@ -21,7 +21,7 @@ export default function FinancialLedger() {
     const revenue = balances.filter(b => b.type === 'REVENUE').reduce((sum, b) => sum + b.balance, 0);
 
     return (
-        <div data-cy="page.container" className="pc-page" style={{ padding: '24px' }}>
+        <div data-cy="page.container" role="main" aria-label="Financial Ledger" className="pc-page" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                 <div><h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', color: '#111827' }}>Financial Command Center</h1><p style={{ color: '#6B7280', fontSize: '16px' }}>Advanced ledger matching, real-time balances, and GAAP reporting.</p></div>
                 <div style={{ display: 'flex', gap: '8px' }}><button data-cy="btn-admin.financial-ledger-0" className="btn secondary" onClick={loadData}>Refresh Data</button><button data-cy="btn-admin.financial-ledger-1" className="btn primary">Export Ledger</button></div>

@@ -42,7 +42,7 @@ const FormRegistryPage: React.FC = () => {
 
     // ── Registry Listing View ────────────────────────────────────────────
     return (
-        <div data-cy="form-registry-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Form Registry" data-cy="form-registry-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
                 <div style={{

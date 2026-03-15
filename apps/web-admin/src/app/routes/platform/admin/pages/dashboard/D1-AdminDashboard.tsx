@@ -92,7 +92,7 @@ export default function AdminDashboard() {
         } catch { showToast('Network error', 'error'); }
     };
     return (
-        <div data-cy="page.container">
+        <div data-cy="page.container" role="main" aria-label="Admin Dashboard">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                 <div>
                     <h1 style={{ margin: '0 0 6px 0', fontSize: '32px', color: 'var(--text)' }} data-cy="page.title">

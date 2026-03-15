@@ -1,5 +1,5 @@
 // ================================================================
-// PAGE IDENTITY: T20 · Daily Entry
+// PAGE IDENTITY: T20 ï¿½ Daily Entry
 // Type: Tool | Owner: manager
 // ================================================================
 import { AdminRegistry } from 'prime-care-shared';
@@ -112,7 +112,7 @@ export default function DailyEntryPage() {
     };
 
     return (
-        <div style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
+        <div data-cy="page.container" role="main" aria-label="Daily Entry" style={{ display: 'flex', height: 'calc(100vh - 100px)', gap: '24px' }} data-cy="form.daily.page">
             <DailyEntryGuard showGuard={showGuard} setShowGuard={setShowGuard} />
 
             <DailyEntryContext

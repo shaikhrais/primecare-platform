@@ -108,7 +108,7 @@ const outline = [
 
 const KnowledgeBaseIndex: React.FC = () => {
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Knowledge Base" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
                 <div style={{ backgroundColor: '#F3E8FF', padding: '16px', borderRadius: '12px', fontSize: '32px' }}>
                     📚

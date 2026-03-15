@@ -42,7 +42,7 @@ export default function PayoutHistory() {
     };
 
     return (
-        <div data-cy="page.container" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div data-cy="page.container" role="main" aria-label="Payout History" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{
                 background: 'rgba(255, 255, 255, 0.8)',
                 backdropFilter: 'blur(12px)',

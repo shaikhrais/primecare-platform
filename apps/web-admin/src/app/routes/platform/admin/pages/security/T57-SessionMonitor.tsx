@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function SessionMonitor() {
     return (
-        <div data-cy="page.container" style={{ padding: '24px' }}>
+        <div data-cy="page.container" role="main" aria-label="Session Monitor" style={{ padding: '24px' }}>
             <div style={{ marginBottom: '32px' }}>
                 <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Session Monitor</h1>
                 <p style={{ color: '#6B7280' }}>Real-time user session status and anomaly detection.</p>

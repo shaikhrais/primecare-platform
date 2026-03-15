@@ -19,7 +19,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L2: Incident List (list) meets structural requirements', () => {
-        const dataCy = ["L2-page","btn-admin.incident-list-0","input-admin.incident-list-0","btn-admin.incident-list-1","table-admin.incident-list","btn-admin.incident-list-2"];
+        const dataCy = ["page.container","L2-page","btn-admin.incident-list-0","input-admin.incident-list-0","btn-admin.incident-list-1","table-admin.incident-list","btn-admin.incident-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -31,7 +31,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L3: Lead List (list) meets structural requirements', () => {
-        const dataCy = ["L3-page","btn-admin.lead-list-0","input-admin.lead-list-0","btn-admin.lead-list-1","table-admin.lead-list","btn-admin.lead-list-2"];
+        const dataCy = ["page.container","L3-page","btn-admin.lead-list-0","input-admin.lead-list-0","btn-admin.lead-list-1","table-admin.lead-list","btn-admin.lead-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -55,7 +55,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L4: Timesheets (list) meets structural requirements', () => {
-        const dataCy = ["L4-page","btn-admin.timesheets-0","input-admin.timesheets-0","btn-admin.timesheets-1","table-admin.timesheets","btn-admin.timesheets-2"];
+        const dataCy = ["page.container","L4-page","btn-admin.timesheets-0","input-admin.timesheets-0","btn-admin.timesheets-1","table-admin.timesheets","btn-admin.timesheets-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -67,7 +67,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L5: Services (list) meets structural requirements', () => {
-        const dataCy = ["form.service.page","page.header","page.title","page.subtitle","btn.service.add"];
+        const dataCy = ["page.container","form.service.page","page.header","page.title","page.subtitle","btn.service.add"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -79,7 +79,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L6: Audit Logs (list) meets structural requirements', () => {
-        const dataCy = ["L6-page","btn-admin.audit-logs-0","input-admin.audit-logs-0","btn-admin.audit-logs-1","table-admin.audit-logs","btn-admin.audit-logs-2"];
+        const dataCy = ["page.container","L6-page","btn-admin.audit-logs-0","input-admin.audit-logs-0","btn-admin.audit-logs-1","table-admin.audit-logs","btn-admin.audit-logs-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -91,7 +91,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L7: Auth List (list) meets structural requirements', () => {
-        const dataCy = ["L7-page","btn-admin.auth-list-0","input-admin.auth-list-0","btn-admin.auth-list-1","table-admin.auth-list","btn-admin.auth-list-2"];
+        const dataCy = ["page.container","L7-page","btn-admin.auth-list-0","input-admin.auth-list-0","btn-admin.auth-list-1","table-admin.auth-list","btn-admin.auth-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -103,7 +103,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L8: Consent List (list) meets structural requirements', () => {
-        const dataCy = ["L8-page","btn-admin.consent-list-0","input-admin.consent-list-0","btn-admin.consent-list-1","table-admin.consent-list","btn-admin.consent-list-2"];
+        const dataCy = ["page.container","L8-page","btn-admin.consent-list-0","input-admin.consent-list-0","btn-admin.consent-list-1","table-admin.consent-list","btn-admin.consent-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -115,7 +115,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L9: Referral List (list) meets structural requirements', () => {
-        const dataCy = ["L9-page","btn-admin.referral-list-0","input-admin.referral-list-0","btn-admin.referral-list-1","table-admin.referral-list","btn-admin.referral-list-2"];
+        const dataCy = ["page.container","L9-page","btn-admin.referral-list-0","input-admin.referral-list-0","btn-admin.referral-list-1","table-admin.referral-list","btn-admin.referral-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -127,7 +127,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L10: Claims List (list) meets structural requirements', () => {
-        const dataCy = ["L10-page","btn-admin.claims-list-0","input-admin.claims-list-0","btn-admin.claims-list-1","table-admin.claims-list","btn-admin.claims-list-2"];
+        const dataCy = ["page.container","L10-page","btn-admin.claims-list-0","input-admin.claims-list-0","btn-admin.claims-list-1","table-admin.claims-list","btn-admin.claims-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -139,7 +139,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L11: Webhook List (list) meets structural requirements', () => {
-        const dataCy = ["L11-page","btn-admin.webhook-list-0","input-admin.webhook-list-0","btn-admin.webhook-list-1","table-admin.webhook-list","btn-admin.webhook-list-2"];
+        const dataCy = ["page.container","L11-page","btn-admin.webhook-list-0","input-admin.webhook-list-0","btn-admin.webhook-list-1","table-admin.webhook-list","btn-admin.webhook-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -163,7 +163,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L15: Customer List (list) meets structural requirements', () => {
-        const dataCy = ["customer-list-page","page.header","page.title","btn-admit-client","btn-admin.customer-list-0","tbl-customers","customer-name","customer-email","customer-status","btn-view-customer"];
+        const dataCy = ["page.container","customer-list-page","page.header","page.title","btn-admit-client","btn-admin.customer-list-0","tbl-customers","customer-name","customer-email","customer-status","btn-view-customer"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -175,7 +175,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L22: EVV Exceptions (list) meets structural requirements', () => {
-        const dataCy = ["L22-page","btn-admin.evv-exceptions-0","input-admin.evv-exceptions-0","btn-admin.evv-exceptions-1","table-admin.evv-exceptions","btn-admin.evv-exceptions-2"];
+        const dataCy = ["page.container","L22-page","btn-admin.evv-exceptions-0","input-admin.evv-exceptions-0","btn-admin.evv-exceptions-1","table-admin.evv-exceptions","btn-admin.evv-exceptions-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -187,7 +187,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L13: Evaluations (list) meets structural requirements', () => {
-        const dataCy = ["L13-page","btn-manager.evaluations-0","input-manager.evaluations-0","btn-manager.evaluations-1","table-manager.evaluations","btn-manager.evaluations-2"];
+        const dataCy = ["page.container","L13-page","btn-manager.evaluations-0","input-manager.evaluations-0","btn-manager.evaluations-1","table-manager.evaluations","btn-manager.evaluations-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -199,7 +199,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L16: PSW Schedule (list) meets structural requirements', () => {
-        const dataCy = ["L16-page","btn-psw.psw-schedule-0","input-psw.psw-schedule-0","btn-psw.psw-schedule-1","table-psw.psw-schedule","btn-psw.psw-schedule-2"];
+        const dataCy = ["page.container","L16-page","btn-psw.psw-schedule-0","input-psw.psw-schedule-0","btn-psw.psw-schedule-1","table-psw.psw-schedule","btn-psw.psw-schedule-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -211,7 +211,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L17: Open Shifts (list) meets structural requirements', () => {
-        const dataCy = ["L17-page","btn-psw.open-shifts-0","input-psw.open-shifts-0","btn-psw.open-shifts-1","table-psw.open-shifts","btn-psw.open-shifts-2"];
+        const dataCy = ["page.container","L17-page","btn-psw.open-shifts-0","input-psw.open-shifts-0","btn-psw.open-shifts-1","table-psw.open-shifts","btn-psw.open-shifts-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -235,7 +235,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L19: RAI Assessments (list) meets structural requirements', () => {
-        const dataCy = ["L19-page","btn-rn.rai-assessments-0","input-rn.rai-assessments-0","btn-rn.rai-assessments-1","table-rn.rai-assessments","btn-rn.rai-assessments-2"];
+        const dataCy = ["page.container","L19-page","btn-rn.rai-assessments-0","input-rn.rai-assessments-0","btn-rn.rai-assessments-1","table-rn.rai-assessments","btn-rn.rai-assessments-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -259,7 +259,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L20: Waitlist Manager (list) meets structural requirements', () => {
-        const dataCy = ["L20-page","btn-coordinator.waitlist-manager-0","input-coordinator.waitlist-manager-0","btn-coordinator.waitlist-manager-1","table-coordinator.waitlist-manager","btn-coordinator.waitlist-manager-2"];
+        const dataCy = ["page.container","L20-page","btn-coordinator.waitlist-manager-0","input-coordinator.waitlist-manager-0","btn-coordinator.waitlist-manager-1","table-coordinator.waitlist-manager","btn-coordinator.waitlist-manager-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container
@@ -271,7 +271,7 @@ describe('Type Invariants: list (23 pages)', () => {
     });
 
     it('L21: Treatment List (list) meets structural requirements', () => {
-        const dataCy = ["L21-page","btn-treatment-list-0","input-treatment-list-0","btn-treatment-list-1","table-treatment-list","btn-treatment-list-2"];
+        const dataCy = ["page.container","L21-page","btn-treatment-list-0","input-treatment-list-0","btn-treatment-list-1","table-treatment-list","btn-treatment-list-2"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Lists should have container

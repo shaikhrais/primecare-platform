@@ -139,7 +139,7 @@ describe('Type Invariants: hub (20 pages)', () => {
     });
 
     it('H12: Operations Hub (hub) meets structural requirements', () => {
-        const dataCy = ["H12-page"];
+        const dataCy = ["page.container","H12-page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Hubs should have a container
@@ -175,7 +175,7 @@ describe('Type Invariants: hub (20 pages)', () => {
     });
 
     it('H15: PSW Training (hub) meets structural requirements', () => {
-        const dataCy = ["H15-page"];
+        const dataCy = ["page.container","H15-page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Hubs should have a container
@@ -211,7 +211,7 @@ describe('Type Invariants: hub (20 pages)', () => {
     });
 
     it('H17: Family Care Hub (hub) meets structural requirements', () => {
-        const dataCy = ["H17-page"];
+        const dataCy = ["page.container","H17-page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Hubs should have a container
@@ -223,7 +223,7 @@ describe('Type Invariants: hub (20 pages)', () => {
     });
 
     it('H18: Coordinator Hub (hub) meets structural requirements', () => {
-        const dataCy = ["H18-page"];
+        const dataCy = ["page.container","H18-page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Hubs should have a container

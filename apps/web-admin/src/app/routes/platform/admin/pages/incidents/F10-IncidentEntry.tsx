@@ -21,7 +21,7 @@ export default function IncidentEntryForm() {
     if (!formEntry) return null;
 
     return (
-        <div style={{ padding: '2rem' }} data-cy="form.incident.page">
+        <div data-cy="page.container" role="main" aria-label="Incident Entry" style={{ padding: '2rem' }} data-cy="form.incident.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.ADMIN.INCIDENTS)}

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 export default function RegionalStats() {
     const [period, setPeriod] = useState('This Month');
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Regional Stats" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
                     <h1 data-cy="page.title" style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🗺️ Regional Stats</h1>

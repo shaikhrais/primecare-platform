@@ -58,7 +58,7 @@ const BillingHub: React.FC = () => {
     const outstanding = invoices.filter(i => i.status !== 'paid').reduce((acc, i) => acc + i.amount, 0);
 
     return (
-        <div data-cy="page.container" className="billing-hub-container">
+        <div data-cy="page.container" role="main" aria-label="Billing Hub" className="billing-hub-container">
             <header className="billing-header">
                 <div>
                     <h1 data-cy="page.title">{ContentRegistry.CLIENT_DASHBOARD.FAMILY_HUB.BILLING_TITLE}</h1>

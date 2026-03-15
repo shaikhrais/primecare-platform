@@ -7,7 +7,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('Type Invariants: report (13 pages)', () => {
     it('R1: Report Center (report) meets structural requirements', () => {
-        const dataCy = ["page.reports","h2-admin.report-center-0","select-admin.report-center-0","btn-admin.report-center-0","btn-admin.report-center-1"];
+        const dataCy = ["page.container","page.reports","h2-admin.report-center-0","select-admin.report-center-0","btn-admin.report-center-0","btn-admin.report-center-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -31,7 +31,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R6: Auth Utilization (report) meets structural requirements', () => {
-        const dataCy = ["R6-page","select-admin.auth-utilization-0","select-admin.auth-utilization-1","btn-admin.auth-utilization-0","h3-admin.auth-utilization-0"];
+        const dataCy = ["page.container","R6-page","select-admin.auth-utilization-0","select-admin.auth-utilization-1","btn-admin.auth-utilization-0","h3-admin.auth-utilization-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -43,7 +43,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R7: Consent Expiring (report) meets structural requirements', () => {
-        const dataCy = ["R7-page","select-admin.consent-expiring-0","select-admin.consent-expiring-1","btn-admin.consent-expiring-0","h3-admin.consent-expiring-0"];
+        const dataCy = ["page.container","R7-page","select-admin.consent-expiring-0","select-admin.consent-expiring-1","btn-admin.consent-expiring-0","h3-admin.consent-expiring-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -55,7 +55,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R8: EVV Export (report) meets structural requirements', () => {
-        const dataCy = ["R8-page","select-admin.evv-export-0","select-admin.evv-export-1","btn-admin.evv-export-0","h3-admin.evv-export-0"];
+        const dataCy = ["page.container","R8-page","select-admin.evv-export-0","select-admin.evv-export-1","btn-admin.evv-export-0","h3-admin.evv-export-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -67,7 +67,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R9: Audit Download (report) meets structural requirements', () => {
-        const dataCy = ["R9-page","select-admin.audit-download-0","select-admin.audit-download-1","btn-admin.audit-download-0","h3-admin.audit-download-0"];
+        const dataCy = ["page.container","R9-page","select-admin.audit-download-0","select-admin.audit-download-1","btn-admin.audit-download-0","h3-admin.audit-download-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -79,7 +79,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R10: Compliance Export (report) meets structural requirements', () => {
-        const dataCy = ["R10-page","select-admin.compliance-export-0","select-admin.compliance-export-1","btn-admin.compliance-export-0","h3-admin.compliance-export-0"];
+        const dataCy = ["page.container","R10-page","select-admin.compliance-export-0","select-admin.compliance-export-1","btn-admin.compliance-export-0","h3-admin.compliance-export-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -91,7 +91,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R11: Referral Analytics (report) meets structural requirements', () => {
-        const dataCy = ["R11-page","select-admin.referral-analytics-0","select-admin.referral-analytics-1","btn-admin.referral-analytics-0","h3-admin.referral-analytics-0"];
+        const dataCy = ["page.container","R11-page","select-admin.referral-analytics-0","select-admin.referral-analytics-1","btn-admin.referral-analytics-0","h3-admin.referral-analytics-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -103,7 +103,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R12: Claims ERA (report) meets structural requirements', () => {
-        const dataCy = ["R12-page","select-admin.claims-era-0","select-admin.claims-era-1","btn-admin.claims-era-0","h3-admin.claims-era-0"];
+        const dataCy = ["page.container","R12-page","select-admin.claims-era-0","select-admin.claims-era-1","btn-admin.claims-era-0","h3-admin.claims-era-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -115,7 +115,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R13: Regulatory Export (report) meets structural requirements', () => {
-        const dataCy = ["R13-page","select-admin.regulatory-export-0","select-admin.regulatory-export-1","btn-admin.regulatory-export-0","h3-admin.regulatory-export-0"];
+        const dataCy = ["page.container","R13-page","select-admin.regulatory-export-0","select-admin.regulatory-export-1","btn-admin.regulatory-export-0","h3-admin.regulatory-export-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -127,7 +127,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R3: PSW Earnings (report) meets structural requirements', () => {
-        const dataCy = ["R3-page","select-psw.psw-earnings-0","select-psw.psw-earnings-1","btn-psw.psw-earnings-0","h3-psw.psw-earnings-0"];
+        const dataCy = ["page.container","R3-page","select-psw.psw-earnings-0","select-psw.psw-earnings-1","btn-psw.psw-earnings-0","h3-psw.psw-earnings-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -151,7 +151,7 @@ describe('Type Invariants: report (13 pages)', () => {
     });
 
     it('R5: Medical Summary (report) meets structural requirements', () => {
-        const dataCy = ["R5-page","select-client.medical-summary-0","select-client.medical-summary-1","btn-client.medical-summary-0","h3-client.medical-summary-0"];
+        const dataCy = ["page.container","R5-page","select-client.medical-summary-0","select-client.medical-summary-1","btn-client.medical-summary-0","h3-client.medical-summary-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

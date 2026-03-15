@@ -23,7 +23,7 @@ export default function AIInsights() {
     const refreshBtn = getButtonById('btn-ai-insights-refresh');
 
     return (
-        <div data-cy="page.container" style={{ padding: '24px' }}>
+        <div data-cy="page.container" role="main" aria-label="AI Insights" style={{ padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div>
                     <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>{ContentRegistry.INSIGHTS.TITLE}</h1>

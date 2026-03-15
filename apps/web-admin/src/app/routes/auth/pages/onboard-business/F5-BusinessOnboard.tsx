@@ -8,7 +8,7 @@ export default function BusinessOnboard() {
     const [saving, setSaving] = useState(false);
     const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSaving(true); setTimeout(() => setSaving(false), 1500); };
     return (
-        <div data-cy="F5-page" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Business Onboard" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ marginBottom: '24px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🏢 Business Onboard</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Fill in the details below</p>

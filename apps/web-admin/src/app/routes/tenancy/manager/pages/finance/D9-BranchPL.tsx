@@ -32,7 +32,7 @@ export default function BranchPL() {
 
     if (loading) {
         return (
-            <div data-cy="page.container" className="finance-hub-container">
+            <div data-cy="page.container" role="main" aria-label="Branch P&L" className="finance-hub-container">
                 <div style={{ textAlign: 'center', padding: '100px' }}>
                     <p style={{ fontWeight: 700, color: '#64748b' }}>Calculating Branch Profitability Ledger...</p>
                 </div>

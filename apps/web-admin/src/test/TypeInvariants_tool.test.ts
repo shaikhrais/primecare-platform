@@ -7,7 +7,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('Type Invariants: tool (67 pages)', () => {
     it('T1: Search (tool) meets structural requirements', () => {
-        const dataCy = ["T1-page","btn-admin.search-page-0"];
+        const dataCy = ["page.container","T1-page","btn-admin.search-page-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -19,7 +19,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T2: Content Manager (tool) meets structural requirements', () => {
-        const dataCy = ["content-manager-page","page.title","page.subtitle","tab-blogs","tab-faqs","h3-admin.content-manager-0","btn-add-content","table-admin.content-manager","tbl-content-header-title","tbl-content-header-meta","tbl-content-header-status","tbl-content-header-actions","content-status","btn-edit-content","btn-delete-content","faq-question","faq-category","faq-status","btn-admin.content-manager-0","btn-admin.content-manager-1"];
+        const dataCy = ["page.container","content-manager-page","page.title","page.subtitle","tab-blogs","tab-faqs","h3-admin.content-manager-0","btn-add-content","table-admin.content-manager","tbl-content-header-title","tbl-content-header-meta","tbl-content-header-status","tbl-content-header-actions","content-status","btn-edit-content","btn-delete-content","faq-question","faq-category","faq-status","btn-admin.content-manager-0","btn-admin.content-manager-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -91,7 +91,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T8: Clinical Assistant (tool) meets structural requirements', () => {
-        const dataCy = ["T8-page","btn-admin.clinical-assistant-0"];
+        const dataCy = ["page.container","T8-page","btn-admin.clinical-assistant-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -115,7 +115,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T10: Security Gov (tool) meets structural requirements', () => {
-        const dataCy = ["T10-page","btn-admin.security-governance-0"];
+        const dataCy = ["page.container","T10-page","btn-admin.security-governance-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -163,7 +163,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T14: Forensic Trails (tool) meets structural requirements', () => {
-        const dataCy = ["T14-page","btn-admin.forensic-trails-0"];
+        const dataCy = ["page.container","T14-page","btn-admin.forensic-trails-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -175,7 +175,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T15: CORS Settings (tool) meets structural requirements', () => {
-        const dataCy = ["T15-page","btn-admin.cors-settings-0"];
+        const dataCy = ["page.container","T15-page","btn-admin.cors-settings-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -211,7 +211,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T18: Tax Compliance (tool) meets structural requirements', () => {
-        const dataCy = ["T18-page","btn-admin.tax-compliance-hub-0"];
+        const dataCy = ["page.container","T18-page","btn-admin.tax-compliance-hub-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -235,7 +235,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T49: Auth Alerts (tool) meets structural requirements', () => {
-        const dataCy = ["T49-page","btn-admin.auth-alerts-0"];
+        const dataCy = ["page.container","T49-page","btn-admin.auth-alerts-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -247,7 +247,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T50: Consent Templates (tool) meets structural requirements', () => {
-        const dataCy = ["T50-page","btn-admin.consent-templates-0"];
+        const dataCy = ["page.container","T50-page","btn-admin.consent-templates-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -259,7 +259,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T51: Webhook Deliveries (tool) meets structural requirements', () => {
-        const dataCy = ["T51-page","btn-admin.webhook-deliveries-0"];
+        const dataCy = ["page.container","T51-page","btn-admin.webhook-deliveries-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -271,7 +271,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T52: Predictive Analytics (tool) meets structural requirements', () => {
-        const dataCy = ["T52-page","btn-admin.predictive-analytics-0"];
+        const dataCy = ["page.container","T52-page","btn-admin.predictive-analytics-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -283,7 +283,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T53: Churn Risk (tool) meets structural requirements', () => {
-        const dataCy = ["T53-page","btn-admin.churn-risk-0"];
+        const dataCy = ["page.container","T53-page","btn-admin.churn-risk-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -295,7 +295,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T54: Visit Optimization (tool) meets structural requirements', () => {
-        const dataCy = ["T54-page","btn-admin.visit-optimization-0"];
+        const dataCy = ["page.container","T54-page","btn-admin.visit-optimization-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -307,7 +307,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T55: Sentiment Analysis (tool) meets structural requirements', () => {
-        const dataCy = ["T55-page","btn-admin.sentiment-analysis-0"];
+        const dataCy = ["page.container","T55-page","btn-admin.sentiment-analysis-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -319,7 +319,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T56: Permission Grid (tool) meets structural requirements', () => {
-        const dataCy = ["T56-page","btn-admin.permission-grid-0"];
+        const dataCy = ["page.container","T56-page","btn-admin.permission-grid-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -379,7 +379,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T67: Supply & Demand (tool) meets structural requirements', () => {
-        const dataCy = ["T67-page","btn-admin.supply-demand-0"];
+        const dataCy = ["page.container","T67-page","btn-admin.supply-demand-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -403,7 +403,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T20: Daily Entry (tool) meets structural requirements', () => {
-        const dataCy = ["form.daily.page","page.header","page.title","page.subtitle"];
+        const dataCy = ["page.container","form.daily.page","page.header","page.title","page.subtitle"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -415,7 +415,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T21: Service Review (tool) meets structural requirements', () => {
-        const dataCy = ["T21-page","btn-manager.service-review-0"];
+        const dataCy = ["page.container","T21-page","btn-manager.service-review-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -463,7 +463,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T25: Compliance Sync (tool) meets structural requirements', () => {
-        const dataCy = ["T25-page","btn-manager.compliance-sync-0"];
+        const dataCy = ["page.container","T25-page","btn-manager.compliance-sync-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -475,7 +475,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T26: Shift Confirm (tool) meets structural requirements', () => {
-        const dataCy = ["form.shiftConfirmation.page","page.title","page.subtitle","btn.shift.decline","btn.shift.accept"];
+        const dataCy = ["page.container","form.shiftConfirmation.page","page.title","page.subtitle","btn.shift.decline","btn.shift.accept"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -487,7 +487,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T27: Provider Social (tool) meets structural requirements', () => {
-        const dataCy = ["T27-page","btn-psw.provider-social-0"];
+        const dataCy = ["page.container","T27-page","btn-psw.provider-social-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -499,7 +499,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T28: Mileage Tracker (tool) meets structural requirements', () => {
-        const dataCy = ["T28-page","btn-psw.mileage-tracker-0"];
+        const dataCy = ["page.container","T28-page","btn-psw.mileage-tracker-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -523,7 +523,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T61: Live Visit (tool) meets structural requirements', () => {
-        const dataCy = ["T61-page","btn-psw.live-visit-0"];
+        const dataCy = ["page.container","T61-page","btn-psw.live-visit-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -535,7 +535,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T62: Check-In (tool) meets structural requirements', () => {
-        const dataCy = ["T62-page","btn-psw.check-in-screen-0"];
+        const dataCy = ["page.container","T62-page","btn-psw.check-in-screen-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -547,7 +547,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T29: Care Plan Mgr (tool) meets structural requirements', () => {
-        const dataCy = ["T29-page","btn-rn.care-plan-manager-0"];
+        const dataCy = ["page.container","T29-page","btn-rn.care-plan-manager-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -559,7 +559,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T30: Entry Verify (tool) meets structural requirements', () => {
-        const dataCy = ["T30-page","btn-rn.entry-verify-0"];
+        const dataCy = ["page.container","T30-page","btn-rn.entry-verify-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -583,7 +583,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T32: Wound Client (tool) meets structural requirements', () => {
-        const dataCy = ["T32-page","btn-rn.wound-care-client-0"];
+        const dataCy = ["page.container","T32-page","btn-rn.wound-care-client-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -595,7 +595,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T33: RAI Detail (tool) meets structural requirements', () => {
-        const dataCy = ["T33-page","btn-rn.rai-assessment-detail-0"];
+        const dataCy = ["page.container","T33-page","btn-rn.rai-assessment-detail-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -607,7 +607,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T63: RN Check-In (tool) meets structural requirements', () => {
-        const dataCy = ["T63-page","btn-rn.rn-check-in-screen-0"];
+        const dataCy = ["page.container","T63-page","btn-rn.rn-check-in-screen-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -631,7 +631,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T35: Client Messaging (tool) meets structural requirements', () => {
-        const dataCy = ["T35-page","btn-client.client-messaging-0"];
+        const dataCy = ["page.container","T35-page","btn-client.client-messaging-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -643,7 +643,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T36: Team Roster (tool) meets structural requirements', () => {
-        const dataCy = ["T36-page","btn-client.team-roster-0"];
+        const dataCy = ["page.container","T36-page","btn-client.team-roster-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -655,7 +655,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T37: Feedback Loop (tool) meets structural requirements', () => {
-        const dataCy = ["T37-page","btn-client.feedback-loop-0"];
+        const dataCy = ["page.container","T37-page","btn-client.feedback-loop-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -679,7 +679,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T39: SOS Center (tool) meets structural requirements', () => {
-        const dataCy = ["T39-page","btn-coordinator.sos-center-0"];
+        const dataCy = ["page.container","T39-page","btn-coordinator.sos-center-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -691,7 +691,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T40: Fleet Management (tool) meets structural requirements', () => {
-        const dataCy = ["T40-page","btn-coordinator.fleet-management-0"];
+        const dataCy = ["page.container","T40-page","btn-coordinator.fleet-management-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -703,7 +703,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T41: Shift Swap (tool) meets structural requirements', () => {
-        const dataCy = ["T41-page","btn-coordinator.shift-swap-0"];
+        const dataCy = ["page.container","T41-page","btn-coordinator.shift-swap-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -715,7 +715,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T42: Sign Off (tool) meets structural requirements', () => {
-        const dataCy = ["T42-page","btn-sign-off-0"];
+        const dataCy = ["page.container","T42-page","btn-sign-off-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -739,7 +739,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T44: Message Center (tool) meets structural requirements', () => {
-        const dataCy = ["T44-page","btn-staff.message-center-0"];
+        const dataCy = ["page.container","T44-page","btn-staff.message-center-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -751,7 +751,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T45: Incident Portal (tool) meets structural requirements', () => {
-        const dataCy = ["T45-page","btn-staff.incident-portal-0"];
+        const dataCy = ["page.container","T45-page","btn-staff.incident-portal-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -799,7 +799,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T47: Response Bot Audit (tool) meets structural requirements', () => {
-        const dataCy = ["T47-page","btn-response-bot-audit-0"];
+        const dataCy = ["page.container","T47-page","btn-response-bot-audit-0"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

@@ -80,7 +80,7 @@ export default function BusinessModelWizard() {
     const handleSave = () => saveMutation.mutate(config);
 
     return (
-        <div data-cy="page.container" style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem', background: 'white', borderRadius: '1.5rem', border: '1px solid #e5e7eb' }}>
+        <div data-cy="page.container" role="main" aria-label="Business Model" style={{ maxWidth: '800px', margin: '2rem auto', padding: '2rem', background: 'white', borderRadius: '1.5rem', border: '1px solid #e5e7eb' }}>
             <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
                 <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>🚀 {ContentRegistry.STRATEGY_WIZARD.TITLE}</h1>
                 <p style={{ color: '#6b7280' }}>{ContentRegistry.STRATEGY_WIZARD.SUBTITLE}</p>

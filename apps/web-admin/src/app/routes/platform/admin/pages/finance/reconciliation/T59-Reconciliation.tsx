@@ -11,7 +11,7 @@ export default function FinancialReconciliation() {
     const { bankFeeds, ledgerEntries, loading, matchItems, refresh } = useReconciliation();
 
     return (
-        <div data-cy="page.container" style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#fff', fontFamily: "'Outfit', 'Inter', sans-serif" }}>
+        <div data-cy="page.container" role="main" aria-label="Reconciliation" style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#fff', fontFamily: "'Outfit', 'Inter', sans-serif" }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px' }}>
                 <div>
                     <h1 data-cy="page.title" style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.02em', margin: '0', display: 'flex', alignItems: 'center', gap: '16px' }}>

@@ -60,7 +60,7 @@ export default function PswDashboard() {
     if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading PSW Dashboard...</div>;
 
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' }}>
+        <div data-cy="page.container" role="main" aria-label="PSW Dashboard" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto', boxSizing: 'border-box' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <AccessibilityControls onOpenIdBadge={() => setIsIdBadgeOpen(true)} />
                 <button data-cy="btn-psw.psw-dashboard-0" onClick={() => setIsSettingsOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', color: '#6B7280' }}><Settings size={22} /></button>

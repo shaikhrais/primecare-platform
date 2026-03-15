@@ -202,7 +202,7 @@ describe('Type Invariants: dashboard (19 pages)', () => {
     });
 
     it('D15: RN Dashboard (dashboard) meets structural requirements', () => {
-        const dataCy = ["h2-rn.rn-dashboard-0","h3-rn.rn-dashboard-0","h3-rn.rn-dashboard-1","h3-rn.rn-dashboard-2","page.container","btn-rn.rn-dashboard-0","btn-rn.rn-dashboard-1"];
+        const dataCy = ["h2-rn.rn-dashboard-0","h3-rn.rn-dashboard-0","h3-rn.rn-dashboard-1","h3-rn.rn-dashboard-2","page.container","page.title","btn-rn.rn-dashboard-0","btn-rn.rn-dashboard-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Dashboards ideally have a title

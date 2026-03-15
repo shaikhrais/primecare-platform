@@ -30,7 +30,7 @@ export default function CatalogBrowser() {
     const filtered = selectedCategory === 'All' ? modules : modules.filter(m => m.category === selectedCategory);
 
     return (
-        <div data-cy="page.container" className="p-8 max-w-7xl mx-auto space-y-12 animate-in fade-in duration-1000">
+        <div data-cy="page.container" role="main" aria-label="Catalog Browser" className="p-8 max-w-7xl mx-auto space-y-12 animate-in fade-in duration-1000">
             <header className="relative py-16 px-8 rounded-[3rem] bg-zinc-900 overflow-hidden shadow-2xl">
                 <div className="relative z-10 max-w-2xl space-y-4">
                     <div className="text-primary font-black text-xs uppercase tracking-[0.4em]">Service Catalog</div>

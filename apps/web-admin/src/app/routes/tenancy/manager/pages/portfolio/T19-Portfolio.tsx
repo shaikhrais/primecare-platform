@@ -23,7 +23,7 @@ export default function ManagementPortfolio() {
     if (loading || !stats) return <div style={{ padding: '2rem' }}>Loading Portfolio...</div>;
 
     return (
-        <div data-cy="page.container">
+        <div data-cy="page.container" role="main" aria-label="Portfolio">
             <div style={{ marginBottom: '2.5rem' }}>
                 <h1 style={{ margin: '0 0 6px 0', fontSize: '34px', letterSpacing: '.2px', color: 'var(--text-100)' }}>Management Portfolio</h1>
                 <p style={{ margin: 0, color: 'var(--text-400)' }}>Executive overview across all departments</p>

@@ -21,7 +21,7 @@ export default function TrainingHub() {
     });
 
     return (
-        <div data-cy="page.container" style={{ padding: '2rem' }}>
+        <div data-cy="page.container" role="main" aria-label="Training Hub" style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
                     <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Training Hub</h1>

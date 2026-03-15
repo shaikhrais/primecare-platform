@@ -135,7 +135,7 @@ export default function BookingsPage() {
     };
 
     return (
-        <div style={{ padding: '1rem' }} data-cy="page.container">
+        <div style={{ padding: '1rem' }} data-cy="page.container" role="main" aria-label="Client Bookings">
             <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div data-cy="page.header">
                     <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">My Care Bookings</h2>

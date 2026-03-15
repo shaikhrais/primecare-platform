@@ -37,7 +37,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F3: Forgot Password (form) meets structural requirements', () => {
-        const dataCy = ["forgot-password-page","page.title","page.subtitle","form-forgot-password","inp-forgot-email","btn-forgot-submit"];
+        const dataCy = ["page.container","page.title","page.subtitle","form-forgot-password","inp-forgot-email","btn-forgot-submit"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -52,7 +52,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F4: Reset Password (form) meets structural requirements', () => {
-        const dataCy = ["reset-password-page","page.title","form-reset-password","inp-reset-password","btn-reset-password-0","inp-reset-confirm","btn-reset-password-1","btn-reset-submit"];
+        const dataCy = ["page.container","page.title","form-reset-password","inp-reset-password","btn-reset-password-0","inp-reset-confirm","btn-reset-password-1","btn-reset-submit"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -67,7 +67,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F5: Business Onboard (form) meets structural requirements', () => {
-        const dataCy = ["F5-page","form-business-onboard","input-business-onboard-0","input-business-onboard-1","input-business-onboard-2","input-business-onboard-3","input-business-onboard-4","input-business-onboard-5","btn-business-onboard-0","btn-business-onboard-1"];
+        const dataCy = ["page.container","form-business-onboard","input-business-onboard-0","input-business-onboard-1","input-business-onboard-2","input-business-onboard-3","input-business-onboard-4","input-business-onboard-5","btn-business-onboard-0","btn-business-onboard-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -82,7 +82,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F6: Client Admission (form) meets structural requirements', () => {
-        const dataCy = ["form.client.page"];
+        const dataCy = ["page.container","form.client.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -97,7 +97,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F7: Staff Onboarding (form) meets structural requirements', () => {
-        const dataCy = ["form.psw.page"];
+        const dataCy = ["page.container","form.psw.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -112,7 +112,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F8: Timesheet Adjustment (form) meets structural requirements', () => {
-        const dataCy = ["form.timesheet.page"];
+        const dataCy = ["page.container","form.timesheet.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -127,7 +127,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F9: Invoice Entry (form) meets structural requirements', () => {
-        const dataCy = ["F9-page","form-admin.invoice-entry","input-admin.invoice-entry-0","input-admin.invoice-entry-1","input-admin.invoice-entry-2","input-admin.invoice-entry-3","input-admin.invoice-entry-4","input-admin.invoice-entry-5","btn-admin.invoice-entry-0","btn-admin.invoice-entry-1"];
+        const dataCy = ["page.container","form-admin.invoice-entry","input-admin.invoice-entry-0","input-admin.invoice-entry-1","input-admin.invoice-entry-2","input-admin.invoice-entry-3","input-admin.invoice-entry-4","input-admin.invoice-entry-5","btn-admin.invoice-entry-0","btn-admin.invoice-entry-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -142,7 +142,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F9a: User Entry (form) meets structural requirements', () => {
-        const dataCy = ["form.user.page","page.header","page.title","page.subtitle","form-admin.f9a-user-entry","btn-admin.f9a-user-entry-0","form.user.save"];
+        const dataCy = ["page.container","form.user.page","page.header","page.title","page.subtitle","form-admin.f9a-user-entry","btn-admin.f9a-user-entry-0","form.user.save"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -157,7 +157,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F10: Incident Entry (form) meets structural requirements', () => {
-        const dataCy = ["form.incident.page"];
+        const dataCy = ["page.container","form.incident.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -172,7 +172,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F11: Lead Entry (form) meets structural requirements', () => {
-        const dataCy = ["form.lead.page"];
+        const dataCy = ["page.container","form.lead.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -187,7 +187,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F12: Locations (form) meets structural requirements', () => {
-        const dataCy = ["form.location.page","guard.unsaved.dialog","h2-admin.locations-0","guard.unsaved.leave","guard.unsaved.stay","page.title","page.subtitle","form-admin.locations","form.location.name","form.location.manager","form.location.capacity","form.location.address","btn-cancel","form.location.save"];
+        const dataCy = ["page.container","form.location.page","guard.unsaved.dialog","h2-admin.locations-0","guard.unsaved.leave","guard.unsaved.stay","page.title","page.subtitle","form-admin.locations","form.location.name","form.location.manager","form.location.capacity","form.location.address","btn-cancel","form.location.save"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -202,7 +202,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F13: Shift Handover (form) meets structural requirements', () => {
-        const dataCy = ["form.handover.page"];
+        const dataCy = ["page.container","form.handover.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -217,7 +217,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F14: Expense Claim (form) meets structural requirements', () => {
-        const dataCy = ["form.expense.page"];
+        const dataCy = ["page.container","form.expense.page"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons
@@ -262,7 +262,7 @@ describe('Type Invariants: form (18 pages)', () => {
     });
 
     it('F17: Request Booking (form) meets structural requirements', () => {
-        const dataCy = ["F17-page","form-client.request-booking","input-client.request-booking-0","input-client.request-booking-1","input-client.request-booking-2","input-client.request-booking-3","input-client.request-booking-4","btn-client.request-booking-0","btn-client.request-booking-1"];
+        const dataCy = ["page.container","form-client.request-booking","input-client.request-booking-0","input-client.request-booking-1","input-client.request-booking-2","input-client.request-booking-3","input-client.request-booking-4","btn-client.request-booking-0","btn-client.request-booking-1"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Forms ideally have container or action buttons

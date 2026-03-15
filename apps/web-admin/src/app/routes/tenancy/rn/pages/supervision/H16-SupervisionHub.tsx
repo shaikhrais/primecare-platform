@@ -32,7 +32,7 @@ export const SupervisionHub: React.FC = () => {
 
     if (loading) {
         return (
-            <div data-cy="page.container" className="supervision-loading">
+            <div data-cy="page.container" role="main" aria-label="Supervision Hub" className="supervision-loading">
                 <p>Synchronizing Clinical Oversight...</p>
             </div>
         );

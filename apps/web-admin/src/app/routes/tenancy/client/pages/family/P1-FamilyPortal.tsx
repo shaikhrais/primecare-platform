@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function FamilyPortal() {
     return (
-        <div data-cy="P1-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Family Portal" data-cy="P1-page" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ background: 'linear-gradient(135deg, #B45309 0%, #B45309CC 100%)', borderRadius: '16px', padding: '32px', marginBottom: '24px', color: 'white' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: '0 0 8px' }}>🏠 Family Portal</h1>
                 <p style={{ opacity: 0.9, fontSize: '0.9rem', margin: 0 }}>Welcome to your personalized portal</p>

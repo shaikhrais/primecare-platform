@@ -86,7 +86,7 @@ export default function ManagerDashboard() {
 
     if (loading) {
         return (
-            <div data-cy="page.container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
+            <div data-cy="page.container" role="main" aria-label="Manager Dashboard" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '1rem' }}>
                 <div className="spinner"></div>
                 <p style={{ color: 'var(--text-300)' }}>{t(ContentRegistry.MANAGER_DASHBOARD.MESSAGES.LOADING)}</p>
             </div>

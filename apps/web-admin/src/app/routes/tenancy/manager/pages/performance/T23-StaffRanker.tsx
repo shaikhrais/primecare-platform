@@ -28,7 +28,7 @@ export default function StaffRanker() {
     ];
 
     return (
-        <div data-cy="page.container" className="staff-ranker-container">
+        <div data-cy="page.container" role="main" aria-label="Staff Ranker" className="staff-ranker-container">
             <header className="staff-ranker-header">
                 <div>
                     <h1 data-cy="page.title">Staff Performance Ranker</h1>

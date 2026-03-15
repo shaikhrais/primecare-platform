@@ -79,7 +79,7 @@ export default function UserList() {
     };
 
     return (
-        <div data-cy="page.container">
+        <div data-cy="page.container" role="main" aria-label="User List">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }} data-cy="page.title">{t(ContentRegistry.USERS.TITLE)}</h2>
                 <div style={{ display: 'flex', gap: '8px' }}>

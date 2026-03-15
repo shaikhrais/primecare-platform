@@ -54,7 +54,7 @@ const ExportPage: React.FC = () => {
     };
 
     return (
-        <div data-cy="page.container" className="p-6 max-w-4xl mx-auto space-y-8">
+        <div data-cy="page.container" role="main" aria-label="Export Page" className="p-6 max-w-4xl mx-auto space-y-8">
             <header className="space-y-2">
                 <h1 data-cy="page.title" className="text-3xl font-bold tracking-tight">{t('platform.admin.export.title', 'Data Export Center')}</h1>
                 <p className="text-muted-foreground">{t('platform.admin.export.subtitle', 'Build and download custom datasets for your agency.')}</p>

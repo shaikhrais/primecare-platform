@@ -7,7 +7,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('Type Invariants: registry (2 pages)', () => {
     it('G1: Form Registry (registry) meets structural requirements', () => {
-        const dataCy = ["form-registry-page","form-registry-search","form-registry-filter"];
+        const dataCy = ["page.container","form-registry-page","form-registry-search","form-registry-filter"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid
@@ -19,7 +19,7 @@ describe('Type Invariants: registry (2 pages)', () => {
     });
 
     it('G2: Page Registry (registry) meets structural requirements', () => {
-        const dataCy = ["page-registry-page","identity-kpi-strip","page-registry-search","page-registry-owner-filter"];
+        const dataCy = ["page.container","page-registry-page","identity-kpi-strip","page-registry-search","page-registry-owner-filter"];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

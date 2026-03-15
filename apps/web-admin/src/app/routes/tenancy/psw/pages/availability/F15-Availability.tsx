@@ -57,7 +57,7 @@ export default function AvailabilityPage() {
     };
 
     return (
-        <div data-cy="page.container" className="availability-page-container">
+        <div data-cy="page.container" role="main" aria-label="Availability" className="availability-page-container">
             <div className="availability-card" style={{ maxWidth: '800px', margin: '0 auto', padding: '24px' }}>
                 <header className="availability-header" style={{ marginBottom: '32px' }}>
                     <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 8px 0' }}>Availability Canvas</h1>

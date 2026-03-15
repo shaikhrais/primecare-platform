@@ -67,8 +67,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R6: Auth Utilization — has 5 data-cy markers', () => {
-        const markers = ["R6-page","select-admin.auth-utilization-0","select-admin.auth-utilization-1","btn-admin.auth-utilization-0","h3-admin.auth-utilization-0"];
+    it('R6: Auth Utilization — has 6 data-cy markers', () => {
+        const markers = ["page.container","R6-page","select-admin.auth-utilization-0","select-admin.auth-utilization-1","btn-admin.auth-utilization-0","h3-admin.auth-utilization-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -78,6 +78,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R6: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R6: data-cy="R6-page" follows conventions', () => {
@@ -110,8 +116,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R7: Consent Expiring — has 5 data-cy markers', () => {
-        const markers = ["R7-page","select-admin.consent-expiring-0","select-admin.consent-expiring-1","btn-admin.consent-expiring-0","h3-admin.consent-expiring-0"];
+    it('R7: Consent Expiring — has 6 data-cy markers', () => {
+        const markers = ["page.container","R7-page","select-admin.consent-expiring-0","select-admin.consent-expiring-1","btn-admin.consent-expiring-0","h3-admin.consent-expiring-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -121,6 +127,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R7: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R7: data-cy="R7-page" follows conventions', () => {
@@ -153,8 +165,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R8: EVV Export — has 5 data-cy markers', () => {
-        const markers = ["R8-page","select-admin.evv-export-0","select-admin.evv-export-1","btn-admin.evv-export-0","h3-admin.evv-export-0"];
+    it('R8: EVV Export — has 6 data-cy markers', () => {
+        const markers = ["page.container","R8-page","select-admin.evv-export-0","select-admin.evv-export-1","btn-admin.evv-export-0","h3-admin.evv-export-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -164,6 +176,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R8: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R8: data-cy="R8-page" follows conventions', () => {
@@ -196,8 +214,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R9: Audit Download — has 5 data-cy markers', () => {
-        const markers = ["R9-page","select-admin.audit-download-0","select-admin.audit-download-1","btn-admin.audit-download-0","h3-admin.audit-download-0"];
+    it('R9: Audit Download — has 6 data-cy markers', () => {
+        const markers = ["page.container","R9-page","select-admin.audit-download-0","select-admin.audit-download-1","btn-admin.audit-download-0","h3-admin.audit-download-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -207,6 +225,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R9: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R9: data-cy="R9-page" follows conventions', () => {
@@ -239,8 +263,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R10: Compliance Export — has 5 data-cy markers', () => {
-        const markers = ["R10-page","select-admin.compliance-export-0","select-admin.compliance-export-1","btn-admin.compliance-export-0","h3-admin.compliance-export-0"];
+    it('R10: Compliance Export — has 6 data-cy markers', () => {
+        const markers = ["page.container","R10-page","select-admin.compliance-export-0","select-admin.compliance-export-1","btn-admin.compliance-export-0","h3-admin.compliance-export-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -250,6 +274,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R10: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R10: data-cy="R10-page" follows conventions', () => {
@@ -282,8 +312,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R11: Referral Analytics — has 5 data-cy markers', () => {
-        const markers = ["R11-page","select-admin.referral-analytics-0","select-admin.referral-analytics-1","btn-admin.referral-analytics-0","h3-admin.referral-analytics-0"];
+    it('R11: Referral Analytics — has 6 data-cy markers', () => {
+        const markers = ["page.container","R11-page","select-admin.referral-analytics-0","select-admin.referral-analytics-1","btn-admin.referral-analytics-0","h3-admin.referral-analytics-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -293,6 +323,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R11: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R11: data-cy="R11-page" follows conventions', () => {
@@ -325,8 +361,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R12: Claims ERA — has 5 data-cy markers', () => {
-        const markers = ["R12-page","select-admin.claims-era-0","select-admin.claims-era-1","btn-admin.claims-era-0","h3-admin.claims-era-0"];
+    it('R12: Claims ERA — has 6 data-cy markers', () => {
+        const markers = ["page.container","R12-page","select-admin.claims-era-0","select-admin.claims-era-1","btn-admin.claims-era-0","h3-admin.claims-era-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -336,6 +372,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R12: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R12: data-cy="R12-page" follows conventions', () => {
@@ -368,8 +410,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('R13: Regulatory Export — has 5 data-cy markers', () => {
-        const markers = ["R13-page","select-admin.regulatory-export-0","select-admin.regulatory-export-1","btn-admin.regulatory-export-0","h3-admin.regulatory-export-0"];
+    it('R13: Regulatory Export — has 6 data-cy markers', () => {
+        const markers = ["page.container","R13-page","select-admin.regulatory-export-0","select-admin.regulatory-export-1","btn-admin.regulatory-export-0","h3-admin.regulatory-export-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -379,6 +421,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('R13: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('R13: data-cy="R13-page" follows conventions', () => {
@@ -411,8 +459,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T1: Search — has 2 data-cy markers', () => {
-        const markers = ["T1-page","btn-admin.search-page-0"];
+    it('T1: Search — has 3 data-cy markers', () => {
+        const markers = ["page.container","T1-page","btn-admin.search-page-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -422,6 +470,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T1: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T1: data-cy="T1-page" follows conventions', () => {
@@ -436,8 +490,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T2: Content Manager — has 20 data-cy markers', () => {
-        const markers = ["content-manager-page","page.title","page.subtitle","tab-blogs","tab-faqs","h3-admin.content-manager-0","btn-add-content","table-admin.content-manager","tbl-content-header-title","tbl-content-header-meta","tbl-content-header-status","tbl-content-header-actions","content-status","btn-edit-content","btn-delete-content","faq-question","faq-category","faq-status","btn-admin.content-manager-0","btn-admin.content-manager-1"];
+    it('T2: Content Manager — has 21 data-cy markers', () => {
+        const markers = ["page.container","content-manager-page","page.title","page.subtitle","tab-blogs","tab-faqs","h3-admin.content-manager-0","btn-add-content","table-admin.content-manager","tbl-content-header-title","tbl-content-header-meta","tbl-content-header-status","tbl-content-header-actions","content-status","btn-edit-content","btn-delete-content","faq-question","faq-category","faq-status","btn-admin.content-manager-0","btn-admin.content-manager-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -447,6 +501,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T2: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T2: data-cy="content-manager-page" follows conventions', () => {
@@ -808,8 +868,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T8: Clinical Assistant — has 2 data-cy markers', () => {
-        const markers = ["T8-page","btn-admin.clinical-assistant-0"];
+    it('T8: Clinical Assistant — has 3 data-cy markers', () => {
+        const markers = ["page.container","T8-page","btn-admin.clinical-assistant-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -819,6 +879,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T8: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T8: data-cy="T8-page" follows conventions', () => {
@@ -864,8 +930,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T10: Security Gov — has 2 data-cy markers', () => {
-        const markers = ["T10-page","btn-admin.security-governance-0"];
+    it('T10: Security Gov — has 3 data-cy markers', () => {
+        const markers = ["page.container","T10-page","btn-admin.security-governance-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -875,6 +941,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T10: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T10: data-cy="T10-page" follows conventions', () => {
@@ -1102,8 +1174,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T14: Forensic Trails — has 2 data-cy markers', () => {
-        const markers = ["T14-page","btn-admin.forensic-trails-0"];
+    it('T14: Forensic Trails — has 3 data-cy markers', () => {
+        const markers = ["page.container","T14-page","btn-admin.forensic-trails-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1113,6 +1185,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T14: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T14: data-cy="T14-page" follows conventions', () => {
@@ -1127,8 +1205,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T15: CORS Settings — has 2 data-cy markers', () => {
-        const markers = ["T15-page","btn-admin.cors-settings-0"];
+    it('T15: CORS Settings — has 3 data-cy markers', () => {
+        const markers = ["page.container","T15-page","btn-admin.cors-settings-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1138,6 +1216,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T15: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T15: data-cy="T15-page" follows conventions', () => {
@@ -1292,8 +1376,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T18: Tax Compliance — has 2 data-cy markers', () => {
-        const markers = ["T18-page","btn-admin.tax-compliance-hub-0"];
+    it('T18: Tax Compliance — has 3 data-cy markers', () => {
+        const markers = ["page.container","T18-page","btn-admin.tax-compliance-hub-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1303,6 +1387,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T18: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T18: data-cy="T18-page" follows conventions', () => {
@@ -1336,8 +1426,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T49: Auth Alerts — has 2 data-cy markers', () => {
-        const markers = ["T49-page","btn-admin.auth-alerts-0"];
+    it('T49: Auth Alerts — has 3 data-cy markers', () => {
+        const markers = ["page.container","T49-page","btn-admin.auth-alerts-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1347,6 +1437,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T49: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T49: data-cy="T49-page" follows conventions', () => {
@@ -1361,8 +1457,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T50: Consent Templates — has 2 data-cy markers', () => {
-        const markers = ["T50-page","btn-admin.consent-templates-0"];
+    it('T50: Consent Templates — has 3 data-cy markers', () => {
+        const markers = ["page.container","T50-page","btn-admin.consent-templates-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1372,6 +1468,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T50: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T50: data-cy="T50-page" follows conventions', () => {
@@ -1386,8 +1488,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T51: Webhook Deliveries — has 2 data-cy markers', () => {
-        const markers = ["T51-page","btn-admin.webhook-deliveries-0"];
+    it('T51: Webhook Deliveries — has 3 data-cy markers', () => {
+        const markers = ["page.container","T51-page","btn-admin.webhook-deliveries-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1397,6 +1499,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T51: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T51: data-cy="T51-page" follows conventions', () => {
@@ -1411,8 +1519,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T52: Predictive Analytics — has 2 data-cy markers', () => {
-        const markers = ["T52-page","btn-admin.predictive-analytics-0"];
+    it('T52: Predictive Analytics — has 3 data-cy markers', () => {
+        const markers = ["page.container","T52-page","btn-admin.predictive-analytics-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1422,6 +1530,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T52: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T52: data-cy="T52-page" follows conventions', () => {
@@ -1436,8 +1550,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T53: Churn Risk — has 2 data-cy markers', () => {
-        const markers = ["T53-page","btn-admin.churn-risk-0"];
+    it('T53: Churn Risk — has 3 data-cy markers', () => {
+        const markers = ["page.container","T53-page","btn-admin.churn-risk-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1447,6 +1561,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T53: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T53: data-cy="T53-page" follows conventions', () => {
@@ -1461,8 +1581,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T54: Visit Optimization — has 2 data-cy markers', () => {
-        const markers = ["T54-page","btn-admin.visit-optimization-0"];
+    it('T54: Visit Optimization — has 3 data-cy markers', () => {
+        const markers = ["page.container","T54-page","btn-admin.visit-optimization-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1472,6 +1592,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T54: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T54: data-cy="T54-page" follows conventions', () => {
@@ -1486,8 +1612,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T55: Sentiment Analysis — has 2 data-cy markers', () => {
-        const markers = ["T55-page","btn-admin.sentiment-analysis-0"];
+    it('T55: Sentiment Analysis — has 3 data-cy markers', () => {
+        const markers = ["page.container","T55-page","btn-admin.sentiment-analysis-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1497,6 +1623,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T55: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T55: data-cy="T55-page" follows conventions', () => {
@@ -1511,8 +1643,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T56: Permission Grid — has 2 data-cy markers', () => {
-        const markers = ["T56-page","btn-admin.permission-grid-0"];
+    it('T56: Permission Grid — has 3 data-cy markers', () => {
+        const markers = ["page.container","T56-page","btn-admin.permission-grid-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1522,6 +1654,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T56: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T56: data-cy="T56-page" follows conventions', () => {
@@ -1672,8 +1810,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('T67: Supply & Demand — has 2 data-cy markers', () => {
-        const markers = ["T67-page","btn-admin.supply-demand-0"];
+    it('T67: Supply & Demand — has 3 data-cy markers', () => {
+        const markers = ["page.container","T67-page","btn-admin.supply-demand-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1683,6 +1821,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('T67: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('T67: data-cy="T67-page" follows conventions', () => {
@@ -1997,8 +2141,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('H12: Operations Hub — has 1 data-cy markers', () => {
-        const markers = ["H12-page"];
+    it('H12: Operations Hub — has 2 data-cy markers', () => {
+        const markers = ["page.container","H12-page"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -2008,6 +2152,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('H12: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('H12: data-cy="H12-page" follows conventions', () => {
@@ -2071,8 +2221,8 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('L13: Evaluations — has 6 data-cy markers', () => {
-        const markers = ["L13-page","btn-manager.evaluations-0","input-manager.evaluations-0","btn-manager.evaluations-1","table-manager.evaluations","btn-manager.evaluations-2"];
+    it('L13: Evaluations — has 7 data-cy markers', () => {
+        const markers = ["page.container","L13-page","btn-manager.evaluations-0","input-manager.evaluations-0","btn-manager.evaluations-1","table-manager.evaluations","btn-manager.evaluations-2"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -2082,6 +2232,12 @@ describe('Data-Cy Contract — Batch 2', () => {
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
+    });
+
+    it('L13: data-cy="page.container" follows conventions', () => {
+        const attr = 'page.container';
+        // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
+        expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
     it('L13: data-cy="L13-page" follows conventions', () => {

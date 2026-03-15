@@ -61,7 +61,7 @@ export default function Login() {
 
     if (authStep === 'select-role' && tempUser) {
         return (
-            <div data-cy="page.container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)' }}>
+            <div data-cy="page.container" role="main" aria-label="Login" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg)' }}>
                 <div style={{ padding: '2.5rem', backgroundColor: '#FFFFFF', borderRadius: '8px', border: '1px solid var(--line)', width: '100%', maxWidth: '400px', boxShadow: 'var(--shadow-md)' }}>
                     <div style={{ textAlign: 'center', marginBottom: '2rem' }}><img src="/logo.png" alt="PrimeCare" style={{ width: '120px', height: 'auto' }} /></div>
                     <h1 data-cy="page.title" style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', textAlign: 'center' }}>Select Your Perspective</h1>

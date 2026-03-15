@@ -23,7 +23,7 @@ export default function AccountingDashboard() {
     );
 
     return (
-        <div data-cy="page.container" style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#f8fafc', fontFamily: '"Outfit", sans-serif' }}>
+        <div data-cy="page.container" role="main" aria-label="Accounting Dashboard" style={{ padding: '40px', background: '#0f172a', minHeight: '100vh', color: '#f8fafc', fontFamily: '"Outfit", sans-serif' }}>
             {/* Header */}
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '24px' }}>
                 <div>

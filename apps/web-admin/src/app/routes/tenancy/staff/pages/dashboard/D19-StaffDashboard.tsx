@@ -52,7 +52,7 @@ export default function StaffDashboard() {
     }
 
     return (
-        <div className="staff-dashboard" data-cy="page.container">
+        <div className="staff-dashboard" data-cy="page.container" role="main" aria-label="Staff Dashboard">
             <header className="staff-dashboard-header">
                 <div>
                     <h1 data-cy="page.title">

@@ -29,7 +29,7 @@ export default function ReportsPage() {
     };
 
     return (
-        <div data-cy="page.reports">
+        <div data-cy="page.container" role="main" aria-label="Report Center" data-cy="page.reports">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
                     <h2 data-cy="h2-admin.report-center-0" style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>{ContentRegistry.REPORTS.TITLE}</h2>

@@ -62,7 +62,7 @@ export default function OpenOffers() {
     if (loading) return <CardGridSkeleton cards={4} />;
 
     return (
-        <div data-cy="page.container" style={{ padding: '2rem' }}>
+        <div data-cy="page.container" role="main" aria-label="Open Offers" style={{ padding: '2rem' }}>
             <h2 data-cy="h2-psw.open-offers-0" style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Personalized Shift Offers</h2>
 
             {offers.length === 0 ? (

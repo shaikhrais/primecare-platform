@@ -22,7 +22,7 @@ export default function HandoverPage() {
     if (!formEntry) return null;
 
     return (
-        <div className="handover-page-container" data-cy="form.handover.page">
+        <div data-cy="page.container" role="main" aria-label="Shift Handover" className="handover-page-container" data-cy="form.handover.page">
             <DynamicFormRenderer
                 formEntry={formEntry}
                 onSuccess={() => navigate(RouteRegistry.PSW.DASHBOARD)}

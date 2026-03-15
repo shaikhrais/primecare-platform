@@ -9,7 +9,7 @@ const STEPS = ['Personal Info','Employment Details','Certifications','Documents'
 export default function StaffOnboardingWizard() {
     const [step, setStep] = useState(0);
     return (
-        <div data-cy="W2-page" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Staff Onboarding" data-cy="W2-page" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ marginBottom: '28px' }}>
                 <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>👤 Staff Onboarding</h1>
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Step {step + 1} of {STEPS.length}: {STEPS[step]}</p>

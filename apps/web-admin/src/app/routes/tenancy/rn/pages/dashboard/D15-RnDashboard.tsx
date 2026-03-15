@@ -66,10 +66,10 @@ export const Dashboard: React.FC = () => {
     );
 
     return (
-        <div data-cy="page.container" style={{ padding: '0 24px 24px 24px', maxWidth: '1400px', margin: '0 auto', boxSizing: 'border-box' }}>
+        <div data-cy="page.container" role="main" aria-label="RN Dashboard" style={{ padding: '0 24px 24px 24px', maxWidth: '1400px', margin: '0 auto', boxSizing: 'border-box' }}>
             <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h1 style={{ margin: '0 0 4px 0', fontSize: '28px', fontWeight: 900, color: '#0F172A' }}>Clinical Review Hub</h1>
+                    <h1 data-cy="page.title" style={{ margin: '0 0 4px 0', fontSize: '28px', fontWeight: 900, color: '#0F172A' }}>Clinical Review Hub</h1>
                     <p style={{ margin: 0, color: '#64748B', fontWeight: 600 }}>{user?.email || 'RN'} • Tablet Layout Optimized</p>
                 </div>
                 {activeAssessment && (

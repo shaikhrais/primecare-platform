@@ -38,7 +38,7 @@ export default function TaskGrid() {
 
     if (loading) {
         return (
-            <div data-cy="page.container" className="task-board" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+            <div data-cy="page.container" role="main" aria-label="Task Grid" className="task-board" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
                 <div className="animate-pulse text-muted-foreground font-black uppercase tracking-widest">
                     Synchronizing Tasks...
                 </div>

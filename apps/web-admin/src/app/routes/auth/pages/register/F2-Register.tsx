@@ -38,7 +38,7 @@ export default function Register() {
     };
 
     return (
-        <div data-cy="page.container" style={{
+        <div data-cy="page.container" role="main" aria-label="Register" style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '1rem', paddingBottom: '6rem', backgroundColor: 'var(--bg)', position: 'relative', boxSizing: 'border-box'
         }}>
             <div style={{ position: 'absolute', top: '20px', right: '24px', zIndex: 100 }}>

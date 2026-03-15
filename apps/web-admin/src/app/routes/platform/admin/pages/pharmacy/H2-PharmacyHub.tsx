@@ -109,7 +109,7 @@ export default function PharmacyHub() {
     const syncBtn = getButtonById('btn-pharmacy-mar-sync');
 
     return (
-        <div data-cy="page.container" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div data-cy="page.container" role="main" aria-label="Pharmacy Hub" style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ backgroundColor: '#EEF2FF', padding: '16px', borderRadius: '12px', fontSize: '32px', border: '1px solid #E0E7FF' }}>

@@ -27,7 +27,7 @@ export const RegistrySummaryDashboard: React.FC = () => {
     useEffect(() => { fetchAll(); }, []);
 
     return (
-        <div data-cy="page.container" style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+        <div data-cy="page.container" role="main" aria-label="Registry Summary" style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div><h1 data-cy="page.title" style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>📊 Platform Summary Dashboard</h1><p style={{ color: '#64748b', marginTop: '0.25rem', fontSize: '0.9rem' }}>Real-time intelligence powered by DB{lastSynced && <span style={{ marginLeft: '1rem', fontSize: '0.8rem', padding: '2px 8px', borderRadius: '4px', background: '#f0fdf4', color: '#16a34a' }}>✅ Synced: {lastSynced}</span>}</p></div>
                 <button data-cy="btn-admin.registry-summary-0" onClick={fetchAll} disabled={loading} style={{ padding: '0.7rem 1.5rem', borderRadius: '0.75rem', background: loading ? '#94a3b8' : 'linear-gradient(135deg, #0d9488, #0f766e)', border: 'none', color: 'white', fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', fontSize: '0.9rem', transition: 'all 0.2s' }}>{loading ? '⏳ Syncing...' : '🔄 Sync Now'}</button>

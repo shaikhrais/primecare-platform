@@ -47,7 +47,7 @@ export default function ComplianceMonitor() {
     ];
 
     return (
-        <div data-cy="page.container" className="compliance-monitor">
+        <div data-cy="page.container" role="main" aria-label="Compliance Monitor" className="compliance-monitor">
             <header className="compliance-header">
                 <h1 data-cy="page.title">{t(ContentRegistry.MANAGER_COMPLIANCE.TITLE)}</h1>
                 <p className="text-lg font-medium text-muted-foreground">{t(ContentRegistry.MANAGER_COMPLIANCE.SUBTITLE)}</p>

@@ -49,7 +49,7 @@ export default function WizardHub() {
     ];
 
     return (
-        <div data-cy="page.container" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
+        <div data-cy="page.container" role="main" aria-label="Wizard Hub" style={{ maxWidth: '1000px', margin: '2rem auto', padding: '0 1rem' }}>
             <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
                 <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: '800', color: '#111827', marginBottom: '0.5rem' }}>
                     {t(ContentRegistry.WIZARD_HUB.TITLE)}
