@@ -36,9 +36,9 @@ export default function ResponseBot() {
                     id: 1,
                     type: 'REGISTRY_SWEEP',
                     status: data.stats.orphans > 0 ? 'warning' : 'success',
-                    summary: +""Verified ${data.stats.buttons} buttons and ${data.stats.links} links.+"",
+                    summary: `Verified ${data.stats.buttons} buttons and ${data.stats.links} links.`,
                     issues: data.stats.orphans + data.stats.warnings,
-                    details: data.results.map((r: any) => +""${r.id}: ${r.message}+"").join(' | ')
+                    details: data.results.map((r: any) => `${r.id}: ${r.message}`).join(' | ')
                 },
                 {
                     id: 2,
