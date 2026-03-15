@@ -1,11 +1,26 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import viteCompression from 'vite-plugin-compression'
 
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // Brotli pre-compression (~60-70% size reduction)
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 1024, // Only compress files > 1KB
+    }),
+    // Gzip fallback for older clients
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 1024,
+    }),
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

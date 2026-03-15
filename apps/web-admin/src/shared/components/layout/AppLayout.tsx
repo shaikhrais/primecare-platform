@@ -3,6 +3,9 @@ import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 import { useRouteTracker } from '@/shared/hooks/useRouteTracker';
+import { useStoreSync } from '@/shared/hooks/useStoreSync';
+import { useUIStore } from '@/shared/stores';
+import '@/shared/styles/darkMode.css';
 
 // Components
 import { Sidebar } from './Sidebar';
@@ -29,9 +32,10 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
     const location = useLocation();
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const { sidebarCollapsed: isCollapsed, setSidebarCollapsed: setIsCollapsed } = useUIStore();
     const isMobile = useMediaQuery('(max-width: 1024px)');
     useRouteTracker(); // auto-track every navigation
+    useStoreSync(); // bridge AuthContext → Zustand + apply dark mode
 
     useEffect(() => {
         setIsSidebarOpen(false);
@@ -80,7 +84,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
         <div data-cy="page.container" className="pc-app-container" style={{
             display: 'flex',
             minHeight: '100vh',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'var(--pc-bg-primary, #FFFFFF)',
             '--sidebar-width': isMobile ? '0px' : (isCollapsed ? '80px' : '280px')
         } as any}>
             {/* Sidebar Overlay (Mobile Only) */}
@@ -113,7 +117,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
                 display: 'flex',
                 flexDirection: 'column',
                 minHeight: '100vh',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'var(--pc-bg-primary, #FFFFFF)',
                 width: isMobile ? '100%' : 'calc(100% - var(--sidebar-width))',
                 overflowX: 'hidden'
             }}>

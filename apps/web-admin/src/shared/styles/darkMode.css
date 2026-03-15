@@ -1,0 +1,146 @@
+/**
+ * PrimeCare Dark Mode — CSS Custom Properties
+ *
+ * Applied via [data-theme="dark"] attribute on <html>.
+ * Controlled by useUIStore().theme via useStoreSync hook.
+ *
+ * Convention: All variables use `--pc-` prefix.
+ * Surfaces go darker as depth increases (elevation model).
+ */
+
+/* ── Light theme (defaults / explicit) ─────────────────────────── */
+:root,
+[data-theme="light"] {
+    --pc-bg-primary: #FFFFFF;
+    --pc-bg-secondary: #F9FAFB;
+    --pc-bg-tertiary: #F3F4F6;
+    --pc-bg-elevated: #FFFFFF;
+    --pc-bg-overlay: rgba(0, 0, 0, 0.5);
+
+    --pc-surface-card: #FFFFFF;
+    --pc-surface-sidebar: #0F172A;
+    --pc-surface-topbar: #FFFFFF;
+    --pc-surface-input: #FFFFFF;
+
+    --pc-text-primary: #111827;
+    --pc-text-secondary: #6B7280;
+    --pc-text-tertiary: #9CA3AF;
+    --pc-text-inverse: #FFFFFF;
+    --pc-text-link: #3B82F6;
+
+    --pc-border-primary: #E5E7EB;
+    --pc-border-secondary: #D1D5DB;
+    --pc-border-focus: #3B82F6;
+
+    --pc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+    /* Status colors */
+    --pc-success: #10B981;
+    --pc-success-bg: #ECFDF5;
+    --pc-warning: #F59E0B;
+    --pc-warning-bg: #FFFBEB;
+    --pc-error: #EF4444;
+    --pc-error-bg: #FEF2F2;
+    --pc-info: #3B82F6;
+    --pc-info-bg: #EFF6FF;
+
+    /* Scrollbar */
+    --pc-scrollbar-track: #F3F4F6;
+    --pc-scrollbar-thumb: #D1D5DB;
+}
+
+/* ── Dark theme ────────────────────────────────────────────────── */
+[data-theme="dark"] {
+    --pc-bg-primary: #0F172A;
+    --pc-bg-secondary: #1E293B;
+    --pc-bg-tertiary: #334155;
+    --pc-bg-elevated: #1E293B;
+    --pc-bg-overlay: rgba(0, 0, 0, 0.7);
+
+    --pc-surface-card: #1E293B;
+    --pc-surface-sidebar: #020617;
+    --pc-surface-topbar: #1E293B;
+    --pc-surface-input: #334155;
+
+    --pc-text-primary: #F1F5F9;
+    --pc-text-secondary: #94A3B8;
+    --pc-text-tertiary: #64748B;
+    --pc-text-inverse: #0F172A;
+    --pc-text-link: #60A5FA;
+
+    --pc-border-primary: #334155;
+    --pc-border-secondary: #475569;
+    --pc-border-focus: #60A5FA;
+
+    --pc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+    /* Status colors — slightly brighter for dark backgrounds */
+    --pc-success: #34D399;
+    --pc-success-bg: rgba(16, 185, 129, 0.15);
+    --pc-warning: #FBBF24;
+    --pc-warning-bg: rgba(245, 158, 11, 0.15);
+    --pc-error: #F87171;
+    --pc-error-bg: rgba(239, 68, 68, 0.15);
+    --pc-info: #60A5FA;
+    --pc-info-bg: rgba(59, 130, 246, 0.15);
+
+    /* Scrollbar */
+    --pc-scrollbar-track: #1E293B;
+    --pc-scrollbar-thumb: #475569;
+}
+
+/* ── Global dark mode transitions ──────────────────────────────── */
+*,
+*::before,
+*::after {
+    transition: background-color 0.2s ease, color 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ── Scrollbar styling ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pc-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pc-scrollbar-thumb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pc-text-secondary);
+}
+
+/* ── Utility: auto-apply dark mode to common elements ──────────── */
+[data-theme="dark"] .pc-app-container {
+    background-color: var(--pc-bg-primary) !important;
+    color: var(--pc-text-primary);
+}
+
+[data-theme="dark"] .pc-topbar {
+    background-color: var(--pc-surface-topbar) !important;
+    border-bottom-color: var(--pc-border-primary) !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--pc-surface-input);
+    color: var(--pc-text-primary);
+    border-color: var(--pc-border-primary);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--pc-text-tertiary);
+}
