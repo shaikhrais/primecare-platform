@@ -5,6 +5,7 @@ import { prismaMiddleware } from './_shared/middleware/prisma';
 import { governanceMiddleware } from './_shared/middleware/governance';
 import { tenantIsolation, csrfProtection, sanitizeInput } from './_shared/middleware/security';
 import { correlationId, requestLogger, sessionTimeout } from './_shared/middleware/observability';
+import { rateLimiter } from './_shared/middleware/rate-limiter';
 import { Bindings, Variables } from './bindings';
 
 // Modular Module Imports
@@ -43,6 +44,7 @@ registerPublicRoutes(app);
 // 3. Middlewares
 app.use('*', correlationId());
 app.use('*', requestLogger());
+app.use('*', rateLimiter());
 app.use('*', secureHeaders());
 app.use('*', prismaMiddleware());
 app.use('*', governanceMiddleware());
