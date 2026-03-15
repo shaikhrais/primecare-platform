@@ -6,11 +6,14 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 
 const { RouteRegistry } = AdminRegistry;
 
-// Admin components (Eagerly loaded to avoid layout shifts on dashboard)
+// Admin components (Dashboard eagerly loaded for instant first paint)
 import AdminDashboard from './pages/dashboard';
-import RegistrySummaryDashboard from './pages/dashboard/D2-RegistrySummary';
-import { UserList, UserEntry } from './pages/users';
-import AdminEarningsPage from './pages/earnings';
+
+// Admin secondary pages (Lazy loaded)
+const RegistrySummaryDashboard = lazy(() => import('./pages/dashboard/D2-RegistrySummary'));
+const UserList = lazy(() => import('./pages/users').then(m => ({ default: m.UserList })));
+const UserEntry = lazy(() => import('./pages/users').then(m => ({ default: m.UserEntry })));
+const AdminEarningsPage = lazy(() => import('./pages/earnings'));
 
 // Admin Pages (Lazy loaded)
 const Schedule = lazy(() => import('./pages/schedule/L1-Schedule'));
