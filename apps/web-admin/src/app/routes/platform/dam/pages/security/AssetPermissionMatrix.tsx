@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lock, Unlock, ShieldAlert, Eye, Edit3, Trash2, Users } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RolePermission {

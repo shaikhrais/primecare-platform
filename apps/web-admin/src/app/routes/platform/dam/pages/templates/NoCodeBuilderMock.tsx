@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LayoutTemplate, Move, PlusCircle, Trash2, Smartphone, Monitor } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface Block {
@@ -26,17 +26,12 @@ export const NoCodeBuilderMock: React.FC = () => {
         setBlocks(prev => prev.filter(b => b.id !== id));
     };
 
-    const handleSaveTemplate = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/templates/no-code', { blocks });
-            showToast("JSON Template Structure saved to DB.", "success");
-        } catch (error) {
-            showToast("Failed to lock layout templates", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const templateMutation = useApiMutation('/platform/admin/dam/templates/no-code', {
+        onSuccess: () => { showToast('JSON Template Structure saved to DB.', 'success'); },
+        onError: () => { showToast('Failed to lock layout templates', 'error'); },
+    });
+
+    const handleSaveTemplate = () => templateMutation.mutate({ blocks });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden', marginTop: '16px' }}>

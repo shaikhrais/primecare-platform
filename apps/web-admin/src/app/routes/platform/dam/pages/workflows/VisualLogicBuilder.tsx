@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Workflow, Play, MousePointer2, Plus, ArrowRight, Settings2, Trash2, Webhook, MessageSquare, Database } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface LogicNode {
@@ -29,18 +29,15 @@ export const VisualLogicBuilder: React.FC = () => {
         setNodes(prev => prev.filter(n => n.id !== id));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/workflows/visual-logic', { nodes });
-            showToast("Visual logic payload translated to JSON and persisted to DB.", "success");
+    const saveMutation = useApiMutation('/platform/admin/dam/workflows/visual-logic', {
+        onSuccess: () => {
+            showToast('Visual logic payload translated to JSON and persisted to DB.', 'success');
             setNodes(prev => prev.map(n => ({...n, state: 'CONFIGURED'})));
-        } catch (error) {
-            showToast("Failed to compile syntax", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+        },
+        onError: () => { showToast('Failed to compile syntax', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ nodes });
 
     const renderNode = (node: LogicNode, index: number) => {
         return (

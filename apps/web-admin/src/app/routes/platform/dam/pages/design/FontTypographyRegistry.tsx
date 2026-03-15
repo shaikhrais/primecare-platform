@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Type, Link2, DownloadCloud, AlertOctagon, Brush, Search, Trash2 } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface FontRegistry {
@@ -19,24 +19,18 @@ export const FontTypographyRegistry: React.FC = () => {
         { id: '3', family: 'Comic Sans MS', provider: 'Local Asset', weightIncluded: ['400'], status: 'BLOCKED', impactKb: 0 },
         { id: '4', family: 'Proxima Nova', provider: 'Adobe Typekit', weightIncluded: ['300', '400', '700'], status: 'PENDING', impactKb: 145 }
     ]);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const handleStatusChange = (id: string, newStatus: FontRegistry['status']) => {
         setFonts(prev => prev.map(f => f.id === id ? { ...f, status: newStatus } : f));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/design/sync-fonts', { fonts });
-            showToast("Blocked fonts have been forcefully stripped from the <head> tag globally.", "success");
-        } catch (error) {
-            showToast("Unable to reach registry sink", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/design/sync-fonts', {
+        onSuccess: () => { showToast('Typography tokens synced to global design system.', 'success'); },
+        onError: () => { showToast('Failed to sync font registry', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ fonts });
 
     const totalPayload = fonts.filter(f => f.status === 'APPROVED').reduce((sum, f) => sum + f.impactKb, 0);
 

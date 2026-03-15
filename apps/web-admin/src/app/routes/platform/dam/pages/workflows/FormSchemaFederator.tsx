@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Type, CheckSquare, Calendar, AlignLeft, Hash, Save, LayoutTemplate, PlusCircle, Trash2 } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface SchemaField {
@@ -43,17 +43,12 @@ export const FormSchemaFederator: React.FC = () => {
         setFields(prev => prev.map(f => f.id === id ? { ...f, [key]: value } : f));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/workflows/schemas', { formName, fields });
-            showToast("Dynamic JSON schema persisted! Frontend forms will universally reflect these changes immediately.", "success");
-        } catch (error) {
-            showToast("Failed to map dictionary format", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/workflows/schemas', {
+        onSuccess: () => { showToast('Dynamic JSON schema persisted! Frontend forms will universally reflect these changes immediately.', 'success'); },
+        onError: () => { showToast('Failed to map dictionary format', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ formName, fields });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

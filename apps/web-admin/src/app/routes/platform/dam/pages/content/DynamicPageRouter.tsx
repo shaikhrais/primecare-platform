@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Link2, Search, CheckCircle2, AlertTriangle, PlusCircle, Save } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RouteAlias {
@@ -17,20 +17,16 @@ export const DynamicPageRouter: React.FC = () => {
         { id: '3', internalComponentPath: 'pages/legal/PrivacyPolicy.tsx', publicUrlSlug: '/privacy', status: 'REDIRECT' },
         { id: '4', internalComponentPath: 'pages/marketing/Pricing.tsx', publicUrlSlug: '/pricing-plans', status: 'DRAFT' }
     ]);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/content/dynamic-routing', { aliases });
-            showToast("Edge proxy rules updated. New URL slugs will route to internal components globally within 60 seconds.", "success");
-        } catch (error) {
-            showToast("Failed to persist routing", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/content/dynamic-routing', {
+        onSuccess: () => { showToast('Edge proxy rules updated. New URL slugs will route to internal components globally within 60 seconds.', 'success'); },
+        onError: () => { showToast('Failed to persist routing', 'error'); },
+    });
+
+    const isSaving = saveMutation.isPending;
+
+    const handleSave = () => saveMutation.mutate({ aliases });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

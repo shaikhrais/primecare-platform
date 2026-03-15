@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Plus, Settings, AlertTriangle, FileSignature, AlertOctagon, RefreshCcw } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ComplianceRule {
@@ -17,24 +17,20 @@ export const LegalComplianceBlockers: React.FC = () => {
         { id: '2', targetFormOrRoute: '/forms/telehealth-consent', requiredComponent: '<HipaaDisclaimerCheckbox />', region: 'US_NY', isActive: true },
         { id: '3', targetFormOrRoute: '/forms/caregiver-contract', requiredComponent: '<UnionAddendumModal />', region: 'CA_ON', isActive: false }
     ]);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const toggleRuleActive = (id: string) => {
         setRules(prev => prev.map(r => r.id === id ? { ...r, isActive: !r.isActive } : r));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/compliance/blockers', { rules });
-            showToast("Compliance blockers successfully enforced on the UI routing layer.", "success");
-        } catch (error) {
-            showToast("Failed to lock down legal paths", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/compliance/blockers', {
+        onSuccess: () => { showToast('Compliance blockers successfully enforced on the UI routing layer.', 'success'); },
+        onError: () => { showToast('Failed to lock down legal paths', 'error'); },
+    });
+
+    const isSaving = saveMutation.isPending;
+
+    const handleSave = () => saveMutation.mutate({ rules });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

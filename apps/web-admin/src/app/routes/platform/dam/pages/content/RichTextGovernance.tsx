@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Type, Code, Terminal, Save, ShieldAlert, FileCode2, CheckSquare } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface HtmlNodeRule {
@@ -21,7 +21,6 @@ export const RichTextGovernance: React.FC = () => {
         { tag: '<h1> - <h3>', description: 'Structural headings', isPermitted: true, isDangerous: false }
     ]);
 
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const toggleRule = (tag: string) => {
@@ -31,17 +30,12 @@ export const RichTextGovernance: React.FC = () => {
         }));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/content/rich-text-policies', { rules });
-            showToast("Rich Text sanitation policies saved. Database proxy will now strip forbidden HTML nodes from all incoming WYSIWYG saves.", "success");
-        } catch (error) {
-            showToast("Failed to lock proxy pipelines", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/content/rich-text-policies', {
+        onSuccess: () => { showToast('Rich text governance policies updated.', 'success'); },
+        onError: () => { showToast('Failed to deploy content rules', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ rules });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

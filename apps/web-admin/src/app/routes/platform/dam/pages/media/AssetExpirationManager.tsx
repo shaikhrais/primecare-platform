@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CalendarClock, Archive, AlertCircle, Save, Clock } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ExpiryAsset {
@@ -19,24 +19,18 @@ export const AssetExpirationManager: React.FC = () => {
         { id: 'a3', alias: 'spring_hiring_drive.webp', type: 'IMAGE', uploadedAt: '1 year ago', expiresAt: '2025-06-01T00:00:00', status: 'ARCHIVED' }
     ]);
     
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const handleDateChange = (id: string, newDate: string) => {
         setAssets(prev => prev.map(a => a.id === id ? { ...a, expiresAt: newDate || null } : a));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/media/expiration', { assets });
-            showToast("Lifecycle policies updated. Expired assets pulled from CDN edge.", "success");
-        } catch (error) {
-            showToast("Failed to lock TTL bounds", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/media/expiration', {
+        onSuccess: () => { showToast('Asset retention policies updated.', 'success'); },
+        onError: () => { showToast('Failed to persist expiration rules', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ assets });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

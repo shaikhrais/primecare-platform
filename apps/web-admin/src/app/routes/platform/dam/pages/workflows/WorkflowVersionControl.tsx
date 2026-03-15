@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { History, GitCommit, Search, RefreshCcw, FileJson, CheckCircle2 } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface WorkflowCommit {
@@ -18,25 +18,22 @@ export const WorkflowVersionControl: React.FC = () => {
         { id: '2', hash: '3a9b7d5', description: 'Updated Checkr threshold logic', author: 'system.auto', timestamp: '2 days ago', isActive: false },
         { id: '3', hash: 'e5f1a9c', description: 'Initial CRM logic tree setup', author: 'dam.manager@primecare.com', timestamp: '1 week ago', isActive: false }
     ]);
-    const [isReverting, setIsReverting] = useState(false);
     const [selectedCommit, setSelectedCommit] = useState<WorkflowCommit | null>(null);
     const { showToast } = useNotification();
 
-    const handleRevert = async (commit: WorkflowCommit) => {
-        setIsReverting(true);
-        try {
-            await apiClient.post('/platform/admin/dam/workflows/rollback', { hash: commit.hash });
-            setCommits(prev => prev.map(c => ({
-                ...c,
-                isActive: c.id === commit.id
-            })));
-            showToast(`Visual Workflow Engine successfully rolled back to commit [${commit.hash}].`, "success");
+    const revertMutation = useApiMutation('/platform/admin/dam/workflows/rollback', {
+        onSuccess: () => {
+            showToast(`Visual Workflow Engine successfully rolled back.`, 'success');
             setSelectedCommit(null);
-        } catch (error) {
-            showToast("Failed to revert logic graph", "error");
-        } finally {
-            setIsReverting(false);
-        }
+        },
+        onError: () => { showToast('Failed to revert logic graph', 'error'); },
+    });
+
+    const isReverting = revertMutation.isPending;
+
+    const handleRevert = (commit: WorkflowCommit) => {
+        setCommits(prev => prev.map(c => ({ ...c, isActive: c.id === commit.id })));
+        revertMutation.mutate({ hash: commit.hash });
     };
 
     return (

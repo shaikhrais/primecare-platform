@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Skull, AlertTriangle, ShieldAlert, WifiOff, Power, Database, Users, Activity, RefreshCw } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 export const GlobalDigitalKillSwitch: React.FC = () => {
@@ -11,52 +11,53 @@ export const GlobalDigitalKillSwitch: React.FC = () => {
     const [pin, setPin] = useState('');
     const { showToast } = useNotification();
 
+    const engageMutation = useApiMutation('/v1/system/kill-switch/engage', {
+        onSuccess: () => { showToast('CRITICAL SECURITY PROTOCOL ENGAGED.\n\nAll external connections severed. Client devices force-disconnected. PostgreSQL database connections destroyed.\n\nApplication is now in STATIC MODE.', 'error'); },
+        onError: () => { showToast('Failed to communicate with master kill-switch relay.', 'error'); },
+    });
+
+    const disengageMutation = useApiMutation('/v1/system/kill-switch/disengage', {
+        onSuccess: () => {
+            setIsArmed(false);
+            setKillSwitchActive(false);
+            setCountdown(10);
+            setPin('');
+            showToast('Digital kill switch disengaged. Re-establishing network proxies and DNS routing...', 'success');
+        },
+        onError: () => { showToast('Failed to disconnect master kill-switch relay. Manual intervention required.', 'error'); },
+    });
+
     const toggleArm = () => {
-        if (killSwitchActive) return; // Cannot disarm easily once fired
+        if (killSwitchActive) return;
         setIsArmed(!isArmed);
         setPin('');
     };
 
     const handleFire = () => {
         if (pin !== '1984') {
-            showToast("Invalid Executive Override PIN.", 'error');
+            showToast('Invalid Executive Override PIN.', 'error');
             return;
         }
-        
+
         setIsEngaging(true);
-        
+
         let timer = 10;
-        const interval = setInterval(async () => {
+        const interval = setInterval(() => {
             timer -= 1;
             setCountdown(timer);
-            
+
             if (timer <= 0) {
                 clearInterval(interval);
                 setIsEngaging(false);
                 setKillSwitchActive(true);
-                
-                try {
-                    await apiClient.post('/v1/system/kill-switch/engage', {});
-                    showToast("CRITICAL SECURITY PROTOCOL ENGAGED.\n\nAll external connections severed. Client devices force-disconnected. PostgreSQL database connections destroyed.\n\nApplication is now in STATIC MODE.", 'error');
-                } catch (e) {
-                    showToast("Failed to communicate with master kill-switch relay.", 'error');
-                }
+                engageMutation.mutate({});
             }
         }, 1000);
     };
 
-    const handleReset = async () => {
-        if (window.confirm("Are you absolutely sure you want to attempt platform reboot? This requires full cloud-provider redeployment verification.")) {
-            try {
-                await apiClient.post('/v1/system/kill-switch/disengage', {});
-                setIsArmed(false);
-                setKillSwitchActive(false);
-                setCountdown(10);
-                setPin('');
-                showToast("Digital kill switch disengaged. Re-establishing network proxies and DNS routing...", 'success');
-            } catch (e) {
-                showToast("Failed to disconnect master kill-switch relay. Manual intervention required.", 'error');
-            }
+    const handleReset = () => {
+        if (window.confirm('Are you absolutely sure you want to attempt platform reboot? This requires full cloud-provider redeployment verification.')) {
+            disengageMutation.mutate({});
         }
     };
 

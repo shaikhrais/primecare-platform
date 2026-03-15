@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layers, Activity, ShieldAlert, Zap, Globe, Pause, Play, DownloadCloud } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface ScriptTag {
@@ -19,24 +19,18 @@ export const ThirdPartyScriptManager: React.FC = () => {
         { id: '3', provider: 'Meta Pixel', description: 'Tracks conversions from Facebook ad campaigns.', scriptType: 'AD_TRACKING', status: 'ACTIVE', payloadSizeKb: 45 },
         { id: '4', provider: 'Sentry', description: 'Captures and aggregates frontend JS exceptions.', scriptType: 'PERFORMANCE', status: 'ACTIVE', payloadSizeKb: 28 }
     ]);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const toggleScript = (id: string) => {
         setScripts(prev => prev.map(s => s.id === id ? { ...s, status: s.status === 'ACTIVE' ? 'PAUSED' : 'ACTIVE' } : s));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/governance/scripts', { scripts });
-            showToast("Script manifest updated. Edge Proxy will now inject these tags.", "success");
-        } catch (error) {
-            showToast("Failed to sync proxy tags", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/governance/scripts', {
+        onSuccess: () => { showToast('Script injection rules deployed.', 'success'); },
+        onError: () => { showToast('Failed to persist governance rules', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ scripts });
 
     const totalActivePayload = scripts.filter(s => s.status === 'ACTIVE').reduce((sum, s) => sum + s.payloadSizeKb, 0);
 

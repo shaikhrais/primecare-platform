@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
 import { Cloud, Radio, RefreshCw, Server, AlertCircle, Database } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 export const ThirdPartyCdnSync: React.FC = () => {
     const [provider, setProvider] = useState<'cloudflare' | 'aws'>('aws');
     const [bucketUrl, setBucketUrl] = useState('');
     const [accessKey, setAccessKey] = useState('');
-    const [isSyncing, setIsSyncing] = useState(false);
     const [lastSync, setLastSync] = useState('2026-03-09 14:00:00 UTC');
     const { showToast } = useNotification();
 
-    const handleSync = async () => {
-        setIsSyncing(true);
-        try {
-            await apiClient.post('/platform/admin/dam/media/cdn-sync', { provider, bucketUrl });
+    const syncMutation = useApiMutation('/platform/admin/dam/media/cdn-sync', {
+        onSuccess: () => {
             setLastSync(new Date().toUTCString());
-            showToast(`Successfully mirrored vault to external ${provider.toUpperCase()} bucket.`, "success");
-        } catch (error) {
-            showToast("Edge propagation failed", "error");
-        } finally {
-            setIsSyncing(false);
-        }
-    };
+            showToast(`Successfully mirrored vault to external ${provider.toUpperCase()} bucket.`, 'success');
+        },
+        onError: () => { showToast('Edge propagation failed', 'error'); },
+    });
+
+    const isSyncing = syncMutation.isPending;
+
+    const handleSync = () => syncMutation.mutate({ provider, bucketUrl });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

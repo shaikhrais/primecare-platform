@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MonitorSmartphone, LayoutDashboard, Search, Trash2, PieChart, Info, Map } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface BrowserData {
@@ -20,24 +20,18 @@ export const BrowserMatrixTelemetry: React.FC = () => {
         { id: '4', browserName: 'Safari', version: 'v12', percentTraffic: 1.8, supportCostLevel: 'HIGH', status: 'DEPRECATION_WARNING' },
         { id: '5', browserName: 'Internet Explorer', version: 'v11', percentTraffic: 0.5, supportCostLevel: 'HIGH', status: 'UNSUPPORTED' }
     ]);
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const handleStatusChange = (id: string, newStatus: BrowserData['status']) => {
         setBrowsers(prev => prev.map(b => b.id === id ? { ...b, status: newStatus } : b));
     };
 
-    const handleDeploy = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/analytics/browser-matrix', { browsers });
-            showToast("Support matrix updated! Browsers marked as 'UNSUPPORTED' will now receive a static HTTP 426 Upgrade Required page.", "success");
-        } catch (error) {
-            showToast("Failed to push matrix logic", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/analytics/browser-matrix', {
+        onSuccess: () => { showToast('Browser telemetry matrix updated.', 'success'); },
+        onError: () => { showToast('Failed to sync browser support tiers', 'error'); },
+    });
+
+    const handleDeploy = () => saveMutation.mutate({ browsers });
 
     const getStatusStyles = (status: string) => {
         switch(status) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Palette, Eye, Maximize, AlertTriangle, Save } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface DesignToken {
@@ -20,7 +20,6 @@ export const DynamicTokenEditor: React.FC = () => {
         { id: '5', label: 'Base Spacing Unit', cssVar: '--spacing-base', value: '16px', type: 'size' }
     ]);
     
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     // Live update the actual document root to show real-time changes
@@ -34,17 +33,12 @@ export const DynamicTokenEditor: React.FC = () => {
         setTokens(prev => prev.map(t => t.id === id ? { ...t, value: newValue } : t));
     };
 
-    const handleSaveGlobal = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/design/sync-tokens', { tokens });
-            showToast("Design Tokens Synced to Production CDN.", "success");
-        } catch (error) {
-            showToast("Failed to compile external SCSS pipeline", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/design/sync-tokens', {
+        onSuccess: () => { showToast('Design tokens compiled and pushed to all themes.', 'success'); },
+        onError: () => { showToast('Failed to persist design tokens', 'error'); },
+    });
+
+    const handleSaveGlobal = () => saveMutation.mutate({ tokens });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>

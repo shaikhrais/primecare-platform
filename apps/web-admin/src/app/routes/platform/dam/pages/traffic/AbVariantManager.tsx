@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Save, Users, AlertTriangle, ArrowRight } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface Variant {
@@ -18,7 +18,6 @@ export const AbVariantManager: React.FC = () => {
         { id: 'v3', componentAlias: 'HomePageHeroV3 (Aggressive)', trafficWeight: 0, status: 'DRAFT', clicks: 0 }
     ]);
     
-    const [isDeploying, setIsDeploying] = useState(false);
     const { showToast } = useNotification();
 
     const handleWeightChange = (id: string, newWeight: number) => {
@@ -30,17 +29,16 @@ export const AbVariantManager: React.FC = () => {
         return total === 100;
     };
 
-    const handleDeploy = async () => {
+    const deployMutation = useApiMutation('/platform/admin/dam/traffic/routing-rules', {
+        onSuccess: () => { showToast('Traffic routing rules persisted to Edge CDN.', 'success'); },
+        onError: () => { showToast('Failed to re-route origin flows', 'error'); },
+    });
+
+    const isDeploying = deployMutation.isPending;
+
+    const handleDeploy = () => {
         if (!validateWeights()) return;
-        setIsDeploying(true);
-        try {
-            await apiClient.post('/platform/admin/dam/traffic/routing-rules', { variants });
-            showToast("Traffic routing rules persisted to Edge CDN.", "success");
-        } catch (error) {
-            showToast("Failed to re-route origin flows", "error");
-        } finally {
-            setIsDeploying(false);
-        }
+        deployMutation.mutate({ variants });
     };
 
     const totalWeight = variants.filter(v => ['ACTIVE', 'PAUSED'].includes(v.status)).reduce((sum, v) => sum + v.trafficWeight, 0);

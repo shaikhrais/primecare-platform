@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Globe, Search, Save, Languages, Check, Filter } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface TranslationKey {
@@ -22,7 +22,6 @@ export const GlobalI18nDictionary: React.FC = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<string>('ALL');
-    const [isSaving, setIsSaving] = useState(false);
     const { showToast } = useNotification();
 
     const handleUpdate = (id: string, lang: 'en'|'es'|'fr', value: string) => {
@@ -40,17 +39,12 @@ export const GlobalI18nDictionary: React.FC = () => {
         }));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/localization/i18n-dictionary', { translations });
-            showToast("Translation JSON dictionaries rebuilt and republished to the frontend Edge nodes.", "success");
-        } catch (error) {
-            showToast("Translation deployment engine failure", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/localization/i18n-dictionary', {
+        onSuccess: () => { showToast('Translation dictionary synced globally.', 'success'); },
+        onError: () => { showToast('Failed to compile i18n payload', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ translations });
 
     const filteredTranslations = translations.filter(t => 
         (filterStatus === 'ALL' || t.status.includes(filterStatus.replace('MISSING_', ''))) &&

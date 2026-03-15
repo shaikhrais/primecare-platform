@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Gauge, ShieldAlert, StopCircle, ArrowUpRight, Zap, RefreshCw, Activity } from 'lucide-react';
-import { apiClient } from '@/shared/utils/apiClient';
+import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useNotification } from '@/shared/context/NotificationContext';
 
 interface RateLimitPolicy {
@@ -26,17 +26,12 @@ export const ApiRateLimitConfig: React.FC = () => {
         setPolicies(prev => prev.map(p => p.id === id ? { ...p, hardCapRpm: newLimit } : p));
     };
 
-    const handleSave = async () => {
-        setIsSaving(true);
-        try {
-            await apiClient.post('/platform/admin/dam/workflows/rate-limits', { policies });
-            showToast("Rate limiting quotas persisted to Redis cache.", "success");
-        } catch (error) {
-            showToast("Failed to scale edge throttles", "error");
-        } finally {
-            setIsSaving(false);
-        }
-    };
+    const saveMutation = useApiMutation('/platform/admin/dam/workflows/rate-limits', {
+        onSuccess: () => { showToast('Rate limiting quotas persisted to Redis cache.', 'success'); },
+        onError: () => { showToast('Failed to scale edge throttles', 'error'); },
+    });
+
+    const handleSave = () => saveMutation.mutate({ policies });
 
     return (
         <div style={{ backgroundColor: 'white', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '24px', marginTop: '16px' }}>
