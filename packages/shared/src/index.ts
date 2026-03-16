@@ -10,6 +10,7 @@ export * from './registries/PageActionRegistry';
 export * from './registries/CorsRegistry';
 export * from './registries/PermissionRegistry';
 export * from './registries/FeatureIntegrityChecker';
+export * from './registries/PageSectionRegistry';
 
 // Existing
 export * from './theme';
