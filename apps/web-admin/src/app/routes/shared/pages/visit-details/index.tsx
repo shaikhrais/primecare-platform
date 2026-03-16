@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 
 export default function VisitDetails() {

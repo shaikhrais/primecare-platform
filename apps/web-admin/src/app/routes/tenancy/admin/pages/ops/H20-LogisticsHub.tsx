@@ -2,7 +2,7 @@
 // PAGE IDENTITY: H20 � Logistics Hub
 // Type: Hub | Owner: admin
 // ================================================================
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';

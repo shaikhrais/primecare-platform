@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Search, User, ClipboardList, Briefcase, X, Zap, Clock, ArrowRight } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 

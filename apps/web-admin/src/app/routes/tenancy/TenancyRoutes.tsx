@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import RequireRole from '@/shared/rbac/RequireRole';
 import AppLayout from '@/shared/components/layout/AppLayout';

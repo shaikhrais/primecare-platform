@@ -3,7 +3,7 @@
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import FlagLanguageSwitcher from '@/shared/components/layout/topbar/FlagLanguageSwitcher';

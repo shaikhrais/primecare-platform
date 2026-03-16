@@ -3,7 +3,7 @@
 // Adds workforce pulse, compliance scorecard, and operations center link
 // ================================================================
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useRealtimeQuery } from '@/shared/hooks/useRealtimeQuery';
 import { LiveIndicator } from '@/shared/components/ui/LiveIndicator';

@@ -9,7 +9,7 @@ import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ScanBarcode, ShieldCheck, AlertOctagon } from 'lucide-react';
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;
 

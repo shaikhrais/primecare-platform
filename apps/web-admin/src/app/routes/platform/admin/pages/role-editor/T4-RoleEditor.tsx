@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export default function RoleEditor() {

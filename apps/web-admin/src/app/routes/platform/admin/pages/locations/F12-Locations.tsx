@@ -4,7 +4,7 @@
 // ================================================================
 import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const { ContentRegistry } = AdminRegistry;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { SM_CARD_STYLES, handleDashboardAction } from './dashboardHelpers';

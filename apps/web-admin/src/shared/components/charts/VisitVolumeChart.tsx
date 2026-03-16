@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { ChartCard } from './ChartCard';
 import { CoreAreaChart } from './core';

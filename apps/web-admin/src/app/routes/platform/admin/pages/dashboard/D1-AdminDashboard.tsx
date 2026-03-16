@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useAuth } from '@/shared/context/AuthContext';

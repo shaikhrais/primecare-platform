@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 import { useRouteTracker } from '@/shared/hooks/useRouteTracker';

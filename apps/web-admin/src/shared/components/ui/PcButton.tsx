@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { type ButtonDef } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useToast as useNotification } from '@/shared/hooks/useToast';

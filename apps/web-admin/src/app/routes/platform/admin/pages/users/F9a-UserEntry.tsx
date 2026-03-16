@@ -3,7 +3,7 @@
 // Type: Form | Owner: admin
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';

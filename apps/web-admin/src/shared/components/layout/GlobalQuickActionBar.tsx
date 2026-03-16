@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { CreateShiftModal } from '@/shared/components/modals/CreateShiftModal';

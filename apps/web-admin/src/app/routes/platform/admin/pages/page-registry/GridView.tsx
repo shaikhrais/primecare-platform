@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ChevronRight } from 'lucide-react';
 import type { PageType, PageEntry } from 'prime-care-shared';
 import { TYPE_META } from './registryMeta';

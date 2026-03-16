@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SmartBreadcrumbs } from '@/shared/components/SmartBreadcrumbs';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { EarningRecord } from './earnings.data';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { EarningStats } from './components/EarningStats';

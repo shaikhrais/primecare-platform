@@ -6,7 +6,7 @@
 // Route:         /tenancy/psw/handover
 // ═══════════════════════════════════════════════════════════════
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { DynamicFormRenderer } from '@/shared/components/forms';
 import './HandoverPage.css';

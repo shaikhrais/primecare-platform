@@ -3,7 +3,7 @@
 // Type: List | Owner: admin
 // ================================================================
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 // Components
 import { ScheduleCalendar } from './components/ScheduleCalendar';

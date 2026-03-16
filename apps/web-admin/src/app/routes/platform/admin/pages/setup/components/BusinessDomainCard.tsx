@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
 import { useToast as useNotification } from '@/shared/hooks/useToast';

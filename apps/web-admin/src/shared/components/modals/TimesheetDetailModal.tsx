@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const { RouteRegistry } = AdminRegistry;
 

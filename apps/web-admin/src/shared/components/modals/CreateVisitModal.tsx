@@ -3,7 +3,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ClientServiceFields, DateTimeFields, AssignmentFields, SecondaryVisitFields } from './components/VisitFormFields';
 import { AdvancedRecurrenceBuilder } from './components/AdvancedRecurrenceBuilder';
 import { InlineCreateClient, InlineCreateService, InlineCreatePsw } from './components/InlineCreationForms';

@@ -3,7 +3,7 @@
 // Type: List | Owner: admin
 // ================================================================
 import React, { useEffect, useState, useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';

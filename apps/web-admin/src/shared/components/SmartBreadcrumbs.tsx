@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 
 const { RouteRegistry } = AdminRegistry;

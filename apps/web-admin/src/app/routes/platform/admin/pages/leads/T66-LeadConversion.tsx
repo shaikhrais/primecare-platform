@@ -3,7 +3,7 @@
 // Type: Tool | Owner: admin
 // ================================================================
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { apiClient } from '@/shared/utils/apiClient';

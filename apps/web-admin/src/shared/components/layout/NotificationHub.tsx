@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNotificationCenter } from '@/shared/context/NotificationCenterContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 /* ── Category Configuration ───────────────────────────────────── */
 const CATEGORIES: Record<string, { label: string; icon: string; color: string }> = {

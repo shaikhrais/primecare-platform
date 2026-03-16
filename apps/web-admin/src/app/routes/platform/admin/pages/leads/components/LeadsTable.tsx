@@ -1,6 +1,6 @@
 import React from 'react';
 import EmptyState from '@/shared/components/layout/EmptyState';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry, getButtonById } from 'prime-care-shared';
 import { useDialog } from '@/shared/hooks/useDialog';
 

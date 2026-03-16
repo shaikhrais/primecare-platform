@@ -15,7 +15,7 @@
  * NotificationCenterProvider remains for persistent server-side notifications.
  */
 import React, { ReactNode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { QueryProvider } from './QueryProvider';
 import { OfflineSyncProvider } from './OfflineSyncContext';

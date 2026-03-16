@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { CustomerQuickViewModal } from '@/shared/components/modals/CustomerQuickViewModal';
 

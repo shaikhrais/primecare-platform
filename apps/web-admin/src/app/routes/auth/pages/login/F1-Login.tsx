@@ -3,7 +3,7 @@
 // Type: Form | Owner: auth
 // ================================================================
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
 import { useTheme } from '@/shared/context/ThemeContext';

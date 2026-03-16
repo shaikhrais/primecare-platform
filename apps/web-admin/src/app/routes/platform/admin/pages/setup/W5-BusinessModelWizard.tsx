@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AdminRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { apiClient } from '@/shared/utils/apiClient';

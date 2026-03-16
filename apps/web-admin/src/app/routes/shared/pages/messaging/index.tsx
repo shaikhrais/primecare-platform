@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { webChatService } from '../../../../../services/WebChatService';
 import { apiClient } from '@/shared/utils/apiClient';
 

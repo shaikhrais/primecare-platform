@@ -3,7 +3,7 @@
 // Type: Dashboard | Owner: staff
 // ================================================================
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useAuth } from '@/shared/context/AuthContext';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';

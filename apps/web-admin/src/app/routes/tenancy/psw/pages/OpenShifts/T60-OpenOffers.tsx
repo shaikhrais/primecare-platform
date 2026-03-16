@@ -3,7 +3,7 @@
 // Type: Tool | Owner: psw
 // ================================================================
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { AdminRegistry } from 'prime-care-shared';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
