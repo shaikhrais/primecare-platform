@@ -4,7 +4,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { prismaMiddleware } from './_shared/middleware/prisma';
 import { governanceMiddleware } from './_shared/middleware/governance';
 import { tenantIsolation, csrfProtection, sanitizeInput } from './_shared/middleware/security';
-import { correlationId, requestLogger, sessionTimeout } from './_shared/middleware/observability';
+import { correlationId, requestLogger } from './_shared/middleware/observability';
 import { rateLimiter } from './_shared/middleware/rate-limiter';
 import { Bindings, Variables } from './bindings';
 
@@ -55,7 +55,7 @@ app.use('*', governanceMiddleware());
 app.use('*', tenantIsolation());
 app.use('*', csrfProtection());
 app.use('*', sanitizeInput());
-app.use('*', sessionTimeout());
+
 app.use('*', async (c, next) => { await next(); c.header('X-API-Version', '1.0.0'); });
 
 

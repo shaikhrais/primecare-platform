@@ -1,9 +1,12 @@
 /**
  * Public Routes — extracted from index.ts
- * Health, branding, stats, marketing leads, public registries
+ * Health, branding, stats, marketing leads, public registries, telemetry
  */
 import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from './bindings';
+
+/** Worker start time — used to calculate uptime in health endpoint */
+const WORKER_START_TIME = Date.now();
 
 type AppType = OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>;
 
@@ -14,10 +17,51 @@ const DEFAULT_BRAND = { name: 'PrimeCare', slug: '', status: 'active', logoUrl: 
 const EMPTY_STATS = { totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() };
 
 export function registerPublicRoutes(app: AppType) {
-    // Health check
+    // Enhanced health check — version, uptime, environment, DB status
     app.get('/v1/health', async (c) => {
-        try { const prisma = c.get('prisma'); if (prisma) await prisma.$queryRaw`SELECT 1`; return c.json({ status: 'ok', db: 'connected', time: new Date().toISOString(), architecture: 'role-first-modular' }); }
-        catch (e: any) { return c.json({ status: 'degraded', db: 'disconnected', time: new Date().toISOString() }, 503); }
+        const now = Date.now();
+        const uptimeMs = now - WORKER_START_TIME;
+        const base = {
+            version: '1.0.0',
+            architecture: 'role-first-modular',
+            environment: (c.env as any)?.ENVIRONMENT || 'development',
+            uptime: {
+                ms: uptimeMs,
+                human: `${Math.floor(uptimeMs / 3600000)}h ${Math.floor((uptimeMs % 3600000) / 60000)}m`,
+            },
+            time: new Date().toISOString(),
+        };
+        try {
+            const prisma = c.get('prisma');
+            if (prisma) await prisma.$queryRaw`SELECT 1`;
+            return c.json({ ...base, status: 'ok', db: 'connected' });
+        } catch (e: any) {
+            return c.json({ ...base, status: 'degraded', db: 'disconnected' }, 503);
+        }
+    });
+
+    // Frontend error telemetry — receives ErrorBoundary + global error payloads
+    app.post('/v1/telemetry/errors', async (c) => {
+        try {
+            const body = await c.req.json();
+            const reqId = (c.get as any)('requestId') || '-';
+            // Log as structured JSON — never fails the request
+            console.warn(JSON.stringify({
+                ts: new Date().toISOString(),
+                level: 'warn',
+                source: 'frontend',
+                reqId,
+                type: body?.type || 'UNKNOWN',
+                module: body?.module || 'unknown',
+                url: body?.url || '-',
+                error: {
+                    name: body?.error?.name || body?.name || 'Error',
+                    message: body?.error?.message || body?.message || '-',
+                    stack: (body?.error?.stack || body?.stack || '').split?.('\n')?.slice(0, 5)?.join('\n'),
+                },
+            }));
+        } catch { /* never let telemetry processing fail */ }
+        return c.body(null, 204);
     });
 
     app.get('/favicon.ico', (c) => c.body(null, 204));
