@@ -1,23 +1,44 @@
 # Mobile Applications
 
-> **Status:** Planned — not yet implemented.
+> **Status:** Sprint 2 — Flutter/Dart cross-platform app scaffolded.
 
-The PrimeCare mobile apps are planned as React Native (Expo) applications for two user roles:
+## PrimeCare PSW — `mobile/apps/PrimeCarePsw/`
 
-- **PrimeCareClient** — Client-facing mobile app for booking, feedback, and care plan access.
-- **PrimeCarePsw** — PSW-facing mobile app for schedule, check-in/out, mileage tracking.
+A Flutter/Dart cross-platform app for **Personal Support Workers** targeting:
+- 📱 **iOS** (iPhone/iPad)
+- 🤖 **Android** (phone/tablet)
+- 🪟 **Windows** desktop
+- 🍎 **macOS** desktop
+- 🌐 **Web** browser
 
-## Architecture Notes
+### Architecture
 
-- Will share business logic via `packages/shared` (registries, types, schemas).
-- The `mobile/instrumentation/` directory contains future telemetry scaffolding.
-- Mobile builds are `.gitignore`'d under `apps/PrimeCareClient/` and `apps/PrimeCarePsw/`.
+| Layer | Technology | Purpose |
+|---|---|---|
+| **State** | Riverpod | Global state, auth, providers |
+| **Routing** | go_router | Auth-aware, deep linking |
+| **HTTP** | Dio | API client with interceptors |
+| **Storage** | flutter_secure_storage | Token + session persistence |
+| **Location** | geolocator | GPS for EVV compliance |
+| **Auth** | local_auth | Biometric (Face ID / Fingerprint) |
+| **Push** | firebase_messaging | Real-time alerts |
+| **Theme** | Material 3 | Light/dark matching web-admin |
 
-## Getting Started
+### Screens
 
-Once development begins, initialize with:
+1. **Login** — Email/password + biometric
+2. **Schedule** — Today's shifts with pull-to-refresh
+3. **Visit Check-in/out** — GPS-verified EVV
+4. **SOS** — Incident reporting (6 types + GPS)
+5. **Profile** — Account, training, timesheets
+
+### Getting Started
 
 ```bash
-npx create-expo-app@latest apps/PrimeCareClient
-npx create-expo-app@latest apps/PrimeCarePsw
+cd mobile/apps/PrimeCarePsw
+flutter pub get
+flutter run                  # default platform
+flutter run -d windows       # Windows desktop
+flutter run -d macos          # macOS desktop
+flutter run -d chrome         # Web browser
 ```

@@ -20,6 +20,7 @@ import { useDialog } from '@/shared/hooks/useDialog';
 import { useRealtimeQuery } from '@/shared/hooks/useRealtimeQuery';
 import { LiveIndicator } from '@/shared/components/ui/LiveIndicator';
 import { DashboardSkeleton } from '@/shared/components/ui/Skeleton';
+import { LiveFeedIndicator } from '@/shared/components/LiveFeedIndicator';
 
 const { ContentRegistry, RouteRegistry, ApiRegistry } = AdminRegistry;
 
@@ -113,6 +114,8 @@ export default function AdminDashboard() {
                 <PcButton variant="primary" size="xs" label="🛡️ Verify Chain" onClick={handleVerifyChain} data-cy="btn-verify-chain" />
                 <PcButton variant="secondary" size="xs" label="📊 Audit Stats" onClick={handleAuditStats} data-cy="btn-audit-stats" />
             </div>
+
+            <LiveFeedIndicator />
 
             {/* Business Model Score & Setup Wizard Banner */}
             <SetupBanner modelScore={stats.modelScore} />

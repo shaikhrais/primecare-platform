@@ -46,13 +46,13 @@ interface FeatureFlagConfig {
 
 export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
     'telehealth': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         allowedRoles: ['admin', 'manager', 'rn'],
         minTier: 'pro',
         description: 'Video consultations and remote health monitoring',
     },
     'new-billing-ui': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         allowedRoles: ['admin', 'finance'],
         description: 'Redesigned billing and invoicing interface',
     },
@@ -60,10 +60,10 @@ export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
         defaultEnabled: false,
         allowedRoles: ['admin', 'manager', 'rn'],
         minTier: 'enterprise',
-        description: 'AI-generated personalized care plans',
+        description: 'AI-generated personalized care plans (requires enterprise tier)',
     },
     'gamification': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         description: 'PSW achievement badges, leaderboards, streaks',
     },
     'dark-mode': {
@@ -71,12 +71,12 @@ export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
         description: 'Dark mode theme toggle',
     },
     'offline-mode': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         allowedRoles: ['psw', 'rn'],
         description: 'PWA offline caching for field workers',
     },
     'advanced-analytics': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         allowedRoles: ['admin', 'manager', 'finance'],
         minTier: 'pro',
         description: 'AI-powered analytics dashboards and forecasting',
@@ -87,13 +87,13 @@ export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
         description: 'Client self-service portal access',
     },
     'real-time-dispatch': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         allowedRoles: ['admin', 'coordinator', 'manager'],
         minTier: 'pro',
         description: 'Live map dispatch with GPS tracking',
     },
     'document-signing': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         minTier: 'pro',
         description: 'Digital document signing (e-signatures)',
     },
@@ -101,10 +101,10 @@ export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
         defaultEnabled: false,
         allowedRoles: ['admin', 'finance'],
         minTier: 'enterprise',
-        description: 'Multi-currency billing and international payments',
+        description: 'Multi-currency billing and international payments (requires enterprise tier)',
     },
     'sms-notifications': {
-        defaultEnabled: false,
+        defaultEnabled: true,
         minTier: 'starter',
         description: 'SMS notification delivery channel',
     },

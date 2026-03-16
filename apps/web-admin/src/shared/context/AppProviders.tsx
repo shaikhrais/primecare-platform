@@ -18,7 +18,7 @@
  * (via the useToast hook), so NotificationProvider has been removed.
  * NotificationCenterProvider remains for persistent server-side notifications.
  */
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { AuthProvider } from './AuthContext';
@@ -27,12 +27,25 @@ import { QueryProvider } from './QueryProvider';
 import { OfflineSyncProvider } from './OfflineSyncContext';
 import { NotificationCenterProvider } from './NotificationCenterContext';
 import { CommandPaletteWrapper } from '../components/CommandPaletteWrapper';
-import { NetworkStatusBanner } from '../components/ui/NetworkStatusBanner';
+import { OfflineBanner } from '../components/OfflineBanner';
 import CookieConsent from '../components/ui/CookieConsent';
+import { registerServiceWorker } from '../services/sw-bridge';
 
 interface AppProvidersProps {
     children: ReactNode;
 }
+
+/** Register the service worker once on mount */
+const SWRegistrar: React.FC<{ children: ReactNode }> = ({ children }) => {
+    useEffect(() => {
+        registerServiceWorker(
+            () => console.log('[PWA] New version available'),
+            () => console.log('[PWA] Content cached for offline use'),
+            (result) => console.log('[PWA] Sync complete:', result),
+        );
+    }, []);
+    return <>{children}</>;
+};
 
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
     <ErrorBoundary>
@@ -41,13 +54,15 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
                 <QueryProvider>
                     <OfflineSyncProvider>
                         <NotificationCenterProvider>
-                            <NetworkStatusBanner />
-                            <CookieConsent />
-                            <BrowserRouter>
-                                <CommandPaletteWrapper>
-                                    {children}
-                                </CommandPaletteWrapper>
-                            </BrowserRouter>
+                            <SWRegistrar>
+                                <OfflineBanner />
+                                <CookieConsent />
+                                <BrowserRouter>
+                                    <CommandPaletteWrapper>
+                                        {children}
+                                    </CommandPaletteWrapper>
+                                </BrowserRouter>
+                            </SWRegistrar>
                         </NotificationCenterProvider>
                     </OfflineSyncProvider>
                 </QueryProvider>
@@ -57,3 +72,4 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
 );
 
 export default AppProviders;
+

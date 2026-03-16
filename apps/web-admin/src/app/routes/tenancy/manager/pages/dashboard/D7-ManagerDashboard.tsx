@@ -20,6 +20,7 @@ import { FleetRadarMap } from '../logistics/components/FleetRadarMap';
 import { TriageHeatmap } from '../intake/components/TriageHeatmap';
 import { ShiftDragBoard } from '../logistics/components/ShiftDragBoard';
 import { useTranslation } from 'react-i18next';
+import { LiveFeedIndicator } from '@/shared/components/LiveFeedIndicator';
 
 interface KPIData {
     activeClients: number;
@@ -118,6 +119,8 @@ export default function ManagerDashboard() {
                     </div>
                 </div>
             </header>
+
+            <LiveFeedIndicator />
 
             <DashboardStats
                 activeClients={kpiData.activeClients}

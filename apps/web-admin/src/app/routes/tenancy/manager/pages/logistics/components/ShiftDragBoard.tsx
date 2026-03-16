@@ -74,7 +74,34 @@ export const ShiftDragBoard: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', backgroundColor: '#F8FAFC', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', userSelect: 'none' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h2 data-cy="h2-manager.shift-drag-board-0" style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>High-Velocity Dispatch Board</h2>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isConnected ? '#10B981' : '#F59E0B' }}><Wifi size={20} style={{ animation: isConnected ? 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite' : 'none' }} /><span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{isConnected ? 'LIVE EDITING' : 'CONNECTING...'}</span></div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <button data-cy="btn-auto-assign"
+                        onClick={() => {
+                            if (unassigned.length === 0) { showToast('No unassigned shifts to optimize.', 'info'); return; }
+                            const optimizedShifts = unassigned.map(s => ({ id: s.id, clientId: '', clientName: s.patientName, location: s.address, time: s.time || new Date().toISOString(), duration: parseInt(s.duration) || 60, requiredRole: 'psw' }));
+                            const optimizedStaff = staffList.map(st => ({ id: st.id, name: st.name, role: st.role, certifications: [st.role], currentShifts: st.shifts.map(() => ({ startTime: new Date().toISOString(), endTime: new Date().toISOString() })), maxHoursToday: 8, hoursWorkedToday: st.shifts.length * 1.5, }));
+                            let assigned = 0;
+                            optimizedShifts.forEach(shift => {
+                                const best = optimizedStaff.filter(w => w.hoursWorkedToday < w.maxHoursToday).sort((a, b) => a.currentShifts.length - b.currentShifts.length)[0];
+                                if (best) {
+                                    const origShift = unassigned.find(s => s.id === shift.id);
+                                    if (origShift) {
+                                        setRemovedShiftIds(prev => new Set(prev).add(shift.id));
+                                        setStaffAssignments(prev => ({ ...prev, [best.id]: [...(prev[best.id] || []), origShift] }));
+                                        best.currentShifts.push({ startTime: shift.time, endTime: shift.time });
+                                        best.hoursWorkedToday += 1.5;
+                                        assigned++;
+                                    }
+                                }
+                            });
+                            showToast(`🤖 AI Optimizer: ${assigned}/${optimizedShifts.length} shifts auto-assigned.`, assigned > 0 ? 'success' : 'info');
+                        }}
+                        style={{ padding: '8px 16px', backgroundColor: '#7C3AED', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+                    >
+                        🤖 Auto-Assign
+                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isConnected ? '#10B981' : '#F59E0B' }}><Wifi size={20} style={{ animation: isConnected ? 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite' : 'none' }} /><span style={{ fontSize: '0.9rem', fontWeight: 700 }}>{isConnected ? 'LIVE EDITING' : 'CONNECTING...'}</span></div>
+                </div>
             </div>
             <div style={{ backgroundColor: '#EEF2F6', padding: '16px', borderRadius: '12px', border: '1px dashed #94A3B8' }}>
                 <h3 data-cy="h3-manager.shift-drag-board-0" style={{ margin: '0 0 16px 0', fontSize: '1rem', fontWeight: 700, color: '#475569' }}>Unassigned / Sick Calls</h3>

@@ -51,3 +51,7 @@ export type { PcCardProps } from './PcCard';
 export { PcBadge } from './PcBadge';
 export type { PcBadgeProps } from './PcBadge';
 
+// ── Data Components ────────────────────────────────────────────────────
+export { PcTable } from './PcTable';
+export { PcChart } from './PcChart';
+
