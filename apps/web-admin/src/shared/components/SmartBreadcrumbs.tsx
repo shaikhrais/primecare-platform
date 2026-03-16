@@ -20,9 +20,9 @@ export const SmartBreadcrumbs: React.FC = () => {
 
     return (
         <nav aria-label="breadcrumb" style={{ marginBottom: '1rem' }}>
-            <ol style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, fontSize: '0.875rem', color: '#6b7280' }}>
+            <ol style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, fontSize: '0.875rem', color: 'var(--pc-text-tertiary)' }}>
                 <li style={{ display: 'flex', alignItems: 'center' }}>
-                    <Link to={dashboardRoot} style={{ color: '#9ca3af', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#4b5563'} onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}>
+                    <Link to={dashboardRoot} style={{ color: 'var(--pc-text-tertiary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pc-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--pc-text-tertiary)'}>
                         Dashboard
                     </Link>
                 </li>
@@ -36,13 +36,13 @@ export const SmartBreadcrumbs: React.FC = () => {
 
                     return (
                         <li key={to} style={{ display: 'flex', alignItems: 'center' }}>
-                            <span style={{ margin: '0 0.5rem', color: '#d1d5db' }}>/</span>
+                            <span style={{ margin: '0 0.5rem', color: 'var(--pc-border-secondary)' }}>/</span>
                             {isLast ? (
-                                <span style={{ fontWeight: 600, color: '#111827' }} aria-current="page">
+                                <span style={{ fontWeight: 600, color: 'var(--pc-text-primary)' }} aria-current="page">
                                     {label}
                                 </span>
                             ) : (
-                                <Link to={to} style={{ color: '#6b7280', textDecoration: 'none', fontWeight: 500 }} onMouseEnter={(e) => e.currentTarget.style.color = '#111827'} onMouseLeave={(e) => e.currentTarget.style.color = '#6b7280'}>
+                                <Link to={to} style={{ color: 'var(--pc-text-secondary)', textDecoration: 'none', fontWeight: 500 }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pc-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--pc-text-secondary)'}>
                                     {label}
                                 </Link>
                             )}

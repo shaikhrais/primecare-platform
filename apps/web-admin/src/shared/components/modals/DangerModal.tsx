@@ -41,7 +41,7 @@ export const DangerModal: React.FC<DangerModalProps> = ({
     return (
         <div
             style={{
-                position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)',
+                position: 'fixed', inset: 0, backgroundColor: 'var(--pc-bg-overlay)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 zIndex: 9999, backdropFilter: 'blur(4px)'
             }}
@@ -51,31 +51,31 @@ export const DangerModal: React.FC<DangerModalProps> = ({
             aria-labelledby="danger-modal-title"
         >
             <div style={{
-                backgroundColor: 'white', padding: '24px', borderRadius: '12px',
-                maxWidth: '480px', width: '90%', borderTop: '6px solid #ef4444',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                backgroundColor: 'var(--pc-surface-card)', padding: '24px', borderRadius: 'var(--pc-radius-lg)',
+                maxWidth: '480px', width: '90%', borderTop: '6px solid var(--pc-error)',
+                boxShadow: 'var(--pc-shadow-xl)'
             }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ backgroundColor: '#fee2e2', padding: '10px', borderRadius: '50%', color: '#ef4444' }}>
+                        <div style={{ backgroundColor: 'var(--pc-error-bg)', padding: '10px', borderRadius: '50%', color: 'var(--pc-error)' }}>
                             <AlertTriangle size={24} />
                         </div>
-                        <h3 data-cy="h3-shared.danger-modal-0" id="danger-modal-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 'bold', color: '#111827' }}>
+                        <h3 data-cy="h3-shared.danger-modal-0" id="danger-modal-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--pc-text-primary)' }}>
                             {title}
                         </h3>
                     </div>
-                    <button data-cy="btn-shared.danger-modal-0" onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: '#6b7280' }}>
+                    <button data-cy="btn-shared.danger-modal-0" onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', color: 'var(--pc-text-tertiary)' }}>
                         <X size={20} />
                     </button>
                 </div>
 
-                <p style={{ margin: '0 0 16px 0', fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.5' }}>
+                <p style={{ margin: '0 0 16px 0', fontSize: '0.95rem', color: 'var(--pc-text-secondary)', lineHeight: '1.5' }}>
                     {description}
                 </p>
 
-                <div style={{ backgroundColor: '#f9fafb', padding: '16px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #e5e7eb' }}>
-                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 600, color: '#374151' }}>
-                        {t('common.type_to_confirm', 'To confirm, type')} <strong style={{ userSelect: 'none', background: '#e5e7eb', padding: '2px 6px', borderRadius: '4px' }}>{targetName}</strong> {t('common.below', 'below:')}
+                <div style={{ backgroundColor: 'var(--pc-bg-secondary)', padding: '16px', borderRadius: 'var(--pc-radius-md)', marginBottom: '20px', border: '1px solid var(--pc-border-primary)' }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: 600, color: 'var(--pc-text-primary)' }}>
+                        {t('common.type_to_confirm', 'To confirm, type')} <strong style={{ userSelect: 'none', background: 'var(--pc-bg-tertiary)', padding: '2px 6px', borderRadius: '4px' }}>{targetName}</strong> {t('common.below', 'below:')}
                     </label>
                     <input
                         type="text"
@@ -85,10 +85,11 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                         placeholder={targetName}
                         style={{
                             width: '100%', padding: '10px 12px', borderRadius: '6px',
-                            border: '1px solid #d1d5db', fontSize: '1rem', boxSizing: 'border-box',
+                            border: '1px solid var(--pc-border-secondary)', fontSize: '1rem', boxSizing: 'border-box',
                             outline: 'none', transition: 'border-color 0.15s ease-in-out',
-                            ...(inputValue && !isMatch ? { borderColor: '#ef4444' } : {}),
-                            ...(isMatch ? { borderColor: '#10b981', backgroundColor: '#ecfdf5' } : {})
+                            backgroundColor: 'var(--pc-surface-card)', color: 'var(--pc-text-primary)',
+                            ...(inputValue && !isMatch ? { borderColor: 'var(--pc-error)' } : {}),
+                            ...(isMatch ? { borderColor: 'var(--pc-success)', backgroundColor: 'var(--pc-success-bg)' } : {})
                         }}
                     />
                 </div>
@@ -98,8 +99,8 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                         type="button"
                         onClick={onClose}
                         style={{
-                            padding: '10px 16px', borderRadius: '6px', border: '1px solid #d1d5db',
-                            backgroundColor: 'white', color: '#374151', fontWeight: 600, cursor: 'pointer'
+                            padding: '10px 16px', borderRadius: '6px', border: '1px solid var(--pc-border-secondary)',
+                            backgroundColor: 'var(--pc-surface-card)', color: 'var(--pc-text-primary)', fontWeight: 600, cursor: 'pointer'
                         }}
                     >
                         {t('common.cancel', 'Cancel')}
@@ -111,7 +112,7 @@ export const DangerModal: React.FC<DangerModalProps> = ({
                         data-cy="danger-modal-confirm"
                         style={{
                             padding: '10px 16px', borderRadius: '6px', border: 'none',
-                            backgroundColor: '#ef4444', color: 'white', fontWeight: 600,
+                            backgroundColor: 'var(--pc-error)', color: 'var(--pc-text-on-primary)', fontWeight: 600,
                             cursor: isMatch ? 'pointer' : 'not-allowed',
                             opacity: isMatch ? 1 : 0.5,
                             transition: 'all 0.15s ease-in-out'

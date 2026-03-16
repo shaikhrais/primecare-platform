@@ -23,22 +23,23 @@ const CookieConsent: React.FC = () => {
             bottom: '1.5rem',
             right: '1.5rem',
             left: '1.5rem',
-            backgroundColor: 'white',
+            backgroundColor: 'var(--pc-surface-card)',
             padding: '1.5rem',
-            borderRadius: '12px',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #e5e7eb',
+            borderRadius: 'var(--pc-radius-lg)',
+            boxShadow: 'var(--pc-shadow-xl)',
+            border: '1px solid var(--pc-border-primary)',
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
             zIndex: 1000,
             maxWidth: '500px',
-            margin: '0 auto'
+            margin: '0 auto',
+            color: 'var(--pc-text-primary)'
         }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
                 <div style={{
-                    backgroundColor: '#ecfdf5',
-                    color: '#059669',
+                    backgroundColor: 'var(--pc-success-bg)',
+                    color: 'var(--pc-success)',
                     padding: '0.5rem',
                     borderRadius: '50%',
                     display: 'flex',
@@ -55,8 +56,8 @@ const CookieConsent: React.FC = () => {
                     </svg>
                 </div>
                 <div>
-                    <h3 data-cy="h3-shared.cookie-consent-0" style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#111827' }}>Cookie Consent</h3>
-                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: '#4b5563', lineHeight: 1.5 }}>
+                    <h3 data-cy="h3-shared.cookie-consent-0" style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: 'var(--pc-text-primary)' }}>Cookie Consent</h3>
+                    <p style={{ margin: '0.25rem 0 0', fontSize: '0.875rem', color: 'var(--pc-text-secondary)', lineHeight: 1.5 }}>
                         We use cookies to enhance your experience, serve personalized content, and analyze our traffic. Please choose your preferences.
                     </p>
                 </div>
@@ -69,10 +70,10 @@ const CookieConsent: React.FC = () => {
                         padding: '0.5rem 1rem',
                         fontSize: '0.875rem',
                         fontWeight: 500,
-                        color: '#4b5563',
+                        color: 'var(--pc-text-secondary)',
                         backgroundColor: 'transparent',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '6px',
+                        border: '1px solid var(--pc-border-secondary)',
+                        borderRadius: 'var(--pc-radius-md)',
                         cursor: 'pointer'
                     }}
                 >
@@ -85,10 +86,10 @@ const CookieConsent: React.FC = () => {
                         padding: '0.5rem 1rem',
                         fontSize: '0.875rem',
                         fontWeight: 500,
-                        color: 'white',
-                        backgroundColor: '#059669',
+                        color: 'var(--pc-text-on-primary)',
+                        backgroundColor: 'var(--pc-success)',
                         border: 'none',
-                        borderRadius: '6px',
+                        borderRadius: 'var(--pc-radius-md)',
                         cursor: 'pointer'
                     }}
                 >

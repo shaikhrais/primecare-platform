@@ -95,7 +95,7 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
                     style={{
                         position: 'fixed',
                         inset: 0,
-                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        backgroundColor: 'var(--pc-bg-overlay)',
                         zIndex: 999
                     }}
                 />

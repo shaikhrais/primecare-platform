@@ -90,12 +90,12 @@ export default function RoleSwitcher() {
                     style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: '#F3F4F6',
-                        border: '1px solid #E5E7EB',
+                        background: 'var(--pc-bg-tertiary)',
+                        border: '1px solid var(--pc-border-primary)',
                         borderRadius: '8px',
                         fontSize: '0.85rem',
                         fontWeight: 600,
-                        color: '#374151',
+                        color: 'var(--pc-text-primary)',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -106,11 +106,11 @@ export default function RoleSwitcher() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{ fontSize: '1.2rem' }}>🔄</span>
                         <div style={{ textAlign: 'left' }}>
-                            <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Perspective</div>
+                            <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--pc-text-tertiary)', fontWeight: 700 }}>Perspective</div>
                             <div>{activeRole.charAt(0).toUpperCase() + activeRole.slice(1)}</div>
                         </div>
                     </div>
-                    <span style={{ fontSize: '0.8rem', color: '#9CA3AF' }}>▼</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--pc-text-tertiary)' }}>▼</span>
                 </button>
             </div>
 

@@ -78,21 +78,22 @@ const DefaultErrorFallback: React.FC<{ error: Error; retry: () => void; module?:
         fontFamily: "'Inter', system-ui, sans-serif",
     }}>
         <div style={{
-            width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#FEE2E2',
+            width: '64px', height: '64px', borderRadius: '50%', backgroundColor: 'var(--pc-error-bg)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '1rem',
         }}>⚠️</div>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', margin: '0 0 0.5rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--pc-text-primary)', margin: '0 0 0.5rem' }}>
             Something went wrong
         </h2>
-        <p style={{ fontSize: '0.875rem', color: '#64748b', maxWidth: '400px', margin: '0 0 1rem' }}>
+        <p style={{ fontSize: '0.875rem', color: 'var(--pc-text-secondary)', maxWidth: '400px', margin: '0 0 1rem' }}>
             {module ? `An error occurred in the ${module} module. ` : ''}
             The error has been logged. You can try again or navigate to another page.
         </p>
-        <details style={{ maxWidth: '500px', marginBottom: '1.5rem', textAlign: 'left', fontSize: '0.75rem', color: '#9CA3AF' }}>
+        <details style={{ maxWidth: '500px', marginBottom: '1.5rem', textAlign: 'left', fontSize: '0.75rem', color: 'var(--pc-text-tertiary)' }}>
             <summary style={{ cursor: 'pointer', marginBottom: '0.5rem' }}>Technical details</summary>
             <pre style={{
-                padding: '0.75rem', borderRadius: '0.5rem', backgroundColor: '#F9FAFB',
-                border: '1px solid #E5E7EB', overflow: 'auto', fontSize: '0.6875rem', lineHeight: 1.5,
+                padding: '0.75rem', borderRadius: 'var(--pc-radius-md)', backgroundColor: 'var(--pc-bg-secondary)',
+                border: '1px solid var(--pc-border-primary)', overflow: 'auto', fontSize: '0.6875rem', lineHeight: 1.5,
+                color: 'var(--pc-text-primary)',
             }}>
                 {error.name}: {error.message}
                 {error.stack && `\n\n${error.stack.split('\n').slice(1, 4).join('\n')}`}
@@ -103,8 +104,8 @@ const DefaultErrorFallback: React.FC<{ error: Error; retry: () => void; module?:
                 onClick={retry}
                 data-cy="error-retry-btn"
                 style={{
-                    padding: '0.5rem 1.25rem', borderRadius: '0.5rem',
-                    backgroundColor: '#3B82F6', color: '#fff', border: 'none',
+                    padding: '0.5rem 1.25rem', borderRadius: 'var(--pc-radius-md)',
+                    backgroundColor: 'var(--pc-primary)', color: 'var(--pc-text-on-primary)', border: 'none',
                     fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer',
                 }}
             >Try Again</button>
@@ -112,8 +113,8 @@ const DefaultErrorFallback: React.FC<{ error: Error; retry: () => void; module?:
                 onClick={() => window.location.href = '/'}
                 data-cy="error-home-btn"
                 style={{
-                    padding: '0.5rem 1.25rem', borderRadius: '0.5rem',
-                    backgroundColor: '#F3F4F6', color: '#374151', border: '1px solid #D1D5DB',
+                    padding: '0.5rem 1.25rem', borderRadius: 'var(--pc-radius-md)',
+                    backgroundColor: 'var(--pc-bg-tertiary)', color: 'var(--pc-text-primary)', border: '1px solid var(--pc-border-secondary)',
                     fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer',
                 }}
             >Go Home</button>

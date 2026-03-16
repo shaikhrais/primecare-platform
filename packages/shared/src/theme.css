@@ -1,54 +1,111 @@
-:root {
-  /* --- 1. THEME REGISTRY DYNAMIC TOKENS --- */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * PrimeCare Design Tokens — SINGLE CANONICAL SOURCE
+ *
+ * This file is the authoritative source for ALL design tokens (colors,
+ * spacing, shadows, typography). Both light and dark themes are defined
+ * here. Do NOT define token overrides in other CSS files.
+ *
+ * Controlled by [data-theme] attribute on <html>.
+ * Convention: All tokens use `--pc-` prefix.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Light theme (default) ─────────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+  /* Brand */
   --pc-primary: #00897b;
   --pc-primary-dark: #004d40;
   --pc-accent: #c2ffd9;
-  --pc-bg: #f9fafb;
-  --pc-surface: #ffffff;
-  --pc-border: #e5e7eb;
-  
-  --pc-text-base: #111827;
-  --pc-text-muted: #6b7280;
   --pc-text-on-primary: #ffffff;
 
-  --pc-status-success: #16a34a;
-  --pc-status-warning: #d97706;
-  --pc-status-error: #dc2626;
-  --pc-status-info: #2563eb;
-
-  /* Brand Aliases */
-  --brand-500: var(--pc-primary);
-  --brand-600: var(--pc-primary-dark);
-
   /* Backgrounds */
-  --bg-900: var(--pc-bg);
-  --bg-850: var(--pc-bg);
-  --bg-800: var(--pc-bg);
-  --bg-grad-1: var(--pc-surface);
-  --bg-grad-2: var(--pc-surface);
-  --bg-grad-3: var(--pc-surface);
+  --pc-bg-primary: #FFFFFF;
+  --pc-bg-secondary: #F9FAFB;
+  --pc-bg-tertiary: #F3F4F6;
+  --pc-bg-elevated: #FFFFFF;
+  --pc-bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Surfaces */
-  --card: var(--pc-surface);
-  --card-soft: var(--pc-bg);
-  --card-border: var(--pc-border);
+  --pc-surface-card: #FFFFFF;
+  --pc-surface-sidebar: #0F172A;
+  --pc-surface-topbar: #FFFFFF;
+  --pc-surface-input: #FFFFFF;
 
   /* Text */
-  --text-100: var(--pc-text-base);
-  --text-200: var(--pc-text-base);
-  --text-300: var(--pc-text-base);
-  --muted: var(--pc-text-muted);
+  --pc-text-primary: #111827;
+  --pc-text-secondary: #6B7280;
+  --pc-text-tertiary: #9CA3AF;
+  --pc-text-inverse: #FFFFFF;
+  --pc-text-link: #3B82F6;
 
-  /* Shadows / radius */
-  --r-16: 8px;
-  --r-20: 8px;
-  --shadow-lg: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* Borders */
+  --pc-border-primary: #E5E7EB;
+  --pc-border-secondary: #D1D5DB;
+  --pc-border-focus: #3B82F6;
+
+  /* Shadows */
+  --pc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* Status */
+  --pc-success: #10B981;
+  --pc-success-bg: #ECFDF5;
+  --pc-warning: #F59E0B;
+  --pc-warning-bg: #FFFBEB;
+  --pc-error: #EF4444;
+  --pc-error-bg: #FEF2F2;
+  --pc-info: #3B82F6;
+  --pc-info-bg: #EFF6FF;
+
+  /* Scrollbar */
+  --pc-scrollbar-track: #F3F4F6;
+  --pc-scrollbar-thumb: #D1D5DB;
+
+  /* Radius */
+  --pc-radius-sm: 6px;
+  --pc-radius-md: 8px;
+  --pc-radius-lg: 12px;
+  --pc-radius-full: 9999px;
 
   /* Focus ring */
-  --ring: 0 0 0 2px var(--pc-primary);
+  --pc-ring: 0 0 0 2px var(--pc-primary);
 
-  /* Legacy Semantic Aliases */
+  /* Typography */
+  --pc-font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --pc-font-display: 'Inter', sans-serif;
+
+  /* Animation */
+  --pc-transition: all 0.15s ease;
+
+  /* Layout */
+  --header-height: 72px;
+  --sidebar-width: 260px;
+  --z-index-sidebar: 1000;
+  --z-index-header: 900;
+
+  /* ── Legacy aliases (bridge to old tokens) ── */
+  --brand-500: var(--pc-primary);
+  --brand-600: var(--pc-primary-dark);
+  --bg-900: var(--pc-bg-secondary);
+  --bg-850: var(--pc-bg-secondary);
+  --bg-800: var(--pc-bg-secondary);
+  --bg-grad-1: var(--pc-surface-card);
+  --bg-grad-2: var(--pc-surface-card);
+  --bg-grad-3: var(--pc-surface-card);
+  --card: var(--pc-surface-card);
+  --card-soft: var(--pc-bg-secondary);
+  --card-border: var(--pc-border-primary);
+  --text-100: var(--pc-text-primary);
+  --text-200: var(--pc-text-primary);
+  --text-300: var(--pc-text-primary);
+  --muted: var(--pc-text-secondary);
+  --r-16: var(--pc-radius-md);
+  --r-20: var(--pc-radius-md);
+  --shadow-lg: var(--pc-shadow-lg);
+  --shadow-md: var(--pc-shadow-md);
+  --ring: var(--pc-ring);
   --primary: var(--brand-500);
   --primary-dark: var(--brand-600);
   --bg: var(--bg-900);
@@ -56,35 +113,69 @@
   --text: var(--text-100);
   --text-muted: var(--muted);
   --line: var(--card-border);
-  --line-bold: #D1D5DB;
-
-  /* Typography Base */
-  --pc-font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --pc-font-display: 'Inter', sans-serif;
-  --pc-transition: all 0.1s linear;
-  --header-height: 72px;
-  --sidebar-width: 260px;
-  --z-index-sidebar: 1000;
-  --z-index-header: 900;
+  --line-bold: var(--pc-border-secondary);
 }
 
-/* ============ Global Utilities ============ */
+/* ── Dark theme ────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --pc-bg-primary: #0F172A;
+  --pc-bg-secondary: #1E293B;
+  --pc-bg-tertiary: #334155;
+  --pc-bg-elevated: #1E293B;
+  --pc-bg-overlay: rgba(0, 0, 0, 0.7);
+
+  --pc-surface-card: #1E293B;
+  --pc-surface-sidebar: #020617;
+  --pc-surface-topbar: #1E293B;
+  --pc-surface-input: #334155;
+
+  --pc-text-primary: #F1F5F9;
+  --pc-text-secondary: #94A3B8;
+  --pc-text-tertiary: #64748B;
+  --pc-text-inverse: #0F172A;
+  --pc-text-link: #60A5FA;
+
+  --pc-border-primary: #334155;
+  --pc-border-secondary: #475569;
+  --pc-border-focus: #60A5FA;
+
+  --pc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --pc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --pc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --pc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+  --pc-success: #34D399;
+  --pc-success-bg: rgba(16, 185, 129, 0.15);
+  --pc-warning: #FBBF24;
+  --pc-warning-bg: rgba(245, 158, 11, 0.15);
+  --pc-error: #F87171;
+  --pc-error-bg: rgba(239, 68, 68, 0.15);
+  --pc-info: #60A5FA;
+  --pc-info-bg: rgba(59, 130, 246, 0.15);
+
+  --pc-scrollbar-track: #1E293B;
+  --pc-scrollbar-thumb: #475569;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * UTILITY CLASSES
+ * ═══════════════════════════════════════════════════════════════════════════ */
 
 .app {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
-  background-color: var(--bg);
+  background-color: var(--pc-bg-primary);
 }
 
 .main-content {
   padding: 24px;
 }
 
-/* Sidebar Utilities */
+/* Sidebar */
 .pc-sidebar {
-  background: #FFFFFF;
-  border-right: 1px solid var(--line);
+  background: var(--pc-surface-sidebar);
+  border-right: 1px solid var(--pc-border-primary);
   padding: 20px 12px;
 }
 
@@ -93,75 +184,75 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: var(--text-200);
+  color: var(--pc-text-primary);
   padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: var(--pc-radius-sm);
   border: 1px solid transparent;
   transition: var(--pc-transition);
   font-weight: 500;
 }
 
 .pc-nav-link:hover {
-  background: #F3F4F6;
+  background: var(--pc-bg-tertiary);
 }
 
 .pc-nav-link.active {
-  background: var(--brand-500);
-  border-color: var(--brand-600);
-  color: #FFFFFF;
+  background: var(--pc-primary);
+  border-color: var(--pc-primary-dark);
+  color: var(--pc-text-on-primary);
 }
 
-/* Topbar Utilities */
+/* Topbar */
 .pc-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
   padding: 12px 20px;
-  background: #FFFFFF;
-  border-bottom: 1px solid var(--line);
+  background: var(--pc-surface-topbar);
+  border-bottom: 1px solid var(--pc-border-primary);
 }
 
 /* Card System */
 .pc-card {
-  border-radius: var(--r-16);
-  border: 1px solid var(--card-border);
-  background: #FFFFFF;
-  box-shadow: var(--shadow-md);
+  border-radius: var(--pc-radius-md);
+  border: 1px solid var(--pc-border-primary);
+  background: var(--pc-surface-card);
+  box-shadow: var(--pc-shadow-md);
   overflow: hidden;
   transition: var(--pc-transition);
 }
 
 .pc-card:hover {
-  border-color: var(--line-bold);
+  border-color: var(--pc-border-secondary);
 }
 
 .pc-card-h {
   padding: 16px 20px;
   font-weight: 700;
   font-size: 18px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--pc-border-primary);
 }
 
 .pc-card-b {
   padding: 20px;
-  color: var(--text-200);
+  color: var(--pc-text-primary);
   line-height: 1.5;
 }
 
 .pc-card.strip .pc-card-h {
-  background: #F9FAFB;
-  color: var(--brand-500);
+  background: var(--pc-bg-secondary);
+  color: var(--pc-primary);
 }
 
 /* Button System */
 .btn {
   appearance: none;
-  border: 1px solid var(--line-bold);
-  background: #FFFFFF;
-  color: var(--text-200);
+  border: 1px solid var(--pc-border-secondary);
+  background: var(--pc-surface-card);
+  color: var(--pc-text-primary);
   padding: 10px 18px;
-  border-radius: 6px;
+  border-radius: var(--pc-radius-sm);
   font-weight: 600;
   cursor: pointer;
   transition: var(--pc-transition);
@@ -170,45 +261,45 @@
 }
 
 .btn:hover {
-  background: #F9FAFB;
-  border-color: var(--text-300);
+  background: var(--pc-bg-secondary);
+  border-color: var(--pc-text-primary);
 }
 
 .btn-primary {
-  background: var(--brand-500);
-  border-color: var(--brand-600);
-  color: #FFFFFF;
+  background: var(--pc-primary);
+  border-color: var(--pc-primary-dark);
+  color: var(--pc-text-on-primary);
 }
 
 .btn-primary:hover {
-  background: var(--brand-600);
+  background: var(--pc-primary-dark);
 }
 
 .btn-danger {
-  background: #DC2626;
+  background: var(--pc-error);
   border-color: #B91C1C;
   color: #fff;
 }
 
 /* Glassmorphism legacy support - Deprecated to flat */
 .glass-effect {
-  background: #FFFFFF;
-  border: 1px solid var(--line);
+  background: var(--pc-surface-card);
+  border: 1px solid var(--pc-border-primary);
 }
 
 .chip {
   padding: 4px 10px;
-  background: #F3F4F6;
+  background: var(--pc-bg-tertiary);
   border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-300);
+  color: var(--pc-text-primary);
 }
 
 .sidebar-footer {
   padding: 16px;
   margin-top: auto;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--pc-border-primary);
 }
 
 .pill {
@@ -216,10 +307,10 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: #F9FAFB;
-  border-radius: 20px;
+  background: var(--pc-bg-secondary);
+  border-radius: var(--pc-radius-full);
   font-size: 11px;
   font-weight: 700;
-  color: var(--text-300);
-  border: 1px solid var(--line);
+  color: var(--pc-text-primary);
+  border: 1px solid var(--pc-border-primary);
 }

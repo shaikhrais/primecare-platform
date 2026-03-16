@@ -22,16 +22,70 @@ interface QuickAction {
 }
 
 const QUICK_ACTIONS: QuickAction[] = [
+    // ── Core ──
     { id: 'qa-dashboard', label: 'Go to Dashboard', icon: '📊', route: RouteRegistry.ADMIN.DASHBOARD, shortcut: 'D' },
     { id: 'qa-schedule', label: 'Open Schedule', icon: '📅', route: RouteRegistry.ADMIN.SCHEDULE, shortcut: 'S' },
     { id: 'qa-ops-center', label: 'Operations Center', icon: '🛰️', route: RouteRegistry.ADMIN.OPERATIONS.CENTER, shortcut: 'O' },
     { id: 'qa-users', label: 'Manage Users', icon: '👥', route: RouteRegistry.ADMIN.USERS, shortcut: 'U' },
+    { id: 'qa-customers', label: 'Customers', icon: '🏥', route: RouteRegistry.ADMIN.CUSTOMERS },
+    { id: 'qa-search', label: 'Global Search', icon: '🔍', route: RouteRegistry.ADMIN.SEARCH },
+
+    // ── Clinical ──
     { id: 'qa-incidents', label: 'Incidents', icon: '🚨', route: RouteRegistry.ADMIN.INCIDENTS, shortcut: 'I' },
+    { id: 'qa-clinical', label: 'Clinical Assistant', icon: '🩺', route: RouteRegistry.ADMIN.CLINICAL_ASSISTANT },
+    { id: 'qa-evv', label: 'EVV Dashboard', icon: '📍', route: RouteRegistry.ADMIN.EVV.DASHBOARD },
+    { id: 'qa-pharmacy', label: 'Pharmacy Hub', icon: '💊', route: RouteRegistry.ADMIN.PHARMACY.HUB },
+    { id: 'qa-telehealth', label: 'Telehealth Center', icon: '📹', route: RouteRegistry.ADMIN.TELEHEALTH.CENTER },
+    { id: 'qa-referrals', label: 'Referrals', icon: '🔗', route: RouteRegistry.ADMIN.REFERRALS.LIST },
+
+    // ── Finance ──
+    { id: 'qa-finance', label: 'Accounting Dashboard', icon: '💰', route: RouteRegistry.ADMIN.FINANCE.DASHBOARD },
+    { id: 'qa-ledger', label: 'Financial Ledger', icon: '📒', route: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER },
+    { id: 'qa-tax', label: 'Tax Compliance Hub', icon: '🧾', route: RouteRegistry.ADMIN.SECURITY.TAX_HUB },
+    { id: 'qa-payroll', label: 'Payroll Hub', icon: '💵', route: RouteRegistry.ADMIN.PAYROLL_HUB },
     { id: 'qa-timesheets', label: 'Timesheets', icon: '⏱️', route: RouteRegistry.ADMIN.TIMESHEETS },
+    { id: 'qa-claims', label: 'Claims', icon: '📋', route: RouteRegistry.ADMIN.CLAIMS.LIST },
+    { id: 'qa-rcm', label: 'Revenue Cycle', icon: '💎', route: RouteRegistry.ADMIN.RCM.CLAIMS },
+    { id: 'qa-reconciliation', label: 'Reconciliation', icon: '🔄', route: RouteRegistry.ADMIN.FINANCE.RECONCILIATION },
+    { id: 'qa-earnings', label: 'Earnings', icon: '📈', route: RouteRegistry.ADMIN.EARNINGS },
+
+    // ── Operations ──
     { id: 'qa-leads', label: 'Inquiries', icon: '📩', route: RouteRegistry.ADMIN.LEADS },
-    { id: 'qa-reports', label: 'Reports & Export', icon: '📈', route: RouteRegistry.ADMIN.REPORTS },
+    { id: 'qa-bookings', label: 'Booking Requests', icon: '📝', route: RouteRegistry.ADMIN.BOOKING_REQUESTS },
+    { id: 'qa-logistics', label: 'Logistics Hub', icon: '🚗', route: RouteRegistry.ADMIN.OPERATIONS.LOGISTICS_HUB },
+    { id: 'qa-documents', label: 'Document Center', icon: '📁', route: RouteRegistry.ADMIN.DOCUMENT_CENTER },
+    { id: 'qa-notifications', label: 'Notifications Hub', icon: '🔔', route: RouteRegistry.ADMIN.NOTIFICATIONS_HUB },
+    { id: 'qa-onboarding', label: 'Staff Onboarding', icon: '🎓', route: RouteRegistry.ADMIN.ONBOARDING },
+    { id: 'qa-admission', label: 'Client Admission', icon: '🏠', route: RouteRegistry.ADMIN.ADMISSION },
+
+    // ── Security & Compliance ──
     { id: 'qa-security', label: 'Security Dashboard', icon: '🛡️', route: RouteRegistry.ADMIN.SECURITY.DASHBOARD },
+    { id: 'qa-governance', label: 'Security Governance', icon: '🔒', route: RouteRegistry.ADMIN.SECURITY.GOVERNANCE },
+    { id: 'qa-forensics', label: 'Forensic Trails', icon: '🕵️', route: RouteRegistry.ADMIN.SECURITY.FORENSIC_TRAILS },
+    { id: 'qa-sessions', label: 'Session Monitor', icon: '👁️', route: RouteRegistry.ADMIN.SECURITY.SESSION_MONITOR },
+    { id: 'qa-threats', label: 'Threat Detection', icon: '⚠️', route: RouteRegistry.ADMIN.SECURITY.THREAT_DETECTION },
+    { id: 'qa-audits', label: 'Audit Logs', icon: '📜', route: RouteRegistry.ADMIN.AUDITS },
+    { id: 'qa-consent', label: 'Consent Management', icon: '✅', route: RouteRegistry.ADMIN.CONSENT.LIST },
+    { id: 'qa-auth-list', label: 'Authorizations', icon: '📄', route: RouteRegistry.ADMIN.AUTHORIZATIONS.LIST },
+
+    // ── AI & Intelligence ──
+    { id: 'qa-ai', label: 'AI Dashboard', icon: '🤖', route: RouteRegistry.ADMIN.AI.DASHBOARD },
+    { id: 'qa-insights', label: 'AI Insights', icon: '💡', route: RouteRegistry.ADMIN.AI_INSIGHTS },
+    { id: 'qa-predictive', label: 'Predictive Analytics', icon: '📡', route: RouteRegistry.ADMIN.AI.PREDICTIVE_ANALYTICS },
+    { id: 'qa-churn', label: 'Churn Risk', icon: '📉', route: RouteRegistry.ADMIN.AI.CHURN_RISK },
+    { id: 'qa-autopilot', label: 'AutoPilot', icon: '✈️', route: RouteRegistry.ADMIN.AUTOPILOT },
+
+    // ── Admin & Config ──
+    { id: 'qa-reports', label: 'Reports & Export', icon: '📈', route: RouteRegistry.ADMIN.REPORTS },
     { id: 'qa-settings', label: 'Settings', icon: '⚙️', route: RouteRegistry.ADMIN.SETTINGS },
+    { id: 'qa-content', label: 'Content Manager', icon: '✏️', route: RouteRegistry.ADMIN.CONTENT },
+    { id: 'qa-locations', label: 'Locations', icon: '📍', route: RouteRegistry.ADMIN.LOCATIONS },
+    { id: 'qa-services', label: 'Services', icon: '🏷️', route: RouteRegistry.ADMIN.SERVICES },
+    { id: 'qa-roles', label: 'Role Editor', icon: '🔑', route: RouteRegistry.ADMIN.ROLE_EDITOR },
+    { id: 'qa-cron', label: 'Cron Dashboard', icon: '⏰', route: RouteRegistry.ADMIN.CRON_DASHBOARD },
+    { id: 'qa-webhooks', label: 'Webhooks', icon: '🪝', route: RouteRegistry.ADMIN.WEBHOOKS.LIST },
+    { id: 'qa-erp', label: 'Supply Chain Hub', icon: '📦', route: RouteRegistry.ADMIN.ERP.INVENTORY },
+    { id: 'qa-ref-data', label: 'Reference Data', icon: '🗂️', route: RouteRegistry.ADMIN.REFERENCE_DATA },
 ];
 
 const RECENT_KEY = 'pc-cmd-recent';

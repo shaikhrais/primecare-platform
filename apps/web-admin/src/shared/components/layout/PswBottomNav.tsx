@@ -22,8 +22,8 @@ export const PswBottomNav: React.FC = () => {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                backgroundColor: '#ffffff',
-                borderTop: '1px solid #e5e7eb',
+                backgroundColor: 'var(--pc-surface-card)',
+                borderTop: '1px solid var(--pc-border-primary)',
                 display: 'flex',
                 justifyContent: 'space-around',
                 padding: '12px 0 calc(12px + env(safe-area-inset-bottom)) 0',
@@ -42,7 +42,7 @@ export const PswBottomNav: React.FC = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         textDecoration: 'none',
-                        color: isActive ? 'var(--brand-600, #0f172a)' : '#6b7280',
+                        color: isActive ? 'var(--brand-600, var(--pc-primary))' : 'var(--pc-text-tertiary)',
                         fontWeight: isActive ? 700 : 500,
                         gap: '4px'
                     })}

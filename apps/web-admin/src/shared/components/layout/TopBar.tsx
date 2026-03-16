@@ -72,21 +72,21 @@ export const TopBar: React.FC<TopBarProps> = ({
                         onClick={() => setIsSidebarOpen(true)}
                         data-cy="btn-drawer-toggle-mobile"
                         style={{
-                            background: '#F9FAFB',
-                            border: '1px solid #E5E7EB',
+                            background: 'var(--pc-bg-secondary)',
+                            border: '1px solid var(--pc-border-primary)',
                             padding: '10px',
-                            borderRadius: '8px',
+                            borderRadius: 'var(--pc-radius-md)',
                             cursor: 'pointer',
                             marginRight: '8px',
-                            color: '#111827',
+                            color: 'var(--pc-text-primary)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'all 0.2s',
-                            boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                            transition: 'var(--pc-transition)',
+                            boxShadow: 'var(--pc-shadow-sm)'
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F3F4F6'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9FAFB'}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--pc-bg-tertiary)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--pc-bg-secondary)'}
                         title={ContentRegistry.LAYOUT.MOBILE_MENU}
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -107,11 +107,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                             border: 'none',
                             padding: '8px',
                             cursor: 'pointer',
-                            color: '#6B7280',
+                            color: 'var(--pc-text-secondary)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'all 0.2s'
+                            transition: 'var(--pc-transition)'
                         }}
                         title={isCollapsed ? "Expand" : "Collapse"}
                     >
@@ -126,7 +126,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 {/* Logo when sidebar is hidden/collapsed */}
                 {(isMobile || isCollapsed) && <img src={branding?.logoUrl || "/logo.png"} alt={branding?.name || ContentRegistry.APP.NAME} style={{ height: '32px', width: 'auto' }} />}
 
-                {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: '#E5E7EB' }}></div>}
+                {(isMobile || isCollapsed) && <div style={{ height: '24px', width: '1px', backgroundColor: 'var(--pc-border-primary)' }}></div>}
 
                 <TopBarIdentity role={role} user={user} isMobile={isMobile} />
             </div>

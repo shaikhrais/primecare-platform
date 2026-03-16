@@ -68,7 +68,7 @@ export default function LocationsList() {
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr><td colSpan={5} style={{ padding: '2rem', textAlign: 'center' }}>Loading...</td></tr>
+                            <>{[1,2,3].map(i => <tr key={i}><td colSpan={5} style={{ padding: '0.75rem' }}><div style={{ height: '14px', borderRadius: '6px', background: 'linear-gradient(90deg, var(--pc-bg-tertiary,#F3F4F6) 25%, var(--pc-bg-secondary,#E5E7EB) 50%, var(--pc-bg-tertiary,#F3F4F6) 75%)', backgroundSize: '200% 100%', animation: 'pcShimmer 1.5s ease-in-out infinite', width: `${90 - i * 15}%` }} /></td></tr>)}</>
                         ) : locations.length > 0 ? (
                             locations.map((loc) => (
                                 <tr key={loc.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
