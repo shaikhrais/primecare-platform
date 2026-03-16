@@ -138,11 +138,9 @@ describe('Auth Validation Schemas', () => {
             expect(result.success).toBe(false);
         });
 
-        it('accepts tenant slug with uppercase (note: regex typo [0-z] in source allows this)', () => {
-            // NOTE: The source schema has `[a-z0-z0-9-]+` — the `0-z` range inadvertently allows uppercase.
-            // This test documents the current behavior. Fix the regex to `[a-z0-9-]+` to enforce lowercase.
+        it('rejects tenant slug with uppercase letters', () => {
             const result = BusinessOnboardSchema.safeParse({ ...validPayload, tenantSlug: 'My-Company' });
-            expect(result.success).toBe(true);  // passes due to regex typo
+            expect(result.success).toBe(false);
         });
 
         it('rejects tenant slug with spaces', () => {
