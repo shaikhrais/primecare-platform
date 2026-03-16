@@ -24,7 +24,7 @@ export async function apiFetchVisits(statusFilter?: string | null): Promise<{ vi
     const res = await fetch(`${API_URL}${ApiRegistry.ADMIN.VISITS}`, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
     if (!Array.isArray(data)) return { visits: [], events: [] };
-    let filtered = statusFilter ? data.filter((v: Visit) => v.status.toLowerCase() === statusFilter.toLowerCase()) : data;
+    const filtered = statusFilter ? data.filter((v: Visit) => v.status.toLowerCase() === statusFilter.toLowerCase()) : data;
     const events = filtered.map((v: Visit) => {
         const start = new Date(v.requestedStartAt); const end = new Date(start.getTime() + v.durationMinutes * 60000);
         return { id: v.id, title: `${v.client?.fullName || 'Unknown Client'} (${v.status})`, start, end, resource: v, style: { backgroundColor: getStatusColor(v.status) } };

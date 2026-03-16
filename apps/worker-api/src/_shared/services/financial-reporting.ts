@@ -54,18 +54,18 @@ export async function getBalanceSheet(prisma: PrismaClient, tenantId: string, da
     for (const acc of accounts) {
         const balance = calculateBalance(acc.journalEntries, acc.type);
         const category = acc.type.toLowerCase();
-        if (report[category]) { report[category].accounts[acc.name] = balance.toNumber(); report[category].total = report[category].total.plus(balance); }
-        else if (acc.type === 'REVENUE' || acc.type === 'EXPENSE') { report.equity.total = acc.type === 'REVENUE' ? report.equity.total.plus(balance) : report.equity.total.minus(balance); }
+        if (report[category]) { report[category]!.accounts[acc.name] = balance.toNumber(); report[category]!.total = report[category]!.total.plus(balance); }
+        else if (acc.type === 'REVENUE' || acc.type === 'EXPENSE') { report.equity!.total = acc.type === 'REVENUE' ? report.equity!.total.plus(balance) : report.equity!.total.minus(balance); }
     }
-    return { date, assets: { ...report.assets, total: report.assets.total.toNumber() }, liabilities: { ...report.liabilities, total: report.liabilities.total.toNumber() }, equity: { ...report.equity, total: report.equity.total.toNumber() } };
+    return { date, assets: { ...report.assets!, total: report.assets!.total.toNumber() }, liabilities: { ...report.liabilities!, total: report.liabilities!.total.toNumber() }, equity: { ...report.equity!, total: report.equity!.total.toNumber() } };
 }
 
 export async function generateDailySummary(prisma: PrismaClient, tenantId: string, date: Date = new Date()) {
     const start = new Date(date); start.setHours(0, 0, 0, 0);
     const end = new Date(date); end.setHours(23, 59, 59, 999);
     const transactions = await (prisma as any).financialTransaction.findMany({ where: { tenantId, createdAt: { gte: start, lte: end } }, include: { journalEntries: { include: { account: true } } } });
-    const summary = { date: start.toISOString().split('T')[0], transactionCount: transactions.length, totalVolume: transactions.reduce((sum: number, tx: any) => sum + Number(tx.amount), 0), types: {} as Record<string, number>, integrityCheck: 'PASSED' };
-    for (const tx of transactions) { summary.types[tx.type] = (summary.types[tx.type] || 0) + 1; }
+    const summary = { date: start.toISOString().split('T')[0]!, transactionCount: transactions.length, totalVolume: transactions.reduce((sum: number, tx: any) => sum + Number(tx.amount), 0), types: {} as Record<string, number>, integrityCheck: 'PASSED' };
+    for (const tx of transactions) { summary.types[tx.type] = (summary.types[tx.type] ?? 0) + 1; }
     return summary;
 }
 
@@ -73,5 +73,5 @@ export async function generateTaxFilingReport(prisma: PrismaClient, tenantId: st
     const entries = await (prisma as any).journalEntry.findMany({ where: { tenantId, account: { code: '2100' }, createdAt: { gte: startDate, lte: endDate } }, include: { transaction: true } });
     let totalCollected = new Decimal(0); let totalPaidOnExpenses = new Decimal(0);
     for (const entry of entries) { totalCollected = totalCollected.plus(new Decimal(entry.paidOutAmount || 0)); totalPaidOnExpenses = totalPaidOnExpenses.plus(new Decimal(entry.debit)); }
-    return { periodStart: startDate.toISOString().split('T')[0], periodEnd: endDate.toISOString().split('T')[0], totalCollected: totalCollected.toNumber(), totalInputCredits: totalPaidOnExpenses.toNumber(), netTaxOwed: totalCollected.minus(totalPaidOnExpenses).toNumber(), entryCount: entries.length };
+    return { periodStart: startDate.toISOString().split('T')[0]!, periodEnd: endDate.toISOString().split('T')[0]!, totalCollected: totalCollected.toNumber(), totalInputCredits: totalPaidOnExpenses.toNumber(), netTaxOwed: totalCollected.minus(totalPaidOnExpenses).toNumber(), entryCount: entries.length };
 }

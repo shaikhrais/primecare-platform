@@ -23,7 +23,7 @@ function createTestApp() {
         await next();
     });
 
-    registerPublicRoutes(app);
+    registerPublicRoutes(app as any);
     return app;
 }
 
@@ -37,7 +37,7 @@ describe('GET /v1/health', () => {
     it('returns 200 with status "ok" when DB is reachable', async () => {
         const res = await app.request('/v1/health');
         expect(res.status).toBe(200);
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.status).toBe('ok');
         expect(body.db).toBe('connected');
         expect(body.version).toBe('1.0.0');
@@ -46,7 +46,7 @@ describe('GET /v1/health', () => {
 
     it('includes uptime fields', async () => {
         const res = await app.request('/v1/health');
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.uptime).toBeDefined();
         expect(body.uptime.ms).toBeGreaterThanOrEqual(0);
         expect(body.uptime.human).toMatch(/\d+h \d+m/);
@@ -54,7 +54,7 @@ describe('GET /v1/health', () => {
 
     it('includes ISO timestamp', async () => {
         const res = await app.request('/v1/health');
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.time).toMatch(/^\d{4}-\d{2}-\d{2}T/);
     });
 
@@ -66,11 +66,11 @@ describe('GET /v1/health', () => {
             });
             await next();
         });
-        registerPublicRoutes(failApp);
+        registerPublicRoutes(failApp as any);
 
         const res = await failApp.request('/v1/health');
         expect(res.status).toBe(503);
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.status).toBe('degraded');
         expect(body.db).toBe('disconnected');
     });
@@ -86,14 +86,14 @@ describe('GET /v1/public/branding', () => {
     it('returns 400 without slug parameter', async () => {
         const res = await app.request('/v1/public/branding');
         expect(res.status).toBe(400);
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.error).toBe('Slug required');
     });
 
     it('returns branding data for a given slug', async () => {
         const res = await app.request('/v1/public/branding?slug=primecare');
         expect(res.status).toBe(200);
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.slug).toBe('primecare');
         expect(body.name).toBe('PrimeCare');
         expect(body.brandingConfig).toBeDefined();

@@ -11,7 +11,7 @@ export async function handleLogin(c: any) {
     try {
         const { email, password } = c.req.valid('json');
         const prisma = c.get('prisma');
-        let user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({ where: { email } });
         if (!user || !user.passwordHash) return c.json({ error: 'Invalid credentials' }, 401);
         const requestTenantId = c.get('tenantId' as any) || c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id');
         if (requestTenantId && user.tenantId !== requestTenantId && user.tenantId !== 'system') return c.json({ error: 'Invalid credentials' }, 401);

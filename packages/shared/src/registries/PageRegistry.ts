@@ -136,7 +136,7 @@ export const getAssociates = (code: string): { code: string; label: string; type
     const entry = MASTER_REGISTRY[code];
     if (!entry) return [];
     return entry.associates.filter(c => MASTER_REGISTRY[c]).map(c => ({
-        code: c, label: MASTER_REGISTRY[c].label, type: MASTER_REGISTRY[c].type,
+        code: c, label: MASTER_REGISTRY[c]!.label, type: MASTER_REGISTRY[c]!.type,
     }));
 };
 

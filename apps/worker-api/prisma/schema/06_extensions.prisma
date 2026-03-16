@@ -76,7 +76,7 @@ model Survey {
   id         String           @id @default(uuid())
   title      String
   targetRole String?          @map("target_role")
-  questions  String           @map("questions_json")
+  questions  Json             @map("questions_json")
   isActive   Boolean          @default(true) @map("is_active")
   createdAt  DateTime         @default(now()) @map("created_at")
   tenantId   String           @map("tenant_id")
@@ -91,7 +91,7 @@ model SurveyResponse {
   id        String   @id @default(uuid())
   surveyId  String   @map("survey_id")
   userId    String   @map("user_id")
-  answers   String   @map("answers_json")
+  answers   Json     @map("answers_json")
   createdAt DateTime @default(now()) @map("created_at")
   survey    Survey   @relation(fields: [surveyId], references: [id])
 

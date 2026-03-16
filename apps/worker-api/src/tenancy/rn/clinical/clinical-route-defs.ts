@@ -25,7 +25,7 @@ export async function handleRecordSupervision(c: any) {
         const gamificationProfile = pswUser ? await prisma.gamificationProfile.findUnique({ where: { userId: pswUser.id } }) : null;
         if (gamificationProfile && gamificationProfile.careCoins >= 50) {
             await prisma.gamificationProfile.update({ where: { id: gamificationProfile.id }, data: { careCoins: gamificationProfile.careCoins - 50 } });
-            await prisma.auditLog.create({ data: { actorUserId: userId, action: 'CARE_COIN_PENALTY', resourceType: 'GAMIFICATION_PROFILE', resourceId: gamificationProfile.id, metadataString: JSON.stringify({ reason: 'Unsatisfactory performance marked in RN Supervision Log', amount: -50 }), tenantId } });
+            await prisma.auditLog.create({ data: { actorUserId: userId, action: 'CARE_COIN_PENALTY', resourceType: 'GAMIFICATION_PROFILE', resourceId: gamificationProfile.id, metadata: JSON.stringify({ reason: 'Unsatisfactory performance marked in RN Supervision Log', amount: -50 }), tenantId } });
             console.log(`[Clinical] Feature 23 Fired: Deducted 50 CareCoins from PSW ${body.pswId} following negative supervision.`);
         }
     }

@@ -27,7 +27,7 @@ export class UnusedCodeSweeper {
 
         console.log(`[Code Sweeper] Analysis complete! Found ${unusedAssets.length} dead assets inflating the bundle.`);
         
-        let totalWastedKb = 142 + 44 + 21;
+        const totalWastedKb = 142 + 44 + 21;
         console.warn(`[Code Sweeper] WARNING: Approximately ${totalWastedKb} KB of unused code is slowing down the initial page load.`);
 
         return unusedAssets;

@@ -1,124 +1,56 @@
-import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
+/**
+ * Admin Module — Federated Domain Architecture
+ *
+ * Previously: 44 direct imports, duplicate route mounts, God Module.
+ * Now: 6 domain sub-apps, each with clear ownership.
+ *
+ * Domain Sub-Apps:
+ *   /v1/admin/*  (core)     → users, settings, search, registries, staff-groups
+ *   /v1/admin/*  (ops)      → visits, timesheets, incidents, clients, leads
+ *   /v1/admin/*  (clinical) → evv, consent, authorizations, pharmacy, discharge
+ *   /v1/admin/*  (finance)  → financial, payroll, claims, erp
+ *   /v1/admin/*  (content)  → content, dam, marketing, telehealth
+ *   /v1/admin/*  (infra)    → system-data, webhooks, cron, interop, ai-iot
+ */
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireAuth } from '../../_shared/middleware/auth';
 import { requireRole } from '../../_shared/middleware/rbac';
-import userRoutes from './users/users.routes';
-import visitRoutes from './visits/visits.routes';
-import leadRoutes from './leads/leads.routes';
-import incidentRoutes from './incidents/incidents.routes';
-import timesheetRoutes from './timesheets/timesheets.routes';
-import serviceRoutes from './services/services.routes';
-import contentRoutes from './content/content.routes';
-import settingsRoutes from './settings/settings.routes';
-import clientRoutes from './clients/clients.routes';
-import developerRoutes from './developer/developer.routes';
-import searchRoutes from './search/search.routes';
-import reportRoutes from './reports/export.routes';
-import scrumRoutes from './scrum/scrum.routes';
-import { platformStats } from './routes/platform-stats.routes';
-import { predictiveStaffingRoutes } from './routes/predictive-staffing.routes';
-import { riskSurveillanceRoutes } from './routes/risk-surveillance.routes';
-import { clinicalAutopilotRoutes } from './routes/clinical-autopilot.routes';
-import { resellerRoutes } from './routes/reseller.routes';
-import financialRoutes from './financial/financial.routes';
-import registryRoutes from './registries/registries.routes';
-import evvRoutes from './evv/evv.routes';
-import authorizationRoutes from './authorizations/authorizations.routes';
-import referralRoutes from './referrals/referrals.routes';
-import consentRoutes from './consent/consent.routes';
-import claimRoutes from './claims/claims.routes';
-import webhookRoutes from './webhooks/webhooks.routes';
-import auditExportRoutes from './audit-export/audit-export.routes';
-import aiStubRoutes from './ai-stubs/ai-stubs.routes';
-import notificationRoutes from './notifications/notifications.routes';
-import documentRoutes from './documents/documents.routes';
-import payrollRoutes from './payroll/payroll.routes';
-import dischargeRoutes from './discharge/discharge.routes';
-import bookingRequestRoutes from './booking-requests/booking-requests.routes';
-import referenceDataRoutes from './reference-data/reference-data.routes';
-import interopRoutes from './interop/interop.routes';
-import cronRoutes from './cron/cron.routes';
-import marketingRoutes from './marketing/marketing.routes';
-import telehealthRoutes from './telehealth/telehealth.routes';
-import pharmacyRoutes from './pharmacy/pharmacy.routes';
-import erpRoutes from './erp/erp.routes';
-import damRoutes from './dam/dam.routes';
-import { systemDataRoutes } from './system-data/system-data.routes';
-import staffGroupsRoutes from './staff-groups/staff-groups.routes';
-import adminActionsRoutes from './actions/admin-actions.routes';
+
+// Domain Sub-Apps
+import coreApp from './domains/core.app';
+import clinicalApp from './domains/clinical.app';
+import financeApp from './domains/finance.app';
+import opsApp from './domains/ops.app';
+import contentApp from './domains/content.app';
+import infraApp from './domains/infra.app';
+
+// Inline OpenAPI route handlers (too small to be their own sub-app)
+import { statsRoute, handleAdminStats } from './admin-stats';
+import { opsCenterRoute, handleOpsCenter } from './ops-center';
 
 const admin = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
-const adminModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// Admin module-level middleware
+// ── Admin module-level middleware ────────────────────────────────────────────
 admin.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     return await middleware(c, next);
 });
 admin.use('*', requireRole(['admin']));
 
-// Routes
-admin.route('/users', userRoutes);
-admin.route('/visits', visitRoutes);
-admin.route('/leads', leadRoutes);
-admin.route('/incidents', incidentRoutes);
-admin.route('/timesheets', timesheetRoutes);
-admin.route('/services', serviceRoutes);
-admin.route('/settings', settingsRoutes);
-admin.route('/clients', clientRoutes);
-admin.route('/developer', developerRoutes); // Keep in Tenant Admin for now as it's for their API Keys
-admin.route('/search', searchRoutes);
-admin.route('/reports', reportRoutes);
-admin.route('/scrum', scrumRoutes);
-admin.route('/financial', financialRoutes);
-admin.route('/registries', registryRoutes);
-admin.route('/', contentRoutes);
+// ── Mount Domain Sub-Apps ───────────────────────────────────────────────────
+// Each sub-app owns its own route namespace.
+// Routes are mounted at the admin root so existing paths are preserved.
+// e.g., core.app registers '/users' → final path is /v1/admin/users (unchanged)
+admin.route('/', coreApp);
+admin.route('/', opsApp);
+admin.route('/', clinicalApp);
+admin.route('/', financeApp);
+admin.route('/', contentApp);
+admin.route('/', infraApp);
 
-// Platform/Company Specific Routes (Restricted to Super Admin in middleware if necessary)
-admin.route('/system/platform', platformStats);
-admin.route('/system/risk-surveillance', riskSurveillanceRoutes);
-admin.route('/system/marketing', marketingRoutes);
-
-// Insights Routes
-admin.route('/insights/predictive-staffing', predictiveStaffingRoutes);
-
-// Automation Routes
-admin.route('/automation/clinical-autopilot', clinicalAutopilotRoutes);
-
-// Reseller // Sub-Tenant Routes
-admin.route('/reseller', resellerRoutes);
-
-// Domain Feature Extensions
-admin.route('/evv', evvRoutes);
-admin.route('/authorizations', authorizationRoutes);
-admin.route('/referrals', referralRoutes);
-admin.route('/consent', consentRoutes);
-admin.route('/claims', claimRoutes);
-admin.route('/webhooks', webhookRoutes);
-admin.route('/audit-export', auditExportRoutes);
-admin.route('/ai-iot', aiStubRoutes);
-admin.route('/notifications', notificationRoutes);
-admin.route('/documents', documentRoutes);
-admin.route('/payroll', payrollRoutes);
-admin.route('/clients', dischargeRoutes);
-admin.route('/booking-requests', bookingRequestRoutes);
-admin.route('/', referenceDataRoutes);
-admin.route('/interop', interopRoutes);
-admin.route('/cron', cronRoutes);
-admin.route('/telehealth', telehealthRoutes);
-admin.route('/pharmacy', pharmacyRoutes);
-adminModule.route('/claims', claimRoutes);
-adminModule.route('/erp', erpRoutes);
-adminModule.route('/dam', damRoutes);
-admin.route('/system-data', systemDataRoutes);
-admin.route('/staff-groups', staffGroupsRoutes);
-admin.route('/actions', adminActionsRoutes);
-
-import { statsRoute, handleAdminStats } from './admin-stats';
-import { opsCenterRoute, handleOpsCenter } from './ops-center';
-
+// ── Inline Stats/Ops Routes ─────────────────────────────────────────────────
 admin.openapi(statsRoute, handleAdminStats);
 admin.openapi(opsCenterRoute, handleOpsCenter);
 
 export default admin;
-

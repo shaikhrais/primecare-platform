@@ -68,7 +68,7 @@ r.openapi(predictiveStaffingRoute, async (c) => {
         // 3. Calculate Burnout Risk Score
         const riskScores = psws.map((psw: any) => {
             let score = 0;
-            let riskFactors: string[] = [];
+            const riskFactors: string[] = [];
 
             // A. Hours worked in the last 14 days
             const pswTimesheets = timesheets.filter((t: any) => t.pswId === psw.pswProfile?.id);

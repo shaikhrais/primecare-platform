@@ -37,7 +37,7 @@ describe('Correlation ID Middleware', () => {
             headers: { 'X-Request-ID': clientId },
         });
         expect(res.headers.get('X-Request-ID')).toBe(clientId);
-        const body = await res.json();
+        const body = await res.json() as Record<string, unknown>;
         expect(body.reqId).toBe(clientId);
     });
 });
@@ -58,7 +58,7 @@ describe('Request Logger Middleware', () => {
         await app.request('/test');
 
         expect(logSpy).toHaveBeenCalled();
-        const logCall = logSpy.mock.calls[0][0];
+        const logCall = logSpy.mock.calls[0]![0];
         const parsed = JSON.parse(logCall);
         expect(parsed.level).toBe('info');
         expect(parsed.method).toBe('GET');
@@ -80,7 +80,7 @@ describe('Request Logger Middleware', () => {
         await app.request('/missing');
 
         expect(warnSpy).toHaveBeenCalled();
-        const parsed = JSON.parse(warnSpy.mock.calls[0][0]);
+        const parsed = JSON.parse(warnSpy.mock.calls[0]![0]);
         expect(parsed.level).toBe('warn');
         expect(parsed.status).toBe(404);
 
@@ -98,7 +98,7 @@ describe('Request Logger Middleware', () => {
         await app.request('/fail');
 
         expect(errorSpy).toHaveBeenCalled();
-        const parsed = JSON.parse(errorSpy.mock.calls[0][0]);
+        const parsed = JSON.parse(errorSpy.mock.calls[0]![0]);
         expect(parsed.level).toBe('error');
         expect(parsed.status).toBe(500);
 
@@ -141,7 +141,7 @@ describe('Error Handling', () => {
 
         const res = await app.request('/boom');
         expect(res.status).toBe(500);
-        const body = await res.json();
+        const body = await res.json() as Record<string, unknown>;
         expect(body.status).toBe('error');
         expect(body.message).toBe('Internal Server Error');
 

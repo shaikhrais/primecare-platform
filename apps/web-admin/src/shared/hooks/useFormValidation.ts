@@ -141,9 +141,6 @@ export function useFormValidation<T extends Record<string, unknown>>(
         setIsSubmitting(true);
         try {
             await onSubmit(values);
-        } catch (err) {
-            // Allow submit handler to handle errors
-            throw err;
         } finally {
             setIsSubmitting(false);
         }

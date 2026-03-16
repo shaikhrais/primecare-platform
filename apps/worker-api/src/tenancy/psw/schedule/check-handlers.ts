@@ -21,7 +21,7 @@ export async function handleCheckIn(c: any) {
     const [event] = await prisma.$transaction([
         prisma.visitCheckEvent.create({ data: { visitId, pswId: profile.id, eventType: 'check_in', lat, lng, accuracyM: accuracy, result: isEvvFlagged ? 'flagged_distance' : 'success', tenantId: profile.tenantId } }),
         prisma.visit.update({ where: { id: visitId }, data: { status: 'in_progress' } }),
-        prisma.auditLog.create({ data: { actorUserId: userId, action: 'CHECK_IN', resourceType: 'VISIT', resourceId: visitId, metadataString: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId } }),
+        prisma.auditLog.create({ data: { actorUserId: userId, action: 'CHECK_IN', resourceType: 'VISIT', resourceId: visitId, metadata: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId } }),
         ...(isEvvFlagged ? [prisma.systemEvent.create({ data: { tenantId: profile.tenantId, operation: 'AUDIT_FAILURE', modelName: 'VisitCheckEvent', entityId: visitId, payload: JSON.stringify({ reason: 'EVV Distance Exceeded', distance, threshold: 300 }) } })] : []),
         prisma.communicationLog.create({ data: { tenantId: profile.tenantId || 'system', sender: userId, recipient: 'family', channel: 'sms', bodyText: `Your Caregiver ${profile.user?.fullName || profile.id} has arrived for visit ${visitId}.`, status: 'sent' } })
     ]);
@@ -42,7 +42,7 @@ export async function handleCheckOut(c: any) {
     const [event] = await prisma.$transaction([
         prisma.visitCheckEvent.create({ data: { visitId, pswId: profile.id, eventType: 'check_out', lat, lng, accuracyM: accuracy, result: isEvvFlagged ? 'flagged_distance' : 'success', tenantId: profile.tenantId } }),
         prisma.visit.update({ where: { id: visitId }, data: { status: 'completed' } }),
-        prisma.auditLog.create({ data: { actorUserId: userId, action: 'CHECK_OUT', resourceType: 'VISIT', resourceId: visitId, metadataString: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId } })
+        prisma.auditLog.create({ data: { actorUserId: userId, action: 'CHECK_OUT', resourceType: 'VISIT', resourceId: visitId, metadata: JSON.stringify({ lat, lng, isEvvFlagged, distance }), tenantId: profile.tenantId } })
     ]);
     return c.json(event, 200);
 }

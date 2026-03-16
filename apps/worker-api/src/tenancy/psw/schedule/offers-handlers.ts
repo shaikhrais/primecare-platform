@@ -61,7 +61,7 @@ export async function handleAcceptOffer(c: any) {
             console.log(`[Worker] Feature 35 Fired: Promoted PSW ${profile.id} to Silver. WebhookDelivery queued for physical certificate printing.`);
         }
 
-        await tx.auditLog.create({ data: { tenantId: profile.tenantId || 'system', actorUserId: userId, action: 'GAMIFIED_PICKING_REWARD', resourceType: 'GAMIFICATION', resourceId: gamification.id, metadataString: JSON.stringify({ visitId, priority: visit.priority, coinsAwarded }) } });
+        await tx.auditLog.create({ data: { tenantId: profile.tenantId || 'system', actorUserId: userId, action: 'GAMIFIED_PICKING_REWARD', resourceType: 'GAMIFICATION', resourceId: gamification.id, metadata: JSON.stringify({ visitId, priority: visit.priority, coinsAwarded }) } });
         console.log(`[Worker] Feature 32 Fired: Awarded ${coinsAwarded} CareCoins to PSW ${profile.id} for accepting ${visit.priority || 'ROUTINE'} shift ${visit.id}.`);
     });
 

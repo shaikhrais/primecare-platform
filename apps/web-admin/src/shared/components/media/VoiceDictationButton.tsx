@@ -12,7 +12,7 @@ export const VoiceDictationButton: React.FC<VoiceDictationButtonProps> = ({ onRe
     const recognitionRef = useRef<any>(null);
 
     useEffect(() => {
-        // @ts-ignore
+        // @ts-expect-error — SpeechRecognition vendor-prefixed API not in standard TS types
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             setSupported(true);

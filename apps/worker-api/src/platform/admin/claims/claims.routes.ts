@@ -143,7 +143,7 @@ claims.openapi(appealRoute, async (c) => {
         data: {
             actorUserId: (c.get('jwtPayload') as any).sub,
             action: 'CLAIM_APPEAL', resourceType: 'CLAIM', resourceId: id,
-            metadataString: JSON.stringify({ reason: body.reason }), tenantId,
+            metadata: JSON.stringify({ reason: body.reason }), tenantId,
         },
     });
     return c.json({ appealed: true }, 200);

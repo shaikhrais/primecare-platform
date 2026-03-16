@@ -27,7 +27,7 @@ r.get('/', async (c) => {
         const grouped: Record<string, any[]> = {};
         for (const reg of registries) {
             if (!grouped[reg.category]) grouped[reg.category] = [];
-            grouped[reg.category].push(reg);
+            grouped[reg.category]!.push(reg);
         }
 
         return c.json({ total: registries.length, grouped, items: registries });

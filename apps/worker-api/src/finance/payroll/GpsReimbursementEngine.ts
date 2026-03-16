@@ -51,8 +51,8 @@ export class GpsReimbursementEngine {
         let totalMiles = 0;
 
         for (let i = 0; i < logs.length - 1; i += 2) {
-            if (logs[i].type === 'EXIT_CLIENT_A' && logs[i+1]?.type === 'ENTER_CLIENT_B') {
-                const distance = this.calculateHaversineDistance(logs[i].lat, logs[i].lon, logs[i+1].lat, logs[i+1].lon);
+            if (logs[i]!.type === 'EXIT_CLIENT_A' && logs[i+1]?.type === 'ENTER_CLIENT_B') {
+                const distance = this.calculateHaversineDistance(logs[i]!.lat, logs[i]!.lon, logs[i+1]!.lat, logs[i+1]!.lon);
                 totalMiles += distance;
             }
         }

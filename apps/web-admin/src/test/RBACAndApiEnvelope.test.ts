@@ -186,7 +186,7 @@ function buildAuditEntry(userId: string | null, action: string, resourceType: st
         action,
         resourceType,
         resourceId,
-        metadataString: typeof metadata === 'string' ? metadata : JSON.stringify(metadata),
+        metadata: typeof metadata === 'string' ? metadata : JSON.stringify(metadata),
         createdAt: new Date().toISOString(),
     };
 }
@@ -207,11 +207,11 @@ describe('Audit — Entry', () => {
     });
     it('metadata serialized', () => {
         const e = buildAuditEntry('u-1', 'UPDATE', 'Visit', 'v-1', { field: 'status' });
-        expect(JSON.parse(e.metadataString)).toEqual({ field: 'status' });
+        expect(JSON.parse(e.metadata)).toEqual({ field: 'status' });
     });
     it('string metadata', () => {
         const e = buildAuditEntry('u-1', 'UPDATE', 'Visit', 'v-1', 'raw string');
-        expect(e.metadataString).toBe('raw string');
+        expect(e.metadata).toBe('raw string');
     });
     it('system tenant fallback', () => {
         const e = buildAuditEntry(null, 'LOGIN', 'Auth', null, {});

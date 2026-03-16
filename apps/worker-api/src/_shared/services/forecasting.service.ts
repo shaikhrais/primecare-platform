@@ -82,7 +82,7 @@ export class ForecastingService {
             const projectedCash = currentCash.plus(netDailyFlow.times(i));
 
             forecast.push({
-                date: forecastDate.toISOString().split('T')[0],
+                date: forecastDate.toISOString().split('T')[0]!,
                 projectedCash: Math.max(0, projectedCash.toNumber())
             });
         }

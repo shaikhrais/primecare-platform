@@ -46,7 +46,7 @@ export class SuspiciousDownloadAlerter {
                 
                 console.error(`\n[CRITICAL ALERT] Potential Data Exfiltration Detected!`);
                 console.error(`- User ID: ${userId}`);
-                console.error(`- Source IP: ${recentHits[0].ipAddress}`);
+                console.error(`- Source IP: ${recentHits[0]!.ipAddress}`);
                 console.error(`- Velocity: ${recentHits.length} downloads in ${this.TIME_WINDOW_MS / 1000 / 60} minutes`);
                 console.error(`- Unique Files Scraped: ${uniqueAssets}`);
                 

@@ -25,10 +25,9 @@ export default function DevPerspectiveSwitcher() {
     const [showImpersonate, setShowImpersonate] = useState(false);
 
     const userStr = localStorage.getItem('user');
-    if (!userStr || userStr === 'undefined') return null;
-    const currentUser: User = JSON.parse(userStr);
+    const currentUser: User | null = (userStr && userStr !== 'undefined') ? JSON.parse(userStr) : null;
 
-    const isAdmin = currentUser.roles?.includes('admin');
+    const isAdmin = currentUser?.roles?.includes('admin') ?? false;
     const isImpersonating = sessionStorage.getItem('originalAdmin') !== null;
 
     useEffect(() => {
@@ -36,6 +35,8 @@ export default function DevPerspectiveSwitcher() {
             fetchUsers();
         }
     }, [showImpersonate]);
+
+    if (!currentUser) return null;
 
     const fetchUsers = async () => {
         try {
@@ -72,7 +73,7 @@ export default function DevPerspectiveSwitcher() {
                 const data = await response.json();
                 if (!isImpersonating) {
                     // R13: Only store non-sensitive user data for UI restore — NOT tokens
-                    sessionStorage.setItem('originalAdmin', userStr);
+                    sessionStorage.setItem('originalAdmin', userStr!);
                 }
                 // R13: Token is set via HttpOnly cookie by backend — don't store in localStorage
                 localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));

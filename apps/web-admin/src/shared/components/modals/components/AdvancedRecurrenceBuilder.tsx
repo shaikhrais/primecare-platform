@@ -51,7 +51,7 @@ export const AdvancedRecurrenceBuilder: React.FC<AdvancedRecurrenceBuilderProps>
         const dtstart = new Date(startDate);
         if (isNaN(dtstart.getTime())) return;
         
-        let options: any = {
+        const options: any = {
             freq,
             interval,
             dtstart,

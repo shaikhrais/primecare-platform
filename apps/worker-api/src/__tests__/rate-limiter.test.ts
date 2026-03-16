@@ -88,7 +88,7 @@ describe('Rate Limiter — Enforcement', () => {
             headers: { 'CF-Connecting-IP': ip },
         });
         expect(res.status).toBe(429);
-        const body = await res.json();
+        const body = await res.json() as Record<string, any>;
         expect(body.message).toContain('Too many requests');
         expect(res.headers.get('Retry-After')).toBeDefined();
         expect(res.headers.get('X-RateLimit-Remaining')).toBe('0');

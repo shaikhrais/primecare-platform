@@ -61,13 +61,13 @@ describe('hashPassword (source)', () => {
 
     it('salt is 32 hex chars (16 bytes)', async () => {
         const hash = await hashPassword('TestP@ssw0rd');
-        const salt = hash.split(':')[2];
+        const salt = hash.split(':')[2]!;
         expect(salt.length).toBe(32);
     });
 
     it('hash is 128 hex chars (64 bytes)', async () => {
         const hash = await hashPassword('TestP@ssw0rd');
-        const hashPart = hash.split(':')[3];
+        const hashPart = hash.split(':')[3]!;
         expect(hashPart.length).toBe(128);
     });
 });

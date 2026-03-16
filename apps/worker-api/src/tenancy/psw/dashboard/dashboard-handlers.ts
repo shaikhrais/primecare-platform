@@ -34,7 +34,7 @@ export async function handleRedeemStore(c: any) {
     await prisma.$transaction(async (tx: any) => {
         await tx.gamificationProfile.update({ where: { id: gamification.id }, data: { careCoins: { decrement: cost } } });
         if (itemId === 'gas-card-50') { await tx.payout.create({ data: { pswId: pswProfile!.id, tenantId: pswProfile!.tenantId, amount: 50.0, status: 'pending' } }); }
-        await tx.auditLog.create({ data: { tenantId: pswProfile!.tenantId, actorUserId: userId, action: 'CARECOIN_REDEEMED', resourceType: 'GAMIFICATION', resourceId: gamification.id, metadataString: JSON.stringify({ item: itemId, cost }) } });
+        await tx.auditLog.create({ data: { tenantId: pswProfile!.tenantId, actorUserId: userId, action: 'CARECOIN_REDEEMED', resourceType: 'GAMIFICATION', resourceId: gamification.id, metadata: JSON.stringify({ item: itemId, cost }) } });
     });
     return c.json({ success: true, newBalance: gamification.careCoins - cost }, 200);
 }

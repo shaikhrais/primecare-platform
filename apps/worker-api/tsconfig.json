@@ -10,6 +10,8 @@
             "@cloudflare/workers-types"
         ],
         "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true,
         "noEmit": true,
         "isolatedModules": true,

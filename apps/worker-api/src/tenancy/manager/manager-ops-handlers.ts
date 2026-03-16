@@ -124,7 +124,7 @@ export async function handleAuthorizeCrisisPay(c: any) {
     const [updatedVisit, retroactivePayout] = await prisma.$transaction([
         prisma.visit.update({ where: { id: visitId }, data: { isSurgeActive: true, surgeMultiplier: targetSurgeMultiplier } }),
         prisma.payout.create({ data: { pswId: visit.assignedPswId, amount: crisisBonusAmount, currency: 'CAD', status: 'pending', notes: `Retroactive Crisis Pay Authorization for Visit ${visitId}` } }),
-        prisma.auditLog.create({ data: { actorUserId: c.get('jwtPayload').sub, action: 'AUTHORIZE_CRISIS_PAY', resourceType: 'VISIT', resourceId: visitId, metadataString: JSON.stringify({ surgeMultiplier: targetSurgeMultiplier, bonusAmount: crisisBonusAmount }), tenantId } })
+        prisma.auditLog.create({ data: { actorUserId: c.get('jwtPayload').sub, action: 'AUTHORIZE_CRISIS_PAY', resourceType: 'VISIT', resourceId: visitId, metadata: JSON.stringify({ surgeMultiplier: targetSurgeMultiplier, bonusAmount: crisisBonusAmount }), tenantId } })
     ]);
     console.log(`[Worker] Feature 20 Fired: Retroactive Crisis Pay authorized for Visit ${visitId}. Payout ${retroactivePayout.id} queued.`);
     return c.json({ success: true, payoutId: retroactivePayout.id }, 200);

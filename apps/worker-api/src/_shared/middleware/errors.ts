@@ -50,7 +50,7 @@ export const errorHandler = async (c: Context, next: Next) => {
         const origin = c.req.header('Origin') || '';
         const allowedOrigins = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
         const isPreview = /^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(origin);
-        const safeOrigin = (allowedOrigins.includes(origin) || isPreview) ? origin : allowedOrigins[0];
+        const safeOrigin = (allowedOrigins.includes(origin) || isPreview) ? origin : allowedOrigins[0]!;
 
         return c.json({
             error: publicMessage,

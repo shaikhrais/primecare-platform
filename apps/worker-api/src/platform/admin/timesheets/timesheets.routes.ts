@@ -1,7 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
-import { logAudit } from '../../../_shared/utils/audit';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
+import { TimesheetService } from './timesheets.service';
+import { UpdateTimesheetStatusSchema } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -32,14 +33,8 @@ const listTimesheetsRoute = createRoute({
 });
 
 r.openapi(listTimesheetsRoute, async (c) => {
-    const prisma = c.get('prisma');
-    const timesheets = await prisma.timesheet.findMany({
-        include: {
-            psw: { select: { fullName: true } },
-            items: { include: { visit: true } }
-        },
-        orderBy: { createdAt: 'desc' }
-    });
+    const service = new TimesheetService(c.get('prisma'));
+    const timesheets = await service.list();
     return c.json(timesheets, 200);
 });
 
@@ -55,9 +50,7 @@ const updateTimesheetStatusRoute = createRoute({
         body: {
             content: {
                 'application/json': {
-                    schema: z.object({
-                        status: z.string()
-                    }),
+                    schema: UpdateTimesheetStatusSchema,
                 },
             },
         },
@@ -75,32 +68,12 @@ const updateTimesheetStatusRoute = createRoute({
 });
 
 r.openapi(updateTimesheetStatusRoute, async (c) => {
-    const prisma = c.get('prisma');
+    const service = new TimesheetService(c.get('prisma'));
     const { id } = c.req.valid('param');
     const { status } = c.req.valid('json');
     const payload = c.get('jwtPayload');
 
-    const [timesheet] = await prisma.$transaction([
-        prisma.timesheet.update({
-            where: { id },
-            data: {
-                status: status as any,
-                reviewedBy: payload.sub,
-                reviewedAt: new Date()
-            }
-        }),
-        prisma.auditLog.create({
-            data: {
-                actorUserId: payload.sub,
-                action: 'REVIEW_TIMESHEET',
-                resourceType: 'TIMESHEET',
-                resourceId: id,
-                metadataString: JSON.stringify({ status }),
-                tenantId: payload.tenantId
-            }
-        })
-    ]);
-
+    const timesheet = await service.updateStatus(id, status, payload.sub, payload.tenantId);
     return c.json(timesheet, 200);
 });
 

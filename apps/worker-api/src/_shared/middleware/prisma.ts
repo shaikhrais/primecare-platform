@@ -72,7 +72,7 @@ export const prismaMiddleware = () => {
         if (!tenantId && prismaInstance && !isLightRoute) {
             const host = c.req.header('Host') || '';
             const parts = host.split('.');
-            if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost', 'primecare-api'].includes(parts[0])) {
+            if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost', 'primecare-api'].includes(parts[0]!)) {
                 const tenantSlug = parts[0];
                 const tenant = await prismaInstance.tenant.findUnique({
                     where: { slug: tenantSlug },

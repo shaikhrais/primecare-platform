@@ -5,7 +5,7 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useMap } from 'react-leaflet';
 
 // Fix for default marker icon in Leaflet + Vite
-let DefaultIcon = L.icon({ iconUrl: markerIcon, shadowUrl: markerShadow, iconSize: [25, 41], iconAnchor: [12, 41] });
+const DefaultIcon = L.icon({ iconUrl: markerIcon, shadowUrl: markerShadow, iconSize: [25, 41], iconAnchor: [12, 41] });
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const API_URL = import.meta.env.VITE_API_URL;

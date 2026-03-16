@@ -28,7 +28,7 @@ const SocialMediaCredentialVaultInner: React.FC = () => {
     useEffect(() => {
         if (window.FB) return;
         window.fbAsyncInit = function() { window.FB.init({ appId: '123456789012345', cookie: true, xfbml: true, version: 'v18.0' }); };
-        (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0] as HTMLElement; if (d.getElementById(id)) return; js = d.createElement(s) as HTMLScriptElement; js.id = id; js.src = "https://connect.facebook.net/en_US/sdk.js"; fjs.parentNode?.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id){ let js, fjs = d.getElementsByTagName(s)[0] as HTMLElement; if (d.getElementById(id)) return; js = d.createElement(s) as HTMLScriptElement; js.id = id; js.src = "https://connect.facebook.net/en_US/sdk.js"; fjs.parentNode?.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));
     }, []);
 
     const loginWithGoogle = useGoogleLogin({

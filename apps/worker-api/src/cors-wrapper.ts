@@ -52,7 +52,7 @@ export function registerErrorHandler(app: AppType) {
 
         const origin = c.req.header('Origin'); const allowed = CORS_ORIGINS;
         const isPreview = origin && CORS_PREVIEW_RE.test(origin);
-        const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0];
+        const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0]!;
         c.header('Access-Control-Allow-Origin', headerOrigin); c.header('Access-Control-Allow-Credentials', 'true');
         return c.json({ status: 'error', message: 'Internal Server Error', path: c.req.path }, 500);
     });
@@ -64,7 +64,7 @@ export function createFetchWrapper(app: AppType) {
         async fetch(request: Request, env: any, ctx: any) {
             const origin = request.headers.get('Origin') || '';
             const isAllowed = CORS_ORIGINS.includes(origin) || CORS_PREVIEW_RE.test(origin);
-            const allowOrigin = isAllowed ? origin : CORS_ORIGINS[0];
+            const allowOrigin = isAllowed ? origin : CORS_ORIGINS[0]!;
             if (request.method === 'OPTIONS') {
                 return new Response(null, { status: 204, headers: { 'Access-Control-Allow-Origin': allowOrigin, 'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type,Authorization,X-Requested-With,Accept,X-Tenant-ID,x-tenant-id,x-tenant-slug,X-Device-ID,X-Device-Name,X-Device-Type,X-Is-Temporary', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Max-Age': '600' } });
             }

@@ -1,5 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
+import { IncidentService } from './incidents.service';
+import { UpdateIncidentSchema } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -30,14 +32,8 @@ const listIncidentsRoute = createRoute({
 });
 
 r.openapi(listIncidentsRoute, async (c) => {
-    const prisma = c.get('prisma');
-    const incidents = await prisma.incident.findMany({
-        include: {
-            reporter: { select: { email: true } },
-            visit: { select: { id: true, status: true } }
-        },
-        orderBy: { createdAt: 'desc' }
-    });
+    const service = new IncidentService(c.get('prisma'));
+    const incidents = await service.list();
     return c.json(incidents, 200);
 });
 
@@ -53,10 +49,7 @@ const updateIncidentRoute = createRoute({
         body: {
             content: {
                 'application/json': {
-                    schema: z.object({
-                        status: z.string(),
-                        resolutionNotes: z.string().optional()
-                    }),
+                    schema: UpdateIncidentSchema,
                 },
             },
         },
@@ -74,16 +67,10 @@ const updateIncidentRoute = createRoute({
 });
 
 r.openapi(updateIncidentRoute, async (c) => {
-    const prisma = c.get('prisma');
+    const service = new IncidentService(c.get('prisma'));
     const { id } = c.req.valid('param');
     const data = c.req.valid('json');
-    const incident = await prisma.incident.update({
-        where: { id },
-        data: {
-            status: data.status as any,
-            resolutionNotes: data.resolutionNotes
-        }
-    });
+    const incident = await service.update(id, data);
     return c.json(incident, 200);
 });
 

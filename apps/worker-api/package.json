@@ -13,6 +13,7 @@
         "prisma:push": "prisma db push",
         "prisma:seed": "ts-node prisma/seed.ts",
         "typecheck": "tsc --noEmit",
+        "lint": "eslint src/",
         "verify:parts": "tsx scripts/verify-parts.ts",
         "osm-cli": "tsx scripts/osm-cli.ts"
     },

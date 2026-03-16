@@ -243,7 +243,7 @@ function buildButtonGroups(): NestedGroups {
     const groups: NestedGroups = {};
     for (const b of ButtonRegistry) {
         (groups[b.role] ??= {})[b.module] ??= [];
-        groups[b.role][b.module].push(b);
+        groups[b.role]![b.module]!.push(b);
     }
     return groups;
 }

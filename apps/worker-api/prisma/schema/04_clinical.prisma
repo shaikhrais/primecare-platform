@@ -49,7 +49,7 @@ model ClinicalAssessment {
   rnId            String   @map("rn_id")
   tenantId        String   @map("tenant_id")
   type            String // ADL, MOBILITY, COGNITIVE, etc.
-  assessmentData  String   @map("assessment_data")
+  assessmentData  Json     @map("assessment_data")
   score           Int?
   recommendations String?
   createdAt       DateTime @default(now()) @map("created_at")
@@ -68,7 +68,7 @@ model MedicationRecon {
   clientId      String   @map("client_id")
   rnId          String   @map("rn_id")
   tenantId      String   @map("tenant_id")
-  reconData     String   @map("recon_data")
+  reconData     Json     @map("recon_data")
   discrepancies String?
   status        String   @default("completed") // completed, pending_review
   createdAt     DateTime @default(now()) @map("created_at")

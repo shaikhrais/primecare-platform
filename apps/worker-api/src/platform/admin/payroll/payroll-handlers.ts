@@ -26,7 +26,7 @@ export async function handleRun(c: any) {
         const historicalBaseline = await tx.payout.aggregate({ _avg: { amount: true }, where: { tenantId } });
         const baselineTotal = (historicalBaseline._avg.amount || 0) * (approved.length || 1);
         if (baselineTotal > 0 && totalAmount > (baselineTotal * 1.2)) {
-            await tx.auditLog.create({ data: { tenantId, actorUserId: 'system-payroll', action: 'PAYROLL_ANOMALY_WARNING', resourceType: 'PAYROLL_RUN', resourceId: weekId, metadataString: JSON.stringify({ message: `Pre-Flight Warning: Baseline exceeded by 20%. Total = ${totalAmount}, Baseline = ${baselineTotal}`, deviationRatio: totalAmount / baselineTotal }) } });
+            await tx.auditLog.create({ data: { tenantId, actorUserId: 'system-payroll', action: 'PAYROLL_ANOMALY_WARNING', resourceType: 'PAYROLL_RUN', resourceId: weekId, metadata: JSON.stringify({ message: `Pre-Flight Warning: Baseline exceeded by 20%. Total = ${totalAmount}, Baseline = ${baselineTotal}`, deviationRatio: totalAmount / baselineTotal }) } });
             console.log(`[Payroll] Feature 27 Fired: ResponseBot flagged >20% anomaly on week ${weekId}.`);
         }
         // Feature 28: Franchise Profitability Sync

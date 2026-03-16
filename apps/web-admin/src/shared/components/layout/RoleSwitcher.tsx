@@ -24,19 +24,15 @@ export default function RoleSwitcher() {
     const userStr = localStorage.getItem('user');
     // R13: Removed localStorage.getItem('token') — auth via HttpOnly cookies
 
-    if (!userStr || userStr === 'undefined') return null;
-
-    const user: User = JSON.parse(userStr);
-    const activeRole = user.activeRole;
+    const user: User | null = (userStr && userStr !== 'undefined') ? JSON.parse(userStr) : null;
+    const activeRole = user?.activeRole ?? '';
 
     // For Admins, allow switching to ANY role to "see other dashboards"
     // For others, only allow assigned roles
-    const isAdmin = user.roles?.includes('admin') || user.role === 'admin';
+    const isAdmin = user?.roles?.includes('admin') || user?.role === 'admin';
     const availableRoles = isAdmin
         ? ['admin', 'staff', 'manager', 'psw', 'client', 'rn']
-        : (user.roles || []);
-
-    if (availableRoles.length <= 1) return null;
+        : (user?.roles || []);
 
     // System roles for impersonation (Admin only)
     const systemRoles = ['staff', 'rn', 'psw', 'client', 'coordinator', 'finance', 'hr', 'compliance', 'crm', 'training'];
@@ -60,6 +56,18 @@ export default function RoleSwitcher() {
         },
     });
 
+    // Close on escape key
+    React.useEffect(() => {
+        const handleEsc = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        window.addEventListener('keydown', handleEsc);
+        return () => window.removeEventListener('keydown', handleEsc);
+    }, []);
+
+    if (!user) return null;
+    if (availableRoles.length <= 1) return null;
+
     const loading = switchRoleMutation.isPending;
 
     const handleSwitch = async (targetRole: string) => {
@@ -69,15 +77,6 @@ export default function RoleSwitcher() {
         }
         switchRoleMutation.mutate(targetRole);
     };
-
-    // Close on escape key
-    React.useEffect(() => {
-        const handleEsc = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setIsOpen(false);
-        };
-        window.addEventListener('keydown', handleEsc);
-        return () => window.removeEventListener('keydown', handleEsc);
-    }, []);
 
     return (
         <>

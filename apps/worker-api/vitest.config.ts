@@ -10,6 +10,12 @@ export default defineConfig({
             provider: 'v8',
             include: ['src/**/*.ts'],
             exclude: ['src/**/*.test.ts', 'src/bindings.ts', 'src/index.ts'],
+            thresholds: {
+                statements: 2,
+                branches: 3,
+                functions: 3,
+                lines: 2,
+            },
         },
     },
     resolve: {

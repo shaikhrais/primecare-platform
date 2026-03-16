@@ -49,8 +49,8 @@ export class OvertimeSentinel {
         let overlapFound = false;
 
         for (let i = 0; i < sheets.length - 1; i++) {
-            const current = sheets[i];
-            const next = sheets[i + 1];
+            const current = sheets[i]!;
+            const next = sheets[i + 1]!;
 
             // If the next shift started *before* the current shift ended, we have an impossible overlap.
             if (next.startTime < current.endTime) {

@@ -38,6 +38,7 @@ interface ShiftDisplay {
 
 export default function ManagerDashboard() {
     const { t } = useTranslation();
+    const { user } = useAuth();
     const [perspective, setPerspective] = useState('Operations');
 
     // TanStack Query: 4 parallel auto-cached queries with independent loading
@@ -92,8 +93,6 @@ export default function ManagerDashboard() {
             </div>
         );
     }
-
-    const { user } = useAuth();
 
     return (
         <div className="mgr-dashboard-container">

@@ -10,7 +10,7 @@ interface ChatMessage {
     timestamp: string;
 }
 
-export const iMessageThread: React.FC = () => {
+export const IMessageThread: React.FC = () => {
     // Starting with an empty thread or a welcome message
     const [messages, setMessages] = useState<ChatMessage[]>([
         { id: '0', text: 'Hello! I am Jessica, your Care Coordinator. How can I help you regarding John today?', sender: 'coordinator', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }

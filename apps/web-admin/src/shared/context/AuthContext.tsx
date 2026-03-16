@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
+import { useAuthStore } from '@/shared/stores';
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -22,6 +23,27 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+/**
+ * Sync user state into the Zustand useAuthStore so components using either
+ * useAuth() (context) or useAuthStore() (zustand) see the same data.
+ * AuthContext owns the session lifecycle; useAuthStore is the reactive read layer.
+ */
+const syncToStore = (user: User | null) => {
+    const store = useAuthStore.getState();
+    if (user) {
+        store.setUser({
+            id: user.id,
+            email: user.email,
+            name: user.email, // AuthContext doesn't track name separately
+            roles: user.roles,
+            activeRole: user.activeRole,
+            tenantId: user.tenantId,
+        });
+    } else {
+        store.logout();
+    }
+};
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
@@ -53,6 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
                 const finalUser = { ...userData, activeRole };
                 setUser(finalUser);
+                syncToStore(finalUser);
                 // #5: Only store minimal UI state — NOT tokens
                 localStorage.setItem('user', JSON.stringify({
                     id: finalUser.id,
@@ -63,19 +86,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 }));
             } else if (response.status === 401) {
                 setUser(null);
+                syncToStore(null);
                 localStorage.removeItem('user');
             } else {
                 // Server error (500 cold start) — use cached user, no retry
                 const cachedUser = localStorage.getItem('user');
                 if (cachedUser) {
-                    setUser(JSON.parse(cachedUser));
+                    const parsed = JSON.parse(cachedUser);
+                    setUser(parsed);
+                    syncToStore(parsed);
                 }
             }
         } catch (error) {
             // Network error — use cached user
             const cachedUser = localStorage.getItem('user');
             if (cachedUser) {
-                setUser(JSON.parse(cachedUser));
+                const parsed = JSON.parse(cachedUser);
+                setUser(parsed);
+                syncToStore(parsed);
             }
         } finally {
             setLoading(false);
@@ -90,6 +118,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = (userData: User, token?: string) => {
         setUser(userData);
+        syncToStore(userData);
         // #5: Store only safe UI fields
         localStorage.setItem('user', JSON.stringify({
             id: userData.id,
@@ -109,6 +138,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             // Silent — logout should always complete client-side
         }
         setUser(null);
+        syncToStore(null);
         localStorage.removeItem('user');
         window.location.href = RouteRegistry.LOGIN;
     };
@@ -127,3 +157,4 @@ export const useAuth = () => {
     }
     return context;
 };
+

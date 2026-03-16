@@ -5,7 +5,7 @@ import { CareUpdatesFeed } from './components/CareUpdatesFeed';
 import { LiveETATracker } from './components/LiveETATracker';
 import { CoPaySlider } from './components/CoPaySlider';
 import { CalendarExportList } from './components/CalendarExportList';
-import { iMessageThread as IMessageThread } from './components/iMessageThread';
+import { IMessageThread } from './components/iMessageThread';
 import { MilestoneCelebration } from '@/shared/components/modals/MilestoneCelebration';
 
 export default function FamilyDashboard() {

@@ -34,7 +34,7 @@ export class RealtimeSync extends DurableObject {
             }
 
             const webSocketPair = new WebSocketPair();
-            const [client, server] = Object.values(webSocketPair);
+            const [client, server] = Object.values(webSocketPair) as [WebSocket, WebSocket];
 
             this.ctx.acceptWebSocket(server);
             this.sessions.set(server, { userId, role });

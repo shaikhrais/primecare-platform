@@ -68,7 +68,7 @@ r.openapi(assignPswRoute, async (c) => {
                 action: 'ASSIGN_PSW',
                 resourceType: 'VISIT',
                 resourceId: visitId,
-                metadataString: JSON.stringify({ pswId }),
+                metadata: JSON.stringify({ pswId }),
                 tenantId: payload.tenantId
             }
         })

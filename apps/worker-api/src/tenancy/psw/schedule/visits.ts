@@ -118,7 +118,7 @@ r.openapi(reportNoShowRoute, async (c) => {
                 resourceType: 'VISIT',
                 resourceId: visitId,
                 tenantId: profile.tenantId,
-                metadataString: JSON.stringify({ waitTimeMinutes: 15 })
+                metadata: JSON.stringify({ waitTimeMinutes: 15 })
             }
         })
     ]);

@@ -18,12 +18,17 @@ export default function SideFloatingButton() {
 
     const currentPath = window.location.hash || location.pathname;
 
+    const emergencyMutation = useApiMutation('/v1/system/emergency/trigger', {
+        onSuccess: () => { showToast('Emergency Protocol Activated! Authorities notified.', 'error'); },
+        onError: () => { showToast('Emergency Protocol Failed!', 'error'); },
+    });
+
     if (hiddenPaths.some(p => currentPath.includes(p))) {
         return null;
     }
 
     const baseStyle = {
-        position: 'fixed' as 'fixed',
+        position: 'fixed' as const,
         right: '24px',
         bottom: '24px',
         width: '60px',
@@ -43,11 +48,11 @@ export default function SideFloatingButton() {
     };
 
     const menuStyle = {
-        position: 'fixed' as 'fixed',
+        position: 'fixed' as const,
         right: '24px',
         bottom: '96px',
         display: 'flex',
-        flexDirection: 'column' as 'column',
+        flexDirection: 'column' as const,
         gap: '12px',
         zIndex: 9998,
         alignItems: 'flex-end',
@@ -67,11 +72,6 @@ export default function SideFloatingButton() {
         gap: '8px',
         textDecoration: 'none'
     };
-
-    const emergencyMutation = useApiMutation('/v1/system/emergency/trigger', {
-        onSuccess: () => { showToast('Emergency Protocol Activated! Authorities notified.', 'error'); },
-        onError: () => { showToast('Emergency Protocol Failed!', 'error'); },
-    });
 
     return (
         <>

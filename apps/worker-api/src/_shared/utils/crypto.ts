@@ -55,8 +55,8 @@ export async function comparePassword(password: string, storedHash: string): Pro
     // New PBKDF2 format
     if (storedHash.startsWith('pbkdf2:')) {
         const [, iterStr, saltHex, hashHex] = storedHash.split(':');
-        const iterations = parseInt(iterStr, 10);
-        const salt = new Uint8Array(saltHex.match(/.{2}/g)!.map(h => parseInt(h, 16)));
+        const iterations = parseInt(iterStr!, 10);
+        const salt = new Uint8Array(saltHex!.match(/.{2}/g)!.map(h => parseInt(h, 16)));
         const encoder = new TextEncoder();
         const keyMaterial = await crypto.subtle.importKey(
             'raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']
@@ -67,7 +67,7 @@ export async function comparePassword(password: string, storedHash: string): Pro
         );
         const computedHex = Array.from(new Uint8Array(derivedBits)).map(b => b.toString(16).padStart(2, '0')).join('');
         // R21: Constant-time comparison — prevents timing attacks
-        return timingSafeEqual(computedHex, hashHex);
+        return timingSafeEqual(computedHex, hashHex!);
     }
 
     // Legacy SHA-256 (unsalted) — for backwards compatibility during migration

@@ -86,7 +86,7 @@ r.openapi(auditChatsRoute, async (c) => {
         data: {
             tenantId: caller.tenantId || 'system', actorUserId: userId,
             action: 'SECURE_CHAT_AUDIT', resourceType: 'USER', resourceId: targetUserId,
-            metadataString: `Pulled ${threads.length} threads for Incident tracking.`
+            metadata: `Pulled ${threads.length} threads for Incident tracking.`
         }
     });
 

@@ -29,7 +29,7 @@ export class GhostDispatcher {
             { type: 'INCIDENT_REPORT' as const, text: "Client slipped on the rug. He's okay but has a bruise on his elbow. Do I call 911 or just fill the form?" }
         ];
 
-        const randomEvent = events[0]; // Deterministic fallback
+        const randomEvent = events[0]!; // Deterministic fallback
 
         console.log(`[Ghost AI] Generated synthetic training event: ${randomEvent.type}`);
 

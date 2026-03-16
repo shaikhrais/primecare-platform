@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../bindings';
 import { ROUTE_METADATA } from '../../../../_shared/constants/route_metadata';
+import { VisitService } from '../visits.service';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -22,20 +23,9 @@ const listVisitsRoute = createRoute({
 });
 
 r.openapi(listVisitsRoute, async (c) => {
-    const prisma = c.get('prisma');
-    const visits = await prisma.visit.findMany({
-        include: {
-            client: { select: { fullName: true, addressLine1: true } },
-            psw: { select: { fullName: true } },
-            service: true,
-        },
-        orderBy: { requestedStartAt: 'desc' },
-    });
+    const service = new VisitService(c.get('prisma'));
+    const visits = await service.list();
     return c.json(visits, 200);
 });
 
 export default r;
-
-
-
-

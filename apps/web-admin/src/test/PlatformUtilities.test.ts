@@ -354,7 +354,7 @@ function buildAuditEntry(userId: string | null, action: string, resourceType: st
         action,
         resourceType,
         resourceId,
-        metadataString: serializeAuditMetadata(metadata),
+        metadata: serializeAuditMetadata(metadata),
         createdAt: new Date(),
     };
 }

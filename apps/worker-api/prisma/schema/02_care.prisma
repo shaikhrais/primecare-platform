@@ -16,7 +16,7 @@ model ClientProfile {
   lng                   Float?
   emergencyName         String?                @map("emergency_contact_name")
   emergencyPhone        String?                @map("emergency_contact_phone")
-  preferences           String?                @map("preferences_json")
+  preferences           Json?                  @map("preferences_json")
   createdAt             DateTime               @default(now()) @map("created_at")
   updatedAt             DateTime               @updatedAt @map("updated_at")
   tenantId              String                 @map("tenant_id")
@@ -60,7 +60,7 @@ model PswProfile {
   bio                String?
   languages          String
   serviceAreas       String                 @map("service_areas")
-  availabilityString String?                @map("availability_json")
+  availability      Json?                  @map("availability_json")
   isApproved         Boolean                @default(false) @map("is_approved")
   approvedAt         DateTime?              @map("approved_at")
   createdAt          DateTime               @default(now()) @map("created_at")
@@ -141,6 +141,9 @@ model Visit {
   dailyAuditSignOff   DailyAuditSignOff?
 
   @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, assignedPswId])
+  @@index([tenantId, requestedStartAt])
   @@map("visits")
 }
 
@@ -207,7 +210,7 @@ model VisitChecklist {
   id              String     @id @default(uuid())
   visitId         String     @map("visit_id")
   pswId           String     @map("psw_id")
-  checklistString String     @map("checklist_json")
+  checklist       Json       @map("checklist_json")
   createdAt       DateTime   @default(now()) @map("created_at")
   psw             PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
   visit           Visit      @relation(fields: [visitId], references: [id])
@@ -245,7 +248,7 @@ model DailyEntry {
   clientId   String        @map("client_id")
   staffId    String        @map("staff_id")
   visitId    String?       @map("visit_id")
-  adlData    String        @map("adl_data")
+  adlData    Json          @map("adl_data")
   medication String?
   mood       Int?
   vitals     String?

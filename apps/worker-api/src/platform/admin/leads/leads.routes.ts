@@ -1,6 +1,8 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
+import { LeadService } from './leads.service';
+import { UpdateLeadStatusSchema } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -31,10 +33,8 @@ const listLeadsRoute = createRoute({
 });
 
 r.openapi(listLeadsRoute, async (c) => {
-    const prisma = c.get('prisma');
-    const leads = await prisma.lead.findMany({
-        orderBy: { createdAt: 'desc' },
-    });
+    const service = new LeadService(c.get('prisma'));
+    const leads = await service.list();
     return c.json(leads, 200);
 });
 
@@ -50,7 +50,8 @@ const updateLeadStatusRoute = createRoute({
         body: {
             content: {
                 'application/json': {
-                    schema: z.object({ status: z.string() }),
+                    schema: UpdateLeadStatusSchema,
+
                 },
             },
         },
@@ -68,21 +69,16 @@ const updateLeadStatusRoute = createRoute({
 });
 
 r.openapi(updateLeadStatusRoute, async (c) => {
-    const prisma = c.get('prisma');
+    const service = new LeadService(c.get('prisma'));
     const { id } = c.req.valid('param');
     const { status } = c.req.valid('json');
-
-    const lead = await prisma.lead.update({
-        where: { id },
-        data: { status },
-    });
-
+    const lead = await service.updateStatus(id, status);
     return c.json(lead, 200);
 });
 
 // Convert Lead to Client
 const convertLeadRoute = createRoute({
-    ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE, // Assuming metadata covers this path pattern
+    ...ROUTE_METADATA.ADMIN_EXTRA.LEADS_UPDATE,
     method: 'post',
     path: '/{id}/convert',
     summary: 'Convert Lead',
@@ -101,44 +97,17 @@ const convertLeadRoute = createRoute({
 });
 
 r.openapi(convertLeadRoute, async (c) => {
-    const prisma = c.get('prisma');
+    const service = new LeadService(c.get('prisma'));
     const { id } = c.req.valid('param');
 
-    const lead = await prisma.lead.findUnique({ where: { id } });
-    if (!lead) return c.json({ error: 'Lead not found' }, 404);
-    if (lead.status === 'converted') return c.json({ error: 'Lead already converted' }, 400);
-
-    const result = await prisma.$transaction(async (tx: any) => {
-        // 1. Provision Auth User Profile
-        const user = await tx.user.create({
-            data: {
-                email: lead.email,
-                role: 'client',
-                firstName: lead.firstName,
-                lastName: lead.lastName,
-                tenantId: lead.tenantId, // Ensure it scopes properly
-            },
-        });
-
-        // 2. Provision Clinical Profile
-        const client = await tx.clientProfile.create({
-            data: {
-                userId: user.id,
-                fullName: `${lead.firstName} ${lead.lastName}`,
-                riskLevel: 'medium', // Default
-            },
-        });
-
-        // 3. Update Lead mapping
-        await tx.lead.update({
-            where: { id },
-            data: { status: 'converted' },
-        });
-
-        return { user, client };
-    });
-
-    return c.json(result, 200);
+    try {
+        const result = await service.convertToClient(id);
+        return c.json(result, 200);
+    } catch (e: any) {
+        if (e.message === 'NOT_FOUND') return c.json({ error: 'Lead not found' }, 404);
+        if (e.message === 'ALREADY_CONVERTED') return c.json({ error: 'Lead already converted' }, 400);
+        throw e;
+    }
 });
 
 export default r;

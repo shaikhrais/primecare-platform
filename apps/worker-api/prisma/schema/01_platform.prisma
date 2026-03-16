@@ -115,8 +115,8 @@ model Tenant {
   businessNumber  String? @map("business_number")
   supportEmail    String? @map("support_email")
   logoUrl         String? @map("logo_url")
-  taxSettings     String? @map("tax_settings")
-  brandingConfig  String? @map("branding_config")
+  taxSettings     Json?   @map("tax_settings")
+  brandingConfig  Json?   @map("branding_config")
   stripeAccountId String? @map("stripe_account_id")
   onboardingStep  Int     @default(1) @map("onboarding_step")
 
@@ -127,9 +127,9 @@ model Tenant {
   maxDevicesPerUser     Int     @default(5) @map("max_devices_per_user")
 
   // Runtime CORS Configuration
-  corsAllowedOrigins String   @map("cors_allowed_origins")
-  corsAllowedMethods String   @map("cors_allowed_methods")
-  corsAllowedHeaders String   @map("cors_allowed_headers")
+  corsAllowedOrigins Json     @map("cors_allowed_origins")
+  corsAllowedMethods Json     @map("cors_allowed_methods")
+  corsAllowedHeaders Json     @map("cors_allowed_headers")
   taxPercentage      Decimal? @map("tax_percentage")
 
   // Fractal SaaS Extensions
@@ -212,7 +212,7 @@ model AuditLog {
   action         String
   resourceType   String   @map("resource_type")
   resourceId     String?  @map("resource_id")
-  metadataString String?  @map("metadata_json")
+  metadata       Json?    @map("metadata_json")
   deviceId       String?  @map("device_id")
   ipAddress      String?  @map("ip_address")
   createdAt      DateTime @default(now()) @map("created_at")
@@ -221,6 +221,8 @@ model AuditLog {
   tenant         Tenant   @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
+  @@index([tenantId, createdAt])
+  @@index([actorUserId])
   @@index([deviceId])
   @@map("audit_logs")
 }
@@ -231,8 +233,8 @@ model SystemEvent {
   operation        String // CREATE, UPDATE, DELETE
   modelName        String   @map("model_name")
   entityId         String?  @map("entity_id")
-  payload          String?
-  previousData     String?  @map("previous_data")
+  payload          Json?
+  previousData     Json?    @map("previous_data")
   actorUserId      String?  @map("actor_user_id")
   deviceId         String?  @map("device_id")
   ipAddress        String?  @map("ip_address")
