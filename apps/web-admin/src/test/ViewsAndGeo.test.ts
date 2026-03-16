@@ -12,27 +12,27 @@ import { describe, it, expect } from 'vitest';
 
 describe('Auth Page Exports', () => {
     it('Login page exports', async () => {
-        const mod = await import('@/app/routes/auth/pages/login/F1-Login');
+        const mod: any = await import('@/app/routes/auth/pages/login/F1-Login');
         expect(mod.default).toBeDefined();
     });
 
     it('Register page exports', async () => {
-        const mod = await import('@/app/routes/auth/pages/register/F2-Register');
+        const mod: any = await import('@/app/routes/auth/pages/register/F2-Register');
         expect(mod.default).toBeDefined();
     });
 
     it('ForgotPassword page exports', async () => {
-        const mod = await import('@/app/routes/auth/pages/forgot-password/F3-ForgotPassword');
+        const mod: any = await import('@/app/routes/auth/pages/forgot-password/F3-ForgotPassword');
         expect(mod.default).toBeDefined();
     });
 
     it('ResetPassword page exports', async () => {
-        const mod = await import('@/app/routes/auth/pages/reset-password/F4-ResetPassword');
+        const mod: any = await import('@/app/routes/auth/pages/reset-password/F4-ResetPassword');
         expect(mod.default).toBeDefined();
     });
 
     it('Login index barrel exports', async () => {
-        const mod = await import('@/app/routes/auth/pages/login/index');
+        const mod: any = await import('@/app/routes/auth/pages/login/index');
         expect(mod).toBeDefined();
     });
 });
@@ -43,7 +43,7 @@ describe('Auth Page Exports', () => {
 
 describe('Router Module', () => {
     it('router exports', async () => {
-        const mod = await import('@/app/router');
+        const mod: any = await import('@/app/router');
         expect(mod).toBeDefined();
     }, 15_000);
 });
@@ -55,13 +55,13 @@ describe('Router Module', () => {
 
 describe('Shared Components Barrel Exports', () => {
     it('design-system barrel exports', async () => {
-        const mod = await import('@/shared/components/design-system/index');
+        const mod: any = await import('@/shared/components/design-system/index');
         expect(mod).toBeDefined();
         expect(Object.keys(mod).length).toBeGreaterThan(0);
     });
 
     it('forms barrel exports', async () => {
-        const mod = await import('@/shared/components/forms/index');
+        const mod: any = await import('@/shared/components/forms/index');
         expect(mod).toBeDefined();
         expect(Object.keys(mod).length).toBeGreaterThan(0);
     });
@@ -73,62 +73,62 @@ describe('Shared Components Barrel Exports', () => {
 
 describe('Individual Shared Components', () => {
     it('ErrorBoundary exports', async () => {
-        const mod = await import('@/shared/components/ErrorBoundary');
+        const mod: any = await import('@/shared/components/ErrorBoundary');
         expect(mod.default || mod.ErrorBoundary).toBeDefined();
     });
 
     it('PermissionGuard exports', async () => {
-        const mod = await import('@/shared/components/PermissionGuard');
+        const mod: any = await import('@/shared/components/PermissionGuard');
         expect(mod.default || mod.PermissionGuard).toBeDefined();
     });
 
     it('SmartBreadcrumbs exports', async () => {
-        const mod = await import('@/shared/components/SmartBreadcrumbs');
+        const mod: any = await import('@/shared/components/SmartBreadcrumbs');
         expect(mod.default || mod.SmartBreadcrumbs).toBeDefined();
     });
 
     it('ToastContainer exports', async () => {
-        const mod = await import('@/shared/components/ToastContainer');
+        const mod: any = await import('@/shared/components/ToastContainer');
         expect(mod.default || mod.ToastContainer).toBeDefined();
     });
 
     it('DataCard exports', async () => {
-        const mod = await import('@/shared/components/design-system/DataCard');
+        const mod: any = await import('@/shared/components/design-system/DataCard');
         expect(mod.default || mod.DataCard).toBeDefined();
     });
 
     it('LoadingSkeleton exports', async () => {
-        const mod = await import('@/shared/components/design-system/LoadingSkeleton');
+        const mod: any = await import('@/shared/components/design-system/LoadingSkeleton');
         expect(mod.default || mod.LoadingSkeleton).toBeDefined();
     });
 
     it('StatusBadge exports', async () => {
-        const mod = await import('@/shared/components/design-system/StatusBadge');
+        const mod: any = await import('@/shared/components/design-system/StatusBadge');
         expect(mod.default || mod.StatusBadge).toBeDefined();
     });
 
     it('DynamicFormRenderer exports', async () => {
-        const mod = await import('@/shared/components/forms/DynamicFormRenderer');
+        const mod: any = await import('@/shared/components/forms/DynamicFormRenderer');
         expect(mod.default || mod.DynamicFormRenderer).toBeDefined();
     });
 
     it('InlineCreatorPopover exports', async () => {
-        const mod = await import('@/shared/components/forms/InlineCreatorPopover');
+        const mod: any = await import('@/shared/components/forms/InlineCreatorPopover');
         expect(mod.default || mod.InlineCreatorPopover).toBeDefined();
     });
 
     it('renderField exports', async () => {
-        const mod = await import('@/shared/components/forms/renderField');
+        const mod: any = await import('@/shared/components/forms/renderField');
         expect(mod.default || mod.renderField).toBeDefined();
     });
 
     it('AuditTimeline exports', async () => {
-        const mod = await import('@/shared/components/forensics/AuditTimeline');
+        const mod: any = await import('@/shared/components/forensics/AuditTimeline');
         expect(mod.default || mod.AuditTimeline).toBeDefined();
     });
 
     it('NoShowProbability exports', async () => {
-        const mod = await import('@/shared/components/forensics/NoShowProbability');
+        const mod: any = await import('@/shared/components/forensics/NoShowProbability');
         expect(mod.default || mod.NoShowProbability).toBeDefined();
     });
 });
@@ -139,14 +139,14 @@ describe('Individual Shared Components', () => {
 
 describe('API Contracts Module', () => {
     it('exports contract types', async () => {
-        const mod = await import('@/shared/api/contracts');
+        const mod: any = await import('@/shared/api/contracts');
         expect(mod).toBeDefined();
     });
 });
 
 describe('Typed Client Module', () => {
     it('exports typed client', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod).toBeDefined();
     });
 });
@@ -157,7 +157,7 @@ describe('Typed Client Module', () => {
 
 describe('Layout Component Exports', () => {
     it('AppLayout exports', async () => {
-        const mod = await import('@/shared/components/layout/AppLayout');
+        const mod: any = await import('@/shared/components/layout/AppLayout');
         expect(mod.default || mod.AppLayout).toBeDefined();
     });
 });
@@ -168,12 +168,12 @@ describe('Layout Component Exports', () => {
 
 describe('QuickActions Variants', () => {
     it('shared QuickActions exports', async () => {
-        const mod = await import('@/shared/components/QuickActions');
+        const mod: any = await import('@/shared/components/QuickActions');
         expect(mod.default || mod.QuickActions).toBeDefined();
     });
 
     it('dashboard QuickActions exports', async () => {
-        const mod = await import('@/shared/components/dashboard/QuickActions');
+        const mod: any = await import('@/shared/components/dashboard/QuickActions');
         expect(mod.default || mod.QuickActions).toBeDefined();
     });
 });

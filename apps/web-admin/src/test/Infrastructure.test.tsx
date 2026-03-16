@@ -83,22 +83,22 @@ describe('Feature Flags', () => {
 
     describe('Module exports', () => {
         it('exports FeatureFlagProvider', async () => {
-            const mod = await import('@/shared/context/FeatureFlags');
+            const mod: any = await import('@/shared/context/FeatureFlags');
             expect(mod.FeatureFlagProvider).toBeDefined();
         });
 
         it('exports useFeatureFlag', async () => {
-            const mod = await import('@/shared/context/FeatureFlags');
+            const mod: any = await import('@/shared/context/FeatureFlags');
             expect(mod.useFeatureFlag).toBeDefined();
         });
 
         it('exports useFeatureFlags', async () => {
-            const mod = await import('@/shared/context/FeatureFlags');
+            const mod: any = await import('@/shared/context/FeatureFlags');
             expect(mod.useFeatureFlags).toBeDefined();
         });
 
         it('exports FeatureGate', async () => {
-            const mod = await import('@/shared/context/FeatureFlags');
+            const mod: any = await import('@/shared/context/FeatureFlags');
             expect(mod.FeatureGate).toBeDefined();
         });
     });
@@ -110,13 +110,13 @@ describe('Feature Flags', () => {
 
 describe('useFormValidation Module', () => {
     it('exports useFormValidation', async () => {
-        const mod = await import('@/shared/hooks/useFormValidation');
+        const mod: any = await import('@/shared/hooks/useFormValidation');
         expect(mod.useFormValidation).toBeDefined();
         expect(typeof mod.useFormValidation).toBe('function');
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/hooks/useFormValidation');
+        const mod: any = await import('@/shared/hooks/useFormValidation');
         expect(mod.default).toBeDefined();
     });
 
@@ -211,22 +211,22 @@ describe('Permission Guard', () => {
 
     describe('Module exports', () => {
         it('exports PermissionGuard component', async () => {
-            const mod = await import('@/shared/components/PermissionGuard');
+            const mod: any = await import('@/shared/components/PermissionGuard');
             expect(mod.PermissionGuard).toBeDefined();
         });
 
         it('exports useHasRole', async () => {
-            const mod = await import('@/shared/components/PermissionGuard');
+            const mod: any = await import('@/shared/components/PermissionGuard');
             expect(mod.useHasRole).toBeDefined();
         });
 
         it('exports useHasAllRoles', async () => {
-            const mod = await import('@/shared/components/PermissionGuard');
+            const mod: any = await import('@/shared/components/PermissionGuard');
             expect(mod.useHasAllRoles).toBeDefined();
         });
 
         it('exports default', async () => {
-            const mod = await import('@/shared/components/PermissionGuard');
+            const mod: any = await import('@/shared/components/PermissionGuard');
             expect(mod.default).toBeDefined();
         });
     });
@@ -239,49 +239,49 @@ describe('Permission Guard', () => {
 describe('Utility Hooks', () => {
     describe('Module exports', () => {
         it('exports useDebounce', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useDebounce).toBeDefined();
             expect(typeof mod.useDebounce).toBe('function');
         });
 
         it('exports useThrottle', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useThrottle).toBeDefined();
             expect(typeof mod.useThrottle).toBe('function');
         });
 
         it('exports useLocalStorage', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useLocalStorage).toBeDefined();
             expect(typeof mod.useLocalStorage).toBe('function');
         });
 
         it('exports useMediaQuery', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useMediaQuery).toBeDefined();
             expect(typeof mod.useMediaQuery).toBe('function');
         });
 
         it('exports usePrevious', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.usePrevious).toBeDefined();
             expect(typeof mod.usePrevious).toBe('function');
         });
 
         it('exports useClipboard', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useClipboard).toBeDefined();
             expect(typeof mod.useClipboard).toBe('function');
         });
 
         it('exports useOnClickOutside', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useOnClickOutside).toBeDefined();
             expect(typeof mod.useOnClickOutside).toBe('function');
         });
 
         it('exports responsive presets', async () => {
-            const mod = await import('@/shared/hooks/useUtilities');
+            const mod: any = await import('@/shared/hooks/useUtilities');
             expect(mod.useIsMobile).toBeDefined();
             expect(mod.useIsTablet).toBeDefined();
             expect(mod.useIsDesktop).toBeDefined();
@@ -295,12 +295,12 @@ describe('Utility Hooks', () => {
 
 describe('QueryProvider', () => {
     it('exports QueryProvider component', async () => {
-        const mod = await import('@/shared/context/QueryProvider');
+        const mod: any = await import('@/shared/context/QueryProvider');
         expect(mod.QueryProvider).toBeDefined();
     });
 
     it('exports queryClient instance', async () => {
-        const mod = await import('@/shared/context/QueryProvider');
+        const mod: any = await import('@/shared/context/QueryProvider');
         expect(mod.queryClient).toBeDefined();
     });
 
@@ -337,7 +337,7 @@ describe('Cross-Module Integration', () => {
         const defaults = queryClient.getDefaultOptions();
         const beforeCount = useUIStore.getState().toasts.length;
         // Simulate mutation error
-        defaults.mutations?.onError?.(new Error('Test mutation error'), '', undefined, undefined);
+        (defaults.mutations?.onError as any)?.(new Error('Test mutation error'), '', undefined, undefined);
         const afterCount = useUIStore.getState().toasts.length;
         expect(afterCount).toBeGreaterThan(beforeCount);
         // Clean up

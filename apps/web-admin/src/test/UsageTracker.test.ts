@@ -142,7 +142,7 @@ describe('UsageTrackerTypes', () => {
 
 describe('UsageTracker Service Module', () => {
     it('exports UsageTracker class', async () => {
-        const mod = await import('@/shared/services/UsageTracker');
+        const mod: any = await import('@/shared/services/UsageTracker');
         expect(mod.UsageTracker).toBeDefined();
     });
 });

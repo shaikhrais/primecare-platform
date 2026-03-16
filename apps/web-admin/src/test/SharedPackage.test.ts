@@ -12,13 +12,13 @@ import { describe, it, expect } from 'vitest';
 
 describe('Shared Package', () => {
     it('module is importable', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         expect(mod).toBeDefined();
         expect(typeof mod).toBe('object');
     });
 
     it('has multiple exports', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         expect(Object.keys(mod).length).toBeGreaterThan(5);
     });
 });

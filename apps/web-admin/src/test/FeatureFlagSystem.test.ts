@@ -290,35 +290,35 @@ describe('getEnabledFlags Logic', () => {
 
 describe('FeatureFlags Module Exports', () => {
     it('exports FeatureFlagProvider', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.FeatureFlagProvider).toBeDefined();
     });
 
     it('exports useFeatureFlag hook', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.useFeatureFlag).toBeDefined();
         expect(typeof mod.useFeatureFlag).toBe('function');
     });
 
     it('exports useFeatureFlags hook', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.useFeatureFlags).toBeDefined();
         expect(typeof mod.useFeatureFlags).toBe('function');
     });
 
     it('exports FeatureGate component', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.FeatureGate).toBeDefined();
     });
 
     it('exports FLAG_REGISTRY', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.FLAG_REGISTRY).toBeDefined();
         expect(Object.keys(mod.FLAG_REGISTRY).length).toBe(12);
     });
 
     it('has default export (FeatureFlagProvider)', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         expect(mod.default).toBeDefined();
     });
 });

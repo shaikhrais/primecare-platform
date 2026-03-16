@@ -26,7 +26,7 @@ import type {
 
 describe('API Contracts Module', () => {
     it('exports all contract types', async () => {
-        const mod = await import('@/shared/api/contracts');
+        const mod: any = await import('@/shared/api/contracts');
         expect(mod).toBeDefined();
     });
 });

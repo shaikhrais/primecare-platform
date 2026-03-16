@@ -48,12 +48,12 @@ describe('useRealtimeSync module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeSync');
+        const mod: any = await import('@/shared/hooks/useRealtimeSync');
         expect(mod.default).toBeDefined();
     });
 
     it('default export is same as named export', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeSync');
+        const mod: any = await import('@/shared/hooks/useRealtimeSync');
         expect(mod.default).toBe(mod.useRealtimeSync);
     });
 });
@@ -69,7 +69,7 @@ describe('useWebVitals module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/hooks/useWebVitals');
+        const mod: any = await import('@/shared/hooks/useWebVitals');
         expect(mod.default).toBeDefined();
     });
 });
@@ -91,7 +91,7 @@ describe('useRealtimeQuery module', () => {
 
 describe('useDialog module', () => {
     it('exports useDialog', async () => {
-        const mod = await import('@/shared/hooks/useDialog');
+        const mod: any = await import('@/shared/hooks/useDialog');
         expect(mod.useDialog || mod.default).toBeDefined();
     });
 });
@@ -102,7 +102,7 @@ describe('useDialog module', () => {
 
 describe('useMediaQuery standalone module', () => {
     it('exports useMediaQuery', async () => {
-        const mod = await import('@/shared/hooks/useMediaQuery');
+        const mod: any = await import('@/shared/hooks/useMediaQuery');
         expect(mod.useMediaQuery || mod.default).toBeDefined();
     });
 });
@@ -113,13 +113,13 @@ describe('useMediaQuery standalone module', () => {
 
 describe('useDomainQueries module', () => {
     it('exports at least one query hook', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         const exports = Object.keys(mod);
         expect(exports.length).toBeGreaterThanOrEqual(1);
     });
 
     it('all exports are defined', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         for (const [key, val] of Object.entries(mod)) {
             if (key !== 'default') {
                 expect(val).toBeDefined();

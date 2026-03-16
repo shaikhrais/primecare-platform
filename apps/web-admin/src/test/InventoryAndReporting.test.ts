@@ -465,7 +465,7 @@ describe('Data — Tree', () => {
             { id: '3', parentId: '1', name: 'Child2' },
             { id: '4', parentId: '2', name: 'Grandchild' },
         ];
-        const tree = buildTree(items);
+        const tree: any[] = buildTree(items as any);
         expect(tree.length).toBe(1);
         expect(tree[0].children.length).toBe(2);
         expect(tree[0].children[0].children.length).toBe(1);

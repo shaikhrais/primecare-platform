@@ -12,7 +12,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('RBAC Module: can.ts', () => {
     it('exports can function', async () => {
-        const mod = await import('@/shared/rbac/can');
+        const mod: any = await import('@/shared/rbac/can');
         expect(mod.can).toBeDefined();
         expect(typeof mod.can).toBe('function');
     });
@@ -20,7 +20,7 @@ describe('RBAC Module: can.ts', () => {
 
 describe('RBAC Module: permissions.ts', () => {
     it('exports RolePermissions', async () => {
-        const mod = await import('@/shared/rbac/permissions');
+        const mod: any = await import('@/shared/rbac/permissions');
         expect(mod.RolePermissions).toBeDefined();
         expect(typeof mod.RolePermissions).toBe('object');
     });
@@ -57,7 +57,7 @@ describe('RBAC Module: permissions.ts', () => {
 
 describe('RBAC Module: roles.ts', () => {
     it('exports ROLES', async () => {
-        const mod = await import('@/shared/rbac/roles');
+        const mod: any = await import('@/shared/rbac/roles');
         expect(mod.ROLES).toBeDefined();
     });
 

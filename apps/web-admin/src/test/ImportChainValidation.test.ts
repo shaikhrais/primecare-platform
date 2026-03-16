@@ -7,7 +7,7 @@ import { describe, it, expect } from 'vitest';
 
 describe('Import Chain Validation (168 pages)', () => {
     it('every page should have at least one import', () => {
-        const noImports = [];
+        const noImports: string[] = [];
         expect(noImports).toEqual([]);
     });
 

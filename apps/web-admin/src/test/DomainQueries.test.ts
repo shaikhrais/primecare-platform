@@ -12,95 +12,95 @@ import { describe, it, expect } from 'vitest';
 
 describe('Domain Queries Module Exports', () => {
     it('exports QueryKeys', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(mod.QueryKeys).toBeDefined();
     });
 
     // Visit hooks
     it('exports useVisits', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useVisits).toBe('function');
     });
 
     it('exports useVisit', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useVisit).toBe('function');
     });
 
     it('exports useCreateVisit', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useCreateVisit).toBe('function');
     });
 
     it('exports useUpdateVisit', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useUpdateVisit).toBe('function');
     });
 
     // User hooks
     it('exports useUsers', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useUsers).toBe('function');
     });
 
     it('exports useUser', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useUser).toBe('function');
     });
 
     it('exports useCreateUser', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useCreateUser).toBe('function');
     });
 
     it('exports useUpdateUser', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useUpdateUser).toBe('function');
     });
 
     // Incident hooks
     it('exports useIncidents', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useIncidents).toBe('function');
     });
 
     it('exports useCreateIncident', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useCreateIncident).toBe('function');
     });
 
     // Service hooks
     it('exports useServices', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useServices).toBe('function');
     });
 
     // Invoice hooks
     it('exports useInvoices', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useInvoices).toBe('function');
     });
 
     // Lead hooks
     it('exports useLeads', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useLeads).toBe('function');
     });
 
     it('exports useCreateLead', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useCreateLead).toBe('function');
     });
 
     // Dashboard hooks
     it('exports useDashboardStats', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useDashboardStats).toBe('function');
     });
 
     // Audit hooks
     it('exports useAuditLogs', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useAuditLogs).toBe('function');
     });
 });
@@ -213,17 +213,17 @@ describe('QueryKeys', () => {
 
 describe('useApiQuery Module', () => {
     it('exports useApiQuery', async () => {
-        const mod = await import('@/shared/hooks/useApiQuery');
+        const mod: any = await import('@/shared/hooks/useApiQuery');
         expect(typeof mod.useApiQuery).toBe('function');
     });
 
     it('exports invalidateQuery', async () => {
-        const mod = await import('@/shared/hooks/useApiQuery');
+        const mod: any = await import('@/shared/hooks/useApiQuery');
         expect(typeof mod.invalidateQuery).toBe('function');
     });
 
     it('exports clearQueryCache', async () => {
-        const mod = await import('@/shared/hooks/useApiQuery');
+        const mod: any = await import('@/shared/hooks/useApiQuery');
         expect(typeof mod.clearQueryCache).toBe('function');
     });
 
@@ -244,22 +244,22 @@ describe('useApiQuery Module', () => {
 
 describe('Realtime Hooks', () => {
     it('useRealtimeQuery is exported', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeQuery');
+        const mod: any = await import('@/shared/hooks/useRealtimeQuery');
         expect(typeof mod.useRealtimeQuery).toBe('function');
     });
 
     it('useRealtimeQuery has default export', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeQuery');
+        const mod: any = await import('@/shared/hooks/useRealtimeQuery');
         expect(mod.default).toBeDefined();
     });
 
     it('useRealtimeSync is exported', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeSync');
+        const mod: any = await import('@/shared/hooks/useRealtimeSync');
         expect(typeof mod.useRealtimeSync).toBe('function');
     });
 
     it('useRealtimeSync has default export', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeSync');
+        const mod: any = await import('@/shared/hooks/useRealtimeSync');
         expect(mod.default).toBeDefined();
     });
 });

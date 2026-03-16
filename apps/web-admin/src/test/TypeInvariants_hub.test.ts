@@ -127,7 +127,7 @@ describe('Type Invariants: hub (20 pages)', () => {
     });
 
     it('H11: Training Hub (hub) meets structural requirements', () => {
-        const dataCy = [];
+        const dataCy: string[] = [];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Hubs should have a container

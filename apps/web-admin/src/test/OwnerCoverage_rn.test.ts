@@ -11,84 +11,84 @@ describe('Owner Coverage: rn (12 pages)', () => {
     });
 
     it('D15: RN Dashboard is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('D16: MAR Dashboard is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/mar/D16-MarDashboard');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar/D16-MarDashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('D17: Wound Care is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('H16: Supervision Hub is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('L18: Assessments Hub is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('L19: RAI Assessments is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T29: Care Plan Mgr is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T30: Entry Verify is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/audit/T30-EntryVerify');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/audit/T30-EntryVerify');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T31: MAR Client is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/mar/T31-MarClient');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar/T31-MarClient');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T32: Wound Client is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T33: RAI Detail is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T63: RN Check-In is importable and owned by rn', async () => {
-        const mod = await import('@/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');

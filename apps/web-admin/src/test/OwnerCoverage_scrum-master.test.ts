@@ -11,7 +11,7 @@ describe('Owner Coverage: scrum-master (1 pages)', () => {
     });
 
     it('T47: Response Bot Audit is importable and owned by scrum-master', async () => {
-        const mod = await import('@/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit');
+        const mod: any = await import('@/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('scrum-master').toBe('scrum-master');

@@ -91,42 +91,42 @@ describe('ApiError Class', () => {
 
 describe('apiClient Module Exports', () => {
     it('exports apiClient object', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(mod.apiClient).toBeDefined();
     });
 
     it('exports ApiError class', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(mod.ApiError).toBeDefined();
     });
 
     it('apiClient has get method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.get).toBe('function');
     });
 
     it('apiClient has post method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.post).toBe('function');
     });
 
     it('apiClient has put method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.put).toBe('function');
     });
 
     it('apiClient has patch method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.patch).toBe('function');
     });
 
     it('apiClient has delete method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.delete).toBe('function');
     });
 
     it('apiClient has request method', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(typeof mod.apiClient.request).toBe('function');
     });
 });
@@ -362,13 +362,13 @@ describe('Browser Detection', () => {
 
 describe('device.ts Module Exports', () => {
     it('exports getDeviceId', async () => {
-        const mod = await import('@/shared/utils/device');
+        const mod: any = await import('@/shared/utils/device');
         expect(mod.getDeviceId).toBeDefined();
         expect(typeof mod.getDeviceId).toBe('function');
     });
 
     it('exports getDeviceMetadata', async () => {
-        const mod = await import('@/shared/utils/device');
+        const mod: any = await import('@/shared/utils/device');
         expect(mod.getDeviceMetadata).toBeDefined();
         expect(typeof mod.getDeviceMetadata).toBe('function');
     });
@@ -380,7 +380,7 @@ describe('device.ts Module Exports', () => {
 
 describe('env.ts Module Exports', () => {
     it('exports validateEnvironment', async () => {
-        const mod = await import('@/shared/utils/env');
+        const mod: any = await import('@/shared/utils/env');
         expect(mod.validateEnvironment).toBeDefined();
         expect(typeof mod.validateEnvironment).toBe('function');
     });

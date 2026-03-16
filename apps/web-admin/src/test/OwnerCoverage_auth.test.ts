@@ -11,35 +11,35 @@ describe('Owner Coverage: auth (5 pages)', () => {
     });
 
     it('F1: Login is importable and owned by auth', async () => {
-        const mod = await import('@/app/routes/auth/pages/login/F1-Login');
+        const mod: any = await import('@/app/routes/auth/pages/login/F1-Login');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F2: Register is importable and owned by auth', async () => {
-        const mod = await import('@/app/routes/auth/pages/register/F2-Register');
+        const mod: any = await import('@/app/routes/auth/pages/register/F2-Register');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F3: Forgot Password is importable and owned by auth', async () => {
-        const mod = await import('@/app/routes/auth/pages/forgot-password/F3-ForgotPassword');
+        const mod: any = await import('@/app/routes/auth/pages/forgot-password/F3-ForgotPassword');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F4: Reset Password is importable and owned by auth', async () => {
-        const mod = await import('@/app/routes/auth/pages/reset-password/F4-ResetPassword');
+        const mod: any = await import('@/app/routes/auth/pages/reset-password/F4-ResetPassword');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F5: Business Onboard is importable and owned by auth', async () => {
-        const mod = await import('@/app/routes/auth/pages/onboard-business/F5-BusinessOnboard');
+        const mod: any = await import('@/app/routes/auth/pages/onboard-business/F5-BusinessOnboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');

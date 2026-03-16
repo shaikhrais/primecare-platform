@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /**
  * Prisma Schema Governance Tests
  *

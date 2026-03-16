@@ -11,19 +11,19 @@ import { describe, it, expect } from 'vitest';
 
 describe('Design System Barrel Export', () => {
     it('exports LoadingSkeleton', async () => {
-        const mod = await import('@/shared/components/design-system');
+        const mod: any = await import('@/shared/components/design-system');
         expect(mod.LoadingSkeleton).toBeDefined();
         expect(typeof mod.LoadingSkeleton).toBe('function');
     });
 
     it('exports StatusBadge', async () => {
-        const mod = await import('@/shared/components/design-system');
+        const mod: any = await import('@/shared/components/design-system');
         expect(mod.StatusBadge).toBeDefined();
         expect(typeof mod.StatusBadge).toBe('function');
     });
 
     it('exports DataCard', async () => {
-        const mod = await import('@/shared/components/design-system');
+        const mod: any = await import('@/shared/components/design-system');
         expect(mod.DataCard).toBeDefined();
         expect(typeof mod.DataCard).toBe('function');
     });
@@ -38,12 +38,12 @@ describe('LoadingSkeleton Module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/components/design-system/LoadingSkeleton');
+        const mod: any = await import('@/shared/components/design-system/LoadingSkeleton');
         expect(mod.default).toBeDefined();
     });
 
     it('named and default exports are the same', async () => {
-        const mod = await import('@/shared/components/design-system/LoadingSkeleton');
+        const mod: any = await import('@/shared/components/design-system/LoadingSkeleton');
         expect(mod.LoadingSkeleton).toBe(mod.default);
     });
 });
@@ -57,12 +57,12 @@ describe('StatusBadge Module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/components/design-system/StatusBadge');
+        const mod: any = await import('@/shared/components/design-system/StatusBadge');
         expect(mod.default).toBeDefined();
     });
 
     it('named and default exports are the same', async () => {
-        const mod = await import('@/shared/components/design-system/StatusBadge');
+        const mod: any = await import('@/shared/components/design-system/StatusBadge');
         expect(mod.StatusBadge).toBe(mod.default);
     });
 });
@@ -76,12 +76,12 @@ describe('DataCard Module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/components/design-system/DataCard');
+        const mod: any = await import('@/shared/components/design-system/DataCard');
         expect(mod.default).toBeDefined();
     });
 
     it('named and default exports are the same', async () => {
-        const mod = await import('@/shared/components/design-system/DataCard');
+        const mod: any = await import('@/shared/components/design-system/DataCard');
         expect(mod.DataCard).toBe(mod.default);
     });
 });
@@ -102,7 +102,7 @@ describe('ErrorBoundary Module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/components/ErrorBoundary');
+        const mod: any = await import('@/shared/components/ErrorBoundary');
         expect(mod.default).toBeDefined();
     });
 
@@ -135,7 +135,7 @@ describe('ToastContainer Module', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/components/ToastContainer');
+        const mod: any = await import('@/shared/components/ToastContainer');
         expect(mod.default).toBeDefined();
     });
 });
@@ -144,31 +144,31 @@ describe('ToastContainer Module', () => {
 
 describe('Shared Hooks Modules', () => {
     it('exports useApiQuery', async () => {
-        const mod = await import('@/shared/hooks/useApiQuery');
+        const mod: any = await import('@/shared/hooks/useApiQuery');
         expect(mod.useApiQuery).toBeDefined();
         expect(mod.invalidateQuery).toBeDefined();
         expect(mod.clearQueryCache).toBeDefined();
     });
 
     it('exports useApiMutation', async () => {
-        const mod = await import('@/shared/hooks/useApiMutation');
+        const mod: any = await import('@/shared/hooks/useApiMutation');
         expect(mod.useApiMutation).toBeDefined();
     });
 
     it('exports useRealtimeSync', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeSync');
+        const mod: any = await import('@/shared/hooks/useRealtimeSync');
         expect(mod.useRealtimeSync).toBeDefined();
         expect(typeof mod.useRealtimeSync).toBe('function');
     });
 
     it('exports useWebVitals', async () => {
-        const mod = await import('@/shared/hooks/useWebVitals');
+        const mod: any = await import('@/shared/hooks/useWebVitals');
         expect(mod.useWebVitals).toBeDefined();
         expect(typeof mod.useWebVitals).toBe('function');
     });
 
     it('exports domain query hooks', async () => {
-        const mod = await import('@/shared/hooks/useDomainQueries');
+        const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(mod.useVisits).toBeDefined();
         expect(mod.useVisit).toBeDefined();
         expect(mod.useCreateVisit).toBeDefined();
@@ -193,19 +193,19 @@ describe('Shared Hooks Modules', () => {
 
 describe('Stores Module', () => {
     it('exports useAuthStore', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useAuthStore).toBeDefined();
         expect(typeof mod.useAuthStore).toBe('function');
     });
 
     it('exports useUIStore', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useUIStore).toBeDefined();
         expect(typeof mod.useUIStore).toBe('function');
     });
 
     it('exports convenience selectors', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useTenantId).toBeDefined();
         expect(mod.useActiveRole).toBeDefined();
         expect(mod.useIsDarkMode).toBeDefined();
@@ -239,12 +239,12 @@ describe('API Client Module', () => {
 
 describe('Typed API Client Module', () => {
     it('exports useTypedQuery', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.useTypedQuery).toBeDefined();
     });
 
     it('exports useTypedMutation', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.useTypedMutation).toBeDefined();
     });
 

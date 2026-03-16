@@ -12,25 +12,25 @@ import { describe, it, expect } from 'vitest';
 
 describe('Typed Client Module', () => {
     it('exports useTypedQuery', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.useTypedQuery).toBeDefined();
         expect(typeof mod.useTypedQuery).toBe('function');
     });
 
     it('exports useTypedMutation', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.useTypedMutation).toBeDefined();
         expect(typeof mod.useTypedMutation).toBe('function');
     });
 
     it('exports typedApi namespace', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.typedApi).toBeDefined();
         expect(typeof mod.typedApi).toBe('object');
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/api/typedClient');
+        const mod: any = await import('@/shared/api/typedClient');
         expect(mod.default).toBeDefined();
         expect(mod.default).toBe(mod.typedApi);
     });

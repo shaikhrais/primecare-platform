@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /**
  * API Contracts & Typed Client Validation Tests
  *

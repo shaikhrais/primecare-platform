@@ -427,7 +427,7 @@ describe('Type Invariants: tool (67 pages)', () => {
     });
 
     it('T22: Survey Manager (tool) meets structural requirements', () => {
-        const dataCy = [];
+        const dataCy: string[] = [];
         const hasPageContainer = dataCy.some(c => c.includes('page.container'));
         const hasPageTitle = dataCy.some(c => c.includes('page.title'));
         // Generic check: page should have at least one data-cy marker or be valid

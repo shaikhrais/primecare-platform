@@ -12,57 +12,57 @@ import { describe, it, expect } from 'vitest';
 
 describe('useUtilities Module', () => {
     it('exports useDebounce', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useDebounce).toBe('function');
     });
 
     it('exports useThrottle', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useThrottle).toBe('function');
     });
 
     it('exports useLocalStorage', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useLocalStorage).toBe('function');
     });
 
     it('exports useMediaQuery', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useMediaQuery).toBe('function');
     });
 
     it('exports usePrevious', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.usePrevious).toBe('function');
     });
 
     it('exports useClipboard', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useClipboard).toBe('function');
     });
 
     it('exports useOnClickOutside', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useOnClickOutside).toBe('function');
     });
 
     it('exports useIsMobile', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useIsMobile).toBe('function');
     });
 
     it('exports useIsTablet', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useIsTablet).toBe('function');
     });
 
     it('exports useIsDesktop', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(typeof mod.useIsDesktop).toBe('function');
     });
 
     it('has at least 10 exports', async () => {
-        const mod = await import('@/shared/hooks/useUtilities');
+        const mod: any = await import('@/shared/hooks/useUtilities');
         expect(Object.keys(mod).length).toBeGreaterThanOrEqual(10);
     });
 });
@@ -78,7 +78,7 @@ describe('useForm Hook', () => {
     });
 
     it('is importable from module', async () => {
-        const mod = await import('@/shared/hooks/useForm');
+        const mod: any = await import('@/shared/hooks/useForm');
         expect(mod).toBeDefined();
         expect(Object.keys(mod)).toContain('useForm');
     });
@@ -95,7 +95,7 @@ describe('useApiMutation Hook', () => {
     });
 
     it('has default export', async () => {
-        const mod = await import('@/shared/hooks/useApiMutation');
+        const mod: any = await import('@/shared/hooks/useApiMutation');
         expect(mod.default).toBeDefined();
     });
 });

@@ -17,25 +17,25 @@ let RouteRegistry: any;
 
 describe('SharedPackage AdminRegistry', () => {
     it('imports successfully', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         AdminRegistry = mod.AdminRegistry;
         expect(AdminRegistry).toBeDefined();
     });
 
     it('has PageRegistry', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         PageRegistry = mod.AdminRegistry.PageRegistry;
         expect(PageRegistry).toBeDefined();
     });
 
     it('has ApiRegistry', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         ApiRegistry = mod.AdminRegistry.ApiRegistry;
         expect(ApiRegistry).toBeDefined();
     });
 
     it('has RouteRegistry', async () => {
-        const mod = await import('prime-care-shared');
+        const mod: any = await import('prime-care-shared');
         RouteRegistry = mod.AdminRegistry.RouteRegistry;
         expect(RouteRegistry).toBeDefined();
     });

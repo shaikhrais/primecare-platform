@@ -8,13 +8,13 @@ import { describe, it, expect } from 'vitest';
 
 describe('NotificationCenterContext', () => {
     it('exports NotificationCenterProvider', async () => {
-        const mod = await import('../shared/context/NotificationCenterContext');
+        const mod: any = await import('../shared/context/NotificationCenterContext');
         expect(mod.NotificationCenterProvider).toBeDefined();
         expect(typeof mod.NotificationCenterProvider).toBe('function');
     });
 
     it('exports useNotificationCenter hook', async () => {
-        const mod = await import('../shared/context/NotificationCenterContext');
+        const mod: any = await import('../shared/context/NotificationCenterContext');
         expect(mod.useNotificationCenter).toBeDefined();
         expect(typeof mod.useNotificationCenter).toBe('function');
     });
@@ -33,7 +33,7 @@ describe('NotificationCenterContext', () => {
 
     it('exports AppNotification type (via interface)', async () => {
         // If it compiles and the module loads, the type is valid  
-        const mod = await import('../shared/context/NotificationCenterContext');
+        const mod: any = await import('../shared/context/NotificationCenterContext');
         expect(Object.keys(mod).length).toBeGreaterThanOrEqual(2);
     });
 
@@ -46,7 +46,7 @@ describe('NotificationCenterContext', () => {
     });
 
     it('module has no unexpected default export', async () => {
-        const mod = await import('../shared/context/NotificationCenterContext');
+        const mod: any = await import('../shared/context/NotificationCenterContext');
         // Should not have a default export (only named exports)
         expect(mod.default).toBeUndefined();
     });

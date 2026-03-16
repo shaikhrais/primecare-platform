@@ -12,31 +12,31 @@ import { describe, it, expect } from 'vitest';
 
 describe('Store Module Exports', () => {
     it('exports useAuthStore', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useAuthStore).toBeDefined();
         expect(typeof mod.useAuthStore).toBe('function');
     });
 
     it('exports useUIStore', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useUIStore).toBeDefined();
         expect(typeof mod.useUIStore).toBe('function');
     });
 
     it('exports useTenantId selector', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useTenantId).toBeDefined();
         expect(typeof mod.useTenantId).toBe('function');
     });
 
     it('exports useActiveRole selector', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useActiveRole).toBeDefined();
         expect(typeof mod.useActiveRole).toBe('function');
     });
 
     it('exports useIsDarkMode selector', async () => {
-        const mod = await import('@/shared/stores');
+        const mod: any = await import('@/shared/stores');
         expect(mod.useIsDarkMode).toBeDefined();
         expect(typeof mod.useIsDarkMode).toBe('function');
     });
@@ -300,22 +300,22 @@ describe('UIStore Notification Count Logic', () => {
 
 describe('UsageTrackerTypes Module Exports', () => {
     it('exports STORAGE_KEY', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         expect(mod.STORAGE_KEY).toBe('pc_usage_stats');
     });
 
     it('exports DB_SYNC_INTERVAL', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         expect(mod.DB_SYNC_INTERVAL).toBe(30_000);
     });
 
     it('exports createEmptySnapshot', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         expect(typeof mod.createEmptySnapshot).toBe('function');
     });
 
     it('createEmptySnapshot returns correct structure', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         const snap = mod.createEmptySnapshot();
         expect(snap.routes).toEqual({});
         expect(snap.forms).toEqual({});
@@ -327,7 +327,7 @@ describe('UsageTrackerTypes Module Exports', () => {
     });
 
     it('createEmptySnapshot sets sessionStart', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         const before = Date.now();
         const snap = mod.createEmptySnapshot();
         const after = Date.now();
@@ -336,7 +336,7 @@ describe('UsageTrackerTypes Module Exports', () => {
     });
 
     it('createEmptySnapshot sets lastActivity', async () => {
-        const mod = await import('@/shared/services/UsageTrackerTypes');
+        const mod: any = await import('@/shared/services/UsageTrackerTypes');
         const snap = mod.createEmptySnapshot();
         expect(snap.lastActivity).toBeGreaterThan(0);
     });

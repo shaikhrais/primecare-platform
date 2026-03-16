@@ -11,673 +11,673 @@ describe('Shared Components (112 files)', () => {
     });
 
     it('AssessmentComplianceChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/AssessmentComplianceChart');
+        const mod: any = await import('@/shared/components/charts/AssessmentComplianceChart');
         const exp = mod.default || mod.AssessmentComplianceChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('BudgetUtilizationChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/BudgetUtilizationChart');
+        const mod: any = await import('@/shared/components/charts/BudgetUtilizationChart');
         const exp = mod.default || mod.BudgetUtilizationChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CareContinuityChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/CareContinuityChart');
+        const mod: any = await import('@/shared/components/charts/CareContinuityChart');
         const exp = mod.default || mod.CareContinuityChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CarePlanAdherenceGauge exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/CarePlanAdherenceGauge');
+        const mod: any = await import('@/shared/components/charts/CarePlanAdherenceGauge');
         const exp = mod.default || mod.CarePlanAdherenceGauge || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ChartCard exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ChartCard');
+        const mod: any = await import('@/shared/components/charts/ChartCard');
         const exp = mod.default || mod.ChartCard || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ClientGrowthChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ClientGrowthChart');
+        const mod: any = await import('@/shared/components/charts/ClientGrowthChart');
         const exp = mod.default || mod.ClientGrowthChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ClientSatisfactionRadar exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ClientSatisfactionRadar');
+        const mod: any = await import('@/shared/components/charts/ClientSatisfactionRadar');
         const exp = mod.default || mod.ClientSatisfactionRadar || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ClinicalIncidentHeatmap exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ClinicalIncidentHeatmap');
+        const mod: any = await import('@/shared/components/charts/ClinicalIncidentHeatmap');
         const exp = mod.default || mod.ClinicalIncidentHeatmap || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreAreaChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreAreaChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreAreaChart');
         const exp = mod.default || mod.CoreAreaChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreBarChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreBarChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreBarChart');
         const exp = mod.default || mod.CoreBarChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreLineChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreLineChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreLineChart');
         const exp = mod.default || mod.CoreLineChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CorePieChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CorePieChart');
+        const mod: any = await import('@/shared/components/charts/core/CorePieChart');
         const exp = mod.default || mod.CorePieChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreRadarChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreRadarChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreRadarChart');
         const exp = mod.default || mod.CoreRadarChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreRadialBarChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreRadialBarChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreRadialBarChart');
         const exp = mod.default || mod.CoreRadialBarChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CoreScatterChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/core/CoreScatterChart');
+        const mod: any = await import('@/shared/components/charts/core/CoreScatterChart');
         const exp = mod.default || mod.CoreScatterChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('IncidentTrendChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/IncidentTrendChart');
+        const mod: any = await import('@/shared/components/charts/IncidentTrendChart');
         const exp = mod.default || mod.IncidentTrendChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('MyEarningsTrend exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/MyEarningsTrend');
+        const mod: any = await import('@/shared/components/charts/MyEarningsTrend');
         const exp = mod.default || mod.MyEarningsTrend || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('MyReliabilityScore exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/MyReliabilityScore');
+        const mod: any = await import('@/shared/components/charts/MyReliabilityScore');
         const exp = mod.default || mod.MyReliabilityScore || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('OvertimeRiskGauge exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/OvertimeRiskGauge');
+        const mod: any = await import('@/shared/components/charts/OvertimeRiskGauge');
         const exp = mod.default || mod.OvertimeRiskGauge || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PatientAcuityDistribution exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/PatientAcuityDistribution');
+        const mod: any = await import('@/shared/components/charts/PatientAcuityDistribution');
         const exp = mod.default || mod.PatientAcuityDistribution || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ResourceAvailabilityChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ResourceAvailabilityChart');
+        const mod: any = await import('@/shared/components/charts/ResourceAvailabilityChart');
         const exp = mod.default || mod.ResourceAvailabilityChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RevenueChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/RevenueChart');
+        const mod: any = await import('@/shared/components/charts/RevenueChart');
         const exp = mod.default || mod.RevenueChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RevenueForecastChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/RevenueForecastChart');
+        const mod: any = await import('@/shared/components/charts/RevenueForecastChart');
         const exp = mod.default || mod.RevenueForecastChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RevenueTrendChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/RevenueTrendChart');
+        const mod: any = await import('@/shared/components/charts/RevenueTrendChart');
         const exp = mod.default || mod.RevenueTrendChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ServicePopularityChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ServicePopularityChart');
+        const mod: any = await import('@/shared/components/charts/ServicePopularityChart');
         const exp = mod.default || mod.ServicePopularityChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ShiftDistributionChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ShiftDistributionChart');
+        const mod: any = await import('@/shared/components/charts/ShiftDistributionChart');
         const exp = mod.default || mod.ShiftDistributionChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ShiftFulfillmentChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/ShiftFulfillmentChart');
+        const mod: any = await import('@/shared/components/charts/ShiftFulfillmentChart');
         const exp = mod.default || mod.ShiftFulfillmentChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('Sparkline exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/Sparkline');
+        const mod: any = await import('@/shared/components/charts/Sparkline');
         const exp = mod.default || mod.Sparkline || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('StaffAttendanceHeatmap exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/StaffAttendanceHeatmap');
+        const mod: any = await import('@/shared/components/charts/StaffAttendanceHeatmap');
         const exp = mod.default || mod.StaffAttendanceHeatmap || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('StaffUtilizationChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/StaffUtilizationChart');
+        const mod: any = await import('@/shared/components/charts/StaffUtilizationChart');
         const exp = mod.default || mod.StaffUtilizationChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('TravelTimeAnalysis exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/TravelTimeAnalysis');
+        const mod: any = await import('@/shared/components/charts/TravelTimeAnalysis');
         const exp = mod.default || mod.TravelTimeAnalysis || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('VisitVolumeChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/VisitVolumeChart');
+        const mod: any = await import('@/shared/components/charts/VisitVolumeChart');
         const exp = mod.default || mod.VisitVolumeChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('VitalSparkline exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/VitalSparkline');
+        const mod: any = await import('@/shared/components/charts/VitalSparkline');
         const exp = mod.default || mod.VitalSparkline || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('WellnessTrendChart exports a valid module', async () => {
-        const mod = await import('@/shared/components/charts/WellnessTrendChart');
+        const mod: any = await import('@/shared/components/charts/WellnessTrendChart');
         const exp = mod.default || mod.WellnessTrendChart || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CommandPalette exports a valid module', async () => {
-        const mod = await import('@/shared/components/CommandPalette');
+        const mod: any = await import('@/shared/components/CommandPalette');
         const exp = mod.default || mod.CommandPalette || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CommandPaletteWrapper exports a valid module', async () => {
-        const mod = await import('@/shared/components/CommandPaletteWrapper');
+        const mod: any = await import('@/shared/components/CommandPaletteWrapper');
         const exp = mod.default || mod.CommandPaletteWrapper || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SoftphoneWidget exports a valid module', async () => {
-        const mod = await import('@/shared/components/communications/SoftphoneWidget');
+        const mod: any = await import('@/shared/components/communications/SoftphoneWidget');
         const exp = mod.default || mod.SoftphoneWidget || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('QuickActions exports a valid module', async () => {
-        const mod = await import('@/shared/components/dashboard/QuickActions');
+        const mod: any = await import('@/shared/components/dashboard/QuickActions');
         const exp = mod.default || mod.QuickActions || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DataCard exports a valid module', async () => {
-        const mod = await import('@/shared/components/design-system/DataCard');
+        const mod: any = await import('@/shared/components/design-system/DataCard');
         const exp = mod.default || mod.DataCard || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('LoadingSkeleton exports a valid module', async () => {
-        const mod = await import('@/shared/components/design-system/LoadingSkeleton');
+        const mod: any = await import('@/shared/components/design-system/LoadingSkeleton');
         const exp = mod.default || mod.LoadingSkeleton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('StatusBadge exports a valid module', async () => {
-        const mod = await import('@/shared/components/design-system/StatusBadge');
+        const mod: any = await import('@/shared/components/design-system/StatusBadge');
         const exp = mod.default || mod.StatusBadge || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ErrorBoundary exports a valid module', async () => {
-        const mod = await import('@/shared/components/ErrorBoundary');
+        const mod: any = await import('@/shared/components/ErrorBoundary');
         const exp = mod.default || mod.ErrorBoundary || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AuditTimeline exports a valid module', async () => {
-        const mod = await import('@/shared/components/forensics/AuditTimeline');
+        const mod: any = await import('@/shared/components/forensics/AuditTimeline');
         const exp = mod.default || mod.AuditTimeline || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('NoShowProbability exports a valid module', async () => {
-        const mod = await import('@/shared/components/forensics/NoShowProbability');
+        const mod: any = await import('@/shared/components/forensics/NoShowProbability');
         const exp = mod.default || mod.NoShowProbability || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DynamicFormRenderer exports a valid module', async () => {
-        const mod = await import('@/shared/components/forms/DynamicFormRenderer');
+        const mod: any = await import('@/shared/components/forms/DynamicFormRenderer');
         const exp = mod.default || mod.DynamicFormRenderer || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('InlineCreatorPopover exports a valid module', async () => {
-        const mod = await import('@/shared/components/forms/InlineCreatorPopover');
+        const mod: any = await import('@/shared/components/forms/InlineCreatorPopover');
         const exp = mod.default || mod.InlineCreatorPopover || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('renderField exports a valid module', async () => {
-        const mod = await import('@/shared/components/forms/renderField');
+        const mod: any = await import('@/shared/components/forms/renderField');
         const exp = mod.default || mod.renderField || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AppLayout exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/AppLayout');
+        const mod: any = await import('@/shared/components/layout/AppLayout');
         const exp = mod.default || mod.AppLayout || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CommandPalette exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/CommandPalette');
+        const mod: any = await import('@/shared/components/layout/CommandPalette');
         const exp = mod.default || mod.CommandPalette || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DevPerspectiveSwitcher exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/DevPerspectiveSwitcher');
+        const mod: any = await import('@/shared/components/layout/DevPerspectiveSwitcher');
         const exp = mod.default || mod.DevPerspectiveSwitcher || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('EmptyState exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/EmptyState');
+        const mod: any = await import('@/shared/components/layout/EmptyState');
         const exp = mod.default || mod.EmptyState || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('GlobalQuickActionBar exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/GlobalQuickActionBar');
+        const mod: any = await import('@/shared/components/layout/GlobalQuickActionBar');
         const exp = mod.default || mod.GlobalQuickActionBar || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ImpersonationBanner exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/ImpersonationBanner');
+        const mod: any = await import('@/shared/components/layout/ImpersonationBanner');
         const exp = mod.default || mod.ImpersonationBanner || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('NotificationHub exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/NotificationHub');
+        const mod: any = await import('@/shared/components/layout/NotificationHub');
         const exp = mod.default || mod.NotificationHub || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('OfflineIndicator exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/OfflineIndicator');
+        const mod: any = await import('@/shared/components/layout/OfflineIndicator');
         const exp = mod.default || mod.OfflineIndicator || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PswBottomNav exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/PswBottomNav');
+        const mod: any = await import('@/shared/components/layout/PswBottomNav');
         const exp = mod.default || mod.PswBottomNav || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RoleSwitcher exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/RoleSwitcher');
+        const mod: any = await import('@/shared/components/layout/RoleSwitcher');
         const exp = mod.default || mod.RoleSwitcher || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('Sidebar exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/Sidebar');
+        const mod: any = await import('@/shared/components/layout/Sidebar');
         const exp = mod.default || mod.Sidebar || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SideFloatingButton exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/SideFloatingButton');
+        const mod: any = await import('@/shared/components/layout/SideFloatingButton');
         const exp = mod.default || mod.SideFloatingButton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SosButton exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/SosButton');
+        const mod: any = await import('@/shared/components/layout/SosButton');
         const exp = mod.default || mod.SosButton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ImpersonationSearch exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/switcher/components/ImpersonationSearch');
+        const mod: any = await import('@/shared/components/layout/switcher/components/ImpersonationSearch');
         const exp = mod.default || mod.ImpersonationSearch || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('UmbrellaRoleSwitcher exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/switcher/components/UmbrellaRoleSwitcher');
+        const mod: any = await import('@/shared/components/layout/switcher/components/UmbrellaRoleSwitcher');
         const exp = mod.default || mod.UmbrellaRoleSwitcher || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PerspectiveModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/switcher/PerspectiveModal');
+        const mod: any = await import('@/shared/components/layout/switcher/PerspectiveModal');
         const exp = mod.default || mod.PerspectiveModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RoleSwitcherModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/switcher/RoleSwitcherModal');
+        const mod: any = await import('@/shared/components/layout/switcher/RoleSwitcherModal');
         const exp = mod.default || mod.RoleSwitcherModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SystemHealthFooter exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/SystemHealthFooter');
+        const mod: any = await import('@/shared/components/layout/SystemHealthFooter');
         const exp = mod.default || mod.SystemHealthFooter || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('FlagLanguageSwitcher exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/topbar/FlagLanguageSwitcher');
+        const mod: any = await import('@/shared/components/layout/topbar/FlagLanguageSwitcher');
         const exp = mod.default || mod.FlagLanguageSwitcher || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('TopBarActions exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/topbar/TopBarActions');
+        const mod: any = await import('@/shared/components/layout/topbar/TopBarActions');
         const exp = mod.default || mod.TopBarActions || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('TopBarIdentity exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/topbar/TopBarIdentity');
+        const mod: any = await import('@/shared/components/layout/topbar/TopBarIdentity');
         const exp = mod.default || mod.TopBarIdentity || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('TopBar exports a valid module', async () => {
-        const mod = await import('@/shared/components/layout/TopBar');
+        const mod: any = await import('@/shared/components/layout/TopBar');
         const exp = mod.default || mod.TopBar || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SecureCamera exports a valid module', async () => {
-        const mod = await import('@/shared/components/media/SecureCamera');
+        const mod: any = await import('@/shared/components/media/SecureCamera');
         const exp = mod.default || mod.SecureCamera || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('VoiceDictationButton exports a valid module', async () => {
-        const mod = await import('@/shared/components/media/VoiceDictationButton');
+        const mod: any = await import('@/shared/components/media/VoiceDictationButton');
         const exp = mod.default || mod.VoiceDictationButton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AdvancedRecurrenceBuilder exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/AdvancedRecurrenceBuilder');
+        const mod: any = await import('@/shared/components/modals/components/AdvancedRecurrenceBuilder');
         const exp = mod.default || mod.AdvancedRecurrenceBuilder || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AssignmentFields exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/AssignmentFields');
+        const mod: any = await import('@/shared/components/modals/components/AssignmentFields');
         const exp = mod.default || mod.AssignmentFields || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ClientServiceFields exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/ClientServiceFields');
+        const mod: any = await import('@/shared/components/modals/components/ClientServiceFields');
         const exp = mod.default || mod.ClientServiceFields || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DateTimeFields exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/DateTimeFields');
+        const mod: any = await import('@/shared/components/modals/components/DateTimeFields');
         const exp = mod.default || mod.DateTimeFields || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('InlineCreationForms exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/InlineCreationForms');
+        const mod: any = await import('@/shared/components/modals/components/InlineCreationForms');
         const exp = mod.default || mod.InlineCreationForms || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SecondaryVisitFields exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/SecondaryVisitFields');
+        const mod: any = await import('@/shared/components/modals/components/SecondaryVisitFields');
         const exp = mod.default || mod.SecondaryVisitFields || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('VisitFormFields exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/components/VisitFormFields');
+        const mod: any = await import('@/shared/components/modals/components/VisitFormFields');
         const exp = mod.default || mod.VisitFormFields || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ConfirmModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/ConfirmModal');
+        const mod: any = await import('@/shared/components/modals/ConfirmModal');
         const exp = mod.default || mod.ConfirmModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CreateShiftModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/CreateShiftModal');
+        const mod: any = await import('@/shared/components/modals/CreateShiftModal');
         const exp = mod.default || mod.CreateShiftModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CreateVisitModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/CreateVisitModal');
+        const mod: any = await import('@/shared/components/modals/CreateVisitModal');
         const exp = mod.default || mod.CreateVisitModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CustomerQuickViewModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/CustomerQuickViewModal');
+        const mod: any = await import('@/shared/components/modals/CustomerQuickViewModal');
         const exp = mod.default || mod.CustomerQuickViewModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DangerModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/DangerModal');
+        const mod: any = await import('@/shared/components/modals/DangerModal');
         const exp = mod.default || mod.DangerModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('DangerZoneModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/DangerZoneModal');
+        const mod: any = await import('@/shared/components/modals/DangerZoneModal');
         const exp = mod.default || mod.DangerZoneModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('LeadQuickViewModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/LeadQuickViewModal');
+        const mod: any = await import('@/shared/components/modals/LeadQuickViewModal');
         const exp = mod.default || mod.LeadQuickViewModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('MilestoneCelebration exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/MilestoneCelebration');
+        const mod: any = await import('@/shared/components/modals/MilestoneCelebration');
         const exp = mod.default || mod.MilestoneCelebration || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PostVisitRatingModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/PostVisitRatingModal');
+        const mod: any = await import('@/shared/components/modals/PostVisitRatingModal');
         const exp = mod.default || mod.PostVisitRatingModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PromptModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/PromptModal');
+        const mod: any = await import('@/shared/components/modals/PromptModal');
         const exp = mod.default || mod.PromptModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('TimesheetDetailModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/TimesheetDetailModal');
+        const mod: any = await import('@/shared/components/modals/TimesheetDetailModal');
         const exp = mod.default || mod.TimesheetDetailModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('UserQuickViewModal exports a valid module', async () => {
-        const mod = await import('@/shared/components/modals/UserQuickViewModal');
+        const mod: any = await import('@/shared/components/modals/UserQuickViewModal');
         const exp = mod.default || mod.UserQuickViewModal || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PermissionGuard exports a valid module', async () => {
-        const mod = await import('@/shared/components/PermissionGuard');
+        const mod: any = await import('@/shared/components/PermissionGuard');
         const exp = mod.default || mod.PermissionGuard || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('QuickActions exports a valid module', async () => {
-        const mod = await import('@/shared/components/QuickActions');
+        const mod: any = await import('@/shared/components/QuickActions');
         const exp = mod.default || mod.QuickActions || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('SmartBreadcrumbs exports a valid module', async () => {
-        const mod = await import('@/shared/components/SmartBreadcrumbs');
+        const mod: any = await import('@/shared/components/SmartBreadcrumbs');
         const exp = mod.default || mod.SmartBreadcrumbs || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ToastContainer exports a valid module', async () => {
-        const mod = await import('@/shared/components/ToastContainer');
+        const mod: any = await import('@/shared/components/ToastContainer');
         const exp = mod.default || mod.ToastContainer || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AsyncView exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/AsyncView');
+        const mod: any = await import('@/shared/components/ui/AsyncView');
         const exp = mod.default || mod.AsyncView || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CookieConsent exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/CookieConsent');
+        const mod: any = await import('@/shared/components/ui/CookieConsent');
         const exp = mod.default || mod.CookieConsent || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('LiveIndicator exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/LiveIndicator');
+        const mod: any = await import('@/shared/components/ui/LiveIndicator');
         const exp = mod.default || mod.LiveIndicator || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('NetworkStatusBanner exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/NetworkStatusBanner');
+        const mod: any = await import('@/shared/components/ui/NetworkStatusBanner');
         const exp = mod.default || mod.NetworkStatusBanner || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PageActionBar exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/PageActionBar');
+        const mod: any = await import('@/shared/components/ui/PageActionBar');
         const exp = mod.default || mod.PageActionBar || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('PcButton exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/PcButton');
+        const mod: any = await import('@/shared/components/ui/PcButton');
         const exp = mod.default || mod.PcButton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('Skeleton exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/Skeleton');
+        const mod: any = await import('@/shared/components/ui/Skeleton');
         const exp = mod.default || mod.Skeleton || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('Toast exports a valid module', async () => {
-        const mod = await import('@/shared/components/ui/Toast');
+        const mod: any = await import('@/shared/components/ui/Toast');
         const exp = mod.default || mod.Toast || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('AuthContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/AuthContext');
+        const mod: any = await import('@/shared/context/AuthContext');
         const exp = mod.default || mod.AuthContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('CommandPaletteContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/CommandPaletteContext');
+        const mod: any = await import('@/shared/context/CommandPaletteContext');
         const exp = mod.default || mod.CommandPaletteContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('FeatureFlags exports a valid module', async () => {
-        const mod = await import('@/shared/context/FeatureFlags');
+        const mod: any = await import('@/shared/context/FeatureFlags');
         const exp = mod.default || mod.FeatureFlags || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('NotificationCenterContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/NotificationCenterContext');
+        const mod: any = await import('@/shared/context/NotificationCenterContext');
         const exp = mod.default || mod.NotificationCenterContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('NotificationContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/NotificationContext');
+        const mod: any = await import('@/shared/context/NotificationContext');
         const exp = mod.default || mod.NotificationContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('OfflineSyncContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/OfflineSyncContext');
+        const mod: any = await import('@/shared/context/OfflineSyncContext');
         const exp = mod.default || mod.OfflineSyncContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('QueryProvider exports a valid module', async () => {
-        const mod = await import('@/shared/context/QueryProvider');
+        const mod: any = await import('@/shared/context/QueryProvider');
         const exp = mod.default || mod.QueryProvider || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('ThemeContext exports a valid module', async () => {
-        const mod = await import('@/shared/context/ThemeContext');
+        const mod: any = await import('@/shared/context/ThemeContext');
         const exp = mod.default || mod.ThemeContext || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('useDialog exports a valid module', async () => {
-        const mod = await import('@/shared/hooks/useDialog');
+        const mod: any = await import('@/shared/hooks/useDialog');
         const exp = mod.default || mod.useDialog || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 
     it('RequireRole exports a valid module', async () => {
-        const mod = await import('@/shared/rbac/RequireRole');
+        const mod: any = await import('@/shared/rbac/RequireRole');
         const exp = mod.default || mod.RequireRole || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });

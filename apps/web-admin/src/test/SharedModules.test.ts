@@ -12,13 +12,13 @@ import { describe, it, expect } from 'vitest';
 
 describe('Device Utils', () => {
     it('exports getDeviceId', async () => {
-        const mod = await import('@/shared/utils/device');
+        const mod: any = await import('@/shared/utils/device');
         expect(mod.getDeviceId).toBeDefined();
         expect(typeof mod.getDeviceId).toBe('function');
     });
 
     it('exports getDeviceMetadata', async () => {
-        const mod = await import('@/shared/utils/device');
+        const mod: any = await import('@/shared/utils/device');
         expect(mod.getDeviceMetadata).toBeDefined();
         expect(typeof mod.getDeviceMetadata).toBe('function');
     });
@@ -64,7 +64,7 @@ describe('Device Utils', () => {
 
 describe('Env Utils', () => {
     it('exports validateEnvironment', async () => {
-        const mod = await import('@/shared/utils/env');
+        const mod: any = await import('@/shared/utils/env');
         expect(mod.validateEnvironment).toBeDefined();
         expect(typeof mod.validateEnvironment).toBe('function');
     });
@@ -81,7 +81,7 @@ describe('Env Utils', () => {
 
 describe('API Client', () => {
     it('exports apiClient', async () => {
-        const mod = await import('@/shared/utils/apiClient');
+        const mod: any = await import('@/shared/utils/apiClient');
         expect(mod.apiClient).toBeDefined();
     });
 
@@ -122,12 +122,12 @@ describe('API Client', () => {
 describe('Context Modules', () => {
     describe('AuthContext', () => {
         it('exports AuthProvider', async () => {
-            const mod = await import('@/shared/context/AuthContext');
+            const mod: any = await import('@/shared/context/AuthContext');
             expect(mod.AuthProvider).toBeDefined();
         });
 
         it('exports useAuth hook', async () => {
-            const mod = await import('@/shared/context/AuthContext');
+            const mod: any = await import('@/shared/context/AuthContext');
             expect(mod.useAuth).toBeDefined();
             expect(typeof mod.useAuth).toBe('function');
         });
@@ -135,45 +135,45 @@ describe('Context Modules', () => {
 
     describe('ThemeContext', () => {
         it('exports ThemeProvider', async () => {
-            const mod = await import('@/shared/context/ThemeContext');
+            const mod: any = await import('@/shared/context/ThemeContext');
             expect(mod.ThemeProvider).toBeDefined();
         });
 
         it('exports useTheme hook', async () => {
-            const mod = await import('@/shared/context/ThemeContext');
+            const mod: any = await import('@/shared/context/ThemeContext');
             expect(mod.useTheme).toBeDefined();
         });
     });
 
     describe('NotificationContext', () => {
         it('exports NotificationProvider', async () => {
-            const mod = await import('@/shared/context/NotificationContext');
+            const mod: any = await import('@/shared/context/NotificationContext');
             expect(mod.NotificationProvider).toBeDefined();
         });
     });
 
     describe('NotificationCenterContext', () => {
         it('exports NotificationCenterProvider', async () => {
-            const mod = await import('@/shared/context/NotificationCenterContext');
+            const mod: any = await import('@/shared/context/NotificationCenterContext');
             expect(mod.NotificationCenterProvider).toBeDefined();
         });
 
         it('exports useNotificationCenter', async () => {
-            const mod = await import('@/shared/context/NotificationCenterContext');
+            const mod: any = await import('@/shared/context/NotificationCenterContext');
             expect(mod.useNotificationCenter).toBeDefined();
         });
     });
 
     describe('CommandPaletteContext', () => {
         it('exports CommandPaletteProvider', async () => {
-            const mod = await import('@/shared/context/CommandPaletteContext');
+            const mod: any = await import('@/shared/context/CommandPaletteContext');
             expect(mod.CommandPaletteProvider).toBeDefined();
         });
     });
 
     describe('OfflineSyncContext', () => {
         it('exports OfflineSyncProvider', async () => {
-            const mod = await import('@/shared/context/OfflineSyncContext');
+            const mod: any = await import('@/shared/context/OfflineSyncContext');
             expect(mod.OfflineSyncProvider).toBeDefined();
         });
     });
@@ -185,32 +185,32 @@ describe('Context Modules', () => {
 
 describe('Additional Hooks', () => {
     it('exports useAutoSaveForm', async () => {
-        const mod = await import('@/shared/hooks/useAutoSaveForm');
+        const mod: any = await import('@/shared/hooks/useAutoSaveForm');
         expect(mod.useAutoSaveForm).toBeDefined();
     });
 
     it('exports useForm', async () => {
-        const mod = await import('@/shared/hooks/useForm');
+        const mod: any = await import('@/shared/hooks/useForm');
         expect(mod.default || mod.useForm).toBeDefined();
     });
 
     it('exports useRouteTracker', async () => {
-        const mod = await import('@/shared/hooks/useRouteTracker');
+        const mod: any = await import('@/shared/hooks/useRouteTracker');
         expect(mod.default || mod.useRouteTracker).toBeDefined();
     });
 
     it('exports useRealtimeQuery', async () => {
-        const mod = await import('@/shared/hooks/useRealtimeQuery');
+        const mod: any = await import('@/shared/hooks/useRealtimeQuery');
         expect(mod.default || mod.useRealtimeQuery).toBeDefined();
     });
 
     it('exports useRegistryQuery', async () => {
-        const mod = await import('@/shared/hooks/useRegistryQuery');
+        const mod: any = await import('@/shared/hooks/useRegistryQuery');
         expect(mod.default || mod.useRegistryQuery).toBeDefined();
     });
 
     it('exports useMediaQuery', async () => {
-        const mod = await import('@/shared/hooks/useMediaQuery');
+        const mod: any = await import('@/shared/hooks/useMediaQuery');
         expect(mod.default || mod.useMediaQuery).toBeDefined();
     });
 });
@@ -221,22 +221,22 @@ describe('Additional Hooks', () => {
 
 describe('SharedComponents', () => {
     it('exports SmartBreadcrumbs', async () => {
-        const mod = await import('@/shared/components/SmartBreadcrumbs');
+        const mod: any = await import('@/shared/components/SmartBreadcrumbs');
         expect(mod.default || mod.SmartBreadcrumbs).toBeDefined();
     });
 
     it('exports QuickActions', async () => {
-        const mod = await import('@/shared/components/QuickActions');
+        const mod: any = await import('@/shared/components/QuickActions');
         expect(mod.default || mod.QuickActions).toBeDefined();
     });
 
     it('exports CommandPalette', async () => {
-        const mod = await import('@/shared/components/CommandPalette');
+        const mod: any = await import('@/shared/components/CommandPalette');
         expect(mod.default || mod.CommandPalette).toBeDefined();
     });
 
     it('exports CommandPaletteWrapper', async () => {
-        const mod = await import('@/shared/components/CommandPaletteWrapper');
+        const mod: any = await import('@/shared/components/CommandPaletteWrapper');
         expect(mod.default || mod.CommandPaletteWrapper).toBeDefined();
     });
 });
@@ -277,7 +277,7 @@ describe('Typed API Client Extended', () => {
 
 describe('RequireRole', () => {
     it('exports RequireRole component', async () => {
-        const mod = await import('@/shared/rbac/RequireRole');
+        const mod: any = await import('@/shared/rbac/RequireRole');
         expect(mod.default || mod.RequireRole).toBeDefined();
     });
 });
