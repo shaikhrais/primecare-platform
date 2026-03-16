@@ -92,15 +92,10 @@ describe('Context Exports', () => {
         expect(mod.AuthProvider).toBeDefined();
     });
 
-    it('NotificationContext exports useNotification', async () => {
-        const mod: any = await import('@/shared/context/NotificationContext');
-        expect(mod.useNotification).toBeDefined();
-        expect(typeof mod.useNotification).toBe('function');
-    });
-
-    it('NotificationContext exports NotificationProvider', async () => {
-        const mod: any = await import('@/shared/context/NotificationContext');
-        expect(mod.NotificationProvider).toBeDefined();
+    it('useToast hook exports useToast', async () => {
+        const mod: any = await import('@/shared/hooks/useToast');
+        expect(mod.useToast).toBeDefined();
+        expect(typeof mod.useToast).toBe('function');
     });
 
     it('ThemeContext exports useTheme', async () => {

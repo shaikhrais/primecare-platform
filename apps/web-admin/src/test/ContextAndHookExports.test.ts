@@ -41,19 +41,14 @@ describe('CommandPaletteContext', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// NotificationContext
+// useToast Hook (replaced NotificationContext)
 // ═══════════════════════════════════════════════════════════════════════════
 
-describe('NotificationContext', () => {
-    it('exports NotificationProvider', async () => {
-        const mod: any = await import('@/shared/context/NotificationContext');
-        expect(mod.NotificationProvider).toBeDefined();
-    });
-
-    it('exports useNotification hook', async () => {
-        const mod: any = await import('@/shared/context/NotificationContext');
-        expect(mod.useNotification).toBeDefined();
-        expect(typeof mod.useNotification).toBe('function');
+describe('useToast Hook', () => {
+    it('exports useToast', async () => {
+        const mod: any = await import('@/shared/hooks/useToast');
+        expect(mod.useToast).toBeDefined();
+        expect(typeof mod.useToast).toBe('function');
     });
 });
 

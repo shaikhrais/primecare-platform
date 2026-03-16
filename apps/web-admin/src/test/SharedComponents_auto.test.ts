@@ -646,9 +646,9 @@ describe('Shared Components (112 files)', () => {
         expect(exp).toBeDefined();
     });
 
-    it('NotificationContext exports a valid module', async () => {
-        const mod: any = await import('@/shared/context/NotificationContext');
-        const exp = mod.default || mod.NotificationContext || Object.values(mod)[0];
+    it('useToast hook exports a valid module', async () => {
+        const mod: any = await import('@/shared/hooks/useToast');
+        const exp = mod.useToast || mod.default || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });
 

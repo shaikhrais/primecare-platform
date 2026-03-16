@@ -145,10 +145,11 @@ describe('Context Modules', () => {
         });
     });
 
-    describe('NotificationContext', () => {
-        it('exports NotificationProvider', async () => {
-            const mod: any = await import('@/shared/context/NotificationContext');
-            expect(mod.NotificationProvider).toBeDefined();
+    describe('useToast hook', () => {
+        it('exports useToast', async () => {
+            const mod: any = await import('@/shared/hooks/useToast');
+            expect(mod.useToast).toBeDefined();
+            expect(typeof mod.useToast).toBe('function');
         });
     });
 
