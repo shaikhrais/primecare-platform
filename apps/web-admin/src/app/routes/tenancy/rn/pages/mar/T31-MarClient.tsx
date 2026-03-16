@@ -3,7 +3,7 @@
 // Type: Tool | Owner: rn
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { AlertCircle, CheckCircle, WifiOff, FileSignature } from 'lucide-react';
 import { SignaturePad } from '../assessments/components/SignaturePad';
 import { type Medication, loadMedications, commitAdministeredMeds } from './marHandlers';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, BookOpen, Video, FileText } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const ResourceLibrary: React.FC = () => {
     const { showToast } = useNotification();

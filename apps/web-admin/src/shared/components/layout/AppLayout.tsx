@@ -18,6 +18,7 @@ import { CommandPalette } from './CommandPalette';
 import { SoftphoneWidget } from '../communications/SoftphoneWidget';
 import { ImpersonationBanner } from './ImpersonationBanner';
 import { SystemHealthFooter } from './SystemHealthFooter';
+import { ToastContainer } from '../ToastContainer';
 
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
@@ -156,6 +157,9 @@ export default function AppLayout({ children, roleGated }: AppLayoutProps) {
                     <SystemHealthFooter />
                 </>
             )}
+
+            {/* Unified Zustand-backed toast notifications */}
+            <ToastContainer />
         </div>
     );
 }

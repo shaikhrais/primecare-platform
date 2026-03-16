@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { AlertTriangle, Clock, Activity, UserPlus } from 'lucide-react';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 

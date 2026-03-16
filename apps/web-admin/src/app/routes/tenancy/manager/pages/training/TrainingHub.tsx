@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useDialog } from '@/shared/hooks/useDialog';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 

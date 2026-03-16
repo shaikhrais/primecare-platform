@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useNotification } from './NotificationContext';
+import { useToast } from '@/shared/hooks/useToast';
 
 export interface PendingMutation {
     id: string;
@@ -28,7 +28,7 @@ export const OfflineSyncProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [lowBandwidthMode, setLowBandwidthMode] = useState(false);
     const [pendingMutations, setPendingMutations] = useState<PendingMutation[]>([]);
     const [isSyncing, setIsSyncing] = useState(false);
-    const { showToast } = useNotification();
+    const { showToast } = useToast();
 
     useEffect(() => {
         const handleOnline = () => {

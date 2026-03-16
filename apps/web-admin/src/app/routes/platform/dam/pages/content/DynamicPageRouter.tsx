@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Link2, Search, CheckCircle2, AlertTriangle, PlusCircle, Save } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface RouteAlias {
     id: string;

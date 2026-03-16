@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import './AssessmentsHub.css';
 import { type Assessment, getTypePillClass } from './assessmentHelpers';
 

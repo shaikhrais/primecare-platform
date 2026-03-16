@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Workflow, Play, MousePointer2, Plus, ArrowRight, Settings2, Trash2, Webhook, MessageSquare, Database } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface LogicNode {
     id: string;

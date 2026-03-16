@@ -5,7 +5,7 @@ import { MassDataGrid } from '../../admin/pages/finance/components/MassDataGrid'
 import { ApiKeyVault } from '../../admin/pages/security/components/ApiKeyVault';
 import { DangerZoneModal } from '@/shared/components/modals/DangerZoneModal';
 import { Database, ShieldAlert, Users, Activity, Trash2, Key, AlertOctagon, Terminal } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export default function SuperAdminDashboard() {
     const [isDangerModalOpen, setIsDangerModalOpen] = useState(false);

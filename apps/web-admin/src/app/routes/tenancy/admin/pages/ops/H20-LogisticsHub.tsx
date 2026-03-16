@@ -5,7 +5,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const { ButtonRegistry, InteractionARegistry } = AdminRegistry;
 

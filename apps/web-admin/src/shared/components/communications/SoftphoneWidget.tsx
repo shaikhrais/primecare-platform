@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, PhoneOff, Mic, MicOff, Minimize2, Maximize2 } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 // Global Event listener hook for intercepting phone number clicks
 export const useSoftphoneDispatcher = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Key, Copy, CheckCircle, RefreshCw } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const ApiKeyVault: React.FC = () => {
     const { showToast } = useNotification();

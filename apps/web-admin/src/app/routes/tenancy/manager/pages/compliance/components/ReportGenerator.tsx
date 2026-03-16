@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { FileUp, FileDown, Loader2, DatabaseZap } from 'lucide-react';
 
 interface QueuedReport {

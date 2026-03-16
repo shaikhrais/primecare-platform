@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { HeroShiftCard, UpcomingShiftCard } from './ShiftCards';
 
 const { ContentRegistry, ButtonRegistry } = AdminRegistry;

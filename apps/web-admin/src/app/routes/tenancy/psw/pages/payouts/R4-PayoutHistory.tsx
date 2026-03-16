@@ -3,7 +3,7 @@
 // Type: Report | Owner: psw
 // ================================================================
 import React, { useState, useEffect } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;

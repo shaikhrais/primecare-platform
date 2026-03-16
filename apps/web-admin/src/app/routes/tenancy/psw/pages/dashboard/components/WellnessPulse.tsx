@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const { ApiRegistry } = AdminRegistry;
 

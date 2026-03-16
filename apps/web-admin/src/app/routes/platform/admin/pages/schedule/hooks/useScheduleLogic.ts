@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from '@/shared/hooks/useDialog';
 import { type Visit, getStatusColor, apiFetchVisits, apiFetchPsws, apiAssignVisit, apiOfferVisit, apiFetchSuggestions, apiApplySurge, apiDeleteVisit } from './scheduleApi';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { History, GitCommit, Search, RefreshCcw, FileJson, CheckCircle2 } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface WorkflowCommit {
     id: string;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Lock, CheckCircle2, AlertTriangle, Key, Globe, RefreshCcw, Send, Loader2 } from 'lucide-react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { type SocialPlatform, getStatusColor, getStatusBg } from './vaultHelpers';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 

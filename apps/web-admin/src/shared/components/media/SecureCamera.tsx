@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { Camera, X, Check, RefreshCw } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface SecureCameraProps {
     onCapture: (base64Data: string) => void;

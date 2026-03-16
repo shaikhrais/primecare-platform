@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAutoSaveForm } from '@/shared/hooks/useAutoSaveForm';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { Save, AlertCircle } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { AdminRegistry } from 'prime-care-shared';

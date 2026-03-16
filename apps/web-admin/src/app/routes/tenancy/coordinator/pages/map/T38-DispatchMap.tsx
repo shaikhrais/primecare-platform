@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry, ContentRegistry, ButtonRegistry , getButtonById } from 'prime-care-shared';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Plus, X, Loader2, CheckCircle2 } from 'lucide-react';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import type { FormDependency } from 'prime-care-shared';
 
 interface InlineCreatorPopoverProps {

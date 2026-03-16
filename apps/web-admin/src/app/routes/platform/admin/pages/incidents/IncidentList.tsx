@@ -3,7 +3,7 @@ import EmptyState from '@/shared/components/layout/EmptyState';
 import { useNavigate, Link } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
 import { useTranslation } from 'react-i18next';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { fetchIncidents as apiFetchIncidents, resolveIncident, deleteIncident, filterIncidents } from './incidentHandlers';
 
 // Components

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const DB_KEY_PREFIX = 'primecare_rn_draft_';
 

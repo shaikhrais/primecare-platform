@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Skull, AlertTriangle, ShieldAlert, WifiOff, Power, Database, Users, Activity, RefreshCw } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const GlobalDigitalKillSwitch: React.FC = () => {
     const [isArmed, setIsArmed] = useState(false);

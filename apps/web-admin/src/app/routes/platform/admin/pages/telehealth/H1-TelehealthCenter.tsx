@@ -6,7 +6,7 @@
 // ================================================================
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry, getButtonById } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;

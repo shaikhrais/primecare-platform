@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Cloud, Radio, RefreshCw, Server, AlertCircle, Database } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const ThirdPartyCdnSync: React.FC = () => {
     const [provider, setProvider] = useState<'cloudflare' | 'aws'>('aws');

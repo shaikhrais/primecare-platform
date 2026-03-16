@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Save, Loader2, CheckCircle2, FileText } from 'lucide-react';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import type { FormEntry, FormField, FormDependency } from 'prime-care-shared';
 import { renderField } from './renderField';
 

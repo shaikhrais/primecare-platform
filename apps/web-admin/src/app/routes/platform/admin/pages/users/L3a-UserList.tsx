@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { UserQuickViewModal } from '@/shared/components/modals/UserQuickViewModal';
 import { useTranslation } from 'react-i18next';
 import { UserTable } from './components/UserTable';

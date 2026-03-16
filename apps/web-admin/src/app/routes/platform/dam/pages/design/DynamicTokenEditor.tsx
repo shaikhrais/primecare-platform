@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, Palette, Eye, Maximize, AlertTriangle, Save } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface DesignToken {
     id: string;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layers, Activity, ShieldAlert, Zap, Globe, Pause, Play, DownloadCloud } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface ScriptTag {
     id: string;

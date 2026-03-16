@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MonitorSmartphone, LayoutDashboard, Search, Trash2, PieChart, Info, Map } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface BrowserData {
     id: string;

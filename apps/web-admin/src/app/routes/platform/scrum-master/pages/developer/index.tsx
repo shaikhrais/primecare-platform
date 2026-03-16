@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '@/shared/utils/apiClient';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import { useQueryClient } from '@tanstack/react-query';
 import { TableSkeleton } from '@/shared/components/ui/Skeleton';

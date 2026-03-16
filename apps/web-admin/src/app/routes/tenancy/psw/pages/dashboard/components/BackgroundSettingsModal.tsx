@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Settings, DownloadCloud, Navigation, ArrowRightLeft, RadioReceiver } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const BackgroundSettingsModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const { showToast } = useNotification();

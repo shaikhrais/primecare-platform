@@ -8,7 +8,7 @@ import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import './BillingHub.css';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const { ContentRegistry, ApiRegistry, ButtonRegistry } = AdminRegistry;
 

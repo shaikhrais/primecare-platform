@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { apiClient } from '@/shared/utils/apiClient';
 
 interface QuickActionsProps {

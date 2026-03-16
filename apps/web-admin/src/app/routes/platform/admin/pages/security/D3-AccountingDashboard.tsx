@@ -6,14 +6,14 @@
 // ================================================================
 import React from 'react';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '../../../../../../shared/context/NotificationContext';
+import { useToast } from '@/shared/hooks/useToast';
 import { useAccountingData } from './useAccountingData';
 
 const { ContentRegistry } = AdminRegistry;
 const strings = ContentRegistry.ACCOUNTING_DASHBOARD;
 
 export default function AccountingDashboard() {
-    const { showToast } = useNotification();
+    const { showToast } = useToast();
     const { tradingAcc, pAndL, balanceSheet, reconSummary, forecastData, loading, loadData, handleAutoReconcile } = useAccountingData(showToast);
 
     if (loading) return (

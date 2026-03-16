@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Award, Star, ThumbsUp, Heart } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export const PeerKudosSystem: React.FC = () => {
     const { showToast } = useNotification();

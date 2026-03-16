@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { CheckCircle, XCircle, FileText, Check, X } from 'lucide-react';
 import { type ApprovalItem, getSwipeBackgroundColor } from './swipeHelpers';
 import { approveItem, rejectItem } from './swipeDragLogic';

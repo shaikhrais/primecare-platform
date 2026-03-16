@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { User, Activity, AlertTriangle, Briefcase, TrendingDown, Users } from 'lucide-react';
 
 // Node Data structure for an Org Chart

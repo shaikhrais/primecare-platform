@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Gauge, ShieldAlert, StopCircle, ArrowUpRight, Zap, RefreshCw, Activity } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface RateLimitPolicy {
     id: string;

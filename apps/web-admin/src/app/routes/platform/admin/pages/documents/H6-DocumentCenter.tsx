@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';

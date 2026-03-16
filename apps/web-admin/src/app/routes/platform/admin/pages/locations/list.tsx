@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useDialog } from '@/shared/hooks/useDialog';
 // import { apiClient } from '@/shared/utils/apiClient'; // Assuming this exists or using fetch
 

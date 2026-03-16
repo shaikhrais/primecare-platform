@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Type, Link2, DownloadCloud, AlertOctagon, Brush, Search, Trash2 } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface FontRegistry {
     id: string;

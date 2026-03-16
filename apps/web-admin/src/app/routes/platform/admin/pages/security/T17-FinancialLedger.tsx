@@ -5,7 +5,7 @@
 // Owner:         admin
 // ================================================================
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useLedgerData } from './useLedgerData';
 
 export default function FinancialLedger() {

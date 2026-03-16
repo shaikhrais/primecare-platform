@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useNavigate } from 'react-router-dom';
 import { ScanBarcode, ShieldCheck, AlertOctagon } from 'lucide-react';
 const { ApiRegistry, ButtonRegistry } = AdminRegistry;

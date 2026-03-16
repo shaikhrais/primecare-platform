@@ -4,7 +4,7 @@
 // ================================================================
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 // Components
 import { BookingsList } from './components/BookingsList';

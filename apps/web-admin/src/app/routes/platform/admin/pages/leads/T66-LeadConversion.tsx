@@ -5,7 +5,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AdminRegistry , getButtonById } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { apiClient } from '@/shared/utils/apiClient';
 import { useMutation } from '@tanstack/react-query';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';

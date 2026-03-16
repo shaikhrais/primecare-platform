@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { User, Wifi } from 'lucide-react';
 import { useRealtimeSync, SyncMessage } from '@/app/hooks/useRealtimeSync';
 import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';

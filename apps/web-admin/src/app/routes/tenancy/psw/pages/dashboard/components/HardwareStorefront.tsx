@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingBag, ChevronRight, Stethoscope, HeartPulse, CreditCard } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface ShopItem {
     id: string;

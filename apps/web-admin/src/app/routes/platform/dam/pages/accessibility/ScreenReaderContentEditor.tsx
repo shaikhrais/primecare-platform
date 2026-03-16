@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { EyeOff, Type, BarChart, CheckCircle2, ShieldAlert, Image as ImageIcon, Save } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface VisuallyComplexAsset {
     id: string;

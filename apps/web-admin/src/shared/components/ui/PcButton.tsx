@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { type ButtonDef } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { type ButtonVariant, type ButtonSize, VARIANT_STYLES, SIZE_STYLES, BASE_STYLE, resolveButtonDef, replaceParams } from './pcButtonStyles';
 
 export interface PcButtonProps {

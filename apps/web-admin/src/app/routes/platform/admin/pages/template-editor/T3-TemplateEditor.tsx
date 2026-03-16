@@ -6,7 +6,7 @@
 // ================================================================
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 export default function TemplateEditor() {
     const navigate = useNavigate();

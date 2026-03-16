@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { CreateVisitModal } from '@/shared/components/modals/CreateVisitModal';
 import { AdminRegistry, ApiRegistry } from 'prime-care-shared';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';

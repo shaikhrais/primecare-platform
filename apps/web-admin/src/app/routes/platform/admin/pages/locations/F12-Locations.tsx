@@ -5,7 +5,7 @@
 import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 const { ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;

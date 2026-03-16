@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Edit3, Shield, CheckCheck, Save, MousePointer2 } from 'lucide-react';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 
 interface RedactionBox {
     id: string;

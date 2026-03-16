@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminRegistry } from 'prime-care-shared';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useAuth } from '@/shared/context/AuthContext';
 import { apiClient } from '@/shared/utils/apiClient';
 import { PageActionBar } from '@/shared/components/ui/PageActionBar';

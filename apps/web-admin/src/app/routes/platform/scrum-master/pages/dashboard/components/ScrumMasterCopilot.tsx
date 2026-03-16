@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Terminal, Database } from 'lucide-react';
-import { useNotification } from '@/shared/context/NotificationContext';
+import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { useTranslation } from 'react-i18next';
 import { AdminRegistry } from 'prime-care-shared';
 import { useApiMutation } from '@/shared/hooks/useApiMutation';
