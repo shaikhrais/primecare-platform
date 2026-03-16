@@ -12,8 +12,9 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
-const schemaPath = path.resolve(__dirname, '../../../../apps/worker-api/prisma/schema.prisma');
-const schema = fs.readFileSync(schemaPath, 'utf-8');
+const schemaDir = path.resolve(__dirname, '../../../../apps/worker-api/prisma/schema');
+const schemaFiles = fs.readdirSync(schemaDir).filter(f => f.endsWith('.prisma')).sort();
+const schema = schemaFiles.map(f => fs.readFileSync(path.join(schemaDir, f), 'utf-8')).join('\n');
 
 // Parse models from schema
 function parseModels(schemaContent: string) {

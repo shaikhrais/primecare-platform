@@ -1,0 +1,316 @@
+// ==========================================
+// CARE DELIVERY MODELS
+// ==========================================
+
+model ClientProfile {
+  id                    String                 @id @default(uuid())
+  userId                String                 @unique @map("user_id")
+  fullName              String                 @map("full_name")
+  dob                   DateTime?
+  addressLine1          String?                @map("address_line1")
+  addressLine2          String?                @map("address_line2")
+  city                  String?
+  province              String?
+  postalCode            String?                @map("postal_code")
+  lat                   Float?
+  lng                   Float?
+  emergencyName         String?                @map("emergency_contact_name")
+  emergencyPhone        String?                @map("emergency_contact_phone")
+  preferences           String?                @map("preferences_json")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  tenantId              String                 @map("tenant_id")
+  bookings              Booking[]
+  tenant                Tenant                 @relation(fields: [tenantId], references: [id])
+  user                  User                   @relation(fields: [userId], references: [id])
+  DailyEntry            DailyEntry[]
+  invoices              Invoice[]
+  messageThreads        MessageThread[]
+  visits                Visit[]
+  feedbacks             Feedback[]
+  franchise             Franchise?             @relation(fields: [franchiseId], references: [id])
+  franchiseId           String?                @map("franchise_id")
+  inventoryItems        InventoryItem[]
+  purchaseOrders        PurchaseOrder[]
+  telehealthSessions    TelehealthSession[]
+  vitalSigns            VitalSign[]
+  patientAlerts         PatientAlert[]
+  claims                Claim[]
+  prescriptions         Prescription[]
+  marEntries            MAR_Entry[]
+  carePlans             CarePlan[]
+  assessments           ClinicalAssessment[]
+  medicationRecons      MedicationRecon[]
+  waitlistEntries       WaitlistEntry[]
+  familyNotifications   FamilyNotification[]
+  careFeedbacks         CareFeedback[]
+  bookingRequests       BookingRequest[]
+  serviceAuthorizations ServiceAuthorization[]
+  consentForms          ConsentForm[]
+  familyMembers         FamilyMember[]
+
+  @@index([tenantId])
+  @@map("client_profiles")
+}
+
+model PswProfile {
+  id                 String                 @id @default(uuid())
+  userId             String                 @unique @map("user_id")
+  fullName           String                 @map("full_name")
+  bio                String?
+  languages          String
+  serviceAreas       String                 @map("service_areas")
+  availabilityString String?                @map("availability_json")
+  isApproved         Boolean                @default(false) @map("is_approved")
+  approvedAt         DateTime?              @map("approved_at")
+  createdAt          DateTime               @default(now()) @map("created_at")
+  tenantId           String                 @map("tenant_id")
+  address            String?
+  avatarUrl          String?                @map("avatar_url")
+  skills             String
+  messageThreads     MessageThread[]        @relation("PswToThreads")
+  availability       PswAvailability[]      @relation("PswToAvailability")
+  documents          PswDocument[]          @relation("PswToDocuments")
+  tenant             Tenant                 @relation(fields: [tenantId], references: [id])
+  user               User                   @relation(fields: [userId], references: [id])
+  assignments        ShiftAssignment[]      @relation("PswToAssignments")
+  timesheets         Timesheet[]            @relation("PswToTimesheets")
+  checkEvents        VisitCheckEvent[]      @relation("PswToCheckEvents")
+  checklists         VisitChecklist[]       @relation("PswToChecklists")
+  notes              VisitNote[]            @relation("PswToNotes")
+  assignedVisits     Visit[]                @relation("PswToVisits")
+  handovers          ShiftHandover[]
+  overrides          AvailabilityOverride[]
+  payouts            Payout[]
+  fleetStatus        FleetStatus?
+  supervisionLogs    SupervisionLog[]
+  matches            VisitMatch[]           @relation("VisitMatches")
+  mileageLogs        MileageLog[]
+  performanceReviews PerformanceReview[]
+
+  @@index([tenantId])
+  @@map("psw_profiles")
+}
+
+model Visit {
+  id                  String             @id @default(uuid())
+  clientId            String             @map("client_id")
+  serviceId           String             @map("service_id")
+  requestedStartAt    DateTime           @map("requested_start_at")
+  durationMinutes     Int                @map("duration_minutes")
+  recurrenceRuleString String?           @map("recurrence_rule_string")
+  recurrenceEndDate    DateTime?         @map("recurrence_end_date")
+  status              String?            @default("requested")
+  assignedPswId       String?            @map("assigned_psw_id")
+  serviceAddressLine1 String?            @map("service_address_line1")
+  serviceAddressLine2 String?            @map("service_address_line2")
+  serviceCity         String?            @map("service_city")
+  serviceProvince     String?            @map("service_province")
+  servicePostalCode   String?            @map("service_postal_code")
+  serviceLat          Float?             @map("service_lat")
+  serviceLng          Float?             @map("service_lng")
+  clientNotes         String?            @map("client_notes")
+  coordinatorNotes    String?            @map("coordinator_notes")
+  cancellationReason  String?            @map("cancellation_reason")
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  tenantId            String             @map("tenant_id")
+  bookingId           String?            @map("booking_id")
+  crisisMode          Boolean?           @default(false) @map("crisis_mode")
+  priority            String?            @default("normal")
+  managementNotes     String?            @map("management_notes")
+  requiredSkills      String             @map("required_skills")
+  isSurgeActive       Boolean?           @default(false) @map("is_surge_active")
+  surgeMultiplier     Float?             @default(1.0) @map("surge_multiplier")
+  DailyEntry          DailyEntry[]
+  incidents           Incident[]
+  assignments         ShiftAssignment[]
+  timesheetItems      TimesheetItem[]
+  checkEvents         VisitCheckEvent[]
+  checklists          VisitChecklist[]
+  notes               VisitNote[]
+  feedbacks           Feedback[]
+  matches             VisitMatch[]
+  psw                 PswProfile?        @relation("PswToVisits", fields: [assignedPswId], references: [id])
+  booking             Booking?           @relation(fields: [bookingId], references: [id])
+  client              ClientProfile      @relation(fields: [clientId], references: [id])
+  service             Service            @relation(fields: [serviceId], references: [id])
+  tenant              Tenant             @relation(fields: [tenantId], references: [id])
+  handovers           ShiftHandover[]
+  careFeedbacks       CareFeedback[]
+  dailyAuditSignOff   DailyAuditSignOff?
+
+  @@index([tenantId])
+  @@map("visits")
+}
+
+model Service {
+  id                 String          @id @default(uuid())
+  name               String
+  slug               String          @unique
+  description        String?
+  baseRateHourly     Decimal?        @map("base_rate_hourly")
+  providerRateHourly Decimal?        @map("provider_rate_hourly")
+  isActive           Boolean?        @default(true) @map("is_active")
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+  tenantId           String          @map("tenant_id")
+  isFeatured         Boolean         @default(false) @map("is_featured")
+  tenant             Tenant          @relation(fields: [tenantId], references: [id])
+  visits             Visit[]
+  waitlistEntries    WaitlistEntry[]
+
+  @@index([tenantId])
+  @@map("services")
+}
+
+model VisitCheckEvent {
+  id                String     @id @default(uuid())
+  visitId           String     @map("visit_id")
+  pswId             String     @map("psw_id")
+  eventType         String     @map("event_type")
+  lat               Float?
+  lng               Float?
+  accuracyM         Float?     @map("accuracy_m")
+  computedDistanceM Float?     @map("computed_distance_m")
+  deviceTimeIso     DateTime?  @map("device_time_iso")
+  serverTime        DateTime?  @default(now()) @map("server_time")
+  result            String
+  rejectReason      String?    @map("reject_reason")
+  isOverride        Boolean?   @default(false) @map("is_override")
+  overrideByUserId  String?    @map("override_by_user_id")
+  overrideReason    String?    @map("override_reason")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  tenantId          String     @map("tenant_id")
+  overriddenBy      User?      @relation(fields: [overrideByUserId], references: [id])
+  pswProfile        PswProfile @relation("PswToCheckEvents", fields: [pswId], references: [id])
+  tenant            Tenant     @relation(fields: [tenantId], references: [id])
+  visit             Visit      @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("visit_check_events")
+}
+
+model VisitNote {
+  id        String     @id @default(uuid())
+  visitId   String     @map("visit_id")
+  pswId     String     @map("psw_id")
+  noteText  String     @map("note_text")
+  createdAt DateTime   @default(now()) @map("created_at")
+  psw       PswProfile @relation("PswToNotes", fields: [pswId], references: [id])
+  visit     Visit      @relation(fields: [visitId], references: [id])
+
+  @@map("visit_notes")
+}
+
+model VisitChecklist {
+  id              String     @id @default(uuid())
+  visitId         String     @map("visit_id")
+  pswId           String     @map("psw_id")
+  checklistString String     @map("checklist_json")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  psw             PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
+  visit           Visit      @relation(fields: [visitId], references: [id])
+
+  @@map("visit_checklists")
+}
+
+model Incident {
+  id              String    @id @default(uuid())
+  visitId         String?   @map("visit_id")
+  reporterUserId  String    @map("reporter_user_id")
+  type            String
+  description     String
+  status          String?   @default("open")
+  resolutionNotes String?   @map("resolution_notes")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  tenantId        String    @map("tenant_id")
+  severity        String?   @default("medium") // low, medium, high, critical
+  reportedAt      DateTime? @map("reported_at")
+  acknowledgedAt  DateTime? @map("acknowledged_at")
+  acknowledgedBy  String?   @map("acknowledged_by")
+  acknowledger    User?     @relation("Acknowledger", fields: [acknowledgedBy], references: [id])
+  reporter        User      @relation("Reporter", fields: [reporterUserId], references: [id])
+  tenant          Tenant    @relation(fields: [tenantId], references: [id])
+  visit           Visit?    @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("incidents")
+}
+
+model DailyEntry {
+  id         String        @id @default(uuid())
+  tenantId   String        @map("tenant_id")
+  clientId   String        @map("client_id")
+  staffId    String        @map("staff_id")
+  visitId    String?       @map("visit_id")
+  adlData    String        @map("adl_data")
+  medication String?
+  mood       Int?
+  vitals     String?
+  notes      String?
+  signature  String?
+  status     String        @default("DRAFT")
+  createdAt  DateTime      @default(now()) @map("created_at")
+  updatedAt  DateTime      @updatedAt @map("updated_at")
+  client     ClientProfile @relation(fields: [clientId], references: [id])
+  staff      User          @relation(fields: [staffId], references: [id])
+  tenant     Tenant        @relation(fields: [tenantId], references: [id])
+  visit      Visit?        @relation(fields: [visitId], references: [id])
+
+  @@index([tenantId])
+  @@map("daily_entries")
+}
+
+model Booking {
+  id             String        @id @default(uuid())
+  clientId       String        @map("client_id")
+  branchId       String?       @map("branch_id")
+  startAt        DateTime      @map("start_at")
+  endAt          DateTime      @map("end_at")
+  serviceType    String        @map("service_type")
+  priority       String        @default("normal")
+  notes          String?
+  status         String        @default("pending")
+  recurrenceRule String?       @map("recurrence_rule")
+  tenantId       String        @map("tenant_id")
+  client         ClientProfile @relation(fields: [clientId], references: [id])
+  tenant         Tenant        @relation(fields: [tenantId], references: [id])
+  visits         Visit[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@map("bookings")
+}
+
+model PswAvailability {
+  id        String     @id @default(uuid())
+  pswId     String     @map("psw_id")
+  dayOfWeek Int        @map("day_of_week")
+  startTime String     @map("start_time")
+  endTime   String     @map("end_time")
+  tenantId  String     @map("tenant_id")
+  psw       PswProfile @relation("PswToAvailability", fields: [pswId], references: [id])
+  tenant    Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("psw_availability")
+}
+
+model PswDocument {
+  id         String     @id @default(uuid())
+  pswId      String     @map("psw_id")
+  docType    String     @map("doc_type")
+  fileKey    String     @map("file_key")
+  status     String?    @default("pending")
+  expiryDate DateTime?  @map("expiry_date")
+  verifiedBy String?    @map("verified_by")
+  verifiedAt DateTime?  @map("verified_at")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+  psw        PswProfile @relation("PswToDocuments", fields: [pswId], references: [id])
+  verifier   User?      @relation("VerifiedBy", fields: [verifiedBy], references: [id])
+
+  @@map("psw_documents")
+}

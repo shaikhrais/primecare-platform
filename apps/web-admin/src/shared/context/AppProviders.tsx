@@ -1,0 +1,52 @@
+/**
+ * AppProviders — Composite Provider Component
+ *
+ * Consolidates all application-level providers into a single wrapper to:
+ *  1. Eliminate "provider hell" (8-deep nesting in App.tsx)
+ *  2. Enforce correct dependency ordering
+ *  3. Provide a single source of truth for provider composition
+ *
+ * Dependency order (outermost → innermost):
+ *  ErrorBoundary → QueryProvider → NotificationProvider →
+ *  OfflineSyncProvider → NotificationCenterProvider →
+ *  BrowserRouter → CommandPaletteWrapper
+ *
+ * NOTE: NotificationCenterProvider must be INSIDE NotificationProvider
+ * because OfflineSyncProvider depends on useNotification() for toast feedback.
+ */
+import React, { ReactNode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { ErrorBoundary } from '../components/ErrorBoundary';
+import { QueryProvider } from './QueryProvider';
+import { NotificationProvider } from './NotificationContext';
+import { OfflineSyncProvider } from './OfflineSyncContext';
+import { NotificationCenterProvider } from './NotificationCenterContext';
+import { CommandPaletteWrapper } from '../components/CommandPaletteWrapper';
+import { NetworkStatusBanner } from '../components/ui/NetworkStatusBanner';
+import CookieConsent from '../components/ui/CookieConsent';
+
+interface AppProvidersProps {
+    children: ReactNode;
+}
+
+export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
+    <ErrorBoundary>
+        <QueryProvider>
+            <NotificationProvider>
+                <OfflineSyncProvider>
+                    <NotificationCenterProvider>
+                        <NetworkStatusBanner />
+                        <CookieConsent />
+                        <BrowserRouter>
+                            <CommandPaletteWrapper>
+                                {children}
+                            </CommandPaletteWrapper>
+                        </BrowserRouter>
+                    </NotificationCenterProvider>
+                </OfflineSyncProvider>
+            </NotificationProvider>
+        </QueryProvider>
+    </ErrorBoundary>
+);
+
+export default AppProviders;

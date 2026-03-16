@@ -1,9 +1,11 @@
 /**
  * Design System (PrimeCare) — Barrel Export
  *
- * Import from: '@/shared/components/design-system'
+ * Components are now sourced from @primecare/ui-kit.
+ * This barrel preserves backward compatibility:
+ *   import { StatusBadge } from '@/shared/components/design-system';
  */
 
-export { LoadingSkeleton } from './LoadingSkeleton';
-export { StatusBadge } from './StatusBadge';
-export { DataCard } from './DataCard';
+export { LoadingSkeleton } from '@primecare/ui-kit';
+export { StatusBadge } from '@primecare/ui-kit';
+export { DataCard } from '@primecare/ui-kit';

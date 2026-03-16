@@ -41,7 +41,11 @@ registerErrorHandler(app);
 // 2. Public routes: health, branding, stats, leads, registries (extracted)
 registerPublicRoutes(app);
 
-// 3. Middlewares
+// 3. OpenAPI Documentation (before middlewares so /openapi.json is publicly accessible)
+app.doc('/openapi.json', { openapi: '3.0.0', info: { title: 'PrimeCare Worker API', version: '1.0.0', description: 'Comprehensive API for the PrimeCare home healthcare platform. 375+ endpoints across Admin, Manager, Coordinator, PSW, RN, Client, Staff, and System domains.' } });
+app.get('/doc', swaggerUI({ url: '/openapi.json' }));
+
+// 4. Middlewares
 app.use('*', correlationId());
 app.use('*', requestLogger());
 app.use('*', rateLimiter());
@@ -54,9 +58,6 @@ app.use('*', sanitizeInput());
 app.use('*', sessionTimeout());
 app.use('*', async (c, next) => { await next(); c.header('X-API-Version', '1.0.0'); });
 
-// 4. OpenAPI Documentation
-app.doc('/openapi.json', { openapi: '3.0.0', info: { title: 'PrimeCare Worker API', version: '1.0.0', description: 'Comprehensive API for the PrimeCare home healthcare platform. 375+ endpoints across Admin, Manager, Coordinator, PSW, RN, Client, Staff, and System domains.' } });
-app.get('/doc', swaggerUI({ url: '/openapi.json' }));
 
 // 5. Mount Modules
 app.route('/v1/auth', authModule);
