@@ -6,6 +6,7 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { AdminRegistry } from 'prime-care-shared';
 import { Bindings, Variables } from './bindings';
+import { captureWorkerException } from './_shared/middleware/sentry';
 
 const { CorsRegistry } = AdminRegistry;
 const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
@@ -28,14 +29,16 @@ export function registerCorsMiddleware(app: AppType) {
 export function registerErrorHandler(app: AppType) {
     app.onError((err, c) => {
         // Structured JSON logging for observability
+        const correlationId = c.req.header('X-Correlation-ID') || 'unknown';
+        const tenantId = c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id') || 'unknown';
         const structuredLog = {
             level: 'error',
             timestamp: new Date().toISOString(),
-            correlationId: c.req.header('X-Correlation-ID') || 'unknown',
+            correlationId,
             path: c.req.path,
             method: c.req.method,
             userAgent: c.req.header('User-Agent')?.substring(0, 100) || 'unknown',
-            tenantId: c.req.header('X-Tenant-ID') || c.req.header('x-tenant-id') || 'unknown',
+            tenantId,
             error: {
                 name: err?.name || 'UnknownError',
                 message: err?.message || 'No error message',
@@ -43,6 +46,9 @@ export function registerErrorHandler(app: AppType) {
             },
         };
         console.error(JSON.stringify(structuredLog));
+
+        // Report to Sentry with request context
+        captureWorkerException(err, { path: c.req.path, method: c.req.method, correlationId, tenantId });
 
         const origin = c.req.header('Origin'); const allowed = CORS_ORIGINS;
         const isPreview = origin && CORS_PREVIEW_RE.test(origin);

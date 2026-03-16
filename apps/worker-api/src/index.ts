@@ -31,6 +31,7 @@ export { ChatServer, RealtimeSync };
 // Extracted sub-modules
 import { registerCorsMiddleware, registerErrorHandler, createFetchWrapper } from './cors-wrapper';
 import { registerPublicRoutes } from './public-routes';
+import { withSentryWorker } from './_shared/middleware/sentry';
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -76,5 +77,5 @@ app.route('/v1/cron', cronRoutes);
 app.use('/v1/debug/*', async (c, next) => { const env = c.env?.ENVIRONMENT || 'development'; if (env === 'production') return c.json({ error: 'Debug routes disabled in production' }, 403); return await next(); });
 app.route('/v1/debug', debugModule);
 
-// 6. Export with CORS wrapper (extracted)
-export default createFetchWrapper(app);
+// 6. Export with CORS wrapper + Sentry (extracted)
+export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);

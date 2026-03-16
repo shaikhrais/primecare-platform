@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteCompression from 'vite-plugin-compression'
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 import { resolve } from 'path'
 
@@ -20,6 +21,13 @@ export default defineConfig({
       ext: '.gz',
       threshold: 1024,
     }),
+    // Sentry source map upload (only during production build with auth token)
+    sentryVitePlugin({
+      org: process.env.SENTRY_ORG || '',
+      project: process.env.SENTRY_PROJECT || 'web-admin',
+      authToken: process.env.SENTRY_AUTH_TOKEN || '',
+      disable: !process.env.SENTRY_AUTH_TOKEN,
+    }),
   ],
   resolve: {
     alias: {
@@ -33,7 +41,7 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 400, // Stricter to catch regressions
-    sourcemap: false,
+    sourcemap: 'hidden',  // Generates source maps for Sentry but doesn't expose them
     cssCodeSplit: true,
     minify: 'esbuild',
     target: 'es2020',

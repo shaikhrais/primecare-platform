@@ -25,6 +25,7 @@
         "@prisma/adapter-pg": "5.22.0",
         "@prisma/client": "5.22.0",
         "@prisma/extension-accelerate": "^2.0.2",
+        "@sentry/cloudflare": "^10.43.0",
         "acorn-walk": "^8.3.4",
         "hono": "4.12.3",
         "pg": "8.11.3",
