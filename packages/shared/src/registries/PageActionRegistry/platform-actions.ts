@@ -28,4 +28,10 @@ export const PLATFORM_ACTIONS: Record<string, PageActions> = {
     'superuser.dashboard': { primary: 'btn-sup-health-refresh', actions: ['btn-sup-policy-push', 'btn-superuser-risk-scan', 'btn-superuser-tenant-new'] },
     // Scrum Master
     'scrum-master.dashboard': { primary: 'btn-sm-universal-sweep', actions: ['btn-sm-auto-fix', 'btn-sm-flush-audits', 'btn-sm-db-reseed', 'btn-sm-build-deploy', 'btn-sm-scan-security'] },
+    // Premium Pages
+    'admin.ai-command': { primary: 'lnk-admin-ai-command', actions: [] },
+    'admin.multi-currency': { primary: 'lnk-admin-multi-currency', actions: [] },
+    'admin.audit-trail': { primary: 'lnk-admin-audit-trail', actions: [] },
+    'admin.franchise': { primary: 'lnk-admin-franchise', actions: [] },
+    'admin.supply-chain': { primary: 'lnk-admin-supply-chain', actions: [] },
 };

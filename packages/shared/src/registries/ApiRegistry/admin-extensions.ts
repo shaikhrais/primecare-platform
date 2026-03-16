@@ -111,4 +111,33 @@ export const ADMIN_DOMAIN_EXTENSIONS = {
         AI_INFERENCES: '/v1/admin/system-data/ai-inferences',
         COMMUNICATION_LOGS: '/v1/admin/system-data/communication-logs',
     },
+    // Premium features (Sprint 3-6)
+    AI_COMMAND: {
+        DASHBOARD: '/v1/admin/ai-command',
+        MODELS: '/v1/admin/ai-command/models',
+        INFERENCES: '/v1/admin/ai-command/inferences',
+        CONFIG: '/v1/admin/ai-command/config',
+    },
+    MULTI_CURRENCY: {
+        SETTINGS: '/v1/admin/finance/multi-currency',
+        EXCHANGE_RATES: '/v1/admin/finance/multi-currency/rates',
+        CONVERSIONS: '/v1/admin/finance/multi-currency/conversions',
+    },
+    AUDIT_TRAIL: {
+        LIST: '/v1/admin/audit-trail',
+        DETAIL: (id: string) => `/v1/admin/audit-trail/${id}`,
+        EXPORT: '/v1/admin/audit-trail/export',
+    },
+    FRANCHISE: {
+        LIST: '/v1/admin/franchise',
+        CREATE: '/v1/admin/franchise',
+        DETAIL: (id: string) => `/v1/admin/franchise/${id}`,
+        PERFORMANCE: '/v1/admin/franchise/performance',
+    },
+    SUPPLY_CHAIN: {
+        LIST: '/v1/admin/supply-chain',
+        VENDORS: '/v1/admin/supply-chain/vendors',
+        PURCHASE_ORDERS: '/v1/admin/supply-chain/purchase-orders',
+        INVENTORY_SYNC: '/v1/admin/supply-chain/inventory/sync',
+    },
 } as const;

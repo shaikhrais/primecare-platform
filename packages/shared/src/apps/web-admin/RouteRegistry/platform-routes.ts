@@ -138,6 +138,12 @@ export const PLATFORM_ROUTES = {
         CRON_DASHBOARD: '/platform/admin/cron-dashboard',
         FORM_REGISTRY: '/platform/admin/form-registry',
         PAGE_REGISTRY: '/platform/admin/page-registry',
+        // Premium features
+        AI_COMMAND: '/platform/admin/ai-command',
+        MULTI_CURRENCY: '/platform/admin/multi-currency',
+        AUDIT_TRAIL: '/platform/admin/audit-trail',
+        FRANCHISE: '/platform/admin/franchise',
+        SUPPLY_CHAIN: '/platform/admin/supply-chain',
     },
     SUPERUSER: {
         DASHBOARD: '/platform',

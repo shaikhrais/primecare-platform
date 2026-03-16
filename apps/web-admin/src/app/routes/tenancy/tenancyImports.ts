@@ -88,3 +88,12 @@ export const FleetManagement = lazy(() => import('./coordinator/pages/fleet/T40-
 export const ShiftSwap = lazy(() => import('./coordinator/pages/shift-swap/T41-ShiftSwap'));
 export const TreatmentList = lazy(() => import('./allied-health/pages/treatments/L21-TreatmentList'));
 export const SignOff = lazy(() => import('./allied-health/pages/sign-off/T42-SignOff'));
+
+// ── NEW PREMIUM PAGES (Session Sprint 3-6) ──
+export const GamificationHub = lazy(() => import('./manager/pages/engagement/H19-GamificationHub'));
+export const IoTMonitoring = lazy(() => import('./manager/pages/iot/H20-IoTMonitoring'));
+export const DocumentSigningCenter = lazy(() => import('./manager/pages/documents/H21-DocumentSigningCenter'));
+export const SMSHub = lazy(() => import('../platform/admin/pages/communications/H22-SMSHub'));
+export const PerformanceReviews = lazy(() => import('./manager/pages/hr/L15-PerformanceReviews'));
+export const TrainingAcademy = lazy(() => import('./manager/pages/training/H24-TrainingAcademy'));
+export const PswUserGuide = lazy(() => import('./psw/pages/guide/G1-PswUserGuide'));

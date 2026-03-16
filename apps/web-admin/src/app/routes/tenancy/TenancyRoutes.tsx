@@ -27,6 +27,9 @@ import {
     MedicalSummary, FamilyPortal, MarDashboard, MarClient, WoundCareDashboard,
     WoundCareClient, RaiAssessments, RaiAssessmentDetail, MileageTracker,
     PswTrainingHub, FleetManagement, ShiftSwap, TreatmentList, SignOff,
+    // NEW PREMIUM PAGES
+    GamificationHub, IoTMonitoring, DocumentSigningCenter, SMSHub,
+    PerformanceReviews, TrainingAcademy, PswUserGuide,
 } from './tenancyImports';
 
 const { RouteRegistry } = AdminRegistry;
@@ -48,6 +51,13 @@ export const TenancyRoutes = () => (
             <Route path="service-review" element={<ServiceReview />} />
             <Route path="daily-entry" element={<DailyEntry />} />
             <Route path="team" element={<UserList />} />
+            {/* NEW PREMIUM PAGES */}
+            <Route path="gamification" element={<GamificationHub />} />
+            <Route path="iot-monitoring" element={<IoTMonitoring />} />
+            <Route path="document-signing" element={<DocumentSigningCenter />} />
+            <Route path="sms-hub" element={<SMSHub />} />
+            <Route path="performance-reviews" element={<PerformanceReviews />} />
+            <Route path="training-academy" element={<TrainingAcademy />} />
         </Route>
 
         {/* MARKETING PORTAL */}
@@ -96,6 +106,7 @@ export const TenancyRoutes = () => (
             <Route path="check-in/:id" element={<CheckInScreen />} />
             <Route path="handover" element={<PswHandover />} />
             <Route path="payouts" element={<PswPayoutHistory />} />
+            <Route path="guide" element={<PswUserGuide />} />
         </Route>
 
         {/* RN PORTAL */}

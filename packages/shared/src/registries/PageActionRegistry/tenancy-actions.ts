@@ -32,4 +32,12 @@ export const TENANCY_ACTIONS: Record<string, PageActions> = {
     'staff.dashboard': { primary: 'btn-staff-task-add', actions: ['btn-staff-compliance-scan'] },
     // Allied Health
     'allied.dashboard': { primary: 'btn-allied-sign-visit', actions: [] },
+    // Premium Pages
+    'manager.gamification': { primary: 'lnk-mgr-gamification', actions: [] },
+    'manager.iot-monitoring': { primary: 'lnk-mgr-iot', actions: [] },
+    'manager.document-signing': { primary: 'lnk-mgr-doc-signing', actions: [] },
+    'manager.sms-hub': { primary: 'lnk-mgr-sms-hub', actions: [] },
+    'manager.performance-reviews': { primary: 'lnk-mgr-perf-reviews', actions: [] },
+    'manager.training-academy': { primary: 'lnk-mgr-training-academy', actions: [] },
+    'psw.guide': { primary: 'lnk-psw-guide', actions: [] },
 };

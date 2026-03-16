@@ -22,6 +22,23 @@ export const TENANCY = {
         TRAINING_ASSIGN: '/v1/manager/training/assign',
         TRAINING_COMPLIANCE: '/v1/manager/training/compliance',
         TRAINING_MODULES: '/v1/manager/training/modules',
+        // Premium features
+        GAMIFICATION: '/v1/manager/gamification',
+        GAMIFICATION_LEADERBOARD: '/v1/manager/gamification/leaderboard',
+        GAMIFICATION_REWARDS: '/v1/manager/gamification/rewards',
+        IOT_EVENTS: '/v1/manager/iot/events',
+        IOT_DEVICES: '/v1/manager/iot/devices',
+        IOT_ALERTS: '/v1/manager/iot/alerts',
+        DOCUMENT_SIGNING: '/v1/manager/documents/signing',
+        DOCUMENT_SIGNING_REQUESTS: '/v1/manager/documents/signing/requests',
+        SMS_HUB: '/v1/manager/communications/sms',
+        SMS_CAMPAIGNS: '/v1/manager/communications/sms/campaigns',
+        SMS_LOGS: '/v1/manager/communications/sms/logs',
+        PERFORMANCE_REVIEWS: '/v1/manager/hr/performance-reviews',
+        PERFORMANCE_REVIEW_DETAIL: (id: string) => `/v1/manager/hr/performance-reviews/${id}`,
+        TRAINING_ACADEMY: '/v1/manager/training/academy',
+        TRAINING_ACADEMY_MODULES: '/v1/manager/training/academy/modules',
+        TRAINING_ACADEMY_PROGRESS: '/v1/manager/training/academy/progress',
     },
     CLIENT: {
         BOOKINGS: '/v1/client/bookings',
@@ -77,6 +94,8 @@ export const TENANCY = {
         TRAINING_COMPLETE: (id: string) => `/v1/psw/training/${id}/complete`,
         // Round 3 Extensions
         SOS_TRIGGER: '/v1/psw/sos/trigger',
+        // Premium features
+        GUIDE: '/v1/psw/guide',
     },
     RN: {
         DASHBOARD_STATS: '/v1/rn/dashboard/stats',

@@ -21,7 +21,12 @@ export const navContent = {
             INTEROP: 'Electronic Health Link',
             LOCATIONS: 'Branch Mapping',
             LOGISTICS: 'Logistics Hub',
-            REGIONS: 'Region Mapping'
+            REGIONS: 'Region Mapping',
+            AI_COMMAND: 'AI Command Center',
+            MULTI_CURRENCY: 'Multi-Currency Settings',
+            AUDIT_TRAIL: 'Audit Trail Viewer',
+            FRANCHISE: 'Franchise Management',
+            SUPPLY_CHAIN: 'Supply Chain Management'
         },
         SCRUM_MASTER: {
             API_HUB: 'API Integrity Hub',
@@ -45,7 +50,13 @@ export const navContent = {
             DASHBOARD: 'Branch Dashboard',
             AGENCY_HUB: 'Agency Operations Hub',
             FINANCIALS: 'Branch Financials',
-            TEAM: 'Branch Team'
+            TEAM: 'Branch Team',
+            GAMIFICATION: 'Gamification Hub',
+            IOT_MONITORING: 'IoT Monitoring',
+            DOCUMENT_SIGNING: 'Document Signing Center',
+            SMS_HUB: 'SMS Command Center',
+            PERFORMANCE_REVIEWS: 'Staff Performance Reviews',
+            TRAINING_ACADEMY: 'Training Academy'
         },
         COORDINATOR: {
             HUB: 'Dispatch Center',
@@ -61,7 +72,8 @@ export const navContent = {
             AVAILABILITY: 'Availability Overrides',
             EARNINGS: 'Earnings & Payouts',
             LIVE_VISIT: 'Live Visit Center',
-            MY_AVAILABILITY: 'My Availability'
+            MY_AVAILABILITY: 'My Availability',
+            GUIDE: 'PSW User Guide'
         },
         RN: {
             SUPERVISION: 'Supervision Hub',

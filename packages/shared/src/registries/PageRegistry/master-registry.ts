@@ -184,4 +184,17 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     T47: { file: 'apps/web-admin/src/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit.tsx', label: 'Response Bot Audit', type: 'tool', owner: 'scrum-master', associates: ['T7'] },
     G1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx',        label: 'Form Registry',     type: 'registry', owner: 'admin', associates: ['G2', 'D2'] },
     G2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx',        label: 'Page Registry',     type: 'registry', owner: 'admin', associates: ['G1', 'D2'] },
+    // ── Premium Pages (Sprint 3-6) ──
+    H25: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/engagement/H19-GamificationHub.tsx',     label: 'Gamification Hub',     type: 'hub', owner: 'manager', associates: ['D7'] },
+    H26: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/iot/H20-IoTMonitoring.tsx',              label: 'IoT Monitoring',       type: 'hub', owner: 'manager', associates: ['D7'] },
+    H27: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/documents/H21-DocumentSigningCenter.tsx',label: 'Document Signing',     type: 'hub', owner: 'manager', associates: ['D7', 'H6'] },
+    H28: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/communications/H22-SMSHub.tsx',           label: 'SMS Hub',              type: 'hub', owner: 'manager', associates: ['D7'] },
+    H29: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/training/H24-TrainingAcademy.tsx',       label: 'Training Academy',     type: 'hub', owner: 'manager', associates: ['H11', 'D7'] },
+    L23: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/hr/L15-PerformanceReviews.tsx',          label: 'Performance Reviews',  type: 'list', owner: 'manager', associates: ['D7', 'T23'] },
+    G3:  { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/guide/G1-PswUserGuide.tsx',                  label: 'PSW User Guide',       type: 'hub', owner: 'psw', associates: ['D14'] },
+    D20: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/D7-AICommandCenter.tsx',               label: 'AI Command Center',    type: 'dashboard', owner: 'admin', associates: ['D5', 'T9'] },
+    S8:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/settings/S8-MultiCurrencySettings.tsx',   label: 'Multi-Currency',       type: 'settings', owner: 'admin', associates: ['T11'] },
+    L24: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/L16-AuditTrailViewer.tsx',       label: 'Audit Trail Viewer',   type: 'list', owner: 'admin', associates: ['L6', 'T10'] },
+    H30: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/franchise/H23-FranchiseManagement.tsx',   label: 'Franchise Management', type: 'hub', owner: 'admin', associates: ['D1'] },
+    L25: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/supply-chain/L14-SupplyChainManagement.tsx', label: 'Supply Chain',      type: 'list', owner: 'admin', associates: ['H4'] },
 };

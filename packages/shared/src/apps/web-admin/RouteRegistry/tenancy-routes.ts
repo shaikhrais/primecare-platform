@@ -19,6 +19,13 @@ export const TENANCY_ROUTES = {
         PORTFOLIO: '/tenancy/manager/portfolio',
         REVIEWS: '/tenancy/manager/reviews',
         REVIEW_KPI: (pswId: string) => `/tenancy/manager/reviews/kpi/${pswId}`,
+        // Premium features
+        GAMIFICATION: '/tenancy/manager/gamification',
+        IOT_MONITORING: '/tenancy/manager/iot-monitoring',
+        DOCUMENT_SIGNING: '/tenancy/manager/document-signing',
+        SMS_HUB: '/tenancy/manager/sms-hub',
+        PERFORMANCE_REVIEWS: '/tenancy/manager/performance-reviews',
+        TRAINING_ACADEMY: '/tenancy/manager/training-academy',
     },
     STAFF: {
         DASHBOARD: '/tenancy/staff',
@@ -46,6 +53,7 @@ export const TENANCY_ROUTES = {
         HANDOVER: '/tenancy/psw/handover',
         MILEAGE: '/tenancy/psw/mileage',
         TRAINING: '/tenancy/psw/training',
+        GUIDE: '/tenancy/psw/guide',
     },
     RN: {
         DASHBOARD: '/tenancy/rn',

@@ -106,6 +106,13 @@ const ThreatDetection = lazy(() => import('./pages/security/T58-ThreatDetection'
 const OperationsCenter = lazy(() => import('./pages/ops/D7-OperationsCenter'));
 const SupplyDemand = lazy(() => import('./pages/ops/T67-SupplyDemand'));
 
+// NEW PREMIUM PAGES (Session Sprint 3-6)
+const AICommandCenter = lazy(() => import('./pages/ai/D7-AICommandCenter'));
+const MultiCurrencySettings = lazy(() => import('./pages/settings/S8-MultiCurrencySettings'));
+const AuditTrailViewer = lazy(() => import('./pages/security/L16-AuditTrailViewer'));
+const FranchiseManagement = lazy(() => import('./pages/franchise/H23-FranchiseManagement'));
+const SupplyChainManagement = lazy(() => import('./pages/supply-chain/L14-SupplyChainManagement'));
+
 export const AdminRoutes = () => (
     <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
         <Route index element={<AdminDashboard />} />
@@ -200,5 +207,11 @@ export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.SECURITY.THREAT_DETECTION} element={<ThreatDetection />} />
         <Route path={RouteRegistry.ADMIN.OPERATIONS.CENTER} element={<OperationsCenter />} />
         <Route path={RouteRegistry.ADMIN.OPERATIONS.SUPPLY_DEMAND} element={<SupplyDemand />} />
+        {/* NEW PREMIUM PAGES */}
+        <Route path={RouteRegistry.ADMIN.AI_COMMAND} element={<AICommandCenter />} />
+        <Route path={RouteRegistry.ADMIN.MULTI_CURRENCY} element={<MultiCurrencySettings />} />
+        <Route path={RouteRegistry.ADMIN.AUDIT_TRAIL} element={<AuditTrailViewer />} />
+        <Route path={RouteRegistry.ADMIN.FRANCHISE} element={<FranchiseManagement />} />
+        <Route path={RouteRegistry.ADMIN.SUPPLY_CHAIN} element={<SupplyChainManagement />} />
     </Route>
 );

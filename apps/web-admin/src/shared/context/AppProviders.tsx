@@ -28,6 +28,7 @@ import { OfflineSyncProvider } from './OfflineSyncContext';
 import { NotificationCenterProvider } from './NotificationCenterContext';
 import { CommandPaletteWrapper } from '../components/CommandPaletteWrapper';
 import { OfflineBanner } from '../components/OfflineBanner';
+import { SkipNav } from '../components/a11y/AccessibilityPrimitives';
 import CookieConsent from '../components/ui/CookieConsent';
 import { registerServiceWorker } from '../services/sw-bridge';
 
@@ -49,6 +50,7 @@ const SWRegistrar: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
     <ErrorBoundary>
+        <SkipNav />
         <AuthProvider>
             <ThemeProvider>
                 <QueryProvider>
