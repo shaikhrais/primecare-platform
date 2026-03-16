@@ -120,13 +120,22 @@ export default defineConfig({
           if (id.includes('/routes/tenancy/coordinator/')) return 'role-coordinator';
           if (id.includes('/routes/tenancy/manager/')) return 'role-manager';
           if (id.includes('/routes/tenancy/staff/')) return 'role-staff';
-          if (id.includes('/routes/platform/scrum-master/')) return 'role-scrum-master';
+          if (id.includes('/routes/platform/scrum-master/')) {
+            if (id.includes('/audit/') || id.includes('Audit') || id.includes('Integrity')) return 'scrum-audit';
+            if (id.includes('/developer') || id.includes('/dev-kb')) return 'scrum-developer';
+            return 'role-scrum-master';
+          }
 
-          // ── Admin: Split into sub-domains to break the 647KB chunk ──
+          // ── Admin: Split into sub-domains for granular lazy loading ──
           if (id.includes('/routes/platform/admin/')) {
             if (id.includes('/finance/') || id.includes('Finance') || id.includes('Ledger') || id.includes('Invoice')) return 'admin-finance';
             if (id.includes('/compliance/') || id.includes('Compliance') || id.includes('Audit')) return 'admin-compliance';
             if (id.includes('/analytics/') || id.includes('Analytics') || id.includes('Dashboard') || id.includes('Stats')) return 'admin-analytics';
+            if (id.includes('/security/') || id.includes('Security') || id.includes('Forensic') || id.includes('Cors') || id.includes('Permission') || id.includes('Session') || id.includes('Threat') || id.includes('Integrity')) return 'admin-security';
+            if (id.includes('/setup/') || id.includes('Wizard') || id.includes('Onboarding')) return 'admin-setup';
+            if (id.includes('/ai/') || id.includes('/insights/') || id.includes('Clinical')) return 'admin-ai';
+            if (id.includes('/erp/') || id.includes('/telehealth/') || id.includes('/rcm/') || id.includes('/pharmacy/') || id.includes('/evv/')) return 'admin-healthcare';
+            if (id.includes('/ops/') || id.includes('/authorizations/') || id.includes('/consent/') || id.includes('/referrals/') || id.includes('/claims/') || id.includes('/webhooks/')) return 'admin-operations';
             return 'admin-core';
           }
         },
