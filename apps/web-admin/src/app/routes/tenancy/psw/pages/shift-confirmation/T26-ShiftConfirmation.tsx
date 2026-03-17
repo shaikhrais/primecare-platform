@@ -1,48 +1,16 @@
-// ================================================================
-// PAGE IDENTITY: T26 � Shift Confirmation
-// Type: Tool | Owner: psw
-// ================================================================
-import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { useToast as useNotification } from '@/shared/hooks/useToast';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function ShiftConfirmation() {
-    const navigate = useNavigate();
-    const { showToast } = useNotification();
-
-    const handleAccept = () => {
-        showToast('Shift accepted!', 'success');
-        navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
-    };
-
-    const handleDecline = () => {
-        showToast('Shift declined', 'info');
-        navigate(AdminRegistry.RouteRegistry.PSW.SCHEDULE);
-    };
-
     return (
-        <div role="main" aria-label="Shift Confirm" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem' }} data-cy="form.shiftConfirmation.page">
-            <div style={{ backgroundColor: 'white', padding: '2.5rem', borderRadius: '1.5rem', border: '1px solid #e5e7eb', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }} data-cy="page.title">New Shift Available</h2>
-                <p style={{ color: '#6b7280', marginBottom: '2rem' }} data-cy="page.subtitle">You have been assigned a new visit for Client Sarah Miller tomorrow at 9:00 AM.</p>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <button
-                        data-cy="btn.shift.decline"
-                        onClick={handleDecline}
-                        style={{ flex: 1, padding: '1rem', borderRadius: '0.75rem', border: '1px solid #d1d5db', background: 'none', cursor: 'pointer', fontWeight: 600 }}
-                    >
-                        Decline
-                    </button>
-                    <button
-                        data-cy="btn.shift.accept"
-                        onClick={handleAccept}
-                        style={{ flex: 1, padding: '1rem', borderRadius: '0.75rem', background: '#004d40', color: 'white', border: 'none', cursor: 'pointer', fontWeight: 600 }}
-                    >
-                        Accept Shift
-                    </button>
-                </div>
-            </div>
-        </div>
+        <PageTemplate pageId="T26" title="Shift Confirmation" subtitle="Confirm, modify or cancel upcoming shift assignments"
+            sectionData={{
+                'T26.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }

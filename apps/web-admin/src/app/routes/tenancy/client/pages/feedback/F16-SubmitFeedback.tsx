@@ -1,32 +1,16 @@
-// ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F16 · Submit Feedback
-// Registry ID:   page.client.feedback
-// Type:          Form
-// Owner:         client
-// Route:         /tenancy/client/feedback
-// ═══════════════════════════════════════════════════════════════
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
-
-/**
- * [F16] Client Feedback Form — powered by centralized FormRegistry.
- */
 export default function FeedbackForm() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('client.feedback');
-    if (!formEntry) return null;
-
     return (
-        <div style={{ padding: '2rem' }} data-cy="page.container" role="main" aria-label="Submit Feedback">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.CLIENT.BOOKINGS)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F16" title="Submit Feedback" subtitle="Share feedback about your care experience"
+            sectionData={{
+                'F16.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }

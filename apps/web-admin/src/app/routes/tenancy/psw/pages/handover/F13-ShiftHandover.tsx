@@ -1,33 +1,16 @@
-// ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F13 · Shift Handover
-// Registry ID:   page.psw.handover
-// Type:          Form
-// Owner:         psw
-// Route:         /tenancy/psw/handover
-// ═══════════════════════════════════════════════════════════════
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
-import './HandoverPage.css';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
-
-/**
- * [F13] Shift Handover Form — powered by centralized FormRegistry.
- */
 export default function HandoverPage() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('psw.handover');
-    if (!formEntry) return null;
-
     return (
-        <div role="main" aria-label="Shift Handover" className="handover-page-container" data-cy="form.handover.page">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.PSW.DASHBOARD)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F13" title="Shift Handover" subtitle="Complete shift handover documentation and notes"
+            sectionData={{
+                'F13.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }

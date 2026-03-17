@@ -1,57 +1,16 @@
-// ================================================================
-// PAGE IDENTITY: T64 � Region Mapping
-// Type: Tool | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
-import { AdminRegistry , getButtonById } from 'prime-care-shared';
-import { useToast as useNotification } from '@/shared/hooks/useToast';
-import { useDialog } from '@/shared/hooks/useDialog';
-
-const { ButtonRegistry } = AdminRegistry;
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function RegionMapping() {
-    const { DialogRenderer } = useDialog();
-    const { showToast } = useNotification();
-    const [regions] = useState([
-        { id: '1', name: 'Downtown Central', city: 'Toronto', postalCodes: 'M5V, M5T, M5G', status: 'Active' },
-        { id: '2', name: 'North Suburbs', city: 'Richmond Hill', postalCodes: 'L4B, L4C', status: 'Active' },
-    ]);
-
     return (
-        <div data-cy="page.container" role="main" aria-label="Region Mapping" style={{ padding: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <div>
-                    <h1 data-cy="page.title" style={{ fontSize: '1.875rem', fontWeight: 'bold', color: '#111827' }}>Region Mapping</h1>
-                    <p style={{ color: '#6b7280' }}>Define and visualize operational geographic zones.</p>
-                </div>
-                <button
-                    className="btn secondary"
-                    onClick={async () => { const name = prompt('Enter region name:'); if (!name) return; try { const { apiClient } = await import('@/shared/utils/apiClient'); const res = await apiClient.post('/v1/admin/regions', { name }); if (res.ok) showToast('Region created: ' + name, 'success'); else showToast('Failed to create region', 'error'); } catch { showToast('Network error', 'error'); } }}
-                    data-cy="btn-adm-region-new"
-                >
-                    {getButtonById('btn-adm-region-new')?.label || 'Define New Region'}
-                </button>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.5rem' }}>
-                {regions.map(r => (
-                    <div key={r.id} className="pc-card" style={{ padding: '1.5rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                            <h3 data-cy="h3-admin.region-mapping-0" style={{ fontSize: '1.125rem', fontWeight: '600' }}>{r.name}</h3>
-                            <span style={{ fontSize: '0.75rem', color: '#059669', background: '#ecfdf5', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>{r.status}</span>
-                        </div>
-                        <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>{r.city}</p>
-                        <div style={{ background: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginBottom: '1.5rem' }}>
-                            <label style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase' }}>Postal Coverage</label>
-                            <p style={{ margin: '0.5rem 0 0', fontSize: '0.875rem', color: '#4b5563' }}>{r.postalCodes}</p>
-                        </div>
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button data-cy="btn-admin.region-mapping-1" className="btn outline small" style={{ flex: 1 }}>Edit Boundary</button>
-                            <button data-cy="btn-admin.region-mapping-2" className="btn outline small" style={{ flex: 1 }}>Assign Manager</button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+        <PageTemplate pageId="T64" title="Region Mapping" subtitle="Geographic region configuration and service area boundaries"
+            sectionData={{
+                'T64.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }

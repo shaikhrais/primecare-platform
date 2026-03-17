@@ -1,58 +1,16 @@
-// ================================================================
-// PAGE IDENTITY: D10 · Regional Stats
-// Type: Dashboard | Owner: manager
-// ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function RegionalStats() {
-    const [period, setPeriod] = useState('This Month');
     return (
-        <div data-cy="page.container" role="main" aria-label="Regional Stats" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <div>
-                    <h1 data-cy="page.title" style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🗺️ Regional Stats</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Real-time overview and key performance indicators</p>
-                </div>
-                <select data-cy="select-manager.regional-stats-0" value={period} onChange={e => setPeriod(e.target.value)} style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                    <option>Today</option><option>This Week</option><option>This Month</option><option>This Quarter</option>
-                </select>
-            </div>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 200px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Active Regions</div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A' }}>1,247</div>
-                        <div style={{ fontSize: '0.7rem', color: '#7C3AED', fontWeight: 600, marginTop: '4px' }}>↗ +12.5% vs last period</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 200px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Staff Count</div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A' }}>3,829</div>
-                        <div style={{ fontSize: '0.7rem', color: '#7C3AED', fontWeight: 600, marginTop: '4px' }}>↗ +12.5% vs last period</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 200px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Client Count</div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A' }}>94.2%</div>
-                        <div style={{ fontSize: '0.7rem', color: '#7C3AED', fontWeight: 600, marginTop: '4px' }}>↗ +12.5% vs last period</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 200px' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Revenue</div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0F172A' }}>856</div>
-                        <div style={{ fontSize: '0.7rem', color: '#7C3AED', fontWeight: 600, marginTop: '4px' }}>↗ +12.5% vs last period</div>
-                    </div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
-                <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                    <h3 data-cy="h3-manager.regional-stats-0" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Trend Overview</h3>
-                    <div style={{ height: '240px', background: 'linear-gradient(135deg, #7C3AED08 0%, #7C3AED15 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7C3AED', fontWeight: 600 }}>
-                        Chart Area
-                    </div>
-                </div>
-                <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                    <h3 data-cy="h3-manager.regional-stats-1" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Recent Activity</h3>
-                    {['2 min ago — New entry recorded', '15 min ago — Status updated', '1 hr ago — Report generated', '3 hrs ago — Alert resolved'].map((a, i) => (
-                        <div key={i} style={{ padding: '10px 0', borderBottom: i < 3 ? '1px solid #F1F5F9' : 'none', fontSize: '0.8rem', color: '#475569' }}>{a}</div>
-                    ))}
-                </div>
-            </div>
-        </div>
+        <PageTemplate pageId="D10" title="Regional Statistics" subtitle="Regional performance metrics and KPI comparisons"
+            sectionData={{
+                'D10.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }
