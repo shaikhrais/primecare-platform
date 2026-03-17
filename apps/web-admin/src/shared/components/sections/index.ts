@@ -18,15 +18,18 @@ export { SectionCalendar, type CalendarEvent } from './SectionCalendar';
 // ── Input ────────────────────────────────────────────────────────────────────
 export { SectionForm, type FormField } from './SectionForm';
 export { SectionActionBar, type ActionBarButton } from './SectionActionBar';
+export { SectionFilters, type FilterOption } from './SectionFilters';
 
 // ── Feedback ─────────────────────────────────────────────────────────────────
 export { SectionAlertPanel, type AlertItem } from './SectionAlertPanel';
 export { SectionFeed, type FeedItem } from './SectionFeed';
 export { SectionEmptyState } from './SectionEmptyState';
+export { SectionStatusCards, type StatusCardItem } from './SectionStatusCards';
 
 // ── Layout ───────────────────────────────────────────────────────────────────
 export { SectionHeader } from './SectionHeader';
 export { SectionTabs, type TabItem } from './SectionTabs';
+export { SectionBanner, type SectionBannerProps } from './SectionBanner';
 
 // ── Fallback ─────────────────────────────────────────────────────────────────
 export { SectionPlaceholder } from './SectionPlaceholder';

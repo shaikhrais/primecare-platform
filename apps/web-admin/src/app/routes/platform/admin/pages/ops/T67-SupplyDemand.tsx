@@ -1,41 +1,28 @@
-// ================================================================
-// PAGE IDENTITY: T67 · Supply and Demand
-// Type: Tool | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+// PAGE IDENTITY: T67 · Supply & Demand
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function SupplyDemand() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['Staff Supply','Client Demand','Gap Analysis','Forecast'];
     return (
-        <div role="main" aria-label="Supply & Demand" data-cy="T67-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📉 Supply and Demand</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.supply-demand-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #0369A1':'1px solid #E2E8F0', background: tab===i?'#0369A110':'white', color: tab===i?'#0369A1':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Staff Supply</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Client Demand</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Gap Analysis</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Forecast</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate pageId="T67" title="📊 Supply & Demand Analytics" subtitle="Staff capacity vs client demand — coverage gaps, forecasting & optimization"
+            sectionData={{
+                'T67.stats': { kpiCards: [
+                    { label: 'Supply (PSWs)', value: 82, color: 'var(--pc-primary)' },
+                    { label: 'Demand (Hrs/wk)', value: 3200, color: 'var(--pc-info, #2563EB)' },
+                    { label: 'Utilization', value: '87%', color: 'var(--pc-success)' },
+                    { label: 'Coverage Gaps', value: 4, color: 'var(--pc-warning)' },
+                ]},
+                'T67.supply': { chart: { title: 'Supply vs Demand (Weekly)', type: 'bar', data: [
+                    { label: 'Mon', value: 162, color: '#3B82F6' }, { label: 'Tue', value: 158, color: '#3B82F6' },
+                    { label: 'Wed', value: 148, color: '#F59E0B' }, { label: 'Thu', value: 155, color: '#3B82F6' },
+                    { label: 'Fri', value: 170, color: '#3B82F6' }, { label: 'Sat', value: 45, color: '#EF4444' },
+                    { label: 'Sun', value: 32, color: '#EF4444' },
+                ]}},
+                'T67.forecast': { chart: { title: 'Demand Forecast (Next 4 Weeks)', type: 'bar', data: [
+                    { label: 'Wk 12', value: 3200 }, { label: 'Wk 13', value: 3350 },
+                    { label: 'Wk 14', value: 3100 }, { label: 'Wk 15', value: 3400 },
+                ]}},
+            }}
+        />
     );
 }

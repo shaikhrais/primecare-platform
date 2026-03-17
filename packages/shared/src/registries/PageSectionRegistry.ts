@@ -14,6 +14,7 @@ export type SectionType =
     | 'header' | 'stats' | 'kpi-cards' | 'chart' | 'table'
     | 'list' | 'form' | 'tabs' | 'modal' | 'action-bar' | 'feed'
     | 'alert-panel' | 'map' | 'calendar' | 'wizard-step' | 'chat'
+    | 'banner' | 'status-cards' | 'filters'
     | 'empty-state' | 'skeleton' | 'custom';
 
 export interface PageSection {

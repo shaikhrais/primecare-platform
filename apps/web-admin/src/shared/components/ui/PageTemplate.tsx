@@ -29,6 +29,9 @@ import {
     SectionMap, type MapMarker,
     SectionCalendar, type CalendarEvent,
     SectionPlaceholder,
+    SectionBanner, type SectionBannerProps,
+    SectionStatusCards, type StatusCardItem,
+    SectionFilters, type FilterOption,
 } from '../sections';
 
 // ── Component Map (replaces switch statement) ────────────────────────────────
@@ -41,16 +44,19 @@ interface SectionMapEntry {
 }
 
 const SECTION_MAP: Partial<Record<SectionType, SectionMapEntry>> = {
-    'kpi-cards':    { component: SectionKpiCards,    dataKey: 'kpiCards' },
-    'stats':        { component: SectionKpiCards,    dataKey: 'kpiCards' },
-    'table':        { component: SectionTable,       dataKey: 'table' },
-    'chart':        { component: SectionChart,       dataKey: 'chart' },
-    'form':         { component: SectionForm,        dataKey: 'form' },
-    'feed':         { component: SectionFeed,        dataKey: 'feed' },
-    'alert-panel':  { component: SectionAlertPanel,  dataKey: 'alerts' },
-    'empty-state':  { component: SectionEmptyState,  dataKey: 'emptyState' },
-    'map':          { component: SectionMap,         dataKey: 'map' },
-    'calendar':     { component: SectionCalendar,    dataKey: 'calendar' },
+    'kpi-cards':      { component: SectionKpiCards,      dataKey: 'kpiCards' },
+    'stats':          { component: SectionKpiCards,      dataKey: 'kpiCards' },
+    'table':          { component: SectionTable,         dataKey: 'table' },
+    'chart':          { component: SectionChart,         dataKey: 'chart' },
+    'form':           { component: SectionForm,          dataKey: 'form' },
+    'feed':           { component: SectionFeed,          dataKey: 'feed' },
+    'alert-panel':    { component: SectionAlertPanel,    dataKey: 'alerts' },
+    'empty-state':    { component: SectionEmptyState,    dataKey: 'emptyState' },
+    'map':            { component: SectionMap,           dataKey: 'map' },
+    'calendar':       { component: SectionCalendar,      dataKey: 'calendar' },
+    'banner':         { component: SectionBanner,        dataKey: 'banner' },
+    'status-cards':   { component: SectionStatusCards,   dataKey: 'statusCards' },
+    'filters':        { component: SectionFilters,       dataKey: 'filters' },
 };
 
 // ── Data types for feeding sections ──────────────────────────────────────────
@@ -74,6 +80,11 @@ export interface SectionData {
     emptyState?: { icon?: string; title: string; description?: string; actionLabel?: string; onAction?: () => void };
     // Layout
     tabs?: { tabs: TabItem[]; activeTab: string; onTabChange: (id: string) => void };
+    banner?: SectionBannerProps;
+    // Filters
+    filters?: { searchPlaceholder?: string; filters?: FilterOption[] };
+    // Status
+    statusCards?: { items: StatusCardItem[] };
 }
 
 export interface PageTemplateProps {

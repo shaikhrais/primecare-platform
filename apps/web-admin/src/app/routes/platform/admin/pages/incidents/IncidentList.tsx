@@ -6,8 +6,28 @@ import { useTranslation } from 'react-i18next';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { fetchIncidents as apiFetchIncidents, resolveIncident, deleteIncident, filterIncidents } from './incidentHandlers';
 
-// Components
-import { IncidentResolutionModal } from './components/IncidentResolutionModal';
+// Inline modal — replaces deleted ./components/IncidentResolutionModal
+const IncidentResolutionModal: React.FC<{ isOpen: boolean; onClose: () => void; onResolve: (notes: string) => void; submitting: boolean }> = ({ isOpen, onClose, onResolve, submitting }) => {
+    const [notes, setNotes] = useState('');
+    if (!isOpen) return null;
+    return (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+            <div style={{ background: 'white', borderRadius: '1rem', padding: '2rem', width: 480, maxWidth: '90vw' }}>
+                <h3 style={{ margin: '0 0 1rem 0' }}>Resolve Incident</h3>
+                <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Resolution notes..." rows={4}
+                    style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', resize: 'vertical' }} />
+                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem', justifyContent: 'flex-end' }}>
+                    <button onClick={onClose} style={{ padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', background: 'white', cursor: 'pointer' }}>Cancel</button>
+                    <button onClick={() => onResolve(notes)} disabled={submitting}
+                        style={{ padding: '0.5rem 1rem', borderRadius: '0.5rem', border: 'none', background: '#00875A', color: 'white', fontWeight: 700, cursor: 'pointer' }}>
+                        {submitting ? 'Resolving...' : 'Resolve'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 import DangerModal from '@/shared/components/modals/DangerModal';
 
 const { ContentRegistry, RouteRegistry } = AdminRegistry;
