@@ -39,8 +39,8 @@ const Messaging = React.lazy(() => import('./routes/shared/pages/messaging'));
 const VisitDetails = React.lazy(() => import('./routes/shared/pages/visit-details'));
 const VisitCompletion = React.lazy(() => import('./routes/shared/pages/visit-completion'));
 const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training'));
-const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseIndex'));
-const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/KnowledgeBaseArticle'));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase'));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/T48-KBArticle'));
 const MarketingShowcase = React.lazy(() => import('./routes/shared/pages/MarketingShowcase'));
 const DevPreview = React.lazy(() => import('./routes/shared/pages/DevPreview'));
 
