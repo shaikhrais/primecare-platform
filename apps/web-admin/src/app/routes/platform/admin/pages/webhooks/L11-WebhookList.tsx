@@ -1,57 +1,32 @@
-// ================================================================
 // PAGE IDENTITY: L11 · Webhook List
-// Type: List | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+import type { TableColumn } from '@/shared/components/sections';
 
-const MOCK = Array.from({ length: 10 }, (_, i) => ({ id: i + 1 }));
+const webhooks = [
+    { id: 'WH-01', name: 'Slack Notifications', url: 'https://hooks.slack.com/...', events: 'visit.created, incident.*', status: '✅ Active', lastDelivery: '14:23' },
+    { id: 'WH-02', name: 'Billing Sync', url: 'https://billing.example.com/hooks', events: 'claim.submitted, payment.*', status: '✅ Active', lastDelivery: '13:45' },
+    { id: 'WH-03', name: 'EMR Integration', url: 'https://emr.example.com/api/events', events: 'patient.*, assessment.*', status: '⚠️ Failing', lastDelivery: 'Mar 14' },
+];
+
+const cols: TableColumn[] = [
+    { key: 'name', label: 'Webhook' }, { key: 'url', label: 'URL' },
+    { key: 'events', label: 'Events' }, { key: 'status', label: 'Status' },
+    { key: 'lastDelivery', label: 'Last Delivery' },
+];
 
 export default function WebhookList() {
-    const [search, setSearch] = useState('');
-    const [filter, setFilter] = useState('all');
     return (
-        <div role="main" aria-label="Webhook List" data-cy="L11-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🔗 Webhook List</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Manage and filter records</p>
-                </div>
-                <button data-cy="btn-admin.webhook-list-0" style={{ padding: '10px 20px', background: '#475569', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>+ Add New</button>
-            </div>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
-                <input data-cy="input-admin.webhook-list-0" type="text" placeholder="Search..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1, padding: '10px 16px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }} />
-                {['all','active','pending','closed'].map(s => (
-                    <button data-cy="btn-admin.webhook-list-1" key={s} onClick={() => setFilter(s)} style={{ padding: '8px 16px', borderRadius: '8px', border: filter === s ? '2px solid #475569' : '1px solid #E2E8F0', background: filter === s ? '#47556910' : 'white', color: filter === s ? '#475569' : '#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer', textTransform: 'capitalize' }}>{s}</button>
-                ))}
-            </div>
-            <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
-                <table data-cy="table-admin.webhook-list" style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead><tr style={{ background: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Endpoint</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Events</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Last Triggered</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Success Rate</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Created</th>
-                                <th style={{ padding: '12px 16px', textAlign: 'left', fontWeight: 700, color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase' }}>Status</th>
-                    </tr></thead>
-                    <tbody>{MOCK.map(r => (
-                        <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9', cursor: 'pointer' }} onMouseEnter={e => e.currentTarget.style.background='#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background='transparent'}>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                                    <td style={{ padding: '12px 16px', fontSize: '0.85rem', color: '#334155' }}>—</td>
-                        </tr>
-                    ))}</tbody>
-                </table>
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', borderTop: '1px solid #E2E8F0', fontSize: '0.8rem', color: '#64748B' }}>
-                    <span>Showing 1–10 of 48</span>
-                    <div style={{ display: 'flex', gap: '4px' }}>{[1,2,3,4].map(n => (
-                        <button data-cy="btn-admin.webhook-list-2" key={n} style={{ width: '32px', height: '32px', borderRadius: '6px', border: n===1? '2px solid #475569':'1px solid #E2E8F0', background: n===1?'#47556910':'white', cursor: 'pointer', fontWeight: n===1?700:400, color: n===1?'#475569':'#64748B' }}>{n}</button>
-                    ))}</div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate pageId="L11" title="🔗 Webhooks" subtitle="Outbound webhook endpoints, event subscriptions & delivery logs"
+            sectionData={{
+                'L11.stats': { kpiCards: [
+                    { label: 'Endpoints', value: 3, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 2, color: 'var(--pc-success)' },
+                    { label: 'Failing', value: 1, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Deliveries Today', value: 142, color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'L11.table': { table: { columns: cols, rows: webhooks } },
+            }}
+        />
     );
 }

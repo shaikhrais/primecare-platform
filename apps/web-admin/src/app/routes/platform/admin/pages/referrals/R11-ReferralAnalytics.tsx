@@ -1,51 +1,26 @@
-// ================================================================
 // PAGE IDENTITY: R11 · Referral Analytics
-// Type: Report | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function ReferralAnalytics() {
-    const [dateRange, setDateRange] = useState('last-30');
-    const [fmt, setFmt] = useState('pdf');
     return (
-        <div role="main" aria-label="Referral Analytics" data-cy="R11-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📊 Referral Analytics</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Generate and export reports</p>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <select data-cy="select-admin.referral-analytics-0" value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="last-7">Last 7 Days</option><option value="last-30">Last 30 Days</option><option value="last-90">Last 90 Days</option><option value="ytd">Year to Date</option>
-                    </select>
-                    <select data-cy="select-admin.referral-analytics-1" value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="pdf">PDF</option><option value="csv">CSV</option><option value="xlsx">Excel</option>
-                    </select>
-                    <button data-cy="btn-admin.referral-analytics-0" style={{ padding: '8px 20px', background: '#7C3AED', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
-                </div>
-            </div>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Total Referrals</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#7C3AED' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Conversion Rate</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#7C3AED' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Avg Time to Accept</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#7C3AED' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Top Sources</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#7C3AED' }}>—</div>
-                    </div>
-            </div>
-            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                <h3 data-cy="h3-admin.referral-analytics-0" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
-                <div style={{ height: '300px', background: 'linear-gradient(135deg, #7C3AED05 0%, #7C3AED10 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>Report data renders here</div>
-            </div>
-        </div>
+        <PageTemplate pageId="R11" title="📊 Referral Analytics" subtitle="Referral source analysis, conversion rates & pipeline metrics"
+            sectionData={{
+                'R11.stats': { kpiCards: [
+                    { label: 'Total Referrals MTD', value: 28, color: 'var(--pc-primary)' },
+                    { label: 'Conversion Rate', value: '72%', color: 'var(--pc-success)' },
+                    { label: 'Top Source', value: 'CCAC', color: 'var(--pc-info, #2563EB)' },
+                    { label: 'Avg Time to Serve', value: '3.2 days', color: '#7C3AED' },
+                ]},
+                'R11.by-source': { chart: { title: 'Referrals by Source', type: 'donut', data: [
+                    { label: 'CCAC', value: 40, color: '#3B82F6' }, { label: 'Hospital', value: 25, color: '#10B981' },
+                    { label: 'Physician', value: 20, color: '#F59E0B' }, { label: 'Self', value: 15, color: '#8B5CF6' },
+                ]}},
+                'R11.trend': { chart: { title: 'Monthly Referral Volume', type: 'bar', data: [
+                    { label: 'Oct', value: 22 }, { label: 'Nov', value: 25 }, { label: 'Dec', value: 18 },
+                    { label: 'Jan', value: 30 }, { label: 'Feb', value: 24 }, { label: 'Mar', value: 28 },
+                ]}},
+            }}
+        />
     );
 }
