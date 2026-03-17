@@ -140,7 +140,7 @@ describe('RBAC Guards', () => {
 
 describe('Feature Flag System', () => {
     it('should enable flags based on role', () => {
-        const flagRegistry = {
+        const flagRegistry: Record<string, { defaultEnabled: boolean; allowedRoles?: string[]; minTier?: string }> = {
             'telehealth': { defaultEnabled: true, allowedRoles: ['admin', 'manager', 'rn'] },
             'gamification': { defaultEnabled: true },
             'ai-care-plans': { defaultEnabled: false, allowedRoles: ['admin'], minTier: 'enterprise' },

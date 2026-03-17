@@ -23,7 +23,7 @@ export function getTestData(stepId: string): any {
         admin: { adminId: 'usr_root', rbacRole: 'super_admin', assignedToken: 'eyJhbGciOiJIUzI...[REDACTED]' },
         staff: { recordsCreated: 2, managerId: 'usr_mgr99', coordinatorId: 'usr_cord81' },
         provider: { providerIds: ['psw_481a', 'rn_88b1'], specialtiesMined: ['geriatric', 'wound_care'] },
-        client: { patientId: 'pat_0083', tags: ['fall_risk', 'dementia'], geocode: { lat: 43.6532, lng: -79.3832 } },
+        client: { patientId: 'pat_0083', tags: ['fall_risk', 'dementia'], geocode: { id: 'm1', lat: 43.6532, lng: -79.3832 } },
         booking: { shiftId: 'shf_777x', assignedTo: 'psw_481a', date: '2026-03-11', duration: '4h' },
         evv: { status: 'Verified', GPS_Lock: 'True', diffMeters: 12.4, compliance: 'Passed' },
     };

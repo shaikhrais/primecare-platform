@@ -315,7 +315,7 @@ describe('createVisitSchema', () => {
 describe('updateVisitSchema', () => {
     it('accepts status change', async () => {
         const { updateVisitSchema } = await import('@/shared/validation');
-        expect(updateVisitSchema.safeParse({ status: 'completed' }).success).toBe(true);
+        expect(updateVisitSchema.safeParse({ status: 'active' }).success).toBe(true);
     });
 
     it('accepts all statuses', async () => {

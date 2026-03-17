@@ -7,7 +7,7 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 const { RouteRegistry } = AdminRegistry;
 
 // Staff Pages
-const StaffDashboard = lazy(() => import('./pages/dashboard'));
+const StaffDashboard = lazy(() => import('./pages/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
 const UserList = lazy(() => import('../../platform/admin/pages/users').then(m => ({ default: m.UserList })));
 const TaskGrid = lazy(() => import('./pages/tasks/T43-TaskGrid'));
 const MessageCenter = lazy(() => import('./pages/messages/T44-MessageCenter'));

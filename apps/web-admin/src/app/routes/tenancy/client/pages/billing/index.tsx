@@ -1,3 +1,4 @@
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React, { useState, useEffect } from 'react';
 import { ApiRegistry } from 'prime-care-shared';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
@@ -129,5 +130,21 @@ export default function BillingPage() {
                 </table>
             </div>
         </div>
+    );
+}
+
+
+// --- Merged from H10-BillingHub.tsx ---
+export function BillingHub() {
+    return (
+        <PageTemplate pageId="H10" title="Billing Hub" subtitle="Invoice management, payment tracking and billing operations"
+            sectionData={{
+                'H10.stats': { kpiCards: [
+                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
+                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
+                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
+                ]},
+            }}
+        />
     );
 }

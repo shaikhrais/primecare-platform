@@ -176,7 +176,7 @@ describe('Visit Contracts', () => {
     it('Visit with nested relations', () => {
         const visit: Visit = {
             id: 'v1', clientId: 'c1', serviceId: 's1', pswId: 'p1',
-            status: 'completed',
+            status: 'active',
             scheduledStart: '2026-03-15T09:00', scheduledEnd: '2026-03-15T10:00',
             actualStart: '2026-03-15T09:05', actualEnd: '2026-03-15T09:55',
             tenantId: 't1', createdAt: '2026-03-01', updatedAt: '2026-03-15',

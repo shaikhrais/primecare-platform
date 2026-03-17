@@ -202,7 +202,7 @@ describe('QueryKeys', () => {
     it('different filters produce different keys', async () => {
         const { QueryKeys } = await import('@/shared/hooks/useDomainQueries');
         const key1 = QueryKeys.visits({ status: 'scheduled' });
-        const key2 = QueryKeys.visits({ status: 'completed' });
+        const key2 = QueryKeys.visits({ status: 'active' });
         expect(key1).not.toEqual(key2);
     });
 });

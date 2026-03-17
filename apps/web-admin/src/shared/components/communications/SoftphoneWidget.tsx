@@ -83,7 +83,7 @@ export const SoftphoneWidget: React.FC = () => {
             body: JSON.stringify({
                 recipientId: phoneNumber,
                 channel: 'VOICE',
-                status: 'completed',
+                status: 'active',
                 metadata: JSON.stringify({ duration, contactName })
             })
         }).catch(err => console.error('Failed to log call data:', err));

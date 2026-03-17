@@ -11,9 +11,9 @@ export default function FamilyDashboard() {
             sectionData={{
                 'FAM.stats': { kpiCards: [
                     { label: 'Next Visit', value: 'Today 2 PM', color: 'var(--pc-primary)' },
-                    { label: 'Monthly Hours', value: 38, suffix: 'hrs', color: 'var(--pc-success)' },
+                    { label: 'Monthly Hours', value: 38,  color: 'var(--pc-success)' },
                     { label: 'Balance Due', value: '$45.00', color: 'var(--pc-warning)' },
-                    { label: 'Care Updates', value: 3, suffix: 'new', color: '#8B5CF6' },
+                    { label: 'Care Updates', value: 3,  color: '#8B5CF6' },
                 ]},
                 'FAM.updates': { table: { columns: [
                     { key: 'date', label: 'Date' }, { key: 'caregiver', label: 'Caregiver' },

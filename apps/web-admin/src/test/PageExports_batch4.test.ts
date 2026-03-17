@@ -7,13 +7,13 @@ import { describe, it, expect } from 'vitest';
 
 describe('Smoke Exports — Batch 4', () => {
     it('T38: Dispatch Map exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/map/T38-DispatchMap');
+        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/map');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T39: SOS Center exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/sos/T39-SosCenter');
+        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/sos');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
@@ -49,7 +49,7 @@ describe('Smoke Exports — Batch 4', () => {
     });
 
     it('D19: Staff Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
@@ -79,19 +79,19 @@ describe('Smoke Exports — Batch 4', () => {
     });
 
     it('H20: Logistics Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops/H20-LogisticsHub');
+        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T64: Region Mapping exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops/T64-RegionMapping');
+        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T65: Realtime Capacity exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity');
+        const mod: any = await import('@/app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });

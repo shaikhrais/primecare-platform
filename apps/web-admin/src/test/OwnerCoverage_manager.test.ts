@@ -11,7 +11,7 @@ describe('Owner Coverage: manager (17 pages)', () => {
     });
 
     it('D7: Manager Dashboard is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
@@ -53,14 +53,14 @@ describe('Owner Coverage: manager (17 pages)', () => {
     });
 
     it('H11: Training Hub is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/training/H11-TrainingHub');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/training');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('H12: Operations Hub is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/operations/H12-OperationsHub');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
@@ -74,35 +74,35 @@ describe('Owner Coverage: manager (17 pages)', () => {
     });
 
     it('L13: Evaluations is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/evaluations/L13-Evaluations');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/evaluations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T19: Portfolio is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/portfolio/T19-Portfolio');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/portfolio');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T20: Daily Entry is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/daily-entry/T20-DailyEntry');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/daily-entry');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T21: Service Review is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/service-review/T21-ServiceReview');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/service-review');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T22: Survey Manager is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/surveys/T22-SurveyManager');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/surveys');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
@@ -123,7 +123,7 @@ describe('Owner Coverage: manager (17 pages)', () => {
     });
 
     it('T25: Compliance Sync is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages/compliance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');

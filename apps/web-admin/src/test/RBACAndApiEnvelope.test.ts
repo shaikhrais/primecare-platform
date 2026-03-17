@@ -335,9 +335,9 @@ describe('Fleet — ETA', () => {
 });
 
 describe('Fleet — Service Area', () => {
-    it('within area', () => expect(isInServiceArea(43.65, -79.38, { lat: 43.65, lng: -79.38 }, 10)).toBe(true));
-    it('same point', () => expect(isInServiceArea(43.65, -79.38, { lat: 43.65, lng: -79.38 }, 0.001)).toBe(true));
-    it('outside area', () => expect(isInServiceArea(44.65, -79.38, { lat: 43.65, lng: -79.38 }, 10)).toBe(false));
+    it('within area', () => expect(isInServiceArea(43.65, -79.38, {  lat: 43.65, lng: -79.38 }, 10)).toBe(true));
+    it('same point', () => expect(isInServiceArea(43.65, -79.38, {  lat: 43.65, lng: -79.38 }, 0.001)).toBe(true));
+    it('outside area', () => expect(isInServiceArea(44.65, -79.38, {  lat: 43.65, lng: -79.38 }, 10)).toBe(false));
 });
 
 describe('Fleet — Vehicle Status', () => {

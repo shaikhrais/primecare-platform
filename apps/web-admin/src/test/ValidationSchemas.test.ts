@@ -131,7 +131,7 @@ describe('createVisitSchema', () => {
 });
 
 describe('updateVisitSchema', () => {
-    it('accepts partial update', () => expect(valid(updateVisitSchema, { status: 'completed' })).toBe(true));
+    it('accepts partial update', () => expect(valid(updateVisitSchema, { status: 'active' })).toBe(true));
     it('accepts empty update', () => expect(valid(updateVisitSchema, {})).toBe(true));
     it('rejects invalid status', () => expect(invalid(updateVisitSchema, { status: 'flying' })).toBe(true));
     it('accepts all valid statuses', () => {

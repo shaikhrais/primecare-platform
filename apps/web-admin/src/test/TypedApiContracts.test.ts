@@ -179,8 +179,8 @@ describe('API Contract Type Shapes', () => {
     });
 
     it('UpdateVisitRequest allows partial updates', () => {
-        const req: UpdateVisitRequest = { status: 'completed' };
-        expect(req.status).toBe('completed');
+        const req: UpdateVisitRequest = { status: 'in_progress' };
+        expect(req.status).toBe('in_progress');
         expect(req.pswId).toBeUndefined();
     });
 

@@ -11,7 +11,7 @@ describe('Owner Coverage: staff (5 pages)', () => {
     });
 
     it('D19: Staff Dashboard is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');

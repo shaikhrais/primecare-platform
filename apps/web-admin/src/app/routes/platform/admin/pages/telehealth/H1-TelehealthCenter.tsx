@@ -20,10 +20,10 @@ const sessionCols: TableColumn[] = [
 ];
 
 const rpmAlerts = [
-    { id: '1', severity: 'danger' as const, title: '🔴 Margaret Chen — BP 185/110 — Critical High', time: '2 min ago' },
-    { id: '2', severity: 'warning' as const, title: '🟡 Robert Williams — HR 112 bpm — Elevated', time: '8 min ago' },
-    { id: '3', severity: 'info' as const, title: '🟢 Susan Park — SpO2 97% — Normal range', time: '15 min ago' },
-    { id: '4', severity: 'info' as const, title: '🟢 James Brown — Glucose 108 mg/dL — Normal', time: '22 min ago' },
+    { id: '1', status: 'alert' as const, title: '🔴 Margaret Chen — BP 185/110 — Critical High', time: '2 min ago' },
+    { id: '2', status: 'warning' as const, title: '🟡 Robert Williams — HR 112 bpm — Elevated', time: '8 min ago' },
+    { id: '3', status: 'inactive' as const, title: '🟢 Susan Park — SpO2 97% — Normal range', time: '15 min ago' },
+    { id: '4', status: 'inactive' as const, title: '🟢 James Brown — Glucose 108 mg/dL — Normal', time: '22 min ago' },
 ];
 
 export default function TelehealthCenter() {

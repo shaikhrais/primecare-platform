@@ -11,28 +11,28 @@ describe('Owner Coverage: client (12 pages)', () => {
     });
 
     it('D8: Client Dashboard is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('F16: Submit Feedback is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/feedback');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('F17: Request Booking is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/request-booking');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('H10: Billing Hub is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/billing/H10-BillingHub');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/billing');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
@@ -46,7 +46,7 @@ describe('Owner Coverage: client (12 pages)', () => {
     });
 
     it('L14: Client Bookings is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/bookings/L14-ClientBookings');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/bookings');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');

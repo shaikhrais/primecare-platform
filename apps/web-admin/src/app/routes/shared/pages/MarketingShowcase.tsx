@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { SocialMediaCredentialVault } from '../../platform/marketing/pages/syndication/SocialMediaCredentialVault';
-import { MarketingRevenueAttribution } from '../../platform/marketing/pages/retention/MarketingRevenueAttribution';
-import { EventRegistrationBuilder } from '../../platform/marketing/pages/retention/EventRegistrationBuilder';
-import { ChurnRiskPredictor } from '../../platform/marketing/pages/retention/ChurnRiskPredictor';
-import { NewsletterSubscriberDb } from '../../platform/marketing/pages/retention/NewsletterSubscriberDb';
-import { PromotionalDiscountEngine } from '../../platform/marketing/pages/retention/PromotionalDiscountEngine';
-import { DripEmailSequenceBuilder } from '../../platform/marketing/pages/retention/DripEmailSequenceBuilder';
+import SocialMediaCredentialVault from '../../platform/marketing/pages/syndication/SocialMediaCredentialVault';
+import MarketingRevenueAttribution from '../../platform/marketing/pages/retention/MarketingRevenueAttribution';
+import EventRegistrationBuilder from '../../platform/marketing/pages/retention/EventRegistrationBuilder';
+import ChurnRiskPredictor from '../../platform/marketing/pages/retention/ChurnRiskPredictor';
+import NewsletterSubscriberDb from '../../platform/marketing/pages/retention/NewsletterSubscriberDb';
+import PromotionalDiscountEngine from '../../platform/marketing/pages/retention/PromotionalDiscountEngine';
+import DripEmailSequenceBuilder from '../../platform/marketing/pages/retention/DripEmailSequenceBuilder';
 
 const MarketingShowcase = () => {
     return (

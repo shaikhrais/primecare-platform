@@ -16,10 +16,10 @@ export default function EvvDashboard() {
                 'D4.map': { map: {
                     title: '📍 Live Visit Locations',
                     markers: [
-                        { lat: 43.65, lng: -79.38, label: 'PSW Santos — Chen residence', status: 'active' },
-                        { lat: 43.72, lng: -79.34, label: 'PSW Williams — Park home', status: 'active' },
-                        { lat: 43.68, lng: -79.42, label: 'PSW Brown — Taylor facility', status: 'completed' },
-                        { lat: 43.71, lng: -79.40, label: 'PSW Chen — Williams home', status: 'alert' },
+                        { id: 'm1', lat: 43.65, lng: -79.38, label: 'PSW Santos — Chen residence', status: 'active' },
+                        { id: 'm2', lat: 43.72, lng: -79.34, label: 'PSW Williams — Park home', status: 'active' },
+                        { id: 'm3', lat: 43.68, lng: -79.42, label: 'PSW Brown — Taylor facility', status: 'active' },
+                        { id: 'm4', lat: 43.71, lng: -79.40, label: 'PSW Chen — Williams home', status: 'danger' },
                     ],
                 }},
                 'D4.recent': { feed: { title: '📡 Live EVV Feed', items: [
