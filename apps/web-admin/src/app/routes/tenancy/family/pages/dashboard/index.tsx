@@ -1,54 +1,29 @@
+// ================================================================
+// Family Dashboard
+// Converted: components/ deleted → PageTemplate + shared sections
+// ================================================================
 import React from 'react';
-
-// Family Portal Components
-import { CareUpdatesFeed } from './components/CareUpdatesFeed';
-import { LiveETATracker } from './components/LiveETATracker';
-import { CoPaySlider } from './components/CoPaySlider';
-import { CalendarExportList } from './components/CalendarExportList';
-import { IMessageThread } from './components/iMessageThread';
-import { MilestoneCelebration } from '@/shared/components/modals/MilestoneCelebration';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function FamilyDashboard() {
-    
     return (
-        <div style={{ padding: '0 0 100px 0', maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
-            
-            <header>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', margin: '0 0 12px 0', lineHeight: 1.1 }}>
-                    Care Portal:<br />
-                    <span style={{ color: '#8B5CF6' }}>Johnathan Doe Sr.</span>
-                </h1>
-                <p style={{ fontSize: '1.25rem', color: '#64748B', margin: 0 }}>Monitor updates, track visits, and coordinate logistics with the PrimeCare team.</p>
-            </header>
-
-            {/* Top row: Map & Logistics */}
-            <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '32px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                    <LiveETATracker />
-                    <CoPaySlider 
-                        totalInvoiceAmount={1450.00}
-                        primaryPayerName="David Doe"
-                        secondaryPayerName="Susan Smith"
-                    />
-                </div>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                    <CalendarExportList />
-                </div>
-            </section>
-
-            {/* Bottom Row: Social & Chat */}
-            <section style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '32px' }}>
-                <CareUpdatesFeed />
-                
-                <div style={{ position: 'sticky', top: '96px', alignSelf: 'start' }}>
-                    <IMessageThread />
-                </div>
-            </section>
-
-            {/* This renders globally, triggering on mount for demonstration purposes. */}
-            <MilestoneCelebration />
-
-        </div>
+        <PageTemplate pageId="FAM" title="👨‍👩‍👧 Family Portal" subtitle="Stay connected with your loved one's care — updates, schedule & payments"
+            sectionData={{
+                'FAM.stats': { kpiCards: [
+                    { label: 'Next Visit', value: 'Today 2 PM', color: 'var(--pc-primary)' },
+                    { label: 'Monthly Hours', value: 38, suffix: 'hrs', color: 'var(--pc-success)' },
+                    { label: 'Balance Due', value: '$45.00', color: 'var(--pc-warning)' },
+                    { label: 'Care Updates', value: 3, suffix: 'new', color: '#8B5CF6' },
+                ]},
+                'FAM.updates': { table: { columns: [
+                    { key: 'date', label: 'Date' }, { key: 'caregiver', label: 'Caregiver' },
+                    { key: 'update', label: 'Update' }, { key: 'mood', label: 'Mood' },
+                ], rows: [
+                    { date: 'Today', caregiver: 'Sarah P.', update: 'Had a great morning walk, ate full breakfast', mood: '😊 Happy' },
+                    { date: 'Yesterday', caregiver: 'Mike R.', update: 'Completed physio exercises, watched TV together', mood: '😌 Calm' },
+                    { date: 'Mar 14', caregiver: 'Lisa T.', update: 'Slight fatigue, rested after lunch', mood: '😐 Neutral' },
+                ]}},
+            }}
+        />
     );
-};
+}

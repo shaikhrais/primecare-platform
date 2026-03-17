@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { AdminRegistry } from 'prime-care-shared';
 import { apiClient } from '@/shared/utils/apiClient';
-import { ProvisionTenantModal } from './components/ProvisionTenantModal';
+
+// Inlined from deleted ./components/ProvisionTenantModal
+const ProvisionTenantModal: React.FC<{ isOpen: boolean; onClose: () => void; onSuccess: () => void }> = ({ isOpen, onClose, onSuccess }) => {
+    const [name, setName] = useState('');
+    const [domain, setDomain] = useState('');
+    if (!isOpen) return null;
+    return (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+            <div style={{ background: 'white', borderRadius: '1rem', padding: '2rem', width: 480, maxWidth: '90vw' }}>
+                <h3 style={{ margin: '0 0 1rem' }}>Provision New Tenant</h3>
+                <input value={name} onChange={e => setName(e.target.value)} placeholder="Organization name" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', marginBottom: '1rem' }} />
+                <input value={domain} onChange={e => setDomain(e.target.value)} placeholder="Domain (e.g. acme.primecare.io)" style={{ width: '100%', padding: '0.75rem', borderRadius: '0.5rem', border: '1px solid #d1d5db', marginBottom: '1rem' }} />
+                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+                    <button onClick={onClose} className="btn secondary">Cancel</button>
+                    <button onClick={() => { onClose(); onSuccess(); }} className="btn primary">Provision</button>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 const { ContentRegistry } = AdminRegistry;
 
