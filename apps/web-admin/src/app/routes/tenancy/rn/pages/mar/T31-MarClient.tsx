@@ -1,11 +1,24 @@
-// ================================================================
-// PAGE IDENTITY: T31 — MAR Client
-// Type: Tool | Owner: rn
-// ================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import { AlertCircle, CheckCircle, WifiOff, FileSignature } from 'lucide-react';
-import { SignaturePad } from '../assessments/components/SignaturePad';
+
+// Inlined from deleted ../assessments/components/SignaturePad
+const SignaturePad: React.FC<{ width: number; height: number; onSave: (sig: string) => void; onClear: () => void }> = ({ width, height, onSave, onClear }) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const getCtx = () => canvasRef.current?.getContext('2d');
+    const start = (e: React.MouseEvent) => { setIsDrawing(true); const ctx = getCtx(); if (ctx) { ctx.beginPath(); ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY); } };
+    const draw = (e: React.MouseEvent) => { if (!isDrawing) return; const ctx = getCtx(); if (ctx) { ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.strokeStyle = '#0F172A'; ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY); ctx.stroke(); } };
+    const stop = () => { setIsDrawing(false); if (canvasRef.current) onSave(canvasRef.current.toDataURL()); };
+    const clear = () => { const ctx = getCtx(); if (ctx && canvasRef.current) { ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); onClear(); } };
+    return (
+        <div>
+            <canvas ref={canvasRef} width={width} height={height} onMouseDown={start} onMouseMove={draw} onMouseUp={stop} onMouseLeave={stop}
+                style={{ border: '2px solid #CBD5E1', borderRadius: '8px', cursor: 'crosshair', background: 'white' }} />
+            <button onClick={clear} style={{ marginTop: '8px', padding: '6px 16px', border: '1px solid #CBD5E1', borderRadius: '6px', background: 'white', cursor: 'pointer', fontWeight: 600, color: '#64748B' }}>Clear</button>
+        </div>
+    );
+};
 import { type Medication, loadMedications, commitAdministeredMeds } from './marHandlers';
 
 export const MarClient: React.FC = () => {

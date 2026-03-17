@@ -6,7 +6,18 @@ import { useUIStore, useIsDarkMode } from '@/shared/stores';
 // Components
 import { TopBarIdentity } from './topbar/TopBarIdentity';
 import { TopBarActions } from './topbar/TopBarActions';
-import { AccessibilityToggle } from '@/app/routes/tenancy/client/pages/dashboard/components/AccessibilityToggle';
+
+// Inlined from deleted client/pages/dashboard/components/AccessibilityToggle
+const AccessibilityToggle: React.FC = () => {
+    const [fontSize, setFontSize] = useState(100);
+    return (
+        <button onClick={() => { const next = fontSize >= 130 ? 100 : fontSize + 10; setFontSize(next); document.documentElement.style.fontSize = `${next}%`; }}
+            title={`Font size: ${fontSize}%`}
+            style={{ background: 'none', border: '1px solid var(--pc-border-primary, #E5E7EB)', padding: '8px', borderRadius: '8px', cursor: 'pointer', color: 'var(--pc-text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+        </button>
+    );
+};
 
 const { ContentRegistry } = AdminRegistry;
 
