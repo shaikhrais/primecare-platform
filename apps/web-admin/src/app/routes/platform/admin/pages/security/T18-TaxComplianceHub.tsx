@@ -1,41 +1,36 @@
 // ================================================================
-// PAGE IDENTITY: T18 · Tax Compliance
-// Type: Tool | Owner: admin
+// PAGE IDENTITY: T18 · Tax Compliance Hub
+// Type: Tool | Owner: admin | Registry: T18
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+
+const complianceCards = [
+    { icon: '🇨🇦', title: 'HST/GST Filing', subtitle: 'Next filing: Apr 30 — Q1 2026 | Estimated: $12,350' },
+    { icon: '📋', title: 'WSIB Premiums', subtitle: 'Current rate: 2.46% | Annual est: $48,200' },
+    { icon: '💳', title: 'T4/T4A Generation', subtitle: 'Due: Feb 28 | 82 employees processed' },
+    { icon: '🏛️', title: 'EHT (Employer Health Tax)', subtitle: 'Ontario threshold: $1M | Current payroll: $1.8M' },
+    { icon: '📊', title: 'CRA Audit Trail', subtitle: 'Last CRA correspondence: Jan 15 — resolved' },
+    { icon: '🔒', title: 'PIPEDA Compliance', subtitle: 'Annual privacy impact assessment: ✅ Complete' },
+];
 
 export default function TaxComplianceHub() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['HST/GST Filing','Remittance Calendar','Tax Rate Config','Exemptions'];
     return (
-        <div role="main" aria-label="Tax Compliance" data-cy="T18-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>💰 Tax Compliance</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.tax-compliance-hub-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #059669':'1px solid #E2E8F0', background: tab===i?'#05966910':'white', color: tab===i?'#059669':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>HST/GST Filing</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Remittance Calendar</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Tax Rate Config</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Exemptions</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate
+            pageId="T18"
+            title="🏛️ Tax Compliance Hub"
+            subtitle="HST/GST filing, WSIB, T4 generation, EHT & CRA audit trail"
+            actionPageId="admin.tax-compliance"
+            sectionData={{
+                'T18.stats': { kpiCards: [
+                    { label: 'HST Owing', value: '$12,350', color: 'var(--pc-warning)' },
+                    { label: 'Next Filing', value: 'Apr 30', color: 'var(--pc-primary)' },
+                    { label: 'Compliance Score', value: '100%', color: 'var(--pc-success)' },
+                    { label: 'Open Items', value: 0, color: 'var(--pc-success)' },
+                ]},
+                'T18.modules': { cardGrid: { items: complianceCards, columns: 3 } },
+            }}
+        />
     );
 }
