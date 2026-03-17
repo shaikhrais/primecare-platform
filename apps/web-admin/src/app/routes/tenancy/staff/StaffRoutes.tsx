@@ -9,10 +9,10 @@ const { RouteRegistry } = AdminRegistry;
 // Staff Pages
 const StaffDashboard = lazy(() => import('./pages/dashboard'));
 const UserList = lazy(() => import('../../platform/admin/pages/users').then(m => ({ default: m.UserList })));
-const TaskGrid = lazy(() => import('./pages/tasks/TaskGrid'));
-const MessageCenter = lazy(() => import('./pages/messages/MessageCenter'));
-const IncidentPortal = lazy(() => import('./pages/operations/IncidentPortal'));
-const ComplianceMonitor = lazy(() => import('./pages/operations/ComplianceMonitor'));
+const TaskGrid = lazy(() => import('./pages/tasks/T43-TaskGrid'));
+const MessageCenter = lazy(() => import('./pages/messages/T44-MessageCenter'));
+const IncidentPortal = lazy(() => import('./pages/operations/T45-IncidentPortal'));
+const ComplianceMonitor = lazy(() => import('./pages/operations/T46-ComplianceMonitor'));
 
 export const StaffRoutes = () => (
     <Route path={RouteRegistry.STAFF.DASHBOARD} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>

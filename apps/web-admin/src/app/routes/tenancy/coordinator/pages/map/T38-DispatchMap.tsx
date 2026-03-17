@@ -13,7 +13,24 @@ import 'leaflet/dist/leaflet.css';
 import './DispatchMap.css';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { PulseCircle, fetchMapData as loadMapData } from './dispatchHelpers';
+
+// Inlined from deleted dispatchHelpers.tsx
+const PulseCircle: React.FC<{ lat: number; lng: number }> = ({ lat, lng }) => {
+    const map = useMap();
+    useEffect(() => {
+        const circle = L.circle([lat, lng], { radius: 200, color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.2, weight: 2 }).addTo(map);
+        return () => { map.removeLayer(circle); };
+    }, [lat, lng, map]);
+    return null;
+};
+const fetchMapData = async () => {
+    try {
+        const res = await fetch('/v1/coordinator/dispatch-map', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+        if (res.ok) return await res.json();
+    } catch {}
+    return { nodes: [], activeVisits: [], recentEvents: [] };
+};
+const loadMapData = fetchMapData;
 
 const DefaultIcon = L.icon({ iconUrl: markerIcon, shadowUrl: markerShadow, iconSize: [25, 41], iconAnchor: [12, 41] });
 L.Marker.prototype.options.icon = DefaultIcon;

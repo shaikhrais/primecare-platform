@@ -2,8 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
 import 'leaflet/dist/leaflet.css';
-import { fetchProfile as apiFetchProfile, saveProfile } from './profileHelpers';
-import { UnsavedChangesGuard, LocationMapPreview } from './ProfileComponents';
+
+// Inlined from deleted profileHelpers.ts
+const apiFetchProfile = async (role: string, onSuccess: (d: any) => void, onFallback: (d: any) => void, onError: (m: string) => void) => {
+    try {
+        const res = await fetch(`/v1/${role}/profile`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+        if (res.ok) onSuccess(await res.json());
+        else onFallback({ user: JSON.parse(localStorage.getItem('user') || '{}') });
+    } catch { onFallback({ user: JSON.parse(localStorage.getItem('user') || '{}') }); }
+};
+const saveProfile = async (role: string, profile: any, onSuccess: () => void, onError: () => void) => {
+    try {
+        const res = await fetch(`/v1/${role}/profile`, { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem('token')}` }, body: JSON.stringify(profile) });
+        if (res.ok) onSuccess(); else onError();
+    } catch { onError(); }
+};
+
+// Inlined from deleted ProfileComponents.tsx
+const UnsavedChangesGuard: React.FC<{ onLeave: () => void; onStay: () => void }> = ({ onLeave, onStay }) => (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+        <div style={{ background: 'white', borderRadius: '1rem', padding: '2rem', width: 400 }}>
+            <h3 style={{ margin: '0 0 1rem' }}>Unsaved Changes</h3>
+            <p>You have unsaved changes. Do you want to leave?</p>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
+                <button onClick={onStay} className="btn" style={{ border: '1px solid #d1d5db' }}>Stay</button>
+                <button onClick={onLeave} className="btn" style={{ background: '#EF4444', color: 'white', border: 'none' }}>Leave</button>
+            </div>
+        </div>
+    </div>
+);
+const LocationMapPreview: React.FC<{ lat?: number; lng?: number; role: string }> = ({ lat, lng, role }) => {
+    if (!lat || !lng) return null;
+    return (
+        <div style={{ gridColumn: 'span 2', borderRadius: '0.5rem', overflow: 'hidden', height: '200px', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
+            📍 Location: {lat.toFixed(4)}, {lng.toFixed(4)} ({role})
+        </div>
+    );
+};
 
 export default function ProfilePage() {
     const { showToast } = useNotification();
