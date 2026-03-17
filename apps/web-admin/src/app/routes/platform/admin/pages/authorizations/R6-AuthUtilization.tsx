@@ -1,51 +1,22 @@
-// ================================================================
-// PAGE IDENTITY: R6 · Auth Utilization
-// Type: Report | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+// PAGE IDENTITY: R6 · Auth Utilization | T49 · Auth Alerts
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function AuthUtilization() {
-    const [dateRange, setDateRange] = useState('last-30');
-    const [fmt, setFmt] = useState('pdf');
     return (
-        <div role="main" aria-label="Auth Utilization" data-cy="R6-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📊 Auth Utilization</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Generate and export reports</p>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <select data-cy="select-admin.auth-utilization-0" value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="last-7">Last 7 Days</option><option value="last-30">Last 30 Days</option><option value="last-90">Last 90 Days</option><option value="ytd">Year to Date</option>
-                    </select>
-                    <select data-cy="select-admin.auth-utilization-1" value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="pdf">PDF</option><option value="csv">CSV</option><option value="xlsx">Excel</option>
-                    </select>
-                    <button data-cy="btn-admin.auth-utilization-0" style={{ padding: '8px 20px', background: '#1D4ED8', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
-                </div>
-            </div>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Total Auths</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D4ED8' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Utilized %</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D4ED8' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Expiring Soon</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D4ED8' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Over-Utilized</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1D4ED8' }}>—</div>
-                    </div>
-            </div>
-            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                <h3 data-cy="h3-admin.auth-utilization-0" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
-                <div style={{ height: '300px', background: 'linear-gradient(135deg, #1D4ED805 0%, #1D4ED810 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>Report data renders here</div>
-            </div>
-        </div>
+        <PageTemplate pageId="R6" title="📊 Authorization Utilization" subtitle="Payer-specific utilization rates, exhaustion forecasts & renewal tracking"
+            sectionData={{
+                'R6.stats': { kpiCards: [
+                    { label: 'Avg Utilization', value: '70%', color: 'var(--pc-primary)' },
+                    { label: 'Exhausting (>80%)', value: 3, color: 'var(--pc-warning)' },
+                    { label: 'Renewals Due', value: 2, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Unused Hours', value: 340, color: 'var(--pc-success)' },
+                ]},
+                'R6.chart': { chart: { title: 'Utilization by Payer', type: 'horizontal-bar', data: [
+                    { label: 'OHIP', value: 77, color: '#3B82F6' }, { label: 'WSIB', value: 30, color: '#10B981' },
+                    { label: 'Private', value: 92, color: '#EF4444' }, { label: 'CCAC', value: 73, color: '#F59E0B' },
+                ]}},
+            }}
+        />
     );
 }

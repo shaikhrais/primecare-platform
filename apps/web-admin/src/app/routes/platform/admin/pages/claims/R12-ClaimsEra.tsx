@@ -1,51 +1,33 @@
-// ================================================================
 // PAGE IDENTITY: R12 · Claims ERA
-// Type: Report | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+import type { TableColumn } from '@/shared/components/sections';
+
+const eraRows = [
+    { eraId: 'ERA-0215', payer: 'OHIP', claimCount: 12, amount: '$14,500', received: 'Mar 15', status: '✅ Reconciled' },
+    { eraId: 'ERA-0214', payer: 'WSIB', claimCount: 4, amount: '$3,200', received: 'Mar 14', status: '✅ Reconciled' },
+    { eraId: 'ERA-0213', payer: 'CCAC', claimCount: 8, amount: '$9,800', received: 'Mar 12', status: '⚠️ Partial' },
+    { eraId: 'ERA-0212', payer: 'OHIP', claimCount: 15, amount: '$18,200', received: 'Mar 10', status: '✅ Reconciled' },
+];
+
+const cols: TableColumn[] = [
+    { key: 'eraId', label: 'ERA ID' }, { key: 'payer', label: 'Payer' },
+    { key: 'claimCount', label: 'Claims' }, { key: 'amount', label: 'Amount' },
+    { key: 'received', label: 'Received' }, { key: 'status', label: 'Status' },
+];
 
 export default function ClaimsEra() {
-    const [dateRange, setDateRange] = useState('last-30');
-    const [fmt, setFmt] = useState('pdf');
     return (
-        <div role="main" aria-label="Claims ERA" data-cy="R12-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>📑 Claims ERA</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Generate and export reports</p>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <select data-cy="select-admin.claims-era-0" value={dateRange} onChange={e => setDateRange(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="last-7">Last 7 Days</option><option value="last-30">Last 30 Days</option><option value="last-90">Last 90 Days</option><option value="ytd">Year to Date</option>
-                    </select>
-                    <select data-cy="select-admin.claims-era-1" value={fmt} onChange={e => setFmt(e.target.value)} style={{ padding: '8px 14px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
-                        <option value="pdf">PDF</option><option value="csv">CSV</option><option value="xlsx">Excel</option>
-                    </select>
-                    <button data-cy="btn-admin.claims-era-0" style={{ padding: '8px 20px', background: '#059669', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}>Export</button>
-                </div>
-            </div>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>ERA Received</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#059669' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Auto-Posted</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#059669' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Manual Review</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#059669' }}>—</div>
-                    </div>
-                    <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0', flex: '1 1 180px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', marginBottom: '8px' }}>Denied Claims</div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#059669' }}>—</div>
-                    </div>
-            </div>
-            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', border: '1px solid #E2E8F0' }}>
-                <h3 data-cy="h3-admin.claims-era-0" style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginTop: 0 }}>Report Preview</h3>
-                <div style={{ height: '300px', background: 'linear-gradient(135deg, #05966905 0%, #05966910 100%)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>Report data renders here</div>
-            </div>
-        </div>
+        <PageTemplate pageId="R12" title="💳 ERA Processing" subtitle="Electronic remittance advice reconciliation & posting"
+            sectionData={{
+                'R12.stats': { kpiCards: [
+                    { label: 'ERAs Received', value: 4, color: 'var(--pc-primary)' },
+                    { label: 'Reconciled', value: '$45,700', color: 'var(--pc-success)' },
+                    { label: 'Partial Match', value: 1, color: 'var(--pc-warning)' },
+                    { label: 'Auto-Post Rate', value: '92%', color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'R12.table': { table: { columns: cols, rows: eraRows } },
+            }}
+        />
     );
 }
