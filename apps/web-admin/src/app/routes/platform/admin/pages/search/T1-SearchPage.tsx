@@ -1,41 +1,25 @@
-// ================================================================
-// PAGE IDENTITY: T1 · Global Search
-// Type: Tool | Owner: admin
-// ================================================================
-import React, { useState } from 'react';
+// PAGE IDENTITY: T1 · Search Page
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function SearchPage() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['Clients','Staff','Schedules','Documents'];
     return (
-        <div role="main" aria-label="Search" data-cy="T1-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🔍 Global Search</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.search-page-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #374151':'1px solid #E2E8F0', background: tab===i?'#37415110':'white', color: tab===i?'#374151':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Clients</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Staff</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Schedules</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Documents</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate pageId="T1" title="🔍 Global Search" subtitle="Search across clients, PSWs, visits, documents, invoices & more"
+            sectionData={{
+                'T1.stats': { kpiCards: [
+                    { label: 'Indexed Records', value: '45K', color: 'var(--pc-primary)' },
+                    { label: 'Search Types', value: 8, color: 'var(--pc-info, #2563EB)' },
+                    { label: 'Searches Today', value: 142, color: 'var(--pc-success)' },
+                ]},
+                'T1.categories': { cardGrid: { items: [
+                    { icon: '👥', title: 'Clients', subtitle: 'Search by name, ID, address or phone' },
+                    { icon: '🏥', title: 'PSWs & Staff', subtitle: 'Search by name, badge, certifications' },
+                    { icon: '📅', title: 'Visits & Shifts', subtitle: 'Search by date, client, PSW or status' },
+                    { icon: '📄', title: 'Documents', subtitle: 'Search by type, provider or keyword' },
+                    { icon: '🧾', title: 'Invoices & Claims', subtitle: 'Search by ID, client, payer or amount' },
+                    { icon: '🚨', title: 'Incidents', subtitle: 'Search by type, date or severity' },
+                ], columns: 3 } },
+            }}
+        />
     );
 }
