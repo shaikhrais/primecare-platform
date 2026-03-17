@@ -1,32 +1,24 @@
-// ═══════════════════════════════════════════════════════════════
 // PAGE IDENTITY: F7 · Staff Onboarding
-// Registry ID:   page.admin.onboarding
-// Type:          Form
-// Owner:         admin
-// Route:         /platform/admin/onboarding
-// ═══════════════════════════════════════════════════════════════
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
-
-/**
- * [F7] Staff Onboarding Form — powered by centralized FormRegistry.
- */
-export default function PswOnboardingForm() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('admin.onboarding');
-    if (!formEntry) return null;
-
+export default function StaffOnboarding() {
     return (
-        <div role="main" aria-label="Staff Onboarding" style={{ padding: '2rem' }} data-cy="form.psw.page">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.USERS)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F7" title="🎓 Staff Onboarding" subtitle="New hire onboarding workflow — credentials, training & compliance checklist"
+            sectionData={{
+                'F7.stats': { kpiCards: [
+                    { label: 'In Progress', value: 4, color: 'var(--pc-warning)' },
+                    { label: 'Completed MTD', value: 6, color: 'var(--pc-success)' },
+                    { label: 'Avg Days', value: 5.2, color: 'var(--pc-primary)' },
+                    { label: 'Pending Docs', value: 8, color: 'var(--pc-error, #ef4444)' },
+                ]},
+                'F7.steps': { cardGrid: { items: [
+                    { icon: '📋', title: 'Application Review', subtitle: 'Resume screening, reference checks, interview' },
+                    { icon: '📄', title: 'Document Collection', subtitle: 'ID, VSS, CPR, First Aid, TB test, proof of training' },
+                    { icon: '🎓', title: 'Training Modules', subtitle: 'HIPAA, WHMIS, Client Safety, Platform Use' },
+                    { icon: '✅', title: 'Compliance Sign-Off', subtitle: 'Manager approval, credential verification, go-live' },
+                ], columns: 4 } },
+            }}
+        />
     );
 }

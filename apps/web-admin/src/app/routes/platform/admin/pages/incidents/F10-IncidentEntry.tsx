@@ -1,32 +1,24 @@
-// ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F10 · Create Incident
-// Registry ID:   page.admin.incident-entry
-// Type:          Form
-// Owner:         admin
-// Route:         /platform/admin/incidents/new
-// ═══════════════════════════════════════════════════════════════
+// PAGE IDENTITY: F10 · Incident Entry
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
-
-/**
- * [F10] Incident Entry Form — powered by centralized FormRegistry.
- */
-export default function IncidentEntryForm() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('admin.incident-entry');
-    if (!formEntry) return null;
-
+export default function IncidentEntry() {
     return (
-        <div role="main" aria-label="Incident Entry" style={{ padding: '2rem' }} data-cy="form.incident.page">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.INCIDENTS)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F10" title="🚨 Incident Report" subtitle="Submit workplace incidents, near-misses & safety concerns"
+            sectionData={{
+                'F10.stats': { kpiCards: [
+                    { label: 'Open Incidents', value: 2, color: 'var(--pc-warning)' },
+                    { label: 'This Month', value: 4, color: 'var(--pc-primary)' },
+                    { label: 'Avg Resolution', value: '3 days', color: 'var(--pc-info, #2563EB)' },
+                    { label: 'Severity Avg', value: 'Low', color: 'var(--pc-success)' },
+                ]},
+                'F10.form': { cardGrid: { items: [
+                    { icon: '📋', title: 'Incident Details', subtitle: 'Date, time, location & description' },
+                    { icon: '👤', title: 'Involved Parties', subtitle: 'Client, PSW, witnesses & supervisor' },
+                    { icon: '🏥', title: 'Injury Assessment', subtitle: 'Type, severity & treatment administered' },
+                    { icon: '📊', title: 'Root Cause Analysis', subtitle: 'Contributing factors & prevention plan' },
+                ], columns: 2 } },
+            }}
+        />
     );
 }

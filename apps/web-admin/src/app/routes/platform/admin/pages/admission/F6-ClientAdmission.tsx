@@ -1,32 +1,28 @@
-// ═══════════════════════════════════════════════════════════════
 // PAGE IDENTITY: F6 · Client Admission
-// Registry ID:   page.admin.admission
-// Type:          Form
-// Owner:         admin
-// Route:         /platform/admin/admission
-// ═══════════════════════════════════════════════════════════════
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
+const admissionSteps = [
+    { icon: '📋', title: 'Referral Information', subtitle: 'Source, date, reason for referral & urgency level' },
+    { icon: '👤', title: 'Client Demographics', subtitle: 'Name, DOB, address, contacts & emergency contacts' },
+    { icon: '🏥', title: 'Medical History', subtitle: 'Diagnoses, medications, allergies & physician info' },
+    { icon: '📊', title: 'Care Assessment', subtitle: 'RAI-HC, functional status & cognitive assessment' },
+    { icon: '📝', title: 'Service Plan', subtitle: 'Approved services, hours, frequency & goals' },
+    { icon: '✅', title: 'Consent & Documents', subtitle: 'Signed consents, ID verification & insurance' },
+];
 
-/**
- * [F6] Client Admission Form — powered by centralized FormRegistry.
- */
-export default function ClientAdmissionForm() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('admin.admission');
-    if (!formEntry) return null;
-
+export default function ClientAdmission() {
     return (
-        <div role="main" aria-label="Client Admission" style={{ padding: '2rem' }} data-cy="form.client.page">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.USERS)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F6" title="📋 Client Admission" subtitle="New client intake workflow — referral, demographics, assessment & service plan"
+            sectionData={{
+                'F6.stats': { kpiCards: [
+                    { label: 'In Progress', value: 3, color: 'var(--pc-warning)' },
+                    { label: 'Completed Today', value: 1, color: 'var(--pc-success)' },
+                    { label: 'Pending Review', value: 2, color: 'var(--pc-primary)' },
+                    { label: 'Avg Intake Time', value: '2.5 days', color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'F6.steps': { cardGrid: { items: admissionSteps, columns: 3 } },
+            }}
+        />
     );
 }

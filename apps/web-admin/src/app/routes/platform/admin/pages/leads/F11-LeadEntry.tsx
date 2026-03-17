@@ -1,32 +1,18 @@
-// ═══════════════════════════════════════════════════════════════
-// PAGE IDENTITY: F11 · Create Lead
-// Registry ID:   page.admin.lead-entry
-// Type:          Form
-// Owner:         admin
-// Route:         /platform/admin/leads/new
-// ═══════════════════════════════════════════════════════════════
+// PAGE IDENTITY: F11 · Lead Entry
 import React from 'react';
-import { useNavigate } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import { DynamicFormRenderer } from '@/shared/components/forms';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { getFormById, RouteRegistry } = AdminRegistry;
-
-/**
- * [F11] Lead Entry Form — powered by centralized FormRegistry.
- */
 export default function LeadEntryForm() {
-    const navigate = useNavigate();
-    const formEntry = getFormById('admin.lead-entry');
-    if (!formEntry) return null;
-
     return (
-        <div role="main" aria-label="Lead Entry" style={{ padding: '2rem' }} data-cy="form.lead.page">
-            <DynamicFormRenderer
-                formEntry={formEntry}
-                onSuccess={() => navigate(RouteRegistry.ADMIN.LEADS)}
-                onCancel={() => navigate(-1)}
-            />
-        </div>
+        <PageTemplate pageId="F11" title="➕ New Lead Entry" subtitle="Capture new lead information, service interest & contact details"
+            sectionData={{
+                'F11.form': { cardGrid: { items: [
+                    { icon: '👤', title: 'Contact Information', subtitle: 'Name, phone, email & preferred contact method' },
+                    { icon: '🏥', title: 'Service Interest', subtitle: 'Requested service, urgency & availability' },
+                    { icon: '📋', title: 'Source & Notes', subtitle: 'Referral source, initial notes & follow-up plan' },
+                    { icon: '📊', title: 'Qualification', subtitle: 'Budget, timeline, decision maker & scoring' },
+                ], columns: 2 } },
+            }}
+        />
     );
 }

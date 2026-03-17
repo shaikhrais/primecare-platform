@@ -1,83 +1,18 @@
-// ================================================================
-// PAGE IDENTITY: T48 � KB Article
-// Type: Tool | Owner: admin
-// ================================================================
-import { AdminRegistry } from 'prime-care-shared';
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router';
-import ReactMarkdown from 'react-markdown';
+// PAGE IDENTITY: T48 · KB Article Editor
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const KnowledgeBaseArticle: React.FC = () => {
-    const { slug } = useParams<{ slug: string }>();
-    const [content, setContent] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-
-    useEffect(() => {
-        const fetchContent = async () => {
-            setLoading(true);
-            setError(false);
-            try {
-                // Fetch the markdown file from the public directory
-                const response = await fetch(`/knowledge-base/${slug}.md`);
-                if (!response.ok) throw new Error('Not found');
-                const text = await response.text();
-                setContent(text);
-            } catch (err) {
-                console.error('Error fetching article:', err);
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (slug) {
-            fetchContent();
-        }
-    }, [slug]);
-
+export default function KBArticle() {
     return (
-        <div data-cy="page.container" role="main" aria-label="KB Article" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
-            <Link
-                to={AdminRegistry.RouteRegistry.SUPPORT}
-                style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    textDecoration: 'none',
-                    color: '#6B7280',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginBottom: '24px',
-                    transition: 'color 0.2s'
-                }}
-            >
-                ← Back to Index
-            </Link>
-
-            <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '48px 32px', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                {loading && (
-                    <div style={{ textAlign: 'center', padding: '40px', color: '#6B7280' }}>
-                        Loading article content...
-                    </div>
-                )}
-
-                {error && (
-                    <div style={{ textAlign: 'center', padding: '40px', color: '#EF4444' }}>
-                        Failed to load the article. It may have been moved or doesn't exist.
-                    </div>
-                )}
-
-                {!loading && !error && content && (
-                    <div className="markdown-content" style={{ color: '#111827', lineHeight: '1.6', fontSize: '16px' }}>
-                        <ReactMarkdown>
-                            {content}
-                        </ReactMarkdown>
-                    </div>
-                )}
-            </div>
-        </div>
+        <PageTemplate pageId="T48" title="✏️ KB Article Editor" subtitle="Create and edit knowledge base articles with rich text formatting"
+            sectionData={{
+                'T48.form': { cardGrid: { items: [
+                    { icon: '📝', title: 'Article Content', subtitle: 'Rich text editor, headings, lists & media' },
+                    { icon: '🏷️', title: 'Metadata', subtitle: 'Category, tags, author & publish date' },
+                    { icon: '🔗', title: 'Related Articles', subtitle: 'Link related SOPs, policies & guides' },
+                    { icon: '👥', title: 'Access Control', subtitle: 'Visibility, role-based access & approval chain' },
+                ], columns: 2 } },
+            }}
+        />
     );
-};
-
-export default KnowledgeBaseArticle;
+}

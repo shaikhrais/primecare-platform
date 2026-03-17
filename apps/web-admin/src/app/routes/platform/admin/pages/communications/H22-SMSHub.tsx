@@ -1,63 +1,32 @@
-// ================================================================
-// PAGE IDENTITY: H22 · SMS Notification Hub
-// Type: Hub | Owner: admin | Registry: H28
-// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
-// ================================================================
-import React, { useState } from 'react';
+// PAGE IDENTITY: H22 · SMS Hub
+import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import type { TableColumn } from '@/shared/components/sections';
 
-const campaigns = [
-    { name: 'Shift Reminder — Tomorrow', recipients: 24, delivered: '23 ✅', failed: '1 ❌', openRate: '96%', date: 'Today', status: 'COMPLETED' },
-    { name: 'Training Session Reminder', recipients: 48, delivered: '46 ✅', failed: '2 ❌', openRate: '94%', date: 'Yesterday', status: 'COMPLETED' },
-    { name: 'Weekly Schedule Update', recipients: 52, delivered: '—', failed: '—', openRate: '—', date: 'Scheduled: Mar 17', status: 'SCHEDULED' },
-    { name: 'Emergency Weather Alert', recipients: 120, delivered: '118 ✅', failed: '2 ❌', openRate: '98%', date: 'Mar 10', status: 'COMPLETED' },
+const smsLogs = [
+    { to: '+1 (416) 555-0123', template: 'Visit Reminder', sent: '14:15', status: '✅ Delivered', cost: '$0.015' },
+    { to: '+1 (647) 555-0456', template: 'Shift Confirmation', sent: '13:45', status: '✅ Delivered', cost: '$0.015' },
+    { to: '+1 (905) 555-0789', template: 'Schedule Change', sent: '12:30', status: '⏳ Pending', cost: '$0.015' },
+    { to: '+1 (416) 555-0321', template: 'Auth Exhaustion Alert', sent: '11:00', status: '❌ Failed', cost: '$0.00' },
 ];
 
-const campaignCols: TableColumn[] = [
-    { key: 'name', label: 'Campaign' }, { key: 'recipients', label: 'Recipients' },
-    { key: 'delivered', label: 'Delivered' }, { key: 'failed', label: 'Failed' },
-    { key: 'openRate', label: 'Open Rate' }, { key: 'status', label: 'Status' },
-];
-
-const templates = [
-    { icon: '⏰', title: 'Shift Reminder', subtitle: '340 uses' },
-    { icon: '🚨', title: 'Emergency Alert', subtitle: '12 uses' },
-    { icon: '📋', title: 'Schedule Change', subtitle: '89 uses' },
-    { icon: '🎓', title: 'Training Notice', subtitle: '45 uses' },
-    { icon: '💳', title: 'Pay Stub Ready', subtitle: '156 uses' },
-    { icon: '🎉', title: 'Birthday Greeting', subtitle: '24 uses' },
+const cols: TableColumn[] = [
+    { key: 'to', label: 'Recipient' }, { key: 'template', label: 'Template' },
+    { key: 'sent', label: 'Sent' }, { key: 'status', label: 'Status' },
+    { key: 'cost', label: 'Cost' },
 ];
 
 export default function SMSHub() {
-    const [tab, setTab] = useState('campaigns');
-
-    const tabContent: Record<string, Record<string, any>> = {
-        campaigns: { 'H28.campaign-list': { table: { columns: campaignCols, rows: campaigns } } },
-        templates: { 'H28.compose': { cardGrid: { items: templates, columns: 3 } } },
-    };
-
     return (
-        <PageTemplate
-            pageId="H28"
-            title="📱 SMS Notification Hub"
-            subtitle="Campaigns, templates & delivery analytics"
-            actionPageId="manager.sms-hub"
+        <PageTemplate pageId="H22" title="📱 SMS & Notifications Hub" subtitle="Twilio-powered SMS delivery, templates & delivery analytics"
             sectionData={{
-                'H28.stats': { kpiCards: [
-                    { label: 'Sent This Month', value: 192, color: 'var(--pc-primary)' },
-                    { label: 'Delivery Rate', value: '97.4%', color: 'var(--pc-success)' },
-                    { label: 'Credits Left', value: '1,808', color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Avg Open Rate', value: '96%', color: 'var(--pc-success)' },
+                'H22.stats': { kpiCards: [
+                    { label: 'Sent Today', value: 142, color: 'var(--pc-primary)' },
+                    { label: 'Delivered', value: '96%', color: 'var(--pc-success)' },
+                    { label: 'Failed', value: 3, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Cost MTD', value: '$48.30', color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'H28.campaign-list': { tabs: {
-                    tabs: [
-                        { id: 'campaigns', label: '📊 Campaigns', count: 4 },
-                        { id: 'templates', label: '📝 Templates', count: 6 },
-                    ],
-                    activeTab: tab, onTabChange: setTab,
-                }},
-                ...tabContent[tab],
+                'H22.table': { table: { columns: cols, rows: smsLogs } },
             }}
         />
     );

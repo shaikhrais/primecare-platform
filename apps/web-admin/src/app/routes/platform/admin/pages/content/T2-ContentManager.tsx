@@ -1,137 +1,56 @@
 // ================================================================
-// PAGE IDENTITY: T2 � Content Manager
-// Registry ID:   page.admin.content
-// Type:          Tool
-// Owner:         admin
+// PAGE IDENTITY: T2 · Content Manager
+// Type: Tool | Owner: admin
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+import type { TabItem, TableColumn } from '@/shared/components/sections';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const blogPosts = [
+    { title: 'Introducing PrimeCare Home Care Platform', date: 'Mar 12, 2026', status: '✅ Published', views: 1240 },
+    { title: 'HIPAA Compliance Best Practices for PSWs', date: 'Mar 8, 2026', status: '✅ Published', views: 890 },
+    { title: 'Remote Patient Monitoring: The Future of Home Care', date: 'Mar 5, 2026', status: '📝 Draft', views: 0 },
+];
+
+const faqItems = [
+    { question: 'How do I reset my password?', category: 'Account', status: '✅ Active', helpfulness: '92%' },
+    { question: 'What certifications does PrimeCare require?', category: 'Compliance', status: '✅ Active', helpfulness: '88%' },
+    { question: 'How does the scheduling system work?', category: 'Operations', status: '✅ Active', helpfulness: '95%' },
+];
+
+const blogCols: TableColumn[] = [
+    { key: 'title', label: 'Title' }, { key: 'date', label: 'Date' },
+    { key: 'status', label: 'Status' }, { key: 'views', label: 'Views' },
+];
+const faqCols: TableColumn[] = [
+    { key: 'question', label: 'Question' }, { key: 'category', label: 'Category' },
+    { key: 'status', label: 'Status' }, { key: 'helpfulness', label: 'Helpfulness' },
+];
 
 export default function ContentManager() {
-    const [activeTab, setActiveTab] = useState('blogs');
-    const [blogs, setBlogs] = useState<any[]>([]);
-    const [faqs, setFaqs] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    const fetchData = async () => {
-        setLoading(true);
-        try {
-            const token = localStorage.getItem('token');
-            const endpoint = activeTab === 'blogs' ? '/v1/admin/blog' : '/v1/admin/faqs';
-            const res = await fetch(`${API_URL}${endpoint}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                if (activeTab === 'blogs') setBlogs(data);
-                else setFaqs(data);
-            }
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [activeTab]);
+    const [tab, setTab] = useState('blogs');
+    const tabs: TabItem[] = [
+        { id: 'blogs', label: '📝 Blog Posts', count: 3 },
+        { id: 'faqs', label: '❓ FAQs', count: 3 },
+    ];
 
     return (
-        <div role="main" aria-label="Content Manager" style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }} data-cy="content-manager-page">
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Content Management</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Manage blog posts and FAQ items for the marketing website.</p>
-            </div>
-
-            <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', borderBottom: '1px solid #e5e7eb' }}>
-                <button
-                    data-cy="tab-blogs"
-                    onClick={() => setActiveTab('blogs')}
-                    style={{
-                        paddingBottom: '1rem',
-                        borderBottom: activeTab === 'blogs' ? '2px solid #004d40' : 'none',
-                        color: activeTab === 'blogs' ? '#004d40' : '#6b7280',
-                        fontWeight: '600',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Blog Posts
-                </button>
-                <button
-                    data-cy="tab-faqs"
-                    onClick={() => setActiveTab('faqs')}
-                    style={{
-                        paddingBottom: '1rem',
-                        borderBottom: activeTab === 'faqs' ? '2px solid #004d40' : 'none',
-                        color: activeTab === 'faqs' ? '#004d40' : '#6b7280',
-                        fontWeight: '600',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer'
-                    }}
-                >
-                    FAQs
-                </button>
-            </div>
-
-            <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-                    <h3 data-cy="h3-admin.content-manager-0" style={{ margin: 0, textTransform: 'capitalize' }}>{activeTab} List</h3>
-                    <button data-cy="btn-add-content" style={{ padding: '0.5rem 1rem', backgroundColor: '#004d40', color: 'white', border: 'none', borderRadius: '0.375rem', fontWeight: '600' }}>
-                        + Add New {activeTab === 'blogs' ? 'Post' : 'Item'}
-                    </button>
-                </div>
-
-                <table data-cy="table-admin.content-manager" style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr style={{ textAlign: 'left', color: '#6b7280', fontSize: '0.875rem', borderBottom: '1px solid #f3f4f6' }}>
-                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-title">{activeTab === 'blogs' ? 'Title' : 'Question'}</th>
-                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-meta">{activeTab === 'blogs' ? 'Date' : 'Category'}</th>
-                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-status">Status</th>
-                            <th style={{ padding: '1rem' }} data-cy="tbl-content-header-actions">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loading ? (
-                            <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>Loading...</td></tr>
-                        ) : activeTab === 'blogs' ? (
-                            blogs.length > 0 ? blogs.map(blog => (
-                                <tr key={blog.id} data-cy={`blog-row-${blog.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                    <td style={{ padding: '1rem', fontWeight: '500' }}>{blog.title}</td>
-                                    <td style={{ padding: '1rem', color: '#6b7280' }}>{new Date(blog.createdAt).toLocaleDateString()}</td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span data-cy="content-status" style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: blog.status === 'published' ? '#ecfdf5' : '#fef3c7', color: blog.status === 'published' ? '#065f46' : '#92400e', fontSize: '0.75rem' }}>
-                                            {blog.status}
-                                        </span>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <button data-cy="btn-edit-content" style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
-                                        <button data-cy="btn-delete-content" style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
-                                    </td>
-                                </tr>
-                            )) : <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>No blogs found.</td></tr>
-                        ) : (
-                            faqs.length > 0 ? faqs.map(faq => (
-                                <tr key={faq.id} data-cy={`faq-row-${faq.id}`} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                                    <td style={{ padding: '1rem', fontWeight: '500' }} data-cy="faq-question">{faq.question}</td>
-                                    <td style={{ padding: '1rem', color: '#6b7280' }} data-cy="faq-category">{faq.category}</td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span data-cy="faq-status" style={{ padding: '0.25rem 0.5rem', borderRadius: '9999px', backgroundColor: '#ecfdf5', color: '#065f46', fontSize: '0.75rem' }}>Active</span>
-                                    </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <button data-cy="btn-admin.content-manager-0" style={{ color: '#004d40', background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>Edit</button>
-                                        <button data-cy="btn-admin.content-manager-1" style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
-                                    </td>
-                                </tr>
-                            )) : <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center' }}>No FAQs found.</td></tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <PageTemplate pageId="T2" title="📝 Content Manager" subtitle="Manage blog posts, FAQs & marketing content"
+            actionPageId="admin.content-manager"
+            sectionData={{
+                'T2.stats': { kpiCards: [
+                    { label: 'Published', value: 2, color: 'var(--pc-success)' },
+                    { label: 'Drafts', value: 1, color: 'var(--pc-warning)' },
+                    { label: 'FAQs', value: 3, color: 'var(--pc-primary)' },
+                    { label: 'Total Views', value: '2.1K', color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'T2.tabs': { tabs: { tabs, activeTab: tab, onTabChange: setTab } },
+                'T2.content': { table: {
+                    columns: tab === 'blogs' ? blogCols : faqCols,
+                    rows: tab === 'blogs' ? blogPosts : faqItems,
+                }},
+            }}
+        />
     );
 }

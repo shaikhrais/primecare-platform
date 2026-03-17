@@ -1,80 +1,23 @@
-// ================================================================
-// PAGE IDENTITY: T66 � Lead Conversion
-// Type: Tool | Owner: admin
-// ================================================================
+// PAGE IDENTITY: T66 · Lead Conversion
 import React from 'react';
-import { useParams, useNavigate } from 'react-router';
-import { AdminRegistry , getButtonById } from 'prime-care-shared';
-import { useToast as useNotification } from '@/shared/hooks/useToast';
-import { apiClient } from '@/shared/utils/apiClient';
-import { useMutation } from '@tanstack/react-query';
-import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
-
-const { ApiRegistry, RouteRegistry, ButtonRegistry } = AdminRegistry;
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function LeadConversion() {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
-    const { showToast } = useNotification();
-
-    // TanStack Query: cached leads list, derive name from query data
-    const { data: leads = [] } = useRegistryQuery<any[]>(ApiRegistry.ADMIN.LEADS, {
-        queryKey: ['admin', 'leads'],
-        staleTime: 60_000,
-    });
-    const lead = leads.find((l: any) => l.id === id);
-    const leadName = lead ? `${lead.firstName} ${lead.lastName}` : 'Loading...';
-
-    const convertMutation = useMutation({
-        mutationFn: async () => {
-            const apiPath = ApiRegistry.ADMIN.LEADS_CONVERT(id!);
-            const response = await apiClient.post(apiPath, {});
-            if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error || 'Conversion Failed');
-            }
-            return response.json();
-        },
-        onSuccess: () => {
-            showToast('Lead converted successfully to Client!', 'success');
-            navigate(RouteRegistry.ADMIN.CUSTOMERS);
-        },
-        onError: () => {
-            showToast('Failed to convert lead', 'error');
-        },
-    });
-
-    const loading = convertMutation.isPending;
-    const handleConvert = () => convertMutation.mutate();
-
     return (
-        <div data-cy="page.container" role="main" aria-label="Lead Conversion" style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
-            <div className="pc-card">
-                <div className="pc-card-h">Convert Lead to Client</div>
-                <div className="pc-card-b">
-                    <p style={{ marginBottom: '1.5rem' }}>
-                        You are about to convert <strong>{leadName}</strong> into a full platform client.
-                        This will provision a user account and clinical profile.
-                    </p>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                        <button data-cy="btn-admin.lead-conversion-0"
-                            className="btn secondary"
-                            onClick={() => navigate(-1)}
-                            disabled={loading}
-                        >
-                            Cancel
-                        </button>
-                        <button data-cy="btn-admin.lead-conversion-1"
-                            className="btn primary"
-                            onClick={handleConvert}
-                            disabled={loading}
-                            style={{ flex: 1 }}
-                        >
-                            {loading ? 'Converting...' : (getButtonById('btn-adm-leads-convert')?.label || 'Confirm Conversion')}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate pageId="T66" title="🔄 Lead Conversion" subtitle="Convert qualified leads to active clients with automated onboarding"
+            sectionData={{
+                'T66.stats': { kpiCards: [
+                    { label: 'Conversion Rate', value: '72%', color: 'var(--pc-success)' },
+                    { label: 'Avg Days to Convert', value: 5.2, color: 'var(--pc-primary)' },
+                    { label: 'Ready to Convert', value: 3, color: 'var(--pc-warning)' },
+                    { label: 'Converted MTD', value: 8, color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'T66.chart': { chart: { title: 'Monthly Conversions', type: 'bar', data: [
+                    { label: 'Oct', value: 6 }, { label: 'Nov', value: 8 },
+                    { label: 'Dec', value: 5 }, { label: 'Jan', value: 10 },
+                    { label: 'Feb', value: 7 }, { label: 'Mar', value: 8 },
+                ]}},
+            }}
+        />
     );
 }
