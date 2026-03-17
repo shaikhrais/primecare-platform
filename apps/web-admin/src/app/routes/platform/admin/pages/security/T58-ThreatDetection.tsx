@@ -1,87 +1,43 @@
 // ================================================================
-// PAGE IDENTITY: T58 � Threat Detection
-// Type: Tool | Owner: admin
+// PAGE IDENTITY: T58 · Threat Detection
+// Type: Tool | Owner: admin | Registry: T58
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import React from 'react';
-import { AdminRegistry , getButtonById } from 'prime-care-shared';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const { ButtonRegistry } = AdminRegistry;
+const threats = [
+    { icon: '🔴', title: 'Brute Force Attack — 185.220.101.42 — 47 attempts in 60s', time: '2 min ago', level: 'danger' as const },
+    { icon: '🟠', title: 'Suspicious Login — admin@primecare.ca from new location (Kyiv, UA)', time: '15 min ago', level: 'warning' as const },
+    { icon: '🟡', title: 'Rate Limit Exceeded — API endpoint /v1/admin/users — 250 req/min', time: '1 hr ago', level: 'warning' as const },
+    { icon: '🟢', title: 'Vulnerability Scan Completed — 0 critical findings', time: '3 hrs ago', level: 'success' as const },
+    { icon: '🟢', title: 'SSL Certificate Valid — expires Dec 2027', time: '6 hrs ago', level: 'success' as const },
+    { icon: 'ℹ️', title: 'WAF rule update applied — 12 new signatures', time: '12 hrs ago', level: 'info' as const },
+];
 
 export default function ThreatDetection() {
-    const scanBtn = getButtonById('btn-sec-threat-scan');
-
     return (
-        <div data-cy="page.container" role="main" aria-label="Threat Detection" style={{ padding: '24px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
-                <div>
-                    <h1 data-cy="page.title" style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Threat Detection & Response</h1>
-                    <p style={{ color: '#6B7280' }}>Real-time anomalous behavior analysis and mitigation.</p>
-                </div>
-                <button
-                    className="btn danger"
-                    data-cy="btn-sec-threat-scan"
-                >
-                    {scanBtn?.label || 'Run Threat Scan'}
-                </button>
-            </div>
-
-            <div className="pc-card" style={{ marginBottom: '32px' }}>
-                <div className="pc-card-h">Live Threat Feed</div>
-                <div className="pc-card-b">
-                    <table data-cy="table-admin.threat-detection" style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr style={{ textAlign: 'left', color: '#6B7280', fontSize: '12px', textTransform: 'uppercase' }}>
-                                <th style={{ padding: '12px' }}>Severity</th>
-                                <th style={{ padding: '12px' }}>Type</th>
-                                <th style={{ padding: '12px' }}>Source</th>
-                                <th style={{ padding: '12px' }}>Timestamp</th>
-                                <th style={{ padding: '12px' }}>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style={{ padding: '12px' }}><span style={{ color: '#EF4444', fontWeight: 'bold' }}>LOW</span></td>
-                                <td style={{ padding: '12px' }}>Invalid Login Attempt</td>
-                                <td style={{ padding: '12px' }}>192.168.1.45</td>
-                                <td style={{ padding: '12px' }}>2026-03-04 18:42</td>
-                                <td style={{ padding: '12px' }}><span className="badge secondary">Blocked</span></td>
-                            </tr>
-                            <tr>
-                                <td style={{ padding: '12px' }}><span style={{ color: '#EF4444', fontWeight: 'bold' }}>LOW</span></td>
-                                <td style={{ padding: '12px' }}>CSRF Mismatch</td>
-                                <td style={{ padding: '12px' }}>Session-ID: 882x</td>
-                                <td style={{ padding: '12px' }}>2026-03-04 15:10</td>
-                                <td style={{ padding: '12px' }}><span className="badge secondary">Neutralized</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-                <div className="pc-card">
-                    <div className="pc-card-h">Anomalous Activity Analytics</div>
-                    <div className="pc-card-b" style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ color: '#9CA3AF' }}>[Trend Chart: Blocked Requests]</span>
-                    </div>
-                </div>
-                <div className="pc-card">
-                    <div className="pc-card-h">Automatic Mitigation Rules</div>
-                    <div className="pc-card-b">
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', color: '#4B5563' }}>
-                            <li style={{ paddingBottom: '12px', borderBottom: '1px solid #F3F4F6', marginBottom: '12px' }}>
-                                <strong>Rate Limiting:</strong> Enabled (100 req/min/IP)
-                            </li>
-                            <li style={{ paddingBottom: '12px', borderBottom: '1px solid #F3F4F6', marginBottom: '12px' }}>
-                                <strong>GEO-Blocking:</strong> Active (China, Russia)
-                            </li>
-                            <li>
-                                <strong>WAF Ruleset:</strong> Advanced OWASP Top 10
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate
+            pageId="T58"
+            title="🚨 Threat Detection"
+            subtitle="Real-time threat monitoring, intrusion detection & automated response"
+            actionPageId="admin.threat-detection"
+            isLive
+            sectionData={{
+                'T58.stats': { kpiCards: [
+                    { label: 'Active Threats', value: 1, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Blocked Today', value: 47, color: 'var(--pc-warning)' },
+                    { label: 'WAF Rules', value: 234, color: 'var(--pc-primary)' },
+                    { label: 'Uptime', value: '99.98%', color: 'var(--pc-success)' },
+                ]},
+                'T58.threat-feed': { feed: { title: '📡 Live Threat Feed', items: threats } },
+                'T58.history': { chart: { title: 'Blocked Attacks (7 Days)', type: 'bar', data: [
+                    { label: 'Mon', value: 23, color: '#EF4444' }, { label: 'Tue', value: 15, color: '#EF4444' },
+                    { label: 'Wed', value: 8, color: '#F59E0B' }, { label: 'Thu', value: 31, color: '#EF4444' },
+                    { label: 'Fri', value: 47, color: '#EF4444' }, { label: 'Sat', value: 12, color: '#F59E0B' },
+                    { label: 'Sun', value: 5, color: '#10B981' },
+                ]}},
+            }}
+        />
     );
 }

@@ -47,6 +47,14 @@ const ICON_MAP: Record<string, string> = {
     'lnk-mgr-dashboard': '📊', 'lnk-mgr-pl': '💰', 'lnk-mgr-ops': '🔧',
     'lnk-mgr-compliance': '✅', 'lnk-mgr-team': '👥', 'lnk-mgr-finance': '💵',
     'lnk-mgr-ops-hub': '🏢',
+    // Premium — Manager
+    'lnk-mgr-gamification': '🎮', 'lnk-mgr-iot': '📡', 'lnk-mgr-doc-signing': '✍️',
+    'lnk-mgr-sms-hub': '📱', 'lnk-mgr-perf-reviews': '📊', 'lnk-mgr-training-academy': '🎓',
+    // Premium — Admin
+    'lnk-admin-ai-command': '🧠', 'lnk-admin-multi-currency': '💱', 'lnk-admin-audit-trail': '🔍',
+    'lnk-admin-franchise': '🏢', 'lnk-admin-supply-chain': '📦',
+    // Premium — PSW
+    'lnk-psw-guide': '📖',
     // PSW
     'lnk-psw-offers': '✨', 'lnk-psw-handover': '📋', 'lnk-psw-availability': '🗓️',
     'lnk-psw-availability-my': '🗓️', 'lnk-psw-earnings': '💰', 'lnk-psw-live-visit': '🩺',

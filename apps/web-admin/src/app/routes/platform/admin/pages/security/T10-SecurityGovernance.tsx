@@ -1,41 +1,44 @@
 // ================================================================
 // PAGE IDENTITY: T10 · Security Governance
-// Type: Tool | Owner: admin
+// Type: Tool | Owner: admin | Registry: T10
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+
+const securityModules = [
+    { icon: '🔍', title: 'Threat Overview', subtitle: 'Active threats, intrusion attempts, blocked IPs' },
+    { icon: '📋', title: 'Policy Compliance', subtitle: 'HIPAA, PIPEDA, SOC2 compliance status' },
+    { icon: '🔑', title: 'Access Reviews', subtitle: 'Periodic access certification & role audits' },
+    { icon: '🚨', title: 'Incident Response', subtitle: 'Active incidents, SLA tracking, resolution logs' },
+];
+
+const activityFeed = [
+    { icon: '🔴', title: 'Brute force attempt blocked — 15 attempts from 185.220.x.x', time: '2 min ago', level: 'danger' as const },
+    { icon: '🟠', title: 'PSW-045 role escalation detected — admin access requested', time: '15 min ago', level: 'warning' as const },
+    { icon: '🟢', title: 'HIPAA compliance audit passed — all 47 checks green', time: '1 hr ago', level: 'success' as const },
+    { icon: 'ℹ️', title: 'Session purge completed — 23 expired sessions removed', time: '2 hrs ago', level: 'info' as const },
+    { icon: '🟢', title: 'SSL certificate renewed — expires Dec 2027', time: '3 hrs ago', level: 'success' as const },
+];
 
 export default function SecurityGovernance() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['Threat Overview','Policy Compliance','Access Reviews','Incident Response'];
     return (
-        <div role="main" aria-label="Security Gov" data-cy="T10-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🛡️ Security Governance</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.security-governance-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #DC2626':'1px solid #E2E8F0', background: tab===i?'#DC262610':'white', color: tab===i?'#DC2626':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Threat Overview</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Policy Compliance</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Access Reviews</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Incident Response</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate
+            pageId="T10"
+            title="🛡️ Security Governance"
+            subtitle="Threat monitoring, compliance, access reviews & incident response"
+            actionPageId="admin.security-governance"
+            sectionData={{
+                'T10.threat-stats': { kpiCards: [
+                    { label: 'Active Threats', value: 3, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Blocked IPs', value: 127, color: 'var(--pc-warning)' },
+                    { label: 'Compliance Score', value: '98.2%', color: 'var(--pc-success)' },
+                    { label: 'Open Incidents', value: 1, color: '#7C3AED' },
+                    { label: 'Last Audit', value: '2 hrs ago', color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'T10.nav-cards': { cardGrid: { items: securityModules, columns: 4 } },
+                'T10.activity-feed': { feed: { items: activityFeed, title: '📡 Security Activity Feed' } },
+            }}
+        />
     );
 }

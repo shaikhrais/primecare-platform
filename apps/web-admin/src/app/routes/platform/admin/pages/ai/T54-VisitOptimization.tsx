@@ -1,41 +1,39 @@
 // ================================================================
 // PAGE IDENTITY: T54 · Visit Optimization
-// Type: Tool | Owner: admin
+// Type: Tool | Owner: admin | Registry: T54
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+
+const optimizationSuggestions = [
+    { icon: '🗺️', title: 'Route Clustering — North York', subtitle: '3 visits can be grouped → save 45 min drive time' },
+    { icon: '⏰', title: 'Schedule Gap — PSW Chen', subtitle: '2 hr gap between visits on Wed. Suggest backfill.' },
+    { icon: '📍', title: 'Distance Alert — PSW Williams', subtitle: 'Visit #4 is 38km from #3. Suggest reassign.' },
+    { icon: '✅', title: 'Optimal Match — Client Park', subtitle: 'PSW Santos best fit: 98% compatibility score' },
+];
 
 export default function VisitOptimization() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['Route Efficiency','Time Windows','Travel Reduction','Schedule Score'];
     return (
-        <div role="main" aria-label="Visit Optimization" data-cy="T54-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>🗺️ Visit Optimization</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.visit-optimization-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #8B5CF6':'1px solid #E2E8F0', background: tab===i?'#8B5CF610':'white', color: tab===i?'#8B5CF6':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Route Efficiency</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Time Windows</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Travel Reduction</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Schedule Score</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate
+            pageId="T54"
+            title="🗺️ Visit Optimization"
+            subtitle="AI-powered route clustering, schedule optimization & PSW-client matching"
+            actionPageId="admin.visit-optimization"
+            sectionData={{
+                'T54.stats': { kpiCards: [
+                    { label: 'Routes Optimized', value: 12, color: 'var(--pc-primary)' },
+                    { label: 'Time Saved', value: '4.2 hrs', color: 'var(--pc-success)' },
+                    { label: 'Fuel Saved', value: '$142', color: '#10B981' },
+                    { label: 'Suggestions', value: 4, color: 'var(--pc-info, #2563EB)' },
+                ]},
+                'T54.suggestions': { cardGrid: { items: optimizationSuggestions, columns: 2 } },
+                'T54.efficiency': { chart: { title: 'Weekly Efficiency Gains', type: 'bar', data: [
+                    { label: 'Mon', value: 35, color: '#10B981' }, { label: 'Tue', value: 42, color: '#10B981' },
+                    { label: 'Wed', value: 28, color: '#10B981' }, { label: 'Thu', value: 51, color: '#10B981' },
+                    { label: 'Fri', value: 38, color: '#10B981' },
+                ]}},
+            }}
+        />
     );
 }

@@ -51,7 +51,7 @@ export const TenancyRoutes = () => (
             <Route path="service-review" element={<ServiceReview />} />
             <Route path="daily-entry" element={<DailyEntry />} />
             <Route path="team" element={<UserList />} />
-            {/* NEW PREMIUM PAGES */}
+            {/* NEW PREMIUM PAGES — relative paths (parent = /tenancy/manager/*) */}
             <Route path="gamification" element={<GamificationHub />} />
             <Route path="iot-monitoring" element={<IoTMonitoring />} />
             <Route path="document-signing" element={<DocumentSigningCenter />} />

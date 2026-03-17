@@ -1,41 +1,47 @@
 // ================================================================
 // PAGE IDENTITY: T53 · Churn Risk
-// Type: Tool | Owner: admin
+// Type: Tool | Owner: admin | Registry: T53
+// TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
-import React, { useState } from 'react';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
+import type { TableColumn } from '@/shared/components/sections';
+
+const churnClients = [
+    { client: '🔴 Margaret Chen', riskScore: '87%', factors: 'Missed 3 visits, satisfaction ↓', days: 14, action: 'Call scheduled' },
+    { client: '🟠 Robert Williams', riskScore: '72%', factors: 'Auth exhausting (92%)', days: 21, action: 'Renewal pending' },
+    { client: '🟡 Susan Park', riskScore: '58%', factors: 'PSW turnover (3 changes)', days: 45, action: 'Assign stable PSW' },
+    { client: '🟡 James Brown', riskScore: '52%', factors: 'Missed medication 2x', days: 30, action: 'RN follow-up' },
+    { client: '🟢 Helen Taylor', riskScore: '23%', factors: 'Stable – no flags', days: 90, action: 'Monitor' },
+];
+
+const churnCols: TableColumn[] = [
+    { key: 'client', label: 'Client' }, { key: 'riskScore', label: 'Risk' },
+    { key: 'factors', label: 'Contributing Factors' }, { key: 'days', label: 'Days Active' },
+    { key: 'action', label: 'Recommended Action' },
+];
 
 export default function ChurnRisk() {
-    const [tab, setTab] = useState(0);
-    const tabs = ['High Risk Clients','Risk Factors','Retention Score','Intervention Queue'];
     return (
-        <div role="main" aria-label="Churn Risk" data-cy="T53-page" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '24px' }}>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>⚡ Churn Risk</h1>
-                <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: '4px 0 0' }}>Configure and manage tool settings</p>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                {tabs.map((t, i) => (
-                    <button data-cy="btn-admin.churn-risk-0" key={i} onClick={() => setTab(i)} style={{ padding: '10px 20px', borderRadius: '8px', border: tab===i?'2px solid #8B5CF6':'1px solid #E2E8F0', background: tab===i?'#8B5CF610':'white', color: tab===i?'#8B5CF6':'#64748B', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>{t}</button>
-                ))}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>High Risk Clients</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Risk Factors</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Retention Score</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-                        <div style={{ background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #E2E8F0' }}>
-                            <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>Intervention Queue</div>
-                            <div style={{ height: '120px', background: '#F8FAFC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8', fontSize: '0.8rem' }}>Content area</div>
-                        </div>
-            </div>
-        </div>
+        <PageTemplate
+            pageId="T53"
+            title="⚠️ Churn Risk Analysis"
+            subtitle="AI-predicted client attrition risk with actionable intervention recommendations"
+            actionPageId="admin.churn-risk"
+            sectionData={{
+                'T53.stats': { kpiCards: [
+                    { label: 'At-Risk Clients', value: 4, color: 'var(--pc-error, #ef4444)' },
+                    { label: 'Avg Risk Score', value: '58.4%', color: 'var(--pc-warning)' },
+                    { label: 'Interventions Active', value: 3, color: 'var(--pc-primary)' },
+                    { label: 'Retention Rate', value: '94.1%', color: 'var(--pc-success)' },
+                ]},
+                'T53.churn-table': { table: { columns: churnCols, rows: churnClients } },
+                'T53.trend': { chart: { title: 'Churn Risk Trend (6 Months)', type: 'bar', data: [
+                    { label: 'Oct', value: 8 }, { label: 'Nov', value: 6 },
+                    { label: 'Dec', value: 5 }, { label: 'Jan', value: 7 },
+                    { label: 'Feb', value: 4 }, { label: 'Mar', value: 4 },
+                ]}},
+            }}
+        />
     );
 }

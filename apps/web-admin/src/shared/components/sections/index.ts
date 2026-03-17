@@ -1,14 +1,32 @@
 // ── Sections — Standardized page section templates ───────────────────────────
 // Each file exports a reusable section component.
-// PageSectionRegistry defines WHAT sections a page has.
-// These components define HOW each section renders.
-// PageTemplate reads the registry and picks the right component.
+// PageSectionRegistry defines WHAT sections a page has (data).
+// These components define HOW each section type renders (UI).
+// PageTemplate reads the registry → picks the right component → renders.
 
-export { SectionHeader } from './SectionHeader';
+// ── Data Display ─────────────────────────────────────────────────────────────
 export { SectionKpiCards, type KpiCardItem } from './SectionKpiCards';
 export { SectionTable, type TableColumn } from './SectionTable';
-export { SectionTabs, type TabItem } from './SectionTabs';
 export { SectionCardGrid, type CardGridItem } from './SectionCardGrid';
 export { SectionProgressList, type ProgressItem } from './SectionProgressList';
+
+// ── Visualization ────────────────────────────────────────────────────────────
+export { SectionChart, type ChartDataPoint } from './SectionChart';
+export { SectionMap, type MapMarker } from './SectionMap';
+export { SectionCalendar, type CalendarEvent } from './SectionCalendar';
+
+// ── Input ────────────────────────────────────────────────────────────────────
+export { SectionForm, type FormField } from './SectionForm';
+export { SectionActionBar, type ActionBarButton } from './SectionActionBar';
+
+// ── Feedback ─────────────────────────────────────────────────────────────────
 export { SectionAlertPanel, type AlertItem } from './SectionAlertPanel';
+export { SectionFeed, type FeedItem } from './SectionFeed';
+export { SectionEmptyState } from './SectionEmptyState';
+
+// ── Layout ───────────────────────────────────────────────────────────────────
+export { SectionHeader } from './SectionHeader';
+export { SectionTabs, type TabItem } from './SectionTabs';
+
+// ── Fallback ─────────────────────────────────────────────────────────────────
 export { SectionPlaceholder } from './SectionPlaceholder';
