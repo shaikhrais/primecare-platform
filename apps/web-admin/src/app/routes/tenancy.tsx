@@ -1555,15 +1555,11 @@ export const PswPayoutHistory = lazy(() => import('./psw').then(m => ({ default:
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ClientBilling = lazy(() => import('') as any);
+export const ClientBilling = () => <div />;
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ClientFeedback = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
+export const ClientFeedback = () => <div />;
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1571,7 +1567,11 @@ export const ClientFeedback = lazy(() => import('') .then(m => ({ default: Objec
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CareTeam = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+export const CareTeam = () => <div />;
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
