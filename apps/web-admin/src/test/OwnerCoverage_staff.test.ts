@@ -11,35 +11,35 @@ describe('Owner Coverage: staff (5 pages)', () => {
     });
 
     it('D19: Staff Dashboard is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/dashboard');
+        const mod: any = await import('../app/routes/tenancy/staff/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T43: Task Grid is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/tasks');
+        const mod: any = await import('../app/routes/tenancy/staff/tasks');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T44: Message Center is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/messages');
+        const mod: any = await import('../app/routes/tenancy/staff/messages');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T45: Incident Portal is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations');
+        const mod: any = await import('../app/routes/tenancy/staff/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T46: Compliance Monitor is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations');
+        const mod: any = await import('../app/routes/tenancy/staff/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');

@@ -11,42 +11,42 @@ describe('Owner Coverage: coordinator (6 pages)', () => {
     });
 
     it('H18: Coordinator Hub is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/hub');
+        const mod: any = await import('../app/routes/tenancy/coordinator/hub');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('L20: Waitlist Manager is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/waitlist');
+        const mod: any = await import('../app/routes/tenancy/coordinator/waitlist');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('T38: Dispatch Map is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/map');
+        const mod: any = await import('../app/routes/tenancy/coordinator/map');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('T39: SOS Center is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/sos');
+        const mod: any = await import('../app/routes/tenancy/coordinator/sos');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('T40: Fleet Management is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/fleet');
+        const mod: any = await import('../app/routes/tenancy/coordinator/fleet');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('T41: Shift Swap is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/shift-swap');
+        const mod: any = await import('../app/routes/tenancy/coordinator/shift-swap');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');

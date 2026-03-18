@@ -11,112 +11,112 @@ describe('Owner Coverage: psw (16 pages)', () => {
     });
 
     it('D14: PSW Dashboard is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/dashboard');
+        const mod: any = await import('../app/routes/tenancy/staff/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('F13: Shift Handover is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/handover');
+        const mod: any = await import('../app/routes/tenancy/psw/handover');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('F14: Expense Claim is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/expenses');
+        const mod: any = await import('../app/routes/tenancy/psw/expenses');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('F15: Availability is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/availability');
+        const mod: any = await import('../app/routes/tenancy/psw/availability');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('H14: Credential Vault is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/credentials');
+        const mod: any = await import('../app/routes/tenancy/psw/credentials');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('H15: PSW Training is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/training');
+        const mod: any = await import('../app/routes/tenancy/psw/training');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('L16: PSW Schedule is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/schedule');
+        const mod: any = await import('../app/routes/tenancy/rn/schedule');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('L17: Open Shifts is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/OpenShifts');
+        const mod: any = await import('../app/routes/tenancy/psw/OpenShifts');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('R3: PSW Earnings is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/earnings');
+        const mod: any = await import('../app/routes/tenancy/psw/earnings');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('R4: Payout History is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/payouts');
+        const mod: any = await import('../app/routes/tenancy/psw/payouts');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T26: Shift Confirm is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/shift-confirmation');
+        const mod: any = await import('../app/routes/tenancy/psw/shift-confirmation');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T27: Provider Social is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/feed');
+        const mod: any = await import('../app/routes/tenancy/psw/feed');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T28: Mileage Tracker is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/mileage');
+        const mod: any = await import('../app/routes/tenancy/psw/mileage');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T60: Open Offers is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/OpenShifts');
+        const mod: any = await import('../app/routes/tenancy/psw/OpenShifts');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T61: Live Visit is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/schedule');
+        const mod: any = await import('../app/routes/tenancy/rn/schedule');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T62: Check-In is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/schedule');
+        const mod: any = await import('../app/routes/tenancy/rn/schedule');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');

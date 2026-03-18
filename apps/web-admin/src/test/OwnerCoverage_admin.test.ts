@@ -613,21 +613,21 @@ describe('Owner Coverage: admin (91 pages)', () => {
     });
 
     it('H20: Logistics Hub is importable and owned by admin', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('T64: Region Mapping is importable and owned by admin', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('T65: Realtime Capacity is importable and owned by admin', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');

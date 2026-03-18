@@ -18,3 +18,4 @@ export function OperationsHub() {
         />
     );
 }
+// --- Merged sidecars ---

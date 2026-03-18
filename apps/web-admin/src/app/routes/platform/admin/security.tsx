@@ -529,3 +529,210 @@ export function ThreatDetection() {
         />
     );
 }
+
+// --- Merged sidecars ---
+
+/* Merged from deviceHandlers.ts */
+// T13 Device Management: interfaces and API handlers extracted
+
+
+export interface Device {
+    id: string; userId: string; deviceId: string; deviceName: string | null;
+    deviceType: string | null; lastIp: string | null; status: string;
+    isAuthorized: boolean; isTemporary: boolean; expiresAt: string | null;
+    lastActiveAt: string; user: { firstName: string | null; lastName: string | null; email: string; };
+}
+
+export interface AuditLog { id: string; action: string; resourceType: string; createdAt: string; ipAddress: string | null; metadataJson: any; }
+
+export async function fetchDevices(): Promise<Device[]> {
+    try { const res = await apiClient.get('/v1/admin/settings/security/devices'); if (res.ok) return await res.json(); } catch (e) { console.error('Failed to fetch devices:', e); }
+    return [];
+}
+
+export async function authorizeDevice(id: string): Promise<boolean> {
+    try { const res = await apiClient.post(`/v1/admin/settings/security/devices/${id}/authorize`); return res.ok; } catch { return false; }
+}
+
+export async function revokeDevice(id: string): Promise<boolean> {
+    try { const res = await apiClient.post(`/v1/admin/settings/security/devices/${id}/revoke`); return res.ok; } catch { return false; }
+}
+
+export async function fetchDeviceActivity(deviceId: string): Promise<AuditLog[]> {
+    try { const res = await apiClient.get(`/v1/admin/settings/security/devices/${deviceId}/activity`); if (res.ok) return await res.json(); } catch (e) { console.error('Failed to fetch activity:', e); }
+    return [];
+}
+
+
+/* Merged from useAccountingData.ts */
+// D3 — Accounting Dashboard: TypeScript interfaces and data loading hook
+
+
+
+
+
+const { ApiRegistry } = AdminRegistry;
+
+export interface TradingAccount {
+    revenue: number;
+    directCosts: number;
+    grossProfit: number;
+    grossProfitMargin: number;
+    breakdown: { revenue: Record<string, number>; directCosts: Record<string, number> };
+}
+
+export interface ProfitAndLoss {
+    operatingExpenses: number;
+    netIncome: number;
+    breakdown: { indirectExpenses: Record<string, number> };
+}
+
+export interface BalanceSheet {
+    date: string;
+    assets: { total: number; accounts: Record<string, number> };
+    liabilities: { total: number; accounts: Record<string, number> };
+    equity: { total: number; accounts: Record<string, number> };
+}
+
+export interface ForecastPoint { date: string; projectedCash: number; }
+
+export interface ForecastingResult {
+    currentCash: number;
+    avgDailyRevenue: number;
+    avgDailyBurn: number;
+    netDailyFlow: number;
+    daysOfRunway: number | 'infinite';
+    forecast: ForecastPoint[];
+}
+
+const ACCOUNTING_QK = ['platform', 'admin', 'reporting'];
+
+export function useAccountingData(showToast: (msg: string, type: any) => void) {
+    const queryClient = useQueryClient();
+
+    // 5 parallel useRegistryQuery hooks (React Query fetches independently & in parallel)
+    const { data: tradingAcc = null, isLoading: taLoading } = useRegistryQuery<TradingAccount>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.TRADING_ACCOUNT,
+        { queryKey: [...ACCOUNTING_QK, 'trading-account'], staleTime: 60_000 }
+    );
+
+    const { data: pAndL = null, isLoading: plLoading } = useRegistryQuery<ProfitAndLoss>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.PROFIT_LOSS,
+        { queryKey: [...ACCOUNTING_QK, 'profit-loss'], staleTime: 60_000 }
+    );
+
+    const { data: balanceSheet = null, isLoading: bsLoading } = useRegistryQuery<BalanceSheet>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.BALANCE_SHEET,
+        { queryKey: [...ACCOUNTING_QK, 'balance-sheet'], staleTime: 60_000 }
+    );
+
+    const { data: reconSummary = null, isLoading: reconLoading } = useRegistryQuery<{ unreconciledBankCount: number; unreconciledLedgerCount: number }>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.RECONCILIATION_SUMMARY,
+        { queryKey: [...ACCOUNTING_QK, 'reconciliation-summary'], staleTime: 30_000 }
+    );
+
+    const { data: forecastData = null, isLoading: fcLoading } = useRegistryQuery<ForecastingResult>(
+        ApiRegistry.PLATFORM.ADMIN.REPORTING.FORECAST,
+        { queryKey: [...ACCOUNTING_QK, 'forecast'], staleTime: 60_000 }
+    );
+
+    const loading = taLoading || plLoading || bsLoading || reconLoading || fcLoading;
+
+    const loadData = () => {
+        queryClient.invalidateQueries({ queryKey: ACCOUNTING_QK });
+    };
+
+    const handleAutoReconcile = async () => {
+        try {
+            const res = await apiClient.post(ApiRegistry.PLATFORM.ADMIN.REPORTING.AUTO_RECONCILE, {});
+            if (res.ok) {
+                const data = await res.json();
+                showToast(`Successfully matched ${data.matchedCount} transactions!`, 'success');
+                loadData();
+            }
+        } catch (error) {
+            showToast('Auto-reconciliation failed', 'error');
+            console.error('Auto-reconciliation failed:', error);
+        }
+    };
+
+    return { tradingAcc, pAndL, balanceSheet, reconSummary, forecastData, loading, loadData, handleAutoReconcile };
+}
+
+
+/* Merged from useLedgerData.ts */
+// T17 Financial Ledger: interfaces and data loading hook
+
+
+
+
+export interface JournalEntry {
+    id: string;
+    account: { code: string; name: string };
+    debit: number;
+    credit: number;
+    balanceBefore: number;
+    balanceAfter: number;
+}
+
+export interface FinancialTransaction {
+    id: string;
+    type: string;
+    referenceId: string;
+    amount: number;
+    status: string;
+    createdAt: string;
+    journalEntries: JournalEntry[];
+}
+
+export interface AccountBalance {
+    code: string;
+    name: string;
+    type: string;
+    balance: number;
+}
+
+const LEDGER_QK = ['platform', 'admin', 'financial'];
+
+export function useLedgerData(showToast: (msg: string, type: any) => void) {
+    const queryClient = useQueryClient();
+
+    // 4 parallel useRegistryQuery hooks (React Query fetches them independently & in parallel)
+    const { data: transactions = [], isLoading: txLoading } = useRegistryQuery<FinancialTransaction[]>(
+        '/platform/admin/financial',
+        { queryKey: [...LEDGER_QK, 'transactions'], staleTime: 30_000 }
+    );
+
+    const { data: balances = [], isLoading: balLoading } = useRegistryQuery<AccountBalance[]>(
+        '/platform/admin/financial/balances',
+        { queryKey: [...LEDGER_QK, 'balances'], staleTime: 30_000 }
+    );
+
+    const { data: pAndL = null, isLoading: plLoading } = useRegistryQuery<any>(
+        '/platform/admin/financial/reports/p-and-l',
+        { queryKey: [...LEDGER_QK, 'p-and-l'], staleTime: 60_000 }
+    );
+
+    const { data: balanceSheet = null, isLoading: bsLoading } = useRegistryQuery<any>(
+        '/platform/admin/financial/reports/balance-sheet',
+        { queryKey: [...LEDGER_QK, 'balance-sheet'], staleTime: 60_000 }
+    );
+
+    const loading = txLoading || balLoading || plLoading || bsLoading;
+
+    const loadData = () => {
+        queryClient.invalidateQueries({ queryKey: LEDGER_QK });
+    };
+
+    const handleReconcile = async (invoiceTxId: string, paymentTxId: string) => {
+        try {
+            const res = await apiClient.post('/platform/admin/financial/reconcile', { invoiceTxId, paymentTxId });
+            if (res.ok) { showToast('Successfully matched transactions', 'success'); loadData(); }
+        } catch (error) {
+            console.error('Reconciliation failed', error);
+        }
+    };
+
+    return { transactions, balances, loading, pAndL, balanceSheet, loadData, handleReconcile };
+}
+

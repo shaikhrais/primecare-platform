@@ -11,35 +11,35 @@ describe('Owner Coverage: auth (5 pages)', () => {
     });
 
     it('F1: Login is importable and owned by auth', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/login');
+        const mod: any = await import('../app/routes/auth/login');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F2: Register is importable and owned by auth', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/register');
+        const mod: any = await import('../app/routes/auth/register');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F3: Forgot Password is importable and owned by auth', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/forgot-password');
+        const mod: any = await import('../app/routes/auth/forgot-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F4: Reset Password is importable and owned by auth', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/reset-password');
+        const mod: any = await import('../app/routes/auth/reset-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');
     });
 
     it('F5: Business Onboard is importable and owned by auth', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/onboard-business');
+        const mod: any = await import('../app/routes/auth/onboard-business');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('auth').toBe('auth');

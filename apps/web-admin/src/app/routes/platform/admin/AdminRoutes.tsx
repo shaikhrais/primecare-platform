@@ -22,9 +22,9 @@ const IncidentEntry = lazy(() => import('./incidents').then(m => ({ default: m.I
 const LeadsPage = lazy(() => import('./leads').then(m => ({ default: m.LeadList  })));
 const LeadEntryForm = lazy(() => import('./leads').then(m => ({ default: m.LeadEntryForm  })));
 const LeadConversion = lazy(() => import('./leads').then(m => ({ default: m.LeadConversion  })));
-const LogisticsHub = lazy(() => import('../../tenancy/admin/pages/ops').then(m => ({ default: m.LogisticsHub  })));
-const RegionMapping = lazy(() => import('../../tenancy/admin/pages/ops').then(m => ({ default: m.RegionMapping  })));
-const RealtimeCapacity = lazy(() => import('../../tenancy/admin/pages/ops').then(m => ({ default: m.RealtimeCapacity  })));
+const LogisticsHub = lazy(() => import('../../tenancy/admin/ops').then(m => ({ default: m.LogisticsHub  })));
+const RegionMapping = lazy(() => import('../../tenancy/admin/ops').then(m => ({ default: m.RegionMapping  })));
+const RealtimeCapacity = lazy(() => import('../../tenancy/admin/ops').then(m => ({ default: m.RealtimeCapacity  })));
 const Timesheets = lazy(() => import('./timesheets').then(m => ({ default: Object.values(m)[0] as any })));
 const TimesheetAdjustment = lazy(() => import('./timesheet-adjustment').then(m => ({ default: Object.values(m)[0] as any })));
 const Services = lazy(() => import('./services').then(m => ({ default: Object.values(m)[0] as any })));

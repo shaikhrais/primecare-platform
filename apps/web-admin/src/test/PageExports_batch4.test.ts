@@ -7,25 +7,25 @@ import { describe, it, expect } from 'vitest';
 
 describe('Smoke Exports — Batch 4', () => {
     it('T38: Dispatch Map exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/coordinator/pages/map');
+        const mod: any = await import('../app/routes/tenancy/coordinator/map');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T39: SOS Center exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/coordinator/pages/sos');
+        const mod: any = await import('../app/routes/tenancy/coordinator/sos');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T40: Fleet Management exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/coordinator/pages/fleet');
+        const mod: any = await import('../app/routes/tenancy/coordinator/fleet');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T41: Shift Swap exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/coordinator/pages/shift-swap');
+        const mod: any = await import('../app/routes/tenancy/coordinator/shift-swap');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
@@ -37,61 +37,61 @@ describe('Smoke Exports — Batch 4', () => {
     });
 
     it('L21: Treatment List exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/allied-health/pages/treatments');
+        const mod: any = await import('../app/routes/tenancy/allied-health/treatments');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T42: Sign Off exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/allied-health/pages/sign-off');
+        const mod: any = await import('../app/routes/tenancy/allied-health/sign-off');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D19: Staff Dashboard exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/staff/pages/dashboard');
+        const mod: any = await import('../app/routes/tenancy/staff/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T43: Task Grid exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/staff/pages/tasks');
+        const mod: any = await import('../app/routes/tenancy/staff/tasks');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T44: Message Center exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/staff/pages/messages');
+        const mod: any = await import('../app/routes/tenancy/staff/messages');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T45: Incident Portal exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/staff/pages/operations');
+        const mod: any = await import('../app/routes/tenancy/staff/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T46: Compliance Monitor exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/staff/pages/operations');
+        const mod: any = await import('../app/routes/tenancy/staff/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H20: Logistics Hub exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T64: Region Mapping exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T65: Realtime Capacity exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });

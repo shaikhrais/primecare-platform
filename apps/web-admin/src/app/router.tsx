@@ -11,11 +11,11 @@ import RequireRole from '@/shared/rbac/RequireRole';
 import { useAuth } from '@/shared/context/AuthContext';
 
 // Auth Pages (Eagerly loaded)
-import { Login } from './routes/auth/pages/login';
-import { Register } from './routes/auth/pages/register';
-import { ForgotPassword } from './routes/auth/pages/forgot-password';
-import { ResetPassword } from './routes/auth/pages/reset-password';
-import { BusinessOnboard } from './routes/auth/pages/onboard-business';
+import { Login } from './routes/auth/login';
+import { Register } from './routes/auth/register';
+import { ForgotPassword } from './routes/auth/forgot-password';
+import { ResetPassword } from './routes/auth/reset-password';
+import { BusinessOnboard } from './routes/auth/onboard-business';
 
 // Error Pages
 import { NotFound } from './routes/shared/error';
