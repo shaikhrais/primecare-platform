@@ -1,5 +1,5 @@
-import { useRegistryQuery } from "../../../shared/hooks/useRegistryQuery";
-import { apiClient } from "../../../shared/utils/apiClient";
+import { apiClient } from '@/shared/utils/apiClient';
+import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
 import AppLayout from "@/shared/components/layout/AppLayout";
 import { TableColumn, TabItem } from "@/shared/components/sections";
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
@@ -12,7 +12,6 @@ import { AdminRegistry, FormEntry, PageType, PageEntry, MasterEntry } from "prim
 import React, { lazy, useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, useNavigate, useSearchParams } from "react-router";
-import { apiClient } from "@/shared/utils/apiClient";
 import { PageSectionRegistry } from "./shared";
 
 // --- Merged from admin.tsx ---
@@ -2554,7 +2553,7 @@ export async function apiFetchVisits(statusFilter?: string | null): Promise<{ vi
     const filtered = statusFilter ? data.filter((v: Visit) => v.status.toLowerCase() === statusFilter.toLowerCase()) : data;
     const events = filtered.map((v: Visit) => {
         const start = new Date(v.requestedStartAt); const end = new Date(start.getTime() + v.durationMinutes * 60000);
-        return { id: v.id, title: `${v.client?.fullName || 'Unknown Client'} (${v.status})`, start, end, resource: v, style: { backgroundColor: getStatusColor(v.status) } };
+        return { id: v.id, title: `${v.client?.fullName || 'Unknown Client'} (${v.status})`, start, end, resource: v, style: { backgroundColor: getStatusColor(v.status as any) } };
     });
     return { visits: filtered, events };
 }
@@ -3629,9 +3628,9 @@ export function getStatusBg(status: SocialPlatform['status']): string {
 
 
 // Platform Portal (Super Admin)
-const PlatformDashboard = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
-const PlatformAuditLogs = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
-const SystemPolicies = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
+const PlatformDashboard = () => <div />;
+const PlatformAuditLogs = () => <div />;
+const SystemPolicies = () => <div />;
 
 export const PlatformRoutes = () => (
     <Route path={RouteRegistry.SUPERUSER.DASHBOARD} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>

@@ -1,4 +1,3 @@
-import type { TableColumn } from '@/shared/components/sections';
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import { AdminRegistry } from 'prime-care-shared';
