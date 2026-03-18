@@ -2900,9 +2900,9 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'RPM Devices', value: 34, color: 'var(--pc-success)' },
                     { label: 'Critical Alerts', value: 1, color: 'var(--pc-error, #ef4444)' },
                 ]},
-                'H1.active-sessions': { table: { columns: sessionCols, rows: sessionData } },
+                'H1.active-sessions': { table: { columns: [], rows: [] } },
                 // @ts-ignore
-                'H1.alerts': { alerts: rpmAlerts },
+                'H1.alerts': { alerts: [] },
             },
 
   // Extracted from template-editor.tsx

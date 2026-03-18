@@ -1,0 +1,85 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PrimeCare Role-Wise Screenshots Showcase</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; }
+            h1 { text-align: center; font-weight: 300; font-size: 2.5rem; margin-bottom: 50px; color: #38bdf8; }
+            .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 40px; }
+            .card { background: #1e293b; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+            .card-header { padding: 20px; border-bottom: 1px solid #334155; display: flex; align-items: center; justify-content: space-between; }
+            .role-badge { background: #0ea5e9; color: white; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+            img { width: 100%; height: auto; display: block; filter: contrast(1.05) brightness(1.02); transition: transform 0.3s ease; }
+            img:hover { transform: scale(1.02); }
+            a { color: #38bdf8; text-decoration: none; }
+            a:hover { text-decoration: underline; }
+        </style>
+    </head>
+    <body>
+        <h1>PrimeCare: Live Production Deployment Roles</h1>
+        <p style="text-align: center; margin-top: -30px; margin-bottom: 50px; color: #94a3b8;">
+            Deployed automatically to <a href="https://primecare-admin.pages.dev" target="_blank">https://primecare-admin.pages.dev</a> via Cloudflare Front-End Delivery
+        </p>
+        <div class="showcase-grid">
+    
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge">admin Dashboard</span>
+                    <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">/admin</span>
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="screenshots/admin_dashboard.png" target="_blank">
+                        <img src="screenshots/admin_dashboard.png" alt="admin interface preview" loading="lazy" />
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge">manager Dashboard</span>
+                    <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">/tenancy/manager</span>
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="screenshots/manager_dashboard.png" target="_blank">
+                        <img src="screenshots/manager_dashboard.png" alt="manager interface preview" loading="lazy" />
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge">scrum master Dashboard</span>
+                    <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">/platform/scrum-master</span>
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="screenshots/scrum_master_dashboard.png" target="_blank">
+                        <img src="screenshots/scrum_master_dashboard.png" alt="scrum_master interface preview" loading="lazy" />
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge">psw Dashboard</span>
+                    <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">/tenancy/psw</span>
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="screenshots/psw_dashboard.png" target="_blank">
+                        <img src="screenshots/psw_dashboard.png" alt="psw interface preview" loading="lazy" />
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="role-badge">rn Dashboard</span>
+                    <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">/tenancy/rn</span>
+                </div>
+                <div style="overflow: hidden;">
+                    <a href="screenshots/rn_dashboard.png" target="_blank">
+                        <img src="screenshots/rn_dashboard.png" alt="rn interface preview" loading="lazy" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
