@@ -1,0 +1,18 @@
+[
+  "src/app/routes/auth/onboarding/onboarding.tsx(12,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/platform/superuser.tsx(12,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/platform/superuser.tsx(24,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/allied-health.tsx(9,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/allied-health.tsx(19,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/allied-health.tsx(29,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/finance.tsx(9,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/hr.tsx(9,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/marketing.tsx(9,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/qa.tsx(9,26): error TS2304: Cannot find name 'PageSectionRegistry'.",
+  "src/app/routes/tenancy/tenancyImports.ts(89,48): error TS2307: Cannot find module './allied-health/treatments' or its corresponding type declarations.",
+  "src/app/routes/tenancy/tenancyImports.ts(90,42): error TS2307: Cannot find module './allied-health/sign-off' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_allied.test.ts(21,39): error TS2307: Cannot find module '../app/routes/tenancy/allied-health/treatments' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_allied.test.ts(28,39): error TS2307: Cannot find module '../app/routes/tenancy/allied-health/sign-off' or its corresponding type declarations.",
+  "src/test/PageExports_batch4.test.ts(40,39): error TS2307: Cannot find module '../app/routes/tenancy/allied-health/treatments' or its corresponding type declarations.",
+  "src/test/PageExports_batch4.test.ts(46,39): error TS2307: Cannot find module '../app/routes/tenancy/allied-health/sign-off' or its corresponding type declarations."
+]

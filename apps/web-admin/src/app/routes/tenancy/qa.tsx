@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
+
 
 // --- Merged from D13-ClinicalQaDashboard.tsx ---
 export function ClinicalQaDashboard() {
