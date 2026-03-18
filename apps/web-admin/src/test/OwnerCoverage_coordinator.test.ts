@@ -11,7 +11,7 @@ describe('Owner Coverage: coordinator (6 pages)', () => {
     });
 
     it('H18: Coordinator Hub is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/hub/H18-CoordinatorHub');
+        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/hub');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
@@ -39,14 +39,14 @@ describe('Owner Coverage: coordinator (6 pages)', () => {
     });
 
     it('T40: Fleet Management is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/fleet/T40-FleetManagement');
+        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/fleet');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');
     });
 
     it('T41: Shift Swap is importable and owned by coordinator', async () => {
-        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/shift-swap/T41-ShiftSwap');
+        const mod: any = await import('@/app/routes/tenancy/coordinator/pages/shift-swap');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('coordinator').toBe('coordinator');

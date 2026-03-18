@@ -1,0 +1,6 @@
+[
+  "src/app/router.tsx(42,52): error TS2307: Cannot find module './routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase' or its corresponding type declarations.",
+  "src/app/router.tsx(43,54): error TS2307: Cannot find module './routes/platform/admin/pages/knowledge-base/T48-KBArticle' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/AdminRoutes.tsx(46,98): error TS2339: Property 'KnowledgeBaseArticle' does not exist on type 'typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/index\")'.",
+  "src/app/routes/tenancy/tenancyImports.ts(28,96): error TS2339: Property 'FinanceHub' does not exist on type 'typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/manager/pages/finance/index\")'."
+]

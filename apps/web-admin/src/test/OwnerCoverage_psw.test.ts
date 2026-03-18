@@ -39,14 +39,14 @@ describe('Owner Coverage: psw (16 pages)', () => {
     });
 
     it('H14: Credential Vault is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/credentials/H14-CredentialVault');
+        const mod: any = await import('@/app/routes/tenancy/psw/pages/credentials');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('H15: PSW Training is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/training/H15-PswTrainingHub');
+        const mod: any = await import('@/app/routes/tenancy/psw/pages/training');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
@@ -88,14 +88,14 @@ describe('Owner Coverage: psw (16 pages)', () => {
     });
 
     it('T27: Provider Social is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/feed/T27-ProviderSocial');
+        const mod: any = await import('@/app/routes/tenancy/psw/pages/feed');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');
     });
 
     it('T28: Mileage Tracker is importable and owned by psw', async () => {
-        const mod: any = await import('@/app/routes/tenancy/psw/pages/mileage/T28-MileageTracker');
+        const mod: any = await import('@/app/routes/tenancy/psw/pages/mileage');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('psw').toBe('psw');

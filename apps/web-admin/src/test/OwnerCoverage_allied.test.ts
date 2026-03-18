@@ -11,21 +11,21 @@ describe('Owner Coverage: allied (3 pages)', () => {
     });
 
     it('D18: Allied Health is importable and owned by allied', async () => {
-        const mod: any = await import('@/app/routes/tenancy/allied-health/D18-AlliedHealthDashboard');
+        const mod: any = await import('@/app/routes/tenancy/allied-health');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('allied').toBe('allied');
     });
 
     it('L21: Treatment List is importable and owned by allied', async () => {
-        const mod: any = await import('@/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList');
+        const mod: any = await import('@/app/routes/tenancy/allied-health/pages/treatments');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('allied').toBe('allied');
     });
 
     it('T42: Sign Off is importable and owned by allied', async () => {
-        const mod: any = await import('@/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff');
+        const mod: any = await import('@/app/routes/tenancy/allied-health/pages/sign-off');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('allied').toBe('allied');

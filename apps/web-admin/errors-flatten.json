@@ -1,0 +1,9 @@
+[
+  "src/app/routes/platform/admin/pages/form-registry.tsx(6,33): error TS2307: Cannot find module './formRegistryConfig' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/pages/page-registry.tsx(6,39): error TS2307: Cannot find module './registryMeta' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_admin.test.ts(637,39): error TS2307: Cannot find module '@/app/routes/platform/admin/pages/form-registry/index' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_admin.test.ts(644,39): error TS2307: Cannot find module '@/app/routes/platform/admin/pages/page-registry/index' or its corresponding type declarations.",
+  "src/test/PageExports_batch4.test.ts(106,39): error TS2307: Cannot find module '@/app/routes/platform/admin/pages/form-registry/index' or its corresponding type declarations.",
+  "src/test/PageExports_batch4.test.ts(112,39): error TS2307: Cannot find module '@/app/routes/platform/admin/pages/page-registry/index' or its corresponding type declarations.",
+  "src/test/ViewsAndGeo.test.ts(35,39): error TS2307: Cannot find module '@/app/routes/auth/pages/login/index' or its corresponding type declarations."
+]

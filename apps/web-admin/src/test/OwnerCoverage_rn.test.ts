@@ -18,7 +18,7 @@ describe('Owner Coverage: rn (12 pages)', () => {
     });
 
     it('D16: MAR Dashboard is importable and owned by rn', async () => {
-        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar/D16-MarDashboard');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
@@ -46,7 +46,7 @@ describe('Owner Coverage: rn (12 pages)', () => {
     });
 
     it('L19: RAI Assessments is importable and owned by rn', async () => {
-        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
@@ -67,7 +67,7 @@ describe('Owner Coverage: rn (12 pages)', () => {
     });
 
     it('T31: MAR Client is importable and owned by rn', async () => {
-        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar/T31-MarClient');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/mar');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
@@ -81,14 +81,14 @@ describe('Owner Coverage: rn (12 pages)', () => {
     });
 
     it('T33: RAI Detail is importable and owned by rn', async () => {
-        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/rai');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');
     });
 
     it('T63: RN Check-In is importable and owned by rn', async () => {
-        const mod: any = await import('@/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen');
+        const mod: any = await import('@/app/routes/tenancy/rn/pages/schedule');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('rn').toBe('rn');

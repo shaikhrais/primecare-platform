@@ -11,119 +11,119 @@ describe('Owner Coverage: manager (17 pages)', () => {
     });
 
     it('D7: Manager Dashboard is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/dashboard');
+        const mod: any = await import('@/app/routes/tenancy/manager/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('D9: Branch P&L is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/finance/D9-BranchPL');
+        const mod: any = await import('@/app/routes/tenancy/manager/finance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('D10: Regional Stats is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/D10-RegionalStats');
+        const mod: any = await import('@/app/routes/tenancy/manager/pages');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('D11: Marketing is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/marketing/D11-MarketingDashboard');
+        const mod: any = await import('@/app/routes/tenancy/marketing');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('D12: Finance Regional is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/finance/D12-FinanceRegionalHub');
+        const mod: any = await import('@/app/routes/tenancy/finance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('D13: Clinical QA is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/qa/D13-ClinicalQaDashboard');
+        const mod: any = await import('@/app/routes/tenancy/qa');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('H11: Training Hub is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/training');
+        const mod: any = await import('@/app/routes/tenancy/manager/training');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('H12: Operations Hub is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/operations');
+        const mod: any = await import('@/app/routes/tenancy/manager/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('H13: HR Recruitment is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/hr/H13-HrRecruitmentPortal');
+        const mod: any = await import('@/app/routes/tenancy/hr');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('L13: Evaluations is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/evaluations');
+        const mod: any = await import('@/app/routes/tenancy/manager/evaluations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T19: Portfolio is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/portfolio');
+        const mod: any = await import('@/app/routes/tenancy/manager/portfolio');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T20: Daily Entry is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/daily-entry');
+        const mod: any = await import('@/app/routes/tenancy/manager/daily-entry');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T21: Service Review is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/service-review');
+        const mod: any = await import('@/app/routes/tenancy/manager/service-review');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T22: Survey Manager is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/surveys');
+        const mod: any = await import('@/app/routes/tenancy/manager/surveys');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T23: Staff Ranker is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/performance/T23-StaffRanker');
+        const mod: any = await import('@/app/routes/tenancy/manager/performance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T24: Payroll Verify is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification');
+        const mod: any = await import('@/app/routes/tenancy/manager/finance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');
     });
 
     it('T25: Compliance Sync is importable and owned by manager', async () => {
-        const mod: any = await import('@/app/routes/tenancy/manager/pages/compliance');
+        const mod: any = await import('@/app/routes/tenancy/manager/compliance');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('manager').toBe('manager');

@@ -18,28 +18,28 @@ describe('Owner Coverage: staff (5 pages)', () => {
     });
 
     it('T43: Task Grid is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/tasks');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T44: Message Center is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/messages/T44-MessageCenter');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/messages');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T45: Incident Portal is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');
     });
 
     it('T46: Compliance Monitor is importable and owned by staff', async () => {
-        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations/T46-ComplianceMonitor');
+        const mod: any = await import('@/app/routes/tenancy/staff/pages/operations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('staff').toBe('staff');

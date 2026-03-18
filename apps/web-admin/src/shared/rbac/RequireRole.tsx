@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router';
 import { AdminRegistry, can, Permission } from 'prime-care-shared';
 import { useAuth } from '@/shared/context/AuthContext';
-import Unauthorized from '@/app/routes/shared/pages/error/Unauthorized';
+import { Unauthorized } from '@/app/routes/shared/error';
 
 const { RouteRegistry } = AdminRegistry;
 

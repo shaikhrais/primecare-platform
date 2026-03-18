@@ -8,26 +8,26 @@ const { RouteRegistry } = AdminRegistry;
 
 // Scrum Master Pages
 const ScrumMasterDashboard = lazy(() => import('./pages/dashboard'));
-const ApiEndpointsHub = lazy(() => import('./pages/testing/ApiEndpointsHub'));
-const TechnicalAuditPortal = lazy(() => import('./pages/audit/TechnicalAuditPortal'));
-const RoleFlowsPage = lazy(() => import('./pages/flows/RoleFlowsPage'));
-const SystemHealthMonitor = lazy(() => import('./pages/monitoring/SystemHealthMonitor'));
-const EnvironmentAudit = lazy(() => import('./pages/audit/EnvironmentAudit'));
-const RegistryIntegrityCheck = lazy(() => import('./pages/audit/RegistryIntegrityCheck'));
-const DatabaseSchemaAudit = lazy(() => import('./pages/audit/DatabaseSchemaAudit'));
-const ThemeCoreCenter = lazy(() => import('./pages/theme/ThemeCoreCenter'));
+const ApiEndpointsHub = lazy(() => import('./pages/testing').then(m => ({ default: Object.values(m)[0] as any })));
+const TechnicalAuditPortal = lazy(() => import('./pages/audit').then(m => ({ default: m.TechnicalAuditPortal })));
+const RoleFlowsPage = lazy(() => import('./pages/flows').then(m => ({ default: m.RoleFlowsPage })));
+const SystemHealthMonitor = lazy(() => import('./pages/monitoring').then(m => ({ default: Object.values(m)[0] as any })));
+const EnvironmentAudit = lazy(() => import('./pages/audit').then(m => ({ default: m.EnvironmentAudit })));
+const RegistryIntegrityCheck = lazy(() => import('./pages/audit').then(m => ({ default: m.RegistryIntegrityCheck })));
+const DatabaseSchemaAudit = lazy(() => import('./pages/audit').then(m => ({ default: m.DatabaseSchemaAudit })));
+const ThemeCoreCenter = lazy(() => import('./pages/theme').then(m => ({ default: Object.values(m)[0] as any })));
 const DeveloperPortal = lazy(() => import('./pages/developer'));
 const DeveloperKBPage = lazy(() => import('./pages/developer-kb').then(m => ({ default: Object.values(m)[0] as any })));
-const PerformancePage = lazy(() => import('./pages/performance/PerformancePage'));
-const BuildHealthPage = lazy(() => import('./pages/builds/BuildHealthPage'));
-const SecurityScansPage = lazy(() => import('./pages/scans/SecurityScansPage'));
-const LocalizationPage = lazy(() => import('./pages/locales/LocalizationPage'));
-const RegistryAutoRepair = lazy(() => import('./pages/repair/RegistryAutoRepair'));
-const ImpersonationTool = lazy(() => import('./pages/impersonate/ImpersonationTool'));
-const InteractionAudit = lazy(() => import('./pages/audit/InteractionAudit'));
-const ResponseBot = lazy(() => import('./pages/audit/ResponseBot'));
-const UsageStatisticsManager = lazy(() => import('./pages/usage/UsageStatisticsManager'));
-const DigitalPropertyManager = lazy(() => import('./pages/property/DigitalPropertyManager'));
+const PerformancePage = lazy(() => import('./pages/performance').then(m => ({ default: Object.values(m)[0] as any })));
+const BuildHealthPage = lazy(() => import('./pages/builds').then(m => ({ default: Object.values(m)[0] as any })));
+const SecurityScansPage = lazy(() => import('./pages/scans').then(m => ({ default: Object.values(m)[0] as any })));
+const LocalizationPage = lazy(() => import('./pages/locales').then(m => ({ default: Object.values(m)[0] as any })));
+const RegistryAutoRepair = lazy(() => import('./pages/repair').then(m => ({ default: Object.values(m)[0] as any })));
+const ImpersonationTool = lazy(() => import('./pages/impersonate').then(m => ({ default: Object.values(m)[0] as any })));
+const InteractionAudit = lazy(() => import('./pages/audit').then(m => ({ default: m.InteractionAudit })));
+const ResponseBot = lazy(() => import('./pages/audit').then(m => ({ default: m.ResponseBot })));
+const UsageStatisticsManager = lazy(() => import('./pages/usage').then(m => ({ default: Object.values(m)[0] as any })));
+const DigitalPropertyManager = lazy(() => import('./pages/property').then(m => ({ default: Object.values(m)[0] as any })));
 const E2eRunner = lazy(() => import('./pages/e2e-runner'));
 
 export const ScrumMasterRoutes = () => (

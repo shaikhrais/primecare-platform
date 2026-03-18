@@ -7,301 +7,301 @@ import { describe, it, expect } from 'vitest';
 
 describe('Smoke Exports — Batch 1', () => {
     it('F1: Login exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/login');
+        const mod: any = await import('@/app/routes/auth/login');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F2: Register exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/register');
+        const mod: any = await import('@/app/routes/auth/register');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F3: Forgot Password exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/forgot-password');
+        const mod: any = await import('@/app/routes/auth/forgot-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F4: Reset Password exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/reset-password');
+        const mod: any = await import('@/app/routes/auth/reset-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F5: Business Onboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/onboard-business');
+        const mod: any = await import('@/app/routes/auth/onboard-business');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D1: Admin Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/dashboard');
+        const mod: any = await import('@/app/routes/platform/admin/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D2: Registry Summary exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/dashboard');
+        const mod: any = await import('@/app/routes/platform/admin/dashboard');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D3: Accounting Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/security/D3-AccountingDashboard');
+        const mod: any = await import('@/app/routes/platform/admin/security');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D4: EVV Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/evv/D4-EvvDashboard');
+        const mod: any = await import('@/app/routes/platform/admin/evv');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D5: AI Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/ai/D5-AiDashboard');
+        const mod: any = await import('@/app/routes/platform/admin/ai');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('D6: Cron Dashboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/cron/D6-CronDashboard');
+        const mod: any = await import('@/app/routes/platform/admin/cron');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F6: Client Admission exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/admission');
+        const mod: any = await import('@/app/routes/platform/admin/admission');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F7: Staff Onboarding exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/onboarding');
+        const mod: any = await import('@/app/routes/platform/admin/onboarding');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F8: Timesheet Adjustment exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/timesheet-adjustment');
+        const mod: any = await import('@/app/routes/platform/admin/timesheet-adjustment');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F9: Invoice Entry exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/invoices');
+        const mod: any = await import('@/app/routes/platform/admin/invoices');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F9a: User Entry exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/users');
+        const mod: any = await import('@/app/routes/platform/admin/users');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F10: Incident Entry exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/incidents');
+        const mod: any = await import('@/app/routes/platform/admin/incidents');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F11: Lead Entry exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/leads');
+        const mod: any = await import('@/app/routes/platform/admin/leads');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F12: Locations exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/locations');
+        const mod: any = await import('@/app/routes/platform/admin/locations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L1: Schedule exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/schedule');
+        const mod: any = await import('@/app/routes/platform/admin/schedule');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L2: Incident List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/incidents');
+        const mod: any = await import('@/app/routes/platform/admin/incidents');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L3: Lead List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/leads');
+        const mod: any = await import('@/app/routes/platform/admin/leads');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L3a: User List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/users');
+        const mod: any = await import('@/app/routes/platform/admin/users');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L4: Timesheets exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/timesheets');
+        const mod: any = await import('@/app/routes/platform/admin/timesheets');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L5: Services exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/services');
+        const mod: any = await import('@/app/routes/platform/admin/services');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L6: Audit Logs exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/audits');
+        const mod: any = await import('@/app/routes/platform/admin/audits');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L7: Auth List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/authorizations/L7-AuthList');
+        const mod: any = await import('@/app/routes/platform/admin/authorizations');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L8: Consent List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/consent/L8-ConsentList');
+        const mod: any = await import('@/app/routes/platform/admin/consent');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L9: Referral List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/referrals/L9-ReferralList');
+        const mod: any = await import('@/app/routes/platform/admin/referrals');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L10: Claims List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/claims/L10-ClaimsList');
+        const mod: any = await import('@/app/routes/platform/admin/claims');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L11: Webhook List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/webhooks/L11-WebhookList');
+        const mod: any = await import('@/app/routes/platform/admin/webhooks');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L12: Booking Queue exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue');
+        const mod: any = await import('@/app/routes/platform/admin/booking-requests');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L15: Customer List exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/customers');
+        const mod: any = await import('@/app/routes/platform/admin/customers');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('L22: EVV Exceptions exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/evv/L22-EvvExceptions');
+        const mod: any = await import('@/app/routes/platform/admin/evv');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H1: Telehealth Center exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter');
+        const mod: any = await import('@/app/routes/platform/admin/telehealth');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H2: Pharmacy Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub');
+        const mod: any = await import('@/app/routes/platform/admin/pharmacy');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H3: Revenue Cycle Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub');
+        const mod: any = await import('@/app/routes/platform/admin/rcm');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H4: Supply Chain Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/erp/H4-SupplyChainHub');
+        const mod: any = await import('@/app/routes/platform/admin/erp');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H5: Notifications Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/notifications/H5-NotificationsHub');
+        const mod: any = await import('@/app/routes/platform/admin/notifications');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H6: Document Center exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/documents/H6-DocumentCenter');
+        const mod: any = await import('@/app/routes/platform/admin/documents');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H7: Payroll Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/payroll/H7-PayrollHub');
+        const mod: any = await import('@/app/routes/platform/admin/payroll');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H8: Knowledge Base exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase');
+        const mod: any = await import('@/app/routes/platform/admin/knowledge-base');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H9: Reference Data exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub');
+        const mod: any = await import('@/app/routes/platform/admin/reference-data');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('H19: Wizard Hub exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/H19-WizardHub');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('W1: Business Setup exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('W2: Staff Onboarding exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('W3: Care Plan exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/W3-CarePlanWizard');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('W4: Revenue exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/W4-RevenueWizard');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('W5: Business Model exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard');
+        const mod: any = await import('@/app/routes/platform/admin/setup');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('R1: Report Center exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/pages/reports');
+        const mod: any = await import('@/app/routes/platform/admin/reports');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });

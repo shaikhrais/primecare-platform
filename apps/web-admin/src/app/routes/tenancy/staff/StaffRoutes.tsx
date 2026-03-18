@@ -7,12 +7,12 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 const { RouteRegistry } = AdminRegistry;
 
 // Staff Pages
-const StaffDashboard = lazy(() => import('./pages/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
-const UserList = lazy(() => import('../../platform/admin/pages/users').then(m => ({ default: m.UserList })));
-const TaskGrid = lazy(() => import('./pages/tasks/T43-TaskGrid'));
-const MessageCenter = lazy(() => import('./pages/messages/T44-MessageCenter'));
-const IncidentPortal = lazy(() => import('./pages/operations/T45-IncidentPortal'));
-const ComplianceMonitor = lazy(() => import('./pages/operations/T46-ComplianceMonitor'));
+const StaffDashboard = lazy(() => import('./dashboard').then(m => ({ default: Object.values(m)[0] as any })));
+const UserList = lazy(() => import('../../platform/admin/users').then(m => ({ default: m.UserList })));
+const TaskGrid = lazy(() => import('./tasks').then(m => ({ default: Object.values(m)[0] as any })));
+const MessageCenter = lazy(() => import('./messages').then(m => ({ default: Object.values(m)[0] as any })));
+const IncidentPortal = lazy(() => import('./operations').then(m => ({ default: m.IncidentPortal })));
+const ComplianceMonitor = lazy(() => import('./operations').then(m => ({ default: m.ComplianceMonitor })));
 
 export const StaffRoutes = () => (
     <Route path={RouteRegistry.STAFF.DASHBOARD} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>

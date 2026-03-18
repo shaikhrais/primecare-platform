@@ -11,16 +11,16 @@ import RequireRole from '@/shared/rbac/RequireRole';
 import { useAuth } from '@/shared/context/AuthContext';
 
 // Auth Pages (Eagerly loaded)
-import { Login } from './routes/auth/pages/login';
-import { Register } from './routes/auth/pages/register';
-import { ForgotPassword } from './routes/auth/pages/forgot-password';
-import { ResetPassword } from './routes/auth/pages/reset-password';
-import { BusinessOnboard } from './routes/auth/pages/onboard-business';
+import { Login } from './routes/auth/login';
+import { Register } from './routes/auth/register';
+import { ForgotPassword } from './routes/auth/forgot-password';
+import { ResetPassword } from './routes/auth/reset-password';
+import { BusinessOnboard } from './routes/auth/onboard-business';
 
 // Error Pages
-import NotFound from './routes/shared/pages/error/NotFound';
-import Unauthorized from './routes/shared/pages/error/Unauthorized';
-import ServerError from './routes/shared/pages/error/ServerError';
+import { NotFound } from './routes/shared/error';
+import { Unauthorized } from './routes/shared/error';
+import { ServerError } from './routes/shared/error';
 
 // Sub-Routers
 import { AdminRoutes } from './routes/platform/admin/AdminRoutes';
@@ -32,17 +32,17 @@ import { StaffRoutes } from './routes/tenancy/staff/StaffRoutes';
 const { RouteRegistry } = AdminRegistry;
 
 // Shared Protected Pages (Lazy loaded)
-const Profile = React.lazy(() => import('./routes/shared/pages/profile'));
-const SupportHub = React.lazy(() => import('./routes/shared/pages/support-hub'));
-const SupportTicket = React.lazy(() => import('./routes/shared/pages/support-ticket'));
-const Messaging = React.lazy(() => import('./routes/shared/pages/messaging'));
-const VisitDetails = React.lazy(() => import('./routes/shared/pages/visit-details'));
-const VisitCompletion = React.lazy(() => import('./routes/shared/pages/visit-completion'));
-const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training').then(m => ({ default: Object.values(m)[0] as any })));
-const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase'));
-const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/T48-KBArticle'));
-const MarketingShowcase = React.lazy(() => import('./routes/shared/pages/MarketingShowcase'));
-const DevPreview = React.lazy(() => import('./routes/shared/pages/DevPreview'));
+const Profile = React.lazy(() => import('./routes/shared/profile'));
+const SupportHub = React.lazy(() => import('./routes/shared/support-hub'));
+const SupportTicket = React.lazy(() => import('./routes/shared/support-ticket'));
+const Messaging = React.lazy(() => import('./routes/shared/messaging'));
+const VisitDetails = React.lazy(() => import('./routes/shared/visit-details'));
+const VisitCompletion = React.lazy(() => import('./routes/shared/visit-completion'));
+const UserTrainingPage = React.lazy(() => import('./routes/shared/training').then(m => ({ default: Object.values(m)[0] as any })));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/knowledge-base').then(m => ({ default: m.KnowledgeBase })));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/knowledge-base').then(m => ({ default: m.KBArticle })));
+const MarketingShowcase = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
+const DevPreview = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
 
 // Fallback Loader
 // Skeleton Loader for lazy-loaded route chunks

@@ -39,7 +39,7 @@ describe('Owner Coverage: client (12 pages)', () => {
     });
 
     it('H17: Family Care Hub is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/engagement/H17-FamilyCareHub');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/engagement');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
@@ -53,42 +53,42 @@ describe('Owner Coverage: client (12 pages)', () => {
     });
 
     it('R5: Medical Summary is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/medical/R5-MedicalSummary');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/medical');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('P1: Family Portal is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/family/P1-FamilyPortal');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/family');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('T34: Catalog Browser is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/services/T34-CatalogBrowser');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/services');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('T35: Client Messaging is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/support/T35-ClientMessaging');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/support');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('T36: Team Roster is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/team/T36-TeamRoster');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/team');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
     });
 
     it('T37: Feedback Loop is importable and owned by client', async () => {
-        const mod: any = await import('@/app/routes/tenancy/client/pages/support/T37-FeedbackLoop');
+        const mod: any = await import('@/app/routes/tenancy/client/pages/support');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('client').toBe('client');
