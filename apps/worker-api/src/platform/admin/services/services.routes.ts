@@ -34,6 +34,8 @@ const listServicesRoute = createRoute({
             },
             description: 'List of services',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -68,6 +70,8 @@ const createServiceRoute = createRoute({
             },
             description: 'Service created successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -113,6 +117,8 @@ const updateServiceRoute = createRoute({
             },
             description: 'Service updated successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

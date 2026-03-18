@@ -11,6 +11,8 @@ export const statsRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ totalUsers: z.number(), pendingVisits: z.number(), totalVisits: z.number(), totalLeads: z.number() }) } }, description: 'Success' },
         500: { content: { 'application/json': { schema: z.object({ error: z.string(), details: z.string().optional() }) } }, description: 'Internal Server Error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -32,7 +34,7 @@ export async function handleAdminStats(c: any) {
     let modelScore = 0;
     try {
         const tenant = await prisma.tenant.findFirst({ select: { businessNumber: true, supportEmail: true, logoUrl: true, taxSettings: true } });
-        if (tenant) { if (tenant.businessNumber) modelScore += 25; if (tenant.supportEmail) modelScore += 25; if (tenant.logoUrl) modelScore += 25; if (tenant.taxSettings) modelScore += 25; }
+        if (tenant) { if (tenant?.businessNumber) modelScore += 25; if (tenant?.supportEmail) modelScore += 25; if (tenant?.logoUrl) modelScore += 25; if (tenant?.taxSettings) modelScore += 25; }
     } catch (e) { /* R15: Don't leak schema sync details */ }
     return c.json({ totalUsers, pendingVisits, totalVisits, totalLeads, modelScore, MTD_REVENUE: "0.00", healthAlerts: { complianceRisk, coverageGap, pipelineStagnation } }, 200);
 }

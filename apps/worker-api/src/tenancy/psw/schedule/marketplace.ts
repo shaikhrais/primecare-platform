@@ -21,6 +21,7 @@ const listMarketplaceRoute = createRoute({
         404: {
             description: 'Profile not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -104,6 +105,7 @@ const listSwapsRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Peer Swaps' },
         404: { description: 'Profile not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -22,6 +22,8 @@ const scheduleRoute = createRoute({
                 }
             }, description: 'Schedule'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -87,6 +89,8 @@ const administerRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Recorded' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -127,6 +131,8 @@ const historyRoute = createRoute({
                 }
             }, description: 'History'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -164,6 +170,8 @@ const prnRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Recorded' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -199,6 +207,8 @@ const reviewRoute = createRoute({
                 }
             }, description: 'Queue'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

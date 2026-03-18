@@ -18,6 +18,8 @@ const assignedRoute = createRoute({
                 }
             }, description: 'Assigned training'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -44,6 +46,7 @@ const completeRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Completed' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

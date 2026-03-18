@@ -19,6 +19,8 @@ const listVisitsRoute = createRoute({
             },
             description: 'List of visits',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

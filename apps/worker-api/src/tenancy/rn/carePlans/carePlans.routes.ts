@@ -29,6 +29,8 @@ const listCarePlansRoute = createRoute({
             },
             description: 'List of care plans',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -67,6 +69,8 @@ const reviewCarePlanRoute = createRoute({
             },
             description: 'Care plan updated successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

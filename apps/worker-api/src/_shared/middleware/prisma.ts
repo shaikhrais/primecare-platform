@@ -78,7 +78,7 @@ export const prismaMiddleware = () => {
                     where: { slug: tenantSlug },
                     select: { id: true }
                 });
-                if (tenant) tenantId = tenant.id;
+                if (tenant) tenantId = tenant?.id;
             }
         }
 

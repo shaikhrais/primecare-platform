@@ -26,7 +26,9 @@ const riskSurveillanceRoute = createRoute({
                 },
             },
             description: 'Internal server error',
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 
@@ -62,7 +64,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             // 1. Compliance Risk: Expired or pending documents
             const documentCount = await prisma.pswDocument.count({
                 where: {
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     status: { in: ['expired', 'pending'] }
                 }
             });
@@ -70,7 +72,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             // 2. Performance Risk: Cancelled visits in last 30 days vs total visits completed
             const cancelledVisits = await prisma.visit.count({
                 where: {
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     status: 'cancelled',
                     requestedStartAt: { gte: thirtyDaysAgo }
                 }
@@ -78,7 +80,7 @@ r.openapi(riskSurveillanceRoute, async (c) => {
 
             const completedVisits = await prisma.visit.count({
                 where: {
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     status: 'completed',
                     requestedStartAt: { gte: thirtyDaysAgo }
                 }
@@ -90,11 +92,11 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             // 3. User Risk: High ratio of inactive users
             const inactiveUsers = await prisma.user.count({
                 where: {
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     status: 'inactive'
                 }
             });
-            const totalUsers = tenant._count.users;
+            const totalUsers = tenant?._count.users;
             const inactiveRatio = totalUsers > 0 ? (inactiveUsers / totalUsers) : 0;
 
             // Calculate Risk Score (0-100, higher is worse)
@@ -133,11 +135,11 @@ r.openapi(riskSurveillanceRoute, async (c) => {
             else if (riskScore >= 40) riskLevel = 'Warning';
 
             return {
-                tenantId: tenant.id,
-                name: tenant.name,
-                slug: tenant.slug,
+                tenantId: tenant?.id,
+                name: tenant?.name,
+                slug: tenant?.slug,
                 userCount: totalUsers,
-                visitCount: tenant._count.visits,
+                visitCount: tenant?._count.visits,
                 riskScore,
                 riskLevel,
                 riskFactors

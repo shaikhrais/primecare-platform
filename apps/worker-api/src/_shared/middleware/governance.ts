@@ -37,8 +37,8 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
         }
 
         // 2. VPN Enforcement
-        if (tenant.enforceVpn && tenant.allowedVpnRanges.length > 0) {
-            const isAllowed = tenant.allowedVpnRanges.some((range: string) => {
+        if (tenant?.enforceVpn && tenant?.allowedVpnRanges.length > 0) {
+            const isAllowed = tenant?.allowedVpnRanges.some((range: string) => {
                 // Support exact match or prefix match for simple CIDR-like behavior
                 if (range.endsWith('*')) {
                     return clientIp.startsWith(range.slice(0, -1));
@@ -67,7 +67,7 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
 
             if (!device) {
                 // If device approval is required, block unknown devices
-                if (tenant.requireDeviceApproval) {
+                if (tenant?.requireDeviceApproval) {
                     return c.json({
                         error: 'Unauthorized Device',
                         message: 'This device is not registered. Please contact your administrator for approval.'
@@ -80,7 +80,7 @@ export const governanceMiddleware = (): MiddlewareHandler<{ Bindings: Bindings; 
                 }
 
                 // Check authorization if required
-                if (tenant.requireDeviceApproval && !device.isAuthorized) {
+                if (tenant?.requireDeviceApproval && !device.isAuthorized) {
                     return c.json({ error: 'Device Pending Approval', message: 'Your device is awaiting administrator approval.' }, 403);
                 }
 

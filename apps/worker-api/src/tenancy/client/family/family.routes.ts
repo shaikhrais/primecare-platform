@@ -19,6 +19,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Members'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -55,7 +57,10 @@ const addRoute = createRoute({
             }
         }
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Added' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Added' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 family.openapi(addRoute, async (c) => {
@@ -86,6 +91,8 @@ const feedRoute = createRoute({
                 }
             }, description: 'Feed'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -129,7 +136,10 @@ const messageRoute = createRoute({
             }
         }
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ sent: z.boolean() }) } }, description: 'Sent' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ sent: z.boolean() }) } }, description: 'Sent' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 family.openapi(messageRoute, async (c) => {
@@ -154,7 +164,9 @@ const scheduleRoute = createRoute({
     method: 'get', path: '/schedule/upcoming',
     summary: 'Family Upcoming Schedule', tags: ['Family'],
     responses: {
-        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Upcoming visits' }
+        200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Upcoming visits' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 

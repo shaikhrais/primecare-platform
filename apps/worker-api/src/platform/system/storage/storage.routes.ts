@@ -50,6 +50,7 @@ const uploadFileRoute = createRoute({
         400: { description: 'Invalid file' },
         413: { description: 'File too large' },
         500: { description: 'Internal server error' },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -112,6 +113,7 @@ const getFileRoute = createRoute({
     responses: {
         200: { description: 'File content' },
         404: { description: 'File not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

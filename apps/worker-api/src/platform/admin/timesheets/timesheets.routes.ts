@@ -29,6 +29,8 @@ const listTimesheetsRoute = createRoute({
             },
             description: 'List of timesheets',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -64,6 +66,8 @@ const updateTimesheetStatusRoute = createRoute({
             },
             description: 'Timesheet updated successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

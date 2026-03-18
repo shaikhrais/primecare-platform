@@ -30,7 +30,8 @@ const hashRoute = createRoute({
             description: 'The hashed password',
         },
         400: { description: 'Password is required' },
-        403: { description: 'Disabled in production' }
+        403: { description: 'Disabled in production' },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -53,16 +54,21 @@ r.post('/upsert-user', async (c) => {
     if (!password) return c.json({ error: 'password required (plaintext, will be hashed)' }, 400);
     const passwordHash = await hashPassword(password);
 
-    const tenant = tenantSlug
-        ? await prisma.tenant.findUnique({ where: { slug: tenantSlug } })
-        : await prisma.tenant.findFirst();
+    let tenant = null;
+    try {
+      tenant = tenantSlug
+            ? await prisma.tenant.findUnique({ where: { slug: tenantSlug } })
+            : await prisma.tenant.findFirst();
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     if (!tenant) return c.json({ error: 'No tenant found' }, 404);
 
     const user = await prisma.user.upsert({
         where: { email },
         update: { passwordHash, roles: roles || ['admin'], status: 'active' },
-        create: { email, passwordHash, roles: roles || ['admin'], tenantId: tenant.id, status: 'active' }
+        create: { email, passwordHash, roles: roles || ['admin'], tenantId: tenant?.id, status: 'active' }
     });
 
     return c.json({ success: true, id: user.id, email: user.email, roles: user.roles });

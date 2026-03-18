@@ -29,6 +29,8 @@ const postShiftRoute = createRoute({
             },
             description: 'Shift posted successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -75,6 +77,8 @@ const offerShiftRoute = createRoute({
             },
             description: 'Shift offered successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -124,6 +128,7 @@ const suggestPswsRoute = createRoute({
         404: {
             description: 'Visit not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -195,6 +200,8 @@ const surgeShiftRoute = createRoute({
             },
             description: 'Shift surge updated successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

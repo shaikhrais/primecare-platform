@@ -19,7 +19,9 @@ const runSystemSweepsRoute = createRoute({
   responses: {
     200: { description: "SLA sweeps executed successfully." },
     500: { description: "Server Error" },
-  },
+      '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+      '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+},
 });
 
 r.openapi(runSystemSweepsRoute, async (c) => {

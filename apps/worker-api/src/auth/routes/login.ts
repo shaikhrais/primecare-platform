@@ -16,6 +16,8 @@ const loginRoute = createRoute({
         401: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Unauthorized' },
         403: { content: { 'application/json': { schema: z.object({ error: z.string(), message: z.string().optional() }) } }, description: 'Forbidden/Blocked' },
         500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal server error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -25,6 +27,7 @@ const switchRoleRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ token: z.string(), activeRole: z.string() }) } }, description: 'Role switched successfully' },
         401: { description: 'Unauthorized' }, 403: { description: 'Role not assigned to user' }, 404: { description: 'User not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

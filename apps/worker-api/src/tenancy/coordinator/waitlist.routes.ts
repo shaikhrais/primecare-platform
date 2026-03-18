@@ -19,6 +19,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Waitlist'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -56,6 +58,8 @@ const addRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Added' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -85,6 +89,7 @@ const prioritizeRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -107,6 +112,7 @@ const removeRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Removed' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

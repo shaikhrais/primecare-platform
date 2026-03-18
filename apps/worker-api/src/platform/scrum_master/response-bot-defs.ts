@@ -5,10 +5,22 @@
 import { createRoute, z } from '@hono/zod-openapi';
 import { ButtonRegistry, LinkRegistry, InteractionARegistry, InteractionRegistry } from 'prime-care-shared';
 
-export const sweepRegistryRoute = createRoute({ summary: 'Platform Registry Sweep', description: 'Iterates through all platform registries to detect 404s or connectivity errors.', tags: ['Scrum Master'], method: 'post', path: '/sweep', request: { body: { content: { 'application/json': { schema: z.object({ publicUrlBase: z.string().optional() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ status: z.string(), totalAudited: z.number(), errorsFound: z.number() }) } }, description: 'Registry sweep completed' } } });
-export const updateTouchpointRoute = createRoute({ summary: 'Update System Touchpoint', tags: ['Scrum Master'], method: 'patch', path: '/touchpoints/{id}', request: { params: z.object({ id: z.string() }), body: { content: { 'application/json': { schema: z.object({ label: z.string().optional(), path: z.string().optional(), isOverridden: z.boolean().optional() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Touchpoint updated' } } });
-export const listTouchpointsRoute = createRoute({ summary: 'List System Touchpoints', tags: ['Scrum Master'], method: 'get', path: '/touchpoints', responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of touchpoints' } } });
-export const syncRegistriesRoute = createRoute({ summary: 'Synchronize Master Registries', tags: ['Scrum Master'], method: 'post', path: '/sync', request: { body: { content: { 'application/json': { schema: z.object({ entries: z.array(z.any()) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } } });
+export const sweepRegistryRoute = createRoute({ summary: 'Platform Registry Sweep', description: 'Iterates through all platform registries to detect 404s or connectivity errors.', tags: ['Scrum Master'], method: 'post', path: '/sweep', request: { body: { content: { 'application/json': { schema: z.object({ publicUrlBase: z.string().optional() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ status: z.string(), totalAudited: z.number(), errorsFound: z.number() }) } }, description: 'Registry sweep completed' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const updateTouchpointRoute = createRoute({ summary: 'Update System Touchpoint', tags: ['Scrum Master'], method: 'patch', path: '/touchpoints/{id}', request: { params: z.object({ id: z.string() }), body: { content: { 'application/json': { schema: z.object({ label: z.string().optional(), path: z.string().optional(), isOverridden: z.boolean().optional() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Touchpoint updated' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const listTouchpointsRoute = createRoute({ summary: 'List System Touchpoints', tags: ['Scrum Master'], method: 'get', path: '/touchpoints', responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of touchpoints' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const syncRegistriesRoute = createRoute({ summary: 'Synchronize Master Registries', tags: ['Scrum Master'], method: 'post', path: '/sync', request: { body: { content: { 'application/json': { schema: z.object({ entries: z.array(z.any()) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 export async function handleSweepRegistry(c: any) {
     const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; const { publicUrlBase } = c.req.valid('json');

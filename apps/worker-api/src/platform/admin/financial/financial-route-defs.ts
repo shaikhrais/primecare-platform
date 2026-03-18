@@ -7,24 +7,78 @@ import { FinancialService } from '../../../_shared/services/financial.service';
 import { BillingService } from '../../../_shared/services/billing.service';
 import { ForecastingService } from '../../../_shared/services/forecasting.service';
 
-export const listLedgerRoute = createRoute({ method: 'get', path: '/', summary: 'List Financial Ledger', description: 'Returns all financial transactions with their balanced journal entries.', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' } } });
-export const listAccountsRoute = createRoute({ method: 'get', path: '/accounts', summary: 'List Chart of Accounts', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' } } });
-export const initializeRoute = createRoute({ method: 'post', path: '/initialize', summary: 'Initialize Standard Chart of Accounts', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } } });
-export const createInvoiceRoute = createRoute({ method: 'post', path: '/invoices', summary: 'Generate Manual Invoice', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ clientId: z.string(), amount: z.number(), tax: z.number().optional() }) } } } }, responses: { 200: { description: 'Invoice generated' } } });
-export const getBalancesRoute = createRoute({ method: 'get', path: '/balances', summary: 'Get Account Balances', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' } } });
-export const reconcileRoute = createRoute({ method: 'post', path: '/reconcile', summary: 'Match Invoice to Payment', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ invoiceTxId: z.string(), paymentTxId: z.string() }) } } } }, responses: { 200: { description: 'Matched successfully' } } });
-export const autoReconcileRoute = createRoute({ method: 'post', path: '/reconcile/auto', summary: 'Trigger Automated Reconciliation', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ matchedCount: z.number() }) } }, description: 'Success' } } });
-export const reconciliationSummaryRoute = createRoute({ method: 'get', path: '/reconciliation-summary', summary: 'Get Reconciliation Metrics', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ unreconciledBankCount: z.number(), unreconciledLedgerCount: z.number() }) } }, description: 'Success' } } });
-export const pAndLRoute = createRoute({ method: 'get', path: '/reports/p-and-l', summary: 'Profit & Loss Report', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const balanceSheetRoute = createRoute({ method: 'get', path: '/reports/balance-sheet', summary: 'Balance Sheet Snapshot', tags: ['Financial'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const dailySummaryRoute = createRoute({ method: 'get', path: '/reports/daily-summary', summary: 'Daily Financial Summary', tags: ['Financial'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const tradingAccountRoute = createRoute({ method: 'get', path: '/reports/trading-account', summary: 'Trading Account (Gross Profit)', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const forecastRoute = createRoute({ method: 'get', path: '/reports/forecast', summary: 'Predictive Cash Flow Forecast', tags: ['Financial'], request: { query: z.object({ days: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const taxFilingRoute = createRoute({ method: 'get', path: '/reports/tax-filing', summary: 'Tax Filing Report', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const taxRemittanceRoute = createRoute({ method: 'post', path: '/tax-remittance', summary: 'Record Tax Remittance', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ amount: z.number(), reference: z.string() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const earningsRoute = createRoute({ method: 'get', path: '/earnings', summary: 'View Detailed Earnings Report', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' } } });
-export const unmatchedReconciliationRoute = createRoute({ method: 'get', path: '/reconciliation/unmatched', summary: 'Get Unmatched Bank and Ledger Transactions', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
-export const executeMatchRoute = createRoute({ method: 'post', path: '/reconciliation/match', summary: 'Execute a Manual Fuzzy Match', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ bankTransactionId: z.string(), ledgerTransactionId: z.string() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' } } });
+export const listLedgerRoute = createRoute({ method: 'get', path: '/', summary: 'List Financial Ledger', description: 'Returns all financial transactions with their balanced journal entries.', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const listAccountsRoute = createRoute({ method: 'get', path: '/accounts', summary: 'List Chart of Accounts', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const initializeRoute = createRoute({ method: 'post', path: '/initialize', summary: 'Initialize Standard Chart of Accounts', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const createInvoiceRoute = createRoute({ method: 'post', path: '/invoices', summary: 'Generate Manual Invoice', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ clientId: z.string(), amount: z.number(), tax: z.number().optional() }) } } } }, responses: { 200: { description: 'Invoice generated' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const getBalancesRoute = createRoute({ method: 'get', path: '/balances', summary: 'Get Account Balances', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const reconcileRoute = createRoute({ method: 'post', path: '/reconcile', summary: 'Match Invoice to Payment', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ invoiceTxId: z.string(), paymentTxId: z.string() }) } } } }, responses: { 200: { description: 'Matched successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const autoReconcileRoute = createRoute({ method: 'post', path: '/reconcile/auto', summary: 'Trigger Automated Reconciliation', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ matchedCount: z.number() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const reconciliationSummaryRoute = createRoute({ method: 'get', path: '/reconciliation-summary', summary: 'Get Reconciliation Metrics', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.object({ unreconciledBankCount: z.number(), unreconciledLedgerCount: z.number() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const pAndLRoute = createRoute({ method: 'get', path: '/reports/p-and-l', summary: 'Profit & Loss Report', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const balanceSheetRoute = createRoute({ method: 'get', path: '/reports/balance-sheet', summary: 'Balance Sheet Snapshot', tags: ['Financial'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const dailySummaryRoute = createRoute({ method: 'get', path: '/reports/daily-summary', summary: 'Daily Financial Summary', tags: ['Financial'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const tradingAccountRoute = createRoute({ method: 'get', path: '/reports/trading-account', summary: 'Trading Account (Gross Profit)', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const forecastRoute = createRoute({ method: 'get', path: '/reports/forecast', summary: 'Predictive Cash Flow Forecast', tags: ['Financial'], request: { query: z.object({ days: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const taxFilingRoute = createRoute({ method: 'get', path: '/reports/tax-filing', summary: 'Tax Filing Report', tags: ['Financial'], request: { query: z.object({ startDate: z.string().optional(), endDate: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const taxRemittanceRoute = createRoute({ method: 'post', path: '/tax-remittance', summary: 'Record Tax Remittance', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ amount: z.number(), reference: z.string() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const earningsRoute = createRoute({ method: 'get', path: '/earnings', summary: 'View Detailed Earnings Report', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const unmatchedReconciliationRoute = createRoute({ method: 'get', path: '/reconciliation/unmatched', summary: 'Get Unmatched Bank and Ledger Transactions', tags: ['Financial'], responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const executeMatchRoute = createRoute({ method: 'post', path: '/reconciliation/match', summary: 'Execute a Manual Fuzzy Match', tags: ['Financial'], request: { body: { content: { 'application/json': { schema: z.object({ bankTransactionId: z.string(), ledgerTransactionId: z.string() }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 // --- Handlers ---
 export async function handleListLedger(c: any) { const prisma = c.get('prisma'); const tenantId = (c.get('jwtPayload') as any).tenantId; return c.json(await prisma.financialTransaction.findMany({ where: { tenantId }, include: { journalEntries: { include: { account: true } }, reconciliations: true }, orderBy: { createdAt: 'desc' } }), 200); }

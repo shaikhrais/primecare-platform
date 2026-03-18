@@ -18,6 +18,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Reviews'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -54,7 +56,10 @@ const createRoute2 = createRoute({
             }
         }
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 reviews.openapi(createRoute2, async (c) => {
@@ -90,6 +95,8 @@ const kpiRoute = createRoute({
                 }
             }, description: 'KPIs'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -146,6 +153,7 @@ const updateRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

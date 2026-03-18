@@ -18,6 +18,8 @@ const assessmentsRoute = createRoute({
                 }
             }, description: 'Assessments'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -55,7 +57,10 @@ const createAssessmentRoute = createRoute({
             }
         }
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string(), pushScore: z.number() }) } }, description: 'Created' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string(), pushScore: z.number() }) } }, description: 'Created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 woundCare.openapi(createAssessmentRoute, async (c) => {
@@ -108,6 +113,8 @@ const progressRoute = createRoute({
                 }
             }, description: 'Progress timeline'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -143,6 +150,8 @@ const chronicRoute = createRoute({
                 }
             }, description: 'Dashboard data'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

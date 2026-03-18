@@ -18,6 +18,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Claims list'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -61,6 +63,8 @@ const scrubRoute = createRoute({
                 }
             }, description: 'Scrub result'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -100,6 +104,7 @@ const submitRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ submitted: z.boolean() }) } }, description: 'Submitted' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -125,6 +130,7 @@ const appealRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ appealed: z.boolean() }) } }, description: 'Appealed' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -163,6 +169,8 @@ const eraRoute = createRoute({
                 }
             }, description: 'ERA summary'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -186,13 +194,19 @@ claims.openapi(eraRoute, async (c) => {
 const syncRevenueRoute = createRoute({
     method: 'post', path: '/system/sync', summary: 'Sync Revenue',
     tags: ['Admin', 'Claims'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const submitBatchRoute = createRoute({
     method: 'post', path: '/system/submit', summary: 'Submit Claims Batch',
     tags: ['Admin', 'Claims'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 claims.openapi(syncRevenueRoute, async (c) => c.json({ message: 'Revenue ledger synchronized with master clearinghouse array.' }, 200));

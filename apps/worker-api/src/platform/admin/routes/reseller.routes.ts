@@ -33,7 +33,9 @@ const getChildTenantsRoute = createRoute({
         500: {
             content: { 'application/json': { schema: z.any() } },
             description: 'Internal Server Error',
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 
@@ -78,7 +80,8 @@ const provisionChildTenantRoute = createRoute({
         500: {
             content: { 'application/json': { schema: z.any() } },
             description: 'Internal Server Error',
-        }
+        },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 

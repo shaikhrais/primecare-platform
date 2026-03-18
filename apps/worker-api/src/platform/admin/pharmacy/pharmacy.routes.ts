@@ -29,7 +29,9 @@ const getPrescriptionsRoute = createRoute({
                 }
             },
             description: 'Internal Server Error'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -89,6 +91,8 @@ const orderDrugsRoute = createRoute({
             content: { 'application/json': { schema: z.object({ message: z.string() }) } },
             description: 'Internal Server Error',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -138,7 +142,8 @@ const verifyBarcodeRoute = createRoute({
         400: {
             content: { 'application/json': { schema: z.object({ isValid: z.boolean(), error: z.string() }) } },
             description: 'Medication mismatch (Wrong Drug)',
-        }
+        },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -168,6 +173,8 @@ const marSyncRoute = createRoute({
             content: { 'application/json': { schema: z.object({ message: z.string() }) } },
             description: 'Success',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

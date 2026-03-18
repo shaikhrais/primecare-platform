@@ -41,6 +41,7 @@ const registerRoute = createRoute({
         400: {
             description: 'User already exists or validation error',
         },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -56,7 +57,7 @@ r.openapi(registerRoute, async (c) => {
 
     let tenant;
     if (tenantSlug) {
-        tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug } });
+        try { tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug } }); } catch(e) { console.error("Unhandled UUID Exception", e); }
     }
 
     if (!tenant) {
@@ -85,7 +86,7 @@ r.openapi(registerRoute, async (c) => {
                 email,
                 passwordHash,
                 roles: role,
-                tenantId: tenant.id
+                tenantId: tenant?.id
             },
         });
 
@@ -94,7 +95,7 @@ r.openapi(registerRoute, async (c) => {
                 data: {
                     userId: newUser.id,
                     fullName: email.split('@')[0],
-                    tenantId: tenant.id
+                    tenantId: tenant?.id
                 }
             });
         } else if (role === 'psw') {
@@ -102,7 +103,7 @@ r.openapi(registerRoute, async (c) => {
                 data: {
                     userId: newUser.id,
                     fullName: email.split('@')[0],
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     languages: '',
                     serviceAreas: '',
                     skills: ''
@@ -118,7 +119,7 @@ r.openapi(registerRoute, async (c) => {
     if (!jwtSecret) return c.json({ error: 'Server configuration error' }, 500);
 
     const parsedRoles = parseRoles(user.roles);
-    const accessToken = await generateToken({ ...user, roles: parsedRoles, tenantId: tenant.id }, jwtSecret);
+    const accessToken = await generateToken({ ...user, roles: parsedRoles, tenantId: tenant?.id }, jwtSecret);
     const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     setCookie(c, 'accessToken', accessToken, {

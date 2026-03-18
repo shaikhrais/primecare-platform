@@ -19,6 +19,8 @@ const invoicesRoute = createRoute({
                 }
             }, description: 'Invoices'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -61,6 +63,7 @@ const invoiceDetailRoute = createRoute({
             }, description: 'Invoice detail'
         },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -96,6 +99,8 @@ const statementRoute = createRoute({
                 }
             }, description: 'Statement'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -131,6 +136,8 @@ const paymentMethodsRoute = createRoute({
                 }
             }, description: 'Payment methods'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

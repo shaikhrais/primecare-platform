@@ -8,14 +8,19 @@ usage.get('/', async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
 
-    const tenant = await prisma.tenant.findUnique({
-        where: { id: tenantId },
-        select: { brandingConfig: true }
-    });
+    let tenant = null;
+    try {
+      tenant = await prisma.tenant.findUnique({
+            where: { id: tenantId },
+            select: { brandingConfig: true }
+        });
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     let config: any = {};
     if (tenant?.brandingConfig) {
-        try { config = typeof tenant.brandingConfig === 'string' ? JSON.parse(tenant.brandingConfig) : tenant.brandingConfig; } catch (e) {}
+        try { config = typeof tenant?.brandingConfig === 'string' ? JSON.parse(tenant?.brandingConfig) : tenant?.brandingConfig; } catch (e) {}
     }
     return c.json({ usageStats: config.usageStats || null });
 });
@@ -49,7 +54,9 @@ const saveUsageRoute = createRoute({
         },
     },
     responses: {
-        200: { description: 'Usage stats saved' }
+        200: { description: 'Usage stats saved' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 
@@ -59,14 +66,19 @@ usage.openapi(saveUsageRoute, async (c) => {
     const body = c.req.valid('json');
 
     // Merge into existing brandingConfig
-    const tenant = await prisma.tenant.findUnique({
-        where: { id: tenantId },
-        select: { brandingConfig: true }
-    });
+    let tenant = null;
+    try {
+      tenant = await prisma.tenant.findUnique({
+            where: { id: tenantId },
+            select: { brandingConfig: true }
+        });
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     let existing: any = {};
     if (tenant?.brandingConfig) {
-        try { existing = typeof tenant.brandingConfig === 'string' ? JSON.parse(tenant.brandingConfig) : tenant.brandingConfig; } catch (e) {}
+        try { existing = typeof tenant?.brandingConfig === 'string' ? JSON.parse(tenant?.brandingConfig) : tenant?.brandingConfig; } catch (e) {}
     }
 
     await prisma.tenant.update({

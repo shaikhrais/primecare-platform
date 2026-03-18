@@ -37,6 +37,8 @@ const submitWellnessPulseRoute = createRoute({
             },
             description: 'Wellness pulse submitted successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

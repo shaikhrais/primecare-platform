@@ -24,6 +24,7 @@ const getProfileRoute = createRoute({
         },
         404: { description: 'User not found' },
         500: { description: 'Internal server error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -111,6 +112,7 @@ const updateProfileRoute = createRoute({
         },
         404: { description: 'User not found' },
         500: { description: 'Internal server error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -8,7 +8,10 @@ const downloadRoute = createRoute({
     method: 'get', path: '/download',
     summary: 'Download Audit Logs (CSV)', tags: ['Audit Export'],
     request: { query: z.object({ startDate: z.string(), endDate: z.string(), action: z.string().optional() }) },
-    responses: { 200: { description: 'CSV download' } },
+    responses: { 200: { description: 'CSV download' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 auditExport.openapi(downloadRoute, async (c) => {
@@ -58,6 +61,8 @@ const complianceDashRoute = createRoute({
                 }
             }, description: 'Dashboard'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -109,6 +114,8 @@ const regulatoryRoute = createRoute({
                 }
             }, description: 'Report'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

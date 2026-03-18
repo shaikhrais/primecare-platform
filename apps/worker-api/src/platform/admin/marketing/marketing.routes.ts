@@ -11,7 +11,10 @@ marketingRoutes.openapi(
         path: '/churn-risks',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Algorithmic Churn Risks',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         // Retrieve dynamic metrics based on actual system state if available. 
@@ -31,7 +34,10 @@ marketingRoutes.openapi(
         path: '/drip-sequences',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Drip Sequence Configuration and Performance',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         return c.json([
@@ -52,7 +58,10 @@ marketingRoutes.openapi(
         path: '/revenue-attribution',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Marketing Revenue Attribution',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         return c.json([
@@ -71,7 +80,10 @@ marketingRoutes.openapi(
         path: '/subscribers',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Newsletter Subscribers',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         return c.json([
@@ -91,7 +103,10 @@ marketingRoutes.openapi(
         path: '/promotions',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Promotional Code Engine Status',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         return c.json([
@@ -108,7 +123,10 @@ marketingRoutes.openapi(
         path: '/syndication/vault',
     tags: ['Admin', 'Marketing'],
         summary: 'Get Social Media Vault Status',
-        responses: { 200: { description: 'Success' } }
+        responses: { 200: { description: 'Success' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
  // Return active connections for the demo
@@ -143,7 +161,10 @@ marketingRoutes.openapi(
                 }
             }
         },
-        responses: { 200: { description: 'Success' }, 500: { description: 'Error' } }
+        responses: { 200: { description: 'Success' }, 500: { description: 'Error' },
+            '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+            '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+        }
     }),
     async (c) => {
         const body = await c.req.valid('json');

@@ -8,10 +8,15 @@ branding.get('/', async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
 
-    const tenant = await prisma.tenant.findUnique({
-        where: { id: tenantId },
-        select: { brandingConfig: true, logoUrl: true, name: true }
-    });
+    let tenant = null;
+    try {
+      tenant = await prisma.tenant.findUnique({
+            where: { id: tenantId },
+            select: { brandingConfig: true, logoUrl: true, name: true }
+        });
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     return c.json(tenant);
 });
@@ -24,18 +29,23 @@ branding.get('/public', async (c) => {
 
     if (!slug) return c.json({ error: 'Slug required' }, 400);
 
-    const tenant = await prisma.tenant.findUnique({
-        where: { slug },
-        select: { brandingConfig: true, logoUrl: true, name: true }
-    });
+    let tenant = null;
+    try {
+      tenant = await prisma.tenant.findUnique({
+            where: { slug },
+            select: { brandingConfig: true, logoUrl: true, name: true }
+        });
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     if (!tenant) return c.json({ error: 'Tenant not found' }, 404);
 
     // R10: Only expose safe visual branding fields — not full config
-    const config = (tenant.brandingConfig as any) || {};
+    const config = (tenant?.brandingConfig as any) || {};
     return c.json({
-        name: tenant.name,
-        logoUrl: tenant.logoUrl,
+        name: tenant?.name,
+        logoUrl: tenant?.logoUrl,
         branding: {
             primaryColor: config.primaryColor,
             primaryDarkColor: config.primaryDarkColor,
@@ -75,7 +85,9 @@ const updateBrandingRoute = createRoute({
         },
     },
     responses: {
-        200: { description: 'Branding updated' }
+        200: { description: 'Branding updated' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 

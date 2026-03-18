@@ -18,6 +18,8 @@ const templatesRoute = createRoute({
                 }
             }, description: 'Templates'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -84,7 +86,9 @@ const submitRoute = createRoute({
                     })
                 }
             }, description: 'Submitted with CAP triggers'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -148,6 +152,8 @@ const historyRoute = createRoute({
                 }
             }, description: 'History'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -184,6 +190,7 @@ const capsRoute = createRoute({
             }, description: 'CAP detail'
         },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

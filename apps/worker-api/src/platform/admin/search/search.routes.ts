@@ -42,6 +42,8 @@ const globalSearchRoute = createRoute({
             },
             description: 'Internal Server Error',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

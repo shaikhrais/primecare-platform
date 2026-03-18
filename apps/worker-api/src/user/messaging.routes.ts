@@ -18,6 +18,8 @@ const listThreadsRoute = createRoute({
                 }
             }, description: 'Threads'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -55,6 +57,8 @@ const createThreadRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -80,6 +84,8 @@ const sendMessageRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Sent' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -111,6 +117,8 @@ const getMessagesRoute = createRoute({
                 }
             }, description: 'Messages'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

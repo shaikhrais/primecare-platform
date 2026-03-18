@@ -28,6 +28,8 @@ const refreshRoute = createRoute({
         500: {
             description: 'Server configuration error',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -98,6 +100,8 @@ const logoutRoute = createRoute({
             },
             description: 'Logged out successfully',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -156,6 +160,7 @@ const whoamiRoute = createRoute({
         404: {
             description: 'User not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -10,11 +10,26 @@ const AppNotificationSchema = z.object({ id: z.string(), userId: z.string(), tit
 const AIInferenceSchema = z.object({ id: z.string(), modelName: z.string(), targetId: z.string(), targetType: z.string(), confidenceScore: z.number(), predictionData: z.string(), createdAt: z.string() });
 const CommunicationLogSchema = z.object({ id: z.string(), direction: z.string(), channel: z.string(), recipient: z.string().nullable(), sender: z.string().nullable(), subject: z.string().nullable(), bodyText: z.string().nullable(), status: z.string(), externalId: z.string().nullable(), createdAt: z.string() });
 
-export const iotEventsRoute = createRoute({ method: 'get', path: '/iot-events', summary: 'Get system IoT events', tags: ['Admin', 'IoT'], responses: { 200: { description: 'Successfully fetched IoT events', content: { 'application/json': { schema: z.array(IoTEventSchema) } } } } });
-export const gamificationRoute = createRoute({ method: 'get', path: '/gamification', summary: 'Get gamification profiles', tags: ['Admin', 'Gamification'], responses: { 200: { description: 'Successfully fetched Gamification Profiles', content: { 'application/json': { schema: z.array(GamificationProfileSchema) } } } } });
-export const notificationsRoute = createRoute({ method: 'get', path: '/notifications', summary: 'Get app notifications', tags: ['Admin', 'Notifications'], responses: { 200: { description: 'Successfully fetched Notifications', content: { 'application/json': { schema: z.array(AppNotificationSchema) } } } } });
-export const aiInferencesRoute = createRoute({ method: 'get', path: '/ai-inferences', summary: 'Get AI inferences', tags: ['Admin', 'AI'], responses: { 200: { description: 'Successfully fetched AI Inferences', content: { 'application/json': { schema: z.array(AIInferenceSchema) } } } } });
-export const communicationLogsRoute = createRoute({ method: 'get', path: '/communication-logs', summary: 'Get Communication Logs', tags: ['Admin', 'Communications'], responses: { 200: { description: 'Successfully fetched Communication Logs', content: { 'application/json': { schema: z.array(CommunicationLogSchema) } } } } });
+export const iotEventsRoute = createRoute({ method: 'get', path: '/iot-events', summary: 'Get system IoT events', tags: ['Admin', 'IoT'], responses: { 200: { description: 'Successfully fetched IoT events', content: { 'application/json': { schema: z.array(IoTEventSchema) } } },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const gamificationRoute = createRoute({ method: 'get', path: '/gamification', summary: 'Get gamification profiles', tags: ['Admin', 'Gamification'], responses: { 200: { description: 'Successfully fetched Gamification Profiles', content: { 'application/json': { schema: z.array(GamificationProfileSchema) } } },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const notificationsRoute = createRoute({ method: 'get', path: '/notifications', summary: 'Get app notifications', tags: ['Admin', 'Notifications'], responses: { 200: { description: 'Successfully fetched Notifications', content: { 'application/json': { schema: z.array(AppNotificationSchema) } } },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const aiInferencesRoute = createRoute({ method: 'get', path: '/ai-inferences', summary: 'Get AI inferences', tags: ['Admin', 'AI'], responses: { 200: { description: 'Successfully fetched AI Inferences', content: { 'application/json': { schema: z.array(AIInferenceSchema) } } },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const communicationLogsRoute = createRoute({ method: 'get', path: '/communication-logs', summary: 'Get Communication Logs', tags: ['Admin', 'Communications'], responses: { 200: { description: 'Successfully fetched Communication Logs', content: { 'application/json': { schema: z.array(CommunicationLogSchema) } } },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 export async function handleIoTEvents(c: any) { const prisma = c.get('prisma'); const tenantId = c.req.header('x-tenant-id'); const events = await prisma.ioTEvent.findMany({ where: tenantId ? { tenantId } : undefined, orderBy: { createdAt: 'desc' }, take: 50 }); return c.json(events.map((e: any) => ({ ...e, createdAt: e.createdAt.toISOString() }))); }
 export async function handleGamification(c: any) { const prisma = c.get('prisma'); const tenantId = c.req.header('x-tenant-id'); return c.json(await prisma.gamificationProfile.findMany({ where: tenantId ? { tenantId } : undefined, take: 50 }) as any); }

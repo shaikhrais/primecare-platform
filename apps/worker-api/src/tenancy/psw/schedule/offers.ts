@@ -5,9 +5,13 @@ import { handleAcceptOffer } from './offers-handlers';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-const listOffersRoute = createRoute({ ...ROUTE_METADATA.PSW_SCHEDULE.LIST_OFFERS, method: 'get', path: '/', responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of shift offers' }, 404: { description: 'Profile not found' } } });
+const listOffersRoute = createRoute({ ...ROUTE_METADATA.PSW_SCHEDULE.LIST_OFFERS, method: 'get', path: '/', responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of shift offers' }, 404: { description: 'Profile not found' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 const acceptOfferRoute = createRoute({ ...ROUTE_METADATA.PSW_SCHEDULE.ACCEPT_OFFER, method: 'post', path: '/{id}/accept', request: { params: z.object({ id: z.string() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Offer accepted successfully' }, 400: { description: 'Offer already accepted or no longer available' }, 404: { description: 'Offer not found' } } });
-const declineOfferRoute = createRoute({ ...ROUTE_METADATA.PSW_SCHEDULE.DECLINE_OFFER, method: 'post', path: '/{id}/decline', request: { params: z.object({ id: z.string() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Offer declined successfully' }, 404: { description: 'Offer not found' } } });
+const declineOfferRoute = createRoute({ ...ROUTE_METADATA.PSW_SCHEDULE.DECLINE_OFFER, method: 'post', path: '/{id}/decline', request: { params: z.object({ id: z.string() }) }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'Offer declined successfully' }, 404: { description: 'Offer not found' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 r.openapi(listOffersRoute, async (c) => {
     const prisma = c.get('prisma'); const userId = c.get('jwtPayload').sub;

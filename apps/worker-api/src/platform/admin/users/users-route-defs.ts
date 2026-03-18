@@ -9,13 +9,34 @@ import { AdminUserService } from './users.service';
 
 const UserParamsSchema = z.object({ id: z.string().openapi({ param: { name: 'id', in: 'path' }, example: 'user_123' }) });
 
-export const listUsersRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_LIST, method: 'get', path: '/', summary: 'List Users', tags: ['Admin', 'Users'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of users' } } });
-export const createUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_CREATE, method: 'post', path: '/', summary: 'Create User', tags: ['Admin', 'Users'], request: { body: { content: { 'application/json': { schema: z.object({ email: z.string().email(), roles: z.array(z.string()), fullName: z.string(), status: z.string().optional() }) } } } }, responses: { 201: { content: { 'application/json': { schema: z.any() } }, description: 'User created successfully' } } });
-export const verifyUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY, method: 'post', path: '/{id}/verify', summary: 'Verify User', tags: ['Admin', 'Users'], request: { params: UserParamsSchema }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User verified successfully' } } });
-export const updateRolesRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES, method: 'patch', path: '/{id}/roles', summary: 'Update Roles', tags: ['Admin', 'Users'], request: { params: UserParamsSchema, body: { content: { 'application/json': { schema: z.object({ roles: z.array(z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'manager', 'rn'])) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User roles updated successfully' } } });
-export const elevateUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ELEVATE, method: 'post', path: '/{id}/elevate', summary: 'Elevate User', tags: ['Admin', 'Users'], request: { params: UserParamsSchema }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User elevated successfully' } } });
-export const updateStatusRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES, method: 'patch', path: '/{id}/status', summary: 'Update Status', tags: ['Admin', 'Users'], request: { params: UserParamsSchema, body: { content: { 'application/json': { schema: z.object({ status: z.enum(['active', 'pending', 'suspended', 'terminated', 'archived']) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User status updated successfully' } } });
-export const churnHeatmapRoute = createRoute({ method: 'get', path: '/churn-heatmap', summary: 'Churn Risk X/Y Matrix', tags: ['Admin', 'Users'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Heatmap coordinates' } } });
+export const listUsersRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_LIST, method: 'get', path: '/', summary: 'List Users', tags: ['Admin', 'Users'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'List of users' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const createUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_CREATE, method: 'post', path: '/', summary: 'Create User', tags: ['Admin', 'Users'], request: { body: { content: { 'application/json': { schema: z.object({ email: z.string().email(), roles: z.array(z.string()), fullName: z.string(), status: z.string().optional() }) } } } }, responses: { 201: { content: { 'application/json': { schema: z.any() } }, description: 'User created successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const verifyUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_VERIFY, method: 'post', path: '/{id}/verify', summary: 'Verify User', tags: ['Admin', 'Users'], request: { params: UserParamsSchema }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User verified successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const updateRolesRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES, method: 'patch', path: '/{id}/roles', summary: 'Update Roles', tags: ['Admin', 'Users'], request: { params: UserParamsSchema, body: { content: { 'application/json': { schema: z.object({ roles: z.array(z.enum(['client', 'psw', 'staff', 'admin', 'coordinator', 'finance', 'manager', 'rn'])) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User roles updated successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const elevateUserRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ELEVATE, method: 'post', path: '/{id}/elevate', summary: 'Elevate User', tags: ['Admin', 'Users'], request: { params: UserParamsSchema }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User elevated successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const updateStatusRoute = createRoute({ ...ROUTE_METADATA.ADMIN_EXTRA.USERS_ROLES, method: 'patch', path: '/{id}/status', summary: 'Update Status', tags: ['Admin', 'Users'], request: { params: UserParamsSchema, body: { content: { 'application/json': { schema: z.object({ status: z.enum(['active', 'pending', 'suspended', 'terminated', 'archived']) }) } } } }, responses: { 200: { content: { 'application/json': { schema: z.any() } }, description: 'User status updated successfully' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const churnHeatmapRoute = createRoute({ method: 'get', path: '/churn-heatmap', summary: 'Churn Risk X/Y Matrix', tags: ['Admin', 'Users'], responses: { 200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Heatmap coordinates' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 export async function handleListUsers(c: any) { const prisma = c.get('prisma'); return c.json(await new AdminUserService(prisma).listUsers()); }
 export async function handleCreateUser(c: any) { const prisma = c.get('prisma'); const data = await c.req.valid('json' as never) as any; const userRole = c.get('user' as any) as any; const newUser = await new AdminUserService(prisma).createUser({ ...data, tenantId: userRole?.tenantId || 'system' }); await logAudit(prisma, userRole?.id || 'system', 'CREATE_USER', 'User', newUser.id, data); return c.json(newUser, 201); }

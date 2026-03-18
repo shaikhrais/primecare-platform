@@ -31,6 +31,8 @@ const sweepRoute = createRoute({
             content: { 'application/json': { schema: RegistrySweepSchema } },
             description: 'Registry sweep completed',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -83,6 +85,8 @@ const integrityRoute = createRoute({
             content: { 'application/json': { schema: z.any() } },
             description: 'Integrity report generated',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -96,19 +100,28 @@ r.openapi(integrityRoute, async (c) => {
 const flushRoute = createRoute({
     method: 'post', path: '/forensics/flush', summary: 'Flush Audits',
     tags: ['API', 'Scrum Master'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const reseedRoute = createRoute({
     method: 'post', path: '/governance/reseed', summary: 'Reseed Database',
     tags: ['API', 'Scrum Master'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const deployRoute = createRoute({
     method: 'post', path: '/system/deploy', summary: 'Deploy Build',
     tags: ['API', 'Scrum Master'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 r.openapi(flushRoute, async (c) => c.json({ message: 'Audit logs flushed successfully.' }, 200));

@@ -26,7 +26,9 @@ const createMarEntryRoute = createRoute({
         }
     },
     responses: {
-        201: { description: 'MAR entry created successfully', content: { 'application/json': { schema: z.any() } } }
+        201: { description: 'MAR entry created successfully', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 

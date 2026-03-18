@@ -24,6 +24,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Authorizations list'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -42,7 +44,10 @@ authorizations.openapi(listRoute, async (c) => {
 const createRoute2 = createRoute({
     method: 'post', path: '/', summary: 'Create Service Authorization', tags: ['Authorizations'],
     request: { body: { content: { 'application/json': { schema: AuthorizationSchema } } } },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 authorizations.openapi(createRoute2, async (c) => {
@@ -66,6 +71,7 @@ const updateRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -100,6 +106,8 @@ const alertsRoute = createRoute({
                 }
             }, description: 'Alerts'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -141,6 +149,8 @@ const utilizationRoute = createRoute({
                 }
             }, description: 'Utilization'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

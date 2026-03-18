@@ -26,6 +26,8 @@ const listRoute = createRoute({
                 }
             }, description: 'List'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -45,7 +47,10 @@ referrals.openapi(listRoute, async (c) => {
 const createRoute2 = createRoute({
     method: 'post', path: '/', summary: 'Create Referral', tags: ['Referrals'],
     request: { body: { content: { 'application/json': { schema: ReferralSchema } } } },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string() }) } }, description: 'Created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 referrals.openapi(createRoute2, async (c) => {
@@ -67,6 +72,7 @@ const updateRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Updated' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -90,6 +96,7 @@ const convertRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ clientId: z.string() }) } }, description: 'Converted' },
         404: { description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -126,6 +133,8 @@ const analyticsRoute = createRoute({
                 }
             }, description: 'Analytics'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

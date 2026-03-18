@@ -17,6 +17,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Endpoints'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -41,7 +43,10 @@ const registerRoute = createRoute({
             }
         }
     },
-    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string(), secret: z.string() }) } }, description: 'Registered' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ id: z.string(), secret: z.string() }) } }, description: 'Registered' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 webhooks.openapi(registerRoute, async (c) => {
@@ -63,6 +68,7 @@ const deleteRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ deleted: z.boolean() }) } }, description: 'Deleted' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -94,6 +100,8 @@ const deliveriesRoute = createRoute({
                 }
             }, description: 'Deliveries'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -123,6 +131,7 @@ const testRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ statusCode: z.number(), success: z.boolean() }) } }, description: 'Test result' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

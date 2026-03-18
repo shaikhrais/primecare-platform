@@ -28,7 +28,9 @@ const getInventoryRoute = createRoute({
                 }
             },
             description: 'Internal Server Error'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -94,7 +96,9 @@ const getPurchaseOrdersRoute = createRoute({
                 }
             },
             description: 'Internal Server Error'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -128,13 +132,19 @@ erpRoutes.openapi(getPurchaseOrdersRoute, async (c) => {
 const createPoRoute = createRoute({
     method: 'post', path: '/po/create', summary: 'Create Purchase Order / Draft',
     tags: ['Admin', 'Erp'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const addInventoryRoute = createRoute({
     method: 'post', path: '/inventory/add', summary: 'Add Inventory Item',
     tags: ['Admin', 'Erp'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 erpRoutes.openapi(createPoRoute, async (c) => c.json({ message: 'Purchase Order framework instantiated.' }, 200));

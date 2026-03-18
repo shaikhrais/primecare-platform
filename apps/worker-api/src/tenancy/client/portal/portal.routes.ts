@@ -21,6 +21,8 @@ const requestRoute = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string(), status: z.string() }) } }, description: 'Request created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -59,6 +61,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Requests'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -94,6 +98,8 @@ const teamRoute = createRoute({
                 }
             }, description: 'Care team'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -137,6 +143,7 @@ const medicalRoute = createRoute({
             }, description: 'Medical summary'
         },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -19,6 +19,8 @@ const listMessagesRoute = createRoute({
             },
             description: 'Unified message hub for staff',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -63,7 +65,9 @@ const auditChatsRoute = createRoute({
     request: { query: z.object({ targetUserId: z.string() }) },
     responses: {
         200: { content: { 'application/json': { schema: z.array(z.any()) } }, description: 'Audit pulled' },
-        403: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Unauthorized' }
+        403: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Unauthorized' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

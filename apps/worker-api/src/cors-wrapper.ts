@@ -20,7 +20,12 @@ export function registerCorsMiddleware(app: AppType) {
         let allowedOrigins: string[] = [...CorsRegistry.ALLOWED_ORIGINS];
         let allowedMethods: string[] = [...CorsRegistry.ALLOWED_METHODS];
         let allowedHeaders: string[] = [...CorsRegistry.ALLOWED_HEADERS];
-        if (tenantId) { const prisma = c.get('prisma'); if (prisma) { const tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } }); if (tenant) { allowedOrigins = tenant.corsAllowedOrigins || allowedOrigins; allowedMethods = tenant.corsAllowedMethods || allowedMethods; allowedHeaders = tenant.corsAllowedHeaders || allowedHeaders; } } }
+        if (tenantId) { const prisma = c.get('prisma'); if (prisma) { let tenant = null;
+        try {
+          tenant = prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } });
+        } catch(e) {
+          console.error("Invalid UUID fallback", e);
+        } if (tenant) { allowedOrigins = tenant?.corsAllowedOrigins || allowedOrigins; allowedMethods = tenant?.corsAllowedMethods || allowedMethods; allowedHeaders = tenant?.corsAllowedHeaders || allowedHeaders; } } }
         const corsMiddleware = cors({ origin: (reqOrigin) => { if (allowedOrigins.includes(reqOrigin)) return reqOrigin; if (/^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(reqOrigin)) return reqOrigin; return allowedOrigins[0]; }, allowMethods: allowedMethods, allowHeaders: allowedHeaders, exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS), maxAge: CorsRegistry.MAX_AGE, credentials: CorsRegistry.CREDENTIALS });
         return await corsMiddleware(c, next);
     });

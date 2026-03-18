@@ -22,6 +22,7 @@ const requestSwapRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ id: z.string(), status: z.string() }) } }, description: 'Swap requested' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Visit not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -69,6 +70,8 @@ const listSwapsRoute = createRoute({
                 }
             }, description: 'Swap requests'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -118,6 +121,7 @@ const approveSwapRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Approved' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

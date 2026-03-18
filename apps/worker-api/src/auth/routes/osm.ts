@@ -19,7 +19,9 @@ const osmStartRoute = createRoute({
     tags: ['Authentication'],
     responses: {
         302: { description: 'Redirect to OSM' },
-        500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal error' }
+        500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -39,7 +41,8 @@ const osmCallbackRoute = createRoute({
     responses: {
         302: { description: 'Redirect to Frontend' },
         400: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Bad request' },
-        500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal error' }
+        500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal error' },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -139,7 +142,7 @@ r.openapi(osmCallbackRoute, async (c) => {
                 data: {
                     email: osmEmail,
                     osmId,
-                    tenantId: tenant.id,
+                    tenantId: tenant?.id,
                     roles: 'client',
                     status: 'active'
                 }

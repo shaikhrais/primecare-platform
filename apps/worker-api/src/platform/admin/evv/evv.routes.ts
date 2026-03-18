@@ -28,6 +28,8 @@ const listRoute = createRoute({
                 }
             }, description: 'EVV records'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -66,6 +68,8 @@ const exceptionsRoute = createRoute({
                 }
             }, description: 'Exception records'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -92,6 +96,7 @@ const approveExceptionRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Approved' },
         404: { description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -129,6 +134,8 @@ const complianceSummaryRoute = createRoute({
                 }
             }, description: 'Summary'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -161,7 +168,10 @@ const exportRoute = createRoute({
             startDate: z.string(), endDate: z.string(),
         }),
     },
-    responses: { 200: { description: 'Export data' } },
+    responses: { 200: { description: 'Export data' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 evv.openapi(exportRoute, async (c) => {

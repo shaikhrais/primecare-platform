@@ -9,10 +9,10 @@ export async function processComplianceSync(prisma: any) {
   let complianceMetricsProcessed = 0;
   const activeTenants = await prisma.tenant.findMany();
   for (const tenant of activeTenants) {
-    const totalPsws = await prisma.pswProfile.count({ where: { tenantId: tenant.id } });
-    const verifiedDocs = await prisma.pswDocument.count({ where: { psw: { tenantId: tenant.id }, status: "verified" } });
+    const totalPsws = await prisma.pswProfile.count({ where: { tenantId: tenant?.id } });
+    const verifiedDocs = await prisma.pswDocument.count({ where: { psw: { tenantId: tenant?.id }, status: "verified" } });
     await prisma.systemEvent.create({
-      data: { tenantId: tenant.id, operation: "COMPLIANCE_SYNC", modelName: "PswDocument", entityId: tenant.id,
+      data: { tenantId: tenant?.id, operation: "COMPLIANCE_SYNC", modelName: "PswDocument", entityId: tenant?.id,
         payload: JSON.stringify({ totalPsws, verifiedDocs, timestamp: new Date() }) },
     });
     complianceMetricsProcessed++;
@@ -25,17 +25,17 @@ export async function processInventoryWarnings(prisma: any) {
   const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   const tenants = await prisma.tenant.findMany();
   for (const tenant of tenants) {
-    const recentVisits = await prisma.visit.count({ where: { tenantId: tenant.id, createdAt: { gt: oneMonthAgo } } });
+    const recentVisits = await prisma.visit.count({ where: { tenantId: tenant?.id, createdAt: { gt: oneMonthAgo } } });
     if (recentVisits > 150) {
-      const supplyManager = await prisma.user.findFirst({ where: { tenantId: tenant.id, role: "manager" } });
+      const supplyManager = await prisma.user.findFirst({ where: { tenantId: tenant?.id, role: "manager" } });
       if (supplyManager) {
         await prisma.appNotification.create({
-          data: { userId: supplyManager.id, tenantId: tenant.id, type: "warning",
+          data: { userId: supplyManager.id, tenantId: tenant?.id, type: "warning",
             title: "PREDICTIVE AI: Impending Stockout Warning",
             message: `Based on a 15% increase in respiratory regional visits, AI Inference predicts a PPE mask stockout in 7 days. Please initiate vendor reorder.` },
         });
         await prisma.systemEvent.create({
-          data: { tenantId: tenant.id, operation: "AI_INVENTORY_WARNING", modelName: "PredictiveEngine", entityId: tenant.id, payload: "Mask Stockout" },
+          data: { tenantId: tenant?.id, operation: "AI_INVENTORY_WARNING", modelName: "PredictiveEngine", entityId: tenant?.id, payload: "Mask Stockout" },
         });
         inventoryWarnings++;
       }
@@ -49,7 +49,7 @@ export async function processWaitlistTriage(prisma: any) {
   const tenants = await prisma.tenant.findMany();
   for (const tenant of tenants) {
     await prisma.systemEvent.create({
-      data: { tenantId: tenant.id, operation: "WAITLIST_AUTO_TRIAGE", modelName: "Waitlist", entityId: tenant.id,
+      data: { tenantId: tenant?.id, operation: "WAITLIST_AUTO_TRIAGE", modelName: "Waitlist", entityId: tenant?.id,
         payload: "Periodic AI re-sorting executed based on client geography and clinical urgency indices." },
     });
     waitlistSorts++;

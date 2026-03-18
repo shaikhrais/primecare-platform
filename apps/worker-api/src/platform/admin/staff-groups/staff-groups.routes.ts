@@ -27,6 +27,8 @@ const getGroups = createRoute({
     description: 'Get all staff groups for tenant',
     responses: {
         200: { content: { 'application/json': { schema: z.array(GroupSchema) } }, description: 'List of groups' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -49,6 +51,8 @@ const createGroup = createRoute({
     request: { body: { content: { 'application/json': { schema: CreateGroupSchema } } } },
     responses: {
         200: { content: { 'application/json': { schema: GroupSchema } }, description: 'Group created' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -72,6 +76,8 @@ const getMembers = createRoute({
     request: { params: z.object({ id: z.string() }) },
     responses: {
         200: { content: { 'application/json': { schema: z.any() } }, description: 'List of members' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -97,6 +103,8 @@ const addMember = createRoute({
     },
     responses: {
         200: { content: { 'application/json': { schema: z.any() } }, description: 'Member added' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -120,6 +128,8 @@ const removeMember = createRoute({
     request: { params: z.object({ id: z.string(), userId: z.string() }) },
     responses: {
         200: { content: { 'application/json': { schema: z.any() } }, description: 'Member removed' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -43,6 +43,7 @@ const assignPswRoute = createRoute({
         404: {
             description: 'PSW not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -97,6 +98,7 @@ const cancelVisitRoute = createRoute({
         404: {
             description: 'Visit not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

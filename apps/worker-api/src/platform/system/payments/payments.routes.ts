@@ -43,6 +43,7 @@ const createPaymentIntentRoute = createRoute({
         500: {
             description: 'Server error (Stripe not configured)',
         },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

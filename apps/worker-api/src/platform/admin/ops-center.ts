@@ -59,6 +59,8 @@ export const opsCenterRoute = createRoute({
             description: 'Operations center data',
         },
         500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal Server Error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

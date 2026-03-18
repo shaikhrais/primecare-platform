@@ -27,7 +27,9 @@ const getSessionsRoute = createRoute({
                 }
             },
             description: 'Internal Server Error'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -84,7 +86,9 @@ const getVitalsRoute = createRoute({
                 }
             },
             description: 'Internal Server Error'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -126,7 +130,10 @@ const startSessionRoute = createRoute({
     path: '/session/start',
     summary: 'Start Telehealth Session',
     tags: ['Admin', 'Telehealth'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const openTriageRoute = createRoute({
@@ -134,7 +141,10 @@ const openTriageRoute = createRoute({
     path: '/triage/open',
     summary: 'Open Triage Portal',
     tags: ['Admin', 'Telehealth'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 const verifyVitalsRoute = createRoute({
@@ -142,7 +152,10 @@ const verifyVitalsRoute = createRoute({
     path: '/vitals/verify',
     summary: 'Verify Remote Vitals',
     tags: ['Admin', 'Telehealth'],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 telehealthRoutes.openapi(startSessionRoute, async (c) => c.json({ message: 'Encrypted WebRTC tunnel established.' }, 200));

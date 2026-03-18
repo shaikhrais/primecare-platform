@@ -10,7 +10,8 @@ const connectRoute = createRoute({
     tags: ['System', 'Realtime'],
     responses: {
         101: { description: 'Switching Protocols' },
-        400: { description: 'Missing Tenant ID' }
+        400: { description: 'Missing Tenant ID' },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     }
 });
 

@@ -7,20 +7,56 @@ import { createRoute, z } from '@hono/zod-openapi';
 export const securityConfigSchema = z.object({ enforceVpn: z.boolean(), allowedVpnRanges: z.array(z.string()), requireDeviceApproval: z.boolean(), maxDevicesPerUser: z.number() });
 export const corsConfigSchema = z.object({ corsAllowedOrigins: z.array(z.string()), corsAllowedMethods: z.array(z.string()), corsAllowedHeaders: z.array(z.string()) });
 
-export const getSecurityRoute = createRoute({ method: 'get', path: '/', summary: 'Get Tenant Security Config', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: securityConfigSchema } }, description: 'Success' } } });
-export const updateSecurityRoute = createRoute({ method: 'patch', path: '/', summary: 'Update Tenant Security Config', tags: ['Admin Security'], request: { body: { content: { 'application/json': { schema: securityConfigSchema.partial() } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' } } });
-export const listDevicesRoute = createRoute({ method: 'get', path: '/devices', summary: 'List All Tenant Devices', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), userId: z.string(), deviceId: z.string(), deviceName: z.string().nullable(), deviceType: z.string().nullable(), lastIp: z.string().nullable(), status: z.string(), isAuthorized: z.boolean(), isTemporary: z.boolean(), expiresAt: z.string().nullable(), lastActiveAt: z.string(), user: z.object({ firstName: z.string().nullable(), lastName: z.string().nullable(), email: z.string() }) })) } }, description: 'Success' } } });
-export const authorizeDeviceRoute = createRoute({ method: 'post', path: '/devices/:id/authorize', summary: 'Authorize a Device', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' }, 404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Device not found' } } });
-export const revokeDeviceRoute = createRoute({ method: 'post', path: '/devices/:id/revoke', summary: 'Revoke a Device', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' }, 404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Device not found' } } });
-export const getDeviceActivityRoute = createRoute({ method: 'get', path: '/devices/:deviceId/activity', summary: 'Get Device Activity Logs', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), action: z.string(), resourceType: z.string(), createdAt: z.string(), ipAddress: z.string().nullable(), metadataJson: z.any().nullable() })) } }, description: 'Success' } } });
-export const getForensicTrailsRoute = createRoute({ method: 'get', path: '/forensic-trails', summary: 'Get Forensic System Events', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), tenantId: z.string(), operation: z.string(), modelName: z.string(), entityId: z.string().nullable(), payload: z.any().nullable(), previousData: z.any().nullable(), actorUserId: z.string().nullable(), deviceId: z.string().nullable(), ipAddress: z.string().nullable(), createdAt: z.string(), actor: z.object({ email: z.string() }).nullable().optional() })) } }, description: 'Success' } } });
-export const getDailySummaryRoute = createRoute({ method: 'get', path: '/daily-summary', summary: 'Get Daily Activity Summary', tags: ['Admin Security'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.object({ date: z.string(), totalEvents: z.number(), byUser: z.array(z.object({ actorUserId: z.string().nullable(), email: z.string().optional(), count: z.number(), operations: z.record(z.number()) })), byModel: z.record(z.number()) }) } }, description: 'Success' } } });
-export const getCorsRoute = createRoute({ method: 'get', path: '/cors', summary: 'Get Tenant CORS Config', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: corsConfigSchema } }, description: 'Success' } } });
-export const updateCorsRoute = createRoute({ method: 'patch', path: '/cors', summary: 'Update Tenant CORS Config', tags: ['Admin Security'], request: { body: { content: { 'application/json': { schema: corsConfigSchema.partial() } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' } } });
-export const verifyIntegrityRoute = createRoute({ method: 'post', path: '/verify-integrity', summary: 'Verify Forensic Chain Integrity', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ isValid: z.boolean(), totalEvents: z.number(), brokenEvents: z.array(z.string()), message: z.string() }) } }, description: 'Success' } } });
+export const getSecurityRoute = createRoute({ method: 'get', path: '/', summary: 'Get Tenant Security Config', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: securityConfigSchema } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const updateSecurityRoute = createRoute({ method: 'patch', path: '/', summary: 'Update Tenant Security Config', tags: ['Admin Security'], request: { body: { content: { 'application/json': { schema: securityConfigSchema.partial() } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const listDevicesRoute = createRoute({ method: 'get', path: '/devices', summary: 'List All Tenant Devices', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), userId: z.string(), deviceId: z.string(), deviceName: z.string().nullable(), deviceType: z.string().nullable(), lastIp: z.string().nullable(), status: z.string(), isAuthorized: z.boolean(), isTemporary: z.boolean(), expiresAt: z.string().nullable(), lastActiveAt: z.string(), user: z.object({ firstName: z.string().nullable(), lastName: z.string().nullable(), email: z.string() }) })) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const authorizeDeviceRoute = createRoute({ method: 'post', path: '/devices/:id/authorize', summary: 'Authorize a Device', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' }, 404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Device not found' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const revokeDeviceRoute = createRoute({ method: 'post', path: '/devices/:id/revoke', summary: 'Revoke a Device', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' }, 404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Device not found' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const getDeviceActivityRoute = createRoute({ method: 'get', path: '/devices/:deviceId/activity', summary: 'Get Device Activity Logs', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), action: z.string(), resourceType: z.string(), createdAt: z.string(), ipAddress: z.string().nullable(), metadataJson: z.any().nullable() })) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const getForensicTrailsRoute = createRoute({ method: 'get', path: '/forensic-trails', summary: 'Get Forensic System Events', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.array(z.object({ id: z.string(), tenantId: z.string(), operation: z.string(), modelName: z.string(), entityId: z.string().nullable(), payload: z.any().nullable(), previousData: z.any().nullable(), actorUserId: z.string().nullable(), deviceId: z.string().nullable(), ipAddress: z.string().nullable(), createdAt: z.string(), actor: z.object({ email: z.string() }).nullable().optional() })) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const getDailySummaryRoute = createRoute({ method: 'get', path: '/daily-summary', summary: 'Get Daily Activity Summary', tags: ['Admin Security'], request: { query: z.object({ date: z.string().optional() }) }, responses: { 200: { content: { 'application/json': { schema: z.object({ date: z.string(), totalEvents: z.number(), byUser: z.array(z.object({ actorUserId: z.string().nullable(), email: z.string().optional(), count: z.number(), operations: z.record(z.number()) })), byModel: z.record(z.number()) }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const getCorsRoute = createRoute({ method: 'get', path: '/cors', summary: 'Get Tenant CORS Config', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: corsConfigSchema } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const updateCorsRoute = createRoute({ method: 'patch', path: '/cors', summary: 'Update Tenant CORS Config', tags: ['Admin Security'], request: { body: { content: { 'application/json': { schema: corsConfigSchema.partial() } } } }, responses: { 200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
+export const verifyIntegrityRoute = createRoute({ method: 'post', path: '/verify-integrity', summary: 'Verify Forensic Chain Integrity', tags: ['Admin Security'], responses: { 200: { content: { 'application/json': { schema: z.object({ isValid: z.boolean(), totalEvents: z.number(), brokenEvents: z.array(z.string()), message: z.string() }) } }, description: 'Success' },
+    '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+    '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+} });
 
 // --- Handlers ---
-export async function handleGetSecurity(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; const tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { enforceVpn: true, allowedVpnRanges: true, requireDeviceApproval: true, maxDevicesPerUser: true } }); return c.json(tenant || { enforceVpn: false, allowedVpnRanges: [], requireDeviceApproval: false, maxDevicesPerUser: 5 }, 200); }
+export async function handleGetSecurity(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; let tenant = null;
+try {
+  tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { enforceVpn: true, allowedVpnRanges: true, requireDeviceApproval: true, maxDevicesPerUser: true } });
+} catch(e) {
+  console.error("Invalid UUID fallback", e);
+} return c.json(tenant || { enforceVpn: false, allowedVpnRanges: [], requireDeviceApproval: false, maxDevicesPerUser: 5 }, 200); }
 export async function handleUpdateSecurity(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; await prisma.tenant.update({ where: { id: tenantId }, data: c.req.valid('json') }); return c.json({ success: true }, 200); }
 export async function handleListDevices(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; return c.json(await prisma.userDevice.findMany({ where: { user: { tenantId } }, include: { user: { select: { firstName: true, lastName: true, email: true } } }, orderBy: { lastActiveAt: 'desc' } }) as any, 200); }
 export async function handleAuthorizeDevice(c: any) { const prisma = c.get('prisma'); const id = c.req.param('id'); const tenantId = c.get('jwtPayload').tenantId; const device = await prisma.userDevice.findUnique({ where: { id }, include: { user: true } }); if (!device || device.user.tenantId !== tenantId) return c.json({ error: 'Device not found' }, 404); await prisma.userDevice.update({ where: { id }, data: { isAuthorized: true, authorizedAt: new Date(), status: 'active' } }); return c.json({ success: true }, 200); }
@@ -37,7 +73,12 @@ export async function handleGetDailySummary(c: any) {
     summary.byUser = Array.from(userMap.values());
     return c.json(summary as any, 200);
 }
-export async function handleGetCors(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; const tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } }); return c.json(tenant || { corsAllowedOrigins: [], corsAllowedMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], corsAllowedHeaders: ['Content-Type', 'Authorization'] }, 200); }
+export async function handleGetCors(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; let tenant = null;
+try {
+  tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } });
+} catch(e) {
+  console.error("Invalid UUID fallback", e);
+} return c.json(tenant || { corsAllowedOrigins: [], corsAllowedMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], corsAllowedHeaders: ['Content-Type', 'Authorization'] }, 200); }
 export async function handleUpdateCors(c: any) { const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId; await prisma.tenant.update({ where: { id: tenantId }, data: c.req.valid('json') }); return c.json({ success: true }, 200); }
 export async function handleVerifyIntegrity(c: any) {
     const prisma = c.get('prisma'); const tenantId = c.get('jwtPayload').tenantId;

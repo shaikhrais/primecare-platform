@@ -12,23 +12,28 @@ stripeRoutes.get('/onboard', async (c) => {
 
     if (!payload?.tenantId) return c.json({ error: 'Tenant context missing' }, 403);
 
-    const tenant = await prisma.tenant.findUnique({
-        where: { id: payload.tenantId }
-    });
+    let tenant = null;
+    try {
+      tenant = await prisma.tenant.findUnique({
+            where: { id: payload.tenantId }
+        });
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     if (!tenant) return c.json({ error: 'Tenant not found' }, 404);
 
     const stripeService = new StripeService(c.env.STRIPE_SECRET_KEY);
 
-    let accountId = tenant.stripeAccountId;
+    let accountId = tenant?.stripeAccountId;
 
     // Create a new Connect account if they don't have one
     if (!accountId) {
-        const account = await stripeService.createConnectAccount(payload.email, tenant.name);
+        const account = await stripeService.createConnectAccount(payload.email, tenant?.name);
         accountId = account.id;
 
         await prisma.tenant.update({
-            where: { id: tenant.id },
+            where: { id: tenant?.id },
             data: { stripeAccountId: accountId }
         });
     }

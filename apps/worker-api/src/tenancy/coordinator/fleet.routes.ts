@@ -24,6 +24,7 @@ const heartbeatRoute = createRoute({
     responses: {
         200: { content: { 'application/json': { schema: z.object({ success: z.boolean() }) } }, description: 'Heartbeat recorded' },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'PSW not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -125,6 +126,8 @@ const positionsRoute = createRoute({
                 }
             }, description: 'Fleet positions'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -165,6 +168,7 @@ const etaRoute = createRoute({
             }, description: 'ETA'
         },
         404: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Not found' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

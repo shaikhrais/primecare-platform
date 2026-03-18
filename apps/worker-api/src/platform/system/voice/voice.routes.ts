@@ -41,6 +41,7 @@ const uploadVoiceRoute = createRoute({
         400: { description: 'Bad request' },
         413: { description: 'File too large' },
         500: { description: 'Internal server error' },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

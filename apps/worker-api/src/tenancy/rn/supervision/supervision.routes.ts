@@ -38,6 +38,7 @@ const getPswSupervisionOverviewRoute = createRoute({
         404: {
             description: 'PSW not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -100,6 +101,8 @@ const getRosterRoute = createRoute({
             },
             description: 'Supervision roster of PSW profiles with aggregated stats',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

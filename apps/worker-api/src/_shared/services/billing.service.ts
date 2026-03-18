@@ -35,10 +35,15 @@ export class BillingService {
 
         // 1. Fetch tax settings from tenant if tax amount not explicitly provided
         if (tax === undefined) {
-            const tenant = await this.prisma.tenant.findUnique({
-                where: { id: tenantId },
-                select: { taxPercentage: true }
-            });
+            let tenant = null;
+            try {
+              tenant = this.prisma.tenant.findUnique({
+                            where: { id: tenantId },
+                            select: { taxPercentage: true }
+                        });
+            } catch(e) {
+              console.error("Invalid UUID fallback", e);
+            }
             const taxPct = new Decimal((tenant?.taxPercentage || 0).toString());
             tax = new Decimal(amount).times(taxPct.dividedBy(100)).toNumber();
         }

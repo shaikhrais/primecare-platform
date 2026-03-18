@@ -25,6 +25,7 @@ const listInvoicesRoute = createRoute({
         404: {
             description: 'Profile not found',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -60,6 +61,8 @@ const listServicesRoute = createRoute({
             },
             description: 'List of services',
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

@@ -31,7 +31,10 @@ export const matchOverrideRoute = createRoute({
     method: 'post', path: '/match/override', summary: 'Match Override', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ visitId: z.string(), pswId: z.string(), reason: z.string().optional() }) } } } },
-    responses: { 200: { description: 'Match overridden successfully', content: { 'application/json': { schema: z.any() } } } },
+    responses: { 200: { description: 'Match overridden successfully', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const waitlistSyncRoute = createRoute({
@@ -39,7 +42,10 @@ export const waitlistSyncRoute = createRoute({
     method: 'post', path: '/waitlist/sync', summary: 'Waitlist Sync', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ updates: z.array(z.object({ id: z.string(), priority: z.number() })) }) } } } },
-    responses: { 200: { description: 'Waitlist synchronized', content: { 'application/json': { schema: z.any() } } } },
+    responses: { 200: { description: 'Waitlist synchronized', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const sosAckRoute = createRoute({
@@ -47,21 +53,30 @@ export const sosAckRoute = createRoute({
     method: 'post', path: '/incident/ack', summary: 'Sos Ack', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ incidentId: z.string(), notes: z.string().optional() }) } } } },
-    responses: { 200: { description: 'SOS acknowledged', content: { 'application/json': { schema: z.any() } } } },
+    responses: { 200: { description: 'SOS acknowledged', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const dashboardStatsRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
     method: 'get', path: '/dashboard/stats', summary: 'Dashboard Stats', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { description: 'Coordinator dashboard stats retrieved', content: { 'application/json': { schema: CoordinatorStatsSchema } } } },
+    responses: { 200: { description: 'Coordinator dashboard stats retrieved', content: { 'application/json': { schema: CoordinatorStatsSchema } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const dispatchMapRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.DISPATCH_MAP,
     method: 'get', path: '/dispatch-map', summary: 'Dispatch Map', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { description: 'Live dispatch map data retrieved', content: { 'application/json': { schema: z.object({ caregivers: z.array(z.any()), clients: z.array(z.any()), activeVisits: z.array(z.any()), recentEvents: z.array(z.any()) }) } } } },
+    responses: { 200: { description: 'Live dispatch map data retrieved', content: { 'application/json': { schema: z.object({ caregivers: z.array(z.any()), clients: z.array(z.any()), activeVisits: z.array(z.any()), recentEvents: z.array(z.any()) }) } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const matchingEngineRoute = createRoute({
@@ -69,7 +84,10 @@ export const matchingEngineRoute = createRoute({
     method: 'post', path: '/matching/run', summary: 'Matching Engine', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ visitId: z.string().optional() }) } } } },
-    responses: { 200: { description: 'AI Matching sweep completed', content: { 'application/json': { schema: z.array(z.any()) } } } },
+    responses: { 200: { description: 'AI Matching sweep completed', content: { 'application/json': { schema: z.array(z.any()) } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const listSosRoute = createRoute({
@@ -77,7 +95,10 @@ export const listSosRoute = createRoute({
     description: 'Retrieve a list of active SOS emergency alerts.',
     method: 'get', path: '/incidents',
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { description: 'SOS incident list retrieved', content: { 'application/json': { schema: z.array(SosIncidentSchema) } } } },
+    responses: { 200: { description: 'SOS incident list retrieved', content: { 'application/json': { schema: z.array(SosIncidentSchema) } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const sosDispatchRoute = createRoute({
@@ -85,14 +106,20 @@ export const sosDispatchRoute = createRoute({
     method: 'post', path: '/sos-dispatch', summary: 'Sos Dispatch', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ incidentId: z.string(), pswId: z.string(), notes: z.string().optional() }) } } } },
-    responses: { 200: { description: 'Emergency replacement dispatched', content: { 'application/json': { schema: z.any() } } } },
+    responses: { 200: { description: 'Emergency replacement dispatched', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const masterScheduleRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.MASTER_SCHEDULE,
     method: 'get', path: '/schedule/master', summary: 'Master Schedule', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { description: 'Master schedule retrieved', content: { 'application/json': { schema: z.array(z.any()) } } } },
+    responses: { 200: { description: 'Master schedule retrieved', content: { 'application/json': { schema: z.array(z.any()) } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const shiftBroadcastRoute = createRoute({
@@ -100,11 +127,17 @@ export const shiftBroadcastRoute = createRoute({
     method: 'post', path: '/shifts/broadcast', summary: 'Shift Broadcast', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     request: { body: { content: { 'application/json': { schema: z.object({ visitId: z.string(), pswIds: z.array(z.string()) }) } } } },
-    responses: { 200: { description: 'Shift broadcasted successfully', content: { 'application/json': { schema: z.object({ success: z.boolean(), count: z.number() }) } } } },
+    responses: { 200: { description: 'Shift broadcasted successfully', content: { 'application/json': { schema: z.object({ success: z.boolean(), count: z.number() }) } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });
 
 export const fleetPingRoute = createRoute({
     method: 'post', path: '/fleet/ping', summary: 'Ping Active Fleet', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' } },
+    responses: { 200: { content: { 'application/json': { schema: z.object({ message: z.string() }) } }, description: 'Success' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    },
 });

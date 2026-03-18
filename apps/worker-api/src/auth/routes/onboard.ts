@@ -42,6 +42,7 @@ const onboardRoute = createRoute({
         400: {
             description: 'Email or Slug already in use',
         },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -50,10 +51,18 @@ r.openapi(onboardRoute, async (c) => {
     const { email, password, tenantName, tenantSlug } = c.req.valid('json');
 
     // 1. Check if user or tenant already exists
-    const [existingUser, existingTenant] = await Promise.all([
-        prisma.user.findUnique({ where: { email } }),
-        prisma.tenant.findUnique({ where: { slug: tenantSlug } })
-    ]);
+    let existingUser = null;
+    let existingTenant = null;
+    try {
+      const results = await Promise.all([
+          prisma.user.findUnique({ where: { email } }),
+          prisma.tenant.findUnique({ where: { slug: tenantSlug } })
+      ]);
+      existingUser = results[0];
+      existingTenant = results[1];
+    } catch(e) {
+      console.error("Invalid UUID fallback", e);
+    }
 
     if (existingUser) return c.json({ error: 'Email already registered' }, 400);
     if (existingTenant) return c.json({ error: 'Tenant slug already in use' }, 400);
@@ -74,7 +83,7 @@ r.openapi(onboardRoute, async (c) => {
             email,
             passwordHash,
             roles: 'admin',
-            tenantId: tenant.id
+            tenantId: tenant?.id
         },
     });
 
@@ -85,7 +94,7 @@ r.openapi(onboardRoute, async (c) => {
 
     const parsedRoles = parseRoles(user.roles);
 
-    const accessToken = await generateToken({ ...user, roles: parsedRoles, tenantId: tenant.id }, jwtSecret);
+    const accessToken = await generateToken({ ...user, roles: parsedRoles, tenantId: tenant?.id }, jwtSecret);
     const refreshToken = await generateRefreshToken(user.id, jwtSecret);
 
     setCookie(c, 'accessToken', accessToken, {

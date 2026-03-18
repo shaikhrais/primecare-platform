@@ -26,6 +26,8 @@ const listRoute = createRoute({
                 }
             }, description: 'Log'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -58,6 +60,8 @@ const calculateRoute = createRoute({
                 }
             }, description: 'Calculated'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -122,6 +126,8 @@ const summaryRoute = createRoute({
                 }
             }, description: 'Summary'
         },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
@@ -166,7 +172,8 @@ const submitOverrideRoute = createRoute({
         },
         404: {
             description: 'Profile not found'
-        }
+        },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 

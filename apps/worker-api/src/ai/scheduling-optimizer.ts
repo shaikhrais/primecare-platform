@@ -189,6 +189,7 @@ export function optimizeSchedule(
         // Pick highest score
         viable.sort((a, b) => b.score - a.score);
         const best = viable[0];
+        if (!best) continue;
 
         assignments.push({
             shiftId: shift.id,

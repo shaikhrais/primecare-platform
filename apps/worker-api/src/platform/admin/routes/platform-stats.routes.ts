@@ -26,6 +26,8 @@ const getPlatformStatsRoute = createRoute({
             description: 'Platform-wide statistics',
         },
         500: { description: 'Server error' },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
+        '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },
 });
 
