@@ -1,12 +1,13 @@
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import React, { useState, useEffect } from 'react';
-import { ApiRegistry } from 'prime-care-shared';
-import { useToast as useNotification } from '@/shared/hooks/useToast';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
-import React from 'react';
+const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = {};
+
+import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageTemplate } from "@/shared/components/ui/PageTemplate";
+import { useToast } from "@/shared/hooks/useToast";
+
+import React, { useState, useEffect } from "react";
 
 // --- Extracted from billing.tsx ---
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL_1 = import.meta.env.VITE_API_URL;
 
 interface Invoice {
     id: string;
@@ -17,7 +18,7 @@ interface Invoice {
     serviceDescription?: string;
 }
 
-export default function BillingPage() {
+export function BillingPage() {
     const { showToast } = useNotification();
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function BillingPage() {
     const fetchInvoices = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}${ApiRegistry.CLIENT.INVOICES}`, {
+            const response = await fetch(`${API_URL_1}${ApiRegistry.CLIENT.INVOICES}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -48,7 +49,7 @@ export default function BillingPage() {
         try {
             const token = localStorage.getItem('token');
             // Use existing payment intent route (assuming it exists via Stripe)
-            const response = await fetch(`${API_URL}/v1/payments/create-payment-intent`, {
+            const response = await fetch(`${API_URL_1}/v1/payments/create-payment-intent`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

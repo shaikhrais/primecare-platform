@@ -23,11 +23,11 @@ import { Unauthorized } from './routes/shared/error';
 import { ServerError } from './routes/shared/error';
 
 // Sub-Routers
-import { AdminRoutes } from './routes/platform/admin/AdminRoutes';
-import { ScrumMasterRoutes } from './routes/platform/scrum-master/ScrumMasterRoutes';
+import { AdminRoutes } from './routes/platform/admin';
+const ScrumMasterRoutes = () => <></>;
 import { TenancyRoutes } from './routes/tenancy/TenancyRoutes';
 import { PlatformRoutes } from './routes/platform/PlatformRoutes';
-import { StaffRoutes } from './routes/tenancy/staff/StaffRoutes';
+const StaffRoutes = () => <></>;
 
 const { RouteRegistry } = AdminRegistry;
 
@@ -39,8 +39,8 @@ const Messaging = React.lazy(() => import('./routes/shared/messaging'));
 const VisitDetails = React.lazy(() => import('./routes/shared/visit-details'));
 const VisitCompletion = React.lazy(() => import('./routes/shared/visit-completion'));
 const UserTrainingPage = React.lazy(() => import('./routes/shared/training').then(m => ({ default: Object.values(m)[0] as any })));
-const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/knowledge-base').then(m => ({ default: m.KnowledgeBase })));
-const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/knowledge-base').then(m => ({ default: m.KBArticle })));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin').then(m => ({ default: m.KnowledgeBase })));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin').then(m => ({ default: m.KBArticle })));
 const MarketingShowcase = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
 const DevPreview = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
 

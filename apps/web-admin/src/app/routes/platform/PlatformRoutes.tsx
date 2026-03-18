@@ -7,10 +7,10 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 const { RouteRegistry } = AdminRegistry;
 
 // Platform Portal (Super Admin)
-const PlatformDashboard = lazy(() => import('../tenancy/staff/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
+const PlatformDashboard = lazy(() => import('../tenancy/staff').then(m => ({ default: Object.values(m)[0] as any })));
 const PlatformAuditLogs = lazy(() => import('./audit-logs').then(m => ({ default: Object.values(m)[0] as any })));
 const SLAMonitoring = lazy(() => import('./sla-monitoring'));
-const RiskSurveillanceDashboard = lazy(() => import('../tenancy/scrum-master/pages').then(m => ({ default: Object.values(m)[0] as any })));
+const RiskSurveillanceDashboard = lazy(() => import('../platform/scrum-master').then(m => ({ default: Object.values(m)[0] as any })));
 const TenantList = lazy(() => import('./tenants'));
 const GovernanceHub = lazy(() => import('./governance-hub'));
 

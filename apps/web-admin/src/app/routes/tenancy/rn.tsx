@@ -1,8 +1,10 @@
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import React from 'react';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
-import { apiClient } from '@/shared/utils/apiClient';
-import { AdminRegistry } from 'prime-care-shared';
+const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
+
+import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageTemplate } from "@/shared/components/ui/PageTemplate";
+import { apiClient } from "@/shared/utils/apiClient";
+import { AdminRegistry } from "prime-care-shared";
+import React from "react";
 
 // --- Extracted from assessmentHelpers.ts ---
 export interface Assessment {

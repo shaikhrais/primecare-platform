@@ -1,17 +1,16 @@
-import { AdminRegistry } from 'prime-care-shared';
-import React from 'react';
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
-import { useMemo } from 'react';
-import { apiClient } from '@/shared/utils/apiClient';
-import { Box, Database, UserPlus, FileSignature, Activity, Send, MapPin } from 'lucide-react';
-import React, { lazy } from 'react';
-import { Route } from 'react-router';
-import RequireRole from '@/shared/rbac/RequireRole';
-import AppLayout from '@/shared/components/layout/AppLayout';
+const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
+
+import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import AppLayout from "@/shared/components/layout/AppLayout";
+import { PageTemplate } from "@/shared/components/ui/PageTemplate";
+import RequireRole from "@/shared/rbac/RequireRole";
+import { apiClient } from "@/shared/utils/apiClient";
+import { Box, Database, UserPlus, FileSignature, Activity, Send, MapPin } from "lucide-react";
+import { AdminRegistry } from "prime-care-shared";
+import React, { useMemo, lazy } from "react";
+import { Route } from "react-router";
 
 // --- Extracted from assetGatherers.ts ---
-const { RouteRegistry, ApiRegistry, ButtonRegistry, ContentRegistry, ThemeRegistry } = AdminRegistry;
 
 export interface DigitalAsset {
     name: string;
@@ -38,26 +37,6 @@ const flattenObj = (obj: any, section: string, type: DigitalAsset['type'], prefi
     }
     return items;
 };
-
-export const gatherRoutes = (): DigitalAsset[] => {
-    const a: DigitalAsset[] = [];
-    const sections: [string, any][] = [
-        ['Admin', RouteRegistry.ADMIN], ['Scrum Master', RouteRegistry.SCRUM_MASTER],
-        ['Superuser', RouteRegistry.SUPERUSER], ['Manager', RouteRegistry.MANAGER],
-        ['Staff', RouteRegistry.STAFF], ['PSW', RouteRegistry.PSW],
-        ['RN', RouteRegistry.RN], ['Client', RouteRegistry.CLIENT],
-        ['Coordinator', RouteRegistry.COORDINATOR], ['Allied', RouteRegistry.ALLIED],
-    ];
-    for (const [sec, obj] of sections) {
-        if (obj && typeof obj === 'object') a.push(...flattenObj(obj, sec, 'route'));
-        else if (typeof obj === 'string') a.push({ name: sec, type: 'route', section: sec, path: obj, status: 'unused' });
-    }
-    for (const key of ['LOGIN', 'REGISTER', 'FORGOT_PASSWORD', 'RESET_PASSWORD', 'PROFILE', 'SUPPORT', 'LEARN', 'KNOWLEDGE_BASE'] as const) {
-        if ((RouteRegistry as any)[key]) a.push({ name: key.replace(/_/g, ' '), type: 'route', section: 'Shared', path: (RouteRegistry as any)[key], status: 'unused' });
-    }
-    return a;
-};
-
 export const gatherApis = (): DigitalAsset[] => {
     const a: DigitalAsset[] = [];
     const sections: [string, any][] = [];
@@ -72,13 +51,13 @@ export const gatherApis = (): DigitalAsset[] => {
 export const gatherButtons = (): DigitalAsset[] => {
     const a: DigitalAsset[] = [];
     try {
-        const allButtons = (ButtonRegistry as any).ALL || [];
+        const allButtons = (Object as any).ALL || [];
         if (Array.isArray(allButtons)) {
             for (const btn of allButtons) {
                 a.push({ name: btn.label || btn.id, type: 'button', section: btn.role || btn.module || 'General', path: btn.apiPath, detail: `${btn.type || ''} · ${btn.action || ''}`, status: 'unused' });
             }
         }
-        for (const [key, val] of Object.entries(ButtonRegistry)) {
+        for (const [key, val] of Object.entries(Object)) {
             if (key === 'ALL') continue;
             if (typeof val === 'object' && val !== null && !Array.isArray(val)) a.push(...flattenObj(val, key, 'button'));
         }
@@ -245,14 +224,18 @@ export function BuildHealthPage() {
 }
 
 // --- Extracted from dashboard.tsx ---
-sectionData={PageSectionRegistry['SM']}
+export function ScrumMasterDashboard() {
+    return (
+        <PageTemplate pageId="SM" title="Command Center" subtitle="Scrum Master Command Center"
+            actionPageId="scrum_master.dashboard"
+            sectionData={PageSectionRegistry['SM']}
         />
     );
 }
 
 // --- Extracted from dashboardHelpers.ts ---
-opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .export const roleFlowsStyles2 = `
+export const dashboardHelperStyles = `
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .sm-card {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
@@ -308,7 +291,7 @@ export function DeveloperKb() {
 }
 
 // --- Extracted from developer.tsx ---
-export default function DeveloperPortal() {
+export function DeveloperPortal() {
     return (
         <PageTemplate 
             pageId="PG-695" 
@@ -320,7 +303,7 @@ export default function DeveloperPortal() {
 }
 
 // --- Extracted from e2e-runner.tsx ---
-export default function E2eRunner() {
+export function E2eRunner() {
     return (
         <PageTemplate 
             pageId="PG-205" 
@@ -450,7 +433,7 @@ export function DigitalPropertyManager() {
 }
 
 // --- Extracted from propertyStyles.ts ---
-export const S: Record<string, React.CSSProperties> = {
+export const S_2: Record<string, React.CSSProperties> = {
     page: { padding: '0 0 60px', fontFamily: "'Inter', system-ui, -apple-system, sans-serif" },
     hero: { background: 'linear-gradient(135deg, #0c4a6e 0%, #0284c7 40%, #38bdf8 100%)', borderRadius: 16, padding: '36px 40px', marginBottom: 28, position: 'relative', overflow: 'hidden' },
     heroGlow: { position: 'absolute', top: -80, right: -40, width: 240, height: 240, background: 'radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' },
@@ -822,60 +805,7 @@ export function SecurityScansPage() {
 }
 
 // --- Extracted from ScrumMasterRoutes.tsx ---
-const { RouteRegistry } = AdminRegistry;
-
 // Scrum Master Pages
-const ScrumMasterDashboard = lazy(() => import('../../tenancy/staff/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
-const ApiEndpointsHub = lazy(() => import('./testing').then(m => ({ default: Object.values(m)[0] as any })));
-const TechnicalAuditPortal = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const RoleFlowsPage = lazy(() => import('./flows').then(m => ({ default: Object.values(m)[0] as any })));
-const SystemHealthMonitor = lazy(() => import('./monitoring').then(m => ({ default: Object.values(m)[0] as any })));
-const EnvironmentAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const RegistryIntegrityCheck = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const DatabaseSchemaAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const ThemeCoreCenter = lazy(() => import('./theme').then(m => ({ default: Object.values(m)[0] as any })));
-const DeveloperPortal = lazy(() => import('./developer').then(m => ({ default: Object.values(m)[0] as any })));
-const DeveloperKBPage = lazy(() => import('./developer-kb').then(m => ({ default: Object.values(m)[0] as any })));
-const PerformancePage = lazy(() => import('../../tenancy/manager/performance').then(m => ({ default: Object.values(m)[0] as any })));
-const BuildHealthPage = lazy(() => import('./builds').then(m => ({ default: Object.values(m)[0] as any })));
-const SecurityScansPage = lazy(() => import('./scans').then(m => ({ default: Object.values(m)[0] as any })));
-const LocalizationPage = lazy(() => import('./locales').then(m => ({ default: Object.values(m)[0] as any })));
-const RegistryAutoRepair = lazy(() => import('./repair').then(m => ({ default: Object.values(m)[0] as any })));
-const ImpersonationTool = lazy(() => import('./impersonate').then(m => ({ default: Object.values(m)[0] as any })));
-const InteractionAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const ResponseBot = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
-const UsageStatisticsManager = lazy(() => import('./usage').then(m => ({ default: Object.values(m)[0] as any })));
-const DigitalPropertyManager = lazy(() => import('./property').then(m => ({ default: Object.values(m)[0] as any })));
-const E2eRunner = lazy(() => import('./e2e-runner').then(m => ({ default: Object.values(m)[0] as any })));
-
-export const ScrumMasterRoutes = () => (
-    <Route path={`${RouteRegistry.SCRUM_MASTER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
-        <Route index element={<ScrumMasterDashboard />} />
-        <Route path="api-endpoints" element={<ApiEndpointsHub />} />
-        <Route path="pages" element={<TechnicalAuditPortal />} />
-        <Route path="components" element={<TechnicalAuditPortal />} />
-        <Route path="role-flows" element={<RoleFlowsPage />} />
-        <Route path="monitoring" element={<SystemHealthMonitor />} />
-        <Route path="env-audit" element={<EnvironmentAudit />} />
-        <Route path="registry-check" element={<RegistryIntegrityCheck />} />
-        <Route path="database-schema" element={<DatabaseSchemaAudit />} />
-        <Route path="theme-center" element={<ThemeCoreCenter />} />
-        <Route path="developer" element={<DeveloperPortal />} />
-        <Route path="dev-kb" element={<DeveloperKBPage />} />
-        <Route path="performance" element={<PerformancePage />} />
-        <Route path="build-health" element={<BuildHealthPage />} />
-        <Route path="security-scans" element={<SecurityScansPage />} />
-        <Route path="localization" element={<LocalizationPage />} />
-        <Route path="auto-fix" element={<RegistryAutoRepair />} />
-        <Route path="impersonate" element={<ImpersonationTool />} />
-        <Route path="interaction-audit" element={<InteractionAudit />} />
-        <Route path="response-bot" element={<ResponseBot />} />
-        <Route path="usage-stats" element={<UsageStatisticsManager />} />
-        <Route path="digital-property" element={<DigitalPropertyManager />} />
-        <Route path="e2e-runner" element={<E2eRunner />} />
-    </Route>
-);
-
 // --- Extracted from testing.tsx ---
 // --- Merged from ApiEndpointsHub.tsx ---
 export function ApiEndpointsHub() {
@@ -903,8 +833,6 @@ export function ThemeCoreCenter() {
 }
 
 // --- Extracted from themeConfig.ts ---
-const { ThemeRegistry } = AdminRegistry;
-
 /* ─────────── Registry-Driven Color Map ─────────── */
 export const REGISTRY_COLORS = [
     { key: 'primary', label: 'Primary', variable: ThemeRegistry.COLORS.PRIMARY, group: 'brand' as const },
@@ -935,7 +863,7 @@ export const PRESET_LABELS: Record<string, string> = {
 };
 
 /* ─────────────────── Styles ─────────────────── */
-export const S: Record<string, React.CSSProperties> = {
+export const S_3: Record<string, React.CSSProperties> = {
     page: { padding: '0 0 60px', fontFamily: "'Inter', system-ui, -apple-system, sans-serif" },
     hero: { background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0ea5e9 100%)', borderRadius: 16, padding: '36px 40px', marginBottom: 32, position: 'relative', overflow: 'hidden' },
     heroGlow: { position: 'absolute', top: -60, right: -60, width: 200, height: 200, background: 'radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' },
@@ -1008,7 +936,7 @@ export function UsageStatisticsManager() {
 }
 
 // --- Extracted from usageConfig.ts ---
-*/
+// usageConfig starts
 export const formatTime = (ms: number) => {
     if (ms < 1000) return `${ms}ms`;
     if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
@@ -1034,30 +962,8 @@ export const getUsageLevel = (count: number, max: number) => {
 };
 
 /* ─── All known platform routes ─── */
-export const gatherRoutes = (): { path: string; label: string; section: string }[] => {
-    const routes: { path: string; label: string; section: string }[] = [];
-    const flat = (obj: any, section: string, prefix = '') => {
-        for (const [key, val] of Object.entries(obj)) {
-            if (typeof val === 'string') {
-                routes.push({ path: val, label: `${prefix}${key}`.replace(/_/g, ' '), section });
-            } else if (typeof val === 'object' && val !== null && typeof val !== 'function') {
-                flat(val, section, `${key} > `);
-            }
-        }
-    };
-    if (RouteRegistry.ADMIN) flat(RouteRegistry.ADMIN, 'Admin');
-    if (RouteRegistry.SCRUM_MASTER) flat(RouteRegistry.SCRUM_MASTER, 'Scrum Master');
-    if ((RouteRegistry as any).PSW) flat((RouteRegistry as any).PSW, 'PSW');
-    if ((RouteRegistry as any).CLIENT) flat((RouteRegistry as any).CLIENT, 'Client');
-    if ((RouteRegistry as any).MANAGER) flat((RouteRegistry as any).MANAGER, 'Manager');
-    if ((RouteRegistry as any).COORDINATOR) flat((RouteRegistry as any).COORDINATOR, 'Coordinator');
-    if ((RouteRegistry as any).RN) flat((RouteRegistry as any).RN, 'RN');
-    if ((RouteRegistry as any).STAFF) flat((RouteRegistry as any).STAFF, 'Staff');
-    return routes;
-};
-
 /* ─── Styles ─── */
-export const S: Record<string, React.CSSProperties> = {
+export const S_5: Record<string, React.CSSProperties> = {
     page: { padding: '0 0 60px', fontFamily: "'Inter', system-ui, -apple-system, sans-serif" },
     hero: { background: 'linear-gradient(135deg, #312e81 0%, #4338ca 50%, #818cf8 100%)', borderRadius: 16, padding: '36px 40px', marginBottom: 32, position: 'relative', overflow: 'hidden' },
     heroGlow: { position: 'absolute', top: -80, right: -40, width: 220, height: 220, background: 'radial-gradient(circle, rgba(165,180,252,0.3) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' },

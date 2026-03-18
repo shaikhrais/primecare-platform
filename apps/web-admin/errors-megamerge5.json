@@ -1,0 +1,4 @@
+[
+  "src/app/routes/platform/admin.tsx(416,73): error TS1005: ',' expected.",
+  "src/app/routes/platform/admin.tsx(1410,5): error TS1128: Declaration or statement expected."
+]

@@ -1,6 +1,6 @@
-import React from 'react';
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
+import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageTemplate } from "@/shared/components/ui/PageTemplate";
+import React from "react";
 
 // --- Extracted from fleet.tsx ---
 // --- Merged from T40-FleetManagement.tsx ---

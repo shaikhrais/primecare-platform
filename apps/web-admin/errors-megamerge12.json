@@ -1,0 +1,8 @@
+[
+  "src/app/routes/platform/admin.tsx(533,7): error TS1134: Variable declaration expected.",
+  "src/app/routes/platform/admin.tsx(533,31): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(533,32): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2738,70): error TS1109: Expression expected.",
+  "src/app/routes/platform/admin.tsx(2738,97): error TS1109: Expression expected.",
+  "src/app/routes/platform/admin.tsx(2738,98): error TS1109: Expression expected."
+]

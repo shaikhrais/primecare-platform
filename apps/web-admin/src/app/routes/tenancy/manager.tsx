@@ -1,9 +1,7 @@
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import React from 'react';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
-import type { TableColumn } from '@/shared/components/sections';
-import React, { useState } from 'react';
-import type { TableColumn } from '@/shared/components/sections/SectionTable';
+import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { TableColumn } from "@/shared/components/sections";
+import { PageTemplate } from "@/shared/components/ui/PageTemplate";
+import React, { useState } from "react";
 
 // --- Extracted from compliance.tsx ---
 // Re-export from identity file: T25-ComplianceSync.tsx
