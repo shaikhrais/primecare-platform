@@ -1,3 +1,4 @@
+import { PageSectionRegistry } from '../../shared/PageSectionRegistry';
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 

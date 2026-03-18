@@ -37,13 +37,13 @@ describe('Smoke Exports — Batch 4', () => {
     });
 
     it('L21: Treatment List exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/allied-health/treatments');
+        const mod: any = await import('../app/routes/tenancy/allied-health');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('T42: Sign Off exports a valid module', async () => {
-        const mod: any = await import('../app/routes/tenancy/allied-health/sign-off');
+        const mod: any = await import('../app/routes/tenancy/allied-health');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });

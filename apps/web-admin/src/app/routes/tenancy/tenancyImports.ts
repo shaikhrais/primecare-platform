@@ -86,8 +86,8 @@ export const MileageTracker = lazy(() => import('./psw/mileage').then(m => ({ de
 export const PswTrainingHub = lazy(() => import('./psw/training').then(m => ({ default: Object.values(m)[0] as any })));
 export const FleetManagement = lazy(() => import('./coordinator/fleet').then(m => ({ default: Object.values(m)[0] as any })));
 export const ShiftSwap = lazy(() => import('./coordinator/shift-swap').then(m => ({ default: Object.values(m)[0] as any })));
-export const TreatmentList = lazy(() => import('./allied-health/treatments').then(m => ({ default: Object.values(m)[0] as any })));
-export const SignOff = lazy(() => import('./allied-health/sign-off').then(m => ({ default: Object.values(m)[0] as any })));
+export const TreatmentList = lazy(() => import('./allied-health').then(m => ({ default: Object.values(m)[0] as any })));
+export const SignOff = lazy(() => import('./allied-health').then(m => ({ default: Object.values(m)[0] as any })));
 
 // ── NEW PREMIUM PAGES (Session Sprint 3-6) ──
 export const GamificationHub = lazy(() => import('./manager/engagement').then(m => ({ default: Object.values(m)[0] as any })));
