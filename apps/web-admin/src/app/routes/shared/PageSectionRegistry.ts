@@ -850,8 +850,8 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Accuracy', value: '94.2%', color: 'var(--pc-success)' },
                     { label: 'Anomalies Found', value: 3, color: 'var(--pc-warning)' },
                 ]},
-                'T52.tabs': { tabs: { tabs, activeTab: tab, onTabChange: setTab } },
-                ...tabContent[tab],
+                'T52.tabs': { tabs: { activeTab: tab, onTabChange: setTab } },
+                ...tabContent[tab] || {},
             },
 
   // Extracted from ai.tsx
@@ -1099,10 +1099,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'FAQs', value: 3, color: 'var(--pc-primary)' },
                     { label: 'Total Views', value: '2.1K', color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'T2.tabs': { tabs: { tabs, activeTab: tab, onTabChange: setTab } },
+                'T2.tabs': { tabs: { activeTab: tab, onTabChange: setTab } },
                 'T2.content': { table: {
-                    columns: tab === 'blogs' ? blogCols : faqCols,
-                    rows: tab === 'blogs' ? blogPosts : faqItems,
+                    columns: true ? blogCols : faqCols,
+                    rows: true ? blogPosts : faqItems,
                 }},
             },
 
@@ -3253,7 +3253,7 @@ export const PageSectionRegistry: Record<string, any> = {
             },
 
   // Extracted from usage.tsx
-  ['PG-128']: {
+  ['PG-128_alt']: {
                 'PG-128.stats': { kpiCards: [
                     { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
                     { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
@@ -3785,7 +3785,7 @@ export const PageSectionRegistry: Record<string, any> = {
             },
 
   // Extracted from dashboard.tsx
-  ['D7']: {
+  ['D7_alt']: {
                 'D7.stats': { kpiCards: [
                     { label: 'Active Staff', value: 24, color: 'var(--pc-primary)' },
                     { label: 'Visits Today', value: 47, color: 'var(--pc-success)' },
