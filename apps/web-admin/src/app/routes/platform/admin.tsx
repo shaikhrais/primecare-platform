@@ -413,7 +413,8 @@ export function AuditLogs() {
 
 // --- Extracted from authorizations.tsx ---
 const cols: TableColumn[] = [
-    { key: 'client', label: 'Client' }, { key: 'payer', label: 'Payer' },
+    { key: 'client', label: 'Client' }, { key: 'payer', label: 'Payer' }export const earningCols: TableColumn[] = [
+    { key: 'provider', label: 'Provider' }, { key: 'client', label: 'Client' },
     { key: 'service', label: 'Service' }, { key: 'approved', label: 'Approved' },
     { key: 'used', label: 'Used' }, { key: 'expires', label: 'Expires' },
     { key: 'status', label: 'Status' },
@@ -973,7 +974,7 @@ export function FranchiseManagement() {
 }
 
 // --- Extracted from incidentHandlers.ts ---
-ction fetchIncidents(): Promise<any[]> {
+export async function fetchIncidents(): Promise<any[]> {
     try { const res = await apiClient.get(ApiRegistry.ADMIN.INCIDENTS); if (res.ok) return await res.json(); } catch (e) { console.error('Failed to fetch incidents', e); }
     return [];
 }
@@ -1401,7 +1402,8 @@ export function NotificationsHub() {
 }
 
 // --- Extracted from observability.tsx ---
-PageTemplate pageId="D6-OBS" title="📡 Observability Dashboard" subtitle="Application metrics, error tracking, latency & infrastructure health"
+export function ObservabilityDashboard() {
+    return <PageTemplate pageId="D6-OBS" title="📡 Observability Dashboard" subtitle="Application metrics, error tracking, latency & infrastructure health"
             isLive
             sectionData={PageSectionRegistry['D6-OBS']}
         />
@@ -2768,7 +2770,7 @@ export function FinancialReconciliation() {
 }
 
 // --- Extracted from scheduleApi.ts ---
-t API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 export interface Visit {
     id: string; requestedStartAt: string; durationMinutes: number;

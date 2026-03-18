@@ -3,7 +3,10 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
 
 // --- Extracted from dashboard.tsx ---
-ctionData={PageSectionRegistry['FAM']}
+export function FamilyDashboard() {
+    return (
+        <PageTemplate pageId="FAM" title="Family Dashboard" subtitle="Manage family care plans"
+            sectionData={PageSectionRegistry['FAM']}
         />
     );
 }

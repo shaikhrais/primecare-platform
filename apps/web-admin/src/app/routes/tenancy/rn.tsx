@@ -102,7 +102,7 @@ export function MarClient() {
 }
 
 // --- Extracted from marHandlers.ts ---
-route: string; frequency: string;
+export interface Medication { name: string; dose: string; route: string; frequency: string;
     status: 'pending' | 'administered' | 'withheld';
     interactionLevel?: 'critical' | 'moderate' | 'none'; interactionMessage?: string;
 }
@@ -175,7 +175,10 @@ export function SupervisionHub() {
 }
 
 // --- Extracted from wound-care.tsx ---
-onRegistry['WC']}
+export function WoundCareDashboard() {
+    return (
+        <PageTemplate pageId="WC" title="Wound Care Dashboard" subtitle="Wound Care Management"
+            sectionData={PageSectionRegistry['WC']}
         />
     );
 }

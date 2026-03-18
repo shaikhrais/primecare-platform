@@ -11,7 +11,7 @@ import RequireRole from '@/shared/rbac/RequireRole';
 import AppLayout from '@/shared/components/layout/AppLayout';
 
 // --- Extracted from assetGatherers.ts ---
-egistry } = AdminRegistry;
+const { RouteRegistry, ApiRegistry, ButtonRegistry, ContentRegistry, ThemeRegistry } = AdminRegistry;
 
 export interface DigitalAsset {
     name: string;
@@ -193,7 +193,7 @@ export function TechnicalAuditPortal() {
 }
 
 // --- Extracted from auditHelpers.ts ---
-age { name: string; path: string; variable: string; category: string; isDynamic: boolean; }
+export interface AuditPage { name: string; path: string; variable: string; category: string; isDynamic: boolean; }
 
 export function useAuditPages() {
     return useMemo(() => {
@@ -252,6 +252,7 @@ sectionData={PageSectionRegistry['SM']}
 
 // --- Extracted from dashboardHelpers.ts ---
 opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .export const roleFlowsStyles2 = `
     .sm-card {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
@@ -408,7 +409,7 @@ export function PerformancePage() {
 }
 
 // --- Extracted from pipelineConfig.tsx ---
-ng; label: string; description: string; icon: React.ReactNode;
+export interface PipelineStep { id: string; label: string; description: string; icon: React.ReactNode;
     status: 'idle' | 'running' | 'success' | 'error'; logs: any[]; delayMs: number;
 }
 
@@ -631,7 +632,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
 };
 
 // --- Extracted from roleFlowsData.ts ---
-face RoleFlowEntry {
+export interface RoleFlowEntry {
     label: string;
     steps: readonly string[];
     color: string;
