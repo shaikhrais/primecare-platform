@@ -4347,5 +4347,17 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
                 ]},
             },
-
+  ['POLICIES']: {
+                'POLICIES.modules': { cardGrid: { 
+                    items: [
+                        { icon: '🔐', title: 'Privacy Policy (PIPEDA)', subtitle: 'Personal information collection, use & disclosure' },
+                        { icon: '🏥', title: 'HIPAA Compliance', subtitle: 'Protected health information safeguards' },
+                        { icon: '📋', title: 'Terms of Service', subtitle: 'Platform usage terms, SLAs & liability' },
+                        { icon: '🛡️', title: 'Security Policy', subtitle: 'Access control, encryption, incident response' },
+                        { icon: '📊', title: 'Data Retention', subtitle: '7-year retention, purge schedules, backup policy' },
+                        { icon: '♿', title: 'Accessibility', subtitle: 'WCAG 2.1 AA compliance, accommodations' },
+                    ], 
+                    columns: 3 
+                } },
+            },
 };
