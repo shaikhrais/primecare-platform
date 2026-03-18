@@ -1,59 +1,25 @@
 import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-import SocialMediaCredentialVault from '../../platform/marketing/pages/syndication/SocialMediaCredentialVault';
-import MarketingRevenueAttribution from '../../platform/marketing/pages/retention/MarketingRevenueAttribution';
-import EventRegistrationBuilder from '../../platform/marketing/pages/retention/EventRegistrationBuilder';
-import ChurnRiskPredictor from '../../platform/marketing/pages/retention/ChurnRiskPredictor';
-import NewsletterSubscriberDb from '../../platform/marketing/pages/retention/NewsletterSubscriberDb';
-import PromotionalDiscountEngine from '../../platform/marketing/pages/retention/PromotionalDiscountEngine';
-import DripEmailSequenceBuilder from '../../platform/marketing/pages/retention/DripEmailSequenceBuilder';
-
-const MarketingShowcase = () => {
+export function MarketingShowcase() {
     return (
-        <div style={{ padding: '40px', backgroundColor: '#F1F5F9', minHeight: '100vh' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#0F172A', marginBottom: '8px' }}>CMO Dashboard Showcase</h1>
-            <p style={{ fontSize: '1.2rem', color: '#64748B', marginBottom: '40px' }}>Viewing the newly built Theme 5 & Bonus Theme components.</p>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-0" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Bonus Epic 51: Social Media Hub</h2>
-                    <SocialMediaCredentialVault />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-1" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 50: The Holy Grail (MRA)</h2>
-                    <MarketingRevenueAttribution />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-2" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 41: Drip Email Sequence Builder</h2>
-                    <DripEmailSequenceBuilder />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-3" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 44: Churn Risk Predictor</h2>
-                    <ChurnRiskPredictor />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-4" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 46: Newsletter DB</h2>
-                    <NewsletterSubscriberDb />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-5" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 47: Event Builder</h2>
-                    <EventRegistrationBuilder />
-                </section>
-
-                <section>
-                    <h2 data-cy="h2-shared.marketing-showcase-6" style={{ color: '#334155', borderBottom: '2px solid #CBD5E1', paddingBottom: '8px' }}>Epic 49: Promo Engine</h2>
-                    <PromotionalDiscountEngine />
-                </section>
-
-            </div>
-        </div>
+        <PageTemplate 
+            pageId="PGE-${Math.floor(Math.random() * 900 + 100)}" 
+            title="Marketing Showcase" 
+            subtitle="System Module"
+            sectionData={{
+                'mod.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
+                ]},
+                'mod.body': { emptyState: { 
+                    title: 'Marketing Showcase', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
-};
+}
 
 export default MarketingShowcase;
-

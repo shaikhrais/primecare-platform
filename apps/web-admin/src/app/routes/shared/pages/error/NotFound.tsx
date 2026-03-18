@@ -1,77 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-export default function NotFound() {
-    const navigate = useNavigate();
-
+export function NotFound() {
     return (
-        <div data-cy="page.container" style={{
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '2rem',
-            backgroundColor: '#FFFFFF',
-            textAlign: 'center',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <img src="/logo.png" alt="PrimeCare" style={{ height: '48px', width: 'auto' }} />
-            </div>
-
-            <div style={{ fontSize: '120px', fontWeight: 900, color: '#F3F4F6', lineHeight: 1, marginBottom: '1rem' }}>404</div>
-
-            <h1 data-cy="page.title" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#111827', margin: '0 0 1rem 0' }}>Page Not Found</h1>
-            <p style={{ fontSize: '1.125rem', color: '#6B7280', maxWidth: '400px', margin: '0 0 2.5rem 0', lineHeight: 1.6 }}>
-                The page you are looking for doesn't exist or has been moved.
-            </p>
-
-            <div style={{ display: 'flex', gap: '1rem' }}>
-                <button data-cy="btn-shared.not-found-0"
-                    onClick={() => navigate(-1)}
-                    style={{
-                        padding: '12px 24px',
-                        backgroundColor: '#F3F4F6',
-                        color: '#111827',
-                        border: 'none',
-                        borderRadius: '12px',
-                        fontWeight: 700,
-                        fontSize: '1rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s'
-                    }}
-                >
-                    ← Go Back
-                </button>
-                <button data-cy="btn-shared.not-found-1"
-                    onClick={() => navigate('/')}
-                    style={{
-                        padding: '12px 24px',
-                        backgroundColor: '#00875A',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        borderRadius: '12px',
-                        fontWeight: 700,
-                        fontSize: '1rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        boxShadow: '0 4px 14px 0 rgba(0, 135, 90, 0.3)'
-                    }}
-                >
-                    Go Home
-                </button>
-            </div>
-
-            <style>{`
-                button:hover {
-                    transform: translateY(-2px);
-                    filter: brightness(0.95);
-                }
-                button:active {
-                    transform: translateY(0);
-                }
-            `}</style>
-        </div>
+        <PageTemplate 
+            pageId="PGE-${Math.floor(Math.random() * 900 + 100)}" 
+            title="Not Found" 
+            subtitle="System Error Boundary"
+            sectionData={{
+                'mod.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
+                ]},
+                'mod.body': { emptyState: { 
+                    title: 'Not Found', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
 }
+
+export default NotFound;
