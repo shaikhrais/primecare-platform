@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeCare Component Showcase</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent-primary: #0ea5e9;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding-top: 2rem;
+            flex-shrink: 0;
+        }
+        .sidebar-header {
+            padding: 0 1.5rem 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+        .sidebar-header h1 {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+        .sidebar-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .sidebar-item {
+            padding: 0.85rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        .sidebar-item:hover {
+            background-color: rgba(56, 189, 248, 0.05);
+            color: var(--text-primary);
+            border-left-color: var(--accent-primary);
+        }
+        .badge {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+            padding: 0.15rem 0.6rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3rem 4rem;
+            scroll-behavior: smooth;
+        }
+        .dashboard-header {
+            margin-bottom: 4rem;
+        }
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+        .dashboard-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+        .role-section {
+            margin-bottom: 4rem;
+        }
+        .role-title {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+        .tile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .tile {
+            background-color: var(--surface-color);
+            border: 1px solid #cbd5e1;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .tile-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f0f9ff;
+            color: var(--accent-primary);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .tile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .tile:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tile:hover .tile-icon {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .tile-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .tile-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>Platform Registry</h1>
+            <p>309 UI Modules Decoupled</p>
+        </div>
+                <a href="#group-0" class="sidebar-item"><span>Auth & Identity</span> <span class="badge">10</span></a>
+        <a href="#group-1" class="sidebar-item"><span>Marketing & Public Site</span> <span class="badge">16</span></a>
+        <a href="#group-2" class="sidebar-item"><span>Daily Work & Operations</span> <span class="badge">21</span></a>
+        <a href="#group-3" class="sidebar-item"><span>Reports & Analytics</span> <span class="badge">16</span></a>
+        <a href="#group-4" class="sidebar-item"><span>RN & Medical</span> <span class="badge">31</span></a>
+        <a href="#group-5" class="sidebar-item"><span>PSW & Caregivers</span> <span class="badge">4</span></a>
+        <a href="#group-6" class="sidebar-item"><span>Manager & Coordinator</span> <span class="badge">15</span></a>
+        <a href="#group-7" class="sidebar-item"><span>Admin & Finance</span> <span class="badge">19</span></a>
+        <a href="#group-8" class="sidebar-item"><span>Client & Family</span> <span class="badge">7</span></a>
+        <a href="#group-9" class="sidebar-item"><span>Platform & Developers</span> <span class="badge">25</span></a>
+        <a href="#group-10" class="sidebar-item"><span>General</span> <span class="badge">145</span></a>
+
+    </div>
+    <div class="main-content">
+        <div class="dashboard-header" id="top">
+            <h1>Categorized Hub</h1>
+            <p>Browse isolated structural layouts separated by their operational domain.</p>
+        </div>
+        
+        <div id="group-0" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Auth & Identity</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AuthAlerts.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Auth Alerts</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AuthList.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Auth List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AuthUtilization.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Auth Utilization</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BiometricLogin.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-chart-bar"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Biometric Login</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ForgotPassword.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Forgot Password</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IdentityMapView.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Identity Map View</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Login.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Login</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Register.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Register</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ResetPassword.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Reset Password</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Unauthorized.html" class="tile">
+                    <div class="tile-icon" style="color: #f43f5e; background-color: #fff1f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Unauthorized</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-1" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Marketing & Public Site</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/ContactForm.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Contact Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FaqAccordion.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Faq Accordion</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FeatureCards.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Feature Cards</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FinalCta.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Final Cta</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GlobalFooter.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Global Footer</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Hero.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Hero</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/HowItWorks.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">How It Works</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarketingDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Marketing Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarketingRevenueAttribution.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Marketing Revenue Attribution</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarketingShowcase.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Marketing Showcase</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PricingTiers.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Pricing Tiers</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ProviderSocial.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-share-network"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Provider Social</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SocialMediaCredentialVault.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-share-network"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Social Media Credential Vault</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SocialProof.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-share-network"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Social Proof</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TeamMembers.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Team Members</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TeamRoster.html" class="tile">
+                    <div class="tile-icon" style="color: #8b5cf6; background-color: #f5f3ff;"><i class="ph ph-megaphone"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Team Roster</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-2" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Daily Work & Operations</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/BookingRequestQueue.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Booking Request Queue</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CheckInScreen.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Check In Screen</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClientBookings.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Client Bookings</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DailyEntry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Daily Entry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/EntryVerify.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Entry Verify</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IncidentEntry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Incident Entry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IncidentEntryForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Incident Entry Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/InvoiceEntry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Invoice Entry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LeadEntryForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Lead Entry Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LeadEntryForm_OLD1.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Lead Entry Form_ O L D1</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LiveVisit.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Live Visit</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/OpenShifts.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Open Shifts</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RequestBooking.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Request Booking</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RnCheckInScreen.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Rn Check In Screen</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ShiftConfirmation.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Shift Confirmation</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ShiftSwap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Shift Swap</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TaskGrid.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Task Grid</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/UserEntry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">User Entry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/VisitCompletionForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Visit Completion Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/VisitDetails.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Visit Details</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/VisitOptimization.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Visit Optimization</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-3" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Reports & Analytics</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AiInsights.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chart-bar"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Ai Insights</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AssetPermissionMatrix.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Asset Permission Matrix</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AuditDownload.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Audit Download</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AuditLogs.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Audit Logs</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AuditTrailViewer.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Audit Trail Viewer</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BrowserMatrixTelemetry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Browser Matrix Telemetry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DatabaseSchemaAudit.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Database Schema Audit</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/EnvironmentAudit.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Environment Audit</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ExpenseReportForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chart-bar"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Expense Report Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/InteractionAudit.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Interaction Audit</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReferralAnalytics.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chart-bar"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Referral Analytics</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegionalStats.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Regional Stats</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReportCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chart-bar"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Report Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ResponseBotAudit.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Response Bot Audit</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/StepAuditModal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Step Audit Modal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TechnicalAuditPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Technical Audit Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-4" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">RN & Medical</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AdminEarningsPage.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Admin Earnings Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AssessmentsHub.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Assessments Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CarePlanManager.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Care Plan Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CarePlanWizard.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Care Plan Wizard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ChurnRisk.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Churn Risk</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ChurnRiskPredictor.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Churn Risk Predictor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClinicalAssistant.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Clinical Assistant</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClinicalQaDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Clinical Qa Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ForensicTrails.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Forensic Trails</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GovernanceHub.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Governance Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarClient.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Mar Client</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Mar Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MarkdownDocument.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-file-text"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Markdown Document</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Marketplace.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Marketplace</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MedicalSummary.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Medical Summary</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PharmacyHub.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Pharmacy Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PhysicianRoiTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Physician Roi Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PrivateMarketplace.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Private Marketplace</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PswEarnings.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Psw Earnings</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PswTrainingHub.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Psw Training Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RaiAssessmentDetail.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Rai Assessment Detail</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RaiAssessments.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Rai Assessments</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegistrySummary.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Registry Summary</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RichTextGovernance.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Rich Text Governance</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RnDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Rn Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SecurityGovernance.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Security Governance</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Training.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-heartbeat"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Training</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TreatmentList.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Treatment List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WoundCareClient.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Wound Care Client</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WoundCareDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Wound Care Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WoundCareDashboard_OLD.html" class="tile">
+                    <div class="tile-icon" style="color: #ef4444; background-color: #fef2f2;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Wound Care Dashboard_ O L D</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-5" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">PSW & Caregivers</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/CaregiverSpotlightCreator.html" class="tile">
+                    <div class="tile-icon" style="color: #f97316; background-color: #fff7ed;"><i class="ph ph-users"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Caregiver Spotlight Creator</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PswDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #f97316; background-color: #fff7ed;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Psw Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PswSchedule.html" class="tile">
+                    <div class="tile-icon" style="color: #f97316; background-color: #fff7ed;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Psw Schedule</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PswUserGuide.html" class="tile">
+                    <div class="tile-icon" style="color: #f97316; background-color: #fff7ed;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Psw User Guide</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-6" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Manager & Coordinator</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AbVariantManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Ab Variant Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AssetExpirationManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Asset Expiration Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CoordinatorHub.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Coordinator Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DigitalPropertyManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Digital Property Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DispatchMap.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Dispatch Map</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FleetManagement.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Fleet Management</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LogisticsHub.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Logistics Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ManagerDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Manager Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/OperationsCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Operations Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/OperationsHub.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Operations Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Schedule.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-calendar-blank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Schedule</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SurveyManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Survey Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ThirdPartyScriptManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Third Party Script Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/UsageStatisticsManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-briefcase"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Usage Statistics Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WaitlistManager.html" class="tile">
+                    <div class="tile-icon" style="color: #d946ef; background-color: #fdf4ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Waitlist Manager</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-7" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Admin & Finance</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AdminDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Admin Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BillingHub.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-receipt"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Billing Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ComplianceExport.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Compliance Export</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ComplianceMonitor.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Compliance Monitor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ComplianceSync.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Compliance Sync</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CorsSettings.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-gear-six"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Cors Settings</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FinanceRegionalHub.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-receipt"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Finance Regional Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LegalComplianceBlockers.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Legal Compliance Blockers</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MultiCurrencySettings.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-gear-six"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Multi Currency Settings</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PayrollHub.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-receipt"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Payroll Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PayrollVerification.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-receipt"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Payroll Verification</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RevenueCycleHub.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Revenue Cycle Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RevenueWizard.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Revenue Wizard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SecurityDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Security Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SecurityScansPage.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-lock-key"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Security Scans Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Settings.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-gear-six"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Settings</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SuperAdminDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Super Admin Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SystemHealthMonitor.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-bank"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">System Health Monitor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TaxComplianceHub.html" class="tile">
+                    <div class="tile-icon" style="color: #10b981; background-color: #ecfdf5;"><i class="ph ph-receipt"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Tax Compliance Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-8" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Client & Family</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/ClientAdmission.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Client Admission</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClientDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Client Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClientMessaging.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Client Messaging</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CustomerList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Customer List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FamilyCareHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Family Care Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FamilyDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Family Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FamilyPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Family Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-9" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">Platform & Developers</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/ApiEndpointRegistry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Api Endpoint Registry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ApiEndpointsHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Api Endpoints Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ApiLatencyHeatmap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Api Latency Heatmap</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ApiRateLimitConfig.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-gear-six"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Api Rate Limit Config</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AvailabilityPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Availability Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DevPreview.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Dev Preview</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DeveloperKb.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Developer Kb</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DeveloperPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Developer Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DeviceManagement.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Device Management</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ErrorBoundaryAggregator.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Error Boundary Aggregator</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ErrorPayloadInspector.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Error Payload Inspector</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FontTypographyRegistry.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Font Typography Registry</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LandingPageAbTester.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Landing Page Ab Tester</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MicroCopyAbTesting.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Micro Copy Ab Testing</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ObservabilityDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Observability Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegistryAutoRepair.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Registry Auto Repair</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegistryIntegrityCheck.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Registry Integrity Check</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ResponseBot.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Response Bot</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ScrumMasterDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Scrum Master Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ServerError.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Server Error</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TableView.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Table View</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TestPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Test Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TestimonialReleaseTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Testimonial Release Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WebhookDeliveries.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Webhook Deliveries</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WebhookList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Webhook List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div id="group-10" class="role-section" style="scroll-margin-top: 3rem;">
+            <h2 class="role-title">General</h2>
+            <div class="tile-grid">
+                <a href="sectionhtml/AccountingDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Accounting Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AlliedHealthDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Allied Health Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AssetCostAttribution.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Asset Cost Attribution</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AutoPilotDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Auto Pilot Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/AutomatedReviewAsker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Automated Review Asker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/B2bSlaDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">B2b Sla Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BlogContentCalendar.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Blog Content Calendar</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BranchPL.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Branch P L</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BrandAssetLibrary.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Brand Asset Library</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BuildHealthPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Build Health Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BusinessModelWizard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Business Model Wizard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BusinessOnboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Business Onboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BusinessSetupWizard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Business Setup Wizard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/BusinessStatus.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Business Status</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CatalogBrowser.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Catalog Browser</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CentralMediaVault.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Central Media Vault</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClaimsEra.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Claims Era</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ClaimsList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Claims List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CompetitorKeywordHijacker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Competitor Keyword Hijacker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ConsentExpiring.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Consent Expiring</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ConsentList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Consent List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ConsentTemplates.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Consent Templates</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ContentEngagementHeatmap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Content Engagement Heatmap</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CoreWebVitalsTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Core Web Vitals Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CorporateAccountHierarchy.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Corporate Account Hierarchy</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CostOfCareCalculator.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Cost Of Care Calculator</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CredentialVault.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Credential Vault</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/CrisisCommsTriage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Crisis Comms Triage</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Dashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DischargePlannerPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Discharge Planner Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DocumentCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-file-text"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Document Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DocumentSigningCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-file-text"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Document Signing Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DripEmailSequenceBuilder.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chats"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Drip Email Sequence Builder</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DynamicPageRouter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Dynamic Page Router</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/DynamicTokenEditor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Dynamic Token Editor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/E2eRunner.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">E2e Runner</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Evaluations.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Evaluations</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/EventRegistrationBuilder.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Event Registration Builder</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/EvvExceptions.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Evv Exceptions</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/EvvExport.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Evv Export</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ExportPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Export Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FHIRCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">F H I R Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FacilityLunchTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Facility Lunch Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FeedbackForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Feedback Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FeedbackLoop.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Feedback Loop</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FinancialLedger.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Financial Ledger</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FinancialReconciliation.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Financial Reconciliation</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FormCard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Form Card</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FormDetailView.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Form Detail View</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/FormSchemaFederator.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Form Schema Federator</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GeoFencedAdDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Geo Fenced Ad Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GlobalDigitalKillSwitch.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Global Digital Kill Switch</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GlobalI18nDictionary.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Global I18n Dictionary</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GoogleBusinessSync.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Google Business Sync</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GridView.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Grid View</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/GrowthStrategy.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Growth Strategy</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/HandoverPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Handover Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/HrRecruitmentPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Hr Recruitment Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ImpersonationTool.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Impersonation Tool</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IncidentList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Incident List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IncidentList_OLD1.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Incident List_ O L D1</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IncidentPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Incident Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/IntegrityVerification.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Integrity Verification</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/KBArticle.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">K B Article</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/KeywordCannibalizationMonitor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Keyword Cannibalization Monitor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/KnowledgeBase.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Knowledge Base</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LeadConversion.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Lead Conversion</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LeadConversionFunnel.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Lead Conversion Funnel</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LeadList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Lead List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LiveChatHandover.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chats"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Live Chat Handover</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LocalSeoRankTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Local Seo Rank Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LocalizationPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Localization Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Locations.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Locations</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/LocationsList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Locations List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ManagementPortfolio.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Management Portfolio</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MediaUsageHeatmap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Media Usage Heatmap</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MessageCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-chats"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Message Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MessagingPortal.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Messaging Portal</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/MileageTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Mileage Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/NewsletterSubscriberDb.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Newsletter Subscriber Db</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/NoCodeBuilderMock.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">No Code Builder Mock</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/NotFound.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Not Found</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/NotificationsHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Notifications Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/OpenOffers.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Open Offers</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PayoutHistory.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Payout History</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PerformancePage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Performance Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PerformanceReviews.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Performance Reviews</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PermissionGrid.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Permission Grid</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PostDischargeSuccess.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Post Discharge Success</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ProfilePage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Profile Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/PromotionalDiscountEngine.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Promotional Discount Engine</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RealtimeCapacity.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Realtime Capacity</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReferenceDataHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Reference Data Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReferralList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Referral List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReferralProgramTracker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Referral Program Tracker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReferralSourceHeatmap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Referral Source Heatmap</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegionMapping.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Region Mapping</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RegulatoryExport.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Regulatory Export</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ResellerDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Reseller Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ReviewSentimentAnalyzer.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Review Sentiment Analyzer</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RiskSurveillanceDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Risk Surveillance Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RoleDashboardPlaceholder.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Role Dashboard Placeholder</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RoleEditor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Role Editor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RoleFlowsPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Role Flows Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/RolesList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Roles List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SLAMonitoring.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">S L A Monitoring</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SMSHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">S M S Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SalesTerritoryMap.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-map-pin"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Sales Territory Map</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ScreenReaderContentEditor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Screen Reader Content Editor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SearchPage.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Search Page</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SecureDocumentRedactor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-file-text"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Secure Document Redactor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SentimentAnalysis.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Sentiment Analysis</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SeoCoreWebVitals.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Seo Core Web Vitals</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ServiceReview.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Service Review</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Services.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Services</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SessionMonitor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Session Monitor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SignOff.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Sign Off</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SosCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Sos Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SovereignWallet.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Sovereign Wallet</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/StaffDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Staff Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/StaffOnboarding.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Staff Onboarding</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/StaffOnboardingWizard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Staff Onboarding Wizard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/StaffRanker.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Staff Ranker</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupervisionHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Supervision Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupplyChainHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Supply Chain Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupplyDemand.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Supply Demand</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupportDashboard.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-squares-four"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Support Dashboard</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupportHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Support Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/SupportTicketForm.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Support Ticket Form</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TelehealthCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Telehealth Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TemplateEditor.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-pencil-line"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Template Editor</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TemplatesList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Templates List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TenantList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Tenant List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ThemeCoreCenter.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Theme Core Center</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ThirdPartyCdnSync.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Third Party Cdn Sync</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/ThreatDetection.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Threat Detection</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TimesheetAdjustment.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Timesheet Adjustment</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/Timesheets.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Timesheets</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/TrafficSourceVisualizer.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Traffic Source Visualizer</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/UserList.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-user-circle"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">User List</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/UtmParameterBuilder.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Utm Parameter Builder</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/VisualLogicBuilder.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-list-dashes"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Visual Logic Builder</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/VrHoardingSimulator.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Vr Hoarding Simulator</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WizardHub.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Wizard Hub</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+                <a href="sectionhtml/WorkflowVersionControl.html" class="tile">
+                    <div class="tile-icon" style="color: #0ea5e9; background-color: #f0f9ff;"><i class="ph ph-codesandbox-logo"></i></div>
+                    <div class="tile-content">
+                        <div class="tile-title">Workflow Version Control</div>
+                        <div class="tile-subtitle">UI Sub-Layer Module</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

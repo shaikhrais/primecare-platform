@@ -32,8 +32,10 @@ const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry
 
 export function ClientAdmission() {
     return (
-        <PageTemplate pageId="F6"  
-            sectionData={PageSectionRegistry['F6']}
+        <PageTemplate 
+            pageId="PGE-ClientAdmission" 
+            
+            sectionData={PageSectionRegistry['ClientAdmission']}
         />
     );
 }
@@ -92,12 +94,10 @@ export function PredictiveAnalytics() {
 
 export function ChurnRisk() {
     return (
-        <PageTemplate
-            pageId="T53"
-            
-            
+        <PageTemplate 
+            pageId="PGE-ChurnRisk" 
             actionPageId="admin.churn-risk"
-            sectionData={PageSectionRegistry['T53']}
+            sectionData={PageSectionRegistry['ChurnRisk']}
         />
     );
 }
@@ -112,12 +112,10 @@ export function ChurnRisk() {
 const VisitComponent = (props: any) => <></>;
 export function VisitOptimization() {
     return (
-        <PageTemplate
-            pageId="T54"
-            
-            
+        <PageTemplate 
+            pageId="PGE-VisitOptimization" 
             actionPageId="admin.visit-optimization"
-            sectionData={PageSectionRegistry['T54']}
+            sectionData={PageSectionRegistry['VisitOptimization']}
         />
     );
 }
@@ -131,12 +129,10 @@ export function VisitOptimization() {
 
 export function SentimentAnalysis() {
     return (
-        <PageTemplate
-            pageId="T55"
-            
-            
+        <PageTemplate 
+            pageId="PGE-SentimentAnalysis" 
             actionPageId="admin.sentiment-analysis"
-            sectionData={PageSectionRegistry['T55']}
+            sectionData={PageSectionRegistry['SentimentAnalysis']}
         />
     );
 }
@@ -147,8 +143,10 @@ export function SentimentAnalysis() {
 
 export function ComplianceExport() {
     return (
-        <PageTemplate pageId="R10"  
-            sectionData={PageSectionRegistry['R10']}
+        <PageTemplate 
+            pageId="PGE-ComplianceExport" 
+            
+            sectionData={PageSectionRegistry['ComplianceExport']}
         />
     );
 }
@@ -158,8 +156,10 @@ export function ComplianceExport() {
 
 export function RegulatoryExport() {
     return (
-        <PageTemplate pageId="R13"  
-            sectionData={PageSectionRegistry['R13']}
+        <PageTemplate 
+            pageId="PGE-RegulatoryExport" 
+            
+            sectionData={PageSectionRegistry['RegulatoryExport']}
         />
     );
 }
@@ -169,8 +169,10 @@ export function RegulatoryExport() {
 
 export function AuditDownload() {
     return (
-        <PageTemplate pageId="R9"  
-            sectionData={PageSectionRegistry['R9']}
+        <PageTemplate 
+            pageId="PGE-AuditDownload" 
+            
+            sectionData={PageSectionRegistry['AuditDownload']}
         />
     );
 }
@@ -189,9 +191,10 @@ export function AuditDownload() {
 
 export function AuditLogs() {
     return (
-        <PageTemplate pageId="L6"  
+        <PageTemplate 
+            pageId="PGE-AuditLogs" 
             actionPageId="admin.audit-logs"
-            sectionData={PageSectionRegistry['L6']}
+            sectionData={PageSectionRegistry['AuditLogs']}
         />
     );
 }
@@ -206,9 +209,10 @@ const cols_2: TableColumn[] = [
 
 export function AuthList() {
     return (
-        <PageTemplate pageId="L7"  
+        <PageTemplate 
+            pageId="PGE-AuthList" 
             actionPageId="admin.authorizations"
-            sectionData={PageSectionRegistry['L7']}
+            sectionData={PageSectionRegistry['AuthList']}
         />
     );
 }
@@ -218,8 +222,10 @@ export function AuthList() {
 
 export function AuthUtilization() {
     return (
-        <PageTemplate pageId="R6"  
-            sectionData={PageSectionRegistry['R6']}
+        <PageTemplate 
+            pageId="PGE-AuthUtilization" 
+            
+            sectionData={PageSectionRegistry['AuthUtilization']}
         />
     );
 }
@@ -229,8 +235,10 @@ export function AuthUtilization() {
 
 export function AuthAlerts() {
     return (
-        <PageTemplate pageId="T49"  
-            sectionData={PageSectionRegistry['T49']}
+        <PageTemplate 
+            pageId="PGE-AuthAlerts" 
+            
+            sectionData={PageSectionRegistry['AuthAlerts']}
         />
     );
 }
@@ -244,12 +252,10 @@ const cols_3: TableColumn[] = [
 
 export function AutoPilotDashboard() {
     return (
-        <PageTemplate
-            pageId="T7"
-            
-            
+        <PageTemplate 
+            pageId="PGE-AutoPilotDashboard" 
             actionPageId="admin.autopilot"
-            sectionData={PageSectionRegistry['T7']}
+            sectionData={PageSectionRegistry['AutoPilotDashboard']}
         />
     );
 }
@@ -263,8 +269,10 @@ const cols_4: TableColumn[] = [
 
 export function BookingRequestQueue() {
     return (
-        <PageTemplate pageId="L12"  
-            sectionData={PageSectionRegistry['L12']}
+        <PageTemplate 
+            pageId="PGE-BookingRequestQueue" 
+            
+            sectionData={PageSectionRegistry['BookingRequestQueue']}
         />
     );
 }
@@ -275,9 +283,10 @@ export function BookingRequestQueue() {
 
 export function ClaimsList() {
     return (
-        <PageTemplate pageId="L10"  
+        <PageTemplate 
+            pageId="PGE-ClaimsList" 
             actionPageId="admin.claims"
-            sectionData={PageSectionRegistry['L10']}
+            sectionData={PageSectionRegistry['ClaimsList']}
         />
     );
 }
@@ -287,8 +296,10 @@ export function ClaimsList() {
 
 export function ClaimsEra() {
     return (
-        <PageTemplate pageId="R12"  
-            sectionData={PageSectionRegistry['R12']}
+        <PageTemplate 
+            pageId="PGE-ClaimsEra" 
+            
+            sectionData={PageSectionRegistry['ClaimsEra']}
         />
     );
 }
@@ -307,12 +318,10 @@ export function ClaimsEra() {
 
 export function ClinicalAssistant() {
     return (
-        <PageTemplate
-            pageId="T8"
-            
-            
+        <PageTemplate 
+            pageId="PGE-ClinicalAssistant" 
             actionPageId="admin.clinical-assistant"
-            sectionData={PageSectionRegistry['T8']}
+            sectionData={PageSectionRegistry['ClinicalAssistant']}
         />
     );
 }
@@ -326,8 +335,10 @@ const cols_5: TableColumn[] = [
 
 export function SMSHub() {
     return (
-        <PageTemplate pageId="H22"  
-            sectionData={PageSectionRegistry['H22']}
+        <PageTemplate 
+            pageId="PGE-SMSHub" 
+            
+            sectionData={PageSectionRegistry['SMSHub']}
         />
     );
 }
@@ -341,8 +352,10 @@ const cols_6: TableColumn[] = [
 
 export function ConsentList() {
     return (
-        <PageTemplate pageId="L8"  
-            sectionData={PageSectionRegistry['L8']}
+        <PageTemplate 
+            pageId="PGE-ConsentList" 
+            
+            sectionData={PageSectionRegistry['ConsentList']}
         />
     );
 }
@@ -352,8 +365,10 @@ export function ConsentList() {
 
 export function ConsentExpiring() {
     return (
-        <PageTemplate pageId="R7"  
-            sectionData={PageSectionRegistry['R7']}
+        <PageTemplate 
+            pageId="PGE-ConsentExpiring" 
+            
+            sectionData={PageSectionRegistry['ConsentExpiring']}
         />
     );
 }
@@ -363,8 +378,10 @@ export function ConsentExpiring() {
 
 export function ConsentTemplates() {
     return (
-        <PageTemplate pageId="T50"  
-            sectionData={PageSectionRegistry['T50']}
+        <PageTemplate 
+            pageId="PGE-ConsentTemplates" 
+            
+            sectionData={PageSectionRegistry['ConsentTemplates']}
         />
     );
 }
@@ -425,8 +442,10 @@ const cols_7: TableColumn[] = [
 
 export function CustomerList() {
     return (
-        <PageTemplate pageId="L15"  
-            sectionData={PageSectionRegistry['L15']}
+        <PageTemplate 
+            pageId="PGE-CustomerList" 
+            
+            sectionData={PageSectionRegistry['CustomerList']}
         />
     );
 }
@@ -447,9 +466,10 @@ const Visit = (props: any) => <></>;
 
 export function AdminDashboard() {
     return (
-        <PageTemplate pageId="D1"  
+        <PageTemplate 
+            pageId="PGE-AdminDashboard" 
             actionPageId="admin.dashboard"
-            sectionData={PageSectionRegistry['D1']}
+            sectionData={PageSectionRegistry['AdminDashboard']}
         />
     );
 }
@@ -459,8 +479,10 @@ export function AdminDashboard() {
 
 export function RegistrySummary() {
     return (
-        <PageTemplate pageId="D2"  
-            sectionData={PageSectionRegistry['D2']}
+        <PageTemplate 
+            pageId="PGE-RegistrySummary" 
+            
+            sectionData={PageSectionRegistry['RegistrySummary']}
         />
     );
 }
@@ -474,9 +496,10 @@ const cols_8: TableColumn[] = [
 
 export function DocumentCenter() {
     return (
-        <PageTemplate pageId="H6"  
+        <PageTemplate 
+            pageId="PGE-DocumentCenter" 
             actionPageId="admin.documents"
-            sectionData={PageSectionRegistry['H6']}
+            sectionData={PageSectionRegistry['DocumentCenter']}
         />
     );
 }
@@ -490,8 +513,10 @@ export const earningCols: TableColumn[] = [
 
 export function AdminEarningsPage() {
     return (
-        <PageTemplate pageId="EARN"  
-            sectionData={PageSectionRegistry['EARN']}
+        <PageTemplate 
+            pageId="PGE-AdminEarningsPage" 
+            
+            sectionData={PageSectionRegistry['AdminEarningsPage']}
         />
     );
 }
@@ -502,8 +527,10 @@ export function AdminEarningsPage() {
 
 export function SupplyChainHub() {
     return (
-        <PageTemplate pageId="H4"  
-            sectionData={PageSectionRegistry['H4']}
+        <PageTemplate 
+            pageId="PGE-SupplyChainHub" 
+            
+            sectionData={PageSectionRegistry['SupplyChainHub']}
         />
     );
 }
@@ -517,8 +544,10 @@ const cols_9: TableColumn[] = [
 
 export function EvvExceptions() {
     return (
-        <PageTemplate pageId="L22"  
-            sectionData={PageSectionRegistry['L22']}
+        <PageTemplate 
+            pageId="PGE-EvvExceptions" 
+            
+            sectionData={PageSectionRegistry['EvvExceptions']}
         />
     );
 }
@@ -528,8 +557,10 @@ export function EvvExceptions() {
 
 export function EvvExport() {
     return (
-        <PageTemplate pageId="R8"  
-            sectionData={PageSectionRegistry['R8']}
+        <PageTemplate 
+            pageId="PGE-EvvExport" 
+            
+            sectionData={PageSectionRegistry['EvvExport']}
         />
     );
 }
@@ -676,10 +707,9 @@ const FormRegistryPage: React.FC = () => {
 export function FormCard() {
     return (
         <PageTemplate 
-            pageId="PGE-FC" 
-             
+            pageId="PGE-FormCard" 
             
-            sectionData={PageSectionRegistry['PGE-FC']}
+            sectionData={PageSectionRegistry['FormCard']}
         />
     );
 }
@@ -688,10 +718,9 @@ export function FormCard() {
 export function FormDetailView() {
     return (
         <PageTemplate 
-            pageId="PGE-FDV" 
-             
+            pageId="PGE-FormDetailView" 
             
-            sectionData={PageSectionRegistry['PGE-FDV']}
+            sectionData={PageSectionRegistry['FormDetailView']}
         />
     );
 }
@@ -788,8 +817,10 @@ export function filterIncidents(incidents: any[], statusFilter: string, typeFilt
 
 export function IncidentEntry() {
     return (
-        <PageTemplate pageId="F10"  
-            sectionData={PageSectionRegistry['F10']}
+        <PageTemplate 
+            pageId="PGE-IncidentEntry" 
+            
+            sectionData={PageSectionRegistry['IncidentEntry']}
         />
     );
 }
@@ -798,10 +829,9 @@ export function IncidentEntry() {
 export function IncidentEntryForm() {
     return (
         <PageTemplate 
-            pageId="PGE-IEF" 
-             
+            pageId="PGE-IncidentEntryForm" 
             
-            sectionData={PageSectionRegistry['PGE-IEF']}
+            sectionData={PageSectionRegistry['IncidentEntryForm']}
         />
     );
 }
@@ -810,10 +840,9 @@ export function IncidentEntryForm() {
 export function IncidentList_OLD1() {
     return (
         <PageTemplate 
-            pageId="PGE-IL" 
-             
+            pageId="PGE-IncidentList_OLD1" 
             
-            sectionData={PageSectionRegistry['PGE-IL']}
+            sectionData={PageSectionRegistry['IncidentList_OLD1']}
         />
     );
 }
@@ -828,8 +857,10 @@ const cols_11: TableColumn[] = [
 
 export function IncidentList() {
     return (
-        <PageTemplate pageId="L2"  
-            sectionData={PageSectionRegistry['L2']}
+        <PageTemplate 
+            pageId="PGE-IncidentList" 
+            
+            sectionData={PageSectionRegistry['IncidentList']}
         />
     );
 }
@@ -846,8 +877,10 @@ export function IncidentList() {
 
 export function AiInsights() {
     return (
-        <PageTemplate pageId="T9"  
-            sectionData={PageSectionRegistry['T9']}
+        <PageTemplate 
+            pageId="PGE-AiInsights" 
+            
+            sectionData={PageSectionRegistry['AiInsights']}
         />
     );
 }
@@ -858,8 +891,10 @@ export function AiInsights() {
 
 export function FHIRCenter() {
     return (
-        <PageTemplate pageId="T5"  
-            sectionData={PageSectionRegistry['T5']}
+        <PageTemplate 
+            pageId="PGE-FHIRCenter" 
+            
+            sectionData={PageSectionRegistry['FHIRCenter']}
         />
     );
 }
@@ -875,8 +910,10 @@ export function FHIRCenter() {
 
 export function InvoiceEntry() {
     return (
-        <PageTemplate pageId="F9"  
-            sectionData={PageSectionRegistry['F9']}
+        <PageTemplate 
+            pageId="PGE-InvoiceEntry" 
+            
+            sectionData={PageSectionRegistry['InvoiceEntry']}
         />
     );
 }
@@ -887,8 +924,10 @@ export function InvoiceEntry() {
 
 export function KnowledgeBase() {
     return (
-        <PageTemplate pageId="H8"  
-            sectionData={PageSectionRegistry['H8']}
+        <PageTemplate 
+            pageId="PGE-KnowledgeBase" 
+            
+            sectionData={PageSectionRegistry['KnowledgeBase']}
         />
     );
 }
@@ -898,8 +937,10 @@ export function KnowledgeBase() {
 
 export function KBArticle() {
     return (
-        <PageTemplate pageId="T48"  
-            sectionData={PageSectionRegistry['T48']}
+        <PageTemplate 
+            pageId="PGE-KBArticle" 
+            
+            sectionData={PageSectionRegistry['KBArticle']}
         />
     );
 }
@@ -915,8 +956,10 @@ export function KBArticle() {
 
 export function LeadEntryForm_OLD1() {
     return (
-        <PageTemplate pageId="F11"  
-            sectionData={PageSectionRegistry['F11']}
+        <PageTemplate 
+            pageId="PGE-LeadEntryForm_OLD1" 
+            
+            sectionData={PageSectionRegistry['LeadEntryForm_OLD1']}
         />
     );
 }
@@ -931,8 +974,10 @@ const cols_12: TableColumn[] = [
 
 export function LeadList() {
     return (
-        <PageTemplate pageId="L3"  
-            sectionData={PageSectionRegistry['L3']}
+        <PageTemplate 
+            pageId="PGE-LeadList" 
+            
+            sectionData={PageSectionRegistry['LeadList']}
         />
     );
 }
@@ -941,10 +986,9 @@ export function LeadList() {
 export function LeadEntryForm() {
     return (
         <PageTemplate 
-            pageId="PGE-LEF" 
-             
+            pageId="PGE-LeadEntryForm" 
             
-            sectionData={PageSectionRegistry['PGE-LEF']}
+            sectionData={PageSectionRegistry['LeadEntryForm']}
         />
     );
 }
@@ -956,8 +1000,10 @@ export function LeadEntryForm() {
 
 export function LeadConversion() {
     return (
-        <PageTemplate pageId="T66"  
-            sectionData={PageSectionRegistry['T66']}
+        <PageTemplate 
+            pageId="PGE-LeadConversion" 
+            
+            sectionData={PageSectionRegistry['LeadConversion']}
         />
     );
 }
@@ -1139,8 +1185,10 @@ export function LocationForm() {
 
 export function Locations() {
     return (
-        <PageTemplate pageId="F12"  
-            sectionData={PageSectionRegistry['F12']}
+        <PageTemplate 
+            pageId="PGE-Locations" 
+            
+            sectionData={PageSectionRegistry['Locations']}
         />
     );
 }
@@ -1149,10 +1197,9 @@ export function Locations() {
 export function LocationsList() {
     return (
         <PageTemplate 
-            pageId="PGE-LL" 
-             
+            pageId="PGE-LocationsList" 
             
-            sectionData={PageSectionRegistry['PGE-LL']}
+            sectionData={PageSectionRegistry['LocationsList']}
         />
     );
 }
@@ -1161,10 +1208,9 @@ export function LocationsList() {
 export function Marketplace() {
     return (
         <PageTemplate 
-            pageId="PG-276" 
-             
+            pageId="PGE-Marketplace" 
             
-            sectionData={PageSectionRegistry['PG-276']}
+            sectionData={PageSectionRegistry['Marketplace']}
         />
     );
 }
@@ -1175,8 +1221,10 @@ export function Marketplace() {
 
 export function NotificationsHub() {
     return (
-        <PageTemplate pageId="H5"  
-            sectionData={PageSectionRegistry['H5']}
+        <PageTemplate 
+            pageId="PGE-NotificationsHub" 
+            
+            sectionData={PageSectionRegistry['NotificationsHub']}
         />
     );
 }
@@ -1184,9 +1232,10 @@ export function NotificationsHub() {
 // --- Extracted from observability.tsx ---
 export function ObservabilityDashboard() {
     return (
-        <PageTemplate pageId="D6-OBS"  
+        <PageTemplate 
+            pageId="PGE-ObservabilityDashboard" 
             isLive
-            sectionData={PageSectionRegistry['D6-OBS']}
+            sectionData={PageSectionRegistry['ObservabilityDashboard']}
         />
     );
 }
@@ -1203,8 +1252,10 @@ export function ObservabilityDashboard() {
 
 export function StaffOnboarding() {
     return (
-        <PageTemplate pageId="F7"  
-            sectionData={PageSectionRegistry['F7']}
+        <PageTemplate 
+            pageId="PGE-StaffOnboarding" 
+            
+            sectionData={PageSectionRegistry['StaffOnboarding']}
         />
     );
 }
@@ -1219,13 +1270,11 @@ export function StaffOnboarding() {
 
 export function OperationsCenter() {
     return (
-        <PageTemplate
-            pageId="D7"
-            
-            
+        <PageTemplate 
+            pageId="PGE-OperationsCenter" 
             actionPageId="admin.operations"
             isLive
-            sectionData={PageSectionRegistry['D7']}
+            sectionData={PageSectionRegistry['OperationsCenter']}
         />
     );
 }
@@ -1235,8 +1284,10 @@ export function OperationsCenter() {
 
 export function SupplyDemand() {
     return (
-        <PageTemplate pageId="T67"  
-            sectionData={PageSectionRegistry['T67']}
+        <PageTemplate 
+            pageId="PGE-SupplyDemand" 
+            
+            sectionData={PageSectionRegistry['SupplyDemand']}
         />
     );
 }
@@ -1352,10 +1403,9 @@ export function PageRegistryPage() {
 export function GridView() {
     return (
         <PageTemplate 
-            pageId="PGE-GV" 
-             
+            pageId="PGE-GridView" 
             
-            sectionData={PageSectionRegistry['PGE-GV']}
+            sectionData={PageSectionRegistry['GridView']}
         />
     );
 }
@@ -1364,10 +1414,9 @@ export function GridView() {
 export function IdentityMapView() {
     return (
         <PageTemplate 
-            pageId="PGE-IMV" 
-             
+            pageId="PGE-IdentityMapView" 
             
-            sectionData={PageSectionRegistry['PGE-IMV']}
+            sectionData={PageSectionRegistry['IdentityMapView']}
         />
     );
 }
@@ -1376,10 +1425,9 @@ export function IdentityMapView() {
 export function TableView() {
     return (
         <PageTemplate 
-            pageId="PGE-TV" 
-             
+            pageId="PGE-TableView" 
             
-            sectionData={PageSectionRegistry['PGE-TV']}
+            sectionData={PageSectionRegistry['TableView']}
         />
     );
 }
@@ -1425,10 +1473,9 @@ export const OWNER_META: Record<string, { icon: string; color: string; bg: strin
 export function TestPage() {
     return (
         <PageTemplate 
-            pageId="PGE-TP" 
-             
+            pageId="PGE-TestPage" 
             
-            sectionData={PageSectionRegistry['PGE-TP']}
+            sectionData={PageSectionRegistry['TestPage']}
         />
     );
 }
@@ -1436,12 +1483,10 @@ export function TestPage() {
 // --- Extracted from payroll.tsx ---
 export function PayrollHub() {
     return (
-        <PageTemplate
-            pageId="H7"
-            
-            
+        <PageTemplate 
+            pageId="PGE-PayrollHub" 
             actionPageId="admin.payroll"
-            sectionData={PageSectionRegistry['H7']}
+            sectionData={PageSectionRegistry['PayrollHub']}
         />
     );
 }
@@ -1449,12 +1494,10 @@ export function PayrollHub() {
 // --- Extracted from pharmacy.tsx ---
 export function PharmacyHub() {
     return (
-        <PageTemplate
-            pageId="H2"
-            
-            
+        <PageTemplate 
+            pageId="PGE-PharmacyHub" 
             actionPageId="admin.pharmacy"
-            sectionData={PageSectionRegistry['H2']}
+            sectionData={PageSectionRegistry['PharmacyHub']}
         />
     );
 }
@@ -1469,12 +1512,10 @@ export function PharmacyHub() {
 
 export function RevenueCycleHub() {
     return (
-        <PageTemplate
-            pageId="H3"
-            
-            
+        <PageTemplate 
+            pageId="PGE-RevenueCycleHub" 
             actionPageId="admin.revenue-cycle"
-            sectionData={PageSectionRegistry['H3']}
+            sectionData={PageSectionRegistry['RevenueCycleHub']}
         />
     );
 }
@@ -1489,12 +1530,10 @@ export function RevenueCycleHub() {
 
 export function ReferenceDataHub() {
     return (
-        <PageTemplate
-            pageId="H9"
-            
-            
+        <PageTemplate 
+            pageId="PGE-ReferenceDataHub" 
             actionPageId="admin.reference-data"
-            sectionData={PageSectionRegistry['H9']}
+            sectionData={PageSectionRegistry['ReferenceDataHub']}
         />
     );
 }
@@ -1508,8 +1547,10 @@ const cols_14: TableColumn[] = [
 
 export function ReferralList() {
     return (
-        <PageTemplate pageId="L9"  
-            sectionData={PageSectionRegistry['L9']}
+        <PageTemplate 
+            pageId="PGE-ReferralList" 
+            
+            sectionData={PageSectionRegistry['ReferralList']}
         />
     );
 }
@@ -1519,8 +1560,10 @@ export function ReferralList() {
 
 export function ReferralAnalytics() {
     return (
-        <PageTemplate pageId="R11"  
-            sectionData={PageSectionRegistry['R11']}
+        <PageTemplate 
+            pageId="PGE-ReferralAnalytics" 
+            
+            sectionData={PageSectionRegistry['ReferralAnalytics']}
         />
     );
 }
@@ -1535,8 +1578,10 @@ export function ReferralAnalytics() {
 
 export function ReportCenter() {
     return (
-        <PageTemplate pageId="R1"  
-            sectionData={PageSectionRegistry['R1']}
+        <PageTemplate 
+            pageId="PGE-ReportCenter" 
+            
+            sectionData={PageSectionRegistry['ReportCenter']}
         />
     );
 }
@@ -1548,8 +1593,10 @@ export function ReportCenter() {
 
 export function ExportPage() {
     return (
-        <PageTemplate pageId="R2"  
-            sectionData={PageSectionRegistry['R2']}
+        <PageTemplate 
+            pageId="PGE-ExportPage" 
+            
+            sectionData={PageSectionRegistry['ExportPage']}
         />
     );
 }
@@ -1559,10 +1606,9 @@ export function ExportPage() {
 export function PrivateMarketplace() {
     return (
         <PageTemplate 
-            pageId="PG-131" 
-             
+            pageId="PGE-PrivateMarketplace" 
             
-            sectionData={PageSectionRegistry['PG-131']}
+            sectionData={PageSectionRegistry['PrivateMarketplace']}
         />
     );
 }
@@ -1571,10 +1617,9 @@ export function PrivateMarketplace() {
 export function ResellerDashboard() {
     return (
         <PageTemplate 
-            pageId="PG-390" 
-             
+            pageId="PGE-ResellerDashboard" 
             
-            sectionData={PageSectionRegistry['PG-390']}
+            sectionData={PageSectionRegistry['ResellerDashboard']}
         />
     );
 }
@@ -1614,10 +1659,9 @@ export async function provisionAgency(tenant: { name: string; slug: string; admi
 export function RolesList() {
     return (
         <PageTemplate 
-            pageId="PGE-RL" 
-             
+            pageId="PGE-RolesList" 
             
-            sectionData={PageSectionRegistry['PGE-RL']}
+            sectionData={PageSectionRegistry['RolesList']}
         />
     );
 }
@@ -1632,8 +1676,10 @@ const cols_16: TableColumn[] = [
 
 export function RoleEditor() {
     return (
-        <PageTemplate pageId="T4"  
-            sectionData={PageSectionRegistry['T4']}
+        <PageTemplate 
+            pageId="PGE-RoleEditor" 
+            
+            sectionData={PageSectionRegistry['RoleEditor']}
         />
     );
 }
@@ -1650,8 +1696,10 @@ export function RoleEditor() {
 
 export function Schedule() {
     return (
-        <PageTemplate pageId="L1"  
-            sectionData={PageSectionRegistry['L1']}
+        <PageTemplate 
+            pageId="PGE-Schedule" 
+            
+            sectionData={PageSectionRegistry['Schedule']}
         />
     );
 }
@@ -1662,8 +1710,10 @@ export function Schedule() {
 
 export function SearchPage() {
     return (
-        <PageTemplate pageId="T1"  
-            sectionData={PageSectionRegistry['T1']}
+        <PageTemplate 
+            pageId="PGE-SearchPage" 
+            
+            sectionData={PageSectionRegistry['SearchPage']}
         />
     );
 }
@@ -1678,12 +1728,10 @@ export function SearchPage() {
 
 export function AccountingDashboard() {
     return (
-        <PageTemplate
-            pageId="D3"
-            
-            
+        <PageTemplate 
+            pageId="PGE-AccountingDashboard" 
             actionPageId="admin.accounting"
-            sectionData={PageSectionRegistry['D3']}
+            sectionData={PageSectionRegistry['AccountingDashboard']}
         />
     );
 }
@@ -1697,12 +1745,10 @@ export function AccountingDashboard() {
 
 export function AuditTrailViewer() {
     return (
-        <PageTemplate
-            pageId="L24"
-            
-            
+        <PageTemplate 
+            pageId="PGE-AuditTrailViewer" 
             actionPageId="admin.audit-trail"
-            sectionData={PageSectionRegistry['L24']}
+            sectionData={PageSectionRegistry['AuditTrailViewer']}
         />
     );
 }
@@ -1711,10 +1757,9 @@ export function AuditTrailViewer() {
 export function SecurityDashboard() {
     return (
         <PageTemplate 
-            pageId="PGE-SD" 
-             
+            pageId="PGE-SecurityDashboard" 
             
-            sectionData={PageSectionRegistry['PGE-SD']}
+            sectionData={PageSectionRegistry['SecurityDashboard']}
         />
     );
 }
@@ -1728,12 +1773,10 @@ export function SecurityDashboard() {
 
 export function SecurityGovernance() {
     return (
-        <PageTemplate
-            pageId="T10"
-            
-            
+        <PageTemplate 
+            pageId="PGE-SecurityGovernance" 
             actionPageId="admin.security-governance"
-            sectionData={PageSectionRegistry['T10']}
+            sectionData={PageSectionRegistry['SecurityGovernance']}
         />
     );
 }
@@ -1743,8 +1786,10 @@ export function SecurityGovernance() {
 
 export function DeviceManagement() {
     return (
-        <PageTemplate pageId="T13"  
-            sectionData={PageSectionRegistry['T13']}
+        <PageTemplate 
+            pageId="PGE-DeviceManagement" 
+            
+            sectionData={PageSectionRegistry['DeviceManagement']}
         />
     );
 }
@@ -1758,12 +1803,10 @@ export function DeviceManagement() {
 
 export function ForensicTrails() {
     return (
-        <PageTemplate
-            pageId="T14"
-            
-            
+        <PageTemplate 
+            pageId="PGE-ForensicTrails" 
             actionPageId="admin.forensic-trails"
-            sectionData={PageSectionRegistry['T14']}
+            sectionData={PageSectionRegistry['ForensicTrails']}
         />
     );
 }
@@ -1777,12 +1820,10 @@ export function ForensicTrails() {
 
 export function CorsSettings() {
     return (
-        <PageTemplate
-            pageId="T15"
-            
-            
+        <PageTemplate 
+            pageId="PGE-CorsSettings" 
             actionPageId="admin.cors-settings"
-            sectionData={PageSectionRegistry['T15']}
+            sectionData={PageSectionRegistry['CorsSettings']}
         />
     );
 }
@@ -1792,8 +1833,10 @@ export function CorsSettings() {
 
 export function IntegrityVerification() {
     return (
-        <PageTemplate pageId="T16"  
-            sectionData={PageSectionRegistry['T16']}
+        <PageTemplate 
+            pageId="PGE-IntegrityVerification" 
+            
+            sectionData={PageSectionRegistry['IntegrityVerification']}
         />
     );
 }
@@ -1807,12 +1850,10 @@ export function IntegrityVerification() {
 
 export function FinancialLedger() {
     return (
-        <PageTemplate
-            pageId="T17"
-            
-            
+        <PageTemplate 
+            pageId="PGE-FinancialLedger" 
             actionPageId="admin.financial-ledger"
-            sectionData={PageSectionRegistry['T17']}
+            sectionData={PageSectionRegistry['FinancialLedger']}
         />
     );
 }
@@ -1826,12 +1867,10 @@ export function FinancialLedger() {
 
 export function TaxComplianceHub() {
     return (
-        <PageTemplate
-            pageId="T18"
-            
-            
+        <PageTemplate 
+            pageId="PGE-TaxComplianceHub" 
             actionPageId="admin.tax-compliance"
-            sectionData={PageSectionRegistry['T18']}
+            sectionData={PageSectionRegistry['TaxComplianceHub']}
         />
     );
 }
@@ -1845,12 +1884,10 @@ export function TaxComplianceHub() {
 
 export function PermissionGrid() {
     return (
-        <PageTemplate
-            pageId="T56"
-            
-            
+        <PageTemplate 
+            pageId="PGE-PermissionGrid" 
             actionPageId="admin.permission-grid"
-            sectionData={PageSectionRegistry['T56']}
+            sectionData={PageSectionRegistry['PermissionGrid']}
         />
     );
 }
@@ -1864,13 +1901,11 @@ export function PermissionGrid() {
 
 export function SessionMonitor() {
     return (
-        <PageTemplate
-            pageId="T57"
-            
-            
+        <PageTemplate 
+            pageId="PGE-SessionMonitor" 
             actionPageId="admin.session-monitor"
             isLive
-            sectionData={PageSectionRegistry['T57']}
+            sectionData={PageSectionRegistry['SessionMonitor']}
         />
     );
 }
@@ -1884,13 +1919,11 @@ export function SessionMonitor() {
 
 export function ThreatDetection() {
     return (
-        <PageTemplate
-            pageId="T58"
-            
-            
+        <PageTemplate 
+            pageId="PGE-ThreatDetection" 
             actionPageId="admin.threat-detection"
             isLive
-            sectionData={PageSectionRegistry['T58']}
+            sectionData={PageSectionRegistry['ThreatDetection']}
         />
     );
 }
@@ -2110,8 +2143,10 @@ const cols_17: TableColumn[] = [
 
 export function Services() {
     return (
-        <PageTemplate pageId="L5"  
-            sectionData={PageSectionRegistry['L5']}
+        <PageTemplate 
+            pageId="PGE-Services" 
+            
+            sectionData={PageSectionRegistry['Services']}
         />
     );
 }
@@ -2130,12 +2165,10 @@ export function Services() {
 
 export function MultiCurrencySettings() {
     return (
-        <PageTemplate
-            pageId="S8"
-            
-            
+        <PageTemplate 
+            pageId="PGE-MultiCurrencySettings" 
             actionPageId="admin.multi-currency"
-            sectionData={PageSectionRegistry['S8']}
+            sectionData={PageSectionRegistry['MultiCurrencySettings']}
         />
     );
 }
@@ -2147,8 +2180,10 @@ export function MultiCurrencySettings() {
 
 export function Settings() {
     return (
-        <PageTemplate pageId="T11"  
-            sectionData={PageSectionRegistry['T11']}
+        <PageTemplate 
+            pageId="PGE-Settings" 
+            
+            sectionData={PageSectionRegistry['Settings']}
         />
     );
 }
@@ -2157,8 +2192,10 @@ export function Settings() {
 // --- Merged from H19-WizardHub.tsx ---
 export function WizardHub() {
     return (
-        <PageTemplate pageId="H19"  
-            sectionData={PageSectionRegistry['H19']}
+        <PageTemplate 
+            pageId="PGE-WizardHub" 
+            
+            sectionData={PageSectionRegistry['WizardHub']}
         />
     );
 }
@@ -2168,8 +2205,10 @@ export function WizardHub() {
 
 export function BusinessStatus() {
     return (
-        <PageTemplate pageId="T12"  
-            sectionData={PageSectionRegistry['T12']}
+        <PageTemplate 
+            pageId="PGE-BusinessStatus" 
+            
+            sectionData={PageSectionRegistry['BusinessStatus']}
         />
     );
 }
@@ -2178,8 +2217,12 @@ export function BusinessStatus() {
 // PAGE IDENTITY: W1 · Business Setup Wizard
 
 export function BusinessSetupWizard() {
-    return (<PageTemplate pageId="W1"  
-        sectionData={PageSectionRegistry['W1']} />
+    return (
+        <PageTemplate 
+            pageId="PGE-BusinessSetupWizard" 
+            
+            sectionData={PageSectionRegistry['BusinessSetupWizard']}
+        />
     );
 }
 
@@ -2187,8 +2230,12 @@ export function BusinessSetupWizard() {
 // PAGE IDENTITY: W2 · Staff Onboarding Wizard
 
 export function StaffOnboardingWizard() {
-    return (<PageTemplate pageId="W2"  
-        sectionData={PageSectionRegistry['W2']} />
+    return (
+        <PageTemplate 
+            pageId="PGE-StaffOnboardingWizard" 
+            
+            sectionData={PageSectionRegistry['StaffOnboardingWizard']}
+        />
     );
 }
 
@@ -2196,8 +2243,12 @@ export function StaffOnboardingWizard() {
 // PAGE IDENTITY: W3 · Care Plan Wizard
 
 export function CarePlanWizard() {
-    return (<PageTemplate pageId="W3"  
-        sectionData={PageSectionRegistry['W3']} />
+    return (
+        <PageTemplate 
+            pageId="PGE-CarePlanWizard" 
+            
+            sectionData={PageSectionRegistry['CarePlanWizard']}
+        />
     );
 }
 
@@ -2205,8 +2256,12 @@ export function CarePlanWizard() {
 // PAGE IDENTITY: W4 · Revenue Wizard
 
 export function RevenueWizard() {
-    return (<PageTemplate pageId="W4"  
-        sectionData={PageSectionRegistry['W4']} />
+    return (
+        <PageTemplate 
+            pageId="PGE-RevenueWizard" 
+            
+            sectionData={PageSectionRegistry['RevenueWizard']}
+        />
     );
 }
 
@@ -2214,8 +2269,12 @@ export function RevenueWizard() {
 // PAGE IDENTITY: W5 · Business Model Wizard
 
 export function BusinessModelWizard() {
-    return (<PageTemplate pageId="W5"  
-        sectionData={PageSectionRegistry['W5']} />
+    return (
+        <PageTemplate 
+            pageId="PGE-BusinessModelWizard" 
+            
+            sectionData={PageSectionRegistry['BusinessModelWizard']}
+        />
     );
 }
 
@@ -2225,8 +2284,10 @@ export function BusinessModelWizard() {
 
 export function SovereignWallet() {
     return (
-        <PageTemplate pageId="T6"  
-            sectionData={PageSectionRegistry['T6']}
+        <PageTemplate 
+            pageId="PGE-SovereignWallet" 
+            
+            sectionData={PageSectionRegistry['SovereignWallet']}
         />
     );
 }
@@ -2236,10 +2297,9 @@ export function SovereignWallet() {
 export function GrowthStrategy() {
     return (
         <PageTemplate 
-            pageId="PG-605" 
-             
+            pageId="PGE-GrowthStrategy" 
             
-            sectionData={PageSectionRegistry['PG-605']}
+            sectionData={PageSectionRegistry['GrowthStrategy']}
         />
     );
 }
@@ -2306,10 +2366,9 @@ export function SupplyChainManagement() {
 export function SupportDashboard() {
     return (
         <PageTemplate 
-            pageId="PG-828" 
-             
+            pageId="PGE-SupportDashboard" 
             
-            sectionData={PageSectionRegistry['PG-828']}
+            sectionData={PageSectionRegistry['SupportDashboard']}
         />
     );
 }
@@ -2330,13 +2389,11 @@ const rpmAlerts = [
 
 export function TelehealthCenter() {
     return (
-        <PageTemplate
-            pageId="H1"
-            
-            
+        <PageTemplate 
+            pageId="PGE-TelehealthCenter" 
             actionPageId="admin.telehealth"
             isLive
-            sectionData={PageSectionRegistry['H1']}
+            sectionData={PageSectionRegistry['TelehealthCenter']}
         />
     );
 }
@@ -2350,10 +2407,9 @@ export function TelehealthCenter() {
 export function TemplatesList() {
     return (
         <PageTemplate 
-            pageId="PGE-TL" 
-             
+            pageId="PGE-TemplatesList" 
             
-            sectionData={PageSectionRegistry['PGE-TL']}
+            sectionData={PageSectionRegistry['TemplatesList']}
         />
     );
 }
@@ -2365,8 +2421,10 @@ export function TemplatesList() {
 
 export function TemplateEditor() {
     return (
-        <PageTemplate pageId="T3"  
-            sectionData={PageSectionRegistry['T3']}
+        <PageTemplate 
+            pageId="PGE-TemplateEditor" 
+            
+            sectionData={PageSectionRegistry['TemplateEditor']}
         />
     );
 }
@@ -2387,8 +2445,10 @@ const cols_18: TableColumn[] = [
 
 export function TimesheetAdjustment() {
     return (
-        <PageTemplate pageId="F8"  
-            sectionData={PageSectionRegistry['F8']}
+        <PageTemplate 
+            pageId="PGE-TimesheetAdjustment" 
+            
+            sectionData={PageSectionRegistry['TimesheetAdjustment']}
         />
     );
 }
@@ -2408,8 +2468,10 @@ const cols_19: TableColumn[] = [
 
 export function Timesheets() {
     return (
-        <PageTemplate pageId="L4"  
-            sectionData={PageSectionRegistry['L4']}
+        <PageTemplate 
+            pageId="PGE-Timesheets" 
+            
+            sectionData={PageSectionRegistry['Timesheets']}
         />
     );
 }
@@ -2425,8 +2487,10 @@ export function Timesheets() {
 
 export function UserEntry() {
     return (
-        <PageTemplate pageId="F9a"  
-            sectionData={PageSectionRegistry['F9a']}
+        <PageTemplate 
+            pageId="PGE-UserEntry" 
+            
+            sectionData={PageSectionRegistry['UserEntry']}
         />
     );
 }
@@ -2441,8 +2505,10 @@ const cols_20: TableColumn[] = [
 
 export function UserList() {
     return (
-        <PageTemplate pageId="L3a"  
-            sectionData={PageSectionRegistry['L3a']}
+        <PageTemplate 
+            pageId="PGE-UserList" 
+            
+            sectionData={PageSectionRegistry['UserList']}
         />
     );
 }
@@ -2479,8 +2545,10 @@ const cols_1: TableColumn[] = [
 
 export function WebhookList() {
     return (
-        <PageTemplate pageId="L11"  
-            sectionData={PageSectionRegistry['L11']}
+        <PageTemplate 
+            pageId="PGE-WebhookList" 
+            
+            sectionData={PageSectionRegistry['WebhookList']}
         />
     );
 }
@@ -2495,8 +2563,10 @@ const cols_2_webhook: TableColumn[] = [
 
 export function WebhookDeliveries() {
     return (
-        <PageTemplate pageId="T51"  
-            sectionData={PageSectionRegistry['T51']}
+        <PageTemplate 
+            pageId="PGE-WebhookDeliveries" 
+            
+            sectionData={PageSectionRegistry['WebhookDeliveries']}
         />
     );
 }
@@ -2520,8 +2590,10 @@ const cols_21: TableColumn[] = [
 
 export function FinancialReconciliation() {
     return (
-        <PageTemplate pageId="T59"  
-            sectionData={PageSectionRegistry['T59']}
+        <PageTemplate 
+            pageId="PGE-FinancialReconciliation" 
+            
+            sectionData={PageSectionRegistry['FinancialReconciliation']}
         />
     );
 }
@@ -2778,10 +2850,9 @@ export const AdminRoutes = () => (
 export function ScreenReaderContentEditor() {
     return (
         <PageTemplate 
-            pageId="PGE-SRC" 
-             
+            pageId="PGE-ScreenReaderContentEditor" 
             
-            sectionData={PageSectionRegistry['PGE-SRC']}
+            sectionData={PageSectionRegistry['ScreenReaderContentEditor']}
         />
     );
 }
@@ -2791,10 +2862,9 @@ export function ScreenReaderContentEditor() {
 export function ApiLatencyHeatmap() {
     return (
         <PageTemplate 
-            pageId="PGE-ALH" 
-             
+            pageId="PGE-ApiLatencyHeatmap" 
             
-            sectionData={PageSectionRegistry['PGE-ALH']}
+            sectionData={PageSectionRegistry['ApiLatencyHeatmap']}
         />
     );
 }
@@ -2803,10 +2873,9 @@ export function ApiLatencyHeatmap() {
 export function BrowserMatrixTelemetry() {
     return (
         <PageTemplate 
-            pageId="PGE-BMT" 
-             
+            pageId="PGE-BrowserMatrixTelemetry" 
             
-            sectionData={PageSectionRegistry['PGE-BMT']}
+            sectionData={PageSectionRegistry['BrowserMatrixTelemetry']}
         />
     );
 }
@@ -2815,10 +2884,9 @@ export function BrowserMatrixTelemetry() {
 export function CoreWebVitalsTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-CWV" 
-             
+            pageId="PGE-CoreWebVitalsTracker" 
             
-            sectionData={PageSectionRegistry['PGE-CWV']}
+            sectionData={PageSectionRegistry['CoreWebVitalsTracker']}
         />
     );
 }
@@ -2828,10 +2896,9 @@ export function CoreWebVitalsTracker() {
 export function LegalComplianceBlockers() {
     return (
         <PageTemplate 
-            pageId="PGE-LCB" 
-             
+            pageId="PGE-LegalComplianceBlockers" 
             
-            sectionData={PageSectionRegistry['PGE-LCB']}
+            sectionData={PageSectionRegistry['LegalComplianceBlockers']}
         />
     );
 }
@@ -2841,10 +2908,9 @@ export function LegalComplianceBlockers() {
 export function DynamicPageRouter() {
     return (
         <PageTemplate 
-            pageId="PGE-DPR" 
-             
+            pageId="PGE-DynamicPageRouter" 
             
-            sectionData={PageSectionRegistry['PGE-DPR']}
+            sectionData={PageSectionRegistry['DynamicPageRouter']}
         />
     );
 }
@@ -2853,10 +2919,9 @@ export function DynamicPageRouter() {
 export function MicroCopyAbTesting() {
     return (
         <PageTemplate 
-            pageId="PGE-MCA" 
-             
+            pageId="PGE-MicroCopyAbTesting" 
             
-            sectionData={PageSectionRegistry['PGE-MCA']}
+            sectionData={PageSectionRegistry['MicroCopyAbTesting']}
         />
     );
 }
@@ -2865,10 +2930,9 @@ export function MicroCopyAbTesting() {
 export function RichTextGovernance() {
     return (
         <PageTemplate 
-            pageId="PGE-RTG" 
-             
+            pageId="PGE-RichTextGovernance" 
             
-            sectionData={PageSectionRegistry['PGE-RTG']}
+            sectionData={PageSectionRegistry['RichTextGovernance']}
         />
     );
 }
@@ -2878,10 +2942,9 @@ export function RichTextGovernance() {
 export function DynamicTokenEditor() {
     return (
         <PageTemplate 
-            pageId="PGE-DTE" 
-             
+            pageId="PGE-DynamicTokenEditor" 
             
-            sectionData={PageSectionRegistry['PGE-DTE']}
+            sectionData={PageSectionRegistry['DynamicTokenEditor']}
         />
     );
 }
@@ -2890,10 +2953,9 @@ export function DynamicTokenEditor() {
 export function FontTypographyRegistry() {
     return (
         <PageTemplate 
-            pageId="PGE-FTR" 
-             
+            pageId="PGE-FontTypographyRegistry" 
             
-            sectionData={PageSectionRegistry['PGE-FTR']}
+            sectionData={PageSectionRegistry['FontTypographyRegistry']}
         />
     );
 }
@@ -2903,10 +2965,9 @@ export function FontTypographyRegistry() {
 export function AssetCostAttribution() {
     return (
         <PageTemplate 
-            pageId="PGE-ACA" 
-             
+            pageId="PGE-AssetCostAttribution" 
             
-            sectionData={PageSectionRegistry['PGE-ACA']}
+            sectionData={PageSectionRegistry['AssetCostAttribution']}
         />
     );
 }
@@ -2915,10 +2976,9 @@ export function AssetCostAttribution() {
 export function ErrorBoundaryAggregator() {
     return (
         <PageTemplate 
-            pageId="PGE-EBA" 
-             
+            pageId="PGE-ErrorBoundaryAggregator" 
             
-            sectionData={PageSectionRegistry['PGE-EBA']}
+            sectionData={PageSectionRegistry['ErrorBoundaryAggregator']}
         />
     );
 }
@@ -2927,10 +2987,9 @@ export function ErrorBoundaryAggregator() {
 export function ThirdPartyScriptManager() {
     return (
         <PageTemplate 
-            pageId="PGE-TPS" 
-             
+            pageId="PGE-ThirdPartyScriptManager" 
             
-            sectionData={PageSectionRegistry['PGE-TPS']}
+            sectionData={PageSectionRegistry['ThirdPartyScriptManager']}
         />
     );
 }
@@ -2940,10 +2999,9 @@ export function ThirdPartyScriptManager() {
 export function GlobalI18nDictionary() {
     return (
         <PageTemplate 
-            pageId="PGE-GI1" 
-             
+            pageId="PGE-GlobalI18nDictionary" 
             
-            sectionData={PageSectionRegistry['PGE-GI1']}
+            sectionData={PageSectionRegistry['GlobalI18nDictionary']}
         />
     );
 }
@@ -2953,10 +3011,9 @@ export function GlobalI18nDictionary() {
 export function AssetExpirationManager() {
     return (
         <PageTemplate 
-            pageId="PGE-AEM" 
-             
+            pageId="PGE-AssetExpirationManager" 
             
-            sectionData={PageSectionRegistry['PGE-AEM']}
+            sectionData={PageSectionRegistry['AssetExpirationManager']}
         />
     );
 }
@@ -2965,10 +3022,9 @@ export function AssetExpirationManager() {
 export function CentralMediaVault() {
     return (
         <PageTemplate 
-            pageId="PGE-CMV" 
-             
+            pageId="PGE-CentralMediaVault" 
             
-            sectionData={PageSectionRegistry['PGE-CMV']}
+            sectionData={PageSectionRegistry['CentralMediaVault']}
         />
     );
 }
@@ -2977,10 +3033,9 @@ export function CentralMediaVault() {
 export function MediaUsageHeatmap() {
     return (
         <PageTemplate 
-            pageId="PGE-MUH" 
-             
+            pageId="PGE-MediaUsageHeatmap" 
             
-            sectionData={PageSectionRegistry['PGE-MUH']}
+            sectionData={PageSectionRegistry['MediaUsageHeatmap']}
         />
     );
 }
@@ -2989,10 +3044,9 @@ export function MediaUsageHeatmap() {
 export function SecureDocumentRedactor() {
     return (
         <PageTemplate 
-            pageId="PGE-SDR" 
-             
+            pageId="PGE-SecureDocumentRedactor" 
             
-            sectionData={PageSectionRegistry['PGE-SDR']}
+            sectionData={PageSectionRegistry['SecureDocumentRedactor']}
         />
     );
 }
@@ -3001,10 +3055,9 @@ export function SecureDocumentRedactor() {
 export function ThirdPartyCdnSync() {
     return (
         <PageTemplate 
-            pageId="PGE-TPC" 
-             
+            pageId="PGE-ThirdPartyCdnSync" 
             
-            sectionData={PageSectionRegistry['PGE-TPC']}
+            sectionData={PageSectionRegistry['ThirdPartyCdnSync']}
         />
     );
 }
@@ -3014,10 +3067,9 @@ export function ThirdPartyCdnSync() {
 export function AssetPermissionMatrix() {
     return (
         <PageTemplate 
-            pageId="PGE-APM" 
-             
+            pageId="PGE-AssetPermissionMatrix" 
             
-            sectionData={PageSectionRegistry['PGE-APM']}
+            sectionData={PageSectionRegistry['AssetPermissionMatrix']}
         />
     );
 }
@@ -3026,10 +3078,9 @@ export function AssetPermissionMatrix() {
 export function GlobalDigitalKillSwitch() {
     return (
         <PageTemplate 
-            pageId="PGE-GDK" 
-             
+            pageId="PGE-GlobalDigitalKillSwitch" 
             
-            sectionData={PageSectionRegistry['PGE-GDK']}
+            sectionData={PageSectionRegistry['GlobalDigitalKillSwitch']}
         />
     );
 }
@@ -3039,10 +3090,9 @@ export function GlobalDigitalKillSwitch() {
 export function NoCodeBuilderMock() {
     return (
         <PageTemplate 
-            pageId="PGE-NCB" 
-             
+            pageId="PGE-NoCodeBuilderMock" 
             
-            sectionData={PageSectionRegistry['PGE-NCB']}
+            sectionData={PageSectionRegistry['NoCodeBuilderMock']}
         />
     );
 }
@@ -3052,10 +3102,9 @@ export function NoCodeBuilderMock() {
 export function AbVariantManager() {
     return (
         <PageTemplate 
-            pageId="PGE-AVM" 
-             
+            pageId="PGE-AbVariantManager" 
             
-            sectionData={PageSectionRegistry['PGE-AVM']}
+            sectionData={PageSectionRegistry['AbVariantManager']}
         />
     );
 }
@@ -3065,10 +3114,9 @@ export function AbVariantManager() {
 export function ApiEndpointRegistry() {
     return (
         <PageTemplate 
-            pageId="PGE-AER" 
-             
+            pageId="PGE-ApiEndpointRegistry" 
             
-            sectionData={PageSectionRegistry['PGE-AER']}
+            sectionData={PageSectionRegistry['ApiEndpointRegistry']}
         />
     );
 }
@@ -3077,10 +3125,9 @@ export function ApiEndpointRegistry() {
 export function ApiRateLimitConfig() {
     return (
         <PageTemplate 
-            pageId="PGE-ARL" 
-             
+            pageId="PGE-ApiRateLimitConfig" 
             
-            sectionData={PageSectionRegistry['PGE-ARL']}
+            sectionData={PageSectionRegistry['ApiRateLimitConfig']}
         />
     );
 }
@@ -3089,10 +3136,9 @@ export function ApiRateLimitConfig() {
 export function ErrorPayloadInspector() {
     return (
         <PageTemplate 
-            pageId="PGE-EPI" 
-             
+            pageId="PGE-ErrorPayloadInspector" 
             
-            sectionData={PageSectionRegistry['PGE-EPI']}
+            sectionData={PageSectionRegistry['ErrorPayloadInspector']}
         />
     );
 }
@@ -3101,10 +3147,9 @@ export function ErrorPayloadInspector() {
 export function FormSchemaFederator() {
     return (
         <PageTemplate 
-            pageId="PGE-FSF" 
-             
+            pageId="PGE-FormSchemaFederator" 
             
-            sectionData={PageSectionRegistry['PGE-FSF']}
+            sectionData={PageSectionRegistry['FormSchemaFederator']}
         />
     );
 }
@@ -3113,10 +3158,9 @@ export function FormSchemaFederator() {
 export function VisualLogicBuilder() {
     return (
         <PageTemplate 
-            pageId="PGE-VLB" 
-             
+            pageId="PGE-VisualLogicBuilder" 
             
-            sectionData={PageSectionRegistry['PGE-VLB']}
+            sectionData={PageSectionRegistry['VisualLogicBuilder']}
         />
     );
 }
@@ -3125,10 +3169,9 @@ export function VisualLogicBuilder() {
 export function WorkflowVersionControl() {
     return (
         <PageTemplate 
-            pageId="PGE-WVC" 
-             
+            pageId="PGE-WorkflowVersionControl" 
             
-            sectionData={PageSectionRegistry['PGE-WVC']}
+            sectionData={PageSectionRegistry['WorkflowVersionControl']}
         />
     );
 }
@@ -3140,10 +3183,9 @@ export function WorkflowVersionControl() {
 export function Dashboard() {
     return (
         <PageTemplate 
-            pageId="PG-419" 
-             
+            pageId="PGE-Dashboard" 
             
-            sectionData={PageSectionRegistry['PG-419']}
+            sectionData={PageSectionRegistry['Dashboard']}
         />
     );
 }
@@ -3155,10 +3197,9 @@ export function Dashboard() {
 export function GovernanceHub() {
     return (
         <PageTemplate 
-            pageId="PG-307" 
-             
+            pageId="PGE-GovernanceHub" 
             
-            sectionData={PageSectionRegistry['PG-307']}
+            sectionData={PageSectionRegistry['GovernanceHub']}
         />
     );
 }
@@ -3172,10 +3213,9 @@ export function GovernanceHub() {
 export function B2bSlaDashboard() {
     return (
         <PageTemplate 
-            pageId="PGE-B2S" 
-             
+            pageId="PGE-B2bSlaDashboard" 
             
-            sectionData={PageSectionRegistry['PGE-B2S']}
+            sectionData={PageSectionRegistry['B2bSlaDashboard']}
         />
     );
 }
@@ -3184,10 +3224,9 @@ export function B2bSlaDashboard() {
 export function CorporateAccountHierarchy() {
     return (
         <PageTemplate 
-            pageId="PGE-CAH" 
-             
+            pageId="PGE-CorporateAccountHierarchy" 
             
-            sectionData={PageSectionRegistry['PGE-CAH']}
+            sectionData={PageSectionRegistry['CorporateAccountHierarchy']}
         />
     );
 }
@@ -3196,10 +3235,9 @@ export function CorporateAccountHierarchy() {
 export function DischargePlannerPortal() {
     return (
         <PageTemplate 
-            pageId="PGE-DPP" 
-             
+            pageId="PGE-DischargePlannerPortal" 
             
-            sectionData={PageSectionRegistry['PGE-DPP']}
+            sectionData={PageSectionRegistry['DischargePlannerPortal']}
         />
     );
 }
@@ -3208,10 +3246,9 @@ export function DischargePlannerPortal() {
 export function FacilityLunchTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-FLT" 
-             
+            pageId="PGE-FacilityLunchTracker" 
             
-            sectionData={PageSectionRegistry['PGE-FLT']}
+            sectionData={PageSectionRegistry['FacilityLunchTracker']}
         />
     );
 }
@@ -3220,10 +3257,9 @@ export function FacilityLunchTracker() {
 export function PhysicianRoiTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-PRT" 
-             
+            pageId="PGE-PhysicianRoiTracker" 
             
-            sectionData={PageSectionRegistry['PGE-PRT']}
+            sectionData={PageSectionRegistry['PhysicianRoiTracker']}
         />
     );
 }
@@ -3232,10 +3268,9 @@ export function PhysicianRoiTracker() {
 export function PostDischargeSuccess() {
     return (
         <PageTemplate 
-            pageId="PGE-PDS" 
-             
+            pageId="PGE-PostDischargeSuccess" 
             
-            sectionData={PageSectionRegistry['PGE-PDS']}
+            sectionData={PageSectionRegistry['PostDischargeSuccess']}
         />
     );
 }
@@ -3244,10 +3279,9 @@ export function PostDischargeSuccess() {
 export function ReferralSourceHeatmap() {
     return (
         <PageTemplate 
-            pageId="PGE-RSH" 
-             
+            pageId="PGE-ReferralSourceHeatmap" 
             
-            sectionData={PageSectionRegistry['PGE-RSH']}
+            sectionData={PageSectionRegistry['ReferralSourceHeatmap']}
         />
     );
 }
@@ -3257,10 +3291,9 @@ export function ReferralSourceHeatmap() {
 export function AutomatedReviewAsker() {
     return (
         <PageTemplate 
-            pageId="PGE-ARA" 
-             
+            pageId="PGE-AutomatedReviewAsker" 
             
-            sectionData={PageSectionRegistry['PGE-ARA']}
+            sectionData={PageSectionRegistry['AutomatedReviewAsker']}
         />
     );
 }
@@ -3269,10 +3302,9 @@ export function AutomatedReviewAsker() {
 export function BrandAssetLibrary() {
     return (
         <PageTemplate 
-            pageId="PGE-BAL" 
-             
+            pageId="PGE-BrandAssetLibrary" 
             
-            sectionData={PageSectionRegistry['PGE-BAL']}
+            sectionData={PageSectionRegistry['BrandAssetLibrary']}
         />
     );
 }
@@ -3281,10 +3313,9 @@ export function BrandAssetLibrary() {
 export function CompetitorKeywordHijacker() {
     return (
         <PageTemplate 
-            pageId="PGE-CKH" 
-             
+            pageId="PGE-CompetitorKeywordHijacker" 
             
-            sectionData={PageSectionRegistry['PGE-CKH']}
+            sectionData={PageSectionRegistry['CompetitorKeywordHijacker']}
         />
     );
 }
@@ -3293,10 +3324,9 @@ export function CompetitorKeywordHijacker() {
 export function CrisisCommsTriage() {
     return (
         <PageTemplate 
-            pageId="PGE-CCT" 
-             
+            pageId="PGE-CrisisCommsTriage" 
             
-            sectionData={PageSectionRegistry['PGE-CCT']}
+            sectionData={PageSectionRegistry['CrisisCommsTriage']}
         />
     );
 }
@@ -3305,10 +3335,9 @@ export function CrisisCommsTriage() {
 export function GoogleBusinessSync() {
     return (
         <PageTemplate 
-            pageId="PGE-GBS" 
-             
+            pageId="PGE-GoogleBusinessSync" 
             
-            sectionData={PageSectionRegistry['PGE-GBS']}
+            sectionData={PageSectionRegistry['GoogleBusinessSync']}
         />
     );
 }
@@ -3317,10 +3346,9 @@ export function GoogleBusinessSync() {
 export function LocalSeoRankTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-LSR" 
-             
+            pageId="PGE-LocalSeoRankTracker" 
             
-            sectionData={PageSectionRegistry['PGE-LSR']}
+            sectionData={PageSectionRegistry['LocalSeoRankTracker']}
         />
     );
 }
@@ -3329,10 +3357,9 @@ export function LocalSeoRankTracker() {
 export function ReviewSentimentAnalyzer() {
     return (
         <PageTemplate 
-            pageId="PGE-RSA" 
-             
+            pageId="PGE-ReviewSentimentAnalyzer" 
             
-            sectionData={PageSectionRegistry['PGE-RSA']}
+            sectionData={PageSectionRegistry['ReviewSentimentAnalyzer']}
         />
     );
 }
@@ -3342,10 +3369,9 @@ export function ReviewSentimentAnalyzer() {
 export function GeoFencedAdDashboard() {
     return (
         <PageTemplate 
-            pageId="PGE-GFA" 
-             
+            pageId="PGE-GeoFencedAdDashboard" 
             
-            sectionData={PageSectionRegistry['PGE-GFA']}
+            sectionData={PageSectionRegistry['GeoFencedAdDashboard']}
         />
     );
 }
@@ -3355,10 +3381,9 @@ export function GeoFencedAdDashboard() {
 export function CostOfCareCalculator() {
     return (
         <PageTemplate 
-            pageId="PGE-COC" 
-             
+            pageId="PGE-CostOfCareCalculator" 
             
-            sectionData={PageSectionRegistry['PGE-COC']}
+            sectionData={PageSectionRegistry['CostOfCareCalculator']}
         />
     );
 }
@@ -3367,10 +3392,9 @@ export function CostOfCareCalculator() {
 export function LandingPageAbTester() {
     return (
         <PageTemplate 
-            pageId="PGE-LPA" 
-             
+            pageId="PGE-LandingPageAbTester" 
             
-            sectionData={PageSectionRegistry['PGE-LPA']}
+            sectionData={PageSectionRegistry['LandingPageAbTester']}
         />
     );
 }
@@ -3379,10 +3403,9 @@ export function LandingPageAbTester() {
 export function LeadConversionFunnel() {
     return (
         <PageTemplate 
-            pageId="PGE-LCF" 
-             
+            pageId="PGE-LeadConversionFunnel" 
             
-            sectionData={PageSectionRegistry['PGE-LCF']}
+            sectionData={PageSectionRegistry['LeadConversionFunnel']}
         />
     );
 }
@@ -3391,10 +3414,9 @@ export function LeadConversionFunnel() {
 export function LiveChatHandover() {
     return (
         <PageTemplate 
-            pageId="PGE-LCH" 
-             
+            pageId="PGE-LiveChatHandover" 
             
-            sectionData={PageSectionRegistry['PGE-LCH']}
+            sectionData={PageSectionRegistry['LiveChatHandover']}
         />
     );
 }
@@ -3403,10 +3425,9 @@ export function LiveChatHandover() {
 export function ReferralProgramTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-RPT" 
-             
+            pageId="PGE-ReferralProgramTracker" 
             
-            sectionData={PageSectionRegistry['PGE-RPT']}
+            sectionData={PageSectionRegistry['ReferralProgramTracker']}
         />
     );
 }
@@ -3416,10 +3437,9 @@ export function ReferralProgramTracker() {
 export function ChurnRiskPredictor() {
     return (
         <PageTemplate 
-            pageId="PGE-CRP" 
-             
+            pageId="PGE-ChurnRiskPredictor" 
             
-            sectionData={PageSectionRegistry['PGE-CRP']}
+            sectionData={PageSectionRegistry['ChurnRiskPredictor']}
         />
     );
 }
@@ -3428,10 +3448,9 @@ export function ChurnRiskPredictor() {
 export function DripEmailSequenceBuilder() {
     return (
         <PageTemplate 
-            pageId="PGE-DES" 
-             
+            pageId="PGE-DripEmailSequenceBuilder" 
             
-            sectionData={PageSectionRegistry['PGE-DES']}
+            sectionData={PageSectionRegistry['DripEmailSequenceBuilder']}
         />
     );
 }
@@ -3440,10 +3459,9 @@ export function DripEmailSequenceBuilder() {
 export function EventRegistrationBuilder() {
     return (
         <PageTemplate 
-            pageId="PGE-ERB" 
-             
+            pageId="PGE-EventRegistrationBuilder" 
             
-            sectionData={PageSectionRegistry['PGE-ERB']}
+            sectionData={PageSectionRegistry['EventRegistrationBuilder']}
         />
     );
 }
@@ -3452,10 +3470,9 @@ export function EventRegistrationBuilder() {
 export function MarketingRevenueAttribution() {
     return (
         <PageTemplate 
-            pageId="PGE-MRA" 
-             
+            pageId="PGE-MarketingRevenueAttribution" 
             
-            sectionData={PageSectionRegistry['PGE-MRA']}
+            sectionData={PageSectionRegistry['MarketingRevenueAttribution']}
         />
     );
 }
@@ -3464,10 +3481,9 @@ export function MarketingRevenueAttribution() {
 export function NewsletterSubscriberDb() {
     return (
         <PageTemplate 
-            pageId="PGE-NSD" 
-             
+            pageId="PGE-NewsletterSubscriberDb" 
             
-            sectionData={PageSectionRegistry['PGE-NSD']}
+            sectionData={PageSectionRegistry['NewsletterSubscriberDb']}
         />
     );
 }
@@ -3476,10 +3492,9 @@ export function NewsletterSubscriberDb() {
 export function PromotionalDiscountEngine() {
     return (
         <PageTemplate 
-            pageId="PGE-PDE" 
-             
+            pageId="PGE-PromotionalDiscountEngine" 
             
-            sectionData={PageSectionRegistry['PGE-PDE']}
+            sectionData={PageSectionRegistry['PromotionalDiscountEngine']}
         />
     );
 }
@@ -3489,10 +3504,9 @@ export function PromotionalDiscountEngine() {
 export function BlogContentCalendar() {
     return (
         <PageTemplate 
-            pageId="PGE-BCC" 
-             
+            pageId="PGE-BlogContentCalendar" 
             
-            sectionData={PageSectionRegistry['PGE-BCC']}
+            sectionData={PageSectionRegistry['BlogContentCalendar']}
         />
     );
 }
@@ -3501,10 +3515,9 @@ export function BlogContentCalendar() {
 export function CaregiverSpotlightCreator() {
     return (
         <PageTemplate 
-            pageId="PGE-CSC" 
-             
+            pageId="PGE-CaregiverSpotlightCreator" 
             
-            sectionData={PageSectionRegistry['PGE-CSC']}
+            sectionData={PageSectionRegistry['CaregiverSpotlightCreator']}
         />
     );
 }
@@ -3513,10 +3526,9 @@ export function CaregiverSpotlightCreator() {
 export function ContentEngagementHeatmap() {
     return (
         <PageTemplate 
-            pageId="PGE-CEH" 
-             
+            pageId="PGE-ContentEngagementHeatmap" 
             
-            sectionData={PageSectionRegistry['PGE-CEH']}
+            sectionData={PageSectionRegistry['ContentEngagementHeatmap']}
         />
     );
 }
@@ -3525,10 +3537,9 @@ export function ContentEngagementHeatmap() {
 export function KeywordCannibalizationMonitor() {
     return (
         <PageTemplate 
-            pageId="PGE-KCM" 
-             
+            pageId="PGE-KeywordCannibalizationMonitor" 
             
-            sectionData={PageSectionRegistry['PGE-KCM']}
+            sectionData={PageSectionRegistry['KeywordCannibalizationMonitor']}
         />
     );
 }
@@ -3537,10 +3548,9 @@ export function KeywordCannibalizationMonitor() {
 export function SeoCoreWebVitals() {
     return (
         <PageTemplate 
-            pageId="PGE-SCW" 
-             
+            pageId="PGE-SeoCoreWebVitals" 
             
-            sectionData={PageSectionRegistry['PGE-SCW']}
+            sectionData={PageSectionRegistry['SeoCoreWebVitals']}
         />
     );
 }
@@ -3549,10 +3559,9 @@ export function SeoCoreWebVitals() {
 export function TestimonialReleaseTracker() {
     return (
         <PageTemplate 
-            pageId="PGE-TRT" 
-             
+            pageId="PGE-TestimonialReleaseTracker" 
             
-            sectionData={PageSectionRegistry['PGE-TRT']}
+            sectionData={PageSectionRegistry['TestimonialReleaseTracker']}
         />
     );
 }
@@ -3561,10 +3570,9 @@ export function TestimonialReleaseTracker() {
 export function TrafficSourceVisualizer() {
     return (
         <PageTemplate 
-            pageId="PGE-TSV" 
-             
+            pageId="PGE-TrafficSourceVisualizer" 
             
-            sectionData={PageSectionRegistry['PGE-TSV']}
+            sectionData={PageSectionRegistry['TrafficSourceVisualizer']}
         />
     );
 }
@@ -3573,10 +3581,9 @@ export function TrafficSourceVisualizer() {
 export function UtmParameterBuilder() {
     return (
         <PageTemplate 
-            pageId="PGE-UPB" 
-             
+            pageId="PGE-UtmParameterBuilder" 
             
-            sectionData={PageSectionRegistry['PGE-UPB']}
+            sectionData={PageSectionRegistry['UtmParameterBuilder']}
         />
     );
 }
@@ -3586,10 +3593,9 @@ export function UtmParameterBuilder() {
 export function SocialMediaCredentialVault() {
     return (
         <PageTemplate 
-            pageId="PGE-SMC" 
-             
+            pageId="PGE-SocialMediaCredentialVault" 
             
-            sectionData={PageSectionRegistry['PGE-SMC']}
+            sectionData={PageSectionRegistry['SocialMediaCredentialVault']}
         />
     );
 }
@@ -3599,10 +3605,9 @@ export function SocialMediaCredentialVault() {
 export function SalesTerritoryMap() {
     return (
         <PageTemplate 
-            pageId="PGE-STM" 
-             
+            pageId="PGE-SalesTerritoryMap" 
             
-            sectionData={PageSectionRegistry['PGE-STM']}
+            sectionData={PageSectionRegistry['SalesTerritoryMap']}
         />
     );
 }
@@ -3746,10 +3751,9 @@ export const gatherTheme = (): DigitalAsset[] => {
 export function DatabaseSchemaAudit() {
     return (
         <PageTemplate 
-            pageId="PGE-DSA" 
-             
+            pageId="PGE-DatabaseSchemaAudit" 
             
-            sectionData={PageSectionRegistry['PGE-DSA']}
+            sectionData={PageSectionRegistry['DatabaseSchemaAudit']}
         />
     );
 }
@@ -3758,10 +3762,9 @@ export function DatabaseSchemaAudit() {
 export function EnvironmentAudit() {
     return (
         <PageTemplate 
-            pageId="PGE-EA" 
-             
+            pageId="PGE-EnvironmentAudit" 
             
-            sectionData={PageSectionRegistry['PGE-EA']}
+            sectionData={PageSectionRegistry['EnvironmentAudit']}
         />
     );
 }
@@ -3770,10 +3773,9 @@ export function EnvironmentAudit() {
 export function InteractionAudit() {
     return (
         <PageTemplate 
-            pageId="PG-207" 
-             
+            pageId="PGE-InteractionAudit" 
             
-            sectionData={PageSectionRegistry['PG-207']}
+            sectionData={PageSectionRegistry['InteractionAudit']}
         />
     );
 }
@@ -3782,10 +3784,9 @@ export function InteractionAudit() {
 export function RegistryIntegrityCheck() {
     return (
         <PageTemplate 
-            pageId="PGE-RIC" 
-             
+            pageId="PGE-RegistryIntegrityCheck" 
             
-            sectionData={PageSectionRegistry['PGE-RIC']}
+            sectionData={PageSectionRegistry['RegistryIntegrityCheck']}
         />
     );
 }
@@ -3794,10 +3795,9 @@ export function RegistryIntegrityCheck() {
 export function ResponseBot() {
     return (
         <PageTemplate 
-            pageId="PGE-RB" 
-             
+            pageId="PGE-ResponseBot" 
             
-            sectionData={PageSectionRegistry['PGE-RB']}
+            sectionData={PageSectionRegistry['ResponseBot']}
         />
     );
 }
@@ -3806,10 +3806,9 @@ export function ResponseBot() {
 export function TechnicalAuditPortal() {
     return (
         <PageTemplate 
-            pageId="PGE-TAP" 
-             
+            pageId="PGE-TechnicalAuditPortal" 
             
-            sectionData={PageSectionRegistry['PGE-TAP']}
+            sectionData={PageSectionRegistry['TechnicalAuditPortal']}
         />
     );
 }
@@ -3858,10 +3857,9 @@ export const CORE_COMPONENTS = [
 export function BuildHealthPage() {
     return (
         <PageTemplate 
-            pageId="PG-610" 
-             
+            pageId="PGE-BuildHealthPage" 
             
-            sectionData={PageSectionRegistry['PG-610']}
+            sectionData={PageSectionRegistry['BuildHealthPage']}
         />
     );
 }
@@ -3869,9 +3867,10 @@ export function BuildHealthPage() {
 // --- Extracted from dashboard.tsx ---
 export function ScrumMasterDashboard() {
     return (
-        <PageTemplate pageId="SM"  
+        <PageTemplate 
+            pageId="PGE-ScrumMasterDashboard" 
             actionPageId="scrum_master.dashboard"
-            sectionData={PageSectionRegistry['SM']}
+            sectionData={PageSectionRegistry['ScrumMasterDashboard']}
         />
     );
 }
@@ -3925,10 +3924,9 @@ export async function handleDashboardAction(
 export function DeveloperKb() {
     return (
         <PageTemplate 
-            pageId="PG-880" 
-             
+            pageId="PGE-DeveloperKb" 
             
-            sectionData={PageSectionRegistry['PG-880']}
+            sectionData={PageSectionRegistry['DeveloperKb']}
         />
     );
 }
@@ -3937,10 +3935,9 @@ export function DeveloperKb() {
 export function DeveloperPortal() {
     return (
         <PageTemplate 
-            pageId="PG-695" 
-             
+            pageId="PGE-DeveloperPortal" 
             
-            sectionData={PageSectionRegistry['PG-695']}
+            sectionData={PageSectionRegistry['DeveloperPortal']}
         />
     );
 }
@@ -3949,10 +3946,9 @@ export function DeveloperPortal() {
 export function E2eRunner() {
     return (
         <PageTemplate 
-            pageId="PG-205" 
-             
+            pageId="PGE-E2eRunner" 
             
-            sectionData={PageSectionRegistry['PG-205']}
+            sectionData={PageSectionRegistry['E2eRunner']}
         />
     );
 }
@@ -3962,10 +3958,9 @@ export function E2eRunner() {
 export function RoleFlowsPage() {
     return (
         <PageTemplate 
-            pageId="PGE-RFP" 
-             
+            pageId="PGE-RoleFlowsPage" 
             
-            sectionData={PageSectionRegistry['PGE-RFP']}
+            sectionData={PageSectionRegistry['RoleFlowsPage']}
         />
     );
 }
@@ -3974,10 +3969,9 @@ export function RoleFlowsPage() {
 export function StepAuditModal() {
     return (
         <PageTemplate 
-            pageId="PGE-SAM" 
-             
+            pageId="PGE-StepAuditModal" 
             
-            sectionData={PageSectionRegistry['PGE-SAM']}
+            sectionData={PageSectionRegistry['StepAuditModal']}
         />
     );
 }
@@ -3987,10 +3981,9 @@ export function StepAuditModal() {
 export function ImpersonationTool() {
     return (
         <PageTemplate 
-            pageId="PGE-IT" 
-             
+            pageId="PGE-ImpersonationTool" 
             
-            sectionData={PageSectionRegistry['PGE-IT']}
+            sectionData={PageSectionRegistry['ImpersonationTool']}
         />
     );
 }
@@ -4000,10 +3993,9 @@ export function ImpersonationTool() {
 export function LocalizationPage() {
     return (
         <PageTemplate 
-            pageId="PG-233" 
-             
+            pageId="PGE-LocalizationPage" 
             
-            sectionData={PageSectionRegistry['PG-233']}
+            sectionData={PageSectionRegistry['LocalizationPage']}
         />
     );
 }
@@ -4013,10 +4005,9 @@ export function LocalizationPage() {
 export function SystemHealthMonitor() {
     return (
         <PageTemplate 
-            pageId="PGE-SHM" 
-             
+            pageId="PGE-SystemHealthMonitor" 
             
-            sectionData={PageSectionRegistry['PGE-SHM']}
+            sectionData={PageSectionRegistry['SystemHealthMonitor']}
         />
     );
 }
@@ -4026,10 +4017,9 @@ export function SystemHealthMonitor() {
 export function PerformancePage() {
     return (
         <PageTemplate 
-            pageId="PG-128" 
-             
+            pageId="PGE-PerformancePage" 
             
-            sectionData={PageSectionRegistry['PG-128']}
+            sectionData={PageSectionRegistry['PerformancePage']}
         />
     );
 }
@@ -4067,10 +4057,9 @@ export function getTestData(stepId: string): any {
 export function DigitalPropertyManager() {
     return (
         <PageTemplate 
-            pageId="PG-454" 
-             
+            pageId="PGE-DigitalPropertyManager" 
             
-            sectionData={PageSectionRegistry['PG-454']}
+            sectionData={PageSectionRegistry['DigitalPropertyManager']}
         />
     );
 }
@@ -4116,10 +4105,9 @@ export const PAGE_SIZE = 30;
 export function RegistryAutoRepair() {
     return (
         <PageTemplate 
-            pageId="PGE-RAR" 
-             
+            pageId="PGE-RegistryAutoRepair" 
             
-            sectionData={PageSectionRegistry['PGE-RAR']}
+            sectionData={PageSectionRegistry['RegistryAutoRepair']}
         />
     );
 }
@@ -4439,10 +4427,9 @@ export const roleFlowsStyles = `
 export function SecurityScansPage() {
     return (
         <PageTemplate 
-            pageId="PG-738" 
-             
+            pageId="PGE-SecurityScansPage" 
             
-            sectionData={PageSectionRegistry['PG-738']}
+            sectionData={PageSectionRegistry['SecurityScansPage']}
         />
     );
 }
@@ -4454,10 +4441,9 @@ export function SecurityScansPage() {
 export function ApiEndpointsHub() {
     return (
         <PageTemplate 
-            pageId="PGE-AEH" 
-             
+            pageId="PGE-ApiEndpointsHub" 
             
-            sectionData={PageSectionRegistry['PGE-AEH']}
+            sectionData={PageSectionRegistry['ApiEndpointsHub']}
         />
     );
 }
@@ -4467,10 +4453,9 @@ export function ApiEndpointsHub() {
 export function ThemeCoreCenter() {
     return (
         <PageTemplate 
-            pageId="PG-423" 
-             
+            pageId="PGE-ThemeCoreCenter" 
             
-            sectionData={PageSectionRegistry['PG-423']}
+            sectionData={PageSectionRegistry['ThemeCoreCenter']}
         />
     );
 }
@@ -4570,10 +4555,9 @@ export const S_3: Record<string, React.CSSProperties> = {
 export function UsageStatisticsManager() {
     return (
         <PageTemplate 
-            pageId="PG-128" 
-             
+            pageId="PGE-UsageStatisticsManager" 
             
-            sectionData={PageSectionRegistry['PG-128']}
+            sectionData={PageSectionRegistry['UsageStatisticsManager']}
         />
     );
 }
@@ -4647,10 +4631,9 @@ export type TabKey = 'routes' | 'clicks' | 'forms' | 'api' | 'unused';
 export function SLAMonitoring() {
     return (
         <PageTemplate 
-            pageId="PG-830" 
-             
+            pageId="PGE-SLAMonitoring" 
             
-            sectionData={PageSectionRegistry['PG-830']}
+            sectionData={PageSectionRegistry['SLAMonitoring']}
         />
     );
 }
@@ -4664,10 +4647,9 @@ export function SLAMonitoring() {
 export function RiskSurveillanceDashboard() {
     return (
         <PageTemplate 
-            pageId="PGE-RSD" 
-             
+            pageId="PGE-RiskSurveillanceDashboard" 
             
-            sectionData={PageSectionRegistry['PGE-RSD']}
+            sectionData={PageSectionRegistry['RiskSurveillanceDashboard']}
         />
     );
 }
@@ -4676,10 +4658,9 @@ export function RiskSurveillanceDashboard() {
 export function SuperAdminDashboard() {
     return (
         <PageTemplate 
-            pageId="PG-599" 
-             
+            pageId="PGE-SuperAdminDashboard" 
             
-            sectionData={PageSectionRegistry['PG-599']}
+            sectionData={PageSectionRegistry['SuperAdminDashboard']}
         />
     );
 }
@@ -4691,10 +4672,9 @@ export function SuperAdminDashboard() {
 export function TenantList() {
     return (
         <PageTemplate 
-            pageId="PG-686" 
-             
+            pageId="PGE-TenantList" 
             
-            sectionData={PageSectionRegistry['PG-686']}
+            sectionData={PageSectionRegistry['TenantList']}
         />
     );
 }

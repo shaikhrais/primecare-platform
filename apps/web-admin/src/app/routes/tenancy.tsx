@@ -20,8 +20,10 @@ import { useEffect } from "react";
 // --- Merged from H20-LogisticsHub.tsx ---
 export function LogisticsHub() {
     return (
-        <PageTemplate pageId="H20"  
-            sectionData={PageSectionRegistry['H20']}
+        <PageTemplate 
+            pageId="PGE-LogisticsHub" 
+            
+            sectionData={PageSectionRegistry['LogisticsHub']}
         />
     );
 }
@@ -29,8 +31,10 @@ export function LogisticsHub() {
 // --- Merged from T64-RegionMapping.tsx ---
 export function RegionMapping() {
     return (
-        <PageTemplate pageId="T64"  
-            sectionData={PageSectionRegistry['T64']}
+        <PageTemplate 
+            pageId="PGE-RegionMapping" 
+            
+            sectionData={PageSectionRegistry['RegionMapping']}
         />
     );
 }
@@ -38,8 +42,10 @@ export function RegionMapping() {
 // --- Merged from T65-RealtimeCapacity.tsx ---
 export function RealtimeCapacity() {
     return (
-        <PageTemplate pageId="T65"  
-            sectionData={PageSectionRegistry['T65']}
+        <PageTemplate 
+            pageId="PGE-RealtimeCapacity" 
+            
+            sectionData={PageSectionRegistry['RealtimeCapacity']}
         />
     );
 }
@@ -52,8 +58,10 @@ export function RealtimeCapacity() {
 // --- Merged from D18-AlliedHealthDashboard.tsx ---
 export function AlliedHealthDashboard() {
     return (
-        <PageTemplate pageId="D18"  
-            sectionData={PageSectionRegistry['D18']}
+        <PageTemplate 
+            pageId="PGE-AlliedHealthDashboard" 
+            
+            sectionData={PageSectionRegistry['AlliedHealthDashboard']}
         />
     );
 }
@@ -62,8 +70,10 @@ export function AlliedHealthDashboard() {
 // --- Merged from T42-SignOff.tsx ---
 export function SignOff() {
     return (
-        <PageTemplate pageId="T42"  
-            sectionData={PageSectionRegistry['T42']}
+        <PageTemplate 
+            pageId="PGE-SignOff" 
+            
+            sectionData={PageSectionRegistry['SignOff']}
         />
     );
 }
@@ -72,8 +82,10 @@ export function SignOff() {
 // --- Merged from L21-TreatmentList.tsx ---
 export function TreatmentList() {
     return (
-        <PageTemplate pageId="L21"  
-            sectionData={PageSectionRegistry['L21']}
+        <PageTemplate 
+            pageId="PGE-TreatmentList" 
+            
+            sectionData={PageSectionRegistry['TreatmentList']}
         />
     );
 }
@@ -219,8 +231,10 @@ export function BillingPage() {
 // --- Merged from H10-BillingHub.tsx ---
 export function BillingHub() {
     return (
-        <PageTemplate pageId="H10"  
-            sectionData={PageSectionRegistry['H10']}
+        <PageTemplate 
+            pageId="PGE-BillingHub" 
+            
+            sectionData={PageSectionRegistry['BillingHub']}
         />
     );
 }
@@ -241,8 +255,10 @@ export function BillingHub() {
 
 export function ClientBookings() {
     return (
-        <PageTemplate pageId="L14"  
-            sectionData={PageSectionRegistry['L14']}
+        <PageTemplate 
+            pageId="PGE-ClientBookings" 
+            
+            sectionData={PageSectionRegistry['ClientBookings']}
         />
     );
 }
@@ -263,8 +279,10 @@ export function ClientBookings() {
 
 export function ClientDashboard() {
     return (
-        <PageTemplate pageId="D8"  
-            sectionData={PageSectionRegistry['D8']}
+        <PageTemplate 
+            pageId="PGE-ClientDashboard" 
+            
+            sectionData={PageSectionRegistry['ClientDashboard']}
         />
     );
 }
@@ -273,8 +291,10 @@ export function ClientDashboard() {
 // --- Merged from H17-FamilyCareHub.tsx ---
 export function FamilyCareHub() {
     return (
-        <PageTemplate pageId="H17"  
-            sectionData={PageSectionRegistry['H17']}
+        <PageTemplate 
+            pageId="PGE-FamilyCareHub" 
+            
+            sectionData={PageSectionRegistry['FamilyCareHub']}
         />
     );
 }
@@ -283,8 +303,10 @@ export function FamilyCareHub() {
 // --- Merged from P1-FamilyPortal.tsx ---
 export function FamilyPortal() {
     return (
-        <PageTemplate pageId="P1"  
-            sectionData={PageSectionRegistry['P1']}
+        <PageTemplate 
+            pageId="PGE-FamilyPortal" 
+            
+            sectionData={PageSectionRegistry['FamilyPortal']}
         />
     );
 }
@@ -297,8 +319,10 @@ export function FamilyPortal() {
 // --- Merged from F16-SubmitFeedback.tsx ---
 export function FeedbackForm() {
     return (
-        <PageTemplate pageId="F16"  
-            sectionData={PageSectionRegistry['F16']}
+        <PageTemplate 
+            pageId="PGE-FeedbackForm" 
+            
+            sectionData={PageSectionRegistry['FeedbackForm']}
         />
     );
 }
@@ -307,8 +331,10 @@ export function FeedbackForm() {
 // --- Merged from R5-MedicalSummary.tsx ---
 export function MedicalSummary() {
     return (
-        <PageTemplate pageId="R5"  
-            sectionData={PageSectionRegistry['R5']}
+        <PageTemplate 
+            pageId="PGE-MedicalSummary" 
+            
+            sectionData={PageSectionRegistry['MedicalSummary']}
         />
     );
 }
@@ -321,8 +347,10 @@ export function MedicalSummary() {
 // --- Merged from F17-RequestBooking.tsx ---
 export function RequestBooking() {
     return (
-        <PageTemplate pageId="F17"  
-            sectionData={PageSectionRegistry['F17']}
+        <PageTemplate 
+            pageId="PGE-RequestBooking" 
+            
+            sectionData={PageSectionRegistry['RequestBooking']}
         />
     );
 }
@@ -331,8 +359,10 @@ export function RequestBooking() {
 // --- Merged from T34-CatalogBrowser.tsx ---
 export function CatalogBrowser() {
     return (
-        <PageTemplate pageId="T34"  
-            sectionData={PageSectionRegistry['T34']}
+        <PageTemplate 
+            pageId="PGE-CatalogBrowser" 
+            
+            sectionData={PageSectionRegistry['CatalogBrowser']}
         />
     );
 }
@@ -341,8 +371,10 @@ export function CatalogBrowser() {
 // --- Merged from T35-ClientMessaging.tsx ---
 export function ClientMessaging() {
     return (
-        <PageTemplate pageId="T35"  
-            sectionData={PageSectionRegistry['T35']}
+        <PageTemplate 
+            pageId="PGE-ClientMessaging" 
+            
+            sectionData={PageSectionRegistry['ClientMessaging']}
         />
     );
 }
@@ -350,8 +382,10 @@ export function ClientMessaging() {
 // --- Merged from T37-FeedbackLoop.tsx ---
 export function FeedbackLoop() {
     return (
-        <PageTemplate pageId="T37"  
-            sectionData={PageSectionRegistry['T37']}
+        <PageTemplate 
+            pageId="PGE-FeedbackLoop" 
+            
+            sectionData={PageSectionRegistry['FeedbackLoop']}
         />
     );
 }
@@ -360,8 +394,10 @@ export function FeedbackLoop() {
 // --- Merged from T36-TeamRoster.tsx ---
 export function TeamRoster() {
     return (
-        <PageTemplate pageId="T36"  
-            sectionData={PageSectionRegistry['T36']}
+        <PageTemplate 
+            pageId="PGE-TeamRoster" 
+            
+            sectionData={PageSectionRegistry['TeamRoster']}
         />
     );
 }
@@ -374,8 +410,10 @@ export function TeamRoster() {
 // --- Merged from T40-FleetManagement.tsx ---
 export function FleetManagement() {
     return (
-        <PageTemplate pageId="T40"  
-            sectionData={PageSectionRegistry['T40']}
+        <PageTemplate 
+            pageId="PGE-FleetManagement" 
+            
+            sectionData={PageSectionRegistry['FleetManagement']}
         />
     );
 }
@@ -384,8 +422,10 @@ export function FleetManagement() {
 // --- Merged from H18-CoordinatorHub.tsx ---
 export function CoordinatorHub() {
     return (
-        <PageTemplate pageId="H18"  
-            sectionData={PageSectionRegistry['H18']}
+        <PageTemplate 
+            pageId="PGE-CoordinatorHub" 
+            
+            sectionData={PageSectionRegistry['CoordinatorHub']}
         />
     );
 }
@@ -398,8 +438,10 @@ export function CoordinatorHub() {
 // --- Merged from T38-DispatchMap.tsx ---
 export function DispatchMap() {
     return (
-        <PageTemplate pageId="T38"  
-            sectionData={PageSectionRegistry['T38']}
+        <PageTemplate 
+            pageId="PGE-DispatchMap" 
+            
+            sectionData={PageSectionRegistry['DispatchMap']}
         />
     );
 }
@@ -408,8 +450,10 @@ export function DispatchMap() {
 // --- Merged from T41-ShiftSwap.tsx ---
 export function ShiftSwap() {
     return (
-        <PageTemplate pageId="T41"  
-            sectionData={PageSectionRegistry['T41']}
+        <PageTemplate 
+            pageId="PGE-ShiftSwap" 
+            
+            sectionData={PageSectionRegistry['ShiftSwap']}
         />
     );
 }
@@ -422,8 +466,10 @@ export function ShiftSwap() {
 // --- Merged from T39-SosCenter.tsx ---
 export function SosCenter() {
     return (
-        <PageTemplate pageId="T39"  
-            sectionData={PageSectionRegistry['T39']}
+        <PageTemplate 
+            pageId="PGE-SosCenter" 
+            
+            sectionData={PageSectionRegistry['SosCenter']}
         />
     );
 }
@@ -436,8 +482,10 @@ export function SosCenter() {
 // --- Merged from L20-WaitlistManager.tsx ---
 export function WaitlistManager() {
     return (
-        <PageTemplate pageId="L20"  
-            sectionData={PageSectionRegistry['L20']}
+        <PageTemplate 
+            pageId="PGE-WaitlistManager" 
+            
+            sectionData={PageSectionRegistry['WaitlistManager']}
         />
     );
 }
@@ -449,8 +497,10 @@ export function WaitlistManager() {
 // --- Extracted from dashboard.tsx ---
 export function FamilyDashboard() {
     return (
-        <PageTemplate pageId="FAM"  
-            sectionData={PageSectionRegistry['FAM']}
+        <PageTemplate 
+            pageId="PGE-FamilyDashboard" 
+            
+            sectionData={PageSectionRegistry['FamilyDashboard']}
         />
     );
 }
@@ -463,8 +513,10 @@ export function FamilyDashboard() {
 // --- Merged from D12-FinanceRegionalHub.tsx ---
 export function FinanceRegionalHub() {
     return (
-        <PageTemplate pageId="D12"  
-            sectionData={PageSectionRegistry['D12']}
+        <PageTemplate 
+            pageId="PGE-FinanceRegionalHub" 
+            
+            sectionData={PageSectionRegistry['FinanceRegionalHub']}
         />
     );
 }
@@ -477,8 +529,10 @@ export function FinanceRegionalHub() {
 // --- Merged from H13-HrRecruitmentPortal.tsx ---
 export function HrRecruitmentPortal() {
     return (
-        <PageTemplate pageId="H13"  
-            sectionData={PageSectionRegistry['H13']}
+        <PageTemplate 
+            pageId="PGE-HrRecruitmentPortal" 
+            
+            sectionData={PageSectionRegistry['HrRecruitmentPortal']}
         />
     );
 }
@@ -495,8 +549,10 @@ export function HrRecruitmentPortal() {
 // --- Merged from T25-ComplianceSync.tsx ---
 export function ComplianceSync() {
     return (
-        <PageTemplate pageId="T25"  
-            sectionData={PageSectionRegistry['T25']}
+        <PageTemplate 
+            pageId="PGE-ComplianceSync" 
+            
+            sectionData={PageSectionRegistry['ComplianceSync']}
         />
     );
 }
@@ -517,8 +573,10 @@ export function ComplianceSync() {
 
 export function DailyEntry() {
     return (
-        <PageTemplate pageId="T20"  
-            sectionData={PageSectionRegistry['T20']}
+        <PageTemplate 
+            pageId="PGE-DailyEntry" 
+            
+            sectionData={PageSectionRegistry['DailyEntry']}
         />
     );
 }
@@ -539,8 +597,10 @@ export function DailyEntry() {
 
 export function ManagerDashboard() {
     return (
-        <PageTemplate pageId="D7"  
-            sectionData={PageSectionRegistry['D7']}
+        <PageTemplate 
+            pageId="PGE-ManagerDashboard" 
+            
+            sectionData={PageSectionRegistry['ManagerDashboard']}
         />
     );
 }
@@ -565,12 +625,10 @@ const templates = [
 
 export function DocumentSigningCenter() {
     return (
-        <PageTemplate
-            pageId="H27"
-            
-            
+        <PageTemplate 
+            pageId="PGE-DocumentSigningCenter" 
             actionPageId="manager.document-signing"
-            sectionData={PageSectionRegistry['H27']}
+            sectionData={PageSectionRegistry['DocumentSigningCenter']}
         />
     );
 }
@@ -651,8 +709,10 @@ export function GamificationHub() {
 // --- Merged from L13-Evaluations.tsx ---
 export function Evaluations() {
     return (
-        <PageTemplate pageId="L13"  
-            sectionData={PageSectionRegistry['L13']}
+        <PageTemplate 
+            pageId="PGE-Evaluations" 
+            
+            sectionData={PageSectionRegistry['Evaluations']}
         />
     );
 }
@@ -661,8 +721,10 @@ export function Evaluations() {
 // --- Merged from D9-BranchPL.tsx ---
 export function BranchPL() {
     return (
-        <PageTemplate pageId="D9"  
-            sectionData={PageSectionRegistry['D9']}
+        <PageTemplate 
+            pageId="PGE-BranchPL" 
+            
+            sectionData={PageSectionRegistry['BranchPL']}
         />
     );
 }
@@ -670,8 +732,10 @@ export function BranchPL() {
 // --- Merged from T24-PayrollVerification.tsx ---
 export function PayrollVerification() {
     return (
-        <PageTemplate pageId="T24"  
-            sectionData={PageSectionRegistry['T24']}
+        <PageTemplate 
+            pageId="PGE-PayrollVerification" 
+            
+            sectionData={PageSectionRegistry['PayrollVerification']}
         />
     );
 }
@@ -679,12 +743,10 @@ export function PayrollVerification() {
 // --- Extracted from hr.tsx ---
 export function PerformanceReviews() {
     return (
-        <PageTemplate
-            pageId="L23"
-            
-            
+        <PageTemplate 
+            pageId="PGE-PerformanceReviews" 
             actionPageId="manager.performance-reviews"
-            sectionData={PageSectionRegistry['L23']}
+            sectionData={PageSectionRegistry['PerformanceReviews']}
         />
     );
 }
@@ -721,8 +783,10 @@ export function IoTMonitoring() {
 // --- Merged from H12-OperationsHub.tsx ---
 export function OperationsHub() {
     return (
-        <PageTemplate pageId="H12"  
-            sectionData={PageSectionRegistry['H12']}
+        <PageTemplate 
+            pageId="PGE-OperationsHub" 
+            
+            sectionData={PageSectionRegistry['OperationsHub']}
         />
     );
 }
@@ -732,8 +796,10 @@ export function OperationsHub() {
 // --- Merged from D10-RegionalStats.tsx ---
 export function RegionalStats() {
     return (
-        <PageTemplate pageId="D10"  
-            sectionData={PageSectionRegistry['D10']}
+        <PageTemplate 
+            pageId="PGE-RegionalStats" 
+            
+            sectionData={PageSectionRegistry['RegionalStats']}
         />
     );
 }
@@ -742,8 +808,10 @@ export function RegionalStats() {
 // --- Merged from T23-StaffRanker.tsx ---
 export function StaffRanker() {
     return (
-        <PageTemplate pageId="T23"  
-            sectionData={PageSectionRegistry['T23']}
+        <PageTemplate 
+            pageId="PGE-StaffRanker" 
+            
+            sectionData={PageSectionRegistry['StaffRanker']}
         />
     );
 }
@@ -758,8 +826,10 @@ export function StaffRanker() {
 // --- Merged from T19-Portfolio.tsx ---
 export function ManagementPortfolio() {
     return (
-        <PageTemplate pageId="T19"  
-            sectionData={PageSectionRegistry['T19']}
+        <PageTemplate 
+            pageId="PGE-ManagementPortfolio" 
+            
+            sectionData={PageSectionRegistry['ManagementPortfolio']}
         />
     );
 }
@@ -772,8 +842,10 @@ export function ManagementPortfolio() {
 // --- Merged from T21-ServiceReview.tsx ---
 export function ServiceReview() {
     return (
-        <PageTemplate pageId="T21"  
-            sectionData={PageSectionRegistry['T21']}
+        <PageTemplate 
+            pageId="PGE-ServiceReview" 
+            
+            sectionData={PageSectionRegistry['ServiceReview']}
         />
     );
 }
@@ -786,8 +858,10 @@ export function ServiceReview() {
 // --- Merged from T22-SurveyManager.tsx ---
 export function SurveyManager() {
     return (
-        <PageTemplate pageId="T22"  
-            sectionData={PageSectionRegistry['T22']}
+        <PageTemplate 
+            pageId="PGE-SurveyManager" 
+            
+            sectionData={PageSectionRegistry['SurveyManager']}
         />
     );
 }
@@ -844,8 +918,10 @@ export function TrainingAcademy() {
 // --- Merged from D11-MarketingDashboard.tsx ---
 export function MarketingDashboard() {
     return (
-        <PageTemplate pageId="D11"  
-            sectionData={PageSectionRegistry['D11']}
+        <PageTemplate 
+            pageId="PGE-MarketingDashboard" 
+            
+            sectionData={PageSectionRegistry['MarketingDashboard']}
         />
     );
 }
@@ -864,8 +940,10 @@ const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry
 // --- Merged from F15-Availability.tsx ---
 export function AvailabilityPage() {
     return (
-        <PageTemplate pageId="F15"  
-            sectionData={PageSectionRegistry['F15']}
+        <PageTemplate 
+            pageId="PGE-AvailabilityPage" 
+            
+            sectionData={PageSectionRegistry['AvailabilityPage']}
         />
     );
 }
@@ -874,8 +952,10 @@ export function AvailabilityPage() {
 // --- Merged from H14-CredentialVault.tsx ---
 export function CredentialVault() {
     return (
-        <PageTemplate pageId="H14"  
-            sectionData={PageSectionRegistry['H14']}
+        <PageTemplate 
+            pageId="PGE-CredentialVault" 
+            
+            sectionData={PageSectionRegistry['CredentialVault']}
         />
     );
 }
@@ -896,8 +976,10 @@ export function CredentialVault() {
 
 export function PswDashboard() {
     return (
-        <PageTemplate pageId="D14"  
-            sectionData={PageSectionRegistry['D14']}
+        <PageTemplate 
+            pageId="PGE-PswDashboard" 
+            
+            sectionData={PageSectionRegistry['PswDashboard']}
         />
     );
 }
@@ -910,8 +992,10 @@ export function PswDashboard() {
 // --- Merged from R3-PswEarnings.tsx ---
 export function PswEarnings() {
     return (
-        <PageTemplate pageId="R3"  
-            sectionData={PageSectionRegistry['R3']}
+        <PageTemplate 
+            pageId="PGE-PswEarnings" 
+            
+            sectionData={PageSectionRegistry['PswEarnings']}
         />
     );
 }
@@ -924,8 +1008,10 @@ export function PswEarnings() {
 // --- Merged from F14-ExpenseClaim.tsx ---
 export function ExpenseReportForm() {
     return (
-        <PageTemplate pageId="F14"  
-            sectionData={PageSectionRegistry['F14']}
+        <PageTemplate 
+            pageId="PGE-ExpenseReportForm" 
+            
+            sectionData={PageSectionRegistry['ExpenseReportForm']}
         />
     );
 }
@@ -934,8 +1020,10 @@ export function ExpenseReportForm() {
 // --- Merged from T27-ProviderSocial.tsx ---
 export function ProviderSocial() {
     return (
-        <PageTemplate pageId="T27"  
-            sectionData={PageSectionRegistry['T27']}
+        <PageTemplate 
+            pageId="PGE-ProviderSocial" 
+            
+            sectionData={PageSectionRegistry['ProviderSocial']}
         />
     );
 }
@@ -944,8 +1032,10 @@ export function ProviderSocial() {
 // --- Merged from G1-PswUserGuide.tsx ---
 export function PswUserGuide() {
     return (
-        <PageTemplate pageId="G1"  
-            sectionData={PageSectionRegistry['G1']}
+        <PageTemplate 
+            pageId="PGE-PswUserGuide" 
+            
+            sectionData={PageSectionRegistry['PswUserGuide']}
         />
     );
 }
@@ -958,8 +1048,10 @@ export function PswUserGuide() {
 // --- Merged from F13-ShiftHandover.tsx ---
 export function HandoverPage() {
     return (
-        <PageTemplate pageId="F13"  
-            sectionData={PageSectionRegistry['F13']}
+        <PageTemplate 
+            pageId="PGE-HandoverPage" 
+            
+            sectionData={PageSectionRegistry['HandoverPage']}
         />
     );
 }
@@ -968,8 +1060,10 @@ export function HandoverPage() {
 // --- Merged from T28-MileageTracker.tsx ---
 export function MileageTracker() {
     return (
-        <PageTemplate pageId="T28"  
-            sectionData={PageSectionRegistry['T28']}
+        <PageTemplate 
+            pageId="PGE-MileageTracker" 
+            
+            sectionData={PageSectionRegistry['MileageTracker']}
         />
     );
 }
@@ -982,8 +1076,10 @@ export function MileageTracker() {
 // --- Merged from L17-OpenShifts.tsx ---
 export function OpenShifts() {
     return (
-        <PageTemplate pageId="L17"  
-            sectionData={PageSectionRegistry['L17']}
+        <PageTemplate 
+            pageId="PGE-OpenShifts" 
+            
+            sectionData={PageSectionRegistry['OpenShifts']}
         />
     );
 }
@@ -991,8 +1087,10 @@ export function OpenShifts() {
 // --- Merged from T60-OpenOffers.tsx ---
 export function OpenOffers() {
     return (
-        <PageTemplate pageId="T60"  
-            sectionData={PageSectionRegistry['T60']}
+        <PageTemplate 
+            pageId="PGE-OpenOffers" 
+            
+            sectionData={PageSectionRegistry['OpenOffers']}
         />
     );
 }
@@ -1005,8 +1103,10 @@ export function OpenOffers() {
 // --- Merged from R4-PayoutHistory.tsx ---
 export function PayoutHistory() {
     return (
-        <PageTemplate pageId="R4"  
-            sectionData={PageSectionRegistry['R4']}
+        <PageTemplate 
+            pageId="PGE-PayoutHistory" 
+            
+            sectionData={PageSectionRegistry['PayoutHistory']}
         />
     );
 }
@@ -1059,8 +1159,10 @@ export async function fetchDashboardData(showToast: (m: string, t: string) => vo
 // --- Merged from L16-PswSchedule.tsx ---
 export function PswSchedule() {
     return (
-        <PageTemplate pageId="L16"  
-            sectionData={PageSectionRegistry['L16']}
+        <PageTemplate 
+            pageId="PGE-PswSchedule" 
+            
+            sectionData={PageSectionRegistry['PswSchedule']}
         />
     );
 }
@@ -1068,8 +1170,10 @@ export function PswSchedule() {
 // --- Merged from T61-LiveVisit.tsx ---
 export function LiveVisit() {
     return (
-        <PageTemplate pageId="T61"  
-            sectionData={PageSectionRegistry['T61']}
+        <PageTemplate 
+            pageId="PGE-LiveVisit" 
+            
+            sectionData={PageSectionRegistry['LiveVisit']}
         />
     );
 }
@@ -1077,8 +1181,10 @@ export function LiveVisit() {
 // --- Merged from T62-CheckInScreen.tsx ---
 export function CheckInScreen() {
     return (
-        <PageTemplate pageId="T62"  
-            sectionData={PageSectionRegistry['T62']}
+        <PageTemplate 
+            pageId="PGE-CheckInScreen" 
+            
+            sectionData={PageSectionRegistry['CheckInScreen']}
         />
     );
 }
@@ -1091,8 +1197,10 @@ export function CheckInScreen() {
 // --- Merged from T26-ShiftConfirmation.tsx ---
 export function ShiftConfirmation() {
     return (
-        <PageTemplate pageId="T26"  
-            sectionData={PageSectionRegistry['T26']}
+        <PageTemplate 
+            pageId="PGE-ShiftConfirmation" 
+            
+            sectionData={PageSectionRegistry['ShiftConfirmation']}
         />
     );
 }
@@ -1101,8 +1209,10 @@ export function ShiftConfirmation() {
 // --- Merged from H15-PswTrainingHub.tsx ---
 export function PswTrainingHub() {
     return (
-        <PageTemplate pageId="H15"  
-            sectionData={PageSectionRegistry['H15']}
+        <PageTemplate 
+            pageId="PGE-PswTrainingHub" 
+            
+            sectionData={PageSectionRegistry['PswTrainingHub']}
         />
     );
 }
@@ -1115,8 +1225,10 @@ export function PswTrainingHub() {
 // --- Merged from D13-ClinicalQaDashboard.tsx ---
 export function ClinicalQaDashboard() {
     return (
-        <PageTemplate pageId="D13"  
-            sectionData={PageSectionRegistry['D13']}
+        <PageTemplate 
+            pageId="PGE-ClinicalQaDashboard" 
+            
+            sectionData={PageSectionRegistry['ClinicalQaDashboard']}
         />
     );
 }
@@ -1148,8 +1260,10 @@ export function getTypePillClass(type: string): string {
 // --- Merged from L18-AssessmentsHub.tsx ---
 export function AssessmentsHub() {
     return (
-        <PageTemplate pageId="L18"  
-            sectionData={PageSectionRegistry['L18']}
+        <PageTemplate 
+            pageId="PGE-AssessmentsHub" 
+            
+            sectionData={PageSectionRegistry['AssessmentsHub']}
         />
     );
 }
@@ -1162,8 +1276,10 @@ export function AssessmentsHub() {
 // --- Merged from T30-EntryVerify.tsx ---
 export function EntryVerify() {
     return (
-        <PageTemplate pageId="T30"  
-            sectionData={PageSectionRegistry['T30']}
+        <PageTemplate 
+            pageId="PGE-EntryVerify" 
+            
+            sectionData={PageSectionRegistry['EntryVerify']}
         />
     );
 }
@@ -1176,8 +1292,10 @@ export function EntryVerify() {
 // --- Merged from T29-CarePlanManager.tsx ---
 export function CarePlanManager() {
     return (
-        <PageTemplate pageId="T29"  
-            sectionData={PageSectionRegistry['T29']}
+        <PageTemplate 
+            pageId="PGE-CarePlanManager" 
+            
+            sectionData={PageSectionRegistry['CarePlanManager']}
         />
     );
 }
@@ -1198,8 +1316,10 @@ export function CarePlanManager() {
 
 export function RnDashboard() {
     return (
-        <PageTemplate pageId="D15"  
-            sectionData={PageSectionRegistry['D15']}
+        <PageTemplate 
+            pageId="PGE-RnDashboard" 
+            
+            sectionData={PageSectionRegistry['RnDashboard']}
         />
     );
 }
@@ -1208,8 +1328,10 @@ export function RnDashboard() {
 // --- Merged from D16-MarDashboard.tsx ---
 export function MarDashboard() {
     return (
-        <PageTemplate pageId="D16"  
-            sectionData={PageSectionRegistry['D16']}
+        <PageTemplate 
+            pageId="PGE-MarDashboard" 
+            
+            sectionData={PageSectionRegistry['MarDashboard']}
         />
     );
 }
@@ -1217,8 +1339,10 @@ export function MarDashboard() {
 // --- Merged from T31-MarClient.tsx ---
 export function MarClient() {
     return (
-        <PageTemplate pageId="T31"  
-            sectionData={PageSectionRegistry['T31']}
+        <PageTemplate 
+            pageId="PGE-MarClient" 
+            
+            sectionData={PageSectionRegistry['MarClient']}
         />
     );
 }
@@ -1257,8 +1381,10 @@ export async function commitAdministeredMeds(meds: Medication[]): Promise<boolea
 // --- Merged from L19-RaiAssessments.tsx ---
 export function RaiAssessments() {
     return (
-        <PageTemplate pageId="L19"  
-            sectionData={PageSectionRegistry['L19']}
+        <PageTemplate 
+            pageId="PGE-RaiAssessments" 
+            
+            sectionData={PageSectionRegistry['RaiAssessments']}
         />
     );
 }
@@ -1266,8 +1392,10 @@ export function RaiAssessments() {
 // --- Merged from T33-RaiAssessmentDetail.tsx ---
 export function RaiAssessmentDetail() {
     return (
-        <PageTemplate pageId="T33"  
-            sectionData={PageSectionRegistry['T33']}
+        <PageTemplate 
+            pageId="PGE-RaiAssessmentDetail" 
+            
+            sectionData={PageSectionRegistry['RaiAssessmentDetail']}
         />
     );
 }
@@ -1276,8 +1404,10 @@ export function RaiAssessmentDetail() {
 // --- Merged from T63-RnCheckInScreen.tsx ---
 export function RnCheckInScreen() {
     return (
-        <PageTemplate pageId="T63"  
-            sectionData={PageSectionRegistry['T63']}
+        <PageTemplate 
+            pageId="PGE-RnCheckInScreen" 
+            
+            sectionData={PageSectionRegistry['RnCheckInScreen']}
         />
     );
 }
@@ -1290,8 +1420,10 @@ export function RnCheckInScreen() {
 // --- Merged from H16-SupervisionHub.tsx ---
 export function SupervisionHub() {
     return (
-        <PageTemplate pageId="H16"  
-            sectionData={PageSectionRegistry['H16']}
+        <PageTemplate 
+            pageId="PGE-SupervisionHub" 
+            
+            sectionData={PageSectionRegistry['SupervisionHub']}
         />
     );
 }
@@ -1299,8 +1431,10 @@ export function SupervisionHub() {
 // --- Extracted from wound-care.tsx ---
 export function WoundCareDashboard() {
     return (
-        <PageTemplate pageId="WC"  
-            sectionData={PageSectionRegistry['WC']}
+        <PageTemplate 
+            pageId="PGE-WoundCareDashboard" 
+            
+            sectionData={PageSectionRegistry['WoundCareDashboard']}
         />
     );
 }
@@ -1309,8 +1443,10 @@ export function WoundCareDashboard() {
 // --- Merged from D17-WoundCareDashboard.tsx ---
 export function WoundCareDashboard_OLD() {
     return (
-        <PageTemplate pageId="D17"  
-            sectionData={PageSectionRegistry['D17']}
+        <PageTemplate 
+            pageId="PGE-WoundCareDashboard_OLD" 
+            
+            sectionData={PageSectionRegistry['WoundCareDashboard_OLD']}
         />
     );
 }
@@ -1318,8 +1454,10 @@ export function WoundCareDashboard_OLD() {
 // --- Merged from T32-WoundCareClient.tsx ---
 export function WoundCareClient() {
     return (
-        <PageTemplate pageId="T32"  
-            sectionData={PageSectionRegistry['T32']}
+        <PageTemplate 
+            pageId="PGE-WoundCareClient" 
+            
+            sectionData={PageSectionRegistry['WoundCareClient']}
         />
     );
 }
@@ -1332,8 +1470,10 @@ export function WoundCareClient() {
 // --- Merged from T47-ResponseBotAudit.tsx ---
 export function ResponseBotAudit() {
     return (
-        <PageTemplate pageId="T47"  
-            sectionData={PageSectionRegistry['T47']}
+        <PageTemplate 
+            pageId="PGE-ResponseBotAudit" 
+            
+            sectionData={PageSectionRegistry['ResponseBotAudit']}
         />
     );
 }
@@ -1351,8 +1491,10 @@ export function ResponseBotAudit() {
 // --- Merged from D19-StaffDashboard.tsx ---
 export function StaffDashboard() {
     return (
-        <PageTemplate pageId="D19"  
-            sectionData={PageSectionRegistry['D19']}
+        <PageTemplate 
+            pageId="PGE-StaffDashboard" 
+            
+            sectionData={PageSectionRegistry['StaffDashboard']}
         />
     );
 }
@@ -1361,8 +1503,10 @@ export function StaffDashboard() {
 // --- Merged from T44-MessageCenter.tsx ---
 export function MessageCenter() {
     return (
-        <PageTemplate pageId="T44"  
-            sectionData={PageSectionRegistry['T44']}
+        <PageTemplate 
+            pageId="PGE-MessageCenter" 
+            
+            sectionData={PageSectionRegistry['MessageCenter']}
         />
     );
 }
@@ -1371,8 +1515,10 @@ export function MessageCenter() {
 // --- Merged from T45-IncidentPortal.tsx ---
 export function IncidentPortal() {
     return (
-        <PageTemplate pageId="T45"  
-            sectionData={PageSectionRegistry['T45']}
+        <PageTemplate 
+            pageId="PGE-IncidentPortal" 
+            
+            sectionData={PageSectionRegistry['IncidentPortal']}
         />
     );
 }
@@ -1380,8 +1526,10 @@ export function IncidentPortal() {
 // --- Merged from T46-ComplianceMonitor.tsx ---
 export function ComplianceMonitor() {
     return (
-        <PageTemplate pageId="T46"  
-            sectionData={PageSectionRegistry['T46']}
+        <PageTemplate 
+            pageId="PGE-ComplianceMonitor" 
+            
+            sectionData={PageSectionRegistry['ComplianceMonitor']}
         />
     );
 }
@@ -1392,8 +1540,10 @@ export function ComplianceMonitor() {
 // --- Merged from T43-TaskGrid.tsx ---
 export function TaskGrid() {
     return (
-        <PageTemplate pageId="T43"  
-            sectionData={PageSectionRegistry['T43']}
+        <PageTemplate 
+            pageId="PGE-TaskGrid" 
+            
+            sectionData={PageSectionRegistry['TaskGrid']}
         />
     );
 }

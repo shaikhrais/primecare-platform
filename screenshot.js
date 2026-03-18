@@ -5,7 +5,7 @@ const path = require('path');
 const TARGET_URL = 'https://primecare-admin.pages.dev';
 
 const rolesToCapture = [
-    { role: 'unauthenticated_login', url: '/login' },
+    { role: 'unauthenticated_login', url: '/' },
     { role: 'admin', url: '/admin' },
     { role: 'manager', url: '/tenancy/manager' },
     { role: 'scrum_master', url: '/platform/scrum-master' },
