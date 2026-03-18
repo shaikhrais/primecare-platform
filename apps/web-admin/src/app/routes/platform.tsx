@@ -7,25 +7,13 @@ import { useDialog } from "@/shared/hooks/useDialog";
 import { useToast } from "@/shared/hooks/useToast";
 import RequireRole from "@/shared/rbac/RequireRole";
 import { useQueryClient } from "@tanstack/react-query";
-import { FileText, Search, LayoutGrid, Filter, BarChart3, ClipboardList, Layers, Compass, Wand2, Wrench, Globe, BookOpen, AlertTriangle, Network, List } from "lucide-react";
+import { FileText, Search, LayoutGrid, Filter, BarChart3, ClipboardList, Layers, Compass, Wand2, Wrench, Globe, BookOpen, AlertTriangle, Network, List, Box, Database, UserPlus, FileSignature, Activity, Send, MapPin } from "lucide-react";
 import { AdminRegistry, FormEntry, PageType, PageEntry, MasterEntry } from "prime-care-shared";
 import React, { lazy, useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, useNavigate, useSearchParams } from "react-router";
-import React from 'react';
-import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import React, { lazy } from 'react';
-import { Route } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import RequireRole from '@/shared/rbac/RequireRole';
-import AppLayout from '@/shared/components/layout/AppLayout';
 import { apiClient } from "@/shared/utils/apiClient";
-import { Box, Database, UserPlus, FileSignature, Activity, Send, MapPin } from "lucide-react";
-import { AdminRegistry } from "prime-care-shared";
-import React, { useMemo, lazy } from "react";
-import { Route } from "react-router";
-
-
+import { PageSectionRegistry } from "./shared";
 
 // --- Merged from admin.tsx ---
 const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
@@ -457,7 +445,7 @@ export function CustomerList() {
 // ================================================================
 
 const Visit = (props: any) => <></>;
-const getStatusColor = (s: string) => "#000";
+
 export function AdminDashboard() {
     return (
         <PageTemplate pageId="D1"  
@@ -3643,11 +3631,6 @@ export function getStatusBg(status: SocialPlatform['status']): string {
 // Platform Portal (Super Admin)
 const PlatformDashboard = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
 const PlatformAuditLogs = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
-const SLAMonitoring = lazy(() => import(''));
-const RiskSurveillanceDashboard = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
-const TenantList = lazy(() => import(''));
-const GovernanceHub = lazy(() => import(''));
-
 const SystemPolicies = lazy(() => import('').then(m => ({ default: Object.values(m)[0] as any })));
 
 export const PlatformRoutes = () => (
@@ -3668,17 +3651,6 @@ export const PlatformRoutes = () => (
 
 // --- Merged from SystemPolicies.tsx ---
 // PAGE IDENTITY: SystemPolicies · Platform Policies
-
-export const SystemPolicies: React.FC = () => {
-    return (
-        <PageTemplate pageId="POLICIES"  
-            sectionData={PageSectionRegistry['POLICIES']}
-        />
-    );
-};
-
-
-
 // --- Merged from scrum-master.tsx ---
 
 

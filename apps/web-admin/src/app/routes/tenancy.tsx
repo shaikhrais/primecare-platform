@@ -1,25 +1,15 @@
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import React from 'react';
-import { ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } from "prime-care-shared";
-import { PageTemplate } from "@/shared/components/ui/PageTemplate";
-import { useToast } from "@/shared/hooks/useToast";
-import React, { useState, useEffect } from "react";
-import React from "react";
-import { TableColumn } from "@/shared/components/sections";
-import React, { useState } from "react";
+import React, { lazy } from 'react';
 import { AdminRegistry } from "prime-care-shared";
+import { useToast } from "@/shared/hooks/useToast";
+import { TableColumn } from "@/shared/components/sections";
 import { apiClient } from "@/shared/utils/apiClient";
 import AppLayout from "@/shared/components/layout/AppLayout";
 import RequireRole from "@/shared/rbac/RequireRole";
-import React, { lazy } from "react";
 import { Route } from "react-router";
-import { lazy } from 'react';
-import { Route } from 'react-router';
-import { AdminRegistry } from 'prime-care-shared';
-import RequireRole from '@/shared/rbac/RequireRole';
-import AppLayout from '@/shared/components/layout/AppLayout';
-
-
+import { PageSectionRegistry } from "./shared";
+import { useState } from "react";
+import { useEffect } from "react";
 
 // --- Merged from admin.tsx ---
 
@@ -1421,22 +1411,18 @@ export const Portfolio = lazy(() => import('./manager').then(m => ({ default: Ob
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const DailyEntry = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 export const UserList = lazy(() => import('../platform/admin').then(m => ({ default: m.UserList  })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const Evaluations = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ServiceReview = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ManagerDashboard = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1444,65 +1430,49 @@ export const TrainingHub = lazy(() => import('./manager').then(m => ({ default: 
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const SurveyManager = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const StaffRanker = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
-// @ts-ignore
-// @ts-ignore
-export const BranchPL = lazy(() => import('./manager').then(m => ({ default: m.BranchPL })));
-// @ts-ignore
-// @ts-ignore
-export const PayrollVerification = lazy(() => import('./manager').then(m => ({ default: m.PayrollVerification })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const MarketingDashboard = lazy(() => import('./marketing').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const HrRecruitmentPortal = lazy(() => import('./hr').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const FinanceRegionalHub = lazy(() => import('./finance').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ClinicalQaDashboard = lazy(() => import('./qa').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CoordinatorHub = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const DispatchMap = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const SosCenter = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const WaitlistManager = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const AlliedHealthDashboard = lazy(() => import('./allied-health').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const OperationsHub = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const RegionalStats = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ComplianceSync = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1512,11 +1482,9 @@ export const FinanceHub = lazy(() => import('./manager').then(m => ({ default: O
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PswDashboard = lazy(() => import('./staff').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PswSchedule = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1532,7 +1500,6 @@ export const PswAvailability = lazy(() => import('./psw').then(m => ({ default: 
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PswEarnings = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1544,19 +1511,15 @@ export const PswShiftConfirmation = lazy(() => import('./psw').then(m => ({ defa
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CredentialVault = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ProviderSocial = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const LiveVisit = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CheckInScreen = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1570,37 +1533,28 @@ export const PswPayoutHistory = lazy(() => import('./psw').then(m => ({ default:
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const RnDashboard = lazy(() => import('./staff').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CarePlanManager = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const EntryVerify = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const SupervisionHub = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const AssessmentsHub = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const RnCheckInScreen = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
-
 // Client Pages
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ClientDashboard = lazy(() => import('./staff').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ClientBookings = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 export const ClientBilling = lazy(() => import('') as any);
 // @ts-ignore
 // @ts-ignore
@@ -1609,31 +1563,24 @@ export const ClientFeedback = lazy(() => import('') .then(m => ({ default: Objec
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const RequestBooking = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const CatalogBrowser = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
-export const ClientMessaging = lazy(() => import('') .then(m => ({ default: m.ClientMessaging })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
 export const CareTeam = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
-export const FeedbackLoop = lazy(() => import('') .then(m => ({ default: m.FeedbackLoop })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const FamilyCareHub = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
-
 // Staff Pages
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const StaffDashboard = lazy(() => import('./staff').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1653,69 +1600,49 @@ export const StaffComplianceMonitor = lazy(() => import('./staff').then(m => ({ 
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ResponseBotAudit = lazy(() => import('./scrum-master').then(m => ({ default: Object.values(m)[0] as any })));
-
 // Additional Pages
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const MedicalSummary = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const FamilyPortal = lazy(() => import('') .then(m => ({ default: Object.values(m)[0] as any })));
-// @ts-ignore
-// @ts-ignore
-export const MarDashboard = lazy(() => import('') .then(m => ({ default: m.MarDashboard })));
-// @ts-ignore
-// @ts-ignore
-export const MarClient = lazy(() => import('') .then(m => ({ default: m.MarClient })));
-export const WoundCareDashboard = lazy(() => import('') as any);
-export const WoundCareClient = lazy(() => import('') as any);
-// @ts-ignore
-// @ts-ignore
-export const RaiAssessments = lazy(() => import('') .then(m => ({ default: m.RaiAssessments })));
-// @ts-ignore
-// @ts-ignore
-export const RaiAssessmentDetail = lazy(() => import('') .then(m => ({ default: m.RaiAssessmentDetail })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const MileageTracker = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PswTrainingHub = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const FleetManagement = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const ShiftSwap = lazy(() => import('./coordinator').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const TreatmentList = lazy(() => import('./allied-health').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const SignOff = lazy(() => import('./allied-health').then(m => ({ default: Object.values(m)[0] as any })));
-
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 // ── NEW PREMIUM PAGES (Session Sprint 3-6) ──
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const GamificationHub = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const IoTMonitoring = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const DocumentSigningCenter = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1723,17 +1650,11 @@ export const SMSHub = lazy(() => import('../platform/admin').then(m => ({ defaul
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PerformanceReviews = lazy(() => import('./manager').then(m => ({ default: Object.values(m)[0] as any })));
-// @ts-ignore
-// @ts-ignore
-export const TrainingAcademy = lazy(() => import('./manager').then(m => ({ default: m.TrainingAcademy })));
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-export const PswUserGuide = lazy(() => import('./psw').then(m => ({ default: Object.values(m)[0] as any })));
-
-
-
+// @ts-ignore
+// @ts-ignore
 // --- Merged from TenancyRoutes.tsx ---
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import { AdminRegistry } from 'prime-care-shared';
-
-
+import { PageSectionRegistry } from "./shared";
+const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
 
 // --- Merged from components.tsx ---
 
@@ -54,8 +54,6 @@ export function Login() {
 
 // --- Merged from loginHandler.ts ---
 // F1-Login: authentication handler hooks extracted
-
-const { ApiRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export async function performLogin(
