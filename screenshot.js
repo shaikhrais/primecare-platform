@@ -5,6 +5,7 @@ const path = require('path');
 const TARGET_URL = 'https://primecare-admin.pages.dev';
 
 const rolesToCapture = [
+    { role: 'unauthenticated_login', url: '/login' },
     { role: 'admin', url: '/admin' },
     { role: 'manager', url: '/tenancy/manager' },
     { role: 'scrum_master', url: '/platform/scrum-master' },
@@ -56,29 +57,67 @@ async function captureScreenshots() {
         const page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
 
-        // Navigate to base URL to establish origin context for LocalStorage injection
+        // Enable Request Interception
+        await page.setRequestInterception(true);
+        page.on('request', (req) => {
+            const url = req.url();
+            if (url.includes('/v1/auth/whoami') || url.includes('/v1/auth/refresh')) {
+                if (r.role === 'unauthenticated_login') {
+                    // Force 401 to ensure the login page fully renders without redirecting
+                    req.respond({
+                        status: 401,
+                        contentType: 'application/json',
+                        body: JSON.stringify({ error: 'Unauthorized' })
+                    });
+                } else {
+                    // Mock Auth Success 200 OK
+                    req.respond({
+                        status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ 
+                        id: 'sys-admin-999', 
+                        email: 'system@primecare.com', 
+                        roles: [r.role], 
+                        tenantId: 'core-tenant' 
+                    })
+                });
+                }
+            } else if (url.includes('/v1/')) {
+                // Mock generic API 200 OK responses to prevent table crashes
+                req.respond({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: '[]'
+                });
+            } else {
+                req.continue();
+            }
+        });
+
         console.log(`    -> Establishing origin context at ${TARGET_URL}`);
         await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded' });
         
-        // Inject malicious LocalStorage JWT state payload targeting the React Auth bounds
-        await page.evaluate((roleName) => {
-            localStorage.setItem('token', 'mock_jwt_structural_bypass_token');
-            localStorage.setItem('user', JSON.stringify({ 
-                id: 'sys-admin-999', 
-                email: 'system@primecare.com', 
-                roles: [roleName], 
-                tenantId: 'core-tenant' 
-            }));
-        }, r.role);
+        if (r.role !== 'unauthenticated_login') {
+            await page.evaluate((roleName) => {
+                localStorage.setItem('token', 'mock_jwt_structural_bypass_token');
+                localStorage.setItem('user', JSON.stringify({ 
+                    id: 'sys-admin-999', 
+                    email: 'system@primecare.com', 
+                    roles: [roleName], 
+                    tenantId: 'core-tenant' 
+                }));
+            }, r.role);
+        } else {
+            await page.evaluate(() => localStorage.clear());
+        }
 
-        // Exploit routing tree by targeting the authorized endpoints natively
         const target = `${TARGET_URL}${r.url}`;
         console.log(`    -> Navigating to authorized endpoint: ${target}`);
         
         try {
-            await page.goto(target, { waitUntil: 'networkidle0', timeout: 30000 });
-            // Wait an extra 2 seconds for any Suspense boundaries / animations to settle
-            await new Promise(res => setTimeout(res, 2000));
+            await page.goto(target, { waitUntil: 'networkidle0', timeout: 45000 });
+            // User requested to "make slow run" - extending timeout to 8000ms
+            await new Promise(res => setTimeout(res, 8000));
             
             const imagePath = `screenshots/${r.role}_dashboard.png`;
             await page.screenshot({ path: path.join(__dirname, imagePath), fullPage: false });
