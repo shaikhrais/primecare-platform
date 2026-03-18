@@ -1,3 +1,4 @@
+import { BarChart3, ClipboardList, Layers, Compass, Wand2, FileText, Wrench, Globe, BookOpen, AlertTriangle } from 'lucide-react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React, { useState, useMemo } from 'react';
 import { LayoutGrid, Search, Filter, Network, List } from 'lucide-react';

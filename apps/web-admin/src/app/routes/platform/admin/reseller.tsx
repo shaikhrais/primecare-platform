@@ -1,3 +1,4 @@
+import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 

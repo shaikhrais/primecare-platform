@@ -1,3 +1,5 @@
+import { AdminRegistry } from 'prime-care-shared';
+import { apiClient } from '../../../../shared/utils/apiClient';
 import { TableColumn } from '@/shared/components/sections/SectionTable';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React from 'react';
