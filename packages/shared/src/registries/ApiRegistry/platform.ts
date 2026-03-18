@@ -1,3 +1,4 @@
+import { API_VARS } from './api-vars';
 import { ADMIN_DOMAIN_EXTENSIONS } from './admin-extensions';
 
 export const PLATFORM = {

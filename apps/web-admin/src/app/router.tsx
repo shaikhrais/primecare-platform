@@ -11,38 +11,38 @@ import RequireRole from '@/shared/rbac/RequireRole';
 import { useAuth } from '@/shared/context/AuthContext';
 
 // Auth Pages (Eagerly loaded)
-import { Login } from './routes/auth/login';
-import { Register } from './routes/auth/register';
-import { ForgotPassword } from './routes/auth/forgot-password';
-import { ResetPassword } from './routes/auth/reset-password';
-import { BusinessOnboard } from './routes/auth/onboard-business';
+import { Login   } from './routes/auth';;
+import { Register   } from './routes/auth';;
+import { ForgotPassword   } from './routes/auth';;
+import { ResetPassword   } from './routes/auth';;
+import { BusinessOnboard   } from './routes/auth';;
 
 // Error Pages
-import { NotFound } from './routes/shared/error';
-import { Unauthorized } from './routes/shared/error';
-import { ServerError } from './routes/shared/error';
+import { NotFound } from './routes/shared';
+import { Unauthorized } from './routes/shared';
+import { ServerError } from './routes/shared';
 
 // Sub-Routers
-import { AdminRoutes } from './routes/platform/admin';
+import { AdminRoutes  } from './routes/platform';
 const ScrumMasterRoutes = () => <></>;
-import { TenancyRoutes } from './routes/tenancy/TenancyRoutes';
-import { PlatformRoutes } from './routes/platform/PlatformRoutes';
+import { TenancyRoutes  } from './routes/tenancy';
+import { PlatformRoutes  } from './routes/platform';
 const StaffRoutes = () => <></>;
 
 const { RouteRegistry } = AdminRegistry;
 
 // Shared Protected Pages (Lazy loaded)
-const Profile = React.lazy(() => import('./routes/shared/profile'));
-const SupportHub = React.lazy(() => import('./routes/shared/support-hub'));
-const SupportTicket = React.lazy(() => import('./routes/shared/support-ticket'));
-const Messaging = React.lazy(() => import('./routes/shared/messaging'));
-const VisitDetails = React.lazy(() => import('./routes/shared/visit-details'));
-const VisitCompletion = React.lazy(() => import('./routes/shared/visit-completion'));
-const UserTrainingPage = React.lazy(() => import('./routes/shared/training').then(m => ({ default: Object.values(m)[0] as any })));
-const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin').then(m => ({ default: m.KnowledgeBase })));
-const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin').then(m => ({ default: m.KBArticle })));
-const MarketingShowcase = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
-const DevPreview = React.lazy(() => import('./routes/shared/pages').then(m => ({ default: Object.values(m)[0] as any })));
+const Profile = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.Profile })));
+const SupportHub = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.SupportHub })));
+const SupportTicket = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.SupportTicket })));
+const Messaging = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.Messaging })));
+const VisitDetails = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.VisitDetails })));
+const VisitCompletion = React.lazy(() => import('./routes/shared').then((m: any) => ({ default: m.VisitCompletion })));
+const UserTrainingPage = React.lazy(() => import('./routes/shared').then(m => ({ default: Object.values(m)[0] as any })));
+const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform').then(m => ({ default: m.KnowledgeBase })));
+const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform').then(m => ({ default: m.KBArticle })));
+const MarketingShowcase = React.lazy(() => import('./routes/shared').then(m => ({ default: Object.values(m)[0] as any })));
+const DevPreview = React.lazy(() => import('./routes/shared').then(m => ({ default: Object.values(m)[0] as any })));
 
 // Fallback Loader
 // Skeleton Loader for lazy-loaded route chunks

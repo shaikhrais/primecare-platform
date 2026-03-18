@@ -11,8 +11,24 @@
 // ──────────────────────────────────────────────────────────────────────────────
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { getSectionsForPage, type PageSection, type SectionType, getPageById } from 'prime-care-shared';
 import { PageActionBar } from './PageActionBar';
+
+function translateDeep(obj: any, t: (key: string) => string): any {
+    if (typeof obj === 'string') {
+        return obj.startsWith('V_') ? t(obj) : t(obj);
+    }
+    if (Array.isArray(obj)) return obj.map((item) => translateDeep(item, t));
+    if (obj !== null && typeof obj === 'object' && !React.isValidElement(obj)) {
+        const newObj: any = {};
+        for (const [key, val] of Object.entries(obj)) {
+            newObj[key] = translateDeep(val, t);
+        }
+        return newObj;
+    }
+    return obj;
+}
 import {
     SectionHeader,
     SectionKpiCards, type KpiCardItem,
@@ -110,10 +126,11 @@ export function PageTemplate({
     isLive, lastUpdated,
     sectionData = {}, overrides = {}, actionHandlers = {},
 }: PageTemplateProps) {
+    const { t } = useTranslation();
     const sections = getSectionsForPage(pageId);
     const entry = getPageById(pageId);
-    const finalTitle = title || entry?.label || pageId;
-    const finalSubtitle = subtitle || entry?.description || '';
+    const finalTitle = t((title || entry?.label || pageId) as string);
+    const finalSubtitle = subtitle ? t(subtitle) : (entry?.description ? t(entry.description) : '');
 
     const renderSection = (section: PageSection) => {
         // 1. Custom override wins
@@ -147,15 +164,16 @@ export function PageTemplate({
         }
 
         // 6. Component Map lookup — 1 line per type, no switch needed
-        const entry = SECTION_MAP[section.type];
-        if (entry) {
-            const sectionDataValue = data?.[entry.dataKey];
+        const entryMap = SECTION_MAP[section.type];
+        if (entryMap) {
+            const sectionDataValue = data?.[entryMap.dataKey];
             if (sectionDataValue) {
-                const Component = entry.component;
+                const Component = entryMap.component;
+                const translatedDataValue = translateDeep(sectionDataValue, t);
                 // For kpiCards the data shape is an array, for others it's an object with spread props
-                if (entry.dataKey === 'kpiCards') return <Component key={section.id} items={sectionDataValue} />;
-                if (entry.dataKey === 'alerts') return <Component key={section.id} alerts={sectionDataValue} />;
-                return <Component key={section.id} {...(sectionDataValue as any)} />;
+                if (entryMap.dataKey === 'kpiCards') return <Component key={section.id} items={translatedDataValue} />;
+                if (entryMap.dataKey === 'alerts') return <Component key={section.id} alerts={translatedDataValue} />;
+                return <Component key={section.id} {...(translatedDataValue as any)} />;
             }
             return <SectionPlaceholder key={section.id} section={section} />;
         }

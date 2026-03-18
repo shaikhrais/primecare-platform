@@ -1,3 +1,4 @@
+import { API_VARS } from './api-vars';
 // ──────────────────────────────────────────────────────────────────────────────
 // ApiRegistry — Platform-level API paths (admin, scrum-master, system, etc.)
 //

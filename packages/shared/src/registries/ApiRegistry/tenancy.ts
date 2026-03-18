@@ -1,3 +1,4 @@
+import { API_VARS } from './api-vars';
 export const TENANCY = {
     MANAGER: {
         DASHBOARD_KPI: API_VARS.API_V1_MANAGER_DASHBOARD_KPI,

@@ -1,3 +1,4 @@
+import { API_VARS } from './api-vars';
 import { TENANCY } from './tenancy';
 import { PLATFORM } from './platform';
 
