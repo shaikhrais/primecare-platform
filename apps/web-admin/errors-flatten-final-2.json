@@ -1,0 +1,7 @@
+[
+  "src/app/routes/platform/admin/page-registry.tsx(6,39): error TS2307: Cannot find module './registryMeta' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/security/useAccountingData.ts(2,27): error TS2307: Cannot find module '../../../../../../shared/utils/apiClient' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/security/useAccountingData.ts(4,34): error TS2307: Cannot find module '../../../../../../shared/hooks/useRegistryQuery' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/security/useLedgerData.ts(2,27): error TS2307: Cannot find module '../../../../../../shared/utils/apiClient' or its corresponding type declarations.",
+  "src/app/routes/platform/admin/security/useLedgerData.ts(3,34): error TS2307: Cannot find module '../../../../../../shared/hooks/useRegistryQuery' or its corresponding type declarations."
+]

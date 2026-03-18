@@ -12,27 +12,27 @@ import { describe, it, expect } from 'vitest';
 
 describe('Auth Page Exports', () => {
     it('Login page exports', async () => {
-        const mod: any = await import('@/app/routes/auth/login');
+        const mod: any = await import('../app/routes/auth/pages/login');
         expect(mod.default).toBeDefined();
     });
 
     it('Register page exports', async () => {
-        const mod: any = await import('@/app/routes/auth/register');
+        const mod: any = await import('../app/routes/auth/pages/register');
         expect(mod.default).toBeDefined();
     });
 
     it('ForgotPassword page exports', async () => {
-        const mod: any = await import('@/app/routes/auth/forgot-password');
+        const mod: any = await import('../app/routes/auth/pages/forgot-password');
         expect(mod.default).toBeDefined();
     });
 
     it('ResetPassword page exports', async () => {
-        const mod: any = await import('@/app/routes/auth/reset-password');
+        const mod: any = await import('../app/routes/auth/pages/reset-password');
         expect(mod.default).toBeDefined();
     });
 
     it('Login index barrel exports', async () => {
-        const mod: any = await import('@/app/routes/auth/login/index');
+        const mod: any = await import('../app/routes/auth/pages/login');
         expect(mod).toBeDefined();
     });
 });

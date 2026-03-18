@@ -1,6 +1,6 @@
 // T17 Financial Ledger: interfaces and data loading hook
-import { apiClient } from '../../../../../../shared/utils/apiClient';
-import { useRegistryQuery } from '../../../../../../shared/hooks/useRegistryQuery';
+import { apiClient } from '../../../../../shared/utils/apiClient';
+import { useRegistryQuery } from '../../../../../shared/hooks/useRegistryQuery';
 import { useQueryClient } from '@tanstack/react-query';
 
 export interface JournalEntry {

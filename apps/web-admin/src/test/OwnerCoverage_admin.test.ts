@@ -613,35 +613,35 @@ describe('Owner Coverage: admin (91 pages)', () => {
     });
 
     it('H20: Logistics Hub is importable and owned by admin', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('T64: Region Mapping is importable and owned by admin', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('T65: Realtime Capacity is importable and owned by admin', async () => {
-        const mod: any = await import('@/app/routes/tenancy/admin/ops');
+        const mod: any = await import('../app/routes/tenancy/admin/pages/ops');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('G1: Form Registry is importable and owned by admin', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/form-registry/index');
+        const mod: any = await import('../app/routes/platform/admin/form-registry');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');
     });
 
     it('G2: Page Registry is importable and owned by admin', async () => {
-        const mod: any = await import('@/app/routes/platform/admin/page-registry/index');
+        const mod: any = await import('../app/routes/platform/admin/page-registry');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
         expect('admin').toBe('admin');

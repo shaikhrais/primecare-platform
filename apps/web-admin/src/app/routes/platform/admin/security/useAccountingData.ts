@@ -1,7 +1,7 @@
 // D3 — Accounting Dashboard: TypeScript interfaces and data loading hook
-import { apiClient } from '../../../../../../shared/utils/apiClient';
+import { apiClient } from '../../../../../shared/utils/apiClient';
 import { AdminRegistry } from 'prime-care-shared';
-import { useRegistryQuery } from '../../../../../../shared/hooks/useRegistryQuery';
+import { useRegistryQuery } from '../../../../../shared/hooks/useRegistryQuery';
 import { useQueryClient } from '@tanstack/react-query';
 
 const { ApiRegistry } = AdminRegistry;

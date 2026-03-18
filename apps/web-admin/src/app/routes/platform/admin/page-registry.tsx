@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { LayoutGrid, Search, Filter, Network, List } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import type { PageType, PageEntry, MasterEntry } from 'prime-care-shared';
-import { TYPE_META, OWNER_META } from './registryMeta';
+import { TYPE_META, OWNER_META } from './page-registry/registryMeta';
 
 
 
