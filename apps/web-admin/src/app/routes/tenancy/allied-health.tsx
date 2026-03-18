@@ -6,7 +6,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // --- Merged from D18-AlliedHealthDashboard.tsx ---
 export function AlliedHealthDashboard() {
     return (
-        <PageTemplate pageId="D18" title="Allied Health Dashboard" subtitle="Allied health team coordination and treatment tracking"
+        <PageTemplate pageId="D18"  
             sectionData={PageSectionRegistry['D18']}
         />
     );
@@ -16,7 +16,7 @@ export function AlliedHealthDashboard() {
 // --- Merged from T42-SignOff.tsx ---
 export function SignOff() {
     return (
-        <PageTemplate pageId="T42" title="Clinical Sign-Off" subtitle="Review and sign off on completed clinical documentation"
+        <PageTemplate pageId="T42"  
             sectionData={PageSectionRegistry['T42']}
         />
     );
@@ -26,7 +26,7 @@ export function SignOff() {
 // --- Merged from L21-TreatmentList.tsx ---
 export function TreatmentList() {
     return (
-        <PageTemplate pageId="L21" title="Treatment List" subtitle="Active treatments, therapy sessions and progress tracking"
+        <PageTemplate pageId="L21"  
             sectionData={PageSectionRegistry['L21']}
         />
     );

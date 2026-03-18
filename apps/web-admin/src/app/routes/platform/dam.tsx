@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 
 // --- Extracted from accessibility.tsx ---
 // --- Merged from ScreenReaderContentEditor.tsx ---
@@ -8,8 +8,8 @@ export function ScreenReaderContentEditor() {
     return (
         <PageTemplate 
             pageId="PGE-SRC" 
-            title="✨ Screen Reader Content Editor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SRC']}
         />
     );
@@ -21,8 +21,8 @@ export function ApiLatencyHeatmap() {
     return (
         <PageTemplate 
             pageId="PGE-ALH" 
-            title="✨ Api Latency Heatmap" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-ALH']}
         />
     );
@@ -33,8 +33,8 @@ export function BrowserMatrixTelemetry() {
     return (
         <PageTemplate 
             pageId="PGE-BMT" 
-            title="✨ Browser Matrix Telemetry" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-BMT']}
         />
     );
@@ -45,8 +45,8 @@ export function CoreWebVitalsTracker() {
     return (
         <PageTemplate 
             pageId="PGE-CWV" 
-            title="✨ Core Web Vitals Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CWV']}
         />
     );
@@ -58,8 +58,8 @@ export function LegalComplianceBlockers() {
     return (
         <PageTemplate 
             pageId="PGE-LCB" 
-            title="✨ Legal Compliance Blockers" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LCB']}
         />
     );
@@ -71,8 +71,8 @@ export function DynamicPageRouter() {
     return (
         <PageTemplate 
             pageId="PGE-DPR" 
-            title="✨ Dynamic Page Router" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-DPR']}
         />
     );
@@ -83,8 +83,8 @@ export function MicroCopyAbTesting() {
     return (
         <PageTemplate 
             pageId="PGE-MCA" 
-            title="✨ Micro Copy Ab Testing" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-MCA']}
         />
     );
@@ -95,8 +95,8 @@ export function RichTextGovernance() {
     return (
         <PageTemplate 
             pageId="PGE-RTG" 
-            title="✨ Rich Text Governance" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RTG']}
         />
     );
@@ -108,8 +108,8 @@ export function DynamicTokenEditor() {
     return (
         <PageTemplate 
             pageId="PGE-DTE" 
-            title="✨ Dynamic Token Editor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-DTE']}
         />
     );
@@ -120,8 +120,8 @@ export function FontTypographyRegistry() {
     return (
         <PageTemplate 
             pageId="PGE-FTR" 
-            title="✨ Font Typography Registry" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-FTR']}
         />
     );
@@ -133,8 +133,8 @@ export function AssetCostAttribution() {
     return (
         <PageTemplate 
             pageId="PGE-ACA" 
-            title="✨ Asset Cost Attribution" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-ACA']}
         />
     );
@@ -145,8 +145,8 @@ export function ErrorBoundaryAggregator() {
     return (
         <PageTemplate 
             pageId="PGE-EBA" 
-            title="✨ Error Boundary Aggregator" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-EBA']}
         />
     );
@@ -157,8 +157,8 @@ export function ThirdPartyScriptManager() {
     return (
         <PageTemplate 
             pageId="PGE-TPS" 
-            title="✨ Third Party Script Manager" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TPS']}
         />
     );
@@ -170,8 +170,8 @@ export function GlobalI18nDictionary() {
     return (
         <PageTemplate 
             pageId="PGE-GI1" 
-            title="✨ Global I18n Dictionary" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-GI1']}
         />
     );
@@ -183,8 +183,8 @@ export function AssetExpirationManager() {
     return (
         <PageTemplate 
             pageId="PGE-AEM" 
-            title="✨ Asset Expiration Manager" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-AEM']}
         />
     );
@@ -195,8 +195,8 @@ export function CentralMediaVault() {
     return (
         <PageTemplate 
             pageId="PGE-CMV" 
-            title="✨ Central Media Vault" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CMV']}
         />
     );
@@ -207,8 +207,8 @@ export function MediaUsageHeatmap() {
     return (
         <PageTemplate 
             pageId="PGE-MUH" 
-            title="✨ Media Usage Heatmap" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-MUH']}
         />
     );
@@ -219,8 +219,8 @@ export function SecureDocumentRedactor() {
     return (
         <PageTemplate 
             pageId="PGE-SDR" 
-            title="✨ Secure Document Redactor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SDR']}
         />
     );
@@ -231,8 +231,8 @@ export function ThirdPartyCdnSync() {
     return (
         <PageTemplate 
             pageId="PGE-TPC" 
-            title="✨ Third Party Cdn Sync" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TPC']}
         />
     );
@@ -244,8 +244,8 @@ export function AssetPermissionMatrix() {
     return (
         <PageTemplate 
             pageId="PGE-APM" 
-            title="✨ Asset Permission Matrix" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-APM']}
         />
     );
@@ -256,8 +256,8 @@ export function GlobalDigitalKillSwitch() {
     return (
         <PageTemplate 
             pageId="PGE-GDK" 
-            title="✨ Global Digital Kill Switch" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-GDK']}
         />
     );
@@ -269,8 +269,8 @@ export function NoCodeBuilderMock() {
     return (
         <PageTemplate 
             pageId="PGE-NCB" 
-            title="✨ No Code Builder Mock" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-NCB']}
         />
     );
@@ -282,8 +282,8 @@ export function AbVariantManager() {
     return (
         <PageTemplate 
             pageId="PGE-AVM" 
-            title="✨ Ab Variant Manager" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-AVM']}
         />
     );
@@ -295,8 +295,8 @@ export function ApiEndpointRegistry() {
     return (
         <PageTemplate 
             pageId="PGE-AER" 
-            title="✨ Api Endpoint Registry" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-AER']}
         />
     );
@@ -307,8 +307,8 @@ export function ApiRateLimitConfig() {
     return (
         <PageTemplate 
             pageId="PGE-ARL" 
-            title="✨ Api Rate Limit Config" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-ARL']}
         />
     );
@@ -319,8 +319,8 @@ export function ErrorPayloadInspector() {
     return (
         <PageTemplate 
             pageId="PGE-EPI" 
-            title="✨ Error Payload Inspector" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-EPI']}
         />
     );
@@ -331,8 +331,8 @@ export function FormSchemaFederator() {
     return (
         <PageTemplate 
             pageId="PGE-FSF" 
-            title="✨ Form Schema Federator" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-FSF']}
         />
     );
@@ -343,8 +343,8 @@ export function VisualLogicBuilder() {
     return (
         <PageTemplate 
             pageId="PGE-VLB" 
-            title="✨ Visual Logic Builder" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-VLB']}
         />
     );
@@ -355,8 +355,8 @@ export function WorkflowVersionControl() {
     return (
         <PageTemplate 
             pageId="PGE-WVC" 
-            title="✨ Workflow Version Control" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-WVC']}
         />
     );

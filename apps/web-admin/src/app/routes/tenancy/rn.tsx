@@ -1,6 +1,6 @@
 const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
 
-import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
 import { apiClient } from "@/shared/utils/apiClient";
 import { AdminRegistry } from "prime-care-shared";
@@ -28,7 +28,7 @@ export function getTypePillClass(type: string): string {
 // --- Merged from L18-AssessmentsHub.tsx ---
 export function AssessmentsHub() {
     return (
-        <PageTemplate pageId="L18" title="Assessments Hub" subtitle="Clinical assessments, evaluations and care plan reviews"
+        <PageTemplate pageId="L18"  
             sectionData={PageSectionRegistry['L18']}
         />
     );
@@ -42,7 +42,7 @@ export function AssessmentsHub() {
 // --- Merged from T30-EntryVerify.tsx ---
 export function EntryVerify() {
     return (
-        <PageTemplate pageId="T30" title="Entry Verification" subtitle="Verify and approve daily care entries and documentation"
+        <PageTemplate pageId="T30"  
             sectionData={PageSectionRegistry['T30']}
         />
     );
@@ -56,7 +56,7 @@ export function EntryVerify() {
 // --- Merged from T29-CarePlanManager.tsx ---
 export function CarePlanManager() {
     return (
-        <PageTemplate pageId="T29" title="Care Plan Manager" subtitle="Create and manage individualized client care plans"
+        <PageTemplate pageId="T29"  
             sectionData={PageSectionRegistry['T29']}
         />
     );
@@ -78,7 +78,7 @@ export function CarePlanManager() {
 
 export function RnDashboard() {
     return (
-        <PageTemplate pageId="D15" title="👩‍⚕️ RN Clinical Dashboard" subtitle="Patient assessments, delegations, care plans & medication oversight"
+        <PageTemplate pageId="D15"  
             sectionData={PageSectionRegistry['D15']}
         />
     );
@@ -88,7 +88,7 @@ export function RnDashboard() {
 // --- Merged from D16-MarDashboard.tsx ---
 export function MarDashboard() {
     return (
-        <PageTemplate pageId="D16" title="MAR Dashboard" subtitle="Medication administration overview with compliance tracking"
+        <PageTemplate pageId="D16"  
             sectionData={PageSectionRegistry['D16']}
         />
     );
@@ -97,7 +97,7 @@ export function MarDashboard() {
 // --- Merged from T31-MarClient.tsx ---
 export function MarClient() {
     return (
-        <PageTemplate pageId="T31" title="eMAR Client" subtitle="Electronic medication administration record for client visits"
+        <PageTemplate pageId="T31"  
             sectionData={PageSectionRegistry['T31']}
         />
     );
@@ -137,7 +137,7 @@ export async function commitAdministeredMeds(meds: Medication[]): Promise<boolea
 // --- Merged from L19-RaiAssessments.tsx ---
 export function RaiAssessments() {
     return (
-        <PageTemplate pageId="L19" title="RAI Assessments" subtitle="Resident Assessment Instrument records and scoring"
+        <PageTemplate pageId="L19"  
             sectionData={PageSectionRegistry['L19']}
         />
     );
@@ -146,7 +146,7 @@ export function RaiAssessments() {
 // --- Merged from T33-RaiAssessmentDetail.tsx ---
 export function RaiAssessmentDetail() {
     return (
-        <PageTemplate pageId="T33" title="RAI Assessment Detail" subtitle="Detailed RAI assessment form with scoring and care planning"
+        <PageTemplate pageId="T33"  
             sectionData={PageSectionRegistry['T33']}
         />
     );
@@ -156,7 +156,7 @@ export function RaiAssessmentDetail() {
 // --- Merged from T63-RnCheckInScreen.tsx ---
 export function RnCheckInScreen() {
     return (
-        <PageTemplate pageId="T63" title="RN Check-In" subtitle="Nursing visit check-in with clinical assessment triggers"
+        <PageTemplate pageId="T63"  
             sectionData={PageSectionRegistry['T63']}
         />
     );
@@ -170,7 +170,7 @@ export function RnCheckInScreen() {
 // --- Merged from H16-SupervisionHub.tsx ---
 export function SupervisionHub() {
     return (
-        <PageTemplate pageId="H16" title="Supervision Hub" subtitle="Staff supervision sessions, notes and delegation tracking"
+        <PageTemplate pageId="H16"  
             sectionData={PageSectionRegistry['H16']}
         />
     );
@@ -179,7 +179,7 @@ export function SupervisionHub() {
 // --- Extracted from wound-care.tsx ---
 export function WoundCareDashboard() {
     return (
-        <PageTemplate pageId="WC" title="Wound Care Dashboard" subtitle="Wound Care Management"
+        <PageTemplate pageId="WC"  
             sectionData={PageSectionRegistry['WC']}
         />
     );
@@ -189,7 +189,7 @@ export function WoundCareDashboard() {
 // --- Merged from D17-WoundCareDashboard.tsx ---
 export function WoundCareDashboard_OLD() {
     return (
-        <PageTemplate pageId="D17" title="Wound Care Dashboard" subtitle="Active wound assessments, healing progress and treatment protocols"
+        <PageTemplate pageId="D17"  
             sectionData={PageSectionRegistry['D17']}
         />
     );
@@ -198,7 +198,7 @@ export function WoundCareDashboard_OLD() {
 // --- Merged from T32-WoundCareClient.tsx ---
 export function WoundCareClient() {
     return (
-        <PageTemplate pageId="T32" title="Wound Care Client" subtitle="Document wound assessments, measurements and treatment progress"
+        <PageTemplate pageId="T32"  
             sectionData={PageSectionRegistry['T32']}
         />
     );

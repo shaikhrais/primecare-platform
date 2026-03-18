@@ -1,4 +1,4 @@
-import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import { TableColumn } from "@/shared/components/sections";
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
 import React, { useState } from "react";
@@ -11,7 +11,7 @@ import React, { useState } from "react";
 // --- Merged from T25-ComplianceSync.tsx ---
 export function ComplianceSync() {
     return (
-        <PageTemplate pageId="T25" title="Compliance Sync" subtitle="Regulatory compliance status and document synchronization"
+        <PageTemplate pageId="T25"  
             sectionData={PageSectionRegistry['T25']}
         />
     );
@@ -33,7 +33,7 @@ export function ComplianceSync() {
 
 export function DailyEntry() {
     return (
-        <PageTemplate pageId="T20" title="📝 Daily Entry" subtitle="Record ADLs, vitals & wellness observations for client visits"
+        <PageTemplate pageId="T20"  
             sectionData={PageSectionRegistry['T20']}
         />
     );
@@ -55,7 +55,7 @@ export function DailyEntry() {
 
 export function ManagerDashboard() {
     return (
-        <PageTemplate pageId="D7" title="📊 Manager Dashboard" subtitle="Branch operations, staff performance & business intelligence"
+        <PageTemplate pageId="D7"  
             sectionData={PageSectionRegistry['D7']}
         />
     );
@@ -83,8 +83,8 @@ export function DocumentSigningCenter() {
     return (
         <PageTemplate
             pageId="H27"
-            title="✍️ Document Signing Center"
-            subtitle="Digital signatures, audit trails & compliance documents"
+            
+            
             actionPageId="manager.document-signing"
             sectionData={PageSectionRegistry['H27']}
         />
@@ -151,8 +151,8 @@ export function GamificationHub() {
     return (
         <PageTemplate
             pageId="H25"
-            title="🎮 Gamification Hub"
-            subtitle="PSW engagement, achievements, streaks & rewards"
+            
+            
             actionPageId="manager.gamification"
             sectionData={PageSectionRegistry['H25']}
         />
@@ -167,7 +167,7 @@ export function GamificationHub() {
 // --- Merged from L13-Evaluations.tsx ---
 export function Evaluations() {
     return (
-        <PageTemplate pageId="L13" title="Performance Evaluations" subtitle="Staff evaluation records, scores and improvement plans"
+        <PageTemplate pageId="L13"  
             sectionData={PageSectionRegistry['L13']}
         />
     );
@@ -177,7 +177,7 @@ export function Evaluations() {
 // --- Merged from D9-BranchPL.tsx ---
 export function BranchPL() {
     return (
-        <PageTemplate pageId="D9" title="Branch P&L" subtitle="Branch-level profit and loss analysis with margin tracking"
+        <PageTemplate pageId="D9"  
             sectionData={PageSectionRegistry['D9']}
         />
     );
@@ -186,7 +186,7 @@ export function BranchPL() {
 // --- Merged from T24-PayrollVerification.tsx ---
 export function PayrollVerification() {
     return (
-        <PageTemplate pageId="T24" title="Payroll Verification" subtitle="Verify timesheets, approve hours and process payroll"
+        <PageTemplate pageId="T24"  
             sectionData={PageSectionRegistry['T24']}
         />
     );
@@ -197,8 +197,8 @@ export function PerformanceReviews() {
     return (
         <PageTemplate
             pageId="L23"
-            title="📊 Performance Reviews"
-            subtitle="Q1 2026 — PSW performance evaluations"
+            
+            
             actionPageId="manager.performance-reviews"
             sectionData={PageSectionRegistry['L23']}
         />
@@ -221,8 +221,8 @@ export function IoTMonitoring() {
     return (
         <PageTemplate
             pageId="H26"
-            title="📡 IoT & Wearable Monitoring"
-            subtitle="Real-time health device monitoring, alerts & predictive insights"
+            
+            
             actionPageId="manager.iot-monitoring"
             sectionData={PageSectionRegistry['H26']}
         />
@@ -237,7 +237,7 @@ export function IoTMonitoring() {
 // --- Merged from H12-OperationsHub.tsx ---
 export function OperationsHub() {
     return (
-        <PageTemplate pageId="H12" title="Operations Hub" subtitle="Approval workflows, incident management and organizational oversight"
+        <PageTemplate pageId="H12"  
             sectionData={PageSectionRegistry['H12']}
         />
     );
@@ -248,7 +248,7 @@ export function OperationsHub() {
 // --- Merged from D10-RegionalStats.tsx ---
 export function RegionalStats() {
     return (
-        <PageTemplate pageId="D10" title="Regional Statistics" subtitle="Regional performance metrics and KPI comparisons"
+        <PageTemplate pageId="D10"  
             sectionData={PageSectionRegistry['D10']}
         />
     );
@@ -258,7 +258,7 @@ export function RegionalStats() {
 // --- Merged from T23-StaffRanker.tsx ---
 export function StaffRanker() {
     return (
-        <PageTemplate pageId="T23" title="Staff Ranker" subtitle="Staff performance ranking with reliability and quality scores"
+        <PageTemplate pageId="T23"  
             sectionData={PageSectionRegistry['T23']}
         />
     );
@@ -274,7 +274,7 @@ export function StaffRanker() {
 // --- Merged from T19-Portfolio.tsx ---
 export function ManagementPortfolio() {
     return (
-        <PageTemplate pageId="T19" title="Client Portfolio" subtitle="Client case portfolio with revenue and visit analytics"
+        <PageTemplate pageId="T19"  
             sectionData={PageSectionRegistry['T19']}
         />
     );
@@ -288,7 +288,7 @@ export function ManagementPortfolio() {
 // --- Merged from T21-ServiceReview.tsx ---
 export function ServiceReview() {
     return (
-        <PageTemplate pageId="T21" title="Service Review" subtitle="Service quality reviews and improvement tracking"
+        <PageTemplate pageId="T21"  
             sectionData={PageSectionRegistry['T21']}
         />
     );
@@ -302,7 +302,7 @@ export function ServiceReview() {
 // --- Merged from T22-SurveyManager.tsx ---
 export function SurveyManager() {
     return (
-        <PageTemplate pageId="T22" title="Survey Manager" subtitle="Create, distribute and analyze satisfaction surveys"
+        <PageTemplate pageId="T22"  
             sectionData={PageSectionRegistry['T22']}
         />
     );
@@ -344,8 +344,8 @@ export function TrainingAcademy() {
     return (
         <PageTemplate
             pageId="H29"
-            title="🎓 Training Academy"
-            subtitle="Courses, certifications & staff development tracking"
+            
+            
             actionPageId="manager.training-academy"
             sectionData={PageSectionRegistry['H29']}
         />

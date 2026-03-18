@@ -1,6 +1,6 @@
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React from 'react';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 
 // --- Extracted from ops.tsx ---
 // removed re-export: export { LogisticsHub, RegionMapping, RealtimeCapacity };
@@ -9,7 +9,7 @@ import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
 // --- Merged from H20-LogisticsHub.tsx ---
 export function LogisticsHub() {
     return (
-        <PageTemplate pageId="H20" title="Logistics Hub" subtitle="Fleet management, route optimization and delivery tracking"
+        <PageTemplate pageId="H20"  
             sectionData={PageSectionRegistry['H20']}
         />
     );
@@ -18,7 +18,7 @@ export function LogisticsHub() {
 // --- Merged from T64-RegionMapping.tsx ---
 export function RegionMapping() {
     return (
-        <PageTemplate pageId="T64" title="Region Mapping" subtitle="Geographic region configuration and service area boundaries"
+        <PageTemplate pageId="T64"  
             sectionData={PageSectionRegistry['T64']}
         />
     );
@@ -27,7 +27,7 @@ export function RegionMapping() {
 // --- Merged from T65-RealtimeCapacity.tsx ---
 export function RealtimeCapacity() {
     return (
-        <PageTemplate pageId="T65" title="Realtime Capacity" subtitle="Live staffing capacity and availability dashboard"
+        <PageTemplate pageId="T65"  
             sectionData={PageSectionRegistry['T65']}
         />
     );

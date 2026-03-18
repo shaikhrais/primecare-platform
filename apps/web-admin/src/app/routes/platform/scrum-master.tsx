@@ -1,6 +1,6 @@
 const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
 
-import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import AppLayout from "@/shared/components/layout/AppLayout";
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
 import RequireRole from "@/shared/rbac/RequireRole";
@@ -104,8 +104,8 @@ export function DatabaseSchemaAudit() {
     return (
         <PageTemplate 
             pageId="PGE-DSA" 
-            title="✨ Database Schema Audit" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-DSA']}
         />
     );
@@ -116,8 +116,8 @@ export function EnvironmentAudit() {
     return (
         <PageTemplate 
             pageId="PGE-EA" 
-            title="✨ Environment Audit" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-EA']}
         />
     );
@@ -128,8 +128,8 @@ export function InteractionAudit() {
     return (
         <PageTemplate 
             pageId="PG-207" 
-            title="RESPONSE BOT" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-207']}
         />
     );
@@ -140,8 +140,8 @@ export function RegistryIntegrityCheck() {
     return (
         <PageTemplate 
             pageId="PGE-RIC" 
-            title="✨ Registry Integrity Check" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RIC']}
         />
     );
@@ -152,8 +152,8 @@ export function ResponseBot() {
     return (
         <PageTemplate 
             pageId="PGE-RB" 
-            title="✨ Response Bot" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RB']}
         />
     );
@@ -164,8 +164,8 @@ export function TechnicalAuditPortal() {
     return (
         <PageTemplate 
             pageId="PGE-TAP" 
-            title="✨ Technical Audit Portal" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TAP']}
         />
     );
@@ -216,8 +216,8 @@ export function BuildHealthPage() {
     return (
         <PageTemplate 
             pageId="PG-610" 
-            title="Build & Deployment Health" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-610']}
         />
     );
@@ -226,7 +226,7 @@ export function BuildHealthPage() {
 // --- Extracted from dashboard.tsx ---
 export function ScrumMasterDashboard() {
     return (
-        <PageTemplate pageId="SM" title="Command Center" subtitle="Scrum Master Command Center"
+        <PageTemplate pageId="SM"  
             actionPageId="scrum_master.dashboard"
             sectionData={PageSectionRegistry['SM']}
         />
@@ -283,8 +283,8 @@ export function DeveloperKb() {
     return (
         <PageTemplate 
             pageId="PG-880" 
-            title="Implementation Specs: {selectedRole.toUpperCase()}" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-880']}
         />
     );
@@ -295,8 +295,8 @@ export function DeveloperPortal() {
     return (
         <PageTemplate 
             pageId="PG-695" 
-            title="Developer Portal" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-695']}
         />
     );
@@ -307,8 +307,8 @@ export function E2eRunner() {
     return (
         <PageTemplate 
             pageId="PG-205" 
-            title="E2eRunner" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-205']}
         />
     );
@@ -320,8 +320,8 @@ export function RoleFlowsPage() {
     return (
         <PageTemplate 
             pageId="PGE-RFP" 
-            title="✨ Role Flows Page" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RFP']}
         />
     );
@@ -332,8 +332,8 @@ export function StepAuditModal() {
     return (
         <PageTemplate 
             pageId="PGE-SAM" 
-            title="✨ Step Audit Modal" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SAM']}
         />
     );
@@ -345,8 +345,8 @@ export function ImpersonationTool() {
     return (
         <PageTemplate 
             pageId="PGE-IT" 
-            title="✨ Impersonation Tool" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-IT']}
         />
     );
@@ -358,8 +358,8 @@ export function LocalizationPage() {
     return (
         <PageTemplate 
             pageId="PG-233" 
-            title="Localization Health" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-233']}
         />
     );
@@ -371,8 +371,8 @@ export function SystemHealthMonitor() {
     return (
         <PageTemplate 
             pageId="PGE-SHM" 
-            title="✨ System Health Monitor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SHM']}
         />
     );
@@ -384,8 +384,8 @@ export function PerformancePage() {
     return (
         <PageTemplate 
             pageId="PG-128" 
-            title="Performance Orchestration" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-128']}
         />
     );
@@ -425,8 +425,8 @@ export function DigitalPropertyManager() {
     return (
         <PageTemplate 
             pageId="PG-454" 
-            title="🏛️ Digital Property Manager" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-454']}
         />
     );
@@ -474,8 +474,8 @@ export function RegistryAutoRepair() {
     return (
         <PageTemplate 
             pageId="PGE-RAR" 
-            title="✨ Registry Auto Repair" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RAR']}
         />
     );
@@ -797,8 +797,8 @@ export function SecurityScansPage() {
     return (
         <PageTemplate 
             pageId="PG-738" 
-            title="Security & Vulnerability Scans" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-738']}
         />
     );
@@ -812,8 +812,8 @@ export function ApiEndpointsHub() {
     return (
         <PageTemplate 
             pageId="PGE-AEH" 
-            title="✨ Api Endpoints Hub" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-AEH']}
         />
     );
@@ -825,8 +825,8 @@ export function ThemeCoreCenter() {
     return (
         <PageTemplate 
             pageId="PG-423" 
-            title="🎨Theme Core Center" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-423']}
         />
     );
@@ -928,8 +928,8 @@ export function UsageStatisticsManager() {
     return (
         <PageTemplate 
             pageId="PG-128" 
-            title="📊 Usage Statistics Manager" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-128']}
         />
     );

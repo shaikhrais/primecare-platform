@@ -1,6 +1,6 @@
 const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = AdminRegistry;
 
-import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
 import { AdminRegistry } from "prime-care-shared";
 import React from "react";
@@ -13,7 +13,7 @@ import React from "react";
 // --- Merged from F15-Availability.tsx ---
 export function AvailabilityPage() {
     return (
-        <PageTemplate pageId="F15" title="Set Availability" subtitle="Manage your weekly availability and time-off preferences"
+        <PageTemplate pageId="F15"  
             sectionData={PageSectionRegistry['F15']}
         />
     );
@@ -23,7 +23,7 @@ export function AvailabilityPage() {
 // --- Merged from H14-CredentialVault.tsx ---
 export function CredentialVault() {
     return (
-        <PageTemplate pageId="H14" title="Credential Vault" subtitle="Professional certifications, licenses and compliance documents"
+        <PageTemplate pageId="H14"  
             sectionData={PageSectionRegistry['H14']}
         />
     );
@@ -45,7 +45,7 @@ export function CredentialVault() {
 
 export function PswDashboard() {
     return (
-        <PageTemplate pageId="D14" title="🏠 PSW Dashboard" subtitle="Your home base — shifts, earnings, compliance & wellness at a glance"
+        <PageTemplate pageId="D14"  
             sectionData={PageSectionRegistry['D14']}
         />
     );
@@ -59,7 +59,7 @@ export function PswDashboard() {
 // --- Merged from R3-PswEarnings.tsx ---
 export function PswEarnings() {
     return (
-        <PageTemplate pageId="R3" title="My Earnings" subtitle="View your earnings breakdown, pay stubs and projections"
+        <PageTemplate pageId="R3"  
             sectionData={PageSectionRegistry['R3']}
         />
     );
@@ -73,7 +73,7 @@ export function PswEarnings() {
 // --- Merged from F14-ExpenseClaim.tsx ---
 export function ExpenseReportForm() {
     return (
-        <PageTemplate pageId="F14" title="Expense Claim" subtitle="Submit expense claims with receipt upload and approval tracking"
+        <PageTemplate pageId="F14"  
             sectionData={PageSectionRegistry['F14']}
         />
     );
@@ -83,7 +83,7 @@ export function ExpenseReportForm() {
 // --- Merged from T27-ProviderSocial.tsx ---
 export function ProviderSocial() {
     return (
-        <PageTemplate pageId="T27" title="Provider Social" subtitle="Team social feed, announcements and peer recognition"
+        <PageTemplate pageId="T27"  
             sectionData={PageSectionRegistry['T27']}
         />
     );
@@ -93,7 +93,7 @@ export function ProviderSocial() {
 // --- Merged from G1-PswUserGuide.tsx ---
 export function PswUserGuide() {
     return (
-        <PageTemplate pageId="G1" title="PSW User Guide" subtitle="Interactive guide to using the PrimeCare PSW platform"
+        <PageTemplate pageId="G1"  
             sectionData={PageSectionRegistry['G1']}
         />
     );
@@ -107,7 +107,7 @@ export function PswUserGuide() {
 // --- Merged from F13-ShiftHandover.tsx ---
 export function HandoverPage() {
     return (
-        <PageTemplate pageId="F13" title="Shift Handover" subtitle="Complete shift handover documentation and notes"
+        <PageTemplate pageId="F13"  
             sectionData={PageSectionRegistry['F13']}
         />
     );
@@ -117,7 +117,7 @@ export function HandoverPage() {
 // --- Merged from T28-MileageTracker.tsx ---
 export function MileageTracker() {
     return (
-        <PageTemplate pageId="T28" title="Mileage Tracker" subtitle="Log travel mileage between client visits for reimbursement"
+        <PageTemplate pageId="T28"  
             sectionData={PageSectionRegistry['T28']}
         />
     );
@@ -131,7 +131,7 @@ export function MileageTracker() {
 // --- Merged from L17-OpenShifts.tsx ---
 export function OpenShifts() {
     return (
-        <PageTemplate pageId="L17" title="Open Shifts" subtitle="Available shifts to pick up and schedule requests"
+        <PageTemplate pageId="L17"  
             sectionData={PageSectionRegistry['L17']}
         />
     );
@@ -140,7 +140,7 @@ export function OpenShifts() {
 // --- Merged from T60-OpenOffers.tsx ---
 export function OpenOffers() {
     return (
-        <PageTemplate pageId="T60" title="Open Offers" subtitle="Browse and accept available shift offers in your area"
+        <PageTemplate pageId="T60"  
             sectionData={PageSectionRegistry['T60']}
         />
     );
@@ -154,14 +154,14 @@ export function OpenOffers() {
 // --- Merged from R4-PayoutHistory.tsx ---
 export function PayoutHistory() {
     return (
-        <PageTemplate pageId="R4" title="Payout History" subtitle="Historical payout records with filtering and export"
+        <PageTemplate pageId="R4"  
             sectionData={PageSectionRegistry['R4']}
         />
     );
 }
 
 // --- Extracted from pswHandlers.ts ---
-const { ContentRegistry, ApiRegistry } = AdminRegistry;
+
 const API_URL_1 = import.meta.env.VITE_API_URL;
 
 export interface Shift { id: string; client: { fullName: string }; serviceAddressLine1: string; requestedStartAt: string; status: string; service: { name: string }; }
@@ -209,7 +209,7 @@ export async function fetchDashboardData(showToast: (m: string, t: string) => vo
 // --- Merged from L16-PswSchedule.tsx ---
 export function PswSchedule() {
     return (
-        <PageTemplate pageId="L16" title="My Schedule" subtitle="View and manage your upcoming shifts and appointments"
+        <PageTemplate pageId="L16"  
             sectionData={PageSectionRegistry['L16']}
         />
     );
@@ -218,7 +218,7 @@ export function PswSchedule() {
 // --- Merged from T61-LiveVisit.tsx ---
 export function LiveVisit() {
     return (
-        <PageTemplate pageId="T61" title="Live Visit" subtitle="Active visit tracking with real-time check-in and task completion"
+        <PageTemplate pageId="T61"  
             sectionData={PageSectionRegistry['T61']}
         />
     );
@@ -227,7 +227,7 @@ export function LiveVisit() {
 // --- Merged from T62-CheckInScreen.tsx ---
 export function CheckInScreen() {
     return (
-        <PageTemplate pageId="T62" title="Check-In" subtitle="GPS-verified check-in and check-out for client visits"
+        <PageTemplate pageId="T62"  
             sectionData={PageSectionRegistry['T62']}
         />
     );
@@ -241,7 +241,7 @@ export function CheckInScreen() {
 // --- Merged from T26-ShiftConfirmation.tsx ---
 export function ShiftConfirmation() {
     return (
-        <PageTemplate pageId="T26" title="Shift Confirmation" subtitle="Confirm, modify or cancel upcoming shift assignments"
+        <PageTemplate pageId="T26"  
             sectionData={PageSectionRegistry['T26']}
         />
     );
@@ -251,7 +251,7 @@ export function ShiftConfirmation() {
 // --- Merged from H15-PswTrainingHub.tsx ---
 export function PswTrainingHub() {
     return (
-        <PageTemplate pageId="H15" title="PSW Training Hub" subtitle="Training modules, certifications and compliance tracking"
+        <PageTemplate pageId="H15"  
             sectionData={PageSectionRegistry['H15']}
         />
     );

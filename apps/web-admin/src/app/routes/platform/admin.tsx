@@ -2,7 +2,7 @@ const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry
 
 import { useRegistryQuery } from "../../../shared/hooks/useRegistryQuery";
 import { apiClient } from "../../../shared/utils/apiClient";
-import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import AppLayout from "@/shared/components/layout/AppLayout";
 import { TableColumn, TabItem } from "@/shared/components/sections";
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
@@ -30,7 +30,7 @@ import { Route, useNavigate, useSearchParams } from "react-router";
 
 export function ClientAdmission() {
     return (
-        <PageTemplate pageId="F6" title="📋 Client Admission" subtitle="New client intake workflow — referral, demographics, assessment & service plan"
+        <PageTemplate pageId="F6"  
             sectionData={PageSectionRegistry['F6']}
         />
     );
@@ -73,8 +73,8 @@ export function PredictiveAnalytics() {
     return (
         <PageTemplate
             pageId="T52"
-            title="📈 Predictive Analytics"
-            subtitle="AI-powered risk scoring, trend forecasting, anomaly detection & correlation analysis"
+            
+            
             actionPageId="admin.predictive-analytics"
             sectionData={PageSectionRegistry['T52']}
         />
@@ -92,8 +92,8 @@ export function ChurnRisk() {
     return (
         <PageTemplate
             pageId="T53"
-            title="⚠️ Churn Risk Analysis"
-            subtitle="AI-predicted client attrition risk with actionable intervention recommendations"
+            
+            
             actionPageId="admin.churn-risk"
             sectionData={PageSectionRegistry['T53']}
         />
@@ -107,12 +107,13 @@ export function ChurnRisk() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-export function Visit_xxxOptimization() {
+const VisitComponent = (props: any) => <></>;
+export function VisitOptimization() {
     return (
         <PageTemplate
             pageId="T54"
-            title="🗺️ Visit Optimization"
-            subtitle="AI-powered route clustering, schedule optimization & PSW-client matching"
+            
+            
             actionPageId="admin.visit-optimization"
             sectionData={PageSectionRegistry['T54']}
         />
@@ -130,8 +131,8 @@ export function SentimentAnalysis() {
     return (
         <PageTemplate
             pageId="T55"
-            title="💬 Sentiment Analysis"
-            subtitle="AI-powered sentiment tracking from surveys, calls, and feedback forms"
+            
+            
             actionPageId="admin.sentiment-analysis"
             sectionData={PageSectionRegistry['T55']}
         />
@@ -144,7 +145,7 @@ export function SentimentAnalysis() {
 
 export function ComplianceExport() {
     return (
-        <PageTemplate pageId="R10" title="📋 Compliance Export" subtitle="Generate compliance reports for HIPAA, PIPEDA, OHSA & accreditation"
+        <PageTemplate pageId="R10"  
             sectionData={PageSectionRegistry['R10']}
         />
     );
@@ -155,7 +156,7 @@ export function ComplianceExport() {
 
 export function RegulatoryExport() {
     return (
-        <PageTemplate pageId="R13" title="🏛️ Regulatory Export" subtitle="Government & regulatory body submissions — CRA, WSIB, MOH, ESA"
+        <PageTemplate pageId="R13"  
             sectionData={PageSectionRegistry['R13']}
         />
     );
@@ -166,7 +167,7 @@ export function RegulatoryExport() {
 
 export function AuditDownload() {
     return (
-        <PageTemplate pageId="R9" title="📥 Audit Download" subtitle="Download audit trail exports in CSV, PDF & XBRL formats"
+        <PageTemplate pageId="R9"  
             sectionData={PageSectionRegistry['R9']}
         />
     );
@@ -186,7 +187,7 @@ export function AuditDownload() {
 
 export function AuditLogs() {
     return (
-        <PageTemplate pageId="L6" title="📋 Audit Logs" subtitle="Complete audit trail of all platform actions"
+        <PageTemplate pageId="L6"  
             actionPageId="admin.audit-logs"
             sectionData={PageSectionRegistry['L6']}
         />
@@ -203,7 +204,7 @@ const cols_2: TableColumn[] = [
 
 export function AuthList() {
     return (
-        <PageTemplate pageId="L7" title="📋 Service Authorizations" subtitle="Track approved hours, utilization & expiration dates"
+        <PageTemplate pageId="L7"  
             actionPageId="admin.authorizations"
             sectionData={PageSectionRegistry['L7']}
         />
@@ -215,7 +216,7 @@ export function AuthList() {
 
 export function AuthUtilization() {
     return (
-        <PageTemplate pageId="R6" title="📊 Authorization Utilization" subtitle="Payer-specific utilization rates, exhaustion forecasts & renewal tracking"
+        <PageTemplate pageId="R6"  
             sectionData={PageSectionRegistry['R6']}
         />
     );
@@ -226,7 +227,7 @@ export function AuthUtilization() {
 
 export function AuthAlerts() {
     return (
-        <PageTemplate pageId="T49" title="🔔 Authorization Alerts" subtitle="Exhaustion warnings, expiration alerts & renewal notifications"
+        <PageTemplate pageId="T49"  
             sectionData={PageSectionRegistry['T49']}
         />
     );
@@ -243,8 +244,8 @@ export function AutoPilotDashboard() {
     return (
         <PageTemplate
             pageId="T7"
-            title="🤖 AutoPilot Dashboard"
-            subtitle="Workflow automations, event triggers, scheduled tasks & notification rules"
+            
+            
             actionPageId="admin.autopilot"
             sectionData={PageSectionRegistry['T7']}
         />
@@ -260,7 +261,7 @@ const cols_4: TableColumn[] = [
 
 export function BookingRequestQueue() {
     return (
-        <PageTemplate pageId="L12" title="📅 Booking Request Queue" subtitle="Incoming service requests, assignment & scheduling"
+        <PageTemplate pageId="L12"  
             sectionData={PageSectionRegistry['L12']}
         />
     );
@@ -272,7 +273,7 @@ export function BookingRequestQueue() {
 
 export function ClaimsList() {
     return (
-        <PageTemplate pageId="L10" title="📋 Claims Management" subtitle="Submit, track & manage insurance claims across all payers"
+        <PageTemplate pageId="L10"  
             actionPageId="admin.claims"
             sectionData={PageSectionRegistry['L10']}
         />
@@ -284,7 +285,7 @@ export function ClaimsList() {
 
 export function ClaimsEra() {
     return (
-        <PageTemplate pageId="R12" title="💳 ERA Processing" subtitle="Electronic remittance advice reconciliation & posting"
+        <PageTemplate pageId="R12"  
             sectionData={PageSectionRegistry['R12']}
         />
     );
@@ -306,8 +307,8 @@ export function ClinicalAssistant() {
     return (
         <PageTemplate
             pageId="T8"
-            title="🩺 Clinical Assistant"
-            subtitle="AI-powered clinical decision support, care planning & outcome tracking"
+            
+            
             actionPageId="admin.clinical-assistant"
             sectionData={PageSectionRegistry['T8']}
         />
@@ -323,7 +324,7 @@ const cols_5: TableColumn[] = [
 
 export function SMSHub() {
     return (
-        <PageTemplate pageId="H22" title="📱 SMS & Notifications Hub" subtitle="Twilio-powered SMS delivery, templates & delivery analytics"
+        <PageTemplate pageId="H22"  
             sectionData={PageSectionRegistry['H22']}
         />
     );
@@ -338,7 +339,7 @@ const cols_6: TableColumn[] = [
 
 export function ConsentList() {
     return (
-        <PageTemplate pageId="L8" title="📝 Consent Management" subtitle="Track signed consents, expirations & renewal requirements"
+        <PageTemplate pageId="L8"  
             sectionData={PageSectionRegistry['L8']}
         />
     );
@@ -349,7 +350,7 @@ export function ConsentList() {
 
 export function ConsentExpiring() {
     return (
-        <PageTemplate pageId="R7" title="⏰ Consent Expiration Report" subtitle="Consents expiring within 30/60/90 days, renewal reminders"
+        <PageTemplate pageId="R7"  
             sectionData={PageSectionRegistry['R7']}
         />
     );
@@ -360,7 +361,7 @@ export function ConsentExpiring() {
 
 export function ConsentTemplates() {
     return (
-        <PageTemplate pageId="T50" title="📄 Consent Templates" subtitle="Manage consent form templates, versions & digital signature workflows"
+        <PageTemplate pageId="T50"  
             sectionData={PageSectionRegistry['T50']}
         />
     );
@@ -385,7 +386,7 @@ export function ContentManager() {
     ];
 
     return (
-        <PageTemplate pageId="T2" title="📝 Content Manager" subtitle="Manage blog posts, FAQs & marketing content"
+        <PageTemplate pageId="T2"  
             actionPageId="admin.content-manager"
             sectionData={PageSectionRegistry['T2']}
         />
@@ -399,8 +400,8 @@ export function CronDashboard() {
     return (
         <PageTemplate
             pageId="D6"
-            title="⏱️ Scheduled Jobs Dashboard"
-            subtitle="Monitor automated cron tasks — compliance sweeps, training reminders, auth monitoring & inventory alerts"
+            
+            
             actionPageId="admin.cron-dashboard"
             sectionData={PageSectionRegistry['D6']}
         />
@@ -422,7 +423,7 @@ const cols_7: TableColumn[] = [
 
 export function CustomerList() {
     return (
-        <PageTemplate pageId="L15" title="👥 Client Directory" subtitle="All active clients, service details & care history"
+        <PageTemplate pageId="L15"  
             sectionData={PageSectionRegistry['L15']}
         />
     );
@@ -440,9 +441,11 @@ export function CustomerList() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
+const Visit = (props: any) => <></>;
+const getStatusColor = (s: string) => "#000";
 export function AdminDashboard() {
     return (
-        <PageTemplate pageId="D1" title="🏠 Admin Dashboard" subtitle="Platform overview — operations, finance, compliance & AI insights"
+        <PageTemplate pageId="D1"  
             actionPageId="admin.dashboard"
             sectionData={PageSectionRegistry['D1']}
         />
@@ -454,7 +457,7 @@ export function AdminDashboard() {
 
 export function RegistrySummary() {
     return (
-        <PageTemplate pageId="D2" title="📊 Registry Summary" subtitle="Overview of all platform registries — pages, APIs, sections, roles & events"
+        <PageTemplate pageId="D2"  
             sectionData={PageSectionRegistry['D2']}
         />
     );
@@ -469,7 +472,7 @@ const cols_8: TableColumn[] = [
 
 export function DocumentCenter() {
     return (
-        <PageTemplate pageId="H6" title="📁 Document Management Center" subtitle="Upload, verify & manage PSW credentials, certifications & compliance documents"
+        <PageTemplate pageId="H6"  
             actionPageId="admin.documents"
             sectionData={PageSectionRegistry['H6']}
         />
@@ -485,7 +488,7 @@ export const earningCols: TableColumn[] = [
 
 export function AdminEarningsPage() {
     return (
-        <PageTemplate pageId="EARN" title="💰 Earnings & Revenue" subtitle="Invoices, payouts, revenue tracking & financial reporting"
+        <PageTemplate pageId="EARN"  
             sectionData={PageSectionRegistry['EARN']}
         />
     );
@@ -497,7 +500,7 @@ export function AdminEarningsPage() {
 
 export function SupplyChainHub() {
     return (
-        <PageTemplate pageId="H4" title="📦 Supply Chain & ERP Hub" subtitle="Inventory, purchasing, vendor management & demand forecasting"
+        <PageTemplate pageId="H4"  
             sectionData={PageSectionRegistry['H4']}
         />
     );
@@ -512,7 +515,7 @@ const cols_9: TableColumn[] = [
 
 export function EvvExceptions() {
     return (
-        <PageTemplate pageId="L22" title="⚠️ EVV Exceptions" subtitle="GPS mismatches, missing clock-ins & duration discrepancies"
+        <PageTemplate pageId="L22"  
             sectionData={PageSectionRegistry['L22']}
         />
     );
@@ -523,7 +526,7 @@ export function EvvExceptions() {
 
 export function EvvExport() {
     return (
-        <PageTemplate pageId="R8" title="📥 EVV Export" subtitle="Export EVV data for billing, compliance & payer submissions"
+        <PageTemplate pageId="R8"  
             sectionData={PageSectionRegistry['R8']}
         />
     );
@@ -579,7 +582,7 @@ const FormRegistryPage: React.FC = () => {
                         Form Registry
                     </h1>
                     <p style={{ margin: '4px 0 0 0', color: 'var(--text-300, #94A3B8)', fontSize: '0.9rem' }}>
-                        <div className="text-2xl font-bold">{Object.keys({}).length}</div> forms · {formsWithDeps.length} with inline creators · {categories.length} categories
+                        <div className="text-2xl font-bold">0</div> forms · {formsWithDeps.length} with inline creators · {categories.length} categories
                     </p>
                 </div>
             </div>
@@ -673,8 +676,8 @@ export function FormCard() {
     return (
         <PageTemplate 
             pageId="PGE-FC" 
-            title="✨ Form Card" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-FC']}
         />
     );
@@ -685,8 +688,8 @@ export function FormDetailView() {
     return (
         <PageTemplate 
             pageId="PGE-FDV" 
-            title="✨ Form Detail View" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-FDV']}
         />
     );
@@ -743,8 +746,8 @@ export function FranchiseManagement() {
     return (
         <PageTemplate
             pageId="H30"
-            title="🏢 Franchise Management"
-            subtitle="Multi-location operations, performance benchmarking & expansion planning"
+            
+            
             actionPageId="admin.franchise"
             sectionData={PageSectionRegistry['H30']}
         />
@@ -784,7 +787,7 @@ export function filterIncidents(incidents: any[], statusFilter: string, typeFilt
 
 export function IncidentEntry() {
     return (
-        <PageTemplate pageId="F10" title="🚨 Incident Report" subtitle="Submit workplace incidents, near-misses & safety concerns"
+        <PageTemplate pageId="F10"  
             sectionData={PageSectionRegistry['F10']}
         />
     );
@@ -795,8 +798,8 @@ export function IncidentEntryForm() {
     return (
         <PageTemplate 
             pageId="PGE-IEF" 
-            title="✨ Incident Entry Form" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-IEF']}
         />
     );
@@ -807,8 +810,8 @@ export function IncidentList_OLD1() {
     return (
         <PageTemplate 
             pageId="PGE-IL" 
-            title="✨ Incident List" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-IL']}
         />
     );
@@ -824,7 +827,7 @@ const cols_11: TableColumn[] = [
 
 export function IncidentList() {
     return (
-        <PageTemplate pageId="L2" title="🚨 Incident List" subtitle="Track workplace incidents, near-misses, investigations & resolutions"
+        <PageTemplate pageId="L2"  
             sectionData={PageSectionRegistry['L2']}
         />
     );
@@ -842,7 +845,7 @@ export function IncidentList() {
 
 export function AiInsights() {
     return (
-        <PageTemplate pageId="T9" title="🧠 AI Insights" subtitle="Machine learning model outputs, pattern detection & actionable recommendations"
+        <PageTemplate pageId="T9"  
             sectionData={PageSectionRegistry['T9']}
         />
     );
@@ -854,7 +857,7 @@ export function AiInsights() {
 
 export function FHIRCenter() {
     return (
-        <PageTemplate pageId="T5" title="🔗 FHIR Interoperability Center" subtitle="HL7 FHIR resource management, API endpoints & data exchange"
+        <PageTemplate pageId="T5"  
             sectionData={PageSectionRegistry['T5']}
         />
     );
@@ -871,7 +874,7 @@ export function FHIRCenter() {
 
 export function InvoiceEntry() {
     return (
-        <PageTemplate pageId="F9" title="🧾 Invoice Entry" subtitle="Create and submit client invoices, service line items & payment terms"
+        <PageTemplate pageId="F9"  
             sectionData={PageSectionRegistry['F9']}
         />
     );
@@ -883,7 +886,7 @@ export function InvoiceEntry() {
 
 export function KnowledgeBase() {
     return (
-        <PageTemplate pageId="H8" title="📚 Knowledge Base" subtitle="Internal wiki, SOPs, training resources & policy documentation"
+        <PageTemplate pageId="H8"  
             sectionData={PageSectionRegistry['H8']}
         />
     );
@@ -894,7 +897,7 @@ export function KnowledgeBase() {
 
 export function KBArticle() {
     return (
-        <PageTemplate pageId="T48" title="✏️ KB Article Editor" subtitle="Create and edit knowledge base articles with rich text formatting"
+        <PageTemplate pageId="T48"  
             sectionData={PageSectionRegistry['T48']}
         />
     );
@@ -911,7 +914,7 @@ export function KBArticle() {
 
 export function LeadEntryForm_OLD1() {
     return (
-        <PageTemplate pageId="F11" title="➕ New Lead Entry" subtitle="Capture new lead information, service interest & contact details"
+        <PageTemplate pageId="F11"  
             sectionData={PageSectionRegistry['F11']}
         />
     );
@@ -927,7 +930,7 @@ const cols_12: TableColumn[] = [
 
 export function LeadList() {
     return (
-        <PageTemplate pageId="L3" title="🎯 Lead Pipeline" subtitle="Sales leads, conversion tracking & assignment management"
+        <PageTemplate pageId="L3"  
             sectionData={PageSectionRegistry['L3']}
         />
     );
@@ -938,8 +941,8 @@ export function LeadEntryForm() {
     return (
         <PageTemplate 
             pageId="PGE-LEF" 
-            title="✨ Lead Entry Form" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LEF']}
         />
     );
@@ -952,7 +955,7 @@ export function LeadEntryForm() {
 
 export function LeadConversion() {
     return (
-        <PageTemplate pageId="T66" title="🔄 Lead Conversion" subtitle="Convert qualified leads to active clients with automated onboarding"
+        <PageTemplate pageId="T66"  
             sectionData={PageSectionRegistry['T66']}
         />
     );
@@ -962,7 +965,7 @@ export function LeadConversion() {
 const API_URL_13 = import.meta.env.VITE_API_URL;
 
 export function LocationForm() {
-    const { showToast } = useNotification();
+    const { showToast } = useToast();
     const navigate = useNavigate();
     const [isDirty, setIsDirty] = useState(false);
     const [showGuard, setShowGuard] = useState(false);
@@ -1135,7 +1138,7 @@ export function LocationForm() {
 
 export function Locations() {
     return (
-        <PageTemplate pageId="F12" title="📍 Service Locations" subtitle="Manage offices, service areas & geographic zones"
+        <PageTemplate pageId="F12"  
             sectionData={PageSectionRegistry['F12']}
         />
     );
@@ -1146,8 +1149,8 @@ export function LocationsList() {
     return (
         <PageTemplate 
             pageId="PGE-LL" 
-            title="✨ Locations List" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LL']}
         />
     );
@@ -1158,8 +1161,8 @@ export function Marketplace() {
     return (
         <PageTemplate 
             pageId="PG-276" 
-            title="{ContentRegistry.MARKETPLACE.TITLE}" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-276']}
         />
     );
@@ -1171,7 +1174,7 @@ export function Marketplace() {
 
 export function NotificationsHub() {
     return (
-        <PageTemplate pageId="H5" title="🔔 Notifications Hub" subtitle="Push notifications, email alerts, SMS & in-app notification management"
+        <PageTemplate pageId="H5"  
             sectionData={PageSectionRegistry['H5']}
         />
     );
@@ -1180,7 +1183,7 @@ export function NotificationsHub() {
 // --- Extracted from observability.tsx ---
 export function ObservabilityDashboard() {
     return (
-        <PageTemplate pageId="D6-OBS" title="📡 Observability Dashboard" subtitle="Application metrics, error tracking, latency & infrastructure health"
+        <PageTemplate pageId="D6-OBS"  
             isLive
             sectionData={PageSectionRegistry['D6-OBS']}
         />
@@ -1199,7 +1202,7 @@ export function ObservabilityDashboard() {
 
 export function StaffOnboarding() {
     return (
-        <PageTemplate pageId="F7" title="🎓 Staff Onboarding" subtitle="New hire onboarding workflow — credentials, training & compliance checklist"
+        <PageTemplate pageId="F7"  
             sectionData={PageSectionRegistry['F7']}
         />
     );
@@ -1217,8 +1220,8 @@ export function OperationsCenter() {
     return (
         <PageTemplate
             pageId="D7"
-            title="⚙️ Operations Center"
-            subtitle="Real-time operational command — shifts, logistics, incidents & capacity"
+            
+            
             actionPageId="admin.operations"
             isLive
             sectionData={PageSectionRegistry['D7']}
@@ -1231,7 +1234,7 @@ export function OperationsCenter() {
 
 export function SupplyDemand() {
     return (
-        <PageTemplate pageId="T67" title="📊 Supply & Demand Analytics" subtitle="Staff capacity vs client demand — coverage gaps, forecasting & optimization"
+        <PageTemplate pageId="T67"  
             sectionData={PageSectionRegistry['T67']}
         />
     );
@@ -1274,7 +1277,7 @@ export function PageRegistryPage() {
                 <div style={{ background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)', padding: '14px', borderRadius: '14px', boxShadow: '0 4px 12px rgba(124,58,237,0.3)' }}><Network size={28} color="white" /></div>
                 <div style={{ flex: 1 }}>
                     <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Identity Registry Dashboard</h1>
-                    <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.9rem' }}>{Object.keys({} || {}).length || masterEntries.length} identity codes · {Object.keys(masterOwnerStats).length} owners · {Object.keys(masterTypeStats).length} types · Every page mapped with associates</p>
+                    <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.9rem' }}>{masterEntries.length} identity codes · {Object.keys(masterOwnerStats).length} owners · {Object.keys(masterTypeStats).length} types · Every page mapped with associates</p>
                 </div>
                 <div style={{ display: 'flex', gap: '4px', background: '#F1F5F9', borderRadius: '8px', padding: '3px' }}>
                     {[{ key: 'identity' as ViewMode, label: 'Identity Map', icon: <Network size={13} /> }, { key: 'grid' as ViewMode, label: 'Grid', icon: <LayoutGrid size={13} /> }, { key: 'table' as ViewMode, label: 'Table', icon: <List size={13} /> }].map(v => (
@@ -1349,8 +1352,8 @@ export function GridView() {
     return (
         <PageTemplate 
             pageId="PGE-GV" 
-            title="✨ Grid View" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-GV']}
         />
     );
@@ -1361,8 +1364,8 @@ export function IdentityMapView() {
     return (
         <PageTemplate 
             pageId="PGE-IMV" 
-            title="✨ Identity Map View" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-IMV']}
         />
     );
@@ -1373,8 +1376,8 @@ export function TableView() {
     return (
         <PageTemplate 
             pageId="PGE-TV" 
-            title="✨ Table View" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TV']}
         />
     );
@@ -1422,8 +1425,8 @@ export function TestPage() {
     return (
         <PageTemplate 
             pageId="PGE-TP" 
-            title="✨ Test Page" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TP']}
         />
     );
@@ -1434,8 +1437,8 @@ export function PayrollHub() {
     return (
         <PageTemplate
             pageId="H7"
-            title="💵 Payroll Hub"
-            subtitle="Payroll processing, deductions, tax withholding & direct deposit management"
+            
+            
             actionPageId="admin.payroll"
             sectionData={PageSectionRegistry['H7']}
         />
@@ -1447,8 +1450,8 @@ export function PharmacyHub() {
     return (
         <PageTemplate
             pageId="H2"
-            title="💊 Pharmacy & Medication Hub"
-            subtitle="E-prescribing, MAR tracking, ADC integration, and BCMA"
+            
+            
             actionPageId="admin.pharmacy"
             sectionData={PageSectionRegistry['H2']}
         />
@@ -1467,8 +1470,8 @@ export function RevenueCycleHub() {
     return (
         <PageTemplate
             pageId="H3"
-            title="💰 Revenue Cycle Hub"
-            subtitle="End-to-end revenue cycle management — claims, billing, ERA & collections"
+            
+            
             actionPageId="admin.revenue-cycle"
             sectionData={PageSectionRegistry['H3']}
         />
@@ -1487,8 +1490,8 @@ export function ReferenceDataHub() {
     return (
         <PageTemplate
             pageId="H9"
-            title="🗂️ Reference Data Hub"
-            subtitle="Master data management — service codes, diagnosis codes, facilities & fee schedules"
+            
+            
             actionPageId="admin.reference-data"
             sectionData={PageSectionRegistry['H9']}
         />
@@ -1504,7 +1507,7 @@ const cols_14: TableColumn[] = [
 
 export function ReferralList() {
     return (
-        <PageTemplate pageId="L9" title="🔗 Referral Pipeline" subtitle="Incoming referrals, intake tracking & source analytics"
+        <PageTemplate pageId="L9"  
             sectionData={PageSectionRegistry['L9']}
         />
     );
@@ -1515,7 +1518,7 @@ export function ReferralList() {
 
 export function ReferralAnalytics() {
     return (
-        <PageTemplate pageId="R11" title="📊 Referral Analytics" subtitle="Referral source analysis, conversion rates & pipeline metrics"
+        <PageTemplate pageId="R11"  
             sectionData={PageSectionRegistry['R11']}
         />
     );
@@ -1531,7 +1534,7 @@ export function ReferralAnalytics() {
 
 export function ReportCenter() {
     return (
-        <PageTemplate pageId="R1" title="📊 Report Center" subtitle="Comprehensive reporting suite — financial, clinical, HR, compliance & custom"
+        <PageTemplate pageId="R1"  
             sectionData={PageSectionRegistry['R1']}
         />
     );
@@ -1544,7 +1547,7 @@ export function ReportCenter() {
 
 export function ExportPage() {
     return (
-        <PageTemplate pageId="R2" title="📥 Data Export" subtitle="Export platform data in CSV, PDF, Excel & JSON formats"
+        <PageTemplate pageId="R2"  
             sectionData={PageSectionRegistry['R2']}
         />
     );
@@ -1556,8 +1559,8 @@ export function PrivateMarketplace() {
     return (
         <PageTemplate 
             pageId="PG-131" 
-            title="Private Marketplace" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-131']}
         />
     );
@@ -1568,8 +1571,8 @@ export function ResellerDashboard() {
     return (
         <PageTemplate 
             pageId="PG-390" 
-            title="White-Label Reseller Hub" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-390']}
         />
     );
@@ -1611,8 +1614,8 @@ export function RolesList() {
     return (
         <PageTemplate 
             pageId="PGE-RL" 
-            title="✨ Roles List" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RL']}
         />
     );
@@ -1628,7 +1631,7 @@ const cols_16: TableColumn[] = [
 
 export function RoleEditor() {
     return (
-        <PageTemplate pageId="T4" title="🔑 Role Editor" subtitle="Define roles, assign permissions & manage access hierarchies"
+        <PageTemplate pageId="T4"  
             sectionData={PageSectionRegistry['T4']}
         />
     );
@@ -1646,7 +1649,7 @@ export function RoleEditor() {
 
 export function Schedule() {
     return (
-        <PageTemplate pageId="L1" title="📅 Schedule Management" subtitle="Shift scheduling, coverage tracking & calendar overview"
+        <PageTemplate pageId="L1"  
             sectionData={PageSectionRegistry['L1']}
         />
     );
@@ -1658,7 +1661,7 @@ export function Schedule() {
 
 export function SearchPage() {
     return (
-        <PageTemplate pageId="T1" title="🔍 Global Search" subtitle="Search across clients, PSWs, visits, documents, invoices & more"
+        <PageTemplate pageId="T1"  
             sectionData={PageSectionRegistry['T1']}
         />
     );
@@ -1676,8 +1679,8 @@ export function AccountingDashboard() {
     return (
         <PageTemplate
             pageId="D3"
-            title="📒 Accounting Dashboard"
-            subtitle="Double-entry ledger, P&L, balance sheet & cash flow overview"
+            
+            
             actionPageId="admin.accounting"
             sectionData={PageSectionRegistry['D3']}
         />
@@ -1695,8 +1698,8 @@ export function AuditTrailViewer() {
     return (
         <PageTemplate
             pageId="L24"
-            title="🔍 Audit Trail"
-            subtitle="Complete system activity log — who did what, when, and from where"
+            
+            
             actionPageId="admin.audit-trail"
             sectionData={PageSectionRegistry['L24']}
         />
@@ -1708,8 +1711,8 @@ export function SecurityDashboard() {
     return (
         <PageTemplate 
             pageId="PGE-SD" 
-            title="✨ Security Dashboard" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SD']}
         />
     );
@@ -1726,8 +1729,8 @@ export function SecurityGovernance() {
     return (
         <PageTemplate
             pageId="T10"
-            title="🛡️ Security Governance"
-            subtitle="Threat monitoring, compliance, access reviews & incident response"
+            
+            
             actionPageId="admin.security-governance"
             sectionData={PageSectionRegistry['T10']}
         />
@@ -1739,7 +1742,7 @@ export function SecurityGovernance() {
 
 export function DeviceManagement() {
     return (
-        <PageTemplate pageId="T13" title="📱 Device Management" subtitle="Registered devices, trust levels, remote wipe & session management"
+        <PageTemplate pageId="T13"  
             sectionData={PageSectionRegistry['T13']}
         />
     );
@@ -1756,8 +1759,8 @@ export function ForensicTrails() {
     return (
         <PageTemplate
             pageId="T14"
-            title="🔬 Forensic Trails"
-            subtitle="Immutable audit log with full chain-of-custody for compliance & investigations"
+            
+            
             actionPageId="admin.forensic-trails"
             sectionData={PageSectionRegistry['T14']}
         />
@@ -1775,8 +1778,8 @@ export function CorsSettings() {
     return (
         <PageTemplate
             pageId="T15"
-            title="🌐 CORS Settings"
-            subtitle="Cross-Origin Resource Sharing configuration and allowed origins management"
+            
+            
             actionPageId="admin.cors-settings"
             sectionData={PageSectionRegistry['T15']}
         />
@@ -1788,7 +1791,7 @@ export function CorsSettings() {
 
 export function IntegrityVerification() {
     return (
-        <PageTemplate pageId="T16" title="🔒 Integrity Verification" subtitle="Data integrity checks, checksum validation & tamper detection"
+        <PageTemplate pageId="T16"  
             sectionData={PageSectionRegistry['T16']}
         />
     );
@@ -1805,8 +1808,8 @@ export function FinancialLedger() {
     return (
         <PageTemplate
             pageId="T17"
-            title="📒 Financial Ledger"
-            subtitle="Double-entry journal, general ledger, trial balance & reconciliation"
+            
+            
             actionPageId="admin.financial-ledger"
             sectionData={PageSectionRegistry['T17']}
         />
@@ -1824,8 +1827,8 @@ export function TaxComplianceHub() {
     return (
         <PageTemplate
             pageId="T18"
-            title="🏛️ Tax Compliance Hub"
-            subtitle="HST/GST filing, WSIB, T4 generation, EHT & CRA audit trail"
+            
+            
             actionPageId="admin.tax-compliance"
             sectionData={PageSectionRegistry['T18']}
         />
@@ -1843,8 +1846,8 @@ export function PermissionGrid() {
     return (
         <PageTemplate
             pageId="T56"
-            title="🔒 Permission Grid"
-            subtitle="Role-based access control matrix, permission audits & conflict detection"
+            
+            
             actionPageId="admin.permission-grid"
             sectionData={PageSectionRegistry['T56']}
         />
@@ -1862,8 +1865,8 @@ export function SessionMonitor() {
     return (
         <PageTemplate
             pageId="T57"
-            title="📡 Session Monitor"
-            subtitle="Real-time active sessions, suspicious activity detection & session management"
+            
+            
             actionPageId="admin.session-monitor"
             isLive
             sectionData={PageSectionRegistry['T57']}
@@ -1882,8 +1885,8 @@ export function ThreatDetection() {
     return (
         <PageTemplate
             pageId="T58"
-            title="🚨 Threat Detection"
-            subtitle="Real-time threat monitoring, intrusion detection & automated response"
+            
+            
             actionPageId="admin.threat-detection"
             isLive
             sectionData={PageSectionRegistry['T58']}
@@ -2106,7 +2109,7 @@ const cols_17: TableColumn[] = [
 
 export function Services() {
     return (
-        <PageTemplate pageId="L5" title="🏥 Service Catalog" subtitle="All service types, billing rates, capacity & eligibility requirements"
+        <PageTemplate pageId="L5"  
             sectionData={PageSectionRegistry['L5']}
         />
     );
@@ -2128,8 +2131,8 @@ export function MultiCurrencySettings() {
     return (
         <PageTemplate
             pageId="S8"
-            title="💱 Multi-Currency Settings"
-            subtitle="Exchange rates, conversions & international billing"
+            
+            
             actionPageId="admin.multi-currency"
             sectionData={PageSectionRegistry['S8']}
         />
@@ -2143,7 +2146,7 @@ export function MultiCurrencySettings() {
 
 export function Settings() {
     return (
-        <PageTemplate pageId="T11" title="⚙️ Platform Settings" subtitle="General configuration, branding, integrations & system preferences"
+        <PageTemplate pageId="T11"  
             sectionData={PageSectionRegistry['T11']}
         />
     );
@@ -2153,7 +2156,7 @@ export function Settings() {
 // --- Merged from H19-WizardHub.tsx ---
 export function WizardHub() {
     return (
-        <PageTemplate pageId="H19" title="Setup Wizards" subtitle="Guided setup workflows for platform configuration"
+        <PageTemplate pageId="H19"  
             sectionData={PageSectionRegistry['H19']}
         />
     );
@@ -2164,7 +2167,7 @@ export function WizardHub() {
 
 export function BusinessStatus() {
     return (
-        <PageTemplate pageId="T12" title="📊 Business Status" subtitle="Organization setup progress, health checks & configuration completeness"
+        <PageTemplate pageId="T12"  
             sectionData={PageSectionRegistry['T12']}
         />
     );
@@ -2174,7 +2177,7 @@ export function BusinessStatus() {
 // PAGE IDENTITY: W1 · Business Setup Wizard
 
 export function BusinessSetupWizard() {
-    return (<PageTemplate pageId="W1" title="🏢 Business Setup Wizard" subtitle="Step-by-step guide to configure your organization"
+    return (<PageTemplate pageId="W1"  
         sectionData={PageSectionRegistry['W1']} />
     );
 }
@@ -2183,7 +2186,7 @@ export function BusinessSetupWizard() {
 // PAGE IDENTITY: W2 · Staff Onboarding Wizard
 
 export function StaffOnboardingWizard() {
-    return (<PageTemplate pageId="W2" title="🎓 Staff Onboarding Wizard" subtitle="Guided PSW/RN onboarding — credentials, training & compliance"
+    return (<PageTemplate pageId="W2"  
         sectionData={PageSectionRegistry['W2']} />
     );
 }
@@ -2192,7 +2195,7 @@ export function StaffOnboardingWizard() {
 // PAGE IDENTITY: W3 · Care Plan Wizard
 
 export function CarePlanWizard() {
-    return (<PageTemplate pageId="W3" title="📋 Care Plan Wizard" subtitle="Build individualized care plans with assessments, goals & interventions"
+    return (<PageTemplate pageId="W3"  
         sectionData={PageSectionRegistry['W3']} />
     );
 }
@@ -2201,7 +2204,7 @@ export function CarePlanWizard() {
 // PAGE IDENTITY: W4 · Revenue Wizard
 
 export function RevenueWizard() {
-    return (<PageTemplate pageId="W4" title="💰 Revenue Configuration Wizard" subtitle="Configure billing, payer contracts, fee schedules & collection rules"
+    return (<PageTemplate pageId="W4"  
         sectionData={PageSectionRegistry['W4']} />
     );
 }
@@ -2210,7 +2213,7 @@ export function RevenueWizard() {
 // PAGE IDENTITY: W5 · Business Model Wizard
 
 export function BusinessModelWizard() {
-    return (<PageTemplate pageId="W5" title="🏗️ Business Model Wizard" subtitle="Configure franchise model, pricing tiers, territory & revenue sharing"
+    return (<PageTemplate pageId="W5"  
         sectionData={PageSectionRegistry['W5']} />
     );
 }
@@ -2221,7 +2224,7 @@ export function BusinessModelWizard() {
 
 export function SovereignWallet() {
     return (
-        <PageTemplate pageId="T6" title="🔐 Sovereign Wallet" subtitle="Decentralized identity, verifiable credentials & blockchain-based trust"
+        <PageTemplate pageId="T6"  
             sectionData={PageSectionRegistry['T6']}
         />
     );
@@ -2233,8 +2236,8 @@ export function GrowthStrategy() {
     return (
         <PageTemplate 
             pageId="PG-605" 
-            title="Franchise Growth Model" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-605']}
         />
     );
@@ -2290,8 +2293,8 @@ export function SupplyChainManagement() {
     return (
         <PageTemplate
             pageId="L25"
-            title="📦 Supply Chain Management"
-            subtitle="Inventory, suppliers, purchase orders & reorder automation"
+            
+            
             actionPageId="admin.supply-chain"
             sectionData={PageSectionRegistry['L25']}
         />
@@ -2303,8 +2306,8 @@ export function SupportDashboard() {
     return (
         <PageTemplate 
             pageId="PG-828" 
-            title="Support Inbox" 
-            subtitle="Platform configuration, management, and insights"
+             
+            
             sectionData={PageSectionRegistry['PG-828']}
         />
     );
@@ -2328,8 +2331,8 @@ export function TelehealthCenter() {
     return (
         <PageTemplate
             pageId="H1"
-            title="🩺 Telehealth & RPM Center"
-            subtitle="Encrypted video consultations and live remote patient monitoring"
+            
+            
             actionPageId="admin.telehealth"
             isLive
             sectionData={PageSectionRegistry['H1']}
@@ -2347,8 +2350,8 @@ export function TemplatesList() {
     return (
         <PageTemplate 
             pageId="PGE-TL" 
-            title="✨ Templates List" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TL']}
         />
     );
@@ -2361,7 +2364,7 @@ export function TemplatesList() {
 
 export function TemplateEditor() {
     return (
-        <PageTemplate pageId="T3" title="🎨 Template Editor" subtitle="Design & manage email, SMS, PDF & form templates"
+        <PageTemplate pageId="T3"  
             sectionData={PageSectionRegistry['T3']}
         />
     );
@@ -2383,7 +2386,7 @@ const cols_18: TableColumn[] = [
 
 export function TimesheetAdjustment() {
     return (
-        <PageTemplate pageId="F8" title="⏱️ Timesheet Adjustments" subtitle="Review and process PSW timesheet corrections & overtime adjustments"
+        <PageTemplate pageId="F8"  
             sectionData={PageSectionRegistry['F8']}
         />
     );
@@ -2404,7 +2407,7 @@ const cols_19: TableColumn[] = [
 
 export function Timesheets() {
     return (
-        <PageTemplate pageId="L4" title="⏱️ Timesheets" subtitle="PSW timesheet submissions, approval workflows & payroll integration"
+        <PageTemplate pageId="L4"  
             sectionData={PageSectionRegistry['L4']}
         />
     );
@@ -2421,7 +2424,7 @@ export function Timesheets() {
 
 export function UserEntry() {
     return (
-        <PageTemplate pageId="F9a" title="➕ New User" subtitle="Create new platform user with role assignment & access configuration"
+        <PageTemplate pageId="F9a"  
             sectionData={PageSectionRegistry['F9a']}
         />
     );
@@ -2437,7 +2440,7 @@ const cols_20: TableColumn[] = [
 
 export function UserList() {
     return (
-        <PageTemplate pageId="L3a" title="👥 User Management" subtitle="All platform users, roles, status & access management"
+        <PageTemplate pageId="L3a"  
             sectionData={PageSectionRegistry['L3a']}
         />
     );
@@ -2475,7 +2478,7 @@ const cols_1: TableColumn[] = [
 
 export function WebhookList() {
     return (
-        <PageTemplate pageId="L11" title="🔗 Webhooks" subtitle="Outbound webhook endpoints, event subscriptions & delivery logs"
+        <PageTemplate pageId="L11"  
             sectionData={PageSectionRegistry['L11']}
         />
     );
@@ -2491,7 +2494,7 @@ const cols_2_webhook: TableColumn[] = [
 
 export function WebhookDeliveries() {
     return (
-        <PageTemplate pageId="T51" title="📡 Webhook Deliveries" subtitle="Delivery logs, retry status & failure analysis"
+        <PageTemplate pageId="T51"  
             sectionData={PageSectionRegistry['T51']}
         />
     );
@@ -2516,7 +2519,7 @@ const cols_21: TableColumn[] = [
 
 export function FinancialReconciliation() {
     return (
-        <PageTemplate pageId="T59" title="🛡️ Financial Reconciliation Hub" subtitle="Verify the ledger against bank feeds — fuzzy matching, auto-reconciliation & audit trail"
+        <PageTemplate pageId="T59"  
             sectionData={PageSectionRegistry['T59']}
         />
     );
@@ -2525,14 +2528,14 @@ export function FinancialReconciliation() {
 // --- Extracted from scheduleApi.ts ---
 export const API_URL_22 = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
-export interface Visit_2 {
+export interface Visit {
     id: string; requestedStartAt: string; durationMinutes: number;
     client: { fullName: string }; psw?: { fullName: string }; assignedPswId?: string;
     status: string; isSurgeActive?: boolean; surgeMultiplier?: number;
     service?: { providerRateHourly?: string | number };
 }
 
-export const getStatusColor_2 = (status: string): string => {
+export function getStatusColor_2(status: string): string {
     switch (status.toLowerCase()) {
         case 'requested': return '#f57c00'; case 'scheduled': return '#1976d2';
         case 'completed': return '#388e3c'; case 'posted': return '#8e24aa';
@@ -2592,12 +2595,10 @@ export async function apiDeleteVisit(visitId: string): Promise<boolean> {
 }
 
 // --- Extracted from useScheduleLogic.ts ---
-export type { Visit };
-export { getStatusColor };
 
 export const useScheduleLogic = () => {
     const { t } = useTranslation();
-    const { showToast } = useNotification();
+    const { showToast } = useToast();
     const [searchParams] = useSearchParams();
 
     const [events, setEvents] = useState<any[]>([]);

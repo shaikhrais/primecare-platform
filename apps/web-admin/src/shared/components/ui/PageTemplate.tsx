@@ -11,7 +11,7 @@
 // ──────────────────────────────────────────────────────────────────────────────
 
 import React from 'react';
-import { getSectionsForPage, type PageSection, type SectionType } from 'prime-care-shared';
+import { getSectionsForPage, type PageSection, type SectionType, getPageById } from 'prime-care-shared';
 import { PageActionBar } from './PageActionBar';
 import {
     SectionHeader,
@@ -91,7 +91,7 @@ export interface PageTemplateProps {
     /** Master-registry page code (e.g. 'H25', 'D14') */
     pageId: string;
     /** Page title */
-    title: string;
+    title?: string;
     subtitle?: string;
     /** PageActionRegistry page key (e.g. 'manager.gamification') */
     actionPageId?: string;
@@ -111,6 +111,9 @@ export function PageTemplate({
     sectionData = {}, overrides = {}, actionHandlers = {},
 }: PageTemplateProps) {
     const sections = getSectionsForPage(pageId);
+    const entry = getPageById(pageId);
+    const finalTitle = title || entry?.label || pageId;
+    const finalSubtitle = subtitle || entry?.description || '';
 
     const renderSection = (section: PageSection) => {
         // 1. Custom override wins
@@ -162,10 +165,10 @@ export function PageTemplate({
     };
 
     return (
-        <div data-cy="page.container" role="main" aria-label={title}
+        <div data-cy="page.container" role="main" aria-label={finalTitle as string}
             style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
-                <SectionHeader title={title} subtitle={subtitle} isLive={isLive} lastUpdated={lastUpdated} />
+                <SectionHeader title={finalTitle as string} subtitle={finalSubtitle} isLive={isLive} lastUpdated={lastUpdated} />
                 {actionPageId && <PageActionBar pageId={actionPageId} size="sm" handlers={actionHandlers} />}
             </div>
             {sections.map(renderSection)}

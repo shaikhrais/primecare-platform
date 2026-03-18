@@ -1,22 +1,618 @@
+
+export const TEXT_VARS: Record<string, string> = {
+    "V_K05IRRH9H": "Referral Information",
+    "V_YCBTQC1Q8": "Source, date, reason for referral & urgency level",
+    "V_2KI0AHXHR": "Client Demographics",
+    "V_6C83RFMH9": "Name, DOB, address, contacts & emergency contacts",
+    "V_EML3SLFQ9": "Medical History",
+    "V_RAGY0DYQH": "Diagnoses, medications, allergies & physician info",
+    "V_G50Q29MIV": "Care Assessment",
+    "V_CCIV5JJ8X": "RAI-HC, functional status & cognitive assessment",
+    "V_XVS05FWGP": "Service Plan",
+    "V_35AXCVDB7": "Approved services, hours, frequency & goals",
+    "V_4A523TDXD": "Consent & Documents",
+    "V_HLNAIERJ5": "Signed consents, ID verification & insurance",
+    "V_286T3KZD3": "Predictive Analytics",
+    "V_WJS3530VA": "Visit trends, churn, demand forecasting",
+    "V_5Q7ERM1SV": "Sentiment Analysis",
+    "V_ZPEN5KJ1K": "Client & PSW satisfaction tracking",
+    "V_IGN7ZX6LF": "Visit Optimization",
+    "V_MC4YLTXX0": "Route & schedule optimization",
+    "V_HS9JDDGSW": "Churn Risk",
+    "V_KQG5719H2": "At-risk client identification",
+    "V_OBJ51H736": "Route Clustering — North York",
+    "V_7AHU3UAJS": "3 visits can be grouped → save 45 min drive time",
+    "V_5E4JAYGR2": "Schedule Gap — PSW Chen",
+    "V_XDLT7RQPZ": "2 hr gap between visits on Wed. Suggest backfill.",
+    "V_M4IN5RNVF": "Distance Alert — PSW Williams",
+    "V_E4VU9LXAT": "Visit #4 is 38km from #3. Suggest reassign.",
+    "V_IQPDXL9EY": "Optimal Match — Client Park",
+    "V_U3CWM78BA": "PSW Santos best fit: 98% compatibility score",
+    "V_VZ6LUW744": "Client Park: \"PSW Santos is wonderful, always on time\"",
+    "V_BDLE71JRA": "Client Brown: \"Visit was fine, nothing special\"",
+    "V_32KHCNUGP": "Client Chen: \"PSW arrived 20 min late, no notification\"",
+    "V_JU4STPPM2": "Family Williams: \"Scheduling keeps changing without notice\"",
+    "V_2FUC3Y3OM": "Client Taylor: \"Best care my mother has ever received\"",
+    "V_DHZDXEOVZ": "Susan Park — Auth expires Mar 31, 92% used, NO renewal filed",
+    "V_XJOT1DY8K": "Margaret Chen — 82% used (98/120 hrs), 6 weeks remaining",
+    "V_47GOXLYLB": "James Brown — OT auth 75% used, renewal recommended",
+    "V_9U0P0TEFY": "Helen Taylor — Renewal approved, new auth starts Apr 1",
+    "V_EUGYHNDKD": "Care Plan Builder",
+    "V_WE0IJY8HC": "Create & manage individualized care plans",
+    "V_HBIBZQAQL": "Medication Reconciliation",
+    "V_AJBXNBWV5": "Cross-check prescriptions, interactions & allergies",
+    "V_0RPAC1NP2": "Assessment Templates",
+    "V_JDFR0OUHK": "RAI-HC, InterRAI, MDS & custom assessments",
+    "V_KTQEXCJHA": "Lab Integration",
+    "V_GDEK15132": "Lab orders, results tracking & abnormal flags",
+    "V_4KGSR77YP": "Outcome Tracking",
+    "V_D83QQQE4V": "Goal progress, clinical indicators & trends",
+    "V_EK2820WA0": "AI Clinical Suggestions",
+    "V_U2E9YCVDN": "Evidence-based care recommendations",
+    "V_4Z0HZDZIM": "General Consent",
+    "V_I278B5S5B": "Standard service consent — annual renewal",
+    "V_QJJFYQAWV": "Telehealth Consent",
+    "V_SQMR504LE": "Virtual visit authorization — PHIPA compliant",
+    "V_7RHBKXU22": "Medication Administration",
+    "V_468TZXOO2": "MAR consent for PSW-administered medications",
+    "V_F6AB68TFA": "Photography/Video",
+    "V_JVQELR06H": "Media capture consent for documentation",
+    "V_7PNS0Z01B": "Research Participation",
+    "V_SPQ4IPEU0": "Optional research study consent",
+    "V_Y9WRNCZ80": "Data Sharing",
+    "V_ZRJB6H8GT": "Inter-provider health information sharing",
+    "V_IAM5116EX": "Introducing PrimeCare Home Care Platform",
+    "V_GISG88UQJ": "HIPAA Compliance Best Practices for PSWs",
+    "V_9QJEJ5NI9": "Remote Patient Monitoring: The Future of Home Care",
+    "V_WU4ZGQJ1S": "Schedule",
+    "V_2M0WP74M0": "View & manage today\\",
+    "V_UBVZVO8JD": "Staff",
+    "V_6E0RLYSGU": "82 PSWs, 4 RNs active",
+    "V_U7Q1ZOJKK": "Clients",
+    "V_61CK2GRUQ": "67 active clients",
+    "V_4EYI4QMK9": "Revenue",
+    "V_H0HTRFPDI": "$185K MTD",
+    "V_9XAOHVH7N": "Compliance",
+    "V_IQNZXBJ6W": "98.2% score",
+    "V_TID8B1PMQ": "AI Insights",
+    "V_TJL2S0JU5": "8 actionable items",
+    "V_T8ALJ0BB6": "Page Registry",
+    "V_XQOH4D4PD": "139 pages registered across admin & tenancy",
+    "V_CM1YED4VD": "API Registry",
+    "V_VCZ2JAKLQ": "85 endpoints, 12 modules, 4 middleware chains",
+    "V_HDF9SQGB7": "Section Registry",
+    "V_HKU6LVSB6": "15 section types, 60+ page configurations",
+    "V_7ZGYGBCYW": "Role Registry",
+    "V_ABHMTRYNI": "6 roles, 142 permissions, 5 scopes",
+    "V_09GSIWQ17": "Event Registry",
+    "V_AVXRB75OT": "24 event types, 6 automation hooks",
+    "V_PQXQBRFPG": "Theme Registry",
+    "V_FOWGG6XNP": "3 themes, 24 CSS variables, dark mode",
+    "V_RFETQZ9QJ": "Inventory Management",
+    "V_AFO0AWXAO": "Medical supplies, PPE, equipment tracking",
+    "V_506QINA9Q": "Purchase Orders",
+    "V_TYU5PQWLA": "Vendor POs, approval workflows, delivery tracking",
+    "V_US0CN6JV9": "Vendor Management",
+    "V_B9GTRAGS5": "Supplier directory, contracts, performance",
+    "V_1AZBKR3J3": "Demand Forecasting",
+    "V_77FK3OVPL": "AI-predicted supply needs by location",
+    "V_LKCQJNG59": "Asset Tracking",
+    "V_C3RKRODS4": "Equipment lifecycle, maintenance schedules",
+    "V_JP2K4E1OU": "Cost Analysis",
+    "V_U286XNVXY": "Spend analytics, category management",
+    "V_WSI5PQQRZ": "Shift Overview",
+    "V_4UDWJ1TBD": "Active shifts, coverage gaps, overtime tracking",
+    "V_G4TMJTMUZ": "Fleet & Logistics",
+    "V_QJE9PQB38": "Vehicle tracking, route optimization, mileage",
+    "V_6EAHLN3C1": "Capacity Planning",
+    "V_VHVUHQAAW": "Demand forecasting, staffing models, utilization",
+    "V_J1P2ZSYQS": "Incident Command",
+    "V_MWHD5XOHJ": "Active incidents, escalation chains, resolution SLAs",
+    "V_4ULD0IES4": "Workflow Automation",
+    "V_1LQE3KPPZ": "Triggered actions, approval chains, notifications",
+    "V_QD4XW88NR": "Performance Metrics",
+    "V_U7B8194TA": "KPIs, SLA adherence, quality scores",
+    "V_MU8SNRPNU": "Claims Management",
+    "V_X0UDW2MJR": "OHIP, WSIB & private insurer claim submission",
+    "V_5GASMFWU5": "Billing & Invoicing",
+    "V_PPWWBWGXY": "Automated client billing, statement generation",
+    "V_ZPMDBCC7W": "ERA Processing",
+    "V_WQMHR9GS8": "Electronic remittance advice reconciliation",
+    "V_62X6UPFYZ": "Denial Management",
+    "V_F0AAVTLA1": "Track, appeal & resolve denied claims",
+    "V_2GD284I5J": "Collections",
+    "V_1ZTOOHL1I": "Aging reports, follow-up automation",
+    "V_0SY4J9H0W": "Revenue Analytics",
+    "V_WLXHCNN98": "Payer mix, reimbursement trends, forecasts",
+    "V_4HZ7RL5ZY": "Service Codes",
+    "V_0Q8ICJD1G": "OHIP billing codes, service types & rates",
+    "V_OW9D81BRT": "Diagnosis Codes",
+    "V_QFRH0X56G": "ICD-10 code management & lookup",
+    "V_TRIC7M370": "Facility Registry",
+    "V_1I2OJV03D": "Care homes, clinics & satellite offices",
+    "V_PMLTHIDIU": "Drug Formulary",
+    "V_QUTVG020H": "Approved medications, NDC codes & interactions",
+    "V_ZEYBTQ5M6": "Service Areas",
+    "V_9NWC4TNFV": "Geographic zones, postal code mapping",
+    "V_8W40M6XB4": "Fee Schedules",
+    "V_BADRUSBVO": "Payer-specific rates, modifiers & contracts",
+    "V_U4EU26NS5": "Financial Reports",
+    "V_00DYGZC9O": "P&L, balance sheet, cash flow, aged receivables",
+    "V_7TSB9RVIQ": "HR & Staffing",
+    "V_1IHT3RD32": "Headcount, turnover, overtime, certification status",
+    "V_HLJJPUJXC": "Clinical Reports",
+    "V_BQSY1WU9Y": "Care plan outcomes, incident trends, med errors",
+    "V_3ERIW2X2K": "Compliance Reports",
+    "V_1KHWU1K0P": "HIPAA, PIPEDA, credential audits, training completion",
+    "V_68G7XO08Z": "Operations Reports",
+    "V_2BWMAHXJO": "Visit volume, utilization, SLA adherence",
+    "V_I42IAN6I8": "Custom Builder",
+    "V_PMAEKDMXK": "Build ad-hoc reports with drag-and-drop fields",
+    "V_Q7EUQ0WJ": "Threat Overview",
+    "V_SHED0D6NH": "Active threats, intrusion attempts, blocked IPs",
+    "V_7IYFBGXV0": "Policy Compliance",
+    "V_627JXG7QZ": "HIPAA, PIPEDA, SOC2 compliance status",
+    "V_Y4ZCMEQUH": "Access Reviews",
+    "V_AYSGE464P": "Periodic access certification & role audits",
+    "V_GQN69A5OY": "Incident Response",
+    "V_4823HVSE9": "Active incidents, SLA tracking, resolution logs",
+    "V_STT0PXK4T": "Brute force attempt blocked — 15 attempts from 185.220.x.x",
+    "V_OFWOVWAWR": "PSW-045 role escalation detected — admin access requested",
+    "V_SJKIRG7IF": "HIPAA compliance audit passed — all 47 checks green",
+    "V_UK00G7XHM": "Session purge completed — 23 expired sessions removed",
+    "V_QKSKWR2XR": "SSL certificate renewed — expires Dec 2027",
+    "V_UVF4XYS1": "HST/GST Filing",
+    "V_T5MQ094SS": "Next filing: Apr 30 — Q1 2026 | Estimated: $12,350",
+    "V_UDBP3H4L2": "WSIB Premiums",
+    "V_S89OO6RW3": "Current rate: 2.46% | Annual est: $48,200",
+    "V_UZZD0K2F5": "T4/T4A Generation",
+    "V_EPZGLAH98": "Due: Feb 28 | 82 employees processed",
+    "V_CK9QHCVA2": "EHT (Employer Health Tax)",
+    "V_XV1O9KH2P": "Ontario threshold: $1M | Current payroll: $1.8M",
+    "V_A5EZBCUYU": "CRA Audit Trail",
+    "V_AXYJUQFVQ": "Last CRA correspondence: Jan 15 — resolved",
+    "V_Z1RBY2ZHH": "PIPEDA Compliance",
+    "V_QZFTSF9UF": "Annual privacy impact assessment: ✅ Complete",
+    "V_YBQ215RNQ": "Brute Force Attack — 185.220.101.42 — 47 attempts in 60s",
+    "V_2NBH770YJ": "Suspicious Login — admin@primecare.ca from new location (Kyiv, UA)",
+    "V_5IOWL26D4": "Rate Limit Exceeded — API endpoint /v1/admin/users — 250 req/min",
+    "V_5OHUC8UUV": "Vulnerability Scan Completed — 0 critical findings",
+    "V_5IVNXT9AU": "SSL Certificate Valid — expires Dec 2027",
+    "V_G0DGEFT6T": "WAF rule update applied — 12 new signatures",
+    "V_8PPV1ZB55": "Biometric Login",
+    "V_N02N0765U": "Forgot Password",
+    "V_LSBRH56IO": "Login",
+    "V_LZQBTPF4V": "Business Onboard",
+    "V_2ZNOKYAMX": "Vr Hoarding Simulator",
+    "V_XIVQM3JUV": "Register",
+    "V_26MM4GY36": "Reset Password",
+    "V_FOTAWZ2FV": "Inference Volume (Last 7 Days)",
+    "V_6NLOAMH17": "Churn Risk Trend (6 Months)",
+    "V_9OA3P0J4C": "Weekly Efficiency Gains",
+    "V_5ZQ7ZJ9ZW": "Sentiment Trend (6 Months)",
+    "V_4KBYVC4N3": "📡 Recent Feedback",
+    "V_POJ5D0VNJ": "HIPAA Compliance",
+    "V_F1CA38D7S": "PHI access logs, breach notification status",
+    "V_Y2Y7CH31J": "PIPEDA Report",
+    "V_HSKTXJPCO": "Privacy impact assessment, consent tracking",
+    "V_GQTB5AV6C": "OHSA Workplace Safety",
+    "V_PU0ODT01W": "Incident reports, hazard assessments",
+    "V_0QOPYOG0Y": "Accreditation Prep",
+    "V_0F7JRRTLO": "Accreditation Ontario checklist & evidence",
+    "V_IWOC9HUM5": "CRA (Revenue Agency)",
+    "V_5S0X7MAA7": "T4/T4A, HST filing, payroll remittances",
+    "V_7B9MQW6IO": "WSIB (Workplace Safety)",
+    "V_Z07ZVR958": "Premium reports, claim submissions",
+    "V_GBR4HAMKJ": "MOH (Ministry of Health)",
+    "V_CO5S5FGZT": "Service volume, quality indicators",
+    "V_Q6PSIEHPG": "ESA (Employment Standards)",
+    "V_S3PB9LB2T": "Hours of work, overtime, vacation tracking",
+    "V_5339HYNWE": "CSV Export",
+    "V_S3LN44AJC": "Raw audit data — all fields, filterable",
+    "V_CAW94UFPB": "PDF Report",
+    "V_R9EYTRONJ": "Formatted audit summary with charts",
+    "V_C6D7X9HOB": "Encrypted Archive",
+    "V_0OIPR8PG9": "HIPAA-compliant encrypted ZIP package",
+    "V_NPMYKZ1JK": "Utilization by Payer",
+    "V_3TIWYUO54": "🔔 Active Alerts",
+    "V_Z9OIDW7AF": "Expiration Timeline",
+    "V_VIMCIBKGD": "Job Execution History (Last 7 Days)",
+    "V_T1R4687VD": "Weekly Visit Volume",
+    "V_MXJ9THKGD": "📍 Live Visit Locations",
+    "V_JHRLDEUML": "📡 Live EVV Feed",
+    "V_N59M4BZNQ": "PSW Santos clocked in — Margaret Chen — GPS ✓",
+    "V_CZ4OI8EIA": "PSW Williams clocked out — Robert Williams — 2h 15m",
+    "V_A5P5W2GHV": "PSW Brown — GPS outside service area (50m)",
+    "V_C8ASUMXE3": "PSW Chen — No clock-in for scheduled visit",
+    "V_230I2932M": "CSV Export",
+    "V_CGP9HAR9L": "Raw EVV data — all fields, date-filterable",
+    "V_QCWX1G642": "XML (Payer Format)",
+    "V_SGJXG9BVS": "OHIP/CCAC-compliant structured format",
+    "V_ODHM0TSNK": "Summary PDF",
+    "V_Y85HDYPUU": "Aggregated EVV compliance report",
+    "V_6PKVM2FMV": "Form Card Data",
+    "V_OAHQK404Y": "Form Detail View Data",
+    "V_7VT778CKR": "Incident Details",
+    "V_8EU276NSP": "Date, time, location & description",
+    "V_CCFKI6U30": "Involved Parties",
+    "V_YKP44OHLO": "Client, PSW, witnesses & supervisor",
+    "V_HMLC6CYLY": "Injury Assessment",
+    "V_F1ZB088UZ": "Type, severity & treatment administered",
+    "V_NPXRDH3UT": "Root Cause Analysis",
+    "V_O0PMGF4KO": "Contributing factors & prevention plan",
+    "V_IBL08CRWD": "Incident Entry Form Data",
+    "V_S496FFUHW": "Incident List Data",
+    "V_9HOW2CNOL": "🧠 Recent Insights",
+    "V_6BZ9RYWP6": "Staffing: Add 2 PSWs in North York zone — demand ↑ 15% predicted next month",
+    "V_OC4Q0NYQC": "Churn Risk: Client Chen satisfaction declining — recommend PSW assignment review",
+    "V_XBM8EENQB": "Efficiency: Route optimization could save 12 hrs/week in Mississauga zone",
+    "V_RC40LU4N1": "Compliance: 3 PSW certifications expiring within 30 days",
+    "V_M1C1DMNSV": "Patient",
+    "V_WXDYNMRXZ": "Demographics, identifiers & contact info",
+    "V_WMBW2CXBI": "Observation",
+    "V_QAIP3I4IC": "Vitals, lab results & assessments",
+    "V_AGHDC04JL": "MedicationRequest",
+    "V_XMGSLJ1IV": "Prescriptions & medication orders",
+    "V_691QV7LY9": "Encounter",
+    "V_99NU0WR6L": "Visits, admissions & service events",
+    "V_BYS44N3W0": "Organization",
+    "V_OI1UVL1YV": "Facilities, departments & teams",
+    "V_YNBPON7IS": "Practitioner",
+    "V_MLP577YDQ": "Providers, credentials & roles",
+    "V_FMYVCOU4L": "Client & Payer",
+    "V_76WRGBVBZ": "Select client, payer, billing address",
+    "V_DHZCDJUQL": "Service Lines",
+    "V_FG8O9V37Z": "Add services, hours, rates & adjustments",
+    "V_ERSNEUCPH": "Payment Terms",
+    "V_753O97B8F": "Due date, payment method, late fees",
+    "V_H8LN6COVK": "Delivery",
+    "V_BBEZJTXB5": "Email, print, or electronic submission",
+    "V_3IZYOFHWW": "Standard Operating Procedures",
+    "V_B6J6ZZH3O": "42 articles — visit protocols, incident reporting",
+    "V_B6Y9FBHWM": "Clinical Guidelines",
+    "V_2DRDDDH6J": "28 articles — care plans, medication admin, wound care",
+    "V_ZO76H7F96": "HR & Policies",
+    "V_XK6W91B6N": "35 articles — employment standards, benefits, safety",
+    "V_G2R6UXEUP": "Technology",
+    "V_9TWHH8HMQ": "18 articles — platform guides, EVV, telehealth setup",
+    "V_ZH81WVV5F": "Training Materials",
+    "V_XC2C8GV80": "25 articles — onboarding, HIPAA, certifications",
+    "V_YQVMFA245": "Article Content",
+    "V_5INF7YHAF": "Rich text editor, headings, lists & media",
+    "V_YA0S16534": "Metadata",
+    "V_T0X50DZXR": "Category, tags, author & publish date",
+    "V_W1SSWZ6H2": "Related Articles",
+    "V_2DM0DZMMF": "Link related SOPs, policies & guides",
+    "V_K1UPUNM3S": "Access Control",
+    "V_KQOBUI7ZY": "Visibility, role-based access & approval chain",
+    "V_TIEZQ23K4": "Contact Information",
+    "V_98XRGTPIO": "Name, phone, email & preferred contact method",
+    "V_C3LW3FQJ1": "Service Interest",
+    "V_NY9PCO8ER": "Requested service, urgency & availability",
+    "V_OC69E3RQ2": "Source & Notes",
+    "V_NM6F1ZMQH": "Referral source, initial notes & follow-up plan",
+    "V_V4HJ7S826": "Qualification",
+    "V_ZY18TX5F2": "Budget, timeline, decision maker & scoring",
+    "V_3RU375R8G": "Lead Entry Form Data",
+    "V_GNEVP02AC": "Monthly Conversions",
+    "V_69BV0QS99": "📍 Service Area Coverage",
+    "V_HG8PCKPJG": "Locations List Data",
+    "V_I0DEB1QO8": "Module Under Configuration",
+    "V_XIEKUMHUF": "Email",
+    "V_L8LO19GJY": "Transactional & marketing emails via SendGrid",
+    "V_A1HQ1VKKL": "SMS",
+    "V_QS2ZWWBF6": "Twilio-powered text messages",
+    "V_0U1IIE56T": "Push",
+    "V_K0LKK8U8D": "PWA push notifications via service worker",
+    "V_QQ9G7I185": "In-App",
+    "V_B96IXUIXC": "Real-time notification bell & toast messages",
+    "V_O3GIN5QHO": "📡 Recent Notifications",
+    "V_UEVOG052O": "Visit Reminder — Margaret Chen — Tomorrow 10:00 AM",
+    "V_J3XSKJYIL": "Shift Confirmation SMS — PSW Santos",
+    "V_ILR8DGI60": "Auth Exhaustion Alert — Susan Park (92%)",
+    "V_O3RARBEW1": "Request Volume (Last 24h)",
+    "V_N3SSDGUV8": "🚨 Recent Alerts",
+    "V_VGH1QCAM9": "All systems operational",
+    "V_ZG4F91M20": "Worker CPU spike to 85% — auto-resolved",
+    "V_3TQWLD41I": "Deploy #33 successful — zero downtime",
+    "V_R5MXVBI39": "Application Review",
+    "V_PE04IEM81": "Resume screening, reference checks, interview",
+    "V_TGBN8EYIG": "Document Collection",
+    "V_FGC6F6O4U": "ID, VSS, CPR, First Aid, TB test, proof of training",
+    "V_ZFXM4AAOH": "Training Modules",
+    "V_YVM5GF9NQ": "HIPAA, WHMIS, Client Safety, Platform Use",
+    "V_S72I3A3B1": "Compliance Sign-Off",
+    "V_QI151MQ3N": "Manager approval, credential verification, go-live",
+    "V_GJQHLS3ON": "Daily Visit Volume (This Week)",
+    "V_Q5F56SW2R": "Supply vs Demand (Weekly)",
+    "V_IDRBZ281C": "Demand Forecast (Next 4 Weeks)",
+    "V_KZF65NSJ7": "Grid View Data",
+    "V_67D5QV76D": "Identity Map View Data",
+    "V_FY191F09R": "Table View Data",
+    "V_S5SM0BWF5": "Test Page Data",
+    "V_7FPHMKUXJ": "Weekly Payroll (Last 8 Weeks)",
+    "V_2RC7ZSL7B": "Monthly Collections (6 Months)",
+    "V_8ZPDSDDIY": "Referrals by Source",
+    "V_6QB1ZN3HX": "Monthly Referral Volume",
+    "V_9PFM1KL9Q": "CSV Export",
+    "V_01P9KJTSZ": "Raw data tables — clients, visits, timesheets, billing",
+    "V_WZ6LH5XWS": "PDF Reports",
+    "V_EA83KHNI5": "Formatted reports with charts, summaries & branding",
+    "V_41IEEVDY7": "Excel Workbook",
+    "V_OFBWWQ7UO": "Multi-sheet workbooks with pivot data & formulas",
+    "V_PZHSG2202": "JSON / API",
+    "V_NTG1ARYJV": "Machine-readable data for system integrations",
+    "V_SVPH54YIK": "Module Under Configuration",
+    "V_632VP3UEP": "Module Under Configuration",
+    "V_C3A1EEEJ6": "Roles List Data",
+    "V_U08FCCM42": "PSW Santos → Chen",
+    "V_90VJFIT88": "RN Johnson → Williams",
+    "V_DU1NSUH3H": "PSW Brown → Taylor",
+    "V_U0VMY0IWR": "OT Martinez → Brown",
+    "V_1SBCCVDQD": "PSW Santos → Park",
+    "V_PGR74R45V": "Clients",
+    "V_3R0N34F8L": "Search by name, ID, address or phone",
+    "V_8BBA8BHNH": "PSWs & Staff",
+    "V_RHMQJSJKX": "Search by name, badge, certifications",
+    "V_8ZJEVRMDD": "Visits & Shifts",
+    "V_CBWVEWT2B": "Search by date, client, PSW or status",
+    "V_Y3FCON79U": "Documents",
+    "V_R3KGAM60I": "Search by type, provider or keyword",
+    "V_JN62U0FIZ": "Invoices & Claims",
+    "V_8K6B5U7DW": "Search by ID, client, payer or amount",
+    "V_X4Z3H77IT": "Incidents",
+    "V_RA1C37HDS": "Search by type, date or severity",
+    "V_Z6ZZDDRZ7": "P&L — Revenue vs Expenses",
+    "V_EW6U882RB": "Asset Allocation",
+    "V_OA8OYAYOH": "Cash Flow Forecast (Next 6 Months)",
+    "V_O0UUH0YOC": "Security Dashboard Data",
+    "V_19DMXXZG2": "📡 Security Activity Feed",
+    "V_JDGFXCW2J": "Database Checksums",
+    "V_4DPD8TDFT": "SHA-256 validation of all critical tables",
+    "V_OE0VA20PU": "Audit Log Integrity",
+    "V_QPAORMAH2": "Immutable log chain verification",
+    "V_HRIXAS4NN": "Document Fingerprints",
+    "V_8MNOP2X6B": "File hash comparison for uploaded docs",
+    "V_3YT70WQJ5": "API Response Signing",
+    "V_VHVL7WUSV": "Response integrity verification headers",
+    "V_1VJ29RJ2C": "Revenue vs Expenses (6 Months)",
+    "V_FM78J78DP": "Permission Distribution by Role",
+    "V_2BJW0QX18": "📡 Live Threat Feed",
+    "V_DESIXQBYO": "Blocked Attacks (7 Days)",
+    "V_0Z3HK4UEW": "Branding",
+    "V_MRFPZKGF7": "Logo, colors, fonts & white-label config",
+    "V_NOMFPREEP": "Integrations",
+    "V_2XR97LKBY": "Twilio, SendGrid, Stripe, OHIP, EMR connections",
+    "V_G7PCZ9OXI": "Security",
+    "V_ZYAUQSPU9": "Password policy, MFA, session timeout, IP whitelist",
+    "V_XWBWE5BLU": "Email Templates",
+    "V_C9MFSX4BN": "Notification templates, signatures & branding",
+    "V_9LO2NFA5O": "Localization",
+    "V_B0COTYY0L": "Language, timezone, date format & currency",
+    "V_637AU9VH5": "Data Management",
+    "V_CL4Y7LROC": "Backup, export, retention policies & GDPR tools",
+    "V_YQV94TRQU": "Organization Profile",
+    "V_FGUPPY47Z": "Complete — name, address, license",
+    "V_NJKJRL7I6": "Billing Configuration",
+    "V_CELNXAWOD": "Complete — payer setup, rates, tax codes",
+    "V_534BN5PWR": "Staff Onboarding",
+    "V_66EUDI5P5": "Complete — 82 PSWs, 4 RNs active",
+    "V_5HO9S0572": "EMR Integration",
+    "V_4LV5VUZR2": "Pending — FHIR endpoint configuration",
+    "V_UPXO5EQPC": "Compliance Documents",
+    "V_26TR7Q1BD": "Complete — HIPAA, PIPEDA, OHSA",
+    "V_C879K31DI": "Backup Configuration",
+    "V_2Z5IVZZ37": "Pending — offsite backup schedule",
+    "V_8V5VTSTWF": "Organization Info",
+    "V_PFPIUB17L": "Legal name, address, business number",
+    "V_U3TFIQAGX": "License & Compliance",
+    "V_G3761M0U8": "LHIN, MOH, OHIP provider number",
+    "V_USZHXP16J": "Service Configuration",
+    "V_0SSZ8N4UP": "Service types, rates, zones",
+    "V_K5W1INF1M": "Payment & Billing",
+    "V_O59RV4YA6": "Bank info, payer setup, tax config",
+    "V_XLV4UNVN1": "Integrations",
+    "V_1NMT1227W": "Email, SMS, EMR, EVV, payroll",
+    "V_87ATF923P": "Go Live",
+    "V_8RWVE3JTL": "Final checks, user invites, launch",
+    "V_UIBQTRZXI": "Personal Details",
+    "V_L70V0RPV7": "Contact info, emergency contacts, demographics",
+    "V_G560CSPN6": "Credentials",
+    "V_0PAL5CHJO": "CPR, First Aid, VSS, TB test, training certs",
+    "V_IRDI7DWAZ": "Training Modules",
+    "V_JN1PBHLTE": "HIPAA, WHMIS, platform training, safety",
+    "V_WFJ2E4ZPU": "Go Live",
+    "V_L43SNWDKM": "Supervisor sign-off, badge issue, first shift",
+    "V_K7H1D8EHD": "Client Assessment",
+    "V_CBMHIPOV4": "RAI-HC, functional status, cognitive & risk factors",
+    "V_WZ6TDYOYM": "Goals & Outcomes",
+    "V_KH4BAXWCW": "SMART goals, measurement criteria, timeline",
+    "V_613NLVDFJ": "Interventions",
+    "V_WJFCZ9KES": "Service plan, frequency, provider assignments",
+    "V_ME6IA5ESQ": "Review & Approve",
+    "V_PMQBQRN2G": "Clinical review, family consent, publish",
+    "V_HP91R5TOA": "Payer Setup",
+    "V_MC1VZ13E1": "OHIP, WSIB, CCAC, private insurers",
+    "V_R0ARNXJAE": "Fee Schedules",
+    "V_0YQJN8E9Y": "Service rates, modifiers, volume discounts",
+    "V_86KRDZQA7": "Billing Rules",
+    "V_SCER5J9AH": "Auto-billing triggers, approval chains",
+    "V_84YGKYAZI": "Collections",
+    "V_5O8RX1BNL": "Aging thresholds, late fees, follow-up automation",
+    "V_RL2RZ4W8N": "Model Selection",
+    "V_UHHEGP3N7": "Franchise, corporate, hybrid or white-label",
+    "V_6IQNKE072": "Territory Setup",
+    "V_D25GYTXHE": "Geographic zones, exclusive areas, overlap rules",
+    "V_ZGN1EUFSH": "Revenue Sharing",
+    "V_W27LE8BL1": "Commission rates, royalty structure, payouts",
+    "V_XADJW2SRA": "Launch",
+    "V_31YH5DI2T": "Branding, domains, onboarding materials",
+    "V_M5MJSHZ90": "Decentralized IDs (DIDs)",
+    "V_4VT8ILKID": "Self-sovereign identifiers for staff & clients",
+    "V_X3GE7A3SL": "Verifiable Credentials",
+    "V_Z9IPQE7IJ": "Tamper-proof digital certificates & licenses",
+    "V_C5LLPIF9P": "Trust Registry",
+    "V_JSSRXZY3W": "Credential schemas, issuers & verifiers",
+    "V_FLLE8M21V": "Verification Portal",
+    "V_WHVIN70DZ": "Instant credential verification for employers",
+    "V_OJZBRROA7": "Module Under Configuration",
+    "V_WT31Y8B4H": "Module Under Configuration",
+    "V_4TH5USE2B": "Templates List Data",
+    "V_BBJT1RRDH": "Email Templates",
+    "V_QMI5MV759": "Visit reminders, billing, welcome, security alerts",
+    "V_OATILLJJM": "SMS Templates",
+    "V_Q24K0NI29": "Shift confirmations, schedule changes, auth alerts",
+    "V_A6BEXGHLB": "PDF Templates",
+    "V_QH3Y1PWYB": "Invoices, reports, care plans, timesheets",
+    "V_ZWYJ5WSAN": "Form Templates",
+    "V_OSJVGIO96": "Intake forms, assessments, incident reports",
+    "V_QPOWX7D2W": "Personal Information",
+    "V_6RMAJX51S": "Name, email, phone & profile details",
+    "V_FHW1V1C4D": "Role & Permissions",
+    "V_9K71QSAN5": "Assign role, custom permissions & access level",
+    "V_VXLVDIRRQ": "Organization",
+    "V_US0APAKX1": "Department, team, supervisor & location",
+    "V_5YDSS9Z2I": "Security",
+    "V_7Q56XCKII": "MFA requirement, password policy & device limits",
+    "V_AHMA1KHQL": "Module Under Configuration",
+    "V_P8SAYLJD4": "Screen Reader Content Editor Data",
+    "V_WKR0V7JY3": "Api Latency Heatmap Data",
+    "V_JPAQKJ7MH": "Browser Matrix Telemetry Data",
+    "V_0HUSDPONF": "Core Web Vitals Tracker Data",
+    "V_7KYWJWQDE": "Legal Compliance Blockers Data",
+    "V_UBAHCISO4": "Dynamic Page Router Data",
+    "V_A7HW446JM": "Micro Copy Ab Testing Data",
+    "V_WZS1PA6EL": "Rich Text Governance Data",
+    "V_JQFX3Y9VN": "Dynamic Token Editor Data",
+    "V_47KIG7DQM": "Font Typography Registry Data",
+    "V_OHMJ5ARUB": "Asset Cost Attribution Data",
+    "V_4EQ9R5YCK": "Error Boundary Aggregator Data",
+    "V_NZ05HYLR9": "Third Party Script Manager Data",
+    "V_3XPMVQ1SG": "Global I18n Dictionary Data",
+    "V_F2WLY9GQZ": "Asset Expiration Manager Data",
+    "V_ORJGXVUDF": "Central Media Vault Data",
+    "V_FU89GD9JD": "Media Usage Heatmap Data",
+    "V_AT07J3LIL": "Secure Document Redactor Data",
+    "V_6FCAZ0P9O": "Third Party Cdn Sync Data",
+    "V_LBDV3NKRK": "Asset Permission Matrix Data",
+    "V_20JJZ9BZZ": "Global Digital Kill Switch Data",
+    "V_4JGCVCMDY": "No Code Builder Mock Data",
+    "V_YJ6CRA9ZK": "Ab Variant Manager Data",
+    "V_IPVNHP0B7": "Api Endpoint Registry Data",
+    "V_G9MT8MSUX": "Api Rate Limit Config Data",
+    "V_X6DTACN30": "Error Payload Inspector Data",
+    "V_J849WI4VF": "Form Schema Federator Data",
+    "V_6RP1OK4N5": "Visual Logic Builder Data",
+    "V_KLNUCAVG3": "Workflow Version Control Data",
+    "V_O4EZSNWSI": "Module Under Configuration",
+    "V_Z8JL0PE57": "Module Under Configuration",
+    "V_W6XI6MJMC": "B2b Sla Dashboard Data",
+    "V_4W5K4Y0FH": "Corporate Account Hierarchy Data",
+    "V_8OK0VA293": "Discharge Planner Portal Data",
+    "V_IS6WXHI9L": "Facility Lunch Tracker Data",
+    "V_TK7U2VRC6": "Physician Roi Tracker Data",
+    "V_24OHJZ0HP": "Post Discharge Success Data",
+    "V_0AMT69YQ4": "Referral Source Heatmap Data",
+    "V_W3EOETVFV": "Automated Review Asker Data",
+    "V_PMAIEI69Q": "Brand Asset Library Data",
+    "V_AVDUX88M1": "Competitor Keyword Hijacker Data",
+    "V_QKLRR2WQ8": "Crisis Comms Triage Data",
+    "V_UFA5FQYYP": "Google Business Sync Data",
+    "V_IOPCHHPSU": "Local Seo Rank Tracker Data",
+    "V_D5WKPYKGB": "Review Sentiment Analyzer Data",
+    "V_95VJB3CEP": "Geo Fenced Ad Dashboard Data",
+    "V_AEAS6VG8T": "Cost Of Care Calculator Data",
+    "V_YITT9WXM1": "Landing Page Ab Tester Data",
+    "V_1U5EFJXLI": "Lead Conversion Funnel Data",
+    "V_2C4ZYXBIY": "Live Chat Handover Data",
+    "V_13CP561E9": "Referral Program Tracker Data",
+    "V_A8UC0SXQI": "Churn Risk Predictor Data",
+    "V_RVCWCEG4A": "Drip Email Sequence Builder Data",
+    "V_6IY3CQZ3O": "Event Registration Builder Data",
+    "V_YZB9ZJ1UB": "Marketing Revenue Attribution Data",
+    "V_5NL2DV5LN": "Newsletter Subscriber Db Data",
+    "V_K3459RW9D": "Promotional Discount Engine Data",
+    "V_4J5GZM31M": "Blog Content Calendar Data",
+    "V_5E8W1JTN2": "Caregiver Spotlight Creator Data",
+    "V_IC5UA48M5": "Content Engagement Heatmap Data",
+    "V_QRW260614": "Keyword Cannibalization Monitor Data",
+    "V_4UPD704IW": "Seo Core Web Vitals Data",
+    "V_9ZPRZ8PQZ": "Testimonial Release Tracker Data",
+    "V_9AW35FVNO": "Traffic Source Visualizer Data",
+    "V_CHUSU8R3S": "Utm Parameter Builder Data",
+    "V_AYEI6EN69": "Social Media Credential Vault Data",
+    "V_Q9HN6QMW9": "Sales Territory Map Data",
+    "V_RFK6SB8QT": "Database Schema Audit Data",
+    "V_JD500K4V3": "Environment Audit Data",
+    "V_IU067Y6FK": "Module Under Configuration",
+    "V_IQ371IKOK": "Registry Integrity Check Data",
+    "V_G5U0RSYOJ": "Response Bot Data",
+    "V_F6OFM8Q10": "Technical Audit Portal Data",
+    "V_M2DJO0HSB": "Module Under Configuration",
+    "V_CXKJVFQPO": "Module Under Configuration",
+    "V_3K7EKPXS9": "Module Under Configuration",
+    "V_IN9HK5L46": "Module Under Configuration",
+    "V_FW4GOALRG": "Role Flows Page Data",
+    "V_11KAP4GHR": "Step Audit Modal Data",
+    "V_PL16GAF6N": "Impersonation Tool Data",
+    "V_HZWQMM3FD": "Module Under Configuration",
+    "V_VP509P4VX": "System Health Monitor Data",
+    "V_NNDQBX7GI": "Module Under Configuration",
+    "V_LVQ1EHBN7": "Module Under Configuration",
+    "V_E3G80UBDD": "Registry Auto Repair Data",
+    "V_2PUASWS8O": "Module Under Configuration",
+    "V_8RAKJ3WLQ": "Api Endpoints Hub Data",
+    "V_DS0JHZ723": "Module Under Configuration",
+    "V_KDWVQS6AN": "Module Under Configuration",
+    "V_OWN7P8W2Y": "Module Under Configuration",
+    "V_D8F4HVWF9": "Risk Surveillance Dashboard Data",
+    "V_H7OLIWWAP": "Module Under Configuration",
+    "V_8UOZ9IWUW": "Module Under Configuration",
+    "V_8ZKCGL8UC": "Not Found",
+    "V_4RVBUPXYS": "Server Error",
+    "V_K25TPTWM9": "Unauthorized",
+    "V_YUNG10Y4Z": "Module Under Configuration",
+    "V_D6U3B5HFB": "Dev Preview Data",
+    "V_MEX1C3TYA": "Marketing Showcase",
+    "V_DCDVWYL68": "Module Under Configuration",
+    "V_VCTU2D2D3": "Module Under Configuration",
+    "V_YAIY2ZIMF": "Module Under Configuration",
+    "V_E7CT97W29": "Module Under Configuration",
+    "V_4SO0QF0WI": "Module Under Configuration",
+    "V_IKA0E5XHD": "Module Under Configuration",
+    "V_IJ344N1QN": "Module Under Configuration",
+    "V_S5WET4GMC": "Privacy Policy (PIPEDA)",
+    "V_9NHHXWX43": "Personal information collection, use & disclosure",
+    "V_PTUXNBVGH": "HIPAA Compliance",
+    "V_1DWPJR82J": "Protected health information safeguards",
+    "V_6DOHG0MRG": "Terms of Service",
+    "V_VRS18XJA8": "Platform usage terms, SLAs & liability",
+    "V_OC91IMOS0": "Security Policy",
+    "V_HJ81WYBP9": "Access control, encryption, incident response",
+    "V_UH3N2JYRL": "Data Retention",
+    "V_NZ99241C5": "7-year retention, purge schedules, backup policy",
+    "V_ZL4JDBTX7": "Accessibility",
+    "V_K7MHRBC85": "WCAG 2.1 AA compliance, accommodations"
+};
 export type TableColumn = any;
 import { AdminRegistry } from 'prime-care-shared';
 
 // Inherited from admission.tsx
 const admissionSteps = [
-    { icon: '📋', title: 'Referral Information', subtitle: 'Source, date, reason for referral & urgency level' },
-    { icon: '👤', title: 'Client Demographics', subtitle: 'Name, DOB, address, contacts & emergency contacts' },
-    { icon: '🏥', title: 'Medical History', subtitle: 'Diagnoses, medications, allergies & physician info' },
-    { icon: '📊', title: 'Care Assessment', subtitle: 'RAI-HC, functional status & cognitive assessment' },
-    { icon: '📝', title: 'Service Plan', subtitle: 'Approved services, hours, frequency & goals' },
-    { icon: '✅', title: 'Consent & Documents', subtitle: 'Signed consents, ID verification & insurance' },
+    { icon: '📋', title: TEXT_VARS.V_K05IRRH9H, subtitle: TEXT_VARS.V_YCBTQC1Q8 },
+    { icon: '👤', title: TEXT_VARS.V_2KI0AHXHR, subtitle: TEXT_VARS.V_6C83RFMH9 },
+    { icon: '🏥', title: TEXT_VARS.V_EML3SLFQ9, subtitle: TEXT_VARS.V_RAGY0DYQH },
+    { icon: '📊', title: TEXT_VARS.V_G50Q29MIV, subtitle: TEXT_VARS.V_CCIV5JJ8X },
+    { icon: '📝', title: TEXT_VARS.V_XVS05FWGP, subtitle: TEXT_VARS.V_35AXCVDB7 },
+    { icon: '✅', title: TEXT_VARS.V_4A523TDXD, subtitle: TEXT_VARS.V_HLNAIERJ5 },
 ];
 
 // Inherited from ai.tsx
 const aiModules = [
-    { icon: '🔮', title: 'Predictive Analytics', subtitle: 'Visit trends, churn, demand forecasting' },
-    { icon: '💬', title: 'Sentiment Analysis', subtitle: 'Client & PSW satisfaction tracking' },
-    { icon: '🎯', title: 'Visit Optimization', subtitle: 'Route & schedule optimization' },
-    { icon: '⚠️', title: 'Churn Risk', subtitle: 'At-risk client identification' },
+    { icon: '🔮', title: TEXT_VARS.V_286T3KZD3, subtitle: TEXT_VARS.V_WJS3530VA },
+    { icon: '💬', title: TEXT_VARS.V_5Q7ERM1SV, subtitle: TEXT_VARS.V_ZPEN5KJ1K },
+    { icon: '🎯', title: TEXT_VARS.V_IGN7ZX6LF, subtitle: TEXT_VARS.V_MC4YLTXX0 },
+    { icon: '⚠️', title: TEXT_VARS.V_HS9JDDGSW, subtitle: TEXT_VARS.V_KQG5719H2 },
 ];
 
 // Inherited from ai.tsx
@@ -37,19 +633,19 @@ const churnCols: TableColumn[] = [
 
 // Inherited from ai.tsx
 const optimizationSuggestions = [
-    { icon: '🗺️', title: 'Route Clustering — North York', subtitle: '3 visits can be grouped → save 45 min drive time' },
-    { icon: '⏰', title: 'Schedule Gap — PSW Chen', subtitle: '2 hr gap between visits on Wed. Suggest backfill.' },
-    { icon: '📍', title: 'Distance Alert — PSW Williams', subtitle: 'Visit #4 is 38km from #3. Suggest reassign.' },
-    { icon: '✅', title: 'Optimal Match — Client Park', subtitle: 'PSW Santos best fit: 98% compatibility score' },
+    { icon: '🗺️', title: TEXT_VARS.V_OBJ51H736, subtitle: TEXT_VARS.V_7AHU3UAJS },
+    { icon: '⏰', title: TEXT_VARS.V_5E4JAYGR2, subtitle: TEXT_VARS.V_XDLT7RQPZ },
+    { icon: '📍', title: TEXT_VARS.V_M4IN5RNVF, subtitle: TEXT_VARS.V_E4VU9LXAT },
+    { icon: '✅', title: TEXT_VARS.V_IQPDXL9EY, subtitle: TEXT_VARS.V_U3CWM78BA },
 ];
 
 // Inherited from ai.tsx
 const sentimentFeed = [
-    { icon: '😊', title: 'Client Park: "PSW Santos is wonderful, always on time"', time: 'Today', level: 'success' as const },
-    { icon: '😐', title: 'Client Brown: "Visit was fine, nothing special"', time: 'Yesterday', level: 'info' as const },
-    { icon: '😟', title: 'Client Chen: "PSW arrived 20 min late, no notification"', time: '2 days ago', level: 'warning' as const },
-    { icon: '😠', title: 'Family Williams: "Scheduling keeps changing without notice"', time: '3 days ago', level: 'danger' as const },
-    { icon: '😊', title: 'Client Taylor: "Best care my mother has ever received"', time: '4 days ago', level: 'success' as const },
+    { icon: '😊', title: TEXT_VARS.V_VZ6LUW744, time: 'Today', level: 'success' as const },
+    { icon: '😐', title: TEXT_VARS.V_BDLE71JRA, time: 'Yesterday', level: 'info' as const },
+    { icon: '😟', title: TEXT_VARS.V_32KHCNUGP, time: '2 days ago', level: 'warning' as const },
+    { icon: '😠', title: TEXT_VARS.V_JU4STPPM2, time: '3 days ago', level: 'danger' as const },
+    { icon: '😊', title: TEXT_VARS.V_2FUC3Y3OM, time: '4 days ago', level: 'success' as const },
 ];
 
 // Inherited from audits.tsx
@@ -79,10 +675,10 @@ const authRows = [
 
 // Inherited from authorizations.tsx
 const alertFeed = [
-    { icon: '🔴', title: 'Susan Park — Auth expires Mar 31, 92% used, NO renewal filed', time: 'Urgent', level: 'danger' as const },
-    { icon: '🟠', title: 'Margaret Chen — 82% used (98/120 hrs), 6 weeks remaining', time: '2 hrs ago', level: 'warning' as const },
-    { icon: '🟡', title: 'James Brown — OT auth 75% used, renewal recommended', time: '1 day ago', level: 'warning' as const },
-    { icon: '🟢', title: 'Helen Taylor — Renewal approved, new auth starts Apr 1', time: '2 days ago', level: 'success' as const },
+    { icon: '🔴', title: TEXT_VARS.V_DHZDXEOVZ, time: 'Urgent', level: 'danger' as const },
+    { icon: '🟠', title: TEXT_VARS.V_XJOT1DY8K, time: '2 hrs ago', level: 'warning' as const },
+    { icon: '🟡', title: TEXT_VARS.V_47GOXLYLB, time: '1 day ago', level: 'warning' as const },
+    { icon: '🟢', title: TEXT_VARS.V_9U0P0TEFY, time: '2 days ago', level: 'success' as const },
 ];
 
 // Inherited from automation.tsx
@@ -136,12 +732,12 @@ const cols_2: TableColumn[] = [
 
 // Inherited from clinical-assistant.tsx
 const clinicalModules = [
-    { icon: '🩺', title: 'Care Plan Builder', subtitle: 'Create & manage individualized care plans' },
-    { icon: '💊', title: 'Medication Reconciliation', subtitle: 'Cross-check prescriptions, interactions & allergies' },
-    { icon: '📋', title: 'Assessment Templates', subtitle: 'RAI-HC, InterRAI, MDS & custom assessments' },
-    { icon: '🔬', title: 'Lab Integration', subtitle: 'Lab orders, results tracking & abnormal flags' },
-    { icon: '📊', title: 'Outcome Tracking', subtitle: 'Goal progress, clinical indicators & trends' },
-    { icon: '🤖', title: 'AI Clinical Suggestions', subtitle: 'Evidence-based care recommendations' },
+    { icon: '🩺', title: TEXT_VARS.V_EUGYHNDKD, subtitle: TEXT_VARS.V_WE0IJY8HC },
+    { icon: '💊', title: TEXT_VARS.V_HBIBZQAQL, subtitle: TEXT_VARS.V_AJBXNBWV5 },
+    { icon: '📋', title: TEXT_VARS.V_0RPAC1NP2, subtitle: TEXT_VARS.V_JDFR0OUHK },
+    { icon: '🔬', title: TEXT_VARS.V_KTQEXCJHA, subtitle: TEXT_VARS.V_GDEK15132 },
+    { icon: '📊', title: TEXT_VARS.V_4KGSR77YP, subtitle: TEXT_VARS.V_D83QQQE4V },
+    { icon: '🤖', title: TEXT_VARS.V_EK2820WA0, subtitle: TEXT_VARS.V_U2E9YCVDN },
 ];
 
 // Inherited from communications.tsx
@@ -163,19 +759,19 @@ const consents = [
 
 // Inherited from consent.tsx
 const templates = [
-    { icon: '📋', title: 'General Consent', subtitle: 'Standard service consent — annual renewal' },
-    { icon: '📱', title: 'Telehealth Consent', subtitle: 'Virtual visit authorization — PHIPA compliant' },
-    { icon: '💊', title: 'Medication Administration', subtitle: 'MAR consent for PSW-administered medications' },
-    { icon: '📸', title: 'Photography/Video', subtitle: 'Media capture consent for documentation' },
-    { icon: '🔬', title: 'Research Participation', subtitle: 'Optional research study consent' },
-    { icon: '📊', title: 'Data Sharing', subtitle: 'Inter-provider health information sharing' },
+    { icon: '📋', title: TEXT_VARS.V_4Z0HZDZIM, subtitle: TEXT_VARS.V_I278B5S5B },
+    { icon: '📱', title: TEXT_VARS.V_QJJFYQAWV, subtitle: TEXT_VARS.V_SQMR504LE },
+    { icon: '💊', title: TEXT_VARS.V_7RHBKXU22, subtitle: TEXT_VARS.V_468TZXOO2 },
+    { icon: '📸', title: TEXT_VARS.V_F6AB68TFA, subtitle: TEXT_VARS.V_JVQELR06H },
+    { icon: '🔬', title: TEXT_VARS.V_7PNS0Z01B, subtitle: TEXT_VARS.V_SPQ4IPEU0 },
+    { icon: '📊', title: TEXT_VARS.V_Y9WRNCZ80, subtitle: TEXT_VARS.V_ZRJB6H8GT },
 ];
 
 // Inherited from content.tsx
 const blogPosts = [
-    { title: 'Introducing PrimeCare Home Care Platform', date: 'Mar 12, 2026', status: '✅ Published', views: 1240 },
-    { title: 'HIPAA Compliance Best Practices for PSWs', date: 'Mar 8, 2026', status: '✅ Published', views: 890 },
-    { title: 'Remote Patient Monitoring: The Future of Home Care', date: 'Mar 5, 2026', status: '📝 Draft', views: 0 },
+    { title: TEXT_VARS.V_IAM5116EX, date: 'Mar 12, 2026', status: '✅ Published', views: 1240 },
+    { title: TEXT_VARS.V_GISG88UQJ, date: 'Mar 8, 2026', status: '✅ Published', views: 890 },
+    { title: TEXT_VARS.V_9QJEJ5NI9, date: 'Mar 5, 2026', status: '📝 Draft', views: 0 },
 ];
 
 // Inherited from content.tsx
@@ -223,22 +819,22 @@ const customers = [
 
 // Inherited from dashboard.tsx
 const quickActions = [
-    { icon: '📅', title: 'Schedule', subtitle: 'View & manage today\'s shifts' },
-    { icon: '👥', title: 'Staff', subtitle: '82 PSWs, 4 RNs active' },
-    { icon: '🏥', title: 'Clients', subtitle: '67 active clients' },
-    { icon: '💰', title: 'Revenue', subtitle: '$185K MTD' },
-    { icon: '📋', title: 'Compliance', subtitle: '98.2% score' },
-    { icon: '🤖', title: 'AI Insights', subtitle: '8 actionable items' },
+    { icon: '📅', title: TEXT_VARS.V_WU4ZGQJ1S, subtitle: TEXT_VARS.V_2M0WP74M0s shifts' },
+    { icon: '👥', title: TEXT_VARS.V_UBVZVO8JD, subtitle: TEXT_VARS.V_6E0RLYSGU },
+    { icon: '🏥', title: TEXT_VARS.V_U7Q1ZOJKK, subtitle: TEXT_VARS.V_61CK2GRUQ },
+    { icon: '💰', title: TEXT_VARS.V_4EYI4QMK9, subtitle: TEXT_VARS.V_H0HTRFPDI },
+    { icon: '📋', title: TEXT_VARS.V_9XAOHVH7N, subtitle: TEXT_VARS.V_IQNZXBJ6W },
+    { icon: '🤖', title: TEXT_VARS.V_TID8B1PMQ, subtitle: TEXT_VARS.V_TJL2S0JU5 },
 ];
 
 // Inherited from dashboard.tsx
 const registryModules = [
-    { icon: '📋', title: 'Page Registry', subtitle: '139 pages registered across admin & tenancy' },
-    { icon: '🔗', title: 'API Registry', subtitle: '85 endpoints, 12 modules, 4 middleware chains' },
-    { icon: '📊', title: 'Section Registry', subtitle: '15 section types, 60+ page configurations' },
-    { icon: '🔑', title: 'Role Registry', subtitle: '6 roles, 142 permissions, 5 scopes' },
-    { icon: '📡', title: 'Event Registry', subtitle: '24 event types, 6 automation hooks' },
-    { icon: '🎨', title: 'Theme Registry', subtitle: '3 themes, 24 CSS variables, dark mode' },
+    { icon: '📋', title: TEXT_VARS.V_T8ALJ0BB6, subtitle: TEXT_VARS.V_XQOH4D4PD },
+    { icon: '🔗', title: TEXT_VARS.V_CM1YED4VD, subtitle: TEXT_VARS.V_VCZ2JAKLQ },
+    { icon: '📊', title: TEXT_VARS.V_HDF9SQGB7, subtitle: TEXT_VARS.V_HKU6LVSB6 },
+    { icon: '🔑', title: TEXT_VARS.V_7ZGYGBCYW, subtitle: TEXT_VARS.V_ABHMTRYNI },
+    { icon: '📡', title: TEXT_VARS.V_09GSIWQ17, subtitle: TEXT_VARS.V_AVXRB75OT },
+    { icon: '🎨', title: TEXT_VARS.V_PQXQBRFPG, subtitle: TEXT_VARS.V_FOWGG6XNP },
 ];
 
 // Inherited from documents.tsx
@@ -260,12 +856,12 @@ const earningsRows = [
 
 // Inherited from erp.tsx
 const erpModules = [
-    { icon: '📦', title: 'Inventory Management', subtitle: 'Medical supplies, PPE, equipment tracking' },
-    { icon: '🛒', title: 'Purchase Orders', subtitle: 'Vendor POs, approval workflows, delivery tracking' },
-    { icon: '🏭', title: 'Vendor Management', subtitle: 'Supplier directory, contracts, performance' },
-    { icon: '📊', title: 'Demand Forecasting', subtitle: 'AI-predicted supply needs by location' },
-    { icon: '🔍', title: 'Asset Tracking', subtitle: 'Equipment lifecycle, maintenance schedules' },
-    { icon: '💰', title: 'Cost Analysis', subtitle: 'Spend analytics, category management' },
+    { icon: '📦', title: TEXT_VARS.V_RFETQZ9QJ, subtitle: TEXT_VARS.V_AFO0AWXAO },
+    { icon: '🛒', title: TEXT_VARS.V_506QINA9Q, subtitle: TEXT_VARS.V_TYU5PQWLA },
+    { icon: '🏭', title: TEXT_VARS.V_US0CN6JV9, subtitle: TEXT_VARS.V_B9GTRAGS5 },
+    { icon: '📊', title: TEXT_VARS.V_1AZBKR3J3, subtitle: TEXT_VARS.V_77FK3OVPL },
+    { icon: '🔍', title: TEXT_VARS.V_LKCQJNG59, subtitle: TEXT_VARS.V_C3RKRODS4 },
+    { icon: '💰', title: TEXT_VARS.V_JP2K4E1OU, subtitle: TEXT_VARS.V_U286XNVXY },
 ];
 
 // Inherited from evv.tsx
@@ -300,12 +896,12 @@ const leads = [
 
 // Inherited from ops.tsx
 const opsModules = [
-    { icon: '📋', title: 'Shift Overview', subtitle: 'Active shifts, coverage gaps, overtime tracking' },
-    { icon: '🚗', title: 'Fleet & Logistics', subtitle: 'Vehicle tracking, route optimization, mileage' },
-    { icon: '📊', title: 'Capacity Planning', subtitle: 'Demand forecasting, staffing models, utilization' },
-    { icon: '⚡', title: 'Incident Command', subtitle: 'Active incidents, escalation chains, resolution SLAs' },
-    { icon: '🔄', title: 'Workflow Automation', subtitle: 'Triggered actions, approval chains, notifications' },
-    { icon: '📈', title: 'Performance Metrics', subtitle: 'KPIs, SLA adherence, quality scores' },
+    { icon: '📋', title: TEXT_VARS.V_WSI5PQQRZ, subtitle: TEXT_VARS.V_4UDWJ1TBD },
+    { icon: '🚗', title: TEXT_VARS.V_G4TMJTMUZ, subtitle: TEXT_VARS.V_QJE9PQB38 },
+    { icon: '📊', title: TEXT_VARS.V_6EAHLN3C1, subtitle: TEXT_VARS.V_VHVUHQAAW },
+    { icon: '⚡', title: TEXT_VARS.V_J1P2ZSYQS, subtitle: TEXT_VARS.V_MWHD5XOHJ },
+    { icon: '🔄', title: TEXT_VARS.V_4ULD0IES4, subtitle: TEXT_VARS.V_1LQE3KPPZ },
+    { icon: '📈', title: TEXT_VARS.V_QD4XW88NR, subtitle: TEXT_VARS.V_U7B8194TA },
 ];
 
 // Inherited from payroll.tsx
@@ -341,22 +937,22 @@ const medCols: TableColumn[] = [
 
 // Inherited from rcm.tsx
 const rcmModules = [
-    { icon: '📋', title: 'Claims Management', subtitle: 'OHIP, WSIB & private insurer claim submission' },
-    { icon: '💳', title: 'Billing & Invoicing', subtitle: 'Automated client billing, statement generation' },
-    { icon: '🔄', title: 'ERA Processing', subtitle: 'Electronic remittance advice reconciliation' },
-    { icon: '📊', title: 'Denial Management', subtitle: 'Track, appeal & resolve denied claims' },
-    { icon: '💰', title: 'Collections', subtitle: 'Aging reports, follow-up automation' },
-    { icon: '📈', title: 'Revenue Analytics', subtitle: 'Payer mix, reimbursement trends, forecasts' },
+    { icon: '📋', title: TEXT_VARS.V_MU8SNRPNU, subtitle: TEXT_VARS.V_X0UDW2MJR },
+    { icon: '💳', title: TEXT_VARS.V_5GASMFWU5, subtitle: TEXT_VARS.V_PPWWBWGXY },
+    { icon: '🔄', title: TEXT_VARS.V_ZPMDBCC7W, subtitle: TEXT_VARS.V_WQMHR9GS8 },
+    { icon: '📊', title: TEXT_VARS.V_62X6UPFYZ, subtitle: TEXT_VARS.V_F0AAVTLA1 },
+    { icon: '💰', title: TEXT_VARS.V_2GD284I5J, subtitle: TEXT_VARS.V_1ZTOOHL1I },
+    { icon: '📈', title: TEXT_VARS.V_0SY4J9H0W, subtitle: TEXT_VARS.V_WLXHCNN98 },
 ];
 
 // Inherited from reference-data.tsx
 const refDataModules = [
-    { icon: '🗂️', title: 'Service Codes', subtitle: 'OHIP billing codes, service types & rates' },
-    { icon: '📋', title: 'Diagnosis Codes', subtitle: 'ICD-10 code management & lookup' },
-    { icon: '🏥', title: 'Facility Registry', subtitle: 'Care homes, clinics & satellite offices' },
-    { icon: '💊', title: 'Drug Formulary', subtitle: 'Approved medications, NDC codes & interactions' },
-    { icon: '📍', title: 'Service Areas', subtitle: 'Geographic zones, postal code mapping' },
-    { icon: '📊', title: 'Fee Schedules', subtitle: 'Payer-specific rates, modifiers & contracts' },
+    { icon: '🗂️', title: TEXT_VARS.V_4HZ7RL5ZY, subtitle: TEXT_VARS.V_0Q8ICJD1G },
+    { icon: '📋', title: TEXT_VARS.V_OW9D81BRT, subtitle: TEXT_VARS.V_QFRH0X56G },
+    { icon: '🏥', title: TEXT_VARS.V_TRIC7M370, subtitle: TEXT_VARS.V_1I2OJV03D },
+    { icon: '💊', title: TEXT_VARS.V_PMLTHIDIU, subtitle: TEXT_VARS.V_QUTVG020H },
+    { icon: '📍', title: TEXT_VARS.V_ZEYBTQ5M6, subtitle: TEXT_VARS.V_9NWC4TNFV },
+    { icon: '📊', title: TEXT_VARS.V_8W40M6XB4, subtitle: TEXT_VARS.V_BADRUSBVO },
 ];
 
 // Inherited from referrals.tsx
@@ -369,12 +965,12 @@ const referrals = [
 
 // Inherited from reports.tsx
 const reportModules = [
-    { icon: '📊', title: 'Financial Reports', subtitle: 'P&L, balance sheet, cash flow, aged receivables' },
-    { icon: '👥', title: 'HR & Staffing', subtitle: 'Headcount, turnover, overtime, certification status' },
-    { icon: '🏥', title: 'Clinical Reports', subtitle: 'Care plan outcomes, incident trends, med errors' },
-    { icon: '📋', title: 'Compliance Reports', subtitle: 'HIPAA, PIPEDA, credential audits, training completion' },
-    { icon: '📈', title: 'Operations Reports', subtitle: 'Visit volume, utilization, SLA adherence' },
-    { icon: '🔍', title: 'Custom Builder', subtitle: 'Build ad-hoc reports with drag-and-drop fields' },
+    { icon: '📊', title: TEXT_VARS.V_U4EU26NS5, subtitle: TEXT_VARS.V_00DYGZC9O },
+    { icon: '👥', title: TEXT_VARS.V_7TSB9RVIQ, subtitle: TEXT_VARS.V_1IHT3RD32 },
+    { icon: '🏥', title: TEXT_VARS.V_HLJJPUJXC, subtitle: TEXT_VARS.V_BQSY1WU9Y },
+    { icon: '📋', title: TEXT_VARS.V_3ERIW2X2K, subtitle: TEXT_VARS.V_1KHWU1K0P },
+    { icon: '📈', title: TEXT_VARS.V_68G7XO08Z, subtitle: TEXT_VARS.V_2BWMAHXJO },
+    { icon: '🔍', title: TEXT_VARS.V_I42IAN6I8, subtitle: TEXT_VARS.V_PMAEKDMXK },
 ];
 
 // Inherited from role-editor.tsx
@@ -426,19 +1022,19 @@ const auditCols: TableColumn[] = [
 
 // Inherited from security.tsx
 const securityModules = [
-    { icon: '🔍', title: 'Threat Overview', subtitle: 'Active threats, intrusion attempts, blocked IPs' },
-    { icon: '📋', title: 'Policy Compliance', subtitle: 'HIPAA, PIPEDA, SOC2 compliance status' },
-    { icon: '🔑', title: 'Access Reviews', subtitle: 'Periodic access certification & role audits' },
-    { icon: '🚨', title: 'Incident Response', subtitle: 'Active incidents, SLA tracking, resolution logs' },
+    { icon: '🔍', title: TEXT_VARS.V_Q7EUQ0WJ, subtitle: TEXT_VARS.V_SHED0D6NH },
+    { icon: '📋', title: TEXT_VARS.V_7IYFBGXV0, subtitle: TEXT_VARS.V_627JXG7QZ },
+    { icon: '🔑', title: TEXT_VARS.V_Y4ZCMEQUH, subtitle: TEXT_VARS.V_AYSGE464P },
+    { icon: '🚨', title: TEXT_VARS.V_GQN69A5OY, subtitle: TEXT_VARS.V_4823HVSE9 },
 ];
 
 // Inherited from security.tsx
 const activityFeed = [
-    { icon: '🔴', title: 'Brute force attempt blocked — 15 attempts from 185.220.x.x', time: '2 min ago', level: 'danger' as const },
-    { icon: '🟠', title: 'PSW-045 role escalation detected — admin access requested', time: '15 min ago', level: 'warning' as const },
-    { icon: '🟢', title: 'HIPAA compliance audit passed — all 47 checks green', time: '1 hr ago', level: 'success' as const },
-    { icon: 'ℹ️', title: 'Session purge completed — 23 expired sessions removed', time: '2 hrs ago', level: 'info' as const },
-    { icon: '🟢', title: 'SSL certificate renewed — expires Dec 2027', time: '3 hrs ago', level: 'success' as const },
+    { icon: '🔴', title: TEXT_VARS.V_STT0PXK4T, time: '2 min ago', level: 'danger' as const },
+    { icon: '🟠', title: TEXT_VARS.V_OFWOVWAWR, time: '15 min ago', level: 'warning' as const },
+    { icon: '🟢', title: TEXT_VARS.V_SJKIRG7IF, time: '1 hr ago', level: 'success' as const },
+    { icon: 'ℹ️', title: TEXT_VARS.V_UK00G7XHM, time: '2 hrs ago', level: 'info' as const },
+    { icon: '🟢', title: TEXT_VARS.V_QKSKWR2XR, time: '3 hrs ago', level: 'success' as const },
 ];
 
 // Inherited from security.tsx
@@ -505,12 +1101,12 @@ const ledgerCols: TableColumn[] = [
 
 // Inherited from security.tsx
 const complianceCards = [
-    { icon: '🇨🇦', title: 'HST/GST Filing', subtitle: 'Next filing: Apr 30 — Q1 2026 | Estimated: $12,350' },
-    { icon: '📋', title: 'WSIB Premiums', subtitle: 'Current rate: 2.46% | Annual est: $48,200' },
-    { icon: '💳', title: 'T4/T4A Generation', subtitle: 'Due: Feb 28 | 82 employees processed' },
-    { icon: '🏛️', title: 'EHT (Employer Health Tax)', subtitle: 'Ontario threshold: $1M | Current payroll: $1.8M' },
-    { icon: '📊', title: 'CRA Audit Trail', subtitle: 'Last CRA correspondence: Jan 15 — resolved' },
-    { icon: '🔒', title: 'PIPEDA Compliance', subtitle: 'Annual privacy impact assessment: ✅ Complete' },
+    { icon: '🇨🇦', title: TEXT_VARS.V_UVF4XYS1, subtitle: TEXT_VARS.V_T5MQ094SS },
+    { icon: '📋', title: TEXT_VARS.V_UDBP3H4L2, subtitle: TEXT_VARS.V_S89OO6RW3 },
+    { icon: '💳', title: TEXT_VARS.V_UZZD0K2F5, subtitle: TEXT_VARS.V_EPZGLAH98 },
+    { icon: '🏛️', title: TEXT_VARS.V_CK9QHCVA2, subtitle: TEXT_VARS.V_XV1O9KH2P },
+    { icon: '📊', title: TEXT_VARS.V_A5EZBCUYU, subtitle: TEXT_VARS.V_AXYJUQFVQ },
+    { icon: '🔒', title: TEXT_VARS.V_Z1RBY2ZHH, subtitle: TEXT_VARS.V_QZFTSF9UF },
 ];
 
 // Inherited from security.tsx
@@ -548,12 +1144,12 @@ const sessionCols: TableColumn[] = [
 
 // Inherited from security.tsx
 const threats = [
-    { icon: '🔴', title: 'Brute Force Attack — 185.220.101.42 — 47 attempts in 60s', time: '2 min ago', level: 'danger' as const },
-    { icon: '🟠', title: 'Suspicious Login — admin@primecare.ca from new location (Kyiv, UA)', time: '15 min ago', level: 'warning' as const },
-    { icon: '🟡', title: 'Rate Limit Exceeded — API endpoint /v1/admin/users — 250 req/min', time: '1 hr ago', level: 'warning' as const },
-    { icon: '🟢', title: 'Vulnerability Scan Completed — 0 critical findings', time: '3 hrs ago', level: 'success' as const },
-    { icon: '🟢', title: 'SSL Certificate Valid — expires Dec 2027', time: '6 hrs ago', level: 'success' as const },
-    { icon: 'ℹ️', title: 'WAF rule update applied — 12 new signatures', time: '12 hrs ago', level: 'info' as const },
+    { icon: '🔴', title: TEXT_VARS.V_YBQ215RNQ, time: '2 min ago', level: 'danger' as const },
+    { icon: '🟠', title: TEXT_VARS.V_2NBH770YJ, time: '15 min ago', level: 'warning' as const },
+    { icon: '🟡', title: TEXT_VARS.V_5IOWL26D4, time: '1 hr ago', level: 'warning' as const },
+    { icon: '🟢', title: TEXT_VARS.V_5OHUC8UUV, time: '3 hrs ago', level: 'success' as const },
+    { icon: '🟢', title: TEXT_VARS.V_5IVNXT9AU, time: '6 hrs ago', level: 'success' as const },
+    { icon: 'ℹ️', title: TEXT_VARS.V_G0DGEFT6T, time: '12 hrs ago', level: 'info' as const },
 ];
 
 // Inherited from services.tsx
@@ -704,7 +1300,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Biometric Login', 
+                    title: TEXT_VARS.V_8PPV1ZB55, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -717,7 +1313,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Forgot Password', 
+                    title: TEXT_VARS.V_N02N0765U, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -730,7 +1326,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Login', 
+                    title: TEXT_VARS.V_LSBRH56IO, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -743,7 +1339,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Business Onboard', 
+                    title: TEXT_VARS.V_LZQBTPF4V, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -756,7 +1352,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Vr Hoarding Simulator', 
+                    title: TEXT_VARS.V_2ZNOKYAMX, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -769,7 +1365,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Register', 
+                    title: TEXT_VARS.V_XIVQM3JUV, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -782,7 +1378,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Reset Password', 
+                    title: TEXT_VARS.V_26MM4GY36, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -807,7 +1403,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Alerts', value: 856, color: 'var(--pc-warning)' },
                 ]},
                 'D5.inference-chart': { chart: {
-                    title: 'Inference Volume (Last 7 Days)',
+                    title: TEXT_VARS.V_FOTAWZ2FV,
                     type: 'bar',
                     data: [
                         { label: 'Mon', value: 520, color: '#8B5CF6' },
@@ -863,7 +1459,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Retention Rate', value: '94.1%', color: 'var(--pc-success)' },
                 ]},
                 'T53.churn-table': { table: { columns: churnCols, rows: churnClients } },
-                'T53.trend': { chart: { title: 'Churn Risk Trend (6 Months)', type: 'bar', data: [
+                'T53.trend': { chart: { title: TEXT_VARS.V_6NLOAMH17, type: 'bar', data: [
                     { label: 'Oct', value: 8 }, { label: 'Nov', value: 6 },
                     { label: 'Dec', value: 5 }, { label: 'Jan', value: 7 },
                     { label: 'Feb', value: 4 }, { label: 'Mar', value: 4 },
@@ -879,7 +1475,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Suggestions', value: 4, color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'T54.suggestions': { cardGrid: { items: optimizationSuggestions, columns: 2 } },
-                'T54.efficiency': { chart: { title: 'Weekly Efficiency Gains', type: 'bar', data: [
+                'T54.efficiency': { chart: { title: TEXT_VARS.V_9OA3P0J4C, type: 'bar', data: [
                     { label: 'Mon', value: 35, color: '#10B981' }, { label: 'Tue', value: 42, color: '#10B981' },
                     { label: 'Wed', value: 28, color: '#10B981' }, { label: 'Thu', value: 51, color: '#10B981' },
                     { label: 'Fri', value: 38, color: '#10B981' },
@@ -894,12 +1490,12 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Neutral', value: '28%', color: 'var(--pc-info, #2563EB)' },
                     { label: 'Negative', value: '10%', color: 'var(--pc-error, #ef4444)' },
                 ]},
-                'T55.trend': { chart: { title: 'Sentiment Trend (6 Months)', type: 'bar', data: [
+                'T55.trend': { chart: { title: TEXT_VARS.V_5ZQ7ZJ9ZW, type: 'bar', data: [
                     { label: 'Oct', value: 72, color: '#10B981' }, { label: 'Nov', value: 68, color: '#F59E0B' },
                     { label: 'Dec', value: 74, color: '#10B981' }, { label: 'Jan', value: 65, color: '#F59E0B' },
                     { label: 'Feb', value: 71, color: '#10B981' }, { label: 'Mar', value: 62, color: '#F59E0B' },
                 ]}},
-                'T55.feed': { feed: { title: '📡 Recent Feedback', items: sentimentFeed } },
+                'T55.feed': { feed: { title: TEXT_VARS.V_4KBYVC4N3, items: sentimentFeed } },
             },
 
   // Extracted from audit-export.tsx
@@ -910,10 +1506,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Issues Found', value: 2, color: 'var(--pc-warning)' },
                 ]},
                 'R10.modules': { cardGrid: { items: [
-                    { icon: '🏥', title: 'HIPAA Compliance', subtitle: 'PHI access logs, breach notification status' },
-                    { icon: '🇨🇦', title: 'PIPEDA Report', subtitle: 'Privacy impact assessment, consent tracking' },
-                    { icon: '⚠️', title: 'OHSA Workplace Safety', subtitle: 'Incident reports, hazard assessments' },
-                    { icon: '✅', title: 'Accreditation Prep', subtitle: 'Accreditation Ontario checklist & evidence' },
+                    { icon: '🏥', title: TEXT_VARS.V_POJ5D0VNJ, subtitle: TEXT_VARS.V_F1CA38D7S },
+                    { icon: '🇨🇦', title: TEXT_VARS.V_Y2Y7CH31J, subtitle: TEXT_VARS.V_HSKTXJPCO },
+                    { icon: '⚠️', title: TEXT_VARS.V_GQTB5AV6C, subtitle: TEXT_VARS.V_PU0ODT01W },
+                    { icon: '✅', title: TEXT_VARS.V_0QOPYOG0Y, subtitle: TEXT_VARS.V_0F7JRRTLO },
                 ], columns: 2 } },
             },
 
@@ -925,10 +1521,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Next Deadline', value: 'Apr 30', color: 'var(--pc-primary)' },
                 ]},
                 'R13.modules': { cardGrid: { items: [
-                    { icon: '🏛️', title: 'CRA (Revenue Agency)', subtitle: 'T4/T4A, HST filing, payroll remittances' },
-                    { icon: '⚙️', title: 'WSIB (Workplace Safety)', subtitle: 'Premium reports, claim submissions' },
-                    { icon: '🏥', title: 'MOH (Ministry of Health)', subtitle: 'Service volume, quality indicators' },
-                    { icon: '📋', title: 'ESA (Employment Standards)', subtitle: 'Hours of work, overtime, vacation tracking' },
+                    { icon: '🏛️', title: TEXT_VARS.V_IWOC9HUM5, subtitle: TEXT_VARS.V_5S0X7MAA7 },
+                    { icon: '⚙️', title: TEXT_VARS.V_7B9MQW6IO, subtitle: TEXT_VARS.V_Z07ZVR958 },
+                    { icon: '🏥', title: TEXT_VARS.V_GBR4HAMKJ, subtitle: TEXT_VARS.V_CO5S5FGZT },
+                    { icon: '📋', title: TEXT_VARS.V_Q6PSIEHPG, subtitle: TEXT_VARS.V_S3PB9LB2T },
                 ], columns: 2 } },
             },
 
@@ -940,9 +1536,9 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Total Records', value: '45K', color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'R9.formats': { cardGrid: { items: [
-                    { icon: '📄', title: 'CSV Export', subtitle: 'Raw audit data — all fields, filterable' },
-                    { icon: '📋', title: 'PDF Report', subtitle: 'Formatted audit summary with charts' },
-                    { icon: '🔐', title: 'Encrypted Archive', subtitle: 'HIPAA-compliant encrypted ZIP package' },
+                    { icon: '📄', title: TEXT_VARS.V_5339HYNWE, subtitle: TEXT_VARS.V_S3LN44AJC },
+                    { icon: '📋', title: TEXT_VARS.V_CAW94UFPB, subtitle: TEXT_VARS.V_R9EYTRONJ },
+                    { icon: '🔐', title: TEXT_VARS.V_C6D7X9HOB, subtitle: TEXT_VARS.V_0OIPR8PG9 },
                 ], columns: 3 } },
             },
 
@@ -975,7 +1571,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Renewals Due', value: 2, color: 'var(--pc-error, #ef4444)' },
                     { label: 'Unused Hours', value: 340, color: 'var(--pc-success)' },
                 ]},
-                'R6.chart': { chart: { title: 'Utilization by Payer', type: 'horizontal-bar', data: [
+                'R6.chart': { chart: { title: TEXT_VARS.V_NPMYKZ1JK, type: 'horizontal-bar', data: [
                     { label: 'OHIP', value: 77, color: '#3B82F6' }, { label: 'WSIB', value: 30, color: '#10B981' },
                     { label: 'Private', value: 92, color: '#EF4444' }, { label: 'CCAC', value: 73, color: '#F59E0B' },
                 ]}},
@@ -988,7 +1584,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Warnings', value: 2, color: 'var(--pc-warning)' },
                     { label: 'Resolved', value: 1, color: 'var(--pc-success)' },
                 ]},
-                'T49.feed': { feed: { title: '🔔 Active Alerts', items: alertFeed } },
+                'T49.feed': { feed: { title: TEXT_VARS.V_3TIWYUO54, items: alertFeed } },
             },
 
   // Extracted from automation.tsx
@@ -1075,7 +1671,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Expiring 90d', value: 8, color: 'var(--pc-info, #2563EB)' },
                     { label: 'Auto-Renewed', value: 12, color: 'var(--pc-success)' },
                 ]},
-                'R7.chart': { chart: { title: 'Expiration Timeline', type: 'bar', data: [
+                'R7.chart': { chart: { title: TEXT_VARS.V_Z9OIDW7AF, type: 'bar', data: [
                     { label: '< 30d', value: 3, color: '#EF4444' }, { label: '30-60d', value: 5, color: '#F59E0B' },
                     { label: '60-90d', value: 8, color: '#3B82F6' }, { label: '> 90d', value: 45, color: '#10B981' },
                 ]}},
@@ -1116,7 +1712,7 @@ export const PageSectionRegistry: Record<string, any> = {
                 ]},
                 'D6.job-list': { table: { columns: jobCols, rows: cronJobs } },
                 'D6.run-history': { chart: {
-                    title: 'Job Execution History (Last 7 Days)',
+                    title: TEXT_VARS.V_VIMCIBKGD,
                     type: 'bar',
                     data: [
                         { label: 'Mon', value: 8 }, { label: 'Tue', value: 12 },
@@ -1149,7 +1745,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Incidents', value: 2, color: 'var(--pc-warning)' },
                 ]},
                 'D1.quick-actions': { cardGrid: { items: quickActions, columns: 3 } },
-                'D1.visit-chart': { chart: { title: 'Weekly Visit Volume', type: 'bar', data: [
+                'D1.visit-chart': { chart: { title: TEXT_VARS.V_T1R4687VD, type: 'bar', data: [
                     { label: 'Mon', value: 145 }, { label: 'Tue', value: 162 },
                     { label: 'Wed', value: 138 }, { label: 'Thu', value: 155 },
                     { label: 'Fri', value: 170 }, { label: 'Sat', value: 45 },
@@ -1214,7 +1810,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Exceptions', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'D4.map': { map: {
-                    title: '📍 Live Visit Locations',
+                    title: TEXT_VARS.V_MXJ9THKGD,
                     markers: [
                         { id: 'm1', lat: 43.65, lng: -79.38, label: 'PSW Santos — Chen residence', status: 'active' },
                         { id: 'm2', lat: 43.72, lng: -79.34, label: 'PSW Williams — Park home', status: 'active' },
@@ -1222,11 +1818,11 @@ export const PageSectionRegistry: Record<string, any> = {
                         { id: 'm4', lat: 43.71, lng: -79.40, label: 'PSW Chen — Williams home', status: 'danger' },
                     ],
                 }},
-                'D4.recent': { feed: { title: '📡 Live EVV Feed', items: [
-                    { icon: '🟢', title: 'PSW Santos clocked in — Margaret Chen — GPS ✓', time: '14:23', level: 'success' as const },
-                    { icon: '🟢', title: 'PSW Williams clocked out — Robert Williams — 2h 15m', time: '14:10', level: 'success' as const },
-                    { icon: '🟡', title: 'PSW Brown — GPS outside service area (50m)', time: '13:55', level: 'warning' as const },
-                    { icon: '🔴', title: 'PSW Chen — No clock-in for scheduled visit', time: '13:30', level: 'danger' as const },
+                'D4.recent': { feed: { title: TEXT_VARS.V_JHRLDEUML, items: [
+                    { icon: '🟢', title: TEXT_VARS.V_N59M4BZNQ, time: '14:23', level: 'success' as const },
+                    { icon: '🟢', title: TEXT_VARS.V_CZ4OI8EIA, time: '14:10', level: 'success' as const },
+                    { icon: '🟡', title: TEXT_VARS.V_A5P5W2GHV, time: '13:55', level: 'warning' as const },
+                    { icon: '🔴', title: TEXT_VARS.V_C8ASUMXE3, time: '13:30', level: 'danger' as const },
                 ]}},
             },
 
@@ -1248,9 +1844,9 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Format', value: 'CSV/XML', color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'R8.formats': { cardGrid: { items: [
-                    { icon: '📄', title: 'CSV Export', subtitle: 'Raw EVV data — all fields, date-filterable' },
-                    { icon: '📋', title: 'XML (Payer Format)', subtitle: 'OHIP/CCAC-compliant structured format' },
-                    { icon: '📊', title: 'Summary PDF', subtitle: 'Aggregated EVV compliance report' },
+                    { icon: '📄', title: TEXT_VARS.V_230I2932M, subtitle: TEXT_VARS.V_CGP9HAR9L },
+                    { icon: '📋', title: TEXT_VARS.V_QCWX1G642, subtitle: TEXT_VARS.V_SGJXG9BVS },
+                    { icon: '📊', title: TEXT_VARS.V_ODHM0TSNK, subtitle: TEXT_VARS.V_Y85HDYPUU },
                 ], columns: 3 } },
             },
 
@@ -1272,7 +1868,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'FC.empty']: { emptyState: { title: 'Form Card Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'FC.empty']: { emptyState: { title: TEXT_VARS.V_6PKVM2FMV, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from form-registry.tsx
@@ -1282,7 +1878,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'FDV.empty']: { emptyState: { title: 'Form Detail View Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'FDV.empty']: { emptyState: { title: TEXT_VARS.V_OAHQK404Y, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from franchise.tsx
@@ -1313,10 +1909,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Severity Avg', value: 'Low', color: 'var(--pc-success)' },
                 ]},
                 'F10.form': { cardGrid: { items: [
-                    { icon: '📋', title: 'Incident Details', subtitle: 'Date, time, location & description' },
-                    { icon: '👤', title: 'Involved Parties', subtitle: 'Client, PSW, witnesses & supervisor' },
-                    { icon: '🏥', title: 'Injury Assessment', subtitle: 'Type, severity & treatment administered' },
-                    { icon: '📊', title: 'Root Cause Analysis', subtitle: 'Contributing factors & prevention plan' },
+                    { icon: '📋', title: TEXT_VARS.V_7VT778CKR, subtitle: TEXT_VARS.V_8EU276NSP },
+                    { icon: '👤', title: TEXT_VARS.V_CCFKI6U30, subtitle: TEXT_VARS.V_YKP44OHLO },
+                    { icon: '🏥', title: TEXT_VARS.V_HMLC6CYLY, subtitle: TEXT_VARS.V_F1ZB088UZ },
+                    { icon: '📊', title: TEXT_VARS.V_NPXRDH3UT, subtitle: TEXT_VARS.V_O0PMGF4KO },
                 ], columns: 2 } },
             },
 
@@ -1327,7 +1923,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'IEF.empty']: { emptyState: { title: 'Incident Entry Form Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'IEF.empty']: { emptyState: { title: TEXT_VARS.V_IBL08CRWD, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from incidents.tsx
@@ -1337,7 +1933,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'IL.empty']: { emptyState: { title: 'Incident List Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'IL.empty']: { emptyState: { title: TEXT_VARS.V_S496FFUHW, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from incidents.tsx
@@ -1359,11 +1955,11 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Applied', value: 5, color: 'var(--pc-success)' },
                     { label: 'Model Accuracy', value: '94%', color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'T9.feed': { feed: { title: '🧠 Recent Insights', items: [
-                    { icon: '💡', title: 'Staffing: Add 2 PSWs in North York zone — demand ↑ 15% predicted next month', time: '1 hr ago', level: 'info' as const },
-                    { icon: '⚠️', title: 'Churn Risk: Client Chen satisfaction declining — recommend PSW assignment review', time: '3 hrs ago', level: 'warning' as const },
-                    { icon: '📈', title: 'Efficiency: Route optimization could save 12 hrs/week in Mississauga zone', time: '6 hrs ago', level: 'success' as const },
-                    { icon: '🔔', title: 'Compliance: 3 PSW certifications expiring within 30 days', time: '1 day ago', level: 'danger' as const },
+                'T9.feed': { feed: { title: TEXT_VARS.V_9HOW2CNOL, items: [
+                    { icon: '💡', title: TEXT_VARS.V_6BZ9RYWP6, time: '1 hr ago', level: 'info' as const },
+                    { icon: '⚠️', title: TEXT_VARS.V_OC4Q0NYQC, time: '3 hrs ago', level: 'warning' as const },
+                    { icon: '📈', title: TEXT_VARS.V_XBM8EENQB, time: '6 hrs ago', level: 'success' as const },
+                    { icon: '🔔', title: TEXT_VARS.V_RC40LU4N1, time: '1 day ago', level: 'danger' as const },
                 ]}},
             },
 
@@ -1376,12 +1972,12 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Errors', value: 0, color: 'var(--pc-success)' },
                 ]},
                 'T5.resources': { cardGrid: { items: [
-                    { icon: '👤', title: 'Patient', subtitle: 'Demographics, identifiers & contact info' },
-                    { icon: '📋', title: 'Observation', subtitle: 'Vitals, lab results & assessments' },
-                    { icon: '💊', title: 'MedicationRequest', subtitle: 'Prescriptions & medication orders' },
-                    { icon: '📅', title: 'Encounter', subtitle: 'Visits, admissions & service events' },
-                    { icon: '🏥', title: 'Organization', subtitle: 'Facilities, departments & teams' },
-                    { icon: '🩺', title: 'Practitioner', subtitle: 'Providers, credentials & roles' },
+                    { icon: '👤', title: TEXT_VARS.V_M1C1DMNSV, subtitle: TEXT_VARS.V_WXDYNMRXZ },
+                    { icon: '📋', title: TEXT_VARS.V_WMBW2CXBI, subtitle: TEXT_VARS.V_QAIP3I4IC },
+                    { icon: '💊', title: TEXT_VARS.V_AGHDC04JL, subtitle: TEXT_VARS.V_XMGSLJ1IV },
+                    { icon: '📅', title: TEXT_VARS.V_691QV7LY9, subtitle: TEXT_VARS.V_99NU0WR6L },
+                    { icon: '🏥', title: TEXT_VARS.V_BYS44N3W0, subtitle: TEXT_VARS.V_OI1UVL1YV },
+                    { icon: '🩺', title: TEXT_VARS.V_YNBPON7IS, subtitle: TEXT_VARS.V_MLP577YDQ },
                 ], columns: 3 } },
             },
 
@@ -1394,10 +1990,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Overdue', value: 1, color: 'var(--pc-error, #ef4444)' },
                 ]},
                 'F9.form': { cardGrid: { items: [
-                    { icon: '👤', title: 'Client & Payer', subtitle: 'Select client, payer, billing address' },
-                    { icon: '📋', title: 'Service Lines', subtitle: 'Add services, hours, rates & adjustments' },
-                    { icon: '💰', title: 'Payment Terms', subtitle: 'Due date, payment method, late fees' },
-                    { icon: '📧', title: 'Delivery', subtitle: 'Email, print, or electronic submission' },
+                    { icon: '👤', title: TEXT_VARS.V_FMYVCOU4L, subtitle: TEXT_VARS.V_76WRGBVBZ },
+                    { icon: '📋', title: TEXT_VARS.V_DHZCDJUQL, subtitle: TEXT_VARS.V_FG8O9V37Z },
+                    { icon: '💰', title: TEXT_VARS.V_ERSNEUCPH, subtitle: TEXT_VARS.V_753O97B8F },
+                    { icon: '📧', title: TEXT_VARS.V_H8LN6COVK, subtitle: TEXT_VARS.V_BBEZJTXB5 },
                 ], columns: 2 } },
             },
 
@@ -1410,31 +2006,31 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Last Updated', value: 'Today', color: '#7C3AED' },
                 ]},
                 'H8.categories': { cardGrid: { items: [
-                    { icon: '📋', title: 'Standard Operating Procedures', subtitle: '42 articles — visit protocols, incident reporting' },
-                    { icon: '🏥', title: 'Clinical Guidelines', subtitle: '28 articles — care plans, medication admin, wound care' },
-                    { icon: '📊', title: 'HR & Policies', subtitle: '35 articles — employment standards, benefits, safety' },
-                    { icon: '💻', title: 'Technology', subtitle: '18 articles — platform guides, EVV, telehealth setup' },
-                    { icon: '📝', title: 'Training Materials', subtitle: '25 articles — onboarding, HIPAA, certifications' },
+                    { icon: '📋', title: TEXT_VARS.V_3IZYOFHWW, subtitle: TEXT_VARS.V_B6J6ZZH3O },
+                    { icon: '🏥', title: TEXT_VARS.V_B6Y9FBHWM, subtitle: TEXT_VARS.V_2DRDDDH6J },
+                    { icon: '📊', title: TEXT_VARS.V_ZO76H7F96, subtitle: TEXT_VARS.V_XK6W91B6N },
+                    { icon: '💻', title: TEXT_VARS.V_G2R6UXEUP, subtitle: TEXT_VARS.V_9TWHH8HMQ },
+                    { icon: '📝', title: TEXT_VARS.V_ZH81WVV5F, subtitle: TEXT_VARS.V_XC2C8GV80 },
                 ], columns: 3 } },
             },
 
   // Extracted from knowledge-base.tsx
   ['T48']: {
                 'T48.form': { cardGrid: { items: [
-                    { icon: '📝', title: 'Article Content', subtitle: 'Rich text editor, headings, lists & media' },
-                    { icon: '🏷️', title: 'Metadata', subtitle: 'Category, tags, author & publish date' },
-                    { icon: '🔗', title: 'Related Articles', subtitle: 'Link related SOPs, policies & guides' },
-                    { icon: '👥', title: 'Access Control', subtitle: 'Visibility, role-based access & approval chain' },
+                    { icon: '📝', title: TEXT_VARS.V_YQVMFA245, subtitle: TEXT_VARS.V_5INF7YHAF },
+                    { icon: '🏷️', title: TEXT_VARS.V_YA0S16534, subtitle: TEXT_VARS.V_T0X50DZXR },
+                    { icon: '🔗', title: TEXT_VARS.V_W1SSWZ6H2, subtitle: TEXT_VARS.V_2DM0DZMMF },
+                    { icon: '👥', title: TEXT_VARS.V_K1UPUNM3S, subtitle: TEXT_VARS.V_KQOBUI7ZY },
                 ], columns: 2 } },
             },
 
   // Extracted from leads.tsx
   ['F11']: {
                 'F11.form': { cardGrid: { items: [
-                    { icon: '👤', title: 'Contact Information', subtitle: 'Name, phone, email & preferred contact method' },
-                    { icon: '🏥', title: 'Service Interest', subtitle: 'Requested service, urgency & availability' },
-                    { icon: '📋', title: 'Source & Notes', subtitle: 'Referral source, initial notes & follow-up plan' },
-                    { icon: '📊', title: 'Qualification', subtitle: 'Budget, timeline, decision maker & scoring' },
+                    { icon: '👤', title: TEXT_VARS.V_TIEZQ23K4, subtitle: TEXT_VARS.V_98XRGTPIO },
+                    { icon: '🏥', title: TEXT_VARS.V_C3LW3FQJ1, subtitle: TEXT_VARS.V_NY9PCO8ER },
+                    { icon: '📋', title: TEXT_VARS.V_OC69E3RQ2, subtitle: TEXT_VARS.V_NM6F1ZMQH },
+                    { icon: '📊', title: TEXT_VARS.V_V4HJ7S826, subtitle: TEXT_VARS.V_ZY18TX5F2 },
                 ], columns: 2 } },
             },
 
@@ -1456,7 +2052,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LEF.empty']: { emptyState: { title: 'Lead Entry Form Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LEF.empty']: { emptyState: { title: TEXT_VARS.V_3RU375R8G, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from leads.tsx
@@ -1467,7 +2063,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Ready to Convert', value: 3, color: 'var(--pc-warning)' },
                     { label: 'Converted MTD', value: 8, color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'T66.chart': { chart: { title: 'Monthly Conversions', type: 'bar', data: [
+                'T66.chart': { chart: { title: TEXT_VARS.V_GNEVP02AC, type: 'bar', data: [
                     { label: 'Oct', value: 6 }, { label: 'Nov', value: 8 },
                     { label: 'Dec', value: 5 }, { label: 'Jan', value: 10 },
                     { label: 'Feb', value: 7 }, { label: 'Mar', value: 8 },
@@ -1483,7 +2079,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Coverage Area', value: '250 km²', color: '#7C3AED' },
                 ]},
                 'F12.map': { map: {
-                    title: '📍 Service Area Coverage',
+                    title: TEXT_VARS.V_69BV0QS99,
                     markers: [
                         { id: 'm1', lat: 43.65, lng: -79.38, label: 'HQ — Toronto', status: 'active' },
                         { id: 'm2', lat: 43.72, lng: -79.34, label: 'North York Office', status: 'active' },
@@ -1500,7 +2096,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LL.empty']: { emptyState: { title: 'Locations List Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LL.empty']: { emptyState: { title: TEXT_VARS.V_HG8PCKPJG, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from marketplace.tsx
@@ -1511,7 +2107,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-276.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_I0DEB1QO8, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -1525,15 +2121,15 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Channels', value: 4, color: '#7C3AED' },
                 ]},
                 'H5.channels': { cardGrid: { items: [
-                    { icon: '📧', title: 'Email', subtitle: 'Transactional & marketing emails via SendGrid' },
-                    { icon: '📱', title: 'SMS', subtitle: 'Twilio-powered text messages' },
-                    { icon: '🔔', title: 'Push', subtitle: 'PWA push notifications via service worker' },
-                    { icon: '💬', title: 'In-App', subtitle: 'Real-time notification bell & toast messages' },
+                    { icon: '📧', title: TEXT_VARS.V_XIEKUMHUF, subtitle: TEXT_VARS.V_L8LO19GJY },
+                    { icon: '📱', title: TEXT_VARS.V_A1HQ1VKKL, subtitle: TEXT_VARS.V_QS2ZWWBF6 },
+                    { icon: '🔔', title: TEXT_VARS.V_0U1IIE56T, subtitle: TEXT_VARS.V_K0LKK8U8D },
+                    { icon: '💬', title: TEXT_VARS.V_QQ9G7I185, subtitle: TEXT_VARS.V_B96IXUIXC },
                 ], columns: 4 } },
-                'H5.recent': { feed: { title: '📡 Recent Notifications', items: [
-                    { icon: '📧', title: 'Visit Reminder — Margaret Chen — Tomorrow 10:00 AM', time: '5 min ago', level: 'info' as const },
-                    { icon: '📱', title: 'Shift Confirmation SMS — PSW Santos', time: '15 min ago', level: 'success' as const },
-                    { icon: '🔔', title: 'Auth Exhaustion Alert — Susan Park (92%)', time: '1 hr ago', level: 'warning' as const },
+                'H5.recent': { feed: { title: TEXT_VARS.V_O3GIN5QHO, items: [
+                    { icon: '📧', title: TEXT_VARS.V_UEVOG052O, time: '5 min ago', level: 'info' as const },
+                    { icon: '📱', title: TEXT_VARS.V_J3XSKJYIL, time: '15 min ago', level: 'success' as const },
+                    { icon: '🔔', title: TEXT_VARS.V_ILR8DGI60, time: '1 hr ago', level: 'warning' as const },
                 ]}},
             },
 
@@ -1545,17 +2141,17 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Errors/hr', value: 0.3, color: 'var(--pc-warning)' },
                     { label: 'Active Users', value: 12, color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'D6-OBS.metrics': { chart: { title: 'Request Volume (Last 24h)', type: 'bar', data: [
+                'D6-OBS.metrics': { chart: { title: TEXT_VARS.V_O3RARBEW1, type: 'bar', data: [
                     { label: '00:00', value: 12 }, { label: '04:00', value: 3 },
                     { label: '08:00', value: 45 }, { label: '10:00', value: 78 },
                     { label: '12:00', value: 92 }, { label: '14:00', value: 85 },
                     { label: '16:00', value: 65 }, { label: '18:00', value: 42 },
                     { label: '20:00', value: 28 }, { label: '22:00', value: 15 },
                 ]}},
-                'D6-OBS.feed': { feed: { title: '🚨 Recent Alerts', items: [
-                    { icon: '🟢', title: 'All systems operational', time: 'Now', level: 'success' as const },
-                    { icon: '🟡', title: 'Worker CPU spike to 85% — auto-resolved', time: '2 hrs ago', level: 'warning' as const },
-                    { icon: '🟢', title: 'Deploy #33 successful — zero downtime', time: '3 hrs ago', level: 'success' as const },
+                'D6-OBS.feed': { feed: { title: TEXT_VARS.V_N3SSDGUV8, items: [
+                    { icon: '🟢', title: TEXT_VARS.V_VGH1QCAM9, time: 'Now', level: 'success' as const },
+                    { icon: '🟡', title: TEXT_VARS.V_ZG4F91M20, time: '2 hrs ago', level: 'warning' as const },
+                    { icon: '🟢', title: TEXT_VARS.V_3TQWLD41I, time: '3 hrs ago', level: 'success' as const },
                 ]}},
             },
 
@@ -1568,10 +2164,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Docs', value: 8, color: 'var(--pc-error, #ef4444)' },
                 ]},
                 'F7.steps': { cardGrid: { items: [
-                    { icon: '📋', title: 'Application Review', subtitle: 'Resume screening, reference checks, interview' },
-                    { icon: '📄', title: 'Document Collection', subtitle: 'ID, VSS, CPR, First Aid, TB test, proof of training' },
-                    { icon: '🎓', title: 'Training Modules', subtitle: 'HIPAA, WHMIS, Client Safety, Platform Use' },
-                    { icon: '✅', title: 'Compliance Sign-Off', subtitle: 'Manager approval, credential verification, go-live' },
+                    { icon: '📋', title: TEXT_VARS.V_R5MXVBI39, subtitle: TEXT_VARS.V_PE04IEM81 },
+                    { icon: '📄', title: TEXT_VARS.V_TGBN8EYIG, subtitle: TEXT_VARS.V_FGC6F6O4U },
+                    { icon: '🎓', title: TEXT_VARS.V_ZFXM4AAOH, subtitle: TEXT_VARS.V_YVM5GF9NQ },
+                    { icon: '✅', title: TEXT_VARS.V_S72I3A3B1, subtitle: TEXT_VARS.V_QI151MQ3N },
                 ], columns: 4 } },
             },
 
@@ -1585,7 +2181,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'OT Hours Today', value: 8, color: '#F59E0B' },
                 ]},
                 'D7.modules': { cardGrid: { items: opsModules, columns: 3 } },
-                'D7.trend': { chart: { title: 'Daily Visit Volume (This Week)', type: 'bar', data: [
+                'D7.trend': { chart: { title: TEXT_VARS.V_GJQHLS3ON, type: 'bar', data: [
                     { label: 'Mon', value: 145 }, { label: 'Tue', value: 162 },
                     { label: 'Wed', value: 138 }, { label: 'Thu', value: 155 },
                     { label: 'Fri', value: 170 }, { label: 'Sat', value: 45 },
@@ -1601,13 +2197,13 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Utilization', value: '87%', color: 'var(--pc-success)' },
                     { label: 'Coverage Gaps', value: 4, color: 'var(--pc-warning)' },
                 ]},
-                'T67.supply': { chart: { title: 'Supply vs Demand (Weekly)', type: 'bar', data: [
+                'T67.supply': { chart: { title: TEXT_VARS.V_Q5F56SW2R, type: 'bar', data: [
                     { label: 'Mon', value: 162, color: '#3B82F6' }, { label: 'Tue', value: 158, color: '#3B82F6' },
                     { label: 'Wed', value: 148, color: '#F59E0B' }, { label: 'Thu', value: 155, color: '#3B82F6' },
                     { label: 'Fri', value: 170, color: '#3B82F6' }, { label: 'Sat', value: 45, color: '#EF4444' },
                     { label: 'Sun', value: 32, color: '#EF4444' },
                 ]}},
-                'T67.forecast': { chart: { title: 'Demand Forecast (Next 4 Weeks)', type: 'bar', data: [
+                'T67.forecast': { chart: { title: TEXT_VARS.V_IDRBZ281C, type: 'bar', data: [
                     { label: 'Wk 12', value: 3200 }, { label: 'Wk 13', value: 3350 },
                     { label: 'Wk 14', value: 3100 }, { label: 'Wk 15', value: 3400 },
                 ]}},
@@ -1620,7 +2216,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'GV.empty']: { emptyState: { title: 'Grid View Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'GV.empty']: { emptyState: { title: TEXT_VARS.V_KZF65NSJ7, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from page-registry.tsx
@@ -1630,7 +2226,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'IMV.empty']: { emptyState: { title: 'Identity Map View Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'IMV.empty']: { emptyState: { title: TEXT_VARS.V_67D5QV76D, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from page-registry.tsx
@@ -1640,7 +2236,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TV.empty']: { emptyState: { title: 'Table View Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TV.empty']: { emptyState: { title: TEXT_VARS.V_FY191F09R, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pages.tsx
@@ -1650,7 +2246,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TP.empty']: { emptyState: { title: 'Test Page Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TP.empty']: { emptyState: { title: TEXT_VARS.V_S5SM0BWF5, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from payroll.tsx
@@ -1662,7 +2258,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'OT Hours', value: 124, color: 'var(--pc-warning)' },
                 ]},
                 'H7.runs': { table: { columns: payrollCols, rows: payrollRuns } },
-                'H7.trend': { chart: { title: 'Weekly Payroll (Last 8 Weeks)', type: 'bar', data: [
+                'H7.trend': { chart: { title: TEXT_VARS.V_7FPHMKUXJ, type: 'bar', data: [
                     { label: 'W4', value: 138 }, { label: 'W5', value: 141 }, { label: 'W6', value: 140 },
                     { label: 'W7', value: 142 }, { label: 'W8', value: 139 }, { label: 'W9', value: 143 },
                     { label: 'W10', value: 145 }, { label: 'W11', value: 147 },
@@ -1690,7 +2286,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Denials', value: 3, color: 'var(--pc-error, #ef4444)' },
                 ]},
                 'H3.modules': { cardGrid: { items: rcmModules, columns: 3 } },
-                'H3.trend': { chart: { title: 'Monthly Collections (6 Months)', type: 'bar', data: [
+                'H3.trend': { chart: { title: TEXT_VARS.V_2RC7ZSL7B, type: 'bar', data: [
                     { label: 'Oct', value: 168, color: '#10B981' }, { label: 'Nov', value: 174, color: '#10B981' },
                     { label: 'Dec', value: 155, color: '#F59E0B' }, { label: 'Jan', value: 182, color: '#10B981' },
                     { label: 'Feb', value: 179, color: '#10B981' }, { label: 'Mar', value: 185, color: '#10B981' },
@@ -1727,11 +2323,11 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Top Source', value: 'CCAC', color: 'var(--pc-info, #2563EB)' },
                     { label: 'Avg Time to Serve', value: '3.2 days', color: '#7C3AED' },
                 ]},
-                'R11.by-source': { chart: { title: 'Referrals by Source', type: 'donut', data: [
+                'R11.by-source': { chart: { title: TEXT_VARS.V_8ZPDSDDIY, type: 'donut', data: [
                     { label: 'CCAC', value: 40, color: '#3B82F6' }, { label: 'Hospital', value: 25, color: '#10B981' },
                     { label: 'Physician', value: 20, color: '#F59E0B' }, { label: 'Self', value: 15, color: '#8B5CF6' },
                 ]}},
-                'R11.trend': { chart: { title: 'Monthly Referral Volume', type: 'bar', data: [
+                'R11.trend': { chart: { title: TEXT_VARS.V_6QB1ZN3HX, type: 'bar', data: [
                     { label: 'Oct', value: 22 }, { label: 'Nov', value: 25 }, { label: 'Dec', value: 18 },
                     { label: 'Jan', value: 30 }, { label: 'Feb', value: 24 }, { label: 'Mar', value: 28 },
                 ]}},
@@ -1756,10 +2352,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Scheduled', value: 2, color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'R2.formats': { cardGrid: { items: [
-                    { icon: '📄', title: 'CSV Export', subtitle: 'Raw data tables — clients, visits, timesheets, billing' },
-                    { icon: '📋', title: 'PDF Reports', subtitle: 'Formatted reports with charts, summaries & branding' },
-                    { icon: '📊', title: 'Excel Workbook', subtitle: 'Multi-sheet workbooks with pivot data & formulas' },
-                    { icon: '🔗', title: 'JSON / API', subtitle: 'Machine-readable data for system integrations' },
+                    { icon: '📄', title: TEXT_VARS.V_9PFM1KL9Q, subtitle: TEXT_VARS.V_01P9KJTSZ },
+                    { icon: '📋', title: TEXT_VARS.V_WZ6LH5XWS, subtitle: TEXT_VARS.V_EA83KHNI5 },
+                    { icon: '📊', title: TEXT_VARS.V_41IEEVDY7, subtitle: TEXT_VARS.V_OFBWWQ7UO },
+                    { icon: '🔗', title: TEXT_VARS.V_PZHSG2202, subtitle: TEXT_VARS.V_NTG1ARYJV },
                 ], columns: 2 } },
             },
 
@@ -1771,7 +2367,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-131.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_SVPH54YIK, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -1784,7 +2380,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-390.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_632VP3UEP, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -1796,7 +2392,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RL.empty']: { emptyState: { title: 'Roles List Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RL.empty']: { emptyState: { title: TEXT_VARS.V_C3A1EEEJ6, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from role-editor.tsx
@@ -1820,11 +2416,11 @@ export const PageSectionRegistry: Record<string, any> = {
                 ]},
                 'L1.calendar': { calendar: {
                     events: [
-                        { id: `evt-${Math.random()}`, date: '2026-03-16', title: 'PSW Santos → Chen', color: '#3B82F6' },
-                        { id: `evt-${Math.random()}`, date: '2026-03-16', title: 'RN Johnson → Williams', color: '#10B981' },
-                        { id: `evt-${Math.random()}`, date: '2026-03-17', title: 'PSW Brown → Taylor', color: '#3B82F6' },
-                        { id: `evt-${Math.random()}`, date: '2026-03-18', title: 'OT Martinez → Brown', color: '#8B5CF6' },
-                        { id: `evt-${Math.random()}`, date: '2026-03-20', title: 'PSW Santos → Park', color: '#3B82F6' },
+                        { id: `evt-${Math.random()}`, date: '2026-03-16', title: TEXT_VARS.V_U08FCCM42, color: '#3B82F6' },
+                        { id: `evt-${Math.random()}`, date: '2026-03-16', title: TEXT_VARS.V_90VJFIT88, color: '#10B981' },
+                        { id: `evt-${Math.random()}`, date: '2026-03-17', title: TEXT_VARS.V_DU1NSUH3H, color: '#3B82F6' },
+                        { id: `evt-${Math.random()}`, date: '2026-03-18', title: TEXT_VARS.V_U0VMY0IWR, color: '#8B5CF6' },
+                        { id: `evt-${Math.random()}`, date: '2026-03-20', title: TEXT_VARS.V_1SBCCVDQD, color: '#3B82F6' },
                     ],
                 }},
             },
@@ -1837,12 +2433,12 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Searches Today', value: 142, color: 'var(--pc-success)' },
                 ]},
                 'T1.categories': { cardGrid: { items: [
-                    { icon: '👥', title: 'Clients', subtitle: 'Search by name, ID, address or phone' },
-                    { icon: '🏥', title: 'PSWs & Staff', subtitle: 'Search by name, badge, certifications' },
-                    { icon: '📅', title: 'Visits & Shifts', subtitle: 'Search by date, client, PSW or status' },
-                    { icon: '📄', title: 'Documents', subtitle: 'Search by type, provider or keyword' },
-                    { icon: '🧾', title: 'Invoices & Claims', subtitle: 'Search by ID, client, payer or amount' },
-                    { icon: '🚨', title: 'Incidents', subtitle: 'Search by type, date or severity' },
+                    { icon: '👥', title: TEXT_VARS.V_PGR74R45V, subtitle: TEXT_VARS.V_3R0N34F8L },
+                    { icon: '🏥', title: TEXT_VARS.V_8BBA8BHNH, subtitle: TEXT_VARS.V_RHMQJSJKX },
+                    { icon: '📅', title: TEXT_VARS.V_8ZJEVRMDD, subtitle: TEXT_VARS.V_CBWVEWT2B },
+                    { icon: '📄', title: TEXT_VARS.V_Y3FCON79U, subtitle: TEXT_VARS.V_R3KGAM60I },
+                    { icon: '🧾', title: TEXT_VARS.V_JN62U0FIZ, subtitle: TEXT_VARS.V_8K6B5U7DW },
+                    { icon: '🚨', title: TEXT_VARS.V_X4Z3H77IT, subtitle: TEXT_VARS.V_RA1C37HDS },
                 ], columns: 3 } },
             },
 
@@ -1855,17 +2451,17 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Net Income', value: '$23K', color: '#10B981' },
                     { label: 'Cash Flow', value: '+$41K', color: 'var(--pc-info, #2563EB)' },
                 ]},
-                'D3.pl-chart': { chart: { title: 'P&L — Revenue vs Expenses', type: 'bar', data: [
+                'D3.pl-chart': { chart: { title: TEXT_VARS.V_Z6ZZDDRZ7, type: 'bar', data: [
                     { label: 'Oct', value: 175, color: '#10B981' }, { label: 'Nov', value: 182, color: '#10B981' },
                     { label: 'Dec', value: 168, color: '#F59E0B' }, { label: 'Jan', value: 190, color: '#10B981' },
                     { label: 'Feb', value: 178, color: '#10B981' }, { label: 'Mar', value: 185, color: '#10B981' },
                 ]}},
                 'D3.journal-table': { table: { columns: journalCols, rows: recentJournals } },
-                'D3.balance-sheet': { chart: { title: 'Asset Allocation', type: 'donut', data: [
+                'D3.balance-sheet': { chart: { title: TEXT_VARS.V_EW6U882RB, type: 'donut', data: [
                     { label: 'Cash', value: 45, color: '#10B981' }, { label: 'Receivables', value: 25, color: '#3B82F6' },
                     { label: 'Equipment', value: 18, color: '#F59E0B' }, { label: 'Prepaid', value: 12, color: '#8B5CF6' },
                 ]}},
-                'D3.cash-flow': { chart: { title: 'Cash Flow Forecast (Next 6 Months)', type: 'bar', data: [
+                'D3.cash-flow': { chart: { title: TEXT_VARS.V_OA8OYAYOH, type: 'bar', data: [
                     { label: 'Apr', value: 38 }, { label: 'May', value: 42 },
                     { label: 'Jun', value: 35 }, { label: 'Jul', value: 48 },
                     { label: 'Aug', value: 44 }, { label: 'Sep', value: 51 },
@@ -1890,7 +2486,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SD.empty']: { emptyState: { title: 'Security Dashboard Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SD.empty']: { emptyState: { title: TEXT_VARS.V_O0UUH0YOC, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from security.tsx
@@ -1903,7 +2499,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Last Audit', value: '2 hrs ago', color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'T10.nav-cards': { cardGrid: { items: securityModules, columns: 4 } },
-                'T10.activity-feed': { feed: { items: activityFeed, title: '📡 Security Activity Feed' } },
+                'T10.activity-feed': { feed: { items: activityFeed, title: TEXT_VARS.V_19DMXXZG2 } },
             },
 
   // Extracted from security.tsx
@@ -1948,10 +2544,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Tamper Alerts', value: 0, color: 'var(--pc-success)' },
                 ]},
                 'T16.modules': { cardGrid: { items: [
-                    { icon: '🔐', title: 'Database Checksums', subtitle: 'SHA-256 validation of all critical tables' },
-                    { icon: '📋', title: 'Audit Log Integrity', subtitle: 'Immutable log chain verification' },
-                    { icon: '📄', title: 'Document Fingerprints', subtitle: 'File hash comparison for uploaded docs' },
-                    { icon: '🔍', title: 'API Response Signing', subtitle: 'Response integrity verification headers' },
+                    { icon: '🔐', title: TEXT_VARS.V_JDGFXCW2J, subtitle: TEXT_VARS.V_4DPD8TDFT },
+                    { icon: '📋', title: TEXT_VARS.V_OE0VA20PU, subtitle: TEXT_VARS.V_QPAORMAH2 },
+                    { icon: '📄', title: TEXT_VARS.V_HRIXAS4NN, subtitle: TEXT_VARS.V_8MNOP2X6B },
+                    { icon: '🔍', title: TEXT_VARS.V_3YT70WQJ5, subtitle: TEXT_VARS.V_VHVL7WUSV },
                 ], columns: 2 } },
             },
 
@@ -1964,7 +2560,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Net Income', value: '$23K', color: '#10B981' },
                 ]},
                 'T17.journal': { table: { columns: ledgerCols, rows: journalEntries } },
-                'T17.pl-chart': { chart: { title: 'Revenue vs Expenses (6 Months)', type: 'bar', data: [
+                'T17.pl-chart': { chart: { title: TEXT_VARS.V_1VJ29RJ2C, type: 'bar', data: [
                     { label: 'Oct', value: 175, color: '#10B981' }, { label: 'Nov', value: 182, color: '#10B981' },
                     { label: 'Dec', value: 168, color: '#F59E0B' }, { label: 'Jan', value: 190, color: '#10B981' },
                     { label: 'Feb', value: 178, color: '#10B981' }, { label: 'Mar', value: 185, color: '#10B981' },
@@ -1991,7 +2587,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Conflicts', value: 0, color: 'var(--pc-success)' },
                 ]},
                 'T56.matrix': { table: { columns: roleCols, rows: roleMatrix } },
-                'T56.distribution': { chart: { title: 'Permission Distribution by Role', type: 'donut', data: [
+                'T56.distribution': { chart: { title: TEXT_VARS.V_FM78J78DP, type: 'donut', data: [
                     { label: 'Admin', value: 60, color: '#EF4444' },
                     { label: 'Manager', value: 42, color: '#F59E0B' },
                     { label: 'RN', value: 35, color: '#3B82F6' },
@@ -2020,8 +2616,8 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'WAF Rules', value: 234, color: 'var(--pc-primary)' },
                     { label: 'Uptime', value: '99.98%', color: 'var(--pc-success)' },
                 ]},
-                'T58.threat-feed': { feed: { title: '📡 Live Threat Feed', items: threats } },
-                'T58.history': { chart: { title: 'Blocked Attacks (7 Days)', type: 'bar', data: [
+                'T58.threat-feed': { feed: { title: TEXT_VARS.V_2BJW0QX18, items: threats } },
+                'T58.history': { chart: { title: TEXT_VARS.V_DESIXQBYO, type: 'bar', data: [
                     { label: 'Mon', value: 23, color: '#EF4444' }, { label: 'Tue', value: 15, color: '#EF4444' },
                     { label: 'Wed', value: 8, color: '#F59E0B' }, { label: 'Thu', value: 31, color: '#EF4444' },
                     { label: 'Fri', value: 47, color: '#EF4444' }, { label: 'Sat', value: 12, color: '#F59E0B' },
@@ -2055,12 +2651,12 @@ export const PageSectionRegistry: Record<string, any> = {
   // Extracted from settings.tsx
   ['T11']: {
                 'T11.modules': { cardGrid: { items: [
-                    { icon: '🎨', title: 'Branding', subtitle: 'Logo, colors, fonts & white-label config' },
-                    { icon: '🔗', title: 'Integrations', subtitle: 'Twilio, SendGrid, Stripe, OHIP, EMR connections' },
-                    { icon: '🔐', title: 'Security', subtitle: 'Password policy, MFA, session timeout, IP whitelist' },
-                    { icon: '📧', title: 'Email Templates', subtitle: 'Notification templates, signatures & branding' },
-                    { icon: '🌐', title: 'Localization', subtitle: 'Language, timezone, date format & currency' },
-                    { icon: '📊', title: 'Data Management', subtitle: 'Backup, export, retention policies & GDPR tools' },
+                    { icon: '🎨', title: TEXT_VARS.V_0Z3HK4UEW, subtitle: TEXT_VARS.V_MRFPZKGF7 },
+                    { icon: '🔗', title: TEXT_VARS.V_NOMFPREEP, subtitle: TEXT_VARS.V_2XR97LKBY },
+                    { icon: '🔐', title: TEXT_VARS.V_G7PCZ9OXI, subtitle: TEXT_VARS.V_ZYAUQSPU9 },
+                    { icon: '📧', title: TEXT_VARS.V_XWBWE5BLU, subtitle: TEXT_VARS.V_C9MFSX4BN },
+                    { icon: '🌐', title: TEXT_VARS.V_9LO2NFA5O, subtitle: TEXT_VARS.V_B0COTYY0L },
+                    { icon: '📊', title: TEXT_VARS.V_637AU9VH5, subtitle: TEXT_VARS.V_CL4Y7LROC },
                 ], columns: 3 } },
             },
 
@@ -2082,55 +2678,55 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Health Score', value: '98%', color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'T12.modules': { cardGrid: { items: [
-                    { icon: '✅', title: 'Organization Profile', subtitle: 'Complete — name, address, license' },
-                    { icon: '✅', title: 'Billing Configuration', subtitle: 'Complete — payer setup, rates, tax codes' },
-                    { icon: '✅', title: 'Staff Onboarding', subtitle: 'Complete — 82 PSWs, 4 RNs active' },
-                    { icon: '⚠️', title: 'EMR Integration', subtitle: 'Pending — FHIR endpoint configuration' },
-                    { icon: '✅', title: 'Compliance Documents', subtitle: 'Complete — HIPAA, PIPEDA, OHSA' },
-                    { icon: '⚠️', title: 'Backup Configuration', subtitle: 'Pending — offsite backup schedule' },
+                    { icon: '✅', title: TEXT_VARS.V_YQV94TRQU, subtitle: TEXT_VARS.V_FGUPPY47Z },
+                    { icon: '✅', title: TEXT_VARS.V_NJKJRL7I6, subtitle: TEXT_VARS.V_CELNXAWOD },
+                    { icon: '✅', title: TEXT_VARS.V_534BN5PWR, subtitle: TEXT_VARS.V_66EUDI5P5 },
+                    { icon: '⚠️', title: TEXT_VARS.V_5HO9S0572, subtitle: TEXT_VARS.V_4LV5VUZR2 },
+                    { icon: '✅', title: TEXT_VARS.V_UPXO5EQPC, subtitle: TEXT_VARS.V_26TR7Q1BD },
+                    { icon: '⚠️', title: TEXT_VARS.V_C879K31DI, subtitle: TEXT_VARS.V_2Z5IVZZ37 },
                 ], columns: 3 } },
             },
 
   // Extracted from setup.tsx
   ['W1']: { 'W1.steps': { cardGrid: { items: [
-            { icon: '1️⃣', title: 'Organization Info', subtitle: 'Legal name, address, business number' },
-            { icon: '2️⃣', title: 'License & Compliance', subtitle: 'LHIN, MOH, OHIP provider number' },
-            { icon: '3️⃣', title: 'Service Configuration', subtitle: 'Service types, rates, zones' },
-            { icon: '4️⃣', title: 'Payment & Billing', subtitle: 'Bank info, payer setup, tax config' },
-            { icon: '5️⃣', title: 'Integrations', subtitle: 'Email, SMS, EMR, EVV, payroll' },
-            { icon: '6️⃣', title: 'Go Live', subtitle: 'Final checks, user invites, launch' },
+            { icon: '1️⃣', title: TEXT_VARS.V_8V5VTSTWF, subtitle: TEXT_VARS.V_PFPIUB17L },
+            { icon: '2️⃣', title: TEXT_VARS.V_U3TFIQAGX, subtitle: TEXT_VARS.V_G3761M0U8 },
+            { icon: '3️⃣', title: TEXT_VARS.V_USZHXP16J, subtitle: TEXT_VARS.V_0SSZ8N4UP },
+            { icon: '4️⃣', title: TEXT_VARS.V_K5W1INF1M, subtitle: TEXT_VARS.V_O59RV4YA6 },
+            { icon: '5️⃣', title: TEXT_VARS.V_XLV4UNVN1, subtitle: TEXT_VARS.V_1NMT1227W },
+            { icon: '6️⃣', title: TEXT_VARS.V_87ATF923P, subtitle: TEXT_VARS.V_8RWVE3JTL },
         ], columns: 3 } } },
 
   // Extracted from setup.tsx
   ['W2']: { 'W2.steps': { cardGrid: { items: [
-            { icon: '1️⃣', title: 'Personal Details', subtitle: 'Contact info, emergency contacts, demographics' },
-            { icon: '2️⃣', title: 'Credentials', subtitle: 'CPR, First Aid, VSS, TB test, training certs' },
-            { icon: '3️⃣', title: 'Training Modules', subtitle: 'HIPAA, WHMIS, platform training, safety' },
-            { icon: '4️⃣', title: 'Go Live', subtitle: 'Supervisor sign-off, badge issue, first shift' },
+            { icon: '1️⃣', title: TEXT_VARS.V_UIBQTRZXI, subtitle: TEXT_VARS.V_L70V0RPV7 },
+            { icon: '2️⃣', title: TEXT_VARS.V_G560CSPN6, subtitle: TEXT_VARS.V_0PAL5CHJO },
+            { icon: '3️⃣', title: TEXT_VARS.V_IRDI7DWAZ, subtitle: TEXT_VARS.V_JN1PBHLTE },
+            { icon: '4️⃣', title: TEXT_VARS.V_WFJ2E4ZPU, subtitle: TEXT_VARS.V_L43SNWDKM },
         ], columns: 4 } } },
 
   // Extracted from setup.tsx
   ['W3']: { 'W3.steps': { cardGrid: { items: [
-            { icon: '1️⃣', title: 'Client Assessment', subtitle: 'RAI-HC, functional status, cognitive & risk factors' },
-            { icon: '2️⃣', title: 'Goals & Outcomes', subtitle: 'SMART goals, measurement criteria, timeline' },
-            { icon: '3️⃣', title: 'Interventions', subtitle: 'Service plan, frequency, provider assignments' },
-            { icon: '4️⃣', title: 'Review & Approve', subtitle: 'Clinical review, family consent, publish' },
+            { icon: '1️⃣', title: TEXT_VARS.V_K7H1D8EHD, subtitle: TEXT_VARS.V_CBMHIPOV4 },
+            { icon: '2️⃣', title: TEXT_VARS.V_WZ6TDYOYM, subtitle: TEXT_VARS.V_KH4BAXWCW },
+            { icon: '3️⃣', title: TEXT_VARS.V_613NLVDFJ, subtitle: TEXT_VARS.V_WJFCZ9KES },
+            { icon: '4️⃣', title: TEXT_VARS.V_ME6IA5ESQ, subtitle: TEXT_VARS.V_PMQBQRN2G },
         ], columns: 4 } } },
 
   // Extracted from setup.tsx
   ['W4']: { 'W4.steps': { cardGrid: { items: [
-            { icon: '1️⃣', title: 'Payer Setup', subtitle: 'OHIP, WSIB, CCAC, private insurers' },
-            { icon: '2️⃣', title: 'Fee Schedules', subtitle: 'Service rates, modifiers, volume discounts' },
-            { icon: '3️⃣', title: 'Billing Rules', subtitle: 'Auto-billing triggers, approval chains' },
-            { icon: '4️⃣', title: 'Collections', subtitle: 'Aging thresholds, late fees, follow-up automation' },
+            { icon: '1️⃣', title: TEXT_VARS.V_HP91R5TOA, subtitle: TEXT_VARS.V_MC1VZ13E1 },
+            { icon: '2️⃣', title: TEXT_VARS.V_R0ARNXJAE, subtitle: TEXT_VARS.V_0YQJN8E9Y },
+            { icon: '3️⃣', title: TEXT_VARS.V_86KRDZQA7, subtitle: TEXT_VARS.V_SCER5J9AH },
+            { icon: '4️⃣', title: TEXT_VARS.V_84YGKYAZI, subtitle: TEXT_VARS.V_5O8RX1BNL },
         ], columns: 4 } } },
 
   // Extracted from setup.tsx
   ['W5']: { 'W5.steps': { cardGrid: { items: [
-            { icon: '1️⃣', title: 'Model Selection', subtitle: 'Franchise, corporate, hybrid or white-label' },
-            { icon: '2️⃣', title: 'Territory Setup', subtitle: 'Geographic zones, exclusive areas, overlap rules' },
-            { icon: '3️⃣', title: 'Revenue Sharing', subtitle: 'Commission rates, royalty structure, payouts' },
-            { icon: '4️⃣', title: 'Launch', subtitle: 'Branding, domains, onboarding materials' },
+            { icon: '1️⃣', title: TEXT_VARS.V_RL2RZ4W8N, subtitle: TEXT_VARS.V_UHHEGP3N7 },
+            { icon: '2️⃣', title: TEXT_VARS.V_6IQNKE072, subtitle: TEXT_VARS.V_D25GYTXHE },
+            { icon: '3️⃣', title: TEXT_VARS.V_ZGN1EUFSH, subtitle: TEXT_VARS.V_W27LE8BL1 },
+            { icon: '4️⃣', title: TEXT_VARS.V_XADJW2SRA, subtitle: TEXT_VARS.V_31YH5DI2T },
         ], columns: 4 } } },
 
   // Extracted from sovereign.tsx
@@ -2142,10 +2738,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Trust Score', value: '99.9%', color: 'var(--pc-info, #2563EB)' },
                 ]},
                 'T6.modules': { cardGrid: { items: [
-                    { icon: '🪪', title: 'Decentralized IDs (DIDs)', subtitle: 'Self-sovereign identifiers for staff & clients' },
-                    { icon: '📜', title: 'Verifiable Credentials', subtitle: 'Tamper-proof digital certificates & licenses' },
-                    { icon: '🔗', title: 'Trust Registry', subtitle: 'Credential schemas, issuers & verifiers' },
-                    { icon: '🔍', title: 'Verification Portal', subtitle: 'Instant credential verification for employers' },
+                    { icon: '🪪', title: TEXT_VARS.V_M5MJSHZ90, subtitle: TEXT_VARS.V_4VT8ILKID },
+                    { icon: '📜', title: TEXT_VARS.V_X3GE7A3SL, subtitle: TEXT_VARS.V_Z9IPQE7IJ },
+                    { icon: '🔗', title: TEXT_VARS.V_C5LLPIF9P, subtitle: TEXT_VARS.V_JSSRXZY3W },
+                    { icon: '🔍', title: TEXT_VARS.V_FLLE8M21V, subtitle: TEXT_VARS.V_WHVIN70DZ },
                 ], columns: 2 } },
             },
 
@@ -2157,7 +2753,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-605.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_OJZBRROA7, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -2190,7 +2786,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-828.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_WT31Y8B4H, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -2215,7 +2811,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TL.empty']: { emptyState: { title: 'Templates List Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TL.empty']: { emptyState: { title: TEXT_VARS.V_4TH5USE2B, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from template-editor.tsx
@@ -2227,10 +2823,10 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'PDF', value: 6, color: '#7C3AED' },
                 ]},
                 'T3.modules': { cardGrid: { items: [
-                    { icon: '📧', title: 'Email Templates', subtitle: 'Visit reminders, billing, welcome, security alerts' },
-                    { icon: '📱', title: 'SMS Templates', subtitle: 'Shift confirmations, schedule changes, auth alerts' },
-                    { icon: '📄', title: 'PDF Templates', subtitle: 'Invoices, reports, care plans, timesheets' },
-                    { icon: '📋', title: 'Form Templates', subtitle: 'Intake forms, assessments, incident reports' },
+                    { icon: '📧', title: TEXT_VARS.V_BBJT1RRDH, subtitle: TEXT_VARS.V_QMI5MV759 },
+                    { icon: '📱', title: TEXT_VARS.V_OATILLJJM, subtitle: TEXT_VARS.V_Q24K0NI29 },
+                    { icon: '📄', title: TEXT_VARS.V_A6BEXGHLB, subtitle: TEXT_VARS.V_QH3Y1PWYB },
+                    { icon: '📋', title: TEXT_VARS.V_ZWYJ5WSAN, subtitle: TEXT_VARS.V_OSJVGIO96 },
                 ], columns: 2 } },
             },
 
@@ -2258,10 +2854,10 @@ export const PageSectionRegistry: Record<string, any> = {
   // Extracted from users.tsx
   ['F9a']: {
                 'F9a.form': { cardGrid: { items: [
-                    { icon: '👤', title: 'Personal Information', subtitle: 'Name, email, phone & profile details' },
-                    { icon: '🔑', title: 'Role & Permissions', subtitle: 'Assign role, custom permissions & access level' },
-                    { icon: '🏥', title: 'Organization', subtitle: 'Department, team, supervisor & location' },
-                    { icon: '🔐', title: 'Security', subtitle: 'MFA requirement, password policy & device limits' },
+                    { icon: '👤', title: TEXT_VARS.V_QPOWX7D2W, subtitle: TEXT_VARS.V_6RMAJX51S },
+                    { icon: '🔑', title: TEXT_VARS.V_FHW1V1C4D, subtitle: TEXT_VARS.V_9K71QSAN5 },
+                    { icon: '🏥', title: TEXT_VARS.V_VXLVDIRRQ, subtitle: TEXT_VARS.V_US0APAKX1 },
+                    { icon: '🔐', title: TEXT_VARS.V_5YDSS9Z2I, subtitle: TEXT_VARS.V_7Q56XCKII },
                 ], columns: 2 } },
             },
 
@@ -2306,7 +2902,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-614.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_AHMA1KHQL, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -2318,7 +2914,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SRC.empty']: { emptyState: { title: 'Screen Reader Content Editor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SRC.empty']: { emptyState: { title: TEXT_VARS.V_P8SAYLJD4, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from analytics.tsx
@@ -2328,7 +2924,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'ALH.empty']: { emptyState: { title: 'Api Latency Heatmap Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'ALH.empty']: { emptyState: { title: TEXT_VARS.V_WKR0V7JY3, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from analytics.tsx
@@ -2338,7 +2934,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'BMT.empty']: { emptyState: { title: 'Browser Matrix Telemetry Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'BMT.empty']: { emptyState: { title: TEXT_VARS.V_JPAQKJ7MH, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from analytics.tsx
@@ -2348,7 +2944,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CWV.empty']: { emptyState: { title: 'Core Web Vitals Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CWV.empty']: { emptyState: { title: TEXT_VARS.V_0HUSDPONF, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from compliance.tsx
@@ -2358,7 +2954,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LCB.empty']: { emptyState: { title: 'Legal Compliance Blockers Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LCB.empty']: { emptyState: { title: TEXT_VARS.V_7KYWJWQDE, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from content.tsx
@@ -2368,7 +2964,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DPR.empty']: { emptyState: { title: 'Dynamic Page Router Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DPR.empty']: { emptyState: { title: TEXT_VARS.V_UBAHCISO4, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from content.tsx
@@ -2378,7 +2974,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'MCA.empty']: { emptyState: { title: 'Micro Copy Ab Testing Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'MCA.empty']: { emptyState: { title: TEXT_VARS.V_A7HW446JM, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from content.tsx
@@ -2388,7 +2984,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RTG.empty']: { emptyState: { title: 'Rich Text Governance Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RTG.empty']: { emptyState: { title: TEXT_VARS.V_WZS1PA6EL, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from design.tsx
@@ -2398,7 +2994,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DTE.empty']: { emptyState: { title: 'Dynamic Token Editor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DTE.empty']: { emptyState: { title: TEXT_VARS.V_JQFX3Y9VN, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from design.tsx
@@ -2408,7 +3004,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'FTR.empty']: { emptyState: { title: 'Font Typography Registry Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'FTR.empty']: { emptyState: { title: TEXT_VARS.V_47KIG7DQM, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from governance.tsx
@@ -2418,7 +3014,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'ACA.empty']: { emptyState: { title: 'Asset Cost Attribution Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'ACA.empty']: { emptyState: { title: TEXT_VARS.V_OHMJ5ARUB, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from governance.tsx
@@ -2428,7 +3024,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'EBA.empty']: { emptyState: { title: 'Error Boundary Aggregator Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'EBA.empty']: { emptyState: { title: TEXT_VARS.V_4EQ9R5YCK, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from governance.tsx
@@ -2438,7 +3034,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TPS.empty']: { emptyState: { title: 'Third Party Script Manager Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TPS.empty']: { emptyState: { title: TEXT_VARS.V_NZ05HYLR9, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from localization.tsx
@@ -2448,7 +3044,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'GI1.empty']: { emptyState: { title: 'Global I18n Dictionary Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'GI1.empty']: { emptyState: { title: TEXT_VARS.V_3XPMVQ1SG, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from media.tsx
@@ -2458,7 +3054,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'AEM.empty']: { emptyState: { title: 'Asset Expiration Manager Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'AEM.empty']: { emptyState: { title: TEXT_VARS.V_F2WLY9GQZ, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from media.tsx
@@ -2468,7 +3064,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CMV.empty']: { emptyState: { title: 'Central Media Vault Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CMV.empty']: { emptyState: { title: TEXT_VARS.V_ORJGXVUDF, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from media.tsx
@@ -2478,7 +3074,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'MUH.empty']: { emptyState: { title: 'Media Usage Heatmap Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'MUH.empty']: { emptyState: { title: TEXT_VARS.V_FU89GD9JD, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from media.tsx
@@ -2488,7 +3084,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SDR.empty']: { emptyState: { title: 'Secure Document Redactor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SDR.empty']: { emptyState: { title: TEXT_VARS.V_AT07J3LIL, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from media.tsx
@@ -2498,7 +3094,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TPC.empty']: { emptyState: { title: 'Third Party Cdn Sync Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TPC.empty']: { emptyState: { title: TEXT_VARS.V_6FCAZ0P9O, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from security.tsx
@@ -2508,7 +3104,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'APM.empty']: { emptyState: { title: 'Asset Permission Matrix Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'APM.empty']: { emptyState: { title: TEXT_VARS.V_LBDV3NKRK, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from security.tsx
@@ -2518,7 +3114,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'GDK.empty']: { emptyState: { title: 'Global Digital Kill Switch Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'GDK.empty']: { emptyState: { title: TEXT_VARS.V_20JJZ9BZZ, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from templates.tsx
@@ -2528,7 +3124,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'NCB.empty']: { emptyState: { title: 'No Code Builder Mock Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'NCB.empty']: { emptyState: { title: TEXT_VARS.V_4JGCVCMDY, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from traffic.tsx
@@ -2538,7 +3134,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'AVM.empty']: { emptyState: { title: 'Ab Variant Manager Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'AVM.empty']: { emptyState: { title: TEXT_VARS.V_YJ6CRA9ZK, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2548,7 +3144,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'AER.empty']: { emptyState: { title: 'Api Endpoint Registry Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'AER.empty']: { emptyState: { title: TEXT_VARS.V_IPVNHP0B7, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2558,7 +3154,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'ARL.empty']: { emptyState: { title: 'Api Rate Limit Config Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'ARL.empty']: { emptyState: { title: TEXT_VARS.V_G9MT8MSUX, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2568,7 +3164,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'EPI.empty']: { emptyState: { title: 'Error Payload Inspector Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'EPI.empty']: { emptyState: { title: TEXT_VARS.V_X6DTACN30, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2578,7 +3174,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'FSF.empty']: { emptyState: { title: 'Form Schema Federator Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'FSF.empty']: { emptyState: { title: TEXT_VARS.V_J849WI4VF, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2588,7 +3184,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'VLB.empty']: { emptyState: { title: 'Visual Logic Builder Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'VLB.empty']: { emptyState: { title: TEXT_VARS.V_6RP1OK4N5, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from workflows.tsx
@@ -2598,7 +3194,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'WVC.empty']: { emptyState: { title: 'Workflow Version Control Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'WVC.empty']: { emptyState: { title: TEXT_VARS.V_KLNUCAVG3, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from dashboard.tsx
@@ -2609,7 +3205,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-419.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_O4EZSNWSI, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -2622,7 +3218,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-307.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_Z8JL0PE57, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -2634,7 +3230,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'B2S.empty']: { emptyState: { title: 'B2b Sla Dashboard Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'B2S.empty']: { emptyState: { title: TEXT_VARS.V_W6XI6MJMC, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2644,7 +3240,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CAH.empty']: { emptyState: { title: 'Corporate Account Hierarchy Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CAH.empty']: { emptyState: { title: TEXT_VARS.V_4W5K4Y0FH, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2654,7 +3250,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DPP.empty']: { emptyState: { title: 'Discharge Planner Portal Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DPP.empty']: { emptyState: { title: TEXT_VARS.V_8OK0VA293, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2664,7 +3260,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'FLT.empty']: { emptyState: { title: 'Facility Lunch Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'FLT.empty']: { emptyState: { title: TEXT_VARS.V_IS6WXHI9L, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2674,7 +3270,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'PRT.empty']: { emptyState: { title: 'Physician Roi Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'PRT.empty']: { emptyState: { title: TEXT_VARS.V_TK7U2VRC6, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2684,7 +3280,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'PDS.empty']: { emptyState: { title: 'Post Discharge Success Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'PDS.empty']: { emptyState: { title: TEXT_VARS.V_24OHJZ0HP, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from b2b.tsx
@@ -2694,7 +3290,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RSH.empty']: { emptyState: { title: 'Referral Source Heatmap Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RSH.empty']: { emptyState: { title: TEXT_VARS.V_0AMT69YQ4, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2704,7 +3300,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'ARA.empty']: { emptyState: { title: 'Automated Review Asker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'ARA.empty']: { emptyState: { title: TEXT_VARS.V_W3EOETVFV, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2714,7 +3310,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'BAL.empty']: { emptyState: { title: 'Brand Asset Library Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'BAL.empty']: { emptyState: { title: TEXT_VARS.V_PMAIEI69Q, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2724,7 +3320,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CKH.empty']: { emptyState: { title: 'Competitor Keyword Hijacker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CKH.empty']: { emptyState: { title: TEXT_VARS.V_AVDUX88M1, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2734,7 +3330,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CCT.empty']: { emptyState: { title: 'Crisis Comms Triage Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CCT.empty']: { emptyState: { title: TEXT_VARS.V_QKLRR2WQ8, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2744,7 +3340,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'GBS.empty']: { emptyState: { title: 'Google Business Sync Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'GBS.empty']: { emptyState: { title: TEXT_VARS.V_UFA5FQYYP, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2754,7 +3350,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LSR.empty']: { emptyState: { title: 'Local Seo Rank Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LSR.empty']: { emptyState: { title: TEXT_VARS.V_IOPCHHPSU, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from brand.tsx
@@ -2764,7 +3360,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RSA.empty']: { emptyState: { title: 'Review Sentiment Analyzer Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RSA.empty']: { emptyState: { title: TEXT_VARS.V_D5WKPYKGB, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from data.tsx
@@ -2774,7 +3370,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'GFA.empty']: { emptyState: { title: 'Geo Fenced Ad Dashboard Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'GFA.empty']: { emptyState: { title: TEXT_VARS.V_95VJB3CEP, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pipeline.tsx
@@ -2784,7 +3380,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'COC.empty']: { emptyState: { title: 'Cost Of Care Calculator Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'COC.empty']: { emptyState: { title: TEXT_VARS.V_AEAS6VG8T, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pipeline.tsx
@@ -2794,7 +3390,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LPA.empty']: { emptyState: { title: 'Landing Page Ab Tester Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LPA.empty']: { emptyState: { title: TEXT_VARS.V_YITT9WXM1, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pipeline.tsx
@@ -2804,7 +3400,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LCF.empty']: { emptyState: { title: 'Lead Conversion Funnel Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LCF.empty']: { emptyState: { title: TEXT_VARS.V_1U5EFJXLI, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pipeline.tsx
@@ -2814,7 +3410,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'LCH.empty']: { emptyState: { title: 'Live Chat Handover Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'LCH.empty']: { emptyState: { title: TEXT_VARS.V_2C4ZYXBIY, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pipeline.tsx
@@ -2824,7 +3420,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RPT.empty']: { emptyState: { title: 'Referral Program Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RPT.empty']: { emptyState: { title: TEXT_VARS.V_13CP561E9, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2834,7 +3430,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CRP.empty']: { emptyState: { title: 'Churn Risk Predictor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CRP.empty']: { emptyState: { title: TEXT_VARS.V_A8UC0SXQI, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2844,7 +3440,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DES.empty']: { emptyState: { title: 'Drip Email Sequence Builder Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DES.empty']: { emptyState: { title: TEXT_VARS.V_RVCWCEG4A, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2854,7 +3450,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'ERB.empty']: { emptyState: { title: 'Event Registration Builder Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'ERB.empty']: { emptyState: { title: TEXT_VARS.V_6IY3CQZ3O, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2864,7 +3460,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'MRA.empty']: { emptyState: { title: 'Marketing Revenue Attribution Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'MRA.empty']: { emptyState: { title: TEXT_VARS.V_YZB9ZJ1UB, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2874,7 +3470,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'NSD.empty']: { emptyState: { title: 'Newsletter Subscriber Db Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'NSD.empty']: { emptyState: { title: TEXT_VARS.V_5NL2DV5LN, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from retention.tsx
@@ -2884,7 +3480,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'PDE.empty']: { emptyState: { title: 'Promotional Discount Engine Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'PDE.empty']: { emptyState: { title: TEXT_VARS.V_K3459RW9D, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2894,7 +3490,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'BCC.empty']: { emptyState: { title: 'Blog Content Calendar Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'BCC.empty']: { emptyState: { title: TEXT_VARS.V_4J5GZM31M, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2904,7 +3500,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CSC.empty']: { emptyState: { title: 'Caregiver Spotlight Creator Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CSC.empty']: { emptyState: { title: TEXT_VARS.V_5E8W1JTN2, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2914,7 +3510,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'CEH.empty']: { emptyState: { title: 'Content Engagement Heatmap Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'CEH.empty']: { emptyState: { title: TEXT_VARS.V_IC5UA48M5, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2924,7 +3520,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'KCM.empty']: { emptyState: { title: 'Keyword Cannibalization Monitor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'KCM.empty']: { emptyState: { title: TEXT_VARS.V_QRW260614, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2934,7 +3530,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SCW.empty']: { emptyState: { title: 'Seo Core Web Vitals Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SCW.empty']: { emptyState: { title: TEXT_VARS.V_4UPD704IW, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2944,7 +3540,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TRT.empty']: { emptyState: { title: 'Testimonial Release Tracker Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TRT.empty']: { emptyState: { title: TEXT_VARS.V_9ZPRZ8PQZ, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2954,7 +3550,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TSV.empty']: { emptyState: { title: 'Traffic Source Visualizer Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TSV.empty']: { emptyState: { title: TEXT_VARS.V_9AW35FVNO, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from seo.tsx
@@ -2964,7 +3560,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'UPB.empty']: { emptyState: { title: 'Utm Parameter Builder Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'UPB.empty']: { emptyState: { title: TEXT_VARS.V_CHUSU8R3S, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from syndication.tsx
@@ -2974,7 +3570,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SMC.empty']: { emptyState: { title: 'Social Media Credential Vault Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SMC.empty']: { emptyState: { title: TEXT_VARS.V_AYEI6EN69, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from territory.tsx
@@ -2984,7 +3580,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'STM.empty']: { emptyState: { title: 'Sales Territory Map Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'STM.empty']: { emptyState: { title: TEXT_VARS.V_Q9HN6QMW9, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from audit.tsx
@@ -2994,7 +3590,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DSA.empty']: { emptyState: { title: 'Database Schema Audit Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DSA.empty']: { emptyState: { title: TEXT_VARS.V_RFK6SB8QT, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from audit.tsx
@@ -3004,7 +3600,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'EA.empty']: { emptyState: { title: 'Environment Audit Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'EA.empty']: { emptyState: { title: TEXT_VARS.V_JD500K4V3, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from audit.tsx
@@ -3015,7 +3611,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-207.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_IU067Y6FK, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3027,7 +3623,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RIC.empty']: { emptyState: { title: 'Registry Integrity Check Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RIC.empty']: { emptyState: { title: TEXT_VARS.V_IQ371IKOK, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from audit.tsx
@@ -3037,7 +3633,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RB.empty']: { emptyState: { title: 'Response Bot Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RB.empty']: { emptyState: { title: TEXT_VARS.V_G5U0RSYOJ, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from audit.tsx
@@ -3047,7 +3643,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'TAP.empty']: { emptyState: { title: 'Technical Audit Portal Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'TAP.empty']: { emptyState: { title: TEXT_VARS.V_F6OFM8Q10, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from builds.tsx
@@ -3058,7 +3654,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-610.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_M2DJO0HSB, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3096,7 +3692,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-880.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_CXKJVFQPO, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3109,7 +3705,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-695.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_3K7EKPXS9, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3122,7 +3718,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-205.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_IN9HK5L46, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3134,7 +3730,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RFP.empty']: { emptyState: { title: 'Role Flows Page Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RFP.empty']: { emptyState: { title: TEXT_VARS.V_FW4GOALRG, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from flows.tsx
@@ -3144,7 +3740,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SAM.empty']: { emptyState: { title: 'Step Audit Modal Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SAM.empty']: { emptyState: { title: TEXT_VARS.V_11KAP4GHR, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from impersonate.tsx
@@ -3154,7 +3750,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'IT.empty']: { emptyState: { title: 'Impersonation Tool Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'IT.empty']: { emptyState: { title: TEXT_VARS.V_PL16GAF6N, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from locales.tsx
@@ -3165,7 +3761,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-233.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_HZWQMM3FD, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3177,7 +3773,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'SHM.empty']: { emptyState: { title: 'System Health Monitor Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'SHM.empty']: { emptyState: { title: TEXT_VARS.V_VP509P4VX, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from performance.tsx
@@ -3188,7 +3784,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-128.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_NNDQBX7GI, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3201,7 +3797,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-454.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_LVQ1EHBN7, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3213,7 +3809,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RAR.empty']: { emptyState: { title: 'Registry Auto Repair Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RAR.empty']: { emptyState: { title: TEXT_VARS.V_E3G80UBDD, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from scans.tsx
@@ -3224,7 +3820,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-738.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_2PUASWS8O, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3236,7 +3832,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'AEH.empty']: { emptyState: { title: 'Api Endpoints Hub Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'AEH.empty']: { emptyState: { title: TEXT_VARS.V_8RAKJ3WLQ, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from theme.tsx
@@ -3247,7 +3843,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-423.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_DS0JHZ723, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3260,7 +3856,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-128.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_KDWVQS6AN, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3273,7 +3869,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-830.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_OWN7P8W2Y, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3285,7 +3881,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'RSD.empty']: { emptyState: { title: 'Risk Surveillance Dashboard Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'RSD.empty']: { emptyState: { title: TEXT_VARS.V_D8F4HVWF9, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from super-admin.tsx
@@ -3296,7 +3892,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-599.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_H7OLIWWAP, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3309,7 +3905,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-686.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_8UOZ9IWUW, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3322,7 +3918,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Not Found', 
+                    title: TEXT_VARS.V_8ZKCGL8UC, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3335,7 +3931,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Server Error', 
+                    title: TEXT_VARS.V_4RVBUPXYS, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3348,7 +3944,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Unauthorized', 
+                    title: TEXT_VARS.V_K25TPTWM9, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3361,7 +3957,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-736.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_YUNG10Y4Z, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3373,7 +3969,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
                     { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
                 ]},
-                ['PGE-' + 'DP.empty']: { emptyState: { title: 'Dev Preview Data', description: 'This section is currently using template placeholders.' } }
+                ['PGE-' + 'DP.empty']: { emptyState: { title: TEXT_VARS.V_D6U3B5HFB, description: 'This section is currently using template placeholders.' } }
             },
 
   // Extracted from pages.tsx
@@ -3384,7 +3980,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
                 ]},
                 'mod.body': { emptyState: { 
-                    title: 'Marketing Showcase', 
+                    title: TEXT_VARS.V_MEX1C3TYA, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3397,7 +3993,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-178.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_DCDVWYL68, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3410,7 +4006,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-815.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_VCTU2D2D3, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3423,7 +4019,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-150.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_YAIY2ZIMF, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3436,7 +4032,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-435.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_E7CT97W29, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3449,7 +4045,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-472.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_4SO0QF0WI, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3462,7 +4058,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-330.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_IKA0E5XHD, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -3475,7 +4071,7 @@ export const PageSectionRegistry: Record<string, any> = {
                     { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
                 ]},
                 'PG-190.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
+                    title: TEXT_VARS.V_IJ344N1QN, 
                     description: 'This module is currently being configured within the section registry.' 
                 }},
             },
@@ -4350,12 +4946,12 @@ export const PageSectionRegistry: Record<string, any> = {
   ['POLICIES']: {
                 'POLICIES.modules': { cardGrid: { 
                     items: [
-                        { icon: '🔐', title: 'Privacy Policy (PIPEDA)', subtitle: 'Personal information collection, use & disclosure' },
-                        { icon: '🏥', title: 'HIPAA Compliance', subtitle: 'Protected health information safeguards' },
-                        { icon: '📋', title: 'Terms of Service', subtitle: 'Platform usage terms, SLAs & liability' },
-                        { icon: '🛡️', title: 'Security Policy', subtitle: 'Access control, encryption, incident response' },
-                        { icon: '📊', title: 'Data Retention', subtitle: '7-year retention, purge schedules, backup policy' },
-                        { icon: '♿', title: 'Accessibility', subtitle: 'WCAG 2.1 AA compliance, accommodations' },
+                        { icon: '🔐', title: TEXT_VARS.V_S5WET4GMC, subtitle: TEXT_VARS.V_9NHHXWX43 },
+                        { icon: '🏥', title: TEXT_VARS.V_PTUXNBVGH, subtitle: TEXT_VARS.V_1DWPJR82J },
+                        { icon: '📋', title: TEXT_VARS.V_6DOHG0MRG, subtitle: TEXT_VARS.V_VRS18XJA8 },
+                        { icon: '🛡️', title: TEXT_VARS.V_OC91IMOS0, subtitle: TEXT_VARS.V_HJ81WYBP9 },
+                        { icon: '📊', title: TEXT_VARS.V_UH3N2JYRL, subtitle: TEXT_VARS.V_NZ99241C5 },
+                        { icon: '♿', title: TEXT_VARS.V_ZL4JDBTX7, subtitle: TEXT_VARS.V_K7MHRBC85 },
                     ], 
                     columns: 3 
                 } },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-import { PageSectionRegistry } from "..\shared\PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 
 // --- Extracted from b2b.tsx ---
 // --- Merged from B2bSlaDashboard.tsx ---
@@ -8,8 +8,8 @@ export function B2bSlaDashboard() {
     return (
         <PageTemplate 
             pageId="PGE-B2S" 
-            title="✨ B2b Sla Dashboard" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-B2S']}
         />
     );
@@ -20,8 +20,8 @@ export function CorporateAccountHierarchy() {
     return (
         <PageTemplate 
             pageId="PGE-CAH" 
-            title="✨ Corporate Account Hierarchy" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CAH']}
         />
     );
@@ -32,8 +32,8 @@ export function DischargePlannerPortal() {
     return (
         <PageTemplate 
             pageId="PGE-DPP" 
-            title="✨ Discharge Planner Portal" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-DPP']}
         />
     );
@@ -44,8 +44,8 @@ export function FacilityLunchTracker() {
     return (
         <PageTemplate 
             pageId="PGE-FLT" 
-            title="✨ Facility Lunch Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-FLT']}
         />
     );
@@ -56,8 +56,8 @@ export function PhysicianRoiTracker() {
     return (
         <PageTemplate 
             pageId="PGE-PRT" 
-            title="✨ Physician Roi Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-PRT']}
         />
     );
@@ -68,8 +68,8 @@ export function PostDischargeSuccess() {
     return (
         <PageTemplate 
             pageId="PGE-PDS" 
-            title="✨ Post Discharge Success" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-PDS']}
         />
     );
@@ -80,8 +80,8 @@ export function ReferralSourceHeatmap() {
     return (
         <PageTemplate 
             pageId="PGE-RSH" 
-            title="✨ Referral Source Heatmap" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RSH']}
         />
     );
@@ -93,8 +93,8 @@ export function AutomatedReviewAsker() {
     return (
         <PageTemplate 
             pageId="PGE-ARA" 
-            title="✨ Automated Review Asker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-ARA']}
         />
     );
@@ -105,8 +105,8 @@ export function BrandAssetLibrary() {
     return (
         <PageTemplate 
             pageId="PGE-BAL" 
-            title="✨ Brand Asset Library" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-BAL']}
         />
     );
@@ -117,8 +117,8 @@ export function CompetitorKeywordHijacker() {
     return (
         <PageTemplate 
             pageId="PGE-CKH" 
-            title="✨ Competitor Keyword Hijacker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CKH']}
         />
     );
@@ -129,8 +129,8 @@ export function CrisisCommsTriage() {
     return (
         <PageTemplate 
             pageId="PGE-CCT" 
-            title="✨ Crisis Comms Triage" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CCT']}
         />
     );
@@ -141,8 +141,8 @@ export function GoogleBusinessSync() {
     return (
         <PageTemplate 
             pageId="PGE-GBS" 
-            title="✨ Google Business Sync" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-GBS']}
         />
     );
@@ -153,8 +153,8 @@ export function LocalSeoRankTracker() {
     return (
         <PageTemplate 
             pageId="PGE-LSR" 
-            title="✨ Local Seo Rank Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LSR']}
         />
     );
@@ -165,8 +165,8 @@ export function ReviewSentimentAnalyzer() {
     return (
         <PageTemplate 
             pageId="PGE-RSA" 
-            title="✨ Review Sentiment Analyzer" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RSA']}
         />
     );
@@ -178,8 +178,8 @@ export function GeoFencedAdDashboard() {
     return (
         <PageTemplate 
             pageId="PGE-GFA" 
-            title="✨ Geo Fenced Ad Dashboard" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-GFA']}
         />
     );
@@ -191,8 +191,8 @@ export function CostOfCareCalculator() {
     return (
         <PageTemplate 
             pageId="PGE-COC" 
-            title="✨ Cost Of Care Calculator" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-COC']}
         />
     );
@@ -203,8 +203,8 @@ export function LandingPageAbTester() {
     return (
         <PageTemplate 
             pageId="PGE-LPA" 
-            title="✨ Landing Page Ab Tester" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LPA']}
         />
     );
@@ -215,8 +215,8 @@ export function LeadConversionFunnel() {
     return (
         <PageTemplate 
             pageId="PGE-LCF" 
-            title="✨ Lead Conversion Funnel" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LCF']}
         />
     );
@@ -227,8 +227,8 @@ export function LiveChatHandover() {
     return (
         <PageTemplate 
             pageId="PGE-LCH" 
-            title="✨ Live Chat Handover" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-LCH']}
         />
     );
@@ -239,8 +239,8 @@ export function ReferralProgramTracker() {
     return (
         <PageTemplate 
             pageId="PGE-RPT" 
-            title="✨ Referral Program Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-RPT']}
         />
     );
@@ -252,8 +252,8 @@ export function ChurnRiskPredictor() {
     return (
         <PageTemplate 
             pageId="PGE-CRP" 
-            title="✨ Churn Risk Predictor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CRP']}
         />
     );
@@ -264,8 +264,8 @@ export function DripEmailSequenceBuilder() {
     return (
         <PageTemplate 
             pageId="PGE-DES" 
-            title="✨ Drip Email Sequence Builder" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-DES']}
         />
     );
@@ -276,8 +276,8 @@ export function EventRegistrationBuilder() {
     return (
         <PageTemplate 
             pageId="PGE-ERB" 
-            title="✨ Event Registration Builder" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-ERB']}
         />
     );
@@ -288,8 +288,8 @@ export function MarketingRevenueAttribution() {
     return (
         <PageTemplate 
             pageId="PGE-MRA" 
-            title="✨ Marketing Revenue Attribution" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-MRA']}
         />
     );
@@ -300,8 +300,8 @@ export function NewsletterSubscriberDb() {
     return (
         <PageTemplate 
             pageId="PGE-NSD" 
-            title="✨ Newsletter Subscriber Db" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-NSD']}
         />
     );
@@ -312,8 +312,8 @@ export function PromotionalDiscountEngine() {
     return (
         <PageTemplate 
             pageId="PGE-PDE" 
-            title="✨ Promotional Discount Engine" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-PDE']}
         />
     );
@@ -325,8 +325,8 @@ export function BlogContentCalendar() {
     return (
         <PageTemplate 
             pageId="PGE-BCC" 
-            title="✨ Blog Content Calendar" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-BCC']}
         />
     );
@@ -337,8 +337,8 @@ export function CaregiverSpotlightCreator() {
     return (
         <PageTemplate 
             pageId="PGE-CSC" 
-            title="✨ Caregiver Spotlight Creator" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CSC']}
         />
     );
@@ -349,8 +349,8 @@ export function ContentEngagementHeatmap() {
     return (
         <PageTemplate 
             pageId="PGE-CEH" 
-            title="✨ Content Engagement Heatmap" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-CEH']}
         />
     );
@@ -361,8 +361,8 @@ export function KeywordCannibalizationMonitor() {
     return (
         <PageTemplate 
             pageId="PGE-KCM" 
-            title="✨ Keyword Cannibalization Monitor" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-KCM']}
         />
     );
@@ -373,8 +373,8 @@ export function SeoCoreWebVitals() {
     return (
         <PageTemplate 
             pageId="PGE-SCW" 
-            title="✨ Seo Core Web Vitals" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SCW']}
         />
     );
@@ -385,8 +385,8 @@ export function TestimonialReleaseTracker() {
     return (
         <PageTemplate 
             pageId="PGE-TRT" 
-            title="✨ Testimonial Release Tracker" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TRT']}
         />
     );
@@ -397,8 +397,8 @@ export function TrafficSourceVisualizer() {
     return (
         <PageTemplate 
             pageId="PGE-TSV" 
-            title="✨ Traffic Source Visualizer" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-TSV']}
         />
     );
@@ -409,8 +409,8 @@ export function UtmParameterBuilder() {
     return (
         <PageTemplate 
             pageId="PGE-UPB" 
-            title="✨ Utm Parameter Builder" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-UPB']}
         />
     );
@@ -422,8 +422,8 @@ export function SocialMediaCredentialVault() {
     return (
         <PageTemplate 
             pageId="PGE-SMC" 
-            title="✨ Social Media Credential Vault" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-SMC']}
         />
     );
@@ -435,8 +435,8 @@ export function SalesTerritoryMap() {
     return (
         <PageTemplate 
             pageId="PGE-STM" 
-            title="✨ Sales Territory Map" 
-            subtitle="Auto-converted page to use standard sections"
+             
+            
             sectionData={PageSectionRegistry['PGE-STM']}
         />
     );

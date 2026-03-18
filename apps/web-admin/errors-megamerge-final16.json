@@ -1,0 +1,23 @@
+[
+  "src/app/routes/tenancy/tenancyImports.ts(107,65): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(143,63): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(147,67): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(165,69): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(169,65): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(173,68): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(177,68): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(181,69): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(191,72): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(196,72): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(200,72): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(204,72): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(207,73): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(211,66): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(214,70): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(250,72): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(254,70): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(257,66): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(260,63): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(265,68): error TS1005: ',' expected.",
+  "src/app/routes/tenancy/tenancyImports.ts(268,73): error TS1005: ',' expected."
+]

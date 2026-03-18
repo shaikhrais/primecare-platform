@@ -1,0 +1,17 @@
+[
+  "src/app/routes/platform/admin.tsx(2523,14): error TS1003: Identifier expected.",
+  "src/app/routes/platform/admin.tsx(2523,25): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2523,45): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2523,61): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2524,9): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2524,25): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2524,45): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2524,58): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2525,9): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2525,23): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2525,43): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2525,58): error TS1005: ';' expected.",
+  "src/app/routes/platform/admin.tsx(2526,9): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2526,16): error TS1128: Declaration or statement expected.",
+  "src/app/routes/platform/admin.tsx(2528,1): error TS1128: Declaration or statement expected."
+]

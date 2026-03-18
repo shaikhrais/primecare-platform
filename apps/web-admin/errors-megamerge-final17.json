@@ -1,0 +1,16 @@
+[
+  "src/app/routes/auth/onboarding/onboarding.tsx(1,37): error TS2307: Cannot find module '@/shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/platform/admin.tsx(1280,107): error TS2872: This kind of expression is always truthy.",
+  "src/app/routes/platform/dam.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/platform/marketing.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/platform/scrum-master.tsx(3,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/admin.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/client.tsx(3,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/coordinator.tsx(1,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/family.tsx(1,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/manager.tsx(1,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/psw.tsx(3,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/rn.tsx(3,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/scrum-master.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
+  "src/app/routes/tenancy/staff.tsx(3,37): error TS2307: Cannot find module '../../../shared/PageSectionRegistry' or its corresponding type declarations."
+]

@@ -1,0 +1,5 @@
+[
+  "src/app/routes/tenancy/tenancyImports.ts(197,46): error TS2322: Type 'Promise<typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/client\")>' is not assignable to type 'Promise<{ default: ComponentType<any>; }>'.",
+  "src/app/routes/tenancy/tenancyImports.ts(260,51): error TS2322: Type 'Promise<typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/rn\")>' is not assignable to type 'Promise<{ default: ComponentType<any>; }>'.",
+  "src/app/routes/tenancy/tenancyImports.ts(261,48): error TS2322: Type 'Promise<typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/rn\")>' is not assignable to type 'Promise<{ default: ComponentType<any>; }>'."
+]

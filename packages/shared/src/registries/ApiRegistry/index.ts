@@ -3,21 +3,21 @@ import { PLATFORM } from './platform';
 
 export const ApiRegistry = {
     AUTH: {
-        LOGIN: '/v1/auth/login',
-        REGISTER: '/v1/auth/register',
-        FORGOT_PASSWORD: '/v1/auth/forgot-password',
-        RESET_PASSWORD: '/v1/auth/reset-password',
-        LOGOUT: '/v1/auth/logout',
-        SWITCH_ROLE: '/v1/auth/switch-role',
-        REFRESH: '/v1/auth/refresh',
-        IMPERSONATE: '/v1/auth/impersonate',
+        LOGIN: API_VARS.API_V1_AUTH_LOGIN,
+        REGISTER: API_VARS.API_V1_AUTH_REGISTER,
+        FORGOT_PASSWORD: API_VARS.API_V1_AUTH_FORGOT_PASSWORD,
+        RESET_PASSWORD: API_VARS.API_V1_AUTH_RESET_PASSWORD,
+        LOGOUT: API_VARS.API_V1_AUTH_LOGOUT,
+        SWITCH_ROLE: API_VARS.API_V1_AUTH_SWITCH_ROLE,
+        REFRESH: API_VARS.API_V1_AUTH_REFRESH,
+        IMPERSONATE: API_VARS.API_V1_AUTH_IMPERSONATE,
     },
     USER: {
-        PROFILE: '/v1/user/profile',
-        MESSAGING_THREADS: '/v1/user/messaging/threads',
+        PROFILE: API_VARS.API_V1_USER_PROFILE,
+        MESSAGING_THREADS: API_VARS.API_V1_USER_MESSAGING_THREADS,
         MESSAGING_SEND: (threadId: string) => `/v1/user/messaging/threads/${threadId}/messages`,
-        TRAINING_CATALOG: '/v1/user/training/catalog',
-        TRAINING_PROGRESS: '/v1/user/training/my-progress',
+        TRAINING_CATALOG: API_VARS.API_V1_USER_TRAINING_CATALOG,
+        TRAINING_PROGRESS: API_VARS.API_V1_USER_TRAINING_MY_PROGRESS,
     },
     PLATFORM,
     ...PLATFORM,
@@ -33,12 +33,13 @@ export const ApiRegistry = {
     SYSTEM: PLATFORM.SYSTEM,
 
     PUBLIC: {
-        LEADS: '/v1/public/leads',
-        SERVICES: '/v1/public/services',
-        BLOG: '/v1/public/blog',
+        LEADS: API_VARS.API_V1_PUBLIC_LEADS,
+        SERVICES: API_VARS.API_V1_PUBLIC_SERVICES,
+        BLOG: API_VARS.API_V1_PUBLIC_BLOG,
     },
     SUPPORT: {
-        CHAT_HISTORY: '/v1/support/chat',
-        TICKETS: '/v1/support/tickets',
+        CHAT_HISTORY: API_VARS.API_V1_SUPPORT_CHAT,
+        TICKETS: API_VARS.API_V1_SUPPORT_TICKETS,
     }
 } as const;
+export * from './api-vars';

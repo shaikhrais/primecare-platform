@@ -1,6 +1,6 @@
-const { RouteRegistry, ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } = {};
+import { ApiRegistry, ContentRegistry, ThemeRegistry, PageRegistry, FormRegistry } from "prime-care-shared";
 
-import { PageSectionRegistry } from "@/shared/PageSectionRegistry";
+import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 import { PageTemplate } from "@/shared/components/ui/PageTemplate";
 import { useToast } from "@/shared/hooks/useToast";
 
@@ -19,7 +19,7 @@ interface Invoice {
 }
 
 export function BillingPage() {
-    const { showToast } = useNotification();
+    const { showToast } = useToast();
     const [invoices, setInvoices] = useState<Invoice[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -141,7 +141,7 @@ export function BillingPage() {
 // --- Merged from H10-BillingHub.tsx ---
 export function BillingHub() {
     return (
-        <PageTemplate pageId="H10" title="Billing Hub" subtitle="Invoice management, payment tracking and billing operations"
+        <PageTemplate pageId="H10"  
             sectionData={PageSectionRegistry['H10']}
         />
     );
@@ -163,7 +163,7 @@ export function BillingHub() {
 
 export function ClientBookings() {
     return (
-        <PageTemplate pageId="L14" title="📅 My Bookings" subtitle="View, request & manage your upcoming care appointments"
+        <PageTemplate pageId="L14"  
             sectionData={PageSectionRegistry['L14']}
         />
     );
@@ -185,7 +185,7 @@ export function ClientBookings() {
 
 export function ClientDashboard() {
     return (
-        <PageTemplate pageId="D8" title="🏡 My Care Dashboard" subtitle="Your upcoming visits, care team & health journey at a glance"
+        <PageTemplate pageId="D8"  
             sectionData={PageSectionRegistry['D8']}
         />
     );
@@ -195,7 +195,7 @@ export function ClientDashboard() {
 // --- Merged from H17-FamilyCareHub.tsx ---
 export function FamilyCareHub() {
     return (
-        <PageTemplate pageId="H17" title="Family Care Hub" subtitle="Family member access, care updates and communication center"
+        <PageTemplate pageId="H17"  
             sectionData={PageSectionRegistry['H17']}
         />
     );
@@ -205,7 +205,7 @@ export function FamilyCareHub() {
 // --- Merged from P1-FamilyPortal.tsx ---
 export function FamilyPortal() {
     return (
-        <PageTemplate pageId="P1" title="Family Portal" subtitle="Family member access to care updates, schedule and billing"
+        <PageTemplate pageId="P1"  
             sectionData={PageSectionRegistry['P1']}
         />
     );
@@ -219,7 +219,7 @@ export function FamilyPortal() {
 // --- Merged from F16-SubmitFeedback.tsx ---
 export function FeedbackForm() {
     return (
-        <PageTemplate pageId="F16" title="Submit Feedback" subtitle="Share feedback about your care experience"
+        <PageTemplate pageId="F16"  
             sectionData={PageSectionRegistry['F16']}
         />
     );
@@ -229,7 +229,7 @@ export function FeedbackForm() {
 // --- Merged from R5-MedicalSummary.tsx ---
 export function MedicalSummary() {
     return (
-        <PageTemplate pageId="R5" title="Medical Summary" subtitle="Comprehensive medical history and health record summary"
+        <PageTemplate pageId="R5"  
             sectionData={PageSectionRegistry['R5']}
         />
     );
@@ -243,7 +243,7 @@ export function MedicalSummary() {
 // --- Merged from F17-RequestBooking.tsx ---
 export function RequestBooking() {
     return (
-        <PageTemplate pageId="F17" title="Request Booking" subtitle="Request a new care visit or service appointment"
+        <PageTemplate pageId="F17"  
             sectionData={PageSectionRegistry['F17']}
         />
     );
@@ -253,7 +253,7 @@ export function RequestBooking() {
 // --- Merged from T34-CatalogBrowser.tsx ---
 export function CatalogBrowser() {
     return (
-        <PageTemplate pageId="T34" title="Service Catalog" subtitle="Browse available care services and request bookings"
+        <PageTemplate pageId="T34"  
             sectionData={PageSectionRegistry['T34']}
         />
     );
@@ -263,7 +263,7 @@ export function CatalogBrowser() {
 // --- Merged from T35-ClientMessaging.tsx ---
 export function ClientMessaging() {
     return (
-        <PageTemplate pageId="T35" title="Client Messaging" subtitle="Secure messaging with your care team"
+        <PageTemplate pageId="T35"  
             sectionData={PageSectionRegistry['T35']}
         />
     );
@@ -272,7 +272,7 @@ export function ClientMessaging() {
 // --- Merged from T37-FeedbackLoop.tsx ---
 export function FeedbackLoop() {
     return (
-        <PageTemplate pageId="T37" title="Feedback Loop" subtitle="Submit and track feedback on care quality and services"
+        <PageTemplate pageId="T37"  
             sectionData={PageSectionRegistry['T37']}
         />
     );
@@ -282,7 +282,7 @@ export function FeedbackLoop() {
 // --- Merged from T36-TeamRoster.tsx ---
 export function TeamRoster() {
     return (
-        <PageTemplate pageId="T36" title="Team Roster" subtitle="Your care team members and contact information"
+        <PageTemplate pageId="T36"  
             sectionData={PageSectionRegistry['T36']}
         />
     );

@@ -7,7 +7,7 @@ import { PageSectionRegistry } from '../shared/PageSectionRegistry';
 
 export const SystemPolicies: React.FC = () => {
     return (
-        <PageTemplate pageId="POLICIES" title="📜 System Policies" subtitle="Platform governance, privacy, compliance & regulatory policies"
+        <PageTemplate pageId="POLICIES"  
             sectionData={PageSectionRegistry['POLICIES']}
         />
     );
