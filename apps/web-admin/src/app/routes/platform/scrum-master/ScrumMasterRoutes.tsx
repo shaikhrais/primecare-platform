@@ -7,16 +7,16 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 const { RouteRegistry } = AdminRegistry;
 
 // Scrum Master Pages
-const ScrumMasterDashboard = lazy(() => import('../../tenancy/staff/dashboard'));
+const ScrumMasterDashboard = lazy(() => import('../../tenancy/staff/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
 const ApiEndpointsHub = lazy(() => import('./testing').then(m => ({ default: Object.values(m)[0] as any })));
-const TechnicalAuditPortal = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.TechnicalAuditPortal })));
-const RoleFlowsPage = lazy(() => import('./flows').then(m => ({ default: m.RoleFlowsPage })));
+const TechnicalAuditPortal = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
+const RoleFlowsPage = lazy(() => import('./flows').then(m => ({ default: Object.values(m)[0] as any })));
 const SystemHealthMonitor = lazy(() => import('./monitoring').then(m => ({ default: Object.values(m)[0] as any })));
-const EnvironmentAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.EnvironmentAudit })));
-const RegistryIntegrityCheck = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.RegistryIntegrityCheck })));
-const DatabaseSchemaAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.DatabaseSchemaAudit })));
+const EnvironmentAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
+const RegistryIntegrityCheck = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
+const DatabaseSchemaAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
 const ThemeCoreCenter = lazy(() => import('./theme').then(m => ({ default: Object.values(m)[0] as any })));
-const DeveloperPortal = lazy(() => import('./developer'));
+const DeveloperPortal = lazy(() => import('./developer').then(m => ({ default: Object.values(m)[0] as any })));
 const DeveloperKBPage = lazy(() => import('./developer-kb').then(m => ({ default: Object.values(m)[0] as any })));
 const PerformancePage = lazy(() => import('../../tenancy/manager/performance').then(m => ({ default: Object.values(m)[0] as any })));
 const BuildHealthPage = lazy(() => import('./builds').then(m => ({ default: Object.values(m)[0] as any })));
@@ -24,11 +24,11 @@ const SecurityScansPage = lazy(() => import('./scans').then(m => ({ default: Obj
 const LocalizationPage = lazy(() => import('./locales').then(m => ({ default: Object.values(m)[0] as any })));
 const RegistryAutoRepair = lazy(() => import('./repair').then(m => ({ default: Object.values(m)[0] as any })));
 const ImpersonationTool = lazy(() => import('./impersonate').then(m => ({ default: Object.values(m)[0] as any })));
-const InteractionAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.InteractionAudit })));
-const ResponseBot = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: m.ResponseBot })));
+const InteractionAudit = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
+const ResponseBot = lazy(() => import('../../tenancy/rn/audit').then(m => ({ default: Object.values(m)[0] as any })));
 const UsageStatisticsManager = lazy(() => import('./usage').then(m => ({ default: Object.values(m)[0] as any })));
 const DigitalPropertyManager = lazy(() => import('./property').then(m => ({ default: Object.values(m)[0] as any })));
-const E2eRunner = lazy(() => import('./e2e-runner'));
+const E2eRunner = lazy(() => import('./e2e-runner').then(m => ({ default: Object.values(m)[0] as any })));
 
 export const ScrumMasterRoutes = () => (
     <Route path={`${RouteRegistry.SCRUM_MASTER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['scrum_master']}><AppLayout /></RequireRole>}>
