@@ -16,10 +16,10 @@ export default function ScrumMasterDashboard() {
                     { label: 'Deploy #', value: 39, color: '#8B5CF6' },
                 ]},
                 'SM.health': { statusCards: { items: [
-                    { label: 'worker-api', value: 'Healthy', description: '142 endpoints, 0 errors', color: 'green' },
-                    { label: 'web-admin', value: 'Healthy', description: '94 pages, 18 section types', color: 'green' },
-                    { label: 'Database', value: 'Active', description: 'Supabase — 47 models', color: 'green' },
-                    { label: 'Auth', value: 'Operational', description: 'Firebase — Deadlock patched', color: 'green' },
+                    { label: 'worker-api', value: 'Healthy', description: '142 endpoints, 0 errors', icon: 'Activity', color: 'green' },
+                    { label: 'web-admin', value: 'Healthy', description: '94 pages, 18 section types', icon: 'Activity', color: 'green' },
+                    { label: 'Database', value: 'Active', description: 'Supabase — 47 models', icon: 'Activity', color: 'green' },
+                    { label: 'Auth', value: 'Operational', description: 'Firebase — Deadlock patched', icon: 'Activity', color: 'green' },
                 ]} },
                 'SM.roadmap': { table: { columns: [
                     { key: 'sprint', label: 'Sprint' }, { key: 'feature', label: 'Feature' },

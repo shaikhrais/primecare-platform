@@ -33,9 +33,9 @@ export function RnDashboard() {
                     { patient: 'W. Johnson', assessment: 'Overdue', carePlan: '🔄 Renewal', meds: '🟢 Compliant', alert: '🔴 Urgent' },
                 ]}},
                 'D15.compliance': { statusCards: { items: [
-                    { label: 'Documentation', value: '94%', description: '18/19 entries complete', color: 'green' },
-                    { label: 'Delegation Audits', value: 'Passed', description: 'Last audit: Mar 12', color: 'green' },
-                    { label: 'Wound Assessments', value: '2 Due', description: 'Next: Today 3 PM', color: 'yellow' },
+                    { label: 'Documentation', value: '94%', description: '18/19 entries complete', icon: 'Activity', color: 'green' },
+                    { label: 'Delegation Audits', value: 'Passed', description: 'Last audit: Mar 12', icon: 'Activity', color: 'green' },
+                    { label: 'Wound Assessments', value: '2 Due', description: 'Next: Today 3 PM', icon: 'Activity', color: 'yellow' },
                 ]} },
             }}
         />

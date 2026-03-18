@@ -32,9 +32,9 @@ export function ClientDashboard() {
                     { date: 'Mar 19', caregiver: 'Lisa T.', service: 'ADL Support', time: '9:00 AM — 11:00 AM' },
                 ]}},
                 'D8.journey': { statusCards: { items: [
-                    { label: 'Care Plan', value: 'Active', description: 'Reviewed Jan 2026', color: 'green' },
-                    { label: 'Assessments', value: 'Up to Date', description: 'Next due Apr 2026', color: 'green' },
-                    { label: 'Telehealth', value: 'Available', description: 'Dr. Chen — Click to join', color: 'blue' },
+                    { label: 'Care Plan', value: 'Active', description: 'Reviewed Jan 2026', icon: 'Activity', color: 'green' },
+                    { label: 'Assessments', value: 'Up to Date', description: 'Next due Apr 2026', icon: 'Activity', color: 'green' },
+                    { label: 'Telehealth', value: 'Available', description: 'Dr. Chen — Click to join', icon: 'Activity', color: 'blue' },
                 ]} },
             }}
         />

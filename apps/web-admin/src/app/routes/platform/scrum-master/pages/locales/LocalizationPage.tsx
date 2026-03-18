@@ -1,32 +1,23 @@
 import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-const LocalizationPage: React.FC = () => {
+export default function LocalizationPage() {
     return (
-        <div data-cy="page.container" style={{ padding: '2rem' }}>
-            <h1 data-cy="page.title">Localization Health</h1>
-            <p>Audit of i18n coverage and translation registry integrity.</p>
-            <div style={{ marginTop: '2rem' }}>
-                <div style={{ margin: '1rem 0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span>English (Master)</span>
-                        <span>100%</span>
-                    </div>
-                    <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px' }}>
-                        <div style={{ height: '100%', width: '100%', background: '#3b82f6', borderRadius: '4px' }}></div>
-                    </div>
-                </div>
-                <div style={{ margin: '1rem 0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span>French (Canadian)</span>
-                        <span>94%</span>
-                    </div>
-                    <div style={{ height: '8px', background: '#e5e7eb', borderRadius: '4px' }}>
-                        <div style={{ height: '100%', width: '94%', background: '#3b82f6', borderRadius: '4px' }}></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate 
+            pageId="PG-233" 
+            title="Localization Health" 
+            subtitle="Platform configuration, management, and insights"
+            sectionData={{
+                'PG-233.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
+                ]},
+                'PG-233.body': { emptyState: { 
+                    title: 'Module Under Configuration', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
-};
-
-export default LocalizationPage;
+}

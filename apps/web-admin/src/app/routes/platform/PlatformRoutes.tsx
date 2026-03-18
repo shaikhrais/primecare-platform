@@ -7,8 +7,8 @@ import AppLayout from '@/shared/components/layout/AppLayout';
 const { RouteRegistry } = AdminRegistry;
 
 // Platform Portal (Super Admin)
-const PlatformDashboard = lazy(() => import('./pages/dashboard'));
-const PlatformAuditLogs = lazy(() => import('./pages/audit-logs'));
+const PlatformDashboard = lazy(() => import('./pages/dashboard').then(m => ({ default: Object.values(m)[0] as any })));
+const PlatformAuditLogs = lazy(() => import('./pages/audit-logs').then(m => ({ default: Object.values(m)[0] as any })));
 const SLAMonitoring = lazy(() => import('./pages/sla-monitoring'));
 const RiskSurveillanceDashboard = lazy(() => import('./superuser/super-admin/pages/RiskSurveillanceDashboard'));
 const TenantList = lazy(() => import('./pages/tenants'));

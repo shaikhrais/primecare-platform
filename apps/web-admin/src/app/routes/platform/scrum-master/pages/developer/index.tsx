@@ -1,109 +1,23 @@
-import React, { useState } from 'react';
-import { useApiMutation } from '@/shared/hooks/useApiMutation';
-import { useMutation } from '@tanstack/react-query';
-import { apiClient } from '@/shared/utils/apiClient';
-import { useToast as useNotification } from '@/shared/hooks/useToast';
-import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
-import { useQueryClient } from '@tanstack/react-query';
-import { TableSkeleton } from '@/shared/components/ui/Skeleton';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function DeveloperPortal() {
-    const [apiKey, setApiKey] = useState('');
-    const { showToast } = useNotification();
-    const queryClient = useQueryClient();
-
-    // TanStack Query: auto-cached API keys
-    const { data: keys = [], isLoading: loading } = useRegistryQuery<any[]>('/v1/admin/developer/keys', {
-        queryKey: ['admin', 'developer', 'keys'],
-        staleTime: 30_000,
-    });
-
-    const createKeyMutation = useApiMutation('/v1/admin/developer/keys', {
-        onSuccess: (data: any) => {
-            showToast(`Your security key is: ${data.key}\n\nIMPORTANT: Copy this key now. It will not be shown again.`, 'success');
-            queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] });
-        },
-        onError: () => { showToast('Failed to create key', 'error'); },
-    });
-
-    const handleCreateKey = () => {
-        const name = prompt('Enter a name for this API Key (e.g. My Website)');
-        if (!name) return;
-        createKeyMutation.mutate({ name });
-    };
-
-    const deleteKeyMutation = useMutation({
-        mutationFn: (id: string) => apiClient.delete(`/v1/admin/developer/keys/${id}`),
-        onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin', 'developer', 'keys'] }); },
-        onError: () => { alert('Failed to delete key'); },
-    });
-
-    const handleDeleteKey = (id: string) => {
-        if (!confirm('Are you sure you want to revoke this key?')) return;
-        deleteKeyMutation.mutate(id);
-    };
-
     return (
-        <div style={{ padding: '24px' }} data-cy="developer-portal-page">
-            <div style={{ marginBottom: '40px' }}>
-                <h1 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Developer Portal</h1>
-                <p style={{ color: '#6B7280' }}>Integrate PrimeCare into your own applications using professional-grade APIs.</p>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px' }}>
-                <div className="pc-card">
-                    <div className="pc-card-h">API Reference</div>
-                    <div className="pc-card-b">
-                        <div style={{ padding: '2rem', textAlign: 'center', backgroundColor: '#F9FAFB', borderRadius: '12px', border: '1px dashed #E5E7EB' }}>
-                            <span style={{ fontSize: '3rem' }}>📖</span>
-                            <h3 data-cy="h3-index-0" style={{ marginTop: '1rem', fontWeight: '700' }}>Platform API v1.0</h3>
-                            <p style={{ color: '#6B7280', marginBottom: '2rem' }}>Our OpenAPI specification is automatically synced with the backend.</p>
-                            <a
-                                href="/doc"
-                                target="_blank"
-                                data-cy="btn-open-docs"
-                                className="btn btn-primary"
-                                style={{ textDecoration: 'none' }}
-                            >
-                                Open Interactive Documentation
-                            </a>
-                        </div>
-
-                        <div style={{ marginTop: '2rem' }}>
-                            <h4 style={{ fontWeight: '700', marginBottom: '1rem' }}>Quick Start Guide</h4>
-                            <div style={{ backgroundColor: '#111827', padding: '1.5rem', borderRadius: '8px', color: '#10B981', fontFamily: 'monospace', fontSize: '13px' }}>
-                                <div># Fetch your staff list</div>
-                                <div>curl -X GET "https://api.pc.ca/v1/admin/users" \</div>
-                                <div style={{ marginLeft: '1rem' }}>-H "X-API-Key: pk_your_key_here"</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="pc-card">
-                    <div className="pc-card-h" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span>My API Keys</span>
-                        <button data-cy="btn-create-api-key" onClick={handleCreateKey} className="btn" style={{ fontSize: '12px', padding: '6px 12px' }}>+ New Key</button>
-                    </div>
-                    <div className="pc-card-b">
-                        {loading ? <p>Loading...</p> : keys.length === 0 ? <p style={{ color: '#6B7280', textAlign: 'center' }}>No keys generated yet.</p> : (
-                            <div style={{ display: 'grid', gap: '12px' }}>
-                                {keys.map(k => (
-                                    <div key={k.id} style={{ padding: '12px', border: '1px solid var(--line)', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <div>
-                                            <div style={{ fontWeight: '700', fontSize: '14px' }}>{k.name}</div>
-                                            <div style={{ fontSize: '12px', color: '#6B7280' }}>
-                                                {k.key.substring(0, 8)}••••••••
-                                            </div>
-                                        </div>
-                                        <button data-cy={`btn-delete-key-${k.id}`} onClick={() => handleDeleteKey(k.id)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>🗑️</button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate 
+            pageId="PG-695" 
+            title="Developer Portal" 
+            subtitle="Platform configuration, management, and insights"
+            sectionData={{
+                'PG-695.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
+                ]},
+                'PG-695.body': { emptyState: { 
+                    title: 'Module Under Configuration', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
 }

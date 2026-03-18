@@ -91,12 +91,18 @@ export default function PageRegistryPage() {
                 </div>
             </div>
 
+            {viewMode === 'identity' && (
                 // @ts-ignore
-            {viewMode === 'identity' && <IdentityMapView groupedByOwner={groupedByOwner} selectedCode={selectedCode} setSelectedCode={setSelectedCode} selectedEntry={selectedEntry || null} />}
+                <IdentityMapView groupedByOwner={groupedByOwner} selectedCode={selectedCode} setSelectedCode={setSelectedCode} selectedEntry={selectedEntry || null} />
+            )}
+            {viewMode === 'table' && (
                 // @ts-ignore
-            {viewMode === 'table' && <TableView filteredMaster={filteredMaster} />}
+                <TableView filteredMaster={filteredMaster} />
+            )}
+            {viewMode === 'grid' && (
                 // @ts-ignore
-            {viewMode === 'grid' && <GridView grouped={grouped} />}
+                <GridView grouped={grouped} />
+            )}
 
             {filteredMaster.length === 0 && viewMode === 'identity' && (
                 <div style={{ textAlign: 'center', padding: '48px', color: '#94A3B8' }}>

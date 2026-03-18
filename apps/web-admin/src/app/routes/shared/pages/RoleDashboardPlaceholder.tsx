@@ -1,25 +1,23 @@
 import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
-interface RoleDashboardPlaceholderProps {
-    role: string;
-}
-
-const RoleDashboardPlaceholder: React.FC<RoleDashboardPlaceholderProps> = ({ role }) => {
+export default function RoleDashboardPlaceholder() {
     return (
-        <div data-cy="page.container" style={{ padding: '2rem', textAlign: 'center', color: '#6B7280' }}>
-            <h1 data-cy="page.title" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1rem', color: '#111827' }}>
-                {role.charAt(0).toUpperCase() + role.slice(1)} Dashboard
-            </h1>
-            <div style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
-                🚧 Under Construction
-            </div>
-            <p>
-                The {role} portal is currently being set up.
-                <br />
-                Please check back later for full functionality.
-            </p>
-        </div>
+        <PageTemplate 
+            pageId="PG-178" 
+            title="RoleDashboardPlaceholder" 
+            subtitle="Platform configuration, management, and insights"
+            sectionData={{
+                'PG-178.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
+                ]},
+                'PG-178.body': { emptyState: { 
+                    title: 'Module Under Configuration', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
-};
-
-export default RoleDashboardPlaceholder;
+}

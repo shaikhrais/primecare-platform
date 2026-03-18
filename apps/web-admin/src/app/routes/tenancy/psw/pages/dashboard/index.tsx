@@ -32,9 +32,9 @@ export function PswDashboard() {
                     { client: 'Maria L.', time: 'Tomorrow 9:00 AM', type: 'ADL Support', status: '🟡 Pending' },
                 ]}},
                 'D14.compliance': { statusCards: { items: [
-                    { label: 'CPR Certification', value: 'Valid', description: 'Expires Dec 2026', color: 'green' },
-                    { label: 'TB Test', value: 'Current', description: 'Due Mar 2027', color: 'green' },
-                    { label: 'First Aid', value: 'Expiring Soon', description: 'Expires Apr 2026', color: 'yellow' },
+                    { label: 'CPR Certification', value: 'Valid', description: 'Expires Dec 2026', icon: 'Activity', color: 'green' },
+                    { label: 'TB Test', value: 'Current', description: 'Due Mar 2027', icon: 'Activity', color: 'green' },
+                    { label: 'First Aid', value: 'Expiring Soon', description: 'Expires Apr 2026', icon: 'Activity', color: 'yellow' },
                 ]} },
             }}
         />

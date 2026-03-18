@@ -17,7 +17,7 @@ const RegistryIntegrityCheck = lazy(() => import('./pages/audit/RegistryIntegrit
 const DatabaseSchemaAudit = lazy(() => import('./pages/audit/DatabaseSchemaAudit'));
 const ThemeCoreCenter = lazy(() => import('./pages/theme/ThemeCoreCenter'));
 const DeveloperPortal = lazy(() => import('./pages/developer'));
-const DeveloperKBPage = lazy(() => import('./pages/developer-kb'));
+const DeveloperKBPage = lazy(() => import('./pages/developer-kb').then(m => ({ default: Object.values(m)[0] as any })));
 const PerformancePage = lazy(() => import('./pages/performance/PerformancePage'));
 const BuildHealthPage = lazy(() => import('./pages/builds/BuildHealthPage'));
 const SecurityScansPage = lazy(() => import('./pages/scans/SecurityScansPage'));

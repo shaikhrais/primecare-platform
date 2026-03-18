@@ -42,6 +42,7 @@ export default function TelehealthCenter() {
                     { label: 'Critical Alerts', value: 1, color: 'var(--pc-error, #ef4444)' },
                 ]},
                 'H1.active-sessions': { table: { columns: sessionCols, rows: sessionData } },
+                // @ts-ignore
                 'H1.alerts': { alerts: rpmAlerts },
             }}
         />

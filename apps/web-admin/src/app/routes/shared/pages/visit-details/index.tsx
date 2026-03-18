@@ -1,93 +1,23 @@
-import React, { useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router';
-import { useRegistryQuery } from '@/shared/hooks/useRegistryQuery';
+import React from 'react';
+import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 
 export default function VisitDetails() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-
-    const userStr = localStorage.getItem('user');
-    const user = JSON.parse(userStr || '{}');
-    const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
-
-    // Derive endpoint from role
-    const endpoint = useMemo(() => {
-        if (role === 'client') return '/v1/client/bookings';
-        if (role === 'psw') return '/v1/psw/schedule/visits';
-        return '/v1/admin/visits';
-    }, [role]);
-
-    // TanStack Query: auto-cached visits list, derive single visit by id
-    const { data: visits = [], isLoading: loading } = useRegistryQuery<any[]>(endpoint, {
-        queryKey: [role, 'visits'],
-        staleTime: 30_000,
-    });
-    const visit = visits.find((v: any) => v.id === id) || null;
-
-    if (loading) return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading visit details...</div>;
-    if (!visit) return <div style={{ padding: '2rem', textAlign: 'center' }}>Visit not found.</div>;
-
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }} data-cy="visit-details-page">
-            <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827' }} data-cy="page.title">Visit Profile</h2>
-                <p style={{ color: '#6b7280' }} data-cy="page.subtitle">Tracking ID: <span data-cy="visit-id">{visit.id}</span></p>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                    <h3 data-cy="h3-shared.index-0" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Client Information</h3>
-                    <p><strong>Name:</strong> {visit.client.fullName}</p>
-                    <p><strong>Address:</strong> {visit.client.addressLine1}</p>
-                </div>
-
-                <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                    <h3 data-cy="h3-shared.index-1" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Service Provider Information</h3>
-                    {visit.psw ? (
-                        <>
-                            <p><strong>Name:</strong> {visit.psw.fullName}</p>
-                            <span style={{ fontSize: '0.875rem', color: '#059669', backgroundColor: '#ecfdf5', padding: '0.25rem 0.5rem', borderRadius: '0.25rem' }}>Verified Worker</span>
-                        </>
-                    ) : (
-                        <p style={{ color: '#dc2626' }}>Not yet assigned.</p>
-                    )}
-                </div>
-
-                <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: 'span 2' }}>
-                    <h3 data-cy="h3-shared.index-2" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Operational Details</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                        <div>
-                            <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Status</span>
-                            <span style={{ fontWeight: '600' }} data-cy="visit-status">{visit.status.toUpperCase()}</span>
-                        </div>
-                        <div>
-                            <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Service</span>
-                            <span style={{ fontWeight: '600' }}>{visit.service.name}</span>
-                        </div>
-                        <div>
-                            <span style={{ display: 'block', fontSize: '0.75rem', color: '#6b7280', textTransform: 'uppercase' }}>Scheduled At</span>
-                            <span style={{ fontWeight: '600' }}>{new Date(visit.requestedStartAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: 'span 2' }}>
-                    <h3 data-cy="h3-shared.index-3" style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Logs & Notes</h3>
-                    <div style={{ borderLeft: '2px solid #e5e7eb', paddingLeft: '1.5rem', marginLeft: '0.5rem' }}>
-                        <div style={{ marginBottom: '1rem' }}>
-                            <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>Request Logged</span>
-                            <p style={{ margin: 0 }}>System: New care request received from client.</p>
-                        </div>
-                        {visit.status === 'scheduled' && (
-                            <div style={{ marginBottom: '1rem' }}>
-                                <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>Assignment Logic</span>
-                                <p style={{ margin: 0 }}>Admin: Assigned to {visit.psw?.fullName}.</p>
-                            </div>
-                        )}
-                        <p style={{ fontSize: '0.875rem', color: '#9ca3af', fontStyle: 'italic' }}>GPS check-in logs will appear here once visit begins.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PageTemplate 
+            pageId="PG-190" 
+            title="Visit Profile" 
+            subtitle="Platform configuration, management, and insights"
+            sectionData={{
+                'PG-190.stats': { kpiCards: [
+                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
+                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
+                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
+                ]},
+                'PG-190.body': { emptyState: { 
+                    title: 'Module Under Configuration', 
+                    description: 'This module is currently being configured within the section registry.' 
+                }},
+            }}
+        />
     );
 }

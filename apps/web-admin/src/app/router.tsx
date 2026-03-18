@@ -11,11 +11,11 @@ import RequireRole from '@/shared/rbac/RequireRole';
 import { useAuth } from '@/shared/context/AuthContext';
 
 // Auth Pages (Eagerly loaded)
-import Login from './routes/auth/pages/login';
-import Register from './routes/auth/pages/register';
-import ForgotPassword from './routes/auth/pages/forgot-password';
-import ResetPassword from './routes/auth/pages/reset-password';
-import BusinessOnboard from './routes/auth/pages/onboard-business';
+import { Login } from './routes/auth/pages/login';
+import { Register } from './routes/auth/pages/register';
+import { ForgotPassword } from './routes/auth/pages/forgot-password';
+import { ResetPassword } from './routes/auth/pages/reset-password';
+import { BusinessOnboard } from './routes/auth/pages/onboard-business';
 
 // Error Pages
 import NotFound from './routes/shared/pages/error/NotFound';
@@ -38,7 +38,7 @@ const SupportTicket = React.lazy(() => import('./routes/shared/pages/support-tic
 const Messaging = React.lazy(() => import('./routes/shared/pages/messaging'));
 const VisitDetails = React.lazy(() => import('./routes/shared/pages/visit-details'));
 const VisitCompletion = React.lazy(() => import('./routes/shared/pages/visit-completion'));
-const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training'));
+const UserTrainingPage = React.lazy(() => import('./routes/shared/pages/training').then(m => ({ default: Object.values(m)[0] as any })));
 const KnowledgeBaseIndex = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase'));
 const KnowledgeBaseArticle = React.lazy(() => import('./routes/platform/admin/pages/knowledge-base/T48-KBArticle'));
 const MarketingShowcase = React.lazy(() => import('./routes/shared/pages/MarketingShowcase'));

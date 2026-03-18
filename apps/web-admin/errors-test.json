@@ -1,0 +1,16 @@
+[
+  "src/test/OwnerCoverage_auth.test.ts(14,39): error TS2307: Cannot find module '@/app/routes/auth/pages/login/F1-Login' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_auth.test.ts(21,39): error TS2307: Cannot find module '@/app/routes/auth/pages/register/F2-Register' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_auth.test.ts(28,39): error TS2307: Cannot find module '@/app/routes/auth/pages/forgot-password/F3-ForgotPassword' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_auth.test.ts(35,39): error TS2307: Cannot find module '@/app/routes/auth/pages/reset-password/F4-ResetPassword' or its corresponding type declarations.",
+  "src/test/OwnerCoverage_auth.test.ts(42,39): error TS2307: Cannot find module '@/app/routes/auth/pages/onboard-business/F5-BusinessOnboard' or its corresponding type declarations.",
+  "src/test/PageExports_batch1.test.ts(10,39): error TS2307: Cannot find module '@/app/routes/auth/pages/login/F1-Login' or its corresponding type declarations.",
+  "src/test/PageExports_batch1.test.ts(16,39): error TS2307: Cannot find module '@/app/routes/auth/pages/register/F2-Register' or its corresponding type declarations.",
+  "src/test/PageExports_batch1.test.ts(22,39): error TS2307: Cannot find module '@/app/routes/auth/pages/forgot-password/F3-ForgotPassword' or its corresponding type declarations.",
+  "src/test/PageExports_batch1.test.ts(28,39): error TS2307: Cannot find module '@/app/routes/auth/pages/reset-password/F4-ResetPassword' or its corresponding type declarations.",
+  "src/test/PageExports_batch1.test.ts(34,39): error TS2307: Cannot find module '@/app/routes/auth/pages/onboard-business/F5-BusinessOnboard' or its corresponding type declarations.",
+  "src/test/ViewsAndGeo.test.ts(15,39): error TS2307: Cannot find module '@/app/routes/auth/pages/login/F1-Login' or its corresponding type declarations.",
+  "src/test/ViewsAndGeo.test.ts(20,39): error TS2307: Cannot find module '@/app/routes/auth/pages/register/F2-Register' or its corresponding type declarations.",
+  "src/test/ViewsAndGeo.test.ts(25,39): error TS2307: Cannot find module '@/app/routes/auth/pages/forgot-password/F3-ForgotPassword' or its corresponding type declarations.",
+  "src/test/ViewsAndGeo.test.ts(30,39): error TS2307: Cannot find module '@/app/routes/auth/pages/reset-password/F4-ResetPassword' or its corresponding type declarations."
+]

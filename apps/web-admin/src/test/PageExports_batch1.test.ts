@@ -7,31 +7,31 @@ import { describe, it, expect } from 'vitest';
 
 describe('Smoke Exports — Batch 1', () => {
     it('F1: Login exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/login/F1-Login');
+        const mod: any = await import('@/app/routes/auth/pages/login');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F2: Register exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/register/F2-Register');
+        const mod: any = await import('@/app/routes/auth/pages/register');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F3: Forgot Password exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/forgot-password/F3-ForgotPassword');
+        const mod: any = await import('@/app/routes/auth/pages/forgot-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F4: Reset Password exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/reset-password/F4-ResetPassword');
+        const mod: any = await import('@/app/routes/auth/pages/reset-password');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
 
     it('F5: Business Onboard exports a valid module', async () => {
-        const mod: any = await import('@/app/routes/auth/pages/onboard-business/F5-BusinessOnboard');
+        const mod: any = await import('@/app/routes/auth/pages/onboard-business');
         const component = mod.default || Object.values(mod)[0];
         expect(component).toBeDefined();
     });
