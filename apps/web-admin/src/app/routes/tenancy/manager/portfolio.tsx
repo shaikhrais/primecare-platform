@@ -1,5 +1,7 @@
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React from 'react';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
+
 // Re-export from identity file: T19-Portfolio.tsx
 // removed broken export: export { default } from './T19-Portfolio';
 
@@ -8,13 +10,7 @@ import React from 'react';
 export function ManagementPortfolio() {
     return (
         <PageTemplate pageId="T19" title="Client Portfolio" subtitle="Client case portfolio with revenue and visit analytics"
-            sectionData={{
-                'T19.stats': { kpiCards: [
-                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
-                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
-                ]},
-            }}
+            sectionData={PageSectionRegistry['T19']}
         />
     );
 }

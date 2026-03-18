@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 // --- Merged from DigitalPropertyManager.tsx ---
 export function DigitalPropertyManager() {
@@ -9,17 +9,7 @@ export function DigitalPropertyManager() {
             pageId="PG-454" 
             title="🏛️ Digital Property Manager" 
             subtitle="Platform configuration, management, and insights"
-            sectionData={{
-                'PG-454.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
-                ]},
-                'PG-454.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['PG-454']}
         />
     );
 }

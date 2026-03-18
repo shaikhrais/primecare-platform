@@ -10,13 +10,6 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-const aiModules = [
-    { icon: '🔮', title: 'Predictive Analytics', subtitle: 'Visit trends, churn, demand forecasting' },
-    { icon: '💬', title: 'Sentiment Analysis', subtitle: 'Client & PSW satisfaction tracking' },
-    { icon: '🎯', title: 'Visit Optimization', subtitle: 'Route & schedule optimization' },
-    { icon: '⚠️', title: 'Churn Risk', subtitle: 'At-risk client identification' },
-];
-
 export function AiDashboard() {
     return (
         <PageTemplate
@@ -24,28 +17,7 @@ export function AiDashboard() {
             title="🤖 AI Dashboard"
             subtitle="Real-time overview and key performance indicators"
             actionPageId="admin.ai-dashboard"
-            sectionData={{
-                'D5.model-stats': { kpiCards: [
-                    { label: 'Models Active', value: '1,247', color: '#8B5CF6' },
-                    { label: 'Predictions Today', value: '3,829', color: 'var(--pc-primary)' },
-                    { label: 'Accuracy', value: '94.2%', color: 'var(--pc-success)' },
-                    { label: 'Alerts', value: 856, color: 'var(--pc-warning)' },
-                ]},
-                'D5.inference-chart': { chart: {
-                    title: 'Inference Volume (Last 7 Days)',
-                    type: 'bar',
-                    data: [
-                        { label: 'Mon', value: 520, color: '#8B5CF6' },
-                        { label: 'Tue', value: 680, color: '#8B5CF6' },
-                        { label: 'Wed', value: 590, color: '#8B5CF6' },
-                        { label: 'Thu', value: 720, color: '#8B5CF6' },
-                        { label: 'Fri', value: 830, color: '#8B5CF6' },
-                        { label: 'Sat', value: 410, color: '#8B5CF6' },
-                        { label: 'Sun', value: 280, color: '#8B5CF6' },
-                    ],
-                }},
-                'D5.nav-cards': { cardGrid: { items: aiModules, columns: 4 } },
-            }}
+            sectionData={PageSectionRegistry['D5']}
         />
     );
 }
@@ -100,24 +72,7 @@ export function AICommandCenter() {
             title="🧠 AI Command Center"
             subtitle="Unified intelligence — recommendations, sentiment, predictive models & insights"
             actionPageId="admin.ai-command"
-            sectionData={{
-                'D20.ai-stats': { kpiCards: [
-                    { label: 'AI Recommendations', value: 5, icon: '🎯', color: 'var(--pc-primary)' },
-                    { label: 'Models Active', value: '4/5', icon: '🤖', color: 'var(--pc-success)' },
-                    { label: 'Avg Confidence', value: '90.2%', icon: '📊', color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Predictions Today', value: 329, icon: '🔮', color: '#7C3AED' },
-                    { label: 'Sentiment Score', value: '3.7/5', icon: '💭', color: 'var(--pc-warning)' },
-                ]},
-                'D20.recommendations': { tabs: {
-                    tabs: [
-                        { id: 'recommendations', label: '🎯 Recommendations', count: 5 },
-                        { id: 'models', label: '🤖 AI Models', count: 5 },
-                        { id: 'insights', label: '💡 Insights', count: 4 },
-                    ],
-                    activeTab: tab, onTabChange: setTab,
-                }},
-                ...tabContent[tab],
-            }}
+            sectionData={PageSectionRegistry['D20']}
         />
     );
 }
@@ -129,6 +84,7 @@ export function AICommandCenter() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TabItem } from '@/shared/components/sections';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 export function PredictiveAnalytics() {
     const [tab, setTab] = useState('risk');
@@ -169,16 +125,7 @@ export function PredictiveAnalytics() {
             title="📈 Predictive Analytics"
             subtitle="AI-powered risk scoring, trend forecasting, anomaly detection & correlation analysis"
             actionPageId="admin.predictive-analytics"
-            sectionData={{
-                'T52.stats': { kpiCards: [
-                    { label: 'Models Running', value: 4, color: '#8B5CF6' },
-                    { label: 'Predictions /Day', value: '3.8K', color: 'var(--pc-primary)' },
-                    { label: 'Accuracy', value: '94.2%', color: 'var(--pc-success)' },
-                    { label: 'Anomalies Found', value: 3, color: 'var(--pc-warning)' },
-                ]},
-                'T52.tabs': { tabs: { tabs, activeTab: tab, onTabChange: setTab } },
-                ...tabContent[tab],
-            }}
+            sectionData={PageSectionRegistry['T52']}
         />
     );
 }
@@ -190,21 +137,6 @@ export function PredictiveAnalytics() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-
-const churnClients = [
-    { client: '🔴 Margaret Chen', riskScore: '87%', factors: 'Missed 3 visits, satisfaction ↓', days: 14, action: 'Call scheduled' },
-    { client: '🟠 Robert Williams', riskScore: '72%', factors: 'Auth exhausting (92%)', days: 21, action: 'Renewal pending' },
-    { client: '🟡 Susan Park', riskScore: '58%', factors: 'PSW turnover (3 changes)', days: 45, action: 'Assign stable PSW' },
-    { client: '🟡 James Brown', riskScore: '52%', factors: 'Missed medication 2x', days: 30, action: 'RN follow-up' },
-    { client: '🟢 Helen Taylor', riskScore: '23%', factors: 'Stable – no flags', days: 90, action: 'Monitor' },
-];
-
-const churnCols: TableColumn[] = [
-    { key: 'client', label: 'Client' }, { key: 'riskScore', label: 'Risk' },
-    { key: 'factors', label: 'Contributing Factors' }, { key: 'days', label: 'Days Active' },
-    { key: 'action', label: 'Recommended Action' },
-];
-
 export function ChurnRisk() {
     return (
         <PageTemplate
@@ -212,20 +144,7 @@ export function ChurnRisk() {
             title="⚠️ Churn Risk Analysis"
             subtitle="AI-predicted client attrition risk with actionable intervention recommendations"
             actionPageId="admin.churn-risk"
-            sectionData={{
-                'T53.stats': { kpiCards: [
-                    { label: 'At-Risk Clients', value: 4, color: 'var(--pc-error, #ef4444)' },
-                    { label: 'Avg Risk Score', value: '58.4%', color: 'var(--pc-warning)' },
-                    { label: 'Interventions Active', value: 3, color: 'var(--pc-primary)' },
-                    { label: 'Retention Rate', value: '94.1%', color: 'var(--pc-success)' },
-                ]},
-                'T53.churn-table': { table: { columns: churnCols, rows: churnClients } },
-                'T53.trend': { chart: { title: 'Churn Risk Trend (6 Months)', type: 'bar', data: [
-                    { label: 'Oct', value: 8 }, { label: 'Nov', value: 6 },
-                    { label: 'Dec', value: 5 }, { label: 'Jan', value: 7 },
-                    { label: 'Feb', value: 4 }, { label: 'Mar', value: 4 },
-                ]}},
-            }}
+            sectionData={PageSectionRegistry['T53']}
         />
     );
 }
@@ -237,13 +156,6 @@ export function ChurnRisk() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-const optimizationSuggestions = [
-    { icon: '🗺️', title: 'Route Clustering — North York', subtitle: '3 visits can be grouped → save 45 min drive time' },
-    { icon: '⏰', title: 'Schedule Gap — PSW Chen', subtitle: '2 hr gap between visits on Wed. Suggest backfill.' },
-    { icon: '📍', title: 'Distance Alert — PSW Williams', subtitle: 'Visit #4 is 38km from #3. Suggest reassign.' },
-    { icon: '✅', title: 'Optimal Match — Client Park', subtitle: 'PSW Santos best fit: 98% compatibility score' },
-];
-
 export function VisitOptimization() {
     return (
         <PageTemplate
@@ -251,20 +163,7 @@ export function VisitOptimization() {
             title="🗺️ Visit Optimization"
             subtitle="AI-powered route clustering, schedule optimization & PSW-client matching"
             actionPageId="admin.visit-optimization"
-            sectionData={{
-                'T54.stats': { kpiCards: [
-                    { label: 'Routes Optimized', value: 12, color: 'var(--pc-primary)' },
-                    { label: 'Time Saved', value: '4.2 hrs', color: 'var(--pc-success)' },
-                    { label: 'Fuel Saved', value: '$142', color: '#10B981' },
-                    { label: 'Suggestions', value: 4, color: 'var(--pc-info, #2563EB)' },
-                ]},
-                'T54.suggestions': { cardGrid: { items: optimizationSuggestions, columns: 2 } },
-                'T54.efficiency': { chart: { title: 'Weekly Efficiency Gains', type: 'bar', data: [
-                    { label: 'Mon', value: 35, color: '#10B981' }, { label: 'Tue', value: 42, color: '#10B981' },
-                    { label: 'Wed', value: 28, color: '#10B981' }, { label: 'Thu', value: 51, color: '#10B981' },
-                    { label: 'Fri', value: 38, color: '#10B981' },
-                ]}},
-            }}
+            sectionData={PageSectionRegistry['T54']}
         />
     );
 }
@@ -276,14 +175,6 @@ export function VisitOptimization() {
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-const sentimentFeed = [
-    { icon: '😊', title: 'Client Park: "PSW Santos is wonderful, always on time"', time: 'Today', level: 'success' as const },
-    { icon: '😐', title: 'Client Brown: "Visit was fine, nothing special"', time: 'Yesterday', level: 'info' as const },
-    { icon: '😟', title: 'Client Chen: "PSW arrived 20 min late, no notification"', time: '2 days ago', level: 'warning' as const },
-    { icon: '😠', title: 'Family Williams: "Scheduling keeps changing without notice"', time: '3 days ago', level: 'danger' as const },
-    { icon: '😊', title: 'Client Taylor: "Best care my mother has ever received"', time: '4 days ago', level: 'success' as const },
-];
-
 export function SentimentAnalysis() {
     return (
         <PageTemplate
@@ -291,20 +182,7 @@ export function SentimentAnalysis() {
             title="💬 Sentiment Analysis"
             subtitle="AI-powered sentiment tracking from surveys, calls, and feedback forms"
             actionPageId="admin.sentiment-analysis"
-            sectionData={{
-                'T55.stats': { kpiCards: [
-                    { label: 'Overall Score', value: '3.7/5', color: 'var(--pc-primary)' },
-                    { label: 'Positive', value: '62%', color: 'var(--pc-success)' },
-                    { label: 'Neutral', value: '28%', color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Negative', value: '10%', color: 'var(--pc-error, #ef4444)' },
-                ]},
-                'T55.trend': { chart: { title: 'Sentiment Trend (6 Months)', type: 'bar', data: [
-                    { label: 'Oct', value: 72, color: '#10B981' }, { label: 'Nov', value: 68, color: '#F59E0B' },
-                    { label: 'Dec', value: 74, color: '#10B981' }, { label: 'Jan', value: 65, color: '#F59E0B' },
-                    { label: 'Feb', value: 71, color: '#10B981' }, { label: 'Mar', value: 62, color: '#F59E0B' },
-                ]}},
-                'T55.feed': { feed: { title: '📡 Recent Feedback', items: sentimentFeed } },
-            }}
+            sectionData={PageSectionRegistry['T55']}
         />
     );
 }

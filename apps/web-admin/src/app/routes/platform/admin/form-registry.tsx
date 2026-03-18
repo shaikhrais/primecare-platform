@@ -4,8 +4,7 @@ import { FileText, Search, LayoutGrid, Filter } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import type { FormEntry } from 'prime-care-shared';
 import { CATEGORY_COLORS } from './formRegistryConfig';
-
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const { FormRegistry, getFormsByCategory, getFormsWithDependencies, FORM_REGISTRY_COUNT } = AdminRegistry;
 
@@ -155,14 +154,7 @@ export function FormCard() {
             pageId="PGE-FC" 
             title="✨ Form Card" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'FC.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'FC.empty']: { emptyState: { title: 'Form Card Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-FC']}
         />
     );
 }
@@ -174,14 +166,7 @@ export function FormDetailView() {
             pageId="PGE-FDV" 
             title="✨ Form Detail View" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'FDV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'FDV.empty']: { emptyState: { title: 'Form Detail View Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-FDV']}
         />
     );
 }

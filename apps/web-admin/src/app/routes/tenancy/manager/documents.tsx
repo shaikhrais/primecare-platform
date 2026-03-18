@@ -9,6 +9,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TableColumn } from '@/shared/components/sections';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const documents = [
     { name: '📄 Employment Contract — Priya Sharma', type: 'Contract', status: 'PENDING', signers: '⏳ Priya Sharma, ✅ HR Director', created: '2 hrs ago', expires: '7 days' },
@@ -18,13 +19,6 @@ const documents = [
     { name: '📄 NDA — PrimeCare × MedTech Inc.', type: 'NDA', status: 'PENDING', signers: '✅ CEO, ⏳ MedTech Rep', created: '5 hrs ago', expires: '30 days' },
     { name: '📄 Training Acknowledgment — Fall Prevention', type: 'Training', status: 'COMPLETED', signers: '✅ James Wright', created: '2 days ago', expires: '—' },
 ];
-
-const docCols: TableColumn[] = [
-    { key: 'name', label: 'Document' }, { key: 'type', label: 'Type' },
-    { key: 'status', label: 'Status' }, { key: 'signers', label: 'Signers' },
-    { key: 'created', label: 'Created' }, { key: 'expires', label: 'Expires' },
-];
-
 const templates = [
     { icon: '📋', title: 'Employment Contract', subtitle: '45 uses' },
     { icon: '🔒', title: 'HIPAA Agreement', subtitle: '120 uses' },
@@ -41,16 +35,7 @@ export function DocumentSigningCenter() {
             title="✍️ Document Signing Center"
             subtitle="Digital signatures, audit trails & compliance documents"
             actionPageId="manager.document-signing"
-            sectionData={{
-                'H27.stats': { kpiCards: [
-                    { label: 'Total Documents', value: 247, color: 'var(--pc-primary)' },
-                    { label: 'Pending Signatures', value: 12, color: 'var(--pc-warning)' },
-                    { label: 'Completed This Month', value: 38, color: 'var(--pc-success)' },
-                    { label: 'Expired', value: 3, color: 'var(--pc-error, #ef4444)' },
-                ]},
-                'H27.pending-list': { table: { columns: docCols, rows: documents } },
-                'H27.completed': { cardGrid: { items: templates, columns: 3 } },
-            }}
+            sectionData={PageSectionRegistry['H27']}
         />
     );
 }

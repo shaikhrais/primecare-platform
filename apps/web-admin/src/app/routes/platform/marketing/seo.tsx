@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 // --- Merged from BlogContentCalendar.tsx ---
 export function BlogContentCalendar() {
@@ -9,14 +9,7 @@ export function BlogContentCalendar() {
             pageId="PGE-BCC" 
             title="✨ Blog Content Calendar" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'BCC.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'BCC.empty']: { emptyState: { title: 'Blog Content Calendar Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-BCC']}
         />
     );
 }
@@ -28,14 +21,7 @@ export function CaregiverSpotlightCreator() {
             pageId="PGE-CSC" 
             title="✨ Caregiver Spotlight Creator" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'CSC.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'CSC.empty']: { emptyState: { title: 'Caregiver Spotlight Creator Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-CSC']}
         />
     );
 }
@@ -47,14 +33,7 @@ export function ContentEngagementHeatmap() {
             pageId="PGE-CEH" 
             title="✨ Content Engagement Heatmap" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'CEH.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'CEH.empty']: { emptyState: { title: 'Content Engagement Heatmap Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-CEH']}
         />
     );
 }
@@ -66,14 +45,7 @@ export function KeywordCannibalizationMonitor() {
             pageId="PGE-KCM" 
             title="✨ Keyword Cannibalization Monitor" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'KCM.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'KCM.empty']: { emptyState: { title: 'Keyword Cannibalization Monitor Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-KCM']}
         />
     );
 }
@@ -85,14 +57,7 @@ export function SeoCoreWebVitals() {
             pageId="PGE-SCW" 
             title="✨ Seo Core Web Vitals" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'SCW.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'SCW.empty']: { emptyState: { title: 'Seo Core Web Vitals Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-SCW']}
         />
     );
 }
@@ -104,14 +69,7 @@ export function TestimonialReleaseTracker() {
             pageId="PGE-TRT" 
             title="✨ Testimonial Release Tracker" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'TRT.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'TRT.empty']: { emptyState: { title: 'Testimonial Release Tracker Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-TRT']}
         />
     );
 }
@@ -123,14 +81,7 @@ export function TrafficSourceVisualizer() {
             pageId="PGE-TSV" 
             title="✨ Traffic Source Visualizer" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'TSV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'TSV.empty']: { emptyState: { title: 'Traffic Source Visualizer Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-TSV']}
         />
     );
 }
@@ -142,14 +93,7 @@ export function UtmParameterBuilder() {
             pageId="PGE-UPB" 
             title="✨ Utm Parameter Builder" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'UPB.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'UPB.empty']: { emptyState: { title: 'Utm Parameter Builder Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-UPB']}
         />
     );
 }

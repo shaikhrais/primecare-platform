@@ -1,5 +1,7 @@
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import React from 'react';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
+
 // Barrel re-export — identity file: F14-ExpenseClaim.tsx
 // removed broken export: export { default } from './F14-ExpenseClaim';
 
@@ -8,13 +10,7 @@ import React from 'react';
 export function ExpenseReportForm() {
     return (
         <PageTemplate pageId="F14" title="Expense Claim" subtitle="Submit expense claims with receipt upload and approval tracking"
-            sectionData={{
-                'F14.stats': { kpiCards: [
-                    { label: 'Total', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active', value: 0, color: 'var(--pc-success)' },
-                    { label: 'Pending', value: 0, color: 'var(--pc-warning)' },
-                ]},
-            }}
+            sectionData={PageSectionRegistry['F14']}
         />
     );
 }

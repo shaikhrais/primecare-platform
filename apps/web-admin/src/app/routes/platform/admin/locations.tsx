@@ -3,6 +3,7 @@ import { AdminRegistry } from 'prime-care-shared';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useToast as useNotification } from '@/shared/hooks/useToast';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const { ContentRegistry } = AdminRegistry;
 const API_URL = import.meta.env.VITE_API_URL;
@@ -183,23 +184,7 @@ export default function LocationForm() {
 export function Locations() {
     return (
         <PageTemplate pageId="F12" title="📍 Service Locations" subtitle="Manage offices, service areas & geographic zones"
-            sectionData={{
-                'F12.stats': { kpiCards: [
-                    { label: 'Locations', value: 8, color: 'var(--pc-primary)' },
-                    { label: 'Service Zones', value: 12, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Active Clients', value: 67, color: 'var(--pc-success)' },
-                    { label: 'Coverage Area', value: '250 km²', color: '#7C3AED' },
-                ]},
-                'F12.map': { map: {
-                    title: '📍 Service Area Coverage',
-                    markers: [
-                        { id: 'm1', lat: 43.65, lng: -79.38, label: 'HQ — Toronto', status: 'active' },
-                        { id: 'm2', lat: 43.72, lng: -79.34, label: 'North York Office', status: 'active' },
-                        { id: 'm3', lat: 43.59, lng: -79.64, label: 'Mississauga Branch', status: 'active' },
-                        { id: 'm4', lat: 43.85, lng: -79.42, label: 'Richmond Hill Satellite', status: 'active' },
-                    ],
-                }},
-            }}
+            sectionData={PageSectionRegistry['F12']}
         />
     );
 }
@@ -211,14 +196,7 @@ export function LocationsList() {
             pageId="PGE-LL" 
             title="✨ Locations List" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'LL.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'LL.empty']: { emptyState: { title: 'Locations List Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-LL']}
         />
     );
 }

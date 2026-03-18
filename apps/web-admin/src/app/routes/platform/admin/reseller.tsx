@@ -1,7 +1,7 @@
 import { AdminRegistry } from 'prime-care-shared';
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 // --- Merged from PrivateMarketplace.tsx ---
 export function PrivateMarketplace() {
@@ -10,17 +10,7 @@ export function PrivateMarketplace() {
             pageId="PG-131" 
             title="Private Marketplace" 
             subtitle="Platform configuration, management, and insights"
-            sectionData={{
-                'PG-131.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
-                ]},
-                'PG-131.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['PG-131']}
         />
     );
 }
@@ -32,17 +22,7 @@ export function ResellerDashboard() {
             pageId="PG-390" 
             title="White-Label Reseller Hub" 
             subtitle="Platform configuration, management, and insights"
-            sectionData={{
-                'PG-390.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'Pending Updates', value: 3, color: 'var(--pc-warning)' },
-                ]},
-                'PG-390.body': { emptyState: { 
-                    title: 'Module Under Configuration', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['PG-390']}
         />
     );
 }

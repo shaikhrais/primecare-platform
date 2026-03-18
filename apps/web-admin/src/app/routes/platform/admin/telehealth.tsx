@@ -9,13 +9,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TableColumn } from '@/shared/components/sections';
-
-const sessionData = [
-    { patient: 'Margaret Chen', type: 'Video Consult', provider: 'Dr. Smith', status: 'In-Progress', time: '14:30' },
-    { patient: 'Robert Williams', type: 'RPM Review', provider: 'RN Johnson', status: 'Scheduled', time: '15:00' },
-    { patient: 'Susan Park', type: 'Follow-up', provider: 'Dr. Martinez', status: 'In-Progress', time: '14:45' },
-];
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 const sessionCols: TableColumn[] = [
     { key: 'patient', label: 'Patient' }, { key: 'type', label: 'Type' },
     { key: 'provider', label: 'Provider' }, { key: 'status', label: 'Status' },
@@ -37,17 +31,7 @@ export function TelehealthCenter() {
             subtitle="Encrypted video consultations and live remote patient monitoring"
             actionPageId="admin.telehealth"
             isLive
-            sectionData={{
-                'H1.session-stats': { kpiCards: [
-                    { label: 'Active Sessions', value: 2, color: 'var(--pc-primary)' },
-                    { label: 'Scheduled Today', value: 8, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'RPM Devices', value: 34, color: 'var(--pc-success)' },
-                    { label: 'Critical Alerts', value: 1, color: 'var(--pc-error, #ef4444)' },
-                ]},
-                'H1.active-sessions': { table: { columns: sessionCols, rows: sessionData } },
-                // @ts-ignore
-                'H1.alerts': { alerts: rpmAlerts },
-            }}
+            sectionData={PageSectionRegistry['H1']}
         />
     );
 }

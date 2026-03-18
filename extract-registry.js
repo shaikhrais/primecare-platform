@@ -56,14 +56,22 @@ for (const file of files) {
                     // 1. EXTRACT the text of the object literal
                     const objText = expr.getText();
                     
+                    // Format the key properly to avoid syntax errors inside the registry literal
+                    let formattedKey = pageId;
+                    if (pageId.includes('$') || pageId.includes('`') || pageId.includes('+') || pageId.includes(' ')) {
+                        // If it's a complex expression, hash it or wrap it
+                        formattedKey = `COMPLEX_KEY_${totalExtractions}`;
+                        console.log(`Warning: Converted complex pageId ${pageId} to ${formattedKey}`);
+                    } else {
+                        formattedKey = `'${pageId}'`;
+                    }
+                    
                     // 2. APPEND it to our master registry
                     registryContent += `  // Extracted from ${path.basename(file)}\n`;
-                    // Let's use computed properties robustly
-                    registryContent += `  [${pageId.includes('$') || pageId.includes('`') || pageId.includes('+') ? pageId : `'${pageId}'`}]: ${objText},\n\n`;
+                    registryContent += `  [${formattedKey}]: ${objText},\n\n`;
                     
                     // 3. REPLACE the inline object with the registry reference
-                    // "no custom code all come from section registry"
-                    expr.replaceWithText(`PageSectionRegistry[${pageId.includes('$') || pageId.includes('`') || pageId.includes('+') ? pageId : `'${pageId}'`}]`);
+                    expr.replaceWithText(`PageSectionRegistry[${formattedKey}]`);
                     
                     // 4. ADD the missing import for the registry to the file
                     const hasImport = sourceFile.getImportDeclarations().some(imp => 

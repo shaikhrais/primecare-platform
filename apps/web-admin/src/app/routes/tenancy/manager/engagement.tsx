@@ -9,6 +9,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TableColumn } from '@/shared/components/sections';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const mockLeaderboard = [
     { rank: '🏆', name: 'Priya Sharma', level: 'Diamond', points: 2847, streak: '45 days', visits: 312 },
@@ -72,25 +73,7 @@ export function GamificationHub() {
             title="🎮 Gamification Hub"
             subtitle="PSW engagement, achievements, streaks & rewards"
             actionPageId="manager.gamification"
-            sectionData={{
-                'H25.stats': { kpiCards: [
-                    { label: 'Active PSWs', value: 48, icon: '👥', color: 'var(--pc-primary)' },
-                    { label: 'Avg Score', value: '2,050', icon: '📊', color: 'var(--pc-success)' },
-                    { label: 'Badges Issued', value: 156, icon: '🎖️', color: 'var(--pc-warning)' },
-                    { label: 'Active Challenges', value: 3, icon: '🎯', color: '#7C3AED' },
-                    { label: 'Retention Rate', value: '94%', icon: '💎', color: 'var(--pc-info, #2563EB)' },
-                ]},
-                'H25.tabs': { tabs: {
-                    tabs: [
-                        { id: 'leaderboard', label: '🏆 Leaderboard', count: 8 },
-                        { id: 'badges', label: '🎖️ Badges', count: 8 },
-                        { id: 'challenges', label: '🎯 Challenges', count: 3 },
-                        { id: 'rewards', label: '🎁 Rewards' },
-                    ],
-                    activeTab, onTabChange: setActiveTab,
-                }},
-                ...tabContent[activeTab],
-            }}
+            sectionData={PageSectionRegistry['H25']}
         />
     );
 }

@@ -1,7 +1,7 @@
 import type { TableColumn } from '@/shared/components/sections';
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "./PageSectionRegistry";
 
 // --- Merged from NotFound.tsx ---
 export function NotFound() {
@@ -10,17 +10,7 @@ export function NotFound() {
             pageId="PGE-${Math.floor(Math.random() * 900 + 100)}" 
             title="Not Found" 
             subtitle="System Error Boundary"
-            sectionData={{
-                'mod.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                'mod.body': { emptyState: { 
-                    title: 'Not Found', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['COMPLEX_KEY_215']}
         />
     );
 }
@@ -32,17 +22,7 @@ export function ServerError() {
             pageId="PGE-${Math.floor(Math.random() * 900 + 100)}" 
             title="Server Error" 
             subtitle="System Error Boundary"
-            sectionData={{
-                'mod.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                'mod.body': { emptyState: { 
-                    title: 'Server Error', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['COMPLEX_KEY_216']}
         />
     );
 }
@@ -54,17 +34,7 @@ export function Unauthorized() {
             pageId="PGE-${Math.floor(Math.random() * 900 + 100)}" 
             title="Unauthorized" 
             subtitle="System Error Boundary"
-            sectionData={{
-                'mod.stats': { kpiCards: [
-                    { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
-                    { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },
-                    { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                'mod.body': { emptyState: { 
-                    title: 'Unauthorized', 
-                    description: 'This module is currently being configured within the section registry.' 
-                }},
-            }}
+            sectionData={PageSectionRegistry['COMPLEX_KEY_217']}
         />
     );
 }

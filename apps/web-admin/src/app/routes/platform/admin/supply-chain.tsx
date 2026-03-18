@@ -9,6 +9,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TableColumn } from '@/shared/components/sections';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const inventory = [
     { name: 'Nitrile Gloves (Box/100)', sku: 'PPE-001', qty: '450 boxes', reorder: 200, supplier: 'CleanPro Solutions', status: 'IN-STOCK' },
@@ -62,24 +63,7 @@ export function SupplyChainManagement() {
             title="📦 Supply Chain Management"
             subtitle="Inventory, suppliers, purchase orders & reorder automation"
             actionPageId="admin.supply-chain"
-            sectionData={{
-                'L25.chain-stats': { kpiCards: [
-                    { label: 'Items', value: 7, color: 'var(--pc-primary)' },
-                    { label: 'Low Stock', value: 2, color: 'var(--pc-warning)' },
-                    { label: 'Critical', value: 1, color: 'var(--pc-error, #ef4444)' },
-                    { label: 'Suppliers', value: 5, color: 'var(--pc-success)' },
-                    { label: 'Open POs', value: 3, color: 'var(--pc-info, #2563EB)' },
-                ]},
-                'L25.inventory-table': { tabs: {
-                    tabs: [
-                        { id: 'inventory', label: '📋 Inventory', count: 7 },
-                        { id: 'suppliers', label: '🏢 Suppliers', count: 5 },
-                        { id: 'orders', label: '🛒 Orders', count: 4 },
-                    ],
-                    activeTab: tab, onTabChange: setTab,
-                }},
-                ...tabContent[tab],
-            }}
+            sectionData={PageSectionRegistry['L25']}
         />
     );
 }

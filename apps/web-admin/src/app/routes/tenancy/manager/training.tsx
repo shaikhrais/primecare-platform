@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 import type { TableColumn } from '@/shared/components/sections/SectionTable';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const courses = [
     { name: 'Fall Prevention & Response', category: 'Safety', duration: '45 min', enrolled: 42, completed: 38, rate: '90%', rating: '⭐ 4.8', mandatory: 'YES' },
@@ -40,23 +41,7 @@ export function TrainingAcademy() {
             title="🎓 Training Academy"
             subtitle="Courses, certifications & staff development tracking"
             actionPageId="manager.training-academy"
-            sectionData={{
-                'H29.stats': { kpiCards: [
-                    { label: 'Active Courses', value: 7, color: 'var(--pc-primary)' },
-                    { label: 'Total Enrollments', value: 287, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Completion Rate', value: '86%', color: 'var(--pc-success)' },
-                    { label: 'Expiring Certs', value: 3, color: 'var(--pc-warning)' },
-                    { label: 'Avg Rating', value: '4.6 ⭐', color: 'var(--pc-success)' },
-                ]},
-                'H29.module-grid': { tabs: {
-                    tabs: [
-                        { id: 'courses', label: '📚 Courses', count: 7 },
-                        { id: 'progress', label: '🏆 Certifications', count: 4 },
-                    ],
-                    activeTab: tab, onTabChange: setTab,
-                }},
-                ...tabContent[tab],
-            }}
+            sectionData={PageSectionRegistry['H29']}
         />
     );
 }

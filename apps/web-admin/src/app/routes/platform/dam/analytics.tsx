@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 // --- Merged from ApiLatencyHeatmap.tsx ---
 export function ApiLatencyHeatmap() {
@@ -9,14 +9,7 @@ export function ApiLatencyHeatmap() {
             pageId="PGE-ALH" 
             title="✨ Api Latency Heatmap" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'ALH.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'ALH.empty']: { emptyState: { title: 'Api Latency Heatmap Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-ALH']}
         />
     );
 }
@@ -28,14 +21,7 @@ export function BrowserMatrixTelemetry() {
             pageId="PGE-BMT" 
             title="✨ Browser Matrix Telemetry" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'BMT.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'BMT.empty']: { emptyState: { title: 'Browser Matrix Telemetry Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-BMT']}
         />
     );
 }
@@ -47,14 +33,7 @@ export function CoreWebVitalsTracker() {
             pageId="PGE-CWV" 
             title="✨ Core Web Vitals Tracker" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'CWV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'CWV.empty']: { emptyState: { title: 'Core Web Vitals Tracker Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-CWV']}
         />
     );
 }

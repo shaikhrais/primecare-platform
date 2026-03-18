@@ -4,10 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { LayoutGrid, Search, Filter, Network, List } from 'lucide-react';
 import { AdminRegistry } from 'prime-care-shared';
 import type { PageType, PageEntry, MasterEntry } from 'prime-care-shared';
-
-
-
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const { PageRegistry, getPageTypeStats, PAGE_REGISTRY_COUNT, MASTER_REGISTRY, MASTER_REGISTRY_COUNT } = AdminRegistry;
 
@@ -124,14 +121,7 @@ export function GridView() {
             pageId="PGE-GV" 
             title="✨ Grid View" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'GV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'GV.empty']: { emptyState: { title: 'Grid View Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-GV']}
         />
     );
 }
@@ -143,14 +133,7 @@ export function IdentityMapView() {
             pageId="PGE-IMV" 
             title="✨ Identity Map View" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'IMV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'IMV.empty']: { emptyState: { title: 'Identity Map View Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-IMV']}
         />
     );
 }
@@ -162,14 +145,7 @@ export function TableView() {
             pageId="PGE-TV" 
             title="✨ Table View" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'TV.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'TV.empty']: { emptyState: { title: 'Table View Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-TV']}
         />
     );
 }

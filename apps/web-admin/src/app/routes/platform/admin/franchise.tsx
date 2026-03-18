@@ -9,6 +9,7 @@ import { PageTemplate } from '@/shared/components/ui/PageTemplate';
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 import type { TableColumn } from '@/shared/components/sections';
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 const locations = [
     { name: '📍 PrimeCare Toronto — Downtown', manager: 'Sarah Chen', psws: 24, clients: 67, revenue: '$142K', growth: '+12%', status: 'ACTIVE' },
@@ -47,23 +48,7 @@ export function FranchiseManagement() {
             title="🏢 Franchise Management"
             subtitle="Multi-location operations, performance benchmarking & expansion planning"
             actionPageId="admin.franchise"
-            sectionData={{
-                'H30.overview-stats': { kpiCards: [
-                    { label: 'Total Locations', value: 6, color: 'var(--pc-primary)' },
-                    { label: 'Active', value: 4, color: 'var(--pc-success)' },
-                    { label: 'Total PSWs', value: 77, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'Total Clients', value: 193, color: '#7C3AED' },
-                    { label: 'Combined Revenue', value: '$418K', color: 'var(--pc-success)' },
-                ]},
-                'H30.location-table': { tabs: {
-                    tabs: [
-                        { id: 'locations', label: '📍 Locations', count: 6 },
-                        { id: 'expansion', label: '🗺️ Expansion', count: 4 },
-                    ],
-                    activeTab: tab, onTabChange: setTab,
-                }},
-                ...tabContent[tab],
-            }}
+            sectionData={PageSectionRegistry['H30']}
         />
     );
 }

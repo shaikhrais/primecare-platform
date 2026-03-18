@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTemplate } from '@/shared/components/ui/PageTemplate';
-
+import { PageSectionRegistry } from "../../shared/PageSectionRegistry";
 
 // --- Merged from AutomatedReviewAsker.tsx ---
 export function AutomatedReviewAsker() {
@@ -9,14 +9,7 @@ export function AutomatedReviewAsker() {
             pageId="PGE-ARA" 
             title="✨ Automated Review Asker" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'ARA.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'ARA.empty']: { emptyState: { title: 'Automated Review Asker Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-ARA']}
         />
     );
 }
@@ -28,14 +21,7 @@ export function BrandAssetLibrary() {
             pageId="PGE-BAL" 
             title="✨ Brand Asset Library" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'BAL.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'BAL.empty']: { emptyState: { title: 'Brand Asset Library Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-BAL']}
         />
     );
 }
@@ -47,14 +33,7 @@ export function CompetitorKeywordHijacker() {
             pageId="PGE-CKH" 
             title="✨ Competitor Keyword Hijacker" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'CKH.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'CKH.empty']: { emptyState: { title: 'Competitor Keyword Hijacker Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-CKH']}
         />
     );
 }
@@ -66,14 +45,7 @@ export function CrisisCommsTriage() {
             pageId="PGE-CCT" 
             title="✨ Crisis Comms Triage" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'CCT.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'CCT.empty']: { emptyState: { title: 'Crisis Comms Triage Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-CCT']}
         />
     );
 }
@@ -85,14 +57,7 @@ export function GoogleBusinessSync() {
             pageId="PGE-GBS" 
             title="✨ Google Business Sync" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'GBS.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'GBS.empty']: { emptyState: { title: 'Google Business Sync Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-GBS']}
         />
     );
 }
@@ -104,14 +69,7 @@ export function LocalSeoRankTracker() {
             pageId="PGE-LSR" 
             title="✨ Local Seo Rank Tracker" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'LSR.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'LSR.empty']: { emptyState: { title: 'Local Seo Rank Tracker Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-LSR']}
         />
     );
 }
@@ -123,14 +81,7 @@ export function ReviewSentimentAnalyzer() {
             pageId="PGE-RSA" 
             title="✨ Review Sentiment Analyzer" 
             subtitle="Auto-converted page to use standard sections"
-            sectionData={{
-                ['PGE-' + 'RSA.stats']: { kpiCards: [
-                    { label: 'Total Views', value: 0, color: 'var(--pc-primary)' },
-                    { label: 'Active Users', value: 24, color: 'var(--pc-info, #2563EB)' },
-                    { label: 'System Health', value: '100%', color: 'var(--pc-success)' },
-                ]},
-                ['PGE-' + 'RSA.empty']: { emptyState: { title: 'Review Sentiment Analyzer Data', description: 'This section is currently using template placeholders.' } }
-            }}
+            sectionData={PageSectionRegistry['PGE-RSA']}
         />
     );
 }
