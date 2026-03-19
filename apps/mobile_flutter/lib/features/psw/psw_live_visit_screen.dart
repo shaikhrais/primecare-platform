@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'psw_shift_tasks_screen.dart';
 import 'psw_clinical_notes_screen.dart';
 import 'psw_evv_checkout_screen.dart';
+import 'psw_incident_wizard_screen.dart';
+import 'psw_evv_checkout_screen.dart';
 
 class PswLiveVisitScreen extends StatefulWidget {
   final String visitId;
@@ -221,6 +223,16 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          HapticFeedback.heavyImpact();
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswIncidentWizardScreen()));
+        },
+        backgroundColor: const Color(0xFFE11D48),
+        elevation: 8,
+        icon: const Icon(Icons.sos_rounded, color: Colors.white, size: 28),
+        label: const Text('EMERGENCY SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
       ),
     );
   }

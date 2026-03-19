@@ -10,6 +10,8 @@ import 'features/psw/psw_timesheet_screen.dart';
 import 'features/psw/psw_profile_screen.dart';
 import 'features/psw/psw_messages_screen.dart';
 import 'features/psw/psw_training_screen.dart';
+import 'features/rn/rn_shell_screen.dart';
+import 'features/rn/rn_dashboard_screen.dart';
 import 'features/psw/psw_live_visit_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/theme.dart';
@@ -72,6 +74,47 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/psw/live-visit/:id',
         builder: (context, state) => PswLiveVisitScreen(visitId: state.pathParameters['id']!),
       ),
+      // RN Hub Shell (Phase 23)
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return RnShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/rn/dashboard',
+                builder: (context, state) => const RnDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/rn/patients',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Patients Scope Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/rn/inbox',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Inbox Thread Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/rn/profile',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Profile Active'))),
+              ),
+            ],
+          ),
+        ],
+      ),
+
       // PSW Role Route
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -91,18 +134,44 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/client/dashboard', builder: (context, state) => const ClientDashboardScreen()),
         ],
       ),
-      // RN Role Route
-      ShellRoute(
-        builder: (context, state, child) => RnShellScreen(child: child),
-        routes: [
-          GoRoute(path: '/rn/dashboard', builder: (context, state) => const RnDashboardScreen()),
-        ],
-      ),
-      // Coordinator Role Route
-      ShellRoute(
-        builder: (context, state, child) => CoordinatorShellScreen(child: child),
-        routes: [
-          GoRoute(path: '/coordinator/dashboard', builder: (context, state) => const CoordinatorDashboardScreen()),
+      // Coordinator Hub Shell (Phase 24)
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return CoordinatorShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/coordinator/dashboard',
+                builder: (context, state) => const CoordinatorDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/coordinator/staff',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Staff Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/coordinator/approvals',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Approvals Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/coordinator/profile',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Profile Active'))),
+              ),
+            ],
+          ),
         ],
       ),
       // Manager Role Route
