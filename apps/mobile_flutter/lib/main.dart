@@ -12,6 +12,7 @@ import 'features/psw/psw_messages_screen.dart';
 import 'features/psw/psw_training_screen.dart';
 import 'features/psw/psw_live_visit_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'core/theme.dart';
 
 import 'features/client/client_shell_screen.dart';
 import 'features/client/client_dashboard_screen.dart';
@@ -120,14 +121,12 @@ class PrimeCareApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
+    final appRouter = ref.watch(routerProvider);
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'PrimeCare Mobile',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0EA5E9)),
-        useMaterial3: true,
-      ),
-      routerConfig: router,
+      theme: PrimeCareTheme.lightTheme,
+      routerConfig: appRouter,
     );
   }
 }

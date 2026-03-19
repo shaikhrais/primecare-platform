@@ -103,6 +103,7 @@ const updateProfileRoute = createRoute({
                         phone: z.string().optional(),
                         address: z.string().optional(),
                         avatarUrl: z.string().optional(),
+                        avatarBase64: z.string().optional(),
                     }),
                 },
             },
@@ -145,30 +146,60 @@ r.openapi(updateProfileRoute, async (c) => {
             data: { phone: (body.phoneNumber || body.phone) as any }
         });
 
+        let finalAvatarUrl: string | null = body.avatarUrl ?? null;
+        
+        if (body.avatarBase64) {
+            try {
+                let base64Data = body.avatarBase64;
+                let contentType = 'image/jpeg';
+                // Extract MIME if data URI
+                if (base64Data.startsWith('data:image/')) {
+                    const matches = base64Data.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
+                    if (matches && matches.length === 3) {
+                        contentType = matches[1];
+                        base64Data = matches[2];
+                    }
+                }
+                const binaryString = atob(base64Data);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                const ext = contentType.split('/')[1] || 'jpg';
+                const key = `avatars/${userId}-${Date.now()}.${ext}`;
+                await c.env.DOCS_BUCKET.put(key, bytes, { httpMetadata: { contentType } });
+                finalAvatarUrl = `/v1/storage/file/${key}`;
+            } catch (e) {
+                console.error("Failed to decode and push avatar base64:", e);
+                // Fail silently and use existing URL or fallback
+            }
+        }
+
         if (activeRole === 'psw') {
             await prisma.pswProfile.upsert({
                 where: { userId: userId },
                 create: { 
                     userId: userId, 
                     fullName: fullName, 
-                    address: body.address, 
-                    avatarUrl: body.avatarUrl, 
+                    address: body.address ?? null, 
+                    avatarUrl: finalAvatarUrl || null, 
                     tenantId: user.tenantId,
                     languages: 'English',
                     serviceAreas: 'Local',
                     skills: 'General Care'
                 },
-                update: { fullName: fullName, address: body.address, avatarUrl: body.avatarUrl }
+                update: { fullName: fullName, address: body.address ?? null, avatarUrl: finalAvatarUrl || null }
             });
         } else if (activeRole === 'client') {
             await prisma.clientProfile.upsert({
                 where: { userId: userId },
-                create: { userId: userId, fullName: fullName, addressLine1: body.address, tenantId: user.tenantId },
-                update: { fullName: fullName, addressLine1: body.address }
+                create: { userId: userId, fullName: fullName, addressLine1: body.address ?? null, tenantId: user.tenantId },
+                update: { fullName: fullName, addressLine1: body.address ?? null }
             });
         }
 
-        return c.json({ success: true, message: 'Profile updated successfully' }, 200);
+        // Apply updated finalAvatarUrl to response or state cleanly
+        return c.json({ success: true, message: 'Profile updated successfully', avatarUrl: finalAvatarUrl }, 200);
     } catch (error) {
         if (jwtPayload?.sub === 'mock-offline-123' || c.env?.ENVIRONMENT === 'testing') {
             return c.json({ success: true, message: 'Profile updated successfully (Offline Mock)' }, 200);

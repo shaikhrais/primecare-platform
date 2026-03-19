@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PswProfileScreen extends StatefulWidget {
   const PswProfileScreen({super.key});
@@ -68,12 +70,31 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isSaving = true);
       try {
-        await apiClient.put('/v1/user/profile', {
+        String? base64Image;
+        if (_profileImage != null) {
+          final bytes = await _profileImage!.readAsBytes();
+          base64Image = base64Encode(bytes);
+        }
+
+        final payload = {
           'firstName': _firstNameController.text.trim(),
           'lastName': _lastNameController.text.trim(),
           'phoneNumber': _phoneController.text.trim(),
-        });
+        };
+
+        if (base64Image != null) {
+          payload['avatarBase64'] = base64Image;
+        }
+
+        final response = await apiClient.put('/v1/user/profile', payload);
+        
         if (mounted) {
+          // If the server returns final URL, we sync it
+          if (response['avatarUrl'] != null) {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('user_avatar', response['avatarUrl']);
+          }
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Profile synchronized with PrimeCare networks safely.'),
