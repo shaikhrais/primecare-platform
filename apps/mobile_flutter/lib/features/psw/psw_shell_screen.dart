@@ -51,9 +51,10 @@ class PswShellScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _buildAnimatedHomeButton(context, 0, Icons.home_rounded, 'Home'),
-                        _buildNavItem(context, 1, Icons.people_outline, 'Clients'),
-                        _buildNavItem(context, 2, Icons.timer_outlined, 'Timesheet'),
-                        _buildNavItem(context, 3, Icons.person_outline, 'Profile'),
+                        _buildNavItem(context, 1, Icons.space_dashboard_rounded, 'Shifts'),
+                        _buildNavItem(context, 2, Icons.people_outline, 'Clients'),
+                        _buildNavItem(context, 3, Icons.timer_outlined, 'Timesheet'),
+                        _buildNavItem(context, 4, Icons.person_outline, 'Profile'),
                       ],
                     ),
                   ),
@@ -109,7 +110,7 @@ class PswShellScreen extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

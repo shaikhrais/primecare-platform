@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'features/auth/login_screen.dart';
 import 'features/auth/forgot_password_screen.dart';
 import 'features/psw/psw_shell_screen.dart';
+import 'features/psw/psw_home_screen.dart';
 import 'features/psw/psw_dashboard_screen.dart';
 import 'features/psw/psw_clients_screen.dart';
 import 'features/psw/psw_timesheet_screen.dart';
@@ -48,7 +49,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           case 'manager':
           case 'admin': return '/manager/dashboard';
           case 'client': return '/client/dashboard';
-          default: return '/psw/dashboard';
+          default: return '/psw/home';
         }
       }
       return null;
@@ -121,6 +122,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           return PswShellScreen(navigationShell: navigationShell);
         },
         branches: [
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/home', builder: (context, state) => const PswHomeScreen())]),
           StatefulShellBranch(routes: [GoRoute(path: '/psw/dashboard', builder: (context, state) => const PswDashboardScreen())]),
           StatefulShellBranch(routes: [GoRoute(path: '/psw/clients', builder: (context, state) => const PswClientsScreen())]),
           StatefulShellBranch(routes: [GoRoute(path: '/psw/timesheet', builder: (context, state) => const PswTimesheetScreen())]),
