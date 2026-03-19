@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/api_client.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -27,7 +28,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
-      if (mounted) context.go('/psw/dashboard');
+      if (mounted) {
+        // Read role from SharedPreferences to execute proper diversion
+        final prefs = await SharedPreferences.getInstance();
+        final role = prefs.getString('user_role') ?? 'psw';
+        
+        switch (role) {
+          case 'rn':
+            context.go('/rn/dashboard');
+            break;
+          case 'coordinator':
+            context.go('/coordinator/dashboard');
+            break;
+          case 'manager':
+          case 'admin':
+            context.go('/manager/dashboard');
+            break;
+          case 'client':
+            context.go('/client/dashboard');
+            break;
+          default:
+            context.go('/psw/dashboard');
+        }
+      }
     } catch (e) {
       setState(() { _errorMsg = e.toString(); });
     } finally {
@@ -107,6 +130,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: _isLoading 
                       ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                       : const Text('Authenticate Security Token', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => context.push('/forgot-password'),
+                  child: const Text('Forgot Password?', style: TextStyle(color: Color(0xFF0EA5E9), fontWeight: FontWeight.bold)),
                 ),
               ],
             ),

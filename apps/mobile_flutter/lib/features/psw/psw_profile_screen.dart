@@ -94,6 +94,61 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     }
   }
 
+  void _showChangePasswordDialog() {
+    final curController = TextEditingController();
+    final newController = TextEditingController();
+    bool isChanging = false;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text('Change Password'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(controller: curController, obscureText: true, decoration: const InputDecoration(labelText: 'Current Password')),
+                  const SizedBox(height: 16),
+                  TextField(controller: newController, obscureText: true, decoration: const InputDecoration(labelText: 'New Password')),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: isChanging ? null : () => Navigator.of(dialogContext).pop(),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: isChanging ? null : () async {
+                    setDialogState(() => isChanging = true);
+                    try {
+                      await apiClient.post('/v1/user/change-password', {
+                        'currentPassword': curController.text,
+                        'newPassword': newController.text,
+                      });
+                      if (context.mounted) {
+                        Navigator.of(dialogContext).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password protected successfully.'), backgroundColor: Color(0xFF10B981)));
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        setDialogState(() => isChanging = false);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: const Color(0xFFE11D48)));
+                      }
+                    }
+                  },
+                  child: isChanging ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Update'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,12 +271,27 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               ),
               const SizedBox(height: 16),
               
-              TextButton.icon(
+              OutlinedButton.icon(
+                onPressed: _showChangePasswordDialog,
+                icon: const Icon(Icons.security, color: Color(0xFF0F172A)),
+                label: const Text('Change Security Password', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  side: const BorderSide(color: Color(0xFFCBD5E1)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+              ),
+              const SizedBox(height: 16),
+              OutlinedButton.icon(
                 onPressed: () => _handleLogout(context),
                 icon: const Icon(Icons.logout, color: Color(0xFFE11D48)),
                 label: const Text('Sign Out of Application', style: TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.bold)),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  side: const BorderSide(color: Color(0xFFE11D48)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
               ),
-              const SizedBox(height: 32),
             ],
           ),
         ),

@@ -83,6 +83,23 @@ class PswShellScreen extends StatelessWidget {
                     selectedColor: const Color(0xFF0EA5E9),
                     onTap: () => _onTap(3, context),
                   ),
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.forum, color: Color(0xFF64748B)),
+                    title: const Text('Unified Inbox', style: TextStyle(fontWeight: FontWeight.w600)),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.push('/psw/messages');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.school, color: Color(0xFF64748B)),
+                    title: const Text('Compliance & Training', style: TextStyle(fontWeight: FontWeight.w600)),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.push('/psw/training');
+                    },
+                  ),
                 ],
               ),
             ),

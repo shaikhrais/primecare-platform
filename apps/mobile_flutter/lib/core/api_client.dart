@@ -13,10 +13,12 @@ class ApiClient {
   Future<Map<String, String>> _getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
+    final cookie = prefs.getString('auth_cookie');
     return {
       'Content-Type': 'application/json',
       'X-Requested-With': 'Flutter_Client',
       if (token != null) 'Authorization': 'Bearer $token',
+      if (cookie != null) 'Cookie': cookie,
     };
   }
 
@@ -65,18 +67,42 @@ class ApiClient {
   }
 
   Future<void> login(String email, String password) async {
-    final data = await post('/v1/auth/login', {
-      'email': email,
-      'password': password,
-    });
-    
-    // PrimeCare architectural tokens are issued via HTTP-Only Cookies natively.
-    // We validate the JSON `user` payload, then set a local SDK flag to unlock GoRouter.
-    if (data['user'] != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', data['user']['id']);
+    final response = await http.post(
+      Uri.parse('$baseUrl/v1/auth/login'),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'Flutter_Client',
+      },
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final data = jsonDecode(response.body);
+      final rawCookie = response.headers['set-cookie'];
+      String? sessionCookie;
+      
+      if (rawCookie != null) {
+        final match = RegExp(r'accessToken=([^;]+)').firstMatch(rawCookie);
+        if (match != null) {
+          sessionCookie = 'accessToken=${match.group(1)}';
+        }
+      }
+
+      if (data['user'] != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('auth_token', data['user']['id']);
+        await prefs.setString('user_role', data['user']['role'] ?? 'psw');
+        if (sessionCookie != null) {
+          await prefs.setString('auth_cookie', sessionCookie);
+        }
+      } else {
+        throw Exception('Invalid Credentials');
+      }
     } else {
-      throw Exception('Invalid Credentials');
+      throw Exception('API Error: ${response.statusCode} - ${response.body}');
     }
   }
 
