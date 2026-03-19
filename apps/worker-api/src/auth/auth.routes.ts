@@ -8,6 +8,8 @@ import adminRoutes from './routes/admin';
 import onboardRoutes from './routes/onboard';
 import osmRoutes from './routes/osm';
 
+import forgotPasswordRoutes from './routes/forgot-password';
+
 const auth = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 auth.route('/', registerRoutes);
@@ -16,5 +18,6 @@ auth.route('/', sessionRoutes);
 auth.route('/', adminRoutes);
 auth.route('/', onboardRoutes);
 auth.route('/', osmRoutes);
+auth.route('/', forgotPasswordRoutes);
 
 export default auth;
