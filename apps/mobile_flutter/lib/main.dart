@@ -174,11 +174,44 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
-      // Manager Role Route
-      ShellRoute(
-        builder: (context, state, child) => ManagerShellScreen(child: child),
-        routes: [
-          GoRoute(path: '/manager/dashboard', builder: (context, state) => const ManagerDashboardScreen()),
+      // Manager Hub Shell (Phase 25)
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ManagerShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/manager/dashboard',
+                builder: (context, state) => const ManagerDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/manager/directory',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager Directory Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/manager/system',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager System Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/manager/execute',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager Execute Active'))),
+              ),
+            ],
+          ),
         ],
       ),
     ],
