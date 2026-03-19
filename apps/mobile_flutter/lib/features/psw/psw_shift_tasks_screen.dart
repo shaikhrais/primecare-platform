@@ -86,7 +86,6 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Dismissible(
                     key: Key(task['title']),
-                    dragSafeArea: false,
                     onDismissed: (_) {
                        HapticFeedback.mediumImpact();
                        setState(() {
