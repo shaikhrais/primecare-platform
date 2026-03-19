@@ -148,7 +148,16 @@ r.openapi(updateProfileRoute, async (c) => {
         if (activeRole === 'psw') {
             await prisma.pswProfile.upsert({
                 where: { userId: userId },
-                create: { userId: userId, fullName: fullName, address: body.address, avatarUrl: body.avatarUrl, tenantId: user.tenantId },
+                create: { 
+                    userId: userId, 
+                    fullName: fullName, 
+                    address: body.address, 
+                    avatarUrl: body.avatarUrl, 
+                    tenantId: user.tenantId,
+                    languages: 'English',
+                    serviceAreas: 'Local',
+                    skills: 'General Care'
+                },
                 update: { fullName: fullName, address: body.address, avatarUrl: body.avatarUrl }
             });
         } else if (activeRole === 'client') {
