@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: primecare_local_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: primecare_local_password
+      POSTGRES_DB: primecare_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - primecare_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  primecare_pgdata:

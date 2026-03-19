@@ -102,6 +102,21 @@ export function registerPublicRoutes(app: AppType) {
             const take = Math.min(parseInt(c.req.query('limit') || '100'), 500); const skip = parseInt(c.req.query('offset') || '0');
             const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' }, take, skip });
             return c.json({ total: items.length, items, syncedAt: new Date().toISOString() });
-        } catch (e: any) { return c.json({ total: 0, items: [], error: 'Failed to fetch registries' }); }
+        } catch (e: any) { 
+            // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
+            if ((c.env as any).ENVIRONMENT !== 'production') {
+                return c.json({
+                    total: 3,
+                    items: [
+                        { id: 'REG-001', key: 'offline_mock_1', name: 'Local API Fallback Active', status: 'Active', updatedAt: new Date().toISOString() },
+                        { id: 'REG-002', key: 'offline_mock_2', name: 'Database Temporarily Disconnected', status: 'Pending', updatedAt: new Date().toISOString() },
+                        { id: 'REG-003', key: 'offline_mock_3', name: 'Flutter UI Testing Matrix', status: 'Active', updatedAt: new Date().toISOString() }
+                    ],
+                    syncedAt: new Date().toISOString(),
+                    _mockSource: true
+                });
+            }
+            return c.json({ total: 0, items: [], error: 'Failed to fetch registries' }); 
+        }
     });
 }

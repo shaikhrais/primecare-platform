@@ -40,7 +40,7 @@ export const errorHandler = async (c: Context, next: Next) => {
             error: {
                 name: err?.name || 'Error',
                 message: err?.message || 'Unknown error',
-                stack: err?.stack?.split('\n').slice(0, 5).join('\n'),
+                stack: typeof err?.stack === 'string' ? err.stack.split('\n').slice(0, 5).join('\n') : String(err?.stack || ''),
                 ...(category === 'validation' && err.issues ? { issues: err.issues.slice(0, 5) } : {}),
                 ...(category === 'database' && err.code ? { prismaCode: err.code } : {}),
             },

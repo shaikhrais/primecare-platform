@@ -9,8 +9,8 @@ import { Bindings, Variables } from './bindings';
 import { captureWorkerException } from './_shared/middleware/sentry';
 
 const { CorsRegistry } = AdminRegistry;
-const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'http://localhost:5173', 'http://localhost:8787'];
-const CORS_PREVIEW_RE = /^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/;
+const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'http://localhost:8787'];
+const CORS_PREVIEW_RE = /^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$|^http:\/\/localhost:\d+$/;
 
 type AppType = OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>;
 
@@ -22,11 +22,11 @@ export function registerCorsMiddleware(app: AppType) {
         let allowedHeaders: string[] = [...CorsRegistry.ALLOWED_HEADERS];
         if (tenantId) { const prisma = c.get('prisma'); if (prisma) { let tenant = null;
         try {
-          tenant = prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } });
+          tenant = await prisma.tenant.findUnique({ where: { id: tenantId }, select: { corsAllowedOrigins: true, corsAllowedMethods: true, corsAllowedHeaders: true } });
         } catch(e) {
           console.error("Invalid UUID fallback", e);
         } if (tenant) { allowedOrigins = tenant?.corsAllowedOrigins || allowedOrigins; allowedMethods = tenant?.corsAllowedMethods || allowedMethods; allowedHeaders = tenant?.corsAllowedHeaders || allowedHeaders; } } }
-        const corsMiddleware = cors({ origin: (reqOrigin) => { if (allowedOrigins.includes(reqOrigin)) return reqOrigin; if (/^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$/.test(reqOrigin)) return reqOrigin; return allowedOrigins[0]; }, allowMethods: allowedMethods, allowHeaders: allowedHeaders, exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS), maxAge: CorsRegistry.MAX_AGE, credentials: CorsRegistry.CREDENTIALS });
+        const corsMiddleware = cors({ origin: (reqOrigin) => { if (allowedOrigins.includes(reqOrigin)) return reqOrigin; if (/^https:\/\/[a-z0-9]+\.primecare-admin\.pages\.dev$|^http:\/\/localhost:\d+$/.test(reqOrigin)) return reqOrigin; return allowedOrigins[0]; }, allowMethods: allowedMethods, allowHeaders: allowedHeaders, exposeHeaders: Array.from(CorsRegistry.EXPOSE_HEADERS), maxAge: CorsRegistry.MAX_AGE, credentials: CorsRegistry.CREDENTIALS });
         return await corsMiddleware(c, next);
     });
 }
@@ -47,7 +47,7 @@ export function registerErrorHandler(app: AppType) {
             error: {
                 name: err?.name || 'UnknownError',
                 message: err?.message || 'No error message',
-                stack: err?.stack?.split('\n').slice(0, 5).join('\n') || 'No stack trace',
+                stack: typeof err?.stack === 'string' ? err.stack.split('\n').slice(0, 5).join('\n') : 'No stack trace',
             },
         };
         console.error(JSON.stringify(structuredLog));
@@ -59,7 +59,7 @@ export function registerErrorHandler(app: AppType) {
         const isPreview = origin && CORS_PREVIEW_RE.test(origin);
         const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0]!;
         c.header('Access-Control-Allow-Origin', headerOrigin); c.header('Access-Control-Allow-Credentials', 'true');
-        return c.json({ status: 'error', message: 'Internal Server Error', path: c.req.path }, 500);
+        return c.json({ status: 'error', message: err?.message || 'Internal Server Error', stackDump: typeof err?.stack === 'string' ? err.stack.substring(0, 500) : 'none', path: c.req.path }, 500);
     });
 }
 
@@ -78,7 +78,8 @@ export function createFetchWrapper(app: AppType) {
                 const newHeaders = new Headers(response.headers); newHeaders.set('Access-Control-Allow-Origin', allowOrigin); newHeaders.set('Access-Control-Allow-Credentials', 'true');
                 return new Response(response.body, { status: response.status, statusText: response.statusText, headers: newHeaders });
             } catch (err: any) {
-                console.error(JSON.stringify({ level: 'fatal', timestamp: new Date().toISOString(), path: new URL(request.url).pathname, method: request.method, error: { name: err?.name || 'FetchWrapperError', message: err?.message || 'Unknown', stack: err?.stack?.split('\n').slice(0, 3).join('\n') || '' } }));
+                const stackStr = typeof err?.stack === 'string' ? err.stack.split('\n').slice(0, 3).join('\n') : '';
+                console.error(JSON.stringify({ level: 'fatal', timestamp: new Date().toISOString(), path: new URL(request.url).pathname, method: request.method, error: { name: err?.name || 'FetchWrapperError', message: err?.message || 'Unknown', stack: stackStr } }));
                 return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': allowOrigin, 'Access-Control-Allow-Credentials': 'true' } });
             }
         },

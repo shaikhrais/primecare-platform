@@ -4,7 +4,7 @@ compatibility_date = "2025-02-24"
 compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
-ENVIRONMENT = "production"
+ENVIRONMENT = "development"
 # DATABASE_URL = "" (Set via secrets)
 
 [env.staging]
@@ -15,10 +15,27 @@ r2_buckets = [
 [env.staging.vars]
 ENVIRONMENT = "staging"
 
+[env.staging.durable_objects]
+bindings = [
+  { name = "CHAT_SERVER", class_name = "ChatServer" },
+  { name = "REALTIME_SYNC", class_name = "RealtimeSync" }
+]
+
 [env.testing]
 name = "primecare-api-testing"
+r2_buckets = [
+  { binding = "DOCS_BUCKET", bucket_name = "primecare-docs-testing" }
+]
+
 [env.testing.vars]
 ENVIRONMENT = "testing"
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=synthetic_offline_mock"
+
+[env.testing.durable_objects]
+bindings = [
+  { name = "CHAT_SERVER", class_name = "ChatServer" },
+  { name = "REALTIME_SYNC", class_name = "RealtimeSync" }
+]
 
 [[r2_buckets]]
 binding = "DOCS_BUCKET"

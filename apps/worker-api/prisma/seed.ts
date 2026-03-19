@@ -26,6 +26,19 @@ async function main() {
         else if (role === 'psw') await prisma.pswProfile.upsert({ where: { userId: user.id }, update: {}, create: { userId: user.id, tenantId: tenantA.id, fullName: 'Walker PSW A', languages: '', serviceAreas: '', skills: '' } });
     }
 
+    // 3.5 Developer Local Super Admin
+    await prisma.user.upsert({ 
+        where: { email: 'itpro.mohammed@gmail.com' }, 
+        update: {}, 
+        create: { 
+            email: 'itpro.mohammed@gmail.com', 
+            passwordHash: '0705c29f67eb09d03fbcd2e25a2c0d154d25e161a2649dba68d1123c1c9cb8f5', 
+            roles: 'super_admin,admin', 
+            tenantId: tenantHQ.id, 
+            status: 'active' 
+        } 
+    });
+
     // 4. Financial transactions
     console.log('📊 Creating financial transactions...');
     const tx1 = await prisma.financialTransaction.create({ data: { tenantId: tenantA.id, type: 'INVOICE', amount: 1130.00, currency: 'CAD', status: 'posted' } });

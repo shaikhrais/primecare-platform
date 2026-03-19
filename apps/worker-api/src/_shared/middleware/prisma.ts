@@ -5,6 +5,8 @@ import { auditExtension } from '../prisma/audit.extension';
 import { forensicExtension } from '../prisma/forensic.extension';
 import { PrismaClient } from '../../../generated/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 let prismaInstance: any = null;
 
@@ -29,15 +31,26 @@ export const prismaMiddleware = () => {
             const dbUrl = c.env.DATABASE_URL;
 
             try {
-                // Determine if we need to enforce the Prisma Accelerate protocol for Cloudflare Edge
+// Determine if we need to enforce the Prisma Accelerate protocol for Cloudflare Edge
                 let edgeUri = dbUrl;
-                if (edgeUri.includes('db.prisma.io') && edgeUri.startsWith('postgres://')) {
-                    edgeUri = edgeUri.replace('postgres://', 'prisma://');
+                
+                // TCP BYPASS FOR LOCAL DOCKER:
+                if (edgeUri.includes('localhost') || edgeUri.includes('127.0.0.1')) {
+                    console.warn('[DB_ROUTER] Detected local PostgreSQL database. Bypassing Accelerate Proxy routing directly over Cloudflare TCP Socket.');
+                    // Cloudflare Workers support native TCP outbound via nodejs_compat
+                    const pool = new Pool({ connectionString: edgeUri });
+                    const adapter = new PrismaPg(pool);
+                    prismaInstance = new PrismaClient({ adapter });
+                } else {
+                    if (edgeUri.includes('db.prisma.io') && edgeUri.startsWith('postgres://')) {
+                        // Legacy Prisma Data proxy strings split the Accelerate key across user:pass
+                        const urlObj = new URL(edgeUri);
+                        const apiKey = urlObj.username ? `${urlObj.username}:${urlObj.password}` : urlObj.password;
+                        edgeUri = `prisma://accelerate.prisma-data.net/?api_key=${apiKey}`;
+                    }
+                    const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
+                    prismaInstance = baseClient.$extends(withAccelerate());
                 }
-
-                // Discard the unreliable `pg` TCP socket polyfill and strictly enforce Accelerate
-                const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
-                prismaInstance = baseClient.$extends(withAccelerate());
             } catch (err: any) {
                 // We must store the error so we can return it if init fails
                 c.set('prismaError' as any, err.message);
@@ -74,10 +87,15 @@ export const prismaMiddleware = () => {
             const parts = host.split('.');
             if (parts.length >= 2 && !['www', 'api', 'admin', 'localhost', 'primecare-api'].includes(parts[0]!)) {
                 const tenantSlug = parts[0];
-                const tenant = await prismaInstance.tenant.findUnique({
-                    where: { slug: tenantSlug },
-                    select: { id: true }
-                });
+                let tenant = null;
+                try {
+                    tenant = await prismaInstance.tenant.findUnique({
+                        where: { slug: tenantSlug },
+                        select: { id: true }
+                    });
+                } catch (e: any) {
+                    console.error('[TENANT_SLUG_LOOKUP_ERROR]', e.message);
+                }
                 if (tenant) tenantId = tenant?.id;
             }
         }
