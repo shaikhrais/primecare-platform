@@ -156,8 +156,8 @@ r.openapi(updateProfileRoute, async (c) => {
                 if (base64Data.startsWith('data:image/')) {
                     const matches = base64Data.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
                     if (matches && matches.length === 3) {
-                        contentType = matches[1];
-                        base64Data = matches[2];
+                        contentType = matches[1] ?? 'image/jpeg';
+                        base64Data = matches[2] ?? base64Data;
                     }
                 }
                 const binaryString = atob(base64Data);

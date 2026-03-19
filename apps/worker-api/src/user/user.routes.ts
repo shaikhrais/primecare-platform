@@ -7,6 +7,8 @@ import messagingRoutes from './messaging.routes';
 import sharedTrainingRoutes from './training.routes';
 import incidentRoutes from './incidents.routes';
 import evvRoutes from './evv.routes';
+import dispatchRoutes from './dispatch.routes';
+import analyticsRoutes from './analytics.routes';
 
 const user = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -24,5 +26,7 @@ user.route('/messaging', messagingRoutes);
 user.route('/training', sharedTrainingRoutes);
 user.route('/incidents', incidentRoutes);
 user.route('/evv', evvRoutes);
+user.route('/dispatch', dispatchRoutes);
+user.route('/analytics', analyticsRoutes);
 
 export default user;
