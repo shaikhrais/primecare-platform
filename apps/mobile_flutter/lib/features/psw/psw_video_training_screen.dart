@@ -12,7 +12,10 @@ class PswVideoTrainingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: 'Compliance Module'),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -93,6 +96,8 @@ class PswVideoTrainingScreen extends StatelessWidget {
               ),
             )
           ],
+        ),
+      )
         ),
       ),
     );

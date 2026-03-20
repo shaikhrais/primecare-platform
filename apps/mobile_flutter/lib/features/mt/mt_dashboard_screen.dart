@@ -13,22 +13,85 @@ class MtDashboardScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800), // Desktop/Tablet Responsive Lock
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              _buildTherapistHeader(),
-              const SizedBox(height: 24),
-              const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-              const SizedBox(height: 16),
-              _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
-              _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
-              _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', const Color(0xFF10B981)),
-            ],
-          ),
-        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 900;
+          
+          if (isDesktop) {
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1200),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          children: [
+                            _buildTherapistHeader(),
+                            const SizedBox(height: 24),
+                            // Simulated Native Desktop Side-Calendar
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFE2E8F0))),
+                              child: const Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [Text('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.calendar_month, color: Color(0xFF94A3B8))],
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text('24 total hours mapped this week.', style: TextStyle(color: Color(0xFF64748B))),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 32),
+                    Expanded(
+                      flex: 2,
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                            const SizedBox(height: 16),
+                            _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
+                            _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
+                            _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', const Color(0xFF10B981)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _buildTherapistHeader(),
+                  const SizedBox(height: 24),
+                  const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                  const SizedBox(height: 16),
+                  _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
+                  _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
+                  _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', const Color(0xFF10B981)),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -104,6 +167,6 @@ class MtDashboardScreen extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 }

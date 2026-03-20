@@ -66,7 +66,10 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF10B981)), onPressed: () => context.pop()),
       ),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: AnimationLimiter(
           child: Column(
@@ -136,6 +139,8 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
               ],
             ),
           ),
+        ),
+      )
         ),
       ),
     );

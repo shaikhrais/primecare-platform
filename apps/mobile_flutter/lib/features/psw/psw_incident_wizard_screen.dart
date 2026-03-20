@@ -9,10 +9,13 @@ class PswIncidentWizardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: const PrimeCareAppBar(title: 'Emergency Incident Wizard'),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               padding: const EdgeInsets.all(24),
@@ -74,9 +77,10 @@ class PswIncidentWizardScreen extends StatelessWidget {
               ),
               child: const Text('TRANSMIT SECURE REPORT', style: TextStyle(letterSpacing: 0.5)),
             )
-
           ],
         ),
+      ),
+      ),
       ),
     );
   }

@@ -9,7 +9,10 @@ class PswClinicalNotesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: const PrimeCareAppBar(title: 'Clinical Progress Note'),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Column(
           children: [
@@ -87,6 +90,8 @@ class PswClinicalNotesScreen extends StatelessWidget {
               child: const Text('SAVE CLINICAL NOTE'),
             )
           ],
+        ),
+      )
         ),
       ),
     );

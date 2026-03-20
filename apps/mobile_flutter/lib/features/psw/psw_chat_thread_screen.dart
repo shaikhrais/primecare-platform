@@ -12,7 +12,10 @@ class PswChatThreadScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: title),
-      body: Column(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
         children: [
           Expanded(
             child: ListView(
@@ -70,6 +73,8 @@ class PswChatThreadScreen extends StatelessWidget {
             ),
           )
         ],
+      )
+        ),
       ),
     );
   }

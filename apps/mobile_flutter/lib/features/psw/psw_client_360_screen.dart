@@ -12,7 +12,10 @@ class PswClient360Screen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$clientName - 360°'),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -136,6 +139,8 @@ class PswClient360Screen extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      )
         ),
       ),
     );

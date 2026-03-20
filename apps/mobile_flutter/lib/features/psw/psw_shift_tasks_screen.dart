@@ -26,7 +26,10 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: const PrimeCareAppBar(title: 'Schedule Tasks'),
-      body: CustomScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: CustomScrollView(
         slivers: [
           // Apple Watch Style Completion Rings Tracker
           SliverToBoxAdapter(
@@ -139,6 +142,8 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
             ),
           )
         ],
+      )
+        ),
       ),
     );
   }

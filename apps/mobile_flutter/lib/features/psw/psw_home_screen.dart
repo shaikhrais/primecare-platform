@@ -23,7 +23,10 @@ class PswHomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: AnimationLimiter(
           child: Column(
@@ -110,6 +113,8 @@ class PswHomeScreen extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      )
         ),
       ),
     );

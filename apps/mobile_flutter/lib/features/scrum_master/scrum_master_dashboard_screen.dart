@@ -12,8 +12,11 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -31,6 +34,8 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
             _buildMetricCard('Unresolved System Exceptions', '0', Icons.bug_report, const Color(0xFFE11D48)),
           ],
         ),
+      ),
+      ),
       ),
     );
   }

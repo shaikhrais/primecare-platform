@@ -24,7 +24,10 @@ class PswTimesheetScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
         child: Column(
           children: [
@@ -154,6 +157,8 @@ class PswTimesheetScreen extends StatelessWidget {
               );
             }).toList()
           ],
+        ),
+      )
         ),
       ),
     );

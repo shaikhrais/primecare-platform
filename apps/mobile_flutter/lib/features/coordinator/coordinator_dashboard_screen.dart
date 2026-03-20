@@ -21,8 +21,11 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: CustomScrollView(
-        slivers: [
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: CustomScrollView(
+            slivers: [
           SliverAppBar(
             expandedHeight: 280,
             floating: false,
@@ -195,6 +198,8 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
             ),
           )
         ],
+      ),
+      ),
       ),
     );
   }

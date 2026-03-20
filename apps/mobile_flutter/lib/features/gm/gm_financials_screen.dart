@@ -12,7 +12,10 @@ class GmFinancialsScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: ListView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: ListView(
         padding: const EdgeInsets.all(20),
         children: [
           Container(
@@ -46,6 +49,8 @@ class GmFinancialsScreen extends StatelessWidget {
           _buildJournalLine('Surge Payroll Dispersed', 'Debit', '-\$38.50', 'Today, 2:14 PM'),
           _buildJournalLine('Cloudflare Services Billed', 'Debit', '-\$5.00', 'Yesterday'),
         ],
+      )
+        ),
       ),
     );
   }

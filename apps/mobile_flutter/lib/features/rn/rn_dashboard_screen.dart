@@ -72,18 +72,41 @@ class RnDashboardScreen extends StatelessWidget {
           // Incident Stream
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final incident = _activeIncidents[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: _buildIncidentCard(context, incident),
+            sliver: SliverLayoutBuilder(
+              builder: (context, constraints) {
+                final isDesktop = constraints.crossAxisExtent >= 900;
+                
+                if (isDesktop) {
+                  return SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 24,
+                      mainAxisSpacing: 24,
+                      mainAxisExtent: 250, // Static card height constraint
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return _buildIncidentCard(context, _activeIncidents[index]);
+                      },
+                      childCount: _activeIncidents.length,
+                    ),
                   );
-                },
-                childCount: _activeIncidents.length,
-              ),
-            ),
+                }
+
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final incident = _activeIncidents[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: _buildIncidentCard(context, incident),
+                      );
+                    },
+                    childCount: _activeIncidents.length,
+                  ),
+                );
+              }
+            )
           )
         ],
       ),

@@ -61,7 +61,10 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
         ),
         title: const Text('My Daily Timeline', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
       ),
-      body: CustomScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: CustomScrollView(
         slivers: [
           // Max Schedule Toggle Component
           SliverToBoxAdapter(
@@ -152,6 +155,8 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
           
           const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
+      )
+        ),
       ),
     );
   }

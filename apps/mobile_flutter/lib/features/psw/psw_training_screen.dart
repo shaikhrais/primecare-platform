@@ -24,7 +24,10 @@ class PswTrainingScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 120),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -124,6 +127,8 @@ class PswTrainingScreen extends StatelessWidget {
               );
             }).toList()
           ],
+        ),
+      )
         ),
       ),
     );

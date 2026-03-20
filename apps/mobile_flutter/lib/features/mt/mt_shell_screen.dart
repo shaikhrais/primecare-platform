@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../shared/layouts/responsive_shell.dart';
 
 class MtShellScreen extends StatelessWidget {
   const MtShellScreen({super.key, required this.navigationShell});
@@ -15,31 +16,15 @@ class MtShellScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: _onTap,
-        backgroundColor: Colors.white,
-        indicatorColor: const Color(0xFFDBEAFE),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.calendar_month_outlined),
-            selectedIcon: Icon(Icons.calendar_month),
-            label: 'Schedule',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.spa_outlined),
-            selectedIcon: Icon(Icons.spa),
-            label: 'Clients',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.message_outlined),
-            selectedIcon: Icon(Icons.message),
-            label: 'Messages',
-          ),
-        ],
-      ),
+    return ResponsiveShell(
+      navigationShell: navigationShell,
+      activeIndicatorColor: const Color(0xFFDBEAFE),
+      activeIconColor: const Color(0xFF3B82F6),
+      destinations: const [
+        ResponsiveNavigationData(label: 'Schedule', icon: Icons.calendar_month_outlined, selectedIcon: Icons.calendar_month),
+        ResponsiveNavigationData(label: 'Clients', icon: Icons.spa_outlined, selectedIcon: Icons.spa),
+        ResponsiveNavigationData(label: 'Messages', icon: Icons.message_outlined, selectedIcon: Icons.message),
+      ],
     );
   }
 }

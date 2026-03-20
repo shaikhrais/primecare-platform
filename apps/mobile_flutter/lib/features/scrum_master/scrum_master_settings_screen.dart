@@ -21,7 +21,10 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: ListView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: ListView(
         padding: const EdgeInsets.all(24),
         children: [
           const Text('ENVIRONMENT OVERRIDES', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2)),
@@ -60,6 +63,8 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
              ),
           )
         ],
+      )
+        ),
       ),
     );
   }

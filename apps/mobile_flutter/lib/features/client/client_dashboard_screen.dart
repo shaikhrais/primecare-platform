@@ -7,8 +7,11 @@ class ClientDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,6 +39,8 @@ class ClientDashboardScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      ),
       ),
     );
   }

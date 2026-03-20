@@ -12,7 +12,10 @@ class GmCostReductionScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: ListView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: ListView(
         padding: const EdgeInsets.all(24),
         children: [
           _buildSectionHeader('BUILDING RECURRING INCOME', Icons.autorenew_rounded),
@@ -25,6 +28,8 @@ class GmCostReductionScreen extends StatelessWidget {
           _buildTacticalTile('Strict Surge-Locking', 'Automatically deny dispatchers the right to offer 2x Surge pricing unless the shift gross margin remains above physically configured EBITDA floors.'),
           _buildTacticalTile('Automated EVV Verification', 'Eliminate manual timesheet auditing. Only approve payroll if Cloudflare GPS arrays verify physical phone presence within 50ft of the patient residence.'),
         ],
+      )
+        ),
       ),
     );
   }

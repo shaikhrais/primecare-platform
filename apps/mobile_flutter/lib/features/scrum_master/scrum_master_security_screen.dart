@@ -12,7 +12,10 @@ class ScrumMasterSecurityScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: ListView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: ListView(
         padding: const EdgeInsets.all(24),
         children: [
           const Text('ACTIVE THREAT VECTORS', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2)),
@@ -28,6 +31,8 @@ class ScrumMasterSecurityScreen extends StatelessWidget {
           _buildFirewallTile('Middleware: JWT Issuer Whitelisting', true),
           _buildFirewallTile('Middleware: Strict Payload Sanitization', true),
         ],
+      )
+        ),
       ),
     );
   }

@@ -15,35 +15,55 @@ class GmDashboardScreen extends StatelessWidget {
           IconButton(icon: const Icon(Icons.business_center_rounded, color: Color(0xFFF59E0B)), onPressed: () {}),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Month-Over-Month Velocity', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
-            _buildHeroMetric('Net-New Acquisitions', '+41 Patients', '+14.2% MoM', const Color(0xFF10B981)),
-            const SizedBox(height: 16),
-            _buildHeroMetric('EBITDA (Gross Margin)', '32.4%', '+4.1% MoM', const Color(0xFFF59E0B)),
-            const SizedBox(height: 32),
-            
-            const Text('OPERATIONAL LEAKAGE', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
-            _buildLeakageTile('Surge Pricing Output', '\$14,200', 'Alert: 2x above target', const Color(0xFFE11D48)),
-            _buildLeakageTile('Overtime Pay (PSW/RN)', '\$3,140', 'Nominal', const Color(0xFF10B981)),
-            
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1E293B),
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF334155))),
-              ),
-              child: const Text('GENERATE FRANCHISE REPORT', style: TextStyle(color: Color(0xFFF59E0B), fontWeight: FontWeight.bold)),
-            )
-          ],
-        ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 900;
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Flex(
+              direction: isDesktop ? Axis.horizontal : Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: isDesktop ? 1 : 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('Month-Over-Month Velocity', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                      const SizedBox(height: 16),
+                      _buildHeroMetric('Net-New Acquisitions', '+41 Patients', '+14.2% MoM', const Color(0xFF10B981)),
+                      const SizedBox(height: 16),
+                      _buildHeroMetric('EBITDA (Gross Margin)', '32.4%', '+4.1% MoM', const Color(0xFFF59E0B)),
+                    ],
+                  )
+                ),
+                if (isDesktop) const SizedBox(width: 32) else const SizedBox(height: 32),
+                Expanded(
+                  flex: isDesktop ? 1 : 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text('OPERATIONAL LEAKAGE', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                      const SizedBox(height: 16),
+                      _buildLeakageTile('Surge Pricing Output', '\$14,200', 'Alert: 2x above target', const Color(0xFFE11D48)),
+                      _buildLeakageTile('Overtime Pay (PSW/RN)', '\$3,140', 'Nominal', const Color(0xFF10B981)),
+                      const SizedBox(height: 32),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1E293B),
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF334155))),
+                        ),
+                        child: const Text('GENERATE FRANCHISE REPORT', style: TextStyle(color: Color(0xFFF59E0B), fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  )
+                )
+              ],
+            ),
+          );
+        }
       ),
     );
   }

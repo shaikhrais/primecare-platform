@@ -68,7 +68,10 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF0F172A)), onPressed: () => context.pop()),
       ),
-      body: Column(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
         children: [
           // Dispatch Control Hub
           Container(
@@ -120,6 +123,8 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
             ),
           )
         ],
+      )
+        ),
       ),
     );
   }

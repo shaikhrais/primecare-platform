@@ -224,6 +224,11 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                   ),
                                   const SizedBox(height: 4),
                                   Text(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 12)),
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList(),
                         // Waitlist Dropping DragTarget Layout Matrix
                         ...List.generate(_providers.length, (x) {
                           return Positioned(

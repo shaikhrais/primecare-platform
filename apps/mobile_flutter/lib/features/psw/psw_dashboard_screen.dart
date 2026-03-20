@@ -23,8 +23,11 @@ class PswDashboardScreen extends StatelessWidget {
             },
           ),
           Expanded(
-            child: CustomScrollView(
-              slivers: [
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: CustomScrollView(
+                  slivers: [
           // Sticky Massive Geometric Header
           SliverAppBar(
             pinned: true,
@@ -206,6 +209,8 @@ class PswDashboardScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 80)), // Padding for bottom nav
         ],
       ),
+              ),
+            ),
           ),
         ],
       ),

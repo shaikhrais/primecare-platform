@@ -12,8 +12,8 @@ class OfflineSyncManager {
   bool _isSyncing = false;
 
   void initializeSyncListener() {
-    Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
-      if (results.contains(ConnectivityResult.mobile) || results.contains(ConnectivityResult.wifi)) {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
          print("NETWORK RESTORED: Triggering Offline Array Flush");
          attemptQueueFlush();
       }

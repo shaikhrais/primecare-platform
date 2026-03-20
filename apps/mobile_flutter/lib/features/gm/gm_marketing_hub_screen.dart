@@ -12,7 +12,10 @@ class GmMarketingHubScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF020617),
         elevation: 0,
       ),
-      body: ListView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: ListView(
         padding: const EdgeInsets.all(24),
         children: [
           _buildSectionHeader('HOW TO ESTABLISH BRAND', Icons.star_rounded),
@@ -25,6 +28,8 @@ class GmMarketingHubScreen extends StatelessWidget {
           _buildActionCard('PPC Hyper-Targeting', 'Deploy "Home Care Near Me" Google Ads algorithmically adjusting bid prices based on current system Nurse availability.'),
           _buildActionCard('Community Penetration', 'Auto-schedule local community center seminars and "Health Fairs" using current off-shift PSWs.'),
         ],
+      )
+        ),
       ),
     );
   }

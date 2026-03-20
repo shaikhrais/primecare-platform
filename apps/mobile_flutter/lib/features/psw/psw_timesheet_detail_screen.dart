@@ -18,7 +18,10 @@ class PswTimesheetDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$date Shift Details'),
-      body: SingleChildScrollView(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,6 +120,8 @@ class PswTimesheetDetailScreen extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      )
         ),
       ),
     );
