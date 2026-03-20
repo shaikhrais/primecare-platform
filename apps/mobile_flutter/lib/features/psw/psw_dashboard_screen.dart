@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -23,10 +24,7 @@ class PswDashboardScreen extends StatelessWidget {
             },
           ),
           Expanded(
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 800),
-                child: CustomScrollView(
+            child: CustomScrollView(
                   slivers: [
           // Sticky Massive Geometric Header
           SliverAppBar(
@@ -117,102 +115,122 @@ class PswDashboardScreen extends StatelessWidget {
             ),
           ),
 
-          // Swipe-to-Action Shift Cards
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: const Duration(milliseconds: 500),
-                  child: SlideAnimation(
-                    verticalOffset: 60.0,
-                    child: FadeInAnimation(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                        child: Dismissible(
-                          key: Key('shift_$index'),
-                    background: Container(
-                      decoration: BoxDecoration(color: const Color(0xFF10B981), borderRadius: BorderRadius.circular(20)),
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 24),
-                      child: const Icon(Icons.check, color: Colors.white, size: 36),
+          // Responsive Grid for Wide Screens
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            sliver: SliverLayoutBuilder(
+              builder: (BuildContext context, SliverConstraints constraints) {
+                if (constraints.crossAxisExtent > 800) {
+                  return SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: (constraints.crossAxisExtent / 400).floor(),
+                      mainAxisSpacing: 16.0,
+                      crossAxisSpacing: 16.0,
+                      childAspectRatio: 2.2,
                     ),
-                    secondaryBackground: Container(
-                      decoration: BoxDecoration(color: const Color(0xFFF59E0B), borderRadius: BorderRadius.circular(20)),
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 24),
-                      child: const Icon(Icons.handshake, color: Colors.white, size: 36),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => _buildShiftCard(context, index),
+                      childCount: 3,
                     ),
-                    onDismissed: (direction) {
-                       // Trigger Snackbar with Undo Native Architecture
-                       ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(
-                           content: const Text('Shift acknowledged successfully.'),
-                           backgroundColor: const Color(0xFF0F172A),
-                           duration: const Duration(seconds: 4),
-                           behavior: SnackBarBehavior.floating,
-                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                           action: SnackBarAction(label: 'UNDO', textColor: const Color(0xFF10B981), onPressed: (){}),
-                         )
-                       );
-                    },
-                    child: InkWell(
-                      onTap: () => context.push('/psw/live-visit/uuid-shift-$index'),
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: const Color(0xFFE2E8F0)),
-                          // Soft Neumorphic Diffused Shadow
-                          boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text('10:00 AM - 2:00 PM', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A), fontSize: 18)),
-                                Icon(Icons.chevron_right, color: const Color(0xFFCBD5E1), size: 28),
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-                            Row(
-                              children: [
-                                const CircleAvatar(
-                                  radius: 16,
-                                  backgroundColor: Color(0xFFDBEAFE),
-                                  child: Icon(Icons.person, color: Color(0xFF3B82F6), size: 18),
-                                ),
-                                const SizedBox(width: 12),
-                                const Text('Sarah Jenkins', style: TextStyle(color: Color(0xFF475569), fontSize: 16, fontWeight: FontWeight.w600)),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text('123 Main St, Unit 4B, Toronto ON', style: TextStyle(color: Color(0xFF64748B), fontSize: 14)),
-                          ],
-                        ),
-                      ),
+                  );
+                }
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: _buildShiftCard(context, index),
                     ),
+                    childCount: 3,
                   ),
-                ),
-              ),
-            ),
-          );
-        },
-        childCount: 3,
+                );
+              },
             ),
           ),
           
           const SliverToBoxAdapter(child: SizedBox(height: 80)), // Padding for bottom nav
         ],
       ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShiftCard(BuildContext context, int index) {
+    return AnimationConfiguration.staggeredList(
+      position: index,
+      duration: const Duration(milliseconds: 500),
+      child: SlideAnimation(
+        verticalOffset: 60.0,
+        child: FadeInAnimation(
+          child: Dismissible(
+            key: Key('shift_$index'),
+            background: Container(
+              decoration: BoxDecoration(color: const Color(0xFF10B981), borderRadius: BorderRadius.circular(20)),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 24),
+              child: const Icon(Icons.check, color: Colors.white, size: 36),
+            ),
+            secondaryBackground: Container(
+              decoration: BoxDecoration(color: const Color(0xFFF59E0B), borderRadius: BorderRadius.circular(20)),
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(right: 24),
+              child: const Icon(Icons.handshake, color: Colors.white, size: 36),
+            ),
+            onDismissed: (direction) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Shift acknowledged successfully.'),
+                  backgroundColor: const Color(0xFF0F172A),
+                  duration: const Duration(seconds: 4),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  action: SnackBarAction(label: 'UNDO', textColor: const Color(0xFF10B981), onPressed: (){}),
+                )
+              );
+            },
+            child: InkWell(
+              onTap: () => context.push('/psw/live-visit/uuid-shift-$index'),
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text('10:00 AM - 2:00 PM', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A), fontSize: 18)),
+                        Icon(Icons.chevron_right, color: Color(0xFFCBD5E1), size: 28),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: const [
+                        CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Color(0xFFDBEAFE),
+                          child: Icon(Icons.person, color: Color(0xFF3B82F6), size: 18),
+                        ),
+                        SizedBox(width: 12),
+                        Text('Sarah Jenkins', style: TextStyle(color: Color(0xFF475569), fontSize: 16, fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Text('123 Main St, Unit 4B, Toronto ON', style: TextStyle(color: Color(0xFF64748B), fontSize: 14)),
+                  ],
+                ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

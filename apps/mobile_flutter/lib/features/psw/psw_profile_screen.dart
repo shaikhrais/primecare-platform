@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +21,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
   String _preferredShift = "Flex Time (Any)";
   bool _isSaving = false;
   bool _isLoading = true;
-  File? _profileImage;
+  Uint8List? _profileImageBytes;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -51,7 +51,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     try {
       final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null && mounted) {
-        setState(() => _profileImage = File(pickedFile.path));
+        final bytes = await pickedFile.readAsBytes();
+        setState(() => _profileImageBytes = bytes);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Avatar staged for upload!'), backgroundColor: Color(0xFF10B981)),
         );
@@ -71,9 +72,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
       setState(() => _isSaving = true);
       try {
         String? base64Image;
-        if (_profileImage != null) {
-          final bytes = await _profileImage!.readAsBytes();
-          base64Image = base64Encode(bytes);
+        if (_profileImageBytes != null) {
+          base64Image = base64Encode(_profileImageBytes!);
         }
 
         final payload = {
@@ -194,8 +194,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       CircleAvatar(
                         radius: 56,
                         backgroundColor: const Color(0xFFE0F2FE),
-                        backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
-                        child: _profileImage == null 
+                        backgroundImage: _profileImageBytes != null ? MemoryImage(_profileImageBytes!) : null,
+                        child: _profileImageBytes == null 
                             ? const Icon(Icons.badge, size: 48, color: Color(0xFF0EA5E9))
                             : null,
                       ),
@@ -319,6 +319,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
             ],
           ),
         ),
+      ),
+      ),
       ),
     );
   }

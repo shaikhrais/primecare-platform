@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../shared/widgets/master_detail_layout.dart';
 import 'psw_timesheet_detail_screen.dart';
 
-class PswTimesheetScreen extends StatelessWidget {
+class PswTimesheetScreen extends StatefulWidget {
   const PswTimesheetScreen({super.key});
+
+  @override
+  State<PswTimesheetScreen> createState() => _PswTimesheetScreenState();
+}
+
+class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
+  Map<String, dynamic>? _selectedPeriod;
 
   final List<Map<String, dynamic>> _payPeriods = const [
     {'date': 'Oct 28', 'shifts': 2, 'hours': 10.5, 'earnings': 315.00, 'surge': true},
@@ -24,14 +32,13 @@ class PswTimesheetScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
-        child: Column(
-          children: [
-            // Month High-Level Aggregation
+      body: MasterDetailLayout(
+        hasDetail: _selectedPeriod != null,
+        masterBuilder: (context) => SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
+          child: Column(
+            children: [
+              // Month High-Level Aggregation
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -107,9 +114,14 @@ class PswTimesheetScreen extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     HapticFeedback.lightImpact();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => PswTimesheetDetailScreen(date: period['date'], earnings: period['earnings'], surgeActive: period['surge']))
-                    );
+                    final isDesktop = MediaQuery.of(context).size.width >= 800;
+                    if (isDesktop) {
+                      setState(() => _selectedPeriod = period);
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => PswTimesheetDetailScreen(date: period['date'], earnings: period['earnings'], surgeActive: period['surge']))
+                      );
+                    }
                   },
                   borderRadius: BorderRadius.circular(16),
                   child: Container(
@@ -158,8 +170,15 @@ class PswTimesheetScreen extends StatelessWidget {
             }).toList()
           ],
         ),
-      )
-        ),
+      ),
+        detailBuilder: (context) {
+          if (_selectedPeriod == null) return const SizedBox.shrink();
+          return PswTimesheetDetailScreen(
+            date: _selectedPeriod!['date'],
+            earnings: _selectedPeriod!['earnings'],
+            surgeActive: _selectedPeriod!['surge'],
+          );
+        },
       ),
     );
   }
