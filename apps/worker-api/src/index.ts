@@ -23,6 +23,8 @@ import scrumMasterModule from './platform/scrum_master/scrum_master.module';
 import superuserModule from './platform/superuser/superuser.module';
 import debugModule from './platform/system/debug.routes';
 import cronRoutes from './platform/system/cron.routes';
+import webrtcModule from './platform/system/webrtc.routes';
+import ledgerModule from './finance/ledger/journal.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
 import { RealtimeSync } from './durable_objects/RealtimeSync';
@@ -76,6 +78,8 @@ app.route('/v1/superuser', superuserModule);
 app.route('/v1/cron', cronRoutes);
 app.use('/v1/debug/*', async (c, next) => { const env = c.env?.ENVIRONMENT || 'development'; if (env === 'production') return c.json({ error: 'Debug routes disabled in production' }, 403); return await next(); });
 app.route('/v1/debug', debugModule);
+app.route('/v1/webrtc', webrtcModule);
+app.route('/v1/finance/ledger', ledgerModule);
 
 // 6. Export with CORS wrapper + Sentry (extracted)
 export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);

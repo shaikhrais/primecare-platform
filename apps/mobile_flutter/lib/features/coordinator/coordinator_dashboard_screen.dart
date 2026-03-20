@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class CoordinatorDashboardScreen extends StatefulWidget {
   const CoordinatorDashboardScreen({super.key});
@@ -55,7 +56,30 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                           ],
                         ),
                         const SizedBox(height: 8),
-                        const Text('Operations Hub', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Operations Hub', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.explore_rounded, color: Colors.white, size: 32),
+                                  onPressed: () {
+                                    HapticFeedback.heavyImpact();
+                                    context.push('/coordinator/live-map');
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.calendar_month_rounded, color: Colors.white, size: 32),
+                                  onPressed: () {
+                                    HapticFeedback.heavyImpact();
+                                    context.push('/coordinator/fleet-matrix');
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                         const Spacer(),
                         
                         // Active Surge Multiplier Control Switch

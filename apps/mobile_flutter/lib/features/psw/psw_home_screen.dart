@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
@@ -24,10 +25,17 @@ class PswHomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Welcome Card Hero
+        child: AnimationLimiter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 600),
+              childAnimationBuilder: (widget) => SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(child: widget),
+              ),
+              children: [
+                // Welcome Card Hero
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -78,10 +86,11 @@ class PswHomeScreen extends StatelessWidget {
               childAspectRatio: 1.2,
               children: [
                 _buildQuickLinkTile(context, 'Secure Inbox', Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
+                _buildQuickLinkTile(context, 'Daily Timeline', Icons.calendar_view_day_rounded, const Color(0xFF8B5CF6), () => context.push('/psw/daily-timeline')),
                 _buildQuickLinkTile(context, 'Training Hub', Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
                 _buildQuickLinkTile(context, 'SOS Trigger', Icons.emergency_rounded, const Color(0xFFE11D48), () {
                   HapticFeedback.heavyImpact();
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Emergency protocols must be triggered inside an active shift visit!'), backgroundColor: Color(0xFFE11D48)));
+                  context.push('/psw/live-video-triage/emergency-123');
                 }),
                 _buildQuickLinkTile(context, 'View Clients', Icons.group_rounded, const Color(0xFF14B8A6), () {
                   HapticFeedback.lightImpact();
@@ -97,8 +106,10 @@ class PswHomeScreen extends StatelessWidget {
             _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
             const SizedBox(height: 16),
             _buildFeedCard('Holiday Pay Multipliers', 'The PrimeCare system will automatically attach 1.5x surge pricing limits to all EVV shifts recorded on statutory holidays.'),
-            const SizedBox(height: 64), // Scroll padding for the Glass Shell
-          ],
+                const SizedBox(height: 64), // Scroll padding for the Glass Shell
+              ],
+            ),
+          ),
         ),
       ),
     );

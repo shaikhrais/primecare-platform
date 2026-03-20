@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import '../shared/widgets/offline_banner.dart';
 
 class PswDashboardScreen extends StatelessWidget {
   const PswDashboardScreen({super.key});
@@ -8,8 +11,20 @@ class PswDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: CustomScrollView(
-        slivers: [
+      body: Column(
+        children: [
+          StreamBuilder<List<ConnectivityResult>>(
+            stream: Connectivity().onConnectivityChanged,
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!.contains(ConnectivityResult.none)) {
+                return const OfflineBanner();
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
           // Sticky Massive Geometric Header
           SliverAppBar(
             pinned: true,
@@ -103,10 +118,16 @@ class PswDashboardScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Dismissible(
-                    key: Key('shift_$index'),
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 500),
+                  child: SlideAnimation(
+                    verticalOffset: 60.0,
+                    child: FadeInAnimation(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        child: Dismissible(
+                          key: Key('shift_$index'),
                     background: Container(
                       decoration: BoxDecoration(color: const Color(0xFF10B981), borderRadius: BorderRadius.circular(20)),
                       alignment: Alignment.centerLeft,
@@ -173,13 +194,19 @@ class PswDashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                );
-              },
-              childCount: 3,
+                ),
+              ),
+            ),
+          );
+        },
+        childCount: 3,
             ),
           ),
           
           const SliverToBoxAdapter(child: SizedBox(height: 80)), // Padding for bottom nav
+        ],
+      ),
+          ),
         ],
       ),
     );

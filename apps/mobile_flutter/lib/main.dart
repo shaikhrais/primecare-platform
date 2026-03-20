@@ -6,6 +6,7 @@ import 'features/auth/forgot_password_screen.dart';
 import 'features/psw/psw_shell_screen.dart';
 import 'features/psw/psw_home_screen.dart';
 import 'features/psw/psw_dashboard_screen.dart';
+import 'features/psw/psw_daily_schedule_screen.dart';
 import 'features/psw/psw_clients_screen.dart';
 import 'features/psw/psw_timesheet_screen.dart';
 import 'features/psw/psw_profile_screen.dart';
@@ -14,6 +15,7 @@ import 'features/psw/psw_training_screen.dart';
 import 'features/rn/rn_shell_screen.dart';
 import 'features/rn/rn_dashboard_screen.dart';
 import 'features/psw/psw_live_visit_screen.dart';
+import 'features/psw/psw_live_video_triage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/theme.dart';
 
@@ -23,10 +25,27 @@ import 'features/rn/rn_shell_screen.dart';
 import 'features/rn/rn_dashboard_screen.dart';
 import 'features/coordinator/coordinator_shell_screen.dart';
 import 'features/coordinator/coordinator_dashboard_screen.dart';
+import 'features/coordinator/coordinator_live_map_screen.dart';
+import 'features/coordinator/coordinator_jane_scheduler_screen.dart';
 import 'features/manager/manager_shell_screen.dart';
 import 'features/manager/manager_dashboard_screen.dart';
+import 'features/scrum_master/scrum_master_shell_screen.dart';
+import 'features/scrum_master/scrum_master_dashboard_screen.dart';
+import 'features/scrum_master/scrum_master_users_screen.dart';
+import 'features/scrum_master/scrum_master_diagnostic_screen.dart';
+import 'features/scrum_master/scrum_master_security_screen.dart';
+import 'features/scrum_master/scrum_master_settings_screen.dart';
+import 'features/gm/gm_shell_screen.dart';
+import 'features/gm/gm_dashboard_screen.dart';
+import 'features/gm/gm_marketing_hub_screen.dart';
+import 'features/gm/gm_cost_reduction_screen.dart';
+import 'features/gm/gm_expansion_wizard.dart';
+import 'core/network/offline_sync_manager.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  OfflineSyncManager().initializeSyncListener();
+  
   runApp(const ProviderScope(child: PrimeCareApp()));
 }
 
@@ -44,6 +63,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (hasToken && (isLoggingIn || isGenericDashboard)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
+          case 'gm':
+          case 'general_manager': return '/gm/dashboard';
+          case 'scrum_master': return '/scrum-master/dashboard';
           case 'rn': return '/rn/dashboard';
           case 'coordinator': return '/coordinator/dashboard';
           case 'manager':
@@ -74,6 +96,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/psw/live-visit/:id',
         builder: (context, state) => PswLiveVisitScreen(visitId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/psw/live-video-triage/:id',
+        builder: (context, state) => PswLiveVideoTriageScreen(incidentId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/psw/daily-timeline',
+        builder: (context, state) => const PswDailyScheduleScreen(),
       ),
       // RN Hub Shell (Phase 23)
       StatefulShellRoute.indexedStack(
@@ -136,6 +166,15 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/client/dashboard', builder: (context, state) => const ClientDashboardScreen()),
         ],
       ),
+      GoRoute(
+        path: '/coordinator/live-map',
+        builder: (context, state) => const CoordinatorLiveMapScreen(),
+      ),
+      GoRoute(
+        path: '/coordinator/fleet-matrix',
+        builder: (context, state) => const CoordinatorJaneSchedulerScreen(),
+      ),
+      // Removing the top-level route because it gets mapped INSIDE the Shell now.
       // Coordinator Hub Shell (Phase 24)
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -216,6 +255,94 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+      // Scrum Master Hub Shell (Phase 43)
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScrumMasterShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/scrum-master/dashboard',
+                builder: (context, state) => const ScrumMasterDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/scrum-master/diagnostic',
+                builder: (context, state) => const ScrumMasterDiagnosticScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/scrum-master/tenants',
+                builder: (context, state) => const ScrumMasterUsersScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/scrum-master/security',
+                builder: (context, state) => const ScrumMasterSecurityScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/scrum-master/settings',
+                builder: (context, state) => const ScrumMasterSettingsScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      // General Manager (GM) Executive Shell (Phase 45)
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return GmShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/gm/dashboard',
+                builder: (context, state) => const GmDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/gm/marketing',
+                builder: (context, state) => const GmMarketingHubScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/gm/revenue',
+                builder: (context, state) => const GmCostReductionScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/gm/expand',
+                builder: (context, state) => const GmExpansionWizardScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   );
 });
@@ -230,6 +357,8 @@ class PrimeCareApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'PrimeCare Mobile',
       theme: PrimeCareTheme.lightTheme,
+      darkTheme: PrimeCareTheme.darkTheme,
+      themeMode: ThemeMode.system,
       routerConfig: appRouter,
     );
   }

@@ -32,13 +32,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         // Read role from SharedPreferences to execute proper diversion
         final prefs = await SharedPreferences.getInstance();
         final role = prefs.getString('user_role') ?? 'psw';
-        
         switch (role) {
+          case 'gm':
+          case 'general_manager':
+            context.go('/gm/dashboard');
+            break;
           case 'rn':
             context.go('/rn/dashboard');
             break;
           case 'coordinator':
             context.go('/coordinator/dashboard');
+            break;
+          case 'scrum_master':
+          case 'developer':
+            context.go('/scrum-master/dashboard');
             break;
           case 'manager':
           case 'admin':

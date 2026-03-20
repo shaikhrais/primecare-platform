@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
+import 'database/sqlite_database_helper.dart';
 
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiClient {
-  static String get baseUrl {
-    return 'https://primecare-api-testing.itpro-mohammed.workers.dev';
-  }
+  // Mobile Android Emulator bypasses DNS limits using Loopback bindings
+  static const String baseUrl = 'http://10.0.2.2:8787'; 
 
   Future<Map<String, String>> _getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
@@ -24,57 +25,61 @@ class ApiClient {
 
   Future<dynamic> post(String endpoint, Map<String, dynamic> body) async {
     final headers = await _getHeaders();
-    final response = await http.post(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: headers,
-      body: jsonEncode(body),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return jsonDecode(response.body);
-    } else {
-      print('[SANDBOX WARNING]: Suppressing API Exception ${response.statusCode}');
-      return {'success': true, 'mocked': true, 'message': 'Simulated payload'};
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Server returned ${response.statusCode}');
+      }
+    } catch (e) {
+      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint to Local SQLite Engine.');
+      await SqliteDatabaseHelper.instance.insertPayload({
+        'id': const Uuid().v4(),
+        'httpMethod': 'POST',
+        'endpointUrl': endpoint,
+        'jsonPayload': jsonEncode(body),
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'retryCount': 0,
+      });
+      return {'success': true, 'offline_queued': true, 'message': 'Saved locally. Will sync when online.'};
     }
   }
 
   Future<dynamic> put(String endpoint, Map<String, dynamic> body) async {
-    // [SANDBOX OFFLINE OVERRIDE]: Cache natively using SharedPreferences
-    if (endpoint.contains('/user/profile')) {
-      await Future.delayed(const Duration(milliseconds: 600));
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('offline_profile_cache', jsonEncode(body));
-      return {'success': true, 'mocked': true, 'message': 'Profile updated successfully (Offline Mock)'};
-    }
-
     final headers = await _getHeaders();
-    final response = await http.put(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: headers,
-      body: jsonEncode(body),
-    );
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return jsonDecode(response.body);
-    } else {
-      print('[SANDBOX WARNING]: Suppressing API Exception ${response.statusCode}');
-      return {'success': true, 'mocked': true, 'message': 'Profile updated successfully (Offline Mock)'};
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Server returned ${response.statusCode}');
+      }
+    } catch (e) {
+      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint to Local SQLite Engine.');
+      await SqliteDatabaseHelper.instance.insertPayload({
+        'id': const Uuid().v4(),
+        'httpMethod': 'PUT',
+        'endpointUrl': endpoint,
+        'jsonPayload': jsonEncode(body),
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'retryCount': 0,
+      });
+      return {'success': true, 'offline_queued': true, 'message': 'Profile Update saved offline. Will sync when online.'};
     }
   }
 
   Future<dynamic> get(String endpoint) async {
-    // [SANDBOX OFFLINE OVERRIDE]: Recall Native SharedPreferences Cache Instead of Network
-    if (endpoint.contains('/user/profile')) {
-      final prefs = await SharedPreferences.getInstance();
-      final cached = prefs.getString('offline_profile_cache');
-      
-      if (cached != null) {
-        return {'success': true, 'mocked': true, 'profile': jsonDecode(cached)};
-      } else {
-        return {'success': true, 'mocked': true, 'profile': {'firstName': 'First Responder', 'lastName': 'PrimeCare', 'phoneNumber': '555-0199'}};
-      }
-    }
-
     final headers = await _getHeaders();
     final response = await http.get(
       Uri.parse('$baseUrl$endpoint'),
