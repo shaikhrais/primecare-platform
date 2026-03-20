@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../shared/widgets/offline_banner.dart';
+import '../../../core/localization/app_strings.dart';
 
 class PswDashboardScreen extends StatelessWidget {
   const PswDashboardScreen({super.key});
@@ -35,7 +36,7 @@ class PswDashboardScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               title: Text(
-                'My Shifts',
+                AppStrings.myShiftsTitle,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
@@ -75,10 +76,10 @@ class PswDashboardScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('High Demand Alert', style: Theme.of(context).textTheme.titleLarge),
+                          Text(AppStrings.highDemandAlertTitle, style: Theme.of(context).textTheme.titleLarge),
                           const SizedBox(height: 4),
                           const Text(
-                            'Surge pricing active for evening shifts (+1.5x payout rate).',
+                            AppStrings.highDemandAlertDesc,
                             style: TextStyle(color: Color(0xFF475569), fontSize: 14),
                           ),
                         ],
@@ -99,7 +100,7 @@ class PswDashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
                 child: Row(
                   children: [
-                    const Text('Today', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+                    const Text(AppStrings.today, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -107,7 +108,7 @@ class PswDashboardScreen extends StatelessWidget {
                         color: const Color(0xFFE2E8F0),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('3 Shifts', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
+                      child: const Text(AppStrings.shiftCountLabel, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
                     ),
                   ],
                 ),
@@ -180,12 +181,12 @@ class PswDashboardScreen extends StatelessWidget {
             onDismissed: (direction) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text('Shift acknowledged successfully.'),
+                  content: const Text(AppStrings.shiftAckSuccess),
                   backgroundColor: const Color(0xFF0F172A),
                   duration: const Duration(seconds: 4),
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  action: SnackBarAction(label: 'UNDO', textColor: const Color(0xFF10B981), onPressed: (){}),
+                  action: SnackBarAction(label: AppStrings.undo, textColor: const Color(0xFF10B981), onPressed: (){}),
                 )
               );
             },

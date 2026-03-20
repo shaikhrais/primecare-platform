@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../shared/widgets/master_detail_layout.dart';
+import '../shared/layouts/master_detail_layout.dart';
 import 'psw_timesheet_detail_screen.dart';
 
 class PswTimesheetScreen extends StatefulWidget {
@@ -33,8 +33,9 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
         centerTitle: false,
       ),
       body: MasterDetailLayout(
-        hasDetail: _selectedPeriod != null,
-        masterBuilder: (context) => SingleChildScrollView(
+        isDetailActive: _selectedPeriod != null,
+        onBackToMaster: () => setState(() => _selectedPeriod = null),
+        masterList: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
           child: Column(
             children: [
@@ -170,15 +171,12 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
             }).toList()
           ],
         ),
-      ),
-        detailBuilder: (context) {
-          if (_selectedPeriod == null) return const SizedBox.shrink();
-          return PswTimesheetDetailScreen(
-            date: _selectedPeriod!['date'],
-            earnings: _selectedPeriod!['earnings'],
-            surgeActive: _selectedPeriod!['surge'],
-          );
-        },
+        ),
+        detailView: _selectedPeriod == null ? const SizedBox.shrink() : PswTimesheetDetailScreen(
+          date: _selectedPeriod!['date'],
+          earnings: _selectedPeriod!['earnings'],
+          surgeActive: _selectedPeriod!['surge'],
+        ),
       ),
     );
   }

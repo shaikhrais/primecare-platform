@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import '../shared/layouts/responsive_layout_manager.dart';
+import '../../../core/localization/app_strings.dart';
 
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
@@ -13,7 +15,7 @@ class PswHomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('PrimeCare Hub', 
+        title: const Text(AppStrings.appName, 
           style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
         ),
         actions: [
@@ -23,100 +25,176 @@ class PswHomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: AnimationLimiter(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: AnimationConfiguration.toStaggeredList(
-              duration: const Duration(milliseconds: 600),
-              childAnimationBuilder: (widget) => SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(child: widget),
-              ),
-              children: [
-                // Welcome Card Hero
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF0EA5E9), Color(0xFF3B82F6)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(color: Color(0x330EA5E9), blurRadius: 20, offset: Offset(0, 10))
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Welcome Back, First Responder!', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 8),
-                  Text('Your next shift begins in 2h 15m. You have 2 unread announcements.', style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 15, height: 1.4)),
-                ],
-              ),
-            ),
-            const SizedBox(height: 32),
+      body: ResponsiveLayoutManager(
+        mobile: _buildMobileLayout(context),
+        desktop: _buildDesktopLayout(context),
+      ),
+    );
+  }
 
-            // Statistics Array
-            const Text('Performance Metrics', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(child: _buildStatCard('Weekly Hours', '34.5', Icons.schedule, const Color(0xFF8B5CF6))),
-                const SizedBox(width: 16),
-                Expanded(child: _buildStatCard('Compliance', '94%', Icons.verified_user_outlined, const Color(0xFF10B981))),
-                const SizedBox(width: 16),
-                Expanded(child: _buildStatCard('Surge Active', '1.5x', Icons.bolt, const Color(0xFFF59E0B))),
-              ],
+  Widget _buildMobileLayout(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24.0),
+      child: AnimationLimiter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: AnimationConfiguration.toStaggeredList(
+            duration: const Duration(milliseconds: 600),
+            childAnimationBuilder: (widget) => SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(child: widget),
             ),
-            const SizedBox(height: 32),
-
-            // Quick Link Dynamic Tiles (2x2 Matrix)
-            const Text('Quick Access Nodes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
-            const SizedBox(height: 16),
-            GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 1.2,
-              children: [
-                _buildQuickLinkTile(context, 'Secure Inbox', Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
-                _buildQuickLinkTile(context, 'Daily Timeline', Icons.calendar_view_day_rounded, const Color(0xFF8B5CF6), () => context.push('/psw/daily-timeline')),
-                _buildQuickLinkTile(context, 'Training Hub', Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
-                _buildQuickLinkTile(context, 'SOS Trigger', Icons.emergency_rounded, const Color(0xFFE11D48), () {
-                  HapticFeedback.heavyImpact();
-                  context.push('/psw/live-video-triage/emergency-123');
-                }),
-                _buildQuickLinkTile(context, 'View Clients', Icons.group_rounded, const Color(0xFF14B8A6), () {
-                  HapticFeedback.lightImpact();
-                  context.go('/psw/clients');
-                }),
-              ],
-            ),
-            const SizedBox(height: 32),
-
-            // Organizational Feed
-            const Text('Organizational Feed', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
-            const SizedBox(height: 16),
-            _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
-            const SizedBox(height: 16),
-            _buildFeedCard('Holiday Pay Multipliers', 'The PrimeCare system will automatically attach 1.5x surge pricing limits to all EVV shifts recorded on statutory holidays.'),
-                const SizedBox(height: 64), // Scroll padding for the Glass Shell
-              ],
-            ),
+            children: [
+              _buildWelcomeCard(),
+              const SizedBox(height: 32),
+              _buildStatisticsArray(),
+              const SizedBox(height: 32),
+              _buildQuickLinks(context, 2),
+              const SizedBox(height: 32),
+              _buildFeed(),
+              const SizedBox(height: 64),
+            ],
           ),
         ),
-      )
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(40.0),
+      child: AnimationLimiter(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 600),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: FadeInAnimation(child: widget),
+                  ),
+                  children: [
+                    _buildWelcomeCard(),
+                    const SizedBox(height: 32),
+                    _buildQuickLinks(context, 3), // 3 columns for quick links on wide view
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 40),
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 600),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: 50.0,
+                    child: FadeInAnimation(child: widget),
+                  ),
+                  children: [
+                    _buildStatisticsArray(),
+                    const SizedBox(height: 32),
+                    _buildFeed(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildWelcomeCard() {
+    return Container(
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF0EA5E9), Color(0xFF3B82F6)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: const [
+          BoxShadow(color: Color(0x330EA5E9), blurRadius: 20, offset: Offset(0, 10))
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(AppStrings.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          Text(AppStrings.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatisticsArray() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, const Color(0xFF8B5CF6))),
+            const SizedBox(width: 16),
+            Expanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, const Color(0xFF10B981))),
+            const SizedBox(width: 16),
+            Expanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, const Color(0xFFF59E0B))),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuickLinks(BuildContext context, int crossAxisCount) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const SizedBox(height: 16),
+        GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 1.2,
+          children: [
+            _buildQuickLinkTile(context, AppStrings.secureInbox, Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
+            _buildQuickLinkTile(context, AppStrings.dailyTimeline, Icons.calendar_view_day_rounded, const Color(0xFF8B5CF6), () => context.push('/psw/daily-timeline')),
+            _buildQuickLinkTile(context, AppStrings.trainingHub, Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
+            _buildQuickLinkTile(context, AppStrings.sosTrigger, Icons.emergency_rounded, const Color(0xFFE11D48), () {
+              HapticFeedback.heavyImpact();
+              context.push('/psw/live-video-triage/emergency-123');
+            }),
+            _buildQuickLinkTile(context, AppStrings.viewClients, Icons.group_rounded, const Color(0xFF14B8A6), () {
+              HapticFeedback.lightImpact();
+              context.go('/psw/clients');
+            }),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeed() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const SizedBox(height: 16),
+        _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
+        const SizedBox(height: 16),
+        _buildFeedCard('Holiday Pay Multipliers', 'The PrimeCare system will automatically attach 1.5x surge pricing limits to all EVV shifts recorded on statutory holidays.'),
+      ],
     );
   }
 

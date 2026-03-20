@@ -8,15 +8,18 @@ export const requireAuth = (secret: string) => {
     return async (c: Context, next: Next) => {
         // R22: Cookie-only JWT authentication — NO header fallback
         // Header-based auth was removed because it defeats HttpOnly cookie XSS protection.
-        const cookieMiddleware = jwt({
-            secret,
-            alg: 'HS256',
-            cookie: 'accessToken'
-        });
-
+        // Dual-Auth Support for Mobile / Web SPAs
+        const authHeader = c.req.header('Authorization');
+        
+        let dynamicMiddleware;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            dynamicMiddleware = jwt({ secret, alg: 'HS256' }); // Automatically parses header
+        } else {
+            dynamicMiddleware = jwt({ secret, alg: 'HS256', cookie: 'accessToken' });
+        }
 
         try {
-            await cookieMiddleware(c, async () => { });
+            await dynamicMiddleware(c, async () => { });
         } catch (e) {
             console.error("REQUIRE_AUTH ERROR:", e);
             return c.json({ error: 'Unauthorized', message: 'Valid session not found' }, 401);

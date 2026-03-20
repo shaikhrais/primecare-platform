@@ -37,15 +37,17 @@ class ApiClient {
         throw Exception('Server returned ${response.statusCode}');
       }
     } catch (e) {
-      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint to Local SQLite Engine.');
-      await SqliteDatabaseHelper.instance.insertPayload({
-        'id': const Uuid().v4(),
-        'httpMethod': 'POST',
-        'endpointUrl': endpoint,
-        'jsonPayload': jsonEncode(body),
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'retryCount': 0,
-      });
+      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint.');
+      if (!kIsWeb) {
+        await SqliteDatabaseHelper.instance.insertPayload({
+          'id': const Uuid().v4(),
+          'httpMethod': 'POST',
+          'endpointUrl': endpoint,
+          'jsonPayload': jsonEncode(body),
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+          'retryCount': 0,
+        });
+      }
       return {'success': true, 'offline_queued': true, 'message': 'Saved locally. Will sync when online.'};
     }
   }
@@ -65,15 +67,17 @@ class ApiClient {
         throw Exception('Server returned ${response.statusCode}');
       }
     } catch (e) {
-      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint to Local SQLite Engine.');
-      await SqliteDatabaseHelper.instance.insertPayload({
-        'id': const Uuid().v4(),
-        'httpMethod': 'PUT',
-        'endpointUrl': endpoint,
-        'jsonPayload': jsonEncode(body),
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'retryCount': 0,
-      });
+      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint.');
+      if (!kIsWeb) {
+        await SqliteDatabaseHelper.instance.insertPayload({
+          'id': const Uuid().v4(),
+          'httpMethod': 'PUT',
+          'endpointUrl': endpoint,
+          'jsonPayload': jsonEncode(body),
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+          'retryCount': 0,
+        });
+      }
       return {'success': true, 'offline_queued': true, 'message': 'Profile Update saved offline. Will sync when online.'};
     }
   }
