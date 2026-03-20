@@ -13,10 +13,10 @@ class PswDashboardScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       body: Column(
         children: [
-          StreamBuilder<List<ConnectivityResult>>(
+          StreamBuilder<ConnectivityResult>(
             stream: Connectivity().onConnectivityChanged,
             builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.contains(ConnectivityResult.none)) {
+              if (snapshot.hasData && snapshot.data == ConnectivityResult.none) {
                 return const OfflineBanner();
               }
               return const SizedBox.shrink();

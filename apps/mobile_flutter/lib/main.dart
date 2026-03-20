@@ -314,6 +314,15 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+      // --- MASSAGE THERAPIST (MT) CLINICAL ROUTES ---
+      GoRoute(path: '/mt/client-profile', builder: (context, state) => const MtClientProfileScreen()),
+      GoRoute(path: '/mt/soap-notes', builder: (context, state) => const MtSoapNotesScreen()),
+      GoRoute(path: '/mt/intake-forms', builder: (context, state) => const MtIntakeFormsScreen()),
+      GoRoute(path: '/mt/invoice', builder: (context, state) => const MtInvoiceScreen()),
+      GoRoute(path: '/mt/earnings', builder: (context, state) => const MtEarningsScreen()),
+      GoRoute(path: '/mt/availability', builder: (context, state) => const MtAvailabilityScreen()),
+      GoRoute(path: '/mt/credentials', builder: (context, state) => const MtCredentialsScreen()),
+
       // General Manager (GM) Executive Shell (Phase 45)
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

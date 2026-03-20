@@ -21,7 +21,7 @@ class MtDashboardScreen extends StatelessWidget {
             children: [
               _buildTherapistHeader(),
               const SizedBox(height: 24),
-              const Text('TODAY\\'S MASSAGE BOOKINGS', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+              const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
               const SizedBox(height: 16),
               _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
               _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),

@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiClient {
   // Mobile Android Emulator bypasses DNS limits using Loopback bindings
-  static const String baseUrl = 'http://10.0.2.2:8787'; 
+  static const String baseUrl = 'https://primecare-api.itpro-mohammed.workers.dev'; 
 
   Future<Map<String, String>> _getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
