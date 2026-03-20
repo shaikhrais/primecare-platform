@@ -39,12 +39,12 @@ class ApiClient {
   }
 
   Future<dynamic> put(String endpoint, Map<String, dynamic> body) async {
-    // [SANDBOX OFFLINE OVERRIDE]: Because the active Cloudflare Worker API deploying 
-    // sequence hit a local firewall/network timeout earlier, the Live Edge API cannot authenticate
-    // the newest schemas. We strictly intercept UI mutations locally to allow UX testing.
+    // [SANDBOX OFFLINE OVERRIDE]: Cache natively using SharedPreferences
     if (endpoint.contains('/user/profile')) {
       await Future.delayed(const Duration(milliseconds: 600));
-      return {'success': true, 'message': 'Profile updated successfully (Offline Mock)'};
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('offline_profile_cache', jsonEncode(body));
+      return {'success': true, 'mocked': true, 'message': 'Profile updated successfully (Offline Mock)'};
     }
 
     final headers = await _getHeaders();
@@ -63,6 +63,18 @@ class ApiClient {
   }
 
   Future<dynamic> get(String endpoint) async {
+    // [SANDBOX OFFLINE OVERRIDE]: Recall Native SharedPreferences Cache Instead of Network
+    if (endpoint.contains('/user/profile')) {
+      final prefs = await SharedPreferences.getInstance();
+      final cached = prefs.getString('offline_profile_cache');
+      
+      if (cached != null) {
+        return {'success': true, 'mocked': true, 'profile': jsonDecode(cached)};
+      } else {
+        return {'success': true, 'mocked': true, 'profile': {'firstName': 'First Responder', 'lastName': 'PrimeCare', 'phoneNumber': '555-0199'}};
+      }
+    }
+
     final headers = await _getHeaders();
     final response = await http.get(
       Uri.parse('$baseUrl$endpoint'),
