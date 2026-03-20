@@ -25,6 +25,7 @@ import 'features/rn/rn_shell_screen.dart';
 import 'features/rn/rn_dashboard_screen.dart';
 import 'features/coordinator/coordinator_shell_screen.dart';
 import 'features/coordinator/coordinator_dashboard_screen.dart';
+import 'features/coordinator/coordinator_jane_matrix_screen.dart';
 import 'features/coordinator/coordinator_live_map_screen.dart';
 import 'features/coordinator/coordinator_jane_scheduler_screen.dart';
 import 'features/manager/manager_shell_screen.dart';
@@ -40,6 +41,15 @@ import 'features/gm/gm_dashboard_screen.dart';
 import 'features/gm/gm_marketing_hub_screen.dart';
 import 'features/gm/gm_cost_reduction_screen.dart';
 import 'features/gm/gm_expansion_wizard.dart';
+import 'features/mt/mt_shell_screen.dart';
+import 'features/mt/mt_dashboard_screen.dart';
+import 'features/mt/mt_client_profile_screen.dart';
+import 'features/mt/mt_soap_notes_screen.dart';
+import 'features/mt/mt_intake_forms_screen.dart';
+import 'features/mt/mt_invoice_screen.dart';
+import 'features/mt/mt_earnings_screen.dart';
+import 'features/mt/mt_availability_screen.dart';
+import 'features/mt/mt_credentials_screen.dart';
 import 'core/network/offline_sync_manager.dart';
 
 void main() {
@@ -63,6 +73,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (hasToken && (isLoggingIn || isGenericDashboard)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
+          case 'mt': return '/mt/dashboard';
           case 'gm':
           case 'general_manager': return '/gm/dashboard';
           case 'scrum_master': return '/scrum-master/dashboard';
@@ -185,7 +196,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/dashboard',
-                builder: (context, state) => const CoordinatorDashboardScreen(),
+                builder: (context, state) => const CoordinatorJaneMatrixScreen(),
               ),
             ],
           ),
@@ -338,6 +349,38 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/gm/expand',
                 builder: (context, state) => const GmExpansionWizardScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      // Massage Therapist (MT) Shell
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return MtShellScreen(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/mt/dashboard',
+                builder: (context, state) => const MtDashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/mt/clients',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('MT Clients Active'))),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/mt/messages',
+                builder: (context, state) => const Scaffold(body: Center(child: Text('MT Messages Active'))),
               ),
             ],
           ),

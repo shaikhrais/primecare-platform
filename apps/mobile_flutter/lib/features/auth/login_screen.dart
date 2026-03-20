@@ -33,6 +33,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         final prefs = await SharedPreferences.getInstance();
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
+          case 'mt':
+            context.go('/mt/dashboard');
+            break;
           case 'gm':
           case 'general_manager':
             context.go('/gm/dashboard');
