@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'psw_video_training_screen.dart';
 
@@ -25,8 +26,7 @@ class PswTrainingScreen extends StatelessWidget {
         centerTitle: false,
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 120),
         child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class ClientDashboardScreen extends StatelessWidget {
   const ClientDashboardScreen({super.key});
@@ -8,8 +9,7 @@ class ClientDashboardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
         child: Column(

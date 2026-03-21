@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,8 +23,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: CustomScrollView(
             slivers: [
           SliverAppBar(

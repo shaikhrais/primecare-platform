@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -67,8 +68,7 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
         leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF10B981)), onPressed: () => context.pop()),
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: AnimationLimiter(

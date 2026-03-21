@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
 class PswClient360Screen extends StatelessWidget {
@@ -13,8 +14,7 @@ class PswClient360Screen extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$clientName - 360°'),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

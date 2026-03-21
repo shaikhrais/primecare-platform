@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -62,8 +63,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
         title: const Text('My Daily Timeline', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: CustomScrollView(
         slivers: [
           // Max Schedule Toggle Component

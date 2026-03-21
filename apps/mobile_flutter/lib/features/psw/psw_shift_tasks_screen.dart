@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
@@ -27,8 +28,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: const PrimeCareAppBar(title: 'Schedule Tasks'),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: CustomScrollView(
         slivers: [
           // Apple Watch Style Completion Rings Tracker

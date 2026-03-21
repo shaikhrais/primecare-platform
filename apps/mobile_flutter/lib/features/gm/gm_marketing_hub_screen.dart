@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class GmMarketingHubScreen extends StatelessWidget {
   const GmMarketingHubScreen({super.key});
@@ -13,8 +14,7 @@ class GmMarketingHubScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: ListView(
         padding: const EdgeInsets.all(24),
         children: [

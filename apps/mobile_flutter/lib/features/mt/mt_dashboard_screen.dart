@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:go_router/go_router.dart';
 
 class MtDashboardScreen extends StatelessWidget {
@@ -19,8 +20,7 @@ class MtDashboardScreen extends StatelessWidget {
           
           if (isDesktop) {
             return Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1200),
+              child: DesktopPaneWrapper(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,8 +75,7 @@ class MtDashboardScreen extends StatelessWidget {
           }
           
           return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 600),
+            child: DesktopPaneWrapper(
               child: ListView(
                 padding: const EdgeInsets.all(20),
                 children: [

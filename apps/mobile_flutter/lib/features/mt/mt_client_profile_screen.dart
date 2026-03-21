@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:go_router/go_router.dart';
 
 class MtClientProfileScreen extends StatelessWidget {
@@ -15,8 +16,7 @@ class MtClientProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xFF0F172A)),
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800), // Desktop Responsive
+        child: DesktopPaneWrapper( // Desktop Responsive
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [

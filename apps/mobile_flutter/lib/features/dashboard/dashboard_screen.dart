@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
 
@@ -90,8 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

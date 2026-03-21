@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
+import '../../core/widgets/components/primecare_ui.dart';
 
 class PswProfileScreen extends StatefulWidget {
   const PswProfileScreen({super.key});
@@ -173,11 +175,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: SingleChildScrollView(
+      body: DesktopPaneWrapper(
+        child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
             child: Form(
               key: _formKey,
@@ -193,15 +192,15 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 56,
-                        backgroundColor: const Color(0xFFE0F2FE),
+                        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(20),
                         backgroundImage: _profileImageBytes != null ? MemoryImage(_profileImageBytes!) : null,
                         child: _profileImageBytes == null 
-                            ? const Icon(Icons.badge, size: 48, color: Color(0xFF0EA5E9))
+                            ? Icon(Icons.badge, size: 48, color: Theme.of(context).colorScheme.primary)
                             : null,
                       ),
                       Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF0EA5E9),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
                           shape: BoxShape.circle,
                         ),
                         padding: const EdgeInsets.all(8),
@@ -213,49 +212,30 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               ),
               const SizedBox(height: 32),
               
-              const Text('Personal Information', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
+              const PrimeCareSectionHeader(title: 'Personal Information'),
               const SizedBox(height: 16),
               
-              TextFormField(
+              PrimeCareTextField(
                 controller: _firstNameController,
-                decoration: InputDecoration(
-                  labelText: 'First Name',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                ),
+                label: 'First Name',
                 validator: (val) => val == null || val.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 16),
 
-              TextFormField(
+              PrimeCareTextField(
                 controller: _lastNameController,
-                decoration: InputDecoration(
-                  labelText: 'Last Name',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                ),
+                label: 'Last Name',
               ),
               const SizedBox(height: 16),
 
-              TextFormField(
+              PrimeCareTextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelText: 'Contact Number',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                  prefixIcon: const Icon(Icons.phone, color: Color(0xFF94A3B8)),
-                ),
+                label: 'Contact Number',
               ),
               const SizedBox(height: 32),
 
-              const Text('Work Preferences', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
+              const PrimeCareSectionHeader(title: 'Work Preferences'),
               const SizedBox(height: 16),
 
               DropdownButtonFormField<String>(
@@ -280,46 +260,30 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               
               const SizedBox(height: 48),
 
-              ElevatedButton(
+              PrimeCareButton(
                 onPressed: _isSaving ? null : _handleSave,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF10B981),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  elevation: 0,
-                ),
-                child: _isSaving 
-                  ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                  : const Text('Save Profile Updates', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                text: 'Save Profile Updates',
+                isPrimary: true,
+                isLoading: _isSaving,
               ),
               const SizedBox(height: 16),
               
-              OutlinedButton.icon(
+              PrimeCareButton(
                 onPressed: _showChangePasswordDialog,
-                icon: const Icon(Icons.security, color: Color(0xFF0F172A)),
-                label: const Text('Change Security Password', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  side: const BorderSide(color: Color(0xFFCBD5E1)),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
+                text: 'Change Security Password',
+                isPrimary: false,
+                icon: Icons.security,
               ),
               const SizedBox(height: 16),
-              OutlinedButton.icon(
+              PrimeCareButton(
                 onPressed: () => _handleLogout(context),
-                icon: const Icon(Icons.logout, color: Color(0xFFE11D48)),
-                label: const Text('Sign Out of Application', style: TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.bold)),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  side: const BorderSide(color: Color(0xFFE11D48)),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
+                text: 'Sign Out of Application',
+                isPrimary: false,
+                icon: Icons.logout,
               ),
             ],
           ),
         ),
-      ),
       ),
       ),
     );

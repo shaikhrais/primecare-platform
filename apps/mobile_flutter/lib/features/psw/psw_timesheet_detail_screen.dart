@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
 class PswTimesheetDetailScreen extends StatelessWidget {
@@ -19,8 +20,7 @@ class PswTimesheetDetailScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$date Shift Details'),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class MtCredentialsScreen extends StatelessWidget {
   const MtCredentialsScreen({super.key});
@@ -14,8 +15,7 @@ class MtCredentialsScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xFF0F172A)),
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [

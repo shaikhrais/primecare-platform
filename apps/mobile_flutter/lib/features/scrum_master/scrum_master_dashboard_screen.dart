@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class ScrumMasterDashboardScreen extends StatelessWidget {
   const ScrumMasterDashboardScreen({super.key});
@@ -13,8 +14,7 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
         child: Column(

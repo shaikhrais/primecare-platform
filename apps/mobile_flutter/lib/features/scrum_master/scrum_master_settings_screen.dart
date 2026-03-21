@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class ScrumMasterSettingsScreen extends StatefulWidget {
   const ScrumMasterSettingsScreen({super.key});
@@ -22,8 +23,7 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
         elevation: 0,
       ),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: ListView(
         padding: const EdgeInsets.all(24),
         children: [

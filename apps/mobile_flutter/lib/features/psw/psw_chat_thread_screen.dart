@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/widgets/primecare_app_bar.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class PswChatThreadScreen extends StatelessWidget {
   final String threadId;
@@ -10,70 +11,64 @@ class PswChatThreadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: title),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
-          child: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(24),
-              children: [
-                _buildReceivedBubble(
-                  'Hey! We have an urgent shift coverage needed for Eliza Thornberry today due to a cancellation.', 
-                  '10:42 AM'
-                ),
-                const SizedBox(height: 24),
-                // Native Physical Integration Widget (Drill-Down Component)
-                _buildPhysicalShiftWidget(context),
-              ],
-            ),
-          ),
-          
-          // Chat Input Area
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
-            ),
-            child: SafeArea(
-              child: Row(
+      body: DesktopPaneWrapper(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(24),
                 children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF1F5F9),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: const Color(0xFFE2E8F0)),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Type your message...',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: Color(0xFF94A3B8)),
-                        ),
-                      ),
-                    ),
+                  _buildReceivedBubble(
+                    'Hey! We have an urgent shift coverage needed for Eliza Thornberry today due to a cancellation.', 
+                    '10:42 AM'
                   ),
-                  const SizedBox(width: 16),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF10B981),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.send_rounded, color: Colors.white, size: 24),
-                  )
+                  const SizedBox(height: 24),
+                  _buildPhysicalShiftWidget(context),
                 ],
               ),
             ),
-          )
-        ],
-      )
+            
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
+              ),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF1F5F9),
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                        ),
+                        child: const TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Type your message...',
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(color: Color(0xFF94A3B8)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF10B981),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.send_rounded, color: Colors.white, size: 24),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -142,7 +137,6 @@ class PswChatThreadScreen extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                         // SnackBar trigger accepting shift natively
                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Shift Accepted. Added to Dashboard.')));
                       },
                       style: ElevatedButton.styleFrom(

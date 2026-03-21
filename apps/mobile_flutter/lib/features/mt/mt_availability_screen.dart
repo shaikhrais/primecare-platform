@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class MtAvailabilityScreen extends StatelessWidget {
   const MtAvailabilityScreen({super.key});
@@ -8,8 +9,7 @@ class MtAvailabilityScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+        child: DesktopPaneWrapper(
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [

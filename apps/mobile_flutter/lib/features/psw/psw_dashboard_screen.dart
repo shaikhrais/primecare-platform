@@ -11,8 +11,11 @@ class PswDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      // Scaffold automatically inherits scaffoldBackgroundColor from theme.dart
       body: Column(
         children: [
           StreamBuilder<ConnectivityResult>(
@@ -26,138 +29,142 @@ class PswDashboardScreen extends StatelessWidget {
           ),
           Expanded(
             child: CustomScrollView(
-                  slivers: [
-          // Sticky Massive Geometric Header
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 140,
-            backgroundColor: const Color(0xFFF8FAFC),
-            surfaceTintColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              title: Text(
-                AppStrings.myShiftsTitle,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined, size: 30),
-                onPressed: () {},
-                color: const Color(0xFF0F172A),
-              ),
-              const SizedBox(width: 12),
-            ],
-          ),
-
-          // Glassmorphic Surge Alert Component
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: const Color(0x1510B981), // Glassmorphic Emerald Overlay
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0x3310B981)),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(Icons.bolt, color: Color(0xFF10B981), size: 28),
+              slivers: [
+                SliverAppBar(
+                  pinned: true,
+                  expandedHeight: 140,
+                  // AppBar inherits automatically from theme.dart
+                  flexibleSpace: FlexibleSpaceBar(
+                    titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    title: Text(
+                      AppStrings.myShiftsTitle,
+                      style: theme.textTheme.headlineLarge,
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.notifications_outlined, size: 30),
+                      onPressed: () {},
+                      color: colorScheme.primary,
+                    ),
+                    const SizedBox(width: 12),
+                  ],
+                ),
+
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: colorScheme.secondary.withAlpha(20),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: colorScheme.secondary.withAlpha(50)),
+                      ),
+                      child: Row(
                         children: [
-                          Text(AppStrings.highDemandAlertTitle, style: Theme.of(context).textTheme.titleLarge),
-                          const SizedBox(height: 4),
-                          const Text(
-                            AppStrings.highDemandAlertDesc,
-                            style: TextStyle(color: Color(0xFF475569), fontSize: 14),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: colorScheme.surface,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.bolt, color: colorScheme.secondary, size: 28),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(AppStrings.highDemandAlertTitle, style: theme.textTheme.titleLarge),
+                                const SizedBox(height: 4),
+                                Text(
+                                  AppStrings.highDemandAlertDesc,
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _StickyDateDelegate(
+                    child: Container(
+                      color: theme.scaffoldBackgroundColor,
+                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+                      child: Row(
+                        children: [
+                          Text(AppStrings.today, style: theme.textTheme.titleLarge),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: colorScheme.primary.withAlpha(20),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              AppStrings.shiftCountLabel, 
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: colorScheme.primary, 
+                                fontWeight: FontWeight.bold
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Pinned Sticky Date Filter
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: _StickyDateDelegate(
-              child: Container(
-                color: const Color(0xFFF8FAFC),
-                padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-                child: Row(
-                  children: [
-                    const Text(AppStrings.today, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE2E8F0),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text(AppStrings.shiftCountLabel, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Responsive Grid for Wide Screens
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            sliver: SliverLayoutBuilder(
-              builder: (BuildContext context, SliverConstraints constraints) {
-                if (constraints.crossAxisExtent > 800) {
-                  return SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: (constraints.crossAxisExtent / 400).floor(),
-                      mainAxisSpacing: 16.0,
-                      crossAxisSpacing: 16.0,
-                      childAspectRatio: 2.2,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => _buildShiftCard(context, index),
-                      childCount: 3,
-                    ),
-                  );
-                }
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: _buildShiftCard(context, index),
-                    ),
-                    childCount: 3,
                   ),
-                );
-              },
+                ),
+
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  sliver: SliverLayoutBuilder(
+                    builder: (BuildContext context, SliverConstraints constraints) {
+                      if (constraints.crossAxisExtent > 800) {
+                        return SliverGrid(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: (constraints.crossAxisExtent / 400).floor(),
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
+                            childAspectRatio: 2.2,
+                          ),
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => _buildShiftCard(context, index),
+                            childCount: 3,
+                          ),
+                        );
+                      }
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: _buildShiftCard(context, index),
+                          ),
+                          childCount: 3,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                
+                const SliverToBoxAdapter(child: SizedBox(height: 80)),
+              ],
             ),
           ),
-          
-          const SliverToBoxAdapter(child: SizedBox(height: 80)), // Padding for bottom nav
-        ],
-      ),
-            ),
         ],
       ),
     );
   }
 
   Widget _buildShiftCard(BuildContext context, int index) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return AnimationConfiguration.staggeredList(
       position: index,
       duration: const Duration(milliseconds: 500),
@@ -167,13 +174,13 @@ class PswDashboardScreen extends StatelessWidget {
           child: Dismissible(
             key: Key('shift_$index'),
             background: Container(
-              decoration: BoxDecoration(color: const Color(0xFF10B981), borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(color: colorScheme.secondary, borderRadius: BorderRadius.circular(20)),
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(left: 24),
               child: const Icon(Icons.check, color: Colors.white, size: 36),
             ),
             secondaryBackground: Container(
-              decoration: BoxDecoration(color: const Color(0xFFF59E0B), borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(color: colorScheme.primary, borderRadius: BorderRadius.circular(20)),
               alignment: Alignment.centerRight,
               padding: const EdgeInsets.only(right: 24),
               child: const Icon(Icons.handshake, color: Colors.white, size: 36),
@@ -182,51 +189,48 @@ class PswDashboardScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: const Text(AppStrings.shiftAckSuccess),
-                  backgroundColor: const Color(0xFF0F172A),
+                  backgroundColor: colorScheme.primary,
                   duration: const Duration(seconds: 4),
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  action: SnackBarAction(label: AppStrings.undo, textColor: const Color(0xFF10B981), onPressed: (){}),
+                  action: SnackBarAction(label: AppStrings.undo, textColor: colorScheme.secondary, onPressed: (){}),
                 )
               );
             },
             child: InkWell(
               onTap: () => context.push('/psw/live-visit/uuid-shift-$index'),
               borderRadius: BorderRadius.circular(20),
-              child: Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFFE2E8F0)),
-                  boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('10:00 AM - 2:00 PM', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A), fontSize: 18)),
-                        Icon(Icons.chevron_right, color: Color(0xFFCBD5E1), size: 28),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: const [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Color(0xFFDBEAFE),
-                          child: Icon(Icons.person, color: Color(0xFF3B82F6), size: 18),
-                        ),
-                        SizedBox(width: 12),
-                        Text('Sarah Jenkins', style: TextStyle(color: Color(0xFF475569), fontSize: 16, fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    const Text('123 Main St, Unit 4B, Toronto ON', style: TextStyle(color: Color(0xFF64748B), fontSize: 14)),
-                  ],
+              child: Card(
+                // Inherits pure white coloring and soft shadow mapping from theme.dart natively
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('10:00 AM - 2:00 PM', style: theme.textTheme.titleLarge?.copyWith(fontSize: 18)),
+                          Icon(Icons.chevron_right, color: theme.dividerColor, size: 28),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: colorScheme.primary.withAlpha(30),
+                            child: Icon(Icons.person, color: colorScheme.primary, size: 18),
+                          ),
+                          const SizedBox(width: 12),
+                          Text('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -254,6 +258,6 @@ class _StickyDateDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(_StickyDateDelegate oldDelegate) {
-    return false;
+    return child != oldDelegate.child;
   }
 }
