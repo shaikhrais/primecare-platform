@@ -191,7 +191,7 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   action: 'action',
   resourceType: 'resourceType',
   resourceId: 'resourceId',
-  metadataString: 'metadataString',
+  metadata: 'metadata',
   deviceId: 'deviceId',
   ipAddress: 'ipAddress',
   createdAt: 'createdAt',
@@ -329,6 +329,77 @@ exports.Prisma.MessageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PlatformRoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isCustom: 'isCustom',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RoleScreenAccessScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  screenRoute: 'screenRoute',
+  canRead: 'canRead',
+  canWrite: 'canWrite'
+};
+
+exports.Prisma.CrisisProtocolScalarFieldEnum = {
+  id: 'id',
+  scenarioName: 'scenarioName',
+  triggerEvent: 'triggerEvent',
+  severity: 'severity',
+  isActive: 'isActive',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProtocolResolutionScalarFieldEnum = {
+  id: 'id',
+  protocolId: 'protocolId',
+  actionType: 'actionType',
+  escalateToRoleId: 'escalateToRoleId',
+  uiOverrideKey: 'uiOverrideKey',
+  orderIndex: 'orderIndex'
+};
+
+exports.Prisma.EcosystemStateOverrideScalarFieldEnum = {
+  id: 'id',
+  globalStateMacro: 'globalStateMacro',
+  isActive: 'isActive',
+  payMultiplier: 'payMultiplier',
+  forceOfflineMode: 'forceOfflineMode',
+  filterTriageOnly: 'filterTriageOnly',
+  activatedAt: 'activatedAt',
+  activatedByUserId: 'activatedByUserId'
+};
+
+exports.Prisma.UserReputationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  eliteStatus: 'eliteStatus',
+  permanentMultiplier: 'permanentMultiplier',
+  crisesResolved: 'crisesResolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EcosystemAutopilotConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  isActive: 'isActive',
+  maxDailySurgeBudget: 'maxDailySurgeBudget',
+  currentDailySurgeSpend: 'currentDailySurgeSpend',
+  marginFreezeThreshold: 'marginFreezeThreshold',
+  lastCronRun: 'lastCronRun',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ClientProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -357,9 +428,10 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   bio: 'bio',
   languages: 'languages',
   serviceAreas: 'serviceAreas',
-  availabilityString: 'availabilityString',
+  availabilityJson: 'availabilityJson',
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
+  trustScore: 'trustScore',
   createdAt: 'createdAt',
   tenantId: 'tenantId',
   address: 'address',
@@ -445,7 +517,7 @@ exports.Prisma.VisitChecklistScalarFieldEnum = {
   id: 'id',
   visitId: 'visitId',
   pswId: 'pswId',
-  checklistString: 'checklistString',
+  checklist: 'checklist',
   createdAt: 'createdAt'
 };
 
@@ -1440,6 +1512,15 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1448,6 +1529,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 
@@ -1467,6 +1554,13 @@ exports.Prisma.ModelName = {
   RegistryEntry: 'RegistryEntry',
   MessageThread: 'MessageThread',
   Message: 'Message',
+  PlatformRole: 'PlatformRole',
+  RoleScreenAccess: 'RoleScreenAccess',
+  CrisisProtocol: 'CrisisProtocol',
+  ProtocolResolution: 'ProtocolResolution',
+  EcosystemStateOverride: 'EcosystemStateOverride',
+  UserReputation: 'UserReputation',
+  EcosystemAutopilotConfig: 'EcosystemAutopilotConfig',
   ClientProfile: 'ClientProfile',
   PswProfile: 'PswProfile',
   Visit: 'Visit',

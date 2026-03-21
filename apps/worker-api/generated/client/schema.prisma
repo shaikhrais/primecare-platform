@@ -62,6 +62,7 @@ model User {
   iotEvents                  IoTEvent[]
   appNotifications           AppNotification[]
   gamificationProfile        GamificationProfile?
+  reputation                 UserReputation?
 
   @@index([tenantId])
   @@map("users")
@@ -130,8 +131,8 @@ model Tenant {
   businessNumber  String? @map("business_number")
   supportEmail    String? @map("support_email")
   logoUrl         String? @map("logo_url")
-  taxSettings     String? @map("tax_settings")
-  brandingConfig  String? @map("branding_config")
+  taxSettings     Json?   @map("tax_settings")
+  brandingConfig  Json?   @map("branding_config")
   stripeAccountId String? @map("stripe_account_id")
   onboardingStep  Int     @default(1) @map("onboarding_step")
 
@@ -142,9 +143,9 @@ model Tenant {
   maxDevicesPerUser     Int     @default(5) @map("max_devices_per_user")
 
   // Runtime CORS Configuration
-  corsAllowedOrigins String   @map("cors_allowed_origins")
-  corsAllowedMethods String   @map("cors_allowed_methods")
-  corsAllowedHeaders String   @map("cors_allowed_headers")
+  corsAllowedOrigins Json     @map("cors_allowed_origins")
+  corsAllowedMethods Json     @map("cors_allowed_methods")
+  corsAllowedHeaders Json     @map("cors_allowed_headers")
   taxPercentage      Decimal? @map("tax_percentage")
 
   // Fractal SaaS Extensions
@@ -183,6 +184,7 @@ model Tenant {
   performanceReviews    PerformanceReview[]
   webhookEndpoints      WebhookEndpoint[]
   staffGroups           StaffGroup[]
+  platformRoles         PlatformRole[]
 
   @@map("tenants")
 }
@@ -222,20 +224,22 @@ model ApiKey {
 }
 
 model AuditLog {
-  id             String   @id @default(uuid())
-  actorUserId    String?  @map("actor_user_id")
-  action         String
-  resourceType   String   @map("resource_type")
-  resourceId     String?  @map("resource_id")
-  metadataString String?  @map("metadata_json")
-  deviceId       String?  @map("device_id")
-  ipAddress      String?  @map("ip_address")
-  createdAt      DateTime @default(now()) @map("created_at")
-  tenantId       String   @map("tenant_id")
-  actor          User?    @relation(fields: [actorUserId], references: [id])
-  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+  id           String   @id @default(uuid())
+  actorUserId  String?  @map("actor_user_id")
+  action       String
+  resourceType String   @map("resource_type")
+  resourceId   String?  @map("resource_id")
+  metadata     Json?    @map("metadata_json")
+  deviceId     String?  @map("device_id")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+  tenantId     String   @map("tenant_id")
+  actor        User?    @relation(fields: [actorUserId], references: [id])
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
+  @@index([tenantId, createdAt])
+  @@index([actorUserId])
   @@index([deviceId])
   @@map("audit_logs")
 }
@@ -246,8 +250,8 @@ model SystemEvent {
   operation        String // CREATE, UPDATE, DELETE
   modelName        String   @map("model_name")
   entityId         String?  @map("entity_id")
-  payload          String?
-  previousData     String?  @map("previous_data")
+  payload          Json?
+  previousData     Json?    @map("previous_data")
   actorUserId      String?  @map("actor_user_id")
   deviceId         String?  @map("device_id")
   ipAddress        String?  @map("ip_address")
@@ -412,6 +416,106 @@ model Message {
 }
 
 // ==========================================
+// ECOSYSTEM ENGINE (Phase 66, 67, 68)
+// ==========================================
+
+model PlatformRole {
+  id           String               @id @default(uuid())
+  name         String               @unique // e.g., 'PSW', 'COORDINATOR', 'RN', 'GM'
+  description  String?
+  isCustom     Boolean              @default(false) @map("is_custom")
+  tenantId     String?              @map("tenant_id")
+  tenant       Tenant?              @relation(fields: [tenantId], references: [id])
+  screenAccess RoleScreenAccess[]
+  resolutions  ProtocolResolution[] @relation("EscalationRoles")
+  createdAt    DateTime             @default(now()) @map("created_at")
+  updatedAt    DateTime             @updatedAt @map("updated_at")
+
+  @@map("platform_roles")
+}
+
+model RoleScreenAccess {
+  id          String       @id @default(uuid())
+  roleId      String       @map("role_id")
+  screenRoute String       @map("screen_route") // e.g., '/coordinator/live-map'
+  canRead     Boolean      @default(true) @map("can_read")
+  canWrite    Boolean      @default(false) @map("can_write")
+  role        PlatformRole @relation(fields: [roleId], references: [id])
+
+  @@unique([roleId, screenRoute])
+  @@map("role_screen_access")
+}
+
+model CrisisProtocol {
+  id           String               @id @default(uuid())
+  scenarioName String               @map("scenario_name") // e.g., 'Wi-Fi Drops'
+  triggerEvent String               @unique @map("trigger_event") // e.g., 'EVV_CHECKOUT_TIMEOUT'
+  severity     String               @default("medium")
+  isActive     Boolean              @default(true) @map("is_active")
+  tenantId     String?              @map("tenant_id")
+  resolutions  ProtocolResolution[]
+  createdAt    DateTime             @default(now()) @map("created_at")
+
+  @@map("crisis_protocols")
+}
+
+model ProtocolResolution {
+  id               String  @id @default(uuid())
+  protocolId       String  @map("protocol_id")
+  actionType       String  @map("action_type") // e.g., 'ENABLE_SQLITE_BUFFER', 'ACTIVATE_WEB_RTC'
+  escalateToRoleId String? @map("escalate_to_role_id")
+  uiOverrideKey    String? @map("ui_override_key") // e.g., 'RED_SOS_BANNER'
+  orderIndex       Int     @default(0) @map("order_index")
+
+  protocol       CrisisProtocol @relation(fields: [protocolId], references: [id])
+  escalateToRole PlatformRole?  @relation("EscalationRoles", fields: [escalateToRoleId], references: [id])
+
+  @@map("protocol_resolutions")
+}
+
+model EcosystemStateOverride {
+  id                String    @id @default(uuid())
+  globalStateMacro  String    @unique @map("global_state_macro") // e.g., 'SEVERE_STAFF_SHORTAGE', 'CODE_BLACK'
+  isActive          Boolean   @default(false) @map("is_active")
+  payMultiplier     Decimal?  @default(1.0) @map("pay_multiplier")
+  forceOfflineMode  Boolean   @default(false) @map("force_offline_mode")
+  filterTriageOnly  Boolean   @default(false) @map("filter_triage_only")
+  activatedAt       DateTime? @map("activated_at")
+  activatedByUserId String?   @map("activated_by_user_id")
+
+  @@map("ecosystem_state_overrides")
+}
+
+model UserReputation {
+  id                  String   @id @default(uuid())
+  userId              String   @unique @map("user_id")
+  points              Int      @default(0)
+  eliteStatus         Boolean  @default(false) @map("elite_status")
+  permanentMultiplier Decimal  @default(1.0) @map("permanent_multiplier")
+  crisesResolved      Int      @default(0) @map("crises_resolved")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_reputations")
+}
+
+model EcosystemAutopilotConfig {
+  id                     String    @id @default(uuid())
+  tenantId               String    @unique @map("tenant_id")
+  isActive               Boolean   @default(true) @map("is_active")
+  maxDailySurgeBudget    Decimal   @default(200.0) @map("max_daily_surge_budget")
+  currentDailySurgeSpend Decimal   @default(0.0) @map("current_daily_surge_spend")
+  marginFreezeThreshold  Decimal   @default(25.0) @map("margin_freeze_threshold")
+  lastCronRun            DateTime? @map("last_cron_run")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+
+  @@map("ecosystem_autopilot_configs")
+}
+
+// ==========================================
 // CARE DELIVERY MODELS
 // ==========================================
 
@@ -429,7 +533,7 @@ model ClientProfile {
   lng                   Float?
   emergencyName         String?                @map("emergency_contact_name")
   emergencyPhone        String?                @map("emergency_contact_phone")
-  preferences           String?                @map("preferences_json")
+  preferences           Json?                  @map("preferences_json")
   createdAt             DateTime               @default(now()) @map("created_at")
   updatedAt             DateTime               @updatedAt @map("updated_at")
   tenantId              String                 @map("tenant_id")
@@ -473,9 +577,10 @@ model PswProfile {
   bio                String?
   languages          String
   serviceAreas       String                 @map("service_areas")
-  availabilityString String?                @map("availability_json")
+  availabilityJson   Json?                  @map("availability_json")
   isApproved         Boolean                @default(false) @map("is_approved")
   approvedAt         DateTime?              @map("approved_at")
+  trustScore         Int                    @default(100) @map("trust_score")
   createdAt          DateTime               @default(now()) @map("created_at")
   tenantId           String                 @map("tenant_id")
   address            String?
@@ -554,6 +659,9 @@ model Visit {
   dailyAuditSignOff    DailyAuditSignOff?
 
   @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, assignedPswId])
+  @@index([tenantId, requestedStartAt])
   @@map("visits")
 }
 
@@ -617,13 +725,13 @@ model VisitNote {
 }
 
 model VisitChecklist {
-  id              String     @id @default(uuid())
-  visitId         String     @map("visit_id")
-  pswId           String     @map("psw_id")
-  checklistString String     @map("checklist_json")
-  createdAt       DateTime   @default(now()) @map("created_at")
-  psw             PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
-  visit           Visit      @relation(fields: [visitId], references: [id])
+  id        String     @id @default(uuid())
+  visitId   String     @map("visit_id")
+  pswId     String     @map("psw_id")
+  checklist Json       @map("checklist_json")
+  createdAt DateTime   @default(now()) @map("created_at")
+  psw       PswProfile @relation("PswToChecklists", fields: [pswId], references: [id])
+  visit     Visit      @relation(fields: [visitId], references: [id])
 
   @@map("visit_checklists")
 }
@@ -658,7 +766,7 @@ model DailyEntry {
   clientId   String        @map("client_id")
   staffId    String        @map("staff_id")
   visitId    String?       @map("visit_id")
-  adlData    String        @map("adl_data")
+  adlData    Json          @map("adl_data")
   medication String?
   mood       Int?
   vitals     String?
@@ -988,7 +1096,7 @@ model ClinicalAssessment {
   rnId            String   @map("rn_id")
   tenantId        String   @map("tenant_id")
   type            String // ADL, MOBILITY, COGNITIVE, etc.
-  assessmentData  String   @map("assessment_data")
+  assessmentData  Json     @map("assessment_data")
   score           Int?
   recommendations String?
   createdAt       DateTime @default(now()) @map("created_at")
@@ -1007,7 +1115,7 @@ model MedicationRecon {
   clientId      String   @map("client_id")
   rnId          String   @map("rn_id")
   tenantId      String   @map("tenant_id")
-  reconData     String   @map("recon_data")
+  reconData     Json     @map("recon_data")
   discrepancies String?
   status        String   @default("completed") // completed, pending_review
   createdAt     DateTime @default(now()) @map("created_at")
@@ -1593,7 +1701,7 @@ model Survey {
   id         String           @id @default(uuid())
   title      String
   targetRole String?          @map("target_role")
-  questions  String           @map("questions_json")
+  questions  Json             @map("questions_json")
   isActive   Boolean          @default(true) @map("is_active")
   createdAt  DateTime         @default(now()) @map("created_at")
   tenantId   String           @map("tenant_id")
@@ -1608,7 +1716,7 @@ model SurveyResponse {
   id        String   @id @default(uuid())
   surveyId  String   @map("survey_id")
   userId    String   @map("user_id")
-  answers   String   @map("answers_json")
+  answers   Json     @map("answers_json")
   createdAt DateTime @default(now()) @map("created_at")
   survey    Survey   @relation(fields: [surveyId], references: [id])
 

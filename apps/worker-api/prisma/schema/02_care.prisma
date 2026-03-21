@@ -60,9 +60,10 @@ model PswProfile {
   bio                String?
   languages          String
   serviceAreas       String                 @map("service_areas")
-  availability      Json?                  @map("availability_json")
+  availabilityJson      Json?                  @map("availability_json")
   isApproved         Boolean                @default(false) @map("is_approved")
   approvedAt         DateTime?              @map("approved_at")
+  trustScore         Int                    @default(100) @map("trust_score")
   createdAt          DateTime               @default(now()) @map("created_at")
   tenantId           String                 @map("tenant_id")
   address            String?
