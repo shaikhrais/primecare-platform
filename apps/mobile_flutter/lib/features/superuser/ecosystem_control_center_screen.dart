@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../core/widgets/components/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// The Absolute Master Dashboard for the 'Superuser'.
 /// This screen allows the creation of net-new platform Roles and
@@ -57,12 +56,12 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: PrimeCareButton(
+            child: ElevatedButton(
               onPressed: () {
                 // Initiates physical POST /v1/system/global-state
               },
-              label: 'TRIGGER MACRO OVERRIDE',
-              backgroundColor: Colors.red[800]!,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+              child: const Text('ENGAGE GLOBAL CODE BLACK'),
             ),
           )
         ],
@@ -111,11 +110,11 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                       },
                     ),
                   ),
-                  PrimeCareButton(
+                  ElevatedButton(
                     onPressed: () {},
-                    label: '+ Construct New Role',
-                    backgroundColor: Colors.blueGrey[700]!,
-                  )
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[700]),
+                    child: const Text('+ Construct New Role'),
+                  ),
                 ],
               ),
             ),

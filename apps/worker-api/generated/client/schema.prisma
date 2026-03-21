@@ -515,6 +515,49 @@ model EcosystemAutopilotConfig {
   @@map("ecosystem_autopilot_configs")
 }
 
+model HospitalTarget {
+  id               String    @id @default(uuid())
+  tenantId         String    @map("tenant_id")
+  hospitalName     String    @map("hospital_name")
+  dischargePlanner String?   @map("discharge_planner")
+  status           String    @default("prospecting")
+  lastTouchpointAt DateTime? @map("last_touchpoint_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  pipelines ReferralPipeline[]
+
+  @@map("hospital_targets")
+}
+
+model ReferralPipeline {
+  id            String   @id @default(uuid())
+  tenantId      String   @map("tenant_id")
+  hospitalId    String   @map("hospital_id")
+  patientName   String   @map("patient_name")
+  referralValue Decimal  @default(0.0) @map("referral_value")
+  isConverted   Boolean  @default(false) @map("is_converted")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  hospital HospitalTarget @relation(fields: [hospitalId], references: [id])
+
+  @@map("referral_pipelines")
+}
+
+model SupplyForecastMetrics {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  targetDate      DateTime @map("target_date")
+  geographyZone   String   @map("geography_zone")
+  predictedDemand Int      @map("predicted_demand")
+  physicalSupply  Int      @map("physical_supply")
+  deficitWarning  Boolean  @default(false) @map("deficit_warning")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("supply_forecast_metrics")
+}
+
 // ==========================================
 // CARE DELIVERY MODELS
 // ==========================================
@@ -571,40 +614,42 @@ model ClientProfile {
 }
 
 model PswProfile {
-  id                 String                 @id @default(uuid())
-  userId             String                 @unique @map("user_id")
-  fullName           String                 @map("full_name")
-  bio                String?
-  languages          String
-  serviceAreas       String                 @map("service_areas")
-  availabilityJson   Json?                  @map("availability_json")
-  isApproved         Boolean                @default(false) @map("is_approved")
-  approvedAt         DateTime?              @map("approved_at")
-  trustScore         Int                    @default(100) @map("trust_score")
-  createdAt          DateTime               @default(now()) @map("created_at")
-  tenantId           String                 @map("tenant_id")
-  address            String?
-  avatarUrl          String?                @map("avatar_url")
-  skills             String
-  messageThreads     MessageThread[]        @relation("PswToThreads")
-  availability       PswAvailability[]      @relation("PswToAvailability")
-  documents          PswDocument[]          @relation("PswToDocuments")
-  tenant             Tenant                 @relation(fields: [tenantId], references: [id])
-  user               User                   @relation(fields: [userId], references: [id])
-  assignments        ShiftAssignment[]      @relation("PswToAssignments")
-  timesheets         Timesheet[]            @relation("PswToTimesheets")
-  checkEvents        VisitCheckEvent[]      @relation("PswToCheckEvents")
-  checklists         VisitChecklist[]       @relation("PswToChecklists")
-  notes              VisitNote[]            @relation("PswToNotes")
-  assignedVisits     Visit[]                @relation("PswToVisits")
-  handovers          ShiftHandover[]
-  overrides          AvailabilityOverride[]
-  payouts            Payout[]
-  fleetStatus        FleetStatus?
-  supervisionLogs    SupervisionLog[]
-  matches            VisitMatch[]           @relation("VisitMatches")
-  mileageLogs        MileageLog[]
-  performanceReviews PerformanceReview[]
+  id                    String                 @id @default(uuid())
+  userId                String                 @unique @map("user_id")
+  fullName              String                 @map("full_name")
+  bio                   String?
+  languages             String
+  serviceAreas          String                 @map("service_areas")
+  availabilityJson      Json?                  @map("availability_json")
+  isApproved            Boolean                @default(false) @map("is_approved")
+  approvedAt            DateTime?              @map("approved_at")
+  trustScore            Int                    @default(100) @map("trust_score")
+  hasCompletedInduction Boolean                @default(false) @map("has_completed_induction")
+  isLockedForRetraining Boolean                @default(false) @map("is_locked_for_retraining")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  tenantId              String                 @map("tenant_id")
+  address               String?
+  avatarUrl             String?                @map("avatar_url")
+  skills                String
+  messageThreads        MessageThread[]        @relation("PswToThreads")
+  availability          PswAvailability[]      @relation("PswToAvailability")
+  documents             PswDocument[]          @relation("PswToDocuments")
+  tenant                Tenant                 @relation(fields: [tenantId], references: [id])
+  user                  User                   @relation(fields: [userId], references: [id])
+  assignments           ShiftAssignment[]      @relation("PswToAssignments")
+  timesheets            Timesheet[]            @relation("PswToTimesheets")
+  checkEvents           VisitCheckEvent[]      @relation("PswToCheckEvents")
+  checklists            VisitChecklist[]       @relation("PswToChecklists")
+  notes                 VisitNote[]            @relation("PswToNotes")
+  assignedVisits        Visit[]                @relation("PswToVisits")
+  handovers             ShiftHandover[]
+  overrides             AvailabilityOverride[]
+  payouts               Payout[]
+  fleetStatus           FleetStatus?
+  supervisionLogs       SupervisionLog[]
+  matches               VisitMatch[]           @relation("VisitMatches")
+  mileageLogs           MileageLog[]
+  performanceReviews    PerformanceReview[]
 
   @@index([tenantId])
   @@map("psw_profiles")

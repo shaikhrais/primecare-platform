@@ -400,6 +400,39 @@ exports.Prisma.EcosystemAutopilotConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HospitalTargetScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  hospitalName: 'hospitalName',
+  dischargePlanner: 'dischargePlanner',
+  status: 'status',
+  lastTouchpointAt: 'lastTouchpointAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReferralPipelineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  hospitalId: 'hospitalId',
+  patientName: 'patientName',
+  referralValue: 'referralValue',
+  isConverted: 'isConverted',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SupplyForecastMetricsScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  targetDate: 'targetDate',
+  geographyZone: 'geographyZone',
+  predictedDemand: 'predictedDemand',
+  physicalSupply: 'physicalSupply',
+  deficitWarning: 'deficitWarning',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ClientProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -432,6 +465,8 @@ exports.Prisma.PswProfileScalarFieldEnum = {
   isApproved: 'isApproved',
   approvedAt: 'approvedAt',
   trustScore: 'trustScore',
+  hasCompletedInduction: 'hasCompletedInduction',
+  isLockedForRetraining: 'isLockedForRetraining',
   createdAt: 'createdAt',
   tenantId: 'tenantId',
   address: 'address',
@@ -1561,6 +1596,9 @@ exports.Prisma.ModelName = {
   EcosystemStateOverride: 'EcosystemStateOverride',
   UserReputation: 'UserReputation',
   EcosystemAutopilotConfig: 'EcosystemAutopilotConfig',
+  HospitalTarget: 'HospitalTarget',
+  ReferralPipeline: 'ReferralPipeline',
+  SupplyForecastMetrics: 'SupplyForecastMetrics',
   ClientProfile: 'ClientProfile',
   PswProfile: 'PswProfile',
   Visit: 'Visit',

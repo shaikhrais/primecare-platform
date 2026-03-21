@@ -61,4 +61,42 @@ sduiModule.openapi(
   }
 );
 
+// Generates an interactive form dynamically without frontend code updates
+sduiModule.openapi(
+  createRoute({
+    method: 'get',
+    path: '/forms/{formId}',
+    tags: ['SDUI'],
+    summary: 'Dynamic Server-Driven Form Schema',
+    request: { params: z.object({ formId: z.string() }) },
+    responses: { 200: { description: 'Returns an actionable form fields array' } },
+  }),
+  async (c) => {
+    const { formId } = c.req.valid('param');
+
+    // In production, we pull the form schema from Prisma. Mocking the Master Engine here:
+    const formSchema = {
+      formId: formId,
+      title: formId === 'onboarding_101' ? 'Clinical Registration Form' : 'Dynamic Incident Report',
+      submitEndpoint: '/v1/system/dynamic-submit',
+      fields: [
+        { key: 'layout_header_1', type: 'header', label: 'Personal Information' },
+        { key: 'firstName', type: 'text', label: 'Legal First Name', required: true },
+        { key: 'lastName', type: 'text', label: 'Legal Last Name', required: true },
+        { key: 'phoneNumber', type: 'phone', label: 'Contact Number', required: true },
+        { key: 'layout_header_2', type: 'header', label: 'Operational Preferences' },
+        { key: 'hasVehicle', type: 'boolean', label: 'Do you own a physical dispatch vehicle?' },
+        { 
+          key: 'preferredRegion', 
+          type: 'dropdown', 
+          label: 'Primary Dispatch Territory', 
+          options: ['North York', 'Etobicoke', 'Downtown', 'Mississauga'] 
+        }
+      ]
+    };
+
+    return c.json(formSchema);
+  }
+);
+
 export default sduiModule;

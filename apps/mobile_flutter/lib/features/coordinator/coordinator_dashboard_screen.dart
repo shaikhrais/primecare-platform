@@ -14,6 +14,8 @@ class CoordinatorDashboardScreen extends StatefulWidget {
 class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen> {
   bool _surgeActive = false;
 
+  final bool _isGlobalCodeBlack = true; // Simulating the global macro override
+
   final List<Map<String, dynamic>> _unfilledShifts = [
     {'id': 'u_1', 'time': '4:00 PM - 8:00 PM', 'client': 'Eliza Thornberry', 'geo': 'Etobicoke', 'matched': 12},
     {'id': 'u_2', 'time': '6:00 PM - 10:00 PM', 'client': 'George Harrison', 'geo': 'North York', 'matched': 4},
@@ -22,7 +24,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: _isGlobalCodeBlack ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
       body: Center(
         child: DesktopPaneWrapper(
           child: CustomScrollView(
@@ -31,12 +33,14 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
             expandedHeight: 280,
             floating: false,
             pinned: true,
-            backgroundColor: const Color(0xFF4338CA), // Intensely Deep Indigo
+            backgroundColor: _isGlobalCodeBlack ? Colors.black87 : const Color(0xFF4338CA), 
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF312E81), Color(0xFF4F46E5)],
+                    colors: _isGlobalCodeBlack 
+                        ? [Colors.black, Colors.red[900]!]
+                        : [const Color(0xFF312E81), const Color(0xFF4F46E5)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -51,15 +55,17 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('DISPATCH LOGISTICS', style: TextStyle(color: Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
-                            const PrimeCareBadge(text: '2 Unfilled Limits', color: Colors.white)
+                            Text(_isGlobalCodeBlack ? 'MACRO OVERRIDE ACTIVE' : 'DISPATCH LOGISTICS', 
+                                style: TextStyle(color: _isGlobalCodeBlack ? Colors.redAccent : const Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
+                            PrimeCareBadge(text: _isGlobalCodeBlack ? 'AUTOPILOT LOCKED' : '2 Unfilled Limits', color: Colors.white)
                           ],
                         ),
                         const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Operations Hub', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
+                            Text(_isGlobalCodeBlack ? '[CODE BLACK]' : 'Operations Hub', 
+                                style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
                             Row(
                               children: [
                                 IconButton(

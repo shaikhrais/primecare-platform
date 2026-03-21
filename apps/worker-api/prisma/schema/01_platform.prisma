@@ -499,3 +499,46 @@ model EcosystemAutopilotConfig {
 
   @@map("ecosystem_autopilot_configs")
 }
+
+model HospitalTarget {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  hospitalName    String   @map("hospital_name")
+  dischargePlanner String? @map("discharge_planner")
+  status          String   @default("prospecting")
+  lastTouchpointAt DateTime? @map("last_touchpoint_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  pipelines       ReferralPipeline[]
+
+  @@map("hospital_targets")
+}
+
+model ReferralPipeline {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  hospitalId      String   @map("hospital_id")
+  patientName     String   @map("patient_name")
+  referralValue   Decimal  @default(0.0) @map("referral_value")
+  isConverted     Boolean  @default(false) @map("is_converted")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  hospital        HospitalTarget @relation(fields: [hospitalId], references: [id])
+
+  @@map("referral_pipelines")
+}
+
+model SupplyForecastMetrics {
+  id              String   @id @default(uuid())
+  tenantId        String   @map("tenant_id")
+  targetDate      DateTime @map("target_date")
+  geographyZone   String   @map("geography_zone")
+  predictedDemand Int      @map("predicted_demand")
+  physicalSupply  Int      @map("physical_supply")
+  deficitWarning  Boolean  @default(false) @map("deficit_warning")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("supply_forecast_metrics")
+}

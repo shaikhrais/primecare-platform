@@ -27,6 +27,8 @@ import webrtcModule from './platform/system/webrtc.routes';
 import ledgerModule from './finance/ledger/journal.routes';
 import sduiModule from './sdui/sdui.routes';
 import { ecosystemModule } from './ecosystem/ecosystem.routes';
+import { diagnosticsModule } from './ecosystem/diagnostics.routes';
+import { behavioralModule } from './ecosystem/behavioral.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
 import { RealtimeSync } from './durable_objects/RealtimeSync';
@@ -84,6 +86,8 @@ app.route('/v1/webrtc', webrtcModule);
 app.route('/v1/finance/ledger', ledgerModule);
 app.route('/v1/sdui', sduiModule);
 app.route('/v1/system/ecosystem', ecosystemModule);
+app.route('/v1/system/diagnostics', diagnosticsModule);
+app.route('/v1/system/behavioral', behavioralModule);
 
 // 6. Export with CORS wrapper + Sentry (extracted)
 export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);

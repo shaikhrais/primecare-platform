@@ -64,6 +64,8 @@ model PswProfile {
   isApproved         Boolean                @default(false) @map("is_approved")
   approvedAt         DateTime?              @map("approved_at")
   trustScore         Int                    @default(100) @map("trust_score")
+  hasCompletedInduction Boolean             @default(false) @map("has_completed_induction")
+  isLockedForRetraining Boolean             @default(false) @map("is_locked_for_retraining")
   createdAt          DateTime               @default(now()) @map("created_at")
   tenantId           String                 @map("tenant_id")
   address            String?

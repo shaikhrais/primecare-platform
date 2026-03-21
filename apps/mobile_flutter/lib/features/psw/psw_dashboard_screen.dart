@@ -7,8 +7,16 @@ import '../shared/widgets/offline_banner.dart';
 import '../../../core/localization/app_strings.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PswDashboardScreen extends StatelessWidget {
+class PswDashboardScreen extends StatefulWidget {
   const PswDashboardScreen({super.key});
+
+  @override
+  State<PswDashboardScreen> createState() => _PswDashboardScreenState();
+}
+
+class _PswDashboardScreenState extends State<PswDashboardScreen> {
+  // Simulating the Cloudflare Edge global state WebSocket override
+  final bool _isGlobalCodeBlack = true;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +65,7 @@ class PswDashboardScreen extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
                     child: PrimeCareCard(
                       padding: const EdgeInsets.all(20),
-                      backgroundColor: colorScheme.secondary.withAlpha(20),
+                      backgroundColor: _isGlobalCodeBlack ? Colors.red[900]!.withOpacity(0.2) : colorScheme.secondary.withAlpha(20),
                       child: Row(
                         children: [
                           Container(
@@ -66,18 +74,25 @@ class PswDashboardScreen extends StatelessWidget {
                               color: colorScheme.surface,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.bolt, color: colorScheme.secondary, size: 28),
+                            child: Icon(_isGlobalCodeBlack ? Icons.warning_amber_rounded : Icons.bolt, 
+                                color: _isGlobalCodeBlack ? Colors.redAccent : colorScheme.secondary, size: 28),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppStrings.highDemandAlertTitle, style: theme.textTheme.titleLarge),
+                                Text(_isGlobalCodeBlack ? 'SYSTEM OVERRIDE: CODE BLACK' : AppStrings.highDemandAlertTitle, 
+                                    style: theme.textTheme.titleLarge?.copyWith(
+                                        color: _isGlobalCodeBlack ? Colors.redAccent : null,
+                                        fontWeight: _isGlobalCodeBlack ? FontWeight.w900 : null
+                                    )),
                                 const SizedBox(height: 4),
                                 Text(
-                                  AppStrings.highDemandAlertDesc,
-                                  style: theme.textTheme.bodyMedium,
+                                  _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppStrings.highDemandAlertDesc,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: _isGlobalCodeBlack ? Colors.red[200] : null
+                                  ),
                                 ),
                               ],
                             ),

@@ -124,6 +124,21 @@ export type UserReputation = $Result.DefaultSelection<Prisma.$UserReputationPayl
  */
 export type EcosystemAutopilotConfig = $Result.DefaultSelection<Prisma.$EcosystemAutopilotConfigPayload>
 /**
+ * Model HospitalTarget
+ * 
+ */
+export type HospitalTarget = $Result.DefaultSelection<Prisma.$HospitalTargetPayload>
+/**
+ * Model ReferralPipeline
+ * 
+ */
+export type ReferralPipeline = $Result.DefaultSelection<Prisma.$ReferralPipelinePayload>
+/**
+ * Model SupplyForecastMetrics
+ * 
+ */
+export type SupplyForecastMetrics = $Result.DefaultSelection<Prisma.$SupplyForecastMetricsPayload>
+/**
  * Model ClientProfile
  * 
  */
@@ -906,6 +921,36 @@ export class PrismaClient<
     * ```
     */
   get ecosystemAutopilotConfig(): Prisma.EcosystemAutopilotConfigDelegate<ExtArgs>;
+
+  /**
+   * `prisma.hospitalTarget`: Exposes CRUD operations for the **HospitalTarget** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HospitalTargets
+    * const hospitalTargets = await prisma.hospitalTarget.findMany()
+    * ```
+    */
+  get hospitalTarget(): Prisma.HospitalTargetDelegate<ExtArgs>;
+
+  /**
+   * `prisma.referralPipeline`: Exposes CRUD operations for the **ReferralPipeline** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReferralPipelines
+    * const referralPipelines = await prisma.referralPipeline.findMany()
+    * ```
+    */
+  get referralPipeline(): Prisma.ReferralPipelineDelegate<ExtArgs>;
+
+  /**
+   * `prisma.supplyForecastMetrics`: Exposes CRUD operations for the **SupplyForecastMetrics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SupplyForecastMetrics
+    * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findMany()
+    * ```
+    */
+  get supplyForecastMetrics(): Prisma.SupplyForecastMetricsDelegate<ExtArgs>;
 
   /**
    * `prisma.clientProfile`: Exposes CRUD operations for the **ClientProfile** model.
@@ -2249,6 +2294,9 @@ export namespace Prisma {
     EcosystemStateOverride: 'EcosystemStateOverride',
     UserReputation: 'UserReputation',
     EcosystemAutopilotConfig: 'EcosystemAutopilotConfig',
+    HospitalTarget: 'HospitalTarget',
+    ReferralPipeline: 'ReferralPipeline',
+    SupplyForecastMetrics: 'SupplyForecastMetrics',
     ClientProfile: 'ClientProfile',
     PswProfile: 'PswProfile',
     Visit: 'Visit',
@@ -2352,7 +2400,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3893,6 +3941,216 @@ export namespace Prisma {
           count: {
             args: Prisma.EcosystemAutopilotConfigCountArgs<ExtArgs>
             result: $Utils.Optional<EcosystemAutopilotConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      HospitalTarget: {
+        payload: Prisma.$HospitalTargetPayload<ExtArgs>
+        fields: Prisma.HospitalTargetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HospitalTargetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HospitalTargetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          findFirst: {
+            args: Prisma.HospitalTargetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HospitalTargetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          findMany: {
+            args: Prisma.HospitalTargetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>[]
+          }
+          create: {
+            args: Prisma.HospitalTargetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          createMany: {
+            args: Prisma.HospitalTargetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HospitalTargetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>[]
+          }
+          delete: {
+            args: Prisma.HospitalTargetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          update: {
+            args: Prisma.HospitalTargetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          deleteMany: {
+            args: Prisma.HospitalTargetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HospitalTargetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HospitalTargetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HospitalTargetPayload>
+          }
+          aggregate: {
+            args: Prisma.HospitalTargetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHospitalTarget>
+          }
+          groupBy: {
+            args: Prisma.HospitalTargetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HospitalTargetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HospitalTargetCountArgs<ExtArgs>
+            result: $Utils.Optional<HospitalTargetCountAggregateOutputType> | number
+          }
+        }
+      }
+      ReferralPipeline: {
+        payload: Prisma.$ReferralPipelinePayload<ExtArgs>
+        fields: Prisma.ReferralPipelineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReferralPipelineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReferralPipelineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          findFirst: {
+            args: Prisma.ReferralPipelineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReferralPipelineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          findMany: {
+            args: Prisma.ReferralPipelineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>[]
+          }
+          create: {
+            args: Prisma.ReferralPipelineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          createMany: {
+            args: Prisma.ReferralPipelineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReferralPipelineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>[]
+          }
+          delete: {
+            args: Prisma.ReferralPipelineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          update: {
+            args: Prisma.ReferralPipelineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          deleteMany: {
+            args: Prisma.ReferralPipelineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReferralPipelineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ReferralPipelineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReferralPipelinePayload>
+          }
+          aggregate: {
+            args: Prisma.ReferralPipelineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReferralPipeline>
+          }
+          groupBy: {
+            args: Prisma.ReferralPipelineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReferralPipelineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReferralPipelineCountArgs<ExtArgs>
+            result: $Utils.Optional<ReferralPipelineCountAggregateOutputType> | number
+          }
+        }
+      }
+      SupplyForecastMetrics: {
+        payload: Prisma.$SupplyForecastMetricsPayload<ExtArgs>
+        fields: Prisma.SupplyForecastMetricsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SupplyForecastMetricsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SupplyForecastMetricsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          findFirst: {
+            args: Prisma.SupplyForecastMetricsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SupplyForecastMetricsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          findMany: {
+            args: Prisma.SupplyForecastMetricsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>[]
+          }
+          create: {
+            args: Prisma.SupplyForecastMetricsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          createMany: {
+            args: Prisma.SupplyForecastMetricsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SupplyForecastMetricsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>[]
+          }
+          delete: {
+            args: Prisma.SupplyForecastMetricsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          update: {
+            args: Prisma.SupplyForecastMetricsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          deleteMany: {
+            args: Prisma.SupplyForecastMetricsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SupplyForecastMetricsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SupplyForecastMetricsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupplyForecastMetricsPayload>
+          }
+          aggregate: {
+            args: Prisma.SupplyForecastMetricsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSupplyForecastMetrics>
+          }
+          groupBy: {
+            args: Prisma.SupplyForecastMetricsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SupplyForecastMetricsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SupplyForecastMetricsCountArgs<ExtArgs>
+            result: $Utils.Optional<SupplyForecastMetricsCountAggregateOutputType> | number
           }
         }
       }
@@ -11295,6 +11553,37 @@ export namespace Prisma {
    */
   export type CrisisProtocolCountOutputTypeCountResolutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProtocolResolutionWhereInput
+  }
+
+
+  /**
+   * Count Type HospitalTargetCountOutputType
+   */
+
+  export type HospitalTargetCountOutputType = {
+    pipelines: number
+  }
+
+  export type HospitalTargetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipelines?: boolean | HospitalTargetCountOutputTypeCountPipelinesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * HospitalTargetCountOutputType without action
+   */
+  export type HospitalTargetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTargetCountOutputType
+     */
+    select?: HospitalTargetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * HospitalTargetCountOutputType without action
+   */
+  export type HospitalTargetCountOutputTypeCountPipelinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralPipelineWhereInput
   }
 
 
@@ -36913,6 +37202,2945 @@ export namespace Prisma {
 
 
   /**
+   * Model HospitalTarget
+   */
+
+  export type AggregateHospitalTarget = {
+    _count: HospitalTargetCountAggregateOutputType | null
+    _min: HospitalTargetMinAggregateOutputType | null
+    _max: HospitalTargetMaxAggregateOutputType | null
+  }
+
+  export type HospitalTargetMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    hospitalName: string | null
+    dischargePlanner: string | null
+    status: string | null
+    lastTouchpointAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HospitalTargetMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    hospitalName: string | null
+    dischargePlanner: string | null
+    status: string | null
+    lastTouchpointAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HospitalTargetCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    hospitalName: number
+    dischargePlanner: number
+    status: number
+    lastTouchpointAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HospitalTargetMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalName?: true
+    dischargePlanner?: true
+    status?: true
+    lastTouchpointAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HospitalTargetMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalName?: true
+    dischargePlanner?: true
+    status?: true
+    lastTouchpointAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HospitalTargetCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalName?: true
+    dischargePlanner?: true
+    status?: true
+    lastTouchpointAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HospitalTargetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HospitalTarget to aggregate.
+     */
+    where?: HospitalTargetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HospitalTargets to fetch.
+     */
+    orderBy?: HospitalTargetOrderByWithRelationInput | HospitalTargetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HospitalTargetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HospitalTargets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HospitalTargets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HospitalTargets
+    **/
+    _count?: true | HospitalTargetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HospitalTargetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HospitalTargetMaxAggregateInputType
+  }
+
+  export type GetHospitalTargetAggregateType<T extends HospitalTargetAggregateArgs> = {
+        [P in keyof T & keyof AggregateHospitalTarget]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHospitalTarget[P]>
+      : GetScalarType<T[P], AggregateHospitalTarget[P]>
+  }
+
+
+
+
+  export type HospitalTargetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HospitalTargetWhereInput
+    orderBy?: HospitalTargetOrderByWithAggregationInput | HospitalTargetOrderByWithAggregationInput[]
+    by: HospitalTargetScalarFieldEnum[] | HospitalTargetScalarFieldEnum
+    having?: HospitalTargetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HospitalTargetCountAggregateInputType | true
+    _min?: HospitalTargetMinAggregateInputType
+    _max?: HospitalTargetMaxAggregateInputType
+  }
+
+  export type HospitalTargetGroupByOutputType = {
+    id: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner: string | null
+    status: string
+    lastTouchpointAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: HospitalTargetCountAggregateOutputType | null
+    _min: HospitalTargetMinAggregateOutputType | null
+    _max: HospitalTargetMaxAggregateOutputType | null
+  }
+
+  type GetHospitalTargetGroupByPayload<T extends HospitalTargetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HospitalTargetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HospitalTargetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HospitalTargetGroupByOutputType[P]>
+            : GetScalarType<T[P], HospitalTargetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HospitalTargetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    hospitalName?: boolean
+    dischargePlanner?: boolean
+    status?: boolean
+    lastTouchpointAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipelines?: boolean | HospitalTarget$pipelinesArgs<ExtArgs>
+    _count?: boolean | HospitalTargetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hospitalTarget"]>
+
+  export type HospitalTargetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    hospitalName?: boolean
+    dischargePlanner?: boolean
+    status?: boolean
+    lastTouchpointAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["hospitalTarget"]>
+
+  export type HospitalTargetSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    hospitalName?: boolean
+    dischargePlanner?: boolean
+    status?: boolean
+    lastTouchpointAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type HospitalTargetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipelines?: boolean | HospitalTarget$pipelinesArgs<ExtArgs>
+    _count?: boolean | HospitalTargetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type HospitalTargetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $HospitalTargetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HospitalTarget"
+    objects: {
+      pipelines: Prisma.$ReferralPipelinePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      hospitalName: string
+      dischargePlanner: string | null
+      status: string
+      lastTouchpointAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["hospitalTarget"]>
+    composites: {}
+  }
+
+  type HospitalTargetGetPayload<S extends boolean | null | undefined | HospitalTargetDefaultArgs> = $Result.GetResult<Prisma.$HospitalTargetPayload, S>
+
+  type HospitalTargetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HospitalTargetFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HospitalTargetCountAggregateInputType | true
+    }
+
+  export interface HospitalTargetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HospitalTarget'], meta: { name: 'HospitalTarget' } }
+    /**
+     * Find zero or one HospitalTarget that matches the filter.
+     * @param {HospitalTargetFindUniqueArgs} args - Arguments to find a HospitalTarget
+     * @example
+     * // Get one HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HospitalTargetFindUniqueArgs>(args: SelectSubset<T, HospitalTargetFindUniqueArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one HospitalTarget that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HospitalTargetFindUniqueOrThrowArgs} args - Arguments to find a HospitalTarget
+     * @example
+     * // Get one HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HospitalTargetFindUniqueOrThrowArgs>(args: SelectSubset<T, HospitalTargetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first HospitalTarget that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetFindFirstArgs} args - Arguments to find a HospitalTarget
+     * @example
+     * // Get one HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HospitalTargetFindFirstArgs>(args?: SelectSubset<T, HospitalTargetFindFirstArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first HospitalTarget that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetFindFirstOrThrowArgs} args - Arguments to find a HospitalTarget
+     * @example
+     * // Get one HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HospitalTargetFindFirstOrThrowArgs>(args?: SelectSubset<T, HospitalTargetFindFirstOrThrowArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more HospitalTargets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HospitalTargets
+     * const hospitalTargets = await prisma.hospitalTarget.findMany()
+     * 
+     * // Get first 10 HospitalTargets
+     * const hospitalTargets = await prisma.hospitalTarget.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hospitalTargetWithIdOnly = await prisma.hospitalTarget.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HospitalTargetFindManyArgs>(args?: SelectSubset<T, HospitalTargetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a HospitalTarget.
+     * @param {HospitalTargetCreateArgs} args - Arguments to create a HospitalTarget.
+     * @example
+     * // Create one HospitalTarget
+     * const HospitalTarget = await prisma.hospitalTarget.create({
+     *   data: {
+     *     // ... data to create a HospitalTarget
+     *   }
+     * })
+     * 
+     */
+    create<T extends HospitalTargetCreateArgs>(args: SelectSubset<T, HospitalTargetCreateArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many HospitalTargets.
+     * @param {HospitalTargetCreateManyArgs} args - Arguments to create many HospitalTargets.
+     * @example
+     * // Create many HospitalTargets
+     * const hospitalTarget = await prisma.hospitalTarget.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HospitalTargetCreateManyArgs>(args?: SelectSubset<T, HospitalTargetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HospitalTargets and returns the data saved in the database.
+     * @param {HospitalTargetCreateManyAndReturnArgs} args - Arguments to create many HospitalTargets.
+     * @example
+     * // Create many HospitalTargets
+     * const hospitalTarget = await prisma.hospitalTarget.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HospitalTargets and only return the `id`
+     * const hospitalTargetWithIdOnly = await prisma.hospitalTarget.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HospitalTargetCreateManyAndReturnArgs>(args?: SelectSubset<T, HospitalTargetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a HospitalTarget.
+     * @param {HospitalTargetDeleteArgs} args - Arguments to delete one HospitalTarget.
+     * @example
+     * // Delete one HospitalTarget
+     * const HospitalTarget = await prisma.hospitalTarget.delete({
+     *   where: {
+     *     // ... filter to delete one HospitalTarget
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HospitalTargetDeleteArgs>(args: SelectSubset<T, HospitalTargetDeleteArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one HospitalTarget.
+     * @param {HospitalTargetUpdateArgs} args - Arguments to update one HospitalTarget.
+     * @example
+     * // Update one HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HospitalTargetUpdateArgs>(args: SelectSubset<T, HospitalTargetUpdateArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more HospitalTargets.
+     * @param {HospitalTargetDeleteManyArgs} args - Arguments to filter HospitalTargets to delete.
+     * @example
+     * // Delete a few HospitalTargets
+     * const { count } = await prisma.hospitalTarget.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HospitalTargetDeleteManyArgs>(args?: SelectSubset<T, HospitalTargetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HospitalTargets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HospitalTargets
+     * const hospitalTarget = await prisma.hospitalTarget.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HospitalTargetUpdateManyArgs>(args: SelectSubset<T, HospitalTargetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HospitalTarget.
+     * @param {HospitalTargetUpsertArgs} args - Arguments to update or create a HospitalTarget.
+     * @example
+     * // Update or create a HospitalTarget
+     * const hospitalTarget = await prisma.hospitalTarget.upsert({
+     *   create: {
+     *     // ... data to create a HospitalTarget
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HospitalTarget we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HospitalTargetUpsertArgs>(args: SelectSubset<T, HospitalTargetUpsertArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of HospitalTargets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetCountArgs} args - Arguments to filter HospitalTargets to count.
+     * @example
+     * // Count the number of HospitalTargets
+     * const count = await prisma.hospitalTarget.count({
+     *   where: {
+     *     // ... the filter for the HospitalTargets we want to count
+     *   }
+     * })
+    **/
+    count<T extends HospitalTargetCountArgs>(
+      args?: Subset<T, HospitalTargetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HospitalTargetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HospitalTarget.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HospitalTargetAggregateArgs>(args: Subset<T, HospitalTargetAggregateArgs>): Prisma.PrismaPromise<GetHospitalTargetAggregateType<T>>
+
+    /**
+     * Group by HospitalTarget.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HospitalTargetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HospitalTargetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HospitalTargetGroupByArgs['orderBy'] }
+        : { orderBy?: HospitalTargetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HospitalTargetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHospitalTargetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HospitalTarget model
+   */
+  readonly fields: HospitalTargetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HospitalTarget.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HospitalTargetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pipelines<T extends HospitalTarget$pipelinesArgs<ExtArgs> = {}>(args?: Subset<T, HospitalTarget$pipelinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HospitalTarget model
+   */ 
+  interface HospitalTargetFieldRefs {
+    readonly id: FieldRef<"HospitalTarget", 'String'>
+    readonly tenantId: FieldRef<"HospitalTarget", 'String'>
+    readonly hospitalName: FieldRef<"HospitalTarget", 'String'>
+    readonly dischargePlanner: FieldRef<"HospitalTarget", 'String'>
+    readonly status: FieldRef<"HospitalTarget", 'String'>
+    readonly lastTouchpointAt: FieldRef<"HospitalTarget", 'DateTime'>
+    readonly createdAt: FieldRef<"HospitalTarget", 'DateTime'>
+    readonly updatedAt: FieldRef<"HospitalTarget", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HospitalTarget findUnique
+   */
+  export type HospitalTargetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter, which HospitalTarget to fetch.
+     */
+    where: HospitalTargetWhereUniqueInput
+  }
+
+  /**
+   * HospitalTarget findUniqueOrThrow
+   */
+  export type HospitalTargetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter, which HospitalTarget to fetch.
+     */
+    where: HospitalTargetWhereUniqueInput
+  }
+
+  /**
+   * HospitalTarget findFirst
+   */
+  export type HospitalTargetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter, which HospitalTarget to fetch.
+     */
+    where?: HospitalTargetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HospitalTargets to fetch.
+     */
+    orderBy?: HospitalTargetOrderByWithRelationInput | HospitalTargetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HospitalTargets.
+     */
+    cursor?: HospitalTargetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HospitalTargets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HospitalTargets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HospitalTargets.
+     */
+    distinct?: HospitalTargetScalarFieldEnum | HospitalTargetScalarFieldEnum[]
+  }
+
+  /**
+   * HospitalTarget findFirstOrThrow
+   */
+  export type HospitalTargetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter, which HospitalTarget to fetch.
+     */
+    where?: HospitalTargetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HospitalTargets to fetch.
+     */
+    orderBy?: HospitalTargetOrderByWithRelationInput | HospitalTargetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HospitalTargets.
+     */
+    cursor?: HospitalTargetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HospitalTargets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HospitalTargets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HospitalTargets.
+     */
+    distinct?: HospitalTargetScalarFieldEnum | HospitalTargetScalarFieldEnum[]
+  }
+
+  /**
+   * HospitalTarget findMany
+   */
+  export type HospitalTargetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter, which HospitalTargets to fetch.
+     */
+    where?: HospitalTargetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HospitalTargets to fetch.
+     */
+    orderBy?: HospitalTargetOrderByWithRelationInput | HospitalTargetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HospitalTargets.
+     */
+    cursor?: HospitalTargetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HospitalTargets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HospitalTargets.
+     */
+    skip?: number
+    distinct?: HospitalTargetScalarFieldEnum | HospitalTargetScalarFieldEnum[]
+  }
+
+  /**
+   * HospitalTarget create
+   */
+  export type HospitalTargetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HospitalTarget.
+     */
+    data: XOR<HospitalTargetCreateInput, HospitalTargetUncheckedCreateInput>
+  }
+
+  /**
+   * HospitalTarget createMany
+   */
+  export type HospitalTargetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HospitalTargets.
+     */
+    data: HospitalTargetCreateManyInput | HospitalTargetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HospitalTarget createManyAndReturn
+   */
+  export type HospitalTargetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many HospitalTargets.
+     */
+    data: HospitalTargetCreateManyInput | HospitalTargetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HospitalTarget update
+   */
+  export type HospitalTargetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HospitalTarget.
+     */
+    data: XOR<HospitalTargetUpdateInput, HospitalTargetUncheckedUpdateInput>
+    /**
+     * Choose, which HospitalTarget to update.
+     */
+    where: HospitalTargetWhereUniqueInput
+  }
+
+  /**
+   * HospitalTarget updateMany
+   */
+  export type HospitalTargetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HospitalTargets.
+     */
+    data: XOR<HospitalTargetUpdateManyMutationInput, HospitalTargetUncheckedUpdateManyInput>
+    /**
+     * Filter which HospitalTargets to update
+     */
+    where?: HospitalTargetWhereInput
+  }
+
+  /**
+   * HospitalTarget upsert
+   */
+  export type HospitalTargetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HospitalTarget to update in case it exists.
+     */
+    where: HospitalTargetWhereUniqueInput
+    /**
+     * In case the HospitalTarget found by the `where` argument doesn't exist, create a new HospitalTarget with this data.
+     */
+    create: XOR<HospitalTargetCreateInput, HospitalTargetUncheckedCreateInput>
+    /**
+     * In case the HospitalTarget was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HospitalTargetUpdateInput, HospitalTargetUncheckedUpdateInput>
+  }
+
+  /**
+   * HospitalTarget delete
+   */
+  export type HospitalTargetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+    /**
+     * Filter which HospitalTarget to delete.
+     */
+    where: HospitalTargetWhereUniqueInput
+  }
+
+  /**
+   * HospitalTarget deleteMany
+   */
+  export type HospitalTargetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HospitalTargets to delete
+     */
+    where?: HospitalTargetWhereInput
+  }
+
+  /**
+   * HospitalTarget.pipelines
+   */
+  export type HospitalTarget$pipelinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    where?: ReferralPipelineWhereInput
+    orderBy?: ReferralPipelineOrderByWithRelationInput | ReferralPipelineOrderByWithRelationInput[]
+    cursor?: ReferralPipelineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReferralPipelineScalarFieldEnum | ReferralPipelineScalarFieldEnum[]
+  }
+
+  /**
+   * HospitalTarget without action
+   */
+  export type HospitalTargetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HospitalTarget
+     */
+    select?: HospitalTargetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HospitalTargetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ReferralPipeline
+   */
+
+  export type AggregateReferralPipeline = {
+    _count: ReferralPipelineCountAggregateOutputType | null
+    _avg: ReferralPipelineAvgAggregateOutputType | null
+    _sum: ReferralPipelineSumAggregateOutputType | null
+    _min: ReferralPipelineMinAggregateOutputType | null
+    _max: ReferralPipelineMaxAggregateOutputType | null
+  }
+
+  export type ReferralPipelineAvgAggregateOutputType = {
+    referralValue: Decimal | null
+  }
+
+  export type ReferralPipelineSumAggregateOutputType = {
+    referralValue: Decimal | null
+  }
+
+  export type ReferralPipelineMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    hospitalId: string | null
+    patientName: string | null
+    referralValue: Decimal | null
+    isConverted: boolean | null
+    createdAt: Date | null
+  }
+
+  export type ReferralPipelineMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    hospitalId: string | null
+    patientName: string | null
+    referralValue: Decimal | null
+    isConverted: boolean | null
+    createdAt: Date | null
+  }
+
+  export type ReferralPipelineCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    hospitalId: number
+    patientName: number
+    referralValue: number
+    isConverted: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ReferralPipelineAvgAggregateInputType = {
+    referralValue?: true
+  }
+
+  export type ReferralPipelineSumAggregateInputType = {
+    referralValue?: true
+  }
+
+  export type ReferralPipelineMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalId?: true
+    patientName?: true
+    referralValue?: true
+    isConverted?: true
+    createdAt?: true
+  }
+
+  export type ReferralPipelineMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalId?: true
+    patientName?: true
+    referralValue?: true
+    isConverted?: true
+    createdAt?: true
+  }
+
+  export type ReferralPipelineCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    hospitalId?: true
+    patientName?: true
+    referralValue?: true
+    isConverted?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ReferralPipelineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReferralPipeline to aggregate.
+     */
+    where?: ReferralPipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralPipelines to fetch.
+     */
+    orderBy?: ReferralPipelineOrderByWithRelationInput | ReferralPipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReferralPipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralPipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralPipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReferralPipelines
+    **/
+    _count?: true | ReferralPipelineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReferralPipelineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReferralPipelineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReferralPipelineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReferralPipelineMaxAggregateInputType
+  }
+
+  export type GetReferralPipelineAggregateType<T extends ReferralPipelineAggregateArgs> = {
+        [P in keyof T & keyof AggregateReferralPipeline]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReferralPipeline[P]>
+      : GetScalarType<T[P], AggregateReferralPipeline[P]>
+  }
+
+
+
+
+  export type ReferralPipelineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralPipelineWhereInput
+    orderBy?: ReferralPipelineOrderByWithAggregationInput | ReferralPipelineOrderByWithAggregationInput[]
+    by: ReferralPipelineScalarFieldEnum[] | ReferralPipelineScalarFieldEnum
+    having?: ReferralPipelineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReferralPipelineCountAggregateInputType | true
+    _avg?: ReferralPipelineAvgAggregateInputType
+    _sum?: ReferralPipelineSumAggregateInputType
+    _min?: ReferralPipelineMinAggregateInputType
+    _max?: ReferralPipelineMaxAggregateInputType
+  }
+
+  export type ReferralPipelineGroupByOutputType = {
+    id: string
+    tenantId: string
+    hospitalId: string
+    patientName: string
+    referralValue: Decimal
+    isConverted: boolean
+    createdAt: Date
+    _count: ReferralPipelineCountAggregateOutputType | null
+    _avg: ReferralPipelineAvgAggregateOutputType | null
+    _sum: ReferralPipelineSumAggregateOutputType | null
+    _min: ReferralPipelineMinAggregateOutputType | null
+    _max: ReferralPipelineMaxAggregateOutputType | null
+  }
+
+  type GetReferralPipelineGroupByPayload<T extends ReferralPipelineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReferralPipelineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReferralPipelineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReferralPipelineGroupByOutputType[P]>
+            : GetScalarType<T[P], ReferralPipelineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReferralPipelineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    hospitalId?: boolean
+    patientName?: boolean
+    referralValue?: boolean
+    isConverted?: boolean
+    createdAt?: boolean
+    hospital?: boolean | HospitalTargetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["referralPipeline"]>
+
+  export type ReferralPipelineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    hospitalId?: boolean
+    patientName?: boolean
+    referralValue?: boolean
+    isConverted?: boolean
+    createdAt?: boolean
+    hospital?: boolean | HospitalTargetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["referralPipeline"]>
+
+  export type ReferralPipelineSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    hospitalId?: boolean
+    patientName?: boolean
+    referralValue?: boolean
+    isConverted?: boolean
+    createdAt?: boolean
+  }
+
+  export type ReferralPipelineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalTargetDefaultArgs<ExtArgs>
+  }
+  export type ReferralPipelineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hospital?: boolean | HospitalTargetDefaultArgs<ExtArgs>
+  }
+
+  export type $ReferralPipelinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReferralPipeline"
+    objects: {
+      hospital: Prisma.$HospitalTargetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      hospitalId: string
+      patientName: string
+      referralValue: Prisma.Decimal
+      isConverted: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["referralPipeline"]>
+    composites: {}
+  }
+
+  type ReferralPipelineGetPayload<S extends boolean | null | undefined | ReferralPipelineDefaultArgs> = $Result.GetResult<Prisma.$ReferralPipelinePayload, S>
+
+  type ReferralPipelineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ReferralPipelineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ReferralPipelineCountAggregateInputType | true
+    }
+
+  export interface ReferralPipelineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReferralPipeline'], meta: { name: 'ReferralPipeline' } }
+    /**
+     * Find zero or one ReferralPipeline that matches the filter.
+     * @param {ReferralPipelineFindUniqueArgs} args - Arguments to find a ReferralPipeline
+     * @example
+     * // Get one ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReferralPipelineFindUniqueArgs>(args: SelectSubset<T, ReferralPipelineFindUniqueArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ReferralPipeline that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ReferralPipelineFindUniqueOrThrowArgs} args - Arguments to find a ReferralPipeline
+     * @example
+     * // Get one ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReferralPipelineFindUniqueOrThrowArgs>(args: SelectSubset<T, ReferralPipelineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ReferralPipeline that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineFindFirstArgs} args - Arguments to find a ReferralPipeline
+     * @example
+     * // Get one ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReferralPipelineFindFirstArgs>(args?: SelectSubset<T, ReferralPipelineFindFirstArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ReferralPipeline that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineFindFirstOrThrowArgs} args - Arguments to find a ReferralPipeline
+     * @example
+     * // Get one ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReferralPipelineFindFirstOrThrowArgs>(args?: SelectSubset<T, ReferralPipelineFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ReferralPipelines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReferralPipelines
+     * const referralPipelines = await prisma.referralPipeline.findMany()
+     * 
+     * // Get first 10 ReferralPipelines
+     * const referralPipelines = await prisma.referralPipeline.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const referralPipelineWithIdOnly = await prisma.referralPipeline.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReferralPipelineFindManyArgs>(args?: SelectSubset<T, ReferralPipelineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ReferralPipeline.
+     * @param {ReferralPipelineCreateArgs} args - Arguments to create a ReferralPipeline.
+     * @example
+     * // Create one ReferralPipeline
+     * const ReferralPipeline = await prisma.referralPipeline.create({
+     *   data: {
+     *     // ... data to create a ReferralPipeline
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReferralPipelineCreateArgs>(args: SelectSubset<T, ReferralPipelineCreateArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ReferralPipelines.
+     * @param {ReferralPipelineCreateManyArgs} args - Arguments to create many ReferralPipelines.
+     * @example
+     * // Create many ReferralPipelines
+     * const referralPipeline = await prisma.referralPipeline.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReferralPipelineCreateManyArgs>(args?: SelectSubset<T, ReferralPipelineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ReferralPipelines and returns the data saved in the database.
+     * @param {ReferralPipelineCreateManyAndReturnArgs} args - Arguments to create many ReferralPipelines.
+     * @example
+     * // Create many ReferralPipelines
+     * const referralPipeline = await prisma.referralPipeline.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ReferralPipelines and only return the `id`
+     * const referralPipelineWithIdOnly = await prisma.referralPipeline.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReferralPipelineCreateManyAndReturnArgs>(args?: SelectSubset<T, ReferralPipelineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ReferralPipeline.
+     * @param {ReferralPipelineDeleteArgs} args - Arguments to delete one ReferralPipeline.
+     * @example
+     * // Delete one ReferralPipeline
+     * const ReferralPipeline = await prisma.referralPipeline.delete({
+     *   where: {
+     *     // ... filter to delete one ReferralPipeline
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReferralPipelineDeleteArgs>(args: SelectSubset<T, ReferralPipelineDeleteArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ReferralPipeline.
+     * @param {ReferralPipelineUpdateArgs} args - Arguments to update one ReferralPipeline.
+     * @example
+     * // Update one ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReferralPipelineUpdateArgs>(args: SelectSubset<T, ReferralPipelineUpdateArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ReferralPipelines.
+     * @param {ReferralPipelineDeleteManyArgs} args - Arguments to filter ReferralPipelines to delete.
+     * @example
+     * // Delete a few ReferralPipelines
+     * const { count } = await prisma.referralPipeline.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReferralPipelineDeleteManyArgs>(args?: SelectSubset<T, ReferralPipelineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReferralPipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReferralPipelines
+     * const referralPipeline = await prisma.referralPipeline.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReferralPipelineUpdateManyArgs>(args: SelectSubset<T, ReferralPipelineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ReferralPipeline.
+     * @param {ReferralPipelineUpsertArgs} args - Arguments to update or create a ReferralPipeline.
+     * @example
+     * // Update or create a ReferralPipeline
+     * const referralPipeline = await prisma.referralPipeline.upsert({
+     *   create: {
+     *     // ... data to create a ReferralPipeline
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReferralPipeline we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReferralPipelineUpsertArgs>(args: SelectSubset<T, ReferralPipelineUpsertArgs<ExtArgs>>): Prisma__ReferralPipelineClient<$Result.GetResult<Prisma.$ReferralPipelinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ReferralPipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineCountArgs} args - Arguments to filter ReferralPipelines to count.
+     * @example
+     * // Count the number of ReferralPipelines
+     * const count = await prisma.referralPipeline.count({
+     *   where: {
+     *     // ... the filter for the ReferralPipelines we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReferralPipelineCountArgs>(
+      args?: Subset<T, ReferralPipelineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReferralPipelineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReferralPipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReferralPipelineAggregateArgs>(args: Subset<T, ReferralPipelineAggregateArgs>): Prisma.PrismaPromise<GetReferralPipelineAggregateType<T>>
+
+    /**
+     * Group by ReferralPipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReferralPipelineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReferralPipelineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReferralPipelineGroupByArgs['orderBy'] }
+        : { orderBy?: ReferralPipelineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReferralPipelineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReferralPipelineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ReferralPipeline model
+   */
+  readonly fields: ReferralPipelineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReferralPipeline.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReferralPipelineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    hospital<T extends HospitalTargetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HospitalTargetDefaultArgs<ExtArgs>>): Prisma__HospitalTargetClient<$Result.GetResult<Prisma.$HospitalTargetPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ReferralPipeline model
+   */ 
+  interface ReferralPipelineFieldRefs {
+    readonly id: FieldRef<"ReferralPipeline", 'String'>
+    readonly tenantId: FieldRef<"ReferralPipeline", 'String'>
+    readonly hospitalId: FieldRef<"ReferralPipeline", 'String'>
+    readonly patientName: FieldRef<"ReferralPipeline", 'String'>
+    readonly referralValue: FieldRef<"ReferralPipeline", 'Decimal'>
+    readonly isConverted: FieldRef<"ReferralPipeline", 'Boolean'>
+    readonly createdAt: FieldRef<"ReferralPipeline", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ReferralPipeline findUnique
+   */
+  export type ReferralPipelineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralPipeline to fetch.
+     */
+    where: ReferralPipelineWhereUniqueInput
+  }
+
+  /**
+   * ReferralPipeline findUniqueOrThrow
+   */
+  export type ReferralPipelineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralPipeline to fetch.
+     */
+    where: ReferralPipelineWhereUniqueInput
+  }
+
+  /**
+   * ReferralPipeline findFirst
+   */
+  export type ReferralPipelineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralPipeline to fetch.
+     */
+    where?: ReferralPipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralPipelines to fetch.
+     */
+    orderBy?: ReferralPipelineOrderByWithRelationInput | ReferralPipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReferralPipelines.
+     */
+    cursor?: ReferralPipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralPipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralPipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReferralPipelines.
+     */
+    distinct?: ReferralPipelineScalarFieldEnum | ReferralPipelineScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralPipeline findFirstOrThrow
+   */
+  export type ReferralPipelineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralPipeline to fetch.
+     */
+    where?: ReferralPipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralPipelines to fetch.
+     */
+    orderBy?: ReferralPipelineOrderByWithRelationInput | ReferralPipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReferralPipelines.
+     */
+    cursor?: ReferralPipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralPipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralPipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReferralPipelines.
+     */
+    distinct?: ReferralPipelineScalarFieldEnum | ReferralPipelineScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralPipeline findMany
+   */
+  export type ReferralPipelineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which ReferralPipelines to fetch.
+     */
+    where?: ReferralPipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReferralPipelines to fetch.
+     */
+    orderBy?: ReferralPipelineOrderByWithRelationInput | ReferralPipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReferralPipelines.
+     */
+    cursor?: ReferralPipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReferralPipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReferralPipelines.
+     */
+    skip?: number
+    distinct?: ReferralPipelineScalarFieldEnum | ReferralPipelineScalarFieldEnum[]
+  }
+
+  /**
+   * ReferralPipeline create
+   */
+  export type ReferralPipelineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ReferralPipeline.
+     */
+    data: XOR<ReferralPipelineCreateInput, ReferralPipelineUncheckedCreateInput>
+  }
+
+  /**
+   * ReferralPipeline createMany
+   */
+  export type ReferralPipelineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ReferralPipelines.
+     */
+    data: ReferralPipelineCreateManyInput | ReferralPipelineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReferralPipeline createManyAndReturn
+   */
+  export type ReferralPipelineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ReferralPipelines.
+     */
+    data: ReferralPipelineCreateManyInput | ReferralPipelineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReferralPipeline update
+   */
+  export type ReferralPipelineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ReferralPipeline.
+     */
+    data: XOR<ReferralPipelineUpdateInput, ReferralPipelineUncheckedUpdateInput>
+    /**
+     * Choose, which ReferralPipeline to update.
+     */
+    where: ReferralPipelineWhereUniqueInput
+  }
+
+  /**
+   * ReferralPipeline updateMany
+   */
+  export type ReferralPipelineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ReferralPipelines.
+     */
+    data: XOR<ReferralPipelineUpdateManyMutationInput, ReferralPipelineUncheckedUpdateManyInput>
+    /**
+     * Filter which ReferralPipelines to update
+     */
+    where?: ReferralPipelineWhereInput
+  }
+
+  /**
+   * ReferralPipeline upsert
+   */
+  export type ReferralPipelineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ReferralPipeline to update in case it exists.
+     */
+    where: ReferralPipelineWhereUniqueInput
+    /**
+     * In case the ReferralPipeline found by the `where` argument doesn't exist, create a new ReferralPipeline with this data.
+     */
+    create: XOR<ReferralPipelineCreateInput, ReferralPipelineUncheckedCreateInput>
+    /**
+     * In case the ReferralPipeline was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReferralPipelineUpdateInput, ReferralPipelineUncheckedUpdateInput>
+  }
+
+  /**
+   * ReferralPipeline delete
+   */
+  export type ReferralPipelineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+    /**
+     * Filter which ReferralPipeline to delete.
+     */
+    where: ReferralPipelineWhereUniqueInput
+  }
+
+  /**
+   * ReferralPipeline deleteMany
+   */
+  export type ReferralPipelineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReferralPipelines to delete
+     */
+    where?: ReferralPipelineWhereInput
+  }
+
+  /**
+   * ReferralPipeline without action
+   */
+  export type ReferralPipelineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReferralPipeline
+     */
+    select?: ReferralPipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReferralPipelineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SupplyForecastMetrics
+   */
+
+  export type AggregateSupplyForecastMetrics = {
+    _count: SupplyForecastMetricsCountAggregateOutputType | null
+    _avg: SupplyForecastMetricsAvgAggregateOutputType | null
+    _sum: SupplyForecastMetricsSumAggregateOutputType | null
+    _min: SupplyForecastMetricsMinAggregateOutputType | null
+    _max: SupplyForecastMetricsMaxAggregateOutputType | null
+  }
+
+  export type SupplyForecastMetricsAvgAggregateOutputType = {
+    predictedDemand: number | null
+    physicalSupply: number | null
+  }
+
+  export type SupplyForecastMetricsSumAggregateOutputType = {
+    predictedDemand: number | null
+    physicalSupply: number | null
+  }
+
+  export type SupplyForecastMetricsMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    targetDate: Date | null
+    geographyZone: string | null
+    predictedDemand: number | null
+    physicalSupply: number | null
+    deficitWarning: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SupplyForecastMetricsMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    targetDate: Date | null
+    geographyZone: string | null
+    predictedDemand: number | null
+    physicalSupply: number | null
+    deficitWarning: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SupplyForecastMetricsCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    targetDate: number
+    geographyZone: number
+    predictedDemand: number
+    physicalSupply: number
+    deficitWarning: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SupplyForecastMetricsAvgAggregateInputType = {
+    predictedDemand?: true
+    physicalSupply?: true
+  }
+
+  export type SupplyForecastMetricsSumAggregateInputType = {
+    predictedDemand?: true
+    physicalSupply?: true
+  }
+
+  export type SupplyForecastMetricsMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    targetDate?: true
+    geographyZone?: true
+    predictedDemand?: true
+    physicalSupply?: true
+    deficitWarning?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SupplyForecastMetricsMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    targetDate?: true
+    geographyZone?: true
+    predictedDemand?: true
+    physicalSupply?: true
+    deficitWarning?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SupplyForecastMetricsCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    targetDate?: true
+    geographyZone?: true
+    predictedDemand?: true
+    physicalSupply?: true
+    deficitWarning?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SupplyForecastMetricsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupplyForecastMetrics to aggregate.
+     */
+    where?: SupplyForecastMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupplyForecastMetrics to fetch.
+     */
+    orderBy?: SupplyForecastMetricsOrderByWithRelationInput | SupplyForecastMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SupplyForecastMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupplyForecastMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupplyForecastMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SupplyForecastMetrics
+    **/
+    _count?: true | SupplyForecastMetricsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SupplyForecastMetricsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SupplyForecastMetricsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SupplyForecastMetricsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SupplyForecastMetricsMaxAggregateInputType
+  }
+
+  export type GetSupplyForecastMetricsAggregateType<T extends SupplyForecastMetricsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSupplyForecastMetrics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSupplyForecastMetrics[P]>
+      : GetScalarType<T[P], AggregateSupplyForecastMetrics[P]>
+  }
+
+
+
+
+  export type SupplyForecastMetricsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupplyForecastMetricsWhereInput
+    orderBy?: SupplyForecastMetricsOrderByWithAggregationInput | SupplyForecastMetricsOrderByWithAggregationInput[]
+    by: SupplyForecastMetricsScalarFieldEnum[] | SupplyForecastMetricsScalarFieldEnum
+    having?: SupplyForecastMetricsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SupplyForecastMetricsCountAggregateInputType | true
+    _avg?: SupplyForecastMetricsAvgAggregateInputType
+    _sum?: SupplyForecastMetricsSumAggregateInputType
+    _min?: SupplyForecastMetricsMinAggregateInputType
+    _max?: SupplyForecastMetricsMaxAggregateInputType
+  }
+
+  export type SupplyForecastMetricsGroupByOutputType = {
+    id: string
+    tenantId: string
+    targetDate: Date
+    geographyZone: string
+    predictedDemand: number
+    physicalSupply: number
+    deficitWarning: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SupplyForecastMetricsCountAggregateOutputType | null
+    _avg: SupplyForecastMetricsAvgAggregateOutputType | null
+    _sum: SupplyForecastMetricsSumAggregateOutputType | null
+    _min: SupplyForecastMetricsMinAggregateOutputType | null
+    _max: SupplyForecastMetricsMaxAggregateOutputType | null
+  }
+
+  type GetSupplyForecastMetricsGroupByPayload<T extends SupplyForecastMetricsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SupplyForecastMetricsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SupplyForecastMetricsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SupplyForecastMetricsGroupByOutputType[P]>
+            : GetScalarType<T[P], SupplyForecastMetricsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SupplyForecastMetricsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    targetDate?: boolean
+    geographyZone?: boolean
+    predictedDemand?: boolean
+    physicalSupply?: boolean
+    deficitWarning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["supplyForecastMetrics"]>
+
+  export type SupplyForecastMetricsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    targetDate?: boolean
+    geographyZone?: boolean
+    predictedDemand?: boolean
+    physicalSupply?: boolean
+    deficitWarning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["supplyForecastMetrics"]>
+
+  export type SupplyForecastMetricsSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    targetDate?: boolean
+    geographyZone?: boolean
+    predictedDemand?: boolean
+    physicalSupply?: boolean
+    deficitWarning?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SupplyForecastMetricsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SupplyForecastMetrics"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      targetDate: Date
+      geographyZone: string
+      predictedDemand: number
+      physicalSupply: number
+      deficitWarning: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["supplyForecastMetrics"]>
+    composites: {}
+  }
+
+  type SupplyForecastMetricsGetPayload<S extends boolean | null | undefined | SupplyForecastMetricsDefaultArgs> = $Result.GetResult<Prisma.$SupplyForecastMetricsPayload, S>
+
+  type SupplyForecastMetricsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SupplyForecastMetricsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SupplyForecastMetricsCountAggregateInputType | true
+    }
+
+  export interface SupplyForecastMetricsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SupplyForecastMetrics'], meta: { name: 'SupplyForecastMetrics' } }
+    /**
+     * Find zero or one SupplyForecastMetrics that matches the filter.
+     * @param {SupplyForecastMetricsFindUniqueArgs} args - Arguments to find a SupplyForecastMetrics
+     * @example
+     * // Get one SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SupplyForecastMetricsFindUniqueArgs>(args: SelectSubset<T, SupplyForecastMetricsFindUniqueArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SupplyForecastMetrics that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SupplyForecastMetricsFindUniqueOrThrowArgs} args - Arguments to find a SupplyForecastMetrics
+     * @example
+     * // Get one SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SupplyForecastMetricsFindUniqueOrThrowArgs>(args: SelectSubset<T, SupplyForecastMetricsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SupplyForecastMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsFindFirstArgs} args - Arguments to find a SupplyForecastMetrics
+     * @example
+     * // Get one SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SupplyForecastMetricsFindFirstArgs>(args?: SelectSubset<T, SupplyForecastMetricsFindFirstArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SupplyForecastMetrics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsFindFirstOrThrowArgs} args - Arguments to find a SupplyForecastMetrics
+     * @example
+     * // Get one SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SupplyForecastMetricsFindFirstOrThrowArgs>(args?: SelectSubset<T, SupplyForecastMetricsFindFirstOrThrowArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SupplyForecastMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findMany()
+     * 
+     * // Get first 10 SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const supplyForecastMetricsWithIdOnly = await prisma.supplyForecastMetrics.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SupplyForecastMetricsFindManyArgs>(args?: SelectSubset<T, SupplyForecastMetricsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsCreateArgs} args - Arguments to create a SupplyForecastMetrics.
+     * @example
+     * // Create one SupplyForecastMetrics
+     * const SupplyForecastMetrics = await prisma.supplyForecastMetrics.create({
+     *   data: {
+     *     // ... data to create a SupplyForecastMetrics
+     *   }
+     * })
+     * 
+     */
+    create<T extends SupplyForecastMetricsCreateArgs>(args: SelectSubset<T, SupplyForecastMetricsCreateArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsCreateManyArgs} args - Arguments to create many SupplyForecastMetrics.
+     * @example
+     * // Create many SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SupplyForecastMetricsCreateManyArgs>(args?: SelectSubset<T, SupplyForecastMetricsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SupplyForecastMetrics and returns the data saved in the database.
+     * @param {SupplyForecastMetricsCreateManyAndReturnArgs} args - Arguments to create many SupplyForecastMetrics.
+     * @example
+     * // Create many SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SupplyForecastMetrics and only return the `id`
+     * const supplyForecastMetricsWithIdOnly = await prisma.supplyForecastMetrics.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SupplyForecastMetricsCreateManyAndReturnArgs>(args?: SelectSubset<T, SupplyForecastMetricsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsDeleteArgs} args - Arguments to delete one SupplyForecastMetrics.
+     * @example
+     * // Delete one SupplyForecastMetrics
+     * const SupplyForecastMetrics = await prisma.supplyForecastMetrics.delete({
+     *   where: {
+     *     // ... filter to delete one SupplyForecastMetrics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SupplyForecastMetricsDeleteArgs>(args: SelectSubset<T, SupplyForecastMetricsDeleteArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsUpdateArgs} args - Arguments to update one SupplyForecastMetrics.
+     * @example
+     * // Update one SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SupplyForecastMetricsUpdateArgs>(args: SelectSubset<T, SupplyForecastMetricsUpdateArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsDeleteManyArgs} args - Arguments to filter SupplyForecastMetrics to delete.
+     * @example
+     * // Delete a few SupplyForecastMetrics
+     * const { count } = await prisma.supplyForecastMetrics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SupplyForecastMetricsDeleteManyArgs>(args?: SelectSubset<T, SupplyForecastMetricsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SupplyForecastMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SupplyForecastMetricsUpdateManyArgs>(args: SelectSubset<T, SupplyForecastMetricsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SupplyForecastMetrics.
+     * @param {SupplyForecastMetricsUpsertArgs} args - Arguments to update or create a SupplyForecastMetrics.
+     * @example
+     * // Update or create a SupplyForecastMetrics
+     * const supplyForecastMetrics = await prisma.supplyForecastMetrics.upsert({
+     *   create: {
+     *     // ... data to create a SupplyForecastMetrics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SupplyForecastMetrics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SupplyForecastMetricsUpsertArgs>(args: SelectSubset<T, SupplyForecastMetricsUpsertArgs<ExtArgs>>): Prisma__SupplyForecastMetricsClient<$Result.GetResult<Prisma.$SupplyForecastMetricsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SupplyForecastMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsCountArgs} args - Arguments to filter SupplyForecastMetrics to count.
+     * @example
+     * // Count the number of SupplyForecastMetrics
+     * const count = await prisma.supplyForecastMetrics.count({
+     *   where: {
+     *     // ... the filter for the SupplyForecastMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends SupplyForecastMetricsCountArgs>(
+      args?: Subset<T, SupplyForecastMetricsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SupplyForecastMetricsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SupplyForecastMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SupplyForecastMetricsAggregateArgs>(args: Subset<T, SupplyForecastMetricsAggregateArgs>): Prisma.PrismaPromise<GetSupplyForecastMetricsAggregateType<T>>
+
+    /**
+     * Group by SupplyForecastMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupplyForecastMetricsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SupplyForecastMetricsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SupplyForecastMetricsGroupByArgs['orderBy'] }
+        : { orderBy?: SupplyForecastMetricsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SupplyForecastMetricsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSupplyForecastMetricsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SupplyForecastMetrics model
+   */
+  readonly fields: SupplyForecastMetricsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SupplyForecastMetrics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SupplyForecastMetricsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SupplyForecastMetrics model
+   */ 
+  interface SupplyForecastMetricsFieldRefs {
+    readonly id: FieldRef<"SupplyForecastMetrics", 'String'>
+    readonly tenantId: FieldRef<"SupplyForecastMetrics", 'String'>
+    readonly targetDate: FieldRef<"SupplyForecastMetrics", 'DateTime'>
+    readonly geographyZone: FieldRef<"SupplyForecastMetrics", 'String'>
+    readonly predictedDemand: FieldRef<"SupplyForecastMetrics", 'Int'>
+    readonly physicalSupply: FieldRef<"SupplyForecastMetrics", 'Int'>
+    readonly deficitWarning: FieldRef<"SupplyForecastMetrics", 'Boolean'>
+    readonly createdAt: FieldRef<"SupplyForecastMetrics", 'DateTime'>
+    readonly updatedAt: FieldRef<"SupplyForecastMetrics", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SupplyForecastMetrics findUnique
+   */
+  export type SupplyForecastMetricsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter, which SupplyForecastMetrics to fetch.
+     */
+    where: SupplyForecastMetricsWhereUniqueInput
+  }
+
+  /**
+   * SupplyForecastMetrics findUniqueOrThrow
+   */
+  export type SupplyForecastMetricsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter, which SupplyForecastMetrics to fetch.
+     */
+    where: SupplyForecastMetricsWhereUniqueInput
+  }
+
+  /**
+   * SupplyForecastMetrics findFirst
+   */
+  export type SupplyForecastMetricsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter, which SupplyForecastMetrics to fetch.
+     */
+    where?: SupplyForecastMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupplyForecastMetrics to fetch.
+     */
+    orderBy?: SupplyForecastMetricsOrderByWithRelationInput | SupplyForecastMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupplyForecastMetrics.
+     */
+    cursor?: SupplyForecastMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupplyForecastMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupplyForecastMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupplyForecastMetrics.
+     */
+    distinct?: SupplyForecastMetricsScalarFieldEnum | SupplyForecastMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * SupplyForecastMetrics findFirstOrThrow
+   */
+  export type SupplyForecastMetricsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter, which SupplyForecastMetrics to fetch.
+     */
+    where?: SupplyForecastMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupplyForecastMetrics to fetch.
+     */
+    orderBy?: SupplyForecastMetricsOrderByWithRelationInput | SupplyForecastMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupplyForecastMetrics.
+     */
+    cursor?: SupplyForecastMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupplyForecastMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupplyForecastMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupplyForecastMetrics.
+     */
+    distinct?: SupplyForecastMetricsScalarFieldEnum | SupplyForecastMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * SupplyForecastMetrics findMany
+   */
+  export type SupplyForecastMetricsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter, which SupplyForecastMetrics to fetch.
+     */
+    where?: SupplyForecastMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupplyForecastMetrics to fetch.
+     */
+    orderBy?: SupplyForecastMetricsOrderByWithRelationInput | SupplyForecastMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SupplyForecastMetrics.
+     */
+    cursor?: SupplyForecastMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupplyForecastMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupplyForecastMetrics.
+     */
+    skip?: number
+    distinct?: SupplyForecastMetricsScalarFieldEnum | SupplyForecastMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * SupplyForecastMetrics create
+   */
+  export type SupplyForecastMetricsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SupplyForecastMetrics.
+     */
+    data: XOR<SupplyForecastMetricsCreateInput, SupplyForecastMetricsUncheckedCreateInput>
+  }
+
+  /**
+   * SupplyForecastMetrics createMany
+   */
+  export type SupplyForecastMetricsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SupplyForecastMetrics.
+     */
+    data: SupplyForecastMetricsCreateManyInput | SupplyForecastMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupplyForecastMetrics createManyAndReturn
+   */
+  export type SupplyForecastMetricsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SupplyForecastMetrics.
+     */
+    data: SupplyForecastMetricsCreateManyInput | SupplyForecastMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupplyForecastMetrics update
+   */
+  export type SupplyForecastMetricsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SupplyForecastMetrics.
+     */
+    data: XOR<SupplyForecastMetricsUpdateInput, SupplyForecastMetricsUncheckedUpdateInput>
+    /**
+     * Choose, which SupplyForecastMetrics to update.
+     */
+    where: SupplyForecastMetricsWhereUniqueInput
+  }
+
+  /**
+   * SupplyForecastMetrics updateMany
+   */
+  export type SupplyForecastMetricsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SupplyForecastMetrics.
+     */
+    data: XOR<SupplyForecastMetricsUpdateManyMutationInput, SupplyForecastMetricsUncheckedUpdateManyInput>
+    /**
+     * Filter which SupplyForecastMetrics to update
+     */
+    where?: SupplyForecastMetricsWhereInput
+  }
+
+  /**
+   * SupplyForecastMetrics upsert
+   */
+  export type SupplyForecastMetricsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SupplyForecastMetrics to update in case it exists.
+     */
+    where: SupplyForecastMetricsWhereUniqueInput
+    /**
+     * In case the SupplyForecastMetrics found by the `where` argument doesn't exist, create a new SupplyForecastMetrics with this data.
+     */
+    create: XOR<SupplyForecastMetricsCreateInput, SupplyForecastMetricsUncheckedCreateInput>
+    /**
+     * In case the SupplyForecastMetrics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SupplyForecastMetricsUpdateInput, SupplyForecastMetricsUncheckedUpdateInput>
+  }
+
+  /**
+   * SupplyForecastMetrics delete
+   */
+  export type SupplyForecastMetricsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+    /**
+     * Filter which SupplyForecastMetrics to delete.
+     */
+    where: SupplyForecastMetricsWhereUniqueInput
+  }
+
+  /**
+   * SupplyForecastMetrics deleteMany
+   */
+  export type SupplyForecastMetricsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupplyForecastMetrics to delete
+     */
+    where?: SupplyForecastMetricsWhereInput
+  }
+
+  /**
+   * SupplyForecastMetrics without action
+   */
+  export type SupplyForecastMetricsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupplyForecastMetrics
+     */
+    select?: SupplyForecastMetricsSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model ClientProfile
    */
 
@@ -38670,6 +41898,8 @@ export namespace Prisma {
     isApproved: boolean | null
     approvedAt: Date | null
     trustScore: number | null
+    hasCompletedInduction: boolean | null
+    isLockedForRetraining: boolean | null
     createdAt: Date | null
     tenantId: string | null
     address: string | null
@@ -38687,6 +41917,8 @@ export namespace Prisma {
     isApproved: boolean | null
     approvedAt: Date | null
     trustScore: number | null
+    hasCompletedInduction: boolean | null
+    isLockedForRetraining: boolean | null
     createdAt: Date | null
     tenantId: string | null
     address: string | null
@@ -38705,6 +41937,8 @@ export namespace Prisma {
     isApproved: number
     approvedAt: number
     trustScore: number
+    hasCompletedInduction: number
+    isLockedForRetraining: number
     createdAt: number
     tenantId: number
     address: number
@@ -38732,6 +41966,8 @@ export namespace Prisma {
     isApproved?: true
     approvedAt?: true
     trustScore?: true
+    hasCompletedInduction?: true
+    isLockedForRetraining?: true
     createdAt?: true
     tenantId?: true
     address?: true
@@ -38749,6 +41985,8 @@ export namespace Prisma {
     isApproved?: true
     approvedAt?: true
     trustScore?: true
+    hasCompletedInduction?: true
+    isLockedForRetraining?: true
     createdAt?: true
     tenantId?: true
     address?: true
@@ -38767,6 +42005,8 @@ export namespace Prisma {
     isApproved?: true
     approvedAt?: true
     trustScore?: true
+    hasCompletedInduction?: true
+    isLockedForRetraining?: true
     createdAt?: true
     tenantId?: true
     address?: true
@@ -38872,6 +42112,8 @@ export namespace Prisma {
     isApproved: boolean
     approvedAt: Date | null
     trustScore: number
+    hasCompletedInduction: boolean
+    isLockedForRetraining: boolean
     createdAt: Date
     tenantId: string
     address: string | null
@@ -38909,6 +42151,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: boolean
     trustScore?: boolean
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: boolean
     tenantId?: boolean
     address?: boolean
@@ -38947,6 +42191,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: boolean
     trustScore?: boolean
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: boolean
     tenantId?: boolean
     address?: boolean
@@ -38967,6 +42213,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: boolean
     trustScore?: boolean
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: boolean
     tenantId?: boolean
     address?: boolean
@@ -39035,6 +42283,8 @@ export namespace Prisma {
       isApproved: boolean
       approvedAt: Date | null
       trustScore: number
+      hasCompletedInduction: boolean
+      isLockedForRetraining: boolean
       createdAt: Date
       tenantId: string
       address: string | null
@@ -39462,6 +42712,8 @@ export namespace Prisma {
     readonly isApproved: FieldRef<"PswProfile", 'Boolean'>
     readonly approvedAt: FieldRef<"PswProfile", 'DateTime'>
     readonly trustScore: FieldRef<"PswProfile", 'Int'>
+    readonly hasCompletedInduction: FieldRef<"PswProfile", 'Boolean'>
+    readonly isLockedForRetraining: FieldRef<"PswProfile", 'Boolean'>
     readonly createdAt: FieldRef<"PswProfile", 'DateTime'>
     readonly tenantId: FieldRef<"PswProfile", 'String'>
     readonly address: FieldRef<"PswProfile", 'String'>
@@ -128511,6 +131763,48 @@ export namespace Prisma {
   export type EcosystemAutopilotConfigScalarFieldEnum = (typeof EcosystemAutopilotConfigScalarFieldEnum)[keyof typeof EcosystemAutopilotConfigScalarFieldEnum]
 
 
+  export const HospitalTargetScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    hospitalName: 'hospitalName',
+    dischargePlanner: 'dischargePlanner',
+    status: 'status',
+    lastTouchpointAt: 'lastTouchpointAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HospitalTargetScalarFieldEnum = (typeof HospitalTargetScalarFieldEnum)[keyof typeof HospitalTargetScalarFieldEnum]
+
+
+  export const ReferralPipelineScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    hospitalId: 'hospitalId',
+    patientName: 'patientName',
+    referralValue: 'referralValue',
+    isConverted: 'isConverted',
+    createdAt: 'createdAt'
+  };
+
+  export type ReferralPipelineScalarFieldEnum = (typeof ReferralPipelineScalarFieldEnum)[keyof typeof ReferralPipelineScalarFieldEnum]
+
+
+  export const SupplyForecastMetricsScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    targetDate: 'targetDate',
+    geographyZone: 'geographyZone',
+    predictedDemand: 'predictedDemand',
+    physicalSupply: 'physicalSupply',
+    deficitWarning: 'deficitWarning',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SupplyForecastMetricsScalarFieldEnum = (typeof SupplyForecastMetricsScalarFieldEnum)[keyof typeof SupplyForecastMetricsScalarFieldEnum]
+
+
   export const ClientProfileScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -128546,6 +131840,8 @@ export namespace Prisma {
     isApproved: 'isApproved',
     approvedAt: 'approvedAt',
     trustScore: 'trustScore',
+    hasCompletedInduction: 'hasCompletedInduction',
+    isLockedForRetraining: 'isLockedForRetraining',
     createdAt: 'createdAt',
     tenantId: 'tenantId',
     address: 'address',
@@ -132094,6 +135390,217 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"EcosystemAutopilotConfig"> | Date | string
   }
 
+  export type HospitalTargetWhereInput = {
+    AND?: HospitalTargetWhereInput | HospitalTargetWhereInput[]
+    OR?: HospitalTargetWhereInput[]
+    NOT?: HospitalTargetWhereInput | HospitalTargetWhereInput[]
+    id?: StringFilter<"HospitalTarget"> | string
+    tenantId?: StringFilter<"HospitalTarget"> | string
+    hospitalName?: StringFilter<"HospitalTarget"> | string
+    dischargePlanner?: StringNullableFilter<"HospitalTarget"> | string | null
+    status?: StringFilter<"HospitalTarget"> | string
+    lastTouchpointAt?: DateTimeNullableFilter<"HospitalTarget"> | Date | string | null
+    createdAt?: DateTimeFilter<"HospitalTarget"> | Date | string
+    updatedAt?: DateTimeFilter<"HospitalTarget"> | Date | string
+    pipelines?: ReferralPipelineListRelationFilter
+  }
+
+  export type HospitalTargetOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalName?: SortOrder
+    dischargePlanner?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lastTouchpointAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelines?: ReferralPipelineOrderByRelationAggregateInput
+  }
+
+  export type HospitalTargetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HospitalTargetWhereInput | HospitalTargetWhereInput[]
+    OR?: HospitalTargetWhereInput[]
+    NOT?: HospitalTargetWhereInput | HospitalTargetWhereInput[]
+    tenantId?: StringFilter<"HospitalTarget"> | string
+    hospitalName?: StringFilter<"HospitalTarget"> | string
+    dischargePlanner?: StringNullableFilter<"HospitalTarget"> | string | null
+    status?: StringFilter<"HospitalTarget"> | string
+    lastTouchpointAt?: DateTimeNullableFilter<"HospitalTarget"> | Date | string | null
+    createdAt?: DateTimeFilter<"HospitalTarget"> | Date | string
+    updatedAt?: DateTimeFilter<"HospitalTarget"> | Date | string
+    pipelines?: ReferralPipelineListRelationFilter
+  }, "id">
+
+  export type HospitalTargetOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalName?: SortOrder
+    dischargePlanner?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lastTouchpointAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HospitalTargetCountOrderByAggregateInput
+    _max?: HospitalTargetMaxOrderByAggregateInput
+    _min?: HospitalTargetMinOrderByAggregateInput
+  }
+
+  export type HospitalTargetScalarWhereWithAggregatesInput = {
+    AND?: HospitalTargetScalarWhereWithAggregatesInput | HospitalTargetScalarWhereWithAggregatesInput[]
+    OR?: HospitalTargetScalarWhereWithAggregatesInput[]
+    NOT?: HospitalTargetScalarWhereWithAggregatesInput | HospitalTargetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HospitalTarget"> | string
+    tenantId?: StringWithAggregatesFilter<"HospitalTarget"> | string
+    hospitalName?: StringWithAggregatesFilter<"HospitalTarget"> | string
+    dischargePlanner?: StringNullableWithAggregatesFilter<"HospitalTarget"> | string | null
+    status?: StringWithAggregatesFilter<"HospitalTarget"> | string
+    lastTouchpointAt?: DateTimeNullableWithAggregatesFilter<"HospitalTarget"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"HospitalTarget"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HospitalTarget"> | Date | string
+  }
+
+  export type ReferralPipelineWhereInput = {
+    AND?: ReferralPipelineWhereInput | ReferralPipelineWhereInput[]
+    OR?: ReferralPipelineWhereInput[]
+    NOT?: ReferralPipelineWhereInput | ReferralPipelineWhereInput[]
+    id?: StringFilter<"ReferralPipeline"> | string
+    tenantId?: StringFilter<"ReferralPipeline"> | string
+    hospitalId?: StringFilter<"ReferralPipeline"> | string
+    patientName?: StringFilter<"ReferralPipeline"> | string
+    referralValue?: DecimalFilter<"ReferralPipeline"> | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFilter<"ReferralPipeline"> | boolean
+    createdAt?: DateTimeFilter<"ReferralPipeline"> | Date | string
+    hospital?: XOR<HospitalTargetRelationFilter, HospitalTargetWhereInput>
+  }
+
+  export type ReferralPipelineOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalId?: SortOrder
+    patientName?: SortOrder
+    referralValue?: SortOrder
+    isConverted?: SortOrder
+    createdAt?: SortOrder
+    hospital?: HospitalTargetOrderByWithRelationInput
+  }
+
+  export type ReferralPipelineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ReferralPipelineWhereInput | ReferralPipelineWhereInput[]
+    OR?: ReferralPipelineWhereInput[]
+    NOT?: ReferralPipelineWhereInput | ReferralPipelineWhereInput[]
+    tenantId?: StringFilter<"ReferralPipeline"> | string
+    hospitalId?: StringFilter<"ReferralPipeline"> | string
+    patientName?: StringFilter<"ReferralPipeline"> | string
+    referralValue?: DecimalFilter<"ReferralPipeline"> | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFilter<"ReferralPipeline"> | boolean
+    createdAt?: DateTimeFilter<"ReferralPipeline"> | Date | string
+    hospital?: XOR<HospitalTargetRelationFilter, HospitalTargetWhereInput>
+  }, "id">
+
+  export type ReferralPipelineOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalId?: SortOrder
+    patientName?: SortOrder
+    referralValue?: SortOrder
+    isConverted?: SortOrder
+    createdAt?: SortOrder
+    _count?: ReferralPipelineCountOrderByAggregateInput
+    _avg?: ReferralPipelineAvgOrderByAggregateInput
+    _max?: ReferralPipelineMaxOrderByAggregateInput
+    _min?: ReferralPipelineMinOrderByAggregateInput
+    _sum?: ReferralPipelineSumOrderByAggregateInput
+  }
+
+  export type ReferralPipelineScalarWhereWithAggregatesInput = {
+    AND?: ReferralPipelineScalarWhereWithAggregatesInput | ReferralPipelineScalarWhereWithAggregatesInput[]
+    OR?: ReferralPipelineScalarWhereWithAggregatesInput[]
+    NOT?: ReferralPipelineScalarWhereWithAggregatesInput | ReferralPipelineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ReferralPipeline"> | string
+    tenantId?: StringWithAggregatesFilter<"ReferralPipeline"> | string
+    hospitalId?: StringWithAggregatesFilter<"ReferralPipeline"> | string
+    patientName?: StringWithAggregatesFilter<"ReferralPipeline"> | string
+    referralValue?: DecimalWithAggregatesFilter<"ReferralPipeline"> | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolWithAggregatesFilter<"ReferralPipeline"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ReferralPipeline"> | Date | string
+  }
+
+  export type SupplyForecastMetricsWhereInput = {
+    AND?: SupplyForecastMetricsWhereInput | SupplyForecastMetricsWhereInput[]
+    OR?: SupplyForecastMetricsWhereInput[]
+    NOT?: SupplyForecastMetricsWhereInput | SupplyForecastMetricsWhereInput[]
+    id?: StringFilter<"SupplyForecastMetrics"> | string
+    tenantId?: StringFilter<"SupplyForecastMetrics"> | string
+    targetDate?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+    geographyZone?: StringFilter<"SupplyForecastMetrics"> | string
+    predictedDemand?: IntFilter<"SupplyForecastMetrics"> | number
+    physicalSupply?: IntFilter<"SupplyForecastMetrics"> | number
+    deficitWarning?: BoolFilter<"SupplyForecastMetrics"> | boolean
+    createdAt?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+  }
+
+  export type SupplyForecastMetricsOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    targetDate?: SortOrder
+    geographyZone?: SortOrder
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+    deficitWarning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupplyForecastMetricsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SupplyForecastMetricsWhereInput | SupplyForecastMetricsWhereInput[]
+    OR?: SupplyForecastMetricsWhereInput[]
+    NOT?: SupplyForecastMetricsWhereInput | SupplyForecastMetricsWhereInput[]
+    tenantId?: StringFilter<"SupplyForecastMetrics"> | string
+    targetDate?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+    geographyZone?: StringFilter<"SupplyForecastMetrics"> | string
+    predictedDemand?: IntFilter<"SupplyForecastMetrics"> | number
+    physicalSupply?: IntFilter<"SupplyForecastMetrics"> | number
+    deficitWarning?: BoolFilter<"SupplyForecastMetrics"> | boolean
+    createdAt?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"SupplyForecastMetrics"> | Date | string
+  }, "id">
+
+  export type SupplyForecastMetricsOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    targetDate?: SortOrder
+    geographyZone?: SortOrder
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+    deficitWarning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SupplyForecastMetricsCountOrderByAggregateInput
+    _avg?: SupplyForecastMetricsAvgOrderByAggregateInput
+    _max?: SupplyForecastMetricsMaxOrderByAggregateInput
+    _min?: SupplyForecastMetricsMinOrderByAggregateInput
+    _sum?: SupplyForecastMetricsSumOrderByAggregateInput
+  }
+
+  export type SupplyForecastMetricsScalarWhereWithAggregatesInput = {
+    AND?: SupplyForecastMetricsScalarWhereWithAggregatesInput | SupplyForecastMetricsScalarWhereWithAggregatesInput[]
+    OR?: SupplyForecastMetricsScalarWhereWithAggregatesInput[]
+    NOT?: SupplyForecastMetricsScalarWhereWithAggregatesInput | SupplyForecastMetricsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SupplyForecastMetrics"> | string
+    tenantId?: StringWithAggregatesFilter<"SupplyForecastMetrics"> | string
+    targetDate?: DateTimeWithAggregatesFilter<"SupplyForecastMetrics"> | Date | string
+    geographyZone?: StringWithAggregatesFilter<"SupplyForecastMetrics"> | string
+    predictedDemand?: IntWithAggregatesFilter<"SupplyForecastMetrics"> | number
+    physicalSupply?: IntWithAggregatesFilter<"SupplyForecastMetrics"> | number
+    deficitWarning?: BoolWithAggregatesFilter<"SupplyForecastMetrics"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SupplyForecastMetrics"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SupplyForecastMetrics"> | Date | string
+  }
+
   export type ClientProfileWhereInput = {
     AND?: ClientProfileWhereInput | ClientProfileWhereInput[]
     OR?: ClientProfileWhereInput[]
@@ -132308,6 +135815,8 @@ export namespace Prisma {
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     trustScore?: IntFilter<"PswProfile"> | number
+    hasCompletedInduction?: BoolFilter<"PswProfile"> | boolean
+    isLockedForRetraining?: BoolFilter<"PswProfile"> | boolean
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
     tenantId?: StringFilter<"PswProfile"> | string
     address?: StringNullableFilter<"PswProfile"> | string | null
@@ -132345,6 +135854,8 @@ export namespace Prisma {
     isApproved?: SortOrder
     approvedAt?: SortOrderInput | SortOrder
     trustScore?: SortOrder
+    hasCompletedInduction?: SortOrder
+    isLockedForRetraining?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     address?: SortOrderInput | SortOrder
@@ -132385,6 +135896,8 @@ export namespace Prisma {
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     trustScore?: IntFilter<"PswProfile"> | number
+    hasCompletedInduction?: BoolFilter<"PswProfile"> | boolean
+    isLockedForRetraining?: BoolFilter<"PswProfile"> | boolean
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
     tenantId?: StringFilter<"PswProfile"> | string
     address?: StringNullableFilter<"PswProfile"> | string | null
@@ -132422,6 +135935,8 @@ export namespace Prisma {
     isApproved?: SortOrder
     approvedAt?: SortOrderInput | SortOrder
     trustScore?: SortOrder
+    hasCompletedInduction?: SortOrder
+    isLockedForRetraining?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     address?: SortOrderInput | SortOrder
@@ -132448,6 +135963,8 @@ export namespace Prisma {
     isApproved?: BoolWithAggregatesFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableWithAggregatesFilter<"PswProfile"> | Date | string | null
     trustScore?: IntWithAggregatesFilter<"PswProfile"> | number
+    hasCompletedInduction?: BoolWithAggregatesFilter<"PswProfile"> | boolean
+    isLockedForRetraining?: BoolWithAggregatesFilter<"PswProfile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"PswProfile"> | Date | string
     tenantId?: StringWithAggregatesFilter<"PswProfile"> | string
     address?: StringNullableWithAggregatesFilter<"PswProfile"> | string | null
@@ -141871,6 +145388,240 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HospitalTargetCreateInput = {
+    id?: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner?: string | null
+    status?: string
+    lastTouchpointAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipelines?: ReferralPipelineCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalTargetUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner?: string | null
+    status?: string
+    lastTouchpointAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipelines?: ReferralPipelineUncheckedCreateNestedManyWithoutHospitalInput
+  }
+
+  export type HospitalTargetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipelines?: ReferralPipelineUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalTargetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipelines?: ReferralPipelineUncheckedUpdateManyWithoutHospitalNestedInput
+  }
+
+  export type HospitalTargetCreateManyInput = {
+    id?: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner?: string | null
+    status?: string
+    lastTouchpointAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HospitalTargetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HospitalTargetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReferralPipelineCreateInput = {
+    id?: string
+    tenantId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+    hospital: HospitalTargetCreateNestedOneWithoutPipelinesInput
+  }
+
+  export type ReferralPipelineUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    hospitalId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReferralPipelineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    hospital?: HospitalTargetUpdateOneRequiredWithoutPipelinesNestedInput
+  }
+
+  export type ReferralPipelineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReferralPipelineCreateManyInput = {
+    id?: string
+    tenantId: string
+    hospitalId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReferralPipelineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReferralPipelineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupplyForecastMetricsCreateInput = {
+    id?: string
+    tenantId: string
+    targetDate: Date | string
+    geographyZone: string
+    predictedDemand: number
+    physicalSupply: number
+    deficitWarning?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupplyForecastMetricsUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    targetDate: Date | string
+    geographyZone: string
+    predictedDemand: number
+    physicalSupply: number
+    deficitWarning?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupplyForecastMetricsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    geographyZone?: StringFieldUpdateOperationsInput | string
+    predictedDemand?: IntFieldUpdateOperationsInput | number
+    physicalSupply?: IntFieldUpdateOperationsInput | number
+    deficitWarning?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupplyForecastMetricsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    geographyZone?: StringFieldUpdateOperationsInput | string
+    predictedDemand?: IntFieldUpdateOperationsInput | number
+    physicalSupply?: IntFieldUpdateOperationsInput | number
+    deficitWarning?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupplyForecastMetricsCreateManyInput = {
+    id?: string
+    tenantId: string
+    targetDate: Date | string
+    geographyZone: string
+    predictedDemand: number
+    physicalSupply: number
+    deficitWarning?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SupplyForecastMetricsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    geographyZone?: StringFieldUpdateOperationsInput | string
+    predictedDemand?: IntFieldUpdateOperationsInput | number
+    physicalSupply?: IntFieldUpdateOperationsInput | number
+    deficitWarning?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupplyForecastMetricsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    targetDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    geographyZone?: StringFieldUpdateOperationsInput | string
+    predictedDemand?: IntFieldUpdateOperationsInput | number
+    physicalSupply?: IntFieldUpdateOperationsInput | number
+    deficitWarning?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ClientProfileCreateInput = {
     id?: string
     fullName: string
@@ -142121,6 +145872,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -142157,6 +145910,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -142191,6 +145946,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -142227,6 +145984,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -142262,6 +146021,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -142279,6 +146040,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -142296,6 +146059,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -151889,6 +155654,138 @@ export namespace Prisma {
     marginFreezeThreshold?: SortOrder
   }
 
+  export type ReferralPipelineListRelationFilter = {
+    every?: ReferralPipelineWhereInput
+    some?: ReferralPipelineWhereInput
+    none?: ReferralPipelineWhereInput
+  }
+
+  export type ReferralPipelineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HospitalTargetCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalName?: SortOrder
+    dischargePlanner?: SortOrder
+    status?: SortOrder
+    lastTouchpointAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HospitalTargetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalName?: SortOrder
+    dischargePlanner?: SortOrder
+    status?: SortOrder
+    lastTouchpointAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HospitalTargetMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalName?: SortOrder
+    dischargePlanner?: SortOrder
+    status?: SortOrder
+    lastTouchpointAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HospitalTargetRelationFilter = {
+    is?: HospitalTargetWhereInput
+    isNot?: HospitalTargetWhereInput
+  }
+
+  export type ReferralPipelineCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalId?: SortOrder
+    patientName?: SortOrder
+    referralValue?: SortOrder
+    isConverted?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReferralPipelineAvgOrderByAggregateInput = {
+    referralValue?: SortOrder
+  }
+
+  export type ReferralPipelineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalId?: SortOrder
+    patientName?: SortOrder
+    referralValue?: SortOrder
+    isConverted?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReferralPipelineMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    hospitalId?: SortOrder
+    patientName?: SortOrder
+    referralValue?: SortOrder
+    isConverted?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ReferralPipelineSumOrderByAggregateInput = {
+    referralValue?: SortOrder
+  }
+
+  export type SupplyForecastMetricsCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    targetDate?: SortOrder
+    geographyZone?: SortOrder
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+    deficitWarning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupplyForecastMetricsAvgOrderByAggregateInput = {
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+  }
+
+  export type SupplyForecastMetricsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    targetDate?: SortOrder
+    geographyZone?: SortOrder
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+    deficitWarning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupplyForecastMetricsMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    targetDate?: SortOrder
+    geographyZone?: SortOrder
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+    deficitWarning?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SupplyForecastMetricsSumOrderByAggregateInput = {
+    predictedDemand?: SortOrder
+    physicalSupply?: SortOrder
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -152048,6 +155945,8 @@ export namespace Prisma {
     isApproved?: SortOrder
     approvedAt?: SortOrder
     trustScore?: SortOrder
+    hasCompletedInduction?: SortOrder
+    isLockedForRetraining?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     address?: SortOrder
@@ -152069,6 +155968,8 @@ export namespace Prisma {
     isApproved?: SortOrder
     approvedAt?: SortOrder
     trustScore?: SortOrder
+    hasCompletedInduction?: SortOrder
+    isLockedForRetraining?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     address?: SortOrder
@@ -152086,6 +155987,8 @@ export namespace Prisma {
     isApproved?: SortOrder
     approvedAt?: SortOrder
     trustScore?: SortOrder
+    hasCompletedInduction?: SortOrder
+    isLockedForRetraining?: SortOrder
     createdAt?: SortOrder
     tenantId?: SortOrder
     address?: SortOrder
@@ -160999,6 +164902,62 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReputationInput, UserUpdateWithoutReputationInput>, UserUncheckedUpdateWithoutReputationInput>
   }
 
+  export type ReferralPipelineCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput> | ReferralPipelineCreateWithoutHospitalInput[] | ReferralPipelineUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ReferralPipelineCreateOrConnectWithoutHospitalInput | ReferralPipelineCreateOrConnectWithoutHospitalInput[]
+    createMany?: ReferralPipelineCreateManyHospitalInputEnvelope
+    connect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+  }
+
+  export type ReferralPipelineUncheckedCreateNestedManyWithoutHospitalInput = {
+    create?: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput> | ReferralPipelineCreateWithoutHospitalInput[] | ReferralPipelineUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ReferralPipelineCreateOrConnectWithoutHospitalInput | ReferralPipelineCreateOrConnectWithoutHospitalInput[]
+    createMany?: ReferralPipelineCreateManyHospitalInputEnvelope
+    connect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+  }
+
+  export type ReferralPipelineUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput> | ReferralPipelineCreateWithoutHospitalInput[] | ReferralPipelineUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ReferralPipelineCreateOrConnectWithoutHospitalInput | ReferralPipelineCreateOrConnectWithoutHospitalInput[]
+    upsert?: ReferralPipelineUpsertWithWhereUniqueWithoutHospitalInput | ReferralPipelineUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ReferralPipelineCreateManyHospitalInputEnvelope
+    set?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    disconnect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    delete?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    connect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    update?: ReferralPipelineUpdateWithWhereUniqueWithoutHospitalInput | ReferralPipelineUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ReferralPipelineUpdateManyWithWhereWithoutHospitalInput | ReferralPipelineUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ReferralPipelineScalarWhereInput | ReferralPipelineScalarWhereInput[]
+  }
+
+  export type ReferralPipelineUncheckedUpdateManyWithoutHospitalNestedInput = {
+    create?: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput> | ReferralPipelineCreateWithoutHospitalInput[] | ReferralPipelineUncheckedCreateWithoutHospitalInput[]
+    connectOrCreate?: ReferralPipelineCreateOrConnectWithoutHospitalInput | ReferralPipelineCreateOrConnectWithoutHospitalInput[]
+    upsert?: ReferralPipelineUpsertWithWhereUniqueWithoutHospitalInput | ReferralPipelineUpsertWithWhereUniqueWithoutHospitalInput[]
+    createMany?: ReferralPipelineCreateManyHospitalInputEnvelope
+    set?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    disconnect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    delete?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    connect?: ReferralPipelineWhereUniqueInput | ReferralPipelineWhereUniqueInput[]
+    update?: ReferralPipelineUpdateWithWhereUniqueWithoutHospitalInput | ReferralPipelineUpdateWithWhereUniqueWithoutHospitalInput[]
+    updateMany?: ReferralPipelineUpdateManyWithWhereWithoutHospitalInput | ReferralPipelineUpdateManyWithWhereWithoutHospitalInput[]
+    deleteMany?: ReferralPipelineScalarWhereInput | ReferralPipelineScalarWhereInput[]
+  }
+
+  export type HospitalTargetCreateNestedOneWithoutPipelinesInput = {
+    create?: XOR<HospitalTargetCreateWithoutPipelinesInput, HospitalTargetUncheckedCreateWithoutPipelinesInput>
+    connectOrCreate?: HospitalTargetCreateOrConnectWithoutPipelinesInput
+    connect?: HospitalTargetWhereUniqueInput
+  }
+
+  export type HospitalTargetUpdateOneRequiredWithoutPipelinesNestedInput = {
+    create?: XOR<HospitalTargetCreateWithoutPipelinesInput, HospitalTargetUncheckedCreateWithoutPipelinesInput>
+    connectOrCreate?: HospitalTargetCreateOrConnectWithoutPipelinesInput
+    upsert?: HospitalTargetUpsertWithoutPipelinesInput
+    connect?: HospitalTargetWhereUniqueInput
+    update?: XOR<XOR<HospitalTargetUpdateToOneWithWhereWithoutPipelinesInput, HospitalTargetUpdateWithoutPipelinesInput>, HospitalTargetUncheckedUpdateWithoutPipelinesInput>
+  }
+
   export type BookingCreateNestedManyWithoutClientInput = {
     create?: XOR<BookingCreateWithoutClientInput, BookingUncheckedCreateWithoutClientInput> | BookingCreateWithoutClientInput[] | BookingUncheckedCreateWithoutClientInput[]
     connectOrCreate?: BookingCreateOrConnectWithoutClientInput | BookingCreateOrConnectWithoutClientInput[]
@@ -167152,6 +171111,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -167186,6 +171147,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -168479,6 +172442,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -168513,6 +172478,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -169776,6 +173743,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -169811,6 +173780,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -172965,6 +176936,8 @@ export namespace Prisma {
     isApproved?: BoolFilter<"PswProfile"> | boolean
     approvedAt?: DateTimeNullableFilter<"PswProfile"> | Date | string | null
     trustScore?: IntFilter<"PswProfile"> | number
+    hasCompletedInduction?: BoolFilter<"PswProfile"> | boolean
+    isLockedForRetraining?: BoolFilter<"PswProfile"> | boolean
     createdAt?: DateTimeFilter<"PswProfile"> | Date | string
     tenantId?: StringFilter<"PswProfile"> | string
     address?: StringNullableFilter<"PswProfile"> | string | null
@@ -178435,6 +182408,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -178470,6 +182445,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -178845,6 +182822,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -178880,6 +182859,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -180305,6 +184286,123 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type ReferralPipelineCreateWithoutHospitalInput = {
+    id?: string
+    tenantId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReferralPipelineUncheckedCreateWithoutHospitalInput = {
+    id?: string
+    tenantId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReferralPipelineCreateOrConnectWithoutHospitalInput = {
+    where: ReferralPipelineWhereUniqueInput
+    create: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ReferralPipelineCreateManyHospitalInputEnvelope = {
+    data: ReferralPipelineCreateManyHospitalInput | ReferralPipelineCreateManyHospitalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReferralPipelineUpsertWithWhereUniqueWithoutHospitalInput = {
+    where: ReferralPipelineWhereUniqueInput
+    update: XOR<ReferralPipelineUpdateWithoutHospitalInput, ReferralPipelineUncheckedUpdateWithoutHospitalInput>
+    create: XOR<ReferralPipelineCreateWithoutHospitalInput, ReferralPipelineUncheckedCreateWithoutHospitalInput>
+  }
+
+  export type ReferralPipelineUpdateWithWhereUniqueWithoutHospitalInput = {
+    where: ReferralPipelineWhereUniqueInput
+    data: XOR<ReferralPipelineUpdateWithoutHospitalInput, ReferralPipelineUncheckedUpdateWithoutHospitalInput>
+  }
+
+  export type ReferralPipelineUpdateManyWithWhereWithoutHospitalInput = {
+    where: ReferralPipelineScalarWhereInput
+    data: XOR<ReferralPipelineUpdateManyMutationInput, ReferralPipelineUncheckedUpdateManyWithoutHospitalInput>
+  }
+
+  export type ReferralPipelineScalarWhereInput = {
+    AND?: ReferralPipelineScalarWhereInput | ReferralPipelineScalarWhereInput[]
+    OR?: ReferralPipelineScalarWhereInput[]
+    NOT?: ReferralPipelineScalarWhereInput | ReferralPipelineScalarWhereInput[]
+    id?: StringFilter<"ReferralPipeline"> | string
+    tenantId?: StringFilter<"ReferralPipeline"> | string
+    hospitalId?: StringFilter<"ReferralPipeline"> | string
+    patientName?: StringFilter<"ReferralPipeline"> | string
+    referralValue?: DecimalFilter<"ReferralPipeline"> | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFilter<"ReferralPipeline"> | boolean
+    createdAt?: DateTimeFilter<"ReferralPipeline"> | Date | string
+  }
+
+  export type HospitalTargetCreateWithoutPipelinesInput = {
+    id?: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner?: string | null
+    status?: string
+    lastTouchpointAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HospitalTargetUncheckedCreateWithoutPipelinesInput = {
+    id?: string
+    tenantId: string
+    hospitalName: string
+    dischargePlanner?: string | null
+    status?: string
+    lastTouchpointAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HospitalTargetCreateOrConnectWithoutPipelinesInput = {
+    where: HospitalTargetWhereUniqueInput
+    create: XOR<HospitalTargetCreateWithoutPipelinesInput, HospitalTargetUncheckedCreateWithoutPipelinesInput>
+  }
+
+  export type HospitalTargetUpsertWithoutPipelinesInput = {
+    update: XOR<HospitalTargetUpdateWithoutPipelinesInput, HospitalTargetUncheckedUpdateWithoutPipelinesInput>
+    create: XOR<HospitalTargetCreateWithoutPipelinesInput, HospitalTargetUncheckedCreateWithoutPipelinesInput>
+    where?: HospitalTargetWhereInput
+  }
+
+  export type HospitalTargetUpdateToOneWithWhereWithoutPipelinesInput = {
+    where?: HospitalTargetWhereInput
+    data: XOR<HospitalTargetUpdateWithoutPipelinesInput, HospitalTargetUncheckedUpdateWithoutPipelinesInput>
+  }
+
+  export type HospitalTargetUpdateWithoutPipelinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HospitalTargetUncheckedUpdateWithoutPipelinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    hospitalName?: StringFieldUpdateOperationsInput | string
+    dischargePlanner?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lastTouchpointAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateWithoutClientInput = {
@@ -184145,6 +188243,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -184180,6 +188280,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -184841,6 +188943,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -184876,6 +188980,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -186047,6 +190153,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -186082,6 +190190,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -186532,6 +190642,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -186567,6 +190679,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -186914,6 +191028,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -186949,6 +191065,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -187089,6 +191207,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -187124,6 +191244,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -187254,6 +191376,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -187289,6 +191413,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -187429,6 +191555,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -187464,6 +191592,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190326,6 +194456,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -190361,6 +194493,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -190621,6 +194755,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190656,6 +194792,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190906,6 +195044,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -190941,6 +195081,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -191083,6 +195225,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191118,6 +195262,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191250,6 +195396,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -191285,6 +195433,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -191636,6 +195786,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -191671,6 +195823,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -192042,6 +196196,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -192077,6 +196233,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -192446,6 +196604,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -192481,6 +196641,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -193090,6 +197252,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -193125,6 +197289,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -193476,6 +197642,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -193511,6 +197679,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -193858,6 +198028,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -193893,6 +198065,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -194153,6 +198327,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194188,6 +198364,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194529,6 +198707,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -194564,6 +198744,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -194921,6 +199103,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -194956,6 +199140,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -197966,6 +202152,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -198001,6 +202189,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -198050,6 +202240,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -198085,6 +202277,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -200982,6 +205176,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -201017,6 +205213,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -201370,6 +205568,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -201405,6 +205605,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -209051,6 +213253,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -209086,6 +213290,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -209346,6 +213552,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -209381,6 +213589,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -209631,6 +213841,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -209666,6 +213878,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -209926,6 +214140,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -209961,6 +214177,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -224955,6 +229173,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -224990,6 +229210,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     tenantId: string
     address?: string | null
@@ -225343,6 +229565,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -225378,6 +229602,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenantId?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
@@ -230416,6 +234642,8 @@ export namespace Prisma {
     isApproved?: boolean
     approvedAt?: Date | string | null
     trustScore?: number
+    hasCompletedInduction?: boolean
+    isLockedForRetraining?: boolean
     createdAt?: Date | string
     address?: string | null
     avatarUrl?: string | null
@@ -231650,6 +235878,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -231685,6 +235915,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -231719,6 +235951,8 @@ export namespace Prisma {
     isApproved?: BoolFieldUpdateOperationsInput | boolean
     approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     trustScore?: IntFieldUpdateOperationsInput | number
+    hasCompletedInduction?: BoolFieldUpdateOperationsInput | boolean
+    isLockedForRetraining?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -234659,6 +238893,42 @@ export namespace Prisma {
     escalateToRoleId?: NullableStringFieldUpdateOperationsInput | string | null
     uiOverrideKey?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ReferralPipelineCreateManyHospitalInput = {
+    id?: string
+    tenantId: string
+    patientName: string
+    referralValue?: Decimal | DecimalJsLike | number | string
+    isConverted?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ReferralPipelineUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReferralPipelineUncheckedUpdateWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReferralPipelineUncheckedUpdateManyWithoutHospitalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    patientName?: StringFieldUpdateOperationsInput | string
+    referralValue?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isConverted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateManyClientInput = {
@@ -238449,6 +242719,10 @@ export namespace Prisma {
      */
     export type CrisisProtocolCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CrisisProtocolCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use HospitalTargetCountOutputTypeDefaultArgs instead
+     */
+    export type HospitalTargetCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HospitalTargetCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ClientProfileCountOutputTypeDefaultArgs instead
      */
     export type ClientProfileCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClientProfileCountOutputTypeDefaultArgs<ExtArgs>
@@ -238616,6 +242890,18 @@ export namespace Prisma {
      * @deprecated Use EcosystemAutopilotConfigDefaultArgs instead
      */
     export type EcosystemAutopilotConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EcosystemAutopilotConfigDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HospitalTargetDefaultArgs instead
+     */
+    export type HospitalTargetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HospitalTargetDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ReferralPipelineDefaultArgs instead
+     */
+    export type ReferralPipelineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReferralPipelineDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SupplyForecastMetricsDefaultArgs instead
+     */
+    export type SupplyForecastMetricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupplyForecastMetricsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ClientProfileDefaultArgs instead
      */

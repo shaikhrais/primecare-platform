@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import '../shared/sdui_form_builder.dart';
 
 class PswProfileScreen extends StatefulWidget {
   const PswProfileScreen({super.key});
@@ -203,17 +203,13 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               const SizedBox(height: 32),
               
               if (_profileCache != null)
-                PrimeCareFormBuilder(
-                  submitLabel: 'Save Profile Updates',
-                  onSubmit: _handleSaveForm,
-                  schema: [
-                    {'type': 'header', 'label': 'Personal Information'},
-                    {'key': 'firstName', 'type': 'text', 'label': 'First Name', 'required': true, 'initialValue': _profileCache!['firstName'] ?? ''},
-                    {'key': 'lastName', 'type': 'text', 'label': 'Last Name', 'initialValue': _profileCache!['lastName'] ?? ''},
-                    {'key': 'phoneNumber', 'type': 'phone', 'label': 'Contact Number', 'initialValue': _profileCache!['phoneNumber'] ?? ''},
-                    {'type': 'header', 'label': 'Work Preferences'},
-                    {'key': 'preferredShift', 'type': 'dropdown', 'label': 'Preferred Shift Time', 'options': ["Morning (7AM - 3PM)", "Afternoon (3PM - 11PM)", "Night (11PM - 7AM)", "Flex Time (Any)"], 'initialValue': _preferredShift},
-                  ],
+                PrimeCareDynamicFormBuilder(
+                  formId: 'psw_profile_onboarding_v1',
+                  onSubmitted: () {
+                    // SDUI handles the DB POST. We just refresh the visual UI organically.
+                    setState(() => _isLoading = true);
+                    _loadProfile();
+                  },
                 ),
                 
               const SizedBox(height: 16),
@@ -234,7 +230,6 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
             ],
           ),
         ),
-      ),
       ),
     );
   }

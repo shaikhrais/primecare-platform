@@ -34,5 +34,17 @@ If you are a Founder, Developer, or Manager onboarding onto the ecosystem, pleas
 * **Audience:** Superuser / CEO
 * **Content:** Defines the CRON-based Cloudflare logic that allows the company to run autonomously on "Autopilot". Covers auto-surging shifts, Haversine geo-dispatch, dynamic margin governors, and automated employee discipline tracking without manual human intervention.
 
+#### 8. [Day-One Diagnostic Radar & B2B Advisor](./superuser_day_one_diagnostic_engine.md)
+* **Audience:** Master Agency / Founder
+* **Content:** Maps the "Zero-to-One" onboarding sequence that asks the Superuser to make their very first move (Building a Franchise -> Recruiting Staff -> Executing B2B Hospital Relations). It also covers the aggressive mathematically-driven Diagnostic Radar that flags failing business models in real-time.
+
+#### 9. [The Embedded AI Mentor & Behavioral Engine](./embedded_role_mentor_engine.md)
+* **Audience:** Everyone
+* **Content:** Defines how the software explicitly explains job roles to new users. Automates HR by mathematically locking misbehaving Caregivers from working until they take systemic Retraining modules, escalating only worst-case scenarios to human Supervisors.
+
+#### 10. [Schema-Driven UI (SDUI) Framework](./sdui_form_architecture.md)
+* **Audience:** Mobile App Engineers / Project Managers
+* **Content:** Details the Master `PrimeCareDynamicFormBuilder`, eliminating the need to physically code UI forms (e.g., Onboarding, HR compliance) by dynamically translating JSON payloads from Cloudflare into interactive screens.
+
 ---
 *Note: All files are written natively in standard Markdown. You can preview them directly in VS Code by right-clicking the file and selecting "Open Preview", or reading them directly on GitHub.*
