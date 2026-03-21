@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import '../shared/layouts/master_detail_layout.dart';
 import 'psw_chat_thread_screen.dart';
@@ -76,7 +78,7 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
                   border: Border.all(
                     color: isSelected && isDesktop 
                         ? const Color(0xFF6366F1) 
-                        : (thread['unread'] ? const Color(0xFF3B82F6) : const Color(0xFFE2E8F0)), 
+                        : (thread['unread'] ? const Color(0xFF3B82F6) : PrimeCareColors.slate200), 
                     width: (isSelected && isDesktop) || thread['unread'] ? 2 : 1
                   ),
                   boxShadow: thread['unread'] && !(isSelected && isDesktop) ? const [BoxShadow(color: Color(0x113B82F6), blurRadius: 16, offset: Offset(0, 4))] : [],
@@ -86,8 +88,8 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
                   children: [
                     CircleAvatar(
                       radius: 28,
-                      backgroundColor: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFFDBEAFE) : const Color(0xFFE2E8F0),
-                      child: Icon(Icons.person, color: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFF3B82F6) : const Color(0xFF64748B), size: 28),
+                      backgroundColor: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFFDBEAFE) : PrimeCareColors.slate200,
+                      child: Icon(Icons.person, color: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFF3B82F6) : PrimeCareColors.slate500, size: 28),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -97,14 +99,14 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(thread['sender'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Color(0xFF0F172A))),
-                              Text(thread['time'], style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFF3B82F6) : const Color(0xFF94A3B8), fontSize: 13, fontWeight: FontWeight.bold)),
+                              Text(thread['sender'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
+                              Text(thread['time'], style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFF3B82F6) : PrimeCareColors.slate400, fontSize: 13, fontWeight: FontWeight.bold)),
                             ],
                           ),
                           const SizedBox(height: 6),
                           Text(
                             thread['message'], 
-                            style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? const Color(0xFF0F172A) : const Color(0xFF64748B), fontSize: 14, fontWeight: thread['unread'] ? FontWeight.bold : FontWeight.normal),
+                            style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? PrimeCareColors.radarDark : PrimeCareColors.slate500, fontSize: 14, fontWeight: thread['unread'] ? FontWeight.bold : FontWeight.normal),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -127,7 +129,7 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
           : Container(
               color: const Color(0xFFF1F5F9), 
               child: const Center(
-                child: Text('Select a message to view the thread.', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold))
+                child: Text('Select a message to view the thread.', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold))
               )
             ),
       isDetailActive: _selectedThreadId != null,

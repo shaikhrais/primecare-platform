@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class ScrumMasterSettingsScreen extends StatefulWidget {
@@ -16,10 +18,10 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       appBar: AppBar(
-        title: const Text('SCM_GLOBAL_CONFIG', style: TextStyle(color: Color(0xFFF59E0B), fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-        backgroundColor: const Color(0xFF020617),
+        title: const Text('SCM_GLOBAL_CONFIG', style: TextStyle(color: PrimeCareColors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+        backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
       body: Center(
@@ -27,7 +29,7 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
           child: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          const Text('ENVIRONMENT OVERRIDES', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2)),
+          const Text('ENVIRONMENT OVERRIDES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
           const SizedBox(height: 16),
           _buildToggle(
             'Force Offline Mode (CRDT Sync Test)', 
@@ -49,14 +51,14 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
           ),
 
           const SizedBox(height: 48),
-          const Text('ADMIN ACTIONS', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2)),
+          const Text('ADMIN ACTIONS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
           const SizedBox(height: 16),
           ElevatedButton.icon(
              onPressed: () {},
              icon: const Icon(Icons.rocket_launch_rounded),
              label: const Text('DEPLOY STAGING TO PRODUCTION', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
              style: ElevatedButton.styleFrom(
-               backgroundColor: const Color(0xFF10B981),
+               backgroundColor: PrimeCareColors.emerald,
                foregroundColor: Colors.white,
                padding: const EdgeInsets.all(20),
                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
@@ -74,18 +76,18 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
+        color: PrimeCareColors.slate800,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF334155)),
+        border: Border.all(color: PrimeCareColors.slate700),
       ),
       child: SwitchListTile(
         title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text(desc, style: const TextStyle(color: Color(0xFF94A3B8), height: 1.4)),
+          child: Text(desc, style: const TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
         ),
         value: value,
-        activeColor: const Color(0xFFF59E0B),
+        activeColor: PrimeCareColors.amber,
         onChanged: onChanged,
         contentPadding: EdgeInsets.zero,
       ),

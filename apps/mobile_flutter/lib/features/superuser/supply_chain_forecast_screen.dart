@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -12,7 +14,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // Deep radar dark
+      backgroundColor: PrimeCareColors.radarDark, // Deep radar dark
       appBar: AppBar(
         title: Text('SUPPLY CHAIN MATRIX', style: GoogleFonts.firaCode(fontWeight: FontWeight.bold, letterSpacing: 2)),
         backgroundColor: Colors.transparent,
@@ -51,7 +53,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: const Color(0xFF1E293B),
+                color: PrimeCareColors.slate800,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: Colors.white10),
               ),
@@ -83,7 +85,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
+        color: PrimeCareColors.slate800,
         borderRadius: BorderRadius.circular(16),
         border: Border(bottom: BorderSide(color: accentColor, width: 4)),
       ),

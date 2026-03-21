@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -15,12 +17,12 @@ class ManagerDashboardScreen extends StatelessWidget {
             expandedHeight: 260,
             floating: false,
             pinned: true,
-            backgroundColor: const Color(0xFF0F172A),
+            backgroundColor: PrimeCareColors.radarDark,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xFF020617), Color(0xFF1E293B)],
+                    colors: [PrimeCareColors.darkMatrix, PrimeCareColors.slate800],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -35,8 +37,8 @@ class ManagerDashboardScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('EXECUTIVE SUITE', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
-                            const PrimeCareBadge(text: 'Q3 Target: 94%', color: Color(0xFFF59E0B)),
+                            const Text('EXECUTIVE SUITE', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
+                            const PrimeCareBadge(text: 'Q3 Target: 94%', color: PrimeCareColors.amber),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -128,21 +130,21 @@ class ManagerDashboardScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Payroll vs Billables', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
-              Icon(Icons.trending_up_rounded, color: const Color(0xFF10B981), size: 28),
+              const Text('Payroll vs Billables', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+              Icon(Icons.trending_up_rounded, color: PrimeCareColors.emerald, size: 28),
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Last 30 Days Trajectory', style: TextStyle(color: Color(0xFF64748B), fontSize: 14)),
+          const Text('Last 30 Days Trajectory', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
           const SizedBox(height: 24),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              _buildChartBar(height: 60, color: const Color(0xFFE2E8F0)),
-              _buildChartBar(height: 100, color: const Color(0xFFCBD5E1)),
-              _buildChartBar(height: 80, color: const Color(0xFF94A3B8)),
-              _buildChartBar(height: 140, color: const Color(0xFF64748B)),
-              _buildChartBar(height: 110, color: const Color(0xFFF59E0B)),
+              _buildChartBar(height: 60, color: PrimeCareColors.slate200),
+              _buildChartBar(height: 100, color: PrimeCareColors.slate300),
+              _buildChartBar(height: 80, color: PrimeCareColors.slate400),
+              _buildChartBar(height: 140, color: PrimeCareColors.slate500),
+              _buildChartBar(height: 110, color: PrimeCareColors.amber),
             ],
           )
         ],
@@ -158,9 +160,9 @@ class ManagerDashboardScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.auto_awesome_rounded, color: const Color(0xFF8B5CF6), size: 24),
+              Icon(Icons.auto_awesome_rounded, color: PrimeCareColors.purple, size: 24),
               const SizedBox(width: 8),
-              const Text('AI Execution Matrix', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Color(0xFF0F172A))),
+              const Text('AI Execution Matrix', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
             ],
           ),
           const SizedBox(height: 16),
@@ -187,11 +189,11 @@ class ManagerDashboardScreen extends StatelessWidget {
         backgroundColor: isDanger ? const Color(0xFFBE123C) : const Color(0x22FFFFFF),
         child: Column(
           children: [
-            Icon(icon, color: isDanger ? Colors.white : const Color(0xFF94A3B8), size: 20),
+            Icon(icon, color: isDanger ? Colors.white : PrimeCareColors.slate400, size: 20),
             const SizedBox(height: 8),
             Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)),
             const SizedBox(height: 4),
-            Text(label, style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+            Text(label, style: const TextStyle(color: PrimeCareColors.slate300, fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
           ],
         ),
       ),

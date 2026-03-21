@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -34,7 +36,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
         elevation: 0,
         leading: Container(
           margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: const Color(0xFF0F172A).withOpacity(0.8), shape: BoxShape.circle),
+          decoration: BoxDecoration(color: PrimeCareColors.radarDark.withOpacity(0.8), shape: BoxShape.circle),
           child: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => context.pop(),
@@ -43,7 +45,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
         title: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: const Color(0xFF0F172A).withOpacity(0.8),
+            color: PrimeCareColors.radarDark.withOpacity(0.8),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: const Color(0x33FFFFFF)),
           ),
@@ -116,14 +118,14 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
 
   Widget _buildRadarBlip(WorkerMarker worker) {
     final bool isRN = worker.role == 'RN';
-    final Color markerColor = isRN ? const Color(0xFF0EA5E9) : const Color(0xFF10B981);
+    final Color markerColor = isRN ? const Color(0xFF0EA5E9) : PrimeCareColors.emerald;
     
     return GestureDetector(
       onTap: () {
         HapticFeedback.lightImpact();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('${worker.role} Unit ${worker.id} Selected. Establishing Comms...'),
-          backgroundColor: const Color(0xFF0F172A),
+          backgroundColor: PrimeCareColors.radarDark,
           action: SnackBarAction(label: 'PING', textColor: markerColor, onPressed: (){}),
         ));
         _mapController.move(worker.position, 15.0);
@@ -150,7 +152,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF0F172A).withOpacity(0.85),
+        color: PrimeCareColors.radarDark.withOpacity(0.85),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: const Color(0x33FFFFFF), width: 1.5),
         boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 20, offset: Offset(0, 10))],
@@ -164,8 +166,8 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
               const Text('Live Dispatch Array', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(color: const Color(0xFF10B981).withAlpha(40), borderRadius: BorderRadius.circular(20)),
-                child: const Text('STATUS: ACQUIRING', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                decoration: BoxDecoration(color: PrimeCareColors.emerald.withAlpha(40), borderRadius: BorderRadius.circular(20)),
+                child: const Text('STATUS: ACQUIRING', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1)),
               )
             ],
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import 'psw_shift_tasks_screen.dart';
 import 'psw_clinical_notes_screen.dart';
@@ -43,11 +45,11 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(_isCheckedIn ? 'Clocked In to Visit Successfully' : 'Clocked Out & Shift Closed'),
-        backgroundColor: const Color(0xFF0F172A),
+        backgroundColor: PrimeCareColors.radarDark,
         duration: const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        action: SnackBarAction(label: 'UNDO', textColor: const Color(0xFF10B981), onPressed: () {
+        action: SnackBarAction(label: 'UNDO', textColor: PrimeCareColors.emerald, onPressed: () {
           HapticFeedback.mediumImpact();
           setState(() { _isCheckedIn = !_isCheckedIn; });
         }),
@@ -80,7 +82,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
             const SizedBox(height: 8),
             Text(
               '10:00 AM - 2:00 PM',
-              style: TextStyle(color: const Color(0xFF64748B), fontSize: 18, fontWeight: FontWeight.w600),
+              style: TextStyle(color: PrimeCareColors.slate500, fontSize: 18, fontWeight: FontWeight.w600),
             ),
             
             Expanded(
@@ -95,8 +97,8 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                       child: CircularProgressIndicator(
                         value: _isCheckedIn ? null : 0.0, // Indeterminate when checked in
                         strokeWidth: 16,
-                        backgroundColor: const Color(0xFFE2E8F0),
-                        color: const Color(0xFF10B981),
+                        backgroundColor: PrimeCareColors.slate200,
+                        color: PrimeCareColors.emerald,
                         strokeCap: StrokeCap.round,
                       ),
                     ),
@@ -112,7 +114,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: const Color(0xFF10B981).withOpacity(0.3 - (_pulseController.value * 0.3)),
+                                color: PrimeCareColors.emerald.withOpacity(0.3 - (_pulseController.value * 0.3)),
                                 width: 2,
                               ),
                             ),
@@ -134,15 +136,15 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                           height: 220,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: _isCheckedIn ? const Color(0xFF10B981) : Colors.white,
+                            color: _isCheckedIn ? PrimeCareColors.emerald : Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                color: _isCheckedIn ? const Color(0x4410B981) : const Color(0x0A000000),
+                                color: _isCheckedIn ? const Color(0x4410B981) : const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */,
                                 blurRadius: _isCheckedIn ? 30 : 20,
                                 offset: const Offset(0, 10),
                               )
                             ],
-                            border: _isCheckedIn ? null : Border.all(color: const Color(0xFFE2E8F0), width: 2),
+                            border: _isCheckedIn ? null : Border.all(color: PrimeCareColors.slate200, width: 2),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -150,7 +152,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                               Icon(
                                 _isCheckedIn ? Icons.stop_rounded : Icons.fingerprint,
                                 size: 64,
-                                color: _isCheckedIn ? Colors.white : const Color(0xFF0F172A),
+                                color: _isCheckedIn ? Colors.white : PrimeCareColors.radarDark,
                               ),
                               const SizedBox(height: 12),
                               Text(
@@ -159,7 +161,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                                   fontSize: 20,
                                   fontWeight: FontWeight.w900,
                                   letterSpacing: 1.5,
-                                  color: _isCheckedIn ? Colors.white : const Color(0xFF0F172A),
+                                  color: _isCheckedIn ? Colors.white : PrimeCareColors.radarDark,
                                 ),
                               ),
                             ],
@@ -182,11 +184,11 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswShiftTasksScreen()));
                     },
-                    icon: const Icon(Icons.format_list_bulleted_rounded, color: Color(0xFF0F172A)),
-                    label: const Text('View Schedule Tasks', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+                    icon: const Icon(Icons.format_list_bulleted_rounded, color: PrimeCareColors.radarDark),
+                    label: const Text('View Schedule Tasks', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      side: const BorderSide(color: Color(0xFFE2E8F0), width: 2),
+                      side: const BorderSide(color: PrimeCareColors.slate200, width: 2),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       backgroundColor: Colors.white,
                     ),
@@ -196,11 +198,11 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswClinicalNotesScreen()));
                     },
-                    icon: const Icon(Icons.note_add_rounded, color: Color(0xFF0F172A)),
-                    label: const Text('Add Clinical Progress Note', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+                    icon: const Icon(Icons.note_add_rounded, color: PrimeCareColors.radarDark),
+                    label: const Text('Add Clinical Progress Note', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      side: const BorderSide(color: Color(0xFFE2E8F0), width: 2),
+                      side: const BorderSide(color: PrimeCareColors.slate200, width: 2),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       backgroundColor: Colors.white,
                     ),
@@ -213,7 +215,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                     icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
                     label: const Text('Initiate Shift Checkout', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE11D48),
+                      backgroundColor: PrimeCareColors.rose,
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
@@ -229,7 +231,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
           HapticFeedback.heavyImpact();
           Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswIncidentWizardScreen()));
         },
-        backgroundColor: const Color(0xFFE11D48),
+        backgroundColor: PrimeCareColors.rose,
         elevation: 8,
         icon: const Icon(Icons.sos_rounded, color: Colors.white, size: 28),
         label: const Text('EMERGENCY SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),

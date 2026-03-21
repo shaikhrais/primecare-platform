@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 /// The Morning Briefing UI (Phase 69)
@@ -13,7 +15,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
     // A deeply calming, slate-grey and soft aesthetic intentionally 
     // replacing the chaotic red/warning Dashboards.
     return Scaffold(
-      backgroundColor: const Color(0xFF141416), 
+      backgroundColor: PrimeCareColors.darkMatrixCard, 
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),

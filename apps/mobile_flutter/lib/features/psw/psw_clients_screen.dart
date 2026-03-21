@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import '../shared/layouts/master_detail_layout.dart';
 import 'psw_client_360_screen.dart';
@@ -63,7 +65,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
         itemBuilder: (context, index) {
           final client = _clients[index];
           final isCritical = client['status'] == 'Critical';
-          final statusColor = isCritical ? const Color(0xFFE11D48) : const Color(0xFF10B981);
+          final statusColor = isCritical ? PrimeCareColors.rose : PrimeCareColors.emerald;
           final isSelected = _selectedClientId == client['id'];
 
           return Padding(
@@ -77,22 +79,22 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                   color: isSelected && isDesktop ? const Color(0xFFF1F5F9) : Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: isSelected && isDesktop ? const Color(0xFF94A3B8) : const Color(0xFFE2E8F0), 
+                    color: isSelected && isDesktop ? PrimeCareColors.slate400 : PrimeCareColors.slate200, 
                     width: isSelected && isDesktop ? 2 : 1
                   ),
-                  boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
+                  boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
                 ),
                 padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     CircleAvatar(
                       radius: 28,
-                      backgroundColor: isSelected && isDesktop ? const Color(0xFF94A3B8) : const Color(0xFFE2E8F0),
+                      backgroundColor: isSelected && isDesktop ? PrimeCareColors.slate400 : PrimeCareColors.slate200,
                       child: Text(
                         client['name']!.substring(0, 1), 
                         style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 24, 
-                          color: isSelected && isDesktop ? Colors.white : const Color(0xFF0F172A)
+                          color: isSelected && isDesktop ? Colors.white : PrimeCareColors.radarDark
                         )
                       ),
                     ),
@@ -101,9 +103,9 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(client['name']!, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
+                          Text(client['name']!, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                           const SizedBox(height: 4),
-                          Text(client['address']!, style: const TextStyle(color: Color(0xFF64748B), fontSize: 14)),
+                          Text(client['address']!, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                           const SizedBox(height: 12),
                           Row(
                             children: [
@@ -118,7 +120,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFCBD5E1), size: 20),
+                    const Icon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 20),
                   ],
                 ),
               ),

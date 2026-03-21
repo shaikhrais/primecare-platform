@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +26,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _isGlobalCodeBlack ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+      backgroundColor: _isGlobalCodeBlack ? PrimeCareColors.radarDark : const Color(0xFFF8FAFC),
       body: Center(
         child: DesktopPaneWrapper(
           child: CustomScrollView(
@@ -91,7 +93,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                         // Active Surge Multiplier Control Switch
                         PrimeCareCard(
                           padding: const EdgeInsets.all(20),
-                          backgroundColor: _surgeActive ? const Color(0xFF10B981) : Colors.white12,
+                          backgroundColor: _surgeActive ? PrimeCareColors.emerald : Colors.white12,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -113,8 +115,8 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                                 value: _surgeActive,
                                 activeColor: Colors.white,
                                 activeTrackColor: const Color(0xFF047857),
-                                inactiveThumbColor: const Color(0xFF94A3B8),
-                                inactiveTrackColor: const Color(0xFF0F172A),
+                                inactiveThumbColor: PrimeCareColors.slate400,
+                                inactiveTrackColor: PrimeCareColors.radarDark,
                                 onChanged: (val) {
                                   HapticFeedback.heavyImpact();
                                   setState(() => _surgeActive = val);
@@ -147,7 +149,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
+                              Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                               PrimeCareBadge(text: '${shift['matched']} Matches', color: const Color(0xFF6366F1))
                             ],
                           ),
@@ -156,9 +158,9 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              const Icon(Icons.location_on, color: Color(0xFF94A3B8), size: 16),
+                              const Icon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
                               const SizedBox(width: 4),
-                              Text(shift['geo'], style: const TextStyle(color: Color(0xFF64748B), fontSize: 14)),
+                              Text(shift['geo'], style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                             ],
                           ),
                           const SizedBox(height: 24),

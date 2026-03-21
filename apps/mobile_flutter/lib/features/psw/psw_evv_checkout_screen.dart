@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
@@ -17,25 +19,25 @@ class PswEvvCheckoutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // High Fidelity Validation Badge
-              const Icon(Icons.verified_user_rounded, size: 80, color: Color(0xFF10B981)),
+              const Icon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
               const SizedBox(height: 24),
               Text(
                 'Verification Complete', 
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: const Color(0xFF10B981)), 
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: PrimeCareColors.emerald), 
                 textAlign: TextAlign.center
               ),
               const SizedBox(height: 12),
               const Text(
                 'All mandatory Schedule Tasks have been intercepted. Please provide client signature verification to officially break the EVV lock.', 
                 textAlign: TextAlign.center, 
-                style: TextStyle(color: Color(0xFF64748B), fontSize: 16, height: 1.5)
+                style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, height: 1.5)
               ),
               
               const SizedBox(height: 40),
               
               const Text(
                 'CLIENT CONSENT SIGNATURE',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF64748B), letterSpacing: 1.2),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: PrimeCareColors.slate500, letterSpacing: 1.2),
               ),
               const SizedBox(height: 12),
               
@@ -45,15 +47,15 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: const Color(0xFFE2E8F0), width: 3),
+                    border: Border.all(color: PrimeCareColors.slate200, width: 3),
                   ),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.draw_rounded, color: Color(0xFFCBD5E1), size: 48),
+                        Icon(Icons.draw_rounded, color: PrimeCareColors.slate300, size: 48),
                         SizedBox(height: 12),
-                        Text('Client must sign here using their finger', style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16)),
+                        Text('Client must sign here using their finger', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
                       ],
                     ),
                   )
@@ -70,7 +72,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                    Navigator.of(context).pop(); 
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE11D48),
+                  backgroundColor: PrimeCareColors.rose,
                   padding: const EdgeInsets.symmetric(vertical: 20), // Thumb-Zone scale up
                 ),
                 child: const Text('SECURE CHECKOUT & END SHIFT', style: TextStyle(letterSpacing: 0.5)),

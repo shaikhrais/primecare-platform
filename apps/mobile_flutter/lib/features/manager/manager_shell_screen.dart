@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 import '../shared/layouts/responsive_shell.dart';
 
@@ -15,7 +17,7 @@ class ManagerShellScreen extends StatelessWidget {
     return ResponsiveShell(
       navigationShell: navigationShell,
       activeIndicatorColor: const Color(0x33F59E0B),
-      activeIconColor: const Color(0xFFF59E0B),
+      activeIconColor: PrimeCareColors.amber,
       destinations: const [
         ResponsiveNavigationData(label: 'Overview', icon: Icons.stacked_bar_chart_rounded, selectedIcon: Icons.stacked_bar_chart_rounded),
         ResponsiveNavigationData(label: 'Directory', icon: Icons.business_outlined, selectedIcon: Icons.business_outlined),

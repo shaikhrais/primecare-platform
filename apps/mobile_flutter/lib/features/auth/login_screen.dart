@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,7 +85,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x0D000000), // Replacement for withOpacity(0.05)
+                  color: const Color(0x0D000000) /* Soft Shadow */, // Replacement for withOpacity(0.05)
                   blurRadius: 10, offset: Offset(0, 4),
                 )
               ],
@@ -94,13 +96,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 const Text(
                   'Sign In',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 const Text(
                   'Access the PrimeCare Mobile Platform',
-                  style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
+                  style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -108,13 +110,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(color: const Color(0xFFFFF1F2), borderRadius: BorderRadius.circular(8)),
-                    child: Text(_errorMsg!, style: const TextStyle(color: Color(0xFFE11D48), fontSize: 13)),
+                    decoration: BoxDecoration(color: const const Color(0xFFFFF1F2) /* TODO: Rose Background */ /* TODO: Rose Background */, borderRadius: BorderRadius.circular(8)),
+                    child: Text(_errorMsg!, style: const TextStyle(color: PrimeCareColors.rose, fontSize: 13)),
                   ),
                 TextField(
                   controller: _emailController,
+                  style: const TextStyle(color: PrimeCareColors.radarDark),
                   decoration: InputDecoration(
                     labelText: 'Email Address',
+                    labelStyle: const TextStyle(color: PrimeCareColors.slate500),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -122,8 +126,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: _passwordController,
+                  style: const TextStyle(color: PrimeCareColors.radarDark),
                   decoration: InputDecoration(
                     labelText: 'Password',
+                    labelStyle: const TextStyle(color: PrimeCareColors.slate500),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   obscureText: true,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class MtEarningsScreen extends StatelessWidget {
@@ -13,11 +15,11 @@ class MtEarningsScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              const Text('PAYROLL & SPLITS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF0F172A))),
+              const Text('PAYROLL & SPLITS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
               const SizedBox(height: 24),
               Container(
                 padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(gradient: const LinearGradient(colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)]), borderRadius: BorderRadius.circular(20)),
+                decoration: BoxDecoration(gradient: const LinearGradient(colors: [PrimeCareColors.purple, Color(0xFF6D28D9)]), borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -30,7 +32,7 @@ class MtEarningsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              const Text('TRANSACTION HISTORY', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+              const Text('TRANSACTION HISTORY', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
               const SizedBox(height: 16),
               _buildEarningRow('Oct 10', 'Arthur Pendelton (Deep Tissue)', '\$94.25'),
               _buildEarningRow('Oct 10', 'Emily Watson (Swedish)', '\$68.50'),
@@ -45,18 +47,18 @@ class MtEarningsScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: const Color(0xFFE2E8F0)), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: PrimeCareColors.slate200), borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(desc, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
-              Text(date, style: const TextStyle(color: Color(0xFF64748B), fontSize: 12)),
+              Text(desc, style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+              Text(date, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 12)),
             ],
           ),
-          Text(splitAmount, style: const TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF10B981), fontSize: 16)),
+          Text(splitAmount, style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.emerald, fontSize: 16)),
         ],
       ),
     );

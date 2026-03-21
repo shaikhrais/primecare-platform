@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -87,7 +89,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
           // Remote Video Stream (Full Screen)
           Positioned.fill(
             child: Container(
-              color: const Color(0xFF0F172A),
+              color: PrimeCareColors.radarDark,
               child: _inCalling
                   ? RTCVideoView(
                       _remoteRenderer,
@@ -149,7 +151,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
                 children: [
                   Container(
                     width: 8, height: 8,
-                    decoration: BoxDecoration(color: _inCalling ? const Color(0xFF10B981) : Colors.amber, shape: BoxShape.circle),
+                    decoration: BoxDecoration(color: _inCalling ? PrimeCareColors.emerald : Colors.amber, shape: BoxShape.circle),
                   ),
                   const SizedBox(width: 8),
                   Text(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
@@ -175,9 +177,9 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
         children: [
           _buildControlButton(Icons.mic, Colors.white, Colors.white24, () {}),
           if (!_inCalling)
-            _buildControlButton(Icons.videocam, Colors.white, const Color(0xFF10B981), _openCamera)
+            _buildControlButton(Icons.videocam, Colors.white, PrimeCareColors.emerald, _openCamera)
           else
-            _buildControlButton(Icons.call_end, Colors.white, const Color(0xFFE11D48), _hangUp),
+            _buildControlButton(Icons.call_end, Colors.white, PrimeCareColors.rose, _hangUp),
           _buildControlButton(Icons.switch_camera, Colors.white, Colors.white24, () {}),
         ],
       ),

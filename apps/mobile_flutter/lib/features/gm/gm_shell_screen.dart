@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 import '../shared/layouts/responsive_shell.dart';
 
@@ -18,8 +20,8 @@ class GmShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveShell(
       navigationShell: navigationShell,
-      activeIndicatorColor: const Color(0xFFF59E0B).withAlpha(40),
-      activeIconColor: const Color(0xFFF59E0B),
+      activeIndicatorColor: PrimeCareColors.amber.withAlpha(40),
+      activeIconColor: PrimeCareColors.amber,
       destinations: const [
         ResponsiveNavigationData(label: 'Hub', icon: Icons.show_chart_rounded, selectedIcon: Icons.show_chart_rounded),
         ResponsiveNavigationData(label: 'Marketing', icon: Icons.campaign_outlined, selectedIcon: Icons.campaign_rounded),

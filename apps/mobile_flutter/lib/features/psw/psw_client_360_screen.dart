@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
@@ -27,16 +29,16 @@ class PswClient360Screen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 48,
-                    backgroundColor: const Color(0xFFE2E8F0),
+                    backgroundColor: PrimeCareColors.slate200,
                     child: Text(
                       clientName.substring(0, 1), 
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: Color(0xFF0F172A))
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: PrimeCareColors.radarDark)
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(clientName, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 8),
-                  const Text('Dementia Care Track • Resuscitate (DNR) - No', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold)),
+                  const Text('Dementia Care Track • Resuscitate (DNR) - No', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -61,7 +63,7 @@ class PswClient360Screen extends StatelessWidget {
                           icon: const Icon(Icons.picture_as_pdf),
                           label: const Text('View Official Directive (PDF)'),
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Color(0xFFE2E8F0), width: 2),
+                            side: const BorderSide(color: PrimeCareColors.slate200, width: 2),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
                         )
@@ -75,14 +77,14 @@ class PswClient360Screen extends StatelessWidget {
                     context, 
                     title: '30-Day Vitals Trend', 
                     icon: Icons.monitor_heart_rounded, 
-                    color: const Color(0xFF10B981),
+                    color: PrimeCareColors.emerald,
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text('Blood Pressure', style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text('118/72 mmHg', style: TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold)),
+                            Text('118/72 mmHg', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -90,7 +92,7 @@ class PswClient360Screen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text('Heart Rate', style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text('68 BPM', style: TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold)),
+                            Text('68 BPM', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -101,7 +103,7 @@ class PswClient360Screen extends StatelessWidget {
                             color: const Color(0xFFF1F5F9),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Center(child: Text('Interactive Spline Chart Area', style: TextStyle(color: Color(0xFF94A3B8)))),
+                          child: const Center(child: Text('Interactive Spline Chart Area', style: TextStyle(color: PrimeCareColors.slate400))),
                         )
                       ],
                     )
@@ -113,7 +115,7 @@ class PswClient360Screen extends StatelessWidget {
                     context, 
                     title: 'Emergency Contacts', 
                     icon: Icons.contact_phone_rounded, 
-                    color: const Color(0xFFE11D48),
+                    color: PrimeCareColors.rose,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -122,12 +124,12 @@ class PswClient360Screen extends StatelessWidget {
                           children: const [
                             Text('Maria Jenkins (Daughter)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                             SizedBox(height: 4),
-                            Text('Primary Power of Attorney', style: TextStyle(color: Color(0xFF64748B), fontSize: 13)),
+                            Text('Primary Power of Attorney', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                           ],
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.phone, color: Color(0xFFE11D48)),
+                          icon: const Icon(Icons.phone, color: PrimeCareColors.rose),
                           style: IconButton.styleFrom(backgroundColor: const Color(0x11E11D48)),
                         )
                       ],
@@ -152,8 +154,8 @@ class PswClient360Screen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
+        border: Border.all(color: PrimeCareColors.slate200),
+        boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,7 +171,7 @@ class PswClient360Screen extends StatelessWidget {
                 child: Icon(icon, color: color, size: 24),
               ),
               const SizedBox(width: 16),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
             ],
           ),
           const SizedBox(height: 24),

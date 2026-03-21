@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class PrimeCareTheme {
@@ -91,10 +93,24 @@ class PrimeCareTheme {
   static ThemeData get darkTheme {
     return ThemeData.dark().copyWith(
       useMaterial3: true,
-      // Minimal dark mapping
+      scaffoldBackgroundColor: PrimeCareColors.radarDark,
       colorScheme: const ColorScheme.dark(
-        primary: Color(0xFF60A5FA), // Lighter blue for dark mode visibility
-        secondary: accentColor,
+        primary: PrimeCareColors.skyBlue,
+        secondary: PrimeCareColors.emerald,
+        surface: PrimeCareColors.slate800,
+      ),
+      textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
+        bodyLarge: GoogleFonts.inter(color: Colors.white),
+        bodyMedium: GoogleFonts.inter(color: PrimeCareColors.slate400),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: PrimeCareColors.slate800,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: PrimeCareColors.slate700)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: PrimeCareColors.slate700)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: PrimeCareColors.skyBlue, width: 2.0)),
+        labelStyle: GoogleFonts.inter(color: PrimeCareColors.slate400),
       ),
     );
   }

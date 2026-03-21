@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -51,11 +53,11 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         final bytes = await pickedFile.readAsBytes();
         setState(() => _profileImageBytes = bytes);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Avatar staged for upload!'), backgroundColor: Color(0xFF10B981)),
+          const SnackBar(content: Text('Avatar staged for upload!'), backgroundColor: PrimeCareColors.emerald),
         );
       }
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not open gallery: $e'), backgroundColor: const Color(0xFFE11D48)));
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not open gallery: $e'), backgroundColor: PrimeCareColors.rose));
     }
   }
 
@@ -93,7 +95,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Profile synchronized with PrimeCare networks safely.'),
-              backgroundColor: Color(0xFF10B981),
+              backgroundColor: PrimeCareColors.emerald,
               behavior: SnackBarBehavior.floating,
             ),
           );
@@ -101,7 +103,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error updating profile: $e'), backgroundColor: const Color(0xFFE11D48)),
+            SnackBar(content: Text('Error updating profile: $e'), backgroundColor: PrimeCareColors.rose),
           );
         }
       }
@@ -143,12 +145,12 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       });
                       if (context.mounted) {
                         Navigator.of(dialogContext).pop();
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password protected successfully.'), backgroundColor: Color(0xFF10B981)));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password protected successfully.'), backgroundColor: PrimeCareColors.emerald));
                       }
                     } catch (e) {
                       if (context.mounted) {
                         setDialogState(() => isChanging = false);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: const Color(0xFFE11D48)));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: PrimeCareColors.rose));
                       }
                     }
                   },

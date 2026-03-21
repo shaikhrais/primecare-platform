@@ -80,7 +80,6 @@ class PrimeCareSduiEngine extends StatelessWidget {
       case 'PrimeCareAvatar':
         return PrimeCareAvatar(
           radius: _parseDouble(node['radius']) ?? 24.0,
-          backgroundColor: _parseColor(node['backgroundColor']),
         );
       case 'SizedBox':
         return SizedBox(

@@ -31,6 +31,24 @@
 
   <title>primecare_mobile</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    body, html {
+      background-color: #0F172A; /* PrimeCare Radar Dark Theme */
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .loading-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Courier New', Courier, monospace;
+      color: #38BDF8;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+  </style>
 </head>
 <body>
   <!--
@@ -41,6 +59,7 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+  <div class="loading-indicator">INITIALIZING SECURE TERMINAL...</div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

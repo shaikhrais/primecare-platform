@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class MtAvailabilityScreen extends StatelessWidget {
@@ -13,7 +15,7 @@ class MtAvailabilityScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              const Text('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF0F172A))),
+              const Text('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
               const SizedBox(height: 24),
               const Text('Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.', style: TextStyle(color: Color(0xFF475569), height: 1.5)),
               const SizedBox(height: 32),
@@ -33,15 +35,15 @@ class MtAvailabilityScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: isActive ? const Color(0xFFDBEAFE) : const Color(0xFFE2E8F0)), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: isActive ? const Color(0xFFDBEAFE) : PrimeCareColors.slate200), borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(day, style: TextStyle(fontWeight: FontWeight.w900, color: isActive ? const Color(0xFF2563EB) : const Color(0xFF64748B), fontSize: 16)),
-              Text(bounds, style: TextStyle(color: isActive ? const Color(0xFF0F172A) : const Color(0xFF94A3B8), fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
+              Text(day, style: TextStyle(fontWeight: FontWeight.w900, color: isActive ? const Color(0xFF2563EB) : PrimeCareColors.slate500, fontSize: 16)),
+              Text(bounds, style: TextStyle(color: isActive ? PrimeCareColors.radarDark : PrimeCareColors.slate400, fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
             ],
           ),
           Switch(value: isActive, onChanged: (v){}, activeColor: const Color(0xFF2563EB)),

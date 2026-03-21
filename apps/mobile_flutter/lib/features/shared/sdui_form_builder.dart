@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 import 'package:primecare_mobile/core/api_client.dart'; // Local wrapper
@@ -96,7 +98,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
               enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white24), borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
-              fillColor: const Color(0xFF1E293B),
+              fillColor: PrimeCareColors.slate800,
             ),
             style: const TextStyle(color: Colors.white),
             onChanged: (val) => _formData[key!] = val,
@@ -106,7 +108,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
       case 'boolean':
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)),
+          decoration: BoxDecoration(color: PrimeCareColors.slate800, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)),
           child: SwitchListTile(
             title: Text(label, style: GoogleFonts.inter(color: Colors.white)),
             value: _formData[key!] ?? false,
@@ -126,9 +128,9 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
               enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white24), borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
-              fillColor: const Color(0xFF1E293B),
+              fillColor: PrimeCareColors.slate800,
             ),
-            dropdownColor: const Color(0xFF1E293B),
+            dropdownColor: PrimeCareColors.slate800,
             style: const TextStyle(color: Colors.white),
             value: _formData[key],
             items: options.map((opt) => DropdownMenuItem<String>(value: opt.toString(), child: Text(opt.toString()))).toList(),
@@ -150,7 +152,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
 
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(color: const Color(0xFF0F172A), borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(color: PrimeCareColors.radarDark, borderRadius: BorderRadius.circular(24)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,

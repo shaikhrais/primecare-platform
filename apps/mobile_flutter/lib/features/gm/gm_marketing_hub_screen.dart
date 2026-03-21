@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class GmMarketingHubScreen extends StatelessWidget {
@@ -7,10 +9,10 @@ class GmMarketingHubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       appBar: AppBar(
-        title: const Text('CLIENT ACQUISITION & BRAND', style: TextStyle(color: Color(0xFF8B5CF6), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-        backgroundColor: const Color(0xFF020617),
+        title: const Text('CLIENT ACQUISITION & BRAND', style: TextStyle(color: PrimeCareColors.purple, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+        backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
       body: Center(
@@ -39,9 +41,9 @@ class GmMarketingHubScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF8B5CF6)),
+          Icon(icon, color: PrimeCareColors.purple),
           const SizedBox(width: 8),
-          Text(title, style: const TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.w900, letterSpacing: 1.5)),
+          Text(title, style: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.w900, letterSpacing: 1.5)),
         ],
       ),
     );
@@ -52,7 +54,7 @@ class GmMarketingHubScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
+        color: PrimeCareColors.slate800,
         border: Border.all(color: const Color(0xFF4C1D95)),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -63,11 +65,11 @@ class GmMarketingHubScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
-              const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFF8B5CF6), size: 14),
+              const Icon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.purple, size: 14),
             ],
           ),
           const SizedBox(height: 8),
-          Text(desc, style: const TextStyle(color: Color(0xFF94A3B8), height: 1.4)),
+          Text(desc, style: const TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
         ],
       ),
     );

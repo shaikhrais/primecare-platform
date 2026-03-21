@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 import '../shared/layouts/responsive_shell.dart';
 
@@ -15,7 +17,7 @@ class CoordinatorShellScreen extends StatelessWidget {
     return ResponsiveShell(
       navigationShell: navigationShell,
       activeIndicatorColor: const Color(0x338B5CF6),
-      activeIconColor: const Color(0xFF8B5CF6),
+      activeIconColor: PrimeCareColors.purple,
       destinations: const [
         ResponsiveNavigationData(label: 'Dispatch', icon: Icons.route_rounded, selectedIcon: Icons.route_rounded),
         ResponsiveNavigationData(label: 'Staff', icon: Icons.badge_outlined, selectedIcon: Icons.badge_outlined),

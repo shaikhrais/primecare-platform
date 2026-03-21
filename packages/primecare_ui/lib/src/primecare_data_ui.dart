@@ -5,7 +5,7 @@ import 'primecare_ui.dart';
 /// 1. Universal Async Component Renderer (Industry Standard Smart-mount)
 /// Eliminates localized loading grids, spinner logic, and Try/Catch setState logic from UI nodes.
 class PrimeCareAsyncCard<T> extends ConsumerWidget {
-  final AutoDisposeFutureProvider<T> provider;
+  final dynamic provider;
   final Widget Function(BuildContext context, T data) builder;
   final EdgeInsetsGeometry padding;
   final Color? backgroundColor;
@@ -176,7 +176,7 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
 /// 3. Universal Feed Matrix
 /// Eliminates manual `ListView.builder` and `ScrollController` loop boilerplate globally.
 class PrimeCareFeed<T> extends ConsumerStatefulWidget {
-  final AutoDisposeFutureProvider<List<T>> provider;
+  final dynamic provider;
   final Widget Function(BuildContext context, T item) itemBuilder;
   final VoidCallback? onRefresh;
 

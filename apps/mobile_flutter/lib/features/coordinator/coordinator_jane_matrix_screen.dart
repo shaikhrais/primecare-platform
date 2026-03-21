@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 
 class CoordinatorJaneMatrixScreen extends StatefulWidget {
   const CoordinatorJaneMatrixScreen({super.key});
@@ -44,7 +46,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A))),
+        title: const Text('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,
         elevation: 1,
         actions: [
@@ -94,8 +96,8 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildLegendItem('Unassigned', const Color(0xFFEF4444)),
-          _buildLegendItem('Assigned', const Color(0xFFF59E0B)),
-          _buildLegendItem('GPS Verified', const Color(0xFF10B981)),
+          _buildLegendItem('Assigned', PrimeCareColors.amber),
+          _buildLegendItem('GPS Verified', PrimeCareColors.emerald),
           _buildLegendItem('Completed', const Color(0xFF3B82F6)),
         ],
       ),
@@ -138,9 +140,9 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
             padding: const EdgeInsets.only(left: 8),
             decoration: const BoxDecoration(
               color: Color(0xFFF1F5F9),
-              border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0)), right: BorderSide(color: Color(0xFFE2E8F0))),
+              border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)),
             ),
-            child: Text(time, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF64748B))),
+            child: Text(time, style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
           );
         }),
       ),
@@ -160,13 +162,13 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: const BoxDecoration(
               color: Colors.white,
-              border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0)), right: BorderSide(color: Color(0xFFE2E8F0))),
+              border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)),
             ),
             child: Row(
               children: [
-                CircleAvatar(radius: 14, backgroundColor: const Color(0xFFE2E8F0), child: Icon(Icons.person, size: 16, color: Colors.blueGrey[700])),
+                CircleAvatar(radius: 14, backgroundColor: PrimeCareColors.slate200, child: Icon(Icons.person, size: 16, color: Colors.blueGrey[700])),
                 const SizedBox(width: 8),
-                Expanded(child: Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF0F172A)), maxLines: 2)),
+                Expanded(child: Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
               ],
             ),
           );
@@ -188,8 +190,8 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
           Color blockColor;
           switch (shift['status']) {
             case 'unstaffed': blockColor = const Color(0xFFEF4444); break; // Red
-            case 'assigned': blockColor = const Color(0xFFF59E0B); break;  // Amber
-            case 'verified': blockColor = const Color(0xFF10B981); break;  // Emerald
+            case 'assigned': blockColor = PrimeCareColors.amber; break;  // Amber
+            case 'verified': blockColor = PrimeCareColors.emerald; break;  // Emerald
             case 'completed': blockColor = const Color(0xFF3B82F6); break; // Blue
             default: blockColor = Colors.grey;
           }
@@ -244,7 +246,7 @@ class GridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = const Color(0xFFE2E8F0)
+      ..color = PrimeCareColors.slate200
       ..strokeWidth = 1.0;
 
     // Draw Vertical Time Lines (Half hour intervals optionally later)

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -16,11 +18,11 @@ class PswHomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(AppStrings.appName, 
-          style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
+          style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded, color: Color(0xFF0F172A)),
+            icon: const Icon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
             onPressed: () {},
           )
         ],
@@ -139,15 +141,15 @@ class PswHomeScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const Text(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const SizedBox(height: 16),
         Row(
           children: [
-            Expanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, const Color(0xFF8B5CF6))),
+            Expanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
             const SizedBox(width: 16),
-            Expanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, const Color(0xFF10B981))),
+            Expanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
             const SizedBox(width: 16),
-            Expanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, const Color(0xFFF59E0B))),
+            Expanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
           ],
         ),
       ],
@@ -158,7 +160,7 @@ class PswHomeScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const Text(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const SizedBox(height: 16),
         GridView.count(
           physics: const NeverScrollableScrollPhysics(),
@@ -169,9 +171,9 @@ class PswHomeScreen extends StatelessWidget {
           childAspectRatio: 1.2,
           children: [
             _buildQuickLinkTile(context, AppStrings.secureInbox, Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
-            _buildQuickLinkTile(context, AppStrings.dailyTimeline, Icons.calendar_view_day_rounded, const Color(0xFF8B5CF6), () => context.push('/psw/daily-timeline')),
+            _buildQuickLinkTile(context, AppStrings.dailyTimeline, Icons.calendar_view_day_rounded, PrimeCareColors.purple, () => context.push('/psw/daily-timeline')),
             _buildQuickLinkTile(context, AppStrings.trainingHub, Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
-            _buildQuickLinkTile(context, AppStrings.sosTrigger, Icons.emergency_rounded, const Color(0xFFE11D48), () {
+            _buildQuickLinkTile(context, AppStrings.sosTrigger, Icons.emergency_rounded, PrimeCareColors.rose, () {
               HapticFeedback.heavyImpact();
               context.push('/psw/live-video-triage/emergency-123');
             }),
@@ -189,7 +191,7 @@ class PswHomeScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+        const Text(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const SizedBox(height: 16),
         _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
         const SizedBox(height: 16),
@@ -204,15 +206,15 @@ class PswHomeScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 4))],
+        boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
       ),
       child: Column(
         children: [
           Icon(icon, color: color, size: 28),
           const SizedBox(height: 12),
-          Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+          Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
           const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)), textAlign: TextAlign.center),
+          Text(label, style: const TextStyle(fontSize: 12, color: PrimeCareColors.slate500), textAlign: TextAlign.center),
         ],
       ),
     );
@@ -228,7 +230,7 @@ class PswHomeScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 4))],
+          boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
           border: Border.all(color: color.withAlpha(30), width: 1.5),
         ),
         child: Stack(
@@ -250,7 +252,7 @@ class PswHomeScreen extends StatelessWidget {
                     child: Icon(icon, color: color, size: 24),
                   ),
                   const Spacer(),
-                  Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
+                  Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
                 ],
               ),
             ),
@@ -266,7 +268,7 @@ class PswHomeScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 4))],
+        boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
         border: Border.all(color: const Color(0xFFF1F5F9), width: 1.5),
       ),
       child: Column(
@@ -276,15 +278,15 @@ class PswHomeScreen extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(color: const Color(0xFF10B981).withAlpha(20), borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.campaign_outlined, color: Color(0xFF10B981), size: 20),
+                decoration: BoxDecoration(color: PrimeCareColors.emerald.withAlpha(20), borderRadius: BorderRadius.circular(8)),
+                child: const Icon(Icons.campaign_outlined, color: PrimeCareColors.emerald, size: 20),
               ),
               const SizedBox(width: 12),
-              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A)))),
+              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark))),
             ],
           ),
           const SizedBox(height: 12),
-          Text(desc, style: const TextStyle(color: Color(0xFF64748B), fontSize: 14, height: 1.5)),
+          Text(desc, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14, height: 1.5)),
         ],
       ),
     );

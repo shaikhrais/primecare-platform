@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 
 class GmDashboardScreen extends StatelessWidget {
   const GmDashboardScreen({super.key});
@@ -6,13 +8,13 @@ class GmDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       appBar: AppBar(
         title: const Text('Executive Growth Hub', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: -0.5)),
-        backgroundColor: const Color(0xFF020617),
+        backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
         actions: [
-          IconButton(icon: const Icon(Icons.business_center_rounded, color: Color(0xFFF59E0B)), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.business_center_rounded, color: PrimeCareColors.amber), onPressed: () {}),
         ],
       ),
       body: LayoutBuilder(
@@ -29,11 +31,11 @@ class GmDashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text('Month-Over-Month Velocity', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                      const Text('Month-Over-Month Velocity', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                       const SizedBox(height: 16),
-                      _buildHeroMetric('Net-New Acquisitions', '+41 Patients', '+14.2% MoM', const Color(0xFF10B981)),
+                      _buildHeroMetric('Net-New Acquisitions', '+41 Patients', '+14.2% MoM', PrimeCareColors.emerald),
                       const SizedBox(height: 16),
-                      _buildHeroMetric('EBITDA (Gross Margin)', '32.4%', '+4.1% MoM', const Color(0xFFF59E0B)),
+                      _buildHeroMetric('EBITDA (Gross Margin)', '32.4%', '+4.1% MoM', PrimeCareColors.amber),
                     ],
                   )
                 ),
@@ -43,19 +45,19 @@ class GmDashboardScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text('OPERATIONAL LEAKAGE', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                      const Text('OPERATIONAL LEAKAGE', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                       const SizedBox(height: 16),
-                      _buildLeakageTile('Surge Pricing Output', '\$14,200', 'Alert: 2x above target', const Color(0xFFE11D48)),
-                      _buildLeakageTile('Overtime Pay (PSW/RN)', '\$3,140', 'Nominal', const Color(0xFF10B981)),
+                      _buildLeakageTile('Surge Pricing Output', '\$14,200', 'Alert: 2x above target', PrimeCareColors.rose),
+                      _buildLeakageTile('Overtime Pay (PSW/RN)', '\$3,140', 'Nominal', PrimeCareColors.emerald),
                       const SizedBox(height: 32),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1E293B),
+                          backgroundColor: PrimeCareColors.slate800,
                           padding: const EdgeInsets.symmetric(vertical: 20),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF334155))),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: PrimeCareColors.slate700)),
                         ),
-                        child: const Text('GENERATE FRANCHISE REPORT', style: TextStyle(color: Color(0xFFF59E0B), fontWeight: FontWeight.bold)),
+                        child: const Text('GENERATE FRANCHISE REPORT', style: TextStyle(color: PrimeCareColors.amber, fontWeight: FontWeight.bold)),
                       )
                     ],
                   )
@@ -72,14 +74,14 @@ class GmDashboardScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
+        color: PrimeCareColors.slate800,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF334155)),
+        border: Border.all(color: PrimeCareColors.slate700),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 14)),
+          Text(title, style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 14)),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +104,7 @@ class GmDashboardScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: const Color(0xFF0F172A), border: Border.all(color: const Color(0xFF1E293B)), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: PrimeCareColors.radarDark, border: Border.all(color: PrimeCareColors.slate800), borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

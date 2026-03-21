@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 import '../../core/api_client.dart';
 
@@ -65,7 +67,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x0D000000),
+                  color: const Color(0x0D000000) /* Soft Shadow */,
                   blurRadius: 10, offset: Offset(0, 4),
                 )
               ],
@@ -78,13 +80,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 const SizedBox(height: 16),
                 const Text(
                   'Password Recovery',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
                 const Text(
                   'Enter the email address associated with your PrimeCare account.',
-                  style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
+                  style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -92,13 +94,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: _isSuccess ? const Color(0xFFD1FAE5) : const Color(0xFFFFF1F2),
+                      color: _isSuccess ? const Color(0xFFD1FAE5) : const const Color(0xFFFFF1F2) /* TODO: Rose Background */ /* TODO: Rose Background */,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       _message!,
                       style: TextStyle(
-                        color: _isSuccess ? const Color(0xFF059669) : const Color(0xFFE11D48),
+                        color: _isSuccess ? const Color(0xFF059669) : PrimeCareColors.rose,
                         fontSize: 14,
                       ),
                       textAlign: TextAlign.center,
@@ -133,7 +135,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ElevatedButton(
                     onPressed: () => context.go('/login'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0F172A),
+                      backgroundColor: PrimeCareColors.radarDark,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

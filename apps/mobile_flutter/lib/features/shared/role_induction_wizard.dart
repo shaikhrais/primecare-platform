@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 /// The Behavioral Mentor: Role Induction Wizard (Phase 71)
@@ -21,7 +23,7 @@ class _RoleInductionWizardScreenState extends State<RoleInductionWizardScreen> {
   Widget build(BuildContext context) {
     // A strict, formal, commanding aesthetic.
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
@@ -47,7 +49,7 @@ class _RoleInductionWizardScreenState extends State<RoleInductionWizardScreen> {
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1E293B),
+                  color: PrimeCareColors.slate800,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: Colors.white10)
                 ),

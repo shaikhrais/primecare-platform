@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../../core/widgets/primecare_app_bar.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -19,7 +21,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE11D48),
+                  color: PrimeCareColors.rose,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [BoxShadow(color: Color(0x55E11D48), blurRadius: 24, offset: Offset(0, 8))],
                 ),
@@ -42,7 +44,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
               ),
               
               const SizedBox(height: 32),
-              const Text('INCIDENT CLASSIFICATION', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+              const Text('INCIDENT CLASSIFICATION', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
               const SizedBox(height: 12),
               
               _buildSelectionBox('Type of Incident', 'Patient Fall / Injury'),
@@ -82,12 +84,12 @@ class PswIncidentWizardScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.bold)),
+              Text(label, style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              Text(value, style: const TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold, fontSize: 16)),
+              Text(value, style: const TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 16)),
             ],
           ),
-          const Icon(Icons.arrow_drop_down_rounded, color: Color(0xFF64748B), size: 32),
+          const Icon(Icons.arrow_drop_down_rounded, color: PrimeCareColors.slate500, size: 32),
         ],
       ),
     );

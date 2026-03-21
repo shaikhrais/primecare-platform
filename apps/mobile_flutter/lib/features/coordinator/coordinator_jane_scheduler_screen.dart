@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 
 class CoordinatorJaneSchedulerScreen extends StatefulWidget {
@@ -41,13 +43,13 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
 
   Color _getStateColor(String state) {
     switch (state) {
-      case 'completed': return const Color(0xFF64748B); // Slate Grey
-      case 'arrived': return const Color(0xFF10B981); // Emerald Green
-      case 'en_route': return const Color(0xFFF59E0B); // Amber Warning
+      case 'completed': return PrimeCareColors.slate500; // Slate Grey
+      case 'arrived': return PrimeCareColors.emerald; // Emerald Green
+      case 'en_route': return PrimeCareColors.amber; // Amber Warning
       case 'scheduled': return const Color(0xFF3B82F6); // Standard Blue
-      case 'auto': return const Color(0xFF8B5CF6); // AI Purple
-      case 'no_show': return const Color(0xFFE11D48); // Red
-      default: return const Color(0xFFE2E8F0);
+      case 'auto': return PrimeCareColors.purple; // AI Purple
+      case 'no_show': return PrimeCareColors.rose; // Red
+      default: return PrimeCareColors.slate200;
     }
   }
 
@@ -56,16 +58,16 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Jane Matrix Scheduler', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+        title: const Text('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
         shadowColor: Colors.black12,
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF0F172A)), onPressed: () => context.pop()),
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(color: const Color(0xFF8B5CF6), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(color: PrimeCareColors.purple, borderRadius: BorderRadius.circular(8)),
             child: const Center(child: Text('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
           )
         ],
@@ -78,14 +80,14 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
             width: 200,
             decoration: const BoxDecoration(
               color: Color(0xFFF8FAFC),
-              border: Border(right: BorderSide(color: Color(0xFFE2E8F0))),
+              border: Border(right: BorderSide(color: PrimeCareColors.slate200)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text('Waitlist Array', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF64748B), letterSpacing: 1.5)),
+                  child: Text('Waitlist Array', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.slate500, letterSpacing: 1.5)),
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -117,7 +119,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
             width: _timeColumnWidth,
             child: Column(
               children: [
-                Container(height: 50, decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0)), right: BorderSide(color: Color(0xFFE2E8F0))))), // Corner Block
+                Container(height: 50, decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)))), // Corner Block
                 Expanded(
                   child: ListView.builder(
                     itemCount: _endHour - _startHour + 1,
@@ -129,9 +131,9 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                       return Container(
                         height: _hourHeight,
                         decoration: const BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Color(0xFFF1F5F9)), right: BorderSide(color: Color(0xFFE2E8F0))),
+                          border: Border(bottom: BorderSide(color: Color(0xFFF1F5F9)), right: BorderSide(color: PrimeCareColors.slate200)),
                         ),
-                        child: Center(child: Text('$displayTime:00 $amPm', style: const TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, fontSize: 12))),
+                        child: Center(child: Text('$displayTime:00 $amPm', style: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, fontSize: 12))),
                       );
                     },
                   ),
@@ -157,14 +159,14 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                       height: 50,
                       decoration: const BoxDecoration(
                         color: Color(0xFFF8FAFC),
-                        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0)), right: BorderSide(color: Color(0xFFF1F5F9))),
+                        border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: Color(0xFFF1F5F9))),
                       ),
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(p['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0F172A), fontSize: 14)),
-                            Text('${p['role']} • Active', style: const TextStyle(color: Color(0xFF10B981), fontSize: 11, fontWeight: FontWeight.bold)),
+                            Text(p['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, fontSize: 14)),
+                            Text('${p['role']} • Active', style: const TextStyle(color: PrimeCareColors.emerald, fontSize: 11, fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
@@ -269,7 +271,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                 if (collision) {
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                     content: Text('DOUBLE-BOOKING DETECTED. The physical schedule matrix rejected the collision constraint.'),
-                                    backgroundColor: Color(0xFFE11D48)
+                                    backgroundColor: PrimeCareColors.rose
                                   ));
                                   return;
                                 }
@@ -288,7 +290,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                 
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text('SUCCESS: ${droppedItem['client']} bound to ${targetProvider}.'),
-                                  backgroundColor: const Color(0xFF10B981)
+                                  backgroundColor: PrimeCareColors.emerald
                                 ));
                               },
                             ),
@@ -331,7 +333,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
           const SizedBox(height: 4),
           Text(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 11)),
           const SizedBox(height: 6),
-          Text('${block['duration']} HR BLOCK', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
+          Text('${block['duration']} HR BLOCK', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
         ],
       ),
     );

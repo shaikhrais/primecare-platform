@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
@@ -101,15 +103,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color: PrimeCareColors.slate200),
               ),
               child: TextField(
                 controller: _searchController,
                 onChanged: _filterData,
                 decoration: const InputDecoration(
                   hintText: 'Live Keyword Search...',
-                  hintStyle: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
-                  prefixIcon: Icon(Icons.search, color: Color(0xFF94A3B8)),
+                  hintStyle: TextStyle(color: PrimeCareColors.slate400, fontSize: 14),
+                  prefixIcon: Icon(Icons.search, color: PrimeCareColors.slate400),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
@@ -123,7 +125,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  border: Border.all(color: PrimeCareColors.slate200),
                   boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 4, offset: Offset(0, 2))],
                 ),
                 child: Column(
@@ -134,13 +136,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       decoration: const BoxDecoration(
                         color: Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0), width: 2)),
+                        border: Border(bottom: BorderSide(color: PrimeCareColors.slate200, width: 2)),
                       ),
                       child: const Row(
                         children: [
-                          Expanded(flex: 2, child: Text('IDENTIFIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF64748B), letterSpacing: 0.5))),
-                          Expanded(flex: 3, child: Text('CLASSIFICATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF64748B), letterSpacing: 0.5))),
-                          Expanded(flex: 2, child: Center(child: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF64748B), letterSpacing: 0.5)))),
+                          Expanded(flex: 2, child: Text('IDENTIFIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
+                          Expanded(flex: 3, child: Text('CLASSIFICATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
+                          Expanded(flex: 2, child: Center(child: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5)))),
                         ],
                       ),
                     ),
@@ -153,7 +155,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ? Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(32.0),
-                                child: Text(_errorMsg!, textAlign: TextAlign.center, style: const TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.bold)),
+                                child: Text(_errorMsg!, textAlign: TextAlign.center, style: const TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.bold)),
                               ),
                             )
                           : _filteredData.isEmpty
@@ -161,9 +163,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.inventory_2_outlined, size: 48, color: Color(0xFFCBD5E1)),
+                                    Icon(Icons.inventory_2_outlined, size: 48, color: PrimeCareColors.slate300),
                                     SizedBox(height: 12),
-                                    Text('No active API entities discovered.', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.w600)),
+                                    Text('No active API entities discovered.', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w600)),
                                   ],
                                 ),
                               )
@@ -188,7 +190,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   decoration: BoxDecoration(
                                     color: rowColor,
                                     border: Border(
-                                      bottom: const BorderSide(color: Color(0xFFE2E8F0)),
+                                      bottom: const BorderSide(color: PrimeCareColors.slate200),
                                       left: BorderSide(
                                         color: isSelected ? const Color(0xFF0EA5E9) : Colors.transparent,
                                         width: 3,
@@ -197,8 +199,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Expanded(flex: 2, child: Text(item['id'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0F172A), fontSize: 13))),
-                                      Expanded(flex: 3, child: Text(item['name'] ?? '', style: const TextStyle(color: Color(0xFF334155), fontSize: 13))),
+                                      Expanded(flex: 2, child: Text(item['id'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, color: PrimeCareColors.radarDark, fontSize: 13))),
+                                      Expanded(flex: 3, child: Text(item['name'] ?? '', style: const TextStyle(color: PrimeCareColors.slate700, fontSize: 13))),
                                       Expanded(flex: 2, child: Center(
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -209,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           child: Text(
                                             (item['status'] ?? '').toUpperCase(),
                                             style: TextStyle(
-                                              color: item['status'] == 'Active' ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
+                                              color: item['status'] == 'Active' ? PrimeCareColors.emerald : PrimeCareColors.amber,
                                               fontSize: 10,
                                               fontWeight: FontWeight.w800,
                                             ),

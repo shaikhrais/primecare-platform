@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
@@ -32,14 +34,14 @@ class PswTimesheetDetailScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
-                boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
+                border: Border.all(color: PrimeCareColors.slate200),
+                boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
               ),
               child: Column(
                 children: [
-                  const Text('Gross Daily Earnings', style: TextStyle(color: Color(0xFF64748B), fontSize: 16)),
+                  const Text('Gross Daily Earnings', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16)),
                   const SizedBox(height: 12),
-                  Text('\$${earnings.toStringAsFixed(2)}', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Color(0xFF0F172A), letterSpacing: -1)),
+                  Text('\$${earnings.toStringAsFixed(2)}', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, letterSpacing: -1)),
                   
                   if (surgeActive) ...[
                     const SizedBox(height: 16),
@@ -52,9 +54,9 @@ class PswTimesheetDetailScreen extends StatelessWidget {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.bolt_rounded, color: Color(0xFF10B981), size: 20),
+                          Icon(Icons.bolt_rounded, color: PrimeCareColors.emerald, size: 20),
                           SizedBox(width: 8),
-                          Text('High Demand Surge Active (+1.5x)', style: TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold)),
+                          Text('High Demand Surge Active (+1.5x)', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                         ],
                       )
                     )
@@ -66,14 +68,14 @@ class PswTimesheetDetailScreen extends StatelessWidget {
             const SizedBox(height: 32),
             
             // Tax Simulator Breakdown Widget
-            const Text('NET TAKEHOME CALCULATION', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+            const Text('NET TAKEHOME CALCULATION', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color: PrimeCareColors.slate200),
               ),
               child: Column(
                 children: [
@@ -84,12 +86,12 @@ class PswTimesheetDetailScreen extends StatelessWidget {
                   _buildLineItem('Travel Stipend (14km)', '\$21.25'),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Divider(color: Color(0xFFE2E8F0)),
+                    child: Divider(color: PrimeCareColors.slate200),
                   ),
                   _buildLineItem('Est. Target Pre-Tax', '\$315.00', bold: true),
                   const SizedBox(height: 12),
-                  _buildLineItem('- Federal Deductions (15%)', '-\$47.25', color: const Color(0xFFE11D48)),
-                  _buildLineItem('- CPP Contributions (2%)', '-\$6.30', color: const Color(0xFFE11D48)),
+                  _buildLineItem('- Federal Deductions (15%)', '-\$47.25', color: PrimeCareColors.rose),
+                  _buildLineItem('- CPP Contributions (2%)', '-\$6.30', color: PrimeCareColors.rose),
                 ],
               ),
             ),
@@ -97,14 +99,14 @@ class PswTimesheetDetailScreen extends StatelessWidget {
             const SizedBox(height: 32),
 
             // EVV GPS Logging Verification Node
-            const Text('TELEMETRY GPS LOGS', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+            const Text('TELEMETRY GPS LOGS', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color: PrimeCareColors.slate200),
               ),
               child: Column(
                 children: [
@@ -112,7 +114,7 @@ class PswTimesheetDetailScreen extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 17),
                     height: 32, width: 2, 
-                    color: const Color(0xFFE2E8F0), 
+                    color: PrimeCareColors.slate200, 
                     alignment: Alignment.centerLeft
                   ),
                   _buildGpsLog('CLOCK OUT', '08:34:55 PM', 'Lat 43.65, Lon -79.38 • Accuracy 6m', false),
@@ -132,7 +134,7 @@ class PswTimesheetDetailScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.normal, color: color ?? const Color(0xFF475569))),
-        Text(amount, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.w600, color: color ?? const Color(0xFF0F172A))),
+        Text(amount, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.w600, color: color ?? PrimeCareColors.radarDark)),
       ],
     );
   }
@@ -141,16 +143,16 @@ class PswTimesheetDetailScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(isStart ? Icons.gps_fixed : Icons.exit_to_app_rounded, color: isStart ? const Color(0xFF10B981) : const Color(0xFF3B82F6), size: 36),
+        Icon(isStart ? Icons.gps_fixed : Icons.exit_to_app_rounded, color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), size: 36),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(type, style: TextStyle(color: isStart ? const Color(0xFF10B981) : const Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1)),
+            Text(type, style: TextStyle(color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1)),
             const SizedBox(height: 4),
-            Text(time, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
+            Text(time, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
             const SizedBox(height: 4),
-            Text(geo, style: const TextStyle(color: Color(0xFF64748B), fontSize: 13, fontFamily: 'monospace')),
+            Text(geo, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontFamily: 'monospace')),
           ],
         )
       ],

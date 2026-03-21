@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -64,10 +66,10 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('Fleet Master Scheduler', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+        title: const Text('Fleet Master Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF0F172A)), onPressed: () => context.pop()),
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
       ),
       body: Center(
         child: DesktopPaneWrapper(
@@ -78,7 +80,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
             padding: const EdgeInsets.all(24),
             decoration: const BoxDecoration(
               color: Colors.white,
-              border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
+              border: Border(bottom: BorderSide(color: PrimeCareColors.slate200)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,9 +88,9 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Global AI Dispatch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF64748B), letterSpacing: 1)),
+                    const Text('Global AI Dispatch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: PrimeCareColors.slate500, letterSpacing: 1)),
                     const SizedBox(height: 4),
-                    const Text('28 Unassigned Hours Pending', style: TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.w900, fontSize: 18)),
+                    const Text('28 Unassigned Hours Pending', style: TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.w900, fontSize: 18)),
                   ],
                 ),
                 ElevatedButton.icon(
@@ -136,7 +138,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: PrimeCareColors.slate200),
         boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 10, offset: Offset(0, 4))],
       ),
       child: Column(
@@ -150,7 +152,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                 children: [
                   CircleAvatar(radius: 16, backgroundColor: const Color(0xFFDBEAFE), child: Text(worker['id'].toString().substring(0,2), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
                   const SizedBox(width: 12),
-                  Text(worker['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+                  Text(worker['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                 ],
               ),
               Row(
@@ -159,10 +161,10 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                     Container(
                       margin: const EdgeInsets.only(right: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(color: const Color(0xFF10B981).withAlpha(30), borderRadius: BorderRadius.circular(8)),
-                      child: const Text('MAX OPTION', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                      decoration: BoxDecoration(color: PrimeCareColors.emerald.withAlpha(30), borderRadius: BorderRadius.circular(8)),
+                      child: const Text('MAX OPTION', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold)),
                     ),
-                  Text(worker['capacity'], style: const TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(worker['capacity'], style: const TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 14)),
                 ],
               )
             ],
@@ -184,7 +186,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                 final double widthFactor = block['span'] / 12.0;
                 
                 final Color blockColor = block['type'] == 'auto_assigned' 
-                    ? const Color(0xFF8B5CF6) // Deep AI Purple
+                    ? PrimeCareColors.purple // Deep AI Purple
                     : const Color(0xFF3B82F6); // Standard Blue
                 
                 return Positioned(

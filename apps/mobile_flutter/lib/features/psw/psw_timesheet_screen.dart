@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:flutter/services.dart';
 import '../shared/layouts/master_detail_layout.dart';
 import 'psw_timesheet_detail_screen.dart';
@@ -44,7 +46,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
+                  colors: [PrimeCareColors.radarDark, PrimeCareColors.slate800],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -53,7 +55,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
               child: Column(
                 children: [
-                   const Text('Est. October Payout', style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16)),
+                   const Text('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
                    const SizedBox(height: 8),
                    const Text('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
                    const SizedBox(height: 24),
@@ -61,9 +63,9 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        _buildMetric('Hours', '142.5'),
-                       Container(width: 1, height: 40, color: const Color(0xFF334155)),
+                       Container(width: 1, height: 40, color: PrimeCareColors.slate700),
                        _buildMetric('Shifts', '22'),
-                       Container(width: 1, height: 40, color: const Color(0xFF334155)),
+                       Container(width: 1, height: 40, color: PrimeCareColors.slate700),
                        _buildMetric('Surge OT', '18h'),
                      ],
                    )
@@ -80,12 +82,12 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color: PrimeCareColors.slate200),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF0F172A))),
+                  const Text('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
                   const SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
@@ -96,7 +98,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF10B981).withOpacity(intensity),
+                          color: PrimeCareColors.emerald.withOpacity(intensity),
                           borderRadius: BorderRadius.circular(6),
                         ),
                       );
@@ -129,7 +131,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: PrimeCareColors.slate200),
                     ),
                     padding: const EdgeInsets.all(20),
                     child: Row(
@@ -149,20 +151,20 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                             children: [
                               Text(period['date'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                               const SizedBox(height: 4),
-                              Text('${period['hours']} Hours • ${period['shifts']} Shifts', style: const TextStyle(color: Color(0xFF64748B), fontSize: 13)),
+                              Text('${period['hours']} Hours • ${period['shifts']} Shifts', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                             ],
                           ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('\$${period['earnings'].toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
+                            Text('\$${period['earnings'].toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                             if (period['surge'])
-                              const Text('Surge +1.5x', style: TextStyle(color: Color(0xFF10B981), fontSize: 12, fontWeight: FontWeight.bold)),
+                              const Text('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         const SizedBox(width: 8),
-                        const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFFCBD5E1), size: 16),
+                        const Icon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
                       ],
                     ),
                   ),
@@ -186,7 +188,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
       children: [
         Text(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
-        Text(label, style: const TextStyle(color: Color(0xFF64748B), fontSize: 13, fontWeight: FontWeight.w600)),
+        Text(label, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }

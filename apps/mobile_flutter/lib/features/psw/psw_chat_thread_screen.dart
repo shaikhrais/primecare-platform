@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../../core/widgets/primecare_app_bar.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
@@ -33,7 +35,7 @@ class PswChatThreadScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
               decoration: const BoxDecoration(
                 color: Colors.white,
-                border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
+                border: Border(top: BorderSide(color: PrimeCareColors.slate200)),
               ),
               child: SafeArea(
                 child: Row(
@@ -44,13 +46,13 @@ class PswChatThreadScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: const Color(0xFFF1F5F9),
                           borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                          border: Border.all(color: PrimeCareColors.slate200),
                         ),
                         child: const TextField(
                           decoration: InputDecoration(
                             hintText: 'Type your message...',
                             border: InputBorder.none,
-                            hintStyle: TextStyle(color: Color(0xFF94A3B8)),
+                            hintStyle: TextStyle(color: PrimeCareColors.slate400),
                           ),
                         ),
                       ),
@@ -59,7 +61,7 @@ class PswChatThreadScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: const BoxDecoration(
-                        color: Color(0xFF10B981),
+                        color: PrimeCareColors.emerald,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(Icons.send_rounded, color: Colors.white, size: 24),
@@ -89,10 +91,10 @@ class PswChatThreadScreen extends StatelessWidget {
               bottomLeft: Radius.circular(4),
             ),
           ),
-          child: Text(text, style: const TextStyle(fontSize: 16, color: Color(0xFF0F172A), height: 1.4)),
+          child: Text(text, style: const TextStyle(fontSize: 16, color: PrimeCareColors.radarDark, height: 1.4)),
         ),
         const SizedBox(height: 4),
-        Text(time, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(time, style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -104,7 +106,7 @@ class PswChatThreadScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: const Color(0xFF1E293B),
+            color: PrimeCareColors.slate800,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -121,16 +123,16 @@ class PswChatThreadScreen extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(color: const Color(0xFFE11D48), borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(color: PrimeCareColors.rose, borderRadius: BorderRadius.circular(8)),
                     child: const Text('URGENT DISPATCH', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1)),
                   ),
-                  const Text('Surge +1.5x active', style: TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('Surge +1.5x active', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold, fontSize: 13)),
                 ],
               ),
               const SizedBox(height: 20),
               const Text('4:00 PM - 8:00 PM', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 24)),
               const SizedBox(height: 8),
-              const Text('Eliza Thornberry • 99 Safari Rd, Etobicoke', style: TextStyle(color: Color(0xFFCBD5E1), fontSize: 14)),
+              const Text('Eliza Thornberry • 99 Safari Rd, Etobicoke', style: TextStyle(color: PrimeCareColors.slate300, fontSize: 14)),
               const SizedBox(height: 24),
               Row(
                 children: [
@@ -140,7 +142,7 @@ class PswChatThreadScreen extends StatelessWidget {
                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Shift Accepted. Added to Dashboard.')));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF10B981),
+                        backgroundColor: PrimeCareColors.emerald,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -157,7 +159,7 @@ class PswChatThreadScreen extends StatelessWidget {
                         side: const BorderSide(color: Color(0xFF475569), width: 2),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text('DECLINE', style: TextStyle(color: Color(0xFFCBD5E1))),
+                      child: const Text('DECLINE', style: TextStyle(color: PrimeCareColors.slate300)),
                     ),
                   ),
                 ],
@@ -166,7 +168,7 @@ class PswChatThreadScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        const Text('10:45 AM', style: TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.bold)),
+        const Text('10:45 AM', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
       ],
     );
   }

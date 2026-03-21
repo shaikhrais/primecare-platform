@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'psw_video_training_screen.dart';
@@ -38,8 +40,8 @@ class PswTrainingScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
-                boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 20, offset: Offset(0, 8))],
+                border: Border.all(color: PrimeCareColors.slate200),
+                boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 20, offset: Offset(0, 8))],
               ),
               child: Row(
                 children: [
@@ -51,8 +53,8 @@ class PswTrainingScreen extends StatelessWidget {
                          const CircularProgressIndicator(
                            value: 0.85,
                            strokeWidth: 14,
-                           backgroundColor: Color(0xFFE2E8F0),
-                           color: Color(0xFF10B981),
+                           backgroundColor: PrimeCareColors.slate200,
+                           color: PrimeCareColors.emerald,
                            strokeCap: StrokeCap.round,
                          ),
                          Center(
@@ -66,9 +68,9 @@ class PswTrainingScreen extends StatelessWidget {
                      child: Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         const Text('Global Compliance', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
+                         const Text('Global Compliance', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
                          const SizedBox(height: 8),
-                         const Text('2 Modules Pending Verification', style: TextStyle(color: Color(0xFF0F172A), fontSize: 18, fontWeight: FontWeight.w900, height: 1.3)),
+                         const Text('2 Modules Pending Verification', style: TextStyle(color: PrimeCareColors.radarDark, fontSize: 18, fontWeight: FontWeight.w900, height: 1.3)),
                        ],
                      ),
                    )
@@ -77,7 +79,7 @@ class PswTrainingScreen extends StatelessWidget {
             ),
             
             const SizedBox(height: 32),
-            const Text('REQUIRED MICRO-LEARNING', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1.5)),
+            const Text('REQUIRED MICRO-LEARNING', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1.5)),
             const SizedBox(height: 16),
 
             ..._catalog.map((course) {
@@ -96,7 +98,7 @@ class PswTrainingScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: course['urgent'] ? const Color(0xFFE11D48) : const Color(0xFFE2E8F0), width: course['urgent'] ? 2 : 1),
+                      border: Border.all(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate200, width: course['urgent'] ? 2 : 1),
                       boxShadow: course['urgent'] ? const [BoxShadow(color: Color(0x11E11D48), blurRadius: 16, offset: Offset(0, 4))] : [],
                     ),
                     child: Row(
@@ -104,19 +106,19 @@ class PswTrainingScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: course['progress'] == 1.0 ? const Color(0xFF10B981) : const Color(0xFFE2E8F0),
+                            color: course['progress'] == 1.0 ? PrimeCareColors.emerald : PrimeCareColors.slate200,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(course['progress'] == 1.0 ? Icons.check : Icons.play_arrow_rounded, color: course['progress'] == 1.0 ? Colors.white : const Color(0xFF0F172A)),
+                          child: Icon(course['progress'] == 1.0 ? Icons.check : Icons.play_arrow_rounded, color: course['progress'] == 1.0 ? Colors.white : PrimeCareColors.radarDark),
                         ),
                         const SizedBox(width: 20),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(course['title'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: Color(0xFF0F172A))),
+                              Text(course['title'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
                               const SizedBox(height: 6),
-                              Text(course['status'], style: TextStyle(color: course['urgent'] ? const Color(0xFFE11D48) : const Color(0xFF64748B), fontSize: 13, fontWeight: FontWeight.bold)),
+                              Text(course['status'], style: TextStyle(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),

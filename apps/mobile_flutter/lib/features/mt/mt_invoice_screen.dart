@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 
 class MtInvoiceScreen extends StatelessWidget {
@@ -9,10 +11,10 @@ class MtInvoiceScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('Clinical Receipt', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+        title: const Text('Clinical Receipt', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
-        iconTheme: const IconThemeData(color: Color(0xFF0F172A)),
+        iconTheme: const IconThemeData(color: PrimeCareColors.radarDark),
       ),
       body: Center(
         child: DesktopPaneWrapper(
@@ -21,18 +23,18 @@ class MtInvoiceScreen extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(32),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFE2E8F0)), boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 4))]),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: PrimeCareColors.slate200), boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))]),
                 child: Column(
                   children: [
-                    const Icon(Icons.receipt_long, size: 48, color: Color(0xFF64748B)),
+                    const Icon(Icons.receipt_long, size: 48, color: PrimeCareColors.slate500),
                     const SizedBox(height: 16),
-                    const Text('Arthur Pendelton', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF0F172A))),
+                    const Text('Arthur Pendelton', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
                     const SizedBox(height: 8),
-                    const Text('Invoice #PRM-88912-XY', style: TextStyle(color: Color(0xFF94A3B8))),
-                    const Divider(height: 40, thickness: 1, color: Color(0xFFE2E8F0)),
+                    const Text('Invoice #PRM-88912-XY', style: TextStyle(color: PrimeCareColors.slate400)),
+                    const Divider(height: 40, thickness: 1, color: PrimeCareColors.slate200),
                     _buildLineItem('Therapeutic Massage (90 Min)', '\$145.00'),
                     _buildLineItem('HST/GST (13%)', '\$18.85'),
-                    const Divider(height: 40, thickness: 1, color: Color(0xFFE2E8F0)),
+                    const Divider(height: 40, thickness: 1, color: PrimeCareColors.slate200),
                     _buildLineItem('TOTAL CHARGED', '\$163.85', isTotal: true),
                   ],
                 ),
@@ -57,8 +59,8 @@ class MtInvoiceScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: TextStyle(fontWeight: isTotal ? FontWeight.w900 : FontWeight.w600, color: isTotal ? const Color(0xFF0F172A) : const Color(0xFF475569), fontSize: isTotal ? 18 : 16)),
-          Text(cost, style: TextStyle(fontWeight: FontWeight.w900, color: isTotal ? const Color(0xFF10B981) : const Color(0xFF0F172A), fontSize: isTotal ? 20 : 16)),
+          Text(title, style: TextStyle(fontWeight: isTotal ? FontWeight.w900 : FontWeight.w600, color: isTotal ? PrimeCareColors.radarDark : const Color(0xFF475569), fontSize: isTotal ? 18 : 16)),
+          Text(cost, style: TextStyle(fontWeight: FontWeight.w900, color: isTotal ? PrimeCareColors.emerald : PrimeCareColors.radarDark, fontSize: isTotal ? 20 : 16)),
         ],
       ),
     );

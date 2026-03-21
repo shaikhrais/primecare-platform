@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../../core/widgets/primecare_app_bar.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -19,15 +21,15 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  border: Border.all(color: PrimeCareColors.slate200),
                   boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 16, offset: Offset(0, 4))],
                 ),
                 child: const TextField(
                   maxLines: 15,
-                  style: TextStyle(fontSize: 18, color: Color(0xFF334155), height: 1.5),
+                  style: TextStyle(fontSize: 18, color: PrimeCareColors.slate700, height: 1.5),
                   decoration: InputDecoration(
                     hintText: 'Describe patient mood, physical changes, or any incidents occurring during this active shift...',
-                    hintStyle: TextStyle(color: Color(0xFF94A3B8)),
+                    hintStyle: TextStyle(color: PrimeCareColors.slate400),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,

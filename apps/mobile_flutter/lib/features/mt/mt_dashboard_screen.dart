@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -11,7 +13,7 @@ class MtDashboardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('My Jane Schedule (MT)', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A))),
+        title: const Text('My Jane Schedule (MT)', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -40,10 +42,10 @@ class MtDashboardScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [Text('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.calendar_month, color: Color(0xFF94A3B8))],
+                                    children: [Text('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.calendar_month, color: PrimeCareColors.slate400)],
                                   ),
                                   SizedBox(height: 16),
-                                  Text('24 total hours mapped this week.', style: TextStyle(color: Color(0xFF64748B))),
+                                  Text('24 total hours mapped this week.', style: TextStyle(color: PrimeCareColors.slate500)),
                                 ],
                               ),
                             )
@@ -59,11 +61,11 @@ class MtDashboardScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                            const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                             const SizedBox(height: 16),
-                            _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
+                            _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                             _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
-                            _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', const Color(0xFF10B981)),
+                            _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
                           ],
                         ),
                       ),
@@ -81,11 +83,11 @@ class MtDashboardScreen extends StatelessWidget {
                 children: [
                   _buildTherapistHeader(),
                   const SizedBox(height: 24),
-                  const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                  const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
                   const SizedBox(height: 16),
-                  _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', const Color(0xFFF59E0B)),
+                  _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                   _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
-                  _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', const Color(0xFF10B981)),
+                  _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
                 ],
               ),
             ),
@@ -98,7 +100,7 @@ class MtDashboardScreen extends StatelessWidget {
   Widget _buildTherapistHeader() {
     return PrimeCareCard(
       padding: const EdgeInsets.all(20),
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       child: Row(
         children: [
           const PrimeCareAvatar(radius: 24, defaultIcon: Icons.spa),
@@ -108,7 +110,7 @@ class MtDashboardScreen extends StatelessWidget {
             children: const [
               Text('Welcome back, Jessica', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(height: 4),
-              Text('3 Booked Active Sessions', style: TextStyle(color: Color(0xFF94A3B8))),
+              Text('3 Booked Active Sessions', style: TextStyle(color: PrimeCareColors.slate400)),
             ],
           )
         ],
@@ -140,8 +142,8 @@ class MtDashboardScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$start - \$end', style: const TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A), fontSize: 16)),
-                      Icon(Icons.more_horiz, color: const Color(0xFFCBD5E1)),
+                      Text('\$start - \$end', style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
+                      Icon(Icons.more_horiz, color: PrimeCareColors.slate300),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -149,7 +151,7 @@ class MtDashboardScreen extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.location_on, size: 14, color: Color(0xFF64748B)),
+                      const Icon(Icons.location_on, size: 14, color: PrimeCareColors.slate500),
                       const SizedBox(width: 4),
                       Text(location, style: const TextStyle(color: Color(0xFF475569))),
                     ],

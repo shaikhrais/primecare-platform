@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 /// Day-One Diagnostic Radar (Phase 70)
@@ -12,7 +14,7 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Dark terminal aesthetic emphasizing analytical logic and structure
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), 
+      backgroundColor: PrimeCareColors.radarDark, 
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(32.0),
@@ -105,7 +107,7 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
       width: cardWidth,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
+        color: PrimeCareColors.slate800,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white10),
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 
 class GmFinancialsScreen extends StatelessWidget {
   const GmFinancialsScreen({super.key});
@@ -6,10 +8,10 @@ class GmFinancialsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       appBar: AppBar(
         title: const Text('Double-Entry Ledger', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFF020617),
+        backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
       body: LayoutBuilder(
@@ -19,9 +21,9 @@ class GmFinancialsScreen extends StatelessWidget {
           final cashCard = Container(
             padding: const EdgeInsets.all(32),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Color(0xFFF59E0B), Color(0xFFD97706)]),
+              gradient: const LinearGradient(colors: [PrimeCareColors.amber, Color(0xFFD97706)]),
               borderRadius: BorderRadius.circular(24),
-              boxShadow: [BoxShadow(color: const Color(0xFFF59E0B).withAlpha(50), blurRadius: 30, offset: const Offset(0, 15))],
+              boxShadow: [BoxShadow(color: PrimeCareColors.amber.withAlpha(50), blurRadius: 30, offset: const Offset(0, 15))],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +46,7 @@ class GmFinancialsScreen extends StatelessWidget {
           final recentEntries = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('RECENT JOURNAL ENTRIES', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+              const Text('RECENT JOURNAL ENTRIES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
               const SizedBox(height: 16),
               _buildJournalLine('Shift Revenue Realized', 'Credit', '+\$240.00', 'Today, 2:14 PM'),
               _buildJournalLine('Surge Payroll Dispersed', 'Debit', '-\$38.50', 'Today, 2:14 PM'),
@@ -58,7 +60,7 @@ class GmFinancialsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: ListView(padding: const EdgeInsets.all(40), children: [cashCard])),
-                Container(width: 1, color: const Color(0xFF1E293B)),
+                Container(width: 1, color: PrimeCareColors.slate800),
                 Expanded(child: ListView(padding: const EdgeInsets.all(40), children: [recentEntries])),
               ],
             );
@@ -82,7 +84,7 @@ class GmFinancialsScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: PrimeCareColors.slate800, borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -91,10 +93,10 @@ class GmFinancialsScreen extends StatelessWidget {
             children: [
               Text(memo, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
-              Text(date, style: const TextStyle(color: Color(0xFF64748B), fontSize: 12)),
+              Text(date, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 12)),
             ],
           ),
-          Text(amount, style: TextStyle(color: isCredit ? const Color(0xFF10B981) : const Color(0xFFE11D48), fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(amount, style: TextStyle(color: isCredit ? PrimeCareColors.emerald : PrimeCareColors.rose, fontWeight: FontWeight.bold, fontSize: 16)),
         ],
       ),
     );

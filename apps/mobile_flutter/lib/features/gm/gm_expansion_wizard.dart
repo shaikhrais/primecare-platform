@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 
 class GmExpansionWizardScreen extends StatelessWidget {
   const GmExpansionWizardScreen({super.key});
@@ -6,16 +8,16 @@ class GmExpansionWizardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: PrimeCareColors.radarDark,
       appBar: AppBar(
         title: const Text('FRANCHISE EXPANSION', style: TextStyle(color: Color(0xFF3B82F6), fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-        backgroundColor: const Color(0xFF020617),
+        backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
-          const Text('HOW TO START A NEW LOCATION', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.w900, letterSpacing: 2)),
+          const Text('HOW TO START A NEW LOCATION', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.w900, letterSpacing: 2)),
           const SizedBox(height: 24),
           _buildExpansionStep(1, 'Identify Underserved Zip Codes', 'Run algorithm against Medicare demographics to target aging populations with low PrimeCare Node density.', Icons.map_rounded),
           _buildExpansionStep(2, 'Incorporate Ghost Node', 'Digitally register a new LLC and Cloudflare Tenant DB instantly.', Icons.domain_add_rounded),
@@ -43,8 +45,8 @@ class GmExpansionWizardScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        border: Border.all(color: const Color(0xFF334155)),
+        color: PrimeCareColors.slate800,
+        border: Border.all(color: PrimeCareColors.slate700),
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, 4))],
       ),
@@ -53,7 +55,7 @@ class GmExpansionWizardScreen extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: const BoxDecoration(color: Color(0xFF0F172A), shape: BoxShape.circle),
+            decoration: const BoxDecoration(color: PrimeCareColors.radarDark, shape: BoxShape.circle),
             child: Text('$step', style: const TextStyle(color: Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 18)),
           ),
           const SizedBox(width: 16),
@@ -69,7 +71,7 @@ class GmExpansionWizardScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text(desc, style: const TextStyle(color: Color(0xFF94A3B8), height: 1.4)),
+                Text(desc, style: const TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
               ],
             ),
           )

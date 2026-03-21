@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/colors.dart';
+
 import 'package:go_router/go_router.dart';
 
 class ResponsiveNavigationData {
@@ -23,8 +25,8 @@ class ResponsiveShell extends StatelessWidget {
     super.key,
     required this.navigationShell,
     required this.destinations,
-    this.activeIndicatorColor = const Color(0xFFE2E8F0),
-    this.activeIconColor = const Color(0xFF0F172A),
+    this.activeIndicatorColor = PrimeCareColors.slate200,
+    this.activeIconColor = PrimeCareColors.radarDark,
   });
 
   void _goBranch(int index) {
@@ -51,9 +53,9 @@ class ResponsiveShell extends StatelessWidget {
                   backgroundColor: Colors.white,
                   indicatorColor: activeIndicatorColor,
                   selectedIconTheme: IconThemeData(color: activeIconColor),
-                  unselectedIconTheme: const IconThemeData(color: Color(0xFF94A3B8)),
+                  unselectedIconTheme: const IconThemeData(color: PrimeCareColors.slate400),
                   selectedLabelTextStyle: TextStyle(color: activeIconColor, fontWeight: FontWeight.bold, fontSize: 13),
-                  unselectedLabelTextStyle: const TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.normal, fontSize: 12),
+                  unselectedLabelTextStyle: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.normal, fontSize: 12),
                   groupAlignment: 0, // Centers the Rail items
                   destinations: destinations.map((d) => NavigationRailDestination(
                     icon: Icon(d.icon),
@@ -62,7 +64,7 @@ class ResponsiveShell extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   )).toList(),
                 ),
-                const VerticalDivider(thickness: 1, width: 1, color: Color(0xFFE2E8F0)),
+                const VerticalDivider(thickness: 1, width: 1, color: PrimeCareColors.slate200),
                 // Render the Nested Navigation State
                 Expanded(child: navigationShell),
               ],
@@ -78,7 +80,7 @@ class ResponsiveShell extends StatelessWidget {
               backgroundColor: Colors.white,
               indicatorColor: activeIndicatorColor,
               destinations: destinations.map((d) => NavigationDestination(
-                icon: Icon(d.icon, color: const Color(0xFF94A3B8)),
+                icon: Icon(d.icon, color: PrimeCareColors.slate400),
                 selectedIcon: Icon(d.selectedIcon, color: activeIconColor),
                 label: d.label,
               )).toList(),

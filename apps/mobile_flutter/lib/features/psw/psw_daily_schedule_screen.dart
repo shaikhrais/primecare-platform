@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -57,10 +59,10 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF0F172A)),
+          icon: const Icon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark),
           onPressed: () => context.pop(),
         ),
-        title: const Text('My Daily Timeline', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+        title: const Text('My Daily Timeline', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
       ),
       body: Center(
         child: DesktopPaneWrapper(
@@ -73,7 +75,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)]), // Deep Purple AI Gradient
+                  gradient: const LinearGradient(colors: [PrimeCareColors.purple, Color(0xFF6D28D9)]), // Deep Purple AI Gradient
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [BoxShadow(color: Color(0x336D28D9), blurRadius: 20, offset: Offset(0, 10))],
                 ),
@@ -92,7 +94,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         ),
                         Switch(
                           value: _maxScheduleOptIn,
-                          activeColor: const Color(0xFF10B981),
+                          activeColor: PrimeCareColors.emerald,
                           activeTrackColor: Colors.white,
                           inactiveThumbColor: Colors.white54,
                           inactiveTrackColor: Colors.black26,
@@ -102,7 +104,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                             if (val) {
                               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text('Max Option Enabled. Dispatch will auto-assign up to 12 hours.'),
-                                backgroundColor: Color(0xFF10B981),
+                                backgroundColor: PrimeCareColors.emerald,
                               ));
                             }
                           },
@@ -126,7 +128,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: Text("Today's Itinerary", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF0F172A))),
+              child: Text("Today's Itinerary", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
             ),
           ),
 
@@ -174,7 +176,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                 Container(
                   width: 16, height: 16,
                   decoration: BoxDecoration(
-                    color: shift['status'] == 'unassigned' ? Colors.amber : const Color(0xFF10B981),
+                    color: shift['status'] == 'unassigned' ? Colors.amber : PrimeCareColors.emerald,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 3),
                     boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
@@ -184,7 +186,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                   Expanded(
                     child: Container(
                       width: 2,
-                      color: const Color(0xFFE2E8F0),
+                      color: PrimeCareColors.slate200,
                     ),
                   )
               ],
@@ -200,30 +202,30 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                  border: Border.all(color: PrimeCareColors.slate200),
                   boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 10, offset: Offset(0, 4))],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A), fontSize: 16)),
+                    Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
                     const SizedBox(height: 4),
                     Text(shift['client'], style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6366F1), fontSize: 18)),
-                    Text('${shift['type']} • ${shift['location']}', style: const TextStyle(color: Color(0xFF64748B), fontSize: 14)),
+                    Text('${shift['type']} • ${shift['location']}', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                     
                     if ((shift['resources'] as List).isNotEmpty) ...[
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 12.0),
                         child: Divider(height: 1, color: Color(0xFFF1F5F9)),
                       ),
-                      const Text('REQUIRED RESOURCES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: Color(0xFF94A3B8))),
+                      const Text('REQUIRED RESOURCES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: PrimeCareColors.slate400)),
                       const SizedBox(height: 8),
                       ...((shift['resources'] as List).map((res) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 6.0),
                           child: Row(
                             children: [
-                              Icon(res['icon'], size: 16, color: const Color(0xFFF59E0B)),
+                              Icon(res['icon'], size: 16, color: PrimeCareColors.amber),
                               const SizedBox(width: 8),
                               Expanded(child: Text(res['text'], style: const TextStyle(color: Color(0xFF475569), fontSize: 13, fontWeight: FontWeight.w500))),
                             ],

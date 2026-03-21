@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 /// The Founder Workspace & B2B Pipeline (Phase 72)
@@ -24,9 +26,9 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
   Widget build(BuildContext context) {
     // A highly professional, obsidian "Executive Desk" aesthetic
     return Scaffold(
-      backgroundColor: const Color(0xFF141416),
+      backgroundColor: PrimeCareColors.darkMatrixCard,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF141416),
+        backgroundColor: PrimeCareColors.darkMatrixCard,
         elevation: 0,
         title: Text('BUSINESS DEVELOPMENT CRM', style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16)),
         actions: [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/colors.dart';
+
 
 class MasterDetailLayout extends StatelessWidget {
   final Widget masterList;
@@ -27,7 +29,7 @@ class MasterDetailLayout extends StatelessWidget {
               Container(
                 width: 350, // Fixed width for comfortable reading or dynamic
                 decoration: const BoxDecoration(
-                  border: Border(right: BorderSide(color: Color(0xFFE2E8F0), width: 1)),
+                  border: Border(right: BorderSide(color: PrimeCareColors.slate200, width: 1)),
                   color: Colors.white,
                 ),
                 child: masterList,
@@ -38,7 +40,7 @@ class MasterDetailLayout extends StatelessWidget {
                     ? detailView 
                     : const Center(
                         child: Text('Select an item from the list to view details.', 
-                          style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16)),
+                          style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
                       ),
               )
             ],
@@ -53,10 +55,10 @@ class MasterDetailLayout extends StatelessWidget {
                  backgroundColor: Colors.white,
                  elevation: 0,
                  leading: IconButton(
-                   icon: const Icon(Icons.arrow_back, color: Color(0xFF0F172A)),
+                   icon: const Icon(Icons.arrow_back, color: PrimeCareColors.radarDark),
                    onPressed: onBackToMaster,
                  ),
-                 title: const Text('Details', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.bold)),
+                 title: const Text('Details', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
                ),
                body: detailView,
             );

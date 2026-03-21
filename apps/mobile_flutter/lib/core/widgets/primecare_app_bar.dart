@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 
 class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -19,7 +21,7 @@ class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: actions,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF0F172A)),
+        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: PrimeCareColors.radarDark),
         onPressed: () {
           if (Navigator.canPop(context)) {
             Navigator.of(context).pop();

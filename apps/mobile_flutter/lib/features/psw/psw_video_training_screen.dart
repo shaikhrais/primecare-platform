@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../core/colors.dart';
+
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 
@@ -23,7 +25,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
             Container(
               height: 250,
               width: double.infinity,
-              color: const Color(0xFF0F172A),
+              color: PrimeCareColors.radarDark,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -55,10 +57,10 @@ class PswVideoTrainingScreen extends StatelessWidget {
                 children: [
                   Text(title, style: Theme.of(context).textTheme.headlineMedium),
                   const SizedBox(height: 8),
-                  const Text('Mandatory Video Module • Cannot be skipped', style: TextStyle(color: Color(0xFF64748B), fontWeight: FontWeight.bold)),
+                  const Text('Mandatory Video Module • Cannot be skipped', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 32),
                   
-                  const Text('KNOWLEDGE VERIFICATION QUIZ', style: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+                  const Text('KNOWLEDGE VERIFICATION QUIZ', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
                   const SizedBox(height: 16),
                   
                   // Mandatory Quiz Matrix
@@ -67,13 +69,13 @@ class PswVideoTrainingScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
-                      boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
+                      border: Border.all(color: PrimeCareColors.slate200),
+                      boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Question 1: What is the recommended compression depth for adult CPR?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A), height: 1.5)),
+                        const Text('Question 1: What is the recommended compression depth for adult CPR?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, height: 1.5)),
                         const SizedBox(height: 24),
                         _buildQuizOption('1 inch', false),
                         _buildQuizOption('2 inches (Min)', true),
@@ -88,9 +90,9 @@ class PswVideoTrainingScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       minimumSize: const Size(double.infinity, 64),
-                      backgroundColor: const Color(0xFFE2E8F0), // Disabled color state initially
+                      backgroundColor: PrimeCareColors.slate200, // Disabled color state initially
                     ),
-                    child: const Text('SUBMIT MODULE & CERTIFY', style: TextStyle(color: Color(0xFF94A3B8))),
+                    child: const Text('SUBMIT MODULE & CERTIFY', style: TextStyle(color: PrimeCareColors.slate400)),
                   )
                 ],
               ),
@@ -109,14 +111,14 @@ class PswVideoTrainingScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isSelectedFakeState ? const Color(0x1110B981) : Colors.transparent,
-        border: Border.all(color: isSelectedFakeState ? const Color(0xFF10B981) : const Color(0xFFE2E8F0), width: 2),
+        border: Border.all(color: isSelectedFakeState ? PrimeCareColors.emerald : PrimeCareColors.slate200, width: 2),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          Icon(isSelectedFakeState ? Icons.radio_button_checked : Icons.radio_button_off, color: isSelectedFakeState ? const Color(0xFF10B981) : const Color(0xFFCBD5E1)),
+          Icon(isSelectedFakeState ? Icons.radio_button_checked : Icons.radio_button_off, color: isSelectedFakeState ? PrimeCareColors.emerald : PrimeCareColors.slate300),
           const SizedBox(width: 12),
-          Text(label, style: TextStyle(fontWeight: isSelectedFakeState ? FontWeight.bold : FontWeight.w600, color: const Color(0xFF0F172A))),
+          Text(label, style: TextStyle(fontWeight: isSelectedFakeState ? FontWeight.bold : FontWeight.w600, color: PrimeCareColors.radarDark)),
         ],
       ),
     );
