@@ -47,7 +47,7 @@ class PrimeCareWizardFlow extends StatelessWidget {
       children: [
         if (headerWidget != null) ...[
           headerWidget!,
-          const EdgeInsets.only(bottom: PrimeCareSpacing.xl),
+          SizedBox(height: PrimeCareSpacing.xl),
         ],
         Text(subtitle.toUpperCase(), style: TextStyle(color: t.textMuted, fontWeight: FontWeight.w900, letterSpacing: 2)),
         const SizedBox(height: PrimeCareSpacing.xl),
@@ -62,7 +62,7 @@ class PrimeCareWizardFlow extends StatelessWidget {
               children: [
                 PrimeCareCard(
                   padding: const EdgeInsets.all(PrimeCareSpacing.md),
-                  child: Text('$index', style: TextStyle(color: t.primary, fontWeight: FontWeight.bold, fontSize: 18)),
+                  child: Text('$index', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 18)),
                 ),
                 const SizedBox(width: PrimeCareSpacing.lg),
                 Expanded(
@@ -72,10 +72,10 @@ class PrimeCareWizardFlow extends StatelessWidget {
                       Row(
                         children: [
                           if (step.icon != null) ...[
-                            Icon(step.icon, color: t.primary, size: 18),
+                            Icon(step.icon, color: Theme.of(context).primaryColor, size: 18),
                             const SizedBox(width: PrimeCareSpacing.sm),
                           ],
-                          Expanded(child: Text(step.title, style: TextStyle(color: t.textPrimary, fontWeight: FontWeight.w900, fontSize: 16))),
+                          Expanded(child: Text(step.title, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w900, fontSize: 16))),
                         ],
                       ),
                       const SizedBox(height: PrimeCareSpacing.sm),

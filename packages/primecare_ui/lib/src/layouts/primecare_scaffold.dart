@@ -27,7 +27,7 @@ class PrimeCareScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor ?? context.pTheme.surface,
+      backgroundColor: backgroundColor ?? context.pTheme.surfaceElevated,
       appBar: appBar,
       body: safeArea ? SafeArea(child: body) : body,
       bottomNavigationBar: bottomNavigationBar,
