@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ManagerDashboardScreen extends StatelessWidget {
   const ManagerDashboardScreen({super.key});
@@ -35,11 +36,7 @@ class ManagerDashboardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('EXECUTIVE SUITE', style: TextStyle(color: Color(0xFF94A3B8), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                              decoration: BoxDecoration(color: const Color(0x33F59E0B), borderRadius: BorderRadius.circular(20), border: Border.all(color: const Color(0xFFF59E0B))),
-                              child: const Text('Q3 Target: 94%', style: TextStyle(color: Color(0xFFF59E0B), fontWeight: FontWeight.bold, fontSize: 11)), // Gold Accent
-                            )
+                            const PrimeCareBadge(text: 'Q3 Target: 94%', color: Color(0xFFF59E0B)),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -99,16 +96,11 @@ class ManagerDashboardScreen extends StatelessWidget {
                                 const SizedBox(height: 24),
                                 SizedBox(
                                   width: double.infinity,
-                                  child: ElevatedButton.icon(
-                                    onPressed: () { HapticFeedback.mediumImpact(); },
-                                    icon: const Icon(Icons.download_rounded),
-                                    label: const Text('GENERATE FULL AUDIT REPORT'),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF0F172A),
-                                      foregroundColor: Colors.white,
-                                      padding: const EdgeInsets.symmetric(vertical: 20),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                    ),
+                                  child: PrimeCareButton(
+                                    onPressed: () => HapticFeedback.mediumImpact(),
+                                    text: 'GENERATE FULL AUDIT REPORT',
+                                    icon: Icons.download_rounded,
+                                    isPrimary: true,
                                   ),
                                 ),
                               ],
@@ -128,13 +120,8 @@ class ManagerDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildGraphicWidget() {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 8))],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -164,14 +151,8 @@ class ManagerDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildInsightWidget() {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -188,15 +169,11 @@ class ManagerDashboardScreen extends StatelessWidget {
             style: TextStyle(color: Color(0xFF475569), fontSize: 14, height: 1.5)
           ),
           const SizedBox(height: 16),
-          OutlinedButton.icon(
+          PrimeCareButton(
             onPressed: () {},
-            icon: const Icon(Icons.podcasts_rounded, size: 18),
-            label: const Text('Deploy Marketing Push'),
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Color(0xFFE2E8F0), width: 2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              foregroundColor: const Color(0xFF0F172A),
-            ),
+            text: 'Deploy Marketing Push',
+            icon: Icons.podcasts_rounded,
+            isPrimary: false,
           )
         ],
       ),
@@ -205,12 +182,9 @@ class ManagerDashboardScreen extends StatelessWidget {
 
   Widget _buildMacroKpi({required IconData icon, required String label, required String value, bool isDanger = false}) {
     return Expanded(
-      child: Container(
+      child: PrimeCareCard(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-        decoration: BoxDecoration(
-          color: isDanger ? const Color(0xFFBE123C) : const Color(0x22FFFFFF),
-          borderRadius: BorderRadius.circular(16),
-        ),
+        backgroundColor: isDanger ? const Color(0xFFBE123C) : const Color(0x22FFFFFF),
         child: Column(
           children: [
             Icon(icon, color: isDanger ? Colors.white : const Color(0xFF94A3B8), size: 20),

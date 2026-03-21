@@ -5,21 +5,35 @@ import 'package:flutter/material.dart';
 class PrimeCareCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
+  final Color? backgroundColor;
+  final double? width;
+  final double? height;
+  final Clip clipBehavior;
 
   const PrimeCareCard({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(24),
+    this.margin,
     this.onTap,
+    this.backgroundColor,
+    this.width,
+    this.height,
+    this.clipBehavior = Clip.none,
   });
 
   @override
   Widget build(BuildContext context) {
     final card = Container(
+      width: width,
+      height: height,
+      margin: margin,
       padding: padding,
+      clipBehavior: clipBehavior,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: backgroundColor ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Theme.of(context).colorScheme.secondary.withAlpha(20)),
         boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 4))],
@@ -152,6 +166,63 @@ class PrimeCareSectionHeader extends StatelessWidget {
         fontSize: 12,
         letterSpacing: 1.5,
       ),
+    );
+  }
+}
+
+/// Standardized PrimeCare Badge for status parameters
+class PrimeCareBadge extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const PrimeCareBadge({
+    super.key, 
+    required this.text, 
+    required this.color
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withAlpha(20),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: color.withAlpha(50)),
+      ),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+          color: color,
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1,
+        ),
+      ),
+    );
+  }
+}
+
+/// Universal standardized Avatar module natively inheriting dimensions
+class PrimeCareAvatar extends StatelessWidget {
+  final double radius;
+  final String? base64Image;
+  final IconData defaultIcon;
+
+  const PrimeCareAvatar({
+    super.key,
+    this.radius = 24,
+    this.base64Image,
+    this.defaultIcon = Icons.person,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // In actual production, base64Image might be a Network URL string natively.
+    return CircleAvatar(
+      radius: radius,
+      backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+      child: Icon(defaultIcon, color: Theme.of(context).colorScheme.primary, size: radius * 1.2),
     );
   }
 }

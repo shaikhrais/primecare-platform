@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../shared/widgets/offline_banner.dart';
 import '../../../core/localization/app_strings.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswDashboardScreen extends StatelessWidget {
   const PswDashboardScreen({super.key});
@@ -54,13 +55,9 @@ class PswDashboardScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-                    child: Container(
+                    child: PrimeCareCard(
                       padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: colorScheme.secondary.withAlpha(20),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: colorScheme.secondary.withAlpha(50)),
-                      ),
+                      backgroundColor: colorScheme.secondary.withAlpha(20),
                       child: Row(
                         children: [
                           Container(
@@ -101,19 +98,9 @@ class PswDashboardScreen extends StatelessWidget {
                         children: [
                           Text(AppStrings.today, style: theme.textTheme.titleLarge),
                           const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primary.withAlpha(20),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              AppStrings.shiftCountLabel, 
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: colorScheme.primary, 
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
+                          PrimeCareBadge(
+                            text: AppStrings.shiftCountLabel,
+                            color: colorScheme.primary,
                           ),
                         ],
                       ),
@@ -200,37 +187,30 @@ class PswDashboardScreen extends StatelessWidget {
             child: InkWell(
               onTap: () => context.push('/psw/live-visit/uuid-shift-$index'),
               borderRadius: BorderRadius.circular(20),
-              child: Card(
-                // Inherits pure white coloring and soft shadow mapping from theme.dart natively
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('10:00 AM - 2:00 PM', style: theme.textTheme.titleLarge?.copyWith(fontSize: 18)),
-                          Icon(Icons.chevron_right, color: theme.dividerColor, size: 28),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 16,
-                            backgroundColor: colorScheme.primary.withAlpha(30),
-                            child: Icon(Icons.person, color: colorScheme.primary, size: 18),
-                          ),
-                          const SizedBox(width: 12),
-                          Text('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
-                    ],
-                  ),
+              child: PrimeCareCard(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('10:00 AM - 2:00 PM', style: theme.textTheme.titleLarge?.copyWith(fontSize: 18)),
+                        Icon(Icons.chevron_right, color: theme.dividerColor, size: 28),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        const PrimeCareAvatar(radius: 16),
+                        const SizedBox(width: 12),
+                        Text('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
+                  ],
                 ),
               ),
             ),

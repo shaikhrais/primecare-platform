@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:go_router/go_router.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class MtDashboardScreen extends StatelessWidget {
   const MtDashboardScreen({super.key});
@@ -33,9 +34,8 @@ class MtDashboardScreen extends StatelessWidget {
                             _buildTherapistHeader(),
                             const SizedBox(height: 24),
                             // Simulated Native Desktop Side-Calendar
-                            Container(
+                            PrimeCareCard(
                               padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFE2E8F0))),
                               child: const Column(
                                 children: [
                                   Row(
@@ -96,12 +96,12 @@ class MtDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTherapistHeader() {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: const Color(0xFF0F172A), borderRadius: BorderRadius.circular(16)),
+      backgroundColor: const Color(0xFF0F172A),
       child: Row(
         children: [
-          const CircleAvatar(radius: 24, backgroundColor: Color(0xFF8B5CF6), child: Icon(Icons.spa, color: Colors.white, size: 28)),
+          const PrimeCareAvatar(radius: 24, defaultIcon: Icons.spa),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,17 +118,11 @@ class MtDashboardScreen extends StatelessWidget {
 
   Widget _buildJaneBookingBlock(BuildContext context, String start, String end, String clinicalType, String location, Color statusColor) {
     // Mimicking the rigid Jane-style booking blocks
-    return InkWell(
+    return PrimeCareCard(
       onTap: () => context.push('/mt/client-profile'),
-      hoverColor: Colors.transparent,
-      child: Container(
       margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 10, offset: Offset(0, 4))],
-      ),
+      padding: EdgeInsets.zero,
+      clipBehavior: Clip.hardEdge,
       child: Row(
         children: [
           // Left Stripe Status Identifier (Jane UI Pattern)
@@ -166,6 +160,6 @@ class MtDashboardScreen extends StatelessWidget {
           )
         ],
       ),
-    ));
+    );
   }
 }

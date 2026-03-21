@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class CoordinatorDashboardScreen extends StatefulWidget {
   const CoordinatorDashboardScreen({super.key});
@@ -51,11 +52,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('DISPATCH LOGISTICS', style: TextStyle(color: Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                              decoration: BoxDecoration(color: Colors.white12, borderRadius: BorderRadius.circular(20)),
-                              child: const Text('2 Unfilled Limits', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
-                            )
+                            const PrimeCareBadge(text: '2 Unfilled Limits', color: Colors.white)
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -86,14 +83,9 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                         const Spacer(),
                         
                         // Active Surge Multiplier Control Switch
-                        Container(
+                        PrimeCareCard(
                           padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: _surgeActive ? const Color(0xFF10B981) : Colors.white12,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: _surgeActive ? const Color(0xFF34D399) : Colors.transparent, width: 2),
-                            boxShadow: _surgeActive ? const [BoxShadow(color: Color(0x4410B981), blurRadius: 20, offset: Offset(0, 4))] : [],
-                          ),
+                          backgroundColor: _surgeActive ? const Color(0xFF10B981) : Colors.white12,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -141,14 +133,8 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                   final shift = _unfilledShifts[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),
-                    child: Container(
+                    child: PrimeCareCard(
                       padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFFE2E8F0)),
-                        boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 16, offset: Offset(0, 8))],
-                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -156,11 +142,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Color(0xFF0F172A))),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                decoration: BoxDecoration(color: const Color(0xFFF1F5F9), borderRadius: BorderRadius.circular(8)),
-                                child: Text('${shift['matched']} Matches', style: const TextStyle(color: Color(0xFF6366F1), fontWeight: FontWeight.bold, fontSize: 12)),
-                              )
+                              PrimeCareBadge(text: '${shift['matched']} Matches', color: const Color(0xFF6366F1))
                             ],
                           ),
                           const SizedBox(height: 12),
@@ -176,16 +158,11 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
-                            child: ElevatedButton.icon(
-                              onPressed: () { HapticFeedback.mediumImpact(); },
-                              icon: const Icon(Icons.send_rounded, size: 20),
-                              label: const Text('BROADCAST SHIFT TO PSWs', style: TextStyle(letterSpacing: 0.5)),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF6366F1), // Indigo Dispatch
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              ),
+                            child: PrimeCareButton(
+                              onPressed: () => HapticFeedback.mediumImpact(),
+                              text: 'BROADCAST SHIFT TO PSWs',
+                              isPrimary: true,
+                              icon: Icons.send_rounded,
                             ),
                           )
                         ],

@@ -49,6 +49,8 @@ dependencies:
   path_provider: ^2.1.2
   connectivity_plus: ^5.0.2
   uuid: ^4.3.3
+  primecare_ui:
+    path: ../../packages/primecare_ui
 
 dev_dependencies:
   flutter_test:

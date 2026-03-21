@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class RnDashboardScreen extends StatelessWidget {
   const RnDashboardScreen({super.key});
@@ -128,11 +129,7 @@ class RnDashboardScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(color: const Color(0xFFE11D48), borderRadius: BorderRadius.circular(8)),
-                child: Text(data['time'], style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1)),
-              ),
+              PrimeCareBadge(text: data['time'], color: const Color(0xFFE11D48)),
               Text('Severity: ${data['severity']}', style: const TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.bold, fontSize: 13)),
             ],
           ),
@@ -144,30 +141,19 @@ class RnDashboardScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    HapticFeedback.heavyImpact();
-                  },
-                  icon: const Icon(Icons.phone),
-                  label: const Text('CALL PSW'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0F172A),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
+                child: PrimeCareButton(
+                  onPressed: () => HapticFeedback.heavyImpact(),
+                  text: 'CALL PSW',
+                  isPrimary: true,
+                  icon: Icons.phone,
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: OutlinedButton(
+                child: PrimeCareButton(
                   onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    side: const BorderSide(color: Color(0xFFE11D48), width: 2),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                  child: const Text('VIEW REPORT', style: TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.bold)),
+                  text: 'VIEW REPORT',
+                  isPrimary: false,
                 ),
               )
             ],

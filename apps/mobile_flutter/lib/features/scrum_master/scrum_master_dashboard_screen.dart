@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ScrumMasterDashboardScreen extends StatelessWidget {
   const ScrumMasterDashboardScreen({super.key});
@@ -41,19 +42,15 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildMetricCard(String title, String value, IconData icon, Color color) {
-    return Container(
+    return PrimeCareCard(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF334155)),
-      ),
+      backgroundColor: const Color(0xFF1E293B),
       child: Row(
         children: [
-          Container(
+          PrimeCareCard(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: color.withAlpha(25), borderRadius: BorderRadius.circular(12)),
+            backgroundColor: color.withAlpha(25),
             child: Icon(icon, color: color, size: 32),
           ),
           const SizedBox(width: 20),

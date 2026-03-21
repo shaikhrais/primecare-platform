@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/widgets/primecare_app_bar.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
-import '../../core/widgets/components/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswIncidentWizardScreen extends StatelessWidget {
   const PswIncidentWizardScreen({super.key});

@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../shared/layouts/desktop_pane_wrapper.dart';
-import '../../core/widgets/components/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswProfileScreen extends StatefulWidget {
   const PswProfileScreen({super.key});
@@ -16,12 +17,8 @@ class PswProfileScreen extends StatefulWidget {
 }
 
 class _PswProfileScreenState extends State<PswProfileScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _phoneController = TextEditingController();
+  Map<String, dynamic>? _profileCache;
   String _preferredShift = "Flex Time (Any)";
-  bool _isSaving = false;
   bool _isLoading = true;
   Uint8List? _profileImageBytes;
   final ImagePicker _picker = ImagePicker();
@@ -38,9 +35,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
       final profile = response['profile'];
       if (mounted && profile != null) {
         setState(() {
-          _firstNameController.text = profile['firstName'] ?? '';
-          _lastNameController.text = profile['lastName'] ?? '';
-          _phoneController.text = profile['phoneNumber'] ?? '';
+          _profileCache = profile;
           _isLoading = false;
         });
       }
@@ -69,9 +64,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     if (context.mounted) context.go('/login');
   }
 
-  void _handleSave() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isSaving = true);
+  Future<void> _handleSaveForm(Map<String, dynamic> formData) async {
       try {
         String? base64Image;
         if (_profileImageBytes != null) {
@@ -79,9 +72,9 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         }
 
         final payload = {
-          'firstName': _firstNameController.text.trim(),
-          'lastName': _lastNameController.text.trim(),
-          'phoneNumber': _phoneController.text.trim(),
+          'firstName': formData['firstName'],
+          'lastName': formData['lastName'],
+          'phoneNumber': formData['phoneNumber'],
         };
 
         if (base64Image != null) {
@@ -111,10 +104,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
             SnackBar(content: Text('Error updating profile: $e'), backgroundColor: const Color(0xFFE11D48)),
           );
         }
-      } finally {
-        if (mounted) setState(() => _isSaving = false);
       }
-    }
   }
 
   void _showChangePasswordDialog() {
@@ -178,9 +168,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
       body: DesktopPaneWrapper(
         child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Avatar Section
@@ -212,60 +200,22 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               ),
               const SizedBox(height: 32),
               
-              const PrimeCareSectionHeader(title: 'Personal Information'),
-              const SizedBox(height: 16),
-              
-              PrimeCareTextField(
-                controller: _firstNameController,
-                label: 'First Name',
-                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
-              ),
-              const SizedBox(height: 16),
-
-              PrimeCareTextField(
-                controller: _lastNameController,
-                label: 'Last Name',
-              ),
-              const SizedBox(height: 16),
-
-              PrimeCareTextField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                label: 'Contact Number',
-              ),
               const SizedBox(height: 32),
-
-              const PrimeCareSectionHeader(title: 'Work Preferences'),
-              const SizedBox(height: 16),
-
-              DropdownButtonFormField<String>(
-                value: _preferredShift,
-                decoration: InputDecoration(
-                  labelText: 'Preferred Shift Time',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                ),
-                items: const [
-                  DropdownMenuItem(value: "Morning (7AM - 3PM)", child: Text("Morning (7AM - 3PM)")),
-                  DropdownMenuItem(value: "Afternoon (3PM - 11PM)", child: Text("Afternoon (3PM - 11PM)")),
-                  DropdownMenuItem(value: "Night (11PM - 7AM)", child: Text("Night (11PM - 7AM)")),
-                  DropdownMenuItem(value: "Flex Time (Any)", child: Text("Flex Time (Any)")),
-                ],
-                onChanged: (val) {
-                  setState(() => _preferredShift = val!);
-                },
-              ),
               
-              const SizedBox(height: 48),
-
-              PrimeCareButton(
-                onPressed: _isSaving ? null : _handleSave,
-                text: 'Save Profile Updates',
-                isPrimary: true,
-                isLoading: _isSaving,
-              ),
+              if (_profileCache != null)
+                PrimeCareFormBuilder(
+                  submitLabel: 'Save Profile Updates',
+                  onSubmit: _handleSaveForm,
+                  schema: [
+                    {'type': 'header', 'label': 'Personal Information'},
+                    {'key': 'firstName', 'type': 'text', 'label': 'First Name', 'required': true, 'initialValue': _profileCache!['firstName'] ?? ''},
+                    {'key': 'lastName', 'type': 'text', 'label': 'Last Name', 'initialValue': _profileCache!['lastName'] ?? ''},
+                    {'key': 'phoneNumber', 'type': 'phone', 'label': 'Contact Number', 'initialValue': _profileCache!['phoneNumber'] ?? ''},
+                    {'type': 'header', 'label': 'Work Preferences'},
+                    {'key': 'preferredShift', 'type': 'dropdown', 'label': 'Preferred Shift Time', 'options': ["Morning (7AM - 3PM)", "Afternoon (3PM - 11PM)", "Night (11PM - 7AM)", "Flex Time (Any)"], 'initialValue': _preferredShift},
+                  ],
+                ),
+                
               const SizedBox(height: 16),
               
               PrimeCareButton(
