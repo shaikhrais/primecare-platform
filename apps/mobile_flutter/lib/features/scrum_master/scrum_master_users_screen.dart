@@ -27,13 +27,13 @@ class ScrumMasterUsersScreen extends StatelessWidget {
             child: PrimeCareRow(
               children: [
                 PrimeCareIcon(Icons.storage_rounded, color: PrimeCareColors.purple, size: 32),
-                PrimeCareSizedBox(width: 16),
+                SizedBox(width: 16),
                 PrimeCareExpanded(
                   child: PrimeCareColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PrimeCareText('TENANT_ID_${index + 1000}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'monospace')),
-                      PrimeCareSizedBox(height: 4),
+                      SizedBox(height: 4),
                       PrimeCareText('Active Users: ${(index * 42) + 12}', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12)),
                     ],
                   ),

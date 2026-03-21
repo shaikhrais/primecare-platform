@@ -35,7 +35,7 @@ class UniversalHostScreen extends ConsumerWidget {
         child: DesktopPaneWrapper(
           child: asyncSchema.when(
             data: (schema) {
-              return PrimeCareScrollWrapper(
+              return SingleChildScrollView(
                 child: PrimeCareSduiEngine(
                   schema: schema,
                   onAction: (action, payload) => _handleSduiAction(context, action, payload),
@@ -49,7 +49,7 @@ class UniversalHostScreen extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     PrimeCareIcon(Icons.error_outline, color: Colors.red, size: 48),
-                    PrimeCareSizedBox(height: 16),
+                    SizedBox(height: 16),
                     PrimeCareText('SDUI Sync Failure', style: Theme.of(context).textTheme.titleMedium),
                     PrimeCareText(err.toString(), style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
                   ],

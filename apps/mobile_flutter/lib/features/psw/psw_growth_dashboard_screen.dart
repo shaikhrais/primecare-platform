@@ -19,7 +19,7 @@ class PswGrowthDashboardScreen extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: PrimeCareScrollWrapper(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(24.0),
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,20 +33,20 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                   PrimeCareStack(
                     alignment: Alignment.center,
                     children: [
-                      PrimeCareSizedBox(
+                      SizedBox(
                         width: 80, height: 80,
                         child: CircularProgressIndicator(value: 0.98, strokeWidth: 8, color: Colors.amberAccent, backgroundColor: Colors.white24),
                       ),
                       PrimeCareText('98', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  PrimeCareSizedBox(width: 24),
+                  SizedBox(width: 24),
                   PrimeCareExpanded(
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimeCareText('Elite Responder', style: GoogleFonts.outfit(color: Colors.amberAccent, fontSize: 24, fontWeight: FontWeight.bold)),
-                        PrimeCareSizedBox(height: 4),
+                        SizedBox(height: 4),
                         PrimeCareText('Your TrustScore ranks in the top 2% of the network. You have priority access to Surge Shifts.', 
                           style: GoogleFonts.inter(color: Colors.white70, fontSize: 13, height: 1.4)),
                       ],
@@ -56,9 +56,9 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ),
             ),
 
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             PrimeCareText('Career Achievements', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
 
             // Achievement Badges
             PrimeCareRow(
@@ -70,9 +70,9 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ],
             ),
 
-            PrimeCareSizedBox(height: 48),
+            SizedBox(height: 48),
             PrimeCareText('Next Milestone', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
             
             // Promotion Progress
             PrimeCareCard(
@@ -87,7 +87,7 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                       PrimeCareText('4 Shifts Away', style: TextStyle(color: Colors.indigo[400], fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   LinearProgressIndicator(
                     value: 0.8,
                     minHeight: 12,
@@ -95,7 +95,7 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   PrimeCareText('Complete 4 more shifts with zero unacknowledged incident reports to automatically bump your base rate by +1.05x.',
                     style: TextStyle(color: Colors.black54, height: 1.5)),
                 ],
@@ -115,9 +115,9 @@ class PswGrowthDashboardScreen extends StatelessWidget {
           backgroundColor: color.withOpacity(0.1),
           child: PrimeCareIcon(icon, size: 36, color: color),
         ),
-        PrimeCareSizedBox(height: 12),
+        SizedBox(height: 12),
         PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        PrimeCareSizedBox(height: 4),
+        SizedBox(height: 4),
         PrimeCareText(subtitle, style: TextStyle(color: Colors.black54, fontSize: 13)),
       ],
     );

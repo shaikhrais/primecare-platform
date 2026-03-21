@@ -16,9 +16,10 @@ class ApiClient {
     final cookie = prefs.getString('auth_cookie');
     return {
       'Content-Type': 'application/json',
+      'Accept-Language': 'fr',
       'X-Requested-With': 'Flutter_Client',
       if (token != null) 'Authorization': 'Bearer $token',
-      'Cookie': ?cookie,
+      if (cookie != null) 'Cookie': cookie,
     };
   }
 
@@ -102,6 +103,7 @@ class ApiClient {
       Uri.parse('$baseUrl/v1/auth/login'),
       headers: {
         'Content-Type': 'application/json',
+        'Accept-Language': 'fr',
         'X-Requested-With': 'Flutter_Client',
       },
       body: jsonEncode({

@@ -14,7 +14,7 @@ class MtIntakeFormsScreen extends StatelessWidget {
         title: PrimeCareText('Patient Digital Consents', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
-        iconTheme: IconThemeData(color: PrimeCareColors.radarDark),
+        
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -25,14 +25,14 @@ class MtIntakeFormsScreen extends StatelessWidget {
               _buildDigitalForm('Consent to Treat (Massage)', 'Signed on Oct 14, 2025', true),
               _buildDigitalForm('Acupuncture Add-on Consent', 'Pending Signature', false),
               
-              PrimeCareSizedBox(height: 40),
+              SizedBox(height: 40),
               PrimeCareCard(
                 padding: EdgeInsets.all(24),
                 
                 child: PrimeCareColumn(
                   children: [
                     PrimeCareIcon(Icons.draw_rounded, size: 48, color: PrimeCareColors.slate300),
-                    PrimeCareSizedBox(height: 16),
+                    SizedBox(height: 16),
                     PrimeCareText('No pending signatures required for standard treatment protocol today.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
                   ],
                 ),
@@ -56,7 +56,7 @@ class MtIntakeFormsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText(status, style: TextStyle(color: signed ? PrimeCareColors.emerald : Color(0xFFEF4444))),
             ],
           ),

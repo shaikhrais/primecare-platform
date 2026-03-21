@@ -25,14 +25,14 @@ class ThemeControlScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PrimeCareText('Language / Langue', style: Theme.of(context).textTheme.titleMedium, color: Theme.of(context).colorScheme.primary),
-                  PrimeCareSizedBox(height: 16),
+                  PrimeCareText('Language / Langue', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary)),
+                  SizedBox(height: 16),
                   RadioListTile<Locale>(
                     title: PrimeCareText(AppLocalizations.of(context)!.englishEn),
                     value: Locale('en'),
                     groupValue: ref.watch(localeProvider),
                     onChanged: (val) {
-                      if (val != null) ref.read(localeProvider.notifier).state = val;
+                      if (val != null) ref.read(localeProvider.notifier).setLocale(val);
                     },
                   ),
                   RadioListTile<Locale>(
@@ -40,16 +40,16 @@ class ThemeControlScreen extends ConsumerWidget {
                     value: Locale('fr'),
                     groupValue: ref.watch(localeProvider),
                     onChanged: (val) {
-                      if (val != null) ref.read(localeProvider.notifier).state = val;
+                      if (val != null) ref.read(localeProvider.notifier).setLocale(val);
                     },
                   ),
                 ],
               ),
             ),
           ),
-          PrimeCareSizedBox(height: 24),
+          SizedBox(height: 24),
           PrimeCareText(AppLocalizations.of(context)!.selectThemeDesc),
-          PrimeCareSizedBox(height: 24),
+          SizedBox(height: 24),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.lightThemeLabel, 
@@ -57,7 +57,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.light_mode,
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.darkThemeLabel, 
@@ -65,7 +65,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.dark_mode,
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.highContrastLabel, 
@@ -88,7 +88,7 @@ class ThemeControlScreen extends ConsumerWidget {
         child: PrimeCareRow(
           children: [
             PrimeCareIcon(icon, color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey),
-            PrimeCareSizedBox(width: 16),
+            SizedBox(width: 16),
             PrimeCareText(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
             Spacer(),
             if (isSelected) PrimeCareIcon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary),

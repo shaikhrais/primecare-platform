@@ -26,9 +26,9 @@ class GmFinancialsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PrimeCareText('TOTAL CASH ASSETS', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                PrimeCareSizedBox(height: 12),
+                SizedBox(height: 12),
                 PrimeCareText('\$142,590.00', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900)),
-                PrimeCareSizedBox(height: 24),
+                SizedBox(height: 24),
                 PrimeCareRow(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,7 +44,7 @@ class GmFinancialsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText('RECENT JOURNAL ENTRIES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               _buildJournalLine('Shift Revenue Realized', 'Credit', '+\$240.00', 'Today, 2:14 PM'),
               _buildJournalLine('Surge Payroll Dispersed', 'Debit', '-\$38.50', 'Today, 2:14 PM'),
               _buildJournalLine('Cloudflare Services Billed', 'Debit', '-\$5.00', 'Yesterday'),
@@ -67,7 +67,7 @@ class GmFinancialsScreen extends StatelessWidget {
             padding: EdgeInsets.all(20),
             children: [
               cashCard,
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               recentEntries,
             ],
           );
@@ -89,7 +89,7 @@ class GmFinancialsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText(memo, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText(date, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 12)),
             ],
           ),

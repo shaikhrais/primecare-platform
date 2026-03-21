@@ -18,21 +18,21 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, 
       body: PrimeCareSafeArea(
-        child: PrimeCareScrollWrapper(
+        child: SingleChildScrollView(
           padding: EdgeInsets.all(32.0),
           child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText('SYSTEM DIAGNOSTIC RADAR', 
                 style: GoogleFonts.firaCode(color: Colors.cyanAccent, fontWeight: FontWeight.bold, letterSpacing: 2)),
-              PrimeCareSizedBox(height: 12),
+              SizedBox(height: 12),
               PrimeCareText('Business Health Analysis', 
                 style: GoogleFonts.outfit(color: Colors.white, fontSize: 36, fontWeight: FontWeight.w900)),
-              PrimeCareSizedBox(height: 8),
+              SizedBox(height: 8),
               PrimeCareText('Evaluating millions of database rows mathematically to isolate your weakest corporate link.', 
                 style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 16)),
                 
-              PrimeCareSizedBox(height: 48),
+              SizedBox(height: 48),
 
               // The Direct Advisor Output
               PrimeCareCard(
@@ -45,15 +45,15 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
                     PrimeCareRow(
                       children: [
                         PrimeCareIcon(Icons.psychology, color: Colors.cyanAccent, size: 32),
-                        PrimeCareSizedBox(width: 16),
+                        SizedBox(width: 16),
                         PrimeCareText('AI ADVISOR: NEXT RECOMMENDED MOVE', 
                           style: GoogleFonts.inter(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
                       ],
                     ),
-                    PrimeCareSizedBox(height: 16),
+                    SizedBox(height: 16),
                     PrimeCareText('System recommends engaging [Autopilot Margin Freeze] on Franchise Alpha immediately to halt systemic cash bleed.', 
                       style: GoogleFonts.outfit(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600, height: 1.3)),
-                    PrimeCareSizedBox(height: 24),
+                    SizedBox(height: 24),
                     PrimeCareButton(type: PrimeCareButtonType.primary, 
                       
                       onPressed: () {},
@@ -63,11 +63,11 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
                 ),
               ),
 
-              PrimeCareSizedBox(height: 48),
+              SizedBox(height: 48),
               
               // The 4 Vectors Grid
               PrimeCareText('THE 4 VECTORS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontWeight: FontWeight.bold, letterSpacing: 2)),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               LayoutBuilder(
                 builder: (context, constraints) {
                    return Wrap(
@@ -112,7 +112,7 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
               )
             ],
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           PrimeCareText(description, style: GoogleFonts.inter(color: Colors.white, fontSize: 16, height: 1.5)),
         ],
       ),

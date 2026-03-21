@@ -21,7 +21,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: PrimeCareScrollWrapper(
+      body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -30,24 +30,24 @@ class SupplyChainForecastScreen extends StatelessWidget {
             PrimeCareRow(
               children: [
                 PrimeCareExpanded(child: _buildMetricCard('Predicted Demand (7 Days)', '400 Hrs', Colors.orangeAccent)),
-                PrimeCareSizedBox(width: 16),
+                SizedBox(width: 16),
                 PrimeCareExpanded(child: _buildMetricCard('Latent Supply Available', '320 Hrs', Colors.blueAccent)),
-                PrimeCareSizedBox(width: 16),
+                SizedBox(width: 16),
                 PrimeCareExpanded(child: _buildMetricCard('Global Risk Status', 'CRITICAL', Colors.redAccent)),
               ],
             ),
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             
             PrimeCareText('GEOGRAPHICAL DEFICIT RADAR', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
             
             _buildDeficitRow('Etobicoke Sub-Franchise', 400, 320, isWarning: true),
-            PrimeCareSizedBox(height: 12),
+            SizedBox(height: 12),
             _buildDeficitRow('Downtown Sub-Franchise', 120, 200, isWarning: false),
-            PrimeCareSizedBox(height: 12),
+            SizedBox(height: 12),
             _buildDeficitRow('North York Sub-Franchise', 250, 250, isWarning: false),
 
-            PrimeCareSizedBox(height: 48),
+            SizedBox(height: 48),
 
             // AI Action Log
             PrimeCareCard(
@@ -59,7 +59,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
                   PrimeCareRow(
                     children: [
                       PrimeCareIcon(Icons.bolt, color: Colors.yellowAccent),
-                      PrimeCareSizedBox(width: 12),
+                      SizedBox(width: 12),
                       PrimeCareText('TELEMETRY ACTIONS LOG', style: GoogleFonts.firaCode(color: Colors.white, fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -85,7 +85,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PrimeCareText(title, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13, fontWeight: FontWeight.w600)),
-          PrimeCareSizedBox(height: 8),
+          SizedBox(height: 8),
           PrimeCareText(value, style: GoogleFonts.outfit(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
         ],
       ),
@@ -106,14 +106,14 @@ class SupplyChainForecastScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText(zone, style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText(isWarning ? 'DEFICIT DETECTED' : 'SUPPLY OPTIMAL', style: GoogleFonts.firaCode(color: isWarning ? Colors.redAccent : Colors.blueAccent, fontSize: 12)),
             ],
           ),
           PrimeCareRow(
             children: [
               PrimeCareText('$percent% Fill Rate', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-              PrimeCareSizedBox(width: 16),
+              SizedBox(width: 16),
               CircularProgressIndicator(value: fillRatio, backgroundColor: Colors.white24, color: isWarning ? Colors.redAccent : Colors.blueAccent),
             ],
           )
@@ -129,7 +129,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PrimeCareText('[$time]', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 12)),
-          PrimeCareSizedBox(width: 12),
+          SizedBox(width: 12),
           PrimeCareExpanded(child: PrimeCareText(message, style: GoogleFonts.inter(color: Colors.white, fontSize: 14))),
         ],
       ),

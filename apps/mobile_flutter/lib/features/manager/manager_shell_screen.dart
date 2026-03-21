@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:go_router/go_router.dart';
-import '../shared/layouts/responsive_shell.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ManagerShellScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;

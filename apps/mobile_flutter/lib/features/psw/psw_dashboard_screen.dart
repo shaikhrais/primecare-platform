@@ -32,7 +32,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
               if (snapshot.hasData && snapshot.data == ConnectivityResult.none) {
                 return OfflineBanner();
               }
-              return PrimeCareSizedBox.shrink();
+              return SizedBox.shrink();
             },
           ),
           PrimeCareExpanded(
@@ -55,7 +55,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                       onPressed: () {},
                       color: colorScheme.primary,
                     ),
-                    PrimeCareSizedBox(width: 12),
+                    SizedBox(width: 12),
                   ],
                 ),
 
@@ -73,7 +73,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                             child: PrimeCareIcon(_isGlobalCodeBlack ? Icons.warning_amber_rounded : Icons.bolt, 
                                 color: _isGlobalCodeBlack ? Colors.redAccent : colorScheme.secondary, size: 28),
                           ),
-                          PrimeCareSizedBox(width: 16),
+                          SizedBox(width: 16),
                           PrimeCareExpanded(
                             child: PrimeCareColumn(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                                         color: _isGlobalCodeBlack ? Colors.redAccent : null,
                                         fontWeight: _isGlobalCodeBlack ? FontWeight.w900 : null
                                     )),
-                                PrimeCareSizedBox(height: 4),
+                                SizedBox(height: 4),
                                 PrimeCareText(
                                   _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppLocalizations.of(context)!.highDemandAlertDesc,
                                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -108,7 +108,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                       child: PrimeCareRow(
                         children: [
                           PrimeCareText(AppLocalizations.of(context)!.today, style: theme.textTheme.titleLarge),
-                          PrimeCareSizedBox(width: 8),
+                          SizedBox(width: 8),
                           PrimeCareBadge(
                             text: AppLocalizations.of(context)!.shiftCountLabel,
                             color: colorScheme.primary,
@@ -150,7 +150,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   ),
                 ),
                 
-                SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
+                SliverToBoxAdapter(child: SizedBox(height: 80)),
               ],
             ),
           ),
@@ -173,13 +173,13 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
             key: Key('shift_$index'),
             background: PrimeCareCard(
               
-              alignment: Alignment.centerLeft,
+              
               padding: EdgeInsets.only(left: 24),
               child: PrimeCareIcon(Icons.check, color: Colors.white, size: 36),
             ),
             secondaryBackground: PrimeCareCard(
               
-              alignment: Alignment.centerRight,
+              
               padding: EdgeInsets.only(right: 24),
               child: PrimeCareIcon(Icons.handshake, color: Colors.white, size: 36),
             ),
@@ -211,15 +211,15 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                         PrimeCareIcon(Icons.chevron_right, color: theme.dividerColor, size: 28),
                       ],
                     ),
-                    PrimeCareSizedBox(height: 12),
+                    SizedBox(height: 12),
                     PrimeCareRow(
                       children: [
                         CircleAvatar(radius: 16),
-                        PrimeCareSizedBox(width: 12),
+                        SizedBox(width: 12),
                         PrimeCareText('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    PrimeCareSizedBox(height: 8),
+                    SizedBox(height: 8),
                     PrimeCareText('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
                   ],
                 ),

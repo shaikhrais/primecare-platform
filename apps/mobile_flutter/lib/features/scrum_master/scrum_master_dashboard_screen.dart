@@ -17,19 +17,19 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: PrimeCareScrollWrapper(
+          child: SingleChildScrollView(
             padding: EdgeInsets.all(24),
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             PrimeCareIcon(Icons.hub_rounded, size: 64, color: Color(0xFF3B82F6)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
             PrimeCareText(
               'PLATFORM TELEMETRY',
               style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 2),
               textAlign: TextAlign.center,
             ),
-            PrimeCareSizedBox(height: 40),
+            SizedBox(height: 40),
             _buildMetricCard('Postgres Active Tenants', '142', Icons.apartment, PrimeCareColors.emerald),
             _buildMetricCard('Cloudflare API Requests/sec', '9,420', Icons.speed, Color(0xFF3B82F6)),
             _buildMetricCard('WebRTC Active Sessions', '314', Icons.video_camera_front, PrimeCareColors.purple),
@@ -54,13 +54,13 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
             backgroundColor: color.withAlpha(25),
             child: PrimeCareIcon(icon, color: color, size: 32),
           ),
-          PrimeCareSizedBox(width: 20),
+          SizedBox(width: 20),
           PrimeCareExpanded(
             child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PrimeCareText(title, style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
-                PrimeCareSizedBox(height: 4),
+                SizedBox(height: 4),
                 PrimeCareText(value, style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900, fontFamily: 'monospace')),
               ],
             ),

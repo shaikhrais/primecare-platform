@@ -125,7 +125,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(controller: curController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.currentPassword)),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   TextField(controller: newController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.newPassword)),
                 ],
               ),
@@ -153,7 +153,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       }
                     }
                   },
-                  child: isChanging ? PrimeCareSizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : PrimeCareText(AppLocalizations.of(context)!.update),
+                  child: isChanging ? SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : PrimeCareText(AppLocalizations.of(context)!.update),
                 ),
               ],
             );
@@ -167,7 +167,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       body: DesktopPaneWrapper(
-        child: PrimeCareScrollWrapper(
+        child: SingleChildScrollView(
             padding: EdgeInsets.all(24.0),
             child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -196,9 +196,9 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                   ),
                 ),
               ),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               
               if (_profileCache != null)
                 PrimeCareDynamicFormBuilder(
@@ -210,7 +210,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                   },
                 ),
                 
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               
               PrimeCareButton(
                 onPressed: _showChangePasswordDialog,
@@ -218,7 +218,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                 isPrimary: false,
                 icon: Icons.security,
               ),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               PrimeCareButton(
                 onPressed: () => _handleLogout(context),
                 text: 'Sign Out of Application',

@@ -74,13 +74,13 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
       body: PrimeCareSafeArea(
         child: PrimeCareColumn(
           children: [
-            PrimeCareSizedBox(height: 40),
+            SizedBox(height: 40),
             // Header Info
             PrimeCareText(
               'Sarah Jenkins',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            PrimeCareSizedBox(height: 8),
+            SizedBox(height: 8),
             PrimeCareText(
               '10:00 AM - 2:00 PM',
               style: TextStyle(color: PrimeCareColors.slate500, fontSize: 18, fontWeight: FontWeight.w600),
@@ -92,7 +92,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                   alignment: Alignment.center,
                   children: [
                     // Apple Watch Style Progress Ring
-                    PrimeCareSizedBox(
+                    SizedBox(
                       width: 280,
                       height: 280,
                       child: CircularProgressIndicator(
@@ -109,9 +109,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                       AnimatedBuilder(
                         animation: _pulseController,
                         builder: (context, child) {
-                          return PrimeCareCard(
-                            width: 280 + (_pulseController.value * 40),
-                            height: 280 + (_pulseController.value * 40),
+                          return PrimeCareCard(child: const SizedBox.shrink(), width: 280 + (_pulseController.value * 40), height: 280 + (_pulseController.value * 40),
                             
                           );
                         },
@@ -125,8 +123,8 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                         splashColor: Color(0x33FFFFFF),
                         highlightColor: Color(0x11000000),
                         customBorder: CircleBorder(),
-                        child: AnimatedPrimeCareCard(
-                          duration: Duration(milliseconds: 300),
+                        child: PrimeCareCard(
+                          
                           width: 220,
                           height: 220,
                           
@@ -138,7 +136,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                                 size: 64,
                                 color: _isCheckedIn ? Colors.white : PrimeCareColors.radarDark,
                               ),
-                              PrimeCareSizedBox(height: 12),
+                              SizedBox(height: 12),
                               PrimeCareText(
                                 _isCheckedIn ? 'CLOCK OUT' : 'CHECK IN',
                                 style: TextStyle(
@@ -172,7 +170,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                     label: PrimeCareText('View Schedule Tasks', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                     
                   ),
-                  PrimeCareSizedBox(height: 12),
+                  SizedBox(height: 12),
                   OutlinedButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => PswClinicalNotesScreen()));
@@ -181,7 +179,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                     label: PrimeCareText('Add Clinical Progress Note', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                     
                   ),
-                  PrimeCareSizedBox(height: 12),
+                  SizedBox(height: 12),
                   ElevatedButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => PswEvvCheckoutScreen()));

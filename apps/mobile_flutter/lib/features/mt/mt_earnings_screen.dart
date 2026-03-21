@@ -16,7 +16,7 @@ class MtEarningsScreen extends StatelessWidget {
             padding: EdgeInsets.all(24),
             children: [
               PrimeCareText('PAYROLL & SPLITS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareCard(
                 padding: EdgeInsets.all(24),
                 
@@ -24,16 +24,16 @@ class MtEarningsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PrimeCareText('Next Payout (Oct 15)', style: TextStyle(color: Color(0xFFDDD6FE), fontWeight: FontWeight.bold)),
-                    PrimeCareSizedBox(height: 8),
+                    SizedBox(height: 8),
                     PrimeCareText('\$2,450.00', style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white)),
-                    PrimeCareSizedBox(height: 8),
+                    SizedBox(height: 8),
                     PrimeCareCard(padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),  child: PrimeCareText('MT Revenue Split: 65%', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
                   ],
                 ),
               ),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareText('TRANSACTION HISTORY', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               _buildEarningRow('Oct 10', 'Arthur Pendelton (Deep Tissue)', '\$94.25'),
               _buildEarningRow('Oct 10', 'Emily Watson (Swedish)', '\$68.50'),
             ],

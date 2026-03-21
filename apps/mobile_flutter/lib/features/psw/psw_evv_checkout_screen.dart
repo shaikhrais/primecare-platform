@@ -21,26 +21,26 @@ class PswEvvCheckoutScreen extends StatelessWidget {
             children: [
               // High Fidelity Validation Badge
               PrimeCareIcon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareText(
                 'Verification Complete', 
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: PrimeCareColors.emerald), 
                 textAlign: TextAlign.center
               ),
-              PrimeCareSizedBox(height: 12),
+              SizedBox(height: 12),
               PrimeCareText(
                 'All mandatory Schedule Tasks have been intercepted. Please provide client signature verification to officially break the EVV lock.', 
                 textAlign: TextAlign.center, 
                 style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, height: 1.5)
               ),
               
-              PrimeCareSizedBox(height: 40),
+              SizedBox(height: 40),
               
               PrimeCareText(
                 'CLIENT CONSENT SIGNATURE',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: PrimeCareColors.slate500, letterSpacing: 1.2),
               ),
-              PrimeCareSizedBox(height: 12),
+              SizedBox(height: 12),
               
               // Signature Pad Native Frame (Placeholder layout for tactile interaction)
               PrimeCareExpanded(
@@ -51,7 +51,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         PrimeCareIcon(Icons.draw_rounded, color: PrimeCareColors.slate300, size: 48),
-                        PrimeCareSizedBox(height: 12),
+                        SizedBox(height: 12),
                         PrimeCareText('Client must sign here using their finger', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
                       ],
                     ),
@@ -59,7 +59,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                 ),
               ),
               
-              PrimeCareSizedBox(height: 40),
+              SizedBox(height: 40),
               
               // Termination Interaction
               PrimeCareButton(type: PrimeCareButtonType.primary, 

@@ -72,7 +72,7 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: PrimeCareScrollWrapper(
+          child: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: AnimationLimiter(
           child: PrimeCareColumn(
@@ -86,9 +86,9 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
                   child: PrimeCareColumn(
                     children: [
                       PrimeCareIcon(Icons.memory_rounded, size: 64, color: PrimeCareColors.purple),
-                      PrimeCareSizedBox(height: 16),
+                      SizedBox(height: 16),
                       PrimeCareText('SYSTEM COGNITIVE CAPACITY', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-                      PrimeCareSizedBox(height: 8),
+                      SizedBox(height: 8),
                       PrimeCareText(
                         _runningSelfTest ? 'ANALYZING...' : '$_neuralCapacity%', 
                         style: TextStyle(
@@ -104,32 +104,32 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
                   ),
                 ),
                 
-                PrimeCareSizedBox(height: 40),
+                SizedBox(height: 40),
                 
                 // LIVE SERVICE PINGS
                 PrimeCareText('LIVE SERVICE TOPOLOGY', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 2)),
-                PrimeCareSizedBox(height: 12),
+                SizedBox(height: 12),
                 _buildSystemTile('Double-Entry Ledger', _ledgerStatus, Icons.account_balance, _runningSelfTest),
                 _buildSystemTile('WebRTC Telehealth', _webrtcStatus, Icons.video_call, _runningSelfTest),
                 _buildSystemTile('Jane Scheduler Matrix', 'ONLINE - 60FPS GRAPHICS', Icons.grid_view_rounded, _runningSelfTest),
                 
-                PrimeCareSizedBox(height: 48),
+                SizedBox(height: 48),
 
                 // EMERGENCY RECOVERY
                 PrimeCareText('CRITICAL PROTOCOLS', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 2)),
-                PrimeCareSizedBox(height: 16),
+                SizedBox(height: 16),
                 PrimeCareCard(
                   
                   child: ElevatedButton.icon(
                     onPressed: _isRecovering ? null : _triggerEmergencyRecovery,
                     icon: _isRecovering 
-                        ? PrimeCareSizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
+                        ? SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
                         : PrimeCareIcon(Icons.warning_amber_rounded, size: 28),
                     label: PrimeCareText(_isRecovering ? 'EXECUTING PURGE...' : 'REBOOT & RECOVER SYSTEM', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 1)),
                     
                   ),
                 ),
-                PrimeCareSizedBox(height: 16),
+                SizedBox(height: 16),
                 PrimeCareText('WARNING: Triggers aggressive local garbage collection, clears volatile SQLite caches, and force-terminates all trailing PRISMA connection hooks. Use only if UX frames drop below 120Hz.', style: TextStyle(color: Color(0xFF475569), fontSize: 10), textAlign: TextAlign.center),
               ],
             ),
@@ -149,19 +149,19 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(icon, color: PrimeCareColors.slate400, size: 28),
-          PrimeCareSizedBox(width: 16),
+          SizedBox(width: 16),
           PrimeCareExpanded(
             child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PrimeCareText(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                PrimeCareSizedBox(height: 4),
+                SizedBox(height: 4),
                 PrimeCareText(status, style: TextStyle(color: isPending ? PrimeCareColors.slate400 : PrimeCareColors.emerald, fontFamily: 'monospace', fontSize: 12)),
               ],
             ),
           ),
           if (isPending)
-            PrimeCareSizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: PrimeCareColors.slate500))
+            SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: PrimeCareColors.slate500))
           else
             PrimeCareIcon(Icons.check_circle_outline, color: PrimeCareColors.emerald),
         ],

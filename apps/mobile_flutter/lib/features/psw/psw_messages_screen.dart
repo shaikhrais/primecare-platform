@@ -70,8 +70,8 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
             child: InkWell(
               onTap: () => _onThreadSelected(thread['id'], thread['sender'], isDesktop),
               borderRadius: BorderRadius.circular(20),
-              child: AnimatedPrimeCareCard(
-                duration: Duration(milliseconds: 200),
+              child: PrimeCareCard(
+                
                 
                 padding: EdgeInsets.all(20),
                 child: PrimeCareRow(
@@ -81,7 +81,7 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
                       backgroundColor: thread['unread'] || (isSelected && isDesktop) ? Color(0xFFDBEAFE) : PrimeCareColors.slate200,
                       child: PrimeCareIcon(Icons.person, color: thread['unread'] || (isSelected && isDesktop) ? Color(0xFF3B82F6) : PrimeCareColors.slate500, size: 28),
                     ),
-                    PrimeCareSizedBox(width: 16),
+                    SizedBox(width: 16),
                     PrimeCareExpanded(
                       child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +93,7 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
                               PrimeCareText(thread['time'], style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? Color(0xFF3B82F6) : PrimeCareColors.slate400, fontSize: 13, fontWeight: FontWeight.bold)),
                             ],
                           ),
-                          PrimeCareSizedBox(height: 6),
+                          SizedBox(height: 6),
                           PrimeCareText(
                             thread['message'], 
                             style: TextStyle(color: thread['unread'] || (isSelected && isDesktop) ? PrimeCareColors.radarDark : PrimeCareColors.slate500, fontSize: 14, fontWeight: thread['unread'] ? FontWeight.bold : FontWeight.normal),

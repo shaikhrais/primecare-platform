@@ -63,7 +63,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
         title: PrimeCareText('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
-        shadowColor: Colors.black12,
+        
         leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
         actions: [
           PrimeCareCard(
@@ -114,11 +114,11 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
           ),
           
           // Y-Axis Time Static Column
-          PrimeCareSizedBox(
+          SizedBox(
             width: _timeColumnWidth,
             child: PrimeCareColumn(
               children: [
-                PrimeCareCard(height: 50, ), // Corner Block
+                PrimeCareCard(child: const SizedBox.shrink(), height: 50), // Corner Block
                 PrimeCareExpanded(
                   child: ListView.builder(
                     itemCount: _endHour - _startHour + 1,
@@ -168,7 +168,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                   ),
                   
                   // The Timeline Physical Grid
-                  PrimeCareSizedBox(
+                  SizedBox(
                     height: (_endHour - _startHour + 1) * _hourHeight,
                     width: _providers.length * _columnWidth,
                     child: PrimeCareStack(
@@ -190,7 +190,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                         // Shift Block Overlays
                         ..._scheduleBlocks.map((block) {
                           final providerIndex = _providers.indexWhere((p) => p['id'] == block['provider']);
-                          if (providerIndex == -1) return PrimeCareSizedBox.shrink();
+                          if (providerIndex == -1) return SizedBox.shrink();
                           
                           final double topOffset = (block['start'] - _startHour) * _hourHeight;
                           final double blockHeight = block['duration'] * _hourHeight;
@@ -214,7 +214,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                       PrimeCareIcon(Icons.check_circle, size: 14, color: blockColor),
                                     ],
                                   ),
-                                  PrimeCareSizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   PrimeCareText(block['type'], style: TextStyle(color: Color(0xFF475569), fontSize: 12)),
                                 ],
                               ),
@@ -315,9 +315,9 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
               PrimeCareIcon(Icons.drag_indicator_rounded, size: 14, color: blockColor.withAlpha(100)),
             ],
           ),
-          PrimeCareSizedBox(height: 4),
+          SizedBox(height: 4),
           PrimeCareText(block['type'], style: TextStyle(color: Color(0xFF475569), fontSize: 11)),
-          PrimeCareSizedBox(height: 6),
+          SizedBox(height: 6),
           PrimeCareText('${block['duration']} HR BLOCK', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
         ],
       ),

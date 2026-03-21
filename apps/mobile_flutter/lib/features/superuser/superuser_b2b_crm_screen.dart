@@ -39,7 +39,7 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
               // Open modal to add new Hospital Target or Work Item
             },
           ),
-          PrimeCareSizedBox(width: 16),
+          SizedBox(width: 16),
         ],
       ),
       body: PrimeCarePadding(
@@ -47,26 +47,26 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
             PrimeCareText('Your Growth Pipeline', style: GoogleFonts.outfit(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
-            PrimeCareSizedBox(height: 8),
+            SizedBox(height: 8),
             PrimeCareText('Track hospital outreach, add physical meeting notes, and monitor the value of your referral networks.', 
               style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 15)),
             
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             
             // KPI Summary Row
             PrimeCareRow(
               children: [
                 _buildKpiCard('Total Active Value', '\$45,000', Colors.tealAccent),
-                PrimeCareSizedBox(width: 16),
+                SizedBox(width: 16),
                 _buildKpiCard('Pending Pipeline', '\$20,500', Colors.amberAccent),
               ],
             ),
 
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             PrimeCareText('ACTIVE TARGETS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 13, letterSpacing: 1.5)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
 
             // The Work List (Kanban List)
             PrimeCareExpanded(
@@ -85,11 +85,11 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             PrimeCareText(target['name'], style: GoogleFonts.outfit(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                            PrimeCareSizedBox(height: 6),
+                            SizedBox(height: 6),
                             PrimeCareRow(
                               children: [
                                 PrimeCareIcon(Icons.person_outline, color: Colors.grey, size: 16),
-                                PrimeCareSizedBox(width: 6),
+                                SizedBox(width: 6),
                                 PrimeCareText(target['contact'], style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14)),
                               ],
                             ),
@@ -103,7 +103,7 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
                               
                               child: PrimeCareText(target['status'], style: GoogleFonts.inter(color: target['color'], fontWeight: FontWeight.bold, fontSize: 12)),
                             ),
-                            PrimeCareSizedBox(height: 8),
+                            SizedBox(height: 8),
                             PrimeCareText(target['value'], style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                           ],
                         )
@@ -136,7 +136,7 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PrimeCareText(label, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13)),
-            PrimeCareSizedBox(height: 8),
+            SizedBox(height: 8),
             PrimeCareText(value, style: GoogleFonts.outfit(color: color, fontSize: 28, fontWeight: FontWeight.bold)),
           ],
         ),

@@ -17,7 +17,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
       appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.complianceModule),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: PrimeCareScrollWrapper(
+          child: SingleChildScrollView(
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -56,12 +56,12 @@ class PswVideoTrainingScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimeCareText(title, style: Theme.of(context).textTheme.headlineMedium),
-                  PrimeCareSizedBox(height: 8),
+                  SizedBox(height: 8),
                   PrimeCareText('Mandatory Video Module • Cannot be skipped', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
-                  PrimeCareSizedBox(height: 32),
+                  SizedBox(height: 32),
                   
                   PrimeCareText('KNOWLEDGE VERIFICATION QUIZ', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   
                   // Mandatory Quiz Matrix
                   PrimeCareCard(
@@ -71,7 +71,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimeCareText('Question 1: What is the recommended compression depth for adult CPR?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, height: 1.5)),
-                        PrimeCareSizedBox(height: 24),
+                        SizedBox(height: 24),
                         _buildQuizOption('1 inch', false),
                         _buildQuizOption('2 inches (Min)', true),
                         _buildQuizOption('3 inches', false),
@@ -79,7 +79,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
                     ),
                   ),
                   
-                  PrimeCareSizedBox(height: 32),
+                  SizedBox(height: 32),
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: () {}, // Blocked until right answer is clicked and video parsed
                     
@@ -104,7 +104,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(isSelectedFakeState ? Icons.radio_button_checked : Icons.radio_button_off, color: isSelectedFakeState ? PrimeCareColors.emerald : PrimeCareColors.slate300),
-          PrimeCareSizedBox(width: 12),
+          SizedBox(width: 12),
           PrimeCareText(label, style: TextStyle(fontWeight: isSelectedFakeState ? FontWeight.bold : FontWeight.w600, color: PrimeCareColors.radarDark)),
         ],
       ),

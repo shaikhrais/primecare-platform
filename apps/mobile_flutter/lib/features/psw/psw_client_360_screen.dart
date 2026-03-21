@@ -17,7 +17,7 @@ class PswClient360Screen extends StatelessWidget {
       appBar: PrimeCareAppBar(title: '$clientName - 360°'),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: PrimeCareScrollWrapper(
+          child: SingleChildScrollView(
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -35,9 +35,9 @@ class PswClient360Screen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: PrimeCareColors.radarDark)
                     ),
                   ),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   PrimeCareText(clientName, style: Theme.of(context).textTheme.headlineMedium),
-                  PrimeCareSizedBox(height: 8),
+                  SizedBox(height: 8),
                   PrimeCareText('Dementia Care Track • Resuscitate (DNR) - No', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
                 ],
               ),
@@ -57,7 +57,7 @@ class PswClient360Screen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         PrimeCareText('Valid from: Oct 1, 2025 to Oct 1, 2026', style: TextStyle(color: Color(0xFF475569))),
-                        PrimeCareSizedBox(height: 16),
+                        SizedBox(height: 16),
                         OutlinedButton.icon(
                           onPressed: () {},
                           icon: PrimeCareIcon(Icons.picture_as_pdf),
@@ -68,7 +68,7 @@ class PswClient360Screen extends StatelessWidget {
                     )
                   ),
                   
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   _buildNexusCard(
                     context, 
@@ -84,7 +84,7 @@ class PswClient360Screen extends StatelessWidget {
                             PrimeCareText('118/72 mmHg', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        PrimeCareSizedBox(height: 8),
+                        SizedBox(height: 8),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -92,7 +92,7 @@ class PswClient360Screen extends StatelessWidget {
                             PrimeCareText('68 BPM', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        PrimeCareSizedBox(height: 20),
+                        SizedBox(height: 20),
                         // Simulated embedded chart graph area
                         PrimeCareCard(
                           height: 100,
@@ -103,7 +103,7 @@ class PswClient360Screen extends StatelessWidget {
                     )
                   ),
 
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   _buildNexusCard(
                     context, 
@@ -117,7 +117,7 @@ class PswClient360Screen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             PrimeCareText('Maria Jenkins (Daughter)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                            PrimeCareSizedBox(height: 4),
+                            SizedBox(height: 4),
                             PrimeCareText('Primary Power of Attorney', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                           ],
                         ),
@@ -130,7 +130,7 @@ class PswClient360Screen extends StatelessWidget {
                     )
                   ),
                   
-                  PrimeCareSizedBox(height: 40),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
@@ -156,11 +156,11 @@ class PswClient360Screen extends StatelessWidget {
                 
                 child: PrimeCareIcon(icon, color: color, size: 24),
               ),
-              PrimeCareSizedBox(width: 16),
+              SizedBox(width: 16),
               PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
             ],
           ),
-          PrimeCareSizedBox(height: 24),
+          SizedBox(height: 24),
           child,
         ],
       ),

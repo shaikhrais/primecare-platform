@@ -14,9 +14,9 @@ class ClientShellScreen extends StatelessWidget {
       appBar: PrimeCareNavBar(
         title: PrimeCareText('PrimeCare Client Portal', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Color(0xFF0EA5E9),
-        iconTheme: IconThemeData(color: Colors.white),
+        
       ),
-      drawer: Drawer(
+      /* drawer: Drawer(
         child: PrimeCareListView(
           padding: EdgeInsets.zero,
           children: [
@@ -27,7 +27,7 @@ class ClientShellScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   PrimeCareIcon(Icons.family_restroom, size: 48, color: Colors.white),
-                  PrimeCareSizedBox(height: 12),
+                  SizedBox(height: 12),
                   PrimeCareText('Client & Family', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
                 ],
               ),
@@ -61,7 +61,7 @@ class ClientShellScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: child,
+      */ body: child,
     );
   }
 }

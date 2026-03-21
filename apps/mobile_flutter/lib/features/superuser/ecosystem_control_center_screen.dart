@@ -81,7 +81,7 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                 children: [
                   PrimeCareText('Platform Roles & Access Nodes',
                       style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   PrimeCareExpanded(
                     child: ListView.builder(
                       itemCount: _activeRoles.length,
@@ -129,10 +129,10 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                 children: [
                   PrimeCareText('Active Crisis Protocols (Resolutions)',
                       style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                  PrimeCareSizedBox(height: 8),
+                  SizedBox(height: 8),
                   PrimeCareText('These configurations auto-execute when anomaly thresholds are breached physically on the Edge.',
                       style: TextStyle(color: Colors.grey[400])),
-                  PrimeCareSizedBox(height: 24),
+                  SizedBox(height: 24),
                   PrimeCareExpanded(
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -153,11 +153,11 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                             children: [
                               PrimeCareText(protocol['scenario'],
                                   style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-                              PrimeCareSizedBox(height: 8),
+                              SizedBox(height: 8),
                               PrimeCareRow(
                                 children: [
                                   PrimeCareIcon(Icons.bolt, color: Colors.amberAccent, size: 16),
-                                  PrimeCareSizedBox(width: 4),
+                                  SizedBox(width: 4),
                                   PrimeCareText('Trigger: ${protocol['trigger']}',
                                       style: TextStyle(color: Colors.grey[300], fontSize: 12)),
                                 ],
@@ -165,7 +165,7 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                               PrimeCareRow(
                                 children: [
                                   PrimeCareIcon(Icons.memory, color: Colors.cyanAccent, size: 16),
-                                  PrimeCareSizedBox(width: 4),
+                                  SizedBox(width: 4),
                                   PrimeCareText('Action: ${protocol['action']}',
                                       style: TextStyle(color: Colors.cyanAccent, fontSize: 12, fontWeight: FontWeight.bold)),
                                 ],

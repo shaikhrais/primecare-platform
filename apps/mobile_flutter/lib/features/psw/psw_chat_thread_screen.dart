@@ -25,7 +25,7 @@ class PswChatThreadScreen extends StatelessWidget {
                     'Hey! We have an urgent shift coverage needed for Eliza Thornberry today due to a cancellation.', 
                     '10:42 AM'
                   ),
-                  PrimeCareSizedBox(height: 24),
+                  SizedBox(height: 24),
                   _buildPhysicalShiftWidget(context),
                 ],
               ),
@@ -50,7 +50,7 @@ class PswChatThreadScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    PrimeCareSizedBox(width: 16),
+                    SizedBox(width: 16),
                     PrimeCareCard(
                       padding: EdgeInsets.all(12),
                       
@@ -75,7 +75,7 @@ class PswChatThreadScreen extends StatelessWidget {
           
           child: PrimeCareText(text, style: TextStyle(fontSize: 16, color: PrimeCareColors.radarDark, height: 1.4)),
         ),
-        PrimeCareSizedBox(height: 4),
+        SizedBox(height: 4),
         PrimeCareText(time, style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
       ],
     );
@@ -102,11 +102,11 @@ class PswChatThreadScreen extends StatelessWidget {
                   PrimeCareText('Surge +1.5x active', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold, fontSize: 13)),
                 ],
               ),
-              PrimeCareSizedBox(height: 20),
+              SizedBox(height: 20),
               PrimeCareText('4:00 PM - 8:00 PM', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 24)),
-              PrimeCareSizedBox(height: 8),
+              SizedBox(height: 8),
               PrimeCareText('Eliza Thornberry • 99 Safari Rd, Etobicoke', style: TextStyle(color: PrimeCareColors.slate300, fontSize: 14)),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareRow(
                 children: [
                   PrimeCareExpanded(
@@ -118,7 +118,7 @@ class PswChatThreadScreen extends StatelessWidget {
                       child: PrimeCareText('ACCEPT SHIFT', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
                     ),
                   ),
-                  PrimeCareSizedBox(width: 12),
+                  SizedBox(width: 12),
                   PrimeCareExpanded(
                     child: PrimeCareButton(type: PrimeCareButtonType.secondary, 
                       onPressed: () {},
@@ -131,7 +131,7 @@ class PswChatThreadScreen extends StatelessWidget {
             ],
           ),
         ),
-        PrimeCareSizedBox(height: 4),
+        SizedBox(height: 4),
         PrimeCareText('10:45 AM', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
       ],
     );

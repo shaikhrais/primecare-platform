@@ -15,7 +15,7 @@ class MtSoapNotesScreen extends StatelessWidget {
         title: PrimeCareText('Clinical SOAP Notes', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Color(0xFFF8FAFC),
         elevation: 1,
-        iconTheme: IconThemeData(color: PrimeCareColors.radarDark),
+        
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper( // Desktop Responsive
@@ -23,14 +23,14 @@ class MtSoapNotesScreen extends StatelessWidget {
             padding: EdgeInsets.all(24),
             children: [
               _buildSoapInput('Subjective', 'What the patient reported feeling today...', maxLines: 3),
-              PrimeCareSizedBox(height: 20),
+              SizedBox(height: 20),
               _buildSoapInput('Objective', 'Visual/Palpation findings (e.g. Hypertonicity in Traps)...', maxLines: 4),
-              PrimeCareSizedBox(height: 20),
+              SizedBox(height: 20),
               _buildSoapInput('Assessment', 'Clinical reaction to treatment today...', maxLines: 3),
-              PrimeCareSizedBox(height: 20),
+              SizedBox(height: 20),
               _buildSoapInput('Plan', 'Recommended home care, stretching, follow-up frequency...', maxLines: 3),
               
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               ElevatedButton.icon(
                 icon: PrimeCareIcon(Icons.check_circle, color: Colors.white),
                 label: PrimeCareText('SIGN & SUBMIT TO LEDGER', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
@@ -52,7 +52,7 @@ class MtSoapNotesScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16, letterSpacing: 1.2)),
-        PrimeCareSizedBox(height: 8),
+        SizedBox(height: 8),
         TextField(
           maxLines: maxLines,
           decoration: InputDecoration(

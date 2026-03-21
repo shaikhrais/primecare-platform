@@ -114,7 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
             
             // Native Zebra Striped Data Table Wrapper
             PrimeCareExpanded(
@@ -152,7 +152,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     PrimeCareIcon(Icons.inventory_2_outlined, size: 48, color: PrimeCareColors.slate300),
-                                    PrimeCareSizedBox(height: 12),
+                                    SizedBox(height: 12),
                                     PrimeCareText('No active API entities discovered.', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w600)),
                                   ],
                                 ),

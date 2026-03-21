@@ -85,7 +85,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         PrimeCareRow(
                           children: [
                             PrimeCareIcon(Icons.auto_graph, color: Colors.white, size: 28),
-                            PrimeCareSizedBox(width: 8),
+                            SizedBox(width: 8),
                             PrimeCareText('MAX OPTION', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 1.5)),
                           ],
                         ),
@@ -108,7 +108,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         ),
                       ],
                     ),
-                    PrimeCareSizedBox(height: 8),
+                    SizedBox(height: 8),
                     PrimeCareText(
                       _maxScheduleOptIn 
                         ? 'Algorithm actively routing pending shifts to fill your gaps.'
@@ -152,7 +152,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
             ),
           ),
           
-          SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
+          SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
       )
         ),
@@ -166,12 +166,11 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Timeline Stem Matrix
-          PrimeCareSizedBox(
+          SizedBox(
             width: 40,
             child: PrimeCareColumn(
               children: [
-                PrimeCareCard(
-                  width: 16, height: 16,
+                PrimeCareCard(child: const SizedBox.shrink(), width: 16, height: 16,
                   
                 ),
                 if (!isLast)
@@ -196,7 +195,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PrimeCareText(shift['time'], style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
-                    PrimeCareSizedBox(height: 4),
+                    SizedBox(height: 4),
                     PrimeCareText(shift['client'], style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6366F1), fontSize: 18)),
                     PrimeCareText('${shift['type']} • ${shift['location']}', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                     
@@ -206,14 +205,14 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         child: Divider(height: 1, color: Color(0xFFF1F5F9)),
                       ),
                       PrimeCareText('REQUIRED RESOURCES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: PrimeCareColors.slate400)),
-                      PrimeCareSizedBox(height: 8),
+                      SizedBox(height: 8),
                       ...((shift['resources'] as List).map((res) {
                         return PrimeCarePadding(
                           padding: EdgeInsets.only(bottom: 6.0),
                           child: PrimeCareRow(
                             children: [
                               PrimeCareIcon(res['icon'], size: 16, color: PrimeCareColors.amber),
-                              PrimeCareSizedBox(width: 8),
+                              SizedBox(width: 8),
                               PrimeCareExpanded(child: PrimeCareText(res['text'], style: TextStyle(color: Color(0xFF475569), fontSize: 13, fontWeight: FontWeight.w500))),
                             ],
                           ),

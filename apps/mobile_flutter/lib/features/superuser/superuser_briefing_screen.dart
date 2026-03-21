@@ -44,7 +44,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
                   )
                 ],
               ),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               PrimeCareText(
                 'The PrimeCare Autopilot operated flawlessly last night while you slept. Zero manual intervention was required by your operations team.',
                 style: GoogleFonts.inter(
@@ -54,7 +54,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
                 ),
               ),
 
-              PrimeCareSizedBox(height: 48),
+              SizedBox(height: 48),
 
               // 2. The Operational Data Cards
               PrimeCareExpanded(
@@ -142,7 +142,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
           PrimeCareRow(
             children: [
               PrimeCareIcon(icon, color: color, size: 28),
-              PrimeCareSizedBox(width: 12),
+              SizedBox(width: 12),
               PrimeCareText(
                 value,
                 style: GoogleFonts.outfit(
@@ -154,7 +154,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
               ),
             ],
           ),
-          PrimeCareSizedBox(height: 12),
+          SizedBox(height: 12),
           PrimeCareText(
             label,
             style: GoogleFonts.inter(

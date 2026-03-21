@@ -28,12 +28,12 @@ class MtDashboardScreen extends StatelessWidget {
                   children: [
                     PrimeCareExpanded(
                       flex: 1,
-                      child: PrimeCareScrollWrapper(
+                      child: SingleChildScrollView(
                         padding: EdgeInsets.all(24),
                         child: PrimeCareColumn(
                           children: [
                             _buildTherapistHeader(),
-                            PrimeCareSizedBox(height: 24),
+                            SizedBox(height: 24),
                             // Simulated Native Desktop Side-Calendar
                             PrimeCareCard(
                               padding: EdgeInsets.all(20),
@@ -43,7 +43,7 @@ class MtDashboardScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [PrimeCareText('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), PrimeCareIcon(Icons.calendar_month, color: PrimeCareColors.slate400)],
                                   ),
-                                  PrimeCareSizedBox(height: 16),
+                                  SizedBox(height: 16),
                                   PrimeCareText('24 total hours mapped this week.', style: TextStyle(color: PrimeCareColors.slate500)),
                                 ],
                               ),
@@ -52,16 +52,16 @@ class MtDashboardScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    PrimeCareSizedBox(width: 32),
+                    SizedBox(width: 32),
                     PrimeCareExpanded(
                       flex: 2,
-                      child: PrimeCareScrollWrapper(
+                      child: SingleChildScrollView(
                         padding: EdgeInsets.all(24),
                         child: PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             PrimeCareText("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                            PrimeCareSizedBox(height: 16),
+                            SizedBox(height: 16),
                             _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                             _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', Color(0xFFEF4444)),
                             _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
@@ -81,9 +81,9 @@ class MtDashboardScreen extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 children: [
                   _buildTherapistHeader(),
-                  PrimeCareSizedBox(height: 24),
+                  SizedBox(height: 24),
                   PrimeCareText("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                   _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', Color(0xFFEF4444)),
                   _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
@@ -102,13 +102,13 @@ class MtDashboardScreen extends StatelessWidget {
       backgroundColor: PrimeCareColors.radarDark,
       child: PrimeCareRow(
         children: [
-          CircleAvatar(radius: 24, defaultIcon: Icons.spa),
-          PrimeCareSizedBox(width: 16),
+          CircleAvatar(radius: 24, child: Icon(Icons.spa, color: Colors.white)),
+          SizedBox(width: 16),
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText('Welcome back, Jessica', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText('3 Booked Active Sessions', style: TextStyle(color: PrimeCareColors.slate400)),
             ],
           )
@@ -127,9 +127,7 @@ class MtDashboardScreen extends StatelessWidget {
       child: PrimeCareRow(
         children: [
           // Left Stripe Status Identifier (Jane UI Pattern)
-          PrimeCareCard(
-            width: 8,
-            height: 100,
+          PrimeCareCard(child: const SizedBox.shrink(), width: 8, height: 100,
             
           ),
           PrimeCareExpanded(
@@ -145,13 +143,13 @@ class MtDashboardScreen extends StatelessWidget {
                       PrimeCareIcon(Icons.more_horiz, color: PrimeCareColors.slate300),
                     ],
                   ),
-                  PrimeCareSizedBox(height: 8),
+                  SizedBox(height: 8),
                   PrimeCareText(clinicalType, style: TextStyle(color: Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 14)),
-                  PrimeCareSizedBox(height: 4),
+                  SizedBox(height: 4),
                   PrimeCareRow(
                     children: [
                       PrimeCareIcon(Icons.location_on, size: 14, color: PrimeCareColors.slate500),
-                      PrimeCareSizedBox(width: 4),
+                      SizedBox(width: 4),
                       PrimeCareText(location, style: TextStyle(color: Color(0xFF475569))),
                     ],
                   )

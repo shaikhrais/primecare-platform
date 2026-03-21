@@ -73,8 +73,8 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
             child: InkWell(
               onTap: () => _onClientSelected(client['id']!, client['name']!, isDesktop),
               borderRadius: BorderRadius.circular(20),
-              child: AnimatedPrimeCareCard(
-                duration: Duration(milliseconds: 200),
+              child: PrimeCareCard(
+                
                 
                 padding: EdgeInsets.all(20),
                 child: PrimeCareRow(
@@ -90,22 +90,21 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                         )
                       ),
                     ),
-                    PrimeCareSizedBox(width: 16),
+                    SizedBox(width: 16),
                     PrimeCareExpanded(
                       child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PrimeCareText(client['name']!, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-                          PrimeCareSizedBox(height: 4),
+                          SizedBox(height: 4),
                           PrimeCareText(client['address']!, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
-                          PrimeCareSizedBox(height: 12),
+                          SizedBox(height: 12),
                           PrimeCareRow(
                             children: [
-                              PrimeCareCard(
-                                width: 8, height: 8,
+                              PrimeCareCard(child: const SizedBox.shrink(), width: 8, height: 8,
                                 
                               ),
-                              PrimeCareSizedBox(width: 6),
+                              SizedBox(width: 6),
                               PrimeCareText(client['status']!, style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
                             ],
                           )

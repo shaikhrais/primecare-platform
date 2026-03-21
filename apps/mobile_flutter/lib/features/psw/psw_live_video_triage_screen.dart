@@ -141,11 +141,10 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
               
               child: PrimeCareRow(
                 children: [
-                  PrimeCareCard(
-                    width: 8, height: 8,
+                  PrimeCareCard(child: const SizedBox.shrink(), width: 8, height: 8,
                     
                   ),
-                  PrimeCareSizedBox(width: 8),
+                  SizedBox(width: 8),
                   PrimeCareText(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
                 ],
               ),

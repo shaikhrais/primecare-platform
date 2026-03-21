@@ -27,7 +27,7 @@ class SupervisorEscalationTicket extends StatelessWidget {
               PrimeCareRow(
                 children: [
                   PrimeCareIcon(Icons.warning_rounded, color: Colors.redAccent, size: 24),
-                  PrimeCareSizedBox(width: 12),
+                  SizedBox(width: 12),
                   PrimeCareText('AI ESCALATION: SYSTEM REHABILITATION FAILED', 
                     style: GoogleFonts.firaCode(color: Colors.redAccent, fontWeight: FontWeight.bold, fontSize: 12)),
                 ],
@@ -39,13 +39,13 @@ class SupervisorEscalationTicket extends StatelessWidget {
               )
             ],
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           PrimeCareText('Worker: ${ticketData['workerName']} (ID: ${ticketData['workerId']})', 
             style: GoogleFonts.outfit(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-          PrimeCareSizedBox(height: 8),
+          SizedBox(height: 8),
           PrimeCareText('The Embedded Mentor suspended this worker for missing 3 consecutive EVV geo-fences. The worker subsequently failed the mandatory retraining module 2 times. The AI has exhausted systemic correction parameters.', 
             style: GoogleFonts.inter(color: Colors.grey[300], fontSize: 14, height: 1.5)),
-          PrimeCareSizedBox(height: 24),
+          SizedBox(height: 24),
           PrimeCareRow(
             children: [
               PrimeCareExpanded(
@@ -55,7 +55,7 @@ class SupervisorEscalationTicket extends StatelessWidget {
                   child: PrimeCareText(AppLocalizations.of(context)!.initiateTermination),
                 ),
               ),
-              PrimeCareSizedBox(width: 16),
+              SizedBox(width: 16),
               PrimeCareExpanded(
                 child: PrimeCareButton(type: PrimeCareButtonType.secondary, 
                   

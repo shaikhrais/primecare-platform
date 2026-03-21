@@ -14,7 +14,7 @@ class MtInvoiceScreen extends StatelessWidget {
         title: PrimeCareText('Clinical Receipt', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
-        iconTheme: IconThemeData(color: PrimeCareColors.radarDark),
+        
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -27,9 +27,9 @@ class MtInvoiceScreen extends StatelessWidget {
                 child: PrimeCareColumn(
                   children: [
                     PrimeCareIcon(Icons.receipt_long, size: 48, color: PrimeCareColors.slate500),
-                    PrimeCareSizedBox(height: 16),
+                    SizedBox(height: 16),
                     PrimeCareText('Arthur Pendelton', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-                    PrimeCareSizedBox(height: 8),
+                    SizedBox(height: 8),
                     PrimeCareText('Invoice #PRM-88912-XY', style: TextStyle(color: PrimeCareColors.slate400)),
                     Divider(height: 40, thickness: 1, color: PrimeCareColors.slate200),
                     _buildLineItem('Therapeutic Massage (90 Min)', '\$145.00'),
@@ -39,7 +39,7 @@ class MtInvoiceScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               ElevatedButton.icon(
                 icon: PrimeCareIcon(Icons.send_rounded, color: Colors.white),
                 label: PrimeCareText('EMAIL RECEIPT TO CLIENT', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),

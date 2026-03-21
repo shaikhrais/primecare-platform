@@ -32,7 +32,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      extendBodyBehindAppBar: true,
+      
       appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -131,12 +131,10 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
       child: PrimeCareStack(
         alignment: Alignment.center,
         children: [
-          PrimeCareCard(
-            width: 50, height: 50,
+          PrimeCareCard(child: const SizedBox.shrink(), width: 50, height: 50,
             
           ),
-          PrimeCareCard(
-            width: 20, height: 20,
+          PrimeCareCard(child: const SizedBox.shrink(), width: 20, height: 20,
             
           ),
           if (worker.surge)
@@ -164,11 +162,11 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
               )
             ],
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           PrimeCareRow(
             children: [
               PrimeCareExpanded(child: _buildHUDSemantic('Available Workers', '4 Units', Icons.people_outline)),
-              PrimeCareSizedBox(width: 12),
+              SizedBox(width: 12),
               PrimeCareExpanded(child: _buildHUDSemantic('Critical Alerts', '0', Icons.warning_amber_rounded)),
             ],
           )
@@ -184,7 +182,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(icon, color: Colors.white70, size: 24),
-          PrimeCareSizedBox(width: 12),
+          SizedBox(width: 12),
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

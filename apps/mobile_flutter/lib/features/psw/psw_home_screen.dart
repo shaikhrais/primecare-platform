@@ -36,7 +36,7 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildMobileLayout(BuildContext context) {
-    return PrimeCareScrollWrapper(
+    return SingleChildScrollView(
       padding: EdgeInsets.all(24.0),
       child: AnimationLimiter(
         child: PrimeCareColumn(
@@ -49,13 +49,13 @@ class PswHomeScreen extends StatelessWidget {
             ),
             children: [
               _buildWelcomeCard(),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               _buildStatisticsArray(),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               _buildQuickLinks(context, 2),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               _buildFeed(),
-              PrimeCareSizedBox(height: 64),
+              SizedBox(height: 64),
             ],
           ),
         ),
@@ -64,7 +64,7 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildDesktopLayout(BuildContext context) {
-    return PrimeCareScrollWrapper(
+    return SingleChildScrollView(
       padding: EdgeInsets.all(40.0),
       child: AnimationLimiter(
         child: PrimeCareRow(
@@ -82,13 +82,13 @@ class PswHomeScreen extends StatelessWidget {
                   ),
                   children: [
                     _buildWelcomeCard(),
-                    PrimeCareSizedBox(height: 32),
+                    SizedBox(height: 32),
                     _buildQuickLinks(context, 3), // 3 columns for quick links on wide view
                   ],
                 ),
               ),
             ),
-            PrimeCareSizedBox(width: 40),
+            SizedBox(width: 40),
             PrimeCareExpanded(
               flex: 2,
               child: PrimeCareColumn(
@@ -101,7 +101,7 @@ class PswHomeScreen extends StatelessWidget {
                   ),
                   children: [
                     _buildStatisticsArray(),
-                    PrimeCareSizedBox(height: 32),
+                    SizedBox(height: 32),
                     _buildFeed(),
                   ],
                 ),
@@ -120,9 +120,9 @@ class PswHomeScreen extends StatelessWidget {
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PrimeCareText(AppLocalizations.of(context)!.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
-          PrimeCareSizedBox(height: 12),
-          PrimeCareText(AppLocalizations.of(context)!.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
+          PrimeCareText('Welcome Back', style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
+          SizedBox(height: 12),
+          PrimeCareText('Your next shift starts in...', style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
         ],
       ),
     );
@@ -132,15 +132,15 @@ class PswHomeScreen extends StatelessWidget {
     return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PrimeCareText(AppLocalizations.of(context)!.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        PrimeCareSizedBox(height: 16),
+        PrimeCareText('Performance Metrics', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        SizedBox(height: 16),
         PrimeCareRow(
           children: [
-            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
-            PrimeCareSizedBox(width: 16),
-            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
-            PrimeCareSizedBox(width: 16),
-            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
+            PrimeCareExpanded(child: _buildStatCard('Weekly Hours', '34.5', Icons.schedule, PrimeCareColors.purple)),
+            SizedBox(width: 16),
+            PrimeCareExpanded(child: _buildStatCard('Compliance', '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
+            SizedBox(width: 16),
+            PrimeCareExpanded(child: _buildStatCard('Surge Active', '1.5x', Icons.bolt, PrimeCareColors.amber)),
           ],
         ),
       ],
@@ -152,7 +152,7 @@ class PswHomeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PrimeCareText(AppLocalizations.of(context)!.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        PrimeCareSizedBox(height: 16),
+        SizedBox(height: 16),
         GridView.count(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -182,10 +182,10 @@ class PswHomeScreen extends StatelessWidget {
     return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PrimeCareText(AppLocalizations.of(context)!.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        PrimeCareSizedBox(height: 16),
+        PrimeCareText('Organizational Feed', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        SizedBox(height: 16),
         _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
-        PrimeCareSizedBox(height: 16),
+        SizedBox(height: 16),
         _buildFeedCard('Holiday Pay Multipliers', 'The PrimeCare system will automatically attach 1.5x surge pricing limits to all EVV shifts recorded on statutory holidays.'),
       ],
     );
@@ -198,9 +198,9 @@ class PswHomeScreen extends StatelessWidget {
       child: PrimeCareColumn(
         children: [
           PrimeCareIcon(icon, color: color, size: 28),
-          PrimeCareSizedBox(height: 12),
+          SizedBox(height: 12),
           PrimeCareText(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-          PrimeCareSizedBox(height: 4),
+          SizedBox(height: 4),
           PrimeCareText(label, style: TextStyle(fontSize: 12, color: PrimeCareColors.slate500), textAlign: TextAlign.center),
         ],
       ),
@@ -258,11 +258,11 @@ class PswHomeScreen extends StatelessWidget {
                 
                 child: PrimeCareIcon(Icons.campaign_outlined, color: PrimeCareColors.emerald, size: 20),
               ),
-              PrimeCareSizedBox(width: 12),
+              SizedBox(width: 12),
               PrimeCareExpanded(child: PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark))),
             ],
           ),
-          PrimeCareSizedBox(height: 12),
+          SizedBox(height: 12),
           PrimeCareText(desc, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14, height: 1.5)),
         ],
       ),

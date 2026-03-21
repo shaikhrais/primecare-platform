@@ -24,7 +24,7 @@ class GmMarketingHubScreen extends StatelessWidget {
           _buildActionCard('Deploy Trust Signals', 'Instantly publish 5-Star verified Medicaid/Medicare Audit badges to all Landing Pages to convert cold traffic into high trust.'),
           _buildActionCard('Automated Review Engine', 'Trigger SMS requests to family members post-shift automatically requesting Google Local Reviews to heavily boost SEO ranking.'),
           
-          PrimeCareSizedBox(height: 32),
+          SizedBox(height: 32),
           _buildSectionHeader('HOW TO GET NEW CLIENTS (GET BUSY)', Icons.people_alt_rounded),
           _buildActionCard('B2B Hospital discharge API', 'Integrate directly into regional Care-Coordinators systems at hospital discharge desks to catch patient flow before competitors.'),
           _buildActionCard('PPC Hyper-Targeting', 'Deploy "Home Care Near Me" Google Ads algorithmically adjusting bid prices based on current system Nurse availability.'),
@@ -42,7 +42,7 @@ class GmMarketingHubScreen extends StatelessWidget {
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(icon, color: PrimeCareColors.purple),
-          PrimeCareSizedBox(width: 8),
+          SizedBox(width: 8),
           PrimeCareText(title, style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.w900, letterSpacing: 1.5)),
         ],
       ),
@@ -64,7 +64,7 @@ class GmMarketingHubScreen extends StatelessWidget {
               PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.purple, size: 14),
             ],
           ),
-          PrimeCareSizedBox(height: 8),
+          SizedBox(height: 8),
           PrimeCareText(desc, style: TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
         ],
       ),

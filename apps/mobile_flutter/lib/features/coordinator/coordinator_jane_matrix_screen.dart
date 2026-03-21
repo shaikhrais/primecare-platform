@@ -64,11 +64,9 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
           children: [
             _buildLegendBar(),
             PrimeCareExpanded(
-              child: PrimeCareScrollWrapper(
-                scrollDirection: Axis.vertical,
-                child: PrimeCareScrollWrapper(
-                  scrollDirection: Axis.horizontal,
-                  child: PrimeCareSizedBox(
+              child: SingleChildScrollView(scrollDirection: Axis.vertical,
+                child: SingleChildScrollView(scrollDirection: Axis.horizontal,
+                  child: SizedBox(
                     width: totalHours * hourColumnWidth + 150, // +150 for Y-Axis Names
                     height: providers.length * providerRowHeight + 50, // +50 for X-Axis Time
                     child: PrimeCareStack(
@@ -108,8 +106,8 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   Widget _buildLegendItem(String label, Color color) {
     return PrimeCareRow(
       children: [
-        PrimeCareCard(width: 12, height: 12, ),
-        PrimeCareSizedBox(width: 6),
+        PrimeCareCard(child: const SizedBox.shrink(), width: 12, height: 12),
+        SizedBox(width: 6),
         PrimeCareText(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
       ],
     );
@@ -137,7 +135,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
           return PrimeCareCard(
             width: hourColumnWidth,
             height: 50,
-            alignment: Alignment.centerLeft,
+            
             padding: EdgeInsets.only(left: 8),
             
             child: PrimeCareText(time, style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
@@ -156,18 +154,18 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
           return PrimeCareCard(
             width: 150,
             height: providerRowHeight,
-            alignment: Alignment.centerLeft,
+            
             padding: EdgeInsets.symmetric(horizontal: 12),
             
             child: PrimeCareRow(
               children: [
                 CircleAvatar(radius: 14, backgroundColor: PrimeCareColors.slate200, child: PrimeCareIcon(Icons.person, size: 16, color: Colors.blueGrey[700])),
-                PrimeCareSizedBox(width: 8),
+                SizedBox(width: 8),
                 PrimeCareExpanded(child: PrimeCareText(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
               ],
             ),
           );
-        }).toList(),
+        }).toList().cast<Widget>(),
       ),
     );
   }
@@ -204,7 +202,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
               child: _buildBlockUnit(shift['patient'], width, providerRowHeight - 20, blockColor),
             ),
           );
-        }).toList(),
+        }).toList().cast<Widget>(),
       ),
     );
   }

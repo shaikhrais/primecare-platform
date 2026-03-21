@@ -12,7 +12,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
     return PrimeCareScaffold(
       appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.clinicalProgressNote),
       body: DesktopPaneWrapper(
-        child: PrimeCareScrollWrapper(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: PrimeCareColumn(
             children: [
@@ -32,7 +32,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ),
               ),
               
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               
               PrimeCareRow(
                 children: [
@@ -44,7 +44,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                       icon: Icons.camera_alt,
                     ),
                   ),
-                  PrimeCareSizedBox(width: 16),
+                  SizedBox(width: 16),
                   PrimeCareExpanded(
                     child: PrimeCareButton(
                       onPressed: (){},
@@ -56,7 +56,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ],
               ),
               
-              PrimeCareSizedBox(height: 48),
+              SizedBox(height: 48),
               PrimeCareButton(
                 onPressed: () {
                   Navigator.of(context).pop();

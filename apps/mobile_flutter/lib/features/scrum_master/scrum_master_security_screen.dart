@@ -21,13 +21,13 @@ class ScrumMasterSecurityScreen extends StatelessWidget {
         padding: EdgeInsets.all(24),
         children: [
           PrimeCareText('ACTIVE THREAT VECTORS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           _buildThreatTile('Anomalous Login Detected', 'IP: 192.168.1.104 (Toronto) failing 15 JWT auth evaluations per minute. Blocked implicitly at CDN level.', '12 mins ago'),
           _buildThreatTile('Malicious Payload Rejected', 'Middleware intercepted a SQL injection attempt directed at /v1/user/dispatch/surge.', '42 mins ago'),
           
-          PrimeCareSizedBox(height: 48),
+          SizedBox(height: 48),
           PrimeCareText('SYSTEM FIREWALL STATUS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           _buildFirewallTile('WAF Rule: Strict Rate Limiting', true),
           _buildFirewallTile('WAF Rule: Geo-Blocking Non-NA Regions', true),
           _buildFirewallTile('Middleware: JWT Issuer Whitelisting', true),
@@ -50,14 +50,14 @@ class ScrumMasterSecurityScreen extends StatelessWidget {
           PrimeCareRow(
             children: [
               PrimeCareIcon(Icons.shield_rounded, color: PrimeCareColors.rose, size: 24),
-              PrimeCareSizedBox(width: 12),
+              SizedBox(width: 12),
               PrimeCareExpanded(child: PrimeCareText(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16))),
               PrimeCareText(time, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 12)),
             ],
           ),
-          PrimeCareSizedBox(height: 12),
+          SizedBox(height: 12),
           PrimeCareText(desc, style: TextStyle(color: PrimeCareColors.slate400, height: 1.5)),
-          PrimeCareSizedBox(height: 12),
+          SizedBox(height: 12),
           Align(
             alignment: Alignment.centerRight,
             child: PrimeCareButton(type: PrimeCareButtonType.text, 

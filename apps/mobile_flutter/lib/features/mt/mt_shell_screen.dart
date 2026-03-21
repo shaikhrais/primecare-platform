@@ -1,7 +1,8 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../shared/layouts/responsive_shell.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class MtShellScreen extends StatelessWidget {
   const MtShellScreen({super.key, required this.navigationShell});

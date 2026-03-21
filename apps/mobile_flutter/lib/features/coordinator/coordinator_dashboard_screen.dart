@@ -44,7 +44,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        PrimeCareSizedBox(height: 10),
+                        SizedBox(height: 10),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -53,7 +53,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                             PrimeCareBadge(text: _isGlobalCodeBlack ? 'AUTOPILOT LOCKED' : '2 Unfilled Limits', color: Colors.white)
                           ],
                         ),
-                        PrimeCareSizedBox(height: 8),
+                        SizedBox(height: 8),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -94,11 +94,11 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                                   PrimeCareRow(
                                     children: [
                                       PrimeCareIcon(_surgeActive ? Icons.bolt_rounded : Icons.offline_bolt_rounded, color: Colors.white, size: 24),
-                                      PrimeCareSizedBox(width: 8),
+                                      SizedBox(width: 8),
                                       PrimeCareText(_surgeActive ? 'SURGE PRESET ACTIVE' : 'Enable +1.5x Surge', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
                                     ],
                                   ),
-                                  PrimeCareSizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   PrimeCareText(_surgeActive ? 'Broadcasting incentives to 45 PSWs' : 'Standard flat rate dispatched locally', style: TextStyle(color: _surgeActive ? Color(0xFFD1FAE5) : Color(0xFFC7D2FE), fontSize: 13)),
                                 ],
                               ),
@@ -144,18 +144,18 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                               PrimeCareBadge(text: '${shift['matched']} Matches', color: Color(0xFF6366F1))
                             ],
                           ),
-                          PrimeCareSizedBox(height: 12),
+                          SizedBox(height: 12),
                           PrimeCareText(shift['client'], style: TextStyle(color: Color(0xFF475569), fontSize: 15, fontWeight: FontWeight.w600)),
-                          PrimeCareSizedBox(height: 4),
+                          SizedBox(height: 4),
                           PrimeCareRow(
                             children: [
                               PrimeCareIcon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
-                              PrimeCareSizedBox(width: 4),
+                              SizedBox(width: 4),
                               PrimeCareText(shift['geo'], style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                             ],
                           ),
-                          PrimeCareSizedBox(height: 24),
-                          PrimeCareSizedBox(
+                          SizedBox(height: 24),
+                          SizedBox(
                             width: double.infinity,
                             child: PrimeCareButton(
                               onPressed: () => HapticFeedback.mediumImpact(),

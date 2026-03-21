@@ -23,8 +23,10 @@ export 'src/components/sdui_form_builder.dart';
 export 'src/components/primecare_card.dart';
 export 'src/components/primecare_button.dart';
 export 'src/components/primecare_wizard_flow.dart';
-export 'src/components/primecare_primitives.dart';
+
 
 // Phase 86: Universal Layout Engine
 export 'src/layouts/primecare_scaffold.dart';
 export 'src/layouts/primecare_flex.dart';
+
+export 'src/components/primecare_primitives.dart' hide PrimeCareTextField, PrimeCareScrollWrapper;

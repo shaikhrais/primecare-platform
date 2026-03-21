@@ -29,7 +29,7 @@ class PswTrainingScreen extends StatelessWidget {
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: PrimeCareScrollWrapper(
+          child: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(24, 16, 24, 120),
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,7 +40,7 @@ class PswTrainingScreen extends StatelessWidget {
               
               child: PrimeCareRow(
                 children: [
-                   PrimeCareSizedBox(
+                   SizedBox(
                      width: 120, height: 120,
                      child: PrimeCareStack(
                        fit: StackFit.expand,
@@ -58,13 +58,13 @@ class PswTrainingScreen extends StatelessWidget {
                        ],
                      ),
                    ),
-                   PrimeCareSizedBox(width: 32),
+                   SizedBox(width: 32),
                    PrimeCareExpanded(
                      child: PrimeCareColumn(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
                          PrimeCareText('Global Compliance', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
-                         PrimeCareSizedBox(height: 8),
+                         SizedBox(height: 8),
                          PrimeCareText('2 Modules Pending Verification', style: TextStyle(color: PrimeCareColors.radarDark, fontSize: 18, fontWeight: FontWeight.w900, height: 1.3)),
                        ],
                      ),
@@ -73,9 +73,9 @@ class PswTrainingScreen extends StatelessWidget {
               ),
             ),
             
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             PrimeCareText('REQUIRED MICRO-LEARNING', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1.5)),
-            PrimeCareSizedBox(height: 16),
+            SizedBox(height: 16),
 
             ..._catalog.map((course) {
               return PrimeCarePadding(
@@ -98,13 +98,13 @@ class PswTrainingScreen extends StatelessWidget {
                           
                           child: PrimeCareIcon(course['progress'] == 1.0 ? Icons.check : Icons.play_arrow_rounded, color: course['progress'] == 1.0 ? Colors.white : PrimeCareColors.radarDark),
                         ),
-                        PrimeCareSizedBox(width: 20),
+                        SizedBox(width: 20),
                         PrimeCareExpanded(
                           child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               PrimeCareText(course['title'], style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
-                              PrimeCareSizedBox(height: 6),
+                              SizedBox(height: 6),
                               PrimeCareText(course['status'], style: TextStyle(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.bold)),
                             ],
                           ),

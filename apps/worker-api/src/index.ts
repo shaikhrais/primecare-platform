@@ -53,6 +53,8 @@ app.doc('/openapi.json', { openapi: '3.0.0', info: { title: 'PrimeCare Worker AP
 app.get('/doc', swaggerUI({ url: '/openapi.json' }));
 
 // 4. Middlewares
+import { edgeTranslator } from './_shared/middleware/i18n';
+
 app.use('*', correlationId());
 app.use('*', requestLogger());
 app.use('*', rateLimiter());
@@ -62,6 +64,7 @@ app.use('*', governanceMiddleware());
 app.use('*', tenantIsolation());
 app.use('*', csrfProtection());
 app.use('*', sanitizeInput());
+app.use('*', edgeTranslator());
 
 app.use('*', async (c, next) => { await next(); c.header('X-API-Version', '1.0.0'); });
 

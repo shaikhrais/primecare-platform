@@ -14,7 +14,7 @@ class MtCredentialsScreen extends StatelessWidget {
         title: PrimeCareText('Regulatory Credentials', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
-        iconTheme: IconThemeData(color: PrimeCareColors.radarDark),
+        
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -22,13 +22,13 @@ class MtCredentialsScreen extends StatelessWidget {
             padding: EdgeInsets.all(24),
             children: [
               PrimeCareIcon(Icons.verified_user_rounded, size: 64, color: PrimeCareColors.emerald),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               PrimeCareText('ACTIVE LICENSE STATUS', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-              PrimeCareSizedBox(height: 48),
+              SizedBox(height: 48),
               _buildCredentialField('Registration Body', 'CMTO (Ontario)'),
               _buildCredentialField('License / Registration #', '12098-XA'),
               _buildCredentialField('Expiration Date', 'December 31, 2026'),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareText('If your license expires, the Jane App Scheduler will automatically block Coordinators from assigning you new clinical treatments.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
             ],
           ),
@@ -46,7 +46,7 @@ class MtCredentialsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PrimeCareText(label, style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
-          PrimeCareSizedBox(height: 4),
+          SizedBox(height: 4),
           PrimeCareText(value, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
         ],
       ),

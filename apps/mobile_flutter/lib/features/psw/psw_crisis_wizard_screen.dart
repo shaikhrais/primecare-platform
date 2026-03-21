@@ -32,7 +32,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
             children: [
               // Heartbeat icon
               PrimeCareIcon(Icons.favorite, size: 64, color: Colors.pinkAccent),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               
               PrimeCareText(
                 _getStepTitle(),
@@ -44,7 +44,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                   letterSpacing: -1,
                 ),
               ),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               
               PrimeCareText(
                 _getStepSubtitle(),
@@ -56,7 +56,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                 ),
               ),
               
-              PrimeCareSizedBox(height: 64),
+              SizedBox(height: 64),
               ..._buildStepActions(),
             ],
           ),
@@ -91,7 +91,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 1) {
       return [
         _buildWizardButton("Yes, we are safe", Colors.tealAccent, () => setState(() => _currentStep = 2)),
-        PrimeCareSizedBox(height: 16),
+        SizedBox(height: 16),
         _buildWizardButton("No, I need Emergency Services", Colors.redAccent, () {
           // Trigger 911 WebRTC or direct dial mathematically
         }),
@@ -99,9 +99,9 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 2) {
       return [
         _buildWizardButton("Call RN Mentorship Line", Colors.blueAccent, () => setState(() => _currentStep = 3)),
-        PrimeCareSizedBox(height: 16),
+        SizedBox(height: 16),
         _buildWizardButton("Log Non-Fatal Incident", Colors.amberAccent, () {}),
-        PrimeCareSizedBox(height: 16),
+        SizedBox(height: 16),
         PrimeCareButton(type: PrimeCareButtonType.text, 
           onPressed: () => Navigator.pop(context),
           child: PrimeCareText("It was a false alarm. Return to Shift.", style: TextStyle(color: Colors.indigo[200])),

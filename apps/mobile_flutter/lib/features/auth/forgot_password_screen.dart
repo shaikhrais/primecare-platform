@@ -56,13 +56,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       appBar: PrimeCareNavBar(
         title: PrimeCareText('Recovery', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Color(0xFF0EA5E9),
-        iconTheme: IconThemeData(color: Colors.white),
+        
       ),
       body: PrimeCareCenter(
-        child: PrimeCareScrollWrapper(
+        child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),
           child: PrimeCareCard(
-            constraints: BoxConstraints(maxWidth: 400),
+            
             padding: EdgeInsets.all(32.0),
             
             child: PrimeCareColumn(
@@ -70,19 +70,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 PrimeCareIcon(Icons.lock_reset, size: 48, color: Color(0xFF0EA5E9)),
-                PrimeCareSizedBox(height: 16),
+                SizedBox(height: 16),
                 PrimeCareText(
                   'Password Recovery',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
                   textAlign: TextAlign.center,
                 ),
-                PrimeCareSizedBox(height: 8),
+                SizedBox(height: 8),
                 PrimeCareText(
                   'Enter the email address associated with your PrimeCare account.',
                   style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
                   textAlign: TextAlign.center,
                 ),
-                PrimeCareSizedBox(height: 32),
+                SizedBox(height: 32),
                 if (_message != null) ...[
                   PrimeCareCard(
                     padding: EdgeInsets.all(12),
@@ -96,7 +96,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  PrimeCareSizedBox(height: 24),
+                  SizedBox(height: 24),
                 ],
                 if (!_isSuccess) ...[
                   TextField(
@@ -107,12 +107,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  PrimeCareSizedBox(height: 24),
+                  SizedBox(height: 24),
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: _isLoading ? null : _handleReset,
                     
                     child: _isLoading
-                        ? PrimeCareSizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                         : PrimeCareText('Send Reset Link', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],

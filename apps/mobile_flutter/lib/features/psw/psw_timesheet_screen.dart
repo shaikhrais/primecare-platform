@@ -37,7 +37,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
       body: MasterDetailLayout(
         isDetailActive: _selectedPeriod != null,
         onBackToMaster: () => setState(() => _selectedPeriod = null),
-        masterList: PrimeCareScrollWrapper(
+        masterList: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(24, 8, 24, 120),
           child: PrimeCareColumn(
             children: [
@@ -48,9 +48,9 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               child: PrimeCareColumn(
                 children: [
                    PrimeCareText('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
-                   PrimeCareSizedBox(height: 8),
+                   SizedBox(height: 8),
                    PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
-                   PrimeCareSizedBox(height: 24),
+                   SizedBox(height: 24),
                    PrimeCareRow(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
@@ -65,7 +65,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             
             // Interactive 30-Day Grid Space (Placeholder for GitHub UI)
             PrimeCareCard(
@@ -76,15 +76,13 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
-                  PrimeCareSizedBox(height: 16),
+                  SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: List.generate(28, (index) {
                       final intensity = (index % 5 == 0) ? 0.8 : (index % 3 == 0) ? 0.4 : 0.1;
-                      return PrimeCareCard(
-                        width: 24,
-                        height: 24,
+                      return PrimeCareCard(child: const SizedBox.shrink(), width: 24, height: 24,
                         
                       );
                     }),
@@ -93,7 +91,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             
             // Level 1 Daily Rows -> Drills directly to Level 2
             ..._payPeriods.map((period) {
@@ -122,13 +120,13 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                           
                           child: PrimeCareIcon(Icons.receipt_long_rounded, color: Color(0xFF475569)),
                         ),
-                        PrimeCareSizedBox(width: 16),
+                        SizedBox(width: 16),
                         PrimeCareExpanded(
                           child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               PrimeCareText(period['date'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              PrimeCareSizedBox(height: 4),
+                              SizedBox(height: 4),
                               PrimeCareText('${period['hours']} Hours • ${period['shifts']} Shifts', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                             ],
                           ),
@@ -141,7 +139,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                               PrimeCareText('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        PrimeCareSizedBox(width: 8),
+                        SizedBox(width: 8),
                         PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
                       ],
                     ),
@@ -152,7 +150,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
           ],
         ),
         ),
-        detailView: _selectedPeriod == null ? PrimeCareSizedBox.shrink() : PswTimesheetDetailScreen(
+        detailView: _selectedPeriod == null ? SizedBox.shrink() : PswTimesheetDetailScreen(
           date: _selectedPeriod!['date'],
           earnings: _selectedPeriod!['earnings'],
           surgeActive: _selectedPeriod!['surge'],
@@ -165,7 +163,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
     return PrimeCareColumn(
       children: [
         PrimeCareText(value, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-        PrimeCareSizedBox(height: 4),
+        SizedBox(height: 4),
         PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );

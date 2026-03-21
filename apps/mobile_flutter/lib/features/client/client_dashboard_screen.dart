@@ -21,19 +21,19 @@ class ClientDashboardScreen extends StatelessWidget {
               'Care Transparency Feed',
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
             ),
-            PrimeCareSizedBox(height: 8),
+            SizedBox(height: 8),
             PrimeCareText(
               'Monitor upcoming visits and clinical progress notes.',
               style: TextStyle(fontSize: 16, color: PrimeCareColors.slate500),
             ),
-            PrimeCareSizedBox(height: 32),
+            SizedBox(height: 32),
             PrimeCareExpanded(
               child: PrimeCareCenter(
                 child: PrimeCareColumn(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     PrimeCareIcon(Icons.volunteer_activism, size: 64, color: PrimeCareColors.slate400),
-                    PrimeCareSizedBox(height: 16),
+                    SizedBox(height: 16),
                     PrimeCareText('No active visits scheduled.', style: TextStyle(color: PrimeCareColors.slate500)),
                   ],
                 ),

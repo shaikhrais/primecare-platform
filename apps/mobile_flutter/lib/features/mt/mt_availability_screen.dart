@@ -16,9 +16,9 @@ class MtAvailabilityScreen extends StatelessWidget {
             padding: EdgeInsets.all(24),
             children: [
               PrimeCareText('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-              PrimeCareSizedBox(height: 24),
+              SizedBox(height: 24),
               PrimeCareText('Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.', style: TextStyle(color: Color(0xFF475569), height: 1.5)),
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               _buildDayToggle('Monday', '9:00 AM - 5:00 PM', true),
               _buildDayToggle('Tuesday', '9:00 AM - 5:00 PM', true),
               _buildDayToggle('Wednesday', 'Blocked / Offline', false),

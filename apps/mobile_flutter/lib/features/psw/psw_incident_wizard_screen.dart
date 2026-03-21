@@ -1,5 +1,6 @@
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/colors.dart';
 
 import 'package:primecare_ui/primecare_ui.dart';
@@ -12,7 +13,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
     return PrimeCareScaffold(
       appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.emergencyIncidentWizard),
       body: DesktopPaneWrapper(
-        child: PrimeCareScrollWrapper(
+        child: SingleChildScrollView(
           padding: EdgeInsets.all(24),
           child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -23,13 +24,13 @@ class PswIncidentWizardScreen extends StatelessWidget {
                 child: PrimeCareRow(
                   children: [
                     PrimeCareIcon(Icons.warning_amber_rounded, color: Colors.white, size: 40),
-                    PrimeCareSizedBox(width: 16),
+                    SizedBox(width: 16),
                     PrimeCareExpanded(
                       child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PrimeCareText('EVV Clock Halted Globally', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                          PrimeCareSizedBox(height: 4),
+                          SizedBox(height: 4),
                           PrimeCareText('Fill out the incident report completely. Clinical Coordinators have been paged.', style: TextStyle(color: Color(0xFFFFE4E6), fontSize: 13, height: 1.4)),
                         ],
                       ),
@@ -38,17 +39,17 @@ class PswIncidentWizardScreen extends StatelessWidget {
                 ),
               ),
               
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               PrimeCareText('INCIDENT CLASSIFICATION', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
-              PrimeCareSizedBox(height: 12),
+              SizedBox(height: 12),
               
               _buildSelectionBox('Type of Incident', 'Patient Fall / Injury'),
-              PrimeCareSizedBox(height: 16),
+              SizedBox(height: 16),
               _buildSelectionBox('Severity Level', 'Critical (911 Action Taken)'),
               
-              PrimeCareSizedBox(height: 32),
+              SizedBox(height: 32),
               PrimeCareSectionHeader(title: AppLocalizations.of(context)!.evidenceCapture),
-              PrimeCareSizedBox(height: 12),
+              SizedBox(height: 12),
               
               PrimeCareButton(
                 onPressed: () {},
@@ -57,7 +58,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
                 icon: Icons.add_a_photo_rounded,
               ),
               
-              PrimeCareSizedBox(height: 40),
+              SizedBox(height: 40),
               PrimeCareButton(
                 onPressed: () => Navigator.of(context).pop(),
                 text: 'TRANSMIT SECURE REPORT',
@@ -80,7 +81,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText(value, style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 16)),
             ],
           ),

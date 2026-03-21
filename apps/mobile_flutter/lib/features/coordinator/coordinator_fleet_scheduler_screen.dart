@@ -87,14 +87,14 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PrimeCareText('Global AI Dispatch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: PrimeCareColors.slate500, letterSpacing: 1)),
-                    PrimeCareSizedBox(height: 4),
+                    SizedBox(height: 4),
                     PrimeCareText('28 Unassigned Hours Pending', style: TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.w900, fontSize: 18)),
                   ],
                 ),
                 ElevatedButton.icon(
                   onPressed: _isAutoFilling ? null : _triggerMaxScheduleAutoFill,
                   icon: _isAutoFilling 
-                      ? PrimeCareSizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                       : PrimeCareIcon(Icons.auto_awesome),
                   label: PrimeCareText(AppLocalizations.of(context)!.autoMaxFill),
                   
@@ -105,7 +105,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
           
           // Timeline Rendering Array
           PrimeCareExpanded(
-            child: PrimeCareScrollWrapper(
+            child: SingleChildScrollView(
               padding: EdgeInsets.all(20),
               child: AnimationLimiter(
                 child: PrimeCareColumn(
@@ -140,7 +140,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
               PrimeCareRow(
                 children: [
                   CircleAvatar(radius: 16, backgroundColor: Color(0xFFDBEAFE), child: PrimeCareText(worker['id'].toString().substring(0,2), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                  PrimeCareSizedBox(width: 12),
+                  SizedBox(width: 12),
                   PrimeCareText(worker['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                 ],
               ),
@@ -158,7 +158,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
               )
             ],
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           
           // Gantt Timeline (08:00 -> 20:00) 12-hour span
           PrimeCareCard(

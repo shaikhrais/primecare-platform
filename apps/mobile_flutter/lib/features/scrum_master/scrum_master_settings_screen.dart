@@ -30,7 +30,7 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
         padding: EdgeInsets.all(24),
         children: [
           PrimeCareText('ENVIRONMENT OVERRIDES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           _buildToggle(
             'Force Offline Mode (CRDT Sync Test)', 
             'Simulate a total Cloudflare outage to strictly test local SQLite cache buffers natively.', 
@@ -50,9 +50,9 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
             (val) => setState(() => _logSQL = val)
           ),
 
-          PrimeCareSizedBox(height: 48),
+          SizedBox(height: 48),
           PrimeCareText('ADMIN ACTIONS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           ElevatedButton.icon(
              onPressed: () {},
              icon: PrimeCareIcon(Icons.rocket_launch_rounded),

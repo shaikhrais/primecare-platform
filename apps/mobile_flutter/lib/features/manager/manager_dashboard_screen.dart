@@ -28,7 +28,7 @@ class ManagerDashboardScreen extends StatelessWidget {
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        PrimeCareSizedBox(height: 10),
+                        SizedBox(height: 10),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -36,16 +36,16 @@ class ManagerDashboardScreen extends StatelessWidget {
                             PrimeCareBadge(text: 'Q3 Target: 94%', color: PrimeCareColors.amber),
                           ],
                         ),
-                        PrimeCareSizedBox(height: 8),
+                        SizedBox(height: 8),
                         PrimeCareText('Global Overview', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
                         Spacer(),
                         
                         PrimeCareRow(
                           children: [
                             _buildMacroKpi(icon: Icons.check_circle_rounded, label: AppLocalizations.of(context)!.compliance, value: '91.4%'),
-                            PrimeCareSizedBox(width: 16),
+                            SizedBox(width: 16),
                             _buildMacroKpi(icon: Icons.groups_rounded, label: AppLocalizations.of(context)!.activeStaff, value: '1,420'),
-                            PrimeCareSizedBox(width: 16),
+                            SizedBox(width: 16),
                             _buildMacroKpi(icon: Icons.warning_rounded, label: AppLocalizations.of(context)!.criticalSos, value: '2', isDanger: true),
                           ],
                         )
@@ -68,9 +68,9 @@ class ManagerDashboardScreen extends StatelessWidget {
                   return PrimeCareColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PrimeCareSizedBox(height: 8),
+                      SizedBox(height: 8),
                       PrimeCareText('ORGANIZATIONAL HEALTH', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF475569), letterSpacing: 1.5, fontSize: 12)),
-                      PrimeCareSizedBox(height: 16),
+                      SizedBox(height: 16),
                       
                       Flex(
                         direction: isDesktop ? Axis.horizontal : Axis.vertical,
@@ -82,7 +82,7 @@ class ManagerDashboardScreen extends StatelessWidget {
                             fit: isDesktop ? FlexFit.tight : FlexFit.loose,
                             child: _buildGraphicWidget(),
                           ),
-                          if (isDesktop) PrimeCareSizedBox(width: 24) else PrimeCareSizedBox(height: 24),
+                          if (isDesktop) SizedBox(width: 24) else SizedBox(height: 24),
                           Flexible(
                             flex: isDesktop ? 1 : 1,
                             fit: isDesktop ? FlexFit.tight : FlexFit.loose,
@@ -90,8 +90,8 @@ class ManagerDashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 _buildInsightWidget(),
-                                PrimeCareSizedBox(height: 24),
-                                PrimeCareSizedBox(
+                                SizedBox(height: 24),
+                                SizedBox(
                                   width: double.infinity,
                                   child: PrimeCareButton(
                                     onPressed: () => HapticFeedback.mediumImpact(),
@@ -129,9 +129,9 @@ class ManagerDashboardScreen extends StatelessWidget {
               PrimeCareIcon(Icons.trending_up_rounded, color: PrimeCareColors.emerald, size: 28),
             ],
           ),
-          PrimeCareSizedBox(height: 8),
+          SizedBox(height: 8),
           PrimeCareText('Last 30 Days Trajectory', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
-          PrimeCareSizedBox(height: 24),
+          SizedBox(height: 24),
           PrimeCareRow(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -156,16 +156,16 @@ class ManagerDashboardScreen extends StatelessWidget {
           PrimeCareRow(
             children: [
               PrimeCareIcon(Icons.auto_awesome_rounded, color: PrimeCareColors.purple, size: 24),
-              PrimeCareSizedBox(width: 8),
+              SizedBox(width: 8),
               PrimeCareText('AI Execution Matrix', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
             ],
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           PrimeCareText(
             'System heuristics detect a 12% surplus in unmapped MT (Massage Therapy) hours across the Greater Toronto Area radius.', 
             style: TextStyle(color: Color(0xFF475569), fontSize: 14, height: 1.5)
           ),
-          PrimeCareSizedBox(height: 16),
+          SizedBox(height: 16),
           PrimeCareButton(
             onPressed: () {},
             text: 'Deploy Marketing Push',
@@ -185,9 +185,9 @@ class ManagerDashboardScreen extends StatelessWidget {
         child: PrimeCareColumn(
           children: [
             PrimeCareIcon(icon, color: isDanger ? Colors.white : PrimeCareColors.slate400, size: 20),
-            PrimeCareSizedBox(height: 8),
+            SizedBox(height: 8),
             PrimeCareText(value, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)),
-            PrimeCareSizedBox(height: 4),
+            SizedBox(height: 4),
             PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate300, fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
           ],
         ),
@@ -197,9 +197,7 @@ class ManagerDashboardScreen extends StatelessWidget {
 
   Widget _buildChartBar({required double height, required Color color}) {
     return PrimeCareExpanded(
-      child: PrimeCareCard(
-        margin: EdgeInsets.symmetric(horizontal: 4),
-        height: height,
+      child: PrimeCareCard(child: const SizedBox.shrink(), margin: EdgeInsets.symmetric(horizontal: 4), height: height,
         
       ),
     );

@@ -39,7 +39,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: PrimeCareRow(
                 children: [
-                  PrimeCareSizedBox(
+                  SizedBox(
                     height: 100,
                     width: 100,
                     child: PrimeCareStack(
@@ -63,13 +63,13 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                       ],
                     ),
                   ),
-                  PrimeCareSizedBox(width: 32),
+                  SizedBox(width: 32),
                   PrimeCareExpanded(
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimeCareText('ADL Progress', style: Theme.of(context).textTheme.headlineMedium),
-                        PrimeCareSizedBox(height: 8),
+                        SizedBox(height: 8),
                         PrimeCareText(
                           '$completedCount of ${_tasks.length} tasks completed', 
                           style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, fontWeight: FontWeight.w600),
@@ -98,8 +98,8 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                          _tasks.add(_tasks.removeAt(index)); // Push to bottom temporarily for visualization
                        });
                     },
-                    background: PrimeCareCard(
-                      
+                    background: Container(
+                      color: PrimeCareColors.emerald,
                       alignment: task['completed'] ? Alignment.centerRight : Alignment.centerLeft,
                       padding: EdgeInsets.symmetric(horizontal: 24),
                       child: PrimeCareIcon(task['completed'] ? Icons.undo : Icons.check, color: Colors.white, size: 32),

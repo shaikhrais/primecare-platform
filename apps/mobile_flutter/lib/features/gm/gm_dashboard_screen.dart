@@ -21,7 +21,7 @@ class GmDashboardScreen extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth >= 900;
-          return PrimeCareScrollWrapper(
+          return SingleChildScrollView(
             padding: EdgeInsets.all(24),
             child: Flex(
               direction: isDesktop ? Axis.horizontal : Axis.vertical,
@@ -33,24 +33,24 @@ class GmDashboardScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       PrimeCareText('Month-Over-Month Velocity', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                      PrimeCareSizedBox(height: 16),
+                      SizedBox(height: 16),
                       _buildHeroMetric('Net-New Acquisitions', '+41 Patients', '+14.2% MoM', PrimeCareColors.emerald),
-                      PrimeCareSizedBox(height: 16),
+                      SizedBox(height: 16),
                       _buildHeroMetric('EBITDA (Gross Margin)', '32.4%', '+4.1% MoM', PrimeCareColors.amber),
                     ],
                   )
                 ),
-                if (isDesktop) PrimeCareSizedBox(width: 32) else PrimeCareSizedBox(height: 32),
+                if (isDesktop) SizedBox(width: 32) else SizedBox(height: 32),
                 PrimeCareExpanded(
                   flex: isDesktop ? 1 : 0,
                   child: PrimeCareColumn(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       PrimeCareText('OPERATIONAL LEAKAGE', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                      PrimeCareSizedBox(height: 16),
+                      SizedBox(height: 16),
                       _buildLeakageTile('Surge Pricing Output', '\$14,200', 'Alert: 2x above target', PrimeCareColors.rose),
                       _buildLeakageTile('Overtime Pay (PSW/RN)', '\$3,140', 'Nominal', PrimeCareColors.emerald),
-                      PrimeCareSizedBox(height: 32),
+                      SizedBox(height: 32),
                       PrimeCareButton(type: PrimeCareButtonType.primary, 
                         onPressed: () {},
                         
@@ -75,7 +75,7 @@ class GmDashboardScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PrimeCareText(title, style: TextStyle(color: PrimeCareColors.slate400, fontSize: 14)),
-          PrimeCareSizedBox(height: 8),
+          SizedBox(height: 8),
           PrimeCareRow(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -105,7 +105,7 @@ class GmDashboardScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PrimeCareText(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              PrimeCareSizedBox(height: 4),
+              SizedBox(height: 4),
               PrimeCareText(status, style: TextStyle(color: statusColor, fontSize: 12)),
             ],
           ),
