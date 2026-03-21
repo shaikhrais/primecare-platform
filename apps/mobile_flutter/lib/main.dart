@@ -13,7 +13,7 @@ import 'features/psw/psw_profile_screen.dart';
 import 'features/psw/psw_messages_screen.dart';
 import 'features/psw/psw_training_screen.dart';
 import 'features/rn/rn_shell_screen.dart';
-import 'features/rn/rn_dashboard_screen.dart';
+import 'features/shared/screens/universal_host_screen.dart';
 import 'features/psw/psw_live_visit_screen.dart';
 import 'features/psw/psw_live_video_triage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,8 +21,7 @@ import 'core/theme.dart';
 
 import 'features/client/client_shell_screen.dart';
 import 'features/client/client_dashboard_screen.dart';
-import 'features/rn/rn_shell_screen.dart';
-import 'features/rn/rn_dashboard_screen.dart';
+import 'features/client/client_dashboard_screen.dart';
 import 'features/coordinator/coordinator_shell_screen.dart';
 import 'features/coordinator/coordinator_dashboard_screen.dart';
 import 'features/coordinator/coordinator_jane_matrix_screen.dart';
@@ -126,7 +125,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/dashboard',
-                builder: (context, state) => const RnDashboardScreen(),
+                builder: (context, state) => const UniversalHostScreen(endpoint: '/v1/sdui/dashboard'),
               ),
             ],
           ),
