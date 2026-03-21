@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
 
@@ -77,95 +77,82 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: const Text('PrimeCare Matrix', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('PrimeCare Matrix', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         backgroundColor: const Color(0xFF0EA5E9),
         foregroundColor: Colors.white,
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout, size: 22),
+            icon: const PrimeCareIcon(Icons.logout, size: 22),
             onPressed: _handleLogout,
             tooltip: 'Terminate Session',
           ),
         ],
       ),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: Padding(
+          child: PrimeCarePadding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: PrimeCareColumn(
           children: [
             // Structural Global Header Search Filter
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: PrimeCareColors.slate200),
-              ),
+            PrimeCareCard(
+              
               child: TextField(
                 controller: _searchController,
                 onChanged: _filterData,
                 decoration: const InputDecoration(
                   hintText: 'Live Keyword Search...',
                   hintStyle: TextStyle(color: PrimeCareColors.slate400, fontSize: 14),
-                  prefixIcon: Icon(Icons.search, color: PrimeCareColors.slate400),
+                  prefixIcon: PrimeCareIcon(Icons.search, color: PrimeCareColors.slate400),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const PrimeCareSizedBox(height: 16),
             
             // Native Zebra Striped Data Table Wrapper
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: PrimeCareColors.slate200),
-                  boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 4, offset: Offset(0, 2))],
-                ),
-                child: Column(
+            PrimeCareExpanded(
+              child: PrimeCareCard(
+                
+                child: PrimeCareColumn(
                   children: [
                     // Native Header Layout
-                    Container(
+                    PrimeCareCard(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF8FAFC),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                        border: Border(bottom: BorderSide(color: PrimeCareColors.slate200, width: 2)),
-                      ),
-                      child: const Row(
+                      
+                      child: const PrimeCareRow(
                         children: [
-                          Expanded(flex: 2, child: Text('IDENTIFIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
-                          Expanded(flex: 3, child: Text('CLASSIFICATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
-                          Expanded(flex: 2, child: Center(child: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5)))),
+                          PrimeCareExpanded(flex: 2, child: PrimeCareText('IDENTIFIER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
+                          PrimeCareExpanded(flex: 3, child: PrimeCareText('CLASSIFICATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5))),
+                          PrimeCareExpanded(flex: 2, child: PrimeCareCenter(child: PrimeCareText('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: PrimeCareColors.slate500, letterSpacing: 0.5)))),
                         ],
                       ),
                     ),
                     
                     // Native ListView rendering
-                    Expanded(
+                    PrimeCareExpanded(
                       child: _isLoading 
-                        ? const Center(child: CircularProgressIndicator(color: Color(0xFF0EA5E9)))
+                        ? const PrimeCareCenter(child: CircularProgressIndicator(color: Color(0xFF0EA5E9)))
                         : _errorMsg != null
-                          ? Center(
-                              child: Padding(
+                          ? PrimeCareCenter(
+                              child: PrimeCarePadding(
                                 padding: const EdgeInsets.all(32.0),
-                                child: Text(_errorMsg!, textAlign: TextAlign.center, style: const TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.bold)),
+                                child: PrimeCareText(_errorMsg!, textAlign: TextAlign.center, style: const TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.bold)),
                               ),
                             )
                           : _filteredData.isEmpty
-                            ? const Center(
-                                child: Column(
+                            ? const PrimeCareCenter(
+                                child: PrimeCareColumn(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.inventory_2_outlined, size: 48, color: PrimeCareColors.slate300),
-                                    SizedBox(height: 12),
-                                    Text('No active API entities discovered.', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w600)),
+                                    PrimeCareIcon(Icons.inventory_2_outlined, size: 48, color: PrimeCareColors.slate300),
+                                    PrimeCareSizedBox(height: 12),
+                                    PrimeCareText('No active API entities discovered.', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w600)),
                                   ],
                                 ),
                               )
@@ -185,30 +172,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                               return InkWell(
                                 onTap: () => setState(() => _selectedIndex = isSelected ? null : index),
-                                child: Container(
+                                child: PrimeCareCard(
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                  decoration: BoxDecoration(
-                                    color: rowColor,
-                                    border: Border(
-                                      bottom: const BorderSide(color: PrimeCareColors.slate200),
-                                      left: BorderSide(
-                                        color: isSelected ? const Color(0xFF0EA5E9) : Colors.transparent,
-                                        width: 3,
-                                      )
-                                    )
-                                  ),
-                                  child: Row(
+                                  
+                                  child: PrimeCareRow(
                                     children: [
-                                      Expanded(flex: 2, child: Text(item['id'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, color: PrimeCareColors.radarDark, fontSize: 13))),
-                                      Expanded(flex: 3, child: Text(item['name'] ?? '', style: const TextStyle(color: PrimeCareColors.slate700, fontSize: 13))),
-                                      Expanded(flex: 2, child: Center(
-                                        child: Container(
+                                      PrimeCareExpanded(flex: 2, child: PrimeCareText(item['id'] ?? '', style: const TextStyle(fontWeight: FontWeight.w600, color: PrimeCareColors.radarDark, fontSize: 13))),
+                                      PrimeCareExpanded(flex: 3, child: PrimeCareText(item['name'] ?? '', style: const TextStyle(color: PrimeCareColors.slate700, fontSize: 13))),
+                                      PrimeCareExpanded(flex: 2, child: PrimeCareCenter(
+                                        child: PrimeCareCard(
                                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            color: item['status'] == 'Active' ? const Color(0x1A10B981) : const Color(0x1AF59E0B),
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: Text(
+                                          
+                                          child: PrimeCareText(
                                             (item['status'] ?? '').toUpperCase(),
                                             style: TextStyle(
                                               color: item['status'] == 'Active' ? PrimeCareColors.emerald : PrimeCareColors.amber,

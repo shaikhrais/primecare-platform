@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 
 class CoordinatorDashboardScreen extends StatefulWidget {
   const CoordinatorDashboardScreen({super.key});
@@ -25,9 +24,9 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: _isGlobalCodeBlack ? PrimeCareColors.radarDark : const Color(0xFFF8FAFC),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: CustomScrollView(
             slivers: [
@@ -37,48 +36,40 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
             pinned: true,
             backgroundColor: _isGlobalCodeBlack ? Colors.black87 : const Color(0xFF4338CA), 
             flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: _isGlobalCodeBlack 
-                        ? [Colors.black, Colors.red[900]!]
-                        : [const Color(0xFF312E81), const Color(0xFF4F46E5)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: SafeArea(
-                  child: Padding(
+              background: PrimeCareCard(
+                
+                child: PrimeCareSafeArea(
+                  child: PrimeCarePadding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Column(
+                    child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 10),
-                        Row(
+                        const PrimeCareSizedBox(height: 10),
+                        PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(_isGlobalCodeBlack ? 'MACRO OVERRIDE ACTIVE' : 'DISPATCH LOGISTICS', 
+                            PrimeCareText(_isGlobalCodeBlack ? 'MACRO OVERRIDE ACTIVE' : 'DISPATCH LOGISTICS', 
                                 style: TextStyle(color: _isGlobalCodeBlack ? Colors.redAccent : const Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
                             PrimeCareBadge(text: _isGlobalCodeBlack ? 'AUTOPILOT LOCKED' : '2 Unfilled Limits', color: Colors.white)
                           ],
                         ),
-                        const SizedBox(height: 8),
-                        Row(
+                        const PrimeCareSizedBox(height: 8),
+                        PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(_isGlobalCodeBlack ? '[CODE BLACK]' : 'Operations Hub', 
+                            PrimeCareText(_isGlobalCodeBlack ? '[CODE BLACK]' : 'Operations Hub', 
                                 style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
-                            Row(
+                            PrimeCareRow(
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.explore_rounded, color: Colors.white, size: 32),
+                                  icon: const PrimeCareIcon(Icons.explore_rounded, color: Colors.white, size: 32),
                                   onPressed: () {
                                     HapticFeedback.heavyImpact();
                                     context.push('/coordinator/live-map');
                                   },
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.calendar_month_rounded, color: Colors.white, size: 32),
+                                  icon: const PrimeCareIcon(Icons.calendar_month_rounded, color: Colors.white, size: 32),
                                   onPressed: () {
                                     HapticFeedback.heavyImpact();
                                     context.push('/coordinator/fleet-matrix');
@@ -94,21 +85,21 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                         PrimeCareCard(
                           padding: const EdgeInsets.all(20),
                           backgroundColor: _surgeActive ? PrimeCareColors.emerald : Colors.white12,
-                          child: Row(
+                          child: PrimeCareRow(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
+                              PrimeCareColumn(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  PrimeCareRow(
                                     children: [
-                                      Icon(_surgeActive ? Icons.bolt_rounded : Icons.offline_bolt_rounded, color: Colors.white, size: 24),
-                                      const SizedBox(width: 8),
-                                      Text(_surgeActive ? 'SURGE PRESET ACTIVE' : 'Enable +1.5x Surge', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
+                                      PrimeCareIcon(_surgeActive ? Icons.bolt_rounded : Icons.offline_bolt_rounded, color: Colors.white, size: 24),
+                                      const PrimeCareSizedBox(width: 8),
+                                      PrimeCareText(_surgeActive ? 'SURGE PRESET ACTIVE' : 'Enable +1.5x Surge', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
                                     ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(_surgeActive ? 'Broadcasting incentives to 45 PSWs' : 'Standard flat rate dispatched locally', style: TextStyle(color: _surgeActive ? const Color(0xFFD1FAE5) : const Color(0xFFC7D2FE), fontSize: 13)),
+                                  const PrimeCareSizedBox(height: 4),
+                                  PrimeCareText(_surgeActive ? 'Broadcasting incentives to 45 PSWs' : 'Standard flat rate dispatched locally', style: TextStyle(color: _surgeActive ? const Color(0xFFD1FAE5) : const Color(0xFFC7D2FE), fontSize: 13)),
                                 ],
                               ),
                               Switch(
@@ -139,32 +130,32 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final shift = _unfilledShifts[index];
-                  return Padding(
+                  return PrimeCarePadding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: PrimeCareCard(
                       padding: const EdgeInsets.all(24),
-                      child: Column(
+                      child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          PrimeCareRow(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                              PrimeCareText(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                               PrimeCareBadge(text: '${shift['matched']} Matches', color: const Color(0xFF6366F1))
                             ],
                           ),
-                          const SizedBox(height: 12),
-                          Text(shift['client'], style: const TextStyle(color: Color(0xFF475569), fontSize: 15, fontWeight: FontWeight.w600)),
-                          const SizedBox(height: 4),
-                          Row(
+                          const PrimeCareSizedBox(height: 12),
+                          PrimeCareText(shift['client'], style: const TextStyle(color: Color(0xFF475569), fontSize: 15, fontWeight: FontWeight.w600)),
+                          const PrimeCareSizedBox(height: 4),
+                          PrimeCareRow(
                             children: [
-                              const Icon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
-                              const SizedBox(width: 4),
-                              Text(shift['geo'], style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+                              const PrimeCareIcon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
+                              const PrimeCareSizedBox(width: 4),
+                              PrimeCareText(shift['geo'], style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                             ],
                           ),
-                          const SizedBox(height: 24),
-                          SizedBox(
+                          const PrimeCareSizedBox(height: 24),
+                          PrimeCareSizedBox(
                             width: double.infinity,
                             child: PrimeCareButton(
                               onPressed: () => HapticFeedback.mediumImpact(),

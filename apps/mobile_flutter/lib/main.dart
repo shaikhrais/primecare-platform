@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'features/auth/login_screen.dart';
@@ -133,7 +134,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/patients',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Patients Scope Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Patients Scope Active'))),
               ),
             ],
           ),
@@ -141,7 +142,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/inbox',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Inbox Thread Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Inbox Thread Active'))),
               ),
             ],
           ),
@@ -149,7 +150,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/profile',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('RN Profile Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Profile Active'))),
               ),
             ],
           ),
@@ -203,7 +204,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/staff',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Staff Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Staff Active'))),
               ),
             ],
           ),
@@ -211,7 +212,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/approvals',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Approvals Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Approvals Active'))),
               ),
             ],
           ),
@@ -219,7 +220,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/profile',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Coordinator Profile Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Profile Active'))),
               ),
             ],
           ),
@@ -243,7 +244,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/directory',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager Directory Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Directory Active'))),
               ),
             ],
           ),
@@ -251,7 +252,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/system',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager System Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager System Active'))),
               ),
             ],
           ),
@@ -259,7 +260,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/execute',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Manager Execute Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Execute Active'))),
               ),
             ],
           ),
@@ -380,7 +381,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/mt/clients',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('MT Clients Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('MT Clients Active'))),
               ),
             ],
           ),
@@ -388,7 +389,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/mt/messages',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('MT Messages Active'))),
+                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('MT Messages Active'))),
               ),
             ],
           ),

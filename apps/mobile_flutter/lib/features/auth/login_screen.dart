@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/api_client.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -72,46 +73,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: Center(
-        child: SingleChildScrollView(
+      body: PrimeCareCenter(
+        child: PrimeCareScrollWrapper(
           padding: const EdgeInsets.all(24.0),
-          child: Container(
+          child: PrimeCareCard(
             constraints: const BoxConstraints(maxWidth: 400),
             padding: const EdgeInsets.all(32.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: const [
-                BoxShadow(
-                  color: const Color(0x0D000000) /* Soft Shadow */, // Replacement for withOpacity(0.05)
-                  blurRadius: 10, offset: Offset(0, 4),
-                )
-              ],
-            ),
-            child: Column(
+            
+            child: PrimeCareColumn(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
+                const PrimeCareText(
                   'Sign In',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                const PrimeCareSizedBox(height: 8),
+                const PrimeCareText(
                   'Access the PrimeCare Mobile Platform',
                   style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 32),
+                const PrimeCareSizedBox(height: 32),
                 if (_errorMsg != null)
-                  Container(
+                  PrimeCareCard(
                     padding: const EdgeInsets.all(12),
                     margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(color: const const Color(0xFFFFF1F2) /* TODO: Rose Background */ /* TODO: Rose Background */, borderRadius: BorderRadius.circular(8)),
-                    child: Text(_errorMsg!, style: const TextStyle(color: PrimeCareColors.rose, fontSize: 13)),
+                    
+                    child: PrimeCareText(_errorMsg!, style: const TextStyle(color: PrimeCareColors.rose, fontSize: 13)),
                   ),
                 TextField(
                   controller: _emailController,
@@ -123,7 +115,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
-                const SizedBox(height: 16),
+                const PrimeCareSizedBox(height: 16),
                 TextField(
                   controller: _passwordController,
                   style: const TextStyle(color: PrimeCareColors.radarDark),
@@ -134,23 +126,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   obscureText: true,
                 ),
-                const SizedBox(height: 24),
-                ElevatedButton(
+                const PrimeCareSizedBox(height: 24),
+                PrimeCareButton(type: PrimeCareButtonType.primary, 
                   onPressed: _isLoading ? null : _handleLogin,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0EA5E9),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
+                  
                   child: _isLoading 
-                      ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const Text('Authenticate Security Token', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ? const PrimeCareSizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      : const PrimeCareText('Authenticate Security Token', style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
-                const SizedBox(height: 16),
-                TextButton(
+                const PrimeCareSizedBox(height: 16),
+                PrimeCareButton(type: PrimeCareButtonType.text, 
                   onPressed: () => context.push('/forgot-password'),
-                  child: const Text('Forgot Password?', style: TextStyle(color: Color(0xFF0EA5E9), fontWeight: FontWeight.bold)),
+                  child: const PrimeCareText('Forgot Password?', style: TextStyle(color: Color(0xFF0EA5E9), fontWeight: FontWeight.bold)),
                 ),
               ],
             ),

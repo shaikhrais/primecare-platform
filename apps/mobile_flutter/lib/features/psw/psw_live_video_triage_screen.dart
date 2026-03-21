@@ -3,6 +3,7 @@ import '../../core/colors.dart';
 
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswLiveVideoTriageScreen extends StatefulWidget {
   final String incidentId;
@@ -82,21 +83,21 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: Colors.black, // Dark Theater Mode
-      body: Stack(
+      body: PrimeCareStack(
         children: [
           // Remote Video Stream (Full Screen)
           Positioned.fill(
-            child: Container(
+            child: PrimeCareContainer(
               color: PrimeCareColors.radarDark,
               child: _inCalling
                   ? RTCVideoView(
                       _remoteRenderer,
                       objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
                     )
-                  : const Center(
-                      child: Text('Awaiting Triage Nurse Assignment...', 
+                  : const PrimeCareCenter(
+                      child: PrimeCareText('Awaiting Triage Nurse Assignment...', 
                         style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold)
                       ),
                     ),
@@ -108,15 +109,10 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
             Positioned(
               right: 20,
               top: 60, // Avoid safe area
-              child: Container(
+              child: PrimeCareCard(
                 width: 120,
                 height: 160,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0x33FFFFFF), width: 1.5),
-                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 20, offset: Offset(0, 10))],
-                ),
+                
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: RTCVideoView(
@@ -140,21 +136,17 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
           Positioned(
             top: 60,
             left: 20,
-            child: Container(
+            child: PrimeCareCard(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0x22FFFFFF)),
-              ),
-              child: Row(
+              
+              child: PrimeCareRow(
                 children: [
-                  Container(
+                  PrimeCareCard(
                     width: 8, height: 8,
-                    decoration: BoxDecoration(color: _inCalling ? PrimeCareColors.emerald : Colors.amber, shape: BoxShape.circle),
+                    
                   ),
-                  const SizedBox(width: 8),
-                  Text(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                  const PrimeCareSizedBox(width: 8),
+                  PrimeCareText(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
                 ],
               ),
             ),
@@ -165,14 +157,10 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
   }
 
   Widget _buildControlsDock() {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: const Color(0x11FFFFFF), width: 1.5),
-      ),
-      child: Row(
+      
+      child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildControlButton(Icons.mic, Colors.white, Colors.white24, () {}),
@@ -189,10 +177,10 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
   Widget _buildControlButton(IconData icon, Color iconColor, Color bgColor, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: PrimeCareCard(
         width: 60, height: 60,
-        decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
-        child: Icon(icon, color: iconColor, size: 28),
+        
+        child: PrimeCareIcon(icon, color: iconColor, size: 28),
       ),
     );
   }

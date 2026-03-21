@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:flutter/services.dart';
-import '../shared/layouts/master_detail_layout.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'psw_timesheet_detail_screen.dart';
 
 class PswTimesheetScreen extends StatefulWidget {
@@ -23,10 +23,10 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: Text(
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText(
           'Payroll & Earnings', 
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
         ),
@@ -37,35 +37,27 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
       body: MasterDetailLayout(
         isDetailActive: _selectedPeriod != null,
         onBackToMaster: () => setState(() => _selectedPeriod = null),
-        masterList: SingleChildScrollView(
+        masterList: PrimeCareScrollWrapper(
           padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
-          child: Column(
+          child: PrimeCareColumn(
             children: [
               // Month High-Level Aggregation
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [PrimeCareColors.radarDark, PrimeCareColors.slate800],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: const [BoxShadow(color: Color(0x33000000), blurRadius: 20, offset: Offset(0, 8))],
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 children: [
-                   const Text('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
-                   const SizedBox(height: 8),
-                   const Text('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
-                   const SizedBox(height: 24),
-                   Row(
+                   const PrimeCareText('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
+                   const PrimeCareSizedBox(height: 8),
+                   const PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
+                   const PrimeCareSizedBox(height: 24),
+                   PrimeCareRow(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        _buildMetric('Hours', '142.5'),
-                       Container(width: 1, height: 40, color: PrimeCareColors.slate700),
+                       PrimeCareContainer(width: 1, height: 40, color: PrimeCareColors.slate700),
                        _buildMetric('Shifts', '22'),
-                       Container(width: 1, height: 40, color: PrimeCareColors.slate700),
+                       PrimeCareContainer(width: 1, height: 40, color: PrimeCareColors.slate700),
                        _buildMetric('Surge OT', '18h'),
                      ],
                    )
@@ -73,34 +65,27 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
             
             // Interactive 30-Day Grid Space (Placeholder for GitHub UI)
-            Container(
+            PrimeCareCard(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: PrimeCareColors.slate200),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
-                  const SizedBox(height: 16),
+                  const PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
+                  const PrimeCareSizedBox(height: 16),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: List.generate(28, (index) {
                       final intensity = (index % 5 == 0) ? 0.8 : (index % 3 == 0) ? 0.4 : 0.1;
-                      return Container(
+                      return PrimeCareCard(
                         width: 24,
                         height: 24,
-                        decoration: BoxDecoration(
-                          color: PrimeCareColors.emerald.withOpacity(intensity),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
+                        
                       );
                     }),
                   )
@@ -108,11 +93,11 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
             
             // Level 1 Daily Rows -> Drills directly to Level 2
             ..._payPeriods.map((period) {
-              return Padding(
+              return PrimeCarePadding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: InkWell(
                   onTap: () {
@@ -127,44 +112,37 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                     }
                   },
                   borderRadius: BorderRadius.circular(16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: PrimeCareColors.slate200),
-                    ),
+                  child: PrimeCareCard(
+                    
                     padding: const EdgeInsets.all(20),
-                    child: Row(
+                    child: PrimeCareRow(
                       children: [
-                        Container(
+                        PrimeCareCard(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF1F5F9),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(Icons.receipt_long_rounded, color: Color(0xFF475569)),
+                          
+                          child: const PrimeCareIcon(Icons.receipt_long_rounded, color: Color(0xFF475569)),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
+                        const PrimeCareSizedBox(width: 16),
+                        PrimeCareExpanded(
+                          child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(period['date'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              const SizedBox(height: 4),
-                              Text('${period['hours']} Hours • ${period['shifts']} Shifts', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
+                              PrimeCareText(period['date'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              const PrimeCareSizedBox(height: 4),
+                              PrimeCareText('${period['hours']} Hours • ${period['shifts']} Shifts', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                             ],
                           ),
                         ),
-                        Column(
+                        PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('\$${period['earnings'].toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                            PrimeCareText('\$${period['earnings'].toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                             if (period['surge'])
-                              const Text('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
+                              const PrimeCareText('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        const SizedBox(width: 8),
-                        const Icon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
+                        const PrimeCareSizedBox(width: 8),
+                        const PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
                       ],
                     ),
                   ),
@@ -174,7 +152,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
           ],
         ),
         ),
-        detailView: _selectedPeriod == null ? const SizedBox.shrink() : PswTimesheetDetailScreen(
+        detailView: _selectedPeriod == null ? const PrimeCareSizedBox.shrink() : PswTimesheetDetailScreen(
           date: _selectedPeriod!['date'],
           earnings: _selectedPeriod!['earnings'],
           surgeActive: _selectedPeriod!['surge'],
@@ -184,11 +162,11 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   }
 
   Widget _buildMetric(String label, String value) {
-    return Column(
+    return PrimeCareColumn(
       children: [
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 4),
-        Text(label, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
+        PrimeCareText(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+        const PrimeCareSizedBox(height: 4),
+        PrimeCareText(label, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// The Morning Briefing UI (Phase 69)
 /// This screen is explicitly designed to reduce anxiety for the Founder/CEO.
@@ -14,19 +15,19 @@ class SuperuserBriefingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // A deeply calming, slate-grey and soft aesthetic intentionally 
     // replacing the chaotic red/warning Dashboards.
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.darkMatrixCard, 
-      body: SafeArea(
-        child: Padding(
+      body: PrimeCareSafeArea(
+        child: PrimeCarePadding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
-          child: Column(
+          child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 1. The Greeting Header
-              Row(
+              PrimeCareRow(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  PrimeCareText(
                     'Good Morning, Founder.',
                     style: GoogleFonts.outfit(
                       fontSize: 32,
@@ -38,12 +39,12 @@ class SuperuserBriefingScreen extends StatelessWidget {
                   const CircleAvatar(
                     radius: 24,
                     backgroundColor: Color(0xFF2C2C30),
-                    child: Icon(Icons.wb_sunny_outlined, color: Colors.amberAccent),
+                    child: PrimeCareIcon(Icons.wb_sunny_outlined, color: Colors.amberAccent),
                   )
                 ],
               ),
-              const SizedBox(height: 16),
-              Text(
+              const PrimeCareSizedBox(height: 16),
+              PrimeCareText(
                 'The PrimeCare Autopilot operated flawlessly last night while you slept. Zero manual intervention was required by your operations team.',
                 style: GoogleFonts.inter(
                   fontSize: 18,
@@ -52,10 +53,10 @@ class SuperuserBriefingScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const PrimeCareSizedBox(height: 48),
 
               // 2. The Operational Data Cards
-              Expanded(
+              PrimeCareExpanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 24,
@@ -97,19 +98,16 @@ class SuperuserBriefingScreen extends StatelessWidget {
               ),
 
               // 3. The Footer Call to Action
-              Center(
-                child: Container(
+              PrimeCareCenter(
+                child: PrimeCareCard(
                   width: double.infinity,
                   height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: TextButton(
+                  
+                  child: PrimeCareButton(type: PrimeCareButtonType.text, 
                     onPressed: () {
                       // Navigate inside to the deep Ecosystem Control Center if they MUST supervise.
                     },
-                    child: Text(
+                    child: PrimeCareText(
                       'Acknowledge & Dismiss',
                       style: GoogleFonts.inter(
                         fontSize: 16,
@@ -133,22 +131,18 @@ class SuperuserBriefingScreen extends StatelessWidget {
     required String label,
     required Color color,
   }) {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E1E22),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
+          PrimeCareRow(
             children: [
-              Icon(icon, color: color, size: 28),
-              const SizedBox(width: 12),
-              Text(
+              PrimeCareIcon(icon, color: color, size: 28),
+              const PrimeCareSizedBox(width: 12),
+              PrimeCareText(
                 value,
                 style: GoogleFonts.outfit(
                   fontSize: 32,
@@ -159,8 +153,8 @@ class SuperuserBriefingScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          Text(
+          const PrimeCareSizedBox(height: 12),
+          PrimeCareText(
             label,
             style: GoogleFonts.inter(
               fontSize: 14,

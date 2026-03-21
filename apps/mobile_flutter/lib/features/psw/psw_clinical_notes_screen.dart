@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../../core/widgets/primecare_app_bar.dart';
-import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PswClinicalNotesScreen extends StatelessWidget {
@@ -10,20 +8,15 @@ class PswClinicalNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       appBar: const PrimeCareAppBar(title: 'Clinical Progress Note'),
       body: DesktopPaneWrapper(
-        child: SingleChildScrollView(
+        child: PrimeCareScrollWrapper(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-          child: Column(
+          child: PrimeCareColumn(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: PrimeCareColors.slate200),
-                  boxShadow: const [BoxShadow(color: Color(0x05000000), blurRadius: 16, offset: Offset(0, 4))],
-                ),
+              PrimeCareCard(
+                
                 child: const TextField(
                   maxLines: 15,
                   style: TextStyle(fontSize: 18, color: PrimeCareColors.slate700, height: 1.5),
@@ -38,11 +31,11 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox(height: 24),
+              const PrimeCareSizedBox(height: 24),
               
-              Row(
+              PrimeCareRow(
                 children: [
-                  Expanded(
+                  PrimeCareExpanded(
                     child: PrimeCareButton(
                       onPressed: (){},
                       text: 'Add Image',
@@ -50,8 +43,8 @@ class PswClinicalNotesScreen extends StatelessWidget {
                       icon: Icons.camera_alt,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
+                  const PrimeCareSizedBox(width: 16),
+                  PrimeCareExpanded(
                     child: PrimeCareButton(
                       onPressed: (){},
                       text: 'Audio Memo',
@@ -62,13 +55,13 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ],
               ),
               
-              const SizedBox(height: 48),
+              const PrimeCareSizedBox(height: 48),
               PrimeCareButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                      SnackBar(
-                       content: const Text('Progress Note Appended Securely'),
+                       content: const PrimeCareText('Progress Note Appended Securely'),
                        backgroundColor: Theme.of(context).colorScheme.primary,
                        behavior: SnackBarBehavior.floating,
                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

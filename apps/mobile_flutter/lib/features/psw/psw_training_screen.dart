@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/services.dart';
 import 'psw_video_training_screen.dart';
 
@@ -16,10 +16,10 @@ class PswTrainingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: Text(
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText(
           'Compliance & Training', 
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
         ),
@@ -27,27 +27,22 @@ class PswTrainingScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
       ),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: SingleChildScrollView(
+          child: PrimeCareScrollWrapper(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 120),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Macro Ring Visualization
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(32),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: PrimeCareColors.slate200),
-                boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 20, offset: Offset(0, 8))],
-              ),
-              child: Row(
+              
+              child: PrimeCareRow(
                 children: [
-                   SizedBox(
+                   PrimeCareSizedBox(
                      width: 120, height: 120,
-                     child: Stack(
+                     child: PrimeCareStack(
                        fit: StackFit.expand,
                        children: [
                          const CircularProgressIndicator(
@@ -57,20 +52,20 @@ class PswTrainingScreen extends StatelessWidget {
                            color: PrimeCareColors.emerald,
                            strokeCap: StrokeCap.round,
                          ),
-                         Center(
-                           child: Text('85%', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w900)),
+                         PrimeCareCenter(
+                           child: PrimeCareText('85%', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w900)),
                          )
                        ],
                      ),
                    ),
-                   const SizedBox(width: 32),
-                   Expanded(
-                     child: Column(
+                   const PrimeCareSizedBox(width: 32),
+                   PrimeCareExpanded(
+                     child: PrimeCareColumn(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         const Text('Global Compliance', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
-                         const SizedBox(height: 8),
-                         const Text('2 Modules Pending Verification', style: TextStyle(color: PrimeCareColors.radarDark, fontSize: 18, fontWeight: FontWeight.w900, height: 1.3)),
+                         const PrimeCareText('Global Compliance', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
+                         const PrimeCareSizedBox(height: 8),
+                         const PrimeCareText('2 Modules Pending Verification', style: TextStyle(color: PrimeCareColors.radarDark, fontSize: 18, fontWeight: FontWeight.w900, height: 1.3)),
                        ],
                      ),
                    )
@@ -78,12 +73,12 @@ class PswTrainingScreen extends StatelessWidget {
               ),
             ),
             
-            const SizedBox(height: 32),
-            const Text('REQUIRED MICRO-LEARNING', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
+            const PrimeCareSizedBox(height: 32),
+            const PrimeCareText('REQUIRED MICRO-LEARNING', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1.5)),
+            const PrimeCareSizedBox(height: 16),
 
             ..._catalog.map((course) {
-              return Padding(
+              return PrimeCarePadding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: InkWell(
                   onTap: () {
@@ -93,32 +88,24 @@ class PswTrainingScreen extends StatelessWidget {
                     );
                   },
                   borderRadius: BorderRadius.circular(20),
-                  child: Container(
+                  child: PrimeCareCard(
                     padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate200, width: course['urgent'] ? 2 : 1),
-                      boxShadow: course['urgent'] ? const [BoxShadow(color: Color(0x11E11D48), blurRadius: 16, offset: Offset(0, 4))] : [],
-                    ),
-                    child: Row(
+                    
+                    child: PrimeCareRow(
                       children: [
-                        Container(
+                        PrimeCareCard(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: course['progress'] == 1.0 ? PrimeCareColors.emerald : PrimeCareColors.slate200,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(course['progress'] == 1.0 ? Icons.check : Icons.play_arrow_rounded, color: course['progress'] == 1.0 ? Colors.white : PrimeCareColors.radarDark),
+                          
+                          child: PrimeCareIcon(course['progress'] == 1.0 ? Icons.check : Icons.play_arrow_rounded, color: course['progress'] == 1.0 ? Colors.white : PrimeCareColors.radarDark),
                         ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
+                        const PrimeCareSizedBox(width: 20),
+                        PrimeCareExpanded(
+                          child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(course['title'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
-                              const SizedBox(height: 6),
-                              Text(course['status'], style: TextStyle(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.bold)),
+                              PrimeCareText(course['title'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
+                              const PrimeCareSizedBox(height: 6),
+                              PrimeCareText(course['status'], style: TextStyle(color: course['urgent'] ? PrimeCareColors.rose : PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),

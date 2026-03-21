@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// The Founder Workspace & B2B Pipeline (Phase 72)
 /// This is the physical tool the Super Admin uses to "add his work".
@@ -25,92 +26,85 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
   @override
   Widget build(BuildContext context) {
     // A highly professional, obsidian "Executive Desk" aesthetic
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.darkMatrixCard,
-      appBar: AppBar(
+      appBar: PrimeCareNavBar(
         backgroundColor: PrimeCareColors.darkMatrixCard,
         elevation: 0,
-        title: Text('BUSINESS DEVELOPMENT CRM', style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16)),
+        title: PrimeCareText('BUSINESS DEVELOPMENT CRM', style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_box, color: Colors.blueAccent, size: 28),
+            icon: const PrimeCareIcon(Icons.add_box, color: Colors.blueAccent, size: 28),
             onPressed: () {
               // Open modal to add new Hospital Target or Work Item
             },
           ),
-          const SizedBox(width: 16),
+          const PrimeCareSizedBox(width: 16),
         ],
       ),
-      body: Padding(
+      body: PrimeCarePadding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
-            Text('Your Growth Pipeline', style: GoogleFonts.outfit(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text('Track hospital outreach, add physical meeting notes, and monitor the value of your referral networks.', 
+            const PrimeCareSizedBox(height: 16),
+            PrimeCareText('Your Growth Pipeline', style: GoogleFonts.outfit(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+            const PrimeCareSizedBox(height: 8),
+            PrimeCareText('Track hospital outreach, add physical meeting notes, and monitor the value of your referral networks.', 
               style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 15)),
             
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
             
             // KPI Summary Row
-            Row(
+            PrimeCareRow(
               children: [
                 _buildKpiCard('Total Active Value', '\$45,000', Colors.tealAccent),
-                const SizedBox(width: 16),
+                const PrimeCareSizedBox(width: 16),
                 _buildKpiCard('Pending Pipeline', '\$20,500', Colors.amberAccent),
               ],
             ),
 
-            const SizedBox(height: 32),
-            Text('ACTIVE TARGETS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 13, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
+            const PrimeCareSizedBox(height: 32),
+            PrimeCareText('ACTIVE TARGETS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 13, letterSpacing: 1.5)),
+            const PrimeCareSizedBox(height: 16),
 
             // The Work List (Kanban List)
-            Expanded(
+            PrimeCareExpanded(
               child: ListView.builder(
                 itemCount: _pipeline.length,
                 itemBuilder: (context, index) {
                   final target = _pipeline[index];
-                  return Container(
+                  return PrimeCareCard(
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E22),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white10)
-                    ),
-                    child: Row(
+                    
+                    child: PrimeCareRow(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
+                        PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(target['name'], style: GoogleFonts.outfit(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 6),
-                            Row(
+                            PrimeCareText(target['name'], style: GoogleFonts.outfit(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                            const PrimeCareSizedBox(height: 6),
+                            PrimeCareRow(
                               children: [
-                                const Icon(Icons.person_outline, color: Colors.grey, size: 16),
-                                const SizedBox(width: 6),
-                                Text(target['contact'], style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14)),
+                                const PrimeCareIcon(Icons.person_outline, color: Colors.grey, size: 16),
+                                const PrimeCareSizedBox(width: 6),
+                                PrimeCareText(target['contact'], style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 14)),
                               ],
                             ),
                           ],
                         ),
-                        Column(
+                        PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
+                            PrimeCareCard(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: (target['color'] as Color).withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(target['status'], style: GoogleFonts.inter(color: target['color'], fontWeight: FontWeight.bold, fontSize: 12)),
+                              
+                              child: PrimeCareText(target['status'], style: GoogleFonts.inter(color: target['color'], fontWeight: FontWeight.bold, fontSize: 12)),
                             ),
-                            const SizedBox(height: 8),
-                            Text(target['value'], style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                            const PrimeCareSizedBox(height: 8),
+                            PrimeCareText(target['value'], style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                           ],
                         )
                       ],
@@ -124,8 +118,8 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.blueAccent,
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: Text('Log New Work Update', style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold)),
+        icon: const PrimeCareIcon(Icons.add, color: Colors.white),
+        label: PrimeCareText('Log New Work Update', style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold)),
         onPressed: () {
           // Open sliding pane to add a physical update/note to a target
         },
@@ -134,20 +128,16 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
   }
 
   Widget _buildKpiCard(String label, String value, Color color) {
-    return Expanded(
-      child: Container(
+    return PrimeCareExpanded(
+      child: PrimeCareCard(
         padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.05),
-          border: Border.all(color: color.withOpacity(0.3)),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
+        
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13)),
-            const SizedBox(height: 8),
-            Text(value, style: GoogleFonts.outfit(color: color, fontSize: 28, fontWeight: FontWeight.bold)),
+            PrimeCareText(label, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13)),
+            const PrimeCareSizedBox(height: 8),
+            PrimeCareText(value, style: GoogleFonts.outfit(color: color, fontSize: 28, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

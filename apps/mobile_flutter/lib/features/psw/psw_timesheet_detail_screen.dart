@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
-import '../../core/widgets/primecare_app_bar.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswTimesheetDetailScreen extends StatelessWidget {
   final String date;
@@ -18,45 +17,37 @@ class PswTimesheetDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$date Shift Details'),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: SingleChildScrollView(
+          child: PrimeCareScrollWrapper(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Macro Earnings Payout Calculation Graphic
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(32),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: PrimeCareColors.slate200),
-                boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 children: [
-                  const Text('Gross Daily Earnings', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16)),
-                  const SizedBox(height: 12),
-                  Text('\$${earnings.toStringAsFixed(2)}', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, letterSpacing: -1)),
+                  const PrimeCareText('Gross Daily Earnings', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16)),
+                  const PrimeCareSizedBox(height: 12),
+                  PrimeCareText('\$${earnings.toStringAsFixed(2)}', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, letterSpacing: -1)),
                   
                   if (surgeActive) ...[
-                    const SizedBox(height: 16),
-                    Container(
+                    const PrimeCareSizedBox(height: 16),
+                    PrimeCareCard(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: const Color(0x1110B981),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Row(
+                      
+                      child: const PrimeCareRow(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.bolt_rounded, color: PrimeCareColors.emerald, size: 20),
-                          SizedBox(width: 8),
-                          Text('High Demand Surge Active (+1.5x)', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
+                          PrimeCareIcon(Icons.bolt_rounded, color: PrimeCareColors.emerald, size: 20),
+                          PrimeCareSizedBox(width: 8),
+                          PrimeCareText('High Demand Surge Active (+1.5x)', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                         ],
                       )
                     )
@@ -65,53 +56,45 @@ class PswTimesheetDetailScreen extends StatelessWidget {
               ),
             ),
             
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
             
             // Tax Simulator Breakdown Widget
-            const Text('NET TAKEHOME CALCULATION', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
-            Container(
+            const PrimeCareText('NET TAKEHOME CALCULATION', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+            const PrimeCareSizedBox(height: 16),
+            PrimeCareCard(
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: PrimeCareColors.slate200),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 children: [
                   _buildLineItem('Base Pay (8h x \$25.00)', '\$200.00'),
-                  const SizedBox(height: 12),
+                  const PrimeCareSizedBox(height: 12),
                   _buildLineItem('Surge OT (2.5h x \$37.50)', '\$93.75'),
-                  const SizedBox(height: 12),
+                  const PrimeCareSizedBox(height: 12),
                   _buildLineItem('Travel Stipend (14km)', '\$21.25'),
-                  const Padding(
+                  const PrimeCarePadding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Divider(color: PrimeCareColors.slate200),
                   ),
                   _buildLineItem('Est. Target Pre-Tax', '\$315.00', bold: true),
-                  const SizedBox(height: 12),
+                  const PrimeCareSizedBox(height: 12),
                   _buildLineItem('- Federal Deductions (15%)', '-\$47.25', color: PrimeCareColors.rose),
                   _buildLineItem('- CPP Contributions (2%)', '-\$6.30', color: PrimeCareColors.rose),
                 ],
               ),
             ),
 
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
 
             // EVV GPS Logging Verification Node
-            const Text('TELEMETRY GPS LOGS', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
-            const SizedBox(height: 16),
-            Container(
+            const PrimeCareText('TELEMETRY GPS LOGS', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.5)),
+            const PrimeCareSizedBox(height: 16),
+            PrimeCareCard(
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: PrimeCareColors.slate200),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 children: [
                   _buildGpsLog('CLOCK IN', '10:04:12 AM', 'Lat 43.65, Lon -79.38 • Accuracy 4m', true),
-                  Container(
+                  PrimeCareContainer(
                     margin: const EdgeInsets.only(left: 17),
                     height: 32, width: 2, 
                     color: PrimeCareColors.slate200, 
@@ -130,29 +113,29 @@ class PswTimesheetDetailScreen extends StatelessWidget {
   }
 
   Widget _buildLineItem(String label, String amount, {bool bold = false, Color? color}) {
-    return Row(
+    return PrimeCareRow(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.normal, color: color ?? const Color(0xFF475569))),
-        Text(amount, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.w600, color: color ?? PrimeCareColors.radarDark)),
+        PrimeCareText(label, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.normal, color: color ?? const Color(0xFF475569))),
+        PrimeCareText(amount, style: TextStyle(fontSize: 15, fontWeight: bold ? FontWeight.bold : FontWeight.w600, color: color ?? PrimeCareColors.radarDark)),
       ],
     );
   }
 
   Widget _buildGpsLog(String type, String time, String geo, bool isStart) {
-    return Row(
+    return PrimeCareRow(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(isStart ? Icons.gps_fixed : Icons.exit_to_app_rounded, color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), size: 36),
-        const SizedBox(width: 16),
-        Column(
+        PrimeCareIcon(isStart ? Icons.gps_fixed : Icons.exit_to_app_rounded, color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), size: 36),
+        const PrimeCareSizedBox(width: 16),
+        PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(type, style: TextStyle(color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1)),
-            const SizedBox(height: 4),
-            Text(time, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-            const SizedBox(height: 4),
-            Text(geo, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontFamily: 'monospace')),
+            PrimeCareText(type, style: TextStyle(color: isStart ? PrimeCareColors.emerald : const Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 1)),
+            const PrimeCareSizedBox(height: 4),
+            PrimeCareText(time, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+            const PrimeCareSizedBox(height: 4),
+            PrimeCareText(geo, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontFamily: 'monospace')),
           ],
         )
       ],

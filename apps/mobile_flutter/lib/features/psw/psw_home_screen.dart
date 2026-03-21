@@ -4,7 +4,7 @@ import '../../core/colors.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import '../shared/layouts/responsive_layout_manager.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import '../../../core/localization/app_strings.dart';
 
 class PswHomeScreen extends StatelessWidget {
@@ -12,17 +12,17 @@ class PswHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
+      appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(AppStrings.appName, 
+        title: const PrimeCareText(AppStrings.appName, 
           style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
+            icon: const PrimeCareIcon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
             onPressed: () {},
           )
         ],
@@ -35,10 +35,10 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildMobileLayout(BuildContext context) {
-    return SingleChildScrollView(
+    return PrimeCareScrollWrapper(
       padding: const EdgeInsets.all(24.0),
       child: AnimationLimiter(
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: AnimationConfiguration.toStaggeredList(
             duration: const Duration(milliseconds: 600),
@@ -48,13 +48,13 @@ class PswHomeScreen extends StatelessWidget {
             ),
             children: [
               _buildWelcomeCard(),
-              const SizedBox(height: 32),
+              const PrimeCareSizedBox(height: 32),
               _buildStatisticsArray(),
-              const SizedBox(height: 32),
+              const PrimeCareSizedBox(height: 32),
               _buildQuickLinks(context, 2),
-              const SizedBox(height: 32),
+              const PrimeCareSizedBox(height: 32),
               _buildFeed(),
-              const SizedBox(height: 64),
+              const PrimeCareSizedBox(height: 64),
             ],
           ),
         ),
@@ -63,15 +63,15 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildDesktopLayout(BuildContext context) {
-    return SingleChildScrollView(
+    return PrimeCareScrollWrapper(
       padding: const EdgeInsets.all(40.0),
       child: AnimationLimiter(
-        child: Row(
+        child: PrimeCareRow(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            PrimeCareExpanded(
               flex: 3,
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: AnimationConfiguration.toStaggeredList(
                   duration: const Duration(milliseconds: 600),
@@ -81,16 +81,16 @@ class PswHomeScreen extends StatelessWidget {
                   ),
                   children: [
                     _buildWelcomeCard(),
-                    const SizedBox(height: 32),
+                    const PrimeCareSizedBox(height: 32),
                     _buildQuickLinks(context, 3), // 3 columns for quick links on wide view
                   ],
                 ),
               ),
             ),
-            const SizedBox(width: 40),
-            Expanded(
+            const PrimeCareSizedBox(width: 40),
+            PrimeCareExpanded(
               flex: 2,
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: AnimationConfiguration.toStaggeredList(
                   duration: const Duration(milliseconds: 600),
@@ -100,7 +100,7 @@ class PswHomeScreen extends StatelessWidget {
                   ),
                   children: [
                     _buildStatisticsArray(),
-                    const SizedBox(height: 32),
+                    const PrimeCareSizedBox(height: 32),
                     _buildFeed(),
                   ],
                 ),
@@ -113,43 +113,33 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildWelcomeCard() {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF0EA5E9), Color(0xFF3B82F6)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: const [
-          BoxShadow(color: Color(0x330EA5E9), blurRadius: 20, offset: Offset(0, 10))
-        ],
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(AppStrings.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          Text(AppStrings.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
+          const PrimeCareText(AppStrings.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
+          const PrimeCareSizedBox(height: 12),
+          PrimeCareText(AppStrings.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
         ],
       ),
     );
   }
 
   Widget _buildStatisticsArray() {
-    return Column(
+    return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        const SizedBox(height: 16),
-        Row(
+        const PrimeCareText(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareSizedBox(height: 16),
+        PrimeCareRow(
           children: [
-            Expanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
-            const SizedBox(width: 16),
-            Expanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
-            const SizedBox(width: 16),
-            Expanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
+            PrimeCareExpanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
+            const PrimeCareSizedBox(width: 16),
+            PrimeCareExpanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
+            const PrimeCareSizedBox(width: 16),
+            PrimeCareExpanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
           ],
         ),
       ],
@@ -157,11 +147,11 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildQuickLinks(BuildContext context, int crossAxisCount) {
-    return Column(
+    return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        const SizedBox(height: 16),
+        const PrimeCareText(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareSizedBox(height: 16),
         GridView.count(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -188,33 +178,29 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildFeed() {
-    return Column(
+    return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-        const SizedBox(height: 16),
+        const PrimeCareText(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareSizedBox(height: 16),
         _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
-        const SizedBox(height: 16),
+        const PrimeCareSizedBox(height: 16),
         _buildFeedCard('Holiday Pay Multipliers', 'The PrimeCare system will automatically attach 1.5x surge pricing limits to all EVV shifts recorded on statutory holidays.'),
       ],
     );
   }
 
   Widget _buildStatCard(String label, String value, IconData icon, Color color) {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         children: [
-          Icon(icon, color: color, size: 28),
-          const SizedBox(height: 12),
-          Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12, color: PrimeCareColors.slate500), textAlign: TextAlign.center),
+          PrimeCareIcon(icon, color: color, size: 28),
+          const PrimeCareSizedBox(height: 12),
+          PrimeCareText(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+          const PrimeCareSizedBox(height: 4),
+          PrimeCareText(label, style: const TextStyle(fontSize: 12, color: PrimeCareColors.slate500), textAlign: TextAlign.center),
         ],
       ),
     );
@@ -226,33 +212,28 @@ class PswHomeScreen extends StatelessWidget {
         HapticFeedback.selectionClick();
         onTap();
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
-          border: Border.all(color: color.withAlpha(30), width: 1.5),
-        ),
-        child: Stack(
+      child: PrimeCareCard(
+        
+        child: PrimeCareStack(
           children: [
             Positioned(
               right: -10,
               top: -10,
-              child: Icon(icon, size: 80, color: color.withAlpha(15)),
+              child: PrimeCareIcon(icon, size: 80, color: color.withAlpha(15)),
             ),
-            Padding(
+            PrimeCarePadding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
+                  PrimeCareCard(
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(color: color.withAlpha(20), borderRadius: BorderRadius.circular(10)),
-                    child: Icon(icon, color: color, size: 24),
+                    
+                    child: PrimeCareIcon(icon, color: color, size: 24),
                   ),
                   const Spacer(),
-                  Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
+                  PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
                 ],
               ),
             ),
@@ -263,30 +244,25 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildFeedCard(String title, String desc) {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: const const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */ /* Soft Shadow */, blurRadius: 10, offset: Offset(0, 4))],
-        border: Border.all(color: const Color(0xFFF1F5F9), width: 1.5),
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          PrimeCareRow(
             children: [
-              Container(
+              PrimeCareCard(
                 padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(color: PrimeCareColors.emerald.withAlpha(20), borderRadius: BorderRadius.circular(8)),
-                child: const Icon(Icons.campaign_outlined, color: PrimeCareColors.emerald, size: 20),
+                
+                child: const PrimeCareIcon(Icons.campaign_outlined, color: PrimeCareColors.emerald, size: 20),
               ),
-              const SizedBox(width: 12),
-              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark))),
+              const PrimeCareSizedBox(width: 12),
+              PrimeCareExpanded(child: PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark))),
             ],
           ),
-          const SizedBox(height: 12),
-          Text(desc, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14, height: 1.5)),
+          const PrimeCareSizedBox(height: 12),
+          PrimeCareText(desc, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14, height: 1.5)),
         ],
       ),
     );

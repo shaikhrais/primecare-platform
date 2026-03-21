@@ -2,80 +2,73 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:flutter/services.dart';
-import '../../core/widgets/primecare_app_bar.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswEvvCheckoutScreen extends StatelessWidget {
   const PswEvvCheckoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: const PrimeCareAppBar(title: 'Shift Checkout Protocol'),
-      body: SafeArea(
-        child: Padding(
+      body: PrimeCareSafeArea(
+        child: PrimeCarePadding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
+          child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // High Fidelity Validation Badge
-              const Icon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
-              const SizedBox(height: 24),
-              Text(
+              const PrimeCareIcon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
+              const PrimeCareSizedBox(height: 24),
+              PrimeCareText(
                 'Verification Complete', 
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: PrimeCareColors.emerald), 
                 textAlign: TextAlign.center
               ),
-              const SizedBox(height: 12),
-              const Text(
+              const PrimeCareSizedBox(height: 12),
+              const PrimeCareText(
                 'All mandatory Schedule Tasks have been intercepted. Please provide client signature verification to officially break the EVV lock.', 
                 textAlign: TextAlign.center, 
                 style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, height: 1.5)
               ),
               
-              const SizedBox(height: 40),
+              const PrimeCareSizedBox(height: 40),
               
-              const Text(
+              const PrimeCareText(
                 'CLIENT CONSENT SIGNATURE',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: PrimeCareColors.slate500, letterSpacing: 1.2),
               ),
-              const SizedBox(height: 12),
+              const PrimeCareSizedBox(height: 12),
               
               // Signature Pad Native Frame (Placeholder layout for tactile interaction)
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: PrimeCareColors.slate200, width: 3),
-                  ),
-                  child: Center(
-                    child: Column(
+              PrimeCareExpanded(
+                child: PrimeCareCard(
+                  
+                  child: PrimeCareCenter(
+                    child: PrimeCareColumn(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Icon(Icons.draw_rounded, color: PrimeCareColors.slate300, size: 48),
-                        SizedBox(height: 12),
-                        Text('Client must sign here using their finger', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
+                        PrimeCareIcon(Icons.draw_rounded, color: PrimeCareColors.slate300, size: 48),
+                        PrimeCareSizedBox(height: 12),
+                        PrimeCareText('Client must sign here using their finger', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
                       ],
                     ),
                   )
                 ),
               ),
               
-              const SizedBox(height: 40),
+              const PrimeCareSizedBox(height: 40),
               
               // Termination Interaction
-              ElevatedButton(
+              PrimeCareButton(type: PrimeCareButtonType.primary, 
                 onPressed: () {
                    HapticFeedback.heavyImpact();
                    // Pop multiple stacks representing completion of flow natively
                    Navigator.of(context).pop(); 
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PrimeCareColors.rose,
-                  padding: const EdgeInsets.symmetric(vertical: 20), // Thumb-Zone scale up
-                ),
-                child: const Text('SECURE CHECKOUT & END SHIFT', style: TextStyle(letterSpacing: 0.5)),
+                
+                child: const PrimeCareText('SECURE CHECKOUT & END SHIFT', style: TextStyle(letterSpacing: 0.5)),
               )
             ],
           ),

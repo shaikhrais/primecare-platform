@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class CoordinatorJaneSchedulerScreen extends StatefulWidget {
   const CoordinatorJaneSchedulerScreen({super.key});
@@ -55,47 +56,44 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
         shadowColor: Colors.black12,
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
+        leading: IconButton(icon: const PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
         actions: [
-          Container(
+          PrimeCareCard(
             margin: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(color: PrimeCareColors.purple, borderRadius: BorderRadius.circular(8)),
-            child: const Center(child: Text('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+            
+            child: const PrimeCareCenter(child: PrimeCareText('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
           )
         ],
       ),
-      body: Row(
+      body: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ==== GHOST SIDECAR (WAITLIST) ====
-          Container(
+          PrimeCareCard(
             width: 200,
-            decoration: const BoxDecoration(
-              color: Color(0xFFF8FAFC),
-              border: Border(right: BorderSide(color: PrimeCareColors.slate200)),
-            ),
-            child: Column(
+            
+            child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Padding(
+                const PrimeCarePadding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text('Waitlist Array', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.slate500, letterSpacing: 1.5)),
+                  child: PrimeCareText('Waitlist Array', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.slate500, letterSpacing: 1.5)),
                 ),
-                Expanded(
+                PrimeCareExpanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     itemCount: _waitlist.length,
                     itemBuilder: (context, index) {
                       final item = _waitlist[index];
-                      return Padding(
+                      return PrimeCarePadding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: Draggable<Map<String, dynamic>>(
                           data: item,
@@ -115,12 +113,12 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
           ),
           
           // Y-Axis Time Static Column
-          SizedBox(
+          PrimeCareSizedBox(
             width: _timeColumnWidth,
-            child: Column(
+            child: PrimeCareColumn(
               children: [
-                Container(height: 50, decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)))), // Corner Block
-                Expanded(
+                PrimeCareCard(height: 50, ), // Corner Block
+                PrimeCareExpanded(
                   child: ListView.builder(
                     itemCount: _endHour - _startHour + 1,
                     physics: const ClampingScrollPhysics(), // Match scroll later if synced, but usually interactive viewer handles inner body
@@ -128,12 +126,10 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                       final time = _startHour + index;
                       final String amPm = time >= 12 ? 'PM' : 'AM';
                       final int displayTime = time > 12 ? time - 12 : time;
-                      return Container(
+                      return PrimeCareCard(
                         height: _hourHeight,
-                        decoration: const BoxDecoration(
-                          border: Border(bottom: BorderSide(color: Color(0xFFF1F5F9)), right: BorderSide(color: PrimeCareColors.slate200)),
-                        ),
-                        child: Center(child: Text('$displayTime:00 $amPm', style: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, fontSize: 12))),
+                        
+                        child: PrimeCareCenter(child: PrimeCareText('$displayTime:00 $amPm', style: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, fontSize: 12))),
                       );
                     },
                   ),
@@ -143,30 +139,27 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
           ),
           
           // The 2D Scrolling Matrix payload
-          Expanded(
+          PrimeCareExpanded(
             child: InteractiveViewer(
               constrained: false, // Allows X and Y infinite panning mathematically
               boundaryMargin: const EdgeInsets.all(0),
               minScale: 0.5,
               maxScale: 2.0,
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // X-Axis Provider Static Headers
-                  Row(
-                    children: _providers.map((p) => Container(
+                  PrimeCareRow(
+                    children: _providers.map((p) => PrimeCareCard(
                       width: _columnWidth,
                       height: 50,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF8FAFC),
-                        border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: Color(0xFFF1F5F9))),
-                      ),
-                      child: Center(
-                        child: Column(
+                      
+                      child: PrimeCareCenter(
+                        child: PrimeCareColumn(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(p['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, fontSize: 14)),
-                            Text('${p['role']} • Active', style: const TextStyle(color: PrimeCareColors.emerald, fontSize: 11, fontWeight: FontWeight.bold)),
+                            PrimeCareText(p['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, fontSize: 14)),
+                            PrimeCareText('${p['role']} • Active', style: const TextStyle(color: PrimeCareColors.emerald, fontSize: 11, fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
@@ -174,29 +167,29 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                   ),
                   
                   // The Timeline Physical Grid
-                  SizedBox(
+                  PrimeCareSizedBox(
                     height: (_endHour - _startHour + 1) * _hourHeight,
                     width: _providers.length * _columnWidth,
-                    child: Stack(
+                    child: PrimeCareStack(
                       children: [
                         // Background Grid Lines Layout
                         ...List.generate(_endHour - _startHour + 1, (y) {
                           return Positioned(
                             top: y * _hourHeight, left: 0, right: 0,
-                            child: Container(height: 1, color: const Color(0xFFF1F5F9)),
+                            child: PrimeCareContainer(height: 1, color: const Color(0xFFF1F5F9)),
                           );
                         }),
                         ...List.generate(_providers.length, (x) {
                           return Positioned(
                             top: 0, bottom: 0, left: x * _columnWidth,
-                            child: Container(width: 1, color: const Color(0xFFF1F5F9)),
+                            child: PrimeCareContainer(width: 1, color: const Color(0xFFF1F5F9)),
                           );
                         }),
                         
                         // Shift Block Overlays
                         ..._scheduleBlocks.map((block) {
                           final providerIndex = _providers.indexWhere((p) => p['id'] == block['provider']);
-                          if (providerIndex == -1) return const SizedBox.shrink();
+                          if (providerIndex == -1) return const PrimeCareSizedBox.shrink();
                           
                           final double topOffset = (block['start'] - _startHour) * _hourHeight;
                           final double blockHeight = block['duration'] * _hourHeight;
@@ -207,25 +200,21 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                             width: _columnWidth - 8,
                             top: topOffset,
                             height: blockHeight,
-                            child: Container(
+                            child: PrimeCareCard(
                               padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: blockColor.withAlpha(25),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border(left: BorderSide(color: blockColor, width: 4)),
-                              ),
-                              child: Column(
+                              
+                              child: PrimeCareColumn(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  PrimeCareRow(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(block['client'], style: TextStyle(fontWeight: FontWeight.bold, color: blockColor.withAlpha(200), fontSize: 14)),
-                                      Icon(Icons.check_circle, size: 14, color: blockColor),
+                                      PrimeCareText(block['client'], style: TextStyle(fontWeight: FontWeight.bold, color: blockColor.withAlpha(200), fontSize: 14)),
+                                      PrimeCareIcon(Icons.check_circle, size: 14, color: blockColor),
                                     ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 12)),
+                                  const PrimeCareSizedBox(height: 4),
+                                  PrimeCareText(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 12)),
                                 ],
                               ),
                             ),
@@ -240,7 +229,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                             width: _columnWidth,
                             child: DragTarget<Map<String, dynamic>>(
                               builder: (context, candidateData, rejectedData) {
-                                return Container(color: candidateData.isNotEmpty ? const Color(0x1110B981) : Colors.transparent);
+                                return PrimeCareContainer(color: candidateData.isNotEmpty ? const Color(0x1110B981) : Colors.transparent);
                               },
                               onAcceptWithDetails: (details) {
                                 // Mathematical algorithm extracting Y Drop Constraints relative to Time Interval
@@ -270,7 +259,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
 
                                 if (collision) {
                                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                    content: Text('DOUBLE-BOOKING DETECTED. The physical schedule matrix rejected the collision constraint.'),
+                                    content: PrimeCareText('DOUBLE-BOOKING DETECTED. The physical schedule matrix rejected the collision constraint.'),
                                     backgroundColor: PrimeCareColors.rose
                                   ));
                                   return;
@@ -289,7 +278,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                 });
                                 
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text('SUCCESS: ${droppedItem['client']} bound to ${targetProvider}.'),
+                                  content: PrimeCareText('SUCCESS: ${droppedItem['client']} bound to ${targetProvider}.'),
                                   backgroundColor: PrimeCareColors.emerald
                                 ));
                               },
@@ -310,30 +299,25 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
 
   Widget _buildShiftCard(Map<String, dynamic> block, {double opacity = 1.0}) {
     final Color blockColor = _getStateColor(block['state']);
-    return Container(
+    return PrimeCareCard(
       width: _columnWidth - 16,
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: blockColor.withAlpha((25 * opacity).toInt()),
-        borderRadius: BorderRadius.circular(8),
-        border: Border(left: BorderSide(color: blockColor.withOpacity(opacity), width: 4)),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))],
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
+          PrimeCareRow(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(block['client'], style: TextStyle(fontWeight: FontWeight.bold, color: blockColor, fontSize: 13)),
-              Icon(Icons.drag_indicator_rounded, size: 14, color: blockColor.withAlpha(100)),
+              PrimeCareText(block['client'], style: TextStyle(fontWeight: FontWeight.bold, color: blockColor, fontSize: 13)),
+              PrimeCareIcon(Icons.drag_indicator_rounded, size: 14, color: blockColor.withAlpha(100)),
             ],
           ),
-          const SizedBox(height: 4),
-          Text(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 11)),
-          const SizedBox(height: 6),
-          Text('${block['duration']} HR BLOCK', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
+          const PrimeCareSizedBox(height: 4),
+          PrimeCareText(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 11)),
+          const PrimeCareSizedBox(height: 6),
+          PrimeCareText('${block['duration']} HR BLOCK', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
         ],
       ),
     );

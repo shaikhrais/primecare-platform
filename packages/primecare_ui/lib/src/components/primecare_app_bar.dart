@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/colors.dart';
+import '../theme/colors.dart';
 
 
 class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {

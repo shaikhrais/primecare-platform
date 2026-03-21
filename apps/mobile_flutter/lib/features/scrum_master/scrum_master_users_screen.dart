@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 
 class ScrumMasterUsersScreen extends StatelessWidget {
@@ -7,10 +8,10 @@ class ScrumMasterUsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: AppBar(
-        title: const Text('SCM_TENANT_SANDBOX', style: TextStyle(color: PrimeCareColors.purple, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('SCM_TENANT_SANDBOX', style: TextStyle(color: PrimeCareColors.purple, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
         backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
@@ -18,31 +19,26 @@ class ScrumMasterUsersScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         itemCount: 15, // Dummy list
         itemBuilder: (context, index) {
-          return Container(
+          return PrimeCareCard(
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: PrimeCareColors.slate800,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: PrimeCareColors.slate700),
-              boxShadow: [BoxShadow(color: Colors.black.withAlpha(50), blurRadius: 10, offset: const Offset(0, 4))],
-            ),
-            child: Row(
+            
+            child: PrimeCareRow(
               children: [
-                const Icon(Icons.storage_rounded, color: PrimeCareColors.purple, size: 32),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
+                const PrimeCareIcon(Icons.storage_rounded, color: PrimeCareColors.purple, size: 32),
+                const PrimeCareSizedBox(width: 16),
+                PrimeCareExpanded(
+                  child: PrimeCareColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('TENANT_ID_${index + 1000}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'monospace')),
-                      const SizedBox(height: 4),
-                      Text('Active Users: ${(index * 42) + 12}', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12)),
+                      PrimeCareText('TENANT_ID_${index + 1000}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'monospace')),
+                      const PrimeCareSizedBox(height: 4),
+                      PrimeCareText('Active Users: ${(index * 42) + 12}', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12)),
                     ],
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.admin_panel_settings_rounded, color: PrimeCareColors.emerald),
+                  icon: const PrimeCareIcon(Icons.admin_panel_settings_rounded, color: PrimeCareColors.emerald),
                   onPressed: () {},
                   tooltip: 'Impersonate Tenant',
                 )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 
 class CoordinatorJaneMatrixScreen extends StatefulWidget {
@@ -43,34 +44,34 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: const Text('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,
         elevation: 1,
         actions: [
-          Container(
+          PrimeCareCard(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             margin: const EdgeInsets.only(right: 16),
-            decoration: BoxDecoration(color: const Color(0xFFDBEAFE), borderRadius: BorderRadius.circular(12)),
-            child: const Center(child: Text('94% Fleet Utilization', style: TextStyle(color: Color(0xFF2563EB), fontWeight: FontWeight.bold))),
+            
+            child: const PrimeCareCenter(child: PrimeCareText('94% Fleet Utilization', style: TextStyle(color: Color(0xFF2563EB), fontWeight: FontWeight.bold))),
           )
         ],
       ),
-      body: SafeArea(
-        child: Column(
+      body: PrimeCareSafeArea(
+        child: PrimeCareColumn(
           children: [
             _buildLegendBar(),
-            Expanded(
-              child: SingleChildScrollView(
+            PrimeCareExpanded(
+              child: PrimeCareScrollWrapper(
                 scrollDirection: Axis.vertical,
-                child: SingleChildScrollView(
+                child: PrimeCareScrollWrapper(
                   scrollDirection: Axis.horizontal,
-                  child: SizedBox(
+                  child: PrimeCareSizedBox(
                     width: totalHours * hourColumnWidth + 150, // +150 for Y-Axis Names
                     height: providers.length * providerRowHeight + 50, // +50 for X-Axis Time
-                    child: Stack(
+                    child: PrimeCareStack(
                       children: [
                         _buildGridSystem(),
                         _buildTimeAxis(),
@@ -89,10 +90,10 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   }
 
   Widget _buildLegendBar() {
-    return Container(
+    return PrimeCareContainer(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       color: Colors.white,
-      child: Row(
+      child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildLegendItem('Unassigned', const Color(0xFFEF4444)),
@@ -105,11 +106,11 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   }
 
   Widget _buildLegendItem(String label, Color color) {
-    return Row(
+    return PrimeCareRow(
       children: [
-        Container(width: 12, height: 12, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
-        const SizedBox(width: 6),
-        Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
+        PrimeCareCard(width: 12, height: 12, ),
+        const PrimeCareSizedBox(width: 6),
+        PrimeCareText(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
       ],
     );
   }
@@ -129,20 +130,17 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return Positioned(
       top: 0,
       left: 150,
-      child: Row(
+      child: PrimeCareRow(
         children: List.generate(totalHours, (index) {
           int hour = startHour + index;
           String time = hour > 12 ? '\${hour - 12} PM' : (hour == 12 ? '12 PM' : '\$hour AM');
-          return Container(
+          return PrimeCareCard(
             width: hourColumnWidth,
             height: 50,
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 8),
-            decoration: const BoxDecoration(
-              color: Color(0xFFF1F5F9),
-              border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)),
-            ),
-            child: Text(time, style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
+            
+            child: PrimeCareText(time, style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
           );
         }),
       ),
@@ -153,22 +151,19 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return Positioned(
       top: 50,
       left: 0,
-      child: Column(
+      child: PrimeCareColumn(
         children: providers.map((name) {
-          return Container(
+          return PrimeCareCard(
             width: 150,
             height: providerRowHeight,
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              border: Border(bottom: BorderSide(color: PrimeCareColors.slate200), right: BorderSide(color: PrimeCareColors.slate200)),
-            ),
-            child: Row(
+            
+            child: PrimeCareRow(
               children: [
-                CircleAvatar(radius: 14, backgroundColor: PrimeCareColors.slate200, child: Icon(Icons.person, size: 16, color: Colors.blueGrey[700])),
-                const SizedBox(width: 8),
-                Expanded(child: Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
+                CircleAvatar(radius: 14, backgroundColor: PrimeCareColors.slate200, child: PrimeCareIcon(Icons.person, size: 16, color: Colors.blueGrey[700])),
+                const PrimeCareSizedBox(width: 8),
+                PrimeCareExpanded(child: PrimeCareText(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
               ],
             ),
           );
@@ -181,7 +176,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return Positioned(
       top: 50,
       left: 150,
-      child: Stack(
+      child: PrimeCareStack(
         children: shifts.map((shift) {
           final top = shift['providerIndex'] * providerRowHeight;
           final left = shift['startHourOffset'] * hourColumnWidth;
@@ -215,20 +210,16 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   }
 
   Widget _buildBlockUnit(String patientName, double width, double height, Color color) {
-    return Container(
+    return PrimeCareCard(
       width: width - 4,
       height: height,
       margin: const EdgeInsets.symmetric(horizontal: 2),
       padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: color.withAlpha(20),
-        border: Border(left: BorderSide(color: color, width: 4), top: BorderSide(color: color.withAlpha(100)), right: BorderSide(color: color.withAlpha(100)), bottom: BorderSide(color: color.withAlpha(100))),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(child: Text(patientName, style: TextStyle(color: color.withAlpha(255).withGreen(color.green ~/ 2), fontWeight: FontWeight.w900, fontSize: 12), overflow: TextOverflow.ellipsis)),
+          PrimeCareExpanded(child: PrimeCareText(patientName, style: TextStyle(color: color.withAlpha(255).withGreen(color.green ~/ 2), fontWeight: FontWeight.w900, fontSize: 12), overflow: TextOverflow.ellipsis)),
         ],
       ),
     );

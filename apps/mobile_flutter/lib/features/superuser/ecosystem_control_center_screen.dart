@@ -44,46 +44,44 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
   @override
   Widget build(BuildContext context) {
     // Relying on a Universal Split-Pane layout standard for Desktop/Tablet Executive views
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: Colors.grey[900], // Deep obsidian background for 'God Mode'
-      appBar: AppBar(
-        title: Text(
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText(
           'Ecosystem Control Center',
           style: GoogleFonts.inter(fontWeight: FontWeight.w700, letterSpacing: -0.5, color: Colors.amberAccent),
         ),
         backgroundColor: Colors.black87,
         elevation: 0,
         actions: [
-          Padding(
+          PrimeCarePadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ElevatedButton(
+            child: PrimeCareButton(type: PrimeCareButtonType.primary, 
               onPressed: () {
                 // Initiates physical POST /v1/system/global-state
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
-              child: const Text('ENGAGE GLOBAL CODE BLACK'),
+              
+              child: const PrimeCareText('ENGAGE GLOBAL CODE BLACK'),
             ),
           )
         ],
       ),
-      body: Row(
+      body: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // LEFT COLUMN: Roles & Node Permissions
-          Expanded(
+          PrimeCareExpanded(
             flex: 1,
-            child: Container(
+            child: PrimeCareCard(
               padding: const EdgeInsets.all(24.0),
-              decoration: BoxDecoration(
-                border: Border(right: BorderSide(color: Colors.grey[800]!)),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Platform Roles & Access Nodes',
+                  PrimeCareText('Platform Roles & Access Nodes',
                       style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                  const SizedBox(height: 16),
-                  Expanded(
+                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareExpanded(
                     child: ListView.builder(
                       itemCount: _activeRoles.length,
                       itemBuilder: (context, index) {
@@ -95,12 +93,12 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                           child: ListTile(
                             leading: const CircleAvatar(
                               backgroundColor: Colors.amberAccent,
-                              child: Icon(Icons.hub, color: Colors.black87),
+                              child: PrimeCareIcon(Icons.hub, color: Colors.black87),
                             ),
-                            title: Text(role['name'], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            subtitle: Text('Active Staff Nodes: ${role['staffCount']}', style: TextStyle(color: Colors.grey[400])),
+                            title: PrimeCareText(role['name'], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            subtitle: PrimeCareText('Active Staff Nodes: ${role['staffCount']}', style: TextStyle(color: Colors.grey[400])),
                             trailing: IconButton(
-                              icon: const Icon(Icons.edit_attributes, color: Colors.white70),
+                              icon: const PrimeCareIcon(Icons.edit_attributes, color: Colors.white70),
                               onPressed: () {
                                 // Open complex multi-select checkboxes for Screen Array editing
                               },
@@ -110,10 +108,10 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                       },
                     ),
                   ),
-                  ElevatedButton(
+                  PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[700]),
-                    child: const Text('+ Construct New Role'),
+                    
+                    child: const PrimeCareText('+ Construct New Role'),
                   ),
                 ],
               ),
@@ -121,20 +119,20 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
           ),
 
           // RIGHT COLUMN: Automated Crisis Protocols
-          Expanded(
+          PrimeCareExpanded(
             flex: 2,
-            child: Padding(
+            child: PrimeCarePadding(
               padding: const EdgeInsets.all(24.0),
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Active Crisis Protocols (Resolutions)',
+                  PrimeCareText('Active Crisis Protocols (Resolutions)',
                       style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                  const SizedBox(height: 8),
-                  Text('These configurations auto-execute when anomaly thresholds are breached physically on the Edge.',
+                  const PrimeCareSizedBox(height: 8),
+                  PrimeCareText('These configurations auto-execute when anomaly thresholds are breached physically on the Edge.',
                       style: TextStyle(color: Colors.grey[400])),
-                  const SizedBox(height: 24),
-                  Expanded(
+                  const PrimeCareSizedBox(height: 24),
+                  PrimeCareExpanded(
                     child: GridView.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -145,35 +143,29 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
                       itemCount: _activeProtocols.length,
                       itemBuilder: (context, index) {
                         final protocol = _activeProtocols[index];
-                        return Container(
+                        return PrimeCareCard(
                           padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.black45,
-                            border: Border.all(
-                                color: protocol['severity'] == 'Critical' ? Colors.redAccent : Colors.amberAccent,
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
+                          
+                          child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(protocol['scenario'],
+                              PrimeCareText(protocol['scenario'],
                                   style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-                              const SizedBox(height: 8),
-                              Row(
+                              const PrimeCareSizedBox(height: 8),
+                              PrimeCareRow(
                                 children: [
-                                  const Icon(Icons.bolt, color: Colors.amberAccent, size: 16),
-                                  const SizedBox(width: 4),
-                                  Text('Trigger: ${protocol['trigger']}',
+                                  const PrimeCareIcon(Icons.bolt, color: Colors.amberAccent, size: 16),
+                                  const PrimeCareSizedBox(width: 4),
+                                  PrimeCareText('Trigger: ${protocol['trigger']}',
                                       style: TextStyle(color: Colors.grey[300], fontSize: 12)),
                                 ],
                               ),
-                              Row(
+                              PrimeCareRow(
                                 children: [
-                                  const Icon(Icons.memory, color: Colors.cyanAccent, size: 16),
-                                  const SizedBox(width: 4),
-                                  Text('Action: ${protocol['action']}',
+                                  const PrimeCareIcon(Icons.memory, color: Colors.cyanAccent, size: 16),
+                                  const PrimeCareSizedBox(width: 4),
+                                  PrimeCareText('Action: ${protocol['action']}',
                                       style: const TextStyle(color: Colors.cyanAccent, fontSize: 12, fontWeight: FontWeight.bold)),
                                 ],
                               )

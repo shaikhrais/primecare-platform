@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 /// Day-One Diagnostic Radar (Phase 70)
 /// This is the physically generated Business Advisor.
@@ -13,70 +14,59 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Dark terminal aesthetic emphasizing analytical logic and structure
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, 
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: PrimeCareSafeArea(
+        child: PrimeCareScrollWrapper(
           padding: const EdgeInsets.all(32.0),
-          child: Column(
+          child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('SYSTEM DIAGNOSTIC RADAR', 
+              PrimeCareText('SYSTEM DIAGNOSTIC RADAR', 
                 style: GoogleFonts.firaCode(color: Colors.cyanAccent, fontWeight: FontWeight.bold, letterSpacing: 2)),
-              const SizedBox(height: 12),
-              Text('Business Health Analysis', 
+              const PrimeCareSizedBox(height: 12),
+              PrimeCareText('Business Health Analysis', 
                 style: GoogleFonts.outfit(color: Colors.white, fontSize: 36, fontWeight: FontWeight.w900)),
-              const SizedBox(height: 8),
-              Text('Evaluating millions of database rows mathematically to isolate your weakest corporate link.', 
+              const PrimeCareSizedBox(height: 8),
+              PrimeCareText('Evaluating millions of database rows mathematically to isolate your weakest corporate link.', 
                 style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 16)),
                 
-              const SizedBox(height: 48),
+              const PrimeCareSizedBox(height: 48),
 
               // The Direct Advisor Output
-              Container(
+              PrimeCareCard(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.cyan[900]!.withOpacity(0.4), Colors.blue[900]!.withOpacity(0.4)],
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.cyanAccent.withOpacity(0.5)),
-                ),
-                child: Column(
+                
+                child: PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    PrimeCareRow(
                       children: [
-                        const Icon(Icons.psychology, color: Colors.cyanAccent, size: 32),
-                        const SizedBox(width: 16),
-                        Text('AI ADVISOR: NEXT RECOMMENDED MOVE', 
+                        const PrimeCareIcon(Icons.psychology, color: Colors.cyanAccent, size: 32),
+                        const PrimeCareSizedBox(width: 16),
+                        PrimeCareText('AI ADVISOR: NEXT RECOMMENDED MOVE', 
                           style: GoogleFonts.inter(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.5)),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    Text('System recommends engaging [Autopilot Margin Freeze] on Franchise Alpha immediately to halt systemic cash bleed.', 
+                    const PrimeCareSizedBox(height: 16),
+                    PrimeCareText('System recommends engaging [Autopilot Margin Freeze] on Franchise Alpha immediately to halt systemic cash bleed.', 
                       style: GoogleFonts.outfit(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600, height: 1.3)),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.cyanAccent,
-                        foregroundColor: Colors.black,
-                        minimumSize: const Size(200, 50),
-                        textStyle: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 15)
-                      ),
+                    const PrimeCareSizedBox(height: 24),
+                    PrimeCareButton(type: PrimeCareButtonType.primary, 
+                      
                       onPressed: () {},
-                      child: const Text('EXECUTE MACRO OVERRIDE'),
+                      child: const PrimeCareText('EXECUTE MACRO OVERRIDE'),
                     )
                   ],
                 ),
               ),
 
-              const SizedBox(height: 48),
+              const PrimeCareSizedBox(height: 48),
               
               // The 4 Vectors Grid
-              Text('THE 4 VECTORS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontWeight: FontWeight.bold, letterSpacing: 2)),
-              const SizedBox(height: 24),
+              PrimeCareText('THE 4 VECTORS', style: GoogleFonts.firaCode(color: Colors.grey[500], fontWeight: FontWeight.bold, letterSpacing: 2)),
+              const PrimeCareSizedBox(height: 24),
               LayoutBuilder(
                 builder: (context, constraints) {
                    return Wrap(
@@ -103,30 +93,26 @@ class SuperuserDiagnosticRadarScreen extends StatelessWidget {
     double cardWidth = (parentWidth - 24) / 2;
     if (parentWidth < 800) cardWidth = parentWidth; // Stack on narrow screens
 
-    return Container(
+    return PrimeCareCard(
       width: cardWidth,
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: PrimeCareColors.slate800,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          PrimeCareRow(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title, style: GoogleFonts.firaCode(color: Colors.grey[400], fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-              Container(
+              PrimeCareText(title, style: GoogleFonts.firaCode(color: Colors.grey[400], fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+              PrimeCareCard(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(color: statusColor.withOpacity(0.15), borderRadius: BorderRadius.circular(8)),
-                child: Text(status, style: GoogleFonts.outfit(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
+                
+                child: PrimeCareText(status, style: GoogleFonts.outfit(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
               )
             ],
           ),
-          const SizedBox(height: 16),
-          Text(description, style: GoogleFonts.inter(color: Colors.white, fontSize: 16, height: 1.5)),
+          const PrimeCareSizedBox(height: 16),
+          PrimeCareText(description, style: GoogleFonts.inter(color: Colors.white, fontSize: 16, height: 1.5)),
         ],
       ),
     );

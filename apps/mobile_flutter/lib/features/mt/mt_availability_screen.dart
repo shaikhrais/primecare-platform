@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class MtAvailabilityScreen extends StatelessWidget {
   const MtAvailabilityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: ListView(
+          child: PrimeCareListView(
             padding: const EdgeInsets.all(24),
             children: [
-              const Text('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-              const SizedBox(height: 24),
-              const Text('Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.', style: TextStyle(color: Color(0xFF475569), height: 1.5)),
-              const SizedBox(height: 32),
+              const PrimeCareText('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+              const PrimeCareSizedBox(height: 24),
+              const PrimeCareText('Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.', style: TextStyle(color: Color(0xFF475569), height: 1.5)),
+              const PrimeCareSizedBox(height: 32),
               _buildDayToggle('Monday', '9:00 AM - 5:00 PM', true),
               _buildDayToggle('Tuesday', '9:00 AM - 5:00 PM', true),
               _buildDayToggle('Wednesday', 'Blocked / Offline', false),
@@ -32,18 +32,18 @@ class MtAvailabilityScreen extends StatelessWidget {
   }
 
   Widget _buildDayToggle(String day, String bounds, bool isActive) {
-    return Container(
+    return PrimeCareCard(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, border: Border.all(color: isActive ? const Color(0xFFDBEAFE) : PrimeCareColors.slate200), borderRadius: BorderRadius.circular(12)),
-      child: Row(
+      
+      child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(day, style: TextStyle(fontWeight: FontWeight.w900, color: isActive ? const Color(0xFF2563EB) : PrimeCareColors.slate500, fontSize: 16)),
-              Text(bounds, style: TextStyle(color: isActive ? PrimeCareColors.radarDark : PrimeCareColors.slate400, fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
+              PrimeCareText(day, style: TextStyle(fontWeight: FontWeight.w900, color: isActive ? const Color(0xFF2563EB) : PrimeCareColors.slate500, fontSize: 16)),
+              PrimeCareText(bounds, style: TextStyle(color: isActive ? PrimeCareColors.radarDark : PrimeCareColors.slate400, fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
             ],
           ),
           Switch(value: isActive, onChanged: (v){}, activeColor: const Color(0xFF2563EB)),

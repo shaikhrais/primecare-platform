@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:flutter/services.dart';
-import '../shared/layouts/master_detail_layout.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'psw_client_360_screen.dart';
 
 class PswClientsScreen extends StatefulWidget {
@@ -48,10 +48,10 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
     
-    final masterListWidget = Scaffold(
+    final masterListWidget = PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: Text(
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText(
           'Assigned Clients', 
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
         ),
@@ -68,29 +68,21 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
           final statusColor = isCritical ? PrimeCareColors.rose : PrimeCareColors.emerald;
           final isSelected = _selectedClientId == client['id'];
 
-          return Padding(
+          return PrimeCarePadding(
             padding: const EdgeInsets.only(bottom: 16),
             child: InkWell(
               onTap: () => _onClientSelected(client['id']!, client['name']!, isDesktop),
               borderRadius: BorderRadius.circular(20),
-              child: AnimatedContainer(
+              child: AnimatedPrimeCareCard(
                 duration: const Duration(milliseconds: 200),
-                decoration: BoxDecoration(
-                  color: isSelected && isDesktop ? const Color(0xFFF1F5F9) : Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: isSelected && isDesktop ? PrimeCareColors.slate400 : PrimeCareColors.slate200, 
-                    width: isSelected && isDesktop ? 2 : 1
-                  ),
-                  boxShadow: const [BoxShadow(color: const Color(0x0A000000) /* Soft Shadow */, blurRadius: 16, offset: Offset(0, 4))],
-                ),
+                
                 padding: const EdgeInsets.all(20),
-                child: Row(
+                child: PrimeCareRow(
                   children: [
                     CircleAvatar(
                       radius: 28,
                       backgroundColor: isSelected && isDesktop ? PrimeCareColors.slate400 : PrimeCareColors.slate200,
-                      child: Text(
+                      child: PrimeCareText(
                         client['name']!.substring(0, 1), 
                         style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 24, 
@@ -98,29 +90,29 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                         )
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
+                    const PrimeCareSizedBox(width: 16),
+                    PrimeCareExpanded(
+                      child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(client['name']!, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-                          const SizedBox(height: 4),
-                          Text(client['address']!, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
-                          const SizedBox(height: 12),
-                          Row(
+                          PrimeCareText(client['name']!, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                          const PrimeCareSizedBox(height: 4),
+                          PrimeCareText(client['address']!, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+                          const PrimeCareSizedBox(height: 12),
+                          PrimeCareRow(
                             children: [
-                              Container(
+                              PrimeCareCard(
                                 width: 8, height: 8,
-                                decoration: BoxDecoration(shape: BoxShape.circle, color: statusColor),
+                                
                               ),
-                              const SizedBox(width: 6),
-                              Text(client['status']!, style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
+                              const PrimeCareSizedBox(width: 6),
+                              PrimeCareText(client['status']!, style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
                             ],
                           )
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 20),
+                    const PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 20),
                   ],
                 ),
               ),
@@ -134,7 +126,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
       masterList: masterListWidget,
       detailView: _selectedClientId != null 
           ? PswClient360Screen(clientId: _selectedClientId!, clientName: _selectedClientName!)
-          : Container(color: Colors.white), // Handled by Layout placeholder naturally
+          : PrimeCareContainer(color: Colors.white), // Handled by Layout placeholder naturally
       isDetailActive: _selectedClientId != null,
       onBackToMaster: _onBackToMaster,
     );

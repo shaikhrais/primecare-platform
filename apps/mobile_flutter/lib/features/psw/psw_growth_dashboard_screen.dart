@@ -11,51 +11,43 @@ class PswGrowthDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // A vibrant, positive, energetic aesthetic
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('My Growth Profile', style: GoogleFonts.outfit(color: Colors.black, fontWeight: FontWeight.bold)),
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText('My Growth Profile', style: GoogleFonts.outfit(color: Colors.black, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: SingleChildScrollView(
+      body: PrimeCareScrollWrapper(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // The Elite Status Banner
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF6C63FF), Color(0xFF3F3D56)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [BoxShadow(color: Colors.indigo.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
-              ),
-              child: Row(
+              
+              child: PrimeCareRow(
                 children: [
-                  const Stack(
+                  const PrimeCareStack(
                     alignment: Alignment.center,
                     children: [
-                      SizedBox(
+                      PrimeCareSizedBox(
                         width: 80, height: 80,
                         child: CircularProgressIndicator(value: 0.98, strokeWidth: 8, color: Colors.amberAccent, backgroundColor: Colors.white24),
                       ),
-                      Text('98', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+                      PrimeCareText('98', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const SizedBox(width: 24),
-                  Expanded(
-                    child: Column(
+                  const PrimeCareSizedBox(width: 24),
+                  PrimeCareExpanded(
+                    child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Elite Responder', style: GoogleFonts.outfit(color: Colors.amberAccent, fontSize: 24, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 4),
-                        Text('Your TrustScore ranks in the top 2% of the network. You have priority access to Surge Shifts.', 
+                        PrimeCareText('Elite Responder', style: GoogleFonts.outfit(color: Colors.amberAccent, fontSize: 24, fontWeight: FontWeight.bold)),
+                        const PrimeCareSizedBox(height: 4),
+                        PrimeCareText('Your TrustScore ranks in the top 2% of the network. You have priority access to Surge Shifts.', 
                           style: GoogleFonts.inter(color: Colors.white70, fontSize: 13, height: 1.4)),
                       ],
                     ),
@@ -64,12 +56,12 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 32),
-            Text('Career Achievements', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+            const PrimeCareSizedBox(height: 32),
+            PrimeCareText('Career Achievements', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
+            const PrimeCareSizedBox(height: 16),
 
             // Achievement Badges
-            Row(
+            PrimeCareRow(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildBadge(Icons.shield, 'Flawless EVV', '20 Shifts', Colors.teal),
@@ -78,27 +70,24 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 48),
-            Text('Next Milestone', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+            const PrimeCareSizedBox(height: 48),
+            PrimeCareText('Next Milestone', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
+            const PrimeCareSizedBox(height: 16),
             
             // Promotion Progress
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey[200]!, width: 2),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 children: [
-                  Row(
+                  PrimeCareRow(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Senior Caregiver', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      Text('4 Shifts Away', style: TextStyle(color: Colors.indigo[400], fontWeight: FontWeight.bold)),
+                      const PrimeCareText('Senior Caregiver', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      PrimeCareText('4 Shifts Away', style: TextStyle(color: Colors.indigo[400], fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const PrimeCareSizedBox(height: 16),
                   LinearProgressIndicator(
                     value: 0.8,
                     minHeight: 12,
@@ -106,8 +95,8 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  const SizedBox(height: 16),
-                  const Text('Complete 4 more shifts with zero unacknowledged incident reports to automatically bump your base rate by +1.05x.',
+                  const PrimeCareSizedBox(height: 16),
+                  const PrimeCareText('Complete 4 more shifts with zero unacknowledged incident reports to automatically bump your base rate by +1.05x.',
                     style: TextStyle(color: Colors.black54, height: 1.5)),
                 ],
               ),
@@ -119,17 +108,17 @@ class PswGrowthDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildBadge(IconData icon, String title, String subtitle, Color color) {
-    return Column(
+    return PrimeCareColumn(
       children: [
         CircleAvatar(
           radius: 36,
           backgroundColor: color.withOpacity(0.1),
-          child: Icon(icon, size: 36, color: color),
+          child: PrimeCareIcon(icon, size: 36, color: color),
         ),
-        const SizedBox(height: 12),
-        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 4),
-        Text(subtitle, style: const TextStyle(color: Colors.black54, fontSize: 13)),
+        const PrimeCareSizedBox(height: 12),
+        PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        const PrimeCareSizedBox(height: 4),
+        PrimeCareText(subtitle, style: const TextStyle(color: Colors.black54, fontSize: 13)),
       ],
     );
   }

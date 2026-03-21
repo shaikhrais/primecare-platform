@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class MtIntakeFormsScreen extends StatelessWidget {
   const MtIntakeFormsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: const Text('Patient Digital Consents', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('Patient Digital Consents', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
         iconTheme: const IconThemeData(color: PrimeCareColors.radarDark),
       ),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: ListView(
+          child: PrimeCareListView(
             padding: const EdgeInsets.all(24),
             children: [
               _buildDigitalForm('General Liability Waiver', 'Signed on Oct 14, 2025', true),
               _buildDigitalForm('Consent to Treat (Massage)', 'Signed on Oct 14, 2025', true),
               _buildDigitalForm('Acupuncture Add-on Consent', 'Pending Signature', false),
               
-              const SizedBox(height: 40),
-              Container(
+              const PrimeCareSizedBox(height: 40),
+              PrimeCareCard(
                 padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: PrimeCareColors.slate200)),
-                child: Column(
+                
+                child: PrimeCareColumn(
                   children: [
-                    const Icon(Icons.draw_rounded, size: 48, color: PrimeCareColors.slate300),
-                    const SizedBox(height: 16),
-                    const Text('No pending signatures required for standard treatment protocol today.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
+                    const PrimeCareIcon(Icons.draw_rounded, size: 48, color: PrimeCareColors.slate300),
+                    const PrimeCareSizedBox(height: 16),
+                    const PrimeCareText('No pending signatures required for standard treatment protocol today.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
                   ],
                 ),
               )
@@ -45,22 +45,22 @@ class MtIntakeFormsScreen extends StatelessWidget {
   }
 
   Widget _buildDigitalForm(String title, String status, bool signed) {
-    return Container(
+    return PrimeCareCard(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: PrimeCareColors.slate200)),
-      child: Row(
+      
+      child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
-              const SizedBox(height: 4),
-              Text(status, style: TextStyle(color: signed ? PrimeCareColors.emerald : const Color(0xFFEF4444))),
+              PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
+              const PrimeCareSizedBox(height: 4),
+              PrimeCareText(status, style: TextStyle(color: signed ? PrimeCareColors.emerald : const Color(0xFFEF4444))),
             ],
           ),
-          Icon(signed ? Icons.check_circle : Icons.warning_rounded, color: signed ? PrimeCareColors.emerald : const Color(0xFFEF4444)),
+          PrimeCareIcon(signed ? Icons.check_circle : Icons.warning_rounded, color: signed ? PrimeCareColors.emerald : const Color(0xFFEF4444)),
         ],
       ),
     );

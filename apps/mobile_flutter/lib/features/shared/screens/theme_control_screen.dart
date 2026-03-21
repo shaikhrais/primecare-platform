@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/localization/app_strings.dart';
 import '../../../core/theme/theme_provider.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class ThemeControlScreen extends ConsumerWidget {
   const ThemeControlScreen({super.key});
@@ -10,15 +11,15 @@ class ThemeControlScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activeTheme = ref.watch(themeProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppStrings.themeConfiguration),
+    return PrimeCareScaffold(
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText(AppStrings.themeConfiguration),
       ),
-      body: ListView(
+      body: PrimeCareListView(
         padding: const EdgeInsets.all(24),
         children: [
-          const Text(AppStrings.selectThemeDesc),
-          const SizedBox(height: 24),
+          const PrimeCareText(AppStrings.selectThemeDesc),
+          const PrimeCareSizedBox(height: 24),
           _buildThemeCard(
             context, ref, 
             AppStrings.lightThemeLabel, 
@@ -26,7 +27,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.light_mode,
           ),
-          const SizedBox(height: 16),
+          const PrimeCareSizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppStrings.darkThemeLabel, 
@@ -34,7 +35,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.dark_mode,
           ),
-          const SizedBox(height: 16),
+          const PrimeCareSizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppStrings.highContrastLabel, 
@@ -51,19 +52,16 @@ class ThemeControlScreen extends ConsumerWidget {
     final isSelected = active == type;
     return InkWell(
       onTap: () => ref.read(themeProvider.notifier).setTheme(type),
-      child: Container(
+      child: PrimeCareCard(
         padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          border: Border.all(color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey.withAlpha(50), width: 2),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
+        
+        child: PrimeCareRow(
           children: [
-            Icon(icon, color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey),
-            const SizedBox(width: 16),
-            Text(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+            PrimeCareIcon(icon, color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey),
+            const PrimeCareSizedBox(width: 16),
+            PrimeCareText(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
             const Spacer(),
-            if (isSelected) Icon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary),
+            if (isSelected) PrimeCareIcon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary),
           ],
         ),
       ),

@@ -21,20 +21,20 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
   @override
   Widget build(BuildContext context) {
     // A deeply calming indigo/slate aesthetic to reduce visual stress and panic
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFF1E1B4B), // Deep indigo
-      body: SafeArea(
-        child: Padding(
+      body: PrimeCareSafeArea(
+        child: PrimeCarePadding(
           padding: const EdgeInsets.all(32.0),
-          child: Column(
+          child: PrimeCareColumn(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Heartbeat icon
-              const Icon(Icons.favorite, size: 64, color: Colors.pinkAccent),
-              const SizedBox(height: 32),
+              const PrimeCareIcon(Icons.favorite, size: 64, color: Colors.pinkAccent),
+              const PrimeCareSizedBox(height: 32),
               
-              Text(
+              PrimeCareText(
                 _getStepTitle(),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.outfit(
@@ -44,9 +44,9 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                   letterSpacing: -1,
                 ),
               ),
-              const SizedBox(height: 16),
+              const PrimeCareSizedBox(height: 16),
               
-              Text(
+              PrimeCareText(
                 _getStepSubtitle(),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
@@ -56,7 +56,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                 ),
               ),
               
-              const SizedBox(height: 64),
+              const PrimeCareSizedBox(height: 64),
               ..._buildStepActions(),
             ],
           ),
@@ -91,7 +91,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 1) {
       return [
         _buildWizardButton("Yes, we are safe", Colors.tealAccent, () => setState(() => _currentStep = 2)),
-        const SizedBox(height: 16),
+        const PrimeCareSizedBox(height: 16),
         _buildWizardButton("No, I need Emergency Services", Colors.redAccent, () {
           // Trigger 911 WebRTC or direct dial mathematically
         }),
@@ -99,17 +99,17 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 2) {
       return [
         _buildWizardButton("Call RN Mentorship Line", Colors.blueAccent, () => setState(() => _currentStep = 3)),
-        const SizedBox(height: 16),
+        const PrimeCareSizedBox(height: 16),
         _buildWizardButton("Log Non-Fatal Incident", Colors.amberAccent, () {}),
-        const SizedBox(height: 16),
-        TextButton(
+        const PrimeCareSizedBox(height: 16),
+        PrimeCareButton(type: PrimeCareButtonType.text, 
           onPressed: () => Navigator.pop(context),
-          child: Text("It was a false alarm. Return to Shift.", style: TextStyle(color: Colors.indigo[200])),
+          child: PrimeCareText("It was a false alarm. Return to Shift.", style: TextStyle(color: Colors.indigo[200])),
         )
       ];
     } else {
       return [
-        const Center(child: CircularProgressIndicator(color: Colors.tealAccent))
+        const PrimeCareCenter(child: CircularProgressIndicator(color: Colors.tealAccent))
       ];
     }
   }
@@ -117,15 +117,11 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
   Widget _buildWizardButton(String label, Color color, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
-      child: Container(
+      child: PrimeCareCard(
         height: 72,
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.15),
-          border: Border.all(color: color, width: 2),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Center(
-          child: Text(
+        
+        child: PrimeCareCenter(
+          child: PrimeCareText(
             label,
             style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold, color: color),
           ),

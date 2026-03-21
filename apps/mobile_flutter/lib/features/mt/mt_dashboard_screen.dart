@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
-import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 
 class MtDashboardScreen extends StatelessWidget {
   const MtDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: const Text('My Jane Schedule (MT)', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('My Jane Schedule (MT)', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -22,30 +21,30 @@ class MtDashboardScreen extends StatelessWidget {
           final isDesktop = constraints.maxWidth >= 900;
           
           if (isDesktop) {
-            return Center(
+            return PrimeCareCenter(
               child: DesktopPaneWrapper(
-                child: Row(
+                child: PrimeCareRow(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    PrimeCareExpanded(
                       flex: 1,
-                      child: SingleChildScrollView(
+                      child: PrimeCareScrollWrapper(
                         padding: const EdgeInsets.all(24),
-                        child: Column(
+                        child: PrimeCareColumn(
                           children: [
                             _buildTherapistHeader(),
-                            const SizedBox(height: 24),
+                            const PrimeCareSizedBox(height: 24),
                             // Simulated Native Desktop Side-Calendar
                             PrimeCareCard(
                               padding: const EdgeInsets.all(20),
-                              child: const Column(
+                              child: const PrimeCareColumn(
                                 children: [
-                                  Row(
+                                  PrimeCareRow(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [Text('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.calendar_month, color: PrimeCareColors.slate400)],
+                                    children: [PrimeCareText('March 2026', style: TextStyle(fontWeight: FontWeight.bold)), PrimeCareIcon(Icons.calendar_month, color: PrimeCareColors.slate400)],
                                   ),
-                                  SizedBox(height: 16),
-                                  Text('24 total hours mapped this week.', style: TextStyle(color: PrimeCareColors.slate500)),
+                                  PrimeCareSizedBox(height: 16),
+                                  PrimeCareText('24 total hours mapped this week.', style: TextStyle(color: PrimeCareColors.slate500)),
                                 ],
                               ),
                             )
@@ -53,16 +52,16 @@ class MtDashboardScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 32),
-                    Expanded(
+                    const PrimeCareSizedBox(width: 32),
+                    PrimeCareExpanded(
                       flex: 2,
-                      child: SingleChildScrollView(
+                      child: PrimeCareScrollWrapper(
                         padding: const EdgeInsets.all(24),
-                        child: Column(
+                        child: PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                            const SizedBox(height: 16),
+                            const PrimeCareText("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                            const PrimeCareSizedBox(height: 16),
                             _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                             _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
                             _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
@@ -76,15 +75,15 @@ class MtDashboardScreen extends StatelessWidget {
             );
           }
           
-          return Center(
+          return PrimeCareCenter(
             child: DesktopPaneWrapper(
-              child: ListView(
+              child: PrimeCareListView(
                 padding: const EdgeInsets.all(20),
                 children: [
                   _buildTherapistHeader(),
-                  const SizedBox(height: 24),
-                  const Text("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                  const SizedBox(height: 16),
+                  const PrimeCareSizedBox(height: 24),
+                  const PrimeCareText("TODAY'S MASSAGE BOOKINGS", style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                  const PrimeCareSizedBox(height: 16),
                   _buildJaneBookingBlock(context, '10:00 AM', '11:00 AM', 'Sports Therapy Massage', 'James Gym Facility', PrimeCareColors.amber),
                   _buildJaneBookingBlock(context, '1:00 PM', '2:30 PM', 'Deep Tissue 90m', 'Client Residence (North York)', const Color(0xFFEF4444)),
                   _buildJaneBookingBlock(context, '4:00 PM', '5:00 PM', 'Swedish Relaxation', 'PrimeCare Core Clinic', PrimeCareColors.emerald),
@@ -101,16 +100,16 @@ class MtDashboardScreen extends StatelessWidget {
     return PrimeCareCard(
       padding: const EdgeInsets.all(20),
       backgroundColor: PrimeCareColors.radarDark,
-      child: Row(
+      child: PrimeCareRow(
         children: [
-          const PrimeCareAvatar(radius: 24, defaultIcon: Icons.spa),
-          const SizedBox(width: 16),
-          Column(
+          const CircleAvatar(radius: 24, defaultIcon: Icons.spa),
+          const PrimeCareSizedBox(width: 16),
+          PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              Text('Welcome back, Jessica', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-              SizedBox(height: 4),
-              Text('3 Booked Active Sessions', style: TextStyle(color: PrimeCareColors.slate400)),
+              PrimeCareText('Welcome back, Jessica', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              PrimeCareSizedBox(height: 4),
+              PrimeCareText('3 Booked Active Sessions', style: TextStyle(color: PrimeCareColors.slate400)),
             ],
           )
         ],
@@ -125,35 +124,35 @@ class MtDashboardScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
-      child: Row(
+      child: PrimeCareRow(
         children: [
           // Left Stripe Status Identifier (Jane UI Pattern)
-          Container(
+          PrimeCareCard(
             width: 8,
             height: 100,
-            decoration: BoxDecoration(color: statusColor, borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), bottomLeft: Radius.circular(12))),
+            
           ),
-          Expanded(
-            child: Padding(
+          PrimeCareExpanded(
+            child: PrimeCarePadding(
               padding: const EdgeInsets.all(16),
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  PrimeCareRow(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$start - \$end', style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
-                      Icon(Icons.more_horiz, color: PrimeCareColors.slate300),
+                      PrimeCareText('\$start - \$end', style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
+                      PrimeCareIcon(Icons.more_horiz, color: PrimeCareColors.slate300),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(clinicalType, style: const TextStyle(color: Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 14)),
-                  const SizedBox(height: 4),
-                  Row(
+                  const PrimeCareSizedBox(height: 8),
+                  PrimeCareText(clinicalType, style: const TextStyle(color: Color(0xFF3B82F6), fontWeight: FontWeight.bold, fontSize: 14)),
+                  const PrimeCareSizedBox(height: 4),
+                  PrimeCareRow(
                     children: [
-                      const Icon(Icons.location_on, size: 14, color: PrimeCareColors.slate500),
-                      const SizedBox(width: 4),
-                      Text(location, style: const TextStyle(color: Color(0xFF475569))),
+                      const PrimeCareIcon(Icons.location_on, size: 14, color: PrimeCareColors.slate500),
+                      const PrimeCareSizedBox(width: 4),
+                      PrimeCareText(location, style: const TextStyle(color: Color(0xFF475569))),
                     ],
                   )
                 ],

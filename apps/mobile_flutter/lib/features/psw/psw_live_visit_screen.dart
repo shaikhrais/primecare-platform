@@ -7,6 +7,7 @@ import 'psw_clinical_notes_screen.dart';
 import 'psw_evv_checkout_screen.dart';
 import 'psw_incident_wizard_screen.dart';
 import 'psw_evv_checkout_screen.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class PswLiveVisitScreen extends StatefulWidget {
   final String visitId;
@@ -44,7 +45,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
     // Native Snackbar Undo Pattern
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(_isCheckedIn ? 'Clocked In to Visit Successfully' : 'Clocked Out & Shift Closed'),
+        content: PrimeCareText(_isCheckedIn ? 'Clocked In to Visit Successfully' : 'Clocked Out & Shift Closed'),
         backgroundColor: PrimeCareColors.radarDark,
         duration: const Duration(seconds: 4),
         behavior: SnackBarBehavior.floating,
@@ -59,10 +60,10 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: Text(
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText(
           'Live Telemetry',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
@@ -70,28 +71,28 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
         elevation: 0,
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Column(
+      body: PrimeCareSafeArea(
+        child: PrimeCareColumn(
           children: [
-            const SizedBox(height: 40),
+            const PrimeCareSizedBox(height: 40),
             // Header Info
-            Text(
+            PrimeCareText(
               'Sarah Jenkins',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 8),
-            Text(
+            const PrimeCareSizedBox(height: 8),
+            PrimeCareText(
               '10:00 AM - 2:00 PM',
               style: TextStyle(color: PrimeCareColors.slate500, fontSize: 18, fontWeight: FontWeight.w600),
             ),
             
-            Expanded(
-              child: Center(
-                child: Stack(
+            PrimeCareExpanded(
+              child: PrimeCareCenter(
+                child: PrimeCareStack(
                   alignment: Alignment.center,
                   children: [
                     // Apple Watch Style Progress Ring
-                    SizedBox(
+                    PrimeCareSizedBox(
                       width: 280,
                       height: 280,
                       child: CircularProgressIndicator(
@@ -108,16 +109,10 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                       AnimatedBuilder(
                         animation: _pulseController,
                         builder: (context, child) {
-                          return Container(
+                          return PrimeCareCard(
                             width: 280 + (_pulseController.value * 40),
                             height: 280 + (_pulseController.value * 40),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: PrimeCareColors.emerald.withOpacity(0.3 - (_pulseController.value * 0.3)),
-                                width: 2,
-                              ),
-                            ),
+                            
                           );
                         },
                       ),
@@ -130,32 +125,21 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                         splashColor: const Color(0x33FFFFFF),
                         highlightColor: const Color(0x11000000),
                         customBorder: const CircleBorder(),
-                        child: AnimatedContainer(
+                        child: AnimatedPrimeCareCard(
                           duration: const Duration(milliseconds: 300),
                           width: 220,
                           height: 220,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _isCheckedIn ? PrimeCareColors.emerald : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: _isCheckedIn ? const Color(0x4410B981) : const const Color(0x0A000000) /* Soft Shadow */ /* Soft Shadow */,
-                                blurRadius: _isCheckedIn ? 30 : 20,
-                                offset: const Offset(0, 10),
-                              )
-                            ],
-                            border: _isCheckedIn ? null : Border.all(color: PrimeCareColors.slate200, width: 2),
-                          ),
-                          child: Column(
+                          
+                          child: PrimeCareColumn(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              PrimeCareIcon(
                                 _isCheckedIn ? Icons.stop_rounded : Icons.fingerprint,
                                 size: 64,
                                 color: _isCheckedIn ? Colors.white : PrimeCareColors.radarDark,
                               ),
-                              const SizedBox(height: 12),
-                              Text(
+                              const PrimeCareSizedBox(height: 12),
+                              PrimeCareText(
                                 _isCheckedIn ? 'CLOCK OUT' : 'CHECK IN',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -175,50 +159,36 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
             ),
             
             // Bottom Action Modals
-            Padding(
+            PrimeCarePadding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              child: Column(
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   OutlinedButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswShiftTasksScreen()));
                     },
-                    icon: const Icon(Icons.format_list_bulleted_rounded, color: PrimeCareColors.radarDark),
-                    label: const Text('View Schedule Tasks', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      side: const BorderSide(color: PrimeCareColors.slate200, width: 2),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      backgroundColor: Colors.white,
-                    ),
+                    icon: const PrimeCareIcon(Icons.format_list_bulleted_rounded, color: PrimeCareColors.radarDark),
+                    label: const PrimeCareText('View Schedule Tasks', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+                    
                   ),
-                  const SizedBox(height: 12),
+                  const PrimeCareSizedBox(height: 12),
                   OutlinedButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswClinicalNotesScreen()));
                     },
-                    icon: const Icon(Icons.note_add_rounded, color: PrimeCareColors.radarDark),
-                    label: const Text('Add Clinical Progress Note', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      side: const BorderSide(color: PrimeCareColors.slate200, width: 2),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      backgroundColor: Colors.white,
-                    ),
+                    icon: const PrimeCareIcon(Icons.note_add_rounded, color: PrimeCareColors.radarDark),
+                    label: const PrimeCareText('Add Clinical Progress Note', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+                    
                   ),
-                  const SizedBox(height: 12),
+                  const PrimeCareSizedBox(height: 12),
                   ElevatedButton.icon(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PswEvvCheckoutScreen()));
                     },
-                    icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
-                    label: const Text('Initiate Shift Checkout', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: PrimeCareColors.rose,
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                    ),
+                    icon: const PrimeCareIcon(Icons.exit_to_app_rounded, color: Colors.white),
+                    label: const PrimeCareText('Initiate Shift Checkout', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                    
                   ),
                 ],
               ),
@@ -233,8 +203,8 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
         },
         backgroundColor: PrimeCareColors.rose,
         elevation: 8,
-        icon: const Icon(Icons.sos_rounded, color: Colors.white, size: 28),
-        label: const Text('EMERGENCY SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
+        icon: const PrimeCareIcon(Icons.sos_rounded, color: Colors.white, size: 28),
+        label: const PrimeCareText('EMERGENCY SOS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
       ),
     );
   }

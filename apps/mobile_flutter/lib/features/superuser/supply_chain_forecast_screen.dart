@@ -13,58 +13,54 @@ class SupplyChainForecastScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, // Deep radar dark
-      appBar: AppBar(
-        title: Text('SUPPLY CHAIN MATRIX', style: GoogleFonts.firaCode(fontWeight: FontWeight.bold, letterSpacing: 2)),
+      appBar: PrimeCareNavBar(
+        title: PrimeCareText('SUPPLY CHAIN MATRIX', style: GoogleFonts.firaCode(fontWeight: FontWeight.bold, letterSpacing: 2)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+      body: PrimeCareScrollWrapper(
         padding: const EdgeInsets.all(24),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Master KPI Heads-Up
-            Row(
+            PrimeCareRow(
               children: [
-                Expanded(child: _buildMetricCard('Predicted Demand (7 Days)', '400 Hrs', Colors.orangeAccent)),
-                const SizedBox(width: 16),
-                Expanded(child: _buildMetricCard('Latent Supply Available', '320 Hrs', Colors.blueAccent)),
-                const SizedBox(width: 16),
-                Expanded(child: _buildMetricCard('Global Risk Status', 'CRITICAL', Colors.redAccent)),
+                PrimeCareExpanded(child: _buildMetricCard('Predicted Demand (7 Days)', '400 Hrs', Colors.orangeAccent)),
+                const PrimeCareSizedBox(width: 16),
+                PrimeCareExpanded(child: _buildMetricCard('Latent Supply Available', '320 Hrs', Colors.blueAccent)),
+                const PrimeCareSizedBox(width: 16),
+                PrimeCareExpanded(child: _buildMetricCard('Global Risk Status', 'CRITICAL', Colors.redAccent)),
               ],
             ),
-            const SizedBox(height: 32),
+            const PrimeCareSizedBox(height: 32),
             
-            Text('GEOGRAPHICAL DEFICIT RADAR', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+            PrimeCareText('GEOGRAPHICAL DEFICIT RADAR', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+            const PrimeCareSizedBox(height: 16),
             
             _buildDeficitRow('Etobicoke Sub-Franchise', 400, 320, isWarning: true),
-            const SizedBox(height: 12),
+            const PrimeCareSizedBox(height: 12),
             _buildDeficitRow('Downtown Sub-Franchise', 120, 200, isWarning: false),
-            const SizedBox(height: 12),
+            const PrimeCareSizedBox(height: 12),
             _buildDeficitRow('North York Sub-Franchise', 250, 250, isWarning: false),
 
-            const SizedBox(height: 48),
+            const PrimeCareSizedBox(height: 48),
 
             // AI Action Log
-            Container(
+            PrimeCareCard(
               padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: PrimeCareColors.slate800,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white10),
-              ),
-              child: Column(
+              
+              child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  PrimeCareRow(
                     children: [
-                      const Icon(Icons.bolt, color: Colors.yellowAccent),
-                      const SizedBox(width: 12),
-                      Text('TELEMETRY ACTIONS LOG', style: GoogleFonts.firaCode(color: Colors.white, fontWeight: FontWeight.bold)),
+                      const PrimeCareIcon(Icons.bolt, color: Colors.yellowAccent),
+                      const PrimeCareSizedBox(width: 12),
+                      PrimeCareText('TELEMETRY ACTIONS LOG', style: GoogleFonts.firaCode(color: Colors.white, fontWeight: FontWeight.bold)),
                     ],
                   ),
                   const Divider(color: Colors.white24, height: 32),
@@ -82,19 +78,15 @@ class SupplyChainForecastScreen extends StatelessWidget {
   }
 
   Widget _buildMetricCard(String title, String value, Color accentColor) {
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: PrimeCareColors.slate800,
-        borderRadius: BorderRadius.circular(16),
-        border: Border(bottom: BorderSide(color: accentColor, width: 4)),
-      ),
-      child: Column(
+      
+      child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13, fontWeight: FontWeight.w600)),
-          const SizedBox(height: 8),
-          Text(value, style: GoogleFonts.outfit(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+          PrimeCareText(title, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13, fontWeight: FontWeight.w600)),
+          const PrimeCareSizedBox(height: 8),
+          PrimeCareText(value, style: GoogleFonts.outfit(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
         ],
       ),
     );
@@ -104,28 +96,24 @@ class SupplyChainForecastScreen extends StatelessWidget {
     double fillRatio = (supply / demand).clamp(0.0, 1.0);
     int percent = (fillRatio * 100).toInt();
 
-    return Container(
+    return PrimeCareCard(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isWarning ? Colors.redAccent.withAlpha(20) : Colors.blueAccent.withAlpha(20),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isWarning ? Colors.redAccent.withAlpha(50) : Colors.blueAccent.withAlpha(50)),
-      ),
-      child: Row(
+      
+      child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(zone, style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-              const SizedBox(height: 4),
-              Text(isWarning ? 'DEFICIT DETECTED' : 'SUPPLY OPTIMAL', style: GoogleFonts.firaCode(color: isWarning ? Colors.redAccent : Colors.blueAccent, fontSize: 12)),
+              PrimeCareText(zone, style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+              const PrimeCareSizedBox(height: 4),
+              PrimeCareText(isWarning ? 'DEFICIT DETECTED' : 'SUPPLY OPTIMAL', style: GoogleFonts.firaCode(color: isWarning ? Colors.redAccent : Colors.blueAccent, fontSize: 12)),
             ],
           ),
-          Row(
+          PrimeCareRow(
             children: [
-              Text('$percent% Fill Rate', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(width: 16),
+              PrimeCareText('$percent% Fill Rate', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              const PrimeCareSizedBox(width: 16),
               CircularProgressIndicator(value: fillRatio, backgroundColor: Colors.white24, color: isWarning ? Colors.redAccent : Colors.blueAccent),
             ],
           )
@@ -135,14 +123,14 @@ class SupplyChainForecastScreen extends StatelessWidget {
   }
 
   Widget _buildLogEntry(String time, String message) {
-    return Padding(
+    return PrimeCarePadding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
+      child: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('[$time]', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 12)),
-          const SizedBox(width: 12),
-          Expanded(child: Text(message, style: GoogleFonts.inter(color: Colors.white, fontSize: 14))),
+          PrimeCareText('[$time]', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 12)),
+          const PrimeCareSizedBox(width: 12),
+          PrimeCareExpanded(child: PrimeCareText(message, style: GoogleFonts.inter(color: Colors.white, fontSize: 14))),
         ],
       ),
     );

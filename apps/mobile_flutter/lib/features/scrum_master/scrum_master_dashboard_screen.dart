@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ScrumMasterDashboardScreen extends StatelessWidget {
@@ -9,28 +8,28 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: AppBar(
-        title: const Text('SCM_GOD_MODE_HUB', style: TextStyle(color: PrimeCareColors.emerald, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('SCM_GOD_MODE_HUB', style: TextStyle(color: PrimeCareColors.emerald, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
         backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper(
-          child: SingleChildScrollView(
+          child: PrimeCareScrollWrapper(
             padding: const EdgeInsets.all(24),
-        child: Column(
+        child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Icon(Icons.hub_rounded, size: 64, color: Color(0xFF3B82F6)),
-            const SizedBox(height: 16),
-            const Text(
+            const PrimeCareIcon(Icons.hub_rounded, size: 64, color: Color(0xFF3B82F6)),
+            const PrimeCareSizedBox(height: 16),
+            const PrimeCareText(
               'PLATFORM TELEMETRY',
               style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 2),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
+            const PrimeCareSizedBox(height: 40),
             _buildMetricCard('Postgres Active Tenants', '142', Icons.apartment, PrimeCareColors.emerald),
             _buildMetricCard('Cloudflare API Requests/sec', '9,420', Icons.speed, const Color(0xFF3B82F6)),
             _buildMetricCard('WebRTC Active Sessions', '314', Icons.video_camera_front, PrimeCareColors.purple),
@@ -48,21 +47,21 @@ class ScrumMasterDashboardScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
       backgroundColor: PrimeCareColors.slate800,
-      child: Row(
+      child: PrimeCareRow(
         children: [
           PrimeCareCard(
             padding: const EdgeInsets.all(12),
             backgroundColor: color.withAlpha(25),
-            child: Icon(icon, color: color, size: 32),
+            child: PrimeCareIcon(icon, color: color, size: 32),
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
+          const PrimeCareSizedBox(width: 20),
+          PrimeCareExpanded(
+            child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
-                const SizedBox(height: 4),
-                Text(value, style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900, fontFamily: 'monospace')),
+                PrimeCareText(title, style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                const PrimeCareSizedBox(height: 4),
+                PrimeCareText(value, style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900, fontFamily: 'monospace')),
               ],
             ),
           )

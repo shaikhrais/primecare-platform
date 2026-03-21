@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import '../shared/layouts/desktop_pane_wrapper.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class MtSoapNotesScreen extends StatelessWidget {
@@ -9,36 +9,32 @@ class MtSoapNotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Clinical SOAP Notes', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+      appBar: PrimeCareNavBar(
+        title: const PrimeCareText('Clinical SOAP Notes', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFFF8FAFC),
         elevation: 1,
         iconTheme: const IconThemeData(color: PrimeCareColors.radarDark),
       ),
-      body: Center(
+      body: PrimeCareCenter(
         child: DesktopPaneWrapper( // Desktop Responsive
-          child: ListView(
+          child: PrimeCareListView(
             padding: const EdgeInsets.all(24),
             children: [
               _buildSoapInput('Subjective', 'What the patient reported feeling today...', maxLines: 3),
-              const SizedBox(height: 20),
+              const PrimeCareSizedBox(height: 20),
               _buildSoapInput('Objective', 'Visual/Palpation findings (e.g. Hypertonicity in Traps)...', maxLines: 4),
-              const SizedBox(height: 20),
+              const PrimeCareSizedBox(height: 20),
               _buildSoapInput('Assessment', 'Clinical reaction to treatment today...', maxLines: 3),
-              const SizedBox(height: 20),
+              const PrimeCareSizedBox(height: 20),
               _buildSoapInput('Plan', 'Recommended home care, stretching, follow-up frequency...', maxLines: 3),
               
-              const SizedBox(height: 32),
+              const PrimeCareSizedBox(height: 32),
               ElevatedButton.icon(
-                icon: const Icon(Icons.check_circle, color: Colors.white),
-                label: const Text('SIGN & SUBMIT TO LEDGER', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PrimeCareColors.emerald, // Emerald Success
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
+                icon: const PrimeCareIcon(Icons.check_circle, color: Colors.white),
+                label: const PrimeCareText('SIGN & SUBMIT TO LEDGER', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                
                 onPressed: () {
                    // Mock submitting, Route to double-entry invoice
                    context.push('/mt/invoice');
@@ -52,11 +48,11 @@ class MtSoapNotesScreen extends StatelessWidget {
   }
 
   Widget _buildSoapInput(String title, String hint, {int maxLines = 1}) {
-    return Column(
+    return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16, letterSpacing: 1.2)),
-        const SizedBox(height: 8),
+        PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16, letterSpacing: 1.2)),
+        const PrimeCareSizedBox(height: 8),
         TextField(
           maxLines: maxLines,
           decoration: InputDecoration(
