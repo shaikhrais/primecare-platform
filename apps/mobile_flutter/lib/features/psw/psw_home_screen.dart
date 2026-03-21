@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -17,7 +18,7 @@ class PswHomeScreen extends StatelessWidget {
       appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const PrimeCareText(AppStrings.appName, 
+        title: const PrimeCareText(AppLocalizations.of(context)!.appName, 
           style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
         ),
         actions: [
@@ -119,9 +120,9 @@ class PswHomeScreen extends StatelessWidget {
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const PrimeCareText(AppStrings.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
+          const PrimeCareText(AppLocalizations.of(context)!.welcomeBack, style: TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
           const PrimeCareSizedBox(height: 12),
-          PrimeCareText(AppStrings.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
+          PrimeCareText(AppLocalizations.of(context)!.nextShiftAnnouncement, style: TextStyle(color: Colors.white.withAlpha(230), fontSize: 16, height: 1.5)),
         ],
       ),
     );
@@ -131,15 +132,15 @@ class PswHomeScreen extends StatelessWidget {
     return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PrimeCareText(AppStrings.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareText(AppLocalizations.of(context)!.performanceMetrics, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const PrimeCareSizedBox(height: 16),
         PrimeCareRow(
           children: [
-            PrimeCareExpanded(child: _buildStatCard(AppStrings.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
+            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.weeklyHoursLabel, '34.5', Icons.schedule, PrimeCareColors.purple)),
             const PrimeCareSizedBox(width: 16),
-            PrimeCareExpanded(child: _buildStatCard(AppStrings.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
+            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.complianceLabel, '94%', Icons.verified_user_outlined, PrimeCareColors.emerald)),
             const PrimeCareSizedBox(width: 16),
-            PrimeCareExpanded(child: _buildStatCard(AppStrings.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
+            PrimeCareExpanded(child: _buildStatCard(AppLocalizations.of(context)!.surgeActiveLabel, '1.5x', Icons.bolt, PrimeCareColors.amber)),
           ],
         ),
       ],
@@ -150,7 +151,7 @@ class PswHomeScreen extends StatelessWidget {
     return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PrimeCareText(AppStrings.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareText(AppLocalizations.of(context)!.quickAccessNodes, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const PrimeCareSizedBox(height: 16),
         GridView.count(
           physics: const NeverScrollableScrollPhysics(),
@@ -160,14 +161,14 @@ class PswHomeScreen extends StatelessWidget {
           mainAxisSpacing: 16,
           childAspectRatio: 1.2,
           children: [
-            _buildQuickLinkTile(context, AppStrings.secureInbox, Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
-            _buildQuickLinkTile(context, AppStrings.dailyTimeline, Icons.calendar_view_day_rounded, PrimeCareColors.purple, () => context.push('/psw/daily-timeline')),
-            _buildQuickLinkTile(context, AppStrings.trainingHub, Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
-            _buildQuickLinkTile(context, AppStrings.sosTrigger, Icons.emergency_rounded, PrimeCareColors.rose, () {
+            _buildQuickLinkTile(context, AppLocalizations.of(context)!.secureInbox, Icons.message_rounded, const Color(0xFF3B82F6), () => context.push('/psw/messages')),
+            _buildQuickLinkTile(context, AppLocalizations.of(context)!.dailyTimeline, Icons.calendar_view_day_rounded, PrimeCareColors.purple, () => context.push('/psw/daily-timeline')),
+            _buildQuickLinkTile(context, AppLocalizations.of(context)!.trainingHub, Icons.school_rounded, const Color(0xFFEC4899), () => context.push('/psw/training')),
+            _buildQuickLinkTile(context, AppLocalizations.of(context)!.sosTrigger, Icons.emergency_rounded, PrimeCareColors.rose, () {
               HapticFeedback.heavyImpact();
               context.push('/psw/live-video-triage/emergency-123');
             }),
-            _buildQuickLinkTile(context, AppStrings.viewClients, Icons.group_rounded, const Color(0xFF14B8A6), () {
+            _buildQuickLinkTile(context, AppLocalizations.of(context)!.viewClients, Icons.group_rounded, const Color(0xFF14B8A6), () {
               HapticFeedback.lightImpact();
               context.go('/psw/clients');
             }),
@@ -181,7 +182,7 @@ class PswHomeScreen extends StatelessWidget {
     return PrimeCareColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PrimeCareText(AppStrings.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+        const PrimeCareText(AppLocalizations.of(context)!.organizationalFeed, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
         const PrimeCareSizedBox(height: 16),
         _buildFeedCard('Clinical Safety Update', 'Please review the updated sterile gloving procedures mandated by the Ministry of Health. Mandatory compliance required by Friday.'),
         const PrimeCareSizedBox(height: 16),

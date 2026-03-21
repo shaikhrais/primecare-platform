@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +46,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     title: PrimeCareText(
-                      AppStrings.myShiftsTitle,
+                      AppLocalizations.of(context)!.myShiftsTitle,
                       style: theme.textTheme.headlineLarge,
                     ),
                   ),
@@ -78,14 +79,14 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                             child: PrimeCareColumn(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                PrimeCareText(_isGlobalCodeBlack ? 'SYSTEM OVERRIDE: CODE BLACK' : AppStrings.highDemandAlertTitle, 
+                                PrimeCareText(_isGlobalCodeBlack ? 'SYSTEM OVERRIDE: CODE BLACK' : AppLocalizations.of(context)!.highDemandAlertTitle, 
                                     style: theme.textTheme.titleLarge?.copyWith(
                                         color: _isGlobalCodeBlack ? Colors.redAccent : null,
                                         fontWeight: _isGlobalCodeBlack ? FontWeight.w900 : null
                                     )),
                                 const PrimeCareSizedBox(height: 4),
                                 PrimeCareText(
-                                  _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppStrings.highDemandAlertDesc,
+                                  _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppLocalizations.of(context)!.highDemandAlertDesc,
                                   style: theme.textTheme.bodyMedium?.copyWith(
                                       color: _isGlobalCodeBlack ? Colors.red[200] : null
                                   ),
@@ -107,10 +108,10 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                       padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
                       child: PrimeCareRow(
                         children: [
-                          PrimeCareText(AppStrings.today, style: theme.textTheme.titleLarge),
+                          PrimeCareText(AppLocalizations.of(context)!.today, style: theme.textTheme.titleLarge),
                           const PrimeCareSizedBox(width: 8),
                           PrimeCareBadge(
-                            text: AppStrings.shiftCountLabel,
+                            text: AppLocalizations.of(context)!.shiftCountLabel,
                             color: colorScheme.primary,
                           ),
                         ],
@@ -186,12 +187,12 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
             onDismissed: (direction) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const PrimeCareText(AppStrings.shiftAckSuccess),
+                  content: const PrimeCareText(AppLocalizations.of(context)!.shiftAckSuccess),
                   backgroundColor: colorScheme.primary,
                   duration: const Duration(seconds: 4),
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  action: SnackBarAction(label: AppStrings.undo, textColor: colorScheme.secondary, onPressed: (){}),
+                  action: SnackBarAction(label: AppLocalizations.of(context)!.undo, textColor: colorScheme.secondary, onPressed: (){}),
                 )
               );
             },

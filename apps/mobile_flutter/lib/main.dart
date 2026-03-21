@@ -1,3 +1,5 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:primecare_mobile/core/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
