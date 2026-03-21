@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -10,36 +11,36 @@ class PswEvvCheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      appBar: const PrimeCareAppBar(title: 'Shift Checkout Protocol'),
+      backgroundColor: Color(0xFFF8FAFC),
+      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.shiftCheckoutProtocol),
       body: PrimeCareSafeArea(
         child: PrimeCarePadding(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24.0),
           child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // High Fidelity Validation Badge
-              const PrimeCareIcon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
-              const PrimeCareSizedBox(height: 24),
+              PrimeCareIcon(Icons.verified_user_rounded, size: 80, color: PrimeCareColors.emerald),
+              PrimeCareSizedBox(height: 24),
               PrimeCareText(
                 'Verification Complete', 
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: PrimeCareColors.emerald), 
                 textAlign: TextAlign.center
               ),
-              const PrimeCareSizedBox(height: 12),
-              const PrimeCareText(
+              PrimeCareSizedBox(height: 12),
+              PrimeCareText(
                 'All mandatory Schedule Tasks have been intercepted. Please provide client signature verification to officially break the EVV lock.', 
                 textAlign: TextAlign.center, 
                 style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, height: 1.5)
               ),
               
-              const PrimeCareSizedBox(height: 40),
+              PrimeCareSizedBox(height: 40),
               
-              const PrimeCareText(
+              PrimeCareText(
                 'CLIENT CONSENT SIGNATURE',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: PrimeCareColors.slate500, letterSpacing: 1.2),
               ),
-              const PrimeCareSizedBox(height: 12),
+              PrimeCareSizedBox(height: 12),
               
               // Signature Pad Native Frame (Placeholder layout for tactile interaction)
               PrimeCareExpanded(
@@ -48,7 +49,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                   child: PrimeCareCenter(
                     child: PrimeCareColumn(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         PrimeCareIcon(Icons.draw_rounded, color: PrimeCareColors.slate300, size: 48),
                         PrimeCareSizedBox(height: 12),
                         PrimeCareText('Client must sign here using their finger', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
@@ -58,7 +59,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                 ),
               ),
               
-              const PrimeCareSizedBox(height: 40),
+              PrimeCareSizedBox(height: 40),
               
               // Termination Interaction
               PrimeCareButton(type: PrimeCareButtonType.primary, 
@@ -68,7 +69,7 @@ class PswEvvCheckoutScreen extends StatelessWidget {
                    Navigator.of(context).pop(); 
                 },
                 
-                child: const PrimeCareText('SECURE CHECKOUT & END SHIFT', style: TextStyle(letterSpacing: 0.5)),
+                child: PrimeCareText('SECURE CHECKOUT & END SHIFT', style: TextStyle(letterSpacing: 0.5)),
               )
             ],
           ),

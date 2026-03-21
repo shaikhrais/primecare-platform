@@ -25,7 +25,7 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: _isGlobalCodeBlack ? PrimeCareColors.radarDark : const Color(0xFFF8FAFC),
+      backgroundColor: _isGlobalCodeBlack ? PrimeCareColors.radarDark : Color(0xFFF8FAFC),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: CustomScrollView(
@@ -34,42 +34,42 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
             expandedHeight: 280,
             floating: false,
             pinned: true,
-            backgroundColor: _isGlobalCodeBlack ? Colors.black87 : const Color(0xFF4338CA), 
+            backgroundColor: _isGlobalCodeBlack ? Colors.black87 : Color(0xFF4338CA), 
             flexibleSpace: FlexibleSpaceBar(
               background: PrimeCareCard(
                 
                 child: PrimeCareSafeArea(
                   child: PrimeCarePadding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: EdgeInsets.all(24.0),
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const PrimeCareSizedBox(height: 10),
+                        PrimeCareSizedBox(height: 10),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             PrimeCareText(_isGlobalCodeBlack ? 'MACRO OVERRIDE ACTIVE' : 'DISPATCH LOGISTICS', 
-                                style: TextStyle(color: _isGlobalCodeBlack ? Colors.redAccent : const Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
+                                style: TextStyle(color: _isGlobalCodeBlack ? Colors.redAccent : Color(0xFFC7D2FE), fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
                             PrimeCareBadge(text: _isGlobalCodeBlack ? 'AUTOPILOT LOCKED' : '2 Unfilled Limits', color: Colors.white)
                           ],
                         ),
-                        const PrimeCareSizedBox(height: 8),
+                        PrimeCareSizedBox(height: 8),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             PrimeCareText(_isGlobalCodeBlack ? '[CODE BLACK]' : 'Operations Hub', 
-                                style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
+                                style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
                             PrimeCareRow(
                               children: [
                                 IconButton(
-                                  icon: const PrimeCareIcon(Icons.explore_rounded, color: Colors.white, size: 32),
+                                  icon: PrimeCareIcon(Icons.explore_rounded, color: Colors.white, size: 32),
                                   onPressed: () {
                                     HapticFeedback.heavyImpact();
                                     context.push('/coordinator/live-map');
                                   },
                                 ),
                                 IconButton(
-                                  icon: const PrimeCareIcon(Icons.calendar_month_rounded, color: Colors.white, size: 32),
+                                  icon: PrimeCareIcon(Icons.calendar_month_rounded, color: Colors.white, size: 32),
                                   onPressed: () {
                                     HapticFeedback.heavyImpact();
                                     context.push('/coordinator/fleet-matrix');
@@ -79,11 +79,11 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                             )
                           ],
                         ),
-                        const Spacer(),
+                        Spacer(),
                         
                         // Active Surge Multiplier Control Switch
                         PrimeCareCard(
-                          padding: const EdgeInsets.all(20),
+                          padding: EdgeInsets.all(20),
                           backgroundColor: _surgeActive ? PrimeCareColors.emerald : Colors.white12,
                           child: PrimeCareRow(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,18 +94,18 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
                                   PrimeCareRow(
                                     children: [
                                       PrimeCareIcon(_surgeActive ? Icons.bolt_rounded : Icons.offline_bolt_rounded, color: Colors.white, size: 24),
-                                      const PrimeCareSizedBox(width: 8),
-                                      PrimeCareText(_surgeActive ? 'SURGE PRESET ACTIVE' : 'Enable +1.5x Surge', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
+                                      PrimeCareSizedBox(width: 8),
+                                      PrimeCareText(_surgeActive ? 'SURGE PRESET ACTIVE' : 'Enable +1.5x Surge', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
                                     ],
                                   ),
-                                  const PrimeCareSizedBox(height: 4),
-                                  PrimeCareText(_surgeActive ? 'Broadcasting incentives to 45 PSWs' : 'Standard flat rate dispatched locally', style: TextStyle(color: _surgeActive ? const Color(0xFFD1FAE5) : const Color(0xFFC7D2FE), fontSize: 13)),
+                                  PrimeCareSizedBox(height: 4),
+                                  PrimeCareText(_surgeActive ? 'Broadcasting incentives to 45 PSWs' : 'Standard flat rate dispatched locally', style: TextStyle(color: _surgeActive ? Color(0xFFD1FAE5) : Color(0xFFC7D2FE), fontSize: 13)),
                                 ],
                               ),
                               Switch(
                                 value: _surgeActive,
-                                activeColor: Colors.white,
-                                activeTrackColor: const Color(0xFF047857),
+                                activeThumbColor: Colors.white,
+                                activeTrackColor: Color(0xFF047857),
                                 inactiveThumbColor: PrimeCareColors.slate400,
                                 inactiveTrackColor: PrimeCareColors.radarDark,
                                 onChanged: (val) {
@@ -125,36 +125,36 @@ class _CoordinatorDashboardScreenState extends State<CoordinatorDashboardScreen>
           ),
           
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
+            padding: EdgeInsets.fromLTRB(24, 24, 24, 120),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final shift = _unfilledShifts[index];
                   return PrimeCarePadding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding: EdgeInsets.only(bottom: 16),
                     child: PrimeCareCard(
-                      padding: const EdgeInsets.all(24),
+                      padding: EdgeInsets.all(24),
                       child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PrimeCareRow(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              PrimeCareText(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-                              PrimeCareBadge(text: '${shift['matched']} Matches', color: const Color(0xFF6366F1))
+                              PrimeCareText(shift['time'], style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                              PrimeCareBadge(text: '${shift['matched']} Matches', color: Color(0xFF6366F1))
                             ],
                           ),
-                          const PrimeCareSizedBox(height: 12),
-                          PrimeCareText(shift['client'], style: const TextStyle(color: Color(0xFF475569), fontSize: 15, fontWeight: FontWeight.w600)),
-                          const PrimeCareSizedBox(height: 4),
+                          PrimeCareSizedBox(height: 12),
+                          PrimeCareText(shift['client'], style: TextStyle(color: Color(0xFF475569), fontSize: 15, fontWeight: FontWeight.w600)),
+                          PrimeCareSizedBox(height: 4),
                           PrimeCareRow(
                             children: [
-                              const PrimeCareIcon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
-                              const PrimeCareSizedBox(width: 4),
-                              PrimeCareText(shift['geo'], style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+                              PrimeCareIcon(Icons.location_on, color: PrimeCareColors.slate400, size: 16),
+                              PrimeCareSizedBox(width: 4),
+                              PrimeCareText(shift['geo'], style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                             ],
                           ),
-                          const PrimeCareSizedBox(height: 24),
+                          PrimeCareSizedBox(height: 24),
                           PrimeCareSizedBox(
                             width: double.infinity,
                             child: PrimeCareButton(

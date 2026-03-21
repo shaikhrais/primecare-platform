@@ -45,17 +45,17 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+        title: PrimeCareText('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,
         elevation: 1,
         actions: [
           PrimeCareCard(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            margin: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            margin: EdgeInsets.only(right: 16),
             
-            child: const PrimeCareCenter(child: PrimeCareText('94% Fleet Utilization', style: TextStyle(color: Color(0xFF2563EB), fontWeight: FontWeight.bold))),
+            child: PrimeCareCenter(child: PrimeCareText('94% Fleet Utilization', style: TextStyle(color: Color(0xFF2563EB), fontWeight: FontWeight.bold))),
           )
         ],
       ),
@@ -91,15 +91,15 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
 
   Widget _buildLegendBar() {
     return PrimeCareContainer(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       color: Colors.white,
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildLegendItem('Unassigned', const Color(0xFFEF4444)),
+          _buildLegendItem('Unassigned', Color(0xFFEF4444)),
           _buildLegendItem('Assigned', PrimeCareColors.amber),
           _buildLegendItem('GPS Verified', PrimeCareColors.emerald),
-          _buildLegendItem('Completed', const Color(0xFF3B82F6)),
+          _buildLegendItem('Completed', Color(0xFF3B82F6)),
         ],
       ),
     );
@@ -109,8 +109,8 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return PrimeCareRow(
       children: [
         PrimeCareCard(width: 12, height: 12, ),
-        const PrimeCareSizedBox(width: 6),
-        PrimeCareText(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
+        PrimeCareSizedBox(width: 6),
+        PrimeCareText(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
       ],
     );
   }
@@ -138,9 +138,9 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
             width: hourColumnWidth,
             height: 50,
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 8),
             
-            child: PrimeCareText(time, style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
+            child: PrimeCareText(time, style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
           );
         }),
       ),
@@ -157,13 +157,13 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
             width: 150,
             height: providerRowHeight,
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 12),
             
             child: PrimeCareRow(
               children: [
                 CircleAvatar(radius: 14, backgroundColor: PrimeCareColors.slate200, child: PrimeCareIcon(Icons.person, size: 16, color: Colors.blueGrey[700])),
-                const PrimeCareSizedBox(width: 8),
-                PrimeCareExpanded(child: PrimeCareText(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
+                PrimeCareSizedBox(width: 8),
+                PrimeCareExpanded(child: PrimeCareText(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: PrimeCareColors.radarDark), maxLines: 2)),
               ],
             ),
           );
@@ -184,10 +184,10 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
 
           Color blockColor;
           switch (shift['status']) {
-            case 'unstaffed': blockColor = const Color(0xFFEF4444); break; // Red
+            case 'unstaffed': blockColor = Color(0xFFEF4444); break; // Red
             case 'assigned': blockColor = PrimeCareColors.amber; break;  // Amber
             case 'verified': blockColor = PrimeCareColors.emerald; break;  // Emerald
-            case 'completed': blockColor = const Color(0xFF3B82F6); break; // Blue
+            case 'completed': blockColor = Color(0xFF3B82F6); break; // Blue
             default: blockColor = Colors.grey;
           }
 
@@ -213,8 +213,8 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
     return PrimeCareCard(
       width: width - 4,
       height: height,
-      margin: const EdgeInsets.symmetric(horizontal: 2),
-      padding: const EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 2),
+      padding: EdgeInsets.all(8),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,

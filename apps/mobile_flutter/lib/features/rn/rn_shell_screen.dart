@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -16,13 +17,13 @@ class RnShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveShell(
       navigationShell: navigationShell,
-      activeIndicatorColor: const Color(0x33E11D48),
+      activeIndicatorColor: Color(0x33E11D48),
       activeIconColor: PrimeCareColors.rose,
-      destinations: const [
-        ResponsiveNavigationData(label: 'Triage', icon: Icons.speed_rounded, selectedIcon: Icons.speed_rounded),
-        ResponsiveNavigationData(label: 'Patients', icon: Icons.healing_rounded, selectedIcon: Icons.healing_rounded),
-        ResponsiveNavigationData(label: 'Inbox', icon: Icons.forum_outlined, selectedIcon: Icons.forum_outlined),
-        ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person_outline),
+      destinations: [
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.triage, icon: Icons.speed_rounded, selectedIcon: Icons.speed_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.patients, icon: Icons.healing_rounded, selectedIcon: Icons.healing_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.inbox, icon: Icons.forum_outlined, selectedIcon: Icons.forum_outlined),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
       ],
     );
   }

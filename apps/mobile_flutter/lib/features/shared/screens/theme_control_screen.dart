@@ -1,8 +1,7 @@
 import 'package:primecare_mobile/core/locale_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/localization/app_strings.dart';
 import '../../../core/theme/theme_provider.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -15,30 +14,30 @@ class ThemeControlScreen extends ConsumerWidget {
 
     return PrimeCareScaffold(
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText(AppLocalizations.of(context)!.themeConfiguration),
+        title: PrimeCareText(AppLocalizations.of(context)!.themeConfiguration),
       ),
       body: PrimeCareListView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         children: [
           PrimeCareCard(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimeCareText('Language / Langue', style: Theme.of(context).textTheme.titleMedium, color: Theme.of(context).colorScheme.primary),
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareSizedBox(height: 16),
                   RadioListTile<Locale>(
-                    title: const PrimeCareText('English (en)'),
-                    value: const Locale('en'),
+                    title: PrimeCareText(AppLocalizations.of(context)!.englishEn),
+                    value: Locale('en'),
                     groupValue: ref.watch(localeProvider),
                     onChanged: (val) {
                       if (val != null) ref.read(localeProvider.notifier).state = val;
                     },
                   ),
                   RadioListTile<Locale>(
-                    title: const PrimeCareText('Français (fr)'),
-                    value: const Locale('fr'),
+                    title: PrimeCareText(AppLocalizations.of(context)!.franAisFr),
+                    value: Locale('fr'),
                     groupValue: ref.watch(localeProvider),
                     onChanged: (val) {
                       if (val != null) ref.read(localeProvider.notifier).state = val;
@@ -48,9 +47,9 @@ class ThemeControlScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const PrimeCareSizedBox(height: 24),
-          const PrimeCareText(AppLocalizations.of(context)!.selectThemeDesc),
-          const PrimeCareSizedBox(height: 24),
+          PrimeCareSizedBox(height: 24),
+          PrimeCareText(AppLocalizations.of(context)!.selectThemeDesc),
+          PrimeCareSizedBox(height: 24),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.lightThemeLabel, 
@@ -58,7 +57,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.light_mode,
           ),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareSizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.darkThemeLabel, 
@@ -66,7 +65,7 @@ class ThemeControlScreen extends ConsumerWidget {
             activeTheme,
             Icons.dark_mode,
           ),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareSizedBox(height: 16),
           _buildThemeCard(
             context, ref, 
             AppLocalizations.of(context)!.highContrastLabel, 
@@ -84,14 +83,14 @@ class ThemeControlScreen extends ConsumerWidget {
     return InkWell(
       onTap: () => ref.read(themeProvider.notifier).setTheme(type),
       child: PrimeCareCard(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         
         child: PrimeCareRow(
           children: [
             PrimeCareIcon(icon, color: isSelected ? Theme.of(context).colorScheme.secondary : Colors.grey),
-            const PrimeCareSizedBox(width: 16),
+            PrimeCareSizedBox(width: 16),
             PrimeCareText(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
-            const Spacer(),
+            Spacer(),
             if (isSelected) PrimeCareIcon(Icons.check_circle, color: Theme.of(context).colorScheme.secondary),
           ],
         ),

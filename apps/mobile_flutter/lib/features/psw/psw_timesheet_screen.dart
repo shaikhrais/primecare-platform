@@ -15,7 +15,7 @@ class PswTimesheetScreen extends StatefulWidget {
 class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   Map<String, dynamic>? _selectedPeriod;
 
-  final List<Map<String, dynamic>> _payPeriods = const [
+  final List<Map<String, dynamic>> _payPeriods = [
     {'date': 'Oct 28', 'shifts': 2, 'hours': 10.5, 'earnings': 315.00, 'surge': true},
     {'date': 'Oct 27', 'shifts': 1, 'hours': 8.0, 'earnings': 200.00, 'surge': false},
     {'date': 'Oct 26', 'shifts': 3, 'hours': 12.0, 'earnings': 360.00, 'surge': true},
@@ -24,7 +24,7 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Payroll & Earnings', 
@@ -38,19 +38,19 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
         isDetailActive: _selectedPeriod != null,
         onBackToMaster: () => setState(() => _selectedPeriod = null),
         masterList: PrimeCareScrollWrapper(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
+          padding: EdgeInsets.fromLTRB(24, 8, 24, 120),
           child: PrimeCareColumn(
             children: [
               // Month High-Level Aggregation
             PrimeCareCard(
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(24),
               
               child: PrimeCareColumn(
                 children: [
-                   const PrimeCareText('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
-                   const PrimeCareSizedBox(height: 8),
-                   const PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
-                   const PrimeCareSizedBox(height: 24),
+                   PrimeCareText('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
+                   PrimeCareSizedBox(height: 8),
+                   PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
+                   PrimeCareSizedBox(height: 24),
                    PrimeCareRow(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
@@ -65,18 +65,18 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            const PrimeCareSizedBox(height: 32),
+            PrimeCareSizedBox(height: 32),
             
             // Interactive 30-Day Grid Space (Placeholder for GitHub UI)
             PrimeCareCard(
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(24),
               
               child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
+                  PrimeCareSizedBox(height: 16),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -93,12 +93,12 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               ),
             ),
 
-            const PrimeCareSizedBox(height: 32),
+            PrimeCareSizedBox(height: 32),
             
             // Level 1 Daily Rows -> Drills directly to Level 2
             ..._payPeriods.map((period) {
               return PrimeCarePadding(
-                padding: const EdgeInsets.only(bottom: 12),
+                padding: EdgeInsets.only(bottom: 12),
                 child: InkWell(
                   onTap: () {
                     HapticFeedback.lightImpact();
@@ -114,45 +114,45 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                   borderRadius: BorderRadius.circular(16),
                   child: PrimeCareCard(
                     
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20),
                     child: PrimeCareRow(
                       children: [
                         PrimeCareCard(
-                          padding: const EdgeInsets.all(12),
+                          padding: EdgeInsets.all(12),
                           
-                          child: const PrimeCareIcon(Icons.receipt_long_rounded, color: Color(0xFF475569)),
+                          child: PrimeCareIcon(Icons.receipt_long_rounded, color: Color(0xFF475569)),
                         ),
-                        const PrimeCareSizedBox(width: 16),
+                        PrimeCareSizedBox(width: 16),
                         PrimeCareExpanded(
                           child: PrimeCareColumn(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PrimeCareText(period['date'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              const PrimeCareSizedBox(height: 4),
-                              PrimeCareText('${period['hours']} Hours • ${period['shifts']} Shifts', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
+                              PrimeCareText(period['date'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              PrimeCareSizedBox(height: 4),
+                              PrimeCareText('${period['hours']} Hours • ${period['shifts']} Shifts', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
                             ],
                           ),
                         ),
                         PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            PrimeCareText('\$${period['earnings'].toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                            PrimeCareText('\$${period['earnings'].toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
                             if (period['surge'])
-                              const PrimeCareText('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
+                              PrimeCareText('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        const PrimeCareSizedBox(width: 8),
-                        const PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
+                        PrimeCareSizedBox(width: 8),
+                        PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
                       ],
                     ),
                   ),
                 ),
               );
-            }).toList()
+            })
           ],
         ),
         ),
-        detailView: _selectedPeriod == null ? const PrimeCareSizedBox.shrink() : PswTimesheetDetailScreen(
+        detailView: _selectedPeriod == null ? PrimeCareSizedBox.shrink() : PswTimesheetDetailScreen(
           date: _selectedPeriod!['date'],
           earnings: _selectedPeriod!['earnings'],
           surgeActive: _selectedPeriod!['surge'],
@@ -164,9 +164,9 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   Widget _buildMetric(String label, String value) {
     return PrimeCareColumn(
       children: [
-        PrimeCareText(value, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-        const PrimeCareSizedBox(height: 4),
-        PrimeCareText(label, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
+        PrimeCareText(value, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+        PrimeCareSizedBox(height: 4),
+        PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }

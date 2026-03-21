@@ -22,17 +22,17 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
   Widget build(BuildContext context) {
     // A deeply calming indigo/slate aesthetic to reduce visual stress and panic
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFF1E1B4B), // Deep indigo
+      backgroundColor: Color(0xFF1E1B4B), // Deep indigo
       body: PrimeCareSafeArea(
         child: PrimeCarePadding(
-          padding: const EdgeInsets.all(32.0),
+          padding: EdgeInsets.all(32.0),
           child: PrimeCareColumn(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Heartbeat icon
-              const PrimeCareIcon(Icons.favorite, size: 64, color: Colors.pinkAccent),
-              const PrimeCareSizedBox(height: 32),
+              PrimeCareIcon(Icons.favorite, size: 64, color: Colors.pinkAccent),
+              PrimeCareSizedBox(height: 32),
               
               PrimeCareText(
                 _getStepTitle(),
@@ -44,7 +44,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                   letterSpacing: -1,
                 ),
               ),
-              const PrimeCareSizedBox(height: 16),
+              PrimeCareSizedBox(height: 16),
               
               PrimeCareText(
                 _getStepSubtitle(),
@@ -56,7 +56,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
                 ),
               ),
               
-              const PrimeCareSizedBox(height: 64),
+              PrimeCareSizedBox(height: 64),
               ..._buildStepActions(),
             ],
           ),
@@ -91,7 +91,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 1) {
       return [
         _buildWizardButton("Yes, we are safe", Colors.tealAccent, () => setState(() => _currentStep = 2)),
-        const PrimeCareSizedBox(height: 16),
+        PrimeCareSizedBox(height: 16),
         _buildWizardButton("No, I need Emergency Services", Colors.redAccent, () {
           // Trigger 911 WebRTC or direct dial mathematically
         }),
@@ -99,9 +99,9 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
     } else if (_currentStep == 2) {
       return [
         _buildWizardButton("Call RN Mentorship Line", Colors.blueAccent, () => setState(() => _currentStep = 3)),
-        const PrimeCareSizedBox(height: 16),
+        PrimeCareSizedBox(height: 16),
         _buildWizardButton("Log Non-Fatal Incident", Colors.amberAccent, () {}),
-        const PrimeCareSizedBox(height: 16),
+        PrimeCareSizedBox(height: 16),
         PrimeCareButton(type: PrimeCareButtonType.text, 
           onPressed: () => Navigator.pop(context),
           child: PrimeCareText("It was a false alarm. Return to Shift.", style: TextStyle(color: Colors.indigo[200])),
@@ -109,7 +109,7 @@ class _PswCrisisWizardScreenState extends State<PswCrisisWizardScreen> {
       ];
     } else {
       return [
-        const PrimeCareCenter(child: CircularProgressIndicator(color: Colors.tealAccent))
+        PrimeCareCenter(child: CircularProgressIndicator(color: Colors.tealAccent))
       ];
     }
   }

@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -19,7 +20,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
       backgroundColor: PrimeCareColors.darkMatrixCard, 
       body: PrimeCareSafeArea(
         child: PrimeCarePadding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
+          padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
           child: PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,14 +37,14 @@ class SuperuserBriefingScreen extends StatelessWidget {
                       letterSpacing: -1,
                     ),
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 24,
                     backgroundColor: Color(0xFF2C2C30),
                     child: PrimeCareIcon(Icons.wb_sunny_outlined, color: Colors.amberAccent),
                   )
                 ],
               ),
-              const PrimeCareSizedBox(height: 16),
+              PrimeCareSizedBox(height: 16),
               PrimeCareText(
                 'The PrimeCare Autopilot operated flawlessly last night while you slept. Zero manual intervention was required by your operations team.',
                 style: GoogleFonts.inter(
@@ -53,7 +54,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
                 ),
               ),
 
-              const PrimeCareSizedBox(height: 48),
+              PrimeCareSizedBox(height: 48),
 
               // 2. The Operational Data Cards
               PrimeCareExpanded(
@@ -66,31 +67,31 @@ class SuperuserBriefingScreen extends StatelessWidget {
                     _buildAutopilotMetricCard(
                       icon: Icons.check_circle_outline,
                       value: '142',
-                      label: 'Shifts Automatically Staffed',
+                      label: AppLocalizations.of(context)!.shiftsAutomaticallyStaffed,
                       color: Colors.tealAccent,
                     ),
                     _buildAutopilotMetricCard(
                       icon: Icons.payments_outlined,
                       value: '\$85.00',
-                      label: 'Surge Budget Deployed',
+                      label: AppLocalizations.of(context)!.surgeBudgetDeployed,
                       color: Colors.amberAccent,
                     ),
                     _buildAutopilotMetricCard(
                       icon: Icons.account_balance_wallet_outlined,
                       value: '34.2%',
-                      label: 'Regional Margin Protected',
+                      label: AppLocalizations.of(context)!.regionalMarginProtected,
                       color: Colors.lightGreenAccent,
                     ),
                     _buildAutopilotMetricCard(
                       icon: Icons.medical_services_outlined,
                       value: '2',
-                      label: 'Crises Auto-Routed to RN',
+                      label: AppLocalizations.of(context)!.crisesAutoRoutedToRn,
                       color: Colors.redAccent,
                     ),
                     _buildAutopilotMetricCard(
                       icon: Icons.security,
                       value: '3',
-                      label: 'Toxic Workers Hidden (Low Trust)',
+                      label: AppLocalizations.of(context)!.toxicWorkersHiddenLowTrust,
                       color: Colors.cyanAccent,
                     ),
                   ],
@@ -132,7 +133,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
     required Color color,
   }) {
     return PrimeCareCard(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(24),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +142,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
           PrimeCareRow(
             children: [
               PrimeCareIcon(icon, color: color, size: 28),
-              const PrimeCareSizedBox(width: 12),
+              PrimeCareSizedBox(width: 12),
               PrimeCareText(
                 value,
                 style: GoogleFonts.outfit(
@@ -153,7 +154,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
               ),
             ],
           ),
-          const PrimeCareSizedBox(height: 12),
+          PrimeCareSizedBox(height: 12),
           PrimeCareText(
             label,
             style: GoogleFonts.inter(

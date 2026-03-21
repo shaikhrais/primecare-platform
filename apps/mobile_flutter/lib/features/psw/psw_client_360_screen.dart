@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -12,7 +13,7 @@ class PswClient360Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$clientName - 360°'),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -23,7 +24,7 @@ class PswClient360Screen extends StatelessWidget {
             // Structural Header Block
             PrimeCareContainer(
               color: Colors.white,
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
+              padding: EdgeInsets.fromLTRB(24, 24, 24, 40),
               child: PrimeCareColumn(
                 children: [
                   CircleAvatar(
@@ -31,82 +32,82 @@ class PswClient360Screen extends StatelessWidget {
                     backgroundColor: PrimeCareColors.slate200,
                     child: PrimeCareText(
                       clientName.substring(0, 1), 
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: PrimeCareColors.radarDark)
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36, color: PrimeCareColors.radarDark)
                     ),
                   ),
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareSizedBox(height: 16),
                   PrimeCareText(clientName, style: Theme.of(context).textTheme.headlineMedium),
-                  const PrimeCareSizedBox(height: 8),
-                  const PrimeCareText('Dementia Care Track • Resuscitate (DNR) - No', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
+                  PrimeCareSizedBox(height: 8),
+                  PrimeCareText('Dementia Care Track • Resuscitate (DNR) - No', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
 
             // Drilled Data Modules
             PrimeCarePadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: PrimeCareColumn(
                 children: [
                   _buildNexusCard(
                     context, 
-                    title: 'Active Care Plan Vault', 
+                    title: AppLocalizations.of(context)!.activeCarePlanVault, 
                     icon: Icons.folder_special_rounded, 
-                    color: const Color(0xFF3B82F6),
+                    color: Color(0xFF3B82F6),
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const PrimeCareText('Valid from: Oct 1, 2025 to Oct 1, 2026', style: TextStyle(color: Color(0xFF475569))),
-                        const PrimeCareSizedBox(height: 16),
+                        PrimeCareText('Valid from: Oct 1, 2025 to Oct 1, 2026', style: TextStyle(color: Color(0xFF475569))),
+                        PrimeCareSizedBox(height: 16),
                         OutlinedButton.icon(
                           onPressed: () {},
-                          icon: const PrimeCareIcon(Icons.picture_as_pdf),
-                          label: const PrimeCareText('View Official Directive (PDF)'),
+                          icon: PrimeCareIcon(Icons.picture_as_pdf),
+                          label: PrimeCareText(AppLocalizations.of(context)!.viewOfficialDirectivePdf),
                           
                         )
                       ],
                     )
                   ),
                   
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareSizedBox(height: 16),
 
                   _buildNexusCard(
                     context, 
-                    title: '30-Day Vitals Trend', 
+                    title: AppLocalizations.of(context)!.txt30DayVitalsTrend, 
                     icon: Icons.monitor_heart_rounded, 
                     color: PrimeCareColors.emerald,
                     child: PrimeCareColumn(
                       children: [
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             PrimeCareText('Blood Pressure', style: TextStyle(fontWeight: FontWeight.bold)),
                             PrimeCareText('118/72 mmHg', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        const PrimeCareSizedBox(height: 8),
+                        PrimeCareSizedBox(height: 8),
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             PrimeCareText('Heart Rate', style: TextStyle(fontWeight: FontWeight.bold)),
                             PrimeCareText('68 BPM', style: TextStyle(color: PrimeCareColors.emerald, fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        const PrimeCareSizedBox(height: 20),
+                        PrimeCareSizedBox(height: 20),
                         // Simulated embedded chart graph area
                         PrimeCareCard(
                           height: 100,
                           
-                          child: const PrimeCareCenter(child: PrimeCareText('Interactive Spline Chart Area', style: TextStyle(color: PrimeCareColors.slate400))),
+                          child: PrimeCareCenter(child: PrimeCareText('Interactive Spline Chart Area', style: TextStyle(color: PrimeCareColors.slate400))),
                         )
                       ],
                     )
                   ),
 
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareSizedBox(height: 16),
 
                   _buildNexusCard(
                     context, 
-                    title: 'Emergency Contacts', 
+                    title: AppLocalizations.of(context)!.emergencyContacts, 
                     icon: Icons.contact_phone_rounded, 
                     color: PrimeCareColors.rose,
                     child: PrimeCareRow(
@@ -114,7 +115,7 @@ class PswClient360Screen extends StatelessWidget {
                       children: [
                         PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             PrimeCareText('Maria Jenkins (Daughter)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                             PrimeCareSizedBox(height: 4),
                             PrimeCareText('Primary Power of Attorney', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13)),
@@ -122,14 +123,14 @@ class PswClient360Screen extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: const PrimeCareIcon(Icons.phone, color: PrimeCareColors.rose),
-                          style: IconButton.styleFrom(backgroundColor: const Color(0x11E11D48)),
+                          icon: PrimeCareIcon(Icons.phone, color: PrimeCareColors.rose),
+                          style: IconButton.styleFrom(backgroundColor: Color(0x11E11D48)),
                         )
                       ],
                     )
                   ),
                   
-                  const PrimeCareSizedBox(height: 40),
+                  PrimeCareSizedBox(height: 40),
                 ],
               ),
             ),
@@ -143,7 +144,7 @@ class PswClient360Screen extends StatelessWidget {
 
   Widget _buildNexusCard(BuildContext context, {required String title, required IconData icon, required Color color, required Widget child}) {
     return PrimeCareCard(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(24),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,15 +152,15 @@ class PswClient360Screen extends StatelessWidget {
           PrimeCareRow(
             children: [
               PrimeCareCard(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 
                 child: PrimeCareIcon(icon, color: color, size: 24),
               ),
-              const PrimeCareSizedBox(width: 16),
-              PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+              PrimeCareSizedBox(width: 16),
+              PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
             ],
           ),
-          const PrimeCareSizedBox(height: 24),
+          PrimeCareSizedBox(height: 24),
           child,
         ],
       ),

@@ -30,7 +30,7 @@ class UniversalHostScreen extends ConsumerWidget {
     final asyncSchema = ref.watch(sduiPayloadProvider(endpoint));
 
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF1F5F9), // Enterprise Standard Slate
+      backgroundColor: Color(0xFFF1F5F9), // Enterprise Standard Slate
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: asyncSchema.when(
@@ -42,14 +42,14 @@ class UniversalHostScreen extends ConsumerWidget {
                 ),
               );
             },
-            loading: () => const PrimeCareCenter(child: CircularProgressIndicator()),
+            loading: () => PrimeCareCenter(child: CircularProgressIndicator()),
             error: (err, stack) => PrimeCareCenter(
               child: PrimeCareCard(
                 child: PrimeCareColumn(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const PrimeCareIcon(Icons.error_outline, color: Colors.red, size: 48),
-                    const PrimeCareSizedBox(height: 16),
+                    PrimeCareIcon(Icons.error_outline, color: Colors.red, size: 48),
+                    PrimeCareSizedBox(height: 16),
                     PrimeCareText('SDUI Sync Failure', style: Theme.of(context).textTheme.titleMedium),
                     PrimeCareText(err.toString(), style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
                   ],

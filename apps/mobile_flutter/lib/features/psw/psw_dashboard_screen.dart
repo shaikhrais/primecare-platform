@@ -1,11 +1,10 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import '../../../core/localization/app_strings.dart';
 
 class PswDashboardScreen extends StatefulWidget {
   const PswDashboardScreen({super.key});
@@ -31,9 +30,9 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
             stream: Connectivity().onConnectivityChanged,
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data == ConnectivityResult.none) {
-                return const OfflineBanner();
+                return OfflineBanner();
               }
-              return const PrimeCareSizedBox.shrink();
+              return PrimeCareSizedBox.shrink();
             },
           ),
           PrimeCareExpanded(
@@ -44,7 +43,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   expandedHeight: 140,
                   // AppBar inherits automatically from theme.dart
                   flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    titlePadding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     title: PrimeCareText(
                       AppLocalizations.of(context)!.myShiftsTitle,
                       style: theme.textTheme.headlineLarge,
@@ -52,29 +51,29 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   ),
                   actions: [
                     IconButton(
-                      icon: const PrimeCareIcon(Icons.notifications_outlined, size: 30),
+                      icon: PrimeCareIcon(Icons.notifications_outlined, size: 30),
                       onPressed: () {},
                       color: colorScheme.primary,
                     ),
-                    const PrimeCareSizedBox(width: 12),
+                    PrimeCareSizedBox(width: 12),
                   ],
                 ),
 
                 SliverToBoxAdapter(
                   child: PrimeCarePadding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
                     child: PrimeCareCard(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(20),
                       backgroundColor: _isGlobalCodeBlack ? Colors.red[900]!.withOpacity(0.2) : colorScheme.secondary.withAlpha(20),
                       child: PrimeCareRow(
                         children: [
                           PrimeCareCard(
-                            padding: const EdgeInsets.all(12),
+                            padding: EdgeInsets.all(12),
                             
                             child: PrimeCareIcon(_isGlobalCodeBlack ? Icons.warning_amber_rounded : Icons.bolt, 
                                 color: _isGlobalCodeBlack ? Colors.redAccent : colorScheme.secondary, size: 28),
                           ),
-                          const PrimeCareSizedBox(width: 16),
+                          PrimeCareSizedBox(width: 16),
                           PrimeCareExpanded(
                             child: PrimeCareColumn(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +83,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                                         color: _isGlobalCodeBlack ? Colors.redAccent : null,
                                         fontWeight: _isGlobalCodeBlack ? FontWeight.w900 : null
                                     )),
-                                const PrimeCareSizedBox(height: 4),
+                                PrimeCareSizedBox(height: 4),
                                 PrimeCareText(
                                   _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppLocalizations.of(context)!.highDemandAlertDesc,
                                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -105,11 +104,11 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   delegate: _StickyDateDelegate(
                     child: PrimeCareContainer(
                       color: theme.scaffoldBackgroundColor,
-                      padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+                      padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
                       child: PrimeCareRow(
                         children: [
                           PrimeCareText(AppLocalizations.of(context)!.today, style: theme.textTheme.titleLarge),
-                          const PrimeCareSizedBox(width: 8),
+                          PrimeCareSizedBox(width: 8),
                           PrimeCareBadge(
                             text: AppLocalizations.of(context)!.shiftCountLabel,
                             color: colorScheme.primary,
@@ -121,7 +120,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                 ),
 
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   sliver: SliverLayoutBuilder(
                     builder: (BuildContext context, SliverConstraints constraints) {
                       if (constraints.crossAxisExtent > 800) {
@@ -141,7 +140,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                       return SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) => PrimeCarePadding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
+                            padding: EdgeInsets.only(bottom: 16.0),
                             child: _buildShiftCard(context, index),
                           ),
                           childCount: 3,
@@ -151,7 +150,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                   ),
                 ),
                 
-                const SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
+                SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
               ],
             ),
           ),
@@ -166,7 +165,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
 
     return AnimationConfiguration.staggeredList(
       position: index,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 500),
       child: SlideAnimation(
         verticalOffset: 60.0,
         child: FadeInAnimation(
@@ -175,21 +174,21 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
             background: PrimeCareCard(
               
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 24),
-              child: const PrimeCareIcon(Icons.check, color: Colors.white, size: 36),
+              padding: EdgeInsets.only(left: 24),
+              child: PrimeCareIcon(Icons.check, color: Colors.white, size: 36),
             ),
             secondaryBackground: PrimeCareCard(
               
               alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 24),
-              child: const PrimeCareIcon(Icons.handshake, color: Colors.white, size: 36),
+              padding: EdgeInsets.only(right: 24),
+              child: PrimeCareIcon(Icons.handshake, color: Colors.white, size: 36),
             ),
             onDismissed: (direction) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const PrimeCareText(AppLocalizations.of(context)!.shiftAckSuccess),
+                  content: PrimeCareText(AppLocalizations.of(context)!.shiftAckSuccess),
                   backgroundColor: colorScheme.primary,
-                  duration: const Duration(seconds: 4),
+                  duration: Duration(seconds: 4),
                   behavior: SnackBarBehavior.floating,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   action: SnackBarAction(label: AppLocalizations.of(context)!.undo, textColor: colorScheme.secondary, onPressed: (){}),
@@ -200,7 +199,7 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
               onTap: () => context.push('/psw/live-visit/uuid-shift-$index'),
               borderRadius: BorderRadius.circular(20),
               child: PrimeCareCard(
-                padding: const EdgeInsets.all(24),
+                padding: EdgeInsets.all(24),
                 child: PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -212,15 +211,15 @@ class _PswDashboardScreenState extends State<PswDashboardScreen> {
                         PrimeCareIcon(Icons.chevron_right, color: theme.dividerColor, size: 28),
                       ],
                     ),
-                    const PrimeCareSizedBox(height: 12),
+                    PrimeCareSizedBox(height: 12),
                     PrimeCareRow(
                       children: [
-                        const CircleAvatar(radius: 16),
-                        const PrimeCareSizedBox(width: 12),
+                        CircleAvatar(radius: 16),
+                        PrimeCareSizedBox(width: 12),
                         PrimeCareText('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    const PrimeCareSizedBox(height: 8),
+                    PrimeCareSizedBox(height: 8),
                     PrimeCareText('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
                   ],
                 ),

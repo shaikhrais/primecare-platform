@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -26,8 +27,8 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
     double progress = _tasks.isEmpty ? 0 : completedCount / _tasks.length;
 
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      appBar: const PrimeCareAppBar(title: 'Schedule Tasks'),
+      backgroundColor: Color(0xFFF8FAFC),
+      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.scheduleTasks),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: CustomScrollView(
@@ -35,7 +36,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
           // Apple Watch Style Completion Rings Tracker
           SliverToBoxAdapter(
             child: PrimeCarePadding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: PrimeCareRow(
                 children: [
                   PrimeCareSizedBox(
@@ -62,16 +63,16 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                       ],
                     ),
                   ),
-                  const PrimeCareSizedBox(width: 32),
+                  PrimeCareSizedBox(width: 32),
                   PrimeCareExpanded(
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimeCareText('ADL Progress', style: Theme.of(context).textTheme.headlineMedium),
-                        const PrimeCareSizedBox(height: 8),
+                        PrimeCareSizedBox(height: 8),
                         PrimeCareText(
                           '$completedCount of ${_tasks.length} tasks completed', 
-                          style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: PrimeCareColors.slate500, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -87,7 +88,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
               (context, index) {
                 final task = _tasks[index];
                 return PrimeCarePadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Dismissible(
                     key: Key(task['title']),
                     onDismissed: (_) {
@@ -100,20 +101,20 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                     background: PrimeCareCard(
                       
                       alignment: task['completed'] ? Alignment.centerRight : Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding: EdgeInsets.symmetric(horizontal: 24),
                       child: PrimeCareIcon(task['completed'] ? Icons.undo : Icons.check, color: Colors.white, size: 32),
                     ),
                     child: PrimeCareCard(
                       
                       child: CheckboxListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                         value: task['completed'],
                         onChanged: (val) {
                           HapticFeedback.selectionClick();
                           setState(() => task['completed'] = val);
                         },
                         activeColor: PrimeCareColors.emerald,
-                        side: const BorderSide(color: PrimeCareColors.slate300, width: 2),
+                        side: BorderSide(color: PrimeCareColors.slate300, width: 2),
                         title: PrimeCareText(
                           task['title'], 
                           style: TextStyle(
@@ -124,7 +125,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
                           ),
                         ),
                         subtitle: task['mandatory'] 
-                          ? const PrimeCarePadding(padding: EdgeInsets.only(top: 4.0), child: PrimeCareText('Mandatory for Checkout', style: TextStyle(color: PrimeCareColors.rose, fontSize: 13, fontWeight: FontWeight.w600))) 
+                          ? PrimeCarePadding(padding: EdgeInsets.only(top: 4.0), child: PrimeCareText('Mandatory for Checkout', style: TextStyle(color: PrimeCareColors.rose, fontSize: 13, fontWeight: FontWeight.w600))) 
                           : null,
                       ),
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:primecare_mobile/main.dart'; // Adjust if package name differs
+// Adjust if package name differs
 import 'package:primecare_mobile/features/auth/login_screen.dart';
 
 void main() {

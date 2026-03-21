@@ -18,7 +18,7 @@ class ApiClient {
       'Content-Type': 'application/json',
       'X-Requested-With': 'Flutter_Client',
       if (token != null) 'Authorization': 'Bearer $token',
-      if (cookie != null) 'Cookie': cookie,
+      'Cookie': ?cookie,
     };
   }
 
@@ -40,7 +40,7 @@ class ApiClient {
       print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint.');
       if (!kIsWeb) {
         await SqliteDatabaseHelper.instance.insertPayload({
-          'id': const Uuid().v4(),
+          'id': Uuid().v4(),
           'httpMethod': 'POST',
           'endpointUrl': endpoint,
           'jsonPayload': jsonEncode(body),
@@ -70,7 +70,7 @@ class ApiClient {
       print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint.');
       if (!kIsWeb) {
         await SqliteDatabaseHelper.instance.insertPayload({
-          'id': const Uuid().v4(),
+          'id': Uuid().v4(),
           'httpMethod': 'PUT',
           'endpointUrl': endpoint,
           'jsonPayload': jsonEncode(body),

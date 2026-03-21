@@ -96,7 +96,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
                       _remoteRenderer,
                       objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
                     )
-                  : const PrimeCareCenter(
+                  : PrimeCareCenter(
                       child: PrimeCareText('Awaiting Triage Nurse Assignment...', 
                         style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold)
                       ),
@@ -137,7 +137,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
             top: 60,
             left: 20,
             child: PrimeCareCard(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               
               child: PrimeCareRow(
                 children: [
@@ -145,8 +145,8 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
                     width: 8, height: 8,
                     
                   ),
-                  const PrimeCareSizedBox(width: 8),
-                  PrimeCareText(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                  PrimeCareSizedBox(width: 8),
+                  PrimeCareText(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
                 ],
               ),
             ),
@@ -158,7 +158,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
 
   Widget _buildControlsDock() {
     return PrimeCareCard(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
       
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

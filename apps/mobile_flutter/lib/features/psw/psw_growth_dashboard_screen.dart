@@ -17,20 +17,20 @@ class PswGrowthDashboardScreen extends StatelessWidget {
         title: PrimeCareText('My Growth Profile', style: GoogleFonts.outfit(color: Colors.black, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: PrimeCareScrollWrapper(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.all(24.0),
         child: PrimeCareColumn(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // The Elite Status Banner
             PrimeCareCard(
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.all(24),
               
               child: PrimeCareRow(
                 children: [
-                  const PrimeCareStack(
+                  PrimeCareStack(
                     alignment: Alignment.center,
                     children: [
                       PrimeCareSizedBox(
@@ -40,13 +40,13 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                       PrimeCareText('98', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const PrimeCareSizedBox(width: 24),
+                  PrimeCareSizedBox(width: 24),
                   PrimeCareExpanded(
                     child: PrimeCareColumn(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PrimeCareText('Elite Responder', style: GoogleFonts.outfit(color: Colors.amberAccent, fontSize: 24, fontWeight: FontWeight.bold)),
-                        const PrimeCareSizedBox(height: 4),
+                        PrimeCareSizedBox(height: 4),
                         PrimeCareText('Your TrustScore ranks in the top 2% of the network. You have priority access to Surge Shifts.', 
                           style: GoogleFonts.inter(color: Colors.white70, fontSize: 13, height: 1.4)),
                       ],
@@ -56,9 +56,9 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ),
             ),
 
-            const PrimeCareSizedBox(height: 32),
+            PrimeCareSizedBox(height: 32),
             PrimeCareText('Career Achievements', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            const PrimeCareSizedBox(height: 16),
+            PrimeCareSizedBox(height: 16),
 
             // Achievement Badges
             PrimeCareRow(
@@ -70,24 +70,24 @@ class PswGrowthDashboardScreen extends StatelessWidget {
               ],
             ),
 
-            const PrimeCareSizedBox(height: 48),
+            PrimeCareSizedBox(height: 48),
             PrimeCareText('Next Milestone', style: GoogleFonts.outfit(fontSize: 22, fontWeight: FontWeight.bold)),
-            const PrimeCareSizedBox(height: 16),
+            PrimeCareSizedBox(height: 16),
             
             // Promotion Progress
             PrimeCareCard(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               
               child: PrimeCareColumn(
                 children: [
                   PrimeCareRow(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const PrimeCareText('Senior Caregiver', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      PrimeCareText('Senior Caregiver', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                       PrimeCareText('4 Shifts Away', style: TextStyle(color: Colors.indigo[400], fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  const PrimeCareSizedBox(height: 16),
+                  PrimeCareSizedBox(height: 16),
                   LinearProgressIndicator(
                     value: 0.8,
                     minHeight: 12,
@@ -95,8 +95,8 @@ class PswGrowthDashboardScreen extends StatelessWidget {
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  const PrimeCareSizedBox(height: 16),
-                  const PrimeCareText('Complete 4 more shifts with zero unacknowledged incident reports to automatically bump your base rate by +1.05x.',
+                  PrimeCareSizedBox(height: 16),
+                  PrimeCareText('Complete 4 more shifts with zero unacknowledged incident reports to automatically bump your base rate by +1.05x.',
                     style: TextStyle(color: Colors.black54, height: 1.5)),
                 ],
               ),
@@ -115,10 +115,10 @@ class PswGrowthDashboardScreen extends StatelessWidget {
           backgroundColor: color.withOpacity(0.1),
           child: PrimeCareIcon(icon, size: 36, color: color),
         ),
-        const PrimeCareSizedBox(height: 12),
-        PrimeCareText(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const PrimeCareSizedBox(height: 4),
-        PrimeCareText(subtitle, style: const TextStyle(color: Colors.black54, fontSize: 13)),
+        PrimeCareSizedBox(height: 12),
+        PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        PrimeCareSizedBox(height: 4),
+        PrimeCareText(subtitle, style: TextStyle(color: Colors.black54, fontSize: 13)),
       ],
     );
   }

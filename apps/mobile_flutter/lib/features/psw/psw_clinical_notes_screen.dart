@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -9,19 +10,19 @@ class PswClinicalNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: const PrimeCareAppBar(title: 'Clinical Progress Note'),
+      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.clinicalProgressNote),
       body: DesktopPaneWrapper(
         child: PrimeCareScrollWrapper(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: PrimeCareColumn(
             children: [
               PrimeCareCard(
                 
-                child: const TextField(
+                child: TextField(
                   maxLines: 15,
                   style: TextStyle(fontSize: 18, color: PrimeCareColors.slate700, height: 1.5),
                   decoration: InputDecoration(
-                    hintText: 'Describe patient mood, physical changes, or any incidents occurring during this active shift...',
+                    hintText: AppLocalizations.of(context)!.describePatientMoodPhysicalChangesOr,
                     hintStyle: TextStyle(color: PrimeCareColors.slate400),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -31,7 +32,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ),
               ),
               
-              const PrimeCareSizedBox(height: 24),
+              PrimeCareSizedBox(height: 24),
               
               PrimeCareRow(
                 children: [
@@ -43,7 +44,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                       icon: Icons.camera_alt,
                     ),
                   ),
-                  const PrimeCareSizedBox(width: 16),
+                  PrimeCareSizedBox(width: 16),
                   PrimeCareExpanded(
                     child: PrimeCareButton(
                       onPressed: (){},
@@ -55,13 +56,13 @@ class PswClinicalNotesScreen extends StatelessWidget {
                 ],
               ),
               
-              const PrimeCareSizedBox(height: 48),
+              PrimeCareSizedBox(height: 48),
               PrimeCareButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                      SnackBar(
-                       content: const PrimeCareText('Progress Note Appended Securely'),
+                       content: PrimeCareText(AppLocalizations.of(context)!.progressNoteAppendedSecurely),
                        backgroundColor: Theme.of(context).colorScheme.primary,
                        behavior: SnackBarBehavior.floating,
                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

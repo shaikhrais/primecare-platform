@@ -1,5 +1,4 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:primecare_mobile/core/locale_provider.dart';
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,9 +23,7 @@ import 'core/theme.dart';
 
 import 'features/client/client_shell_screen.dart';
 import 'features/client/client_dashboard_screen.dart';
-import 'features/client/client_dashboard_screen.dart';
 import 'features/coordinator/coordinator_shell_screen.dart';
-import 'features/coordinator/coordinator_dashboard_screen.dart';
 import 'features/coordinator/coordinator_jane_matrix_screen.dart';
 import 'features/coordinator/coordinator_live_map_screen.dart';
 import 'features/coordinator/coordinator_jane_scheduler_screen.dart';
@@ -58,7 +55,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   OfflineSyncManager().initializeSyncListener();
   
-  runApp(const ProviderScope(child: PrimeCareApp()));
+  runApp(ProviderScope(child: PrimeCareApp()));
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -92,19 +89,19 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => LoginScreen(),
       ),
       GoRoute(
         path: '/forgot-password',
-        builder: (context, state) => const ForgotPasswordScreen(),
+        builder: (context, state) => ForgotPasswordScreen(),
       ),
       GoRoute(
         path: '/psw/messages',
-        builder: (context, state) => const PswMessagesScreen(),
+        builder: (context, state) => PswMessagesScreen(),
       ),
       GoRoute(
         path: '/psw/training',
-        builder: (context, state) => const PswTrainingScreen(),
+        builder: (context, state) => PswTrainingScreen(),
       ),
       GoRoute(
         path: '/psw/live-visit/:id',
@@ -116,7 +113,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/psw/daily-timeline',
-        builder: (context, state) => const PswDailyScheduleScreen(),
+        builder: (context, state) => PswDailyScheduleScreen(),
       ),
       // RN Hub Shell (Phase 23)
       StatefulShellRoute.indexedStack(
@@ -128,7 +125,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/dashboard',
-                builder: (context, state) => const UniversalHostScreen(endpoint: '/v1/sdui/dashboard'),
+                builder: (context, state) => UniversalHostScreen(endpoint: '/v1/sdui/dashboard'),
               ),
             ],
           ),
@@ -136,7 +133,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/patients',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Patients Scope Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnPatientsScopeActive))),
               ),
             ],
           ),
@@ -144,7 +141,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/inbox',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Inbox Thread Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnInboxThreadActive))),
               ),
             ],
           ),
@@ -152,7 +149,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/rn/profile',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('RN Profile Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnProfileActive))),
               ),
             ],
           ),
@@ -165,27 +162,27 @@ final routerProvider = Provider<GoRouter>((ref) {
           return PswShellScreen(navigationShell: navigationShell);
         },
         branches: [
-          StatefulShellBranch(routes: [GoRoute(path: '/psw/home', builder: (context, state) => const PswHomeScreen())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/psw/dashboard', builder: (context, state) => const PswDashboardScreen())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/psw/clients', builder: (context, state) => const PswClientsScreen())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/psw/timesheet', builder: (context, state) => const PswTimesheetScreen())]),
-          StatefulShellBranch(routes: [GoRoute(path: '/psw/profile', builder: (context, state) => const PswProfileScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/dashboard', builder: (context, state) => PswDashboardScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/clients', builder: (context, state) => PswClientsScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/timesheet', builder: (context, state) => PswTimesheetScreen())]),
+          StatefulShellBranch(routes: [GoRoute(path: '/psw/profile', builder: (context, state) => PswProfileScreen())]),
         ],
       ),
       // Client Role Route
       ShellRoute(
         builder: (context, state, child) => ClientShellScreen(child: child),
         routes: [
-          GoRoute(path: '/client/dashboard', builder: (context, state) => const ClientDashboardScreen()),
+          GoRoute(path: '/client/dashboard', builder: (context, state) => ClientDashboardScreen()),
         ],
       ),
       GoRoute(
         path: '/coordinator/live-map',
-        builder: (context, state) => const CoordinatorLiveMapScreen(),
+        builder: (context, state) => CoordinatorLiveMapScreen(),
       ),
       GoRoute(
         path: '/coordinator/fleet-matrix',
-        builder: (context, state) => const CoordinatorJaneSchedulerScreen(),
+        builder: (context, state) => CoordinatorJaneSchedulerScreen(),
       ),
       // Removing the top-level route because it gets mapped INSIDE the Shell now.
       // Coordinator Hub Shell (Phase 24)
@@ -198,7 +195,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/dashboard',
-                builder: (context, state) => const CoordinatorJaneMatrixScreen(),
+                builder: (context, state) => CoordinatorJaneMatrixScreen(),
               ),
             ],
           ),
@@ -206,7 +203,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/staff',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Staff Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorStaffActive))),
               ),
             ],
           ),
@@ -214,7 +211,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/approvals',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Approvals Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive))),
               ),
             ],
           ),
@@ -222,7 +219,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/coordinator/profile',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Coordinator Profile Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorProfileActive))),
               ),
             ],
           ),
@@ -238,7 +235,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/dashboard',
-                builder: (context, state) => const ManagerDashboardScreen(),
+                builder: (context, state) => ManagerDashboardScreen(),
               ),
             ],
           ),
@@ -246,7 +243,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/directory',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Directory Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerDirectoryActive))),
               ),
             ],
           ),
@@ -254,7 +251,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/system',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager System Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerSystemActive))),
               ),
             ],
           ),
@@ -262,7 +259,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/manager/execute',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Execute Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerExecuteActive))),
               ),
             ],
           ),
@@ -278,7 +275,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/scrum-master/dashboard',
-                builder: (context, state) => const ScrumMasterDashboardScreen(),
+                builder: (context, state) => ScrumMasterDashboardScreen(),
               ),
             ],
           ),
@@ -286,7 +283,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/scrum-master/diagnostic',
-                builder: (context, state) => const ScrumMasterDiagnosticScreen(),
+                builder: (context, state) => ScrumMasterDiagnosticScreen(),
               ),
             ],
           ),
@@ -294,7 +291,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/scrum-master/tenants',
-                builder: (context, state) => const ScrumMasterUsersScreen(),
+                builder: (context, state) => ScrumMasterUsersScreen(),
               ),
             ],
           ),
@@ -302,7 +299,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/scrum-master/security',
-                builder: (context, state) => const ScrumMasterSecurityScreen(),
+                builder: (context, state) => ScrumMasterSecurityScreen(),
               ),
             ],
           ),
@@ -310,20 +307,20 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/scrum-master/settings',
-                builder: (context, state) => const ScrumMasterSettingsScreen(),
+                builder: (context, state) => ScrumMasterSettingsScreen(),
               ),
             ],
           ),
         ],
       ),
       // --- MASSAGE THERAPIST (MT) CLINICAL ROUTES ---
-      GoRoute(path: '/mt/client-profile', builder: (context, state) => const MtClientProfileScreen()),
-      GoRoute(path: '/mt/soap-notes', builder: (context, state) => const MtSoapNotesScreen()),
-      GoRoute(path: '/mt/intake-forms', builder: (context, state) => const MtIntakeFormsScreen()),
-      GoRoute(path: '/mt/invoice', builder: (context, state) => const MtInvoiceScreen()),
-      GoRoute(path: '/mt/earnings', builder: (context, state) => const MtEarningsScreen()),
-      GoRoute(path: '/mt/availability', builder: (context, state) => const MtAvailabilityScreen()),
-      GoRoute(path: '/mt/credentials', builder: (context, state) => const MtCredentialsScreen()),
+      GoRoute(path: '/mt/client-profile', builder: (context, state) => MtClientProfileScreen()),
+      GoRoute(path: '/mt/soap-notes', builder: (context, state) => MtSoapNotesScreen()),
+      GoRoute(path: '/mt/intake-forms', builder: (context, state) => MtIntakeFormsScreen()),
+      GoRoute(path: '/mt/invoice', builder: (context, state) => MtInvoiceScreen()),
+      GoRoute(path: '/mt/earnings', builder: (context, state) => MtEarningsScreen()),
+      GoRoute(path: '/mt/availability', builder: (context, state) => MtAvailabilityScreen()),
+      GoRoute(path: '/mt/credentials', builder: (context, state) => MtCredentialsScreen()),
 
       // General Manager (GM) Executive Shell (Phase 45)
       StatefulShellRoute.indexedStack(
@@ -335,7 +332,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/gm/dashboard',
-                builder: (context, state) => const GmDashboardScreen(),
+                builder: (context, state) => GmDashboardScreen(),
               ),
             ],
           ),
@@ -343,7 +340,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/gm/marketing',
-                builder: (context, state) => const GmMarketingHubScreen(),
+                builder: (context, state) => GmMarketingHubScreen(),
               ),
             ],
           ),
@@ -351,7 +348,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/gm/revenue',
-                builder: (context, state) => const GmCostReductionScreen(),
+                builder: (context, state) => GmCostReductionScreen(),
               ),
             ],
           ),
@@ -359,7 +356,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/gm/expand',
-                builder: (context, state) => const GmExpansionWizardScreen(),
+                builder: (context, state) => GmExpansionWizardScreen(),
               ),
             ],
           ),
@@ -375,7 +372,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/mt/dashboard',
-                builder: (context, state) => const MtDashboardScreen(),
+                builder: (context, state) => MtDashboardScreen(),
               ),
             ],
           ),
@@ -383,7 +380,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/mt/clients',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('MT Clients Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtClientsActive))),
               ),
             ],
           ),
@@ -391,7 +388,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/mt/messages',
-                builder: (context, state) => const PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('MT Messages Active'))),
+                builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtMessagesActive))),
               ),
             ],
           ),
@@ -409,7 +406,7 @@ class PrimeCareApp extends ConsumerWidget {
     final appRouter = ref.watch(routerProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'PrimeCare Mobile',
+      title: AppLocalizations.of(context)!.primecareMobile,
       theme: PrimeCareTheme.lightTheme,
       darkTheme: PrimeCareTheme.darkTheme,
       themeMode: ThemeMode.system,

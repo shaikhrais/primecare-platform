@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -16,14 +17,14 @@ class PswShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveShell(
       navigationShell: navigationShell,
-      activeIndicatorColor: const Color(0x3310B981),
+      activeIndicatorColor: Color(0x3310B981),
       activeIconColor: PrimeCareColors.emerald,
-      destinations: const [
-        ResponsiveNavigationData(label: 'Home', icon: Icons.home_rounded, selectedIcon: Icons.home_rounded),
-        ResponsiveNavigationData(label: 'Shifts', icon: Icons.space_dashboard_rounded, selectedIcon: Icons.space_dashboard_rounded),
-        ResponsiveNavigationData(label: 'Clients', icon: Icons.people_outline, selectedIcon: Icons.people_outline),
-        ResponsiveNavigationData(label: 'Timesheet', icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
-        ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person_outline),
+      destinations: [
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.home, icon: Icons.home_rounded, selectedIcon: Icons.home_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.shifts, icon: Icons.space_dashboard_rounded, selectedIcon: Icons.space_dashboard_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.clients, icon: Icons.people_outline, selectedIcon: Icons.people_outline),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.timesheet, icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
@@ -18,7 +19,7 @@ class PswProfileScreen extends StatefulWidget {
 
 class _PswProfileScreenState extends State<PswProfileScreen> {
   Map<String, dynamic>? _profileCache;
-  String _preferredShift = "Flex Time (Any)";
+  final String _preferredShift = "Flex Time (Any)";
   bool _isLoading = true;
   Uint8List? _profileImageBytes;
   final ImagePicker _picker = ImagePicker();
@@ -51,7 +52,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         final bytes = await pickedFile.readAsBytes();
         setState(() => _profileImageBytes = bytes);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: PrimeCareText('Avatar staged for upload!'), backgroundColor: PrimeCareColors.emerald),
+          SnackBar(content: PrimeCareText(AppLocalizations.of(context)!.avatarStagedForUpload), backgroundColor: PrimeCareColors.emerald),
         );
       }
     } catch (e) {
@@ -91,8 +92,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
           }
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: PrimeCareText('Profile synchronized with PrimeCare networks safely.'),
+            SnackBar(
+              content: PrimeCareText(AppLocalizations.of(context)!.profileSynchronizedWithPrimecareNetworksSafely),
               backgroundColor: PrimeCareColors.emerald,
               behavior: SnackBarBehavior.floating,
             ),
@@ -119,19 +120,19 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
-              title: const PrimeCareText('Change Password'),
+              title: PrimeCareText(AppLocalizations.of(context)!.changePassword),
               content: PrimeCareColumn(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextField(controller: curController, obscureText: true, decoration: const InputDecoration(labelText: 'Current Password')),
-                  const PrimeCareSizedBox(height: 16),
-                  TextField(controller: newController, obscureText: true, decoration: const InputDecoration(labelText: 'New Password')),
+                  TextField(controller: curController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.currentPassword)),
+                  PrimeCareSizedBox(height: 16),
+                  TextField(controller: newController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.newPassword)),
                 ],
               ),
               actions: [
                 PrimeCareButton(type: PrimeCareButtonType.text, 
                   onPressed: isChanging ? null : () => Navigator.of(dialogContext).pop(),
-                  child: const PrimeCareText('Cancel'),
+                  child: PrimeCareText(AppLocalizations.of(context)!.cancel),
                 ),
                 PrimeCareButton(type: PrimeCareButtonType.primary, 
                   onPressed: isChanging ? null : () async {
@@ -143,7 +144,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       });
                       if (context.mounted) {
                         Navigator.of(dialogContext).pop();
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: PrimeCareText('Password protected successfully.'), backgroundColor: PrimeCareColors.emerald));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: PrimeCareText(AppLocalizations.of(context)!.passwordProtectedSuccessfully), backgroundColor: PrimeCareColors.emerald));
                       }
                     } catch (e) {
                       if (context.mounted) {
@@ -152,7 +153,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       }
                     }
                   },
-                  child: isChanging ? const PrimeCareSizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : const PrimeCareText('Update'),
+                  child: isChanging ? PrimeCareSizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : PrimeCareText(AppLocalizations.of(context)!.update),
                 ),
               ],
             );
@@ -167,7 +168,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     return PrimeCareScaffold(
       body: DesktopPaneWrapper(
         child: PrimeCareScrollWrapper(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.0),
             child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -188,16 +189,16 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       ),
                       PrimeCareCard(
                         
-                        padding: const EdgeInsets.all(8),
-                        child: const PrimeCareIcon(Icons.camera_alt, size: 16, color: Colors.white),
+                        padding: EdgeInsets.all(8),
+                        child: PrimeCareIcon(Icons.camera_alt, size: 16, color: Colors.white),
                       ),
                     ],
                   ),
                 ),
               ),
-              const PrimeCareSizedBox(height: 32),
+              PrimeCareSizedBox(height: 32),
               
-              const PrimeCareSizedBox(height: 32),
+              PrimeCareSizedBox(height: 32),
               
               if (_profileCache != null)
                 PrimeCareDynamicFormBuilder(
@@ -209,7 +210,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                   },
                 ),
                 
-              const PrimeCareSizedBox(height: 16),
+              PrimeCareSizedBox(height: 16),
               
               PrimeCareButton(
                 onPressed: _showChangePasswordDialog,
@@ -217,7 +218,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                 isPrimary: false,
                 icon: Icons.security,
               ),
-              const PrimeCareSizedBox(height: 16),
+              PrimeCareSizedBox(height: 16),
               PrimeCareButton(
                 onPressed: () => _handleLogout(context),
                 text: 'Sign Out of Application',

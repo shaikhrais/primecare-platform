@@ -20,17 +20,17 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('SCM_GLOBAL_CONFIG', style: TextStyle(color: PrimeCareColors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+        title: PrimeCareText('SCM_GLOBAL_CONFIG', style: TextStyle(color: PrimeCareColors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
         backgroundColor: PrimeCareColors.darkMatrix,
         elevation: 0,
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         children: [
-          const PrimeCareText('ENVIRONMENT OVERRIDES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareText('ENVIRONMENT OVERRIDES', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
+          PrimeCareSizedBox(height: 16),
           _buildToggle(
             'Force Offline Mode (CRDT Sync Test)', 
             'Simulate a total Cloudflare outage to strictly test local SQLite cache buffers natively.', 
@@ -50,13 +50,13 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
             (val) => setState(() => _logSQL = val)
           ),
 
-          const PrimeCareSizedBox(height: 48),
-          const PrimeCareText('ADMIN ACTIONS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareSizedBox(height: 48),
+          PrimeCareText('ADMIN ACTIONS', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
+          PrimeCareSizedBox(height: 16),
           ElevatedButton.icon(
              onPressed: () {},
-             icon: const PrimeCareIcon(Icons.rocket_launch_rounded),
-             label: const PrimeCareText('DEPLOY STAGING TO PRODUCTION', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
+             icon: PrimeCareIcon(Icons.rocket_launch_rounded),
+             label: PrimeCareText('DEPLOY STAGING TO PRODUCTION', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
              
           )
         ],
@@ -68,17 +68,17 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
 
   Widget _buildToggle(String title, String desc, bool value, Function(bool) onChanged) {
     return PrimeCareCard(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       
       child: SwitchListTile(
-        title: PrimeCareText(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: PrimeCareText(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         subtitle: PrimeCarePadding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: PrimeCareText(desc, style: const TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
+          padding: EdgeInsets.only(top: 8.0),
+          child: PrimeCareText(desc, style: TextStyle(color: PrimeCareColors.slate400, height: 1.4)),
         ),
         value: value,
-        activeColor: PrimeCareColors.amber,
+        activeThumbColor: PrimeCareColors.amber,
         onChanged: onChanged,
         contentPadding: EdgeInsets.zero,
       ),

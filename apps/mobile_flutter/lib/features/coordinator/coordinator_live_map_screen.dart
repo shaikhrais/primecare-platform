@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -17,15 +18,15 @@ class CoordinatorLiveMapScreen extends StatefulWidget {
 
 class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
   // Center of Toronto
-  final LatLng _mapCenter = const LatLng(43.651070, -79.347015);
+  final LatLng _mapCenter = LatLng(43.651070, -79.347015);
   final MapController _mapController = MapController();
   
   // Simulated Haversine Active Worker Nodes
   final List<WorkerMarker> _activeWorkers = [
-    WorkerMarker(id: 'w1', position: const LatLng(43.661070, -79.357015), role: 'RN', active: true),
-    WorkerMarker(id: 'w2', position: const LatLng(43.641070, -79.337015), role: 'PSW', active: true),
-    WorkerMarker(id: 'w3', position: const LatLng(43.631070, -79.367015), role: 'PSW', active: true, surge: true),
-    WorkerMarker(id: 'w4', position: const LatLng(43.671070, -79.327015), role: 'RN', active: true),
+    WorkerMarker(id: 'w1', position: LatLng(43.661070, -79.357015), role: 'RN', active: true),
+    WorkerMarker(id: 'w2', position: LatLng(43.641070, -79.337015), role: 'PSW', active: true),
+    WorkerMarker(id: 'w3', position: LatLng(43.631070, -79.367015), role: 'PSW', active: true, surge: true),
+    WorkerMarker(id: 'w4', position: LatLng(43.671070, -79.327015), role: 'RN', active: true),
   ];
 
   @override
@@ -36,17 +37,17 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: PrimeCareCard(
-          margin: const EdgeInsets.all(8),
+          margin: EdgeInsets.all(8),
           
           child: IconButton(
-            icon: const PrimeCareIcon(Icons.arrow_back, color: Colors.white),
+            icon: PrimeCareIcon(Icons.arrow_back, color: Colors.white),
             onPressed: () => context.pop(),
           ),
         ),
         title: PrimeCareCard(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           
-          child: const PrimeCareText('Live Dispatch Radar', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+          child: PrimeCareText('Live Dispatch Radar', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
         ),
         centerTitle: true,
       ),
@@ -58,12 +59,12 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
             options: MapOptions(
               initialCenter: _mapCenter,
               initialZoom: 13.0,
-              interactionOptions: const InteractionOptions(flags: InteractiveFlag.all),
+              interactionOptions: InteractionOptions(flags: InteractiveFlag.all),
             ),
             children: [
               TileLayer(
                 urlTemplate: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', // Dark Theme Map tiles
-                subdomains: const ['a', 'b', 'c', 'd'],
+                subdomains: ['a', 'b', 'c', 'd'],
                 userAgentPackageName: 'com.primecare.mobile',
               ),
               MarkerLayer(
@@ -79,8 +80,8 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
                 circles: [
                   CircleMarker(
                     point: _mapCenter,
-                    color: const Color(0x1110B981),
-                    borderColor: const Color(0x6610B981),
+                    color: Color(0x1110B981),
+                    borderColor: Color(0x6610B981),
                     borderStrokeWidth: 2,
                     useRadiusInMeter: true,
                     radius: 5000, // 5km radius visually
@@ -99,7 +100,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
               child: PrimeCareColumn(
                 mainAxisSize: MainAxisSize.min,
                 children: AnimationConfiguration.toStaggeredList(
-                  duration: const Duration(milliseconds: 600),
+                  duration: Duration(milliseconds: 600),
                   childAnimationBuilder: (widget) => SlideAnimation(verticalOffset: 50, child: FadeInAnimation(child: widget)),
                   children: [
                     _buildDispatchHUD(),
@@ -115,7 +116,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
 
   Widget _buildRadarBlip(WorkerMarker worker) {
     final bool isRN = worker.role == 'RN';
-    final Color markerColor = isRN ? const Color(0xFF0EA5E9) : PrimeCareColors.emerald;
+    final Color markerColor = isRN ? Color(0xFF0EA5E9) : PrimeCareColors.emerald;
     
     return GestureDetector(
       onTap: () {
@@ -123,7 +124,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: PrimeCareText('${worker.role} Unit ${worker.id} Selected. Establishing Comms...'),
           backgroundColor: PrimeCareColors.radarDark,
-          action: SnackBarAction(label: 'PING', textColor: markerColor, onPressed: (){}),
+          action: SnackBarAction(label: AppLocalizations.of(context)!.ping, textColor: markerColor, onPressed: (){}),
         ));
         _mapController.move(worker.position, 15.0);
       },
@@ -139,7 +140,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
             
           ),
           if (worker.surge)
-            Positioned(top: -5, right: -5, child: const PrimeCareIcon(Icons.bolt, color: Colors.amber, size: 24))
+            Positioned(top: -5, right: -5, child: PrimeCareIcon(Icons.bolt, color: Colors.amber, size: 24))
         ],
       ),
     );
@@ -147,7 +148,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
 
   Widget _buildDispatchHUD() {
     return PrimeCareCard(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,19 +156,19 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
           PrimeCareRow(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const PrimeCareText('Live Dispatch Array', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              PrimeCareText('Live Dispatch Array', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
               PrimeCareCard(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 
-                child: const PrimeCareText('STATUS: ACQUIRING', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                child: PrimeCareText('STATUS: ACQUIRING', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1)),
               )
             ],
           ),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareSizedBox(height: 16),
           PrimeCareRow(
             children: [
               PrimeCareExpanded(child: _buildHUDSemantic('Available Workers', '4 Units', Icons.people_outline)),
-              const PrimeCareSizedBox(width: 12),
+              PrimeCareSizedBox(width: 12),
               PrimeCareExpanded(child: _buildHUDSemantic('Critical Alerts', '0', Icons.warning_amber_rounded)),
             ],
           )
@@ -178,17 +179,17 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
 
   Widget _buildHUDSemantic(String label, String val, IconData icon) {
     return PrimeCareCard(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
       
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(icon, color: Colors.white70, size: 24),
-          const PrimeCareSizedBox(width: 12),
+          PrimeCareSizedBox(width: 12),
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimeCareText(val, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-              PrimeCareText(label, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+              PrimeCareText(val, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+              PrimeCareText(label, style: TextStyle(color: Colors.white54, fontSize: 12)),
             ],
           )
         ],

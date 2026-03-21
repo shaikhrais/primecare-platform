@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -47,7 +48,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
       case 'completed': return PrimeCareColors.slate500; // Slate Grey
       case 'arrived': return PrimeCareColors.emerald; // Emerald Green
       case 'en_route': return PrimeCareColors.amber; // Amber Warning
-      case 'scheduled': return const Color(0xFF3B82F6); // Standard Blue
+      case 'scheduled': return Color(0xFF3B82F6); // Standard Blue
       case 'auto': return PrimeCareColors.purple; // AI Purple
       case 'no_show': return PrimeCareColors.rose; // Red
       default: return PrimeCareColors.slate200;
@@ -59,17 +60,17 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
     return PrimeCareScaffold(
       backgroundColor: Colors.white,
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+        title: PrimeCareText('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 1,
         shadowColor: Colors.black12,
-        leading: IconButton(icon: const PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
+        leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
         actions: [
           PrimeCareCard(
-            margin: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            margin: EdgeInsets.only(right: 16, top: 10, bottom: 10),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             
-            child: const PrimeCareCenter(child: PrimeCareText('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+            child: PrimeCareCenter(child: PrimeCareText('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
           )
         ],
       ),
@@ -83,18 +84,18 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
             child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const PrimeCarePadding(
+                PrimeCarePadding(
                   padding: EdgeInsets.all(16.0),
                   child: PrimeCareText('Waitlist Array', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.slate500, letterSpacing: 1.5)),
                 ),
                 PrimeCareExpanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 12),
                     itemCount: _waitlist.length,
                     itemBuilder: (context, index) {
                       final item = _waitlist[index];
                       return PrimeCarePadding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: EdgeInsets.only(bottom: 12),
                         child: Draggable<Map<String, dynamic>>(
                           data: item,
                           feedback: Material(
@@ -121,7 +122,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                 PrimeCareExpanded(
                   child: ListView.builder(
                     itemCount: _endHour - _startHour + 1,
-                    physics: const ClampingScrollPhysics(), // Match scroll later if synced, but usually interactive viewer handles inner body
+                    physics: ClampingScrollPhysics(), // Match scroll later if synced, but usually interactive viewer handles inner body
                     itemBuilder: (context, index) {
                       final time = _startHour + index;
                       final String amPm = time >= 12 ? 'PM' : 'AM';
@@ -129,7 +130,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                       return PrimeCareCard(
                         height: _hourHeight,
                         
-                        child: PrimeCareCenter(child: PrimeCareText('$displayTime:00 $amPm', style: const TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, fontSize: 12))),
+                        child: PrimeCareCenter(child: PrimeCareText('$displayTime:00 $amPm', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, fontSize: 12))),
                       );
                     },
                   ),
@@ -142,7 +143,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
           PrimeCareExpanded(
             child: InteractiveViewer(
               constrained: false, // Allows X and Y infinite panning mathematically
-              boundaryMargin: const EdgeInsets.all(0),
+              boundaryMargin: EdgeInsets.all(0),
               minScale: 0.5,
               maxScale: 2.0,
               child: PrimeCareColumn(
@@ -158,8 +159,8 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                         child: PrimeCareColumn(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            PrimeCareText(p['name'], style: const TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, fontSize: 14)),
-                            PrimeCareText('${p['role']} • Active', style: const TextStyle(color: PrimeCareColors.emerald, fontSize: 11, fontWeight: FontWeight.bold)),
+                            PrimeCareText(p['name'], style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark, fontSize: 14)),
+                            PrimeCareText('${p['role']} • Active', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 11, fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
@@ -176,20 +177,20 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                         ...List.generate(_endHour - _startHour + 1, (y) {
                           return Positioned(
                             top: y * _hourHeight, left: 0, right: 0,
-                            child: PrimeCareContainer(height: 1, color: const Color(0xFFF1F5F9)),
+                            child: PrimeCareContainer(height: 1, color: Color(0xFFF1F5F9)),
                           );
                         }),
                         ...List.generate(_providers.length, (x) {
                           return Positioned(
                             top: 0, bottom: 0, left: x * _columnWidth,
-                            child: PrimeCareContainer(width: 1, color: const Color(0xFFF1F5F9)),
+                            child: PrimeCareContainer(width: 1, color: Color(0xFFF1F5F9)),
                           );
                         }),
                         
                         // Shift Block Overlays
                         ..._scheduleBlocks.map((block) {
                           final providerIndex = _providers.indexWhere((p) => p['id'] == block['provider']);
-                          if (providerIndex == -1) return const PrimeCareSizedBox.shrink();
+                          if (providerIndex == -1) return PrimeCareSizedBox.shrink();
                           
                           final double topOffset = (block['start'] - _startHour) * _hourHeight;
                           final double blockHeight = block['duration'] * _hourHeight;
@@ -201,7 +202,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                             top: topOffset,
                             height: blockHeight,
                             child: PrimeCareCard(
-                              padding: const EdgeInsets.all(12),
+                              padding: EdgeInsets.all(12),
                               
                               child: PrimeCareColumn(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,13 +214,13 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                       PrimeCareIcon(Icons.check_circle, size: 14, color: blockColor),
                                     ],
                                   ),
-                                  const PrimeCareSizedBox(height: 4),
-                                  PrimeCareText(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 12)),
+                                  PrimeCareSizedBox(height: 4),
+                                  PrimeCareText(block['type'], style: TextStyle(color: Color(0xFF475569), fontSize: 12)),
                                 ],
                               ),
                             ),
                           );
-                        }).toList(),
+                        }),
                         // Waitlist Dropping DragTarget Layout Matrix
                         ...List.generate(_providers.length, (x) {
                           return Positioned(
@@ -229,7 +230,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                             width: _columnWidth,
                             child: DragTarget<Map<String, dynamic>>(
                               builder: (context, candidateData, rejectedData) {
-                                return PrimeCareContainer(color: candidateData.isNotEmpty ? const Color(0x1110B981) : Colors.transparent);
+                                return PrimeCareContainer(color: candidateData.isNotEmpty ? Color(0x1110B981) : Colors.transparent);
                               },
                               onAcceptWithDetails: (details) {
                                 // Mathematical algorithm extracting Y Drop Constraints relative to Time Interval
@@ -258,8 +259,8 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                 }
 
                                 if (collision) {
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                    content: PrimeCareText('DOUBLE-BOOKING DETECTED. The physical schedule matrix rejected the collision constraint.'),
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: PrimeCareText(AppLocalizations.of(context)!.doubleBookingDetectedThePhysicalSchedule),
                                     backgroundColor: PrimeCareColors.rose
                                   ));
                                   return;
@@ -278,7 +279,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
                                 });
                                 
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: PrimeCareText('SUCCESS: ${droppedItem['client']} bound to ${targetProvider}.'),
+                                  content: PrimeCareText('SUCCESS: ${droppedItem['client']} bound to $targetProvider.'),
                                   backgroundColor: PrimeCareColors.emerald
                                 ));
                               },
@@ -301,7 +302,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
     final Color blockColor = _getStateColor(block['state']);
     return PrimeCareCard(
       width: _columnWidth - 16,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,10 +315,10 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
               PrimeCareIcon(Icons.drag_indicator_rounded, size: 14, color: blockColor.withAlpha(100)),
             ],
           ),
-          const PrimeCareSizedBox(height: 4),
-          PrimeCareText(block['type'], style: const TextStyle(color: Color(0xFF475569), fontSize: 11)),
-          const PrimeCareSizedBox(height: 6),
-          PrimeCareText('${block['duration']} HR BLOCK', style: const TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
+          PrimeCareSizedBox(height: 4),
+          PrimeCareText(block['type'], style: TextStyle(color: Color(0xFF475569), fontSize: 11)),
+          PrimeCareSizedBox(height: 6),
+          PrimeCareText('${block['duration']} HR BLOCK', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1)),
         ],
       ),
     );

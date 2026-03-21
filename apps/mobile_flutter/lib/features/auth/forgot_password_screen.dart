@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -51,75 +52,75 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('Recovery', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFF0EA5E9),
-        iconTheme: const IconThemeData(color: Colors.white),
+        title: PrimeCareText('Recovery', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: Color(0xFF0EA5E9),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: PrimeCareCenter(
         child: PrimeCareScrollWrapper(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(24.0),
           child: PrimeCareCard(
-            constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.all(32.0),
+            constraints: BoxConstraints(maxWidth: 400),
+            padding: EdgeInsets.all(32.0),
             
             child: PrimeCareColumn(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const PrimeCareIcon(Icons.lock_reset, size: 48, color: Color(0xFF0EA5E9)),
-                const PrimeCareSizedBox(height: 16),
-                const PrimeCareText(
+                PrimeCareIcon(Icons.lock_reset, size: 48, color: Color(0xFF0EA5E9)),
+                PrimeCareSizedBox(height: 16),
+                PrimeCareText(
                   'Password Recovery',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
                   textAlign: TextAlign.center,
                 ),
-                const PrimeCareSizedBox(height: 8),
-                const PrimeCareText(
+                PrimeCareSizedBox(height: 8),
+                PrimeCareText(
                   'Enter the email address associated with your PrimeCare account.',
                   style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
                   textAlign: TextAlign.center,
                 ),
-                const PrimeCareSizedBox(height: 32),
+                PrimeCareSizedBox(height: 32),
                 if (_message != null) ...[
                   PrimeCareCard(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(12),
                     
                     child: PrimeCareText(
                       _message!,
                       style: TextStyle(
-                        color: _isSuccess ? const Color(0xFF059669) : PrimeCareColors.rose,
+                        color: _isSuccess ? Color(0xFF059669) : PrimeCareColors.rose,
                         fontSize: 14,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const PrimeCareSizedBox(height: 24),
+                  PrimeCareSizedBox(height: 24),
                 ],
                 if (!_isSuccess) ...[
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: 'Email Address',
+                      labelText: AppLocalizations.of(context)!.emailAddress,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const PrimeCareSizedBox(height: 24),
+                  PrimeCareSizedBox(height: 24),
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: _isLoading ? null : _handleReset,
                     
                     child: _isLoading
-                        ? const PrimeCareSizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : const PrimeCareText('Send Reset Link', style: TextStyle(fontWeight: FontWeight.bold)),
+                        ? PrimeCareSizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        : PrimeCareText('Send Reset Link', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
                 if (_isSuccess) ...[
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: () => context.go('/login'),
                     
-                    child: const PrimeCareText('Return to Authorization', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: PrimeCareText('Return to Authorization', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ],

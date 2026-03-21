@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -16,13 +17,13 @@ class CoordinatorShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveShell(
       navigationShell: navigationShell,
-      activeIndicatorColor: const Color(0x338B5CF6),
+      activeIndicatorColor: Color(0x338B5CF6),
       activeIconColor: PrimeCareColors.purple,
-      destinations: const [
-        ResponsiveNavigationData(label: 'Dispatch', icon: Icons.route_rounded, selectedIcon: Icons.route_rounded),
-        ResponsiveNavigationData(label: 'Staff', icon: Icons.badge_outlined, selectedIcon: Icons.badge_outlined),
-        ResponsiveNavigationData(label: 'Approvals', icon: Icons.fact_check_outlined, selectedIcon: Icons.fact_check_outlined),
-        ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person_outline),
+      destinations: [
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.dispatch, icon: Icons.route_rounded, selectedIcon: Icons.route_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.staff, icon: Icons.badge_outlined, selectedIcon: Icons.badge_outlined),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.approvals, icon: Icons.fact_check_outlined, selectedIcon: Icons.fact_check_outlined),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
       ],
     );
   }

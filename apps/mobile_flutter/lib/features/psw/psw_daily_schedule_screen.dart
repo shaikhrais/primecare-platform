@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -54,15 +55,15 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark),
+          icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark),
           onPressed: () => context.pop(),
         ),
-        title: const PrimeCareText('My Daily Timeline', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+        title: PrimeCareText('My Daily Timeline', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -71,9 +72,9 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
           // Max Schedule Toggle Component
           SliverToBoxAdapter(
             child: PrimeCarePadding(
-              padding: const EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(24.0),
               child: PrimeCareCard(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 
                 child: PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +82,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                     PrimeCareRow(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const PrimeCareRow(
+                        PrimeCareRow(
                           children: [
                             PrimeCareIcon(Icons.auto_graph, color: Colors.white, size: 28),
                             PrimeCareSizedBox(width: 8),
@@ -90,7 +91,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         ),
                         Switch(
                           value: _maxScheduleOptIn,
-                          activeColor: PrimeCareColors.emerald,
+                          activeThumbColor: PrimeCareColors.emerald,
                           activeTrackColor: Colors.white,
                           inactiveThumbColor: Colors.white54,
                           inactiveTrackColor: Colors.black26,
@@ -98,8 +99,8 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                             HapticFeedback.heavyImpact();
                             setState(() => _maxScheduleOptIn = val);
                             if (val) {
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                content: PrimeCareText('Max Option Enabled. Dispatch will auto-assign up to 12 hours.'),
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: PrimeCareText(AppLocalizations.of(context)!.maxOptionEnabledDispatchWillAuto),
                                 backgroundColor: PrimeCareColors.emerald,
                               ));
                             }
@@ -107,7 +108,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                         ),
                       ],
                     ),
-                    const PrimeCareSizedBox(height: 8),
+                    PrimeCareSizedBox(height: 8),
                     PrimeCareText(
                       _maxScheduleOptIn 
                         ? 'Algorithm actively routing pending shifts to fill your gaps.'
@@ -121,7 +122,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
           ),
 
           // Core Timeline Header
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: PrimeCarePadding(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               child: PrimeCareText("Today's Itinerary", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
@@ -135,12 +136,12 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
                 final shift = _dailyItinerary[index];
                 return AnimationConfiguration.staggeredList(
                   position: index,
-                  duration: const Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 500),
                   child: SlideAnimation(
                     verticalOffset: 50.0,
                     child: FadeInAnimation(
                       child: PrimeCarePadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
+                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 4.0),
                         child: _buildTimelineNode(shift, index == _dailyItinerary.length - 1),
                       ),
                     ),
@@ -151,7 +152,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
             ),
           ),
           
-          const SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
+          SliverToBoxAdapter(child: PrimeCareSizedBox(height: 80)),
         ],
       )
         ),
@@ -187,33 +188,33 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
           // Timeline Card Payload
           PrimeCareExpanded(
             child: PrimeCarePadding(
-              padding: const EdgeInsets.only(bottom: 24.0),
+              padding: EdgeInsets.only(bottom: 24.0),
               child: PrimeCareCard(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 
                 child: PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PrimeCareText(shift['time'], style: const TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
-                    const PrimeCareSizedBox(height: 4),
-                    PrimeCareText(shift['client'], style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6366F1), fontSize: 18)),
-                    PrimeCareText('${shift['type']} • ${shift['location']}', style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+                    PrimeCareText(shift['time'], style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark, fontSize: 16)),
+                    PrimeCareSizedBox(height: 4),
+                    PrimeCareText(shift['client'], style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF6366F1), fontSize: 18)),
+                    PrimeCareText('${shift['type']} • ${shift['location']}', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
                     
                     if ((shift['resources'] as List).isNotEmpty) ...[
-                      const PrimeCarePadding(
+                      PrimeCarePadding(
                         padding: EdgeInsets.symmetric(vertical: 12.0),
                         child: Divider(height: 1, color: Color(0xFFF1F5F9)),
                       ),
-                      const PrimeCareText('REQUIRED RESOURCES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: PrimeCareColors.slate400)),
-                      const PrimeCareSizedBox(height: 8),
+                      PrimeCareText('REQUIRED RESOURCES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: PrimeCareColors.slate400)),
+                      PrimeCareSizedBox(height: 8),
                       ...((shift['resources'] as List).map((res) {
                         return PrimeCarePadding(
-                          padding: const EdgeInsets.only(bottom: 6.0),
+                          padding: EdgeInsets.only(bottom: 6.0),
                           child: PrimeCareRow(
                             children: [
                               PrimeCareIcon(res['icon'], size: 16, color: PrimeCareColors.amber),
-                              const PrimeCareSizedBox(width: 8),
-                              PrimeCareExpanded(child: PrimeCareText(res['text'], style: const TextStyle(color: Color(0xFF475569), fontSize: 13, fontWeight: FontWeight.w500))),
+                              PrimeCareSizedBox(width: 8),
+                              PrimeCareExpanded(child: PrimeCareText(res['text'], style: TextStyle(color: Color(0xFF475569), fontSize: 13, fontWeight: FontWeight.w500))),
                             ],
                           ),
                         );

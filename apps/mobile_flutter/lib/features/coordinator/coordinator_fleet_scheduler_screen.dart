@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
@@ -36,7 +37,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
     HapticFeedback.heavyImpact();
     setState(() => _isAutoFilling = true);
     
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(Duration(seconds: 2), () {
       if (!mounted) return;
       setState(() {
         _isAutoFilling = false;
@@ -54,8 +55,8 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
         ]);
       });
       
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: PrimeCareText('Auto-Max Routing Complete. 28 pending hours assigned continuously.'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: PrimeCareText(AppLocalizations.of(context)!.autoMaxRoutingComplete28Pending),
         backgroundColor: Color(0xFF6366F1),
       ));
     });
@@ -64,12 +65,12 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('Fleet Master Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
+        title: PrimeCareText('Fleet Master Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(icon: const PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
+        leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
@@ -77,7 +78,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
         children: [
           // Dispatch Control Hub
           PrimeCareCard(
-            padding: const EdgeInsets.all(24),
+            padding: EdgeInsets.all(24),
             
             child: PrimeCareRow(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,17 +86,17 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                 PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const PrimeCareText('Global AI Dispatch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: PrimeCareColors.slate500, letterSpacing: 1)),
-                    const PrimeCareSizedBox(height: 4),
-                    const PrimeCareText('28 Unassigned Hours Pending', style: TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.w900, fontSize: 18)),
+                    PrimeCareText('Global AI Dispatch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: PrimeCareColors.slate500, letterSpacing: 1)),
+                    PrimeCareSizedBox(height: 4),
+                    PrimeCareText('28 Unassigned Hours Pending', style: TextStyle(color: PrimeCareColors.rose, fontWeight: FontWeight.w900, fontSize: 18)),
                   ],
                 ),
                 ElevatedButton.icon(
                   onPressed: _isAutoFilling ? null : _triggerMaxScheduleAutoFill,
                   icon: _isAutoFilling 
-                      ? const PrimeCareSizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const PrimeCareIcon(Icons.auto_awesome),
-                  label: const PrimeCareText('AUTO-MAX FILL'),
+                      ? PrimeCareSizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                      : PrimeCareIcon(Icons.auto_awesome),
+                  label: PrimeCareText(AppLocalizations.of(context)!.autoMaxFill),
                   
                 )
               ],
@@ -105,11 +106,11 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
           // Timeline Rendering Array
           PrimeCareExpanded(
             child: PrimeCareScrollWrapper(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.all(20),
               child: AnimationLimiter(
                 child: PrimeCareColumn(
                   children: AnimationConfiguration.toStaggeredList(
-                    duration: const Duration(milliseconds: 500),
+                    duration: Duration(milliseconds: 500),
                     childAnimationBuilder: (widget) => SlideAnimation(verticalOffset: 50, child: FadeInAnimation(child: widget)),
                     children: _fleetMatrix.map((worker) => _buildGanttRow(worker)).toList(),
                   ),
@@ -126,8 +127,8 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
 
   Widget _buildGanttRow(Map<String, dynamic> worker) {
     return PrimeCareCard(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
       
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -138,26 +139,26 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
             children: [
               PrimeCareRow(
                 children: [
-                  CircleAvatar(radius: 16, backgroundColor: const Color(0xFFDBEAFE), child: PrimeCareText(worker['id'].toString().substring(0,2), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                  const PrimeCareSizedBox(width: 12),
-                  PrimeCareText(worker['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+                  CircleAvatar(radius: 16, backgroundColor: Color(0xFFDBEAFE), child: PrimeCareText(worker['id'].toString().substring(0,2), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                  PrimeCareSizedBox(width: 12),
+                  PrimeCareText(worker['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
                 ],
               ),
               PrimeCareRow(
                 children: [
                   if (worker['max_opt_in'])
                     PrimeCareCard(
-                      margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      margin: EdgeInsets.only(right: 8),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       
-                      child: const PrimeCareText('MAX OPTION', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold)),
+                      child: PrimeCareText('MAX OPTION', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 10, fontWeight: FontWeight.bold)),
                     ),
-                  PrimeCareText(worker['capacity'], style: const TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 14)),
+                  PrimeCareText(worker['capacity'], style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 14)),
                 ],
               )
             ],
           ),
-          const PrimeCareSizedBox(height: 16),
+          PrimeCareSizedBox(height: 16),
           
           // Gantt Timeline (08:00 -> 20:00) 12-hour span
           PrimeCareCard(
@@ -172,17 +173,17 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
                 
                 final Color blockColor = block['type'] == 'auto_assigned' 
                     ? PrimeCareColors.purple // Deep AI Purple
-                    : const Color(0xFF3B82F6); // Standard Blue
+                    : Color(0xFF3B82F6); // Standard Blue
                 
                 return Positioned(
                   left: MediaQuery.of(context).size.width * 0.8 * startFactor,
                   width: MediaQuery.of(context).size.width * 0.8 * widthFactor,
                   top: 0, bottom: 0,
                   child: PrimeCareCard(
-                    margin: const EdgeInsets.all(4),
+                    margin: EdgeInsets.all(4),
                     
                     child: PrimeCareCenter(
-                      child: PrimeCareText('${block['span']} HR', style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                      child: PrimeCareText('${block['span']} HR', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                     ),
                   ),
                 );

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../lib/core/api_client.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 
 void main() {
   test('Proof of Concept: Local UI Sandbox intercepts Edge 401 Rejections', () async {

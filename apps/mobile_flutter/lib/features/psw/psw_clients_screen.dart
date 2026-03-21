@@ -13,7 +13,7 @@ class PswClientsScreen extends StatefulWidget {
 }
 
 class _PswClientsScreenState extends State<PswClientsScreen> {
-  final List<Map<String, String>> _clients = const [
+  final List<Map<String, String>> _clients = [
     {'id': 'c_1', 'name': 'Sarah Jenkins', 'status': 'Stable', 'address': '123 Main St, Toronto'},
     {'id': 'c_2', 'name': 'Robert Kiyosaki', 'status': 'Monitoring', 'address': '44 Financial Ave, York'},
     {'id': 'c_3', 'name': 'Eliza Thornberry', 'status': 'Critical', 'address': '99 Safari Rd, Etobicoke'},
@@ -49,7 +49,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
     
     final masterListWidget = PrimeCareScaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Assigned Clients', 
@@ -60,7 +60,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
         centerTitle: false,
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
+        padding: EdgeInsets.fromLTRB(24, 8, 24, 120),
         itemCount: _clients.length,
         itemBuilder: (context, index) {
           final client = _clients[index];
@@ -69,14 +69,14 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
           final isSelected = _selectedClientId == client['id'];
 
           return PrimeCarePadding(
-            padding: const EdgeInsets.only(bottom: 16),
+            padding: EdgeInsets.only(bottom: 16),
             child: InkWell(
               onTap: () => _onClientSelected(client['id']!, client['name']!, isDesktop),
               borderRadius: BorderRadius.circular(20),
               child: AnimatedPrimeCareCard(
-                duration: const Duration(milliseconds: 200),
+                duration: Duration(milliseconds: 200),
                 
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 child: PrimeCareRow(
                   children: [
                     CircleAvatar(
@@ -90,29 +90,29 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                         )
                       ),
                     ),
-                    const PrimeCareSizedBox(width: 16),
+                    PrimeCareSizedBox(width: 16),
                     PrimeCareExpanded(
                       child: PrimeCareColumn(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          PrimeCareText(client['name']!, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-                          const PrimeCareSizedBox(height: 4),
-                          PrimeCareText(client['address']!, style: const TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
-                          const PrimeCareSizedBox(height: 12),
+                          PrimeCareText(client['name']!, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                          PrimeCareSizedBox(height: 4),
+                          PrimeCareText(client['address']!, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+                          PrimeCareSizedBox(height: 12),
                           PrimeCareRow(
                             children: [
                               PrimeCareCard(
                                 width: 8, height: 8,
                                 
                               ),
-                              const PrimeCareSizedBox(width: 6),
+                              PrimeCareSizedBox(width: 6),
                               PrimeCareText(client['status']!, style: TextStyle(color: statusColor, fontWeight: FontWeight.bold, fontSize: 13)),
                             ],
                           )
                         ],
                       ),
                     ),
-                    const PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 20),
+                    PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 20),
                   ],
                 ),
               ),

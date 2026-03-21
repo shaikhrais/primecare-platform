@@ -55,6 +55,7 @@ dependencies:
   primecare_ui:
     path: ../../packages/primecare_ui
 
+  path: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

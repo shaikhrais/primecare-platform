@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/colors.dart';
@@ -25,31 +26,31 @@ class ScrumMasterShellScreen extends StatelessWidget {
         onDestinationSelected: _onTap,
         backgroundColor: PrimeCareColors.radarDark,
         indicatorColor: PrimeCareColors.emerald.withAlpha(50),
-        destinations: const [
+        destinations: [
           NavigationDestination(
             icon: PrimeCareIcon(Icons.dashboard_outlined, color: PrimeCareColors.slate400),
             selectedIcon: PrimeCareIcon(Icons.dashboard_rounded, color: PrimeCareColors.emerald),
-            label: 'System Hub',
+            label: AppLocalizations.of(context)!.systemHub,
           ),
           NavigationDestination(
             icon: PrimeCareIcon(Icons.memory_outlined, color: PrimeCareColors.slate400),
             selectedIcon: PrimeCareIcon(Icons.memory_rounded, color: PrimeCareColors.emerald),
-            label: 'Diagnostics',
+            label: AppLocalizations.of(context)!.diagnostics,
           ),
           NavigationDestination(
             icon: PrimeCareIcon(Icons.people_alt_outlined, color: PrimeCareColors.slate400),
             selectedIcon: PrimeCareIcon(Icons.people_alt_rounded, color: PrimeCareColors.emerald),
-            label: 'Tenants',
+            label: AppLocalizations.of(context)!.tenants,
           ),
           NavigationDestination(
             icon: PrimeCareIcon(Icons.security_outlined, color: PrimeCareColors.slate400),
             selectedIcon: PrimeCareIcon(Icons.security_rounded, color: PrimeCareColors.emerald),
-            label: 'Security',
+            label: AppLocalizations.of(context)!.security,
           ),
           NavigationDestination(
             icon: PrimeCareIcon(Icons.settings_outlined, color: PrimeCareColors.slate400),
             selectedIcon: PrimeCareIcon(Icons.settings_rounded, color: PrimeCareColors.emerald),
-            label: 'Settings',
+            label: AppLocalizations.of(context)!.settings,
           ),
         ],
       ),

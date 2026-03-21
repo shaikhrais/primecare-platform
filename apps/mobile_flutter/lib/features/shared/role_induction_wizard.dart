@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -18,10 +19,10 @@ class _RoleInductionWizardScreenState extends State<RoleInductionWizardScreen> {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: const PrimeCareAppBar(title: 'MANDATORY INDUCTION'),
+      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.mandatoryInduction),
       body: PrimeCareWizardFlow(
-        title: 'MANDATORY INDUCTION',
-        subtitle: 'Before you are granted access to the Ecosystem, you must explicitly acknowledge your operational responsibilities.',
+        title: AppLocalizations.of(context)!.mandatoryInduction,
+        subtitle: AppLocalizations.of(context)!.beforeYouAreGrantedAccessTo,
         actionLabel: 'ACKNOWLEDGE & UNLOCK APP',
         onAction: _hasAcknowledged ? () {
            // Mutable trigger payload

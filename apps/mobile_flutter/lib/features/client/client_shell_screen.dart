@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/api_client.dart';
@@ -11,15 +12,15 @@ class ClientShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       appBar: PrimeCareNavBar(
-        title: const PrimeCareText('PrimeCare Client Portal', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: const Color(0xFF0EA5E9),
-        iconTheme: const IconThemeData(color: Colors.white),
+        title: PrimeCareText('PrimeCare Client Portal', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        backgroundColor: Color(0xFF0EA5E9),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(
         child: PrimeCareListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               
               child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,25 +33,25 @@ class ClientShellScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: const PrimeCareIcon(Icons.dashboard),
-              title: const PrimeCareText('Home Dashboard'),
+              leading: PrimeCareIcon(Icons.dashboard),
+              title: PrimeCareText(AppLocalizations.of(context)!.homeDashboard),
               onTap: () {
                 context.pop();
                 context.go('/client/dashboard');
               },
             ),
             ListTile(
-              leading: const PrimeCareIcon(Icons.monitor_heart),
-              title: const PrimeCareText('Wellness Pulse'),
+              leading: PrimeCareIcon(Icons.monitor_heart),
+              title: PrimeCareText(AppLocalizations.of(context)!.wellnessPulse),
               onTap: () {
                 context.pop();
                 // context.go('/client/wellness');
               },
             ),
-            const Divider(),
+            Divider(),
             ListTile(
-              leading: const PrimeCareIcon(Icons.logout, color: Colors.red),
-              title: const PrimeCareText('Sign Out', style: TextStyle(color: Colors.red)),
+              leading: PrimeCareIcon(Icons.logout, color: Colors.red),
+              title: PrimeCareText('Sign Out', style: TextStyle(color: Colors.red)),
               onTap: () async {
                 context.pop();
                 await apiClient.logout();
