@@ -24,7 +24,6 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Payroll & Earnings', 

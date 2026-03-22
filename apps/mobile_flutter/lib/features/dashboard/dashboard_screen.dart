@@ -79,7 +79,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText('PrimeCare Matrix', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         backgroundColor: Color(0xFF0EA5E9),

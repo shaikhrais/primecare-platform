@@ -49,7 +49,6 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
     
     final masterListWidget = PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Assigned Clients', 

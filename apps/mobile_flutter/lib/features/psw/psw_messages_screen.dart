@@ -48,7 +48,6 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
 
     final masterListWidget = PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Unified Inbox', 

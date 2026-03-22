@@ -9,7 +9,6 @@ class MtIntakeFormsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText('Patient Digital Consents', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,

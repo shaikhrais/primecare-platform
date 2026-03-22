@@ -13,7 +13,6 @@ class PswClient360Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$clientName - 360°'),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(

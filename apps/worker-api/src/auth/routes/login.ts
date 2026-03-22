@@ -12,7 +12,7 @@ const loginRoute = createRoute({
     ...ROUTE_METADATA.AUTH.LOGIN, method: 'post', path: '/login',
     request: { body: { content: { 'application/json': { schema: LoginSchema } } } },
     responses: {
-        200: { content: { 'application/json': { schema: z.object({ user: z.any(), deviceStatus: z.string().optional(), message: z.string().optional() }) } }, description: 'Login successful' },
+        200: { content: { 'application/json': { schema: z.object({ user: z.any(), deviceStatus: z.string().optional(), message: z.string().optional(), token: z.string().optional() }) } }, description: 'Login successful' },
         401: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Unauthorized' },
         403: { content: { 'application/json': { schema: z.object({ error: z.string(), message: z.string().optional() }) } }, description: 'Forbidden/Blocked' },
         500: { content: { 'application/json': { schema: z.object({ error: z.string() }) } }, description: 'Internal server error' },

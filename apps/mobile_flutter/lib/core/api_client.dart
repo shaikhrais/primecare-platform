@@ -124,15 +124,19 @@ class ApiClient {
         }
       }
 
-      if (data['user'] != null) {
+      if (data['user'] != null && data['token'] != null) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('auth_token', data['user']['id']);
-        await prefs.setString('user_role', data['user']['role'] ?? 'psw');
+        await prefs.setString('auth_token', data['token']);
+        
+        final roles = data['user']['roles'] as List<dynamic>? ?? [];
+        final primaryRole = roles.isNotEmpty ? roles.first.toString() : 'psw';
+        await prefs.setString('user_role', primaryRole);
+        
         if (sessionCookie != null) {
           await prefs.setString('auth_cookie', sessionCookie);
         }
       } else {
-        throw Exception('Invalid Credentials');
+        throw Exception('Invalid Credentials or Token Payload');
       }
     } else {
       throw Exception('API Error: ${response.statusCode} - ${response.body}');

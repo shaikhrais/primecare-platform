@@ -46,7 +46,7 @@ export async function handleLogin(c: any) {
         setCookie(c, 'refreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24 * 7, path: '/v1/auth/refresh' });
         if (deviceId) { await logAudit(prisma, user.id, 'LOGIN', 'USER', user.id, { tenantId: user.tenantId, ip: clientIp }, deviceId); }
         const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
-        return c.json({ user: safeUser }, 200);
+        return c.json({ user: safeUser, token: accessToken }, 200);
     } catch (e: any) { 
         // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
         console.warn('[OFFLINE_MODE] Database unreachable. Yielding mocked JWT session to permit UI authentication.');
@@ -69,7 +69,7 @@ export async function handleLogin(c: any) {
         const mockToken = await generateToken({ id: 'mock-offline-123', roles: ['admin', 'super_admin'], tenantId: 'system' }, jwtSecret);
         setCookie(c, 'accessToken', mockToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24, path: '/' });
         
-        return c.json({ user: { id: 'mock-offline-123', email: emailStr, roles: ['admin'], tenantId: 'system', status: 'active' }, _mockSource: true }, 200);
+        return c.json({ user: { id: 'mock-offline-123', email: emailStr, roles: ['admin'], tenantId: 'system', status: 'active' }, token: mockToken, _mockSource: true }, 200);
     }
 }
 

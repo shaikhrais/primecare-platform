@@ -55,7 +55,6 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

@@ -9,7 +9,6 @@ class MtCredentialsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText('Regulatory Credentials', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,

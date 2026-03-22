@@ -61,7 +61,6 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText(
           'Live Telemetry',

@@ -93,7 +93,7 @@ class PrimeCareTheme {
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: PrimeCareColors.white,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: PrimeCareRadii.xl.clamp(0, 48) as Radius)), // safe clamps
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(PrimeCareRadii.xl.clamp(0.0, 48.0)))), // safe clamps
       ),
 
       snackBarTheme: SnackBarThemeData(

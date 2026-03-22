@@ -18,7 +18,6 @@ class PswTimesheetDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: '$date Shift Details'),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(

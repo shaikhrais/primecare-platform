@@ -75,7 +75,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       body: PrimeCareCenter(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),

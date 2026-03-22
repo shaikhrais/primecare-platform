@@ -13,7 +13,6 @@ class PswVideoTrainingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.complianceModule),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(

@@ -10,7 +10,6 @@ class MtDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         title: PrimeCareText('My Jane Schedule (MT)', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
         backgroundColor: Colors.white,

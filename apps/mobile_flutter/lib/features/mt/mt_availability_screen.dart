@@ -9,7 +9,6 @@ class MtAvailabilityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(

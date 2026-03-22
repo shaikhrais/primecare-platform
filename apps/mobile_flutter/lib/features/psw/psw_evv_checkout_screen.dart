@@ -11,7 +11,6 @@ class PswEvvCheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.shiftCheckoutProtocol),
       body: PrimeCareSafeArea(
         child: PrimeCarePadding(

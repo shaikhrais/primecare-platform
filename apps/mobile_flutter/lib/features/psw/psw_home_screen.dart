@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../../core/localization/app_strings.dart';
+import '../../../core/widgets/language_toggle_button.dart';
 
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
@@ -14,14 +15,13 @@ class PswHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: Color(0xFFF8FAFC),
       appBar: PrimeCareNavBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: PrimeCareText(AppLocalizations.of(context)!.appName, 
           style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
         ),
-        actions: [
+        actions: [\n          const LanguageToggleButton(),\n          const SizedBox(width: 8),
           IconButton(
             icon: PrimeCareIcon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
             onPressed: () {},

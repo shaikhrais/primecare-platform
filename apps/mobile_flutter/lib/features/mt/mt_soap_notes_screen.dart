@@ -13,7 +13,6 @@ class MtSoapNotesScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: PrimeCareNavBar(
         title: PrimeCareText('Clinical SOAP Notes', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xFFF8FAFC),
         elevation: 1,
         
       ),
