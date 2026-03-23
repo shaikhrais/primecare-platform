@@ -11,7 +11,6 @@ class ClientDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const PrimeCareScaffold(
-      appBar: GlobalTopBar(title: 'Care Transparency Feed'),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCarePadding(

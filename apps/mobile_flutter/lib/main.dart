@@ -53,6 +53,9 @@ import 'features/mt/mt_earnings_screen.dart';
 import 'features/mt/mt_availability_screen.dart';
 import 'features/mt/mt_credentials_screen.dart';
 import 'core/network/offline_sync_manager.dart';
+import 'core/api_client.dart';
+import 'core/widgets/global_top_bar.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -103,6 +106,21 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/forgot-password',
         builder: (context, state) => ForgotPasswordScreen(),
       ),
+      // UNIVERSAL MASTER SHELL ROUTE
+      ShellRoute(
+        builder: (context, state, child) {
+          return PrimeCareScaffold(
+            appBar: GlobalTopBar(
+              title: 'PrimeCare Platform',
+              onLogout: () async {
+                await apiClient.logout();
+                context.go('/login');
+              },
+            ),
+            body: child,
+          );
+        },
+        routes: [
       GoRoute(
         path: '/psw/messages',
         builder: (context, state) => PswMessagesScreen(),
@@ -399,6 +417,8 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+        ],
+      ),
         ],
       ),
     ],

@@ -66,7 +66,7 @@ export async function handleLogin(c: any) {
         }
 
         let mockRoles = ['psw'];
-        if (emailStr.toLowerCase().includes('admin') || emailStr.toLowerCase().includes('itpro')) mockRoles = ['admin'];
+        if (emailStr.toLowerCase().includes('admin') || emailStr.toLowerCase().includes('itpro') || emailStr.toLowerCase().includes('founder')) mockRoles = ['admin'];
         else if (emailStr.toLowerCase().includes('mt')) mockRoles = ['mt'];
         else if (emailStr.toLowerCase().includes('client')) mockRoles = ['client'];
         else if (emailStr.toLowerCase().includes('manager')) mockRoles = ['manager'];

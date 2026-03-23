@@ -17,7 +17,6 @@ class PswShellScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: const GlobalTopBar(title: 'PrimeCare Platform'),
       body: ResponsiveShell(
       navigationShell: navigationShell,
       activeIndicatorColor: Color(0x3310B981),
