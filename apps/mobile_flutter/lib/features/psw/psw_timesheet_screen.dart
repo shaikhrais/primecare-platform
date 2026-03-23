@@ -33,13 +33,13 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
             children: [
               // Month High-Level Aggregation
             PrimeCareCard(
+              color: Theme.of(context).colorScheme.primary,
               padding: EdgeInsets.all(24),
-              
               child: PrimeCareColumn(
                 children: [
-                   PrimeCareText('Est. October Payout', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8), fontSize: 16)),
+                   PrimeCareText('Est. October Payout', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 16)),
                    SizedBox(height: 8),
-                   PrimeCareText('\$4,250.75', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
+                   PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
                    SizedBox(height: 24),
                    PrimeCareRow(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,11 +61,10 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
             PrimeCareCard(
               width: double.infinity,
               padding: EdgeInsets.all(24),
-              
               child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
+                  PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).textTheme.titleLarge?.color)),
                   SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
@@ -124,13 +123,13 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
                         PrimeCareColumn(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            PrimeCareText('\$${period['earnings'].toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
+                            PrimeCareText('\$${period['earnings'].toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: Theme.of(context).textTheme.titleLarge?.color)),
                             if (period['surge'])
                               PrimeCareText('Surge +1.5x', style: TextStyle(color: PrimeCareColors.emerald, fontSize: 12, fontWeight: FontWeight.bold)),
                           ],
                         ),
                         SizedBox(width: 8),
-                        PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: PrimeCareColors.slate300, size: 16),
+                        PrimeCareIcon(Icons.arrow_forward_ios_rounded, color: Theme.of(context).dividerColor, size: 16),
                       ],
                     ),
                   ),
@@ -152,9 +151,9 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   Widget _buildMetric(BuildContext context, String label, String value) {
     return PrimeCareColumn(
       children: [
-        PrimeCareText(value, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 20, fontWeight: FontWeight.bold)),
+        PrimeCareText(value, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
         SizedBox(height: 4),
-        PrimeCareText(label, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8), fontSize: 13, fontWeight: FontWeight.w600)),
+        PrimeCareText(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }
