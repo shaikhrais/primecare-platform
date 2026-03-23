@@ -17,7 +17,6 @@ class PswGrowthDashboardScreen extends StatelessWidget {
         title: PrimeCareText('My Growth Profile', style: GoogleFonts.outfit(color: Colors.black, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.0),

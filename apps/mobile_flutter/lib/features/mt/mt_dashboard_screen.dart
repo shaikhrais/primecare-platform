@@ -3,6 +3,7 @@ import '../../core/colors.dart';
 
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/widgets/global_top_bar.dart';
 
 class MtDashboardScreen extends StatelessWidget {
   const MtDashboardScreen({super.key});

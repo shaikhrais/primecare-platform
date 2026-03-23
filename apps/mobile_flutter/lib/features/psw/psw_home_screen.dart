@@ -4,11 +4,10 @@ import '../../core/colors.dart';
 
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/widgets/global_top_bar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../../core/localization/app_strings.dart';
-import '../../../core/widgets/language_toggle_button.dart';
-import '../../../core/widgets/language_toggle_button.dart';
 
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
@@ -16,20 +15,8 @@ class PswHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: PrimeCareText(AppLocalizations.of(context)!.appName, 
-          style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)
-        ),
-        actions: [
-          const LanguageToggleButton(),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: PrimeCareIcon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
-            onPressed: () {},
-          )
-        ],
+      appBar: GlobalTopBar(
+        title: AppLocalizations.of(context)!.appName,
       ),
       body: ResponsiveLayoutManager(
         mobile: _buildMobileLayout(context),

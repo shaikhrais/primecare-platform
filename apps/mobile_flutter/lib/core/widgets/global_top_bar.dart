@@ -41,7 +41,7 @@ class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
         PopupMenuButton<String>(
           icon: CircleAvatar(
             radius: 17,
-            backgroundColor: PrimeCareColors.blue,
+            backgroundColor: Color(0xFF0EA5E9),
             child: PrimeCareText('Pr', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
           ),
           onSelected: (value) async {

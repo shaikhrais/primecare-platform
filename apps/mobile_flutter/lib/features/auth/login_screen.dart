@@ -55,8 +55,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             context.go('/scrum-master/dashboard');
             break;
           case 'manager':
-          case 'admin':
             context.go('/manager/dashboard');
+            break;
+          case 'admin':
+          case 'super_admin':
+            context.go('/dashboard');
             break;
           case 'client':
             context.go('/client/dashboard');

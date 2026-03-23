@@ -65,11 +65,21 @@ export async function handleLogin(c: any) {
              return c.json({ error: 'Invalid credentials (Offline Dev Mode)' }, 401);
         }
 
+        let mockRoles = ['psw'];
+        if (emailStr.toLowerCase().includes('admin') || emailStr.toLowerCase().includes('itpro')) mockRoles = ['admin'];
+        else if (emailStr.toLowerCase().includes('mt')) mockRoles = ['mt'];
+        else if (emailStr.toLowerCase().includes('client')) mockRoles = ['client'];
+        else if (emailStr.toLowerCase().includes('manager')) mockRoles = ['manager'];
+        else if (emailStr.toLowerCase().includes('rn')) mockRoles = ['rn'];
+        else if (emailStr.toLowerCase().includes('coordinator')) mockRoles = ['coordinator'];
+        else if (emailStr.toLowerCase().includes('gm')) mockRoles = ['gm'];
+        else if (emailStr.toLowerCase().includes('scrum')) mockRoles = ['scrum_master'];
+
         const jwtSecret = c.env?.JWT_SECRET || 'local-mock-secret-key-123';
-        const mockToken = await generateToken({ id: 'mock-offline-123', roles: ['admin', 'super_admin'], tenantId: 'system' }, jwtSecret);
+        const mockToken = await generateToken({ id: 'mock-offline-123', roles: mockRoles, tenantId: 'system' }, jwtSecret);
         setCookie(c, 'accessToken', mockToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24, path: '/' });
         
-        return c.json({ user: { id: 'mock-offline-123', email: emailStr, roles: ['admin'], tenantId: 'system', status: 'active' }, token: mockToken, _mockSource: true }, 200);
+        return c.json({ user: { id: 'mock-offline-123', email: emailStr, roles: mockRoles, tenantId: 'system', status: 'active' }, token: mockToken, _mockSource: true }, 200);
     }
 }
 

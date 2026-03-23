@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/locale_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'features/auth/login_screen.dart';
+import 'features/dashboard/dashboard_screen.dart';
 import 'features/auth/forgot_password_screen.dart';
 import 'features/psw/psw_shell_screen.dart';
 import 'features/psw/psw_home_screen.dart';
@@ -79,8 +80,9 @@ final routerProvider = Provider<GoRouter>((ref) {
           case 'scrum_master': return '/scrum-master/dashboard';
           case 'rn': return '/rn/dashboard';
           case 'coordinator': return '/coordinator/dashboard';
-          case 'manager':
-          case 'admin': return '/manager/dashboard';
+          case 'manager': return '/manager/dashboard';
+          case 'admin':
+          case 'super_admin': return '/dashboard';
           case 'client': return '/client/dashboard';
           default: return '/psw/home';
         }
@@ -88,6 +90,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/dashboard',
+        builder: (context, state) => DashboardScreen(),
+      ),
       GoRoute(
         path: '/login',
         builder: (context, state) => LoginScreen(),

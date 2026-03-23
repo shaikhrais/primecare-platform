@@ -5,6 +5,7 @@ import '../../core/colors.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/widgets/global_top_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -79,18 +80,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('PrimeCare Matrix', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        backgroundColor: Color(0xFF0EA5E9),
-        foregroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: PrimeCareIcon(Icons.logout, size: 22),
-            onPressed: _handleLogout,
-            tooltip: AppLocalizations.of(context)!.terminateSession,
-          ),
-        ],
+      appBar: GlobalTopBar(
+        title: 'PrimeCare Matrix Dashboard',
+        onLogout: () => _handleLogout(),
       ),
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
