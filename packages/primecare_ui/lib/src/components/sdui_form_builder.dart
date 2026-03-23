@@ -95,12 +95,12 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
             decoration: InputDecoration(
               labelText: label,
               labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6)),
-              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Theme.of(context).textTheme.bodyLarge?.color24), borderRadius: BorderRadius.circular(12)),
-              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(12)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
               fillColor: Theme.of(context).cardColor,
             ),
-            style: const TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
             onChanged: (val) => _formData[key!] = val,
           ),
         );
@@ -108,7 +108,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
       case 'boolean':
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(12), border: Border.all(color: Theme.of(context).textTheme.bodyLarge?.color24)),
+          decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(12), border: Border.all(color: Theme.of(context).dividerColor)),
           child: SwitchListTile(
             title: Text(label, style: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyLarge?.color)),
             value: _formData[key!] ?? false,
@@ -125,13 +125,13 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
             decoration: InputDecoration(
               labelText: label,
               labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6)),
-              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Theme.of(context).textTheme.bodyLarge?.color24), borderRadius: BorderRadius.circular(12)),
-              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).dividerColor), borderRadius: BorderRadius.circular(12)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
               fillColor: Theme.of(context).cardColor,
             ),
             dropdownColor: Theme.of(context).cardColor,
-            style: const TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
             value: _formData[key],
             items: options.map((opt) => DropdownMenuItem<String>(value: opt.toString(), child: Text(opt.toString()))).toList(),
             onChanged: (val) => setState(() => _formData[key!] = val),
@@ -178,7 +178,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
             ),
             onPressed: _isSubmitting ? null : _submitDynamicForm,
             child: _isSubmitting 
-              ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Theme.of(context).textTheme.bodyLarge?.color))
+              ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Theme.of(context).textTheme.bodyLarge?.color))
               : Text('TRANSMIT SECURE PAYLOAD', style: GoogleFonts.inter(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
           )
         ],

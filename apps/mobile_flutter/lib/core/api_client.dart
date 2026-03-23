@@ -129,7 +129,14 @@ class ApiClient {
         await prefs.setString('auth_token', data['token']);
         
         final roles = data['user']['roles'] as List<dynamic>? ?? [];
-        final primaryRole = roles.isNotEmpty ? roles.first.toString() : 'psw';
+        String primaryRole = 'psw';
+        
+        if (data['user']['primaryRole'] != null) {
+          primaryRole = data['user']['primaryRole'].toString();
+        } else if (roles.isNotEmpty) {
+          primaryRole = roles.first.toString();
+        }
+        
         await prefs.setString('user_role', primaryRole);
         
         if (sessionCookie != null) {
