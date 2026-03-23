@@ -45,17 +45,24 @@ class ResponsiveShell extends StatelessWidget {
           // ENTERPRISE DESKTOP (macOS, Windows, Web HD)
           return Scaffold(
             backgroundColor: context.pTheme.surfaceElevated,
-            body: Row(
+            body: Stack(
               children: [
-                _DesktopSidebar(
-                  currentIndex: currentIndex,
-                  destinations: destinations,
-                  onNavigate: onNavigate,
-                  activeIndicatorColor: activeIndicatorColor,
-                  activeIconColor: activeIconColor,
+                Row(
+                  children: [
+                    const SizedBox(width: 260),
+                    Expanded(child: body),
+                  ],
                 ),
-                VerticalDivider(thickness: 1, width: 1, color: context.pTheme.borderSubtle),
-                Expanded(child: body),
+                Positioned(
+                  left: 0, top: 0, bottom: 0, width: 260,
+                  child: _DesktopSidebar(
+                    currentIndex: currentIndex,
+                    destinations: destinations,
+                    onNavigate: onNavigate,
+                    activeIndicatorColor: activeIndicatorColor,
+                    activeIconColor: activeIconColor,
+                  ),
+                ),
               ],
             ),
           );
@@ -63,17 +70,24 @@ class ResponsiveShell extends StatelessWidget {
           // ENTERPRISE TABLET (iPadOS, Android Tab, Foldables)
           return Scaffold(
             backgroundColor: context.pTheme.surfaceElevated,
-            body: Row(
+            body: Stack(
               children: [
-                _TabletNavRail(
-                  currentIndex: currentIndex,
-                  destinations: destinations,
-                  onNavigate: onNavigate,
-                  activeIndicatorColor: activeIndicatorColor,
-                  activeIconColor: activeIconColor,
+                Row(
+                  children: [
+                    const SizedBox(width: 80),
+                    Expanded(child: body),
+                  ],
                 ),
-                VerticalDivider(thickness: 1, width: 1, color: context.pTheme.borderSubtle),
-                Expanded(child: body),
+                Positioned(
+                  left: 0, top: 0, bottom: 0, width: 80,
+                  child: _TabletNavRail(
+                    currentIndex: currentIndex,
+                    destinations: destinations,
+                    onNavigate: onNavigate,
+                    activeIndicatorColor: activeIndicatorColor,
+                    activeIconColor: activeIconColor,
+                  ),
+                ),
               ],
             ),
           );
@@ -118,7 +132,16 @@ class _DesktopSidebar extends StatelessWidget {
 
     return Container(
       width: 260,
-      color: t.surfaceElevated,
+      decoration: BoxDecoration(
+        color: t.surfaceElevated,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 24,
+            offset: const Offset(8, 0),
+          )
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -150,6 +173,13 @@ class _DesktopSidebar extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: isSelected ? primaryIndicator : Colors.transparent,
                         borderRadius: PrimeCareRadii.boardMd,
+                        boxShadow: isSelected ? [
+                          BoxShadow(
+                            color: primaryIcon.withValues(alpha: 0.25),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          )
+                        ] : [],
                       ),
                       child: Row(
                         children: [
@@ -197,23 +227,35 @@ class _TabletNavRail extends StatelessWidget {
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
     final primaryIndicator = activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
-    return NavigationRail(
-      selectedIndex: currentIndex,
-      onDestinationSelected: onNavigate,
-      labelType: NavigationRailLabelType.all,
-      backgroundColor: t.surfaceElevated,
-      indicatorColor: primaryIndicator,
-      selectedIconTheme: IconThemeData(color: primaryIcon),
-      unselectedIconTheme: IconThemeData(color: t.textMuted),
-      selectedLabelTextStyle: TextStyle(color: primaryIcon, fontWeight: FontWeight.bold, fontSize: 13),
-      unselectedLabelTextStyle: TextStyle(color: t.textMuted, fontWeight: FontWeight.normal, fontSize: 12),
-      groupAlignment: 0, 
-      destinations: destinations.map((d) => NavigationRailDestination(
-        icon: Icon(d.icon),
-        selectedIcon: Icon(d.selectedIcon),
-        label: Text(d.label),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-      )).toList(),
+    return Container(
+      decoration: BoxDecoration(
+        color: t.surfaceElevated,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 24,
+            offset: const Offset(8, 0),
+          )
+        ],
+      ),
+      child: NavigationRail(
+        selectedIndex: currentIndex,
+        onDestinationSelected: onNavigate,
+        labelType: NavigationRailLabelType.all,
+        backgroundColor: Colors.transparent,
+        indicatorColor: primaryIndicator,
+        selectedIconTheme: IconThemeData(color: primaryIcon),
+        unselectedIconTheme: IconThemeData(color: t.textMuted),
+        selectedLabelTextStyle: TextStyle(color: primaryIcon, fontWeight: FontWeight.bold, fontSize: 13),
+        unselectedLabelTextStyle: TextStyle(color: t.textMuted, fontWeight: FontWeight.normal, fontSize: 12),
+        groupAlignment: 0, 
+        destinations: destinations.map((d) => NavigationRailDestination(
+          icon: Icon(d.icon),
+          selectedIcon: Icon(d.selectedIcon),
+          label: Text(d.label),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+        )).toList(),
+      ),
     );
   }
 }

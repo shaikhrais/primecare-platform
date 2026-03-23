@@ -22,8 +22,8 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
     final isDark = ref.watch(themeProvider) == ThemeMode.dark;
     return PrimeCareNavBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      elevation: 6,
-      shadowColor: Colors.black.withValues(alpha: 0.35),
+      elevation: 12,
+      shadowColor: Colors.black.withValues(alpha: 0.70),
       title: PrimeCareText(
         title, 
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: -0.5)
