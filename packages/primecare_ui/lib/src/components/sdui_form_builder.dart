@@ -94,13 +94,13 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
           child: TextFormField(
             decoration: InputDecoration(
               labelText: label,
-              labelStyle: GoogleFonts.inter(color: Colors.grey[400]),
-              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white24), borderRadius: BorderRadius.circular(12)),
+              labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6)),
+              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Theme.of(context).textTheme.bodyLarge?.color24), borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
-              fillColor: PrimeCareColors.slate800,
+              fillColor: Theme.of(context).cardColor,
             ),
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
             onChanged: (val) => _formData[key!] = val,
           ),
         );
@@ -108,9 +108,9 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
       case 'boolean':
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(color: PrimeCareColors.slate800, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white24)),
+          decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(12), border: Border.all(color: Theme.of(context).textTheme.bodyLarge?.color24)),
           child: SwitchListTile(
-            title: Text(label, style: GoogleFonts.inter(color: Colors.white)),
+            title: Text(label, style: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyLarge?.color)),
             value: _formData[key!] ?? false,
             activeColor: Colors.blueAccent,
             onChanged: (val) => setState(() => _formData[key] = val),
@@ -124,14 +124,14 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               labelText: label,
-              labelStyle: GoogleFonts.inter(color: Colors.grey[400]),
-              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.white24), borderRadius: BorderRadius.circular(12)),
+              labelStyle: GoogleFonts.inter(color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6)),
+              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Theme.of(context).textTheme.bodyLarge?.color24), borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Colors.blueAccent), borderRadius: BorderRadius.circular(12)),
               filled: true,
-              fillColor: PrimeCareColors.slate800,
+              fillColor: Theme.of(context).cardColor,
             ),
-            dropdownColor: PrimeCareColors.slate800,
-            style: const TextStyle(color: Colors.white),
+            dropdownColor: Theme.of(context).cardColor,
+            style: const TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
             value: _formData[key],
             items: options.map((opt) => DropdownMenuItem<String>(value: opt.toString(), child: Text(opt.toString()))).toList(),
             onChanged: (val) => setState(() => _formData[key!] = val),
@@ -152,7 +152,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
 
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(color: PrimeCareColors.radarDark, borderRadius: BorderRadius.circular(24)),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(24)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -161,7 +161,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
             children: [
               const Icon(Icons.webhook, color: Colors.blueAccent),
               const SizedBox(width: 12),
-              Text(_schema!['title'] ?? 'Dynamic Form', style: GoogleFonts.outfit(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+              Text(_schema!['title'] ?? 'Dynamic Form', style: GoogleFonts.outfit(color: Theme.of(context).textTheme.bodyLarge?.color, fontSize: 24, fontWeight: FontWeight.bold)),
             ],
           ),
           const SizedBox(height: 24),
@@ -178,7 +178,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
             ),
             onPressed: _isSubmitting ? null : _submitDynamicForm,
             child: _isSubmitting 
-              ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white))
+              ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Theme.of(context).textTheme.bodyLarge?.color))
               : Text('TRANSMIT SECURE PAYLOAD', style: GoogleFonts.inter(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
           )
         ],

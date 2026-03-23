@@ -25,25 +25,25 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       elevation: 0,
       title: PrimeCareText(
         title, 
-        style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: -0.5)
+        style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color ?? Theme.of(context).iconTheme.color, fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: -0.5)
       ),
       actions: [
                 const LanguageToggleButton(),
         const SizedBox(width: 8),
         IconButton(
           tooltip: 'Toggle Theme',
-          icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: PrimeCareColors.radarDark),
+          icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: Theme.of(context).iconTheme.color),
           onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
         ),
         const SizedBox(width: 8),
         IconButton(
           tooltip: 'System Alerts',
-          icon: PrimeCareIcon(Icons.warning_amber_rounded, color: PrimeCareColors.radarDark),
+          icon: PrimeCareIcon(Icons.warning_amber_rounded, color: Theme.of(context).iconTheme.color),
           onPressed: () {},
         ),
         IconButton(
           tooltip: 'Notifications',
-          icon: PrimeCareIcon(Icons.notifications_none_rounded, color: PrimeCareColors.radarDark),
+          icon: PrimeCareIcon(Icons.notifications_none_rounded, color: Theme.of(context).iconTheme.color),
           onPressed: () {},
         ),
         const SizedBox(width: 8),
