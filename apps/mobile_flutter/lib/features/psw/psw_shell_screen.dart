@@ -4,6 +4,7 @@ import '../../core/colors.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../core/widgets/global_top_bar.dart';
 
 class PswShellScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -15,7 +16,9 @@ class PswShellScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveShell(
+    return PrimeCareScaffold(
+      appBar: const GlobalTopBar(title: 'PrimeCare Platform'),
+      body: ResponsiveShell(
       navigationShell: navigationShell,
       activeIndicatorColor: Color(0x3310B981),
       activeIconColor: PrimeCareColors.emerald,
@@ -26,6 +29,7 @@ class PswShellScreen extends StatelessWidget {
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.timesheet, icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
       ],
+      ),
     );
   }
 }

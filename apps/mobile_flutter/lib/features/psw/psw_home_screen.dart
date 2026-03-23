@@ -15,9 +15,6 @@ class PswHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: GlobalTopBar(
-        title: AppLocalizations.of(context)!.appName,
-      ),
       body: ResponsiveLayoutManager(
         mobile: _buildMobileLayout(context),
         desktop: _buildDesktopLayout(context),

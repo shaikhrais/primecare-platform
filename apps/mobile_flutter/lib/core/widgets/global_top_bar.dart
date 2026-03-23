@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../theme_provider.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'language_toggle_button.dart';
 import '../api_client.dart';
 
-class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
+class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onLogout;
 
@@ -16,7 +18,8 @@ class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(themeProvider) == ThemeMode.dark;
     return PrimeCareNavBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -25,7 +28,13 @@ class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: -0.5)
       ),
       actions: [
-        const LanguageToggleButton(),
+                const LanguageToggleButton(),
+        const SizedBox(width: 8),
+        IconButton(
+          tooltip: 'Toggle Theme',
+          icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: PrimeCareColors.radarDark),
+          onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
+        ),
         const SizedBox(width: 8),
         IconButton(
           tooltip: 'System Alerts',

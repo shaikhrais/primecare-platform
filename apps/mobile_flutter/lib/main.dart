@@ -22,6 +22,7 @@ import 'features/psw/psw_live_visit_screen.dart';
 import 'features/psw/psw_live_video_triage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/theme.dart';
+import 'core/theme_provider.dart';
 
 import 'features/client/client_shell_screen.dart';
 import 'features/client/client_dashboard_screen.dart';
@@ -416,7 +417,7 @@ class PrimeCareApp extends ConsumerWidget {
       onGenerateTitle: (context) => AppLocalizations.of(context)!.primecareMobile,
       theme: PrimeCareTheme.lightTheme,
       darkTheme: PrimeCareTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ref.watch(themeProvider),
       routerConfig: appRouter,
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

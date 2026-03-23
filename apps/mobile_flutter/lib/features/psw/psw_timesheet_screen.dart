@@ -24,15 +24,6 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText(
-          'Payroll & Earnings', 
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: false,
-      ),
       body: MasterDetailLayout(
         isDetailActive: _selectedPeriod != null,
         onBackToMaster: () => setState(() => _selectedPeriod = null),
