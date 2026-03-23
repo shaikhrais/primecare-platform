@@ -1,102 +1,13 @@
-import 'package:primecare_mobile/l10n/app_localizations.dart';
-import 'package:flutter/material.dart';
-import '../../core/colors.dart';
+const fs = require('fs');
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/api_client.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import '../../core/theme_provider.dart';
-import '../shared/widgets/language_toggle.dart';
+const path = 'c:/Users/Admin2/Documents/GitHub/primecare-platform/apps/mobile_flutter/lib/features/auth/login_screen.dart';
+let content = fs.readFileSync(path, 'utf8');
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _isLoading = false;
-  String? _errorMsg;
-
-  Future<void> _handleLogin() async {
-    setState(() {
-      _isLoading = true;
-      _errorMsg = null;
-    });
-
-    try {
-      await apiClient.login(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
-      );
-      if (mounted) {
-        final prefs = await SharedPreferences.getInstance();
-        final role = prefs.getString('user_role') ?? 'psw';
-        switch (role) {
-          case 'mt':
-            context.go('/mt/dashboard');
-            break;
-          case 'gm':
-          case 'general_manager':
-            context.go('/gm/dashboard');
-            break;
-          case 'rn':
-            context.go('/rn/dashboard');
-            break;
-          case 'coordinator':
-            context.go('/coordinator/dashboard');
-            break;
-          case 'scrum_master':
-          case 'developer':
-            context.go('/scrum-master/dashboard');
-            break;
-          case 'manager':
-            context.go('/manager/dashboard');
-            break;
-          case 'admin':
-          case 'super_admin':
-            context.go('/dashboard');
-            break;
-          case 'client':
-            context.go('/client/dashboard');
-            break;
-          default:
-            context.go('/psw/dashboard');
-        }
-      }
-    } catch (e) {
-      setState(() { _errorMsg = e.toString(); });
-    } finally {
-      if (mounted) setState(() { _isLoading = false; });
-    }
-  }
-
-  @override
+const buildStart = content.indexOf('  @override\n  Widget build(BuildContext context) {');
+if (buildStart !== -1) {
+    const replacement = `  @override
   Widget build(BuildContext context) {
-    final isDark = ref.watch(themeProvider) == ThemeMode.dark;
-    
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        title: const SizedBox.shrink(),
-        actions: [
-          const LanguageToggleButton(),
-          const SizedBox(width: 8),
-          IconButton(
-            tooltip: 'Toggle Theme',
-            icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: Theme.of(context).iconTheme.color),
-            onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
-          ),
-          const SizedBox(width: 16),
-        ],
-      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth >= 900;
@@ -140,8 +51,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   TextField(
                     controller: _emailController,
                     style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color ?? PrimeCareColors.radarDark),
-                    textInputAction: TextInputAction.next,
-                    onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.emailAddress,
                       labelStyle: TextStyle(color: PrimeCareColors.slate500),
@@ -153,8 +62,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   TextField(
                     controller: _passwordController,
                     style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color ?? PrimeCareColors.radarDark),
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (_) => _isLoading ? null : _handleLogin(),
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.password,
                       labelStyle: TextStyle(color: PrimeCareColors.slate500),
@@ -189,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.40),
+                      color: Colors.black.withValues(alpha: 0.35),
                       blurRadius: 48,
                       offset: const Offset(0, 24),
                     ),
@@ -214,7 +121,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               Icon(Icons.security_rounded, size: 72, color: Colors.white),
                               SizedBox(height: 32),
                               Text(
-                                'Enterprise Grade\nSecurity Matrix',
+                                'Enterprise Grade\\nSecurity Matrix',
                                 style: TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold, height: 1.1),
                               ),
                               SizedBox(height: 16),
@@ -260,4 +167,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
     );
   }
+}
+`;
+    content = content.substring(0, buildStart) + replacement;
+    fs.writeFileSync(path, content);
+    console.log("Successfully patched login_screen.dart natively.");
+} else {
+    console.log("Failed to find build method block.");
 }
