@@ -13,9 +13,7 @@ class ThemeControlScreen extends ConsumerWidget {
     final activeTheme = ref.watch(themeProvider);
 
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText(AppLocalizations.of(context)!.themeConfiguration),
-      ),
+      
       body: PrimeCareListView(
         padding: EdgeInsets.all(24),
         children: [

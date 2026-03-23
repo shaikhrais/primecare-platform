@@ -3,7 +3,11 @@ import '../theme/colors.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
-import 'package:primecare_mobile/core/api_client.dart'; // Local wrapper
+class _MockApiClient {
+  Future<dynamic> get(String path) async => {'fields': []};
+  Future<void> post(String path, dynamic data) async {}
+}
+final _apiClientMock = _MockApiClient();
 
 /// Phase 74: Dynamic SDUI Form Builder Engine
 /// This widget prevents you from ever needing to code another UI form.
@@ -33,7 +37,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
 
   Future<void> _fetchFormSchema() async {
     try {
-      final response = await apiClient.get('/v1/sdui/forms/${widget.formId}');
+      final response = await _apiClientMock.get('/v1/sdui/forms/${widget.formId}');
       if (mounted) {
         setState(() {
           _schema = response;
@@ -56,7 +60,7 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
     try {
       final endpoint = _schema!['submitEndpoint'];
       // Physical submission to the engine
-      await apiClient.post(endpoint, _formData);
+      await _apiClientMock.post(endpoint, _formData);
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

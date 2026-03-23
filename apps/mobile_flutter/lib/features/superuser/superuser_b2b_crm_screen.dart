@@ -28,20 +28,7 @@ class _SuperuserB2BCrmScreenState extends State<SuperuserB2BCrmScreen> {
     // A highly professional, obsidian "Executive Desk" aesthetic
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.darkMatrixCard,
-      appBar: PrimeCareNavBar(
-        backgroundColor: PrimeCareColors.darkMatrixCard,
-        elevation: 0,
-        title: PrimeCareText('BUSINESS DEVELOPMENT CRM', style: GoogleFonts.firaCode(color: Colors.white, fontSize: 16)),
-        actions: [
-          IconButton(
-            icon: PrimeCareIcon(Icons.add_box, color: Colors.blueAccent, size: 28),
-            onPressed: () {
-              // Open modal to add new Hospital Target or Work Item
-            },
-          ),
-          SizedBox(width: 16),
-        ],
-      ),
+      
       body: PrimeCarePadding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: PrimeCareColumn(

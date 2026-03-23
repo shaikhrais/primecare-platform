@@ -13,7 +13,7 @@ class PswChatThreadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: title),
+      
       body: DesktopPaneWrapper(
         child: PrimeCareColumn(
           children: [

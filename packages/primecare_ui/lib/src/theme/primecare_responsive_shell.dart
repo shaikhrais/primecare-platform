@@ -18,28 +18,27 @@ class ResponsiveNavigationData {
 }
 
 class ResponsiveShell extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
+  final Widget body;
+  final int currentIndex;
+  final ValueChanged<int> onNavigate;
   final List<ResponsiveNavigationData> destinations;
   final Color? activeIndicatorColor;
   final Color? activeIconColor;
 
   const ResponsiveShell({
     super.key,
-    required this.navigationShell,
+    required this.body,
+    required this.currentIndex,
+    required this.onNavigate,
     required this.destinations,
     this.activeIndicatorColor,
     this.activeIconColor,
   });
 
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    if (destinations.isEmpty) return body;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 1024) {
@@ -49,14 +48,14 @@ class ResponsiveShell extends StatelessWidget {
             body: Row(
               children: [
                 _DesktopSidebar(
-                  currentIndex: navigationShell.currentIndex,
+                  currentIndex: currentIndex,
                   destinations: destinations,
-                  onNavigate: _goBranch,
+                  onNavigate: onNavigate,
                   activeIndicatorColor: activeIndicatorColor,
                   activeIconColor: activeIconColor,
                 ),
                 VerticalDivider(thickness: 1, width: 1, color: context.pTheme.borderSubtle),
-                Expanded(child: navigationShell),
+                Expanded(child: body),
               ],
             ),
           );
@@ -67,25 +66,25 @@ class ResponsiveShell extends StatelessWidget {
             body: Row(
               children: [
                 _TabletNavRail(
-                  currentIndex: navigationShell.currentIndex,
+                  currentIndex: currentIndex,
                   destinations: destinations,
-                  onNavigate: _goBranch,
+                  onNavigate: onNavigate,
                   activeIndicatorColor: activeIndicatorColor,
                   activeIconColor: activeIconColor,
                 ),
                 VerticalDivider(thickness: 1, width: 1, color: context.pTheme.borderSubtle),
-                Expanded(child: navigationShell),
+                Expanded(child: body),
               ],
             ),
           );
         } else {
           // ENTERPRISE MOBILE (iOS, Android Phone)
           return Scaffold(
-            body: navigationShell,
+            body: body,
             bottomNavigationBar: _MobileBottomBar(
-              currentIndex: navigationShell.currentIndex,
+              currentIndex: currentIndex,
               destinations: destinations,
-              onNavigate: _goBranch,
+              onNavigate: onNavigate,
               activeIndicatorColor: activeIndicatorColor,
               activeIconColor: activeIconColor,
             ),

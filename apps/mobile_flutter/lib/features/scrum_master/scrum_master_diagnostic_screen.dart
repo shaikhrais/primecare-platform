@@ -64,12 +64,7 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, // Deep Developer Terminal Background
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('SCM_GOD_MODE_DIAGNOSTICS', style: TextStyle(color: PrimeCareColors.emerald, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-        leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.emerald), onPressed: () => context.pop()),
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: SingleChildScrollView(

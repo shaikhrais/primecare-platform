@@ -48,15 +48,7 @@ class _PswMessagesScreenState extends State<PswMessagesScreen> {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
 
     final masterListWidget = PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText(
-          'Unified Inbox', 
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: false,
-      ),
+      
       body: ListView.builder(
         padding: EdgeInsets.fromLTRB(24, 8, 24, 40),
         itemCount: _threads.length,

@@ -65,12 +65,7 @@ class _CoordinatorFleetSchedulerScreenState extends State<CoordinatorFleetSchedu
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Fleet Master Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareColumn(

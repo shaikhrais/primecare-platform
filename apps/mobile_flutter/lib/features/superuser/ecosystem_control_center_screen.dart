@@ -47,26 +47,7 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
     // Relying on a Universal Split-Pane layout standard for Desktop/Tablet Executive views
     return PrimeCareScaffold(
       backgroundColor: Colors.grey[900], // Deep obsidian background for 'God Mode'
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText(
-          'Ecosystem Control Center',
-          style: GoogleFonts.inter(fontWeight: FontWeight.w700, letterSpacing: -0.5, color: Colors.amberAccent),
-        ),
-        backgroundColor: Colors.black87,
-        elevation: 0,
-        actions: [
-          PrimeCarePadding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: PrimeCareButton(type: PrimeCareButtonType.primary, 
-              onPressed: () {
-                // Initiates physical POST /v1/system/global-state
-              },
-              
-              child: PrimeCareText(AppLocalizations.of(context)!.engageGlobalCodeBlack),
-            ),
-          )
-        ],
-      ),
+      
       body: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

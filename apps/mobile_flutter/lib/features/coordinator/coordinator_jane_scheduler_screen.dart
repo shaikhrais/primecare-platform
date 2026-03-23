@@ -59,21 +59,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Jane Matrix Scheduler', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        
-        leading: IconButton(icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark), onPressed: () => context.pop()),
-        actions: [
-          PrimeCareCard(
-            margin: EdgeInsets.only(right: 16, top: 10, bottom: 10),
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            
-            child: PrimeCareCenter(child: PrimeCareText('MAX OPTION UTILIZATION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
-          )
-        ],
-      ),
+      
       body: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,63 +1,32 @@
-import 'package:primecare_mobile/l10n/app_localizations.dart';
-import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/locale_provider.dart';
-import 'package:go_router/go_router.dart';
-import 'features/auth/login_screen.dart';
-import 'features/dashboard/dashboard_screen.dart';
-import 'features/auth/forgot_password_screen.dart';
-import 'features/psw/psw_home_screen.dart';
-import 'features/psw/psw_dashboard_screen.dart';
-import 'features/psw/psw_daily_schedule_screen.dart';
-import 'features/psw/psw_clients_screen.dart';
-import 'features/psw/psw_timesheet_screen.dart';
-import 'features/psw/psw_profile_screen.dart';
-import 'features/psw/psw_messages_screen.dart';
-import 'features/psw/psw_training_screen.dart';
-import 'features/shared/screens/universal_host_screen.dart';
-import 'features/psw/psw_live_visit_screen.dart';
-import 'features/psw/psw_live_video_triage_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'core/theme.dart';
-import 'core/theme_provider.dart';
+const fs = require('fs');
+const path = require('path');
 
-import 'features/client/client_dashboard_screen.dart';
-import 'features/coordinator/coordinator_jane_matrix_screen.dart';
-import 'features/coordinator/coordinator_live_map_screen.dart';
-import 'features/coordinator/coordinator_jane_scheduler_screen.dart';
-import 'features/manager/manager_dashboard_screen.dart';
-import 'features/scrum_master/scrum_master_dashboard_screen.dart';
-import 'features/scrum_master/scrum_master_users_screen.dart';
-import 'features/scrum_master/scrum_master_diagnostic_screen.dart';
-import 'features/scrum_master/scrum_master_security_screen.dart';
-import 'features/scrum_master/scrum_master_settings_screen.dart';
-import 'features/gm/gm_dashboard_screen.dart';
-import 'features/gm/gm_marketing_hub_screen.dart';
-import 'features/gm/gm_cost_reduction_screen.dart';
-import 'features/gm/gm_expansion_wizard.dart';
-import 'features/mt/mt_dashboard_screen.dart';
-import 'features/mt/mt_client_profile_screen.dart';
-import 'features/mt/mt_soap_notes_screen.dart';
-import 'features/mt/mt_intake_forms_screen.dart';
-import 'features/mt/mt_invoice_screen.dart';
-import 'features/mt/mt_earnings_screen.dart';
-import 'features/mt/mt_availability_screen.dart';
-import 'features/mt/mt_credentials_screen.dart';
-import 'core/network/offline_sync_manager.dart';
-import 'core/api_client.dart';
-import 'core/widgets/global_top_bar.dart';
-import 'core/widgets/universal_role_sidebar.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+const mainDartPath = path.join(__dirname, '../lib/main.dart');
+let content = fs.readFileSync(mainDartPath, 'utf8');
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  OfflineSyncManager().initializeSyncListener();
-  
-  runApp(ProviderScope(child: PrimeCareApp()));
+// Ensure import for UniversalRoleSidebar
+if (!content.includes("import 'core/widgets/universal_role_sidebar.dart';")) {
+  content = content.replace("import 'core/widgets/global_top_bar.dart';", "import 'core/widgets/global_top_bar.dart';\nimport 'core/widgets/universal_role_sidebar.dart';");
 }
 
-final routerProvider = Provider<GoRouter>((ref) {
+// 1. Locate the Universal Master Shell Route
+const masterShellRegex = /\/\/ UNIVERSAL MASTER SHELL ROUTE[\s\S]*?ShellRoute\([\s\S]*?builder:\s*\(context,\s*state,\s*child\)\s*\{[\s\S]*?return\s*PrimeCareScaffold\([\s\S]*?body:\s*child,[\s\S]*?\)\]/g;
+
+// Wait, doing an exact static rebuild of the router is much safer and guarantees perfectly formatted Dart.
+// We will replace from `final routerProvider = Provider<GoRouter>((ref) {` down to `});` before `class PrimeCareApp`
+
+const routerStart = content.indexOf('final routerProvider = Provider<GoRouter>((ref) {');
+const appStart = content.indexOf('class PrimeCareApp extends ConsumerWidget {');
+
+if (routerStart === -1 || appStart === -1) {
+  console.error("Could not find boundaries.");
+  process.exit(1);
+}
+
+const beforeRouter = content.substring(0, routerStart);
+const afterRouter = content.substring(appStart);
+
+const newRouter = `final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/login',
     redirect: (context, state) async {
@@ -152,9 +121,9 @@ final routerProvider = Provider<GoRouter>((ref) {
 
           // ======================= MANAGER ===================
           GoRoute(path: '/manager/dashboard', builder: (context, state) => ManagerDashboardScreen()),
-          GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
-          GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),
-          GoRoute(path: '/manager/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Profile Active')))),
+          GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerReportsActive)))),
+          GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerTeamsActive)))),
+          GoRoute(path: '/manager/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.managerProfileActive)))),
 
           // ======================= MT ========================
           GoRoute(path: '/mt/dashboard', builder: (context, state) => MtDashboardScreen()),
@@ -166,23 +135,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   );
 });
 
-class PrimeCareApp extends ConsumerWidget {
-  const PrimeCareApp({super.key});
+`;
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appRouter = ref.watch(routerProvider);
-    final locale = ref.watch(localeProvider);
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.primecareMobile,
-      theme: PrimeCareTheme.lightTheme,
-      darkTheme: PrimeCareTheme.darkTheme,
-      themeMode: ref.watch(themeProvider),
-      routerConfig: appRouter,
-      locale: locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-    );
-  }
-}
+fs.writeFileSync(mainDartPath, beforeRouter + newRouter + afterRouter, 'utf8');
+console.log("SUCCESS: Flat architecture configured!");

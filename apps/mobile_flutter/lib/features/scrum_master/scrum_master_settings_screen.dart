@@ -19,11 +19,7 @@ class _ScrumMasterSettingsScreenState extends State<ScrumMasterSettingsScreen> {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('SCM_GLOBAL_CONFIG', style: TextStyle(color: PrimeCareColors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(

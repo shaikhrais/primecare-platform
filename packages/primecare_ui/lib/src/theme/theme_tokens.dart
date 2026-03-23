@@ -37,16 +37,17 @@ class PrimeCareRadii {
 /// Enterprise Physical Depth Simulator (Soft Shadow Vectors)
 class PrimeCareShadows {
   static const BoxShadow soft = BoxShadow(
-    color: Color(0x0A000000), 
-    blurRadius: 10,
+    color: Color(0x26000000), 
+    blurRadius: 16,
+    spreadRadius: 2,
     offset: Offset(0, 4),
   );
   
   static const BoxShadow floating = BoxShadow(
-    color: Color(0x14000000), 
-    blurRadius: 24,
-    spreadRadius: 4,
-    offset: Offset(0, 12),
+    color: Color(0x33000000), 
+    blurRadius: 32,
+    spreadRadius: 8,
+    offset: Offset(0, 16),
   );
   
   static const BoxShadow dangerGlow = BoxShadow(

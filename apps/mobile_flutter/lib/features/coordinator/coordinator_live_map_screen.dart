@@ -33,24 +33,7 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       
-      appBar: PrimeCareNavBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: PrimeCareCard(
-          margin: EdgeInsets.all(8),
-          
-          child: IconButton(
-            icon: PrimeCareIcon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => context.pop(),
-          ),
-        ),
-        title: PrimeCareCard(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          
-          child: PrimeCareText('Live Dispatch Radar', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-        ),
-        centerTitle: true,
-      ),
+      
       body: PrimeCareStack(
         children: [
           // Native Flutter Map Layer

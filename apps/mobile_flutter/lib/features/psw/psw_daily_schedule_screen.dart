@@ -55,15 +55,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: PrimeCareIcon(Icons.arrow_back_ios_new, color: PrimeCareColors.radarDark),
-          onPressed: () => context.pop(),
-        ),
-        title: PrimeCareText('My Daily Timeline', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: CustomScrollView(

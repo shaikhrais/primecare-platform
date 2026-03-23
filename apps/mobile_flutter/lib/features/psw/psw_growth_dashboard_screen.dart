@@ -13,11 +13,7 @@ class PswGrowthDashboardScreen extends StatelessWidget {
     // A vibrant, positive, energetic aesthetic
     return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('My Growth Profile', style: GoogleFonts.outfit(color: Colors.black, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.0),
         child: PrimeCareColumn(

@@ -15,12 +15,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, // Deep radar dark
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('SUPPLY CHAIN MATRIX', style: GoogleFonts.firaCode(fontWeight: FontWeight.bold, letterSpacing: 2)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-      ),
+      
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: PrimeCareColumn(

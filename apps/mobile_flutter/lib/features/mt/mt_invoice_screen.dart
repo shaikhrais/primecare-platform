@@ -9,12 +9,7 @@ class MtInvoiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Clinical Receipt', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(

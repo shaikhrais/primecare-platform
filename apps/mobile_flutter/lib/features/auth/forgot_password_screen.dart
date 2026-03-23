@@ -52,11 +52,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Recovery', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xFF0EA5E9),
-        
-      ),
+      
       body: PrimeCareCenter(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),

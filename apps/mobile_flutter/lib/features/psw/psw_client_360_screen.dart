@@ -13,7 +13,7 @@ class PswClient360Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: '$clientName - 360°'),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: SingleChildScrollView(

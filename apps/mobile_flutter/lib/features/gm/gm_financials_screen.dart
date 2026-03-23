@@ -10,11 +10,7 @@ class GmFinancialsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Double-Entry Ledger', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-      ),
+      
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth > 800;

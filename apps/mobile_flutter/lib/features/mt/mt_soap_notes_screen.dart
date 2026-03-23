@@ -11,11 +11,7 @@ class MtSoapNotesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: Colors.white,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Clinical SOAP Notes', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        elevation: 1,
-        
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper( // Desktop Responsive
           child: PrimeCareListView(

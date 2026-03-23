@@ -45,19 +45,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Live Dispatch Matrix', style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        actions: [
-          PrimeCareCard(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            margin: EdgeInsets.only(right: 16),
-            
-            child: PrimeCareCenter(child: PrimeCareText('94% Fleet Utilization', style: TextStyle(color: Color(0xFF2563EB), fontWeight: FontWeight.bold))),
-          )
-        ],
-      ),
+      
       body: PrimeCareSafeArea(
         child: PrimeCareColumn(
           children: [

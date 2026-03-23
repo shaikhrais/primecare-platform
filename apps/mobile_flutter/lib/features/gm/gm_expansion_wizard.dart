@@ -10,7 +10,7 @@ class GmExpansionWizardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.franchiseExpansion),
+      
       body: PrimeCareWizardFlow(
         title: AppLocalizations.of(context)!.franchiseExpansion,
         subtitle: AppLocalizations.of(context)!.howToStartANewLocation,

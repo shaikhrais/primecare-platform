@@ -11,7 +11,7 @@ class PswIncidentWizardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.emergencyIncidentWizard),
+      
       body: DesktopPaneWrapper(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24),

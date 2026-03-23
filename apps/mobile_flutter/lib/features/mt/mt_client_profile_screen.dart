@@ -10,12 +10,7 @@ class MtClientProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Clinical Profile', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper( // Desktop Responsive
           child: PrimeCareListView(

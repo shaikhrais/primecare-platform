@@ -18,7 +18,7 @@ class PswTimesheetDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: '$date Shift Details'),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: SingleChildScrollView(

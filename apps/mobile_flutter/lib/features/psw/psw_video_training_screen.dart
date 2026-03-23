@@ -13,7 +13,7 @@ class PswVideoTrainingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.complianceModule),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: SingleChildScrollView(

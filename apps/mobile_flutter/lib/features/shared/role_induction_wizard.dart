@@ -19,7 +19,7 @@ class _RoleInductionWizardScreenState extends State<RoleInductionWizardScreen> {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.mandatoryInduction),
+      
       body: PrimeCareWizardFlow(
         title: AppLocalizations.of(context)!.mandatoryInduction,
         subtitle: AppLocalizations.of(context)!.beforeYouAreGrantedAccessTo,

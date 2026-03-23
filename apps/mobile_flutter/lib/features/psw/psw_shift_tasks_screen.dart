@@ -27,7 +27,7 @@ class _PswShiftTasksScreenState extends State<PswShiftTasksScreen> {
     double progress = _tasks.isEmpty ? 0 : completedCount / _tasks.length;
 
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.scheduleTasks),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: CustomScrollView(

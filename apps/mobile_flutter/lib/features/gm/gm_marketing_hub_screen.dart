@@ -10,11 +10,7 @@ class GmMarketingHubScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('CLIENT ACQUISITION & BRAND', style: TextStyle(color: PrimeCareColors.purple, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-      ),
+      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(

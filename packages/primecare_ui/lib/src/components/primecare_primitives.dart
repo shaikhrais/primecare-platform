@@ -124,12 +124,13 @@ class PrimeCareNavBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final double? elevation;
   final Color? backgroundColor;
+  final Color? shadowColor;
   final PreferredSizeWidget? bottom;
   final bool? centerTitle;
 
-  const PrimeCareNavBar({super.key, this.title, this.actions, this.leading, this.elevation, this.backgroundColor, this.bottom, this.centerTitle});
+  const PrimeCareNavBar({super.key, this.title, this.actions, this.leading, this.elevation, this.backgroundColor, this.shadowColor, this.bottom, this.centerTitle});
 
-  @override Widget build(BuildContext context) => AppBar(title: title, actions: actions, leading: leading, elevation: elevation, backgroundColor: backgroundColor, bottom: bottom, centerTitle: centerTitle);
+  @override Widget build(BuildContext context) => AppBar(title: title, actions: actions, leading: leading, elevation: elevation, backgroundColor: backgroundColor, shadowColor: shadowColor, bottom: bottom, centerTitle: centerTitle);
   @override Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 

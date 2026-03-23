@@ -10,14 +10,7 @@ class GmDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('Executive Growth Hub', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: -0.5)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-        actions: [
-          IconButton(icon: PrimeCareIcon(Icons.business_center_rounded, color: PrimeCareColors.amber), onPressed: () {}),
-        ],
-      ),
+      
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isDesktop = constraints.maxWidth >= 900;

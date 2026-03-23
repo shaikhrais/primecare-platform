@@ -10,7 +10,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      appBar: PrimeCareAppBar(title: AppLocalizations.of(context)!.clinicalProgressNote),
+      
       body: DesktopPaneWrapper(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),

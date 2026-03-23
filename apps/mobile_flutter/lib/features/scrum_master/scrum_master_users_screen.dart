@@ -11,11 +11,7 @@ class ScrumMasterUsersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark,
-      appBar: PrimeCareNavBar(
-        title: PrimeCareText('SCM_TENANT_SANDBOX', style: TextStyle(color: PrimeCareColors.purple, fontFamily: 'monospace', fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-        backgroundColor: PrimeCareColors.darkMatrix,
-        elevation: 0,
-      ),
+      
       body: ListView.builder(
         padding: EdgeInsets.all(20),
         itemCount: 15, // Dummy list
