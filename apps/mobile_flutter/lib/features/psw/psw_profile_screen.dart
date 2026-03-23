@@ -203,6 +203,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
               if (_profileCache != null)
                 PrimeCareDynamicFormBuilder(
                   formId: 'psw_profile_onboarding_v1',
+                  apiGet: (path) => apiClient.get(path),
+                  apiPost: (path, data) => apiClient.post(path, data),
                   onSubmitted: () {
                     // SDUI handles the DB POST. We just refresh the visual UI organically.
                     setState(() => _isLoading = true);

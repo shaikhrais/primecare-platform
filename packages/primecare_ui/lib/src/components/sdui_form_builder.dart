@@ -16,8 +16,10 @@ final _apiClientMock = _MockApiClient();
 class PrimeCareDynamicFormBuilder extends StatefulWidget {
   final String formId;
   final VoidCallback? onSubmitted;
+  final Future<dynamic> Function(String)? apiGet;
+  final Future<void> Function(String, dynamic)? apiPost;
 
-  const PrimeCareDynamicFormBuilder({super.key, required this.formId, this.onSubmitted});
+  const PrimeCareDynamicFormBuilder({super.key, required this.formId, this.onSubmitted, this.apiGet, this.apiPost});
 
   @override
   State<PrimeCareDynamicFormBuilder> createState() => _PrimeCareDynamicFormBuilderState();
@@ -37,7 +39,9 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
 
   Future<void> _fetchFormSchema() async {
     try {
-      final response = await _apiClientMock.get('/v1/sdui/forms/${widget.formId}');
+      final response = widget.apiGet != null 
+          ? await widget.apiGet!('/v1/sdui/forms/${widget.formId}')
+          : await _apiClientMock.get('/v1/sdui/forms/${widget.formId}');
       if (mounted) {
         setState(() {
           _schema = response;
@@ -60,7 +64,11 @@ class _PrimeCareDynamicFormBuilderState extends State<PrimeCareDynamicFormBuilde
     try {
       final endpoint = _schema!['submitEndpoint'];
       // Physical submission to the engine
-      await _apiClientMock.post(endpoint, _formData);
+      if (widget.apiPost != null) {
+         await widget.apiPost!(endpoint, _formData);
+      } else {
+         await _apiClientMock.post(endpoint, _formData);
+      }
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
