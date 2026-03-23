@@ -46,18 +46,18 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
               
               child: PrimeCareColumn(
                 children: [
-                   PrimeCareText('Est. October Payout', style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
+                   PrimeCareText('Est. October Payout', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8), fontSize: 16)),
                    SizedBox(height: 8),
-                   PrimeCareText('\$4,250.75', style: TextStyle(color: Colors.white, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
+                   PrimeCareText('\$4,250.75', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 48, fontWeight: FontWeight.w900, letterSpacing: -1)),
                    SizedBox(height: 24),
                    PrimeCareRow(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
-                       _buildMetric('Hours', '142.5'),
+                       _buildMetric(context, 'Hours', '142.5'),
                        PrimeCareContainer(width: 1, height: 40, color: PrimeCareColors.slate700),
-                       _buildMetric('Shifts', '22'),
+                       _buildMetric(context, 'Shifts', '22'),
                        PrimeCareContainer(width: 1, height: 40, color: PrimeCareColors.slate700),
-                       _buildMetric('Surge OT', '18h'),
+                       _buildMetric(context, 'Surge OT', '18h'),
                      ],
                    )
                 ],
@@ -158,12 +158,12 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
     );
   }
 
-  Widget _buildMetric(String label, String value) {
+  Widget _buildMetric(BuildContext context, String label, String value) {
     return PrimeCareColumn(
       children: [
-        PrimeCareText(value, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+        PrimeCareText(value, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 20, fontWeight: FontWeight.bold)),
         SizedBox(height: 4),
-        PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 13, fontWeight: FontWeight.w600)),
+        PrimeCareText(label, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8), fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }
