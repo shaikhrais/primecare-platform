@@ -71,7 +71,6 @@ class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
     final primary = Theme.of(context).primaryColor;
     return Scaffold(
       appBar: PrimeCareNavBar(
-        showBackButton: true,
         title: Row(
           children: [
             CircleAvatar(
