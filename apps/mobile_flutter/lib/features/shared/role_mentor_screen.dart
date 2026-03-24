@@ -68,8 +68,8 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'Reports directly to the Clinical Manager or Director of Care (DoC). Critical medical incidents, patient emergencies or severe protocol breaches are escalated exclusively here.',
     disciplinary: 'Accountable for maintaining active regional licensing. Disciplinary actions for skipped clinical reassessments or unsigned care plans will be processed via your specific clinical inbox globally.',
     implementedRoutes: [
-      ImplementedRoute('Clinical Matrix', '/rn/operations-hub', Icons.grid_view),
-      ImplementedRoute('Patients Database', '/rn/patients', Icons.people),
+      ImplementedRoute('Clinical Matrix', '/rn/home', Icons.grid_view),
+      ImplementedRoute('Patients Database', '/rn/home', Icons.people),
       ImplementedRoute('Secure Inbox', '/rn/inbox', Icons.inbox),
       ImplementedRoute('Clinical Profile', '/rn/profile', Icons.person),
       ImplementedRoute('Role Compass', '/rn/mentor', Icons.school),
@@ -89,7 +89,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'If you have any issues with a Caregiver or scheduling, submit a ticket immediately to the Service Coordinator or Manager natively.',
     disciplinary: 'We have a zero-tolerance policy for abuse towards staff. Memos regarding invoice delays or service interruptions will appear directly in your Care Feed.',
     implementedRoutes: [
-      ImplementedRoute('Care Feed', '/client/care-hub', Icons.dynamic_feed),
+      ImplementedRoute('Care Feed', '/client/home', Icons.dynamic_feed),
       ImplementedRoute('Health Pulse', '/client/pulse', Icons.monitor_heart),
       ImplementedRoute('Profile Settings', '/client/profile', Icons.person),
       ImplementedRoute('Role Compass', '/client/mentor', Icons.school),
@@ -108,7 +108,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'Reports directly to the Operations Manager and the General Manager. Daily fill-rates and drop-metrics escalate directly into their oversight matrices.',
     disciplinary: 'You are authorized to issue Level 1 Disciplinary Memos for PSW No-Shows or late EVV punches. Performance is monitored by unstaffed percentages locally.',
     implementedRoutes: [
-      ImplementedRoute('Dispatch Matrix', '/coordinator/matrix', Icons.grid_view),
+      ImplementedRoute('Dispatch Matrix', '/coordinator/home', Icons.grid_view),
       ImplementedRoute('Staff Directory', '/coordinator/staff', Icons.people),
       ImplementedRoute('Timesheet Approvals', '/coordinator/approvals', Icons.fact_check),
       ImplementedRoute('Profile', '/coordinator/profile', Icons.person),
@@ -129,7 +129,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'Reports exclusively to the General Manager (Executive Tier). You act as the shield protecting executive bandwidth.',
     disciplinary: 'You handle Level 2 Disciplinary actions natively, managing terminations, investigations, and systemic memo deployments globally.',
     implementedRoutes: [
-      ImplementedRoute('Management Matrix', '/manager/analytics-matrix', Icons.grid_view),
+      ImplementedRoute('Management Matrix', '/manager/home', Icons.grid_view),
       ImplementedRoute('Financial Reports', '/manager/reports', Icons.bar_chart),
       ImplementedRoute('Team Analytics', '/manager/teams', Icons.group_work),
       ImplementedRoute('Profile', '/manager/profile', Icons.person),
@@ -150,7 +150,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'You operate independently or report strictly to the Executive/IT Director tier. You maintain supreme root override authority across all tenant grids globally.',
     disciplinary: 'You have the capability to instantly lock out any account, ghost any tenant, or force security expirations explicitly. All actions are indelibly logged.',
     implementedRoutes: [
-      ImplementedRoute('Root Matrix', '/admin/telemetry-matrix', Icons.grid_view),
+      ImplementedRoute('Root Matrix', '/admin/home', Icons.grid_view),
       ImplementedRoute('Network Grid', '/admin/network', Icons.hub),
       ImplementedRoute('Security Audit', '/admin/audit', Icons.security),
       ImplementedRoute('Master Settings', '/admin/settings', Icons.settings),
@@ -170,7 +170,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'Reports to the General Manager. Collaborates closely with Operations.',
     disciplinary: 'Authorized to trigger systemic restructuring strictly mapped to operational health gradients dynamically.',
     implementedRoutes: [
-      ImplementedRoute('Director Matrix', '/mt/operations-hub', Icons.grid_view),
+      ImplementedRoute('Director Matrix', '/mt/home', Icons.grid_view),
       ImplementedRoute('Key Client Demographics', '/mt/clients', Icons.people),
       ImplementedRoute('Executive Comm-Link', '/mt/messages', Icons.chat_bubble),
       ImplementedRoute('Role Compass', '/mt/mentor', Icons.school),
@@ -189,7 +189,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'The Board of Directors (if applicable). Capable of overriding any matrix state within the entire Cloudflare grid locally.',
     disciplinary: 'Maintains ultimate termination authority, organization-wide broadcast capabilities natively, and total visibility over all internal investigations globally.',
     implementedRoutes: [
-      ImplementedRoute('Enterprise Matrix', '/gm/operations-hub', Icons.grid_view),
+      ImplementedRoute('Enterprise Matrix', '/gm/home', Icons.grid_view),
       ImplementedRoute('Role Compass', '/gm/mentor', Icons.school),
     ],
     pendingRoutes: [
@@ -207,7 +207,7 @@ final Map<String, RoleGuideline> _roleData = {
     reportsTo: 'Chief Technology Officer (CTO) or operates as an autonomous Lead Architect directly engaging with the GM.',
     disciplinary: 'Responsible for reverting catastrophic merges seamlessly. Operates the CI/CD pipeline natively and issues technical debt notices directly to the core infrastructure team globally.',
     implementedRoutes: [
-      ImplementedRoute('Sprint Matrix', '/scrum-master/operations-hub', Icons.grid_view),
+      ImplementedRoute('Sprint Matrix', '/scrum-master/home', Icons.grid_view),
       ImplementedRoute('Role Compass', '/scrum-master/mentor', Icons.school),
     ],
     pendingRoutes: [

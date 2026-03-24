@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireAuth } from '../../_shared/middleware/auth';
-import operationsRoutes from './operations/operations.routes';
+import homeRoutes from './home/home.routes';
 import bookingRoutes from './bookings/bookings.routes';
 import carePlanRoutes from './carePlan/carePlan.routes';
 import serviceRoutes from './services/services.routes';
@@ -21,7 +21,7 @@ client.use('*', async (c, next) => {
 });
 
 // Routes
-client.route('/operations', operationsRoutes); // stats at /operations/stats, profile at /operations/profile
+client.route('/home', homeRoutes); // stats at /home/stats, profile at /home/profile
 client.route('/bookings', bookingRoutes);
 client.route('/care-plan', carePlanRoutes);
 client.route('/', serviceRoutes);

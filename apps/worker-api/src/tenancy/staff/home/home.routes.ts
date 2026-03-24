@@ -5,14 +5,14 @@ import { requirePermission } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// GET Operations Stats for Staff
+// GET Home Stats for Staff
 const getStaffStatsRoute = createRoute({
     ...ROUTE_METADATA.STAFF.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
     summary: 'Get Staff Stats',
-    tags: ['Staff', 'Operations'],
-    middleware: [requirePermission('view_ops_operations')],
+    tags: ['Staff', 'Home'],
+    middleware: [requirePermission('view_ops_home')],
     responses: {
         200: {
             content: {
@@ -22,7 +22,7 @@ const getStaffStatsRoute = createRoute({
                     }),
                 },
             },
-            description: 'Staff operations statistics',
+            description: 'Staff home statistics',
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
@@ -33,7 +33,7 @@ r.openapi(getStaffStatsRoute, async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
 
-    // REAL DATA: Operations Staff KPI Stats
+    // REAL DATA: Home Staff KPI Stats
     const [urgentSchedulingNeeds, activeCaregivers, missingTimesheets] = await Promise.all([
         prisma.visit.count({ where: { status: 'requested', tenantId } }),
         prisma.pswProfile.count({ where: { isApproved: true, tenantId } }),

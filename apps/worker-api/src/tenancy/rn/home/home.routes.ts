@@ -5,13 +5,13 @@ import { requirePermission } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// GET Operations Stats for RN
+// GET Home Stats for RN
 const getRnStatsRoute = createRoute({
     ...ROUTE_METADATA.RN.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
     summary: 'Get Rn Stats',
-    tags: ['RN', 'Operations'],
+    tags: ['RN', 'Home'],
     middleware: [requirePermission('clinical_oversight')],
     responses: {
         200: {
@@ -25,7 +25,7 @@ const getRnStatsRoute = createRoute({
                     }),
                 },
             },
-            description: 'RN operations statistics',
+            description: 'RN home statistics',
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }

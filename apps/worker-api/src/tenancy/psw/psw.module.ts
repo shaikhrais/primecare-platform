@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
 import { requireAuth } from '../../_shared/middleware/auth';
-import operationsRoutes from './operations/operations.routes';
+import homeRoutes from './home/home.routes';
 import scheduleRoutes from './schedule/schedule.routes';
 import dailyEntryRoutes from './dailyEntry/dailyEntry.routes';
 import incidentsRoutes from './incidents/incidents.routes';
@@ -23,7 +23,7 @@ psw.use('*', async (c, next) => {
 });
 
 // Routes
-psw.route('/operations', operationsRoutes);
+psw.route('/home', homeRoutes);
 psw.route('/schedule', scheduleRoutes);
 psw.route('/daily-entry', dailyEntryRoutes);
 psw.route('/incidents', incidentsRoutes);

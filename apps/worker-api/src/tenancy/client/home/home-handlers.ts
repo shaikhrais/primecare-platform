@@ -1,6 +1,6 @@
 /**
- * Client Operations Handlers - Stats Handler
- * Extracted from operations.routes.ts
+ * Client Home Handlers - Stats Handler
+ * Extracted from home.routes.ts
  */
 import { geocodeAddress } from '../../../_shared/utils/geocoding';
 

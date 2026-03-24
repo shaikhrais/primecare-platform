@@ -17,8 +17,8 @@ class _EcosystemControlCenterScreenState extends State<EcosystemControlCenterScr
   // Temporary mock payload representing Cloudflare Edge GET /v1/system/ecosystem/*
   final List<Map<String, dynamic>> _activeRoles = [
     {'name': 'Coordinator', 'staffCount': 142, 'screens': ['/coordinator/live-map', '/coordinator/jane-matrix']},
-    {'name': 'Registered Nurse', 'staffCount': 45, 'screens': ['/rn/patients', '/rn/patients', '/webrtc/triage']},
-    {'name': 'PSW Field Op', 'staffCount': 1205, 'screens': ['/psw/live-visit', '/psw/live-visit', '/psw/crisis-wizard']},
+    {'name': 'Registered Nurse', 'staffCount': 45, 'screens': ['/rn/home', '/rn/home', '/webrtc/triage']},
+    {'name': 'PSW Field Op', 'staffCount': 1205, 'screens': ['/psw/home', '/psw/home', '/psw/crisis-wizard']},
   ];
 
   final List<Map<String, dynamic>> _activeProtocols = [

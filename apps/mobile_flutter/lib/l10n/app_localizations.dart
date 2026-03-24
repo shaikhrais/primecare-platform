@@ -296,11 +296,11 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
-  /// No description provided for @homeDashboard.
+  /// No description provided for @homeNode.
   ///
   /// In en, this message translates to:
   /// **'Central Operations Matrix'**
-  String get homeDashboard;
+  String get homeNode;
 
   /// No description provided for @wellnessPulse.
   ///

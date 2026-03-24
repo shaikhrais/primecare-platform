@@ -249,7 +249,7 @@ class _AdminTelemetryScreenState extends State<AdminTelemetryScreen> {
       {'route': '/psw/timesheets', 'views': 12430, 'color': Color(0xFF10B981), 'percentage': 0.38},
       {'route': '/rn/clinical-hub', 'views': 8211, 'color': Color(0xFF3B82F6), 'percentage': 0.25},
       {'route': '/coordinator/jane-matrix', 'views': 6042, 'color': Color(0xFFF59E0B), 'percentage': 0.18},
-      {'route': '/client/hub', 'views': 3105, 'color': Color(0xFF0EA5E9), 'percentage': 0.09},
+      {'route': '/client/home', 'views': 3105, 'color': Color(0xFF0EA5E9), 'percentage': 0.09},
       {'route': '/admin/audit', 'views': 840, 'color': Color(0xFFF43F5E), 'percentage': 0.02},
     ];
 

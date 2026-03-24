@@ -111,7 +111,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get homeDashboard => 'Central Operations Matrix';
+  String get homeNode => 'Central Operations Matrix';
 
   @override
   String get wellnessPulse => 'Wellness Pulse';

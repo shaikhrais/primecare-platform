@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class UniversalOperationsHubScreen extends StatelessWidget {
+class UniversalHomeScreen extends StatelessWidget {
   final String rolePrefix;
   
-  const UniversalOperationsHubScreen({super.key, required this.rolePrefix});
+  const UniversalHomeScreen({super.key, required this.rolePrefix});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class UniversalOperationsHubScreen extends StatelessWidget {
     } else if (rolePrefix == 'rn') {
       activeColor = const Color(0xFF3B82F6);
       items = [
-        {'label': 'Patients', 'icon': Icons.people_outline, 'path': '/rn/patients'},
+        {'label': 'Patients', 'icon': Icons.people_outline, 'path': '/rn/home'},
         {'label': 'Inbox', 'icon': Icons.inbox_outlined, 'path': '/rn/inbox'},
         {'label': 'Profile', 'icon': Icons.person_outline, 'path': '/rn/profile'},
         {'label': 'Daily Tasks', 'icon': Icons.task_alt, 'path': '/rn/dailyTasks'},
@@ -36,7 +36,7 @@ class UniversalOperationsHubScreen extends StatelessWidget {
     } else if (rolePrefix == 'coordinator') {
       activeColor = const Color(0xFFF59E0B);
       items = [
-        {'label': 'Jane Matrix', 'icon': Icons.calendar_month, 'path': '/coordinator/matrix'},
+        {'label': 'Jane Matrix', 'icon': Icons.calendar_month, 'path': '/coordinator/home'},
         {'label': 'Staff', 'icon': Icons.people_outline, 'path': '/coordinator/staff'},
         {'label': 'Approvals', 'icon': Icons.fact_check_outlined, 'path': '/coordinator/approvals'},
         {'label': 'Profile', 'icon': Icons.person_outline, 'path': '/coordinator/profile'},
@@ -61,7 +61,7 @@ class UniversalOperationsHubScreen extends StatelessWidget {
     } else if (rolePrefix == 'manager') {
       activeColor = const Color(0xFFF43F5E);
       items = [
-        {'label': 'Mgmt Interface', 'icon': Icons.analytics, 'path': '/manager/analytics-matrix'},
+        {'label': 'Mgmt Interface', 'icon': Icons.analytics, 'path': '/manager/home'},
         {'label': 'Reports', 'icon': Icons.bar_chart_outlined, 'path': '/manager/reports'},
         {'label': 'Teams', 'icon': Icons.group_work_outlined, 'path': '/manager/teams'},
         {'label': 'Profile', 'icon': Icons.person_outline, 'path': '/manager/profile'},

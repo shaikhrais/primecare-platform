@@ -111,7 +111,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get password => '[FR] Password';
 
   @override
-  String get homeDashboard => '[FR] Matrice des opérations centrales';
+  String get homeNode => '[FR] Matrice des opérations centrales';
 
   @override
   String get wellnessPulse => '[FR] Wellness Pulse';

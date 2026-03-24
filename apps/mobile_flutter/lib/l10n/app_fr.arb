@@ -32,7 +32,7 @@
   "highContrastLabel": "Contraste Élevé",
   "emailAddress": "[FR] Email Address",
   "password": "[FR] Password",
-  "homeDashboard": "[FR] Matrice des opérations centrales",
+  "homeNode": "[FR] Matrice des opérations centrales",
   "wellnessPulse": "[FR] Wellness Pulse",
   "autoMaxRoutingComplete28Pending": "[FR] Auto-Max Routing Complete. 28 pending hours assigned continuously.",
   "autoMaxFill": "[FR] AUTO-MAX FILL",

@@ -1,4 +1,4 @@
-import 'features/shared/universal_operations_hub_screen.dart';
+import 'features/shared/universal_home_screen.dart';
 import 'features/shared/universal_inbox_screen.dart';
 import 'features/shared/universal_chat_thread_screen.dart';
 import 'features/shared/universal_call_screen.dart';
@@ -84,24 +84,24 @@ final routerProvider = Provider<GoRouter>((ref) {
       final prefs = await SharedPreferences.getInstance();
       final hasToken = prefs.containsKey('auth_token');
       final isLoggingIn = state.uri.toString() == '/login';
-      final isGenericHub = state.uri.toString() == '/admin/telemetry-matrix';
+      final isGenericHome = state.uri.toString() == '/admin/home';
       final isRoot = state.uri.toString() == '/';
 
       if (!hasToken && !isLoggingIn) return '/login';
       
-      if (hasToken && (isLoggingIn || isGenericHub || isRoot)) {
+      if (hasToken && (isLoggingIn || isGenericHome || isRoot)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
-          case 'mt': return '/mt/operations-hub';
+          case 'mt': return '/mt/home';
           case 'gm':
-          case 'general_manager': return '/gm/operations-hub';
-          case 'scrum_master': return '/scrum-master/operations-hub';
-          case 'rn': return '/rn/operations-hub';
-          case 'coordinator': return '/coordinator/matrix';
-          case 'manager': return '/manager/analytics-matrix';
+          case 'general_manager': return '/gm/home';
+          case 'scrum_master': return '/scrum-master/home';
+          case 'rn': return '/rn/home';
+          case 'coordinator': return '/coordinator/home';
+          case 'manager': return '/manager/home';
           case 'admin':
-          case 'super_admin': return '/admin/telemetry-matrix';
-          case 'client': return '/client/care-hub';
+          case 'super_admin': return '/admin/home';
+          case 'client': return '/client/home';
           default: return '/psw/home';
         }
       }
@@ -140,10 +140,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/:role/call/:userId', builder: (context, state) => UniversalCallScreen(rolePrefix: state.pathParameters['role'] ?? 'psw', userId: state.pathParameters['userId']!)),
 
           // ======================= NATIVE GRID HUBS =======================
-          GoRoute(path: '/rn/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/mt/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/gm/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/scrum-master/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'scrum_master')),
+          GoRoute(path: '/rn/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'rn')),
+          GoRoute(path: '/mt/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'mt')),
+          GoRoute(path: '/gm/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'gm')),
+          GoRoute(path: '/scrum-master/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'scrum_master')),
           
           // ======================= PSW =======================
           GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
@@ -164,7 +164,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           
           // ======================= RN ========================
           
-          GoRoute(path: '/rn/patients', builder: (context, state) => const RnPatientsScreen()),
+          GoRoute(path: '/rn/home', builder: (context, state) => const RnPatientsScreen()),
           // Universally intercepting mapped root RN execution parameters.
           GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
@@ -173,7 +173,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/rn/profile', builder: (context, state) => const RnProfileScreen()),
 
           // ======================= CLIENT ====================
-          GoRoute(path: '/client/care-hub', builder: (context, state) => ClientCareHubScreen()),
+          GoRoute(path: '/client/home', builder: (context, state) => ClientCareHubScreen()),
           
           GoRoute(path: '/client/pulse', builder: (context, state) => const ClientPulseScreen()),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
@@ -183,7 +183,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/client/profile', builder: (context, state) => const ClientProfileScreen()),
 
           // ======================= ADMIN =====================
-          GoRoute(path: '/admin/telemetry-matrix', builder: (context, state) => AdminTelemetryMatrixScreen()),
+          GoRoute(path: '/admin/home', builder: (context, state) => AdminTelemetryMatrixScreen()),
           GoRoute(path: '/admin/network', builder: (context, state) => AdminNetworkScreen()),
           GoRoute(path: '/admin/telemetry', builder: (context, state) => const AdminTelemetryScreen()),
           GoRoute(path: '/admin/audit', builder: (context, state) => AdminAuditScreen()),
@@ -194,7 +194,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/settings', builder: (context, state) => const AdminSettingsScreen()),
 
           // ======================= COORDINATOR ===============
-          GoRoute(path: '/coordinator/matrix', builder: (context, state) => CoordinatorJaneMatrixScreen()),
+          GoRoute(path: '/coordinator/home', builder: (context, state) => CoordinatorJaneMatrixScreen()),
           
           GoRoute(path: '/coordinator/staff', builder: (context, state) => const CoordinatorStaffScreen()),
           GoRoute(path: '/coordinator/approvals', builder: (context, state) => const CoordinatorApprovalsScreen()),
@@ -207,7 +207,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/coordinator/fleet-matrix', builder: (context, state) => CoordinatorJaneSchedulerScreen()),
 
           // ======================= MANAGER ===================
-          GoRoute(path: '/manager/analytics-matrix', builder: (context, state) => ManagerAnalyticsMatrixScreen()),
+          GoRoute(path: '/manager/home', builder: (context, state) => ManagerAnalyticsMatrixScreen()),
           
           GoRoute(path: '/manager/reports', builder: (context, state) => const ManagerReportsScreen()),
           GoRoute(path: '/manager/teams', builder: (context, state) => const ManagerTeamsScreen()),

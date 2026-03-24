@@ -1,9 +1,9 @@
 /**
- * PSW Operations Handlers
- * Extracted from psw operations.routes.ts
+ * PSW Home Handlers
+ * Extracted from psw home.routes.ts
  */
 
-export async function handleGetOperationsStats(c: any) {
+export async function handleGetHomeStats(c: any) {
     const prisma = c.get('prisma');
     try {
         const userId = c.get('jwtPayload').sub;

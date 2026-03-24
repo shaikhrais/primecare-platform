@@ -77,7 +77,7 @@ export async function handleListSos(c: any) {
     return c.json(incidents as any, 200);
 }
 
-export async function handleDashboardStats(c: any) {
+export async function handleHomeStats(c: any) {
     const prisma = c.get('prisma');
     const tenantId = c.get('jwtPayload').tenantId;
     const [livePsw, sosActive, pendingMatches, waitlistCount] = await Promise.all([

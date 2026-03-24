@@ -32,7 +32,7 @@
   "highContrastLabel": "High Contrast (Medical)",
   "emailAddress": "Email Address",
   "password": "Password",
-  "homeDashboard": "Central Operations Matrix",
+  "homeNode": "Central Operations Matrix",
   "wellnessPulse": "Wellness Pulse",
   "autoMaxRoutingComplete28Pending": "Auto-Max Routing Complete. 28 pending hours assigned continuously.",
   "autoMaxFill": "AUTO-MAX FILL",
