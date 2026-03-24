@@ -84,7 +84,7 @@ class UniversalHomeScreen extends StatelessWidget {
        activeColor = const Color(0xFF14B8A6);
        items = [
         {'label': 'Clients', 'icon': Icons.people_outline, 'path': '/mt/clients'},
-        {'label': 'Messages', 'icon': Icons.chat_bubble_outline, 'path': '/mt/messages'},
+        {'label': 'Messages', 'icon': Icons.chat_bubble_outline, 'path': '/mt/inbox'},
         {'label': 'Inbox', 'icon': Icons.inbox_outlined, 'path': '/mt/inbox'},
         {'label': 'Daily Tasks', 'icon': Icons.task_alt, 'path': '/mt/dailyTasks'},
         {'label': 'Activities', 'icon': Icons.timeline_outlined, 'path': '/mt/activities'},
