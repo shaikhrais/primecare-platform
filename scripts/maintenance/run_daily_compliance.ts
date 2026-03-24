@@ -40,7 +40,7 @@ async function runComplianceJob() {
     }
 
     // 2. Identify Late Shifts (Check-in exists but late)
-    // (Lateness is usually calculated on the fly in the dashboard, but we can log it)
+    // (Lateness is usually calculated on the fly in the home, but we can log it)
     const lateThreshold = 5 * 60 * 1000; // 5 minutes
     const visitsWithCheckIn = await prisma.visit.findMany({
         where: {

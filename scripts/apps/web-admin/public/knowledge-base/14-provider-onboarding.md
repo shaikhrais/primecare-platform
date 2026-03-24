@@ -14,7 +14,7 @@ If a nurse's tuberculosis test expires at midnight on Friday, the platform physi
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the User Management & Compliance Here](/admin/users)
+**UI Home Link:** [Access the User Management & Compliance Here](/admin/users)
 
 _The interface for tracking the portable credentials and verified W3C identities of the nursing labor force._
 

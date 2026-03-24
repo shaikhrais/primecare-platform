@@ -7,7 +7,7 @@ const docsDir = path.join(__dirname, 'docs', 'knowledge-base');
 const references = {
     '02-fractal-saas': {
         route: '/admin/growth-strategy',
-        title: 'Growth Strategy Dashboard',
+        title: 'Growth Strategy Home',
         description: 'Visualize the full architecture of the Fractal SaaS network in your admin portal.',
         imgText: 'Fractal+SaaS+Architecture'
     },
@@ -15,7 +15,7 @@ const references = {
         route: '/admin',
         title: 'Super Admin Command Center',
         description: 'The global view of platform metrics and health from the top of the fractal.',
-        imgText: 'Platform+Governance+Dashboard'
+        imgText: 'Platform+Governance+Home'
     },
     '08-white-labeling': {
         route: '/admin/company',
@@ -44,7 +44,7 @@ const references = {
     '21-risk-surveillance': {
         route: '/admin/system/risk-surveillance',
         title: 'Risk Surveillance Engine',
-        description: 'The compliance dashboard that throttles rogue tenants or providers that trigger safety thresholds.',
+        description: 'The compliance home that throttles rogue tenants or providers that trigger safety thresholds.',
         imgText: 'Risk+Surveillance+Metrics'
     },
     '14-provider-onboarding': {
@@ -56,7 +56,7 @@ const references = {
 };
 
 for (const [filename, ref] of Object.entries(references)) {
-    const appendStr = `\n\n---\n\n## Visual Reference & Application Route\n\n**UI Dashboard Link:** [Access the ${ref.title} Here](${ref.route})\n\n_${ref.description}_\n\n![${ref.title} Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=${ref.imgText})\n`;
+    const appendStr = `\n\n---\n\n## Visual Reference & Application Route\n\n**UI Home Link:** [Access the ${ref.title} Here](${ref.route})\n\n_${ref.description}_\n\n![${ref.title} Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=${ref.imgText})\n`;
 
     // Append to public
     const publicFile = path.join(publicDir, filename + '.md');

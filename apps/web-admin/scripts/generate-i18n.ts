@@ -35,12 +35,12 @@ const frTranslations = extractFlatStrings(ContentRegistry, true);
 
 // Add missing keys used in NavBar manually as Natural Language Keys too
 const commonKeys = [
-    "Dashboard", "Staff", "Clients", "Visits", "Services", "Reports", "Settings", "Insights",
+    "Home", "Staff", "Clients", "Visits", "Services", "Reports", "Settings", "Insights",
     "Welcome back", "Log out", "Search...", "Tableau de bord", "Personnel", "Visites", "Paramètres", "Analyses", "Bon retour", "Se déconnecter", "Recherche..."
 ];
 
 const manuallyTranslatedFr: Record<string, string> = {
-    "Dashboard": "Tableau de bord",
+    "Home": "Tableau de bord",
     "Staff": "Personnel",
     "Clients": "Clients",
     "Visits": "Visites",

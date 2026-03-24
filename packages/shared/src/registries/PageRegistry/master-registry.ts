@@ -8,12 +8,12 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     F4:  { file: 'apps/web-admin/src/app/routes/auth/pages/reset-password/F4-ResetPassword.tsx',    label: 'Reset Password',  type: 'form', owner: 'auth', associates: ['F3'] },
     F5:  { file: 'apps/web-admin/src/app/routes/auth/pages/onboard-business/F5-BusinessOnboard.tsx',label: 'Business Onboard',type: 'form', owner: 'auth', associates: ['W1'] },
     // ── Admin Homes (D1–D6) ──
-    D1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/home/D1-AdminHome.tsx',     label: 'Admin Home',     type: 'home', owner: 'admin', associates: ['D2', 'G1', 'G2'] },
+    D1:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/home/D1-AdminHome.tsx',     label: 'Platform Command Center',     type: 'home', owner: 'admin', associates: ['D2', 'G1', 'G2'] },
     D2:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/home/D2-RegistrySummary.tsx',    label: 'Registry Summary',    type: 'home', owner: 'admin', associates: ['D1', 'G1', 'G2'] },
-    D3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingHome.tsx', label: 'Accounting Home',type: 'home', owner: 'admin', associates: ['T17', 'T18', 'T59'] },
+    D3:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingHome.tsx', label: 'Financial Ledger Matrix',type: 'home', owner: 'admin', associates: ['T17', 'T18', 'T59'] },
     D4:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvHome.tsx',             label: 'EVV Home',       type: 'home', owner: 'admin', associates: ['L22', 'R8'] },
-    D5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiHome.tsx',               label: 'AI Home',        type: 'home', owner: 'admin', associates: ['T52', 'T53', 'T54', 'T55'] },
-    D6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronHome.tsx',           label: 'Cron Home',      type: 'home', owner: 'admin', associates: ['T7'] },
+    D5:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiHome.tsx',               label: 'Autopilot Telemetry Engine',        type: 'home', owner: 'admin', associates: ['T52', 'T53', 'T54', 'T55'] },
+    D6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronHome.tsx',           label: 'System Operations Console',      type: 'home', owner: 'admin', associates: ['T7'] },
     // ── Admin Forms (F6–F12) ──
     F6:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx',              label: 'Client Admission',     type: 'form', owner: 'admin', associates: ['F7'] },
     F7:  { file: 'apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx',             label: 'Staff Onboarding',     type: 'form', owner: 'admin', associates: ['F6', 'W2'] },
@@ -101,7 +101,7 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     T66: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx',          label: 'Lead Conversion',   type: 'tool', owner: 'admin', associates: ['L3', 'F11'] },
     T67: { file: 'apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx',              label: 'Supply & Demand',   type: 'tool', owner: 'admin', associates: ['H20'] },
     // ── Manager Portal ──
-    D7:  { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/home/D7-ManagerHome.tsx', label: 'Manager Home', type: 'home', owner: 'manager', associates: ['H12', 'D9', 'D10', 'T19', 'L13', 'T21', 'H11', 'T22', 'T23', 'T25'] },
+    D7:  { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/home/D7-ManagerHome.tsx', label: 'Branch Operations Matrix', type: 'home', owner: 'manager', associates: ['H12', 'D9', 'D10', 'T19', 'L13', 'T21', 'H11', 'T22', 'T23', 'T25'] },
     D9:  { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx',           label: 'Branch P&L',       type: 'home', owner: 'manager', associates: ['H7', 'T24'] },
     D10: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/D10-RegionalStats.tsx',             label: 'Regional Stats',   type: 'home', owner: 'manager', associates: ['D7'] },
     D11: { file: 'apps/web-admin/src/app/routes/tenancy/marketing/D11-MarketingHome.tsx',            label: 'Marketing',        type: 'home', owner: 'manager', associates: ['D7'] },
@@ -119,7 +119,7 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     T24: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification.tsx',label: 'Payroll Verify',   type: 'tool', owner: 'manager', associates: ['H7', 'D9'] },
     T25: { file: 'apps/web-admin/src/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync.tsx', label: 'Compliance Sync',  type: 'tool', owner: 'manager', associates: ['D7'] },
     // ── PSW Portal ──
-    D14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/home/D14-PswHome.tsx',              label: 'PSW Home',    type: 'home', owner: 'psw', associates: ['L16', 'F13', 'F14', 'F15', 'R3'] },
+    D14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/home/D14-PswHome.tsx',              label: 'Field Agent Action Node',    type: 'home', owner: 'psw', associates: ['L16', 'F13', 'F14', 'F15', 'R3'] },
     F13: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx',              label: 'Shift Handover',   type: 'form', owner: 'psw', associates: ['D14'] },
     F14: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx',               label: 'Expense Claim',    type: 'form', owner: 'psw', associates: ['R4'] },
     F15: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/availability/F15-Availability.tsx',           label: 'Availability',     type: 'form', owner: 'psw', associates: ['D14'] },
@@ -136,7 +136,7 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     T61: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T61-LiveVisit.tsx',                  label: 'Live Visit',       type: 'tool', owner: 'psw', associates: ['L16', 'T62'] },
     T62: { file: 'apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T62-CheckInScreen.tsx',              label: 'Check-In',         type: 'tool', owner: 'psw', associates: ['L16', 'T61'] },
     // ── RN Portal ──
-    D15: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/home/D15-RnHome.tsx',         label: 'RN Home',    type: 'home', owner: 'rn', associates: ['T29', 'T30', 'H16', 'L18'] },
+    D15: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/home/D15-RnHome.tsx',         label: 'Clinical Triage Matrix',    type: 'home', owner: 'rn', associates: ['T29', 'T30', 'H16', 'L18'] },
     D16: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarHome.tsx',              label: 'MAR Home',   type: 'home', owner: 'rn', associates: ['T31'] },
     D17: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareHome.tsx', label: 'Wound Care',      type: 'home', owner: 'rn', associates: ['T32'] },
     H16: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub.tsx',    label: 'Supervision Hub', type: 'hub', owner: 'rn', associates: ['D15'] },
@@ -149,7 +149,7 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     T33: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail.tsx',       label: 'RAI Detail',      type: 'tool', owner: 'rn', associates: ['L19'] },
     T63: { file: 'apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx',      label: 'RN Check-In',     type: 'tool', owner: 'rn', associates: ['D15'] },
     // ── Client Portal ──
-    D8:  { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/home/D8-ClientHome.tsx',      label: 'Client Home', type: 'home', owner: 'client', associates: ['L14', 'H10', 'F16', 'F17', 'T34', 'T35', 'T36', 'T37', 'H17', 'R5', 'P1'] },
+    D8:  { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/home/D8-ClientHome.tsx',      label: 'Personalized Care Journey', type: 'home', owner: 'client', associates: ['L14', 'H10', 'F16', 'F17', 'T34', 'T35', 'T36', 'T37', 'H17', 'R5', 'P1'] },
     F16: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx',       label: 'Submit Feedback',  type: 'form', owner: 'client', associates: ['D8'] },
     F17: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking.tsx',label: 'Request Booking',  type: 'form', owner: 'client', associates: ['L12', 'L14'] },
     H10: { file: 'apps/web-admin/src/app/routes/tenancy/client/pages/billing/H10-BillingHub.tsx',            label: 'Billing Hub',      type: 'hub', owner: 'client', associates: ['D8'] },
@@ -172,7 +172,7 @@ export const MASTER_REGISTRY: Record<string, MasterEntry> = {
     D18: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/D18-AlliedHealthHome.tsx',               label: 'Allied Health',     type: 'home', owner: 'allied', associates: ['L21', 'T42'] },
     L21: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList.tsx',      label: 'Treatment List',    type: 'list', owner: 'allied', associates: ['D18', 'T42'] },
     T42: { file: 'apps/web-admin/src/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff.tsx',              label: 'Sign Off',          type: 'tool', owner: 'allied', associates: ['D18', 'L21'] },
-    D19: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/home/D19-StaffHome.tsx',              label: 'Staff Home',   type: 'home', owner: 'staff', associates: ['T43', 'T44', 'T45', 'T46'] },
+    D19: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/home/D19-StaffHome.tsx',              label: 'Internal Operations Hub',   type: 'home', owner: 'staff', associates: ['T43', 'T44', 'T45', 'T46'] },
     T43: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx',                        label: 'Task Grid',         type: 'tool', owner: 'staff', associates: ['D19'] },
     T44: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/messages/T44-MessageCenter.tsx',                label: 'Message Center',    type: 'tool', owner: 'staff', associates: ['D19'] },
     T45: { file: 'apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal.tsx',             label: 'Incident Portal',   type: 'tool', owner: 'staff', associates: ['D19'] },

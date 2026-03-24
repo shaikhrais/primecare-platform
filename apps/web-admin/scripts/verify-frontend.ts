@@ -2,7 +2,7 @@
  * verify-frontend.ts
  * 
  * Diagnostic tool for isolated frontend module verification.
- * Checks if major dashboard components and layouts are "loadable" 
+ * Checks if major home components and layouts are "loadable" 
  * by checking for syntax and basic type errors in their entry points.
  */
 
@@ -12,13 +12,13 @@ import fs from 'fs';
 
 const BASE_PATH = path.join(process.cwd(), 'src');
 
-const DASHBOARDS = [
-    { name: 'Manager Dashboard', path: 'app/routes/tenancy/manager/pages/dashboard/index.tsx' },
-    { name: 'PSW Dashboard', path: 'app/routes/tenancy/psw/pages/dashboard/index.tsx' },
-    { name: 'RN Dashboard', path: 'app/routes/tenancy/rn/pages/dashboard/index.tsx' },
+const HOMES = [
+    { name: 'Manager Home', path: 'app/routes/tenancy/manager/pages/home/index.tsx' },
+    { name: 'PSW Home', path: 'app/routes/tenancy/psw/pages/home/index.tsx' },
+    { name: 'RN Home', path: 'app/routes/tenancy/rn/pages/home/index.tsx' },
     { name: 'Coordinator Hub', path: 'app/routes/tenancy/coordinator/pages/hub/CoordinatorHub.tsx' },
-    { name: 'Client Dashboard', path: 'app/routes/tenancy/client/pages/dashboard/index.tsx' },
-    { name: 'Staff Dashboard', path: 'app/routes/tenancy/staff/pages/dashboard/index.tsx' },
+    { name: 'Client Home', path: 'app/routes/tenancy/client/pages/home/index.tsx' },
+    { name: 'Staff Home', path: 'app/routes/tenancy/staff/pages/home/index.tsx' },
 ];
 
 const PAGES = [
@@ -72,8 +72,8 @@ async function run() {
 
     let allPassed = true;
 
-    console.log('--- DASHBOARDS ---');
-    for (const dash of DASHBOARDS) {
+    console.log('--- HOMES ---');
+    for (const dash of HOMES) {
         const passed = await verifyModule(dash.name, dash.path);
         if (!passed) allPassed = false;
     }

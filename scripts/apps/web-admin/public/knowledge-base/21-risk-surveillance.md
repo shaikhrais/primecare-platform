@@ -5,7 +5,7 @@ Platform HQ does not manage patient outcomes, but it must safeguard the ecosyste
 ## The Silent Guardian
 The Risk Surveillance Engine perpetually scans all spawned Tenants (Roots and Children alike).
 
-It aggregates risk into a live dashboard for Super Admins. It monitors:
+It aggregates risk into a live home for Super Admins. It monitors:
 *   "Percentage of Shifts Offered with Expired Credentials"
 *   "Provider No-Show Ratios"
 *   "Dispute Chargeback Frequencies"
@@ -16,8 +16,8 @@ If a Master Franchise becomes lazy and lets their Child Agencies run rampant wit
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Risk Surveillance Engine Here](/admin/system/risk-surveillance)
+**UI Home Link:** [Access the Risk Surveillance Engine Here](/admin/system/risk-surveillance)
 
-_The compliance dashboard that throttles rogue tenants or providers that trigger safety thresholds._
+_The compliance home that throttles rogue tenants or providers that trigger safety thresholds._
 
 ![Risk Surveillance Engine Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=Risk+Surveillance+Metrics)

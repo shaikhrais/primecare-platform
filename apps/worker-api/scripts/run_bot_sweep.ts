@@ -117,7 +117,7 @@ async function runSweep() {
     console.log(`Total Issues: ${errorsFound}`);
 
     // Specifically check for our new items
-    const checkIds = ['btn-auth-osm-login', 'lnk-mgr-dashboard', 'lnk-mgr-ops-hub', 'lnk-adm-strategy'];
+    const checkIds = ['btn-auth-osm-login', 'lnk-mgr-home', 'lnk-mgr-ops-hub', 'lnk-adm-strategy'];
     console.log('\n--- Verifying Phase 3 Specific Fixes ---');
     for (const id of checkIds) {
         const found = await prisma.systemTouchpoint.findUnique({ where: { touchpointId: id } });

@@ -277,7 +277,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPassword => 'New Password';
 
   @override
-  String get home => 'Home';
+  String get home => 'Command Node';
 
   @override
   String get shifts => 'Shifts';

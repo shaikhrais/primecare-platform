@@ -128,7 +128,7 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
  */
 
 // GET /v1/${role}/${kebab}
-app.get('/', requirePermission('view_dashboard'), async (c) => {
+app.get('/', requirePermission('view_home'), async (c) => {
     const prisma = c.get('prisma');
     const tenantId = c.get('tenantId');
 

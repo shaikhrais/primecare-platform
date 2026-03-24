@@ -17,7 +17,7 @@ What took 3 human schedulers 8 hours, the Auto-Pilot does in 3 seconds.
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Clinical Auto-Pilot Engine Here](/admin/automation/clinical-autopilot)
+**UI Home Link:** [Access the Clinical Auto-Pilot Engine Here](/admin/automation/clinical-autopilot)
 
 _The matchmaking engine that routes unstaffed shifts to optimal providers algorithmically._
 

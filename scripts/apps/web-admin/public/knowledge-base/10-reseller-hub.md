@@ -13,7 +13,7 @@ They sell this instance to a local entrepreneur (e.g., a Nurse who wants to star
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the The Reseller Hub Here](/admin/reseller)
+**UI Home Link:** [Access the The Reseller Hub Here](/admin/reseller)
 
 _The interface for provisioning and managing subordinate Child Agencies in a Master network._
 

@@ -3,7 +3,7 @@ import type { PageSections } from '../PageSectionRegistry';
 export const ADMIN_SECTIONS: Record<string, PageSections> = {
     // ── D1: Admin Home ──────────────────────────────────────────────────
     D1: {
-        pageId: 'D1', label: 'Admin Home',
+        pageId: 'D1', label: 'Platform Command Center',
         sections: [
             { id: 'D1.header', label: 'Page Header & Live Indicator', type: 'header', status: 'built', component: 'PageHeader', dataCy: 'page.title' },
             { id: 'D1.action-bar', label: 'Action Bar', type: 'action-bar', status: 'built', component: 'PageActionBar', dataCy: 'action-bar' },
@@ -30,7 +30,7 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
     },
     // ── D3: Accounting Home ─────────────────────────────────────────────
     D3: {
-        pageId: 'D3', label: 'Accounting Home',
+        pageId: 'D3', label: 'Financial Ledger Matrix',
         sections: [
             { id: 'D3.header', label: 'Finance Header', type: 'header', status: 'built' },
             { id: 'D3.ledger-summary', label: 'Ledger Summary KPIs', type: 'kpi-cards', status: 'built' },
@@ -42,7 +42,7 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
     },
     // ── D5: AI Home ─────────────────────────────────────────────────────
     D5: {
-        pageId: 'D5', label: 'AI Home',
+        pageId: 'D5', label: 'Autopilot Telemetry Engine',
         sections: [
             { id: 'D5.header', label: 'AI Header', type: 'header', status: 'built' },
             { id: 'D5.model-stats', label: 'Model Performance KPIs', type: 'kpi-cards', status: 'built' },
@@ -52,7 +52,7 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
     },
     // ── D6: Cron Home ───────────────────────────────────────────────────
     D6: {
-        pageId: 'D6', label: 'Cron Home',
+        pageId: 'D6', label: 'System Operations Console',
         sections: [
             { id: 'D6.header', label: 'Cron Header', type: 'header', status: 'built' },
             { id: 'D6.job-stats', label: 'Job Status KPIs', type: 'kpi-cards', status: 'built' },

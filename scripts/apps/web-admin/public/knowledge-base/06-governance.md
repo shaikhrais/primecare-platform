@@ -20,8 +20,8 @@ If a Tenant breaches compliance thresholds, HQ can:
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Super Admin Command Center Here](/admin)
+**UI Home Link:** [Access the Super Admin Command Center Here](/admin)
 
 _The global view of platform metrics and health from the top of the fractal._
 
-![Super Admin Command Center Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=Platform+Governance+Dashboard)
+![Super Admin Command Center Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=Platform+Governance+Home)

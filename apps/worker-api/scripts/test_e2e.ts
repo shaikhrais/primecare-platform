@@ -69,7 +69,7 @@ async function runE2E() {
     }
 
     console.log('[3] Fetching Profile via Authenticated Route...');
-    const profileReq = new Request('http://localhost/v1/client/dashboard/profile', {
+    const profileReq = new Request('http://localhost/v1/client/home/profile', {
         method: 'GET',
         headers: {
             'Cookie': cookieStr,

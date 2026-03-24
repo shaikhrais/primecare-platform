@@ -12,16 +12,16 @@ const ALL_ROLES = [
 ];
 
 const roleSpecificData = {
-    "super_admin": { desc: "The absolute architect and governor of the platform.", tasks: ["Provisioning new root tenants", "Monitoring Risk"], missing: ["Global Financial Meta-Dashboard"] },
+    "super_admin": { desc: "The absolute architect and governor of the platform.", tasks: ["Provisioning new root tenants", "Monitoring Risk"], missing: ["Global Financial Meta-Home"] },
     "admin": { desc: "The Master Franchise Owner.", tasks: ["Branding", "Spawning Sub-Agencies"], missing: ["EDI/HL7 ingestion pipeline"] },
     "regional_manager": { desc: "Operations leader managing a cluster of Child Agencies.", tasks: ["Monitoring regional shift fulfillment rates"], missing: ["Inter-tenant load balancing UI"] },
-    "operations_manager": { desc: "The heartbeat of a Child Agency.", tasks: ["Monitoring daily Auto-Pilot logs"], missing: ["Real-time SLA alerting dashboard"] },
+    "operations_manager": { desc: "The heartbeat of a Child Agency.", tasks: ["Monitoring daily Auto-Pilot logs"], missing: ["Real-time SLA alerting home"] },
     "hr_manager": { desc: "The compliance gatekeeper.", tasks: ["Reviewing uploads", "Verify nurses"], missing: ["Automated OCR"] },
     "clinical_manager": { desc: "Ensures the quality of care.", tasks: ["Reviewing ADL logs", "Auditing notes"], missing: ["AI Summarization tool"] },
     "finance_manager": { desc: "Controls the margins and cash flow.", tasks: ["Reviewing Timesheets", "Approving Settlements"], missing: ["Dispute Resolution UI"] },
     "marketing_manager": { desc: "Generates B2B leads.", tasks: ["Running recruitment campaigns"], missing: ["Native marketing automation hub"] },
     "recruiting_manager": { desc: "Brings new providers into the ecosystem.", tasks: ["Calling potential RNs/PSWs"], missing: ["Provider Kanban board"] },
-    "manager": { desc: "A generic middle-management role.", tasks: ["Managing team schedules"], missing: ["Customizable dashboard widgets"] },
+    "manager": { desc: "A generic middle-management role.", tasks: ["Managing team schedules"], missing: ["Customizable home widgets"] },
     "coordinator": { desc: "The edge-case handler.", tasks: ["Manually overriding shifts"], missing: ["Dynamic Surge Pricing UI"] },
     "staff": { desc: "Internal office worker.", tasks: ["Inputting basic client profiles"], missing: ["Integrated VoIP softphone"] },
     "finance": { desc: "Clerk-level financial processing.", tasks: ["Reconciling ledgers"], missing: ["QuickBooks Online two-way sync"] },
@@ -37,7 +37,7 @@ for (const role of ALL_ROLES) {
     const data = roleSpecificData[role] || {
         desc: "A core role within the PrimeCare architecture.",
         tasks: ["System interaction"],
-        missing: ["Role-specific specialized dashboards"]
+        missing: ["Role-specific specialized homes"]
     };
 
     const taskList = data.tasks.map(t => "*   Executing Task: " + t).join('\n');
@@ -53,7 +53,7 @@ for (const role of ALL_ROLES) {
         taskList + "\n\n" +
         "## 3. The Day-in-the-Life Workflow\n" +
         "1. **Authentication:** The user logs in securely.\n" +
-        "2. **Dashboard Rendering:** They are redirected to their specialized dashboard.\n" +
+        "2. **Home Rendering:** They are redirected to their specialized home.\n" +
         "3. **Execution:** They interact with the PrimeCare modules.\n" +
         "4. **Data Persistence:** Every action is logged into the AuditLog table.\n\n" +
         "## 4. Gap Analysis: What is Missing?\n" +

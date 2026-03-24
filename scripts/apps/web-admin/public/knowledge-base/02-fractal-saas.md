@@ -16,8 +16,8 @@ However, across all levels of the fractal, the underlying compliance rules, algo
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Growth Strategy Dashboard Here](/admin/growth-strategy)
+**UI Home Link:** [Access the Growth Strategy Home Here](/admin/growth-strategy)
 
 _Visualize the full architecture of the Fractal SaaS network in your admin portal._
 
-![Growth Strategy Dashboard Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=Fractal+SaaS+Architecture)
+![Growth Strategy Home Screenshot](https://placehold.co/800x400/F3F4F6/1E293B?text=Fractal+SaaS+Architecture)

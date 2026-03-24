@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
-  /// **'Home'**
+  /// **'Command Node'**
   String get home;
 
   /// No description provided for @shifts.

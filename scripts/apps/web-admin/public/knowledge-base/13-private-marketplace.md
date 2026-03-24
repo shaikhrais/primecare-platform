@@ -16,7 +16,7 @@ This keeps the entire sub-ecosystem reliant on, and profitable for, the Master F
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Private Marketplace Listings Here](/admin/private-marketplace)
+**UI Home Link:** [Access the Private Marketplace Listings Here](/admin/private-marketplace)
 
 _Internal B2B listings where Master Franchises distribute proprietary training and resources to Child Tenants._
 

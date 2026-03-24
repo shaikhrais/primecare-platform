@@ -14,7 +14,7 @@ To the end patient facing the Care Plan, and the nurse opening the mobile app, P
 
 ## Visual Reference & Application Route
 
-**UI Dashboard Link:** [Access the Tenant Branding & Customization Here](/admin/company)
+**UI Home Link:** [Access the Tenant Branding & Customization Here](/admin/company)
 
 _Where Master Franchises customize hex colors and inject their own transparent logos._
 

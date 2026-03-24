@@ -35,8 +35,8 @@ targetDirs.forEach(dir => {
 
         if (newContent !== content) {
             // Also handle functions: t(ContentRegistry.ADMIN.STATUS.ONLINE)('1.0.4')
-            // Actually, in the UI they are ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE('1.0.4')
-            // After our regex it became t(ContentRegistry.ADMIN_DASHBOARD.STATUS.ONLINE)('1.0.4')
+            // Actually, in the UI they are ContentRegistry.ADMIN_HOME.STATUS.ONLINE('1.0.4')
+            // After our regex it became t(ContentRegistry.ADMIN_HOME.STATUS.ONLINE)('1.0.4')
             // Wait, does t() return a function if the registry value was a function?
             // i18next `t` returns a string. If the registry had a function that takes '1.0.4',
             // i18next doesn't support functions natively like that.
