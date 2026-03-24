@@ -66,7 +66,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             context.go('/client/dashboard');
             break;
           default:
-            context.go('/psw/dashboard');
+            context.go('/psw/home');
         }
       }
     } catch (e) {
