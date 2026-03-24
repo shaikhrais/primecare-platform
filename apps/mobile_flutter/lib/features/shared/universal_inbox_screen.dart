@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/api_client.dart';
 import 'dart:convert';
 
@@ -179,7 +180,7 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
                          ]
                        ),
                        trailing: Icon(Icons.reply_all_rounded, color: Colors.grey, size: 20),
-                       onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Initiating secure connection mapping Thread ID: ${t.id}..."))); },
+                       onTap: () { context.push('/${widget.rolePrefix}/inbox/thread/${t.id}'); },
                      )
                    );
                 }
