@@ -22,6 +22,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/theme.dart';
 import 'core/theme_provider.dart';
 
+import 'features/admin/admin_network_screen.dart';
+
 import 'features/client/client_dashboard_screen.dart';
 import 'features/coordinator/coordinator_jane_matrix_screen.dart';
 import 'features/coordinator/coordinator_live_map_screen.dart';
@@ -142,7 +144,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
           // ======================= ADMIN =====================
           GoRoute(path: '/dashboard', builder: (context, state) => DashboardScreen()),
-          GoRoute(path: '/admin/network', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Network Operations Dashboard')))),
+          GoRoute(path: '/admin/network', builder: (context, state) => AdminNetworkScreen()),
           GoRoute(path: '/admin/audit', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Compliance Log View')))),
           GoRoute(path: '/admin/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/settings', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Global Environment Variables')))),
