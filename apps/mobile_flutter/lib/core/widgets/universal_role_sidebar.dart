@@ -31,7 +31,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/psw/hub', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/dailyTasks', '/psw/activities', '/psw/mentor'];
+      paths = ['/psw/home', '/psw/shifts', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/dailyTasks', '/psw/activities', '/psw/mentor'];
     } 
     else if (currentPath.startsWith('/rn')) {
       activeColor = const Color(0xFF3B82F6);
@@ -44,7 +44,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/rn/hub', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/dailyTasks', '/rn/activities', '/rn/mentor'];
+      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/dailyTasks', '/rn/activities', '/rn/mentor'];
     }
     else if (currentPath.startsWith('/client')) {
       activeColor = const Color(0xFF0EA5E9);
@@ -56,7 +56,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/client/hub', '/client/pulse', '/client/profile', '/client/dailyTasks', '/client/activities', '/client/mentor'];
+      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/dailyTasks', '/client/activities', '/client/mentor'];
     }
     else if (currentPath == '/dashboard' || currentPath.startsWith('/admin')) {
       activeColor = const Color(0xFF8B5CF6);
@@ -84,7 +84,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/coordinator/hub', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/dailyTasks', '/coordinator/activities', '/coordinator/mentor'];
+      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/dailyTasks', '/coordinator/activities', '/coordinator/mentor'];
     }
     else if (currentPath.startsWith('/manager')) {
       activeColor = const Color(0xFFF43F5E);
@@ -97,7 +97,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/manager/hub', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/dailyTasks', '/manager/activities', '/manager/mentor'];
+      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/dailyTasks', '/manager/activities', '/manager/mentor'];
     }
     else if (currentPath.startsWith('/mt')) {
        activeColor = const Color(0xFF14B8A6);
@@ -109,7 +109,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/mt/hub', '/mt/clients', '/mt/messages', '/mt/dailyTasks', '/mt/activities', '/mt/mentor'];
+      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/dailyTasks', '/mt/activities', '/mt/mentor'];
     }
     else if (currentPath.startsWith('/gm')) {
       activeColor = const Color(0xFF0284C7);
@@ -119,7 +119,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/gm/hub', '/gm/dailyTasks', '/gm/activities', '/gm/mentor'];
+      paths = ['/gm/dashboard', '/gm/dailyTasks', '/gm/activities', '/gm/mentor'];
     }
     else if (currentPath.startsWith('/scrum-master')) {
       activeColor = const Color(0xFF9333EA);
@@ -129,7 +129,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/scrum-master/hub', '/scrum-master/dailyTasks', '/scrum-master/activities', '/scrum-master/mentor'];
+      paths = ['/scrum-master/dashboard', '/scrum-master/dailyTasks', '/scrum-master/activities', '/scrum-master/mentor'];
     }
     else {
       return child; 

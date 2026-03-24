@@ -12,7 +12,7 @@ import 'features/auth/login_screen.dart';
 import 'features/dashboard/dashboard_screen.dart';
 import 'features/auth/forgot_password_screen.dart';
 import 'features/psw/psw_home_screen.dart';
-import 'features/psw/psw_dashboard_screen.dart';
+import 'features/psw/psw_shifts_screen.dart';
 import 'features/psw/psw_daily_schedule_screen.dart';
 import 'features/psw/psw_clients_screen.dart';
 import 'features/psw/psw_timesheet_screen.dart';
@@ -81,17 +81,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (hasToken && (isLoggingIn || isGenericDashboard)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
-          case 'mt': return '/mt/hub';
+          case 'mt': return '/mt/dashboard';
           case 'gm':
-          case 'general_manager': return '/gm/hub';
-          case 'scrum_master': return '/scrum-master/hub';
-          case 'rn': return '/rn/hub';
-          case 'coordinator': return '/coordinator/hub';
-          case 'manager': return '/manager/hub';
+          case 'general_manager': return '/gm/dashboard';
+          case 'scrum_master': return '/scrum-master/dashboard';
+          case 'rn': return '/rn/dashboard';
+          case 'coordinator': return '/coordinator/dashboard';
+          case 'manager': return '/manager/dashboard';
           case 'admin':
           case 'super_admin': return '/dashboard';
-          case 'client': return '/client/hub';
-          default: return '/psw/hub';
+          case 'client': return '/client/dashboard';
+          default: return '/psw/home';
         }
       }
       return null;
@@ -123,12 +123,18 @@ final routerProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
-          GoRoute(path: '/:role/hub', builder: (context, state) => UniversalDashboardScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
+          
           GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
 
+          // ======================= NATIVE GRID HUBS =======================
+          GoRoute(path: '/rn/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'rn')),
+          GoRoute(path: '/mt/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'mt')),
+          GoRoute(path: '/gm/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'gm')),
+          GoRoute(path: '/scrum-master/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'scrum_master')),
+          
           // ======================= PSW =======================
           GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
-          GoRoute(path: '/psw/dashboard', builder: (context, state) => PswDashboardScreen()),
+          GoRoute(path: '/psw/shifts', builder: (context, state) => PswShiftsScreen()),
           
           GoRoute(path: '/psw/clients', builder: (context, state) => PswClientsScreen()),
           GoRoute(path: '/psw/timesheet', builder: (context, state) => PswTimesheetScreen()),

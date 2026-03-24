@@ -6,14 +6,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class PswDashboardScreen extends StatefulWidget {
-  const PswDashboardScreen({super.key});
+class PswShiftsScreen extends StatefulWidget {
+  const PswShiftsScreen({super.key});
 
   @override
-  State<PswDashboardScreen> createState() => _PswDashboardScreenState();
+  State<PswShiftsScreen> createState() => _PswShiftsScreenState();
 }
 
-class _PswDashboardScreenState extends State<PswDashboardScreen> {
+class _PswShiftsScreenState extends State<PswShiftsScreen> {
   // Simulating the Cloudflare Edge global state WebSocket override
   final bool _isGlobalCodeBlack = true;
 
