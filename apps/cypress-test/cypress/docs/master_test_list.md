@@ -67,7 +67,7 @@ This document serves as the "North Star" for the PrimeCare Platform's QA coverag
 
 ---
 
-## 4️⃣ DASHBOARDS (ALL ROLES)
+## 4️⃣ HOMES (ALL ROLES)
 - Stats cards, Quick actions (role-based), Widgets, Loading/Error states.
 
 ---

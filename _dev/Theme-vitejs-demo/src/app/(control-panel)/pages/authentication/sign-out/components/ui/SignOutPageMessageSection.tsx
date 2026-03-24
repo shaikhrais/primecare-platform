@@ -75,7 +75,7 @@ function SignOutPageMessageSection() {
 					<div>our community</div>
 				</div>
 				<div className="mt-6 text-lg leading-6 tracking-tight text-gray-400">
-					Fuse helps developers to build organized and well coded dashboards full of beautiful and rich
+					Fuse helps developers to build organized and well coded homes full of beautiful and rich
 					modules. Join us and start building your application today.
 				</div>
 				<div className="mt-8 flex items-center">

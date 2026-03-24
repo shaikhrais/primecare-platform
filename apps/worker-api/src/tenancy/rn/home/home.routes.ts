@@ -7,7 +7,7 @@ const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET Home Stats for RN
 const getRnStatsRoute = createRoute({
-    ...ROUTE_METADATA.RN.DASHBOARD_STATS,
+    ...ROUTE_METADATA.RN.HOME_STATS,
     method: 'get',
     path: '/stats',
     summary: 'Get Rn Stats',

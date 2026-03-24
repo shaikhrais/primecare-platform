@@ -79,8 +79,8 @@
               "skipped": false
             },
             {
-              "title": "Page Health: /dashboard loads without severe errors",
-              "fullTitle": "Accessibility & Health Micro-tests Page Health: /dashboard loads without severe errors",
+              "title": "Page Health: /home loads without severe errors",
+              "fullTitle": "Accessibility & Health Micro-tests Page Health: /home loads without severe errors",
               "timedOut": null,
               "duration": 189,
               "state": "failed",

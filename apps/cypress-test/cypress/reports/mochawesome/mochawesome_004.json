@@ -35,8 +35,8 @@
           "afterHooks": [],
           "tests": [
             {
-              "title": "registers a new Client and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new Client and redirects to Dashboard",
+              "title": "registers a new Client and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Client and redirects to Home",
               "timedOut": null,
               "duration": 13948,
               "state": "failed",
@@ -45,10 +45,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "var email = \"client_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('client');\nregister_page_1.Register.register(email, password);\n// After registration, should be on dashboard\ncy.url().should('include', '/dashboard');",
+              "code": "var email = \"client_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('client');\nregister_page_1.Register.register(email, password);\n// After registration, should be on home\ncy.url().should('include', '/home');",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:14:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/home'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=client' to include '/home'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:14:0)",
                 "diff": null
               },
               "uuid": "6af8550d-c860-4f39-8a2c-014bc1da84e8",
@@ -57,8 +57,8 @@
               "skipped": false
             },
             {
-              "title": "registers a new PSW and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new PSW and redirects to Dashboard",
+              "title": "registers a new PSW and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new PSW and redirects to Home",
               "timedOut": null,
               "duration": 13723,
               "state": "failed",
@@ -67,10 +67,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "var email = \"psw_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('psw');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/dashboard');",
+              "code": "var email = \"psw_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('psw');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/home');",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:21:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/home'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=psw' to include '/home'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:21:0)",
                 "diff": null
               },
               "uuid": "97909722-0aaf-4398-a04b-b75b03eeba90",
@@ -79,8 +79,8 @@
               "skipped": false
             },
             {
-              "title": "registers a new Staff and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new Staff and redirects to Dashboard",
+              "title": "registers a new Staff and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Staff and redirects to Home",
               "timedOut": null,
               "duration": 14390,
               "state": "failed",
@@ -89,10 +89,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "var email = \"staff_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('staff');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/dashboard');",
+              "code": "var email = \"staff_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\nregister_page_1.Register.visit('staff');\nregister_page_1.Register.register(email, password);\ncy.url().should('include', '/home');",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:28:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/home'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/register?role=staff' to include '/home'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:28:0)",
                 "diff": null
               },
               "uuid": "abc4b503-6de3-4038-8cde-f4120e02205d",
@@ -111,10 +111,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "login_page_1.Login.visit('manager');\nlogin_page_1.Login.login(\"manager@example.com\", \"password\");\ncy.waitForByCy(manager_cy_1.MGR.dashboard);\ncy.url().should('include', '/manager/dashboard');",
+              "code": "login_page_1.Login.visit('manager');\nlogin_page_1.Login.login(\"manager@example.com\", \"password\");\ncy.waitForByCy(manager_cy_1.MGR.home);\ncy.url().should('include', '/manager/home');",
               "err": {
-                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.",
-                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-home\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-home\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
                 "diff": null
               },
               "uuid": "37e55960-4e93-42f8-bdc9-cc82c79c9ff7",
@@ -133,10 +133,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "login_page_1.Login.visit('admin');\nlogin_page_1.Login.login(\"admin@example.com\", \"password\"); // Assuming admin credentials\n// cy.waitForByCy(ADM.dashboard); // Admin dashboard might not have a specific data-cy yet or different\n// Let's check Admin selector map\ncy.url().should('include', '/dashboard'); // Admin usually goes to main dashboard too but with more access",
+              "code": "login_page_1.Login.visit('admin');\nlogin_page_1.Login.login(\"admin@example.com\", \"password\"); // Assuming admin credentials\n// cy.waitForByCy(ADM.home); // Admin home might not have a specific data-cy yet or different\n// Let's check Admin selector map\ncy.url().should('include', '/home'); // Admin usually goes to main home too but with more access",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:41:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/home'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/login' to include '/home'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:41:0)",
                 "diff": null
               },
               "uuid": "7ebaa623-a631-4ccb-b9b6-8002b43ade1e",

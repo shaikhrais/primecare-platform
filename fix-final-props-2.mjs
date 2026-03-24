@@ -37,9 +37,9 @@ const statusCardsReplace = [
     [/color:\s*'green'\s*\},?\n\s*\]\}/g, "color: 'green' },\n                ]} }"],
     [/color:\s*'yellow'\s*\},?\n\s*\]\}/g, "color: 'yellow' },\n                ]} }"]
 ];
-replaceInFile('src/app/routes/tenancy/client/pages/dashboard/index.tsx', statusCardsReplace);
-replaceInFile('src/app/routes/tenancy/psw/pages/dashboard/index.tsx', statusCardsReplace);
-replaceInFile('src/app/routes/tenancy/rn/pages/dashboard/index.tsx', statusCardsReplace);
+replaceInFile('src/app/routes/tenancy/client/pages/home/index.tsx', statusCardsReplace);
+replaceInFile('src/app/routes/tenancy/psw/pages/home/index.tsx', statusCardsReplace);
+replaceInFile('src/app/routes/tenancy/rn/pages/home/index.tsx', statusCardsReplace);
 
 // 4. API Contracts Test
 replaceInFile('src/test/TypedApiContracts.test.ts', [

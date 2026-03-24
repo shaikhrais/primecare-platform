@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.loginAs(\"staff\");\ncy.fixture(\"registry/routes.admin.json\").then(function (routesCfg) {\n    cy.fixture(\"registry/contracts.json\").then(function (c) {\n        var baseUrl = Cypress.env(routesCfg.baseUrlEnv);\n        Object.entries(c).forEach(function (_a) {\n            var _b = __read(_a, 2), routeKey = _b[0], selectors = _b[1];\n            var route = routesCfg.routes.find(function (r) { return r.key === routeKey; });\n            if (!route)\n                return;\n            cy.log(\"Verifying contract for page: \".concat(routeKey));\n            cy.visitRoute(routesCfg.baseUrlEnv, route.path);\n            cy.assertContract(selectors);\n        });\n    });\n});",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"adm-dashboard\"]`, but never found it.",
-                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"adm-dashboard\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:6:65)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:4:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"adm-home\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"adm-home\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:6:65)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:4:0)",
                 "diff": null
               },
               "uuid": "d2a36768-967f-490f-94ac-124403748d62",

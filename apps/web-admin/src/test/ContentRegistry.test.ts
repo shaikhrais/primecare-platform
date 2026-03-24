@@ -39,7 +39,7 @@ describe('ContentRegistry · Structure', () => {
 
     it('has MENU section with navigation items', () => {
         expect(ContentRegistry.MENU).toBeDefined();
-        expect(ContentRegistry.MENU.DASHBOARD).toBe('Home');
+        expect(ContentRegistry.MENU.HOME).toBe('Home');
         expect(ContentRegistry.MENU.SETTINGS).toBe('Settings');
     });
 
@@ -111,7 +111,7 @@ describe('ContentRegistry · Menu Items', () => {
     });
 
     it('includes core navigation items', () => {
-        const coreItems = ['DASHBOARD', 'USERS', 'SCHEDULE', 'REPORTS', 'SETTINGS'];
+        const coreItems = ['HOME', 'USERS', 'SCHEDULE', 'REPORTS', 'SETTINGS'];
         for (const item of coreItems) {
             expect(ContentRegistry.MENU).toHaveProperty(item);
         }

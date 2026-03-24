@@ -9,9 +9,9 @@ The `super_admin` role is restricted to PrimeCare's internal headquarters team. 
 3.  **Financial Rail Oversight:** Managing the global Stripe Connect platform settings and tracking the fractional tech-toll revenue streams.
 
 ## Day-in-the-Life Execution
-A Super Admin logs into the system not to assign shifts, but to monitor algorithmic health. If a Master Franchise in Texas experiences a catastrophic failure in compliance (e.g., attempting to dispatch 50 unverified nurses), the Super Admin dashboard flashes red. The Super Admin executes a "Global Quarantine" command, temporarily severing the Master Franchise's Stripe connection and disabling their Auto-Pilot.
+A Super Admin logs into the system not to assign shifts, but to monitor algorithmic health. If a Master Franchise in Texas experiences a catastrophic failure in compliance (e.g., attempting to dispatch 50 unverified nurses), the Super Admin home flashes red. The Super Admin executes a "Global Quarantine" command, temporarily severing the Master Franchise's Stripe connection and disabling their Auto-Pilot.
 
 ## ⚠️ What is Currently Missing? (Gap Analysis)
-*   **Global Financial Dashboard:** We currently lack a Super Admin-only dashboard that aggregates the fractional revenue (the 1.5% tech toll) flowing to HQ.
+*   **Global Financial Home:** We currently lack a Super Admin-only home that aggregates the fractional revenue (the 1.5% tech toll) flowing to HQ.
 *   **Tenant Sandboxing Mechanism:** While Risk Surveillance exists, the physical button to "Quarantine a Tenant" and isolate them from the Auto-Pilot requires database intervention rather than a UI toggle.
 *   **System-Wide Audit Logs:** A unified UI to track *every* action taken by a Master Franchise admin across the system for legal compliance.

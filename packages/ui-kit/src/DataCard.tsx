@@ -1,5 +1,5 @@
 /**
- * DataCard — Metric/stat card for dashboards
+ * DataCard — Metric/stat card for homes
  *
  * Usage:
  *   <DataCard title="Active Visits" value={42} trend="+12%" icon="📊" />

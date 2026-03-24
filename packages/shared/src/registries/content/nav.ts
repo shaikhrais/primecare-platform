@@ -47,7 +47,7 @@ export const navContent = {
             PL: 'Branch Profit & Loss',
             OPS_TRIAGE: 'Operations Triage',
             COMPLIANCE: 'Compliance Monitor',
-            DASHBOARD: 'Branch Home',
+            HOME: 'Branch Home',
             AGENCY_HUB: 'Agency Operations Hub',
             FINANCIALS: 'Branch Financials',
             TEAM: 'Branch Team',

@@ -196,7 +196,7 @@ function getContents(markdown: string) {
 
 const excludedDemos = [
 	'ComboBox.js',
-	'DashboardLayoutBasic.js',
+	'HomeLayoutBasic.js',
 	'PageContainerBasic.js',
 	'PageContainerBasic.js',
 	'ToolpadDialogsNoSnap.js',

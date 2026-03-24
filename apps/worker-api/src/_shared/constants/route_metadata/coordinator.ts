@@ -14,7 +14,7 @@ export const COORDINATOR_METADATA = {
         description: 'Record an acknowledgement for a high-priority SOS emergency alert.',
         tags: ['Coordinator Logistics'],
     },
-    DASHBOARD_STATS: {
+    HOME_STATS: {
         summary: 'Get Coordinator Home Statistics',
         description: 'Retrieve operational statistics for the coordinator dispatcher hub.',
         tags: ['Coordinator Home'],

@@ -11,10 +11,10 @@ export const SmartBreadcrumbs: React.FC = () => {
     // Identify the home root based on the path
     const isPlatform = location.pathname.startsWith('/platform');
     const isTenancy = location.pathname.startsWith('/tenancy');
-    const homeRoot = isPlatform ? RouteRegistry.ADMIN.DASHBOARD : (isTenancy ? '/tenancy' : '/');
+    const homeRoot = isPlatform ? RouteRegistry.ADMIN.HOME : (isTenancy ? '/tenancy' : '/');
 
     // Don't show on home to avoid redundancy
-    if (location.pathname === homeRoot || location.pathname === RouteRegistry.ADMIN.DASHBOARD) {
+    if (location.pathname === homeRoot || location.pathname === RouteRegistry.ADMIN.HOME) {
         return null;
     }
 

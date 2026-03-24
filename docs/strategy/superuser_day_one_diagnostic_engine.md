@@ -1,7 +1,7 @@
 # Superuser Day-1 Diagnostic Engine & B2B Growth Advisor
 *The interactive algorithmic guide that builds the PrimeCare business from $0 to Scale.*
 
-When a software ecosystem is this massive, dropping a user into a dashboard with 100 empty charts is paralyzing. 
+When a software ecosystem is this massive, dropping a user into a home with 100 empty charts is paralyzing. 
 
 To solve this, the PrimeCare engine includes a **Day-One Diagnostic Advisor**. It continuously evaluates the mathematical parameters of your Database and tells you *exactly what your next physical business move is*, acting as your digital Chief Operating Officer.
 

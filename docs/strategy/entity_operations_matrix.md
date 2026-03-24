@@ -10,7 +10,7 @@ The heartbeat of the platform. Coordinators ensure that every Client request is 
 ### Required App Screens
 - **The Jane Matrix (`coordinator_jane_matrix_screen.dart`)**: A 2D Drag-and-Drop scheduler handling thousands of shift blocks simultaneously.
 - **Geospatial Dispatch (`coordinator_live_map_screen.dart`)**: Live map visualizing unstaffed regions and active caregiver GPS blips.
-- **Surge Engine (`coordinator_dashboard_screen.dart`)**: A toggle interface for attaching emergency `+1.5x` Payroll multipliers to failing shifts.
+- **Surge Engine (`coordinator_home_screen.dart`)**: A toggle interface for attaching emergency `+1.5x` Payroll multipliers to failing shifts.
 
 ### Crisis Protocols (When Things Break)
 - **Scenario:** *A critical shift is starting in 30 minutes, but 0 workers have accepted it.*
@@ -24,7 +24,7 @@ The heartbeat of the platform. Coordinators ensure that every Client request is 
 ### Responsibilities
 The primary field workers performing physical care, verifying attendance (EVV), and charting daily activities.
 ### Required App Screens
-- **Matchmaking Hub (`psw_dashboard_screen.dart`)**: Infinite scrolling feed of localized, available shifts displaying distance and payout.
+- **Matchmaking Hub (`psw_home_screen.dart`)**: Infinite scrolling feed of localized, available shifts displaying distance and payout.
 - **Live Vector Tracking (`psw_live_visit_screen.dart`)**: The execution terminal embedding the GPS Check-In, Shift Timers, and ADL (Activities of Daily Living) checklists.
 - **Crisis Trigger (`psw_incident_wizard_screen.dart`)**: The massive Red Native SOS button.
 
@@ -40,7 +40,7 @@ The primary field workers performing physical care, verifying attendance (EVV), 
 ### Responsibilities
 Clinical governance. RNs never drive to physical shifts, but digitally oversee hundreds of patients automatically to absorb medical liability.
 ### Required App Screens
-- **Clinical Hub (`rn_dashboard_screen.dart`)**: A kanban-style queue consuming the SOS/Incident alerts sent by PSWs in real-time.
+- **Clinical Hub (`rn_home_screen.dart`)**: A kanban-style queue consuming the SOS/Incident alerts sent by PSWs in real-time.
 - **Telehealth Video Array (`psw_live_video_triage_screen.dart`)**: Picture-in-picture WebRTC node establishing peer-to-peer visual feeds with the field worker.
 - **Patient 360 Records (`rn_patients_screen.dart`)**: PDF Care Plans, Vitals histories, and S.O.A.P Audit logs.
 
@@ -54,12 +54,12 @@ Clinical governance. RNs never drive to physical shifts, but digitally oversee h
 ### Responsibilities
 Overseeing regional Node health. They ensure everyone is legally compliant and Payroll stays under predefined EBITDA safety margins.
 ### Required App Screens
-- **Executive Console (`manager_dashboard_screen.dart`)**: Dense arrays outputting active pending invoices and total active payroll liabilities.
+- **Executive Console (`manager_home_screen.dart`)**: Dense arrays outputting active pending invoices and total active payroll liabilities.
 - **Compliance Directory (`manager_directory_screen.dart`)**: Visual matrix rendering Expired First-Aid certificates or lapsed Licenses in Red.
 
 ### Crisis Protocols (When Things Break)
 - **Scenario:** *15 Caregiver CMTO Licenses expire at midnight simultaneously.*
-  - **Measure:** The **Compliance Directory** algorithmically suspends their field access. When the Caregivers wake up to claim shifts on the `psw_dashboard_screen.dart`, their apps are locked on an Upload Modal. The Manager monitors the Directory waiting for the digital PDF uploads to click "Approve" and unfreeze the fleet natively.
+  - **Measure:** The **Compliance Directory** algorithmically suspends their field access. When the Caregivers wake up to claim shifts on the `psw_home_screen.dart`, their apps are locked on an Upload Modal. The Manager monitors the Directory waiting for the digital PDF uploads to click "Approve" and unfreeze the fleet natively.
 
 ---
 
@@ -85,4 +85,4 @@ Macro-scale business development.
 
 ### Crisis Protocols (When Things Break)
 - **Scenario:** *Profit margin in the Toronto Node crashes below 20% due to Coordinators continuously abusing the Surge Multiplier.*
-  - **Measure:** The GM identifies the leakage actively on the **Financial Growth Analytics** dashboard. The GM enforces a hard digital limit on the Coordinator Hub natively, restricting Surge Multipliers to a maximum of 4 usages per week, mathematically forcing the region back into profitability.
+  - **Measure:** The GM identifies the leakage actively on the **Financial Growth Analytics** home. The GM enforces a hard digital limit on the Coordinator Hub natively, restricting Surge Multipliers to a maximum of 4 usages per week, mathematically forcing the region back into profitability.

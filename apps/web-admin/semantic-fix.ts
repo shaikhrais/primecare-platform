@@ -106,7 +106,7 @@ const resolveNewPath = (val: string) => {
                  .replace('/scrum-master/', '/scrum-master')
                  .replace('/platform/admin/', '/platform/admin');
                  
-    // cleanup trailing if it matched everything, e.g. './manager/home' -> './managerdashboard' which is wrong.
+    // cleanup trailing if it matched everything, e.g. './manager/home' -> './managerhome' which is wrong.
     // Let's use regex instead:
     out = val.replace(/\/manager\/.*/, '/manager')
              .replace(/\/staff\/.*/, '/staff')

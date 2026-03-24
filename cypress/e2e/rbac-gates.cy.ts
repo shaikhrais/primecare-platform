@@ -21,7 +21,7 @@ describe('RBAC Route Access', () => {
         cy.visit('/platform/admin/users');
         // Should be redirected or shown access denied
         cy.url({ timeout: 5000 }).then((url) => {
-            // Either redirected to dashboard or shown forbidden page
+            // Either redirected to home or shown forbidden page
             const isBlocked = !url.includes('/platform/admin/users') ||
                               cy.get('[data-cy*="forbidden"]').should('exist');
             expect(isBlocked).to.be.true;
@@ -30,7 +30,7 @@ describe('RBAC Route Access', () => {
 
     it('finance role can access finance routes', () => {
         loginAs(Cypress.env('FINANCE_EMAIL') || 'finance@primecare.ca', Cypress.env('FINANCE_PASSWORD') || 'FinancePass1!');
-        cy.visit('/platform/finance/dashboard');
+        cy.visit('/platform/finance/home');
         cy.get('[data-cy="page.container"]', { timeout: 5000 }).should('exist');
     });
 

@@ -57,7 +57,7 @@ export default function DevPerspectiveSwitcher() {
             const updatedUser = { ...currentUser, activeRole: targetRole };
             localStorage.setItem('user', JSON.stringify(updatedUser));
 
-            const target = RouteRegistry.ROLE_DASHBOARDS[targetRole.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
+            const target = RouteRegistry.ROLE_HOMES[targetRole.toLowerCase()] || RouteRegistry.ADMIN.HOME;
             navigate(target);
             setIsOpen(false);
         } finally {
@@ -77,7 +77,7 @@ export default function DevPerspectiveSwitcher() {
                 }
                 // R13: Token is set via HttpOnly cookie by backend — don't store in localStorage
                 localStorage.setItem('user', JSON.stringify({ ...data.user, activeRole: data.user.roles[0] }));
-                window.location.href = RouteRegistry.ADMIN.DASHBOARD;
+                window.location.href = RouteRegistry.ADMIN.HOME;
             }
         } catch (err) {
             // R13: Silent error
@@ -95,7 +95,7 @@ export default function DevPerspectiveSwitcher() {
             } catch { /* will redirect anyway */ }
             localStorage.setItem('user', originalAdmin);
             sessionStorage.removeItem('originalAdmin');
-            window.location.href = RouteRegistry.ADMIN.DASHBOARD;
+            window.location.href = RouteRegistry.ADMIN.HOME;
         }
     };
 

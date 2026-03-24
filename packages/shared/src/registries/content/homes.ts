@@ -1,7 +1,7 @@
 import { homesFinanceContent } from './homes-finance';
 
 export const homesContent = {
-    ADMIN_DASHBOARD: {
+    ADMIN_HOME: {
         STATS: {
             TOTAL_USERS: 'Total Users',
             NEW_INQUIRIES: 'New Inquiries',
@@ -48,7 +48,7 @@ export const homesContent = {
             ONLINE: (v: string) => `● v${v} Online`,
         }
     },
-    CLIENT_DASHBOARD: {
+    CLIENT_HOME: {
         TITLE: 'My Care Hub',
         SUBTITLE: 'Welcome back to your family care portal.',
         BUTTON_REQUEST: 'Request New Care',
@@ -69,7 +69,7 @@ export const homesContent = {
             SUCCESS_MSG: 'Thank you for your feedback! It helps us maintain premium care standards.',
         }
     },
-    PSW_DASHBOARD: {
+    PSW_HOME: {
         TITLE: 'Caregiver Command Center',
         SUBTITLE: 'Manage your active visits, earnings, and professional profile.',
         BUTTON_FULL_SCHEDULE: 'View Full Schedule',
@@ -82,7 +82,7 @@ export const homesContent = {
         },
         MESSAGES: { LOADING: 'Synchronizing Command Center...' }
     },
-    RN_DASHBOARD: {
+    RN_HOME: {
         TITLE: 'Clinical Home',
         SUBTITLE: 'Branch-wide clinical overview and task triage.',
         MESSAGES: { LOADING: 'Synchronizing Clinical Center...' },
@@ -98,7 +98,7 @@ export const homesContent = {
             RESOLVE_BTN: 'Resolve',
         }
     },
-    STAFF_DASHBOARD: {
+    STAFF_HOME: {
         TITLE_BRANCH: 'Branch Coordination Hub',
         TITLE_NETWORK: 'Network Coordination Hub',
         SUBTITLE: 'Daily Schedule & Compliance',
@@ -124,7 +124,7 @@ export const homesContent = {
             FEEDBACK_BTN: 'Support',
         }
     },
-    MANAGER_DASHBOARD: {
+    MANAGER_HOME: {
         TITLE: 'Branch Home',
         SUBTITLE: 'Local agency operational overview',
         QUICK_ACTIONS: 'Quick Actions',
@@ -145,7 +145,7 @@ export const homesContent = {
         PERSPECTIVES: ['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'] as const,
         MESSAGES: { LOADING: 'Loading Home...' }
     },
-    PLATFORM_DASHBOARD: {
+    PLATFORM_HOME: {
         TITLE: 'Platform Command Center',
         SUBTITLE: 'Fractal SaaS Network Overview',
         MESSAGES: { LOADING: 'Loading Global Stats...' },
@@ -163,7 +163,7 @@ export const homesContent = {
             DESC: 'No critical compliance threats detected across Master or Sub-Agencies.',
         }
     },
-    SUMMARY_DASHBOARD: {
+    SUMMARY_HOME: {
         TITLE: 'Registry Intelligence Home',
         SUBTITLE: 'Real-time platform summaries, KPIs, and registry-driven insights.',
         HEADER: { CONTEXT: 'Context', LAST_UPDATED: 'Last Synchronized', SYNC_NOW: 'Sync Orbit' },

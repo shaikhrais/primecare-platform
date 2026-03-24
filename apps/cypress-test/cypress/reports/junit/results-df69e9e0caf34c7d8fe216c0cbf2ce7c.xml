@@ -3,7 +3,7 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T04:35:11" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T04:35:11" tests="23" time="584.534" failures="23">
-    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="16.835" classname="[ADMIN_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [ADMIN_HOME] contains all required structural components" time="16.835" classname="[ADMIN_HOME] contains all required structural components">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
@@ -23,7 +23,7 @@
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
-    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="17.271" classname="[MANAGER_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [MANAGER_HOME] contains all required structural components" time="17.271" classname="[MANAGER_HOME] contains all required structural components">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>

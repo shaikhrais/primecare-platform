@@ -89,8 +89,8 @@
               "skipped": true
             },
             {
-              "title": "04.02.01  Manager__Dashboard__PageLoad__SUCCESS",
-              "fullTitle": "Manager Mathematical Micro-Steps (Full Suite) 04.02.01  Manager__Dashboard__PageLoad__SUCCESS",
+              "title": "04.02.01  Manager__Home__PageLoad__SUCCESS",
+              "fullTitle": "Manager Mathematical Micro-Steps (Full Suite) 04.02.01  Manager__Home__PageLoad__SUCCESS",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -107,8 +107,8 @@
               "skipped": true
             },
             {
-              "title": "04.02.02  Manager__Dashboard__SummaryCards__VISIBLE",
-              "fullTitle": "Manager Mathematical Micro-Steps (Full Suite) 04.02.02  Manager__Dashboard__SummaryCards__VISIBLE",
+              "title": "04.02.02  Manager__Home__SummaryCards__VISIBLE",
+              "fullTitle": "Manager Mathematical Micro-Steps (Full Suite) 04.02.02  Manager__Home__SummaryCards__VISIBLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",

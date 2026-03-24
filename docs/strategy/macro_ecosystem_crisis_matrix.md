@@ -9,7 +9,7 @@ PrimeCare is an interconnected organism. When a structural, company-wide crisis 
 
 **Simultaneous Entity Synchronization:**
 1. **General Manager (GM):** Immediately authorizes an uncapped "Code Black" Emergency Budget. Redirects all marketing ad-spend entirely into emergency recruitment and hazard bonuses.
-2. **Manager (HR):** Disables standard "Time-Off Request" approvals in the dashboard natively and blasts an SMS to all off-duty staff.
+2. **Manager (HR):** Disables standard "Time-Off Request" approvals in the home natively and blasts an SMS to all off-duty staff.
 3. **Coordinator (Logistics):** Hits the `Code Black` toggle on the active Jane Matrix. The system automatically scrubs and physically cancels all "Non-Essential / Routine" shifts locally to preserve resources.
 4. **Registered Nurse (RN):** Performs a rapid digital triage on the remaining patient list, tagging only "Life-Critical" (e.g., oxygen replacement) shifts as mandatory.
 5. **Personal Support Worker (PSW):** Sees a massive Purple `+2.0x HAZARD PAY` override natively on their app, overriding all standard pay limits to financially incentivize them to travel.
@@ -39,7 +39,7 @@ PrimeCare is an interconnected organism. When a structural, company-wide crisis 
 3. **Manager (HR):** The system automatically suspends the involved PSW's ability to claim new shifts, placing them on "Administrative Leave" pending a full RN audit.
 4. **Coordinator:** The Jane Matrix mathematically rips the suspended PSW out of the active grid and reroutes their upcoming shifts to idle workers automatically.
 5. **Scrum Master:** Generates an immutable, cryptographic hash-log of the database records from the incident day natively to hand over to external auditors/legal counsel proving data integrity.
-6. **General Manager (GM):** Audits the `Cost Reduction` dashboard mapping the potential insurance deductible hits mapped against the region's current EBITDA natively.
+6. **General Manager (GM):** Audits the `Cost Reduction` home mapping the potential insurance deductible hits mapped against the region's current EBITDA natively.
 
 ---
 

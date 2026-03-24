@@ -96,8 +96,8 @@ for (const dir of dirsToFlatten) {
         let bodyText = text.substring(bodyStart).trim();
 
         // 3. Fix lazy imports locally in bodyText
-        // Replace `lazy(() => import('./dashboard').then(m => ({ default: m.AdminDashboard })))`
-        // with `lazy(() => Promise.resolve({ default: AdminDashboard }))`
+        // Replace `lazy(() => import('./home').then(m => ({ default: m.AdminHome })))`
+        // with `lazy(() => Promise.resolve({ default: AdminHome }))`
         bodyText = bodyText.replace(/lazy\s*\\(\\s*\\(\\)\\s*=>\s*import\\s*\\(['"][^'"]+['"]\\)\\s*\\.then\\s*\\(\\s*[a-zA-Z0-9_$]+\\s*=>\s*\\(\\s*\\{\\s*default:\\s*[a-zA-Z0-9_$]+\\.([a-zA-Z0-9_$]+)\\s*\\}\\s*\\)\\s*\\)\\s*\\)/g, 
             "lazy(() => Promise.resolve({ default: $1 }))");
 

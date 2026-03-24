@@ -108,7 +108,7 @@ class FuseAuthorization extends Component<FuseAuthorizationProps, State> {
 			/*
 		  User is member
 		  User must be on unAuthorized page or just logged in
-		  Redirect to dashboard or loginRedirectUrl
+		  Redirect to home or loginRedirectUrl
 			*/
 			setTimeout(() => navigate(redirectUrl), 0);
 			resetSessionRedirectUrl();

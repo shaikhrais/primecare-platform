@@ -57,7 +57,7 @@ export const PSW_METADATA = {
             description: 'Report an incident that occurred during or after a visit.',
             tags: ['PSW Incidents'],
         },
-        DASHBOARD_STATS: {
+        HOME_STATS: {
             summary: 'Get PSW Home Statistics',
             description: 'Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.',
             tags: ['PSW Home'],

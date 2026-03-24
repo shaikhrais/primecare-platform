@@ -1,5 +1,5 @@
 export const homesFinanceContent = {
-    ACCOUNTING_DASHBOARD: {
+    ACCOUNTING_HOME: {
         TITLE: 'Accounting Intelligence',
         SUBTITLE: 'Real-time GAAP reporting for PrimeCare Platform.',
         LOADING: 'ORCHESTRATING FINANCIAL ENGINE...',

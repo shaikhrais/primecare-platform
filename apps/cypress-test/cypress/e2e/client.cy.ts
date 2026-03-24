@@ -4,7 +4,7 @@ describe('Client Role E2E', () => {
     });
 
     it('should view the family hub', () => {
-        cy.visit('/tenancy/client/dashboard');
+        cy.visit('/tenancy/client/home');
         cy.contains('Family Care Feed').should('be.visible');
     });
 

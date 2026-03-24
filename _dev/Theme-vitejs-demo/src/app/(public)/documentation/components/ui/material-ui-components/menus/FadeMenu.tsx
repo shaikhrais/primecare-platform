@@ -23,7 +23,7 @@ export default function FadeMenu() {
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				Dashboard
+				Home
 			</Button>
 			<Menu
 				id="fade-menu"

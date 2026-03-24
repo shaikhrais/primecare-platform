@@ -6,7 +6,7 @@ admin = admin.replace(/const \{ showNotification \} = useNotification\(\);/g, 'c
 
 // We'll define Visit and getStatusColor right before they are used, or just globally.
 if (!admin.includes('const Visit = (props: any) => <></>;')) {
-    admin = admin.replace(/export function AdminDashboard\(\) \{/, 'const Visit = (props: any) => <></>;\nconst getStatusColor = (s: string) => "#000";\nexport function AdminDashboard() {');
+    admin = admin.replace(/export function AdminHome\(\) \{/, 'const Visit = (props: any) => <></>;\nconst getStatusColor = (s: string) => "#000";\nexport function AdminHome() {');
 }
 
 fs.writeFileSync('src/app/routes/platform/admin.tsx', admin);

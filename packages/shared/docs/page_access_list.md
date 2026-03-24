@@ -53,7 +53,7 @@ This document is the **definitive audit reference** for all navigable pages acro
 | `REGISTER` | `/register` | `Register` | New Account |
 | - | `/forgot-password` | `ForgotPassword` | Recovery |
 | - | `/reset-password` | `ResetPassword` | Recovery |
-| `DASHBOARD` | `/home` | `Home` | Landing/Stats |
+| `HOME` | `/home` | `Home` | Landing/Stats |
 
 ### 🛠️ Admin & Staff Operations
 | Route Key | URL Path | Page Component | Functional Area |
@@ -65,7 +65,7 @@ This document is the **definitive audit reference** for all navigable pages acro
 | - | `/content` | `ContentManager` | CMS/Marketing |
 | - | `/audits` | `CallAuditPage` | QA/Compliance |
 | - | `/customers` | `CustomerList` | CRM/Master Data |
-| - | `/support` | `SupportDashboard` | Helpdesk |
+| - | `/support` | `SupportHome` | Helpdesk |
 | - | `/incidents` | `IncidentList` | Risk/Safety |
 | - | `/timesheets` | `TimesheetList` | Payroll |
 | - | `/settings` | `SettingsPage` | Configuration |
@@ -73,7 +73,7 @@ This document is the **definitive audit reference** for all navigable pages acro
 ### 💼 Manager Module
 | Route Key | URL Path | Page Component | Functional Area |
 |-----------|----------|----------------|-----------------|
-| - | `/manager/home` | `ManagerDashboard` | Operations |
+| - | `/manager/home` | `ManagerHome` | Operations |
 | - | `/manager/daily-entry`| `DailyEntryPage` | Documentation |
 | - | `/reports` | `div (Placeholder)` | Reporting |
 

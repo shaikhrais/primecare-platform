@@ -113,8 +113,8 @@
             ]
         },
         {
-            "key": "ADMIN_DASHBOARD",
-            "path": "/dashboard",
+            "key": "ADMIN_HOME",
+            "path": "/home",
             "baseUrlEnv": "WEB_ADMIN_BASE_URL",
             "allowedRoles": [
                 "staff",
@@ -241,14 +241,14 @@
             ]
         },
         {
-            "key": "MANAGER_DASHBOARD",
-            "path": "/manager/dashboard",
+            "key": "MANAGER_HOME",
+            "path": "/manager/home",
             "baseUrlEnv": "WEB_ADMIN_BASE_URL",
             "allowedRoles": [
                 "manager"
             ],
             "components": [
-                "mgr-dashboard"
+                "mgr-home"
             ],
             "actions": [
                 {

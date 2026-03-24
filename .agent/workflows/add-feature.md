@@ -49,7 +49,7 @@ import { Hono } from 'hono';
 import { requirePermission } from '../../_shared/middleware/rbac';
 
 const app = new Hono();
-app.get('/', requirePermission('view_dashboard'), async (c) => {
+app.get('/', requirePermission('view_home'), async (c) => {
     return c.json({ data: [] });
 });
 export default app;

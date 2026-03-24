@@ -1146,7 +1146,7 @@ export async function handleCheckOut(id: string, shifts: Shift[], setShifts: (s:
 export async function fetchHomeData(showToast: (m: string, t: string) => void): Promise<{shifts: Shift[]; chartData: any}> {
     try {
         const token = localStorage.getItem('token');
-        const [sR,stR] = await Promise.all([fetch(`${API_URL_1}${ApiRegistry.PSW.VISITS}`,{headers:{'Authorization':`Bearer ${token}`}}), fetch(`${API_URL_1}${ApiRegistry.PSW.DASHBOARD_STATS}`,{headers:{'Authorization':`Bearer ${token}`}})]);
+        const [sR,stR] = await Promise.all([fetch(`${API_URL_1}${ApiRegistry.PSW.VISITS}`,{headers:{'Authorization':`Bearer ${token}`}}), fetch(`${API_URL_1}${ApiRegistry.PSW.HOME_STATS}`,{headers:{'Authorization':`Bearer ${token}`}})]);
         return { shifts: sR.ok ? await sR.json() : [], chartData: stR.ok ? await stR.json() : null };
     } catch (e) { console.error('Failed to fetch',e); showToast(ContentRegistry.COMMON.NETWORK_ERROR,'error'); return { shifts:[], chartData:null }; }
 }
@@ -1811,7 +1811,7 @@ export const SMSHub = () => <div />;
 export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
-        <Route path={`${RouteRegistry.MANAGER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.MANAGER.HOME}/*`} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<ManagerHome />} />
             <Route path="operations" element={<OperationsHub />} />
             <Route path="regional-stats" element={<RegionalStats />} />
@@ -1849,13 +1849,13 @@ export const TenancyRoutes = () => (
             <Route index element={<FinanceRegionalHub />} />
         </Route>
 
-        {/* CLINICAL QA DASHBOARD */}
+        {/* CLINICAL QA HOME */}
         <Route path={`${RouteRegistry.MANAGER.CLINICAL}/*`} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<ClinicalQaHome />} />
         </Route>
 
         {/* COORDINATOR PORTAL */}
-        <Route path={`${RouteRegistry.COORDINATOR.DASHBOARD}/*`} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.COORDINATOR.HOME}/*`} element={<RequireRole allowedRoles={['coordinator', 'operations_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<CoordinatorHub />} />
             <Route path="hub" element={<CoordinatorHub />} />
             <Route path="dispatch-map" element={<DispatchMap />} />
@@ -1865,7 +1865,7 @@ export const TenancyRoutes = () => (
         </Route>
 
         {/* PSW / PROVIDER PORTAL */}
-        <Route path={`${RouteRegistry.PSW.DASHBOARD}/*`} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.PSW.HOME}/*`} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
             <Route index element={<PswHome />} />
             <Route path="schedule" element={<PswSchedule />} />
             <Route path="open-shifts" element={<PswOpenShifts />} />
@@ -1884,7 +1884,7 @@ export const TenancyRoutes = () => (
         </Route>
 
         {/* RN PORTAL */}
-        <Route path={`${RouteRegistry.RN.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.RN.HOME}/*`} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
             <Route index element={<RnHome />} />
             <Route path="care-plans" element={<CarePlanManager />} />
             <Route path="entry-verify" element={<EntryVerify />} />
@@ -1894,7 +1894,7 @@ export const TenancyRoutes = () => (
         </Route>
 
         {/* CLIENT PORTAL */}
-        <Route path={`${RouteRegistry.CLIENT.DASHBOARD}/*`} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.CLIENT.HOME}/*`} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
             <Route index element={<ClientHome />} />
             <Route path="bookings" element={<ClientBookings />} />
             <Route path="billing" element={<ClientBilling />} />
@@ -1908,12 +1908,12 @@ export const TenancyRoutes = () => (
         </Route>
 
         {/* ALLIED HEALTH PORTAL */}
-        <Route path={`${RouteRegistry.ALLIED.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.ALLIED.HOME}/*`} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
             <Route index element={<AlliedHealthHome />} />
         </Route>
 
         {/* STAFF PORTAL */}
-        <Route path={`${RouteRegistry.STAFF.DASHBOARD}/*`} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
+        <Route path={`${RouteRegistry.STAFF.HOME}/*`} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
             <Route index element={<StaffHome />} />
             <Route path="customers" element={<UserList />} />
             <Route path="tasks" element={<StaffTaskGrid />} />

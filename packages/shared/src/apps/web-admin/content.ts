@@ -20,7 +20,7 @@ export const ContentRegistry = {
         BUTTON_PSW: 'Sign In as Caregiver',
         BUTTON_CLIENT: 'Sign In to Family Hub',
     },
-    DASHBOARD: {
+    HOME: {
         TITLE: 'Overview',
         STATS: {
             USERS: 'Total Users',
@@ -30,7 +30,7 @@ export const ContentRegistry = {
     },
     MENU: {
         ...MasterContentRegistry.MENU,
-        DASHBOARD: 'Home',
+        HOME: 'Home',
         USERS: 'Users',
         SCHEDULE: 'Schedule',
         INCIDENTS: 'Incidents',

@@ -31,8 +31,8 @@ Issue Type,Summary,Description,Precondition,Test Steps,Test Data,Expected Result
 2. Verify no crash","URL: /login","Page renders","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin REGISTER access","Verify REGISTER page loads for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/register'
 2. Verify no crash","URL: /register","Page renders","Highest","Security","@smoke @security","1.4.3",""
-"Test","SMOKE - Admin DASHBOARD access","Verify DASHBOARD page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/dashboard'
-2. Verify login redirect","URL: /dashboard","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin HOME access","Verify HOME page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/home'
+2. Verify login redirect","URL: /home","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin USERS access","Verify USERS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/users'
 2. Verify login redirect","URL: /users","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin SCHEDULE access","Verify SCHEDULE page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/schedule'
@@ -55,8 +55,8 @@ Issue Type,Summary,Description,Precondition,Test Steps,Test Data,Expected Result
 2. Verify login redirect","URL: /timesheets","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin SETTINGS access","Verify SETTINGS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/settings'
 2. Verify login redirect","URL: /settings","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
-"Test","SMOKE - Admin MANAGER_DASH access","Verify MANAGER_DASH page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/manager/dashboard'
-2. Verify login redirect","URL: /manager/dashboard","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
+"Test","SMOKE - Admin MANAGER_DASH access","Verify MANAGER_DASH page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/manager/home'
+2. Verify login redirect","URL: /manager/home","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin MANAGER_DAILY access","Verify MANAGER_DAILY page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/manager/daily-entry'
 2. Verify login redirect","URL: /manager/daily-entry","Redirects to /login","Highest","Security","@smoke @security","1.4.3",""
 "Test","SMOKE - Admin BOOKINGS access","Verify BOOKINGS page redirects for guest","Admin site deployed","1. Open ADMIN_BASE_URL + '/bookings'
@@ -75,9 +75,9 @@ Issue Type,Summary,Description,Precondition,Test Steps,Test Data,Expected Result
 "Test","AUTH - Forgot Password","Verify recovery request flow","Valid email","1. Submit forgot password","Valid email","Success message","High","Auth","@auth","1.4.3",""
 "Test","RBAC - PSW block Users","Verify PSW cannot access /users","Logged in as PSW","1. Visit /users","PSW role","Redirect to Login/Denied","Highest","Security","@rbac @psw","1.4.3",""
 "Test","RBAC - Client block Users","Verify Client cannot access /users","Logged in as Client","1. Visit /users","Client role","Redirect to Login/Denied","Highest","Security","@rbac @client","1.4.3",""
-"Test","RBAC - Manager access Daily","Verify Manager can access daily checkins","Logged in as Manager","1. Visit /manager/daily-entry","Manager role","Dashboard loads","High","Manager","@rbac @manager","1.4.3",""
-"Test","STATE - Dashboard Empty","Verify dashboard handles empty data state","Logged in as Staff; No data in API","1. Visit /dashboard","Empty API stub","Shows empty state UI","Medium","Admin","@state","1.4.3",""
-"Test","STATE - Dashboard Error 500","Verify dashboard handles API failure","Logged in as Staff; API 500s","1. Visit /dashboard","API 500 stub","Shows error fallback UI","Medium","Admin","@state","1.4.3",""
+"Test","RBAC - Manager access Daily","Verify Manager can access daily checkins","Logged in as Manager","1. Visit /manager/daily-entry","Manager role","Home loads","High","Manager","@rbac @manager","1.4.3",""
+"Test","STATE - Home Empty","Verify home handles empty data state","Logged in as Staff; No data in API","1. Visit /home","Empty API stub","Shows empty state UI","Medium","Admin","@state","1.4.3",""
+"Test","STATE - Home Error 500","Verify home handles API failure","Logged in as Staff; API 500s","1. Visit /home","API 500 stub","Shows error fallback UI","Medium","Admin","@state","1.4.3",""
 "Test","CONTRACT - Users Table","Verify users table schema and visibility","Logged in as Staff","1. Visit /users","N/A","Table correctly rendered","High","Contract","@contract","1.4.3",""
 "Test","CONTRACT - Schedule Calendar","Verify calendar render contract","Logged in as Staff","1. Visit /schedule","N/A","Calendar visible","High","Contract","@contract","1.4.3",""
 "Test","CONTRACT - Leads Form","Verify leads form fields exist","Logged in as Staff","1. Visit /leads","N/A","Form inputs visible","High","Contract","@contract","1.4.3",""

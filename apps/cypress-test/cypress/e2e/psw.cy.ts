@@ -3,8 +3,8 @@ describe('PSW Role E2E', () => {
         cy.loginAs('psw');
     });
 
-    it('should view the dashboard and wellness pulse', () => {
-        cy.visit('/tenancy/psw/dashboard');
+    it('should view the home and wellness pulse', () => {
+        cy.visit('/tenancy/psw/home');
         cy.contains('Wellness Pulse').should('be.visible');
         cy.contains('My Schedule').should('be.visible');
     });

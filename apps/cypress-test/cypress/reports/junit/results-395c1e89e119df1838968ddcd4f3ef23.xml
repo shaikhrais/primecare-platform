@@ -3,7 +3,7 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T03:12:20" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T03:12:20" tests="23" time="1118.205" failures="14">
-    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="15.550" classname="[ADMIN_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [ADMIN_HOME] contains all required structural components" time="15.550" classname="[ADMIN_HOME] contains all required structural components">
     </testcase>
     <testcase name="Generated: Structural Integrity [USER_LIST] contains all required structural components" time="9.409" classname="[USER_LIST] contains all required structural components">
     </testcase>
@@ -13,7 +13,7 @@
     </testcase>
     <testcase name="Generated: Structural Integrity [SETTINGS] contains all required structural components" time="9.117" classname="[SETTINGS] contains all required structural components">
     </testcase>
-    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="8.573" classname="[MANAGER_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [MANAGER_HOME] contains all required structural components" time="8.573" classname="[MANAGER_HOME] contains all required structural components">
     </testcase>
     <testcase name="Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components" time="19.831" classname="[MANAGER_DAILY_ENTRY] contains all required structural components">
       <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.title&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.title"]`, but never found it.

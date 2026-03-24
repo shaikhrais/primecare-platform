@@ -3,7 +3,7 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T00:18:15" tests="0" file="cypress\e2e\30_reliability\state-resilience.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="State Resilience &amp; Routing" timestamp="2026-02-11T00:18:15" tests="3" time="95.918" failures="3">
-    <testcase name="State Resilience &amp; Routing State: Dashboard handles 500 server error gracefully" time="7.071" classname="State: Dashboard handles 500 server error gracefully">
+    <testcase name="State Resilience &amp; Routing State: Home handles 500 server error gracefully" time="7.071" classname="State: Home handles 500 server error gracefully">
       <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.
 
 https://on.cypress.io/wait" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashError`. No request ever occurred.
@@ -27,7 +27,7 @@ https://on.cypress.io/wait
 From Your Spec Code:
     at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/state-resilience.cy.ts:17:0)]]></failure>
     </testcase>
-    <testcase name="State Resilience &amp; Routing State: Dashboard handles empty data state" time="7.051" classname="State: Dashboard handles empty data state">
+    <testcase name="State Resilience &amp; Routing State: Home handles empty data state" time="7.051" classname="State: Home handles empty data state">
       <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashEmpty`. No request ever occurred.
 
 https://on.cypress.io/wait" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashEmpty`. No request ever occurred.

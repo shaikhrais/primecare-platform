@@ -8,7 +8,7 @@ let p = fs.readFileSync(pPath, 'utf8');
 p = p.replace(/style: \{ backgroundColor: getStatusColor\(v\.status\)/g, "style: { backgroundColor: getStatusColor(v.status as any)");
 
 // Fix 2: Nuke the broken lazy imports that import('')
-p = p.replace(/const PlatformDashboard = lazy[^\n]+\n/, "const PlatformDashboard = () => <div />;\n");
+p = p.replace(/const PlatformHome = lazy[^\n]+\n/, "const PlatformHome = () => <div />;\n");
 p = p.replace(/const PlatformAuditLogs = lazy[^\n]+\n/, "const PlatformAuditLogs = () => <div />;\n");
 p = p.replace(/const SystemPolicies = lazy[^\n]+\n/, "const SystemPolicies = () => <div />;\n");
 

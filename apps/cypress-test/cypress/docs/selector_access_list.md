@@ -55,10 +55,10 @@ This is the **exhaustive and definitive** reference for all testable elements ac
 ### 🛠️ Admin Management
 | Page | Element | Selector |
 |------|---------|----------|
-| Admin Dashboard | Link: Users | `qa-link-users` |
-| Admin Dashboard | Link: Schedule | `qa-link-schedule` |
-| Admin Dashboard | Link: Leads | `qa-link-leads` |
-| Admin Dashboard | Link: Settings | `qa-link-settings` |
+| Admin Home | Link: Users | `qa-link-users` |
+| Admin Home | Link: Schedule | `qa-link-schedule` |
+| Admin Home | Link: Leads | `qa-link-leads` |
+| Admin Home | Link: Settings | `qa-link-settings` |
 | User List | Invite User Button | `btn-invite-user` |
 | User List | Users Table | `tbl-users` |
 | User List | Full Name Display | `user-fullname` |
@@ -86,7 +86,7 @@ This is the **exhaustive and definitive** reference for all testable elements ac
 ### 💼 Manager & Support
 | Page | Element | Selector |
 |------|---------|----------|
-| Manager Dashboard | Dashboard Container | `mgr-dashboard` |
+| Manager Home | Home Container | `mgr-home` |
 | Daily Entry | Page Container | `daily-entry-page` |
 | Daily Entry | Client Selector | `client-select` |
 | Daily Entry | Vitals: BP | `vitals-bp` |

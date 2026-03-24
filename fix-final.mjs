@@ -90,8 +90,8 @@ for (const [filePath, fileErrs] of Object.entries(fileErrors)) {
             }
         }
         
-        if (err.message.includes("Property 'RegistrySummaryDashboard' does not exist")) {
-             contentLines[lineIdx] = lineStr.replace('m.RegistrySummaryDashboard', 'm.RegistrySummary');
+        if (err.message.includes("Property 'RegistrySummaryHome' does not exist")) {
+             contentLines[lineIdx] = lineStr.replace('m.RegistrySummaryHome', 'm.RegistrySummary');
              hasChanges = true;
         }
         if (err.message.includes("Did you mean 'Schedule'?")) {

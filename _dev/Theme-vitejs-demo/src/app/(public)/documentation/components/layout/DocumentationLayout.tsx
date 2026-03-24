@@ -73,7 +73,7 @@ function DocumentationLayout(props: DocumentationLayoutProps) {
 							color="primary"
 							size="small"
 						>
-							Back to the Dashboard
+							Back to the Home
 						</Button>
 					</div>
 				</div>

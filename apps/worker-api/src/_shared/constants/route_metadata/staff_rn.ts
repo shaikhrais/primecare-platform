@@ -19,7 +19,7 @@ export const STAFF_METADATA = {
         description: 'Allows staff to create a new visit (open shift) for a client.',
         tags: ['Staff Scheduling'],
     },
-    DASHBOARD_STATS: {
+    HOME_STATS: {
         summary: 'Get Staff Home Statistics',
         description: 'Retrieve various operational statistics for the staff coordinator home.',
         tags: ['Staff Home'],
@@ -52,7 +52,7 @@ export const RN_METADATA = {
         description: 'Retrieve performance, logs, and incident overview for a specific PSW for supervision purposes.',
         tags: ['RN Supervision'],
     },
-    DASHBOARD_STATS: {
+    HOME_STATS: {
         summary: 'Get RN Home Statistics',
         description: 'Retrieve various clinical and operational statistics for the RN home.',
         tags: ['RN Home'],

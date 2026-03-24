@@ -56,8 +56,8 @@ for (const f of files) {
         // Replace missing components with <div />
         const missing = [
             'LogisticsHub', 'RegionMapping', 'RealtimeCapacity', 'LeadAdmission',
-            'Onboarding', 'InvoicesNew', 'AdminCustomerList', 'EvvDashboard',
-            'AiDashboard', 'AICommandCenter'
+            'Onboarding', 'InvoicesNew', 'AdminCustomerList', 'EvvHome',
+            'AiHome', 'AICommandCenter'
         ];
         for (const m of missing) {
             const regex = new RegExp(`<${m} \\/>`, 'g');

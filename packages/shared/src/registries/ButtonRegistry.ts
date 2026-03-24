@@ -67,7 +67,7 @@ export type { ButtonId };
 
 // ── Absorbed: LinkRegistry (formerly LinkRegistry.ts) ────────────────────────
 
-const { LINKS, ACCOUNTING_DASHBOARD } = ContentRegistry as any;
+const { LINKS, ACCOUNTING_HOME } = ContentRegistry as any;
 
 const LINK_ENTRIES: ButtonDef[] = [
     { id: 'lnk-admin-audit-logs', label: LINKS.ADMIN.AUDITS, role: 'admin', module: 'ADMIN', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.AUDITS, description: 'Direct access to platform-wide security logs.' },
@@ -139,13 +139,13 @@ const LINK_ENTRIES: ButtonDef[] = [
     { id: 'lnk-coordinator-sos-hub', label: LINKS.COORDINATOR.SOS_HUB, role: 'coordinator', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.COORDINATOR.SOS_HUB, description: 'Real-time emergency shift fulfillment and field alert management.' },
     { id: 'lnk-rd-regional', label: LINKS.REGIONAL.INTELLIGENCE, role: 'regional_manager', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.REGIONAL_STATS, description: 'High-level regional operational KPIs and radar.' },
     { id: 'lnk-rd-finance', label: LINKS.REGIONAL.FINANCE, role: 'regional_manager', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.FINANCE, description: 'Consolidated regional financial governance and P&L.' },
-    { id: 'lnk-mgr-home', label: LINKS.MANAGER.DASHBOARD, role: 'manager', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.DASHBOARD, description: 'Daily operational overview for branch managers.' },
+    { id: 'lnk-mgr-home', label: LINKS.MANAGER.HOME, role: 'manager', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.HOME, description: 'Daily operational overview for branch managers.' },
     { id: 'lnk-mgr-ops-hub', label: LINKS.MANAGER.AGENCY_HUB, role: 'manager', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.OPERATIONS, description: 'Centralized hub for branch-wide coordination and triage.' },
     { id: 'lnk-mgr-finance', label: LINKS.MANAGER.FINANCIALS, role: 'manager', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.FINANCE, description: 'Branch-level billing, invoices, and financial performance.' },
     { id: 'lnk-mgr-team', label: LINKS.MANAGER.TEAM, role: 'manager', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.MANAGER.TEAM, description: 'Management of branch staff profiles and performance.' },
     { id: 'lnk-coord-master-schedule', label: LINKS.COORDINATOR.MASTER_SCHEDULE, role: 'coordinator', module: 'OPERATIONS', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.COORDINATOR.SCHEDULE, description: 'Unified master schedule for branch-wide shift oversight.' },
     { id: 'lnk-psw-availability-my', label: LINKS.PSW.MY_AVAILABILITY, role: 'psw', module: 'CARE_DELIVERY', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.PSW.AVAILABILITY, description: 'Manage your weekly availability and service areas.' },
-    { id: 'lnk-fd-home', label: ACCOUNTING_DASHBOARD.TITLE, role: 'finance_director', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: 'High-level financial intelligence and real-time ledger oversight.' },
+    { id: 'lnk-fd-home', label: ACCOUNTING_HOME.TITLE, role: 'finance_director', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.FINANCE.HOME, description: 'High-level financial intelligence and real-time ledger oversight.' },
     { id: 'lnk-fd-ledger', label: 'Financial Ledger', role: 'finance_director', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: 'Forensic audit trail and immutable ledger verification.' },
     { id: 'lnk-fd-tax-hub', label: 'Tax Compliance Hub', role: 'finance_director', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: 'Periodic HST/GST filing and automated remittance processing.' },
     { id: 'lnk-fd-reconciliation', label: 'Reconciliation Hub', role: 'finance_director', module: 'FINANCE', type: 'link', action: 'UI_NAVIGATION', path: RouteRegistry.ADMIN.FINANCE.RECONCILIATION, description: 'Deterministic auto-matching engine for bank feeds.' },
@@ -208,7 +208,7 @@ const TOUCHPOINT_ENTRIES: ButtonDef[] = [
     { id: 'mgr-perf-rank', category: 'navigation', label: 'Performance Ranker', path: RouteRegistry.MANAGER.PERFORMANCE, role: 'manager', module: 'MANAGER', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Performance ranker.' },
     { id: 'mgr-payroll-audit', category: 'action', label: 'Audit Payroll', path: '/v1/manager/finance/payroll-audit', role: 'manager', module: 'MANAGER', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'Audit payroll.' },
     { id: 'coord-sos-dispatch', category: 'action', label: 'SOS Dispatch', path: '/v1/manager/coordinator/sos-dispatch', role: 'coordinator', module: 'OPERATIONS', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'SOS dispatch.' },
-    { id: 'coord-live-pulse', category: 'navigation', label: 'Live Monitoring', path: RouteRegistry.COORDINATOR.DASHBOARD, role: 'coordinator', module: 'OPERATIONS', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Live monitoring.' },
+    { id: 'coord-live-pulse', category: 'navigation', label: 'Live Monitoring', path: RouteRegistry.COORDINATOR.HOME, role: 'coordinator', module: 'OPERATIONS', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Live monitoring.' },
     { id: 'rn-care-plan-rev', category: 'action', label: 'Review Care Plan', path: '/v1/rn/clinical/care-plans/review', role: 'rn', module: 'CLINICAL', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'Review care plan.' },
     { id: 'rn-entry-verify', category: 'action', label: 'Verify Entry', path: '/v1/rn/clinical/audit/entries/verify', role: 'rn', module: 'CLINICAL', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'Verify entry.' },
     { id: 'psw-check-in', category: 'action', label: 'Check-in', path: '/v1/psw/schedule/visits/check-in', role: 'psw', module: 'CARE_DELIVERY', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'Visit check-in.' },
@@ -220,7 +220,7 @@ const TOUCHPOINT_ENTRIES: ButtonDef[] = [
     { id: 'mkt-campaign-launch', category: 'action', label: 'Launch Campaign', path: '/v1/admin/marketing/campaigns', role: 'marketing_manager', module: 'MARKETING', type: 'touchpoint', action: 'API_CALL', checkType: 'API', description: 'Launch campaign.' },
     { id: 'hr-recruitment-post', category: 'action', label: 'Post Job', path: RouteRegistry.MANAGER.RECRUITING, role: 'recruiting_manager', module: 'HR', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Post job.' },
     { id: 'fin-regional-pl', category: 'navigation', label: 'Regional P&L', path: RouteRegistry.MANAGER.FINANCE, role: 'finance_manager', module: 'FINANCE', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Regional P&L.' },
-    { id: 'fin-dir-dash', category: 'navigation', label: 'Financial Intelligence', path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, role: 'finance_director', module: 'FINANCE', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Financial intelligence.' },
+    { id: 'fin-dir-dash', category: 'navigation', label: 'Financial Intelligence', path: RouteRegistry.ADMIN.FINANCE.HOME, role: 'finance_director', module: 'FINANCE', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Financial intelligence.' },
     { id: 'fin-dir-ledger', category: 'navigation', label: 'Ledger Audit', path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, role: 'finance_director', module: 'FINANCE', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'Ledger audit.' },
     { id: 'qa-safety-sweep', category: 'action', label: 'QA Sweep', path: RouteRegistry.MANAGER.CLINICAL, role: 'clinical_manager', module: 'QA', type: 'touchpoint', action: 'NAVIGATE', checkType: 'ROUTE', description: 'QA sweep.' },
 ];

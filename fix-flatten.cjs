@@ -73,7 +73,7 @@ DOMAINS.forEach(domain => {
             seenConsts.add('SystemPolicies');
         }
 
-        // Deal with `export function AlliedHealthDashboard` vs `export function AlliedHealthDashboard`
+        // Deal with `export function AlliedHealthHome` vs `export function AlliedHealthHome`
         // Wait, if it's identical functions exported multiple times, we just throw away the second one.
         const funcMatch = trimmed.match(/^export\s+(?:async\s+)?function\s+([a-zA-Z0-9_]+)\s*\(/);
         if (funcMatch) {

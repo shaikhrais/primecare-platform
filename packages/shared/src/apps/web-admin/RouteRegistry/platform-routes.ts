@@ -1,7 +1,7 @@
 export const PLATFORM_ROUTES = {
     ADMIN: {
-        DASHBOARD: '/platform/admin',
-        SUMMARY_DASHBOARD: '/platform/admin/summary-home',
+        HOME: '/platform/admin',
+        SUMMARY_HOME: '/platform/admin/summary-home',
         CUSTOMERS: '/platform/admin/customers',
         USERS: '/platform/admin/users',
         USERS_NEW: '/platform/admin/users/new',
@@ -47,14 +47,14 @@ export const PLATFORM_ROUTES = {
         ROLE_EDITOR: '/platform/admin/role-editor',
         PRIVATE_MARKETPLACE: '/platform/admin/private-marketplace',
         AI: {
-            DASHBOARD: '/platform/admin/ai',
+            HOME: '/platform/admin/ai',
             PREDICTIVE_ANALYTICS: '/platform/admin/ai/predictive',
             CHURN_RISK: '/platform/admin/ai/churn-risk',
             VISIT_OPTIMIZATION: '/platform/admin/ai/visit-optimization',
             SENTIMENT_ANALYSIS: '/platform/admin/ai/sentiment',
         },
         SECURITY: {
-            DASHBOARD: '/platform/admin/security',
+            HOME: '/platform/admin/security',
             PERMISSION_GRID: '/platform/admin/security/permissions',
             AUDIT_DETAIL: (id: string) => `/platform/admin/security/audits/${id}`,
             SESSION_MONITOR: '/platform/admin/security/sessions',
@@ -91,14 +91,14 @@ export const PLATFORM_ROUTES = {
             MAR: '/platform/admin/pharmacy/mar',
         },
         FINANCE: {
-            DASHBOARD: '/platform/admin/finance/home',
+            HOME: '/platform/admin/finance/home',
             TRADING_ACCOUNT: '/platform/admin/finance/trading',
             PROFIT_LOSS: '/platform/admin/finance/p-and-l',
             BALANCE_SHEET: '/platform/admin/finance/balance-sheet',
             RECONCILIATION: '/platform/admin/finance/reconciliation',
         },
         EVV: {
-            DASHBOARD: '/platform/admin/evv',
+            HOME: '/platform/admin/evv',
             EXCEPTIONS: '/platform/admin/evv/exceptions',
             EXPORT: '/platform/admin/evv/export',
         },
@@ -135,7 +135,7 @@ export const PLATFORM_ROUTES = {
         PAYROLL_HUB: '/platform/admin/payroll',
         BOOKING_REQUESTS: '/platform/admin/booking-requests',
         REFERENCE_DATA: '/platform/admin/reference-data',
-        CRON_DASHBOARD: '/platform/admin/cron-home',
+        CRON_HOME: '/platform/admin/cron-home',
         FORM_REGISTRY: '/platform/admin/form-registry',
         PAGE_REGISTRY: '/platform/admin/page-registry',
         // Premium features
@@ -146,7 +146,7 @@ export const PLATFORM_ROUTES = {
         SUPPLY_CHAIN: '/platform/admin/supply-chain',
     },
     SUPERUSER: {
-        DASHBOARD: '/platform',
+        HOME: '/platform',
         TENANTS: '/platform/tenants',
         AUDIT_LOGS: '/platform/audit-logs',
         SLA: '/platform/sla',
@@ -155,7 +155,7 @@ export const PLATFORM_ROUTES = {
         SYSTEM_POLICIES: '/platform/policies',
     },
     SCRUM_MASTER: {
-        DASHBOARD: '/platform/scrum-master',
+        HOME: '/platform/scrum-master',
         API_ENDPOINTS: '/platform/scrum-master/api-endpoints',
         PAGES: '/platform/scrum-master/pages',
         COMPONENTS: '/platform/scrum-master/components',

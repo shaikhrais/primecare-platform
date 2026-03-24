@@ -63,7 +63,7 @@
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var protectedRoute = cfg.routes.find(function (r) { return r.auth === \"staff\"; });\n    cy.visitRoute(\"ADMIN_BASE_URL\", protectedRoute.path);\n    cy.loginAs(\"staff\");\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to dashboard via URL\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    cy.url().should(\"include\", \"/login\");\n});",
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var protectedRoute = cfg.routes.find(function (r) { return r.auth === \"staff\"; });\n    cy.visitRoute(\"ADMIN_BASE_URL\", protectedRoute.path);\n    cy.loginAs(\"staff\");\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/home\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to home via URL\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/home\");\n    cy.url().should(\"include\", \"/login\");\n});",
               "err": {},
               "uuid": "190d54a6-f7b0-4e65-93e2-c04c9c2cb886",
               "parentUUID": "7aef23bb-ea2d-45af-8fab-44a2c0027bcf",

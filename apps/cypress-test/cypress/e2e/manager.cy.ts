@@ -3,8 +3,8 @@ describe('Manager Role E2E', () => {
         cy.loginAs('manager');
     });
 
-    it('should view the operations dashboard', () => {
-        cy.visit('/tenancy/manager/dashboard');
+    it('should view the operations home', () => {
+        cy.visit('/tenancy/manager/home');
         cy.contains('Operations Overview').should('be.visible');
     });
 

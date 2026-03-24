@@ -25,7 +25,7 @@ export {
     SkeletonBox,
     SkeletonCircle,
     StatCardSkeleton,
-    DashboardSkeleton,
+    HomeSkeleton,
     TableSkeleton,
     CardGridSkeleton,
     MapSkeleton,

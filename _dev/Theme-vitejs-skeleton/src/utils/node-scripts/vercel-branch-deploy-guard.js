@@ -1,7 +1,7 @@
 #!/bin/bash
 
 // This script is a deployment guard for Vercel, allowing deployment only from specified branches.
-// add this script to vercel/settings/Ignored Build Step in the Vercel dashboard.
+// add this script to vercel/settings/Ignored Build Step in the Vercel home.
 // Select Run my node script and add the script as below:
 // "node src/utils/node-scripts/vercel-branch-deploy-guard.js "main,dev,skeleton"
 

@@ -126,6 +126,6 @@ describe('can() permission checks', () => {
 
     it('returns false for non-existent role', async () => {
         const { can } = await import('@/shared/rbac/can');
-        expect(can('nonexistent_role' as any, 'VIEW_DASHBOARD' as any)).toBe(false);
+        expect(can('nonexistent_role' as any, 'VIEW_HOME' as any)).toBe(false);
     });
 });

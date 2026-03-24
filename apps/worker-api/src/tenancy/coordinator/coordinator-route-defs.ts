@@ -60,7 +60,7 @@ export const sosAckRoute = createRoute({
 });
 
 export const homeStatsRoute = createRoute({
-    ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
+    ...ROUTE_METADATA.COORDINATOR.HOME_STATS,
     method: 'get', path: '/home/stats', summary: 'Home Stats', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
     responses: { 200: { description: 'Coordinator home stats retrieved', content: { 'application/json': { schema: CoordinatorStatsSchema } } },

@@ -77,7 +77,7 @@ export const scrumMasterContent = {
         TITLE: 'APIs',
         SUBTITLE: 'Endpoint health and latency tracking.',
     },
-    DASHBOARD: {
+    HOME: {
         TITLE: 'Scrum Master Home',
         SUBTITLE: 'Engineering oversight and platform integrity metrics.',
     },

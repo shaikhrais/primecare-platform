@@ -24,7 +24,7 @@ You do not need to manually monitor bad employees. The system handles disciplina
 - **Ghosting Shields:** Caregivers with a low Trust Score are algorithmically hidden from high-paying, premium shifts. The system forces them to execute standard, lower-tier shifts perfectly to rebuild their trust metric before allowing them back into the premium pool. This naturally cleanses your fleet of toxic actors without you needing to fire them manually.
 
 ## 4. The "Zero Supervision" Executive Briefing
-Because the Autopilot is handling 95% of the operational noise, the **Superuser Dashboard** transforms from a chaotic control center into a beautiful, calming **Morning Briefing**.
+Because the Autopilot is handling 95% of the operational noise, the **Superuser Home** transforms from a chaotic control center into a beautiful, calming **Morning Briefing**.
 
 When you wake up and open the App, it says:
 > **"Good Morning. The Autopilot operated flawlessly last night."**

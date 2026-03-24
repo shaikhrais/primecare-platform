@@ -14,40 +14,40 @@ i18n.addResourceBundle('ar', 'navigation', ar);
  */
 const navigationConfig: FuseNavItemType[] = [
 	{
-		id: 'dashboards',
-		title: 'Dashboards',
-		subtitle: 'Unique dashboard designs',
+		id: 'homes',
+		title: 'Homes',
+		subtitle: 'Unique home designs',
 		type: 'group',
-		icon: 'lucide:layout-dashboard',
-		translate: 'DASHBOARDS',
+		icon: 'lucide:layout-home',
+		translate: 'HOMES',
 		children: [
 			{
-				id: 'dashboards.project',
+				id: 'homes.project',
 				title: 'Project',
 				type: 'item',
 				icon: 'lucide:clipboard-check',
-				url: '/dashboards/project'
+				url: '/homes/project'
 			},
 			{
-				id: 'dashboards.analytics',
+				id: 'homes.analytics',
 				title: 'Analytics',
 				type: 'item',
 				icon: 'lucide:chart-pie',
-				url: '/dashboards/analytics'
+				url: '/homes/analytics'
 			},
 			{
-				id: 'dashboards.finance',
+				id: 'homes.finance',
 				title: 'Finance',
 				type: 'item',
 				icon: 'lucide:banknote',
-				url: '/dashboards/finance'
+				url: '/homes/finance'
 			},
 			{
-				id: 'dashboards.crypto',
+				id: 'homes.crypto',
 				title: 'Crypto',
 				type: 'item',
 				icon: 'lucide:dollar-sign',
-				url: '/dashboards/crypto'
+				url: '/homes/crypto'
 			}
 		]
 	},

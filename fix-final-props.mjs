@@ -78,7 +78,7 @@ for (const [filePath, fileErrs] of Object.entries(fileErrors)) {
         if (err.message.includes("Property 'items' is missing")) {
              // The kpiCards is likely `[ { label: ... } ]`. We need `{ items: [...] }`.
              // But my script earlier failed to do it nicely if it spanned lines. 
-             // Let's just fix it for those specific dashboard index files:
+             // Let's just fix it for those specific home index files:
              if (lineStr.includes('kpiCards: [{')) {
                  contentLines[lineIdx] = lineStr.replace(/kpiCards:\s*\[/, 'kpiCards: { items: [');
                  // Replace the matching ]} on subsequent lines
@@ -103,11 +103,11 @@ for (const [filePath, fileErrs] of Object.entries(fileErrors)) {
 
         // Duplicate function implementation (wound-care)
         if (err.message.includes("Duplicate function implementation")) {
-             if (lineStr.includes('export function WoundCareDashboard')) {
-                 contentLines[lineIdx] = lineStr.replace('export function WoundCareDashboard', 'export function WoundCareDashboard_OLD');
+             if (lineStr.includes('export function WoundCareHome')) {
+                 contentLines[lineIdx] = lineStr.replace('export function WoundCareHome', 'export function WoundCareHome_OLD');
                  hasChanges = true;
              }
-             // For rn/pages/wound-care/index.tsx, `export default function WoundCareDashboard` is duplicate with `export function WoundCareDashboard`
+             // For rn/pages/wound-care/index.tsx, `export default function WoundCareHome` is duplicate with `export function WoundCareHome`
         }
 
         // Object literal may only specify known properties, and 'id' does not exist

@@ -47,7 +47,7 @@ npx cypress run --env grepTags="@regression"
 ### ✅ Speed Optimizations
 - **API Login**: Use `cy.request()` for login to bypass the UI where possible.
 - **Session Caching**: Use `cy.session()` to persist authentication across specs.
-- **Stubbing**: Use `cy.intercept()` with fixtures for slow dashboard endpoints.
+- **Stubbing**: Use `cy.intercept()` with fixtures for slow home endpoints.
 - **Video**: Disabled for PR runs (`video: false`) to save CI resources.
 
 ### ✅ CI Parallelization

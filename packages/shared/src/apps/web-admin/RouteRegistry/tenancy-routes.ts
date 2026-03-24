@@ -1,6 +1,6 @@
 export const TENANCY_ROUTES = {
     MANAGER: {
-        DASHBOARD: '/tenancy/manager',
+        HOME: '/tenancy/manager',
         MARKETING: '/tenancy/manager/marketing',
         OPERATIONS: '/tenancy/manager/operations',
         CLINICAL: '/tenancy/manager/clinical',
@@ -28,7 +28,7 @@ export const TENANCY_ROUTES = {
         TRAINING_ACADEMY: '/tenancy/manager/training-academy',
     },
     STAFF: {
-        DASHBOARD: '/tenancy/staff',
+        HOME: '/tenancy/staff',
         CUSTOMERS: '/tenancy/staff/customers',
         TASKS: '/tenancy/staff/tasks',
         MESSAGES: '/tenancy/staff/messages',
@@ -37,7 +37,7 @@ export const TENANCY_ROUTES = {
         ALLIED_HEALTH: '/tenancy/staff/allied-health',
     },
     PSW: {
-        DASHBOARD: '/tenancy/psw',
+        HOME: '/tenancy/psw',
         SCHEDULE: '/tenancy/psw/schedule',
         OPEN_SHIFTS: '/tenancy/psw/open-shifts',
         OFFERS: '/tenancy/psw/offers',
@@ -56,7 +56,7 @@ export const TENANCY_ROUTES = {
         GUIDE: '/tenancy/psw/guide',
     },
     RN: {
-        DASHBOARD: '/tenancy/rn',
+        HOME: '/tenancy/rn',
         CARE_PLANS: '/tenancy/rn/care-plans',
         DAILY_AUDIT: '/tenancy/rn/entry-verify',
         SUPERVISION: '/tenancy/rn/supervision',
@@ -72,7 +72,7 @@ export const TENANCY_ROUTES = {
         CHECK_IN: (id: string) => `/tenancy/rn/check-in/${id}`,
     },
     COORDINATOR: {
-        DASHBOARD: '/tenancy/coordinator',
+        HOME: '/tenancy/coordinator',
         HUB: '/tenancy/coordinator/hub',
         MAP: '/tenancy/coordinator/dispatch-map',
         WAITLIST: '/tenancy/coordinator/waitlist',
@@ -83,7 +83,7 @@ export const TENANCY_ROUTES = {
         SHIFT_SWAP: '/tenancy/coordinator/shift-swap',
     },
     CLIENT: {
-        DASHBOARD: '/tenancy/client',
+        HOME: '/tenancy/client',
         BOOKINGS: '/tenancy/client/bookings',
         BILLING: '/tenancy/client/billing',
         FEEDBACK: '/tenancy/client/feedback',
@@ -98,7 +98,7 @@ export const TENANCY_ROUTES = {
         MEDICAL_SUMMARY: '/tenancy/client/medical-summary',
     },
     ALLIED: {
-        DASHBOARD: '/tenancy/allied-health',
+        HOME: '/tenancy/allied-health',
         TREATMENTS: '/tenancy/allied-health/treatments',
         SIGN_OFF: '/tenancy/allied-health/sign-off',
     },

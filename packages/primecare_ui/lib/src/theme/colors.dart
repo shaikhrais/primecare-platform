@@ -25,7 +25,7 @@ class PrimeCareColors {
   static const Color black = Color(0xFF000000); // Explicit instead of Colors.black
 
   // Misc Rogue Colors mapped from codebase for complete coverage
-  static const Color darkMatrix = Color(0xFF020617); // SCM Dashboard Black
-  static const Color darkMatrixCard = Color(0xFF141416); // B2B Dashboard black
+  static const Color darkMatrix = Color(0xFF020617); // SCM Home Black
+  static const Color darkMatrixCard = Color(0xFF141416); // B2B Home black
   static const Color purple = Color(0xFF8B5CF6); // SCM Identity Code
 }

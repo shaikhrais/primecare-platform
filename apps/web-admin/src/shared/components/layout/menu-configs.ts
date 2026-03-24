@@ -11,7 +11,7 @@ export interface MenuItem {
 import { knowledgeBaseMenus } from './kb-menu-configs';
 
 export const adminMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.ADMIN.DASHBOARD, icon: '📊' },
+    { label: ContentRegistry.MENU.HOME, path: RouteRegistry.ADMIN.HOME, icon: '📊' },
     { label: ContentRegistry.MENU.USERS, path: RouteRegistry.ADMIN.USERS, icon: '👥' },
     { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.ADMIN.SCHEDULE, icon: '📅' },
     { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.ADMIN.INCIDENTS, icon: '🚨' },
@@ -23,7 +23,7 @@ export const adminMenu: MenuItem[] = [
     { label: ContentRegistry.MENU.CORS_SETTINGS, path: RouteRegistry.ADMIN.SECURITY.CORS_SETTINGS, icon: '🌐' },
     { label: ContentRegistry.MENU.INTEGRITY_SCAN, path: RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN, icon: '🛡️' },
     { label: ContentRegistry.MENU.FINANCIAL_LEDGER, path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, icon: '🏦' },
-    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '🏛️' },
+    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.HOME, icon: '🏛️' },
     { label: ContentRegistry.MENU.CONTENT, path: RouteRegistry.ADMIN.CONTENT, icon: '📝' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
     { label: ContentRegistry.MENU.SETTINGS, path: RouteRegistry.ADMIN.SETTINGS, icon: '⚙️' },
@@ -43,7 +43,7 @@ export const adminMenu: MenuItem[] = [
 ];
 
 export const platformMenu: MenuItem[] = [
-    { label: 'Platform Stats', path: RouteRegistry.SUPERUSER.DASHBOARD, icon: '📊' },
+    { label: 'Platform Stats', path: RouteRegistry.SUPERUSER.HOME, icon: '📊' },
     { label: 'Risk Surveillance', path: RouteRegistry.SUPERUSER.RISK_SURVEILLANCE, icon: '🛡️' },
     { label: 'Audit Logs', path: RouteRegistry.SUPERUSER.AUDIT_LOGS, icon: '📜' },
     { label: 'SLA Monitoring', path: RouteRegistry.SUPERUSER.SLA, icon: '🌐' },
@@ -52,7 +52,7 @@ export const platformMenu: MenuItem[] = [
 ];
 
 export const scrumMasterMenu: MenuItem[] = [
-    { label: 'Dash', path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
+    { label: 'Dash', path: RouteRegistry.SCRUM_MASTER.HOME, icon: '🚀' },
     { label: ContentRegistry.SCRUM_MASTER.API_ENDPOINTS.TITLE, path: RouteRegistry.SCRUM_MASTER.API_ENDPOINTS, icon: '🔌' },
     { label: ContentRegistry.SCRUM_MASTER.PAGES.TITLE, path: RouteRegistry.SCRUM_MASTER.PAGES, icon: '📄' },
     { label: ContentRegistry.SCRUM_MASTER.COMPONENTS.TITLE, path: RouteRegistry.SCRUM_MASTER.COMPONENTS, icon: '🧩' },
@@ -68,12 +68,12 @@ export const scrumMasterMenu: MenuItem[] = [
     { label: 'Dev KB', path: RouteRegistry.SCRUM_MASTER.DEV_KB, icon: '🛠️' },
     { label: ContentRegistry.SCRUM_MASTER.ENV_AUDIT.TITLE, path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, icon: '🌐' },
     { label: ContentRegistry.SCRUM_MASTER.REGISTRY_CHECK.TITLE, path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, icon: '📋' },
-    { label: 'Usage Stats', path: `${RouteRegistry.SCRUM_MASTER.DASHBOARD}/usage-stats`, icon: '📊' },
-    { label: 'Digital Property', path: `${RouteRegistry.SCRUM_MASTER.DASHBOARD}/digital-property`, icon: '🏛️' },
+    { label: 'Usage Stats', path: `${RouteRegistry.SCRUM_MASTER.HOME}/usage-stats`, icon: '📊' },
+    { label: 'Digital Property', path: `${RouteRegistry.SCRUM_MASTER.HOME}/digital-property`, icon: '🏛️' },
 ];
 
 export const clientMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.DASHBOARD, icon: '🏠' },
+    { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.HOME, icon: '🏠' },
     { label: ContentRegistry.MENU.CLIENT_BOOKINGS, path: RouteRegistry.CLIENT.BOOKINGS, icon: '📅' },
     { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
@@ -83,7 +83,7 @@ export const clientMenu: MenuItem[] = [
 ];
 
 export const staffMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.STAFF_HUB, path: RouteRegistry.STAFF.DASHBOARD, icon: '🏢' },
+    { label: ContentRegistry.MENU.STAFF_HUB, path: RouteRegistry.STAFF.HOME, icon: '🏢' },
     { label: ContentRegistry.MENU.LEADS, path: RouteRegistry.ADMIN.LEADS, icon: '📥' },
     { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.ADMIN.SCHEDULE, icon: '📅' },
     { label: ContentRegistry.MENU.USERS, path: RouteRegistry.ADMIN.USERS, icon: '👥' },
@@ -96,7 +96,7 @@ export const staffMenu: MenuItem[] = [
 ];
 
 export const pswMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.DASHBOARD, icon: '🗓️' },
+    { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.HOME, icon: '🗓️' },
     { label: ContentRegistry.MENU.OPEN_SHIFTS, path: RouteRegistry.PSW.OPEN_SHIFTS, icon: '✨' },
     { label: ContentRegistry.MENU.MY_SHIFTS, path: RouteRegistry.PSW.SCHEDULE, icon: '⌚' },
     { label: ContentRegistry.MENU.MY_EARNINGS, path: RouteRegistry.PSW.EARNINGS, icon: '💰' },
@@ -108,7 +108,7 @@ export const pswMenu: MenuItem[] = [
 ];
 
 export const rnMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.CLINICAL_DASHBOARD, path: RouteRegistry.RN.DASHBOARD, icon: '🩺' },
+    { label: ContentRegistry.MENU.CLINICAL_HOME, path: RouteRegistry.RN.HOME, icon: '🩺' },
     { label: ContentRegistry.MENU.CLINIENT_ADMISSION, path: RouteRegistry.ADMIN.ADMISSION, icon: '📝' },
     { label: ContentRegistry.MENU.INCIDENTS, path: RouteRegistry.ADMIN.INCIDENTS, icon: '🚨' },
     { label: ContentRegistry.MENU.PROFILE, path: RouteRegistry.PROFILE, icon: '👤' },
@@ -118,7 +118,7 @@ export const rnMenu: MenuItem[] = [
 ];
 
 export const managerMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' },
+    { label: ContentRegistry.MENU.HOME, path: RouteRegistry.MANAGER.HOME, icon: '📊' },
     { label: ContentRegistry.MENU.DAILY_ENTRY, path: RouteRegistry.MANAGER.DAILY_ENTRY, icon: '📝' },
     { label: ContentRegistry.MENU.EVALUATIONS, path: RouteRegistry.MANAGER.EVALUATIONS, icon: '📋' },
     { label: ContentRegistry.MENU.SERVICE_REVIEW, path: RouteRegistry.MANAGER.SERVICE_REVIEW, icon: '⭐' },
@@ -129,7 +129,7 @@ export const managerMenu: MenuItem[] = [
 ];
 
 export const coordinatorMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.COORDINATOR.DASHBOARD, icon: '📊' },
+    { label: ContentRegistry.MENU.HOME, path: RouteRegistry.COORDINATOR.HOME, icon: '📊' },
     { label: ContentRegistry.MENU.SCHEDULE, path: RouteRegistry.ADMIN.SCHEDULE, icon: '📅' },
     { label: ContentRegistry.MENU.CUSTOMERS, path: RouteRegistry.STAFF.CUSTOMERS, icon: '👥' },
     { label: ContentRegistry.MENU.USERS, path: RouteRegistry.ADMIN.USERS, icon: '👨‍⚕️' },
@@ -140,7 +140,7 @@ export const coordinatorMenu: MenuItem[] = [
 ];
 
 export const financeMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.TRAINING, icon: '💰' }, // Using training as placeholder if finance specific missing
+    { label: ContentRegistry.MENU.HOME, path: RouteRegistry.MANAGER.TRAINING, icon: '💰' }, // Using training as placeholder if finance specific missing
     { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
     { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.ADMIN.TIMESHEETS, icon: '💸' },
     { label: ContentRegistry.MENU.REPORTS, path: RouteRegistry.ADMIN.REPORTS, icon: '📈' },
@@ -150,7 +150,7 @@ export const financeMenu: MenuItem[] = [
 ];
 
 export const financeDirectorMenu: MenuItem[] = [
-    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '🏛️' },
+    { label: ContentRegistry.MENU.ACCOUNTING_INTELLIGENCE, path: RouteRegistry.ADMIN.FINANCE.HOME, icon: '🏛️' },
     { label: ContentRegistry.MENU.FINANCIAL_LEDGER, path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, icon: '🏦' },
     { label: ContentRegistry.MENU.CLIENT_BILLING, path: RouteRegistry.CLIENT.BILLING, icon: '💳' },
     { label: ContentRegistry.MENU.TIMESHEETS, path: RouteRegistry.ADMIN.TIMESHEETS, icon: '💸' },

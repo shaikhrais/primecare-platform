@@ -63,10 +63,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var intendedPath = \"/users\";\n    // 1. Attempt to visit protected page as guest\n    cy.visitAppRoute(cfg.baseUrlEnv, intendedPath);\n    cy.url().should(\"include\", \"/login\");\n    // 2. Perform login\n    cy.fixture(\"users.json\").then(function (users) {\n        var u = users.staff;\n        cy.getByCy(\"inp-email\").type(u.email);\n        cy.getByCy(\"inp-password\").type(u.password, { log: false });\n        cy.getByCy(\"btn-login\").click();\n        // 3. Should land on intended page, not just dashboard\n        cy.url().should(\"include\", intendedPath);\n    });\n});",
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    var intendedPath = \"/users\";\n    // 1. Attempt to visit protected page as guest\n    cy.visitAppRoute(cfg.baseUrlEnv, intendedPath);\n    cy.url().should(\"include\", \"/login\");\n    // 2. Perform login\n    cy.fixture(\"users.json\").then(function (users) {\n        var u = users.staff;\n        cy.getByCy(\"inp-email\").type(u.email);\n        cy.getByCy(\"inp-password\").type(u.password, { log: false });\n        cy.getByCy(\"btn-login\").click();\n        // 3. Should land on intended page, not just home\n        cy.url().should(\"include\", intendedPath);\n    });\n});",
               "err": {
-                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/dashboard' to include '/users'",
-                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/dashboard' to include '/users'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/auth-flows.cy.ts:31:0)",
+                "message": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/home' to include '/users'",
+                "estack": "AssertionError: Timed out retrying after 10000ms: expected 'http://localhost:5173/home' to include '/users'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/30_reliability/auth-flows.cy.ts:31:0)",
                 "diff": null
               },
               "uuid": "6a5e32ea-a9ca-4615-867b-323d9fcc0815",
@@ -85,7 +85,7 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    // 1. Login as staff\n    cy.loginAs(\"staff\");\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/dashboard\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to dashboard via URL\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/dashboard\");\n    cy.url().should(\"include\", \"/login\");\n});",
+              "code": "cy.fixture(\"registry/routes.admin.json\").then(function (cfg) {\n    // 1. Login as staff\n    cy.loginAs(\"staff\");\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/home\");\n    cy.getByCy(\"sidebar\").should(\"be.visible\");\n    // 2. Trigger logout\n    // Logout is usually in topbar or sidebar, using the common selector\n    cy.getByCy(\"btn-logout\").click();\n    // 3. Should be on login page\n    cy.url().should(\"include\", \"/login\");\n    // 4. Attempt to go back to home via URL\n    cy.visitAppRoute(cfg.baseUrlEnv, \"/home\");\n    cy.url().should(\"include\", \"/login\");\n});",
               "err": {
                 "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-logout\"]`, but never found it.",
                 "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-logout\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",

@@ -28,9 +28,9 @@ This master document outlines the step-by-step journey of the **Superuser (Found
 ## Step 3: Telemetry & Evaluation (The Data Play)
 *Goal: Stop acting like an agency operator and start acting like a Tech CEO. Prepare the metrics needed to raise capital.*
 
-At this stage, the Superuser retreats to the **General Manager (GM) Dashboard** to evaluate Unit Economics algorithmically:
+At this stage, the Superuser retreats to the **General Manager (GM) Home** to evaluate Unit Economics algorithmically:
 1. **CAC (Customer Acquisition Cost):** By using the `Marketing Hub` logic, track exactly how much it costs to acquire a new patient vs. how much revenue they generate.
-2. **Gross Margin Evaluation:** Monitor the `Payroll vs Billables` chart on the GM dashboard. The goal is a steady 30-40% margin. Any leakage (e.g., using Surge Pricing too often) must be algorithmically patched.
+2. **Gross Margin Evaluation:** Monitor the `Payroll vs Billables` chart on the GM home. The goal is a steady 30-40% margin. Any leakage (e.g., using Surge Pricing too often) must be algorithmically patched.
 3. **Compliance Health Score:** Ensure the RNs are keeping patient incident rates below 1%. *Investors love highly compliant, derisked agencies.*
 
 ---
@@ -43,7 +43,7 @@ You don't pitch investors as a "Home Care Agency." You pitch them as a **"Tech-E
 **The Pitch Narrative:**
 > *"We built the PrimeCare Cloudflare Engine. Most agencies use spreadsheets and barely survive on 10% margins. Our SDUI (Server-Driven UI) mobile app automatically matches Field Workers algorithmically, while our Double-Entry Ledger auto-calculates taxes and payroll instantly. Our margin is double the industry average, and our system can scale to 50 cities tomorrow with zero codebase changes. We are raising $3M to hit the 'Expand' button."*
 
-**The Proof:** Show them the actual Manager dashboards proving exponential growth with flat operational headcount.
+**The Proof:** Show them the actual Manager homes proving exponential growth with flat operational headcount.
 
 ---
 
@@ -51,7 +51,7 @@ You don't pitch investors as a "Home Care Agency." You pitch them as a **"Tech-E
 *Goal: Deploy the Venture Capital.*
 
 **The Superuser Actions:**
-1. **The Expansion Wizard:** Open the `GM Expansion Wizard` on the dashboard.
+1. **The Expansion Wizard:** Open the `GM Expansion Wizard` on the home.
 2. **Provisioning Nodes:** Create "Node 2" (e.g., a new city like Vancouver or New York). 
 3. **Duplication:** The system instantly duplicates the "Round and Round" ecosystem locally for the new city. You hire a new Local Coordinator, give them a login, and the engine fires up again automatically.
 4. **God-Mode Oversight:** The Superuser now uses the `Scrum Master Telemetry Hub` and `GM Hub` to watch multiple cities spinning simultaneously across the continent.

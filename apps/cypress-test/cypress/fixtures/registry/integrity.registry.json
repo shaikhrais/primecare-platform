@@ -8,8 +8,8 @@
     ],
     "pages": [
         {
-            "key": "ADMIN_DASHBOARD",
-            "path": "/dashboard",
+            "key": "ADMIN_HOME",
+            "path": "/home",
             "allowedRoles": [
                 "staff",
                 "manager"
@@ -124,15 +124,15 @@
             ]
         },
         {
-            "key": "MANAGER_DASHBOARD",
-            "path": "/manager/dashboard",
+            "key": "MANAGER_HOME",
+            "path": "/manager/home",
             "allowedRoles": [
                 "manager"
             ],
             "components": [
                 "page.container",
                 "page.title",
-                "mgr-dashboard"
+                "mgr-home"
             ],
             "actions": [
                 {

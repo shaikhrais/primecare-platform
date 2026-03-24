@@ -3,8 +3,8 @@ describe('RN Role E2E', () => {
         cy.loginAs('rn');
     });
 
-    it('should view the clinical dashboard', () => {
-        cy.visit('/tenancy/rn/dashboard');
+    it('should view the clinical home', () => {
+        cy.visit('/tenancy/rn/home');
         cy.contains('Clinical Overview').should('be.visible');
     });
 

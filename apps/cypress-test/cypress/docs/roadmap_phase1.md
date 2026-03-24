@@ -26,10 +26,10 @@ Protect production from breaking by ensuring core revenue and security flows nev
 - Guest access blocking
 
 ### 3️⃣ Role-Based Access Matrix (`@security`)
-- Verification of protected routes (`/dashboard`, `/users`, `/schedule`, `/earnings`, `/shifts`, `/profile`)
+- Verification of protected routes (`/home`, `/users`, `/schedule`, `/earnings`, `/shifts`, `/profile`)
 - Privilege escalation prevention
 
-### 4️⃣ Dashboard & Schedule Contracts (`@contract`)
+### 4️⃣ Home & Schedule Contracts (`@contract`)
 - Stats card and quick action rendering
 - Calendar grid visibility and filters
 
@@ -63,7 +63,7 @@ cypress/e2e/
   00_smoke/        # PR Triggered
   10_auth/         # PR Triggered
   20_security/     # Nightly
-  30_dashboard/    # Weekly
+  30_home/    # Weekly
   40_schedule/     # Weekly
   50_psw_portal/   # PR Triggered
 ```
@@ -75,7 +75,7 @@ cypress/e2e/
 | :--- | :--- |
 | **Auth & Routing** | 100% |
 | **RBAC Security** | 90% |
-| **Dashboards** | 80% |
+| **Homes** | 80% |
 | **Worker Portal** | 70% |
 | **Scheduling** | 70% |
 | **CRM/Leads** | 40% |

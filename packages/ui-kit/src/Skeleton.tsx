@@ -1,6 +1,6 @@
 // ================================================================
 // Skeleton Loading Components
-// Reusable placeholder skeletons for page, dashboard, and table layouts
+// Reusable placeholder skeletons for page, home, and table layouts
 // ================================================================
 import React from 'react';
 import './Skeleton.css';
@@ -39,7 +39,7 @@ export const SkeletonCircle: React.FC<{ size?: number; dark?: boolean }> = ({ si
 
 // --- Composite Skeletons ---
 
-/** Skeleton for stat cards (e.g. dashboard KPI tiles) */
+/** Skeleton for stat cards (e.g. home KPI tiles) */
 export const StatCardSkeleton: React.FC = () => (
     <div style={{
         padding: '1.5rem',
@@ -53,8 +53,8 @@ export const StatCardSkeleton: React.FC = () => (
     </div>
 );
 
-/** Skeleton for dashboard pages — header + stat cards + content panels */
-export const DashboardSkeleton: React.FC<{ statCount?: number }> = ({ statCount = 3 }) => (
+/** Skeleton for home pages — header + stat cards + content panels */
+export const HomeSkeleton: React.FC<{ statCount?: number }> = ({ statCount = 3 }) => (
     <div style={{ padding: '2rem' }}>
         {/* Title */}
         <SkeletonBox width="280px" height="32px" style={{ marginBottom: '8px' }} />

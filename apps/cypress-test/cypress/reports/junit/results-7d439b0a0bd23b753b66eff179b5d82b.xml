@@ -3,10 +3,10 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T05:05:59" tests="0" file="cypress\e2e\generated\31_integrity.rbac.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="Generated: RBAC Action Visibility" timestamp="2026-02-11T05:05:59" tests="115" time="5200.429" failures="105">
-    <testcase name="Generated: RBAC Action Visibility [ADMIN_DASHBOARD] verifies visibility for role: guest" time="1.015" classname="[ADMIN_DASHBOARD] verifies visibility for role: guest">
+    <testcase name="Generated: RBAC Action Visibility [ADMIN_HOME] verifies visibility for role: guest" time="1.015" classname="[ADMIN_HOME] verifies visibility for role: guest">
       <failure message="`cy.visit()` failed trying to load:
 
-https://primecare-admin.pages.dev/dashboard
+https://primecare-admin.pages.dev/home
 
 We attempted to make an http request to this URL but the request failed without a response.
 
@@ -20,7 +20,7 @@ Common situations why this would fail:
   - your web server isn&apos;t accessible
   - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
 
-https://primecare-admin.pages.dev/dashboard
+https://primecare-admin.pages.dev/home
 
 We attempted to make an http request to this URL but the request failed without a response.
 
@@ -52,7 +52,7 @@ From Node.js Internals:
   Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [ADMIN_DASHBOARD] verifies visibility for role: client" time="0.946" classname="[ADMIN_DASHBOARD] verifies visibility for role: client">
+    <testcase name="Generated: RBAC Action Visibility [ADMIN_HOME] verifies visibility for role: client" time="0.946" classname="[ADMIN_HOME] verifies visibility for role: client">
       <failure message="`cy.visit()` failed trying to load:
 
 https://primecare-admin.pages.dev/login
@@ -101,7 +101,7 @@ From Node.js Internals:
   Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [ADMIN_DASHBOARD] verifies visibility for role: psw" time="23.265" classname="[ADMIN_DASHBOARD] verifies visibility for role: psw">
+    <testcase name="Generated: RBAC Action Visibility [ADMIN_HOME] verifies visibility for role: psw" time="23.265" classname="[ADMIN_HOME] verifies visibility for role: psw">
       <failure message="`cy.visit()` failed trying to load:
 
 https://primecare-admin.pages.dev/login
@@ -150,7 +150,7 @@ From Node.js Internals:
   Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [ADMIN_DASHBOARD] verifies visibility for role: manager" time="1.002" classname="[ADMIN_DASHBOARD] verifies visibility for role: manager">
+    <testcase name="Generated: RBAC Action Visibility [ADMIN_HOME] verifies visibility for role: manager" time="1.002" classname="[ADMIN_HOME] verifies visibility for role: manager">
       <failure message="`cy.visit()` failed trying to load:
 
 https://primecare-admin.pages.dev/login
@@ -199,7 +199,7 @@ From Node.js Internals:
   Error: getaddrinfo ENOTFOUND primecare-admin.pages.dev
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [ADMIN_DASHBOARD] verifies visibility for role: staff" time="1.029" classname="[ADMIN_DASHBOARD] verifies visibility for role: staff">
+    <testcase name="Generated: RBAC Action Visibility [ADMIN_HOME] verifies visibility for role: staff" time="1.029" classname="[ADMIN_HOME] verifies visibility for role: staff">
       <failure message="`cy.visit()` failed trying to load:
 
 https://primecare-admin.pages.dev/login
@@ -1001,21 +1001,21 @@ From Node.js Internals:
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [MANAGER_DASHBOARD] verifies visibility for role: guest" time="1.242" classname="[MANAGER_DASHBOARD] verifies visibility for role: guest">
+    <testcase name="Generated: RBAC Action Visibility [MANAGER_HOME] verifies visibility for role: guest" time="1.242" classname="[MANAGER_HOME] verifies visibility for role: guest">
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [MANAGER_DASHBOARD] verifies visibility for role: client" time="20.828" classname="[MANAGER_DASHBOARD] verifies visibility for role: client">
+    <testcase name="Generated: RBAC Action Visibility [MANAGER_HOME] verifies visibility for role: client" time="20.828" classname="[MANAGER_HOME] verifies visibility for role: client">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [MANAGER_DASHBOARD] verifies visibility for role: psw" time="20.014" classname="[MANAGER_DASHBOARD] verifies visibility for role: psw">
+    <testcase name="Generated: RBAC Action Visibility [MANAGER_HOME] verifies visibility for role: psw" time="20.014" classname="[MANAGER_HOME] verifies visibility for role: psw">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [MANAGER_DASHBOARD] verifies visibility for role: manager" time="20.349" classname="[MANAGER_DASHBOARD] verifies visibility for role: manager">
+    <testcase name="Generated: RBAC Action Visibility [MANAGER_HOME] verifies visibility for role: manager" time="20.349" classname="[MANAGER_HOME] verifies visibility for role: manager">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>
-    <testcase name="Generated: RBAC Action Visibility [MANAGER_DASHBOARD] verifies visibility for role: staff" time="20.875" classname="[MANAGER_DASHBOARD] verifies visibility for role: staff">
+    <testcase name="Generated: RBAC Action Visibility [MANAGER_HOME] verifies visibility for role: staff" time="20.875" classname="[MANAGER_HOME] verifies visibility for role: staff">
       <failure message="Timed out retrying after 15000ms: expected &apos;https://primecare-admin.pages.dev/login&apos; to not include &apos;/login&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to not include '/login'
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/auth.ts:21:33)]]></failure>
     </testcase>

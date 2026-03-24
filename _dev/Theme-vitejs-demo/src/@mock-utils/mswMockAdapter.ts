@@ -2,10 +2,10 @@ import { setupWorker } from 'msw/browser';
 import usersApi from './api/usersApi';
 import profileApi from './api/profileApi';
 import uiIconsApi from './api/uiIconsApi';
-import projectDashboardApi from './api/projectDashboardApi';
-import cryptoDashboardApi from './api/cryptoDashboardApi';
-import financeDashboardApi from './api/financeDashboardApi';
-import analyticsDashboardApi from './api/analyticsDashboardApi';
+import projectHomeApi from './api/projectHomeApi';
+import cryptoHomeApi from './api/cryptoHomeApi';
+import financeHomeApi from './api/financeHomeApi';
+import analyticsHomeApi from './api/analyticsHomeApi';
 import calendarApi from './api/calendarApi';
 import mailboxApi from './api/mailboxApi';
 import notificationsApi from './api/notificationsApi';
@@ -34,10 +34,10 @@ export const worker = setupWorker(
 		...usersApi,
 		...profileApi,
 		...uiIconsApi,
-		...projectDashboardApi,
-		...cryptoDashboardApi,
-		...financeDashboardApi,
-		...analyticsDashboardApi,
+		...projectHomeApi,
+		...cryptoHomeApi,
+		...financeHomeApi,
+		...analyticsHomeApi,
 		...calendarApi,
 		...mailboxApi,
 		...notificationsApi,

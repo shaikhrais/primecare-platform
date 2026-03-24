@@ -10,7 +10,7 @@ const content = fs.readFileSync(registryPath, 'utf8');
 // The original English strings were in `en.ts` which I deleted in `extract-json.cjs`.
 // But wait! `execute-i18n.cjs` created `en.ts`. `extract-json.cjs` read `en.ts`, wrote to `en.json`, and deleted `en.ts`.
 // Did `extract-json.cjs` write the ENGLISH strings to `en.json`?
-// YES! `match[1]` from `en.ts` was literally the English strings object `{ "V_XYZ": "Dashboard", ... }`!
+// YES! `match[1]` from `en.ts` was literally the English strings object `{ "V_XYZ": "Home", ... }`!
 // So `en.json` currently HAS the 593 English strings!
 // If I `git checkout en.json`, I will LOSE the 593 English strings!
 

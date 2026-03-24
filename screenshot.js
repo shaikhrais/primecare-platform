@@ -119,14 +119,14 @@ async function captureScreenshots() {
             // User requested to "make slow run" - extending timeout to 8000ms
             await new Promise(res => setTimeout(res, 8000));
             
-            const imagePath = `screenshots/${r.role}_dashboard.png`;
+            const imagePath = `screenshots/${r.role}_home.png`;
             await page.screenshot({ path: path.join(__dirname, imagePath), fullPage: false });
             console.log(`    -> Screenshot saved at ${imagePath}`);
 
             htmlContent += `
             <div class="card">
                 <div class="card-header">
-                    <span class="role-badge">${r.role.replace('_', ' ')} Dashboard</span>
+                    <span class="role-badge">${r.role.replace('_', ' ')} Home</span>
                     <span style="font-family: monospace; color: #94a3b8; font-size: 0.85rem;">${r.url}</span>
                 </div>
                 <div style="overflow: hidden;">

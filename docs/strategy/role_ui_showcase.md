@@ -5,7 +5,7 @@
 
 ## 1. The General Manager (Executive Hub)
 *High-level financial telemetry, Franchise Expansion geographic maps, and EBITDA metrics.*
-![GM Executive Dashboard](./gm_executive_dashboard_1774102779366.png)
+![GM Executive Home](./gm_executive_home_1774102779366.png)
 
 ## 2. Master Agency (Superuser Control)
 *The root node. Manages Tenant creation, Cloudflare Ecosystem metrics, and global API limits.*

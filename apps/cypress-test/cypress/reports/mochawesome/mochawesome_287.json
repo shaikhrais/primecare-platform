@@ -215,8 +215,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.01  PSW__Dashboard__PageLoad__SUCCESS",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.01  PSW__Dashboard__PageLoad__SUCCESS",
+              "title": "01.02.01  PSW__Home__PageLoad__SUCCESS",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.01  PSW__Home__PageLoad__SUCCESS",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -233,8 +233,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.02  PSW__Dashboard__WelcomeCard__VISIBLE",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.02  PSW__Dashboard__WelcomeCard__VISIBLE",
+              "title": "01.02.02  PSW__Home__WelcomeCard__VISIBLE",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.02  PSW__Home__WelcomeCard__VISIBLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -251,8 +251,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.03  PSW__Dashboard__TodayShiftCard__LOAD",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.03  PSW__Dashboard__TodayShiftCard__LOAD",
+              "title": "01.02.03  PSW__Home__TodayShiftCard__LOAD",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.03  PSW__Home__TodayShiftCard__LOAD",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -269,8 +269,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.04  PSW__Dashboard__StatsCard__DATA",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.04  PSW__Dashboard__StatsCard__DATA",
+              "title": "01.02.04  PSW__Home__StatsCard__DATA",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.04  PSW__Home__StatsCard__DATA",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -287,8 +287,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.05  PSW__Dashboard__EarningsCard__VISIBLE",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.05  PSW__Dashboard__EarningsCard__VISIBLE",
+              "title": "01.02.05  PSW__Home__EarningsCard__VISIBLE",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.05  PSW__Home__EarningsCard__VISIBLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -305,8 +305,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.06  PSW__Dashboard__QuickAction__NAV_WORKS",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.06  PSW__Dashboard__QuickAction__NAV_WORKS",
+              "title": "01.02.06  PSW__Home__QuickAction__NAV_WORKS",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.06  PSW__Home__QuickAction__NAV_WORKS",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -323,8 +323,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.07  PSW__Dashboard__NotificationBell__OPEN",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.07  PSW__Dashboard__NotificationBell__OPEN",
+              "title": "01.02.07  PSW__Home__NotificationBell__OPEN",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.07  PSW__Home__NotificationBell__OPEN",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -341,8 +341,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.08  PSW__Dashboard__SideMenu__TOGGLE",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.08  PSW__Dashboard__SideMenu__TOGGLE",
+              "title": "01.02.08  PSW__Home__SideMenu__TOGGLE",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.08  PSW__Home__SideMenu__TOGGLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -359,8 +359,8 @@
               "skipped": true
             },
             {
-              "title": "01.02.09  PSW__Dashboard__Logout__REDIRECT",
-              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.09  PSW__Dashboard__Logout__REDIRECT",
+              "title": "01.02.09  PSW__Home__Logout__REDIRECT",
+              "fullTitle": "PSW Mathematical Micro-Steps (Full Suite) 01.02.09  PSW__Home__Logout__REDIRECT",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",

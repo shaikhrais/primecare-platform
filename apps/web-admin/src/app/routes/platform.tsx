@@ -1638,7 +1638,7 @@ export const FALLBACK_CHILDREN = [
 export async function fetchChildAgencies(): Promise<any[]> {
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`${API_URL_13}${ApiRegistry.ADMIN.RESELLER.DASHBOARD}`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const res = await fetch(`${API_URL_13}${ApiRegistry.ADMIN.RESELLER.HOME}`, { headers: { 'Authorization': `Bearer ${token}` } });
         if (res.ok) { const data = await res.json(); return data.children || FALLBACK_CHILDREN; }
         return FALLBACK_CHILDREN;
     } catch { return FALLBACK_CHILDREN; }
@@ -2734,9 +2734,9 @@ export const useScheduleLogic = () => {
     };
 };
 export const AdminRoutes = () => (
-        <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
+        <Route path={RouteRegistry.ADMIN.HOME} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
             <Route index element={<AdminHome />} />
-            <Route path={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} element={<RegistrySummary />} />
+            <Route path={RouteRegistry.ADMIN.SUMMARY_HOME} element={<RegistrySummary />} />
             <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
             <Route path={RouteRegistry.ADMIN.USERS_NEW} element={<UserEntry />} />
             <Route path={RouteRegistry.ADMIN.USERS_EDIT(':id')} element={<UserEntry />} />
@@ -2789,17 +2789,17 @@ export const AdminRoutes = () => (
             <Route path={RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN} element={<IntegrityVerification />} />
             <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
             <Route path={RouteRegistry.ADMIN.SECURITY.TAX_HUB} element={<TaxComplianceHub />} />
-            <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingHome />} />
+            <Route path={RouteRegistry.ADMIN.FINANCE.HOME} element={<AccountingHome />} />
             <Route path={RouteRegistry.ADMIN.FINANCE.RECONCILIATION} element={<FinancialReconciliation />} />
             <Route path={RouteRegistry.ADMIN.NOTIFICATIONS_HUB} element={<NotificationsHub />} />
             <Route path={RouteRegistry.ADMIN.DOCUMENT_CENTER} element={<DocumentCenter />} />
             <Route path={RouteRegistry.ADMIN.PAYROLL_HUB} element={<PayrollHub />} />
             <Route path={RouteRegistry.ADMIN.BOOKING_REQUESTS} element={<BookingRequestQueue />} />
             <Route path={RouteRegistry.ADMIN.REFERENCE_DATA} element={<ReferenceDataHub />} />
-            <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronHome />} />
+            <Route path={RouteRegistry.ADMIN.CRON_HOME} element={<CronHome />} />
             <Route path={RouteRegistry.ADMIN.FORM_REGISTRY} element={<FormRegistryPage />} />
             <Route path={RouteRegistry.ADMIN.PAGE_REGISTRY} element={<PageRegistryPage />} />
-                <Route path={RouteRegistry.ADMIN.EVV.DASHBOARD} element={<div />} />
+                <Route path={RouteRegistry.ADMIN.EVV.HOME} element={<div />} />
             <Route path={RouteRegistry.ADMIN.EVV.EXCEPTIONS} element={<EvvExceptions />} />
             <Route path={RouteRegistry.ADMIN.EVV.EXPORT} element={<EvvExport />} />
             <Route path={RouteRegistry.ADMIN.AUTHORIZATIONS.LIST} element={<AuthList />} />
@@ -2817,7 +2817,7 @@ export const AdminRoutes = () => (
             <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.DOWNLOAD} element={<AuditDownload />} />
             <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.COMPLIANCE} element={<ComplianceExport />} />
             <Route path={RouteRegistry.ADMIN.AUDIT_EXPORT.REGULATORY} element={<RegulatoryExport />} />
-            <Route path={RouteRegistry.ADMIN.AI.DASHBOARD} element={<div />} />
+            <Route path={RouteRegistry.ADMIN.AI.HOME} element={<div />} />
             <Route path={RouteRegistry.ADMIN.AI.PREDICTIVE_ANALYTICS} element={<PredictiveAnalytics />} />
             <Route path={RouteRegistry.ADMIN.AI.CHURN_RISK} element={<ChurnRisk />} />
             <Route path={RouteRegistry.ADMIN.AI.VISIT_OPTIMIZATION} element={<VisitOptimization />} />
@@ -3638,7 +3638,7 @@ const PlatformAuditLogs = () => <div />;
 const SystemPolicies = () => <div />;
 
 export const PlatformRoutes = () => (
-    <Route path={RouteRegistry.SUPERUSER.DASHBOARD} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
+    <Route path={RouteRegistry.SUPERUSER.HOME} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
         <Route index element={<PlatformHome />} />
         <Route path={RouteRegistry.SUPERUSER.TENANTS} element={<TenantList />} />
         <Route path={RouteRegistry.SUPERUSER.AUDIT_LOGS} element={<PlatformAuditLogs />} />
@@ -4130,7 +4130,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     admin: {
         mission: 'Orchestrate global franchise network, manage master financial records, and provision system-wide security policies.',
         pages: [
-            { name: 'Home', route: 'ADMIN.DASHBOARD', component: 'AdminHome', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
+            { name: 'Home', route: 'ADMIN.HOME', component: 'AdminHome', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
             { name: 'User Management', route: 'ADMIN.USERS', component: 'UserList', status: 'implemented', requirement: 'Provision and audit security roles for all staff across the franchise.' },
             { name: 'Schedule', route: 'ADMIN.SCHEDULE', component: 'Schedule', status: 'implemented', requirement: 'Global visibility into all service appointments for master coordination.' },
             { name: 'Earnings', route: 'ADMIN.EARNINGS', component: 'AdminEarningsPage', status: 'implemented', requirement: 'Aggregate financial tracking for franchise royalty and payout audit.' },
@@ -4143,7 +4143,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     scrum_master: {
         mission: 'Maintain platform technical integrity, optimize system performance, and audit registry consistency.',
         pages: [
-            { name: 'Command Center', route: 'SCRUM_MASTER.DASHBOARD', component: 'ScrumMasterHome', status: 'implemented', requirement: 'Centralized technical health telemetry and autonomous alerts.' },
+            { name: 'Command Center', route: 'SCRUM_MASTER.HOME', component: 'ScrumMasterHome', status: 'implemented', requirement: 'Centralized technical health telemetry and autonomous alerts.' },
             { name: 'API Hub', route: 'SCRUM_MASTER.API_ENDPOINTS', component: 'ApiEndpointsHub', status: 'implemented', requirement: 'Endpoint verification and backend connectivity auditing.' },
             { name: 'Role Intelligence', route: 'SCRUM_MASTER.ROLE_FLOWS', component: 'RoleFlowsPage', status: 'implemented', requirement: 'Verify UI/RBAC mapping and implementation gap analysis.' },
             { name: 'Perf Audits', route: 'SCRUM_MASTER.PERFORMANCE', component: 'PerformancePage', status: 'implemented', requirement: 'Monitor V8 engine performance and Lighthouse core web vitals.' },
@@ -4156,7 +4156,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     manager: {
         mission: 'Oversee branch care ecosystem, optimize caregiver assignments, and ensure clinical quality compliance.',
         pages: [
-            { name: 'Portfolio', route: 'MANAGER.DASHBOARD', component: 'Portfolio', status: 'implemented', requirement: 'Branch-level operational home for shift and patient oversight.' },
+            { name: 'Portfolio', route: 'MANAGER.HOME', component: 'Portfolio', status: 'implemented', requirement: 'Branch-level operational home for shift and patient oversight.' },
             { name: 'Evaluations', route: 'MANAGER.EVALUATIONS', component: 'Evaluations', status: 'implemented', requirement: 'Coordinate clinical assessments and care plan milestones.' },
             { name: 'Service Review', route: 'MANAGER.SERVICE_REVIEW', component: 'ServiceReview', status: 'implemented', requirement: 'Audit service quality based on client feedback and visit logs.' },
             { name: 'Staff Performance', route: 'MANAGER.PERFORMANCE', component: 'StaffRanker', status: 'implemented', requirement: 'Identify top performers and at-risk staff based on attendance metrics.' },
@@ -4167,7 +4167,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     staff: {
         mission: 'Execute daily intake operations, coordinate scheduling requests, and manage customer communications.',
         pages: [
-            { name: 'Staff Hub', route: 'STAFF.DASHBOARD', component: 'StaffHome', status: 'implemented', requirement: 'Daily task list and urgent scheduling notification center.' },
+            { name: 'Staff Hub', route: 'STAFF.HOME', component: 'StaffHome', status: 'implemented', requirement: 'Daily task list and urgent scheduling notification center.' },
             { name: 'Customers', route: 'STAFF.CUSTOMERS', component: 'CustomerList', status: 'implemented', requirement: 'Manage active customer roster and scheduling preferences.' },
             { name: 'Task Board', route: 'STAFF.TASKS', component: 'TaskGrid', status: 'implemented', requirement: 'Visual board for coordinating complex multi-step intake tasks.' },
             { name: 'Messaging', route: 'STAFF.MESSAGES', component: 'MessageCenter', status: 'implemented', requirement: 'Centralized hub for family and caregiver secure communications.' },
@@ -4189,7 +4189,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     rn: {
         mission: 'Maintain clinical oversight, audit caregiver documentation, and ensure professional nursing standards are met.',
         pages: [
-            { name: 'Home', route: 'RN.DASHBOARD', component: 'RnHome', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
+            { name: 'Home', route: 'RN.HOME', component: 'RnHome', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
             { name: 'Care Plans', route: 'RN.CARE_PLANS', component: 'ClinicalCarePlans', status: 'implemented', requirement: 'Digitize and manage professional patient care protocols.' },
             { name: 'Daily Audit', route: 'RN.DAILY_AUDIT', component: 'DailyAudit', status: 'implemented', requirement: 'RN sign-off and verification of PSW daily care records.' },
             { name: 'Supervision', route: 'RN.SUPERVISION', component: 'SupervisionHub', status: 'implemented', requirement: 'Monitor caregiver quality standards and certification compliance.' },
@@ -4234,7 +4234,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     client: {
         mission: 'Manage family care plans, request service adjustments, and oversee billing and invoices.',
         pages: [
-            { name: 'Client Hub', route: 'CLIENT.DASHBOARD', component: 'ClientHome', status: 'implemented', requirement: 'Family overview for current care schedule and caregiver intros.' },
+            { name: 'Client Hub', route: 'CLIENT.HOME', component: 'ClientHome', status: 'implemented', requirement: 'Family overview for current care schedule and caregiver intros.' },
             { name: 'Bookings', route: 'CLIENT.BOOKINGS', component: 'ClientBookings', status: 'implemented', requirement: 'History of previous visits and upcoming scheduled care.' },
             { name: 'Billing', route: 'CLIENT.BILLING', component: 'ClientBilling', status: 'implemented', requirement: 'Secure payment gateway and digital invoice archive.' },
             { name: 'Service Catalog', route: 'CLIENT.SERVICES', component: 'CatalogBrowser', status: 'implemented', requirement: 'Self-service selection of additional specialized care modules.' },

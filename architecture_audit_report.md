@@ -248,9 +248,9 @@
   - training.routes.ts - missing 4xx handler
   - dailyEntry.routes.ts - missing 4xx handler
   - dailyEntry.routes.ts - missing 4xx handler
-  - dashboard.routes.ts - missing 4xx handler
-  - dashboard.routes.ts - missing 4xx handler
-  - dashboard.routes.ts - missing 4xx handler
+  - home.routes.ts - missing 4xx handler
+  - home.routes.ts - missing 4xx handler
+  - home.routes.ts - missing 4xx handler
   - incidents.routes.ts - missing 4xx handler
   - mar.routes.ts - missing 4xx handler
   - mileage.routes.ts - missing 4xx handler
@@ -271,7 +271,7 @@
   - clinical-route-defs.ts - missing 4xx handler
   - clinical-route-defs.ts - missing 4xx handler
   - dailyReview.routes.ts - missing 4xx handler
-  - dashboard.routes.ts - missing 4xx handler
+  - home.routes.ts - missing 4xx handler
   - mar.routes.ts - missing 4xx handler
   - mar.routes.ts - missing 4xx handler
   - mar.routes.ts - missing 4xx handler
@@ -282,7 +282,7 @@
   - wound-care.routes.ts - missing 4xx handler
   - wound-care.routes.ts - missing 4xx handler
   - wound-care.routes.ts - missing 4xx handler
-  - dashboard.routes.ts - missing 4xx handler
+  - home.routes.ts - missing 4xx handler
   - messages.routes.ts - missing 4xx handler
   - messages.routes.ts - missing 4xx handler
   - incidents.routes.ts - missing 4xx handler

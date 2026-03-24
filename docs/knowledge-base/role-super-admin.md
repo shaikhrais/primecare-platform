@@ -15,12 +15,12 @@ They execute the following core paths:
 
 ## 3. The Day-in-the-Life Workflow
 1. **Authentication:** The user logs in securely.
-2. **Dashboard Rendering:** They are redirected to their specialized dashboard.
+2. **Home Rendering:** They are redirected to their specialized home.
 3. **Execution:** They interact with the PrimeCare modules.
 4. **Data Persistence:** Every action is logged into the AuditLog table.
 
 ## 4. Gap Analysis: What is Missing?
-*   Missing Feature: Global Financial Meta-Dashboard
+*   Missing Feature: Global Financial Meta-Home
 
 ---
 _This document is automatically generated._

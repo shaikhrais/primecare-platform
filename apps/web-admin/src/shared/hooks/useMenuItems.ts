@@ -82,19 +82,19 @@ const ICON_MAP: Record<string, string> = {
 };
 
 // ── Home paths per role ─────────────────────────────────────────────────
-const DASHBOARD_MAP: Record<string, { label: string; path: string; icon: string }> = {
-    admin:            { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.ADMIN.DASHBOARD, icon: '📊' },
-    super_admin:      { label: 'Platform Stats',               path: RouteRegistry.SUPERUSER.DASHBOARD, icon: '👑' },
-    scrum_master:     { label: 'Scrum Home',               path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
-    manager:          { label: ContentRegistry.MENU.DASHBOARD,  path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' },
+const HOME_MAP: Record<string, { label: string; path: string; icon: string }> = {
+    admin:            { label: ContentRegistry.MENU.HOME, path: RouteRegistry.ADMIN.HOME, icon: '📊' },
+    super_admin:      { label: 'Platform Stats',               path: RouteRegistry.SUPERUSER.HOME, icon: '👑' },
+    scrum_master:     { label: 'Scrum Home',               path: RouteRegistry.SCRUM_MASTER.HOME, icon: '🚀' },
+    manager:          { label: ContentRegistry.MENU.HOME,  path: RouteRegistry.MANAGER.HOME, icon: '📊' },
     regional_manager: { label: 'Regional HQ',                   path: RouteRegistry.MANAGER.REGIONAL_STATS, icon: '🌐' },
-    coordinator:      { label: ContentRegistry.MENU.DASHBOARD,  path: RouteRegistry.COORDINATOR.DASHBOARD, icon: '📍' },
-    psw:              { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.DASHBOARD, icon: '🗓️' },
-    rn:               { label: ContentRegistry.MENU.CLINICAL_DASHBOARD, path: RouteRegistry.RN.DASHBOARD, icon: '🩺' },
-    client:           { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.DASHBOARD, icon: '🏠' },
-    staff:            { label: ContentRegistry.MENU.STAFF_HUB,  path: RouteRegistry.STAFF.DASHBOARD, icon: '🏢' },
-    finance:          { label: 'Finance Hub',                   path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '💰' },
-    finance_director: { label: 'Finance Intelligence',          path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, icon: '🏛️' },
+    coordinator:      { label: ContentRegistry.MENU.HOME,  path: RouteRegistry.COORDINATOR.HOME, icon: '📍' },
+    psw:              { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.HOME, icon: '🗓️' },
+    rn:               { label: ContentRegistry.MENU.CLINICAL_HOME, path: RouteRegistry.RN.HOME, icon: '🩺' },
+    client:           { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.HOME, icon: '🏠' },
+    staff:            { label: ContentRegistry.MENU.STAFF_HUB,  path: RouteRegistry.STAFF.HOME, icon: '🏢' },
+    finance:          { label: 'Finance Hub',                   path: RouteRegistry.ADMIN.FINANCE.HOME, icon: '💰' },
+    finance_director: { label: 'Finance Intelligence',          path: RouteRegistry.ADMIN.FINANCE.HOME, icon: '🏛️' },
 };
 
 // ── Shared items every role gets at the bottom ───────────────────────────────
@@ -117,7 +117,7 @@ export function useMenuItems(role: string): MenuItem[] {
         const lowerRole = role.toLowerCase();
 
         // 1. Home entry
-        const home = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
+        const home = HOME_MAP[lowerRole] || HOME_MAP['client'];
 
         // 2. Role-specific links from ButtonRegistry
         const registryLinks = getLinksForRole(lowerRole);

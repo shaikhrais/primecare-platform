@@ -61,7 +61,7 @@ project.getSourceFiles().forEach(sf => {
         }
     });
 
-    // 3. Fix Re-export conflicts like `export { AlliedHealthDashboard }` colliding with `export function AlliedHealthDashboard`
+    // 3. Fix Re-export conflicts like `export { AlliedHealthHome }` colliding with `export function AlliedHealthHome`
     const localFunctions = new Set(sf.getFunctions().map(f => f.getName()));
     
     sf.getExportDeclarations().forEach(exp => {

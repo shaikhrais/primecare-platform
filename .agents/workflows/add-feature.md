@@ -13,7 +13,7 @@ The platform has **8 registries** in `packages/shared/src/registries/`:
 | Registry | Purpose |
 |----------|---------|
 | `ButtonRegistry.ts` | **Unified** interactive elements (buttons, links, interactions, touchpoints) |
-| `PageRegistry.ts` | Master page catalogue (dashboards, forms, lists, hubs, wizards, reports, tools) |
+| `PageRegistry.ts` | Master page catalogue (homes, forms, lists, hubs, wizards, reports, tools) |
 | `FormRegistry.ts` | Form definitions with fields, API endpoints, and inline-creation dependencies |
 | `PageActionRegistry.ts` | Maps pages → their action buttons |
 | `ContentRegistry.ts` | UI strings and localized content |
@@ -52,7 +52,7 @@ const route = createRoute({ method: 'get', path: '/your-endpoint', ... });
 
 ### 5. Page Registry Entry
 - Add entry to the appropriate sub-file under `packages/shared/src/registries/PageRegistry/`
-- Choose the correct type: `dashboard`, `form`, `list`, `hub`, `wizard`, `detail`, `settings`, `report`, `tool`, `portal`
+- Choose the correct type: `home`, `form`, `list`, `hub`, `wizard`, `detail`, `settings`, `report`, `tool`, `portal`
 - If the page is a form, set `formRegistryId` to link to `FormRegistry`
 
 ### 6. Form Registry Entry (for form pages)
@@ -118,7 +118,7 @@ getInteractionsByTrigger(type)  // Interactions by trigger type ('click', 'hover
 
 // Pages
 getPageById(id)                 // Page by ID
-getPagesByType(type)            // Pages by type ('dashboard', 'form', etc.)
+getPagesByType(type)            // Pages by type ('home', 'form', etc.)
 getPagesByOwner(owner)          // Pages by role owner
 
 // Forms

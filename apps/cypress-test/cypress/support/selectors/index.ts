@@ -1,18 +1,18 @@
 import { ADMIN_AUTH } from "./admin/auth.cy";
-import { ADMIN_DASH } from "./admin/dashboard.cy";
+import { ADMIN_DASH } from "./admin/home.cy";
 import { ADMIN_USERS } from "./admin/users.cy";
 import { ADMIN_SERVICES } from "./admin/services.cy";
 import { ADMIN_OPS } from "./admin/operations.cy";
 
-import { MGR_DASH } from "./manager/dashboard.cy";
+import { MGR_DASH } from "./manager/home.cy";
 import { MGR_DAILY } from "./manager/daily-entry.cy";
 import { MGR_LEADS } from "./manager/leads.cy";
 
-import { CLIENT_DASH } from "./client/dashboard.cy";
+import { CLIENT_DASH } from "./client/home.cy";
 import { CLIENT_BOOKINGS } from "./client/bookings.cy";
 import { CLIENT_BILLING } from "./client/billing.cy";
 
-import { PSW_DASH } from "./psw/dashboard.cy";
+import { PSW_DASH } from "./psw/home.cy";
 import { PSW_SHIFTS } from "./psw/shifts.cy";
 import { PSW_EARN } from "./psw/earnings.cy";
 
@@ -35,23 +35,23 @@ export const COMMON = {
 export const SELECTORS = {
     ADMIN: {
         AUTH: ADMIN_AUTH,
-        DASHBOARD: ADMIN_DASH,
+        HOME: ADMIN_DASH,
         USERS: ADMIN_USERS,
         SERVICES: ADMIN_SERVICES,
         OPERATIONS: ADMIN_OPS,
     },
     MANAGER: {
-        DASHBOARD: MGR_DASH,
+        HOME: MGR_DASH,
         DAILY_ENTRY: MGR_DAILY,
         LEADS: MGR_LEADS,
     },
     CLIENT: {
-        DASHBOARD: CLIENT_DASH,
+        HOME: CLIENT_DASH,
         BOOKINGS: CLIENT_BOOKINGS,
         BILLING: CLIENT_BILLING,
     },
     PSW: {
-        DASHBOARD: PSW_DASH,
+        HOME: PSW_DASH,
         SHIFTS: PSW_SHIFTS,
         EARNINGS: PSW_EARN,
     },

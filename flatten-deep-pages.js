@@ -28,7 +28,7 @@ targetDirs.forEach(dir => {
         const oldPath = path.join(dir, file);
         let newPath = path.join(parent, file);
         
-        // Handle name collisions just in case they both have 'dashboard.tsx' for some weird reason
+        // Handle name collisions just in case they both have 'home.tsx' for some weird reason
         if (fs.existsSync(newPath)) {
             newPath = path.join(parent, file.replace('.tsx', '_flattened.tsx').replace('.ts', '_flattened.ts'));
         }

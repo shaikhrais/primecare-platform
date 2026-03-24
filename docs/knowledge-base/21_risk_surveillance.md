@@ -5,7 +5,7 @@ Because Platform HQ does not manage patient outcomes or hire nurses directly, th
 ## The Silent Guardian
 The Risk Surveillance Engine is a massive backend aggregation tool that perpetually scans all spawned Tenants (Roots and Children alike) in the system.
 
-It acts as an algorithmic panopticon, aggregating compliance risk into a live dashboard for Super Admins at HQ. It monitors complex vectors:
+It acts as an algorithmic panopticon, aggregating compliance risk into a live home for Super Admins at HQ. It monitors complex vectors:
 *   "Percentage of Shifts Offered with Expired Credentials"
 *   "Provider No-Show and Abandonment Ratios"
 *   "Dispute Chargeback Frequencies by Agency"

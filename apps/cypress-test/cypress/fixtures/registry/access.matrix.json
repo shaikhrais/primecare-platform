@@ -8,7 +8,7 @@
     ],
     "rules": [
         {
-            "routeKey": "DASHBOARD",
+            "routeKey": "HOME",
             "allowed": [
                 "staff",
                 "manager"

@@ -3,7 +3,7 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T02:30:55" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T02:30:55" tests="11" time="677.664" failures="11">
-    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="17.823" classname="[ADMIN_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [ADMIN_HOME] contains all required structural components" time="17.823" classname="[ADMIN_HOME] contains all required structural components">
       <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
     at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
 at Array.forEach (<anonymous>)
@@ -33,7 +33,7 @@ at Array.forEach (<anonymous>)
 at Array.forEach (<anonymous>)
     at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:11:0)]]></failure>
     </testcase>
-    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="19.318" classname="[MANAGER_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [MANAGER_HOME] contains all required structural components" time="19.318" classname="[MANAGER_HOME] contains all required structural components">
       <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;page.container&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="page.container"]`, but never found it.
     at eval (webpack://@primecare/cypress-test/./cypress/e2e/generated/30_integrity.contracts.cy.ts:13:0)
 at Array.forEach (<anonymous>)

@@ -4,7 +4,7 @@
   </testsuite>
   <testsuite name="Generated: Contracts" timestamp="2026-02-10T22:08:59" tests="1" time="44.249" failures="1">
     <testcase name="Generated: Contracts staff pages contain required data-cy elements" time="14.351" classname="staff pages contain required data-cy elements">
-      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;adm-dashboard&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="adm-dashboard"]`, but never found it.
+      <failure message="Timed out retrying after 10000ms: Expected to find element: `[data-cy=&quot;adm-home&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy="adm-home"]`, but never found it.
     at eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:6:65)
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/contract.ts:4:0)]]></failure>
     </testcase>

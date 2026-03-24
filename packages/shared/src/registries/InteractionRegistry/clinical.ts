@@ -64,7 +64,7 @@ export const CLINICAL = {
         }
     },
     QA: {
-        DASHBOARD: {
+        HOME: {
             SAFETY_REPORT: {
                 id: 'qa-safety-report',
                 label: 'Safety Report',

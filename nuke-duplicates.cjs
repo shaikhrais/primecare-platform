@@ -89,7 +89,7 @@ fs.writeFileSync(routerPath, rC);
             continue;
         }
         
-        // Remove individual duplicate export statements like export { AlliedHealthDashboard }
+        // Remove individual duplicate export statements like export { AlliedHealthHome }
         const exportMatch = trimmed.match(/^import\s+\{\s*([a-zA-Z0-9_]+)\s*\}\s*from\s*['"]\.\/.*?['"]/);
         if (exportMatch) continue; // Strip relative leftover imports
         

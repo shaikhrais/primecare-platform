@@ -192,11 +192,11 @@ function FuseNavigationDoc() {
 			>
 				{`
           {
-              id: 'dashboards.project',
+              id: 'homes.project',
               title: 'Project',
               type: 'item',
               icon: 'lucide:clipboard-check',
-              url: '/dashboards/project',
+              url: '/homes/project',
             }
         `}
 			</FuseHighlight>
@@ -218,11 +218,11 @@ function FuseNavigationDoc() {
 			>
 				{`
           {
-              id: 'dashboards.project',
+              id: 'homes.project',
               title: 'Project',
               type: 'item',
               icon: 'lucide:clipboard-check',
-              url: '/dashboards/project',
+              url: '/homes/project',
               end: true
           }
                                 `}
@@ -263,7 +263,7 @@ function FuseNavigationDoc() {
               'id'   : 'project',
               'title': 'Project',
               'type' : 'item',
-              'url'  : '/apps/dashboards/project'
+              'url'  : '/apps/homes/project'
           }
           {
               'type': 'divider
@@ -272,7 +272,7 @@ function FuseNavigationDoc() {
               'id'   : 'project',
               'title': 'Project',
               'type' : 'item',
-              'url'  : '/apps/dashboards/project'
+              'url'  : '/apps/homes/project'
           }
           `}
 			</FuseHighlight>
@@ -310,25 +310,25 @@ function FuseNavigationDoc() {
             onClick={() => {
               setNavigation([
                 {
-                  id: 'dashboards',
-                  title: 'Dashboards',
-                  subtitle: 'Unique dashboard designs',
+                  id: 'homes',
+                  title: 'Homes',
+                  subtitle: 'Unique home designs',
                   type: 'group',
                     icon: 'lucide:house',
                     children: [
                       {
-                        id: 'dashboards.project',
+                        id: 'homes.project',
                         title: 'Project',
                         type: 'item',
                         icon: 'lucide:clipboard-check',
-                        url: '/dashboards/project',
+                        url: '/homes/project',
                       },
                       {
-                        id: 'dashboards.analytics',
+                        id: 'homes.analytics',
                         title: 'Analytics',
                         type: 'item',
                         icon: 'lucide:chart-pie',
-                        url: '/dashboards/analytics',
+                        url: '/homes/analytics',
                       },
                     ],
                   },
@@ -409,7 +409,7 @@ function FuseNavigationDoc() {
 					className="mb-6 text-lg"
 					component="h2"
 				>
-					With clicking the button below, a badge will be added into the 'Project' dashboard navigation item.
+					With clicking the button below, a badge will be added into the 'Project' home navigation item.
 				</Typography>
 
 				<FuseHighlight
@@ -421,7 +421,7 @@ function FuseNavigationDoc() {
           
           <Button
             onClick={() => {
-                updateNavigationItem('dashboards.project', {
+                updateNavigationItem('homes.project', {
                   badge: {
                     title: 'NEW'
                     }
@@ -524,7 +524,7 @@ function FuseNavigationDoc() {
 					className="mb-6 text-lg"
 					component="h2"
 				>
-					With the button below, "fusetheme.com" navigation item is added into the top of the "Dashboards"
+					With the button below, "fusetheme.com" navigation item is added into the top of the "Homes"
 					children.
 				</Typography>
 
@@ -545,7 +545,7 @@ function FuseNavigationDoc() {
                           'icon'  : 'link',
                           'url'   : 'http://fusetheme.com',
                           'target': '_blank'
-                      }, 'dashboards'
+                      }, 'homes'
                   )
               }}
               variant="contained"
@@ -610,7 +610,7 @@ function FuseNavigationDoc() {
 					className="mb-6 text-lg"
 					component="h2"
 				>
-					With the button below, "fusetheme.com" navigation item is added into the bottom of the "Dashboards"
+					With the button below, "fusetheme.com" navigation item is added into the bottom of the "Homes"
 					children.
 				</Typography>
 
@@ -631,7 +631,7 @@ function FuseNavigationDoc() {
                           'icon'  : 'link',
                           'url'   : 'http://fusetheme.com',
                           'target': '_blank'
-                      }, 'dashboards'
+                      }, 'homes'
                   )
               }}
               variant="contained"

@@ -5792,14 +5792,14 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/admin/audit-export/compliance-dashboard": {
+    "/v1/admin/audit-export/compliance-home": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** PHIPA Compliance Dashboard */
+        /** PHIPA Compliance Home */
         get: {
             parameters: {
                 query?: never;
@@ -5809,7 +5809,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Dashboard */
+                /** @description Home */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -9359,7 +9359,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get Admin Dashboard Statistics
+         * Get Admin Home Statistics
          * @description Returns total counts for users, pending visits, total visits, and leads.
          */
         get: {
@@ -9498,7 +9498,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/manager/dashboard/stats": {
+    "/v1/manager/home/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -9506,8 +9506,8 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get Manager Dashboard Statistics
-         * @description Retrieve comprehensive dashboard statistics for managers and admins.
+         * Get Manager Home Statistics
+         * @description Retrieve comprehensive home statistics for managers and admins.
          */
         get: {
             parameters: {
@@ -9518,7 +9518,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Manager dashboard statistics */
+                /** @description Manager home statistics */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -9550,7 +9550,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/manager/dashboard/today": {
+    "/v1/manager/home/today": {
         parameters: {
             query?: never;
             header?: never;
@@ -9600,7 +9600,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/manager/dashboard/kpi": {
+    "/v1/manager/home/kpi": {
         parameters: {
             query?: never;
             header?: never;
@@ -10223,7 +10223,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** PSW KPI Dashboard */
+        /** PSW KPI Home */
         get: {
             parameters: {
                 query?: never;
@@ -10450,7 +10450,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/staff/dashboard/stats": {
+    "/v1/staff/home/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -10459,7 +10459,7 @@ export interface paths {
         };
         /**
          * Get Staff Stats
-         * @description Retrieve various operational statistics for the staff coordinator dashboard.
+         * @description Retrieve various operational statistics for the staff coordinator home.
          */
         get: {
             parameters: {
@@ -10470,7 +10470,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Staff dashboard statistics */
+                /** @description Staff home statistics */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -11217,14 +11217,14 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/staff/allied/dashboard/stats": {
+    "/v1/staff/allied/home/stats": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Allied health professional dashboard stats */
+        /** Allied health professional home stats */
         get: {
             parameters: {
                 query?: never;
@@ -12362,7 +12362,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Chronic Condition Dashboard */
+        /** Chronic Condition Home */
         get: {
             parameters: {
                 query?: never;
@@ -12374,7 +12374,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Dashboard data */
+                /** @description Home data */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -12596,7 +12596,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/psw/dashboard/stats": {
+    "/v1/psw/home/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -12604,7 +12604,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get Dashboard Stats
+         * Get Home Stats
          * @description Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.
          */
         get: {
@@ -12616,7 +12616,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Dashboard statistics */
+                /** @description Home statistics */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -12648,7 +12648,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/psw/dashboard/hardware/purchase": {
+    "/v1/psw/home/hardware/purchase": {
         parameters: {
             query?: never;
             header?: never;
@@ -12702,7 +12702,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/psw/dashboard/incident": {
+    "/v1/psw/home/incident": {
         parameters: {
             query?: never;
             header?: never;
@@ -12740,7 +12740,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/psw/dashboard/wellness": {
+    "/v1/psw/home/wellness": {
         parameters: {
             query?: never;
             header?: never;
@@ -12778,7 +12778,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/psw/dashboard/store/redeem": {
+    "/v1/psw/home/store/redeem": {
         parameters: {
             query?: never;
             header?: never;
@@ -14162,7 +14162,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/client/dashboard/profile": {
+    "/v1/client/home/profile": {
         parameters: {
             query?: never;
             header?: never;
@@ -14265,7 +14265,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/client/dashboard/stats": {
+    "/v1/client/home/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -14285,7 +14285,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Client dashboard statistics */
+                /** @description Client home statistics */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -15944,7 +15944,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/coordinator/dashboard/stats": {
+    "/v1/coordinator/home/stats": {
         parameters: {
             query?: never;
             header?: never;
@@ -15952,7 +15952,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Dashboard Stats
+         * Home Stats
          * @description Retrieve operational statistics for the coordinator dispatcher hub.
          */
         get: {
@@ -15964,7 +15964,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Coordinator dashboard stats retrieved */
+                /** @description Coordinator home stats retrieved */
                 200: {
                     headers: {
                         [name: string]: unknown;

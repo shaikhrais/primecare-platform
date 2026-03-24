@@ -32,7 +32,7 @@ for (const f of files) {
 
     // Route mappings
     if (f.endsWith('admin.tsx')) {
-        content = content.replace(/<RegistrySummaryDashboard \/>/g, '<RegistrySummary />');
+        content = content.replace(/<RegistrySummaryHome \/>/g, '<RegistrySummary />');
         content = content.replace(/<LeadsPage \/>/g, '<LeadList />');
         
         // FormRegistry
@@ -53,7 +53,7 @@ for (const f of files) {
     }
 
     if (f.endsWith('PlatformRoutes.tsx')) {
-         content = content.replace(/tenancy\/staff\/dashboard/g, 'tenancy/staff');
+         content = content.replace(/tenancy\/staff\/home/g, 'tenancy/staff');
          content = content.replace(/tenancy\/scrum-master\/pages/g, 'platform/scrum-master');
     }
 

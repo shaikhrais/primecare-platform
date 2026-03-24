@@ -23,7 +23,7 @@ interface QuickAction {
 
 const QUICK_ACTIONS: QuickAction[] = [
     // ── Core ──
-    { id: 'qa-home', label: 'Go to Home', icon: '📊', route: RouteRegistry.ADMIN.DASHBOARD, shortcut: 'D' },
+    { id: 'qa-home', label: 'Go to Home', icon: '📊', route: RouteRegistry.ADMIN.HOME, shortcut: 'D' },
     { id: 'qa-schedule', label: 'Open Schedule', icon: '📅', route: RouteRegistry.ADMIN.SCHEDULE, shortcut: 'S' },
     { id: 'qa-ops-center', label: 'Operations Center', icon: '🛰️', route: RouteRegistry.ADMIN.OPERATIONS.CENTER, shortcut: 'O' },
     { id: 'qa-users', label: 'Manage Users', icon: '👥', route: RouteRegistry.ADMIN.USERS, shortcut: 'U' },
@@ -33,13 +33,13 @@ const QUICK_ACTIONS: QuickAction[] = [
     // ── Clinical ──
     { id: 'qa-incidents', label: 'Incidents', icon: '🚨', route: RouteRegistry.ADMIN.INCIDENTS, shortcut: 'I' },
     { id: 'qa-clinical', label: 'Clinical Assistant', icon: '🩺', route: RouteRegistry.ADMIN.CLINICAL_ASSISTANT },
-    { id: 'qa-evv', label: 'EVV Home', icon: '📍', route: RouteRegistry.ADMIN.EVV.DASHBOARD },
+    { id: 'qa-evv', label: 'EVV Home', icon: '📍', route: RouteRegistry.ADMIN.EVV.HOME },
     { id: 'qa-pharmacy', label: 'Pharmacy Hub', icon: '💊', route: RouteRegistry.ADMIN.PHARMACY.HUB },
     { id: 'qa-telehealth', label: 'Telehealth Center', icon: '📹', route: RouteRegistry.ADMIN.TELEHEALTH.CENTER },
     { id: 'qa-referrals', label: 'Referrals', icon: '🔗', route: RouteRegistry.ADMIN.REFERRALS.LIST },
 
     // ── Finance ──
-    { id: 'qa-finance', label: 'Accounting Home', icon: '💰', route: RouteRegistry.ADMIN.FINANCE.DASHBOARD },
+    { id: 'qa-finance', label: 'Accounting Home', icon: '💰', route: RouteRegistry.ADMIN.FINANCE.HOME },
     { id: 'qa-ledger', label: 'Financial Ledger', icon: '📒', route: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER },
     { id: 'qa-tax', label: 'Tax Compliance Hub', icon: '🧾', route: RouteRegistry.ADMIN.SECURITY.TAX_HUB },
     { id: 'qa-payroll', label: 'Payroll Hub', icon: '💵', route: RouteRegistry.ADMIN.PAYROLL_HUB },
@@ -59,7 +59,7 @@ const QUICK_ACTIONS: QuickAction[] = [
     { id: 'qa-admission', label: 'Client Admission', icon: '🏠', route: RouteRegistry.ADMIN.ADMISSION },
 
     // ── Security & Compliance ──
-    { id: 'qa-security', label: 'Security Home', icon: '🛡️', route: RouteRegistry.ADMIN.SECURITY.DASHBOARD },
+    { id: 'qa-security', label: 'Security Home', icon: '🛡️', route: RouteRegistry.ADMIN.SECURITY.HOME },
     { id: 'qa-governance', label: 'Security Governance', icon: '🔒', route: RouteRegistry.ADMIN.SECURITY.GOVERNANCE },
     { id: 'qa-forensics', label: 'Forensic Trails', icon: '🕵️', route: RouteRegistry.ADMIN.SECURITY.FORENSIC_TRAILS },
     { id: 'qa-sessions', label: 'Session Monitor', icon: '👁️', route: RouteRegistry.ADMIN.SECURITY.SESSION_MONITOR },
@@ -69,7 +69,7 @@ const QUICK_ACTIONS: QuickAction[] = [
     { id: 'qa-auth-list', label: 'Authorizations', icon: '📄', route: RouteRegistry.ADMIN.AUTHORIZATIONS.LIST },
 
     // ── AI & Intelligence ──
-    { id: 'qa-ai', label: 'AI Home', icon: '🤖', route: RouteRegistry.ADMIN.AI.DASHBOARD },
+    { id: 'qa-ai', label: 'AI Home', icon: '🤖', route: RouteRegistry.ADMIN.AI.HOME },
     { id: 'qa-insights', label: 'AI Insights', icon: '💡', route: RouteRegistry.ADMIN.AI_INSIGHTS },
     { id: 'qa-predictive', label: 'Predictive Analytics', icon: '📡', route: RouteRegistry.ADMIN.AI.PREDICTIVE_ANALYTICS },
     { id: 'qa-churn', label: 'Churn Risk', icon: '📉', route: RouteRegistry.ADMIN.AI.CHURN_RISK },
@@ -82,7 +82,7 @@ const QUICK_ACTIONS: QuickAction[] = [
     { id: 'qa-locations', label: 'Locations', icon: '📍', route: RouteRegistry.ADMIN.LOCATIONS },
     { id: 'qa-services', label: 'Services', icon: '🏷️', route: RouteRegistry.ADMIN.SERVICES },
     { id: 'qa-roles', label: 'Role Editor', icon: '🔑', route: RouteRegistry.ADMIN.ROLE_EDITOR },
-    { id: 'qa-cron', label: 'Cron Home', icon: '⏰', route: RouteRegistry.ADMIN.CRON_DASHBOARD },
+    { id: 'qa-cron', label: 'Cron Home', icon: '⏰', route: RouteRegistry.ADMIN.CRON_HOME },
     { id: 'qa-webhooks', label: 'Webhooks', icon: '🪝', route: RouteRegistry.ADMIN.WEBHOOKS.LIST },
     { id: 'qa-erp', label: 'Supply Chain Hub', icon: '📦', route: RouteRegistry.ADMIN.ERP.INVENTORY },
     { id: 'qa-ref-data', label: 'Reference Data', icon: '🗂️', route: RouteRegistry.ADMIN.REFERENCE_DATA },

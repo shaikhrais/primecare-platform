@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * LiveIndicator — Shows real-time data status on dashboards
+ * LiveIndicator — Shows real-time data status on homes
  *
  * Displays a pulsing green dot when data is live-updating,
  * with optional last-updated timestamp and streaming badge.

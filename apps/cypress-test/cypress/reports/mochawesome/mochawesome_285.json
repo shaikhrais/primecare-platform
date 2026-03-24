@@ -79,8 +79,8 @@
               "skipped": false
             },
             {
-              "title": "[0203] Admin Dashboard - Admin Features Visibility",
-              "fullTitle": "Admin Micro Steps [0203] Admin Dashboard - Admin Features Visibility",
+              "title": "[0203] Admin Home - Admin Features Visibility",
+              "fullTitle": "Admin Micro Steps [0203] Admin Home - Admin Features Visibility",
               "timedOut": null,
               "duration": 15349,
               "state": "failed",

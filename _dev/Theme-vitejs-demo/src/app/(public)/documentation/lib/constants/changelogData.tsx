@@ -138,7 +138,7 @@ const changelogData: ChangelogItemType[] = [
 	{
 		version: '14.0.3',
 		date: '2025-03-22',
-		newChanges: ["refactor: update Dashboard's widget data extraction to use optional chaining for safer access"],
+		newChanges: ["refactor: update Home's widget data extraction to use optional chaining for safer access"],
 		fixedChanges: [
 			'Update layout components to enhance container responsiveness with media queries and fullwidth mode support',
 			'AdjustFontSize component logic to use pixel values instead of percentage'
@@ -657,7 +657,7 @@ const changelogData: ChangelogItemType[] = [
 	{
 		version: '8.3.0',
 		date: '2022-12-30',
-		newChanges: ['Crypto Dashboard created.'],
+		newChanges: ['Crypto Home created.'],
 		fixedChanges: [
 			'FusePageCarded Sidebar width value not applied on mobile.',
 			'FusePageSimple Sidebar width value not applied on mobile.'
@@ -689,7 +689,7 @@ const changelogData: ChangelogItemType[] = [
 		version: '8.2.0',
 		date: '2022-08-20',
 		newChanges: [
-			'Finance Dashboard added.',
+			'Finance Home added.',
 			'material-ui updated to v5.10.1',
 			'tailwindcss updated to v3.1.8',
 			'react-hook-form updated to v7.34.2',
@@ -1171,7 +1171,7 @@ const changelogData: ChangelogItemType[] = [
 		],
 		fixedChanges: [
 			'E-Commerce App: reset table page when listing search results.',
-			"Project Dashboard: 'scales.[x/y]Axes.categoryPercentage' is deprecated changed with 'dataset.categoryPercentage'"
+			"Project Home: 'scales.[x/y]Axes.categoryPercentage' is deprecated changed with 'dataset.categoryPercentage'"
 		]
 	},
 	{
@@ -1425,7 +1425,7 @@ const changelogData: ChangelogItemType[] = [
 		version: '2.2.0',
 		date: '2019-02-03',
 		newChanges: [
-			'Project Dashboard App added.',
+			'Project Home App added.',
 			"External Link Item added to FuseNavigation (type:'link').",
 			'"metecons" extra icon fonts added.',
 			'Dependency packages updated.'

@@ -241,7 +241,7 @@ const COORDINATOR_METADATA: Record<string, { summary: string; tags: string[] }> 
     MATCH_OVERRIDE: { summary: 'Override PSW Match', tags: ['Coordinator Logistics'] },
     WAITLIST_SYNC: { summary: 'Sync Waitlist Priorities', tags: ['Coordinator Logistics'] },
     SOS_ACK: { summary: 'Acknowledge SOS Alert', tags: ['Coordinator Logistics'] },
-    DASHBOARD_STATS: { summary: 'Get Coordinator Home Statistics', tags: ['Coordinator Home'] },
+    HOME_STATS: { summary: 'Get Coordinator Home Statistics', tags: ['Coordinator Home'] },
     SOS_DISPATCH: { summary: 'Dispatch Emergency Replacement', tags: ['Coordinator Dispatch'] },
     DISPATCH_MAP: { summary: 'Get Live Dispatch Map', tags: ['Coordinator Logistics'] },
     MATCHING_ENGINE: { summary: 'Run AI Shift Match', tags: ['Coordinator Logistics'] },
@@ -269,7 +269,7 @@ const STAFF_METADATA: Record<string, { summary: string; tags: string[] }> = {
     SUPPORT_MESSAGES: { summary: 'Get Ticket Messages', tags: ['Staff Support'] },
     SUPPORT_REPLY: { summary: 'Reply to Ticket', tags: ['Staff Support'] },
     SCHEDULING_CREATE: { summary: 'Create Visit (Staff)', tags: ['Staff Scheduling'] },
-    DASHBOARD_STATS: { summary: 'Get Staff Home Statistics', tags: ['Staff Home'] },
+    HOME_STATS: { summary: 'Get Staff Home Statistics', tags: ['Staff Home'] },
     TASKS: { summary: 'List Staff Tasks', tags: ['Staff Operations'] },
     INCIDENT_SUBMIT: { summary: 'Submit Incident Report', tags: ['Staff Operations'] },
     COMPLIANCE_SCAN: { summary: 'Scan Branch Compliance', tags: ['Staff Operations'] },
@@ -278,7 +278,7 @@ const STAFF_METADATA: Record<string, { summary: string; tags: string[] }> = {
 
 const RN_METADATA: Record<string, { summary: string; tags: string[] }> = {
     SUPERVISION_OVERVIEW: { summary: 'Get PSW Supervision Overview', tags: ['RN Supervision'] },
-    DASHBOARD_STATS: { summary: 'Get RN Home Statistics', tags: ['RN Home'] },
+    HOME_STATS: { summary: 'Get RN Home Statistics', tags: ['RN Home'] },
     DAILY_REVIEW: { summary: 'Review Daily Entry', tags: ['RN Daily Review'] },
     CARE_PLAN_LIST: { summary: 'List Care Plans', tags: ['RN Clinical'] },
     CARE_PLAN_REVIEW: { summary: 'Review/Update Care Plan', tags: ['RN Clinical'] },

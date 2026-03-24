@@ -440,7 +440,7 @@
       },
       "parameters": []
     },
-    "/project-dashboard/widgets": {
+    "/project-home/widgets": {
       "get": {
         "summary": "Get widgets",
         "responses": {
@@ -453,17 +453,17 @@
                 },
                 "examples": {
                   "example-1": {
-                    "$ref": "#/components/examples/project_dashboard_widgets"
+                    "$ref": "#/components/examples/project_home_widgets"
                   }
                 }
               }
             }
           }
         },
-        "operationId": "getProjectDashboardWidgets",
-        "description": "Retrieve Project dashboard widgets.",
+        "operationId": "getProjectHomeWidgets",
+        "description": "Retrieve Project home widgets.",
         "tags": [
-          "project_dashboard_widgets"
+          "project_home_widgets"
         ],
         "x-stoplight": {
           "id": "tgevur69znwrz"
@@ -471,7 +471,7 @@
       },
       "parameters": []
     },
-    "/project-dashboard/projects": {
+    "/project-home/projects": {
       "get": {
         "summary": "Get projects",
         "responses": {
@@ -487,17 +487,17 @@
                 },
                 "examples": {
                   "example-1": {
-                    "$ref": "#/components/examples/project_dashboard_projects"
+                    "$ref": "#/components/examples/project_home_projects"
                   }
                 }
               }
             }
           }
         },
-        "operationId": "getProjectDashboardProjects",
-        "description": "Retrieve Project dashboard projects.",
+        "operationId": "getProjectHomeProjects",
+        "description": "Retrieve Project home projects.",
         "tags": [
-          "project_dashboard_projects"
+          "project_home_projects"
         ],
         "x-stoplight": {
           "id": "9zickumbw44bn"
@@ -505,7 +505,7 @@
       },
       "parameters": []
     },
-    "/crypto-dashboard/widgets": {
+    "/crypto-home/widgets": {
       "get": {
         "summary": "Get widgets",
         "responses": {
@@ -518,17 +518,17 @@
                 },
                 "examples": {
                   "example-1": {
-                    "$ref": "#/components/examples/crypto_dashboard_widgets"
+                    "$ref": "#/components/examples/crypto_home_widgets"
                   }
                 }
               }
             }
           }
         },
-        "operationId": "getCryptoDashboardWidgets",
-        "description": "Retrieve Crypto dashboard widgets.",
+        "operationId": "getCryptoHomeWidgets",
+        "description": "Retrieve Crypto home widgets.",
         "tags": [
-          "crypto_dashboard_widgets"
+          "crypto_home_widgets"
         ],
         "x-stoplight": {
           "id": "fzw00rpf2qbkx"
@@ -536,7 +536,7 @@
       },
       "parameters": []
     },
-    "/finance-dashboard/widgets": {
+    "/finance-home/widgets": {
       "get": {
         "summary": "Get widgets",
         "responses": {
@@ -549,17 +549,17 @@
                 },
                 "examples": {
                   "example-1": {
-                    "$ref": "#/components/examples/finance_dashboard_widgets"
+                    "$ref": "#/components/examples/finance_home_widgets"
                   }
                 }
               }
             }
           }
         },
-        "operationId": "getFinanceDashboardWidgets",
-        "description": "Retrieve Finance dashboard widgets.",
+        "operationId": "getFinanceHomeWidgets",
+        "description": "Retrieve Finance home widgets.",
         "tags": [
-          "finance_dashboard_widgets"
+          "finance_home_widgets"
         ],
         "x-stoplight": {
           "id": "wiqmrhegnp4tk"
@@ -567,7 +567,7 @@
       },
       "parameters": []
     },
-    "/analytics-dashboard/widgets": {
+    "/analytics-home/widgets": {
       "get": {
         "summary": "Get widgets",
         "responses": {
@@ -580,17 +580,17 @@
                 },
                 "examples": {
                   "example-1": {
-                    "$ref": "#/components/examples/analytics_dashboard_widgets"
+                    "$ref": "#/components/examples/analytics_home_widgets"
                   }
                 }
               }
             }
           }
         },
-        "operationId": "getAnalyticsDashboardWidgets",
-        "description": "Retrieve Analytics dashboard widgets.",
+        "operationId": "getAnalyticsHomeWidgets",
+        "description": "Retrieve Analytics home widgets.",
         "tags": [
-          "analytics_dashboard_widgets"
+          "analytics_home_widgets"
         ],
         "x-stoplight": {
           "id": "untqgeqc8som0"
@@ -7557,7 +7557,7 @@
         "x-examples": {
           "example-1": {
             "id": "2c82225f-2a6c-45d3-b18a-1132712a4234",
-            "title": "Admin Dashboard",
+            "title": "Admin Home",
             "description": "Roadmap for the new project",
             "icon": "heroicons-outline:rectangle-group",
             "lastActivity": "2022-01-18T21:00:00.000Z",
@@ -8461,7 +8461,7 @@
             "description": "Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days",
             "time": "2022-05-06T10:57:42.703Z",
             "read": true,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           }
         },
@@ -23048,8 +23048,8 @@
           {
             "id": "1fecee67-c4b4-413a-b0f2-949dcab73249",
             "categoryId": "0ee72de7-49c0-4880-9e89-b72a4edd6a81",
-            "slug": "signing-in-to-the-dashboard",
-            "title": "Signing in to the dashboard",
+            "slug": "signing-in-to-the-home",
+            "title": "Signing in to the home",
             "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
           },
           {
@@ -23590,7 +23590,7 @@
         "value": [
           {
             "id": "2c82225f-2a6c-45d3-b18a-1132712a4234",
-            "title": "Admin Dashboard",
+            "title": "Admin Home",
             "description": "Roadmap for the new project",
             "icon": "heroicons-outline:rectangle-group",
             "lastActivity": "2022-01-18T21:00:00.000Z",
@@ -23965,7 +23965,7 @@
             "id": "cd6897cb-acfd-4016-8b53-3f66a5b5fc68",
             "boardId": "2c82225f-2a6c-45d3-b18a-1132712a4234",
             "listId": "a2df7786-519c-485a-a85f-c09a61cc5f37",
-            "title": "Implement the Project dashboard",
+            "title": "Implement the Project home",
             "description": "",
             "labels": [
               "caff9c9b-a198-4564-b1f4-8b3df1d345bb"
@@ -24005,7 +24005,7 @@
             "id": "6da8747f-b474-4c9a-9eba-5ef212285500",
             "boardId": "2c82225f-2a6c-45d3-b18a-1132712a4234",
             "listId": "a2df7786-519c-485a-a85f-c09a61cc5f37",
-            "title": "Implement the Analytics dashboard",
+            "title": "Implement the Analytics home",
             "description": "",
             "labels": [
               "caff9c9b-a198-4564-b1f4-8b3df1d345bb"
@@ -24049,7 +24049,7 @@
             "id": "94fb1dee-dd83-4cca-acdd-02e96d3cc4f1",
             "boardId": "2c82225f-2a6c-45d3-b18a-1132712a4234",
             "listId": "83ca2a34-65af-49c0-a42e-94a34003fcf2",
-            "title": "Analytics dashboard design",
+            "title": "Analytics home design",
             "description": "",
             "labels": [
               "e8364d69-9595-46ce-a0f9-ce428632a0ac"
@@ -24124,7 +24124,7 @@
             "id": "fc16f7d8-957d-43ed-ba85-20f99b5ce011",
             "boardId": "2c82225f-2a6c-45d3-b18a-1132712a4234",
             "listId": "83ca2a34-65af-49c0-a42e-94a34003fcf2",
-            "title": "Project dashboard design",
+            "title": "Project home design",
             "description": "",
             "labels": [
               "e8364d69-9595-46ce-a0f9-ce428632a0ac"
@@ -24371,12 +24371,12 @@
                 "checkItems": [
                   {
                     "id": 1,
-                    "name": "Simple dashboard design",
+                    "name": "Simple home design",
                     "checked": false
                   },
                   {
                     "id": 2,
-                    "name": "Should be able to see different time periods on the same dashboard",
+                    "name": "Should be able to see different time periods on the same home",
                     "checked": true
                   },
                   {
@@ -27252,7 +27252,7 @@
           }
         ]
       },
-      "project_dashboard_widgets": {
+      "project_home_widgets": {
         "value": {
           "summary": {
             "ranges": {
@@ -27743,7 +27743,7 @@
           ]
         }
       },
-      "analytics_dashboard_widgets": {
+      "analytics_home_widgets": {
         "value": {
           "visitors": {
             "ranges": {
@@ -29374,7 +29374,7 @@
           }
         }
       },
-      "crypto_dashboard_widgets": {
+      "crypto_home_widgets": {
         "value": {
           "btc": {
             "amount": 8878.48,
@@ -30568,7 +30568,7 @@
           ]
         }
       },
-      "finance_dashboard_widgets": {
+      "finance_home_widgets": {
         "value": {
           "accountBalance": {
             "growRate": 38.33,
@@ -32380,8 +32380,8 @@
           "cruelty_free",
           "dangerous",
           "dark_mode",
-          "dashboard",
-          "dashboard_customize",
+          "home",
+          "home_customize",
           "data_exploration",
           "data_saver_off",
           "data_saver_on",
@@ -33445,7 +33445,7 @@
           "south_west",
           "spa",
           "space_bar",
-          "space_dashboard",
+          "space_home",
           "speaker",
           "speaker_group",
           "speaker_notes",
@@ -34026,7 +34026,7 @@
           "zoom-out"
         ]
       },
-      "project_dashboard_projects": {
+      "project_home_projects": {
         "value": [
           {
             "id": 1,
@@ -34263,7 +34263,7 @@
             "description": "<strong>Leo Gill</strong> added you to <em>Top Secret Project</em> group and assigned you as a <em>Project Manager</em>",
             "time": "2022-05-09T10:07:42.703Z",
             "read": true,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           },
           {
@@ -34283,7 +34283,7 @@
             "description": "Your <em>Docker container</em> is ready to publish",
             "time": "2022-05-09T05:57:42.703Z",
             "read": false,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           },
           {
@@ -34292,7 +34292,7 @@
             "description": "<strong>Roger Murray</strong> accepted your friend request",
             "time": "2022-05-09T03:57:42.703Z",
             "read": true,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           },
           {
@@ -34301,7 +34301,7 @@
             "description": "<strong>Sophie Stone</strong> sent you a direct message",
             "time": "2022-05-09T01:57:42.703Z",
             "read": true,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           },
           {
@@ -34321,7 +34321,7 @@
             "description": "Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days",
             "time": "2022-05-06T10:57:42.703Z",
             "read": true,
-            "link": "/dashboards/project",
+            "link": "/homes/project",
             "useRouter": true
           },
           {

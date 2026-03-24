@@ -6213,15 +6213,15 @@
         }
       }
     },
-    "/v1/admin/audit-export/compliance-dashboard": {
+    "/v1/admin/audit-export/compliance-home": {
       "get": {
-        "summary": "PHIPA Compliance Dashboard",
+        "summary": "PHIPA Compliance Home",
         "tags": [
           "Audit Export"
         ],
         "responses": {
           "200": {
-            "description": "Dashboard",
+            "description": "Home",
             "content": {
               "application/json": {
                 "schema": {
@@ -10421,7 +10421,7 @@
     },
     "/v1/admin/stats": {
       "get": {
-        "summary": "Get Admin Dashboard Statistics",
+        "summary": "Get Admin Home Statistics",
         "description": "Returns total counts for users, pending visits, total visits, and leads.",
         "tags": [
           "Admin"
@@ -10685,16 +10685,16 @@
         }
       }
     },
-    "/v1/manager/dashboard/stats": {
+    "/v1/manager/home/stats": {
       "get": {
-        "summary": "Get Manager Dashboard Statistics",
-        "description": "Retrieve comprehensive dashboard statistics for managers and admins.",
+        "summary": "Get Manager Home Statistics",
+        "description": "Retrieve comprehensive home statistics for managers and admins.",
         "tags": [
-          "Manager Dashboard"
+          "Manager Home"
         ],
         "responses": {
           "200": {
-            "description": "Manager dashboard statistics",
+            "description": "Manager home statistics",
             "content": {
               "application/json": {
                 "schema": {
@@ -10793,7 +10793,7 @@
         }
       }
     },
-    "/v1/manager/dashboard/today": {
+    "/v1/manager/home/today": {
       "get": {
         "responses": {
           "200": {
@@ -10866,7 +10866,7 @@
         }
       }
     },
-    "/v1/manager/dashboard/kpi": {
+    "/v1/manager/home/kpi": {
       "get": {
         "responses": {
           "200": {
@@ -11619,7 +11619,7 @@
     },
     "/v1/manager/reviews/kpi/{pswId}": {
       "get": {
-        "summary": "PSW KPI Dashboard",
+        "summary": "PSW KPI Home",
         "tags": [
           "Reviews"
         ],
@@ -11894,17 +11894,17 @@
         }
       }
     },
-    "/v1/staff/dashboard/stats": {
+    "/v1/staff/home/stats": {
       "get": {
         "summary": "Get Staff Stats",
-        "description": "Retrieve various operational statistics for the staff coordinator dashboard.",
+        "description": "Retrieve various operational statistics for the staff coordinator home.",
         "tags": [
           "Staff",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
-            "description": "Staff dashboard statistics",
+            "description": "Staff home statistics",
             "content": {
               "application/json": {
                 "schema": {
@@ -12644,9 +12644,9 @@
         }
       }
     },
-    "/v1/staff/allied/dashboard/stats": {
+    "/v1/staff/allied/home/stats": {
       "get": {
-        "summary": "Allied health professional dashboard stats",
+        "summary": "Allied health professional home stats",
         "tags": [
           "Allied Health"
         ],
@@ -13947,7 +13947,7 @@
     },
     "/v1/rn/wound-care/chronic/{clientId}": {
       "get": {
-        "summary": "Chronic Condition Dashboard",
+        "summary": "Chronic Condition Home",
         "tags": [
           "Wound Care"
         ],
@@ -13963,7 +13963,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Dashboard data",
+            "description": "Home data",
             "content": {
               "application/json": {
                 "schema": {
@@ -14287,17 +14287,17 @@
         }
       }
     },
-    "/v1/psw/dashboard/stats": {
+    "/v1/psw/home/stats": {
       "get": {
-        "summary": "Get Dashboard Stats",
+        "summary": "Get Home Stats",
         "description": "Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.",
         "tags": [
           "PSW",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
-            "description": "Dashboard statistics",
+            "description": "Home statistics",
             "content": {
               "application/json": {
                 "schema": {
@@ -14345,12 +14345,12 @@
         }
       }
     },
-    "/v1/psw/dashboard/hardware/purchase": {
+    "/v1/psw/home/hardware/purchase": {
       "post": {
         "summary": "Post Hardware Purchase",
         "tags": [
           "PSW",
-          "Dashboard"
+          "Home"
         ],
         "description": "Process a hardware purchase with payroll deduction",
         "requestBody": {
@@ -14395,12 +14395,12 @@
         }
       }
     },
-    "/v1/psw/dashboard/incident": {
+    "/v1/psw/home/incident": {
       "post": {
         "summary": "Report Incident",
         "tags": [
           "PSW",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
@@ -14424,12 +14424,12 @@
         }
       }
     },
-    "/v1/psw/dashboard/wellness": {
+    "/v1/psw/home/wellness": {
       "post": {
         "summary": "Wellness Pulse Submission",
         "tags": [
           "PSW",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
@@ -14453,12 +14453,12 @@
         }
       }
     },
-    "/v1/psw/dashboard/store/redeem": {
+    "/v1/psw/home/store/redeem": {
       "post": {
         "summary": "CareCoin Redemption Store",
         "tags": [
           "PSW",
-          "Dashboard"
+          "Home"
         ],
         "requestBody": {
           "content": {
@@ -15811,13 +15811,13 @@
         }
       }
     },
-    "/v1/client/dashboard/profile": {
+    "/v1/client/home/profile": {
       "get": {
         "summary": "Get Profile",
         "description": "Retrieve the profile details for the authenticated client.",
         "tags": [
           "Client",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
@@ -15840,7 +15840,7 @@
         "description": "Update the profile details for the authenticated client.",
         "tags": [
           "Client",
-          "Dashboard"
+          "Home"
         ],
         "requestBody": {
           "content": {
@@ -15901,17 +15901,17 @@
         }
       }
     },
-    "/v1/client/dashboard/stats": {
+    "/v1/client/home/stats": {
       "get": {
         "summary": "Get Client Stats",
         "description": "Retrieve budget, wellness, and care continuity stats for the authenticated client.",
         "tags": [
           "Client",
-          "Dashboard"
+          "Home"
         ],
         "responses": {
           "200": {
-            "description": "Client dashboard statistics",
+            "description": "Client home statistics",
             "content": {
               "application/json": {
                 "schema": {
@@ -17838,16 +17838,16 @@
         }
       }
     },
-    "/v1/coordinator/dashboard/stats": {
+    "/v1/coordinator/home/stats": {
       "get": {
-        "summary": "Dashboard Stats",
+        "summary": "Home Stats",
         "description": "Retrieve operational statistics for the coordinator dispatcher hub.",
         "tags": [
           "Coordinator"
         ],
         "responses": {
           "200": {
-            "description": "Coordinator dashboard stats retrieved",
+            "description": "Coordinator home stats retrieved",
             "content": {
               "application/json": {
                 "schema": {

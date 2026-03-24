@@ -89,8 +89,8 @@
               "skipped": true
             },
             {
-              "title": "03.02.01  Admin__Dashboard__PageLoad__SUCCESS",
-              "fullTitle": "Admin Mathematical Micro-Steps (Full Suite) 03.02.01  Admin__Dashboard__PageLoad__SUCCESS",
+              "title": "03.02.01  Admin__Home__PageLoad__SUCCESS",
+              "fullTitle": "Admin Mathematical Micro-Steps (Full Suite) 03.02.01  Admin__Home__PageLoad__SUCCESS",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -107,8 +107,8 @@
               "skipped": true
             },
             {
-              "title": "03.02.02  Admin__Dashboard__AdminStats__VISIBLE",
-              "fullTitle": "Admin Mathematical Micro-Steps (Full Suite) 03.02.02  Admin__Dashboard__AdminStats__VISIBLE",
+              "title": "03.02.02  Admin__Home__AdminStats__VISIBLE",
+              "fullTitle": "Admin Mathematical Micro-Steps (Full Suite) 03.02.02  Admin__Home__AdminStats__VISIBLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",

@@ -35,8 +35,8 @@
           "afterHooks": [],
           "tests": [
             {
-              "title": "registers a new Client and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new Client and redirects to Dashboard",
+              "title": "registers a new Client and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Client and redirects to Home",
               "timedOut": null,
               "duration": 2042,
               "state": "passed",
@@ -45,7 +45,7 @@
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "var email = \"client_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=client\");\nregister_page_1.Register.register(email, password);\n// After registration, should be on dashboard\ncy.url({ timeout: 15000 }).should('include', '/dashboard');",
+              "code": "var email = \"client_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=client\");\nregister_page_1.Register.register(email, password);\n// After registration, should be on home\ncy.url({ timeout: 15000 }).should('include', '/home');",
               "err": {},
               "uuid": "72495c13-9a9d-4542-830e-89f372e6aafa",
               "parentUUID": "e3472e98-06fd-430d-8aa7-bc8f8f187d57",
@@ -53,8 +53,8 @@
               "skipped": false
             },
             {
-              "title": "registers a new PSW and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new PSW and redirects to Dashboard",
+              "title": "registers a new PSW and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new PSW and redirects to Home",
               "timedOut": null,
               "duration": 1341,
               "state": "passed",
@@ -63,7 +63,7 @@
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "var email = \"psw_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=psw\");\nregister_page_1.Register.register(email, password);\ncy.url({ timeout: 15000 }).should('include', '/dashboard');",
+              "code": "var email = \"psw_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=psw\");\nregister_page_1.Register.register(email, password);\ncy.url({ timeout: 15000 }).should('include', '/home');",
               "err": {},
               "uuid": "4f91ae73-9a26-42b6-8ecb-3d711065c6fb",
               "parentUUID": "e3472e98-06fd-430d-8aa7-bc8f8f187d57",
@@ -71,8 +71,8 @@
               "skipped": false
             },
             {
-              "title": "registers a new Staff and redirects to Dashboard",
-              "fullTitle": "[AUTH] Role-Based Authentication registers a new Staff and redirects to Dashboard",
+              "title": "registers a new Staff and redirects to Home",
+              "fullTitle": "[AUTH] Role-Based Authentication registers a new Staff and redirects to Home",
               "timedOut": null,
               "duration": 1304,
               "state": "passed",
@@ -81,7 +81,7 @@
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "var email = \"staff_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=staff\");\nregister_page_1.Register.register(email, password);\ncy.url({ timeout: 15000 }).should('include', '/dashboard');",
+              "code": "var email = \"staff_\".concat(timestamp, \"@test.com\");\nvar password = \"Password123!\";\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/register?role=staff\");\nregister_page_1.Register.register(email, password);\ncy.url({ timeout: 15000 }).should('include', '/home');",
               "err": {},
               "uuid": "8a8c736a-6bcf-458e-af98-2329fa31c7f3",
               "parentUUID": "e3472e98-06fd-430d-8aa7-bc8f8f187d57",
@@ -99,7 +99,7 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/login\");\nlogin_page_1.Login.login(\"manager@example.com\", \"password\");\ncy.waitForByCy(MGR.DASHBOARD.page); // Corrected to use standardized selector\ncy.url({ timeout: 15000 }).should('include', '/manager/dashboard');",
+              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/login\");\nlogin_page_1.Login.login(\"manager@example.com\", \"password\");\ncy.waitForByCy(MGR.HOME.page); // Corrected to use standardized selector\ncy.url({ timeout: 15000 }).should('include', '/manager/home');",
               "err": {
                 "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"undefined\"]`, but never found it.",
                 "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"undefined\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
@@ -121,10 +121,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/login\");\nlogin_page_1.Login.login(\"admin@example.com\", \"password\");\ncy.url({ timeout: 15000 }).should('include', '/dashboard');",
+              "code": "cy.visitRoute(\"ADMIN_BASE_URL\", \"/login\");\nlogin_page_1.Login.login(\"admin@example.com\", \"password\");\ncy.url({ timeout: 15000 }).should('include', '/home');",
               "err": {
-                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to include '/dashboard'",
-                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to include '/dashboard'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:40:33)",
+                "message": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to include '/home'",
+                "estack": "AssertionError: Timed out retrying after 15000ms: expected 'https://primecare-admin.pages.dev/login' to include '/home'\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/auth/role-based-auth.cy.ts:40:33)",
                 "diff": null
               },
               "uuid": "7871e727-3497-4e94-8296-356d66a977da",

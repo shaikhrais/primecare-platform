@@ -35,8 +35,8 @@
           "afterHooks": [],
           "tests": [
             {
-              "title": "checks redirect for guest on admin dashboard",
-              "fullTitle": "Manual RBAC Check checks redirect for guest on admin dashboard",
+              "title": "checks redirect for guest on admin home",
+              "fullTitle": "Manual RBAC Check checks redirect for guest on admin home",
               "timedOut": null,
               "duration": 1762,
               "state": "passed",
@@ -45,7 +45,7 @@
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "cy.logout();\ncy.visit(\"https://primecare-admin.pages.dev/dashboard\", { failOnStatusCode: false });\ncy.url().should(\"include\", \"/login\");",
+              "code": "cy.logout();\ncy.visit(\"https://primecare-admin.pages.dev/home\", { failOnStatusCode: false });\ncy.url().should(\"include\", \"/login\");",
               "err": {},
               "uuid": "2415e527-1b2f-4256-b954-aaa2315523ec",
               "parentUUID": "c8a42306-b951-42cb-8842-b18a25a3e822",

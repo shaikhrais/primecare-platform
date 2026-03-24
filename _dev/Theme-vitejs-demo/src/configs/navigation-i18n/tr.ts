@@ -1,6 +1,6 @@
 const locale = {
 	APPLICATIONS: 'Programlar',
-	DASHBOARDS: 'Kontrol Paneli',
+	HOMES: 'Kontrol Paneli',
 	CALENDAR: 'Takvim',
 	ECOMMERCE: 'E-Ticaret',
 	ACADEMY: 'Akademi',

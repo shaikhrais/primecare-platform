@@ -19154,7 +19154,7 @@ model Tenant {
 
 model Registry {
   id        String   @id @default(uuid())
-  key       String // dot-path key e.g. "ADMIN_DASHBOARD.TITLE"
+  key       String // dot-path key e.g. "ADMIN_HOME.TITLE"
   value     String // the actual text/content value
   category  String // content, api, route, theme, button, interaction
   section   String? // grouping: e.g. "homes", "nav", "operations"
@@ -28050,7 +28050,7 @@ model Tenant {
 
 model Registry {
   id        String   @id @default(uuid())
-  key       String // dot-path key e.g. "ADMIN_DASHBOARD.TITLE"
+  key       String // dot-path key e.g. "ADMIN_HOME.TITLE"
   value     String // the actual text/content value
   category  String // content, api, route, theme, button, interaction
   section   String? // grouping: e.g. "homes", "nav", "operations"
@@ -36341,9 +36341,9 @@ var init_ApiRegistry = __esm({
     init_performance2();
     TENANCY = {
       MANAGER: {
-        DASHBOARD_KPI: "/v1/manager/home/kpi",
-        DASHBOARD_TODAY: "/v1/manager/home/today",
-        DASHBOARD_STATS: "/v1/manager/home/stats",
+        HOME_KPI: "/v1/manager/home/kpi",
+        HOME_TODAY: "/v1/manager/home/today",
+        HOME_STATS: "/v1/manager/home/stats",
         PERFORMANCE: "/v1/manager/performance/rankings",
         FINANCE: "/v1/manager/finance/pl",
         PAYROLL_AUDIT: "/v1/manager/finance/payroll-audit",
@@ -36364,7 +36364,7 @@ var init_ApiRegistry = __esm({
         BOOKING_REQUESTS: "/v1/client/bookings/requests",
         INVOICES: "/v1/client/invoices",
         SERVICES: "/v1/client/services",
-        DASHBOARD_STATS: "/v1/client/home/stats",
+        HOME_STATS: "/v1/client/home/stats",
         CATALOG: "/v1/client/services/catalog",
         SUPPORT: "/v1/client/support/nursing-chat",
         CARE_TEAM: "/v1/client/team/roster",
@@ -36383,7 +36383,7 @@ var init_ApiRegistry = __esm({
         WELLNESS_PULSE: "/v1/psw/wellness/pulse",
         PAYOUT_HISTORY: "/v1/psw/payouts/history",
         DAILY_ENTRY_SUBMIT: "/v1/psw/daily-entry",
-        DASHBOARD_STATS: "/v1/psw/home/stats",
+        HOME_STATS: "/v1/psw/home/stats",
         CREDENTIALS: "/v1/psw/credentials/vault",
         OFFERS: "/v1/psw/schedule/offers",
         OFFER_ACCEPT: /* @__PURE__ */ __name((id) => `/v1/psw/schedule/offers/${id}/accept`, "OFFER_ACCEPT"),
@@ -36392,7 +36392,7 @@ var init_ApiRegistry = __esm({
         INCIDENT_REPORT: "/v1/psw/incident/report"
       },
       RN: {
-        DASHBOARD_STATS: "/v1/rn/home/stats",
+        HOME_STATS: "/v1/rn/home/stats",
         CARE_PLANS: "/v1/rn/clinical/care-plans",
         CARE_PLAN_REVIEW: /* @__PURE__ */ __name((id) => `/v1/rn/clinical/care-plans/${id}/review`, "CARE_PLAN_REVIEW"),
         DAILY_AUDIT_LIST: "/v1/rn/clinical/audit/list",
@@ -36408,7 +36408,7 @@ var init_ApiRegistry = __esm({
       STAFF: {
         CUSTOMERS: "/v1/staff/customers",
         TICKETS: "/v1/staff/tickets",
-        DASHBOARD_STATS: "/v1/staff/home/stats",
+        HOME_STATS: "/v1/staff/home/stats",
         TASKS: "/v1/staff/tasks/grid",
         MESSAGES: "/v1/staff/messages/hub",
         INCIDENT_SUBMIT: "/v1/staff/ops/incidents/submit",
@@ -36423,7 +36423,7 @@ var init_ApiRegistry = __esm({
         SOS_ACK: "/v1/coordinator/incident/ack",
         SOS_INCIDENTS: "/v1/coordinator/incidents",
         SOS_DISPATCH: "/v1/coordinator/sos-dispatch",
-        DASHBOARD_STATS: "/v1/coordinator/home/stats",
+        HOME_STATS: "/v1/coordinator/home/stats",
         DISPATCH_MAP: "/v1/coordinator/dispatch-map",
         MATCHING_RUN: "/v1/coordinator/matching/run",
         MASTER_SCHEDULE: "/v1/coordinator/schedule/master",
@@ -36469,7 +36469,7 @@ var init_ApiRegistry = __esm({
           OPTIMIZE_LOGISTICS: "/v1/admin/ops/optimize"
         },
         RESELLER: {
-          DASHBOARD: "/v1/admin/reseller/stats",
+          HOME: "/v1/admin/reseller/stats",
           FRANCHISES: "/v1/admin/reseller/franchises",
           PROVISION: "/v1/admin/reseller/provision",
           AGREEMENTS: "/v1/admin/reseller/agreements",
@@ -36482,19 +36482,19 @@ var init_ApiRegistry = __esm({
           STOCK_SYNC: "/v1/admin/erp/stock/sync"
         },
         TELEHEALTH: {
-          DASHBOARD: "/v1/admin/telehealth/stats",
+          HOME: "/v1/admin/telehealth/stats",
           SESSIONS: "/v1/admin/telehealth/sessions",
           CREATE_SESSION: "/v1/admin/telehealth/sessions/create",
           VITAL_SIGN_PUSH: "/v1/admin/telehealth/vitals/push"
         },
         RCM: {
-          DASHBOARD: "/v1/admin/rcm/stats",
+          HOME: "/v1/admin/rcm/stats",
           CLAIMS: "/v1/admin/rcm/claims",
           SUBMIT_CLAIM: "/v1/admin/rcm/claims/submit",
           REVENUE_SYNC: "/v1/admin/rcm/revenue/sync"
         },
         PHARMACY: {
-          DASHBOARD: "/v1/admin/pharmacy/stats",
+          HOME: "/v1/admin/pharmacy/stats",
           PRESCRIPTIONS: "/v1/admin/pharmacy/prescriptions",
           ORDER_DRUGS: "/v1/admin/pharmacy/orders",
           MAR_SYNC: "/v1/admin/pharmacy/mar/sync"
@@ -36517,7 +36517,7 @@ var init_ApiRegistry = __esm({
         }
       },
       SCRUM_MASTER: {
-        DASHBOARD: "/v1/scrum-master/stats",
+        HOME: "/v1/scrum-master/stats",
         API_ENDPOINTS: "/v1/scrum-master/endpoints",
         ENV_AUDIT: "/v1/scrum-master/env-audit",
         AUTO_FIX: "/v1/scrum-master/auto-fix",
@@ -36915,7 +36915,7 @@ var init_base = __esm({
         FINANCE_DIRECTOR: "Finance Director"
       },
       MENU: {
-        DASHBOARD: "Home",
+        HOME: "Home",
         USERS: "Users & PSWs",
         SCHEDULE: "Schedule",
         INCIDENTS: "Incidents",
@@ -36954,7 +36954,7 @@ var init_base = __esm({
         MY_EARNINGS: "My Earnings",
         MY_CREDENTIALS: "My Credentials",
         HELP_DESK: "Help Desk",
-        CLINICAL_DASHBOARD: "Clinical Home",
+        CLINICAL_HOME: "Clinical Home",
         ACCOUNTING_INTELLIGENCE: "Accounting Intelligence",
         CLINIENT_ADMISSION: "Clients admission",
         DAILY_ENTRY: "Daily Entry",
@@ -37051,7 +37051,7 @@ var init_homes_finance = __esm({
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
     init_performance2();
     homesFinanceContent = {
-      ACCOUNTING_DASHBOARD: {
+      ACCOUNTING_HOME: {
         TITLE: "Accounting Intelligence",
         SUBTITLE: "Real-time GAAP reporting for PrimeCare Platform.",
         LOADING: "ORCHESTRATING FINANCIAL ENGINE...",
@@ -37137,7 +37137,7 @@ var init_homes = __esm({
     init_performance2();
     init_homes_finance();
     homesContent = {
-      ADMIN_DASHBOARD: {
+      ADMIN_HOME: {
         STATS: {
           TOTAL_USERS: "Total Users",
           NEW_INQUIRIES: "New Inquiries",
@@ -37184,7 +37184,7 @@ var init_homes = __esm({
           ONLINE: /* @__PURE__ */ __name((v) => `\u25CF v${v} Online`, "ONLINE")
         }
       },
-      CLIENT_DASHBOARD: {
+      CLIENT_HOME: {
         TITLE: "My Care Hub",
         SUBTITLE: "Welcome back to your family care portal.",
         BUTTON_REQUEST: "Request New Care",
@@ -37205,7 +37205,7 @@ var init_homes = __esm({
           SUCCESS_MSG: "Thank you for your feedback! It helps us maintain premium care standards."
         }
       },
-      PSW_DASHBOARD: {
+      PSW_HOME: {
         TITLE: "Caregiver Command Center",
         SUBTITLE: "Manage your active visits, earnings, and professional profile.",
         BUTTON_FULL_SCHEDULE: "View Full Schedule",
@@ -37218,7 +37218,7 @@ var init_homes = __esm({
         },
         MESSAGES: { LOADING: "Synchronizing Command Center..." }
       },
-      RN_DASHBOARD: {
+      RN_HOME: {
         TITLE: "Clinical Home",
         SUBTITLE: "Branch-wide clinical overview and task triage.",
         MESSAGES: { LOADING: "Synchronizing Clinical Center..." },
@@ -37234,7 +37234,7 @@ var init_homes = __esm({
           RESOLVE_BTN: "Resolve"
         }
       },
-      STAFF_DASHBOARD: {
+      STAFF_HOME: {
         TITLE_BRANCH: "Branch Coordination Hub",
         TITLE_NETWORK: "Network Coordination Hub",
         SUBTITLE: "Daily Schedule & Compliance",
@@ -37260,7 +37260,7 @@ var init_homes = __esm({
           FEEDBACK_BTN: "Support"
         }
       },
-      MANAGER_DASHBOARD: {
+      MANAGER_HOME: {
         TITLE: "Branch Home",
         SUBTITLE: "Local agency operational overview",
         QUICK_ACTIONS: "Quick Actions",
@@ -37281,7 +37281,7 @@ var init_homes = __esm({
         PERSPECTIVES: ["Operations", "Clinical", "Marketing", "Recruiting", "Finance"],
         MESSAGES: { LOADING: "Loading Home..." }
       },
-      PLATFORM_DASHBOARD: {
+      PLATFORM_HOME: {
         TITLE: "Platform Command Center",
         SUBTITLE: "Fractal SaaS Network Overview",
         MESSAGES: { LOADING: "Loading Global Stats..." },
@@ -37299,7 +37299,7 @@ var init_homes = __esm({
           DESC: "No critical compliance threats detected across Master or Sub-Agencies."
         }
       },
-      SUMMARY_DASHBOARD: {
+      SUMMARY_HOME: {
         TITLE: "Registry Intelligence Home",
         SUBTITLE: "Real-time platform summaries, KPIs, and registry-driven insights.",
         HEADER: { CONTEXT: "Context", LAST_UPDATED: "Last Synchronized", SYNC_NOW: "Sync Orbit" },
@@ -38633,7 +38633,7 @@ var init_scrum_master = __esm({
         TITLE: "APIs",
         SUBTITLE: "Endpoint health and latency tracking."
       },
-      DASHBOARD: {
+      HOME: {
         TITLE: "Scrum Master Home",
         SUBTITLE: "Engineering oversight and platform integrity metrics."
       },
@@ -38789,7 +38789,7 @@ var init_nav = __esm({
           PL: "Branch Profit & Loss",
           OPS_TRIAGE: "Operations Triage",
           COMPLIANCE: "Compliance Monitor",
-          DASHBOARD: "Branch Home",
+          HOME: "Branch Home",
           AGENCY_HUB: "Agency Operations Hub",
           FINANCIALS: "Branch Financials",
           TEAM: "Branch Team"
@@ -39028,7 +39028,7 @@ var init_RouteRegistry = __esm({
     init_performance2();
     TENANCY2 = {
       MANAGER: {
-        DASHBOARD: "/tenancy/manager",
+        HOME: "/tenancy/manager",
         MARKETING: "/tenancy/manager/marketing",
         OPERATIONS: "/tenancy/manager/operations",
         CLINICAL: "/tenancy/manager/clinical",
@@ -39047,7 +39047,7 @@ var init_RouteRegistry = __esm({
         PORTFOLIO: "/tenancy/manager/portfolio"
       },
       STAFF: {
-        DASHBOARD: "/tenancy/staff",
+        HOME: "/tenancy/staff",
         CUSTOMERS: "/tenancy/staff/customers",
         TASKS: "/tenancy/staff/tasks",
         MESSAGES: "/tenancy/staff/messages",
@@ -39055,7 +39055,7 @@ var init_RouteRegistry = __esm({
         COMPLIANCE: "/tenancy/staff/compliance"
       },
       PSW: {
-        DASHBOARD: "/tenancy/psw",
+        HOME: "/tenancy/psw",
         SCHEDULE: "/tenancy/psw/schedule",
         OPEN_SHIFTS: "/tenancy/psw/open-shifts",
         OFFERS: "/tenancy/psw/offers",
@@ -39071,7 +39071,7 @@ var init_RouteRegistry = __esm({
         HANDOVER: "/tenancy/psw/handover"
       },
       RN: {
-        DASHBOARD: "/tenancy/rn",
+        HOME: "/tenancy/rn",
         CARE_PLANS: "/tenancy/rn/care-plans",
         DAILY_AUDIT: "/tenancy/rn/entry-verify",
         SUPERVISION: "/tenancy/rn/supervision",
@@ -39080,7 +39080,7 @@ var init_RouteRegistry = __esm({
         RECONCILIATION: "/tenancy/rn/reconciliation"
       },
       COORDINATOR: {
-        DASHBOARD: "/tenancy/coordinator",
+        HOME: "/tenancy/coordinator",
         HUB: "/tenancy/coordinator/hub",
         MAP: "/tenancy/coordinator/dispatch-map",
         WAITLIST: "/tenancy/coordinator/waitlist",
@@ -39089,7 +39089,7 @@ var init_RouteRegistry = __esm({
         SOS_HUB: "/coordinator/sos"
       },
       CLIENT: {
-        DASHBOARD: "/tenancy/client",
+        HOME: "/tenancy/client",
         BOOKINGS: "/tenancy/client/bookings",
         BILLING: "/tenancy/client/billing",
         FEEDBACK: "/tenancy/client/feedback",
@@ -39101,7 +39101,7 @@ var init_RouteRegistry = __esm({
         FAMILY_HUB: "/tenancy/client/family-hub"
       },
       ALLIED: {
-        DASHBOARD: "/tenancy/allied-health",
+        HOME: "/tenancy/allied-health",
         TREATMENTS: "/tenancy/allied-health/treatments",
         SIGN_OFF: "/tenancy/allied-health/sign-off"
       },
@@ -39109,8 +39109,8 @@ var init_RouteRegistry = __esm({
     };
     PLATFORM2 = {
       ADMIN: {
-        DASHBOARD: "/platform/admin",
-        SUMMARY_DASHBOARD: "/platform/admin/summary-home",
+        HOME: "/platform/admin",
+        SUMMARY_HOME: "/platform/admin/summary-home",
         CUSTOMERS: "/platform/admin/customers",
         USERS: "/platform/admin/users",
         USERS_NEW: "/platform/admin/users/new",
@@ -39157,14 +39157,14 @@ var init_RouteRegistry = __esm({
         PRIVATE_MARKETPLACE: "/platform/admin/private-marketplace",
         // New Intelligence & Security Layer
         AI: {
-          DASHBOARD: "/platform/admin/ai",
+          HOME: "/platform/admin/ai",
           PREDICTIVE_ANALYTICS: "/platform/admin/ai/predictive",
           CHURN_RISK: "/platform/admin/ai/churn-risk",
           VISIT_OPTIMIZATION: "/platform/admin/ai/visit-optimization",
           SENTIMENT_ANALYSIS: "/platform/admin/ai/sentiment"
         },
         SECURITY: {
-          DASHBOARD: "/platform/admin/security",
+          HOME: "/platform/admin/security",
           PERMISSION_GRID: "/platform/admin/security/permissions",
           AUDIT_DETAIL: /* @__PURE__ */ __name((id) => `/platform/admin/security/audits/${id}`, "AUDIT_DETAIL"),
           SESSION_MONITOR: "/platform/admin/security/sessions",
@@ -39200,14 +39200,14 @@ var init_RouteRegistry = __esm({
           MAR: "/platform/admin/pharmacy/mar"
         },
         FINANCE: {
-          DASHBOARD: "/platform/admin/finance/home",
+          HOME: "/platform/admin/finance/home",
           TRADING_ACCOUNT: "/platform/admin/finance/trading",
           PROFIT_LOSS: "/platform/admin/finance/p-and-l",
           BALANCE_SHEET: "/platform/admin/finance/balance-sheet"
         }
       },
       SUPERUSER: {
-        DASHBOARD: "/platform",
+        HOME: "/platform",
         TENANTS: "/platform/tenants",
         AUDIT_LOGS: "/platform/audit-logs",
         SLA: "/platform/sla",
@@ -39216,7 +39216,7 @@ var init_RouteRegistry = __esm({
         SYSTEM_POLICIES: "/platform/policies"
       },
       SCRUM_MASTER: {
-        DASHBOARD: "/platform/scrum-master",
+        HOME: "/platform/scrum-master",
         API_ENDPOINTS: "/platform/scrum-master/api-endpoints",
         PAGES: "/platform/scrum-master/pages",
         COMPONENTS: "/platform/scrum-master/components",
@@ -39276,31 +39276,31 @@ var init_RouteRegistry = __esm({
       ALLIED: TENANCY2.ALLIED,
       CARE_PLANS: TENANCY2.CARE_PLANS,
       SCRUM_MASTER: PLATFORM2.SCRUM_MASTER,
-      ROLE_DASHBOARDS: {
-        admin: PLATFORM2.ADMIN.DASHBOARD,
-        reseller: PLATFORM2.ADMIN.DASHBOARD,
-        manager: TENANCY2.MANAGER.DASHBOARD,
+      ROLE_HOMES: {
+        admin: PLATFORM2.ADMIN.HOME,
+        reseller: PLATFORM2.ADMIN.HOME,
+        manager: TENANCY2.MANAGER.HOME,
         marketing_manager: TENANCY2.MANAGER.MARKETING,
         operations_manager: TENANCY2.MANAGER.OPERATIONS,
         clinical_manager: TENANCY2.MANAGER.CLINICAL,
         regional_manager: TENANCY2.MANAGER.REGIONAL_STATS,
         recruiting_manager: TENANCY2.MANAGER.RECRUITING,
-        coordinator: TENANCY2.COORDINATOR.DASHBOARD,
-        crm: TENANCY2.MANAGER.DASHBOARD,
+        coordinator: TENANCY2.COORDINATOR.HOME,
+        crm: TENANCY2.MANAGER.HOME,
         training: TENANCY2.MANAGER.TRAINING,
-        staff: TENANCY2.STAFF.DASHBOARD,
-        finance: TENANCY2.STAFF.DASHBOARD,
-        hr: TENANCY2.STAFF.DASHBOARD,
-        compliance: TENANCY2.STAFF.DASHBOARD,
-        rn: TENANCY2.RN.DASHBOARD,
-        psw: TENANCY2.PSW.DASHBOARD,
-        rmt: TENANCY2.ALLIED.DASHBOARD,
-        rpt: TENANCY2.ALLIED.DASHBOARD,
-        rch: TENANCY2.ALLIED.DASHBOARD,
-        client: TENANCY2.CLIENT.DASHBOARD,
-        super_admin: PLATFORM2.SUPERUSER.DASHBOARD,
-        scrum_master: PLATFORM2.SCRUM_MASTER.DASHBOARD,
-        finance_director: PLATFORM2.ADMIN.FINANCE.DASHBOARD
+        staff: TENANCY2.STAFF.HOME,
+        finance: TENANCY2.STAFF.HOME,
+        hr: TENANCY2.STAFF.HOME,
+        compliance: TENANCY2.STAFF.HOME,
+        rn: TENANCY2.RN.HOME,
+        psw: TENANCY2.PSW.HOME,
+        rmt: TENANCY2.ALLIED.HOME,
+        rpt: TENANCY2.ALLIED.HOME,
+        rch: TENANCY2.ALLIED.HOME,
+        client: TENANCY2.CLIENT.HOME,
+        super_admin: PLATFORM2.SUPERUSER.HOME,
+        scrum_master: PLATFORM2.SCRUM_MASTER.HOME,
+        finance_director: PLATFORM2.ADMIN.FINANCE.HOME
       },
       ROLE_EDITOR: PLATFORM2.ADMIN.ROLE_EDITOR,
       LOCATIONS: PLATFORM2.ADMIN.LOCATIONS,
@@ -39394,7 +39394,7 @@ var init_InteractionRegistry = __esm({
         }
       },
       MARKETING: {
-        DASHBOARD: {
+        HOME: {
           NEW_CAMPAIGN: {
             id: "mkt-campaign-new",
             label: "New Campaign",
@@ -39460,7 +39460,7 @@ var init_InteractionRegistry = __esm({
         }
       },
       FINANCE_DIRECTOR: {
-        DASHBOARD: {
+        HOME: {
           REFRESH: {
             id: "fd-home-refresh",
             label: "Refresh Ledger",
@@ -39526,7 +39526,7 @@ var init_InteractionRegistry = __esm({
         }
       },
       QA: {
-        DASHBOARD: {
+        HOME: {
           SAFETY_REPORT: {
             id: "qa-safety-report",
             label: "Safety Report",
@@ -39715,7 +39715,7 @@ var init_InteractiveElementRegistry = __esm({
       { id: "mgr-perf-rank", category: "navigation", label: "Performance Ranker", path: RouteRegistry.MANAGER.PERFORMANCE, role: "manager", module: "MANAGER", checkType: "ROUTE" },
       { id: "mgr-payroll-audit", category: "action", label: "Audit Payroll", path: "/v1/manager/finance/payroll-audit", role: "manager", module: "MANAGER", checkType: "API" },
       { id: "coord-sos-dispatch", category: "action", label: "SOS Dispatch", path: "/v1/manager/coordinator/sos-dispatch", role: "coordinator", module: "OPERATIONS", checkType: "API" },
-      { id: "coord-live-pulse", category: "navigation", label: "Live Monitoring", path: RouteRegistry.COORDINATOR.DASHBOARD, role: "coordinator", module: "OPERATIONS", checkType: "ROUTE" },
+      { id: "coord-live-pulse", category: "navigation", label: "Live Monitoring", path: RouteRegistry.COORDINATOR.HOME, role: "coordinator", module: "OPERATIONS", checkType: "ROUTE" },
       // --- CLINICAL (RN & PSW) ---
       { id: "rn-care-plan-rev", category: "action", label: "Review Care Plan", path: "/v1/rn/clinical/care-plans/review", role: "rn", module: "CLINICAL", checkType: "API" },
       { id: "rn-entry-verify", category: "action", label: "Verify Entry", path: "/v1/rn/clinical/audit/entries/verify", role: "rn", module: "CLINICAL", checkType: "API" },
@@ -39731,7 +39731,7 @@ var init_InteractiveElementRegistry = __esm({
       { id: "mkt-campaign-launch", category: "action", label: "Launch Campaign", path: "/v1/admin/marketing/campaigns", role: "marketing_manager", module: "MARKETING", checkType: "API" },
       { id: "hr-recruitment-post", category: "action", label: "Post Job", path: RouteRegistry.MANAGER.RECRUITING, role: "recruiting_manager", module: "HR", checkType: "ROUTE" },
       { id: "fin-regional-pl", category: "navigation", label: "Regional P&L", path: RouteRegistry.MANAGER.FINANCE, role: "finance_manager", module: "FINANCE", checkType: "ROUTE" },
-      { id: "fin-dir-dash", category: "navigation", label: "Financial Intelligence", path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, role: "finance_director", module: "FINANCE", checkType: "ROUTE" },
+      { id: "fin-dir-dash", category: "navigation", label: "Financial Intelligence", path: RouteRegistry.ADMIN.FINANCE.HOME, role: "finance_director", module: "FINANCE", checkType: "ROUTE" },
       { id: "fin-dir-ledger", category: "navigation", label: "Ledger Audit", path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, role: "finance_director", module: "FINANCE", checkType: "ROUTE" },
       { id: "qa-safety-sweep", category: "action", label: "QA Sweep", path: RouteRegistry.MANAGER.CLINICAL, role: "clinical_manager", module: "QA", checkType: "ROUTE" }
     ];
@@ -39877,7 +39877,7 @@ var init_ButtonRegistry = __esm({
 });
 
 // ../../packages/shared/src/registries/LinkRegistry.ts
-var LINKS, ACCOUNTING_DASHBOARD, LinkRegistry;
+var LINKS, ACCOUNTING_HOME, LinkRegistry;
 var init_LinkRegistry = __esm({
   "../../packages/shared/src/registries/LinkRegistry.ts"() {
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
@@ -39885,7 +39885,7 @@ var init_LinkRegistry = __esm({
     init_performance2();
     init_RouteRegistry();
     init_ContentRegistry();
-    ({ LINKS, ACCOUNTING_DASHBOARD } = ContentRegistry);
+    ({ LINKS, ACCOUNTING_HOME } = ContentRegistry);
     LinkRegistry = [
       { id: "lnk-admin-audit-logs", label: LINKS.ADMIN.AUDITS, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.AUDITS, description: "Direct access to platform-wide security logs." },
       { id: "lnk-admin-users", label: LINKS.ADMIN.USERS, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.USERS, description: "Global user directory and access control." },
@@ -39970,14 +39970,14 @@ var init_LinkRegistry = __esm({
       // Batch 26: Regional Director Mastery
       { id: "lnk-rd-regional", label: LINKS.REGIONAL.INTELLIGENCE, role: "regional_manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.REGIONAL_STATS, description: "High-level regional operational KPIs and radar." },
       { id: "lnk-rd-finance", label: LINKS.REGIONAL.FINANCE, role: "regional_manager", module: "FINANCE", path: RouteRegistry.MANAGER.FINANCE, description: "Consolidated regional financial governance and P&L." },
-      { id: "lnk-mgr-home", label: LINKS.MANAGER.DASHBOARD, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.DASHBOARD, description: "Daily operational overview for branch managers." },
+      { id: "lnk-mgr-home", label: LINKS.MANAGER.HOME, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.HOME, description: "Daily operational overview for branch managers." },
       { id: "lnk-mgr-ops-hub", label: LINKS.MANAGER.AGENCY_HUB, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.OPERATIONS, description: "Centralized hub for branch-wide coordination and triage." },
       { id: "lnk-mgr-finance", label: LINKS.MANAGER.FINANCIALS, role: "manager", module: "FINANCE", path: RouteRegistry.MANAGER.FINANCE, description: "Branch-level billing, invoices, and financial performance." },
       { id: "lnk-mgr-team", label: LINKS.MANAGER.TEAM, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.TEAM, description: "Management of branch staff profiles and performance." },
       { id: "lnk-coord-master-schedule", label: LINKS.COORDINATOR.MASTER_SCHEDULE, role: "coordinator", module: "OPERATIONS", path: RouteRegistry.COORDINATOR.SCHEDULE, description: "Unified master schedule for branch-wide shift oversight." },
       { id: "lnk-psw-availability-my", label: LINKS.PSW.MY_AVAILABILITY, role: "psw", module: "CARE_DELIVERY", path: RouteRegistry.PSW.AVAILABILITY, description: "Manage your weekly availability and service areas." },
       // Finance Director
-      { id: "lnk-fd-home", label: ACCOUNTING_DASHBOARD.TITLE, role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: "High-level financial intelligence and real-time ledger oversight." },
+      { id: "lnk-fd-home", label: ACCOUNTING_HOME.TITLE, role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.FINANCE.HOME, description: "High-level financial intelligence and real-time ledger oversight." },
       { id: "lnk-fd-ledger", label: "Financial Ledger", role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: "Forensic audit trail and immutable ledger verification." },
       { id: "lnk-fd-tax-hub", label: "Tax Compliance Hub", role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: "Periodic HST/GST filing and automated remittance processing." }
     ];
@@ -40298,7 +40298,7 @@ var init_content = __esm({
         BUTTON_PSW: "Sign In as Caregiver",
         BUTTON_CLIENT: "Sign In to Family Hub"
       },
-      DASHBOARD: {
+      HOME: {
         TITLE: "Overview",
         STATS: {
           USERS: "Total Users",
@@ -40308,7 +40308,7 @@ var init_content = __esm({
       },
       MENU: {
         ...ContentRegistry.MENU,
-        DASHBOARD: "Home",
+        HOME: "Home",
         USERS: "Users",
         SCHEDULE: "Schedule",
         INCIDENTS: "Incidents",
@@ -49190,7 +49190,7 @@ var PSW_METADATA = {
       description: "Report an incident that occurred during or after a visit.",
       tags: ["PSW Incidents"]
     },
-    DASHBOARD_STATS: {
+    HOME_STATS: {
       summary: "Get PSW Home Statistics",
       description: "Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.",
       tags: ["PSW Home"]
@@ -49295,7 +49295,7 @@ var STAFF_METADATA = {
     description: "Allows staff to create a new visit (open shift) for a client.",
     tags: ["Staff Scheduling"]
   },
-  DASHBOARD_STATS: {
+  HOME_STATS: {
     summary: "Get Staff Home Statistics",
     description: "Retrieve various operational statistics for the staff coordinator home.",
     tags: ["Staff Home"]
@@ -49327,7 +49327,7 @@ var RN_METADATA = {
     description: "Retrieve performance, logs, and incident overview for a specific PSW for supervision purposes.",
     tags: ["RN Supervision"]
   },
-  DASHBOARD_STATS: {
+  HOME_STATS: {
     summary: "Get RN Home Statistics",
     description: "Retrieve various clinical and operational statistics for the RN home.",
     tags: ["RN Home"]
@@ -49471,7 +49471,7 @@ var COORDINATOR_METADATA = {
     description: "Record an acknowledgement for a high-priority SOS emergency alert.",
     tags: ["Coordinator Logistics"]
   },
-  DASHBOARD_STATS: {
+  HOME_STATS: {
     summary: "Get Coordinator Home Statistics",
     description: "Retrieve operational statistics for the coordinator dispatcher hub.",
     tags: ["Coordinator Home"]
@@ -57784,7 +57784,7 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 var r35 = new OpenAPIHono();
 var getStaffStatsRoute = createRoute({
-  ...ROUTE_METADATA.STAFF.DASHBOARD_STATS,
+  ...ROUTE_METADATA.STAFF.HOME_STATS,
   method: "get",
   path: "/stats",
   middleware: [requireRole(["staff", "admin"])],
@@ -58662,7 +58662,7 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 var r44 = new OpenAPIHono();
 var getHomeStatsRoute = createRoute({
-  ...ROUTE_METADATA.PSW_EXTRA.DASHBOARD_STATS,
+  ...ROUTE_METADATA.PSW_EXTRA.HOME_STATS,
   method: "get",
   path: "/stats",
   middleware: [requireRole(["psw"])],
@@ -60601,7 +60601,7 @@ var sosAckRoute = createRoute({
   }
 });
 var homeStatsRoute = createRoute({
-  ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
+  ...ROUTE_METADATA.COORDINATOR.HOME_STATS,
   method: "get",
   path: "/home/stats",
   middleware: [requirePermission("COORDINATOR_DISPATCH")],

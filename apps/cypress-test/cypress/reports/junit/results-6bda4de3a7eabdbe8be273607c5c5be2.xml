@@ -11,7 +11,7 @@
       <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
     at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:6:0)]]></failure>
     </testcase>
-    <testcase name="Accessibility &amp; Health Micro-tests Page Health: /dashboard loads without severe errors" time="0.170" classname="Page Health: /dashboard loads without severe errors">
+    <testcase name="Accessibility &amp; Health Micro-tests Page Health: /home loads without severe errors" time="0.170" classname="Page Health: /home loads without severe errors">
       <failure message="cy.visitAppRoute is not a function" type="TypeError"><![CDATA[TypeError: cy.visitAppRoute is not a function
     at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/00_smoke/health.cy.ts:6:0)]]></failure>
     </testcase>

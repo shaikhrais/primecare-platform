@@ -45,7 +45,7 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.loginAs(\"staff\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n// Trigger multiple actions that might cause toasts (simulated via events or just checking existence)\n// For testing purposes, we assume certain clicks trigger toasts\n// Mock a success toast trigger via internal notify event if possible, \n// or just verify single toast behavior on a known action (like login or status change)\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/leads\");\ncy.getByCy(\"btn-lead-contacted\").first().click();\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"updated successfully\");\n// Success state usually auto-dismisses after 5s\ncy.getByCy(\"toast\", { timeout: 6000 }).should(\"not.exist\");",
+              "code": "cy.loginAs(\"staff\");\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/home\");\n// Trigger multiple actions that might cause toasts (simulated via events or just checking existence)\n// For testing purposes, we assume certain clicks trigger toasts\n// Mock a success toast trigger via internal notify event if possible, \n// or just verify single toast behavior on a known action (like login or status change)\ncy.visitRoute(\"ADMIN_BASE_URL\", \"/leads\");\ncy.getByCy(\"btn-lead-contacted\").first().click();\ncy.getByCy(\"toast\").should(\"be.visible\").and(\"contain\", \"updated successfully\");\n// Success state usually auto-dismisses after 5s\ncy.getByCy(\"toast\", { timeout: 6000 }).should(\"not.exist\");",
               "err": {
                 "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-lead-contacted\"]`, but never found it.",
                 "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-lead-contacted\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/selectors.ts:16:0)",
@@ -67,7 +67,7 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "var roles = [\"staff\", \"manager\", \"psw\"];\nroles.forEach(function (role) {\n    cy.loginAs(role);\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/dashboard\");\n    if (role === \"staff\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"exist\");\n    }\n    else if (role === \"psw\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"not.exist\");\n    }\n    cy.logout();\n});",
+              "code": "var roles = [\"staff\", \"manager\", \"psw\"];\nroles.forEach(function (role) {\n    cy.loginAs(role);\n    cy.visitRoute(\"ADMIN_BASE_URL\", \"/home\");\n    if (role === \"staff\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"exist\");\n    }\n    else if (role === \"psw\") {\n        cy.getByCy(\"btn-quick-add-user\").should(\"not.exist\");\n    }\n    cy.logout();\n});",
               "err": {
                 "message": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-quick-add-user\"]`, but never found it.",
                 "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find element: `[data-cy=\"btn-quick-add-user\"]`, but never found it.\n    at eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/global-components.cy.ts:26:0)\nat Array.forEach (<anonymous>)\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/e2e/40_features/global-components.cy.ts:22:0)",

@@ -45,10 +45,10 @@
               "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.step(\"Open Manager Login\");\ncy.visit(\"/login\");\ncy.waitForPageReady();\ncy.step(\"Enter Credentials\");\ncy.clearAndTypeByCy(manager_cy_1.MGR.loginEmail, \"manager@example.com\"); // Replace with env if needed\ncy.clearAndTypeByCy(manager_cy_1.MGR.loginPassword, \"password\");\ncy.clickByCy(manager_cy_1.MGR.loginSubmit);\ncy.step(\"Verify Dashboard\");\ncy.waitForByCy(manager_cy_1.MGR.dashboard);\ncy.shouldSeeByCy(manager_cy_1.MGR.qaDailyEntry);",
+              "code": "cy.step(\"Open Manager Login\");\ncy.visit(\"/login\");\ncy.waitForPageReady();\ncy.step(\"Enter Credentials\");\ncy.clearAndTypeByCy(manager_cy_1.MGR.loginEmail, \"manager@example.com\"); // Replace with env if needed\ncy.clearAndTypeByCy(manager_cy_1.MGR.loginPassword, \"password\");\ncy.clickByCy(manager_cy_1.MGR.loginSubmit);\ncy.step(\"Verify Home\");\ncy.waitForByCy(manager_cy_1.MGR.home);\ncy.shouldSeeByCy(manager_cy_1.MGR.qaDailyEntry);",
               "err": {
-                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.",
-                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-dashboard\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
+                "message": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-home\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy=\"mgr-home\"]`, but never found it.\n    at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)",
                 "diff": null
               },
               "uuid": "b8a481ae-d028-4a25-98d8-da986a31de7a",

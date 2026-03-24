@@ -91,7 +91,7 @@ describe('Permission System', () => {
 
     it('can() returns false for nonexistent role', async () => {
         const { can } = await import('prime-care-shared');
-        expect(can('fake_role' as any, 'VIEW_DASHBOARD' as any)).toBe(false);
+        expect(can('fake_role' as any, 'VIEW_HOME' as any)).toBe(false);
     });
 });
 

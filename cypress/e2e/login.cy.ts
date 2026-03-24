@@ -24,7 +24,7 @@ describe('Login Flow', () => {
         cy.get('[data-cy="toast-error"]', { timeout: 5000 }).should('be.visible');
     });
 
-    it('redirects to dashboard on valid login', () => {
+    it('redirects to home on valid login', () => {
         cy.get('[data-cy*="inp-email"]').type(Cypress.env('TEST_EMAIL') || 'admin@primecare.ca');
         cy.get('[data-cy*="inp-password"]').type(Cypress.env('TEST_PASSWORD') || 'AdminPass1!');
         cy.get('[data-cy*="btn-submit"]').click();

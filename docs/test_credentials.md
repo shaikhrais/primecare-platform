@@ -58,7 +58,7 @@
 **Step 3. The Absolute "First Move" (Phase 70 Execution)**
 When the PrimeCare App launches on your screen, you must execute the exact sequence the Diagnostic Radar demands:
 1. Log in strictly as `founder@primecare.com`.
-2. The AI Advisor will detect 0 Franchises physically mapped in Prisma. It will block you from seeing the heavy dashboards.
+2. The AI Advisor will detect 0 Franchises physically mapped in Prisma. It will block you from seeing the heavy homes.
 3. You must execute your absolute First Turn: creating your Sub-Franchise. Follow the on-screen Master Setup Wizard to map your geographical perimeter physically.
 
 **Step 4. The Logistics Validation**

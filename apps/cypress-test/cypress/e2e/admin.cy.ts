@@ -3,8 +3,8 @@ describe('Admin Role E2E', () => {
         cy.loginAs('admin');
     });
 
-    it('should view the admin dashboard', () => {
-        cy.visit('/platform/admin/dashboard');
+    it('should view the admin home', () => {
+        cy.visit('/platform/admin/home');
         cy.contains('Platform Growth').should('be.visible');
     });
 

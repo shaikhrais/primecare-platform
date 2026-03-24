@@ -11,8 +11,8 @@ declare global {
 }
 
 Cypress.Commands.add("interceptManagerCore", () => {
-    cy.intercept("GET", "**/manager/dashboard/**").as("getDashboard");
-    cy.intercept("GET", "**/manager/dashboard/today").as("getShifts");
+    cy.intercept("GET", "**/manager/home/**").as("getHome");
+    cy.intercept("GET", "**/manager/home/today").as("getShifts");
     cy.intercept("POST", "**/daily-entry**").as("postDailyEntry");
 });
 

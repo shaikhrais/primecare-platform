@@ -4,11 +4,11 @@
   </testsuite>
   <testsuite name="[REGRESSION] Manager Daily Entry Flow" timestamp="2026-02-10T15:13:38" tests="1" time="23.170" failures="1">
     <testcase name="[REGRESSION] Manager Daily Entry Flow &quot;before each&quot; hook for &quot;creates daily entry via Quick Actions&quot;" time="7.480" classname="&quot;before each&quot; hook for &quot;creates daily entry via Quick Actions&quot;">
-      <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashboard`. No request ever occurred.
+      <failure message="Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getHome`. No request ever occurred.
 
 https://on.cypress.io/wait
 
-Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `[REGRESSION] Manager Daily ...`" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getDashboard`. No request ever occurred.
+Because this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `[REGRESSION] Manager Daily ...`" type="CypressError"><![CDATA[CypressError: Timed out retrying after 5000ms: `cy.wait()` timed out waiting `5000ms` for the 1st request to the route: `getHome`. No request ever occurred.
 
 https://on.cypress.io/wait
 

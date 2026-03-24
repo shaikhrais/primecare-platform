@@ -78,7 +78,7 @@ const IndexRedirect: React.FC = () => {
     if (!user) return <Navigate to={RouteRegistry.LOGIN} replace />;
 
     const role = user.activeRole || (user.roles && user.roles[0]) || 'client';
-    const target = RouteRegistry.ROLE_DASHBOARDS[role.toLowerCase()] || RouteRegistry.ADMIN.DASHBOARD;
+    const target = RouteRegistry.ROLE_HOMES[role.toLowerCase()] || RouteRegistry.ADMIN.HOME;
     return <Navigate to={target} replace />;
 };
 

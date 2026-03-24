@@ -4,7 +4,7 @@
   </testsuite>
   <testsuite name="[SMOKE] Manager Login" timestamp="2026-02-10T15:23:27" tests="1" time="70.493" failures="1">
     <testcase name="[SMOKE] Manager Login logs in successfully via UI" time="23.140" classname="logs in successfully via UI">
-      <failure message="Timed out retrying after 20000ms: Expected to find element: `[data-cy=&quot;mgr-dashboard&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy="mgr-dashboard"]`, but never found it.
+      <failure message="Timed out retrying after 20000ms: Expected to find element: `[data-cy=&quot;mgr-home&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 20000ms: Expected to find element: `[data-cy="mgr-home"]`, but never found it.
     at Context.eval (webpack://@primecare/cypress-test/./cypress/support/commands/waits.ts:4:47)]]></failure>
     </testcase>
   </testsuite>

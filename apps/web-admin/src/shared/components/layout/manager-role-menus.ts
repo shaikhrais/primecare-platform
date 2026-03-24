@@ -4,7 +4,7 @@ import { AdminRegistry } from 'prime-care-shared';
 const { RouteRegistry, ContentRegistry } = AdminRegistry;
 
 export const getManagerRoleMenu = (role: string): MenuItem[] => {
-    const commonHome = { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' };
+    const commonHome = { label: ContentRegistry.MENU.HOME, path: RouteRegistry.MANAGER.HOME, icon: '📊' };
 
     switch (role) {
         case 'coordinator':

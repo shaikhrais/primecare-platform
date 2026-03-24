@@ -28,7 +28,7 @@ export default function GroupedMenu() {
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				Dashboard
+				Home
 			</Button>
 			<Menu
 				id="grouped-menu"

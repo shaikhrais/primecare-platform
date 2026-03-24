@@ -3,7 +3,7 @@
   <testsuite name="Root Suite" timestamp="2026-02-11T03:58:39" tests="0" file="cypress\e2e\generated\30_integrity.contracts.cy.ts" time="0.000" failures="0">
   </testsuite>
   <testsuite name="Generated: Structural Integrity" timestamp="2026-02-11T03:58:39" tests="23" time="501.352" failures="8">
-    <testcase name="Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components" time="14.706" classname="[ADMIN_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [ADMIN_HOME] contains all required structural components" time="14.706" classname="[ADMIN_HOME] contains all required structural components">
     </testcase>
     <testcase name="Generated: Structural Integrity [USER_LIST] contains all required structural components" time="9.640" classname="[USER_LIST] contains all required structural components">
     </testcase>
@@ -13,7 +13,7 @@
     </testcase>
     <testcase name="Generated: Structural Integrity [SETTINGS] contains all required structural components" time="12.929" classname="[SETTINGS] contains all required structural components">
     </testcase>
-    <testcase name="Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components" time="7.086" classname="[MANAGER_DASHBOARD] contains all required structural components">
+    <testcase name="Generated: Structural Integrity [MANAGER_HOME] contains all required structural components" time="7.086" classname="[MANAGER_HOME] contains all required structural components">
     </testcase>
     <testcase name="Generated: Structural Integrity [MANAGER_DAILY_ENTRY] contains all required structural components" time="9.516" classname="[MANAGER_DAILY_ENTRY] contains all required structural components">
     </testcase>

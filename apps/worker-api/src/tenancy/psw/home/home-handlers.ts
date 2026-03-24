@@ -23,7 +23,7 @@ export async function handleGetHomeStats(c: any) {
         const hoursLogged = (timesheets.reduce((acc: number, cur: any) => acc + (cur.totalMinutes || 0), 0) / 60) || 0;
         const currentStreak = onTime > 5 ? Math.floor(onTime / 2) : onTime;
         return c.json({ earnings: earningsData, reliability: reliabilityData, shifts: shiftData, attendance: [], hoursLogged: Number(hoursLogged.toFixed(1)), currentStreak }, 200);
-    } catch (err: any) { console.error("DASHBOARD STATS CRASHED:", err); throw err; }
+    } catch (err: any) { console.error("HOME STATS CRASHED:", err); throw err; }
 }
 
 export async function handleRedeemStore(c: any) {

@@ -69,7 +69,7 @@ graph LR
     A[PSW submits Clinical Note] --> B{Anomaly Detected?}
     B -- Yes --> C[System Flags Note]
     B -- No --> D[Archived to Client Record]
-    C --> E[RN Dashboard Alert]
+    C --> E[RN Home Alert]
     E --> F[RN Reviews Incident]
     F --> G[RN Adjusts Care Plan]
     G --> H[New Care Plan sent to Coordinators]

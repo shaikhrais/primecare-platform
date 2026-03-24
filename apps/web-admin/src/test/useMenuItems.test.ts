@@ -13,17 +13,17 @@ const { RouteRegistry, ContentRegistry } = AdminRegistry;
 // Replicate the logic from useMenuItems.ts for unit testing
 // (the hook just wraps this in useMemo)
 function buildMenuItems(role: string) {
-    const DASHBOARD_MAP: Record<string, { label: string; path: string; icon: string }> = {
-        admin:        { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.ADMIN.DASHBOARD, icon: '📊' },
-        psw:          { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.DASHBOARD, icon: '🗓️' },
-        rn:           { label: ContentRegistry.MENU.CLINICAL_DASHBOARD, path: RouteRegistry.RN.DASHBOARD, icon: '🩺' },
-        coordinator:  { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.COORDINATOR.DASHBOARD, icon: '📍' },
-        client:       { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.DASHBOARD, icon: '🏠' },
-        manager:      { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' },
+    const HOME_MAP: Record<string, { label: string; path: string; icon: string }> = {
+        admin:        { label: ContentRegistry.MENU.HOME, path: RouteRegistry.ADMIN.HOME, icon: '📊' },
+        psw:          { label: ContentRegistry.MENU.WORK_SCHEDULE, path: RouteRegistry.PSW.HOME, icon: '🗓️' },
+        rn:           { label: ContentRegistry.MENU.CLINICAL_HOME, path: RouteRegistry.RN.HOME, icon: '🩺' },
+        coordinator:  { label: ContentRegistry.MENU.HOME, path: RouteRegistry.COORDINATOR.HOME, icon: '📍' },
+        client:       { label: ContentRegistry.MENU.CLIENT_HUB, path: RouteRegistry.CLIENT.HOME, icon: '🏠' },
+        manager:      { label: ContentRegistry.MENU.HOME, path: RouteRegistry.MANAGER.HOME, icon: '📊' },
     };
 
     const lowerRole = role.toLowerCase();
-    const home = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
+    const home = HOME_MAP[lowerRole] || HOME_MAP['client'];
     const registryLinks = getLinksForRole(lowerRole);
     const roleLinks = registryLinks.map(link => ({
         label: link.label,
@@ -59,17 +59,17 @@ describe('useMenuItems (sidebar generation)', () => {
     describe('home positioning', () => {
         it('admin menu should start with Home', () => {
             const items = buildMenuItems('admin');
-            expect(items[0].path).toBe(RouteRegistry.ADMIN.DASHBOARD);
+            expect(items[0].path).toBe(RouteRegistry.ADMIN.HOME);
         });
 
         it('psw menu should start with Work Schedule', () => {
             const items = buildMenuItems('psw');
-            expect(items[0].path).toBe(RouteRegistry.PSW.DASHBOARD);
+            expect(items[0].path).toBe(RouteRegistry.PSW.HOME);
         });
 
         it('rn menu should start with Clinical Home', () => {
             const items = buildMenuItems('rn');
-            expect(items[0].path).toBe(RouteRegistry.RN.DASHBOARD);
+            expect(items[0].path).toBe(RouteRegistry.RN.HOME);
         });
     });
 

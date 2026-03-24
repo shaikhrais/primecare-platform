@@ -48,7 +48,7 @@ const baseCoreContent = {
         FINANCE_DIRECTOR: 'Finance Director',
     },
     MENU: {
-        DASHBOARD: 'Home',
+        HOME: 'Home',
         USERS: 'Users & PSWs',
         SCHEDULE: 'Schedule',
         INCIDENTS: 'Incidents',
@@ -87,7 +87,7 @@ const baseCoreContent = {
         MY_EARNINGS: 'My Earnings',
         MY_CREDENTIALS: 'My Credentials',
         HELP_DESK: 'Help Desk',
-        CLINICAL_DASHBOARD: 'Clinical Home',
+        CLINICAL_HOME: 'Clinical Home',
         ACCOUNTING_INTELLIGENCE: 'Accounting Intelligence',
         CLINIENT_ADMISSION: 'Clients admission',
         DAILY_ENTRY: 'Daily Entry',

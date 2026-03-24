@@ -30,6 +30,6 @@ When you (as the Superuser) want a new form, you don't write Dart code. You lite
 3. When the user taps "Submit", the Framework aggregates all the physical inputs into a `Map<String, dynamic>` and POSTs it directly into the Prisma backend.
 
 ### Benefits to the Founder:
-- **Zero Frontend Code:** You can deploy 10,000 different forms across your franchises globally strictly by saving JSON configurations on your Cloudflare dashboard.
+- **Zero Frontend Code:** You can deploy 10,000 different forms across your franchises globally strictly by saving JSON configurations on your Cloudflare home.
 - **Instant Deployments:** Updating a form's physical layout does not require an App Store update. It alters instantly on the user's phone on the next refresh.
 - **Codebase Compression:** We can replace 30 distinct Flutter files with 1 master dynamic file.

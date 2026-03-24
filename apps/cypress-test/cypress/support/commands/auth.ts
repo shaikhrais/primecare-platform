@@ -43,7 +43,7 @@ Cypress.Commands.add("loginAs", (role: Role) => {
         cy.getByCy("inp-password").clear().type(u.password, { log: false });
         cy.getByCy("btn-login").click({ force: true });
 
-        // Wait for transition out of login or appearance of dashboard-grade element
+        // Wait for transition out of login or appearance of home-grade element
         cy.url({ timeout: 15000 }).should("not.include", "/login");
 
         // Final guard to ensure app is interactive

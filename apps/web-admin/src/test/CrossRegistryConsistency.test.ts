@@ -109,7 +109,7 @@ describe('Cross-Registry Consistency', () => {
 
         it('should have ADMIN routes', () => {
             expect(RouteRegistry.ADMIN).toBeDefined();
-            expect(RouteRegistry.ADMIN.DASHBOARD).toBeDefined();
+            expect(RouteRegistry.ADMIN.HOME).toBeDefined();
             expect(RouteRegistry.ADMIN.USERS).toBeDefined();
         });
 

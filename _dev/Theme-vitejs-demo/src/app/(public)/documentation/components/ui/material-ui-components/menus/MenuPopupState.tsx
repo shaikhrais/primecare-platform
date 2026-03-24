@@ -16,7 +16,7 @@ export default function MenuPopupState() {
 						variant="contained"
 						{...bindTrigger(popupState)}
 					>
-						Dashboard
+						Home
 					</Button>
 					<Menu {...bindMenu(popupState)}>
 						<MenuItem onClick={popupState.close}>Profile</MenuItem>

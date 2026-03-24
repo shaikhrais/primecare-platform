@@ -107,8 +107,8 @@
               "skipped": true
             },
             {
-              "title": "02.02.01  RN__Dashboard__PageLoad__SUCCESS",
-              "fullTitle": "RN Mathematical Micro-Steps (Full Suite) 02.02.01  RN__Dashboard__PageLoad__SUCCESS",
+              "title": "02.02.01  RN__Home__PageLoad__SUCCESS",
+              "fullTitle": "RN Mathematical Micro-Steps (Full Suite) 02.02.01  RN__Home__PageLoad__SUCCESS",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",
@@ -125,8 +125,8 @@
               "skipped": true
             },
             {
-              "title": "02.02.02  RN__Dashboard__Stats__VISIBLE",
-              "fullTitle": "RN Mathematical Micro-Steps (Full Suite) 02.02.02  RN__Dashboard__Stats__VISIBLE",
+              "title": "02.02.02  RN__Home__Stats__VISIBLE",
+              "fullTitle": "RN Mathematical Micro-Steps (Full Suite) 02.02.02  RN__Home__Stats__VISIBLE",
               "timedOut": null,
               "duration": 0,
               "state": "skipped",

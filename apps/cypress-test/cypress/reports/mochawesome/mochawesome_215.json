@@ -101,8 +101,8 @@
               "skipped": false
             },
             {
-              "title": "[ADMIN_DASHBOARD] contains all required structural components",
-              "fullTitle": "Generated: Structural Integrity [ADMIN_DASHBOARD] contains all required structural components",
+              "title": "[ADMIN_HOME] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [ADMIN_HOME] contains all required structural components",
               "timedOut": null,
               "duration": 17447,
               "state": "failed",
@@ -211,8 +211,8 @@
               "skipped": false
             },
             {
-              "title": "[MANAGER_DASHBOARD] contains all required structural components",
-              "fullTitle": "Generated: Structural Integrity [MANAGER_DASHBOARD] contains all required structural components",
+              "title": "[MANAGER_HOME] contains all required structural components",
+              "fullTitle": "Generated: Structural Integrity [MANAGER_HOME] contains all required structural components",
               "timedOut": null,
               "duration": 17117,
               "state": "failed",

@@ -21,7 +21,7 @@ This document outlines the **Human-Centric Architecture** that turns the softwar
 
 - **Simulated Sandboxes:** A Coordinator does not learn to handle a 50-person staff shortage during a real blizzard. The platform contains a "Training Sandbox Mode" where they can physically practice dragging-and-dropping fake emergency scenarios on the Jane Matrix to build muscle memory.
 - **Micro-Learning modules:** Instead of massive 4-hour PDF manuals, the app delivers 3-minute interactive TikTok-style video shorts detailing: *"How to de-escalate an aggressive dementia patient"* or *"How to correctly log a S.O.A.P note under 60 seconds."*
-- **"What Would You Do?" Scenarios:** Weekly quizzes push directly to the PSW Dashboard posing situational ethics: *"You arrive and the client's family is hostile. Do you enter the house?"*
+- **"What Would You Do?" Scenarios:** Weekly quizzes push directly to the PSW Home posing situational ethics: *"You arrive and the client's family is hostile. Do you enter the house?"*
 
 ## 3. Social Network & Asset Leverage
 *No user is alone. The platform digitizes their support network so they can tap into help instantly.*

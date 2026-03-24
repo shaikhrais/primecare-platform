@@ -40,7 +40,7 @@ export const BASE = {
         }
     },
     MARKETING: {
-        DASHBOARD: {
+        HOME: {
             NEW_CAMPAIGN: {
                 id: 'mkt-campaign-new',
                 label: 'New Campaign',

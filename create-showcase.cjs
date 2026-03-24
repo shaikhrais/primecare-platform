@@ -71,7 +71,7 @@ function getIconData(name, group) {
     else if (group.includes('Auth')) { color = '#f43f5e'; bg = '#fff1f2'; } // Rose
     
     // Icon Semantics
-    if (l.includes('dashboard')) icon = 'ph-squares-four';
+    if (l.includes('home')) icon = 'ph-squares-four';
     else if (l.includes('social') || l.includes('facebook') || l.includes('insta')) icon = 'ph-share-network';
     else if (l.includes('report') || l.includes('analytic') || l.includes('metric') || l.includes('insight')) icon = 'ph-chart-bar';
     else if (l.includes('setting') || l.includes('config') || l.includes('preference')) icon = 'ph-gear-six';
@@ -199,14 +199,14 @@ const htmlContent = `<!DOCTYPE html>
             padding: 3rem 4rem;
             scroll-behavior: smooth;
         }
-        .dashboard-header {
+        .home-header {
             margin-bottom: 4rem;
         }
-        .dashboard-header h1 {
+        .home-header h1 {
             font-size: 2.5rem;
             margin: 0 0 0.5rem 0;
         }
-        .dashboard-header p {
+        .home-header p {
             margin: 0;
             color: var(--text-secondary);
             font-size: 1.125rem;
@@ -289,7 +289,7 @@ const htmlContent = `<!DOCTYPE html>
         ${sidebarHtml}
     </div>
     <div class="main-content">
-        <div class="dashboard-header" id="top">
+        <div class="home-header" id="top">
             <h1>Categorized Hub</h1>
             <p>Browse isolated structural layouts separated by their operational domain.</p>
         </div>

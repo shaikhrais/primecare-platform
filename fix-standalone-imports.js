@@ -37,7 +37,7 @@ for (const [file, errs] of Object.entries(fileErrors)) {
         // The script that merged them named them based on export default <Name> or export default function <Name>
         // If it was T7-AutoPilot, it might have been exported as AutoPilot. Let's just use regex.
         
-        // Handle lazy imports: `const AutoPilotDashboard = lazy(() => import('./pages/automation/T7-AutoPilot'));`
+        // Handle lazy imports: `const AutoPilotHome = lazy(() => import('./pages/automation/T7-AutoPilot'));`
         const lazyMatch1 = lineStr.match(/(?:export\s+)?const\s+([A-Za-z0-9_]+)\s*=\s*(?:React\.)?lazy\(\(\)\s*=>\s*import\(['"]([^'"]+)['"]\)\)/);
         if (lazyMatch1) {
             lineStr = lineStr.replace(/(lazy\(\(\)\s*=>\s*import\(['"][^'"]+['"]\))/g, 

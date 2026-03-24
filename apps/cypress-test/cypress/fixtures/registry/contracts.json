@@ -10,8 +10,8 @@
         "inp-confirm-password",
         "btn-register"
     ],
-    "DASHBOARD": [
-        "adm-dashboard",
+    "HOME": [
+        "adm-home",
         "qa-link-users",
         "qa-link-schedule"
     ],
@@ -24,7 +24,7 @@
         "btn-today"
     ],
     "MANAGER_DASH": [
-        "mgr-dashboard",
+        "mgr-home",
         "qa-daily-entry"
     ],
     "MANAGER_DAILY": [

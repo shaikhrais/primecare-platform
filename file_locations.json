@@ -20,7 +20,7 @@
   "content": "apps\\web-admin\\src\\app\\routes\\platform\\dam\\content.tsx",
   "cron": "apps\\web-admin\\src\\app\\routes\\platform\\admin\\cron.tsx",
   "customers": "apps\\web-admin\\src\\app\\routes\\platform\\admin\\customers.tsx",
-  "dashboard": "apps\\web-admin\\src\\app\\routes\\tenancy\\staff\\dashboard.tsx",
+  "home": "apps\\web-admin\\src\\app\\routes\\tenancy\\staff\\home.tsx",
   "documents": "apps\\web-admin\\src\\app\\routes\\tenancy\\manager\\documents.tsx",
   "earnings": "apps\\web-admin\\src\\app\\routes\\tenancy\\psw\\earnings.tsx",
   "erp": "apps\\web-admin\\src\\app\\routes\\platform\\admin\\erp.tsx",

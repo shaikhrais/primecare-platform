@@ -78,7 +78,7 @@ export function Login() {
         if (ok) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
-            navigate(RouteRegistry.ADMIN.DASHBOARD || '/admin');
+            navigate(RouteRegistry.ADMIN.HOME || '/admin');
         } else {
             setError(errStr || 'Failed to successfully authenticate.');
         }
@@ -241,7 +241,7 @@ export async function handleRegisterAndLogin(
     const registerRes = await fetch(`${API_URL}${ApiRegistry.AUTH.REGISTER}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ email, password, role: roleParam }) });
     if (!registerRes.ok) { const data = await registerRes.json(); throw new Error(data.error || 'Registration failed'); }
     const loginRes = await fetch(`${API_URL}${ApiRegistry.AUTH.LOGIN}`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ email, password }) });
-    if (loginRes.ok) { const data = await loginRes.json(); localStorage.setItem('token', data.token); localStorage.setItem('user', JSON.stringify(data.user)); navigate(RouteRegistry.ADMIN.DASHBOARD); }
+    if (loginRes.ok) { const data = await loginRes.json(); localStorage.setItem('token', data.token); localStorage.setItem('user', JSON.stringify(data.user)); navigate(RouteRegistry.ADMIN.HOME); }
     else { navigate(`${RouteRegistry.LOGIN}?role=${roleParam}`); }
 }
 

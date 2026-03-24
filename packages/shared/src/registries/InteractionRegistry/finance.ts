@@ -26,7 +26,7 @@ export const FINANCE_DOMAINS = {
         }
     },
     FINANCE_DIRECTOR: {
-        DASHBOARD: {
+        HOME: {
             REFRESH: {
                 id: 'fd-home-refresh',
                 label: 'Refresh Ledger',

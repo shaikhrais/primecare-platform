@@ -349,7 +349,7 @@ INSERT INTO "assets" ("id", "tag", "name", "type", "status", "assigned_to_id", "
 
 -- Table payout_requests is empty
 
--- Table dashboards is empty
+-- Table homes is empty
 
 -- Table widgets is empty
 

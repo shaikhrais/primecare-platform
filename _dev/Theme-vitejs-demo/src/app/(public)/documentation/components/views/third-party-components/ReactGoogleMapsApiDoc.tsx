@@ -60,7 +60,7 @@ function ReactGoogleMapsApiDoc() {
 
 			<ul>
 				<li className="mb-2">
-					<Link to="/dashboards/analytics">Analytics Dashboard</Link>
+					<Link to="/homes/analytics">Analytics Home</Link>
 				</li>
 			</ul>
 		</>

@@ -3,12 +3,12 @@ const path = require('path');
 
 const mappings = {
     "'/psw/schedule'": 'AdminRegistry.RouteRegistry.PSW.SCHEDULE',
-    "'/psw/dashboard'": 'AdminRegistry.RouteRegistry.PSW.DASHBOARD',
-    "'/admin/dashboard'": 'AdminRegistry.RouteRegistry.DASHBOARD',
-    "'/manager/dashboard'": 'AdminRegistry.RouteRegistry.MANAGER.DASHBOARD',
-    "'/client/dashboard'": 'AdminRegistry.RouteRegistry.CLIENT.DASHBOARD',
-    "'/staff/dashboard'": 'AdminRegistry.RouteRegistry.STAFF.DASHBOARD',
-    "'/rn/dashboard'": 'AdminRegistry.RouteRegistry.RN.DASHBOARD',
+    "'/psw/home'": 'AdminRegistry.RouteRegistry.PSW.HOME',
+    "'/admin/home'": 'AdminRegistry.RouteRegistry.HOME',
+    "'/manager/home'": 'AdminRegistry.RouteRegistry.MANAGER.HOME',
+    "'/client/home'": 'AdminRegistry.RouteRegistry.CLIENT.HOME',
+    "'/staff/home'": 'AdminRegistry.RouteRegistry.STAFF.HOME',
+    "'/rn/home'": 'AdminRegistry.RouteRegistry.RN.HOME',
     "'/support/manual'": 'AdminRegistry.RouteRegistry.SUPPORT',
     "'/earnings'": "AdminRegistry.RouteRegistry.EARNINGS",
     "'/bookings'": 'AdminRegistry.RouteRegistry.CLIENT.BOOKINGS',

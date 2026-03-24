@@ -55,7 +55,7 @@ This document provides a complete map of URLs to their corresponding pages and c
 | `REGISTER` | `/register` | `Register` | User registration |
 | - | `/forgot-password` | `ForgotPassword` | Password recovery |
 | - | `/reset-password` | `ResetPassword` | Set new password |
-| `DASHBOARD` | `/dashboard` | `Dashboard` | Admin/Shared statistics |
+| `HOME` | `/home` | `Home` | Admin/Shared statistics |
 
 ### 🛠️ Admin & Staff Modules
 | Route Key | URL Path | Page Component | Description |
@@ -67,7 +67,7 @@ This document provides a complete map of URLs to their corresponding pages and c
 | - | `/content` | `ContentManager` | Blog/FAQ content editor |
 | - | `/audits` | `CallAuditPage` | AI review of voice calls |
 | - | `/customers` | `CustomerList` | Client/Patient records |
-| - | `/support` | `SupportDashboard` | Staff ticketing/support queue |
+| - | `/support` | `SupportHome` | Staff ticketing/support queue |
 | - | `/incidents` | `IncidentList` | Safety and incident reporting |
 | - | `/timesheets` | `TimesheetList` | Payroll and time verification |
 | - | `/settings` | `SettingsPage` | Global system configurations |
@@ -75,11 +75,11 @@ This document provides a complete map of URLs to their corresponding pages and c
 ### 💼 Manager Module
 | Route Key | URL Path | Page Component | Description |
 |-----------|----------|----------------|-------------|
-| - | `/manager/dashboard` | `ManagerDashboard` | Field manager overview |
+| - | `/manager/home` | `ManagerHome` | Field manager overview |
 | - | `/manager/daily-entry`| `DailyEntryPage` | Shift documentation (ADLs/Vitals) |
 | - | `/reports` | `div (Placeholder)` | Operational reporting |
 
-### 🏥 Client & PSW Portals (Shared Dashboard)
+### 🏥 Client & PSW Portals (Shared Home)
 | Route Key | URL Path | Page Component | Description |
 |-----------|----------|----------------|-------------|
 | - | `/bookings` | `BookingsPage` | Client: Manage care requests |
