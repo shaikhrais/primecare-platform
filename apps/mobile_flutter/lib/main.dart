@@ -81,26 +81,22 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (hasToken && (isLoggingIn || isGenericDashboard)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
-          case 'mt': return '/mt/dashboard';
+          case 'mt': return '/mt/hub';
           case 'gm':
-          case 'general_manager': return '/gm/dashboard';
-          case 'scrum_master': return '/scrum-master/dashboard';
-          case 'rn': return '/rn/dashboard';
-          case 'coordinator': return '/coordinator/dashboard';
-          case 'manager': return '/manager/dashboard';
+          case 'general_manager': return '/gm/hub';
+          case 'scrum_master': return '/scrum-master/hub';
+          case 'rn': return '/rn/hub';
+          case 'coordinator': return '/coordinator/hub';
+          case 'manager': return '/manager/hub';
           case 'admin':
           case 'super_admin': return '/dashboard';
-          case 'client': return '/client/dashboard';
-          default: return '/psw/home';
+          case 'client': return '/client/hub';
+          default: return '/psw/hub';
         }
       }
       return null;
     },
     routes: [
-        GoRoute(path: '/:role/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
-
-        GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
-
       GoRoute(
         path: '/login',
         builder: (context, state) => LoginScreen(),
@@ -127,6 +123,9 @@ final routerProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
+          GoRoute(path: '/:role/hub', builder: (context, state) => UniversalDashboardScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
+          GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
+
           // ======================= PSW =======================
           GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
           
@@ -154,6 +153,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/rn/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnProfileActive)))),
 
           // ======================= CLIENT ====================
+          GoRoute(path: '/client/dashboard', builder: (context, state) => ClientDashboardScreen()),
           
           GoRoute(path: '/client/pulse', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Wellness Pulse View')))),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
@@ -174,6 +174,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/settings', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Global Environment Variables')))),
 
           // ======================= COORDINATOR ===============
+          GoRoute(path: '/coordinator/dashboard', builder: (context, state) => CoordinatorJaneMatrixScreen()),
           
           GoRoute(path: '/coordinator/staff', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorStaffActive)))),
           GoRoute(path: '/coordinator/approvals', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive)))),
@@ -186,6 +187,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/coordinator/fleet-matrix', builder: (context, state) => CoordinatorJaneSchedulerScreen()),
 
           // ======================= MANAGER ===================
+          GoRoute(path: '/manager/dashboard', builder: (context, state) => ManagerDashboardScreen()),
           
           GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
           GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),

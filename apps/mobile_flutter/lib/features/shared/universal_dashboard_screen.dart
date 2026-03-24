@@ -36,6 +36,7 @@ class UniversalDashboardScreen extends StatelessWidget {
     } else if (rolePrefix == 'coordinator') {
       activeColor = const Color(0xFFF59E0B);
       items = [
+        {'label': 'Jane Matrix', 'icon': Icons.calendar_month, 'path': '/coordinator/dashboard'},
         {'label': 'Staff', 'icon': Icons.people_outline, 'path': '/coordinator/staff'},
         {'label': 'Approvals', 'icon': Icons.fact_check_outlined, 'path': '/coordinator/approvals'},
         {'label': 'Profile', 'icon': Icons.person_outline, 'path': '/coordinator/profile'},
@@ -60,6 +61,7 @@ class UniversalDashboardScreen extends StatelessWidget {
     } else if (rolePrefix == 'manager') {
       activeColor = const Color(0xFFF43F5E);
       items = [
+        {'label': 'Mgmt Interface', 'icon': Icons.analytics, 'path': '/manager/dashboard'},
         {'label': 'Reports', 'icon': Icons.bar_chart_outlined, 'path': '/manager/reports'},
         {'label': 'Teams', 'icon': Icons.group_work_outlined, 'path': '/manager/teams'},
         {'label': 'Profile', 'icon': Icons.person_outline, 'path': '/manager/profile'},
