@@ -44,6 +44,7 @@ import 'features/mt/mt_invoice_screen.dart';
 import 'features/mt/mt_earnings_screen.dart';
 import 'features/mt/mt_availability_screen.dart';
 import 'features/mt/mt_credentials_screen.dart';
+import 'features/shared/role_mentor_screen.dart';
 import 'core/network/offline_sync_manager.dart';
 import 'core/api_client.dart';
 import 'core/widgets/global_top_bar.dart';
@@ -123,23 +124,27 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/psw/training', builder: (context, state) => PswTrainingScreen()),
           GoRoute(path: '/psw/live-visit/:id', builder: (context, state) => PswLiveVisitScreen(visitId: state.pathParameters['id']!)),
           GoRoute(path: '/psw/live-video-triage/:id', builder: (context, state) => PswLiveVideoTriageScreen(incidentId: state.pathParameters['id']!)),
+          GoRoute(path: '/psw/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'psw')),
           GoRoute(path: '/psw/daily-timeline', builder: (context, state) => PswDailyScheduleScreen()),
           
           // ======================= RN ========================
           GoRoute(path: '/rn/dashboard', builder: (context, state) => UniversalHostScreen(endpoint: '/v1/sdui/dashboard')),
           GoRoute(path: '/rn/patients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnPatientsScopeActive)))),
           GoRoute(path: '/rn/inbox', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnInboxThreadActive)))),
+          GoRoute(path: '/rn/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnProfileActive)))),
 
           // ======================= CLIENT ====================
           GoRoute(path: '/client/dashboard', builder: (context, state) => ClientDashboardScreen()),
           GoRoute(path: '/client/pulse', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Wellness Pulse View')))),
+          GoRoute(path: '/client/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Client Family Settings')))),
 
           // ======================= ADMIN =====================
           GoRoute(path: '/dashboard', builder: (context, state) => DashboardScreen()),
           GoRoute(path: '/admin/network', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Network Operations Dashboard')))),
           GoRoute(path: '/admin/audit', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Compliance Log View')))),
+          GoRoute(path: '/admin/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/settings', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Global Environment Variables')))),
 
           // ======================= COORDINATOR ===============
@@ -148,18 +153,27 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/coordinator/approvals', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive)))),
           GoRoute(path: '/coordinator/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorProfileActive)))),
           GoRoute(path: '/coordinator/live-map', builder: (context, state) => CoordinatorLiveMapScreen()),
+          GoRoute(path: '/coordinator/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'coordinator')),
           GoRoute(path: '/coordinator/fleet-matrix', builder: (context, state) => CoordinatorJaneSchedulerScreen()),
 
           // ======================= MANAGER ===================
           GoRoute(path: '/manager/dashboard', builder: (context, state) => ManagerDashboardScreen()),
           GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
           GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),
+          GoRoute(path: '/manager/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Profile Active')))),
 
           // ======================= MT ========================
           GoRoute(path: '/mt/dashboard', builder: (context, state) => MtDashboardScreen()),
           GoRoute(path: '/mt/clients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtClientsActive)))),
           GoRoute(path: '/mt/messages', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtMessagesActive)))),
+          GoRoute(path: '/mt/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'mt')),
+          // ======================= GM =======================
+          GoRoute(path: '/gm/dashboard', builder: (context, state) => GmDashboardScreen()),
+          GoRoute(path: '/gm/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'gm')),
+          // ======================= SCRUM MASTER ===========
+          GoRoute(path: '/scrum-master/dashboard', builder: (context, state) => ScrumMasterDashboardScreen()),
+          GoRoute(path: '/scrum-master/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'scrum_master')),
         ],
       ),
     ],

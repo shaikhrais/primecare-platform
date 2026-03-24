@@ -1,10 +1,12 @@
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/api_client.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import '../../core/theme_provider.dart';
+import '../../core/widgets/language_toggle_button.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -52,14 +54,30 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      
+      appBar: PrimeCareNavBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        title: const SizedBox.shrink(),
+        actions: [
+          const LanguageToggleButton(),
+          const SizedBox(width: 8),
+          Consumer(builder: (context, ref, child) {
+            final isDark = ref.watch(themeProvider) == ThemeMode.dark;
+            return IconButton(
+              tooltip: 'Toggle Theme',
+              icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: Theme.of(context).iconTheme.color),
+              onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
+            );
+          }),
+          const SizedBox(width: 16),
+        ],
+      ),
       body: PrimeCareCenter(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),
           child: PrimeCareCard(
-            
             padding: EdgeInsets.all(32.0),
-            
             child: PrimeCareColumn(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,7 +99,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 if (_message != null) ...[
                   PrimeCareCard(
                     padding: EdgeInsets.all(12),
-                    
                     child: PrimeCareText(
                       _message!,
                       style: TextStyle(
@@ -105,7 +122,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   SizedBox(height: 24),
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: _isLoading ? null : _handleReset,
-                    
                     child: _isLoading
                         ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                         : PrimeCareText('Send Reset Link', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -114,7 +130,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 if (_isSuccess) ...[
                   PrimeCareButton(type: PrimeCareButtonType.primary, 
                     onPressed: () => context.go('/login'),
-                    
                     child: PrimeCareText('Return to Authorization', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],

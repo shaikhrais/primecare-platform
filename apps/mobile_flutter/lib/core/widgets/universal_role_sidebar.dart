@@ -19,85 +19,103 @@ class UniversalRoleSidebar extends StatelessWidget {
     List<String> paths = [];
     Color? activeColor;
 
-    // Determine configuration based on URL prefix intelligently natively
     if (currentPath.startsWith('/psw')) {
-      activeColor = const Color(0xFF10B981); // Emerald
+      activeColor = const Color(0xFF10B981);
       destinations = [
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.home, icon: Icons.home_rounded, selectedIcon: Icons.home_rounded),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.shifts, icon: Icons.space_dashboard_rounded, selectedIcon: Icons.space_dashboard_rounded),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.clients, icon: Icons.people_outline, selectedIcon: Icons.people_outline),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.timesheet, icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile'];
+      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/mentor'];
     } 
     else if (currentPath.startsWith('/rn')) {
-      activeColor = const Color(0xFF3B82F6); // Blue
+      activeColor = const Color(0xFF3B82F6);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Patients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Inbox', icon: Icons.inbox_outlined, selectedIcon: Icons.inbox_rounded),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile'];
+      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/mentor'];
     }
     else if (currentPath.startsWith('/client')) {
-      activeColor = const Color(0xFF0EA5E9); // Sky
+      activeColor = const Color(0xFF0EA5E9);
       destinations = [
         ResponsiveNavigationData(label: 'Care Feed', icon: Icons.dynamic_feed, selectedIcon: Icons.dynamic_feed),
         ResponsiveNavigationData(label: 'Pulse', icon: Icons.monitor_heart_outlined, selectedIcon: Icons.monitor_heart),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/client/dashboard', '/client/pulse', '/client/profile'];
+      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/mentor'];
     }
     else if (currentPath == '/dashboard' || currentPath.startsWith('/admin')) {
-      activeColor = const Color(0xFF8B5CF6); // Violet
+      activeColor = const Color(0xFF8B5CF6);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Network', icon: Icons.hub_outlined, selectedIcon: Icons.hub),
         ResponsiveNavigationData(label: 'Audit', icon: Icons.security_rounded, selectedIcon: Icons.security_rounded),
         ResponsiveNavigationData(label: 'Settings', icon: Icons.settings_outlined, selectedIcon: Icons.settings),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/settings'];
+      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/settings', '/admin/mentor'];
     }
     else if (currentPath.startsWith('/coordinator')) {
-      activeColor = const Color(0xFFF59E0B); // Amber
+      activeColor = const Color(0xFFF59E0B);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Staff', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Approvals', icon: Icons.fact_check_outlined, selectedIcon: Icons.fact_check),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile'];
+      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/mentor'];
     }
     else if (currentPath.startsWith('/manager')) {
-      activeColor = const Color(0xFFF43F5E); // Rose
+      activeColor = const Color(0xFFF43F5E);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Reports', icon: Icons.bar_chart_outlined, selectedIcon: Icons.bar_chart),
         ResponsiveNavigationData(label: 'Teams', icon: Icons.group_work_outlined, selectedIcon: Icons.group_work),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile'];
+      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/mentor'];
     }
     else if (currentPath.startsWith('/mt')) {
-       activeColor = const Color(0xFF14B8A6); // Teal
+       activeColor = const Color(0xFF14B8A6);
        destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Clients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Messages', icon: Icons.chat_bubble_outline, selectedIcon: Icons.chat_bubble),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages'];
+      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/mentor'];
+    }
+    else if (currentPath.startsWith('/gm')) {
+      activeColor = const Color(0xFF0284C7);
+      destinations = [
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
+      ];
+      paths = ['/gm/dashboard', '/gm/mentor'];
+    }
+    else if (currentPath.startsWith('/scrum-master')) {
+      activeColor = const Color(0xFF9333EA);
+      destinations = [
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
+      ];
+      paths = ['/scrum-master/dashboard', '/scrum-master/mentor'];
     }
     else {
-      // Completely unrecognized or isolated path gracefully falls back to just showing the child natively
       return child; 
     }
 
-    // Determine current index accurately matching explicit boundaries locally
     int currentIndex = paths.indexWhere((p) => p == currentPath);
-    
-    // Fallback if exactly tracking fails due to trailing slash boundaries or variables globally
     if (currentIndex == -1) {
       currentIndex = paths.indexWhere((p) => currentPath.startsWith(p));
       if (currentIndex == -1) currentIndex = 0;

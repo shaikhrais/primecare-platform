@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/api_client.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/theme_provider.dart';
-import '../shared/widgets/language_toggle.dart';
+import '../../core/widgets/language_toggle_button.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
