@@ -128,6 +128,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
           // ======================= PSW =======================
           GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
+          GoRoute(path: '/psw/dashboard', builder: (context, state) => PswDashboardScreen()),
           
           GoRoute(path: '/psw/clients', builder: (context, state) => PswClientsScreen()),
           GoRoute(path: '/psw/timesheet', builder: (context, state) => PswTimesheetScreen()),
