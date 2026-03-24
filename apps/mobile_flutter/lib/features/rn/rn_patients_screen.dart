@@ -90,9 +90,9 @@ class _RnPatientsScreenState extends State<RnPatientsScreen> {
                        contentPadding: const EdgeInsets.all(12),
                        leading: CircleAvatar(backgroundColor: primary.withValues(alpha:0.1), child: Icon(Icons.person, color: primary)),
                        title: Text(p.fullName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeCareColors.radarDark)),
-                       subtitle: Text('\${p.city ?? 'Unknown City'}, \${p.province ?? 'NA'} - DOB: \${p.dob?.substring(0,10) ?? 'Not Provided'}'),
+                       subtitle: Text("\${p.city ?? 'Unknown City'}, \${p.province ?? 'NA'} - DOB: \${p.dob?.substring(0,10) ?? 'Not Provided'}"),
                        trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 16),
-                       onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Opening \${p.fullName} Clinical Profile Server Connection...'))); },
+                       onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Opening \${p.fullName} Clinical Profile Server Connection..."))); },
                      )
                    );
                 }

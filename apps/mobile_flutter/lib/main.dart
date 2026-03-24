@@ -1,3 +1,4 @@
+import 'features/rn/rn_patients_screen.dart';
 import 'features/shared/universal_daily_tasks_screen.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +139,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           
           // ======================= RN ========================
           GoRoute(path: '/rn/dashboard', builder: (context, state) => UniversalHostScreen(endpoint: '/v1/sdui/dashboard')),
-          GoRoute(path: '/rn/patients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnPatientsScopeActive)))),
+          GoRoute(path: '/rn/patients', builder: (context, state) => const RnPatientsScreen()),
           GoRoute(path: '/rn/inbox', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnInboxThreadActive)))),
           GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
