@@ -578,6 +578,11 @@ export type AIInference = $Result.DefaultSelection<Prisma.$AIInferencePayload>
  * 
  */
 export type CommunicationLog = $Result.DefaultSelection<Prisma.$CommunicationLogPayload>
+/**
+ * Model DailyActivity
+ * 
+ */
+export type DailyActivity = $Result.DefaultSelection<Prisma.$DailyActivityPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1831,6 +1836,16 @@ export class PrismaClient<
     * ```
     */
   get communicationLog(): Prisma.CommunicationLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.dailyActivity`: Exposes CRUD operations for the **DailyActivity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyActivities
+    * const dailyActivities = await prisma.dailyActivity.findMany()
+    * ```
+    */
+  get dailyActivity(): Prisma.DailyActivityDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2384,7 +2399,8 @@ export namespace Prisma {
     AppNotification: 'AppNotification',
     GamificationProfile: 'GamificationProfile',
     AIInference: 'AIInference',
-    CommunicationLog: 'CommunicationLog'
+    CommunicationLog: 'CommunicationLog',
+    DailyActivity: 'DailyActivity'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2400,7 +2416,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -10314,6 +10330,76 @@ export namespace Prisma {
           }
         }
       }
+      DailyActivity: {
+        payload: Prisma.$DailyActivityPayload<ExtArgs>
+        fields: Prisma.DailyActivityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyActivityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyActivityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyActivityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyActivityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          findMany: {
+            args: Prisma.DailyActivityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>[]
+          }
+          create: {
+            args: Prisma.DailyActivityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          createMany: {
+            args: Prisma.DailyActivityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyActivityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyActivityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          update: {
+            args: Prisma.DailyActivityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyActivityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyActivityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DailyActivityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyActivityPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyActivityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyActivity>
+          }
+          groupBy: {
+            args: Prisma.DailyActivityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyActivityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyActivityCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyActivityCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -10504,6 +10590,7 @@ export namespace Prisma {
     performanceReviewsAuthored: number
     iotEvents: number
     appNotifications: number
+    DailyActivity: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10532,6 +10619,7 @@ export namespace Prisma {
     performanceReviewsAuthored?: boolean | UserCountOutputTypeCountPerformanceReviewsAuthoredArgs
     iotEvents?: boolean | UserCountOutputTypeCountIotEventsArgs
     appNotifications?: boolean | UserCountOutputTypeCountAppNotificationsArgs
+    DailyActivity?: boolean | UserCountOutputTypeCountDailyActivityArgs
   }
 
   // Custom InputTypes
@@ -10720,6 +10808,13 @@ export namespace Prisma {
     where?: AppNotificationWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyActivityWhereInput
+  }
+
 
   /**
    * Count Type TenantCountOutputType
@@ -10805,6 +10900,7 @@ export namespace Prisma {
     webhookEndpoints: number
     staffGroups: number
     platformRoles: number
+    DailyActivity: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10887,6 +10983,7 @@ export namespace Prisma {
     webhookEndpoints?: boolean | TenantCountOutputTypeCountWebhookEndpointsArgs
     staffGroups?: boolean | TenantCountOutputTypeCountStaffGroupsArgs
     platformRoles?: boolean | TenantCountOutputTypeCountPlatformRolesArgs
+    DailyActivity?: boolean | TenantCountOutputTypeCountDailyActivityArgs
   }
 
   // Custom InputTypes
@@ -11451,6 +11548,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountPlatformRolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlatformRoleWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyActivityWhereInput
   }
 
 
@@ -12937,6 +13041,7 @@ export namespace Prisma {
     appNotifications?: boolean | User$appNotificationsArgs<ExtArgs>
     gamificationProfile?: boolean | User$gamificationProfileArgs<ExtArgs>
     reputation?: boolean | User$reputationArgs<ExtArgs>
+    DailyActivity?: boolean | User$DailyActivityArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -13004,6 +13109,7 @@ export namespace Prisma {
     appNotifications?: boolean | User$appNotificationsArgs<ExtArgs>
     gamificationProfile?: boolean | User$gamificationProfileArgs<ExtArgs>
     reputation?: boolean | User$reputationArgs<ExtArgs>
+    DailyActivity?: boolean | User$DailyActivityArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13043,6 +13149,7 @@ export namespace Prisma {
       appNotifications: Prisma.$AppNotificationPayload<ExtArgs>[]
       gamificationProfile: Prisma.$GamificationProfilePayload<ExtArgs> | null
       reputation: Prisma.$UserReputationPayload<ExtArgs> | null
+      DailyActivity: Prisma.$DailyActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13452,6 +13559,7 @@ export namespace Prisma {
     appNotifications<T extends User$appNotificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$appNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppNotificationPayload<ExtArgs>, T, "findMany"> | Null>
     gamificationProfile<T extends User$gamificationProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$gamificationProfileArgs<ExtArgs>>): Prisma__GamificationProfileClient<$Result.GetResult<Prisma.$GamificationProfilePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     reputation<T extends User$reputationArgs<ExtArgs> = {}>(args?: Subset<T, User$reputationArgs<ExtArgs>>): Prisma__UserReputationClient<$Result.GetResult<Prisma.$UserReputationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    DailyActivity<T extends User$DailyActivityArgs<ExtArgs> = {}>(args?: Subset<T, User$DailyActivityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14372,6 +14480,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.DailyActivity
+   */
+  export type User$DailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    where?: DailyActivityWhereInput
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    cursor?: DailyActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14788,6 +14916,7 @@ export namespace Prisma {
     webhookEndpoints?: boolean | Tenant$webhookEndpointsArgs<ExtArgs>
     staffGroups?: boolean | Tenant$staffGroupsArgs<ExtArgs>
     platformRoles?: boolean | Tenant$platformRolesArgs<ExtArgs>
+    DailyActivity?: boolean | Tenant$DailyActivityArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -14923,6 +15052,7 @@ export namespace Prisma {
     webhookEndpoints?: boolean | Tenant$webhookEndpointsArgs<ExtArgs>
     staffGroups?: boolean | Tenant$staffGroupsArgs<ExtArgs>
     platformRoles?: boolean | Tenant$platformRolesArgs<ExtArgs>
+    DailyActivity?: boolean | Tenant$DailyActivityArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15012,6 +15142,7 @@ export namespace Prisma {
       webhookEndpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
       staffGroups: Prisma.$StaffGroupPayload<ExtArgs>[]
       platformRoles: Prisma.$PlatformRolePayload<ExtArgs>[]
+      DailyActivity: Prisma.$DailyActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15480,6 +15611,7 @@ export namespace Prisma {
     webhookEndpoints<T extends Tenant$webhookEndpointsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$webhookEndpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany"> | Null>
     staffGroups<T extends Tenant$staffGroupsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$staffGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffGroupPayload<ExtArgs>, T, "findMany"> | Null>
     platformRoles<T extends Tenant$platformRolesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$platformRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformRolePayload<ExtArgs>, T, "findMany"> | Null>
+    DailyActivity<T extends Tenant$DailyActivityArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$DailyActivityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17441,6 +17573,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PlatformRoleScalarFieldEnum | PlatformRoleScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.DailyActivity
+   */
+  export type Tenant$DailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    where?: DailyActivityWhereInput
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    cursor?: DailyActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
   }
 
   /**
@@ -131406,6 +131558,1005 @@ export namespace Prisma {
 
 
   /**
+   * Model DailyActivity
+   */
+
+  export type AggregateDailyActivity = {
+    _count: DailyActivityCountAggregateOutputType | null
+    _min: DailyActivityMinAggregateOutputType | null
+    _max: DailyActivityMaxAggregateOutputType | null
+  }
+
+  export type DailyActivityMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    userId: string | null
+    role: string | null
+    title: string | null
+    description: string | null
+    status: string | null
+    dueDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyActivityMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    userId: string | null
+    role: string | null
+    title: string | null
+    description: string | null
+    status: string | null
+    dueDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyActivityCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    userId: number
+    role: number
+    title: number
+    description: number
+    status: number
+    dueDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DailyActivityMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    role?: true
+    title?: true
+    description?: true
+    status?: true
+    dueDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyActivityMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    role?: true
+    title?: true
+    description?: true
+    status?: true
+    dueDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyActivityCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    userId?: true
+    role?: true
+    title?: true
+    description?: true
+    status?: true
+    dueDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DailyActivityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyActivity to aggregate.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyActivities
+    **/
+    _count?: true | DailyActivityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyActivityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyActivityMaxAggregateInputType
+  }
+
+  export type GetDailyActivityAggregateType<T extends DailyActivityAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyActivity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyActivity[P]>
+      : GetScalarType<T[P], AggregateDailyActivity[P]>
+  }
+
+
+
+
+  export type DailyActivityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyActivityWhereInput
+    orderBy?: DailyActivityOrderByWithAggregationInput | DailyActivityOrderByWithAggregationInput[]
+    by: DailyActivityScalarFieldEnum[] | DailyActivityScalarFieldEnum
+    having?: DailyActivityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyActivityCountAggregateInputType | true
+    _min?: DailyActivityMinAggregateInputType
+    _max?: DailyActivityMaxAggregateInputType
+  }
+
+  export type DailyActivityGroupByOutputType = {
+    id: string
+    tenantId: string
+    userId: string
+    role: string
+    title: string
+    description: string
+    status: string
+    dueDate: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: DailyActivityCountAggregateOutputType | null
+    _min: DailyActivityMinAggregateOutputType | null
+    _max: DailyActivityMaxAggregateOutputType | null
+  }
+
+  type GetDailyActivityGroupByPayload<T extends DailyActivityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyActivityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyActivityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyActivityGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyActivityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyActivitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    role?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    dueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyActivity"]>
+
+  export type DailyActivitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    role?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    dueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyActivity"]>
+
+  export type DailyActivitySelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    userId?: boolean
+    role?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    dueDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DailyActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DailyActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DailyActivityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyActivity"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      userId: string
+      role: string
+      title: string
+      description: string
+      status: string
+      dueDate: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dailyActivity"]>
+    composites: {}
+  }
+
+  type DailyActivityGetPayload<S extends boolean | null | undefined | DailyActivityDefaultArgs> = $Result.GetResult<Prisma.$DailyActivityPayload, S>
+
+  type DailyActivityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DailyActivityFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DailyActivityCountAggregateInputType | true
+    }
+
+  export interface DailyActivityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyActivity'], meta: { name: 'DailyActivity' } }
+    /**
+     * Find zero or one DailyActivity that matches the filter.
+     * @param {DailyActivityFindUniqueArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyActivityFindUniqueArgs>(args: SelectSubset<T, DailyActivityFindUniqueArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DailyActivity that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DailyActivityFindUniqueOrThrowArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyActivityFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyActivityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DailyActivity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindFirstArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyActivityFindFirstArgs>(args?: SelectSubset<T, DailyActivityFindFirstArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DailyActivity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindFirstOrThrowArgs} args - Arguments to find a DailyActivity
+     * @example
+     * // Get one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyActivityFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyActivityFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DailyActivities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyActivities
+     * const dailyActivities = await prisma.dailyActivity.findMany()
+     * 
+     * // Get first 10 DailyActivities
+     * const dailyActivities = await prisma.dailyActivity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyActivityWithIdOnly = await prisma.dailyActivity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyActivityFindManyArgs>(args?: SelectSubset<T, DailyActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DailyActivity.
+     * @param {DailyActivityCreateArgs} args - Arguments to create a DailyActivity.
+     * @example
+     * // Create one DailyActivity
+     * const DailyActivity = await prisma.dailyActivity.create({
+     *   data: {
+     *     // ... data to create a DailyActivity
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyActivityCreateArgs>(args: SelectSubset<T, DailyActivityCreateArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DailyActivities.
+     * @param {DailyActivityCreateManyArgs} args - Arguments to create many DailyActivities.
+     * @example
+     * // Create many DailyActivities
+     * const dailyActivity = await prisma.dailyActivity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyActivityCreateManyArgs>(args?: SelectSubset<T, DailyActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyActivities and returns the data saved in the database.
+     * @param {DailyActivityCreateManyAndReturnArgs} args - Arguments to create many DailyActivities.
+     * @example
+     * // Create many DailyActivities
+     * const dailyActivity = await prisma.dailyActivity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyActivities and only return the `id`
+     * const dailyActivityWithIdOnly = await prisma.dailyActivity.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DailyActivity.
+     * @param {DailyActivityDeleteArgs} args - Arguments to delete one DailyActivity.
+     * @example
+     * // Delete one DailyActivity
+     * const DailyActivity = await prisma.dailyActivity.delete({
+     *   where: {
+     *     // ... filter to delete one DailyActivity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyActivityDeleteArgs>(args: SelectSubset<T, DailyActivityDeleteArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DailyActivity.
+     * @param {DailyActivityUpdateArgs} args - Arguments to update one DailyActivity.
+     * @example
+     * // Update one DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyActivityUpdateArgs>(args: SelectSubset<T, DailyActivityUpdateArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DailyActivities.
+     * @param {DailyActivityDeleteManyArgs} args - Arguments to filter DailyActivities to delete.
+     * @example
+     * // Delete a few DailyActivities
+     * const { count } = await prisma.dailyActivity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyActivityDeleteManyArgs>(args?: SelectSubset<T, DailyActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyActivities
+     * const dailyActivity = await prisma.dailyActivity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyActivityUpdateManyArgs>(args: SelectSubset<T, DailyActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DailyActivity.
+     * @param {DailyActivityUpsertArgs} args - Arguments to update or create a DailyActivity.
+     * @example
+     * // Update or create a DailyActivity
+     * const dailyActivity = await prisma.dailyActivity.upsert({
+     *   create: {
+     *     // ... data to create a DailyActivity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyActivity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyActivityUpsertArgs>(args: SelectSubset<T, DailyActivityUpsertArgs<ExtArgs>>): Prisma__DailyActivityClient<$Result.GetResult<Prisma.$DailyActivityPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DailyActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityCountArgs} args - Arguments to filter DailyActivities to count.
+     * @example
+     * // Count the number of DailyActivities
+     * const count = await prisma.dailyActivity.count({
+     *   where: {
+     *     // ... the filter for the DailyActivities we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyActivityCountArgs>(
+      args?: Subset<T, DailyActivityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyActivityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyActivityAggregateArgs>(args: Subset<T, DailyActivityAggregateArgs>): Prisma.PrismaPromise<GetDailyActivityAggregateType<T>>
+
+    /**
+     * Group by DailyActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyActivityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyActivityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyActivityGroupByArgs['orderBy'] }
+        : { orderBy?: DailyActivityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyActivity model
+   */
+  readonly fields: DailyActivityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyActivity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyActivity model
+   */ 
+  interface DailyActivityFieldRefs {
+    readonly id: FieldRef<"DailyActivity", 'String'>
+    readonly tenantId: FieldRef<"DailyActivity", 'String'>
+    readonly userId: FieldRef<"DailyActivity", 'String'>
+    readonly role: FieldRef<"DailyActivity", 'String'>
+    readonly title: FieldRef<"DailyActivity", 'String'>
+    readonly description: FieldRef<"DailyActivity", 'String'>
+    readonly status: FieldRef<"DailyActivity", 'String'>
+    readonly dueDate: FieldRef<"DailyActivity", 'DateTime'>
+    readonly createdAt: FieldRef<"DailyActivity", 'DateTime'>
+    readonly updatedAt: FieldRef<"DailyActivity", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyActivity findUnique
+   */
+  export type DailyActivityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity findUniqueOrThrow
+   */
+  export type DailyActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity findFirst
+   */
+  export type DailyActivityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyActivities.
+     */
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity findFirstOrThrow
+   */
+  export type DailyActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivity to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyActivities.
+     */
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity findMany
+   */
+  export type DailyActivityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyActivities to fetch.
+     */
+    where?: DailyActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyActivities to fetch.
+     */
+    orderBy?: DailyActivityOrderByWithRelationInput | DailyActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyActivities.
+     */
+    cursor?: DailyActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyActivities.
+     */
+    skip?: number
+    distinct?: DailyActivityScalarFieldEnum | DailyActivityScalarFieldEnum[]
+  }
+
+  /**
+   * DailyActivity create
+   */
+  export type DailyActivityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyActivity.
+     */
+    data: XOR<DailyActivityCreateInput, DailyActivityUncheckedCreateInput>
+  }
+
+  /**
+   * DailyActivity createMany
+   */
+  export type DailyActivityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyActivities.
+     */
+    data: DailyActivityCreateManyInput | DailyActivityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyActivity createManyAndReturn
+   */
+  export type DailyActivityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DailyActivities.
+     */
+    data: DailyActivityCreateManyInput | DailyActivityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyActivity update
+   */
+  export type DailyActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyActivity.
+     */
+    data: XOR<DailyActivityUpdateInput, DailyActivityUncheckedUpdateInput>
+    /**
+     * Choose, which DailyActivity to update.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity updateMany
+   */
+  export type DailyActivityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyActivities.
+     */
+    data: XOR<DailyActivityUpdateManyMutationInput, DailyActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyActivities to update
+     */
+    where?: DailyActivityWhereInput
+  }
+
+  /**
+   * DailyActivity upsert
+   */
+  export type DailyActivityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyActivity to update in case it exists.
+     */
+    where: DailyActivityWhereUniqueInput
+    /**
+     * In case the DailyActivity found by the `where` argument doesn't exist, create a new DailyActivity with this data.
+     */
+    create: XOR<DailyActivityCreateInput, DailyActivityUncheckedCreateInput>
+    /**
+     * In case the DailyActivity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyActivityUpdateInput, DailyActivityUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyActivity delete
+   */
+  export type DailyActivityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+    /**
+     * Filter which DailyActivity to delete.
+     */
+    where: DailyActivityWhereUniqueInput
+  }
+
+  /**
+   * DailyActivity deleteMany
+   */
+  export type DailyActivityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyActivities to delete
+     */
+    where?: DailyActivityWhereInput
+  }
+
+  /**
+   * DailyActivity without action
+   */
+  export type DailyActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyActivity
+     */
+    select?: DailyActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyActivityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -133178,6 +134329,22 @@ export namespace Prisma {
   export type CommunicationLogScalarFieldEnum = (typeof CommunicationLogScalarFieldEnum)[keyof typeof CommunicationLogScalarFieldEnum]
 
 
+  export const DailyActivityScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    userId: 'userId',
+    role: 'role',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    dueDate: 'dueDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DailyActivityScalarFieldEnum = (typeof DailyActivityScalarFieldEnum)[keyof typeof DailyActivityScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -133365,6 +134532,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationListRelationFilter
     gamificationProfile?: XOR<GamificationProfileNullableRelationFilter, GamificationProfileWhereInput> | null
     reputation?: XOR<UserReputationNullableRelationFilter, UserReputationWhereInput> | null
+    DailyActivity?: DailyActivityListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -133411,6 +134579,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationOrderByRelationAggregateInput
     gamificationProfile?: GamificationProfileOrderByWithRelationInput
     reputation?: UserReputationOrderByWithRelationInput
+    DailyActivity?: DailyActivityOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -133460,6 +134629,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationListRelationFilter
     gamificationProfile?: XOR<GamificationProfileNullableRelationFilter, GamificationProfileWhereInput> | null
     reputation?: XOR<UserReputationNullableRelationFilter, UserReputationWhereInput> | null
+    DailyActivity?: DailyActivityListRelationFilter
   }, "id" | "email" | "osmId">
 
   export type UserOrderByWithAggregationInput = {
@@ -133606,6 +134776,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointListRelationFilter
     staffGroups?: StaffGroupListRelationFilter
     platformRoles?: PlatformRoleListRelationFilter
+    DailyActivity?: DailyActivityListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -133711,6 +134882,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointOrderByRelationAggregateInput
     staffGroups?: StaffGroupOrderByRelationAggregateInput
     platformRoles?: PlatformRoleOrderByRelationAggregateInput
+    DailyActivity?: DailyActivityOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -133819,6 +134991,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointListRelationFilter
     staffGroups?: StaffGroupListRelationFilter
     platformRoles?: PlatformRoleListRelationFilter
+    DailyActivity?: DailyActivityListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -143015,6 +144188,89 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"CommunicationLog"> | Date | string
   }
 
+  export type DailyActivityWhereInput = {
+    AND?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    OR?: DailyActivityWhereInput[]
+    NOT?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    id?: StringFilter<"DailyActivity"> | string
+    tenantId?: StringFilter<"DailyActivity"> | string
+    userId?: StringFilter<"DailyActivity"> | string
+    role?: StringFilter<"DailyActivity"> | string
+    title?: StringFilter<"DailyActivity"> | string
+    description?: StringFilter<"DailyActivity"> | string
+    status?: StringFilter<"DailyActivity"> | string
+    dueDate?: DateTimeFilter<"DailyActivity"> | Date | string
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type DailyActivityOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DailyActivityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    OR?: DailyActivityWhereInput[]
+    NOT?: DailyActivityWhereInput | DailyActivityWhereInput[]
+    tenantId?: StringFilter<"DailyActivity"> | string
+    userId?: StringFilter<"DailyActivity"> | string
+    role?: StringFilter<"DailyActivity"> | string
+    title?: StringFilter<"DailyActivity"> | string
+    description?: StringFilter<"DailyActivity"> | string
+    status?: StringFilter<"DailyActivity"> | string
+    dueDate?: DateTimeFilter<"DailyActivity"> | Date | string
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DailyActivityOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DailyActivityCountOrderByAggregateInput
+    _max?: DailyActivityMaxOrderByAggregateInput
+    _min?: DailyActivityMinOrderByAggregateInput
+  }
+
+  export type DailyActivityScalarWhereWithAggregatesInput = {
+    AND?: DailyActivityScalarWhereWithAggregatesInput | DailyActivityScalarWhereWithAggregatesInput[]
+    OR?: DailyActivityScalarWhereWithAggregatesInput[]
+    NOT?: DailyActivityScalarWhereWithAggregatesInput | DailyActivityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyActivity"> | string
+    tenantId?: StringWithAggregatesFilter<"DailyActivity"> | string
+    userId?: StringWithAggregatesFilter<"DailyActivity"> | string
+    role?: StringWithAggregatesFilter<"DailyActivity"> | string
+    title?: StringWithAggregatesFilter<"DailyActivity"> | string
+    description?: StringWithAggregatesFilter<"DailyActivity"> | string
+    status?: StringWithAggregatesFilter<"DailyActivity"> | string
+    dueDate?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -143058,6 +144314,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -143103,6 +144360,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -143148,6 +144406,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -143193,6 +144452,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -143344,6 +144604,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -143448,6 +144709,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -143552,6 +144814,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -143656,6 +144919,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -153516,6 +154780,95 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DailyActivityCreateInput = {
+    id?: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyActivityInput
+    user: UserCreateNestedOneWithoutDailyActivityInput
+  }
+
+  export type DailyActivityUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    userId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyActivityNestedInput
+    user?: UserUpdateOneRequiredWithoutDailyActivityNestedInput
+  }
+
+  export type DailyActivityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityCreateManyInput = {
+    id?: string
+    tenantId: string
+    userId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -153737,6 +155090,12 @@ export namespace Prisma {
     isNot?: UserReputationWhereInput | null
   }
 
+  export type DailyActivityListRelationFilter = {
+    every?: DailyActivityWhereInput
+    some?: DailyActivityWhereInput
+    none?: DailyActivityWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -153835,6 +155194,10 @@ export namespace Prisma {
   }
 
   export type AppNotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyActivityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -159882,6 +161245,45 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type DailyActivityCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyActivityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyActivityMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type AuditLogCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -160087,6 +161489,13 @@ export namespace Prisma {
     connect?: UserReputationWhereUniqueInput
   }
 
+  export type DailyActivityCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutActorInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -160284,6 +161693,13 @@ export namespace Prisma {
     create?: XOR<UserReputationCreateWithoutUserInput, UserReputationUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserReputationCreateOrConnectWithoutUserInput
     connect?: UserReputationWhereUniqueInput
+  }
+
+  export type DailyActivityUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -160700,6 +162116,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserReputationUpdateToOneWithWhereWithoutUserInput, UserReputationUpdateWithoutUserInput>, UserReputationUncheckedUpdateWithoutUserInput>
   }
 
+  export type DailyActivityUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutUserInput | DailyActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutActorNestedInput = {
     create?: XOR<AuditLogCreateWithoutActorInput, AuditLogUncheckedCreateWithoutActorInput> | AuditLogCreateWithoutActorInput[] | AuditLogUncheckedCreateWithoutActorInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutActorInput | AuditLogCreateOrConnectWithoutActorInput[]
@@ -161088,6 +162518,20 @@ export namespace Prisma {
     delete?: UserReputationWhereInput | boolean
     connect?: UserReputationWhereUniqueInput
     update?: XOR<XOR<UserReputationUpdateToOneWithWhereWithoutUserInput, UserReputationUpdateWithoutUserInput>, UserReputationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput> | DailyActivityCreateWithoutUserInput[] | DailyActivityUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutUserInput | DailyActivityCreateOrConnectWithoutUserInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutUserInput | DailyActivityUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyActivityCreateManyUserInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutUserInput | DailyActivityUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutUserInput | DailyActivityUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
   }
 
   export type AuditLogCreateNestedManyWithoutTenantInput = {
@@ -161649,6 +163093,13 @@ export namespace Prisma {
     connect?: PlatformRoleWhereUniqueInput | PlatformRoleWhereUniqueInput[]
   }
 
+  export type DailyActivityCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput> | DailyActivityCreateWithoutTenantInput[] | DailyActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutTenantInput | DailyActivityCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyActivityCreateManyTenantInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -162200,6 +163651,13 @@ export namespace Prisma {
     connectOrCreate?: PlatformRoleCreateOrConnectWithoutTenantInput | PlatformRoleCreateOrConnectWithoutTenantInput[]
     createMany?: PlatformRoleCreateManyTenantInputEnvelope
     connect?: PlatformRoleWhereUniqueInput | PlatformRoleWhereUniqueInput[]
+  }
+
+  export type DailyActivityUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput> | DailyActivityCreateWithoutTenantInput[] | DailyActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutTenantInput | DailyActivityCreateOrConnectWithoutTenantInput[]
+    createMany?: DailyActivityCreateManyTenantInputEnvelope
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -163338,6 +164796,20 @@ export namespace Prisma {
     deleteMany?: PlatformRoleScalarWhereInput | PlatformRoleScalarWhereInput[]
   }
 
+  export type DailyActivityUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput> | DailyActivityCreateWithoutTenantInput[] | DailyActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutTenantInput | DailyActivityCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutTenantInput | DailyActivityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyActivityCreateManyTenantInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutTenantInput | DailyActivityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutTenantInput | DailyActivityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -164442,6 +165914,20 @@ export namespace Prisma {
     update?: PlatformRoleUpdateWithWhereUniqueWithoutTenantInput | PlatformRoleUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: PlatformRoleUpdateManyWithWhereWithoutTenantInput | PlatformRoleUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: PlatformRoleScalarWhereInput | PlatformRoleScalarWhereInput[]
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput> | DailyActivityCreateWithoutTenantInput[] | DailyActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DailyActivityCreateOrConnectWithoutTenantInput | DailyActivityCreateOrConnectWithoutTenantInput[]
+    upsert?: DailyActivityUpsertWithWhereUniqueWithoutTenantInput | DailyActivityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DailyActivityCreateManyTenantInputEnvelope
+    set?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    disconnect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    delete?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    connect?: DailyActivityWhereUniqueInput | DailyActivityWhereUniqueInput[]
+    update?: DailyActivityUpdateWithWhereUniqueWithoutTenantInput | DailyActivityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DailyActivityUpdateManyWithWhereWithoutTenantInput | DailyActivityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutRegistriesInput = {
@@ -170442,6 +171928,34 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCommunicationLogsInput, TenantUpdateWithoutCommunicationLogsInput>, TenantUncheckedUpdateWithoutCommunicationLogsInput>
   }
 
+  export type TenantCreateNestedOneWithoutDailyActivityInput = {
+    create?: XOR<TenantCreateWithoutDailyActivityInput, TenantUncheckedCreateWithoutDailyActivityInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyActivityInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDailyActivityInput = {
+    create?: XOR<UserCreateWithoutDailyActivityInput, UserUncheckedCreateWithoutDailyActivityInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyActivityInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutDailyActivityNestedInput = {
+    create?: XOR<TenantCreateWithoutDailyActivityInput, TenantUncheckedCreateWithoutDailyActivityInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDailyActivityInput
+    upsert?: TenantUpsertWithoutDailyActivityInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDailyActivityInput, TenantUpdateWithoutDailyActivityInput>, TenantUncheckedUpdateWithoutDailyActivityInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyActivityNestedInput = {
+    create?: XOR<UserCreateWithoutDailyActivityInput, UserUncheckedCreateWithoutDailyActivityInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyActivityInput
+    upsert?: UserUpsertWithoutDailyActivityInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyActivityInput, UserUpdateWithoutDailyActivityInput>, UserUncheckedUpdateWithoutDailyActivityInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -171349,6 +172863,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -171452,6 +172967,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -172121,6 +173637,40 @@ export namespace Prisma {
     create: XOR<UserReputationCreateWithoutUserInput, UserReputationUncheckedCreateWithoutUserInput>
   }
 
+  export type DailyActivityCreateWithoutUserInput = {
+    id?: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDailyActivityInput
+  }
+
+  export type DailyActivityUncheckedCreateWithoutUserInput = {
+    id?: string
+    tenantId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityCreateOrConnectWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    create: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyActivityCreateManyUserInputEnvelope = {
+    data: DailyActivityCreateManyUserInput | DailyActivityCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuditLogUpsertWithWhereUniqueWithoutActorInput = {
     where: AuditLogWhereUniqueInput
     update: XOR<AuditLogUpdateWithoutActorInput, AuditLogUncheckedUpdateWithoutActorInput>
@@ -172680,6 +174230,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -172783,6 +174334,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCheckEventUpsertWithWhereUniqueWithoutOverriddenByInput = {
@@ -173385,6 +174937,38 @@ export namespace Prisma {
     crisesResolved?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    update: XOR<DailyActivityUpdateWithoutUserInput, DailyActivityUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyActivityCreateWithoutUserInput, DailyActivityUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyActivityUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyActivityWhereUniqueInput
+    data: XOR<DailyActivityUpdateWithoutUserInput, DailyActivityUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyActivityUpdateManyWithWhereWithoutUserInput = {
+    where: DailyActivityScalarWhereInput
+    data: XOR<DailyActivityUpdateManyMutationInput, DailyActivityUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DailyActivityScalarWhereInput = {
+    AND?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+    OR?: DailyActivityScalarWhereInput[]
+    NOT?: DailyActivityScalarWhereInput | DailyActivityScalarWhereInput[]
+    id?: StringFilter<"DailyActivity"> | string
+    tenantId?: StringFilter<"DailyActivity"> | string
+    userId?: StringFilter<"DailyActivity"> | string
+    role?: StringFilter<"DailyActivity"> | string
+    title?: StringFilter<"DailyActivity"> | string
+    description?: StringFilter<"DailyActivity"> | string
+    status?: StringFilter<"DailyActivity"> | string
+    dueDate?: DateTimeFilter<"DailyActivity"> | Date | string
+    createdAt?: DateTimeFilter<"DailyActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyActivity"> | Date | string
   }
 
   export type AuditLogCreateWithoutTenantInput = {
@@ -174041,6 +175625,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -174085,6 +175670,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -175424,6 +177010,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChildTenantsInput = {
@@ -175527,6 +177114,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChildTenantsInput = {
@@ -175635,6 +177223,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutParentTenantInput = {
@@ -175738,6 +177327,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutParentTenantInput = {
@@ -176693,6 +178283,40 @@ export namespace Prisma {
 
   export type PlatformRoleCreateManyTenantInputEnvelope = {
     data: PlatformRoleCreateManyTenantInput | PlatformRoleCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyActivityCreateWithoutTenantInput = {
+    id?: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDailyActivityInput
+  }
+
+  export type DailyActivityUncheckedCreateWithoutTenantInput = {
+    id?: string
+    userId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyActivityCreateOrConnectWithoutTenantInput = {
+    where: DailyActivityWhereUniqueInput
+    create: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyActivityCreateManyTenantInputEnvelope = {
+    data: DailyActivityCreateManyTenantInput | DailyActivityCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -178206,6 +179830,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChildTenantsInput = {
@@ -178309,6 +179934,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUpsertWithWhereUniqueWithoutParentTenantInput = {
@@ -179137,6 +180763,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"PlatformRole"> | Date | string
   }
 
+  export type DailyActivityUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DailyActivityWhereUniqueInput
+    update: XOR<DailyActivityUpdateWithoutTenantInput, DailyActivityUncheckedUpdateWithoutTenantInput>
+    create: XOR<DailyActivityCreateWithoutTenantInput, DailyActivityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DailyActivityUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DailyActivityWhereUniqueInput
+    data: XOR<DailyActivityUpdateWithoutTenantInput, DailyActivityUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DailyActivityUpdateManyWithWhereWithoutTenantInput = {
+    where: DailyActivityScalarWhereInput
+    data: XOR<DailyActivityUpdateManyMutationInput, DailyActivityUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantCreateWithoutRegistriesInput = {
     id?: string
     name: string
@@ -179238,6 +180880,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegistriesInput = {
@@ -179341,6 +180984,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegistriesInput = {
@@ -179460,6 +181104,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegistriesInput = {
@@ -179563,6 +181208,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutApiKeysInput = {
@@ -179666,6 +181312,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApiKeysInput = {
@@ -179769,6 +181416,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApiKeysInput = {
@@ -179888,6 +181536,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApiKeysInput = {
@@ -179991,6 +181640,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -180035,6 +181685,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -180079,6 +181730,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -180187,6 +181839,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -180290,6 +181943,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -180350,6 +182004,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -180394,6 +182049,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutAuditLogsInput = {
@@ -180508,6 +182164,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -180611,6 +182268,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSystemEventsInput = {
@@ -180714,6 +182372,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemEventsInput = {
@@ -180817,6 +182476,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemEventsInput = {
@@ -180866,6 +182526,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemEventsInput = {
@@ -180910,6 +182571,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemEventsInput = {
@@ -181029,6 +182691,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemEventsInput = {
@@ -181132,6 +182795,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSystemEventsInput = {
@@ -181187,6 +182851,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemEventsInput = {
@@ -181231,6 +182896,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutLeadsInput = {
@@ -181334,6 +183000,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeadsInput = {
@@ -181437,6 +183104,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeadsInput = {
@@ -181556,6 +183224,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeadsInput = {
@@ -181659,6 +183328,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDevicesInput = {
@@ -181703,6 +183373,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDevicesInput = {
@@ -181747,6 +183418,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDevicesInput = {
@@ -181807,6 +183479,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDevicesInput = {
@@ -181851,6 +183524,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutSystemTouchpointsInput = {
@@ -181954,6 +183628,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSystemTouchpointsInput = {
@@ -182057,6 +183732,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSystemTouchpointsInput = {
@@ -182176,6 +183852,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSystemTouchpointsInput = {
@@ -182279,6 +183956,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MessageCreateWithoutThreadInput = {
@@ -182576,6 +184254,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMessageThreadsInput = {
@@ -182679,6 +184358,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMessageThreadsInput = {
@@ -182996,6 +184676,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMessageThreadsInput = {
@@ -183099,6 +184780,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutSentMessagesInput = {
@@ -183143,6 +184825,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -183187,6 +184870,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -183270,6 +184954,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -183314,6 +184999,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageThreadUpsertWithoutMessagesInput = {
@@ -183446,6 +185132,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPlatformRolesInput = {
@@ -183549,6 +185236,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPlatformRolesInput = {
@@ -183718,6 +185406,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPlatformRolesInput = {
@@ -183821,6 +185510,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RoleScreenAccessUpsertWithWhereUniqueWithoutRoleInput = {
@@ -184138,6 +185828,7 @@ export namespace Prisma {
     iotEvents?: IoTEventCreateNestedManyWithoutUserInput
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReputationInput = {
@@ -184182,6 +185873,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReputationInput = {
@@ -184242,6 +185934,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReputationInput = {
@@ -184286,6 +185979,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReferralPipelineCreateWithoutHospitalInput = {
@@ -184544,6 +186238,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClientProfilesInput = {
@@ -184647,6 +186342,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClientProfilesInput = {
@@ -184696,6 +186392,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientProfileInput = {
@@ -184740,6 +186437,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientProfileInput = {
@@ -185766,6 +187464,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClientProfilesInput = {
@@ -185869,6 +187568,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutClientProfileInput = {
@@ -185924,6 +187624,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientProfileInput = {
@@ -185968,6 +187669,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DailyEntryUpsertWithWhereUniqueWithoutClientInput = {
@@ -186594,6 +188296,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswProfilesInput = {
@@ -186697,6 +188400,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswProfilesInput = {
@@ -186746,6 +188450,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPswProfileInput = {
@@ -186790,6 +188495,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPswProfileInput = {
@@ -187476,6 +189182,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswProfilesInput = {
@@ -187579,6 +189286,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutPswProfileInput = {
@@ -187634,6 +189342,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPswProfileInput = {
@@ -187678,6 +189387,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ShiftAssignmentUpsertWithWhereUniqueWithoutPswInput = {
@@ -188572,6 +190282,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitsInput = {
@@ -188675,6 +190386,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitsInput = {
@@ -189296,6 +191008,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitsInput = {
@@ -189399,6 +191112,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ShiftHandoverUpsertWithWhereUniqueWithoutVisitInput = {
@@ -189563,6 +191277,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServicesInput = {
@@ -189666,6 +191381,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServicesInput = {
@@ -189913,6 +191629,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServicesInput = {
@@ -190016,6 +191733,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutServiceInput = {
@@ -190092,6 +191810,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVisitCheckEventInput = {
@@ -190136,6 +191855,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVisitCheckEventInput = {
@@ -190321,6 +192041,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCheckEventsInput = {
@@ -190424,6 +192145,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCheckEventsInput = {
@@ -190575,6 +192297,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVisitCheckEventInput = {
@@ -190619,6 +192342,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswProfileUpsertWithoutCheckEventsInput = {
@@ -190816,6 +192540,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCheckEventsInput = {
@@ -190919,6 +192644,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutCheckEventsInput = {
@@ -191756,6 +193482,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAcknowledgedIncidentsInput = {
@@ -191800,6 +193527,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAcknowledgedIncidentsInput = {
@@ -191849,6 +193577,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -191893,6 +193622,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -192001,6 +193731,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -192104,6 +193835,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -192255,6 +193987,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAcknowledgedIncidentsInput = {
@@ -192299,6 +194032,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -192354,6 +194088,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -192398,6 +194133,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutIncidentsInput = {
@@ -192512,6 +194248,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -192615,6 +194352,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutIncidentsInput = {
@@ -192849,6 +194587,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyEntryInput = {
@@ -192893,6 +194632,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyEntryInput = {
@@ -193001,6 +194741,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyEntriesInput = {
@@ -193104,6 +194845,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyEntriesInput = {
@@ -193354,6 +195096,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyEntryInput = {
@@ -193398,6 +195141,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyEntriesInput = {
@@ -193512,6 +195256,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyEntriesInput = {
@@ -193615,6 +195360,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyEntryInput = {
@@ -193908,6 +195654,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingsInput = {
@@ -194011,6 +195758,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingsInput = {
@@ -194325,6 +196073,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingsInput = {
@@ -194428,6 +196177,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithWhereUniqueWithoutBookingInput = {
@@ -194624,6 +196374,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPswAvailabilityInput = {
@@ -194727,6 +196478,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPswAvailabilityInput = {
@@ -194929,6 +196681,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPswAvailabilityInput = {
@@ -195032,6 +196785,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutDocumentsInput = {
@@ -195153,6 +196907,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerifiedDocsInput = {
@@ -195197,6 +196952,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerifiedDocsInput = {
@@ -195340,6 +197096,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerifiedDocsInput = {
@@ -195384,6 +197141,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PswProfileCreateWithoutAssignmentsInput = {
@@ -195564,6 +197322,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutShiftAssignmentsInput = {
@@ -195667,6 +197426,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutShiftAssignmentsInput = {
@@ -195960,6 +197720,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutShiftAssignmentsInput = {
@@ -196063,6 +197824,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutAssignmentsInput = {
@@ -196305,6 +198067,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedTimesheetsInput = {
@@ -196349,6 +198112,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedTimesheetsInput = {
@@ -196457,6 +198221,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimesheetsInput = {
@@ -196560,6 +198325,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimesheetsInput = {
@@ -196719,6 +198485,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedTimesheetsInput = {
@@ -196763,6 +198530,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTimesheetsInput = {
@@ -196877,6 +198645,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimesheetsInput = {
@@ -196980,6 +198749,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TimesheetCreateWithoutItemsInput = {
@@ -197511,6 +199281,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHandoversInput = {
@@ -197614,6 +199385,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHandoversInput = {
@@ -197913,6 +199685,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHandoversInput = {
@@ -198016,6 +199789,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutOverridesInput = {
@@ -198196,6 +199970,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAvailabilityOverridesInput = {
@@ -198299,6 +200074,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAvailabilityOverridesInput = {
@@ -198501,6 +200277,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAvailabilityOverridesInput = {
@@ -198604,6 +200381,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitCreateWithoutMatchesInput = {
@@ -198875,6 +200653,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVisitMatchesInput = {
@@ -198978,6 +200757,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVisitMatchesInput = {
@@ -199277,6 +201057,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVisitMatchesInput = {
@@ -199380,6 +201161,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutWaitlistEntriesInput = {
@@ -199611,6 +201393,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWaitlistEntriesInput = {
@@ -199714,6 +201497,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWaitlistEntriesInput = {
@@ -199973,6 +201757,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWaitlistEntriesInput = {
@@ -200076,6 +201861,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutStaffTasksInput = {
@@ -200179,6 +201965,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffTasksInput = {
@@ -200282,6 +202069,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffTasksInput = {
@@ -200356,6 +202144,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -200400,6 +202189,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -200519,6 +202309,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffTasksInput = {
@@ -200622,6 +202413,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffGroupUpsertWithoutTasksInput = {
@@ -200708,6 +202500,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -200752,6 +202545,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutStaffGroupsInput = {
@@ -200855,6 +202649,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffGroupsInput = {
@@ -200958,6 +202753,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffGroupsInput = {
@@ -201137,6 +202933,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffGroupsInput = {
@@ -201240,6 +203037,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffGroupMemberUpsertWithWhereUniqueWithoutGroupInput = {
@@ -201341,6 +203139,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStaffGroupMemberInput = {
@@ -201385,6 +203184,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStaffGroupMemberInput = {
@@ -201476,6 +203276,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStaffGroupMemberInput = {
@@ -201520,6 +203321,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutBookingRequestsInput = {
@@ -201716,6 +203518,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBookingRequestsInput = {
@@ -201819,6 +203622,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBookingRequestsInput = {
@@ -202037,6 +203841,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBookingRequestsInput = {
@@ -202140,6 +203945,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutFleetStatusInput = {
@@ -202496,6 +204302,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCarePlansInput = {
@@ -202599,6 +204406,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCarePlansInput = {
@@ -202648,6 +204456,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCarePlansAuthoredInput = {
@@ -202692,6 +204501,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCarePlansAuthoredInput = {
@@ -202910,6 +204720,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCarePlansInput = {
@@ -203013,6 +204824,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutCarePlansAuthoredInput = {
@@ -203068,6 +204880,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCarePlansAuthoredInput = {
@@ -203112,6 +204925,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutClinicalRecordsInput = {
@@ -203215,6 +205029,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalRecordsInput = {
@@ -203318,6 +205133,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalRecordsInput = {
@@ -203437,6 +205253,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalRecordsInput = {
@@ -203540,6 +205357,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutAssessmentsInput = {
@@ -203677,6 +205495,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssessmentsInput = {
@@ -203721,6 +205540,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssessmentsInput = {
@@ -203829,6 +205649,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClinicalAssessmentsInput = {
@@ -203932,6 +205753,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClinicalAssessmentsInput = {
@@ -204091,6 +205913,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssessmentsInput = {
@@ -204135,6 +205958,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutClinicalAssessmentsInput = {
@@ -204249,6 +206073,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClinicalAssessmentsInput = {
@@ -204352,6 +206177,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutMedicationReconsInput = {
@@ -204489,6 +206315,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicationReconsInput = {
@@ -204533,6 +206360,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicationReconsInput = {
@@ -204641,6 +206469,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicationReconsInput = {
@@ -204744,6 +206573,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicationReconsInput = {
@@ -204903,6 +206733,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicationReconsInput = {
@@ -204947,6 +206778,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMedicationReconsInput = {
@@ -205061,6 +206893,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicationReconsInput = {
@@ -205164,6 +206997,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutSupervisionLogsInput = {
@@ -205285,6 +207119,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSupervisionLogsInput = {
@@ -205329,6 +207164,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSupervisionLogsInput = {
@@ -205437,6 +207273,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSupervisionLogsInput = {
@@ -205540,6 +207377,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSupervisionLogsInput = {
@@ -205683,6 +207521,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -205727,6 +207566,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutSupervisionLogsInput = {
@@ -205841,6 +207681,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSupervisionLogsInput = {
@@ -205944,6 +207785,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFhirSyncLogsInput = {
@@ -206047,6 +207889,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFhirSyncLogsInput = {
@@ -206150,6 +207993,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFhirSyncLogsInput = {
@@ -206269,6 +208113,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFhirSyncLogsInput = {
@@ -206372,6 +208217,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutVitalSignsInput = {
@@ -206667,6 +208513,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPatientAlertsInput = {
@@ -206770,6 +208617,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPatientAlertsInput = {
@@ -206982,6 +208830,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPatientAlertsInput = {
@@ -207085,6 +208934,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPatientAlertsInput = {
@@ -207343,6 +209193,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPrescriptionsInput = {
@@ -207446,6 +209297,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPrescriptionsInput = {
@@ -207727,6 +209579,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPrescriptionsInput = {
@@ -207830,6 +209683,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPrescriptionsInput = {
@@ -208347,6 +210201,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvvRecordsInput = {
@@ -208450,6 +210305,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvvRecordsInput = {
@@ -208569,6 +210425,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvvRecordsInput = {
@@ -208672,6 +210529,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutServiceAuthorizationsInput = {
@@ -208868,6 +210726,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutServiceAuthorizationsInput = {
@@ -208971,6 +210830,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutServiceAuthorizationsInput = {
@@ -209189,6 +211049,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutServiceAuthorizationsInput = {
@@ -209292,6 +211153,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutConsentFormsInput = {
@@ -209488,6 +211350,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConsentFormsInput = {
@@ -209591,6 +211454,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConsentFormsInput = {
@@ -209809,6 +211673,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConsentFormsInput = {
@@ -209912,6 +211777,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutDailyAuditSignOffsInput = {
@@ -209956,6 +211822,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -210000,6 +211867,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -210108,6 +211976,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDailyAuditSignOffsInput = {
@@ -210211,6 +212080,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDailyAuditSignOffsInput = {
@@ -210362,6 +212232,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -210406,6 +212277,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutDailyAuditSignOffsInput = {
@@ -210520,6 +212392,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDailyAuditSignOffsInput = {
@@ -210623,6 +212496,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutDailyAuditSignOffInput = {
@@ -210764,6 +212638,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWellnessPulsesInput = {
@@ -210808,6 +212683,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWellnessPulsesInput = {
@@ -210916,6 +212792,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWellnessPulsesInput = {
@@ -211019,6 +212896,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWellnessPulsesInput = {
@@ -211079,6 +212957,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -211123,6 +213002,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutWellnessPulsesInput = {
@@ -211237,6 +213117,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWellnessPulsesInput = {
@@ -211340,6 +213221,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutInvoicesInput = {
@@ -211536,6 +213418,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoicesInput = {
@@ -211639,6 +213522,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoicesInput = {
@@ -211885,6 +213769,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoicesInput = {
@@ -211988,6 +213873,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -212192,6 +214078,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInsuranceProvidersInput = {
@@ -212295,6 +214182,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInsuranceProvidersInput = {
@@ -212446,6 +214334,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInsuranceProvidersInput = {
@@ -212549,6 +214438,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClaimUpsertWithWhereUniqueWithoutProviderInput = {
@@ -212668,6 +214558,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClaimsInput = {
@@ -212771,6 +214662,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClaimsInput = {
@@ -213008,6 +214900,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClaimsInput = {
@@ -213111,6 +215004,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutClaimsInput = {
@@ -213421,6 +215315,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayoutsInput = {
@@ -213524,6 +215419,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayoutsInput = {
@@ -213726,6 +215622,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayoutsInput = {
@@ -213829,6 +215726,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutMileageLogsInput = {
@@ -214009,6 +215907,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMileageLogsInput = {
@@ -214112,6 +216011,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMileageLogsInput = {
@@ -214314,6 +216214,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMileageLogsInput = {
@@ -214417,6 +216318,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFinancialAccountsInput = {
@@ -214520,6 +216422,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialAccountsInput = {
@@ -214623,6 +216526,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialAccountsInput = {
@@ -214776,6 +216680,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialAccountsInput = {
@@ -214879,6 +216784,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutAccountInput = {
@@ -214998,6 +216904,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialTransactionsInput = {
@@ -215101,6 +217008,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialTransactionsInput = {
@@ -215280,6 +217188,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialTransactionsInput = {
@@ -215383,6 +217292,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryUpsertWithWhereUniqueWithoutTransactionInput = {
@@ -215576,6 +217486,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialJournalEntriesInput = {
@@ -215679,6 +217590,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialJournalEntriesInput = {
@@ -215868,6 +217780,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialJournalEntriesInput = {
@@ -215971,6 +217884,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionCreateWithoutReconciliationsInput = {
@@ -216134,6 +218048,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialReconciliationsInput = {
@@ -216237,6 +218152,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialReconciliationsInput = {
@@ -216428,6 +218344,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialReconciliationsInput = {
@@ -216531,6 +218448,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBankTransactionsInput = {
@@ -216634,6 +218552,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBankTransactionsInput = {
@@ -216737,6 +218656,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBankTransactionsInput = {
@@ -216882,6 +218802,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBankTransactionsInput = {
@@ -216985,6 +218906,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialReconciliationUpsertWithWhereUniqueWithoutBankTransactionInput = {
@@ -217104,6 +219026,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTransactionLedgerInput = {
@@ -217207,6 +219130,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTransactionLedgerInput = {
@@ -217256,6 +219180,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLedgerEntriesInput = {
@@ -217300,6 +219225,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLedgerEntriesInput = {
@@ -217419,6 +219345,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTransactionLedgerInput = {
@@ -217522,6 +219449,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutLedgerEntriesInput = {
@@ -217577,6 +219505,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -217621,6 +219550,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBlogPostsInput = {
@@ -217665,6 +219595,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBlogPostsInput = {
@@ -217709,6 +219640,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBlogPostsInput = {
@@ -217769,6 +219701,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBlogPostsInput = {
@@ -217813,6 +219746,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientProfileCreateWithoutFeedbacksInput = {
@@ -218009,6 +219943,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeedbacksInput = {
@@ -218112,6 +220047,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeedbacksInput = {
@@ -218421,6 +220357,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeedbacksInput = {
@@ -218524,6 +220461,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VisitUpsertWithoutFeedbacksInput = {
@@ -218724,6 +220662,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingModulesInput = {
@@ -218827,6 +220766,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingModulesInput = {
@@ -218976,6 +220916,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingModulesInput = {
@@ -219079,6 +221020,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingAssignmentUpsertWithWhereUniqueWithoutModuleInput = {
@@ -219272,6 +221214,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSurveysInput = {
@@ -219375,6 +221318,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSurveysInput = {
@@ -219518,6 +221462,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSurveysInput = {
@@ -219621,6 +221566,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SurveyResponseUpsertWithWhereUniqueWithoutSurveyInput = {
@@ -219807,6 +221753,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRegionsInput = {
@@ -219910,6 +221857,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRegionsInput = {
@@ -220059,6 +222007,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRegionsInput = {
@@ -220162,6 +222111,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BranchCapacityUpsertWithWhereUniqueWithoutRegionInput = {
@@ -220355,6 +222305,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBranchStatsInput = {
@@ -220458,6 +222409,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBranchStatsInput = {
@@ -220577,6 +222529,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBranchStatsInput = {
@@ -220680,6 +222633,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutComplianceRecordsInput = {
@@ -220783,6 +222737,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutComplianceRecordsInput = {
@@ -220886,6 +222841,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutComplianceRecordsInput = {
@@ -221005,6 +222961,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutComplianceRecordsInput = {
@@ -221108,6 +223065,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFranchisesInput = {
@@ -221211,6 +223169,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFranchisesInput = {
@@ -221314,6 +223273,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFranchisesInput = {
@@ -221559,6 +223519,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFranchisesInput = {
@@ -221662,6 +223623,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ResellerAgreementUpsertWithWhereUniqueWithoutFranchiseInput = {
@@ -221916,6 +223878,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInventoryItemsInput = {
@@ -222019,6 +223982,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInventoryItemsInput = {
@@ -222231,6 +224195,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInventoryItemsInput = {
@@ -222334,6 +224299,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutInventoryItemsInput = {
@@ -222563,6 +224529,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPurchaseOrdersInput = {
@@ -222666,6 +224633,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPurchaseOrdersInput = {
@@ -222911,6 +224879,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPurchaseOrdersInput = {
@@ -223014,6 +224983,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutPurchaseOrdersInput = {
@@ -223216,6 +225186,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -223319,6 +225290,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -223461,6 +225433,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTelehealthSessionsInput = {
@@ -223505,6 +225478,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTelehealthSessionsInput = {
@@ -223624,6 +225598,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -223727,6 +225702,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileUpsertWithoutTelehealthSessionsInput = {
@@ -223881,6 +225857,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTelehealthSessionsInput = {
@@ -223925,6 +225902,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutMarketplaceListingsInput = {
@@ -224028,6 +226006,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceListingsInput = {
@@ -224131,6 +226110,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceListingsInput = {
@@ -224250,6 +226230,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceListingsInput = {
@@ -224353,6 +226334,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSlasInput = {
@@ -224456,6 +226438,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSlasInput = {
@@ -224559,6 +226542,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSlasInput = {
@@ -224678,6 +226662,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSlasInput = {
@@ -224781,6 +226766,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiRecommendationsInput = {
@@ -224884,6 +226870,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRecommendationsInput = {
@@ -224987,6 +226974,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRecommendationsInput = {
@@ -225106,6 +227094,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRecommendationsInput = {
@@ -225209,6 +227198,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSentimentAnalysesInput = {
@@ -225312,6 +227302,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSentimentAnalysesInput = {
@@ -225415,6 +227406,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSentimentAnalysesInput = {
@@ -225534,6 +227526,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSentimentAnalysesInput = {
@@ -225637,6 +227630,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSecurityThreatsInput = {
@@ -225740,6 +227734,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSecurityThreatsInput = {
@@ -225843,6 +227838,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSecurityThreatsInput = {
@@ -225962,6 +227958,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSecurityThreatsInput = {
@@ -226065,6 +228062,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserCreateWithoutPerformedAuditsInput = {
@@ -226109,6 +228107,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformedAuditsInput = {
@@ -226153,6 +228152,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformedAuditsInput = {
@@ -226261,6 +228261,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTechnicalAuditsInput = {
@@ -226364,6 +228365,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTechnicalAuditsInput = {
@@ -226424,6 +228426,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformedAuditsInput = {
@@ -226468,6 +228471,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTechnicalAuditsInput = {
@@ -226582,6 +228586,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTechnicalAuditsInput = {
@@ -226685,6 +228690,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyNotificationsInput = {
@@ -226881,6 +228887,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyNotificationsInput = {
@@ -226984,6 +228991,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyNotificationsInput = {
@@ -227202,6 +229210,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyNotificationsInput = {
@@ -227305,6 +229314,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutCareFeedbacksInput = {
@@ -227592,6 +229602,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCareFeedbacksInput = {
@@ -227695,6 +229706,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCareFeedbacksInput = {
@@ -228010,6 +230022,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCareFeedbacksInput = {
@@ -228113,6 +230126,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutReferralsInput = {
@@ -228216,6 +230230,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutReferralsInput = {
@@ -228319,6 +230334,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutReferralsInput = {
@@ -228438,6 +230454,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutReferralsInput = {
@@ -228541,6 +230558,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClientProfileCreateWithoutFamilyMembersInput = {
@@ -228737,6 +230755,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFamilyMembersInput = {
@@ -228840,6 +230859,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFamilyMembersInput = {
@@ -229058,6 +231078,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFamilyMembersInput = {
@@ -229161,6 +231182,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PswProfileCreateWithoutPerformanceReviewsInput = {
@@ -229282,6 +231304,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPerformanceReviewsAuthoredInput = {
@@ -229326,6 +231349,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPerformanceReviewsAuthoredInput = {
@@ -229434,6 +231458,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPerformanceReviewsInput = {
@@ -229537,6 +231562,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPerformanceReviewsInput = {
@@ -229680,6 +231706,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPerformanceReviewsAuthoredInput = {
@@ -229724,6 +231751,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPerformanceReviewsInput = {
@@ -229838,6 +231866,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPerformanceReviewsInput = {
@@ -229941,6 +231970,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookDeliveryCreateWithoutEndpointInput = {
@@ -230074,6 +232104,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebhookEndpointsInput = {
@@ -230177,6 +232208,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebhookEndpointsInput = {
@@ -230326,6 +232358,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebhookEndpointsInput = {
@@ -230429,6 +232462,7 @@ export namespace Prisma {
     performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookEndpointCreateWithoutDeliveriesInput = {
@@ -230600,6 +232634,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIotEventsInput = {
@@ -230703,6 +232738,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIotEventsInput = {
@@ -230752,6 +232788,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIotEventsInput = {
@@ -230796,6 +232833,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIotEventsInput = {
@@ -230915,6 +232953,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIotEventsInput = {
@@ -231018,6 +233057,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIotEventsInput = {
@@ -231073,6 +233113,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIotEventsInput = {
@@ -231117,6 +233158,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAppNotificationsInput = {
@@ -231220,6 +233262,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAppNotificationsInput = {
@@ -231323,6 +233366,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAppNotificationsInput = {
@@ -231372,6 +233416,7 @@ export namespace Prisma {
     iotEvents?: IoTEventCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppNotificationsInput = {
@@ -231416,6 +233461,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
     gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppNotificationsInput = {
@@ -231535,6 +233581,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAppNotificationsInput = {
@@ -231638,6 +233685,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAppNotificationsInput = {
@@ -231693,6 +233741,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppNotificationsInput = {
@@ -231737,6 +233786,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutGamificationProfilesInput = {
@@ -231840,6 +233890,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGamificationProfilesInput = {
@@ -231943,6 +233994,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGamificationProfilesInput = {
@@ -231992,6 +234044,7 @@ export namespace Prisma {
     iotEvents?: IoTEventCreateNestedManyWithoutUserInput
     appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
     reputation?: UserReputationCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGamificationProfileInput = {
@@ -232036,6 +234089,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
     appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
     reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGamificationProfileInput = {
@@ -232155,6 +234209,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGamificationProfilesInput = {
@@ -232258,6 +234313,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutGamificationProfileInput = {
@@ -232313,6 +234369,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGamificationProfileInput = {
@@ -232357,6 +234414,7 @@ export namespace Prisma {
     iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAiInferencesInput = {
@@ -232460,6 +234518,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiInferencesInput = {
@@ -232563,6 +234622,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiInferencesInput = {
@@ -232682,6 +234742,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiInferencesInput = {
@@ -232785,6 +234846,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutCommunicationLogsInput = {
@@ -232888,6 +234950,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCommunicationLogsInput = {
@@ -232991,6 +235054,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
     staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
     platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+    DailyActivity?: DailyActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCommunicationLogsInput = {
@@ -233110,6 +235174,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCommunicationLogsInput = {
@@ -233213,6 +235278,635 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutDailyActivityInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    bookings?: BookingCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileCreateNestedManyWithoutTenantInput
+    services?: ServiceCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskCreateNestedManyWithoutTenantInput
+    leads?: LeadCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventCreateNestedManyWithoutTenantInput
+    visits?: VisitCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleCreateNestedManyWithoutTenantInput
+    surveys?: SurveyCreateNestedManyWithoutTenantInput
+    regions?: RegionCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatCreateNestedManyWithoutTenantInput
+    slas?: TenantSLACreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryCreateNestedManyWithoutTenantInput
+    claims?: ClaimCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerCreateNestedManyWithoutTenantInput
+    parentTenant?: TenantCreateNestedOneWithoutChildTenantsInput
+    childTenants?: TenantCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideCreateNestedManyWithoutTenantInput
+    payouts?: PayoutCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionCreateNestedManyWithoutTenantInput
+    registries?: RegistryCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogCreateNestedManyWithoutTenantInput
+    referrals?: ReferralCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDailyActivityInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    businessNumber?: string | null
+    supportEmail?: string | null
+    logoUrl?: string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: string | null
+    onboardingStep?: number
+    allowedVpnRanges: string
+    enforceVpn?: boolean
+    requireDeviceApproval?: boolean
+    maxDevicesPerUser?: number
+    corsAllowedOrigins: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders: JsonNullValueInput | InputJsonValue
+    taxPercentage?: Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutTenantInput
+    clientProfiles?: ClientProfileUncheckedCreateNestedManyWithoutTenantInput
+    dailyEntries?: DailyEntryUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    messageThreads?: MessageThreadUncheckedCreateNestedManyWithoutTenantInput
+    pswAvailability?: PswAvailabilityUncheckedCreateNestedManyWithoutTenantInput
+    pswProfiles?: PswProfileUncheckedCreateNestedManyWithoutTenantInput
+    services?: ServiceUncheckedCreateNestedManyWithoutTenantInput
+    shiftAssignments?: ShiftAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    timesheets?: TimesheetUncheckedCreateNestedManyWithoutTenantInput
+    staffTasks?: StaffTaskUncheckedCreateNestedManyWithoutTenantInput
+    leads?: LeadUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    checkEvents?: VisitCheckEventUncheckedCreateNestedManyWithoutTenantInput
+    visits?: VisitUncheckedCreateNestedManyWithoutTenantInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutTenantInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutTenantInput
+    carePlans?: CarePlanUncheckedCreateNestedManyWithoutTenantInput
+    trainingModules?: TrainingModuleUncheckedCreateNestedManyWithoutTenantInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutTenantInput
+    regions?: RegionUncheckedCreateNestedManyWithoutTenantInput
+    clinicalRecords?: ClinicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    fhirSyncLogs?: FhirSyncLogUncheckedCreateNestedManyWithoutTenantInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTenantInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    securityThreats?: SecurityThreatUncheckedCreateNestedManyWithoutTenantInput
+    slas?: TenantSLAUncheckedCreateNestedManyWithoutTenantInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutTenantInput
+    patientAlerts?: PatientAlertUncheckedCreateNestedManyWithoutTenantInput
+    insuranceProviders?: InsuranceProviderUncheckedCreateNestedManyWithoutTenantInput
+    visitMatches?: VisitMatchUncheckedCreateNestedManyWithoutTenantInput
+    waitlistEntries?: WaitlistEntryUncheckedCreateNestedManyWithoutTenantInput
+    claims?: ClaimUncheckedCreateNestedManyWithoutTenantInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutTenantInput
+    branchStats?: BranchStatUncheckedCreateNestedManyWithoutTenantInput
+    complianceRecords?: ComplianceRecordUncheckedCreateNestedManyWithoutTenantInput
+    familyNotifications?: FamilyNotificationUncheckedCreateNestedManyWithoutTenantInput
+    careFeedbacks?: CareFeedbackUncheckedCreateNestedManyWithoutTenantInput
+    technicalAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutTenantInput
+    bookingRequests?: BookingRequestUncheckedCreateNestedManyWithoutTenantInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutTenantInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutTenantInput
+    systemTouchpoints?: SystemTouchpointUncheckedCreateNestedManyWithoutTenantInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutTenantInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutTenantInput
+    gamificationProfiles?: GamificationProfileUncheckedCreateNestedManyWithoutTenantInput
+    aiInferences?: AIInferenceUncheckedCreateNestedManyWithoutTenantInput
+    communicationLogs?: CommunicationLogUncheckedCreateNestedManyWithoutTenantInput
+    transactionLedger?: TransactionLedgerUncheckedCreateNestedManyWithoutTenantInput
+    childTenants?: TenantUncheckedCreateNestedManyWithoutParentTenantInput
+    franchises?: FranchiseUncheckedCreateNestedManyWithoutResellerInput
+    marketplaceListings?: MarketplaceListingUncheckedCreateNestedManyWithoutTenantInput
+    handovers?: ShiftHandoverUncheckedCreateNestedManyWithoutTenantInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedCreateNestedManyWithoutTenantInput
+    payouts?: PayoutUncheckedCreateNestedManyWithoutTenantInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutTenantInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutTenantInput
+    inventoryItems?: InventoryItemUncheckedCreateNestedManyWithoutTenantInput
+    purchaseOrders?: PurchaseOrderUncheckedCreateNestedManyWithoutTenantInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutTenantInput
+    financialAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    financialTransactions?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    financialJournalEntries?: JournalEntryUncheckedCreateNestedManyWithoutTenantInput
+    financialReconciliations?: FinancialReconciliationUncheckedCreateNestedManyWithoutTenantInput
+    bankTransactions?: BankTransactionUncheckedCreateNestedManyWithoutTenantInput
+    registries?: RegistryUncheckedCreateNestedManyWithoutTenantInput
+    evvRecords?: EVVRecordUncheckedCreateNestedManyWithoutTenantInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedCreateNestedManyWithoutTenantInput
+    consentForms?: ConsentFormUncheckedCreateNestedManyWithoutTenantInput
+    mileageLogs?: MileageLogUncheckedCreateNestedManyWithoutTenantInput
+    referrals?: ReferralUncheckedCreateNestedManyWithoutTenantInput
+    familyMembers?: FamilyMemberUncheckedCreateNestedManyWithoutTenantInput
+    performanceReviews?: PerformanceReviewUncheckedCreateNestedManyWithoutTenantInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutTenantInput
+    staffGroups?: StaffGroupUncheckedCreateNestedManyWithoutTenantInput
+    platformRoles?: PlatformRoleUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDailyActivityInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDailyActivityInput, TenantUncheckedCreateWithoutDailyActivityInput>
+  }
+
+  export type UserCreateWithoutDailyActivityInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: string
+    auditLogs?: AuditLogCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionCreateNestedManyWithoutProviderInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    VisitCheckEvent?: VisitCheckEventCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerCreateNestedManyWithoutActorInput
+    assessments?: ClinicalAssessmentCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseCreateNestedManyWithoutUserInput
+    devices?: UserDeviceCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileCreateNestedOneWithoutUserInput
+    reputation?: UserReputationCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDailyActivityInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    passwordHash?: string | null
+    osmId?: string | null
+    status?: string | null
+    resetToken?: string | null
+    resetTokenExpiry?: Date | string | null
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenantId: string
+    roles?: string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutActorInput
+    blogPosts?: BlogPostUncheckedCreateNestedManyWithoutAuthorInput
+    clientProfile?: ClientProfileUncheckedCreateNestedOneWithoutUserInput
+    DailyEntry?: DailyEntryUncheckedCreateNestedManyWithoutStaffInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReporterInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    verifiedDocs?: PswDocumentUncheckedCreateNestedManyWithoutVerifierInput
+    pswProfile?: PswProfileUncheckedCreateNestedOneWithoutUserInput
+    reviewedTimesheets?: TimesheetUncheckedCreateNestedManyWithoutReviewerInput
+    telehealthSessions?: TelehealthSessionUncheckedCreateNestedManyWithoutProviderInput
+    VisitCheckEvent?: VisitCheckEventUncheckedCreateNestedManyWithoutOverriddenByInput
+    StaffGroupMember?: StaffGroupMemberUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: StaffTaskUncheckedCreateNestedManyWithoutAssigneeInput
+    carePlansAuthored?: CarePlanUncheckedCreateNestedManyWithoutAuthorInput
+    ledgerEntries?: TransactionLedgerUncheckedCreateNestedManyWithoutActorInput
+    assessments?: ClinicalAssessmentUncheckedCreateNestedManyWithoutRnInput
+    medicationRecons?: MedicationReconUncheckedCreateNestedManyWithoutRnInput
+    supervisionLogs?: SupervisionLogUncheckedCreateNestedManyWithoutRnInput
+    acknowledgedIncidents?: IncidentUncheckedCreateNestedManyWithoutAcknowledgerInput
+    performedAudits?: TechnicalAuditUncheckedCreateNestedManyWithoutPerformedByInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedCreateNestedManyWithoutRnInput
+    wellnessPulses?: WellnessPulseUncheckedCreateNestedManyWithoutUserInput
+    devices?: UserDeviceUncheckedCreateNestedManyWithoutUserInput
+    systemEvents?: SystemEventUncheckedCreateNestedManyWithoutActorInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedCreateNestedManyWithoutReviewerInput
+    iotEvents?: IoTEventUncheckedCreateNestedManyWithoutUserInput
+    appNotifications?: AppNotificationUncheckedCreateNestedManyWithoutUserInput
+    gamificationProfile?: GamificationProfileUncheckedCreateNestedOneWithoutUserInput
+    reputation?: UserReputationUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDailyActivityInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyActivityInput, UserUncheckedCreateWithoutDailyActivityInput>
+  }
+
+  export type TenantUpsertWithoutDailyActivityInput = {
+    update: XOR<TenantUpdateWithoutDailyActivityInput, TenantUncheckedUpdateWithoutDailyActivityInput>
+    create: XOR<TenantCreateWithoutDailyActivityInput, TenantUncheckedCreateWithoutDailyActivityInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDailyActivityInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDailyActivityInput, TenantUncheckedUpdateWithoutDailyActivityInput>
+  }
+
+  export type TenantUpdateWithoutDailyActivityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUpdateManyWithoutTenantNestedInput
+    services?: ServiceUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUpdateManyWithoutTenantNestedInput
+    leads?: LeadUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUpdateManyWithoutTenantNestedInput
+    visits?: VisitUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUpdateManyWithoutTenantNestedInput
+    regions?: RegionUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUpdateManyWithoutTenantNestedInput
+    parentTenant?: TenantUpdateOneWithoutChildTenantsNestedInput
+    childTenants?: TenantUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDailyActivityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    supportEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    taxSettings?: NullableJsonNullValueInput | InputJsonValue
+    brandingConfig?: NullableJsonNullValueInput | InputJsonValue
+    stripeAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    onboardingStep?: IntFieldUpdateOperationsInput | number
+    allowedVpnRanges?: StringFieldUpdateOperationsInput | string
+    enforceVpn?: BoolFieldUpdateOperationsInput | boolean
+    requireDeviceApproval?: BoolFieldUpdateOperationsInput | boolean
+    maxDevicesPerUser?: IntFieldUpdateOperationsInput | number
+    corsAllowedOrigins?: JsonNullValueInput | InputJsonValue
+    corsAllowedMethods?: JsonNullValueInput | InputJsonValue
+    corsAllowedHeaders?: JsonNullValueInput | InputJsonValue
+    taxPercentage?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    parentTenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutTenantNestedInput
+    clientProfiles?: ClientProfileUncheckedUpdateManyWithoutTenantNestedInput
+    dailyEntries?: DailyEntryUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    messageThreads?: MessageThreadUncheckedUpdateManyWithoutTenantNestedInput
+    pswAvailability?: PswAvailabilityUncheckedUpdateManyWithoutTenantNestedInput
+    pswProfiles?: PswProfileUncheckedUpdateManyWithoutTenantNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutTenantNestedInput
+    shiftAssignments?: ShiftAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    timesheets?: TimesheetUncheckedUpdateManyWithoutTenantNestedInput
+    staffTasks?: StaffTaskUncheckedUpdateManyWithoutTenantNestedInput
+    leads?: LeadUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    checkEvents?: VisitCheckEventUncheckedUpdateManyWithoutTenantNestedInput
+    visits?: VisitUncheckedUpdateManyWithoutTenantNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutTenantNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    carePlans?: CarePlanUncheckedUpdateManyWithoutTenantNestedInput
+    trainingModules?: TrainingModuleUncheckedUpdateManyWithoutTenantNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutTenantNestedInput
+    regions?: RegionUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalRecords?: ClinicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    fhirSyncLogs?: FhirSyncLogUncheckedUpdateManyWithoutTenantNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTenantNestedInput
+    sentimentAnalyses?: SentimentAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    securityThreats?: SecurityThreatUncheckedUpdateManyWithoutTenantNestedInput
+    slas?: TenantSLAUncheckedUpdateManyWithoutTenantNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutTenantNestedInput
+    patientAlerts?: PatientAlertUncheckedUpdateManyWithoutTenantNestedInput
+    insuranceProviders?: InsuranceProviderUncheckedUpdateManyWithoutTenantNestedInput
+    visitMatches?: VisitMatchUncheckedUpdateManyWithoutTenantNestedInput
+    waitlistEntries?: WaitlistEntryUncheckedUpdateManyWithoutTenantNestedInput
+    claims?: ClaimUncheckedUpdateManyWithoutTenantNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutTenantNestedInput
+    branchStats?: BranchStatUncheckedUpdateManyWithoutTenantNestedInput
+    complianceRecords?: ComplianceRecordUncheckedUpdateManyWithoutTenantNestedInput
+    familyNotifications?: FamilyNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    careFeedbacks?: CareFeedbackUncheckedUpdateManyWithoutTenantNestedInput
+    technicalAudits?: TechnicalAuditUncheckedUpdateManyWithoutTenantNestedInput
+    bookingRequests?: BookingRequestUncheckedUpdateManyWithoutTenantNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutTenantNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutTenantNestedInput
+    systemTouchpoints?: SystemTouchpointUncheckedUpdateManyWithoutTenantNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutTenantNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutTenantNestedInput
+    gamificationProfiles?: GamificationProfileUncheckedUpdateManyWithoutTenantNestedInput
+    aiInferences?: AIInferenceUncheckedUpdateManyWithoutTenantNestedInput
+    communicationLogs?: CommunicationLogUncheckedUpdateManyWithoutTenantNestedInput
+    transactionLedger?: TransactionLedgerUncheckedUpdateManyWithoutTenantNestedInput
+    childTenants?: TenantUncheckedUpdateManyWithoutParentTenantNestedInput
+    franchises?: FranchiseUncheckedUpdateManyWithoutResellerNestedInput
+    marketplaceListings?: MarketplaceListingUncheckedUpdateManyWithoutTenantNestedInput
+    handovers?: ShiftHandoverUncheckedUpdateManyWithoutTenantNestedInput
+    availabilityOverrides?: AvailabilityOverrideUncheckedUpdateManyWithoutTenantNestedInput
+    payouts?: PayoutUncheckedUpdateManyWithoutTenantNestedInput
+    clinicalAssessments?: ClinicalAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutTenantNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutTenantNestedInput
+    inventoryItems?: InventoryItemUncheckedUpdateManyWithoutTenantNestedInput
+    purchaseOrders?: PurchaseOrderUncheckedUpdateManyWithoutTenantNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutTenantNestedInput
+    financialAccounts?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    financialTransactions?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    financialJournalEntries?: JournalEntryUncheckedUpdateManyWithoutTenantNestedInput
+    financialReconciliations?: FinancialReconciliationUncheckedUpdateManyWithoutTenantNestedInput
+    bankTransactions?: BankTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    registries?: RegistryUncheckedUpdateManyWithoutTenantNestedInput
+    evvRecords?: EVVRecordUncheckedUpdateManyWithoutTenantNestedInput
+    serviceAuthorizations?: ServiceAuthorizationUncheckedUpdateManyWithoutTenantNestedInput
+    consentForms?: ConsentFormUncheckedUpdateManyWithoutTenantNestedInput
+    mileageLogs?: MileageLogUncheckedUpdateManyWithoutTenantNestedInput
+    referrals?: ReferralUncheckedUpdateManyWithoutTenantNestedInput
+    familyMembers?: FamilyMemberUncheckedUpdateManyWithoutTenantNestedInput
+    performanceReviews?: PerformanceReviewUncheckedUpdateManyWithoutTenantNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
+    staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
+    platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutDailyActivityInput = {
+    update: XOR<UserUpdateWithoutDailyActivityInput, UserUncheckedUpdateWithoutDailyActivityInput>
+    create: XOR<UserCreateWithoutDailyActivityInput, UserUncheckedCreateWithoutDailyActivityInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDailyActivityInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDailyActivityInput, UserUncheckedUpdateWithoutDailyActivityInput>
+  }
+
+  export type UserUpdateWithoutDailyActivityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUpdateManyWithoutProviderNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    VisitCheckEvent?: VisitCheckEventUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUpdateManyWithoutActorNestedInput
+    assessments?: ClinicalAssessmentUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
+    reputation?: UserReputationUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDailyActivityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    osmId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetTokenExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    roles?: StringFieldUpdateOperationsInput | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutActorNestedInput
+    blogPosts?: BlogPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clientProfile?: ClientProfileUncheckedUpdateOneWithoutUserNestedInput
+    DailyEntry?: DailyEntryUncheckedUpdateManyWithoutStaffNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    verifiedDocs?: PswDocumentUncheckedUpdateManyWithoutVerifierNestedInput
+    pswProfile?: PswProfileUncheckedUpdateOneWithoutUserNestedInput
+    reviewedTimesheets?: TimesheetUncheckedUpdateManyWithoutReviewerNestedInput
+    telehealthSessions?: TelehealthSessionUncheckedUpdateManyWithoutProviderNestedInput
+    VisitCheckEvent?: VisitCheckEventUncheckedUpdateManyWithoutOverriddenByNestedInput
+    StaffGroupMember?: StaffGroupMemberUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: StaffTaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    carePlansAuthored?: CarePlanUncheckedUpdateManyWithoutAuthorNestedInput
+    ledgerEntries?: TransactionLedgerUncheckedUpdateManyWithoutActorNestedInput
+    assessments?: ClinicalAssessmentUncheckedUpdateManyWithoutRnNestedInput
+    medicationRecons?: MedicationReconUncheckedUpdateManyWithoutRnNestedInput
+    supervisionLogs?: SupervisionLogUncheckedUpdateManyWithoutRnNestedInput
+    acknowledgedIncidents?: IncidentUncheckedUpdateManyWithoutAcknowledgerNestedInput
+    performedAudits?: TechnicalAuditUncheckedUpdateManyWithoutPerformedByNestedInput
+    dailyAuditSignOffs?: DailyAuditSignOffUncheckedUpdateManyWithoutRnNestedInput
+    wellnessPulses?: WellnessPulseUncheckedUpdateManyWithoutUserNestedInput
+    devices?: UserDeviceUncheckedUpdateManyWithoutUserNestedInput
+    systemEvents?: SystemEventUncheckedUpdateManyWithoutActorNestedInput
+    performanceReviewsAuthored?: PerformanceReviewUncheckedUpdateManyWithoutReviewerNestedInput
+    iotEvents?: IoTEventUncheckedUpdateManyWithoutUserNestedInput
+    appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
+    gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
+    reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AuditLogCreateManyActorInput = {
@@ -233540,6 +236234,18 @@ export namespace Prisma {
     link?: string | null
     tenantId?: string | null
     createdAt?: Date | string
+  }
+
+  export type DailyActivityCreateManyUserInput = {
+    id?: string
+    tenantId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutActorInput = {
@@ -234525,6 +237231,42 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DailyActivityUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDailyActivityNestedInput
+  }
+
+  export type DailyActivityUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyTenantInput = {
     id?: string
     actorUserId?: string | null
@@ -235496,6 +238238,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DailyActivityCreateManyTenantInput = {
+    id?: string
+    userId: string
+    role: string
+    title: string
+    description: string
+    status?: string
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AuditLogUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: StringFieldUpdateOperationsInput | string
@@ -236199,6 +238953,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -236243,6 +238998,7 @@ export namespace Prisma {
     appNotifications?: AppNotificationUncheckedUpdateManyWithoutUserNestedInput
     gamificationProfile?: GamificationProfileUncheckedUpdateOneWithoutUserNestedInput
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -237643,6 +240399,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutParentTenantInput = {
@@ -237746,6 +240503,7 @@ export namespace Prisma {
     webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutTenantNestedInput
     staffGroups?: StaffGroupUncheckedUpdateManyWithoutTenantNestedInput
     platformRoles?: PlatformRoleUncheckedUpdateManyWithoutTenantNestedInput
+    DailyActivity?: DailyActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutParentTenantInput = {
@@ -238771,6 +241529,42 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isCustom?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDailyActivityNestedInput
+  }
+
+  export type DailyActivityUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyActivityUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -243254,6 +246048,10 @@ export namespace Prisma {
      * @deprecated Use CommunicationLogDefaultArgs instead
      */
     export type CommunicationLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CommunicationLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DailyActivityDefaultArgs instead
+     */
+    export type DailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyActivityDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -1542,6 +1542,19 @@ exports.Prisma.CommunicationLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.DailyActivityScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  role: 'role',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  dueDate: 'dueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1686,7 +1699,8 @@ exports.Prisma.ModelName = {
   AppNotification: 'AppNotification',
   GamificationProfile: 'GamificationProfile',
   AIInference: 'AIInference',
-  CommunicationLog: 'CommunicationLog'
+  CommunicationLog: 'CommunicationLog',
+  DailyActivity: 'DailyActivity'
 };
 
 /**

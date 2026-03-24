@@ -48,6 +48,7 @@ model User {
   appNotifications           AppNotification[]
   gamificationProfile        GamificationProfile?
   reputation                 UserReputation?
+  DailyActivity              DailyActivity[]
 
   @@index([tenantId])
   @@map("users")
@@ -110,7 +111,7 @@ model Tenant {
   gamificationProfiles GamificationProfile[]
   aiInferences         AIInference[]
   communicationLogs    CommunicationLog[]
-  transactionLedger   TransactionLedger[]
+  transactionLedger    TransactionLedger[]
 
   // Business Model Extensions
   businessNumber  String? @map("business_number")
@@ -170,6 +171,7 @@ model Tenant {
   webhookEndpoints      WebhookEndpoint[]
   staffGroups           StaffGroup[]
   platformRoles         PlatformRole[]
+  DailyActivity         DailyActivity[]
 
   @@map("tenants")
 }
@@ -209,18 +211,18 @@ model ApiKey {
 }
 
 model AuditLog {
-  id             String   @id @default(uuid())
-  actorUserId    String?  @map("actor_user_id")
-  action         String
-  resourceType   String   @map("resource_type")
-  resourceId     String?  @map("resource_id")
-  metadata       Json?    @map("metadata_json")
-  deviceId       String?  @map("device_id")
-  ipAddress      String?  @map("ip_address")
-  createdAt      DateTime @default(now()) @map("created_at")
-  tenantId       String   @map("tenant_id")
-  actor          User?    @relation(fields: [actorUserId], references: [id])
-  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+  id           String   @id @default(uuid())
+  actorUserId  String?  @map("actor_user_id")
+  action       String
+  resourceType String   @map("resource_type")
+  resourceId   String?  @map("resource_id")
+  metadata     Json?    @map("metadata_json")
+  deviceId     String?  @map("device_id")
+  ipAddress    String?  @map("ip_address")
+  createdAt    DateTime @default(now()) @map("created_at")
+  tenantId     String   @map("tenant_id")
+  actor        User?    @relation(fields: [actorUserId], references: [id])
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
 
   @@index([tenantId])
   @@index([tenantId, createdAt])
@@ -405,26 +407,26 @@ model Message {
 // ==========================================
 
 model PlatformRole {
-  id          String   @id @default(uuid())
-  name        String   @unique // e.g., 'PSW', 'COORDINATOR', 'RN', 'GM'
-  description String?
-  isCustom    Boolean  @default(false) @map("is_custom")
-  tenantId    String?  @map("tenant_id")
-  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
+  id           String               @id @default(uuid())
+  name         String               @unique // e.g., 'PSW', 'COORDINATOR', 'RN', 'GM'
+  description  String?
+  isCustom     Boolean              @default(false) @map("is_custom")
+  tenantId     String?              @map("tenant_id")
+  tenant       Tenant?              @relation(fields: [tenantId], references: [id])
   screenAccess RoleScreenAccess[]
   resolutions  ProtocolResolution[] @relation("EscalationRoles")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt    DateTime             @default(now()) @map("created_at")
+  updatedAt    DateTime             @updatedAt @map("updated_at")
 
   @@map("platform_roles")
 }
 
 model RoleScreenAccess {
-  id          String   @id @default(uuid())
-  roleId      String   @map("role_id")
-  screenRoute String   @map("screen_route") // e.g., '/coordinator/live-map'
-  canRead     Boolean  @default(true) @map("can_read")
-  canWrite    Boolean  @default(false) @map("can_write")
+  id          String       @id @default(uuid())
+  roleId      String       @map("role_id")
+  screenRoute String       @map("screen_route") // e.g., '/coordinator/live-map'
+  canRead     Boolean      @default(true) @map("can_read")
+  canWrite    Boolean      @default(false) @map("can_write")
   role        PlatformRole @relation(fields: [roleId], references: [id])
 
   @@unique([roleId, screenRoute])
@@ -432,99 +434,99 @@ model RoleScreenAccess {
 }
 
 model CrisisProtocol {
-  id              String   @id @default(uuid())
-  scenarioName    String   @map("scenario_name") // e.g., 'Wi-Fi Drops'
-  triggerEvent    String   @unique @map("trigger_event") // e.g., 'EVV_CHECKOUT_TIMEOUT'
-  severity        String   @default("medium")
-  isActive        Boolean  @default(true) @map("is_active")
-  tenantId        String?  @map("tenant_id")
-  resolutions     ProtocolResolution[]
-  createdAt       DateTime @default(now()) @map("created_at")
+  id           String               @id @default(uuid())
+  scenarioName String               @map("scenario_name") // e.g., 'Wi-Fi Drops'
+  triggerEvent String               @unique @map("trigger_event") // e.g., 'EVV_CHECKOUT_TIMEOUT'
+  severity     String               @default("medium")
+  isActive     Boolean              @default(true) @map("is_active")
+  tenantId     String?              @map("tenant_id")
+  resolutions  ProtocolResolution[]
+  createdAt    DateTime             @default(now()) @map("created_at")
 
   @@map("crisis_protocols")
 }
 
 model ProtocolResolution {
-  id               String   @id @default(uuid())
-  protocolId       String   @map("protocol_id")
-  actionType       String   @map("action_type") // e.g., 'ENABLE_SQLITE_BUFFER', 'ACTIVATE_WEB_RTC'
-  escalateToRoleId String?  @map("escalate_to_role_id")
-  uiOverrideKey    String?  @map("ui_override_key") // e.g., 'RED_SOS_BANNER'
-  orderIndex       Int      @default(0) @map("order_index")
-  
-  protocol         CrisisProtocol @relation(fields: [protocolId], references: [id])
-  escalateToRole   PlatformRole?  @relation("EscalationRoles", fields: [escalateToRoleId], references: [id])
+  id               String  @id @default(uuid())
+  protocolId       String  @map("protocol_id")
+  actionType       String  @map("action_type") // e.g., 'ENABLE_SQLITE_BUFFER', 'ACTIVATE_WEB_RTC'
+  escalateToRoleId String? @map("escalate_to_role_id")
+  uiOverrideKey    String? @map("ui_override_key") // e.g., 'RED_SOS_BANNER'
+  orderIndex       Int     @default(0) @map("order_index")
+
+  protocol       CrisisProtocol @relation(fields: [protocolId], references: [id])
+  escalateToRole PlatformRole?  @relation("EscalationRoles", fields: [escalateToRoleId], references: [id])
 
   @@map("protocol_resolutions")
 }
 
 model EcosystemStateOverride {
-  id               String   @id @default(uuid())
-  globalStateMacro String   @unique @map("global_state_macro") // e.g., 'SEVERE_STAFF_SHORTAGE', 'CODE_BLACK'
-  isActive         Boolean  @default(false) @map("is_active")
-  payMultiplier    Decimal? @default(1.0) @map("pay_multiplier")
-  forceOfflineMode Boolean  @default(false) @map("force_offline_mode")
-  filterTriageOnly Boolean  @default(false) @map("filter_triage_only")
-  activatedAt      DateTime? @map("activated_at")
-  activatedByUserId String?  @map("activated_by_user_id")
+  id                String    @id @default(uuid())
+  globalStateMacro  String    @unique @map("global_state_macro") // e.g., 'SEVERE_STAFF_SHORTAGE', 'CODE_BLACK'
+  isActive          Boolean   @default(false) @map("is_active")
+  payMultiplier     Decimal?  @default(1.0) @map("pay_multiplier")
+  forceOfflineMode  Boolean   @default(false) @map("force_offline_mode")
+  filterTriageOnly  Boolean   @default(false) @map("filter_triage_only")
+  activatedAt       DateTime? @map("activated_at")
+  activatedByUserId String?   @map("activated_by_user_id")
 
   @@map("ecosystem_state_overrides")
 }
 
 model UserReputation {
-  id               String   @id @default(uuid())
-  userId           String   @unique @map("user_id")
-  points           Int      @default(0)
-  eliteStatus      Boolean  @default(false) @map("elite_status")
-  permanentMultiplier Decimal @default(1.0) @map("permanent_multiplier")
-  crisesResolved   Int      @default(0) @map("crises_resolved")
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt @map("updated_at")
-  
-  user             User     @relation(fields: [userId], references: [id])
+  id                  String   @id @default(uuid())
+  userId              String   @unique @map("user_id")
+  points              Int      @default(0)
+  eliteStatus         Boolean  @default(false) @map("elite_status")
+  permanentMultiplier Decimal  @default(1.0) @map("permanent_multiplier")
+  crisesResolved      Int      @default(0) @map("crises_resolved")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
 
   @@map("user_reputations")
 }
 
 model EcosystemAutopilotConfig {
-  id                    String   @id @default(uuid())
-  tenantId              String   @unique @map("tenant_id")
-  isActive              Boolean  @default(true) @map("is_active")
-  maxDailySurgeBudget   Decimal  @default(200.0) @map("max_daily_surge_budget")
-  currentDailySurgeSpend Decimal @default(0.0) @map("current_daily_surge_spend")
-  marginFreezeThreshold Decimal  @default(25.0) @map("margin_freeze_threshold")
-  lastCronRun           DateTime? @map("last_cron_run")
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
+  id                     String    @id @default(uuid())
+  tenantId               String    @unique @map("tenant_id")
+  isActive               Boolean   @default(true) @map("is_active")
+  maxDailySurgeBudget    Decimal   @default(200.0) @map("max_daily_surge_budget")
+  currentDailySurgeSpend Decimal   @default(0.0) @map("current_daily_surge_spend")
+  marginFreezeThreshold  Decimal   @default(25.0) @map("margin_freeze_threshold")
+  lastCronRun            DateTime? @map("last_cron_run")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
 
   @@map("ecosystem_autopilot_configs")
 }
 
 model HospitalTarget {
-  id              String   @id @default(uuid())
-  tenantId        String   @map("tenant_id")
-  hospitalName    String   @map("hospital_name")
-  dischargePlanner String? @map("discharge_planner")
-  status          String   @default("prospecting")
+  id               String    @id @default(uuid())
+  tenantId         String    @map("tenant_id")
+  hospitalName     String    @map("hospital_name")
+  dischargePlanner String?   @map("discharge_planner")
+  status           String    @default("prospecting")
   lastTouchpointAt DateTime? @map("last_touchpoint_at")
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
 
-  pipelines       ReferralPipeline[]
+  pipelines ReferralPipeline[]
 
   @@map("hospital_targets")
 }
 
 model ReferralPipeline {
-  id              String   @id @default(uuid())
-  tenantId        String   @map("tenant_id")
-  hospitalId      String   @map("hospital_id")
-  patientName     String   @map("patient_name")
-  referralValue   Decimal  @default(0.0) @map("referral_value")
-  isConverted     Boolean  @default(false) @map("is_converted")
-  createdAt       DateTime @default(now()) @map("created_at")
+  id            String   @id @default(uuid())
+  tenantId      String   @map("tenant_id")
+  hospitalId    String   @map("hospital_id")
+  patientName   String   @map("patient_name")
+  referralValue Decimal  @default(0.0) @map("referral_value")
+  isConverted   Boolean  @default(false) @map("is_converted")
+  createdAt     DateTime @default(now()) @map("created_at")
 
-  hospital        HospitalTarget @relation(fields: [hospitalId], references: [id])
+  hospital HospitalTarget @relation(fields: [hospitalId], references: [id])
 
   @@map("referral_pipelines")
 }
