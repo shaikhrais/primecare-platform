@@ -1,3 +1,4 @@
+import 'features/shared/universal_daily_tasks_screen.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -129,6 +130,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/psw/training', builder: (context, state) => PswTrainingScreen()),
           GoRoute(path: '/psw/live-visit/:id', builder: (context, state) => PswLiveVisitScreen(visitId: state.pathParameters['id']!)),
           GoRoute(path: '/psw/live-video-triage/:id', builder: (context, state) => PswLiveVideoTriageScreen(incidentId: state.pathParameters['id']!)),
+          GoRoute(path: '/psw/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'psw')),
           GoRoute(path: '/psw/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'psw')),
           GoRoute(path: '/psw/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'psw')),
           GoRoute(path: '/psw/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'psw')),
@@ -138,6 +140,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/rn/dashboard', builder: (context, state) => UniversalHostScreen(endpoint: '/v1/sdui/dashboard')),
           GoRoute(path: '/rn/patients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnPatientsScopeActive)))),
           GoRoute(path: '/rn/inbox', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnInboxThreadActive)))),
+          GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'rn')),
@@ -146,6 +149,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           // ======================= CLIENT ====================
           GoRoute(path: '/client/dashboard', builder: (context, state) => ClientDashboardScreen()),
           GoRoute(path: '/client/pulse', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Wellness Pulse View')))),
+          GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'client')),
@@ -156,6 +160,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/network', builder: (context, state) => AdminNetworkScreen()),
           GoRoute(path: '/admin/telemetry', builder: (context, state) => const AdminTelemetryScreen()),
           GoRoute(path: '/admin/audit', builder: (context, state) => AdminAuditScreen()),
+          GoRoute(path: '/admin/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'admin')),
@@ -167,6 +172,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/coordinator/approvals', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive)))),
           GoRoute(path: '/coordinator/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorProfileActive)))),
           GoRoute(path: '/coordinator/live-map', builder: (context, state) => CoordinatorLiveMapScreen()),
+          GoRoute(path: '/coordinator/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'coordinator')),
           GoRoute(path: '/coordinator/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'coordinator')),
           GoRoute(path: '/coordinator/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'coordinator')),
           GoRoute(path: '/coordinator/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'coordinator')),
@@ -176,6 +182,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/manager/dashboard', builder: (context, state) => ManagerDashboardScreen()),
           GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
           GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),
+          GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'manager')),
@@ -185,16 +192,19 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/mt/dashboard', builder: (context, state) => MtDashboardScreen()),
           GoRoute(path: '/mt/clients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtClientsActive)))),
           GoRoute(path: '/mt/messages', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtMessagesActive)))),
+          GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'mt')),
           // ======================= GM =======================
           GoRoute(path: '/gm/dashboard', builder: (context, state) => GmDashboardScreen()),
+          GoRoute(path: '/gm/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'gm')),
           GoRoute(path: '/gm/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'gm')),
           GoRoute(path: '/gm/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'gm')),
           GoRoute(path: '/gm/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'gm')),
           // ======================= SCRUM MASTER ===========
           GoRoute(path: '/scrum-master/dashboard', builder: (context, state) => ScrumMasterDashboardScreen()),
+          GoRoute(path: '/scrum-master/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'scrum_master')),
           GoRoute(path: '/scrum-master/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'scrum_master')),
           GoRoute(path: '/scrum-master/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'scrum_master')),
           GoRoute(path: '/scrum-master/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'scrum_master')),

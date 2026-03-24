@@ -27,9 +27,11 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.clients, icon: Icons.people_outline, selectedIcon: Icons.people_outline),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.timesheet, icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/activities', '/psw/mentor'];
+      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/dailyTasks', '/psw/activities', '/psw/mentor'];
     } 
     else if (currentPath.startsWith('/rn')) {
       activeColor = const Color(0xFF3B82F6);
@@ -38,9 +40,11 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Patients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Inbox', icon: Icons.inbox_outlined, selectedIcon: Icons.inbox_rounded),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/activities', '/rn/mentor'];
+      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/dailyTasks', '/rn/activities', '/rn/mentor'];
     }
     else if (currentPath.startsWith('/client')) {
       activeColor = const Color(0xFF0EA5E9);
@@ -48,9 +52,11 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Care Feed', icon: Icons.dynamic_feed, selectedIcon: Icons.dynamic_feed),
         ResponsiveNavigationData(label: 'Pulse', icon: Icons.monitor_heart_outlined, selectedIcon: Icons.monitor_heart),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/activities', '/client/mentor'];
+      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/dailyTasks', '/client/activities', '/client/mentor'];
     }
     else if (currentPath == '/dashboard' || currentPath.startsWith('/admin')) {
       activeColor = const Color(0xFF8B5CF6);
@@ -60,10 +66,12 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Audit', icon: Icons.security_rounded, selectedIcon: Icons.security_rounded),
         ResponsiveNavigationData(label: 'Global Telemetry', icon: Icons.radar_outlined, selectedIcon: Icons.radar_rounded),
         ResponsiveNavigationData(label: 'Settings', icon: Icons.settings_outlined, selectedIcon: Icons.settings),
-        ResponsiveNavigationData(label: 'Daily Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
+        
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/telemetry', '/admin/settings', '/admin/activities', '/admin/mentor'];
+      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/telemetry', '/admin/settings', '/admin/dailyTasks', '/admin/activities', '/admin/mentor'];
     }
     else if (currentPath.startsWith('/coordinator')) {
       activeColor = const Color(0xFFF59E0B);
@@ -72,9 +80,11 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Staff', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Approvals', icon: Icons.fact_check_outlined, selectedIcon: Icons.fact_check),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/activities', '/coordinator/mentor'];
+      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/dailyTasks', '/coordinator/activities', '/coordinator/mentor'];
     }
     else if (currentPath.startsWith('/manager')) {
       activeColor = const Color(0xFFF43F5E);
@@ -83,9 +93,11 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Reports', icon: Icons.bar_chart_outlined, selectedIcon: Icons.bar_chart),
         ResponsiveNavigationData(label: 'Teams', icon: Icons.group_work_outlined, selectedIcon: Icons.group_work),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/activities', '/manager/mentor'];
+      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/dailyTasks', '/manager/activities', '/manager/mentor'];
     }
     else if (currentPath.startsWith('/mt')) {
        activeColor = const Color(0xFF14B8A6);
@@ -93,25 +105,31 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Clients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Messages', icon: Icons.chat_bubble_outline, selectedIcon: Icons.chat_bubble),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/activities', '/mt/mentor'];
+      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/dailyTasks', '/mt/activities', '/mt/mentor'];
     }
     else if (currentPath.startsWith('/gm')) {
       activeColor = const Color(0xFF0284C7);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/gm/dashboard', '/gm/activities', '/gm/mentor'];
+      paths = ['/gm/dashboard', '/gm/dailyTasks', '/gm/activities', '/gm/mentor'];
     }
     else if (currentPath.startsWith('/scrum-master')) {
       activeColor = const Color(0xFF9333EA);
       destinations = [
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
+        ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/scrum-master/dashboard', '/scrum-master/activities', '/scrum-master/mentor'];
+      paths = ['/scrum-master/dashboard', '/scrum-master/dailyTasks', '/scrum-master/activities', '/scrum-master/mentor'];
     }
     else {
       return child; 
