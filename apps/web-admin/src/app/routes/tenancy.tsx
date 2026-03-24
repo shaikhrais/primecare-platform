@@ -263,15 +263,15 @@ export function ClientBookings() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Re-export from identity file: D8-ClientDashboard.tsx
 // removed broken export: export { default } from './D8-ClientDashboard';
 
 
 // --- Merged from D8-ClientDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D8 — Client Dashboard
-// Type: Dashboard | Owner: client
+// PAGE IDENTITY: D8 — Client Home
+// Type: Home | Owner: client
 // Converted: components/ deleted → PageTemplate + shared sections
 // ================================================================
 
@@ -494,7 +494,7 @@ export function WaitlistManager() {
 
 // --- Merged from family.tsx ---
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 export function FamilyDashboard() {
     return (
         <PageTemplate 
@@ -581,15 +581,15 @@ export function DailyEntry() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Re-export from identity file: D7-ManagerDashboard.tsx
 // removed broken export: export { default } from './D7-ManagerDashboard';
 
 
 // --- Merged from D7-ManagerDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D7 — Manager Dashboard
-// Type: Dashboard | Owner: manager
+// PAGE IDENTITY: D7 — Manager Home
+// Type: Home | Owner: manager
 // Converted: components/ deleted → PageTemplate + shared sections
 // ================================================================
 
@@ -960,15 +960,15 @@ export function CredentialVault() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Re-export from identity file: D14-PswDashboard.tsx
 // removed broken export: export { default } from './D14-PswDashboard';
 
 
 // --- Merged from D14-PswDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D14 — PSW Dashboard
-// Type: Dashboard | Owner: psw
+// PAGE IDENTITY: D14 — PSW Home
+// Type: Home | Owner: psw
 // Converted: components/ deleted → PageTemplate + shared sections
 // ================================================================
 
@@ -1300,15 +1300,15 @@ export function CarePlanManager() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Re-export from identity file: D15-RnDashboard.tsx
 // removed broken export: export { default } from './D15-RnDashboard';
 
 
 // --- Merged from D15-RnDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D15 — RN Dashboard
-// Type: Dashboard | Owner: rn
+// PAGE IDENTITY: D15 — RN Home
+// Type: Home | Owner: rn
 // Converted: components/ deleted → PageTemplate + shared sections
 // ================================================================
 
@@ -1483,7 +1483,7 @@ export function ResponseBotAudit() {
 // --- Merged from staff.tsx ---
 
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Re-export from identity file: D19-StaffDashboard.tsx
 // removed broken export: export { default } from './D19-StaffDashboard';
 

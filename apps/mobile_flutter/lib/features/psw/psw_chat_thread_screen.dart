@@ -112,7 +112,7 @@ class PswChatThreadScreen extends StatelessWidget {
                   PrimeCareExpanded(
                     child: PrimeCareButton(type: PrimeCareButtonType.primary, 
                       onPressed: () {
-                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: PrimeCareText(AppLocalizations.of(context)!.shiftAcceptedAddedToDashboard)));
+                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: PrimeCareText(AppLocalizations.of(context)!.shiftAcceptedAddedToHome)));
                       },
                       
                       child: PrimeCareText('ACCEPT SHIFT', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),

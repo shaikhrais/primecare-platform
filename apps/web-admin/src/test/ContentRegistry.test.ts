@@ -39,7 +39,7 @@ describe('ContentRegistry · Structure', () => {
 
     it('has MENU section with navigation items', () => {
         expect(ContentRegistry.MENU).toBeDefined();
-        expect(ContentRegistry.MENU.DASHBOARD).toBe('Dashboard');
+        expect(ContentRegistry.MENU.DASHBOARD).toBe('Home');
         expect(ContentRegistry.MENU.SETTINGS).toBe('Settings');
     });
 

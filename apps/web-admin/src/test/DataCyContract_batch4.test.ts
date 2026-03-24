@@ -69,7 +69,7 @@ describe('Data-Cy Contract — Batch 4', () => {
     });
 
     it('D18: Allied Health — has 4 data-cy markers', () => {
-        const markers = ["page.container","page.title","btn-allied-health-dashboard-0","btn-allied-sign-visit"];
+        const markers = ["page.container","page.title","btn-allied-health-home-0","btn-allied-sign-visit"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -93,8 +93,8 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D18: data-cy="btn-allied-health-dashboard-0" follows conventions', () => {
-        const attr = 'btn-allied-health-dashboard-0';
+    it('D18: data-cy="btn-allied-health-home-0" follows conventions', () => {
+        const attr = 'btn-allied-health-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
@@ -191,8 +191,8 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D19: Staff Dashboard — has 4 data-cy markers', () => {
-        const markers = ["page.container","page.title","page.subtitle","btn-staff.staff-dashboard-0"];
+    it('D19: Staff Home — has 4 data-cy markers', () => {
+        const markers = ["page.container","page.title","page.subtitle","btn-staff.staff-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -222,8 +222,8 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D19: data-cy="btn-staff.staff-dashboard-0" follows conventions', () => {
-        const attr = 'btn-staff.staff-dashboard-0';
+    it('D19: data-cy="btn-staff.staff-home-0" follows conventions', () => {
+        const attr = 'btn-staff.staff-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
@@ -667,7 +667,7 @@ describe('Data-Cy Contract — Batch 4', () => {
     });
 
     it('platform/admin/pages/cron/CronDashboard.tsx: platform/admin/pages/cron/CronDashboard.tsx — has 3 data-cy markers', () => {
-        const markers = ["page.container","page.title","h3-admin.cron-dashboard-0"];
+        const markers = ["page.container","page.title","h3-admin.cron-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -691,254 +691,254 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/cron/CronDashboard.tsx: data-cy="h3-admin.cron-dashboard-0" follows conventions', () => {
-        const attr = 'h3-admin.cron-dashboard-0';
+    it('platform/admin/pages/cron/CronDashboard.tsx: data-cy="h3-admin.cron-home-0" follows conventions', () => {
+        const attr = 'h3-admin.cron-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: platform/admin/pages/dashboard/components/BusinessIntelligence.tsx — has 4 data-cy markers', () => {
-        const markers = ["h2-admin.dashboard-intelligence-0","bi-workforce-pulse","bi-compliance-scorecard","bi-ops-link"];
+    it('platform/admin/pages/home/components/BusinessIntelligence.tsx: platform/admin/pages/home/components/BusinessIntelligence.tsx — has 4 data-cy markers', () => {
+        const markers = ["h2-admin.home-intelligence-0","bi-workforce-pulse","bi-compliance-scorecard","bi-ops-link"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/BusinessIntelligence.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: data-cy="h2-admin.dashboard-intelligence-0" follows conventions', () => {
-        const attr = 'h2-admin.dashboard-intelligence-0';
+    it('platform/admin/pages/home/components/BusinessIntelligence.tsx: data-cy="h2-admin.home-intelligence-0" follows conventions', () => {
+        const attr = 'h2-admin.home-intelligence-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: data-cy="bi-workforce-pulse" follows conventions', () => {
+    it('platform/admin/pages/home/components/BusinessIntelligence.tsx: data-cy="bi-workforce-pulse" follows conventions', () => {
         const attr = 'bi-workforce-pulse';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: data-cy="bi-compliance-scorecard" follows conventions', () => {
+    it('platform/admin/pages/home/components/BusinessIntelligence.tsx: data-cy="bi-compliance-scorecard" follows conventions', () => {
         const attr = 'bi-compliance-scorecard';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/BusinessIntelligence.tsx: data-cy="bi-ops-link" follows conventions', () => {
+    it('platform/admin/pages/home/components/BusinessIntelligence.tsx: data-cy="bi-ops-link" follows conventions', () => {
         const attr = 'bi-ops-link';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/DashboardCharts.tsx: platform/admin/pages/dashboard/components/DashboardCharts.tsx — has 1 data-cy markers', () => {
-        const markers = ["h2-admin.dashboard-charts-0"];
+    it('platform/admin/pages/home/components/DashboardCharts.tsx: platform/admin/pages/home/components/DashboardCharts.tsx — has 1 data-cy markers', () => {
+        const markers = ["h2-admin.home-charts-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/DashboardCharts.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/DashboardCharts.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/DashboardCharts.tsx: data-cy="h2-admin.dashboard-charts-0" follows conventions', () => {
-        const attr = 'h2-admin.dashboard-charts-0';
+    it('platform/admin/pages/home/components/DashboardCharts.tsx: data-cy="h2-admin.home-charts-0" follows conventions', () => {
+        const attr = 'h2-admin.home-charts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/DashboardStats.tsx: platform/admin/pages/dashboard/components/DashboardStats.tsx — has 1 data-cy markers', () => {
+    it('platform/admin/pages/home/components/DashboardStats.tsx: platform/admin/pages/home/components/DashboardStats.tsx — has 1 data-cy markers', () => {
         const markers = ["stats-cards"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/DashboardStats.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/DashboardStats.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/DashboardStats.tsx: data-cy="stats-cards" follows conventions', () => {
+    it('platform/admin/pages/home/components/DashboardStats.tsx: data-cy="stats-cards" follows conventions', () => {
         const attr = 'stats-cards';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/HealthAlerts.tsx: platform/admin/pages/dashboard/components/HealthAlerts.tsx — has 4 data-cy markers', () => {
+    it('platform/admin/pages/home/components/HealthAlerts.tsx: platform/admin/pages/home/components/HealthAlerts.tsx — has 4 data-cy markers', () => {
         const markers = ["h2-admin.health-alerts-0","btn-admin.health-alerts-0","btn-admin.health-alerts-1","btn-admin.health-alerts-2"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/HealthAlerts.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/HealthAlerts.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/HealthAlerts.tsx: data-cy="h2-admin.health-alerts-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/HealthAlerts.tsx: data-cy="h2-admin.health-alerts-0" follows conventions', () => {
         const attr = 'h2-admin.health-alerts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-0" follows conventions', () => {
         const attr = 'btn-admin.health-alerts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-1" follows conventions', () => {
+    it('platform/admin/pages/home/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-1" follows conventions', () => {
         const attr = 'btn-admin.health-alerts-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-2" follows conventions', () => {
+    it('platform/admin/pages/home/components/HealthAlerts.tsx: data-cy="btn-admin.health-alerts-2" follows conventions', () => {
         const attr = 'btn-admin.health-alerts-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/OperationalStatus.tsx: platform/admin/pages/dashboard/components/OperationalStatus.tsx — has 3 data-cy markers', () => {
+    it('platform/admin/pages/home/components/OperationalStatus.tsx: platform/admin/pages/home/components/OperationalStatus.tsx — has 3 data-cy markers', () => {
         const markers = ["status-item-api","status-item-client-app","status-item-psw-app"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/OperationalStatus.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/OperationalStatus.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/OperationalStatus.tsx: data-cy="status-item-api" follows conventions', () => {
+    it('platform/admin/pages/home/components/OperationalStatus.tsx: data-cy="status-item-api" follows conventions', () => {
         const attr = 'status-item-api';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/OperationalStatus.tsx: data-cy="status-item-client-app" follows conventions', () => {
+    it('platform/admin/pages/home/components/OperationalStatus.tsx: data-cy="status-item-client-app" follows conventions', () => {
         const attr = 'status-item-client-app';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/OperationalStatus.tsx: data-cy="status-item-psw-app" follows conventions', () => {
+    it('platform/admin/pages/home/components/OperationalStatus.tsx: data-cy="status-item-psw-app" follows conventions', () => {
         const attr = 'status-item-psw-app';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: platform/admin/pages/dashboard/components/QuickActions.tsx — has 9 data-cy markers', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: platform/admin/pages/home/components/QuickActions.tsx — has 9 data-cy markers', () => {
         const markers = ["qa-link-users","btn-admin.quick-actions-0","qa-link-schedule","btn-admin.quick-actions-1","qa-link-leads","btn-admin.quick-actions-2","qa-link-settings","btn-admin.quick-actions-3","qa-btn-post-shift"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/QuickActions.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/QuickActions.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="qa-link-users" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="qa-link-users" follows conventions', () => {
         const attr = 'qa-link-users';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-0" follows conventions', () => {
         const attr = 'btn-admin.quick-actions-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="qa-link-schedule" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="qa-link-schedule" follows conventions', () => {
         const attr = 'qa-link-schedule';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-1" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-1" follows conventions', () => {
         const attr = 'btn-admin.quick-actions-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="qa-link-leads" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="qa-link-leads" follows conventions', () => {
         const attr = 'qa-link-leads';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-2" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-2" follows conventions', () => {
         const attr = 'btn-admin.quick-actions-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="qa-link-settings" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="qa-link-settings" follows conventions', () => {
         const attr = 'qa-link-settings';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-3" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="btn-admin.quick-actions-3" follows conventions', () => {
         const attr = 'btn-admin.quick-actions-3';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/QuickActions.tsx: data-cy="qa-btn-post-shift" follows conventions', () => {
+    it('platform/admin/pages/home/components/QuickActions.tsx: data-cy="qa-btn-post-shift" follows conventions', () => {
         const attr = 'qa-btn-post-shift';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/SetupBanner.tsx: platform/admin/pages/dashboard/components/SetupBanner.tsx — has 4 data-cy markers', () => {
+    it('platform/admin/pages/home/components/SetupBanner.tsx: platform/admin/pages/home/components/SetupBanner.tsx — has 4 data-cy markers', () => {
         const markers = ["setup-wizard-banner","h2-admin.setup-banner-0","btn-admin.setup-banner-0","btn-admin.setup-banner-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/dashboard/components/SetupBanner.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/SetupBanner.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/dashboard/components/SetupBanner.tsx: data-cy="setup-wizard-banner" follows conventions', () => {
+    it('platform/admin/pages/home/components/SetupBanner.tsx: data-cy="setup-wizard-banner" follows conventions', () => {
         const attr = 'setup-wizard-banner';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/SetupBanner.tsx: data-cy="h2-admin.setup-banner-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/SetupBanner.tsx: data-cy="h2-admin.setup-banner-0" follows conventions', () => {
         const attr = 'h2-admin.setup-banner-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/SetupBanner.tsx: data-cy="btn-admin.setup-banner-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/SetupBanner.tsx: data-cy="btn-admin.setup-banner-0" follows conventions', () => {
         const attr = 'btn-admin.setup-banner-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/dashboard/components/SetupBanner.tsx: data-cy="btn-admin.setup-banner-1" follows conventions', () => {
+    it('platform/admin/pages/home/components/SetupBanner.tsx: data-cy="btn-admin.setup-banner-1" follows conventions', () => {
         const attr = 'btn-admin.setup-banner-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1758,7 +1758,7 @@ describe('Data-Cy Contract — Batch 4', () => {
     });
 
     it('platform/admin/pages/reseller/ResellerDashboard.tsx: platform/admin/pages/reseller/ResellerDashboard.tsx — has 10 data-cy markers', () => {
-        const markers = ["page.container","page.title","table-admin.reseller-dashboard","h2-admin.reseller-dashboard-0","reseller.form-provision","reseller.inp-name","reseller.inp-slug","reseller.inp-email","reseller.inp-password","btn-reseller-provision"];
+        const markers = ["page.container","page.title","table-admin.reseller-home","h2-admin.reseller-home-0","reseller.form-provision","reseller.inp-name","reseller.inp-slug","reseller.inp-email","reseller.inp-password","btn-reseller-provision"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1782,14 +1782,14 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="table-admin.reseller-dashboard" follows conventions', () => {
-        const attr = 'table-admin.reseller-dashboard';
+    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="table-admin.reseller-home" follows conventions', () => {
+        const attr = 'table-admin.reseller-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="h2-admin.reseller-dashboard-0" follows conventions', () => {
-        const attr = 'h2-admin.reseller-dashboard-0';
+    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="h2-admin.reseller-home-0" follows conventions', () => {
+        const attr = 'h2-admin.reseller-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });

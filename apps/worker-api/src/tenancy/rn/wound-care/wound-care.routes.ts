@@ -134,10 +134,10 @@ woundCare.openapi(progressRoute, async (c) => {
     return c.json(timeline, 200);
 });
 
-// GET /chronic/:clientId — Chronic condition dashboard
+// GET /chronic/:clientId — Chronic condition home
 const chronicRoute = createRoute({
     method: 'get', path: '/chronic/{clientId}',
-    summary: 'Chronic Condition Dashboard', tags: ['Wound Care'],
+    summary: 'Chronic Condition Home', tags: ['Wound Care'],
     request: { params: z.object({ clientId: z.string() }) },
     responses: {
         200: {
@@ -148,7 +148,7 @@ const chronicRoute = createRoute({
                         vitalsTrend: z.array(z.object({ date: z.string(), type: z.string(), value: z.number() })),
                     })
                 }
-            }, description: 'Dashboard data'
+            }, description: 'Home data'
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }

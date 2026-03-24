@@ -20,9 +20,9 @@ export const STAFF_METADATA = {
         tags: ['Staff Scheduling'],
     },
     DASHBOARD_STATS: {
-        summary: 'Get Staff Dashboard Statistics',
-        description: 'Retrieve various operational statistics for the staff coordinator dashboard.',
-        tags: ['Staff Dashboard'],
+        summary: 'Get Staff Home Statistics',
+        description: 'Retrieve various operational statistics for the staff coordinator home.',
+        tags: ['Staff Home'],
     },
     TASKS: {
         summary: 'List Staff Tasks',
@@ -53,9 +53,9 @@ export const RN_METADATA = {
         tags: ['RN Supervision'],
     },
     DASHBOARD_STATS: {
-        summary: 'Get RN Dashboard Statistics',
-        description: 'Retrieve various clinical and operational statistics for the RN dashboard.',
-        tags: ['RN Dashboard'],
+        summary: 'Get RN Home Statistics',
+        description: 'Retrieve various clinical and operational statistics for the RN home.',
+        tags: ['RN Home'],
     },
     DAILY_REVIEW: {
         summary: 'Review Daily Entry',

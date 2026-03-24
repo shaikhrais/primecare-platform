@@ -172,8 +172,8 @@ describe('QuickActions Variants', () => {
         expect(mod.default || mod.QuickActions).toBeDefined();
     });
 
-    it('dashboard QuickActions exports', async () => {
-        const mod: any = await import('@/shared/components/dashboard/QuickActions');
+    it('home QuickActions exports', async () => {
+        const mod: any = await import('@/shared/components/home/QuickActions');
         expect(mod.default || mod.QuickActions).toBeDefined();
     });
 });

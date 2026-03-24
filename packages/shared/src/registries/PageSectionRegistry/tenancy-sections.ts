@@ -1,9 +1,9 @@
 import type { PageSections } from '../PageSectionRegistry';
 
 export const TENANCY_SECTIONS: Record<string, PageSections> = {
-    // ── D7: Manager Dashboard ────────────────────────────────────────────────
+    // ── D7: Manager Home ────────────────────────────────────────────────
     D7: {
-        pageId: 'D7', label: 'Manager Dashboard',
+        pageId: 'D7', label: 'Manager Home',
         sections: [
             { id: 'D7.header', label: 'Branch Header & Live Indicator', type: 'header', status: 'built', dataCy: 'page.title' },
             { id: 'D7.action-bar', label: 'Action Bar', type: 'action-bar', status: 'built', component: 'PageActionBar' },
@@ -33,9 +33,9 @@ export const TENANCY_SECTIONS: Record<string, PageSections> = {
             { id: 'H12.attendance', label: 'Attendance Monitor', type: 'table', status: 'built' },
         ],
     },
-    // ── D14: PSW Dashboard ───────────────────────────────────────────────────
+    // ── D14: PSW Home ───────────────────────────────────────────────────
     D14: {
-        pageId: 'D14', label: 'PSW Dashboard',
+        pageId: 'D14', label: 'PSW Home',
         sections: [
             { id: 'D14.header', label: 'PSW Header & Live Indicator', type: 'header', status: 'built', component: 'AccessibilityControls', dataCy: 'page.title' },
             { id: 'D14.action-bar', label: 'Action Bar', type: 'action-bar', status: 'built', component: 'PageActionBar' },
@@ -63,9 +63,9 @@ export const TENANCY_SECTIONS: Record<string, PageSections> = {
             { id: 'L16.check-in', label: 'Check-In Action', type: 'action-bar', status: 'built' },
         ],
     },
-    // ── D15: RN Dashboard ────────────────────────────────────────────────────
+    // ── D15: RN Home ────────────────────────────────────────────────────
     D15: {
-        pageId: 'D15', label: 'RN Dashboard',
+        pageId: 'D15', label: 'RN Home',
         sections: [
             { id: 'D15.header', label: 'RN Header', type: 'header', status: 'built' },
             { id: 'D15.action-bar', label: 'Action Bar', type: 'action-bar', status: 'built' },
@@ -74,9 +74,9 @@ export const TENANCY_SECTIONS: Record<string, PageSections> = {
             { id: 'D15.supervision', label: 'Supervision Overview', type: 'list', status: 'built' },
         ],
     },
-    // ── D8: Client Dashboard ─────────────────────────────────────────────────
+    // ── D8: Client Home ─────────────────────────────────────────────────
     D8: {
-        pageId: 'D8', label: 'Client Dashboard',
+        pageId: 'D8', label: 'Client Home',
         sections: [
             { id: 'D8.header', label: 'Client Header', type: 'header', status: 'built' },
             { id: 'D8.care-summary', label: 'Care Summary Cards', type: 'kpi-cards', status: 'built' },
@@ -97,9 +97,9 @@ export const TENANCY_SECTIONS: Record<string, PageSections> = {
             { id: 'H18.map', label: 'Dispatch Map', type: 'map', status: 'built' },
         ],
     },
-    // ── D19: Staff Dashboard ─────────────────────────────────────────────────
+    // ── D19: Staff Home ─────────────────────────────────────────────────
     D19: {
-        pageId: 'D19', label: 'Staff Dashboard',
+        pageId: 'D19', label: 'Staff Home',
         sections: [
             { id: 'D19.header', label: 'Staff Header', type: 'header', status: 'built' },
             { id: 'D19.task-stats', label: 'Task Stats', type: 'kpi-cards', status: 'built' },
@@ -109,7 +109,7 @@ export const TENANCY_SECTIONS: Record<string, PageSections> = {
     },
     // ── D18: Allied Health ───────────────────────────────────────────────────
     D18: {
-        pageId: 'D18', label: 'Allied Health Dashboard',
+        pageId: 'D18', label: 'Allied Health Home',
         sections: [
             { id: 'D18.header', label: 'Allied Header', type: 'header', status: 'built' },
             { id: 'D18.treatment-stats', label: 'Treatment KPIs', type: 'kpi-cards', status: 'built' },

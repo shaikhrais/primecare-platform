@@ -23,7 +23,7 @@ function buildMenuItems(role: string) {
     };
 
     const lowerRole = role.toLowerCase();
-    const dashboard = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
+    const home = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
     const registryLinks = getLinksForRole(lowerRole);
     const roleLinks = registryLinks.map(link => ({
         label: link.label,
@@ -33,7 +33,7 @@ function buildMenuItems(role: string) {
 
     const seen = new Set<string>();
     const result: { label: string; path: string; icon: string }[] = [];
-    for (const item of [dashboard, ...roleLinks]) {
+    for (const item of [home, ...roleLinks]) {
         if (!seen.has(item.path)) {
             seen.add(item.path);
             result.push(item);
@@ -55,9 +55,9 @@ describe('useMenuItems (sidebar generation)', () => {
         });
     });
 
-    // ── Dashboard is always first ────────────────────────────────────────
-    describe('dashboard positioning', () => {
-        it('admin menu should start with Dashboard', () => {
+    // ── Home is always first ────────────────────────────────────────
+    describe('home positioning', () => {
+        it('admin menu should start with Home', () => {
             const items = buildMenuItems('admin');
             expect(items[0].path).toBe(RouteRegistry.ADMIN.DASHBOARD);
         });
@@ -67,7 +67,7 @@ describe('useMenuItems (sidebar generation)', () => {
             expect(items[0].path).toBe(RouteRegistry.PSW.DASHBOARD);
         });
 
-        it('rn menu should start with Clinical Dashboard', () => {
+        it('rn menu should start with Clinical Home', () => {
             const items = buildMenuItems('rn');
             expect(items[0].path).toBe(RouteRegistry.RN.DASHBOARD);
         });

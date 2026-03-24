@@ -58,9 +58,9 @@ export const PSW_METADATA = {
             tags: ['PSW Incidents'],
         },
         DASHBOARD_STATS: {
-            summary: 'Get PSW Dashboard Statistics',
+            summary: 'Get PSW Home Statistics',
             description: 'Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.',
-            tags: ['PSW Dashboard'],
+            tags: ['PSW Home'],
         },
         DAILY_ENTRY_CREATE: {
             summary: 'Create/Submit Daily Entry',

@@ -1841,7 +1841,7 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D7: Manager Dashboard — has 3 data-cy markers', () => {
+    it('D7: Manager Home — has 3 data-cy markers', () => {
         const markers = ["page.container","page.title","btn-mgr-perspective"];
         expect(markers.length).toBeGreaterThan(0);
 
@@ -1977,7 +1977,7 @@ describe('Data-Cy Contract — Batch 2', () => {
     });
 
     it('D11: Marketing — has 7 data-cy markers', () => {
-        const markers = ["page.container","page.title","btn-marketing-dashboard-0","btn-marketing-dashboard-1","h3-marketing-dashboard-0","h3-marketing-dashboard-1","h2-marketing-dashboard-0"];
+        const markers = ["page.container","page.title","btn-marketing-home-0","btn-marketing-home-1","h3-marketing-home-0","h3-marketing-home-1","h2-marketing-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -2001,32 +2001,32 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D11: data-cy="btn-marketing-dashboard-0" follows conventions', () => {
-        const attr = 'btn-marketing-dashboard-0';
+    it('D11: data-cy="btn-marketing-home-0" follows conventions', () => {
+        const attr = 'btn-marketing-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D11: data-cy="btn-marketing-dashboard-1" follows conventions', () => {
-        const attr = 'btn-marketing-dashboard-1';
+    it('D11: data-cy="btn-marketing-home-1" follows conventions', () => {
+        const attr = 'btn-marketing-home-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D11: data-cy="h3-marketing-dashboard-0" follows conventions', () => {
-        const attr = 'h3-marketing-dashboard-0';
+    it('D11: data-cy="h3-marketing-home-0" follows conventions', () => {
+        const attr = 'h3-marketing-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D11: data-cy="h3-marketing-dashboard-1" follows conventions', () => {
-        const attr = 'h3-marketing-dashboard-1';
+    it('D11: data-cy="h3-marketing-home-1" follows conventions', () => {
+        const attr = 'h3-marketing-home-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D11: data-cy="h2-marketing-dashboard-0" follows conventions', () => {
-        const attr = 'h2-marketing-dashboard-0';
+    it('D11: data-cy="h2-marketing-home-0" follows conventions', () => {
+        const attr = 'h2-marketing-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
@@ -2081,7 +2081,7 @@ describe('Data-Cy Contract — Batch 2', () => {
     });
 
     it('D13: Clinical QA — has 8 data-cy markers', () => {
-        const markers = ["page.container","page.title","btn-clinical-qa-dashboard-0","btn-clinical-qa-dashboard-1","h3-clinical-qa-dashboard-0","h3-clinical-qa-dashboard-1","btn-clinical-qa-dashboard-2","h3-clinical-qa-dashboard-2"];
+        const markers = ["page.container","page.title","btn-clinical-qa-home-0","btn-clinical-qa-home-1","h3-clinical-qa-home-0","h3-clinical-qa-home-1","btn-clinical-qa-home-2","h3-clinical-qa-home-2"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -2105,38 +2105,38 @@ describe('Data-Cy Contract — Batch 2', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="btn-clinical-qa-dashboard-0" follows conventions', () => {
-        const attr = 'btn-clinical-qa-dashboard-0';
+    it('D13: data-cy="btn-clinical-qa-home-0" follows conventions', () => {
+        const attr = 'btn-clinical-qa-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="btn-clinical-qa-dashboard-1" follows conventions', () => {
-        const attr = 'btn-clinical-qa-dashboard-1';
+    it('D13: data-cy="btn-clinical-qa-home-1" follows conventions', () => {
+        const attr = 'btn-clinical-qa-home-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="h3-clinical-qa-dashboard-0" follows conventions', () => {
-        const attr = 'h3-clinical-qa-dashboard-0';
+    it('D13: data-cy="h3-clinical-qa-home-0" follows conventions', () => {
+        const attr = 'h3-clinical-qa-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="h3-clinical-qa-dashboard-1" follows conventions', () => {
-        const attr = 'h3-clinical-qa-dashboard-1';
+    it('D13: data-cy="h3-clinical-qa-home-1" follows conventions', () => {
+        const attr = 'h3-clinical-qa-home-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="btn-clinical-qa-dashboard-2" follows conventions', () => {
-        const attr = 'btn-clinical-qa-dashboard-2';
+    it('D13: data-cy="btn-clinical-qa-home-2" follows conventions', () => {
+        const attr = 'btn-clinical-qa-home-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('D13: data-cy="h3-clinical-qa-dashboard-2" follows conventions', () => {
-        const attr = 'h3-clinical-qa-dashboard-2';
+    it('D13: data-cy="h3-clinical-qa-home-2" follows conventions', () => {
+        const attr = 'h3-clinical-qa-home-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });

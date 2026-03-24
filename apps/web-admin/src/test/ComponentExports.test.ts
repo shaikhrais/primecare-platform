@@ -324,12 +324,12 @@ describe('Modal Components', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Dashboard Components
+// Home Components
 // ═══════════════════════════════════════════════════════════════════════════
 
-describe('Dashboard Components', () => {
+describe('Home Components', () => {
     it('QuickActions exports', async () => {
-        const mod: any = await import('@/shared/components/dashboard/QuickActions');
+        const mod: any = await import('@/shared/components/home/QuickActions');
         const component = mod.QuickActions || mod.default;
         expect(component).toBeDefined();
     });

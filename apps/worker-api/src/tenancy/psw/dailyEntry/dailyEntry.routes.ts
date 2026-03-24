@@ -28,7 +28,7 @@ const createEntryRoute = createRoute({
     summary: 'Create Entry',
     tags: ['PSW', 'DailyEntry'],
     middleware: [
-        requirePermission('view_dashboard'),
+        requirePermission('view_home'),
         requireClientAssignedToPSW
     ],
     request: {

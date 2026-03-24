@@ -1,5 +1,5 @@
 import { baseContent } from './content/base';
-import { dashboardsContent } from './content/dashboards';
+import { homesContent } from './content/homes';
 import { operationsContent } from './content/operations';
 import { wizardsContent } from './content/wizards';
 import { systemContent } from './content/system';
@@ -8,7 +8,7 @@ import { domainFeaturesContent } from './content/domain_features';
 
 export const ContentRegistry = {
     ...baseContent,
-    ...dashboardsContent,
+    ...homesContent,
     ...operationsContent,
     ...wizardsContent,
     ...systemContent,

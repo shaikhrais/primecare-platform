@@ -36,7 +36,7 @@ incidentRoutes.openapi(reportIncidentRoute, async (c) => {
   const body = c.req.valid('json');
   
   // Here we would typically hit Prisma to write the incident into the active database,
-  // and trigger a broadcast socket alert to the Coordinator Dashboard.
+  // and trigger a broadcast socket alert to the Coordinator Home.
   console.log('[SOS INGESTION]: Payload secured for incident:', body.id);
   
   return c.json({ success: true, incidentId: body.id }, 200);

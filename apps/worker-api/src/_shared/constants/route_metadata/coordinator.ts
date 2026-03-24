@@ -15,9 +15,9 @@ export const COORDINATOR_METADATA = {
         tags: ['Coordinator Logistics'],
     },
     DASHBOARD_STATS: {
-        summary: 'Get Coordinator Dashboard Statistics',
+        summary: 'Get Coordinator Home Statistics',
         description: 'Retrieve operational statistics for the coordinator dispatcher hub.',
-        tags: ['Coordinator Dashboard'],
+        tags: ['Coordinator Home'],
     },
     SOS_DISPATCH: {
         summary: 'Dispatch Emergency Replacement',

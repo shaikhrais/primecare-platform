@@ -1,14 +1,14 @@
 import type { PageSections } from '../PageSectionRegistry';
 
 export const ADMIN_SECTIONS: Record<string, PageSections> = {
-    // ── D1: Admin Dashboard ──────────────────────────────────────────────────
+    // ── D1: Admin Home ──────────────────────────────────────────────────
     D1: {
-        pageId: 'D1', label: 'Admin Dashboard',
+        pageId: 'D1', label: 'Admin Home',
         sections: [
             { id: 'D1.header', label: 'Page Header & Live Indicator', type: 'header', status: 'built', component: 'PageHeader', dataCy: 'page.title' },
             { id: 'D1.action-bar', label: 'Action Bar', type: 'action-bar', status: 'built', component: 'PageActionBar', dataCy: 'action-bar' },
             { id: 'D1.setup-banner', label: 'Business Model Score Banner', type: 'alert-panel', status: 'built', component: 'SetupBanner' },
-            { id: 'D1.stats', label: 'Dashboard Statistics Cards', type: 'kpi-cards', status: 'built', component: 'DashboardStats', apiEndpoint: '/v1/admin/stats' },
+            { id: 'D1.stats', label: 'Home Statistics Cards', type: 'kpi-cards', status: 'built', component: 'DashboardStats', apiEndpoint: '/v1/admin/stats' },
             { id: 'D1.health-alerts', label: 'Health Alert Monitor', type: 'alert-panel', status: 'built', component: 'HealthAlerts' },
             { id: 'D1.charts', label: 'Interactive Charts', type: 'chart', status: 'built', component: 'DashboardCharts' },
             { id: 'D1.bi', label: 'Business Intelligence', type: 'custom', status: 'built', component: 'BusinessIntelligenceSection' },
@@ -28,9 +28,9 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
             { id: 'D2.master-table', label: 'Master Page Table', type: 'table', status: 'built' },
         ],
     },
-    // ── D3: Accounting Dashboard ─────────────────────────────────────────────
+    // ── D3: Accounting Home ─────────────────────────────────────────────
     D3: {
-        pageId: 'D3', label: 'Accounting Dashboard',
+        pageId: 'D3', label: 'Accounting Home',
         sections: [
             { id: 'D3.header', label: 'Finance Header', type: 'header', status: 'built' },
             { id: 'D3.ledger-summary', label: 'Ledger Summary KPIs', type: 'kpi-cards', status: 'built' },
@@ -40,9 +40,9 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
             { id: 'D3.cash-flow', label: 'Cash Flow Forecast', type: 'chart', status: 'built' },
         ],
     },
-    // ── D5: AI Dashboard ─────────────────────────────────────────────────────
+    // ── D5: AI Home ─────────────────────────────────────────────────────
     D5: {
-        pageId: 'D5', label: 'AI Dashboard',
+        pageId: 'D5', label: 'AI Home',
         sections: [
             { id: 'D5.header', label: 'AI Header', type: 'header', status: 'built' },
             { id: 'D5.model-stats', label: 'Model Performance KPIs', type: 'kpi-cards', status: 'built' },
@@ -50,9 +50,9 @@ export const ADMIN_SECTIONS: Record<string, PageSections> = {
             { id: 'D5.nav-cards', label: 'AI Module Navigation Cards', type: 'custom', status: 'built' },
         ],
     },
-    // ── D6: Cron Dashboard ───────────────────────────────────────────────────
+    // ── D6: Cron Home ───────────────────────────────────────────────────
     D6: {
-        pageId: 'D6', label: 'Cron Dashboard',
+        pageId: 'D6', label: 'Cron Home',
         sections: [
             { id: 'D6.header', label: 'Cron Header', type: 'header', status: 'built' },
             { id: 'D6.job-stats', label: 'Job Status KPIs', type: 'kpi-cards', status: 'built' },

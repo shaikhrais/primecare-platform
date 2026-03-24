@@ -13,9 +13,9 @@ export const USER_METADATA = {
 
 export const MANAGER_METADATA = {
     STATS: {
-        summary: 'Get Manager Dashboard Statistics',
-        description: 'Retrieve comprehensive dashboard statistics for managers and admins.',
-        tags: ['Manager Dashboard'],
+        summary: 'Get Manager Home Statistics',
+        description: 'Retrieve comprehensive home statistics for managers and admins.',
+        tags: ['Manager Home'],
     },
     PAYROLL_AUDIT: {
         summary: 'Run Payroll Audit',

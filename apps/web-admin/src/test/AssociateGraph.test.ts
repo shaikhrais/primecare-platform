@@ -61,7 +61,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('W1');
     });
 
-    // ── D1: Admin Dashboard ──
+    // ── D1: Admin Home ──
     it('D1: has 3 associate(s)', () => {
         expect(["D2","G1","G2"].length).toBe(3);
     });
@@ -95,7 +95,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('G2');
     });
 
-    // ── D3: Accounting Dashboard ──
+    // ── D3: Accounting Home ──
     it('D3: has 3 associate(s)', () => {
         expect(["T17","T18","T59"].length).toBe(3);
     });
@@ -112,7 +112,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('T59');
     });
 
-    // ── D4: EVV Dashboard ──
+    // ── D4: EVV Home ──
     it('D4: has 2 associate(s)', () => {
         expect(["L22","R8"].length).toBe(2);
     });
@@ -125,7 +125,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('R8');
     });
 
-    // ── D5: AI Dashboard ──
+    // ── D5: AI Home ──
     it('D5: has 4 associate(s)', () => {
         expect(["T52","T53","T54","T55"].length).toBe(4);
     });
@@ -146,7 +146,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('T55');
     });
 
-    // ── D6: Cron Dashboard ──
+    // ── D6: Cron Home ──
     it('D6: has 1 associate(s)', () => {
         expect(["T7"].length).toBe(1);
     });
@@ -1099,7 +1099,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('H20');
     });
 
-    // ── D7: Manager Dashboard ──
+    // ── D7: Manager Home ──
     it('D7: has 10 associate(s)', () => {
         expect(["H12","D9","D10","T19","L13","T21","H11","T22","T23","T25"].length).toBe(10);
     });
@@ -1300,7 +1300,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('D7');
     });
 
-    // ── D14: PSW Dashboard ──
+    // ── D14: PSW Home ──
     it('D14: has 5 associate(s)', () => {
         expect(["L16","F13","F14","F15","R3"].length).toBe(5);
     });
@@ -1492,7 +1492,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('T61');
     });
 
-    // ── D15: RN Dashboard ──
+    // ── D15: RN Home ──
     it('D15: has 4 associate(s)', () => {
         expect(["T29","T30","H16","L18"].length).toBe(4);
     });
@@ -1513,7 +1513,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('L18');
     });
 
-    // ── D16: MAR Dashboard ──
+    // ── D16: MAR Home ──
     it('D16: has 1 associate(s)', () => {
         expect(["T31"].length).toBe(1);
     });
@@ -1612,7 +1612,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('D15');
     });
 
-    // ── D8: Client Dashboard ──
+    // ── D8: Client Home ──
     it('D8: has 11 associate(s)', () => {
         expect(["L14","H10","F16","F17","T34","T35","T36","T37","H17","R5","P1"].length).toBe(11);
     });
@@ -1893,7 +1893,7 @@ describe('Associate Graph Integrity (168 pages)', () => {
         expect(REGISTRY_CODES).toContain('L21');
     });
 
-    // ── D19: Staff Dashboard ──
+    // ── D19: Staff Home ──
     it('D19: has 4 associate(s)', () => {
         expect(["T43","T44","T45","T46"].length).toBe(4);
     });

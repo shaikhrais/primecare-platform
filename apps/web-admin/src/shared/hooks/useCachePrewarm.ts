@@ -40,7 +40,7 @@ async function warmCache(role?: string) {
     // Role-specific endpoints
     const roleEndpoints: Record<string, string[]> = {
         admin: [
-            '/api/v1/admin/dashboard',
+            '/api/v1/admin/home',
             '/api/v1/admin/tenants',
             '/api/v1/manager/analytics',
         ],

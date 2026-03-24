@@ -44,7 +44,7 @@ export class PredictiveForecasterEngine {
       console.log(`[Matrix] Auto-Dispatched SMS to 14 latent Field Workers with a +15 TrustScore incentive.`);
     }
 
-    // 4. Record the Telemetry for the General Manager's Dashboard
+    // 4. Record the Telemetry for the General Manager's Home
     await this.prisma.supplyForecastMetrics.create({
       data: {
         tenantId,

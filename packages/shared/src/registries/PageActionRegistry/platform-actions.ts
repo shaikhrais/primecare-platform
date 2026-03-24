@@ -2,7 +2,7 @@ import type { PageActions } from '../PageActionRegistry';
 
 export const PLATFORM_ACTIONS: Record<string, PageActions> = {
     // Admin Pages
-    'admin.dashboard': {
+    'admin.home': {
         primary: 'btn-admin-user-invite',
         actions: [
             'btn-admin-ui-override', 'btn-admin-report-export', 'btn-admin-settings-save',
@@ -25,9 +25,9 @@ export const PLATFORM_ACTIONS: Record<string, PageActions> = {
     'admin.telehealth': { primary: 'btn-telehealth-session-start', actions: ['btn-rpm-vitals-verify'] },
     'admin.pharmacy': { primary: 'btn-pharmacy-order', actions: ['btn-pharmacy-mar-sync'] },
     // Superuser
-    'superuser.dashboard': { primary: 'btn-sup-health-refresh', actions: ['btn-sup-policy-push', 'btn-superuser-risk-scan', 'btn-superuser-tenant-new'] },
+    'superuser.home': { primary: 'btn-sup-health-refresh', actions: ['btn-sup-policy-push', 'btn-superuser-risk-scan', 'btn-superuser-tenant-new'] },
     // Scrum Master
-    'scrum-master.dashboard': { primary: 'btn-sm-universal-sweep', actions: ['btn-sm-auto-fix', 'btn-sm-flush-audits', 'btn-sm-db-reseed', 'btn-sm-build-deploy', 'btn-sm-scan-security'] },
+    'scrum-master.home': { primary: 'btn-sm-universal-sweep', actions: ['btn-sm-auto-fix', 'btn-sm-flush-audits', 'btn-sm-db-reseed', 'btn-sm-build-deploy', 'btn-sm-scan-security'] },
     // Premium Pages
     'admin.ai-command': { primary: 'lnk-admin-ai-command', actions: [] },
     'admin.multi-currency': { primary: 'lnk-admin-multi-currency', actions: [] },

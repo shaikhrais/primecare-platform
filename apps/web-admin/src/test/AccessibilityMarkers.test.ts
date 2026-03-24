@@ -40,7 +40,7 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D1: Admin Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D1: Admin Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -52,25 +52,25 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D3: Accounting Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D3: Accounting Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D4: EVV Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D4: EVV Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D5: AI Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D5: AI Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D6: Cron Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D6: Cron Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -556,7 +556,7 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D7: Manager Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D7: Manager Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -658,7 +658,7 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D14: PSW Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D14: PSW Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -754,13 +754,13 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D15: RN Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D15: RN Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D16: MAR Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D16: MAR Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -826,7 +826,7 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D8: Client Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D8: Client Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');
@@ -952,7 +952,7 @@ describe('Accessibility Markers (168 pages, 346 total markers)', () => {
         expect(typeof markers.aria).toBe('number');
     });
 
-    it('D19: Staff Dashboard — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
+    it('D19: Staff Home — 2 a11y markers (aria:1, role:1, title:0, alt:0)', () => {
         // Track accessibility markers per page
         const markers = { aria: 1, role: 1, title: 0, alt: 0 };
         expect(typeof markers.aria).toBe('number');

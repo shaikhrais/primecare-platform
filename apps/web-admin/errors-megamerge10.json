@@ -33,7 +33,7 @@
   "src/app/routes/platform/admin.tsx(2769,68): error TS2304: Cannot find name 'AICommandCenter'.",
   "src/app/routes/platform/dam.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
   "src/app/routes/platform/marketing.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
-  "src/app/routes/platform/PlatformRoutes.tsx(10,45): error TS2307: Cannot find module '../tenancy/staff/dashboard' or its corresponding type declarations.",
+  "src/app/routes/platform/PlatformRoutes.tsx(10,45): error TS2307: Cannot find module '../tenancy/staff/home' or its corresponding type declarations.",
   "src/app/routes/platform/PlatformRoutes.tsx(13,53): error TS2307: Cannot find module '../tenancy/scrum-master/pages' or its corresponding type declarations.",
   "src/app/routes/platform/scrum-master.tsx(3,37): error TS2307: Cannot find module '@/shared/PageSectionRegistry' or its corresponding type declarations.",
   "src/app/routes/platform/scrum-master.tsx(54,29): error TS2304: Cannot find name 'ButtonRegistry'.",

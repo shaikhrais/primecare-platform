@@ -78,7 +78,7 @@ export const scrumMasterContent = {
         SUBTITLE: 'Endpoint health and latency tracking.',
     },
     DASHBOARD: {
-        TITLE: 'Scrum Master Dashboard',
+        TITLE: 'Scrum Master Home',
         SUBTITLE: 'Engineering oversight and platform integrity metrics.',
     },
     DEV_KB: {
@@ -163,9 +163,9 @@ export const scrumMasterContent = {
         SECURITY_ROLES: 'Security Roles',
         WORKFLOW_PATHWAY: 'Workflow pathway',
         STEPS: {
-            ADMIN: ['Dashboard Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'] as const,
-            SCRUM_MASTER: ['Technical Dashboard', 'API Registry Audit', 'Blueprint Gap Analysis', 'Performance Sweep', 'Security Surveillance', 'Theme Customization'] as const,
-            MANAGER: ['Operations Dashboard', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'] as const,
+            ADMIN: ['Home Overlay', 'User Management', 'Global Schedule', 'Earnings Center', 'System Settings', 'Developer Audit Hub'] as const,
+            SCRUM_MASTER: ['Technical Home', 'API Registry Audit', 'Blueprint Gap Analysis', 'Performance Sweep', 'Security Surveillance', 'Theme Customization'] as const,
+            MANAGER: ['Operations Home', 'Shift Coordination', 'Clinical Reviews', 'Payroll Verification', 'Regional Analytics'] as const,
             MARKETING_MANAGER: ['Growth Pipeline', 'CRM Management', 'Lead Conversion', 'Campaign Performance'] as const,
             HR_MANAGER: ['Talent Pipeline', 'Recruitment Funnel', 'Onboarding Tracking', 'Compliance Audits'] as const,
             FINANCE_MANAGER: ['Revenue Intelligence', 'Expense Audits', 'Payroll Reconciliation', 'Tax Compliance'] as const,
@@ -174,7 +174,7 @@ export const scrumMasterContent = {
             COORDINATOR: ['Live Dispatch Map', 'SOS Queue', 'Coverage Alerts', 'Emergency Check-in'] as const,
             RECRUITING_MANAGER: ['Job Postings', 'Candidate Screening', 'Interview Roster', 'Offer Management'] as const,
             STAFF: ['Staff Hub', 'Lead Inquiries', 'Customer Roster', 'Incident Logging', 'Compliance Monitoring'] as const,
-            RN: ['Clinical Dashboard', 'Care Plan Manager', 'Daily Entry Audit', 'Supervision Hub'] as const,
+            RN: ['Clinical Home', 'Care Plan Manager', 'Daily Entry Audit', 'Supervision Hub'] as const,
             PSW: ['My Schedule', 'Open Market', 'Visit Check-in/out', 'Payout Requests', 'Compliance Ledger'] as const,
             CLIENT: ['Care Hub', 'New Request', 'Assigned Team', 'Digital Invoices', 'Feedback Gateway'] as const,
         }

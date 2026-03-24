@@ -1,6 +1,6 @@
 import type { PageEntry, PageType } from '../PageRegistry';
 import { CATEGORY_PREFIXES } from '../PageRegistry';
-import { DashboardRegistry } from './dashboards';
+import { DashboardRegistry } from './homes';
 import { ListRegistry } from './lists';
 import { HubRegistry } from './hubs';
 import { WizardRegistry, ReportRegistry } from './wizards-reports';
@@ -50,7 +50,7 @@ export function buildPageEntries(): PageEntry[] {
     raw.push(...ERROR_PAGES);
 
     DashboardRegistry.forEach(d => raw.push({
-        id: `page.${d.id}`, label: d.label, route: d.route, type: 'dashboard',
+        id: `page.${d.id}`, label: d.label, route: d.route, type: 'home',
         owner: d.owner, icon: d.icon, dashboardRegistryId: d.id,
     } as RawPage));
 

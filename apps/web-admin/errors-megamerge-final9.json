@@ -146,7 +146,7 @@
   "src/app/routes/platform/dam.tsx(335,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
   "src/app/routes/platform/dam.tsx(347,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
   "src/app/routes/platform/dam.tsx(359,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
-  "src/app/routes/platform/dashboard.tsx(10,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
+  "src/app/routes/platform/home.tsx(10,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
   "src/app/routes/platform/governance-hub.tsx(10,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
   "src/app/routes/platform/marketing.tsx(12,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",
   "src/app/routes/platform/marketing.tsx(24,13): error TS2322: Type '{ pageId: string; sub: true; sectionData: any; }' is not assignable to type 'IntrinsicAttributes & PageTemplateProps'.",

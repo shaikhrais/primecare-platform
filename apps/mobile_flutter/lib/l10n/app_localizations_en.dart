@@ -212,7 +212,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get messages => 'Messages';
 
   @override
-  String get shiftAcceptedAddedToDashboard =>
+  String get shiftAcceptedAddedToHome =>
       'Shift Accepted. Localized telemetry synced.';
 
   @override

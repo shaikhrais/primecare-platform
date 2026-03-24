@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-/// The Absolute Master Dashboard for the 'Superuser'.
+/// The Absolute Master Home for the 'Superuser'.
 /// This screen allows the creation of net-new platform Roles and
 /// the mapping of Crisis Protocols to physical UI overrides natively.
 class EcosystemControlCenterScreen extends StatefulWidget {

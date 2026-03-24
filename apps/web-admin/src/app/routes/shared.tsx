@@ -317,7 +317,7 @@ const customers = [
     { name: 'Helen Taylor', age: 89, service: 'PSW Personal Care', visits: 'Daily', status: '✅ Active', since: 'Jun 2023' },
 ];
 
-// Inherited from dashboard.tsx
+// Inherited from home.tsx
 const quickActions = [
     { icon: '📅', title: TEXT_VARS.V_WU4ZGQJ1S, subtitle: "Today's shifts" },
     { icon: '👥', title: TEXT_VARS.V_UBVZVO8JD, subtitle: TEXT_VARS.V_6E0RLYSGU },
@@ -327,7 +327,7 @@ const quickActions = [
     { icon: '🤖', title: TEXT_VARS.V_TID8B1PMQ, subtitle: TEXT_VARS.V_TJL2S0JU5 },
 ];
 
-// Inherited from dashboard.tsx
+// Inherited from home.tsx
 const registryModules = [
     { icon: '📋', title: TEXT_VARS.V_T8ALJ0BB6, subtitle: TEXT_VARS.V_XQOH4D4PD },
     { icon: '🔗', title: TEXT_VARS.V_CM1YED4VD, subtitle: TEXT_VARS.V_VCZ2JAKLQ },

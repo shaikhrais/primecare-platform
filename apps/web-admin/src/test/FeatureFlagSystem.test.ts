@@ -30,7 +30,7 @@ const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
     'gamification': { defaultEnabled: false, description: 'PSW achievement badges, leaderboards, streaks' },
     'dark-mode': { defaultEnabled: true, description: 'Dark mode theme toggle' },
     'offline-mode': { defaultEnabled: false, allowedRoles: ['psw', 'rn'], description: 'PWA offline caching for field workers' },
-    'advanced-analytics': { defaultEnabled: false, allowedRoles: ['admin', 'manager', 'finance'], minTier: 'pro', description: 'AI-powered analytics dashboards and forecasting' },
+    'advanced-analytics': { defaultEnabled: false, allowedRoles: ['admin', 'manager', 'finance'], minTier: 'pro', description: 'AI-powered analytics homes and forecasting' },
     'client-portal': { defaultEnabled: true, allowedRoles: ['client'], description: 'Client self-service portal access' },
     'real-time-dispatch': { defaultEnabled: false, allowedRoles: ['admin', 'coordinator', 'manager'], minTier: 'pro', description: 'Live map dispatch with GPS tracking' },
     'document-signing': { defaultEnabled: false, minTier: 'pro', description: 'Digital document signing (e-signatures)' },

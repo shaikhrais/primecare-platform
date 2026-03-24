@@ -14,7 +14,7 @@ These Master Agencies are granted massive, God-mode administrative powers. Not o
 ## The Illusion of Ownership
 At every level of the fractal, the experience remains visually customized and perfectly isolated. 
 *   When a Nurse logs into a Sub-Agency portal, she sees the Sub-Agency's logo and color scheme. She believes the Sub-Agency built the software.
-*   When the Sub-Agency owner logs into their management dashboard, they see the Master Agency's branding. They believe the Master Agency provided the software.
+*   When the Sub-Agency owner logs into their management home, they see the Master Agency's branding. They believe the Master Agency provided the software.
 *   The Master Agency is the only entity that knows they are using PrimeCare's software, but to the outside world, it looks entirely like their own brand.
 
 ## Centralized Algorithms, Decentralized Growth

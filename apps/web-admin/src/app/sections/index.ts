@@ -512,7 +512,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'FormSchemaFederator': FormSchemaFederatorSection,
     'VisualLogicBuilder': VisualLogicBuilderSection,
     'WorkflowVersionControl': WorkflowVersionControlSection,
-    'Dashboard': DashboardSection,
+    'Home': DashboardSection,
     'GovernanceHub': GovernanceHubSection,
     'B2bSlaDashboard': B2bSlaDashboardSection,
     'CorporateAccountHierarchy': CorporateAccountHierarchySection,

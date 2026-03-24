@@ -105,7 +105,7 @@ describe('flattenObject', () => {
 
 function detectSection(key: string): string {
     const top = key.split('.')[0].toLowerCase();
-    if (top.includes('dashboard')) return 'dashboards';
+    if (top.includes('home')) return 'homes';
     if (top.includes('nav') || top.includes('sidebar')) return 'nav';
     if (top.includes('admin')) return 'admin';
     if (top.includes('wizard') || top.includes('setup')) return 'wizards';
@@ -119,8 +119,8 @@ function detectSection(key: string): string {
 }
 
 describe('detectSection', () => {
-    it('dashboard key → dashboards', () => {
-        expect(detectSection('dashboardMain.title')).toBe('dashboards');
+    it('home key → homes', () => {
+        expect(detectSection('dashboardMain.title')).toBe('homes');
     });
 
     it('nav key → nav', () => {
@@ -212,11 +212,11 @@ describe('detectSection', () => {
     });
 
     it('uses only top-level key', () => {
-        expect(detectSection('unknownPrefix.dashboard.title')).toBe('general');
+        expect(detectSection('unknownPrefix.home.title')).toBe('general');
     });
 
     it('case insensitive', () => {
-        expect(detectSection('DashboardMain.title')).toBe('dashboards');
+        expect(detectSection('DashboardMain.title')).toBe('homes');
     });
 });
 

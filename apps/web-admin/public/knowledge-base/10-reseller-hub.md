@@ -8,7 +8,7 @@ Eventually, a highly successful Master Franchisee secures more B2B hospital cont
 ## The Solution: The Spawner
 Instead of rejecting contracts, the Master Franchise opens their **Reseller Hub**. 
 
-From this dashboard, they make the transition from a staffing agency to a software reseller. With one click of "Spawn Child Tenant", the backend instantly provisions an entirely isolated, containerized mini-agency database instance.
+From this home, they make the transition from a staffing agency to a software reseller. With one click of "Spawn Child Tenant", the backend instantly provisions an entirely isolated, containerized mini-agency database instance.
 
 ## The Mechanics of Spawning
 The Master Franchise sells this newly spawned instance to a local entrepreneur—perhaps a veteran Nurse Practitioner who wants to start her own tiny agency but lacks capital. The local entrepreneur begins fiercely recruiting her own friends and colleagues into her sub-system.

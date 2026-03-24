@@ -5,7 +5,7 @@
 | Registry | Purpose | Entry Count |
 |----------|---------|-------------|
 | `ButtonRegistry.ts` | **Unified** interactive elements (buttons, links, interactions, touchpoints) | ~200+ |
-| `PageRegistry.ts` | Master page catalogue (dashboards, forms, lists, hubs, etc.) | All pages |
+| `PageRegistry.ts` | Master page catalogue (homes, forms, lists, hubs, etc.) | All pages |
 | `FormRegistry.ts` | Form definitions with fields, API endpoints, dependencies | All forms |
 | `PermissionRegistry.ts` | **RBAC** — 60+ permissions, 25 roles, `can()`/`canAny()`/`canAll()` helpers | 60+ perms |
 | `PageActionRegistry.ts` | Maps pages → action buttons | Per page |
@@ -175,13 +175,13 @@ Returns:
 // Buttons
 getButtonById('btn-admin-user-invite')     // Find button by ID
 getButtonsByRole('admin')                   // All buttons for a role
-getButtonsForPage('admin.dashboard')        // Buttons mapped to a page
+getButtonsForPage('admin.home')        // Buttons mapped to a page
 getLinksForRole('manager')                  // Navigation links for a role
 getTouchpointsForSweep()                    // Response Bot touchpoints
 getInteractionsByTrigger('click')           // Interactions by trigger type
 
 // Pages
-getPageById('admin.dashboard')              // Page by ID
+getPageById('admin.home')              // Page by ID
 getPagesByType('form')                      // All form pages
 getPagesByOwner('rn')                       // All RN pages
 

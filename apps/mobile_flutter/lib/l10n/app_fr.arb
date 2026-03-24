@@ -65,7 +65,7 @@
   "schedule": "[FR] Schedule",
   "clients": "[FR] Clients",
   "messages": "[FR] Messages",
-  "shiftAcceptedAddedToDashboard": "[FR] Emplacement accepté. Télémétrie localisée synchronisée.",
+  "shiftAcceptedAddedToHome": "[FR] Emplacement accepté. Télémétrie localisée synchronisée.",
   "typeYourMessage": "[FR] Type your message...",
   "viewOfficialDirectivePdf": "[FR] View Official Directive (PDF)",
   "activeCarePlanVault": "[FR] Active Care Plan Vault",

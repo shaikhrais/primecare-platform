@@ -24,7 +24,7 @@ export class MachineTranslationAutoFill {
 
         // Translation logic fallback for demonstration
         if (englishText.toLowerCase().includes('welcome')) {
-            generatedEs = 'Bienvenido al Dashboard';
+            generatedEs = 'Bienvenido al Home';
             generatedFr = 'Bienvenue sur le Tableau de Bord';
         } else if (englishText.toLowerCase().includes('settings')) {
             generatedEs = 'Configuración del Perfil';

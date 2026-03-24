@@ -60,7 +60,7 @@ export class FridgeSensorMonitor {
             if (hoursSinceInteraction >= this.CRITICAL_THRESHOLD_HOURS) {
                 crisisEventsDetected++;
                 console.warn(`[NUTRITION CRISIS] Patient ${patientId}'s fridge has not opened in ${hoursSinceInteraction.toFixed(1)} hours! Initiating RN welfare check.`);
-                // In production, this escalates a High Priority Task to the RN/Coordinator Dashboard
+                // In production, this escalates a High Priority Task to the RN/Coordinator Home
             }
         }
 

@@ -53,7 +53,7 @@ This document is the **definitive audit reference** for all navigable pages acro
 | `REGISTER` | `/register` | `Register` | New Account |
 | - | `/forgot-password` | `ForgotPassword` | Recovery |
 | - | `/reset-password` | `ResetPassword` | Recovery |
-| `DASHBOARD` | `/dashboard` | `Dashboard` | Landing/Stats |
+| `DASHBOARD` | `/home` | `Home` | Landing/Stats |
 
 ### 🛠️ Admin & Staff Operations
 | Route Key | URL Path | Page Component | Functional Area |
@@ -73,7 +73,7 @@ This document is the **definitive audit reference** for all navigable pages acro
 ### 💼 Manager Module
 | Route Key | URL Path | Page Component | Functional Area |
 |-----------|----------|----------------|-----------------|
-| - | `/manager/dashboard` | `ManagerDashboard` | Operations |
+| - | `/manager/home` | `ManagerDashboard` | Operations |
 | - | `/manager/daily-entry`| `DailyEntryPage` | Documentation |
 | - | `/reports` | `div (Placeholder)` | Reporting |
 

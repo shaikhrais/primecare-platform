@@ -1,6 +1,6 @@
 import React from 'react';
 import NotificationHub from '@/shared/components/layout/NotificationHub';
-import QuickActions from '@/shared/components/dashboard/QuickActions';
+import QuickActions from '@/shared/components/home/QuickActions';
 import { AdminRegistry } from 'prime-care-shared';
 import FlagLanguageSwitcher from './FlagLanguageSwitcher';
 

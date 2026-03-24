@@ -28,7 +28,7 @@ export const FINANCE_DOMAINS = {
     FINANCE_DIRECTOR: {
         DASHBOARD: {
             REFRESH: {
-                id: 'fd-dashboard-refresh',
+                id: 'fd-home-refresh',
                 label: 'Refresh Ledger',
                 type: 'button',
                 module: 'FINANCE_DIRECTOR' as any,

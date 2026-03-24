@@ -80,7 +80,7 @@ describe('Flatten Object', () => {
 
 function detectSection(key: string): string {
     const top = key.split('.')[0].toLowerCase();
-    if (top.includes('dashboard')) return 'dashboards';
+    if (top.includes('home')) return 'homes';
     if (top.includes('nav') || top.includes('sidebar')) return 'nav';
     if (top.includes('admin')) return 'admin';
     if (top.includes('wizard') || top.includes('setup')) return 'wizards';
@@ -94,7 +94,7 @@ function detectSection(key: string): string {
 }
 
 describe('Detect Section', () => {
-    it('dashboard', () => expect(detectSection('DashboardStats.count')).toBe('dashboards'));
+    it('home', () => expect(detectSection('DashboardStats.count')).toBe('homes'));
     it('nav', () => expect(detectSection('NavMenu.items')).toBe('nav'));
     it('sidebar', () => expect(detectSection('SidebarLinks.home')).toBe('nav'));
     it('admin', () => expect(detectSection('AdminPanel.users')).toBe('admin'));

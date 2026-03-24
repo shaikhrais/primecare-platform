@@ -3,18 +3,18 @@ import { Bindings, Variables } from '../bindings';
 
 const sduiModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// Generates the Home Dashboard layout dynamically based on Authorization
+// Generates the Home Home layout dynamically based on Authorization
 sduiModule.openapi(
   createRoute({
     method: 'get',
-    path: '/dashboard',
+    path: '/home',
     tags: ['SDUI'],
-    summary: 'Dynamic Server-Driven UI Dashboard Schema',
+    summary: 'Dynamic Server-Driven UI Home Schema',
     responses: { 200: { description: 'Returns the PrimeCare UI schema payload' } },
   }),
   async (c) => {
     // In production, user = c.get('user')
-    // Simulating RN Dashboard schema dynamically rendered to the Flutter SDK
+    // Simulating RN Home schema dynamically rendered to the Flutter SDK
     const rnDashboardSchema = {
       type: 'Padding',
       padding: 24,
@@ -31,7 +31,7 @@ sduiModule.openapi(
             ]
           },
           { type: 'SizedBox', height: 8 },
-          { type: 'Text', text: 'RN Dashboard', color: '#0F172A', bold: true, fontSize: 32 },
+          { type: 'Text', text: 'RN Home', color: '#0F172A', bold: true, fontSize: 32 },
           { type: 'SizedBox', height: 24 },
           {
             type: 'PrimeCareCard',

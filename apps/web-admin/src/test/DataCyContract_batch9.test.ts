@@ -79,452 +79,452 @@ describe('Data-Cy Contract — Batch 9', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx: tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx — has 3 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/AccessibilityControls.tsx: tenancy/psw/pages/home/components/AccessibilityControls.tsx — has 3 data-cy markers', () => {
         const markers = ["btn-psw.accessibility-controls-0","btn-psw.accessibility-controls-1","btn-psw.accessibility-controls-2"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/AccessibilityControls.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-0" follows conventions', () => {
         const attr = 'btn-psw.accessibility-controls-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-1" follows conventions', () => {
         const attr = 'btn-psw.accessibility-controls-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-2" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/AccessibilityControls.tsx: data-cy="btn-psw.accessibility-controls-2" follows conventions', () => {
         const attr = 'btn-psw.accessibility-controls-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AgencyLeaderboard.tsx: tenancy/psw/pages/dashboard/components/AgencyLeaderboard.tsx — has 1 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/AgencyLeaderboard.tsx: tenancy/psw/pages/home/components/AgencyLeaderboard.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-psw.agency-leaderboard-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/AgencyLeaderboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/AgencyLeaderboard.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/AgencyLeaderboard.tsx: data-cy="h3-psw.agency-leaderboard-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/AgencyLeaderboard.tsx: data-cy="h3-psw.agency-leaderboard-0" follows conventions', () => {
         const attr = 'h3-psw.agency-leaderboard-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx — has 6 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx — has 6 data-cy markers', () => {
         const markers = ["h2-psw.background-settings-modal-0","btn-psw.background-settings-modal-0","input-psw.background-settings-modal-0","input-psw.background-settings-modal-1","input-psw.background-settings-modal-2","btn-psw.background-settings-modal-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="h2-psw.background-settings-modal-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="h2-psw.background-settings-modal-0" follows conventions', () => {
         const attr = 'h2-psw.background-settings-modal-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="btn-psw.background-settings-modal-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="btn-psw.background-settings-modal-0" follows conventions', () => {
         const attr = 'btn-psw.background-settings-modal-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-0" follows conventions', () => {
         const attr = 'input-psw.background-settings-modal-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-1" follows conventions', () => {
         const attr = 'input-psw.background-settings-modal-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-2" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="input-psw.background-settings-modal-2" follows conventions', () => {
         const attr = 'input-psw.background-settings-modal-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BackgroundSettingsModal.tsx: data-cy="btn-psw.background-settings-modal-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BackgroundSettingsModal.tsx: data-cy="btn-psw.background-settings-modal-1" follows conventions', () => {
         const attr = 'btn-psw.background-settings-modal-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BurnoutPredictor.tsx: tenancy/psw/pages/dashboard/components/BurnoutPredictor.tsx — has 2 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/BurnoutPredictor.tsx: tenancy/psw/pages/home/components/BurnoutPredictor.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-psw.burnout-predictor-0","btn-psw.burnout-predictor-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/BurnoutPredictor.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/BurnoutPredictor.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BurnoutPredictor.tsx: data-cy="h3-psw.burnout-predictor-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BurnoutPredictor.tsx: data-cy="h3-psw.burnout-predictor-0" follows conventions', () => {
         const attr = 'h3-psw.burnout-predictor-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/BurnoutPredictor.tsx: data-cy="btn-psw.burnout-predictor-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/BurnoutPredictor.tsx: data-cy="btn-psw.burnout-predictor-0" follows conventions', () => {
         const attr = 'btn-psw.burnout-predictor-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: tenancy/psw/pages/dashboard/components/ComplianceSection.tsx — has 4 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/ComplianceSection.tsx: tenancy/psw/pages/home/components/ComplianceSection.tsx — has 4 data-cy markers', () => {
         const markers = ["section.notes","h3-psw.compliance-section-0","section.compliance","h3-psw.compliance-section-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/ComplianceSection.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: data-cy="section.notes" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ComplianceSection.tsx: data-cy="section.notes" follows conventions', () => {
         const attr = 'section.notes';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: data-cy="h3-psw.compliance-section-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ComplianceSection.tsx: data-cy="h3-psw.compliance-section-0" follows conventions', () => {
         const attr = 'h3-psw.compliance-section-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: data-cy="section.compliance" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ComplianceSection.tsx: data-cy="section.compliance" follows conventions', () => {
         const attr = 'section.compliance';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ComplianceSection.tsx: data-cy="h3-psw.compliance-section-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ComplianceSection.tsx: data-cy="h3-psw.compliance-section-1" follows conventions', () => {
         const attr = 'h3-psw.compliance-section-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx — has 4 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/DigitalIdBadge.tsx: tenancy/psw/pages/home/components/DigitalIdBadge.tsx — has 4 data-cy markers', () => {
         const markers = ["btn-psw.digital-id-badge-0","h2-psw.digital-id-badge-0","h3-psw.digital-id-badge-0","btn-psw.digital-id-badge-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/DigitalIdBadge.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: data-cy="btn-psw.digital-id-badge-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DigitalIdBadge.tsx: data-cy="btn-psw.digital-id-badge-0" follows conventions', () => {
         const attr = 'btn-psw.digital-id-badge-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: data-cy="h2-psw.digital-id-badge-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DigitalIdBadge.tsx: data-cy="h2-psw.digital-id-badge-0" follows conventions', () => {
         const attr = 'h2-psw.digital-id-badge-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: data-cy="h3-psw.digital-id-badge-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DigitalIdBadge.tsx: data-cy="h3-psw.digital-id-badge-0" follows conventions', () => {
         const attr = 'h3-psw.digital-id-badge-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DigitalIdBadge.tsx: data-cy="btn-psw.digital-id-badge-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DigitalIdBadge.tsx: data-cy="btn-psw.digital-id-badge-1" follows conventions', () => {
         const attr = 'btn-psw.digital-id-badge-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx — has 5 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: tenancy/psw/pages/home/components/DirectDispatchChat.tsx — has 5 data-cy markers', () => {
         const markers = ["h3-psw.direct-dispatch-chat-0","btn-psw.direct-dispatch-chat-0","btn-psw.direct-dispatch-chat-1","input-psw.direct-dispatch-chat-0","btn-psw.direct-dispatch-chat-2"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/DirectDispatchChat.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: data-cy="h3-psw.direct-dispatch-chat-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: data-cy="h3-psw.direct-dispatch-chat-0" follows conventions', () => {
         const attr = 'h3-psw.direct-dispatch-chat-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-0" follows conventions', () => {
         const attr = 'btn-psw.direct-dispatch-chat-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-1" follows conventions', () => {
         const attr = 'btn-psw.direct-dispatch-chat-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: data-cy="input-psw.direct-dispatch-chat-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: data-cy="input-psw.direct-dispatch-chat-0" follows conventions', () => {
         const attr = 'input-psw.direct-dispatch-chat-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-2" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/DirectDispatchChat.tsx: data-cy="btn-psw.direct-dispatch-chat-2" follows conventions', () => {
         const attr = 'btn-psw.direct-dispatch-chat-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/HardwareStorefront.tsx: tenancy/psw/pages/dashboard/components/HardwareStorefront.tsx — has 2 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/HardwareStorefront.tsx: tenancy/psw/pages/home/components/HardwareStorefront.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-psw.hardware-storefront-0","btn-psw.hardware-storefront-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/HardwareStorefront.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/HardwareStorefront.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/HardwareStorefront.tsx: data-cy="h3-psw.hardware-storefront-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/HardwareStorefront.tsx: data-cy="h3-psw.hardware-storefront-0" follows conventions', () => {
         const attr = 'h3-psw.hardware-storefront-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/HardwareStorefront.tsx: data-cy="btn-psw.hardware-storefront-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/HardwareStorefront.tsx: data-cy="btn-psw.hardware-storefront-0" follows conventions', () => {
         const attr = 'btn-psw.hardware-storefront-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx — has 4 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/PeerKudosSystem.tsx: tenancy/psw/pages/home/components/PeerKudosSystem.tsx — has 4 data-cy markers', () => {
         const markers = ["h3-psw.peer-kudos-system-0","btn-psw.peer-kudos-system-0","input-psw.peer-kudos-system-0","btn-psw.peer-kudos-system-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/PeerKudosSystem.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: data-cy="h3-psw.peer-kudos-system-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/PeerKudosSystem.tsx: data-cy="h3-psw.peer-kudos-system-0" follows conventions', () => {
         const attr = 'h3-psw.peer-kudos-system-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: data-cy="btn-psw.peer-kudos-system-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/PeerKudosSystem.tsx: data-cy="btn-psw.peer-kudos-system-0" follows conventions', () => {
         const attr = 'btn-psw.peer-kudos-system-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: data-cy="input-psw.peer-kudos-system-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/PeerKudosSystem.tsx: data-cy="input-psw.peer-kudos-system-0" follows conventions', () => {
         const attr = 'input-psw.peer-kudos-system-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/PeerKudosSystem.tsx: data-cy="btn-psw.peer-kudos-system-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/PeerKudosSystem.tsx: data-cy="btn-psw.peer-kudos-system-1" follows conventions', () => {
         const attr = 'btn-psw.peer-kudos-system-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx: tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx — has 3 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/ResourceLibrary.tsx: tenancy/psw/pages/home/components/ResourceLibrary.tsx — has 3 data-cy markers', () => {
         const markers = ["h3-psw.resource-library-0","input-psw.resource-library-0","btn-psw.resource-library-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/ResourceLibrary.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx: data-cy="h3-psw.resource-library-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ResourceLibrary.tsx: data-cy="h3-psw.resource-library-0" follows conventions', () => {
         const attr = 'h3-psw.resource-library-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx: data-cy="input-psw.resource-library-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ResourceLibrary.tsx: data-cy="input-psw.resource-library-0" follows conventions', () => {
         const attr = 'input-psw.resource-library-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ResourceLibrary.tsx: data-cy="btn-psw.resource-library-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ResourceLibrary.tsx: data-cy="btn-psw.resource-library-0" follows conventions', () => {
         const attr = 'btn-psw.resource-library-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: tenancy/psw/pages/dashboard/components/ShiftCards.tsx — has 8 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: tenancy/psw/pages/home/components/ShiftCards.tsx — has 8 data-cy markers', () => {
         const markers = ["shift-client-name","shift-status","shift-details","btn-psw.shift-list-0","btn-psw.shift-list-1","shift-client-name","shift-status","btn-view-files"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/ShiftCards.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/ShiftCards.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="shift-client-name" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="shift-client-name" follows conventions', () => {
         const attr = 'shift-client-name';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="shift-status" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="shift-status" follows conventions', () => {
         const attr = 'shift-status';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="shift-details" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="shift-details" follows conventions', () => {
         const attr = 'shift-details';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="btn-psw.shift-list-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="btn-psw.shift-list-0" follows conventions', () => {
         const attr = 'btn-psw.shift-list-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="btn-psw.shift-list-1" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="btn-psw.shift-list-1" follows conventions', () => {
         const attr = 'btn-psw.shift-list-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="shift-client-name" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="shift-client-name" follows conventions', () => {
         const attr = 'shift-client-name';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="shift-status" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="shift-status" follows conventions', () => {
         const attr = 'shift-status';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftCards.tsx: data-cy="btn-view-files" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftCards.tsx: data-cy="btn-view-files" follows conventions', () => {
         const attr = 'btn-view-files';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftList.tsx: tenancy/psw/pages/dashboard/components/ShiftList.tsx — has 1 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/ShiftList.tsx: tenancy/psw/pages/home/components/ShiftList.tsx — has 1 data-cy markers', () => {
         const markers = ["section.shifts"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/ShiftList.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/ShiftList.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/ShiftList.tsx: data-cy="section.shifts" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/ShiftList.tsx: data-cy="section.shifts" follows conventions', () => {
         const attr = 'section.shifts';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: tenancy/psw/pages/dashboard/components/WellnessPulse.tsx — has 4 data-cy markers', () => {
+    it('tenancy/psw/pages/home/components/WellnessPulse.tsx: tenancy/psw/pages/home/components/WellnessPulse.tsx — has 4 data-cy markers', () => {
         const markers = ["wellness-pulse","h3-psw.wellness-pulse-0","btn-psw.wellness-pulse-0","textarea-psw.wellness-pulse"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/psw/pages/home/components/WellnessPulse.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: data-cy="wellness-pulse" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/WellnessPulse.tsx: data-cy="wellness-pulse" follows conventions', () => {
         const attr = 'wellness-pulse';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: data-cy="h3-psw.wellness-pulse-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/WellnessPulse.tsx: data-cy="h3-psw.wellness-pulse-0" follows conventions', () => {
         const attr = 'h3-psw.wellness-pulse-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: data-cy="btn-psw.wellness-pulse-0" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/WellnessPulse.tsx: data-cy="btn-psw.wellness-pulse-0" follows conventions', () => {
         const attr = 'btn-psw.wellness-pulse-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/psw/pages/dashboard/components/WellnessPulse.tsx: data-cy="textarea-psw.wellness-pulse" follows conventions', () => {
+    it('tenancy/psw/pages/home/components/WellnessPulse.tsx: data-cy="textarea-psw.wellness-pulse" follows conventions', () => {
         const attr = 'textarea-psw.wellness-pulse';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -913,81 +913,81 @@ describe('Data-Cy Contract — Batch 9', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx — has 6 data-cy markers', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: tenancy/rn/pages/home/components/DamageReportIntake.tsx — has 6 data-cy markers', () => {
         const markers = ["h3-rn.damage-report-intake-0","btn-rn.damage-report-intake-0","h3-rn.damage-report-intake-1","input-rn.damage-report-intake-0","textarea-rn.damage-report-intake","btn-rn.damage-report-intake-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/rn/pages/home/components/DamageReportIntake.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="h3-rn.damage-report-intake-0" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="h3-rn.damage-report-intake-0" follows conventions', () => {
         const attr = 'h3-rn.damage-report-intake-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="btn-rn.damage-report-intake-0" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="btn-rn.damage-report-intake-0" follows conventions', () => {
         const attr = 'btn-rn.damage-report-intake-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="h3-rn.damage-report-intake-1" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="h3-rn.damage-report-intake-1" follows conventions', () => {
         const attr = 'h3-rn.damage-report-intake-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="input-rn.damage-report-intake-0" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="input-rn.damage-report-intake-0" follows conventions', () => {
         const attr = 'input-rn.damage-report-intake-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="textarea-rn.damage-report-intake" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="textarea-rn.damage-report-intake" follows conventions', () => {
         const attr = 'textarea-rn.damage-report-intake';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/DamageReportIntake.tsx: data-cy="btn-rn.damage-report-intake-1" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/DamageReportIntake.tsx: data-cy="btn-rn.damage-report-intake-1" follows conventions', () => {
         const attr = 'btn-rn.damage-report-intake-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx: tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx — has 3 data-cy markers', () => {
+    it('tenancy/rn/pages/home/components/MilestoneCelebrator.tsx: tenancy/rn/pages/home/components/MilestoneCelebrator.tsx — has 3 data-cy markers', () => {
         const markers = ["btn-rn.milestone-celebrator-0","h2-rn.milestone-celebrator-0","btn-rn.milestone-celebrator-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/rn/pages/home/components/MilestoneCelebrator.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx: data-cy="btn-rn.milestone-celebrator-0" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/MilestoneCelebrator.tsx: data-cy="btn-rn.milestone-celebrator-0" follows conventions', () => {
         const attr = 'btn-rn.milestone-celebrator-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx: data-cy="h2-rn.milestone-celebrator-0" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/MilestoneCelebrator.tsx: data-cy="h2-rn.milestone-celebrator-0" follows conventions', () => {
         const attr = 'h2-rn.milestone-celebrator-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/rn/pages/dashboard/components/MilestoneCelebrator.tsx: data-cy="btn-rn.milestone-celebrator-1" follows conventions', () => {
+    it('tenancy/rn/pages/home/components/MilestoneCelebrator.tsx: data-cy="btn-rn.milestone-celebrator-1" follows conventions', () => {
         const attr = 'btn-rn.milestone-celebrator-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

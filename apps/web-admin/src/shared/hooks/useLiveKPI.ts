@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
- * useLiveKPI — Real-time WebSocket feed for dashboard KPIs
+ * useLiveKPI — Real-time WebSocket feed for home KPIs
  * 
  * Connects to the RealtimeSync Durable Object via the system /realtime/connect
  * endpoint. Automatically reconnects on disconnect with exponential backoff.

@@ -53,12 +53,12 @@ The core "brain" of the frontend. All text, routes, and API endpoints are define
 ## 3. Web: Admin Portal (`apps/web-admin`)
 **Target Audience:** Business Owners, Admins.
 
-### 3.1 Dashboard (`/`)
+### 3.1 Home (`/`)
 - **Visuals:** Stats cards, Quick Actions.
 - **Components:**
   - `StatsCard`: "Total Users", "Pending Leads".
   - `QuickActionTile`: Link to "View Schedule".
-- **Data:** Fetches from `/v1/admin/dashboard` (/Real).
+- **Data:** Fetches from `/v1/admin/home` (/Real).
 
 ### 3.2 Schedule (`/schedule`)
 - **Visuals:** Full-screen Calendar view (Month/Week/Day).
@@ -79,7 +79,7 @@ The core "brain" of the frontend. All text, routes, and API endpoints are define
   - `TextInput`: **Password** (Secure).
   - `Button`: **Login** (Calls `POST /v1/auth/login`).
 
-### 4.2 Home Screen (Dashboard)
+### 4.2 Home Screen (Home)
 - **Visuals:** Welcome Message, "Upcoming Visits" Card.
 - **Data:**
   - **User Name:** From `AuthContext` (User Session).
@@ -107,7 +107,7 @@ The core "brain" of the frontend. All text, routes, and API endpoints are define
 - **Logic:** Restricts access to users with `role: 'psw'`.
 - **Inputs:** Email, Password.
 
-### 5.2 Visits Dashboard (`Home`)
+### 5.2 Visits Home (`Home`)
 - **Visuals:** List of assigned jobs.
 - **Components:**
   - `FlatList`: Visits.

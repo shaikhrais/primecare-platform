@@ -17,7 +17,7 @@ export const ReportRegistry: ReportEntry[] = [
     { id: 'admin.reconciliation', label: 'Financial Reconciliation', route: '/platform/admin/finance/reconciliation', owner: 'admin', fetchEndpoint: '/v1/admin/financial/reconcile', exportFormats: ['csv'] },
     { id: 'admin.evv-export', label: 'EVV Export', route: '/platform/admin/evv/export', owner: 'admin', fetchEndpoint: '/v1/admin/evv/export', exportFormats: ['csv', 'xlsx'] },
     { id: 'admin.audit-download', label: 'Audit Download', route: '/platform/admin/audit-export', owner: 'admin', fetchEndpoint: '/v1/admin/audit-export/download', exportFormats: ['pdf', 'csv'] },
-    { id: 'admin.compliance-export', label: 'Compliance Export', route: '/platform/admin/audit-export/compliance', owner: 'admin', fetchEndpoint: '/v1/admin/audit-export/compliance-dashboard', exportFormats: ['pdf'] },
+    { id: 'admin.compliance-export', label: 'Compliance Export', route: '/platform/admin/audit-export/compliance', owner: 'admin', fetchEndpoint: '/v1/admin/audit-export/compliance-home', exportFormats: ['pdf'] },
     { id: 'admin.regulatory', label: 'Regulatory Report', route: '/platform/admin/audit-export/regulatory', owner: 'admin', fetchEndpoint: '/v1/admin/audit-export/regulatory-report', exportFormats: ['pdf'] },
     { id: 'admin.referral-analytics', label: 'Referral Analytics', route: '/platform/admin/referrals/analytics', owner: 'admin', fetchEndpoint: '/v1/admin/referrals/analytics', exportFormats: ['csv'] },
     { id: 'admin.claims-era', label: 'Claims ERA', route: '/platform/admin/claims/era', owner: 'admin', fetchEndpoint: '/v1/admin/claims/era', exportFormats: ['csv'] },

@@ -8,7 +8,7 @@ import { getStaffStats } from './stats/staff';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// GET Dashboard Stats for Manager/Admin
+// GET Home Stats for Manager/Admin
 const getManagerStatsRoute = createRoute({
     ...ROUTE_METADATA.MANAGER.STATS,
     method: 'get',
@@ -34,7 +34,7 @@ const getManagerStatsRoute = createRoute({
                     }),
                 },
             },
-            description: 'Manager dashboard statistics',
+            description: 'Manager home statistics',
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }

@@ -111,7 +111,7 @@ describe('DataRegistry — Provinces', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const CATEGORY_PREFIXES: Record<string, string> = {
-    dashboard: 'D',
+    home: 'D',
     list: 'L',
     hub: 'H',
     form: 'F',
@@ -142,14 +142,14 @@ function buildPageId(prefix: string, id: string): string {
 
 function extractTypeFromRoute(route: string): string {
     if (route.startsWith('/login') || route.startsWith('/register') || route.startsWith('/forgot') || route.startsWith('/reset') || route.startsWith('/onboard')) return 'form';
-    if (route.includes('/dashboard')) return 'dashboard';
+    if (route.includes('/home')) return 'home';
     if (route.includes('/hub')) return 'hub';
     if (route.includes('/report')) return 'report';
     return 'list';
 }
 
 describe('PageBuilder — Category Prefixes', () => {
-    it('dashboard = D', () => expect(getCategoryPrefix('dashboard')).toBe('D'));
+    it('home = D', () => expect(getCategoryPrefix('home')).toBe('D'));
     it('list = L', () => expect(getCategoryPrefix('list')).toBe('L'));
     it('hub = H', () => expect(getCategoryPrefix('hub')).toBe('H'));
     it('form = F', () => expect(getCategoryPrefix('form')).toBe('F'));
@@ -169,18 +169,18 @@ describe('PageBuilder — Category Code', () => {
 });
 
 describe('PageBuilder — Label', () => {
-    it('builds label', () => expect(buildPageLabel(1, 'D1', 'Admin Dashboard')).toBe('[#1 D1] Admin Dashboard'));
+    it('builds label', () => expect(buildPageLabel(1, 'D1', 'Admin Home')).toBe('[#1 D1] Admin Home'));
     it('large number', () => expect(buildPageLabel(99, 'L15', 'Users')).toBe('[#99 L15] Users'));
 });
 
 describe('PageBuilder — Page ID', () => {
-    it('builds ID', () => expect(buildPageId('page', 'admin.dashboard')).toBe('page.admin.dashboard'));
+    it('builds ID', () => expect(buildPageId('page', 'admin.home')).toBe('page.admin.home'));
 });
 
 describe('PageBuilder — Route Type', () => {
     it('login = form', () => expect(extractTypeFromRoute('/login')).toBe('form'));
     it('register = form', () => expect(extractTypeFromRoute('/register')).toBe('form'));
-    it('dashboard = dashboard', () => expect(extractTypeFromRoute('/admin/dashboard')).toBe('dashboard'));
+    it('home = home', () => expect(extractTypeFromRoute('/admin/home')).toBe('home'));
     it('hub = hub', () => expect(extractTypeFromRoute('/finance/hub')).toBe('hub'));
     it('report = report', () => expect(extractTypeFromRoute('/reports/monthly')).toBe('report'));
     it('default = list', () => expect(extractTypeFromRoute('/admin/users')).toBe('list'));

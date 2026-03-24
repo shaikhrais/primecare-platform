@@ -50,9 +50,9 @@ describe('PermissionRegistry · Structure', () => {
 // ── Permission Coverage ─────────────────────────────────────────────────────
 
 describe('PermissionRegistry · Permission Coverage', () => {
-    it('every role has at least view_dashboard', () => {
+    it('every role has at least view_home', () => {
         for (const role of PLATFORM_ROLES) {
-            expect(can(role, 'view_dashboard')).toBe(true);
+            expect(can(role, 'view_home')).toBe(true);
         }
     });
 
@@ -114,7 +114,7 @@ describe('PermissionRegistry · Permission Coverage', () => {
 
 describe('PermissionRegistry · can()', () => {
     it('returns true for valid role+permission', () => {
-        expect(can('admin', 'view_dashboard')).toBe(true);
+        expect(can('admin', 'view_home')).toBe(true);
     });
 
     it('returns false for invalid permission', () => {
@@ -122,12 +122,12 @@ describe('PermissionRegistry · can()', () => {
     });
 
     it('returns false for unknown role', () => {
-        expect(can('nonexistent_role', 'view_dashboard')).toBe(false);
+        expect(can('nonexistent_role', 'view_home')).toBe(false);
     });
 
     it('is case-insensitive for role', () => {
-        expect(can('ADMIN', 'view_dashboard')).toBe(true);
-        expect(can('Admin', 'view_dashboard')).toBe(true);
+        expect(can('ADMIN', 'view_home')).toBe(true);
+        expect(can('Admin', 'view_home')).toBe(true);
     });
 });
 
@@ -147,11 +147,11 @@ describe('PermissionRegistry · canAny()', () => {
 
 describe('PermissionRegistry · canAll()', () => {
     it('returns true if role has all permissions', () => {
-        expect(canAll('admin', ['view_dashboard', 'manage_users', 'view_reports'])).toBe(true);
+        expect(canAll('admin', ['view_home', 'manage_users', 'view_reports'])).toBe(true);
     });
 
     it('returns false if role is missing one', () => {
-        expect(canAll('client', ['view_dashboard', 'manage_users'])).toBe(false);
+        expect(canAll('client', ['view_home', 'manage_users'])).toBe(false);
     });
 
     it('returns true for empty permissions array', () => {
@@ -172,12 +172,12 @@ describe('PermissionRegistry · getPermissions()', () => {
 });
 
 describe('PermissionRegistry · getRolesWithPermission()', () => {
-    it('returns roles that have view_dashboard', () => {
-        const roles = getRolesWithPermission('view_dashboard');
+    it('returns roles that have view_home', () => {
+        const roles = getRolesWithPermission('view_home');
         expect(roles).toContain('admin');
         expect(roles).toContain('client');
         expect(roles).toContain('psw');
-        expect(roles.length).toBe(PLATFORM_ROLES.length); // all roles have view_dashboard
+        expect(roles.length).toBe(PLATFORM_ROLES.length); // all roles have view_home
     });
 
     it('returns only admin-level roles for manage_tenants', () => {

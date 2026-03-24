@@ -16,7 +16,7 @@ export const ContentRegistry = {
         LOGIN_TITLE: 'Admin Login',
         LOGIN_TITLE_PSW: 'Caregiver Login',
         LOGIN_TITLE_CLIENT: 'Family Portal Login',
-        BUTTON: 'Login to Dashboard',
+        BUTTON: 'Login to Home',
         BUTTON_PSW: 'Sign In as Caregiver',
         BUTTON_CLIENT: 'Sign In to Family Hub',
     },
@@ -30,7 +30,7 @@ export const ContentRegistry = {
     },
     MENU: {
         ...MasterContentRegistry.MENU,
-        DASHBOARD: 'Dashboard',
+        DASHBOARD: 'Home',
         USERS: 'Users',
         SCHEDULE: 'Schedule',
         INCIDENTS: 'Incidents',

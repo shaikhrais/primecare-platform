@@ -79,7 +79,7 @@ export const FLAG_REGISTRY: Record<FeatureFlagName, FeatureFlagConfig> = {
         defaultEnabled: true,
         allowedRoles: ['admin', 'manager', 'finance'],
         minTier: 'pro',
-        description: 'AI-powered analytics dashboards and forecasting',
+        description: 'AI-powered analytics homes and forecasting',
     },
     'client-portal': {
         defaultEnabled: true,

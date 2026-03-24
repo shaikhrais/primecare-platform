@@ -1,7 +1,7 @@
 export const PLATFORM_ROUTES = {
     ADMIN: {
         DASHBOARD: '/platform/admin',
-        SUMMARY_DASHBOARD: '/platform/admin/summary-dashboard',
+        SUMMARY_DASHBOARD: '/platform/admin/summary-home',
         CUSTOMERS: '/platform/admin/customers',
         USERS: '/platform/admin/users',
         USERS_NEW: '/platform/admin/users/new',
@@ -91,7 +91,7 @@ export const PLATFORM_ROUTES = {
             MAR: '/platform/admin/pharmacy/mar',
         },
         FINANCE: {
-            DASHBOARD: '/platform/admin/finance/dashboard',
+            DASHBOARD: '/platform/admin/finance/home',
             TRADING_ACCOUNT: '/platform/admin/finance/trading',
             PROFIT_LOSS: '/platform/admin/finance/p-and-l',
             BALANCE_SHEET: '/platform/admin/finance/balance-sheet',
@@ -135,7 +135,7 @@ export const PLATFORM_ROUTES = {
         PAYROLL_HUB: '/platform/admin/payroll',
         BOOKING_REQUESTS: '/platform/admin/booking-requests',
         REFERENCE_DATA: '/platform/admin/reference-data',
-        CRON_DASHBOARD: '/platform/admin/cron-dashboard',
+        CRON_DASHBOARD: '/platform/admin/cron-home',
         FORM_REGISTRY: '/platform/admin/form-registry',
         PAGE_REGISTRY: '/platform/admin/page-registry',
         // Premium features

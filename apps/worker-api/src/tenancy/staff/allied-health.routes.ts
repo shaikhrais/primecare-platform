@@ -3,10 +3,10 @@ import { Bindings, Variables } from '../../bindings';
 
 const allied = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// GET /dashboard/stats — Allied health dashboard
+// GET /home/stats — Allied health home
 const dashboardRoute = createRoute({
-    method: 'get', path: '/dashboard/stats',
-    summary: 'Allied health professional dashboard stats', tags: ['Allied Health'],
+    method: 'get', path: '/home/stats',
+    summary: 'Allied health professional home stats', tags: ['Allied Health'],
     responses: {
         200: {
             content: {

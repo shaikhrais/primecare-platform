@@ -42,10 +42,10 @@ auditExport.openapi(downloadRoute, async (c) => {
     });
 });
 
-// GET /compliance-dashboard — PHIPA compliance score
+// GET /compliance-home — PHIPA compliance score
 const complianceDashRoute = createRoute({
-    method: 'get', path: '/compliance-dashboard',
-    summary: 'PHIPA Compliance Dashboard', tags: ['Audit Export'],
+    method: 'get', path: '/compliance-home',
+    summary: 'PHIPA Compliance Home', tags: ['Audit Export'],
     responses: {
         200: {
             content: {
@@ -59,7 +59,7 @@ const complianceDashRoute = createRoute({
                         recentAuditActions: z.number(),
                     })
                 }
-            }, description: 'Dashboard'
+            }, description: 'Home'
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }

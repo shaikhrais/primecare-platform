@@ -138,7 +138,7 @@ export default defineConfig({
           if (id.includes('/routes/platform/admin/')) {
             if (id.includes('/finance/') || id.includes('Finance') || id.includes('Ledger') || id.includes('Invoice')) return 'admin-finance';
             if (id.includes('/compliance/') || id.includes('Compliance') || id.includes('Audit')) return 'admin-compliance';
-            if (id.includes('/analytics/') || id.includes('Analytics') || id.includes('Dashboard') || id.includes('Stats')) return 'admin-analytics';
+            if (id.includes('/analytics/') || id.includes('Analytics') || id.includes('Home') || id.includes('Stats')) return 'admin-analytics';
             if (id.includes('/security/') || id.includes('Security') || id.includes('Forensic') || id.includes('Cors') || id.includes('Permission') || id.includes('Session') || id.includes('Threat') || id.includes('Integrity')) return 'admin-security';
             if (id.includes('/setup/') || id.includes('Wizard') || id.includes('Onboarding')) return 'admin-setup';
             if (id.includes('/ai/') || id.includes('/insights/') || id.includes('Clinical')) return 'admin-ai';

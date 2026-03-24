@@ -10,7 +10,7 @@ describe('Service Worker Caching Strategies', () => {
     const STATIC_EXTENSIONS = ['.js', '.css', '.png', '.jpg', '.svg', '.woff2', '.ttf', '.eot'];
     const SWR_ROUTES = [
         '/v1/manager/schedule', '/v1/staff/schedule', '/v1/client/family',
-        '/v1/staff/visits', '/v1/manager/analytics', '/v1/admin/dashboard',
+        '/v1/staff/visits', '/v1/manager/analytics', '/v1/admin/home',
         '/v1/staff/profile', '/v1/manager/staff', '/v1/billing/invoices',
         '/v1/client/care-plan', '/v1/manager/schedule/logistics-board',
         '/v1/admin/tenants',

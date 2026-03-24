@@ -1,6 +1,6 @@
-import { dashboardsFinanceContent } from './dashboards-finance';
+import { homesFinanceContent } from './homes-finance';
 
-export const dashboardsContent = {
+export const homesContent = {
     ADMIN_DASHBOARD: {
         STATS: {
             TOTAL_USERS: 'Total Users',
@@ -54,7 +54,7 @@ export const dashboardsContent = {
         BUTTON_REQUEST: 'Request New Care',
         MODAL_TITLE: 'Request New Care',
         MODAL_SUBTITLE: 'Please select your care type and preferred time.',
-        MESSAGES: { LOADING: 'Loading Client Dashboard...' },
+        MESSAGES: { LOADING: 'Loading Client Home...' },
         FAMILY_HUB: {
             TITLE: 'Family Care Hub',
             SUBTITLE: 'Oversight, notifications, and care team engagement.',
@@ -83,7 +83,7 @@ export const dashboardsContent = {
         MESSAGES: { LOADING: 'Synchronizing Command Center...' }
     },
     RN_DASHBOARD: {
-        TITLE: 'Clinical Dashboard',
+        TITLE: 'Clinical Home',
         SUBTITLE: 'Branch-wide clinical overview and task triage.',
         MESSAGES: { LOADING: 'Synchronizing Clinical Center...' },
         STATS: {
@@ -102,7 +102,7 @@ export const dashboardsContent = {
         TITLE_BRANCH: 'Branch Coordination Hub',
         TITLE_NETWORK: 'Network Coordination Hub',
         SUBTITLE: 'Daily Schedule & Compliance',
-        MESSAGES: { LOADING: 'Loading Staff Dashboard...' },
+        MESSAGES: { LOADING: 'Loading Staff Home...' },
         STATS: {
             URGENT_NEEDS: 'Urgent Scheduling Needs',
             URGENT_DESC: 'Shifts requiring immediate assignment',
@@ -125,7 +125,7 @@ export const dashboardsContent = {
         }
     },
     MANAGER_DASHBOARD: {
-        TITLE: 'Branch Dashboard',
+        TITLE: 'Branch Home',
         SUBTITLE: 'Local agency operational overview',
         QUICK_ACTIONS: 'Quick Actions',
         ANALYTICS: 'Performance Analytics',
@@ -143,7 +143,7 @@ export const dashboardsContent = {
             VIEW_CLIENTS: 'View Clients',
         },
         PERSPECTIVES: ['Operations', 'Clinical', 'Marketing', 'Recruiting', 'Finance'] as const,
-        MESSAGES: { LOADING: 'Loading Dashboard...' }
+        MESSAGES: { LOADING: 'Loading Home...' }
     },
     PLATFORM_DASHBOARD: {
         TITLE: 'Platform Command Center',
@@ -164,7 +164,7 @@ export const dashboardsContent = {
         }
     },
     SUMMARY_DASHBOARD: {
-        TITLE: 'Registry Intelligence Dashboard',
+        TITLE: 'Registry Intelligence Home',
         SUBTITLE: 'Real-time platform summaries, KPIs, and registry-driven insights.',
         HEADER: { CONTEXT: 'Context', LAST_UPDATED: 'Last Synchronized', SYNC_NOW: 'Sync Orbit' },
         CARDS: {
@@ -193,5 +193,5 @@ export const dashboardsContent = {
         ACTIONS: { ACKNOWLEDGE_SOS: 'Acknowledge SOS', OVERRIDE_MATCH: 'Override Match', SYNC_WAITLIST: 'Sync Priorities' },
         SUCCESS: { SOS_ACK: 'SOS alert acknowledged.', MATCH_OVERRIDDEN: 'PSW manual assignment confirmed.', WAITLIST_SYNCED: 'Waitlist priorities updated.' }
     },
-    ...dashboardsFinanceContent,
+    ...homesFinanceContent,
 } as const;

@@ -18,7 +18,7 @@ const submitWellnessPulseRoute = createRoute({
     path: '/pulse',
     summary: 'Submit Wellness Pulse',
     tags: ['PSW', 'Wellness'],
-    middleware: [requirePermission('view_dashboard')],
+    middleware: [requirePermission('view_home')],
     request: {
         body: {
             content: {

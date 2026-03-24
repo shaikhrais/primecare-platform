@@ -44,7 +44,7 @@ export async function processHandoverDigest(prisma: any) {
       await prisma.communicationLog.create({
         data: { direction: "outbound", channel: "email", recipient: headRn.email,
           subject: `[Daily Digest] Shift Handover Summaries`,
-          bodyText: `Your PSWs submitted ${countForTenant} Shift Handovers with safety concerns in the past 24 hours. Please review the dashboard.`,
+          bodyText: `Your PSWs submitted ${countForTenant} Shift Handovers with safety concerns in the past 24 hours. Please review the home.`,
           status: "queued", tenantId: tId as string },
       });
     }

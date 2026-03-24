@@ -31,7 +31,7 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D1: Admin Dashboard — 22 imports (17 local, 1 shared, 4 vendor)', () => {
+    it('D1: Admin Home — 22 imports (17 local, 1 shared, 4 vendor)', () => {
         expect(22).toBeGreaterThan(0);
     });
 
@@ -39,19 +39,19 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(2).toBeGreaterThan(0);
     });
 
-    it('D3: Accounting Dashboard — 4 imports (2 local, 1 shared, 1 vendor)', () => {
+    it('D3: Accounting Home — 4 imports (2 local, 1 shared, 1 vendor)', () => {
         expect(4).toBeGreaterThan(0);
     });
 
-    it('D4: EVV Dashboard — 1 imports (0 local, 0 shared, 1 vendor)', () => {
+    it('D4: EVV Home — 1 imports (0 local, 0 shared, 1 vendor)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D5: AI Dashboard — 1 imports (0 local, 0 shared, 1 vendor)', () => {
+    it('D5: AI Home — 1 imports (0 local, 0 shared, 1 vendor)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D6: Cron Dashboard — 6 imports (2 local, 1 shared, 3 vendor)', () => {
+    it('D6: Cron Home — 6 imports (2 local, 1 shared, 3 vendor)', () => {
         expect(6).toBeGreaterThan(0);
     });
 
@@ -375,7 +375,7 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D7: Manager Dashboard — 14 imports (10 local, 1 shared, 3 vendor)', () => {
+    it('D7: Manager Home — 14 imports (10 local, 1 shared, 3 vendor)', () => {
         expect(14).toBeGreaterThan(0);
     });
 
@@ -443,7 +443,7 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D14: PSW Dashboard — 27 imports (21 local, 1 shared, 5 vendor)', () => {
+    it('D14: PSW Home — 27 imports (21 local, 1 shared, 5 vendor)', () => {
         expect(27).toBeGreaterThan(0);
     });
 
@@ -507,11 +507,11 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D15: RN Dashboard — 9 imports (6 local, 1 shared, 2 vendor)', () => {
+    it('D15: RN Home — 9 imports (6 local, 1 shared, 2 vendor)', () => {
         expect(9).toBeGreaterThan(0);
     });
 
-    it('D16: MAR Dashboard — 1 imports (0 local, 0 shared, 1 vendor)', () => {
+    it('D16: MAR Home — 1 imports (0 local, 0 shared, 1 vendor)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
@@ -555,7 +555,7 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D8: Client Dashboard — 10 imports (7 local, 1 shared, 2 vendor)', () => {
+    it('D8: Client Home — 10 imports (7 local, 1 shared, 2 vendor)', () => {
         expect(10).toBeGreaterThan(0);
     });
 
@@ -639,7 +639,7 @@ describe('Import Chain Validation (168 pages)', () => {
         expect(1).toBeGreaterThan(0);
     });
 
-    it('D19: Staff Dashboard — 6 imports (2 local, 1 shared, 3 vendor)', () => {
+    it('D19: Staff Home — 6 imports (2 local, 1 shared, 3 vendor)', () => {
         expect(6).toBeGreaterThan(0);
     });
 

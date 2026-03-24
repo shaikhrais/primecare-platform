@@ -61,9 +61,9 @@ export const sosAckRoute = createRoute({
 
 export const dashboardStatsRoute = createRoute({
     ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
-    method: 'get', path: '/dashboard/stats', summary: 'Dashboard Stats', tags: ['Coordinator'],
+    method: 'get', path: '/home/stats', summary: 'Home Stats', tags: ['Coordinator'],
     middleware: [requirePermission('manage_dispatch')],
-    responses: { 200: { description: 'Coordinator dashboard stats retrieved', content: { 'application/json': { schema: CoordinatorStatsSchema } } },
+    responses: { 200: { description: 'Coordinator home stats retrieved', content: { 'application/json': { schema: CoordinatorStatsSchema } } },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
     },

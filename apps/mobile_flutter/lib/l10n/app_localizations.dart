@@ -494,11 +494,11 @@ abstract class AppLocalizations {
   /// **'Messages'**
   String get messages;
 
-  /// No description provided for @shiftAcceptedAddedToDashboard.
+  /// No description provided for @shiftAcceptedAddedToHome.
   ///
   /// In en, this message translates to:
   /// **'Shift Accepted. Localized telemetry synced.'**
-  String get shiftAcceptedAddedToDashboard;
+  String get shiftAcceptedAddedToHome;
 
   /// No description provided for @typeYourMessage.
   ///

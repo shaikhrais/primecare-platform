@@ -180,7 +180,7 @@ function isProtectedRoute(path: string): boolean {
 describe('Route Category', () => {
     it('auth', () => expect(resolveRouteCategory('/v1/auth/login')).toBe('AUTH'));
     it('admin', () => expect(resolveRouteCategory('/v1/admin/users')).toBe('ADMIN'));
-    it('manager', () => expect(resolveRouteCategory('/v1/manager/dashboard')).toBe('MANAGER'));
+    it('manager', () => expect(resolveRouteCategory('/v1/manager/home')).toBe('MANAGER'));
     it('psw', () => expect(resolveRouteCategory('/v1/psw/schedule')).toBe('PSW'));
     it('staff', () => expect(resolveRouteCategory('/v1/staff/list')).toBe('STAFF'));
     it('rn', () => expect(resolveRouteCategory('/v1/rn/clinical')).toBe('RN'));

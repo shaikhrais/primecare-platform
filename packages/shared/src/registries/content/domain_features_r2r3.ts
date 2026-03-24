@@ -49,7 +49,7 @@ export const domainFeaturesContentR2R3 = {
     // G9 — Training
     TRAINING_PAGE_TITLE: 'Training & Professional Development',
     TRAINING_PAGE_DESCRIPTION: 'Assign, track, and complete mandatory and optional training modules.',
-    TRAINING_COMPLIANCE_TITLE: 'Training Compliance Dashboard',
+    TRAINING_COMPLIANCE_TITLE: 'Training Compliance Home',
     TRAINING_EMPTY: 'No training modules assigned.',
 
     // G10 — Insurance Providers
@@ -63,7 +63,7 @@ export const domainFeaturesContentR2R3 = {
     BILLING_CODES_EMPTY: 'No billing codes configured.',
 
     // G12 — Allied Health
-    ALLIED_HEALTH_PAGE_TITLE: 'Allied Health Dashboard',
+    ALLIED_HEALTH_PAGE_TITLE: 'Allied Health Home',
     ALLIED_HEALTH_PAGE_DESCRIPTION: 'Treatment assignments, clinical sign-offs, and allied health professional workflows.',
     ALLIED_HEALTH_EMPTY: 'No treatments assigned.',
 
@@ -73,7 +73,7 @@ export const domainFeaturesContentR2R3 = {
     FHIR_EMPTY: 'No FHIR sync activity.',
 
     // G14-15 — Scheduled Jobs
-    CRON_PAGE_TITLE: 'Scheduled Jobs Dashboard',
+    CRON_PAGE_TITLE: 'Scheduled Jobs Home',
     CRON_PAGE_DESCRIPTION: 'Monitor automated cron tasks: compliance sweeps, training reminders, authorization monitoring, and inventory alerts.',
     CRON_EMPTY: 'No scheduled jobs configured.',
 

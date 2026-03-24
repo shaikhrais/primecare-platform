@@ -25,7 +25,7 @@ export const ToolRegistry: ToolEntry[] = [
     { id: 'sm.pages', label: 'Page Catalog', route: '/platform/scrum-master/pages', owner: 'scrum-master', description: 'Frontend page registry' },
     { id: 'sm.components', label: 'Component Catalog', route: '/platform/scrum-master/components', owner: 'scrum-master', description: 'UI component registry' },
     { id: 'sm.role-flows', label: 'Role Flows', route: '/platform/scrum-master/role-flows', owner: 'scrum-master', description: 'Role-based user journey mapping' },
-    { id: 'sm.monitoring', label: 'Monitoring', route: '/platform/scrum-master/monitoring', owner: 'scrum-master', description: 'Live monitoring dashboard' },
+    { id: 'sm.monitoring', label: 'Monitoring', route: '/platform/scrum-master/monitoring', owner: 'scrum-master', description: 'Live monitoring home' },
     { id: 'sm.env-audit', label: 'Environment Audit', route: '/platform/scrum-master/env-audit', owner: 'scrum-master', description: 'Environment variable audit' },
     { id: 'sm.registry-check', label: 'Registry Check', route: '/platform/scrum-master/registry-check', owner: 'scrum-master', description: 'Registry health check' },
     { id: 'sm.database-schema', label: 'Database Schema', route: '/platform/scrum-master/database-schema', owner: 'scrum-master', description: 'Schema viewer & migration tool' },

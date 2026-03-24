@@ -10,15 +10,15 @@ interface GlobalQuickActionBarProps {
     role: string;
 }
 
-// Map each role → its dashboard page ID in PageActionRegistry
+// Map each role → its home page ID in PageActionRegistry
 const ROLE_PAGE: Record<string, string> = {
-    admin: 'admin.dashboard',
-    manager: 'manager.dashboard',
+    admin: 'admin.home',
+    manager: 'manager.home',
     coordinator: 'coordinator.hub',
-    psw: 'psw.dashboard',
-    rn: 'rn.dashboard',
-    staff: 'staff.dashboard',
-    client: 'client.dashboard',
+    psw: 'psw.home',
+    rn: 'rn.home',
+    staff: 'staff.home',
+    client: 'client.home',
 };
 
 export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps) {
@@ -52,7 +52,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
 
     const handleBackup = () => backupMutation.mutate({});
 
-    const pageId = ROLE_PAGE[role] || 'admin.dashboard';
+    const pageId = ROLE_PAGE[role] || 'admin.home';
 
     const emergencyStyle = {
         background: '#e53935',
@@ -87,7 +87,7 @@ export default function GlobalQuickActionBar({ role }: GlobalQuickActionBarProps
                     Quick Actions
                 </span>
 
-                {/* Registry-driven: auto-renders buttons for current role's dashboard page */}
+                {/* Registry-driven: auto-renders buttons for current role's home page */}
                 <PageActionBar pageId={pageId} size="xs" compact />
 
                 {/* Admin extras */}

@@ -142,26 +142,26 @@ describe('Data-Cy Contract — Batch 7', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/pages/dashboard/index.tsx: platform/pages/dashboard/index.tsx — has 2 data-cy markers', () => {
+    it('platform/pages/home/index.tsx: platform/pages/home/index.tsx — has 2 data-cy markers', () => {
         const markers = ["h2-index-0","h2-index-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/pages/dashboard/index.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/pages/home/index.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/pages/dashboard/index.tsx: data-cy="h2-index-0" follows conventions', () => {
+    it('platform/pages/home/index.tsx: data-cy="h2-index-0" follows conventions', () => {
         const attr = 'h2-index-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/pages/dashboard/index.tsx: data-cy="h2-index-1" follows conventions', () => {
+    it('platform/pages/home/index.tsx: data-cy="h2-index-1" follows conventions', () => {
         const attr = 'h2-index-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -653,349 +653,349 @@ describe('Data-Cy Contract — Batch 7', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/AdvancedAnalytics.tsx: platform/scrum-master/pages/dashboard/components/AdvancedAnalytics.tsx — has 1 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/AdvancedAnalytics.tsx: platform/scrum-master/pages/home/components/AdvancedAnalytics.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-advanced-analytics-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/AdvancedAnalytics.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/AdvancedAnalytics.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/AdvancedAnalytics.tsx: data-cy="h3-advanced-analytics-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/AdvancedAnalytics.tsx: data-cy="h3-advanced-analytics-0" follows conventions', () => {
         const attr = 'h3-advanced-analytics-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/DashboardStatus.tsx: platform/scrum-master/pages/dashboard/components/DashboardStatus.tsx — has 1 data-cy markers', () => {
-        const markers = ["h2-dashboard-status-0"];
+    it('platform/scrum-master/pages/home/components/DashboardStatus.tsx: platform/scrum-master/pages/home/components/DashboardStatus.tsx — has 1 data-cy markers', () => {
+        const markers = ["h2-home-status-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/DashboardStatus.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/DashboardStatus.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/DashboardStatus.tsx: data-cy="h2-dashboard-status-0" follows conventions', () => {
-        const attr = 'h2-dashboard-status-0';
+    it('platform/scrum-master/pages/home/components/DashboardStatus.tsx: data-cy="h2-home-status-0" follows conventions', () => {
+        const attr = 'h2-home-status-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/DrillDownModals.tsx: platform/scrum-master/pages/dashboard/components/DrillDownModals.tsx — has 2 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/DrillDownModals.tsx: platform/scrum-master/pages/home/components/DrillDownModals.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-drill-down-modals-0","btn-drill-down-modals-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/DrillDownModals.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/DrillDownModals.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/DrillDownModals.tsx: data-cy="h3-drill-down-modals-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/DrillDownModals.tsx: data-cy="h3-drill-down-modals-0" follows conventions', () => {
         const attr = 'h3-drill-down-modals-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/DrillDownModals.tsx: data-cy="btn-drill-down-modals-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/DrillDownModals.tsx: data-cy="btn-drill-down-modals-0" follows conventions', () => {
         const attr = 'btn-drill-down-modals-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/GlobalHealthMap.tsx: platform/scrum-master/pages/dashboard/components/GlobalHealthMap.tsx — has 1 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/GlobalHealthMap.tsx: platform/scrum-master/pages/home/components/GlobalHealthMap.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-global-health-map-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/GlobalHealthMap.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/GlobalHealthMap.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/GlobalHealthMap.tsx: data-cy="h3-global-health-map-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/GlobalHealthMap.tsx: data-cy="h3-global-health-map-0" follows conventions', () => {
         const attr = 'h3-global-health-map-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/HealthAlerts.tsx: platform/scrum-master/pages/dashboard/components/HealthAlerts.tsx — has 2 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/HealthAlerts.tsx: platform/scrum-master/pages/home/components/HealthAlerts.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-health-alerts-0","btn-health-alerts-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/HealthAlerts.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/HealthAlerts.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/HealthAlerts.tsx: data-cy="h3-health-alerts-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/HealthAlerts.tsx: data-cy="h3-health-alerts-0" follows conventions', () => {
         const attr = 'h3-health-alerts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/HealthAlerts.tsx: data-cy="btn-health-alerts-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/HealthAlerts.tsx: data-cy="btn-health-alerts-0" follows conventions', () => {
         const attr = 'btn-health-alerts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ProductRoadmap.tsx: platform/scrum-master/pages/dashboard/components/ProductRoadmap.tsx — has 1 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/ProductRoadmap.tsx: platform/scrum-master/pages/home/components/ProductRoadmap.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-product-roadmap-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/ProductRoadmap.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/ProductRoadmap.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ProductRoadmap.tsx: data-cy="h3-product-roadmap-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/ProductRoadmap.tsx: data-cy="h3-product-roadmap-0" follows conventions', () => {
         const attr = 'h3-product-roadmap-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ProposalBoard.tsx: platform/scrum-master/pages/dashboard/components/ProposalBoard.tsx — has 2 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/ProposalBoard.tsx: platform/scrum-master/pages/home/components/ProposalBoard.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-proposal-board-0","btn-proposal-board-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/ProposalBoard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/ProposalBoard.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ProposalBoard.tsx: data-cy="h3-proposal-board-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/ProposalBoard.tsx: data-cy="h3-proposal-board-0" follows conventions', () => {
         const attr = 'h3-proposal-board-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ProposalBoard.tsx: data-cy="btn-proposal-board-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/ProposalBoard.tsx: data-cy="btn-proposal-board-0" follows conventions', () => {
         const attr = 'btn-proposal-board-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ScrumMasterCopilot.tsx: platform/scrum-master/pages/dashboard/components/ScrumMasterCopilot.tsx — has 2 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/ScrumMasterCopilot.tsx: platform/scrum-master/pages/home/components/ScrumMasterCopilot.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-scrum-master-copilot-0","btn-push-schema"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/ScrumMasterCopilot.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/ScrumMasterCopilot.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ScrumMasterCopilot.tsx: data-cy="h3-scrum-master-copilot-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/ScrumMasterCopilot.tsx: data-cy="h3-scrum-master-copilot-0" follows conventions', () => {
         const attr = 'h3-scrum-master-copilot-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/ScrumMasterCopilot.tsx: data-cy="btn-push-schema" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/ScrumMasterCopilot.tsx: data-cy="btn-push-schema" follows conventions', () => {
         const attr = 'btn-push-schema';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/SelfHealingAudit.tsx: platform/scrum-master/pages/dashboard/components/SelfHealingAudit.tsx — has 1 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/SelfHealingAudit.tsx: platform/scrum-master/pages/home/components/SelfHealingAudit.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-self-healing-audit-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/SelfHealingAudit.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/SelfHealingAudit.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/SelfHealingAudit.tsx: data-cy="h3-self-healing-audit-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/SelfHealingAudit.tsx: data-cy="h3-self-healing-audit-0" follows conventions', () => {
         const attr = 'h3-self-healing-audit-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/SystemHealthCharts.tsx: platform/scrum-master/pages/dashboard/components/SystemHealthCharts.tsx — has 2 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/SystemHealthCharts.tsx: platform/scrum-master/pages/home/components/SystemHealthCharts.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-system-health-charts-0","h3-system-health-charts-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/SystemHealthCharts.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/SystemHealthCharts.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/SystemHealthCharts.tsx: data-cy="h3-system-health-charts-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/SystemHealthCharts.tsx: data-cy="h3-system-health-charts-0" follows conventions', () => {
         const attr = 'h3-system-health-charts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/SystemHealthCharts.tsx: data-cy="h3-system-health-charts-1" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/SystemHealthCharts.tsx: data-cy="h3-system-health-charts-1" follows conventions', () => {
         const attr = 'h3-system-health-charts-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx: platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx — has 3 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/TechnicalGovernance.tsx: platform/scrum-master/pages/home/components/TechnicalGovernance.tsx — has 3 data-cy markers', () => {
         const markers = ["h3-technical-governance-0","btn-sm-universal-sweep","btn-sm-auto-fix"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/TechnicalGovernance.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx: data-cy="h3-technical-governance-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/TechnicalGovernance.tsx: data-cy="h3-technical-governance-0" follows conventions', () => {
         const attr = 'h3-technical-governance-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx: data-cy="btn-sm-universal-sweep" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/TechnicalGovernance.tsx: data-cy="btn-sm-universal-sweep" follows conventions', () => {
         const attr = 'btn-sm-universal-sweep';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/components/TechnicalGovernance.tsx: data-cy="btn-sm-auto-fix" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/TechnicalGovernance.tsx: data-cy="btn-sm-auto-fix" follows conventions', () => {
         const attr = 'btn-sm-auto-fix';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: platform/scrum-master/pages/dashboard/index.tsx — has 14 data-cy markers', () => {
-        const markers = ["scrum-master-dashboard","btn-index-0","btn-index-1","btn-index-2","h3-index-0","h3-index-1","h3-index-2","h3-index-3","h3-index-4","h3-index-5","h3-index-6","h3-index-7","h3-index-8","h3-index-9"];
+    it('platform/scrum-master/pages/home/index.tsx: platform/scrum-master/pages/home/index.tsx — has 14 data-cy markers', () => {
+        const markers = ["scrum-master-home","btn-index-0","btn-index-1","btn-index-2","h3-index-0","h3-index-1","h3-index-2","h3-index-3","h3-index-4","h3-index-5","h3-index-6","h3-index-7","h3-index-8","h3-index-9"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/dashboard/index.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/index.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="scrum-master-dashboard" follows conventions', () => {
-        const attr = 'scrum-master-dashboard';
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="scrum-master-home" follows conventions', () => {
+        const attr = 'scrum-master-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="btn-index-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="btn-index-0" follows conventions', () => {
         const attr = 'btn-index-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="btn-index-1" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="btn-index-1" follows conventions', () => {
         const attr = 'btn-index-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="btn-index-2" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="btn-index-2" follows conventions', () => {
         const attr = 'btn-index-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-0" follows conventions', () => {
         const attr = 'h3-index-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-1" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-1" follows conventions', () => {
         const attr = 'h3-index-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-2" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-2" follows conventions', () => {
         const attr = 'h3-index-2';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-3" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-3" follows conventions', () => {
         const attr = 'h3-index-3';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-4" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-4" follows conventions', () => {
         const attr = 'h3-index-4';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-5" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-5" follows conventions', () => {
         const attr = 'h3-index-5';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-6" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-6" follows conventions', () => {
         const attr = 'h3-index-6';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-7" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-7" follows conventions', () => {
         const attr = 'h3-index-7';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-8" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-8" follows conventions', () => {
         const attr = 'h3-index-8';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/dashboard/index.tsx: data-cy="h3-index-9" follows conventions', () => {
+    it('platform/scrum-master/pages/home/index.tsx: data-cy="h3-index-9" follows conventions', () => {
         const attr = 'h3-index-9';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1780,7 +1780,7 @@ describe('Data-Cy Contract — Batch 7', () => {
     });
 
     it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx — has 6 data-cy markers', () => {
-        const markers = ["page.container","page.title","btn-superuser-risk-scan","h2-risk-surveillance-dashboard-0","table-risk-surveillance-dashboard","btn-risk-surveillance-dashboard-0"];
+        const markers = ["page.container","page.title","btn-superuser-risk-scan","h2-risk-surveillance-home-0","table-risk-surveillance-home","btn-risk-surveillance-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -1810,20 +1810,20 @@ describe('Data-Cy Contract — Batch 7', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="h2-risk-surveillance-dashboard-0" follows conventions', () => {
-        const attr = 'h2-risk-surveillance-dashboard-0';
+    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="h2-risk-surveillance-home-0" follows conventions', () => {
+        const attr = 'h2-risk-surveillance-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="table-risk-surveillance-dashboard" follows conventions', () => {
-        const attr = 'table-risk-surveillance-dashboard';
+    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="table-risk-surveillance-home" follows conventions', () => {
+        const attr = 'table-risk-surveillance-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="btn-risk-surveillance-dashboard-0" follows conventions', () => {
-        const attr = 'btn-risk-surveillance-dashboard-0';
+    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="btn-risk-surveillance-home-0" follows conventions', () => {
+        const attr = 'btn-risk-surveillance-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });

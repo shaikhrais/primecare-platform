@@ -65,7 +65,7 @@
   "schedule": "Schedule",
   "clients": "Clients",
   "messages": "Messages",
-  "shiftAcceptedAddedToDashboard": "Shift Accepted. Localized telemetry synced.",
+  "shiftAcceptedAddedToHome": "Shift Accepted. Localized telemetry synced.",
   "typeYourMessage": "Type your message...",
   "viewOfficialDirectivePdf": "View Official Directive (PDF)",
   "activeCarePlanVault": "Active Care Plan Vault",

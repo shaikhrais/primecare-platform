@@ -22,7 +22,7 @@ class AppStrings {
   static const String viewClients = 'View Clients';
   static const String organizationalFeed = 'Organizational Feed';
 
-  // Dashboard Screen
+  // Home Screen
   static const String myShiftsTitle = 'My Shifts';
   static const String highDemandAlertTitle = 'High Demand Alert';
   static const String highDemandAlertDesc = 'Surge pricing active for evening shifts (+1.5x payout rate).';

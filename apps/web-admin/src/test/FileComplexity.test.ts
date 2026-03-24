@@ -36,7 +36,7 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(49).toBeLessThan(1000);
     });
 
-    it('D1: Admin Dashboard — 149 lines, 18 hooks, 2 states, 0 effects', () => {
+    it('D1: Admin Home — 149 lines, 18 hooks, 2 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(149).toBeLessThan(1000);
     });
@@ -46,22 +46,22 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(73).toBeLessThan(1000);
     });
 
-    it('D3: Accounting Dashboard — 175 lines, 5 hooks, 0 states, 0 effects', () => {
+    it('D3: Accounting Home — 175 lines, 5 hooks, 0 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(175).toBeLessThan(1000);
     });
 
-    it('D4: EVV Dashboard — 59 lines, 2 hooks, 2 states, 0 effects', () => {
+    it('D4: EVV Home — 59 lines, 2 hooks, 2 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(59).toBeLessThan(1000);
     });
 
-    it('D5: AI Dashboard — 59 lines, 2 hooks, 2 states, 0 effects', () => {
+    it('D5: AI Home — 59 lines, 2 hooks, 2 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(59).toBeLessThan(1000);
     });
 
-    it('D6: Cron Dashboard — 105 lines, 10 hooks, 3 states, 2 effects', () => {
+    it('D6: Cron Home — 105 lines, 10 hooks, 3 states, 2 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(105).toBeLessThan(1000);
     });
@@ -466,7 +466,7 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(42).toBeLessThan(1000);
     });
 
-    it('D7: Manager Dashboard — 153 lines, 12 hooks, 2 states, 0 effects', () => {
+    it('D7: Manager Home — 153 lines, 12 hooks, 2 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(153).toBeLessThan(1000);
     });
@@ -551,7 +551,7 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(42).toBeLessThan(1000);
     });
 
-    it('D14: PSW Dashboard — 104 lines, 22 hooks, 5 states, 1 effects', () => {
+    it('D14: PSW Home — 104 lines, 22 hooks, 5 states, 1 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(104).toBeLessThan(1000);
     });
@@ -631,12 +631,12 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(42).toBeLessThan(1000);
     });
 
-    it('D15: RN Dashboard — 136 lines, 6 hooks, 4 states, 0 effects', () => {
+    it('D15: RN Home — 136 lines, 6 hooks, 4 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(136).toBeLessThan(1000);
     });
 
-    it('D16: MAR Dashboard — 59 lines, 2 hooks, 2 states, 0 effects', () => {
+    it('D16: MAR Home — 59 lines, 2 hooks, 2 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(59).toBeLessThan(1000);
     });
@@ -691,7 +691,7 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(42).toBeLessThan(1000);
     });
 
-    it('D8: Client Dashboard — 77 lines, 7 hooks, 0 states, 0 effects', () => {
+    it('D8: Client Home — 77 lines, 7 hooks, 0 states, 0 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(77).toBeLessThan(1000);
     });
@@ -796,7 +796,7 @@ describe('File Complexity (168 pages, avg 82 LOC)', () => {
         expect(42).toBeLessThan(1000);
     });
 
-    it('D19: Staff Dashboard — 164 lines, 9 hooks, 3 states, 2 effects', () => {
+    it('D19: Staff Home — 164 lines, 9 hooks, 3 states, 2 effects', () => {
         // Pages over 500 lines should be flagged for refactoring
         expect(164).toBeLessThan(1000);
     });

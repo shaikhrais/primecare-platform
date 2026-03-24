@@ -233,7 +233,7 @@ describe('Shared Components (112 files)', () => {
     });
 
     it('QuickActions exports a valid module', async () => {
-        const mod: any = await import('@/shared/components/dashboard/QuickActions');
+        const mod: any = await import('@/shared/components/home/QuickActions');
         const exp = mod.default || mod.QuickActions || Object.values(mod)[0];
         expect(exp).toBeDefined();
     });

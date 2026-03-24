@@ -5,7 +5,7 @@ import { useLiveKPI } from '@/shared/hooks/useLiveKPI';
  * LiveFeedIndicator — Shows real-time connection status + event ticker
  * 
  * Displays a pulsing green dot when connected, with the latest event scrolling
- * as a ticker. Designed for dashboard headers.
+ * as a ticker. Designed for home headers.
  */
 export const LiveFeedIndicator: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
     const { lastEvent, isConnected, connectionStatus, events } = useLiveKPI();

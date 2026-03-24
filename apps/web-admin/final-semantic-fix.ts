@@ -109,7 +109,7 @@ if (platformRoutes) {
     const imports = platformRoutes.getImportDeclarations();
     for (const imp of imports) {
         const val = imp.getModuleSpecifierValue();
-        if (val.includes('../tenancy/staff/dashboard')) imp.setModuleSpecifier('../tenancy/staff');
+        if (val.includes('../tenancy/staff/home')) imp.setModuleSpecifier('../tenancy/staff');
         if (val.includes('../tenancy/scrum-master/pages')) imp.setModuleSpecifier('../platform/scrum-master');
     }
 }

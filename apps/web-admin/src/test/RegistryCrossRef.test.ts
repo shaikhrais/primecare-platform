@@ -41,8 +41,8 @@ describe('Registry Cross-Reference', () => {
     });
 
     // ── Type distribution ──
-    it('should have dashboard pages', () => {
-        expect(getPagesByType('dashboard').length).toBeGreaterThan(0);
+    it('should have home pages', () => {
+        expect(getPagesByType('home').length).toBeGreaterThan(0);
     });
 
     it('should have form pages', () => {

@@ -8,7 +8,7 @@
  */
 import React from 'react';
 
-type SkeletonVariant = 'card' | 'table' | 'text' | 'dashboard' | 'form';
+type SkeletonVariant = 'card' | 'table' | 'text' | 'home' | 'form';
 
 interface LoadingSkeletonProps {
     variant?: SkeletonVariant;
@@ -99,7 +99,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ variant = 'car
             {variant === 'card' && <CardSkeleton />}
             {variant === 'table' && <TableSkeleton rows={rows} />}
             {variant === 'text' && <TextSkeleton lines={lines} />}
-            {variant === 'dashboard' && <DashboardSkeleton />}
+            {variant === 'home' && <DashboardSkeleton />}
             {variant === 'form' && <FormSkeleton />}
             <style>{`@keyframes primecare-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }`}</style>
         </div>

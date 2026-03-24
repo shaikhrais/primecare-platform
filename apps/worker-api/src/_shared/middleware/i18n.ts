@@ -9,7 +9,7 @@ function translatePayload(obj: any): any {
     "Submit": "Soumettre",
     "Cancel": "Annuler",
     // Shell Titles
-    "Dashboard": "Tableau de Bord",
+    "Home": "Tableau de Bord",
     "My Shifts": "Mes Quarts",
     "Messages": "Messages",
     "Incidents": "Incidents",

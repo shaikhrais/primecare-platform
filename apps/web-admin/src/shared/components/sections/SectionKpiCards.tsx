@@ -11,7 +11,7 @@ interface SectionKpiCardsProps {
     items: KpiCardItem[];
 }
 
-/** Row of KPI stat cards — used for dashboards, hubs, and list page summaries */
+/** Row of KPI stat cards — used for homes, hubs, and list page summaries */
 export function SectionKpiCards({ items }: SectionKpiCardsProps) {
     return (
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '24px' }}>

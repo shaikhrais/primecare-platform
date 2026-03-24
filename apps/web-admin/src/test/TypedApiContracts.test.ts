@@ -66,7 +66,7 @@ describe('QueryKeys', () => {
     });
 
     it('dashboardStats key is static', () => {
-        expect(QueryKeys.dashboardStats()).toEqual(['dashboard', 'stats']);
+        expect(QueryKeys.dashboardStats()).toEqual(['home', 'stats']);
     });
 
     it('auditLogs key', () => {

@@ -1,5 +1,5 @@
 /**
- * useRealtimeQuery — Live data hook for real-time dashboards
+ * useRealtimeQuery — Live data hook for real-time homes
  *
  * Combines TanStack Query with polling/SSE for live updates.
  * Falls back gracefully: SSE → polling → one-time fetch.

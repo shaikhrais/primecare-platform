@@ -3,7 +3,7 @@ import { Award, X } from 'lucide-react';
 
 export const MilestoneCelebration: React.FC = () => {
     // In a real application, this would listen to a global event/context (e.g., useNotification)
-    // For demonstration, we'll auto-trigger it after a short delay on the Family Dashboard
+    // For demonstration, we'll auto-trigger it after a short delay on the Family Home
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {

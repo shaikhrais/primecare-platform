@@ -8,7 +8,7 @@
 // ── Page Type Definitions ────────────────────────────────────────────────────
 
 export type PageType =
-    | 'dashboard' | 'form' | 'list' | 'hub' | 'wizard'
+    | 'home' | 'form' | 'list' | 'hub' | 'wizard'
     | 'detail' | 'settings' | 'report' | 'tool' | 'portal'
     | 'registry' | 'error';
 
@@ -30,7 +30,7 @@ export interface PageEntry {
 }
 
 export const CATEGORY_PREFIXES: Record<PageType, string> = {
-    dashboard: 'D', form: 'F', list: 'L', hub: 'H', wizard: 'W',
+    home: 'D', form: 'F', list: 'L', hub: 'H', wizard: 'W',
     detail: 'DT', settings: 'S', report: 'R', tool: 'T', portal: 'P',
     registry: 'G', error: 'E',
 };
@@ -76,7 +76,7 @@ export interface MasterEntry {
 
 // ── Import + Re-export sub-registries ────────────────────────────────────────
 
-import { DashboardRegistry } from './PageRegistry/dashboards';
+import { DashboardRegistry } from './PageRegistry/homes';
 import { ListRegistry } from './PageRegistry/lists';
 import { HubRegistry } from './PageRegistry/hubs';
 import { WizardRegistry, ReportRegistry } from './PageRegistry/wizards-reports';

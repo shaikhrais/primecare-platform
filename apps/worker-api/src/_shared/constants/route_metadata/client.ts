@@ -22,17 +22,17 @@ export const CLIENT_METADATA = {
     GET_PROFILE: {
         summary: 'Get Client Profile',
         description: 'Retrieve the profile details for the authenticated client.',
-        tags: ['Client Dashboard'],
+        tags: ['Client Home'],
     },
     UPDATE_PROFILE: {
         summary: 'Update Client Profile',
         description: 'Update the profile details for the authenticated client.',
-        tags: ['Client Dashboard'],
+        tags: ['Client Home'],
     },
     STATS: {
-        summary: 'Get Client Dashboard Statistics',
+        summary: 'Get Client Home Statistics',
         description: 'Retrieve budget, wellness, and care continuity stats for the authenticated client.',
-        tags: ['Client Dashboard'],
+        tags: ['Client Home'],
     },
     LIST_BOOKINGS: {
         summary: 'List Client Bookings',

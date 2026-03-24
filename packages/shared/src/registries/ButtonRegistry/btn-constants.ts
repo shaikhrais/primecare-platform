@@ -145,11 +145,11 @@ export type ButtonId = typeof BTN[keyof typeof BTN];
  * Use with ButtonsByPage: `ButtonsByPage[PAGE_CODE_TO_ID['D1']]`
  */
 export const PAGE_CODE_TO_ID: Record<string, string> = {
-    D1:  'admin.dashboard',      D2:  'admin.summary',
-    D7:  'manager.dashboard',    D14: 'psw.dashboard',
-    D15: 'rn.dashboard',         D8:  'client.dashboard',
-    D19: 'staff.dashboard',      D18: 'allied.dashboard',
-    H18: 'coordinator.dashboard', T39: 'coordinator.sos',
+    D1:  'admin.home',      D2:  'admin.summary',
+    D7:  'manager.home',    D14: 'psw.home',
+    D15: 'rn.home',         D8:  'client.home',
+    D19: 'staff.home',      D18: 'allied.home',
+    H18: 'coordinator.home', T39: 'coordinator.sos',
     H11: 'manager.training',     T22: 'manager.surveys',
     L13: 'manager.evaluations',  H12: 'manager.operations',
     L16: 'psw.schedule',         T61: 'psw.live-visit',
@@ -165,6 +165,6 @@ export const PAGE_CODE_TO_ID: Record<string, string> = {
     D3:  'admin.finance',       D5: 'admin.ai',
     H4:  'admin.erp',           H1: 'admin.telehealth',
     H2:  'admin.pharmacy',
-    'D-SU':  'superuser.dashboard',
-    'D-SM':  'scrum-master.dashboard',
+    'D-SU':  'superuser.home',
+    'D-SM':  'scrum-master.home',
 };

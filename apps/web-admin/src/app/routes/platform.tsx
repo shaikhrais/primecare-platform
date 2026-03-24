@@ -421,7 +421,7 @@ export function CronDashboard() {
             pageId="D6"
             
             
-            actionPageId="admin.cron-dashboard"
+            actionPageId="admin.cron-home"
             sectionData={PageSectionRegistry['D6']}
         />
     );
@@ -450,15 +450,15 @@ export function CustomerList() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 // Barrel re-export — identity file: D1-AdminDashboard.tsx
 // removed broken export: export { default } from './D1-AdminDashboard';
 
 
 // --- Merged from D1-AdminDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D1 · Admin Dashboard (Main Landing)
-// Type: Dashboard | Owner: admin | Registry: D1
+// PAGE IDENTITY: D1 · Admin Home (Main Landing)
+// Type: Home | Owner: admin | Registry: D1
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
@@ -468,7 +468,7 @@ export function AdminDashboard() {
     return (
         <PageTemplate 
             pageId="PGE-AdminDashboard" 
-            actionPageId="admin.dashboard"
+            actionPageId="admin.home"
             sectionData={PageSectionRegistry['AdminDashboard']}
         />
     );
@@ -1264,7 +1264,7 @@ export function StaffOnboarding() {
 // --- Merged from D7-OperationsCenter.tsx ---
 // ================================================================
 // PAGE IDENTITY: D7 · Operations Center  
-// Type: Dashboard | Owner: admin | Registry: D7
+// Type: Home | Owner: admin | Registry: D7
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
@@ -1328,7 +1328,7 @@ export function PageRegistryPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
                 <div style={{ background: 'linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%)', padding: '14px', borderRadius: '14px', boxShadow: '0 4px 12px rgba(124,58,237,0.3)' }}><Network size={28} color="white" /></div>
                 <div style={{ flex: 1 }}>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Identity Registry Dashboard</h1>
+                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0, color: '#0F172A' }}>Identity Registry Home</h1>
                     <p style={{ margin: '4px 0 0 0', color: '#94A3B8', fontSize: '0.9rem' }}>{masterEntries.length} identity codes · {Object.keys(masterOwnerStats).length} owners · {Object.keys(masterTypeStats).length} types · Every page mapped with associates</p>
                 </div>
                 <div style={{ display: 'flex', gap: '4px', background: '#F1F5F9', borderRadius: '8px', padding: '3px' }}>
@@ -1439,7 +1439,7 @@ export function TableView() {
 
 
 export const TYPE_META: Record<PageType, { color: string; bg: string; icon: React.ReactNode; label: string }> = {
-    dashboard:  { color: '#1D4ED8', bg: '#DBEAFE', icon: <BarChart3 size={14} />, label: 'Dashboard' },
+    home:  { color: '#1D4ED8', bg: '#DBEAFE', icon: <BarChart3 size={14} />, label: 'Home' },
     form:       { color: '#065F46', bg: '#D1FAE5', icon: <ClipboardList size={14} />, label: 'Form' },
     list:       { color: '#92400E', bg: '#FEF3C7', icon: <Layers size={14} />, label: 'List' },
     hub:        { color: '#9D174D', bg: '#FCE7F3', icon: <Compass size={14} />, label: 'Hub' },
@@ -1721,8 +1721,8 @@ export function SearchPage() {
 // --- Extracted from security.tsx ---
 // --- Merged from D3-AccountingDashboard.tsx ---
 // ================================================================
-// PAGE IDENTITY: D3 · Accounting Dashboard
-// Type: Dashboard | Owner: admin | Registry: D3
+// PAGE IDENTITY: D3 · Accounting Home
+// Type: Home | Owner: admin | Registry: D3
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
@@ -1963,7 +1963,7 @@ export async function fetchDeviceActivity(deviceId: string): Promise<AuditLog[]>
 
 
 /* Merged from useAccountingData.ts */
-// D3 — Accounting Dashboard: TypeScript interfaces and data loading hook
+// D3 — Accounting Home: TypeScript interfaces and data loading hook
 
 export interface TradingAccount {
     revenue: number;
@@ -3178,14 +3178,14 @@ export function WorkflowVersionControl() {
 
 
 
-// --- Merged from dashboard.tsx ---
+// --- Merged from home.tsx ---
 
-export function Dashboard() {
+export function Home() {
     return (
         <PageTemplate 
-            pageId="PGE-Dashboard" 
+            pageId="PGE-Home" 
             
-            sectionData={PageSectionRegistry['Dashboard']}
+            sectionData={PageSectionRegistry['Home']}
         />
     );
 }
@@ -3864,12 +3864,12 @@ export function BuildHealthPage() {
     );
 }
 
-// --- Extracted from dashboard.tsx ---
+// --- Extracted from home.tsx ---
 export function ScrumMasterDashboard() {
     return (
         <PageTemplate 
             pageId="PGE-ScrumMasterDashboard" 
-            actionPageId="scrum_master.dashboard"
+            actionPageId="scrum_master.home"
             sectionData={PageSectionRegistry['ScrumMasterDashboard']}
         />
     );
@@ -4130,7 +4130,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     admin: {
         mission: 'Orchestrate global franchise network, manage master financial records, and provision system-wide security policies.',
         pages: [
-            { name: 'Dashboard', route: 'ADMIN.DASHBOARD', component: 'AdminDashboard', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
+            { name: 'Home', route: 'ADMIN.DASHBOARD', component: 'AdminDashboard', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
             { name: 'User Management', route: 'ADMIN.USERS', component: 'UserList', status: 'implemented', requirement: 'Provision and audit security roles for all staff across the franchise.' },
             { name: 'Schedule', route: 'ADMIN.SCHEDULE', component: 'Schedule', status: 'implemented', requirement: 'Global visibility into all service appointments for master coordination.' },
             { name: 'Earnings', route: 'ADMIN.EARNINGS', component: 'AdminEarningsPage', status: 'implemented', requirement: 'Aggregate financial tracking for franchise royalty and payout audit.' },
@@ -4156,7 +4156,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     manager: {
         mission: 'Oversee branch care ecosystem, optimize caregiver assignments, and ensure clinical quality compliance.',
         pages: [
-            { name: 'Portfolio', route: 'MANAGER.DASHBOARD', component: 'Portfolio', status: 'implemented', requirement: 'Branch-level operational dashboard for shift and patient oversight.' },
+            { name: 'Portfolio', route: 'MANAGER.DASHBOARD', component: 'Portfolio', status: 'implemented', requirement: 'Branch-level operational home for shift and patient oversight.' },
             { name: 'Evaluations', route: 'MANAGER.EVALUATIONS', component: 'Evaluations', status: 'implemented', requirement: 'Coordinate clinical assessments and care plan milestones.' },
             { name: 'Service Review', route: 'MANAGER.SERVICE_REVIEW', component: 'ServiceReview', status: 'implemented', requirement: 'Audit service quality based on client feedback and visit logs.' },
             { name: 'Staff Performance', route: 'MANAGER.PERFORMANCE', component: 'StaffRanker', status: 'implemented', requirement: 'Identify top performers and at-risk staff based on attendance metrics.' },
@@ -4189,7 +4189,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     rn: {
         mission: 'Maintain clinical oversight, audit caregiver documentation, and ensure professional nursing standards are met.',
         pages: [
-            { name: 'Dashboard', route: 'RN.DASHBOARD', component: 'RnDashboard', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
+            { name: 'Home', route: 'RN.DASHBOARD', component: 'RnDashboard', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
             { name: 'Care Plans', route: 'RN.CARE_PLANS', component: 'ClinicalCarePlans', status: 'implemented', requirement: 'Digitize and manage professional patient care protocols.' },
             { name: 'Daily Audit', route: 'RN.DAILY_AUDIT', component: 'DailyAudit', status: 'implemented', requirement: 'RN sign-off and verification of PSW daily care records.' },
             { name: 'Supervision', route: 'RN.SUPERVISION', component: 'SupervisionHub', status: 'implemented', requirement: 'Monitor caregiver quality standards and certification compliance.' },

@@ -213,7 +213,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get messages => '[FR] Messages';
 
   @override
-  String get shiftAcceptedAddedToDashboard =>
+  String get shiftAcceptedAddedToHome =>
       '[FR] Emplacement accepté. Télémétrie localisée synchronisée.';
 
   @override

@@ -114,7 +114,7 @@ describe('POST /v1/telemetry/errors', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 type: 'UNCAUGHT_ERROR',
-                url: 'http://localhost:5173/dashboard',
+                url: 'http://localhost:5173/home',
                 error: { name: 'TypeError', message: 'Cannot read property x' },
             }),
         });

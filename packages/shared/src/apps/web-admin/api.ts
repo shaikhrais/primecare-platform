@@ -6,7 +6,7 @@ export const ApiRegistry = {
         USERS: '/v1/admin/users',
         PSW_APPROVE: (id: string) => `/v1/admin/psw/approve/${id}`,
         VISITS_UNASSIGNED: '/v1/admin/visits/unassigned',
-        DASHBOARD_STATS: '/v1/admin/dashboard/stats',
+        DASHBOARD_STATS: '/v1/admin/home/stats',
         SEARCH: '/v1/admin/search',
         REPORTS: '/v1/admin/reports/export',
     },

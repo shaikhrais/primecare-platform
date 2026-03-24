@@ -82,7 +82,7 @@ reviews.openapi(createRoute2, async (c) => {
 
 // GET /kpi/:pswId — PSW KPIs
 const kpiRoute = createRoute({
-    method: 'get', path: '/kpi/{pswId}', summary: 'PSW KPI Dashboard', tags: ['Reviews'],
+    method: 'get', path: '/kpi/{pswId}', summary: 'PSW KPI Home', tags: ['Reviews'],
     request: { params: z.object({ pswId: z.string() }) },
     responses: {
         200: {

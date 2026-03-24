@@ -8,12 +8,12 @@ export const SmartBreadcrumbs: React.FC = () => {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
 
-    // Identify the dashboard root based on the path
+    // Identify the home root based on the path
     const isPlatform = location.pathname.startsWith('/platform');
     const isTenancy = location.pathname.startsWith('/tenancy');
     const dashboardRoot = isPlatform ? RouteRegistry.ADMIN.DASHBOARD : (isTenancy ? '/tenancy' : '/');
 
-    // Don't show on dashboard to avoid redundancy
+    // Don't show on home to avoid redundancy
     if (location.pathname === dashboardRoot || location.pathname === RouteRegistry.ADMIN.DASHBOARD) {
         return null;
     }
@@ -23,7 +23,7 @@ export const SmartBreadcrumbs: React.FC = () => {
             <ol style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, fontSize: '0.875rem', color: 'var(--pc-text-tertiary)' }}>
                 <li style={{ display: 'flex', alignItems: 'center' }}>
                     <Link to={dashboardRoot} style={{ color: 'var(--pc-text-tertiary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pc-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--pc-text-tertiary)'}>
-                        Dashboard
+                        Home
                     </Link>
                 </li>
                 {pathnames.map((value, index) => {

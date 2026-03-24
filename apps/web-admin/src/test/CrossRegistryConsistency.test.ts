@@ -2,7 +2,7 @@
  * Cross-Registry Consistency Tests
  *
  * Validates cross-registry integrity: every page with a formRegistryId
- * references a real form, every dashboard has a valid route, every
+ * references a real form, every home has a valid route, every
  * list's fetchEndpoint is non-empty, and sidebar links point to valid routes.
  */
 import { describe, it, expect } from 'vitest';
@@ -30,22 +30,22 @@ describe('Cross-Registry Consistency', () => {
         });
     });
 
-    // ── Dashboard Validation ──────────────────────────────────────────────
-    describe('dashboard validation', () => {
-        it('every dashboard route should start with /', () => {
+    // ── Home Validation ──────────────────────────────────────────────
+    describe('home validation', () => {
+        it('every home route should start with /', () => {
             DashboardRegistry.forEach(dash => {
                 expect(
                     dash.route.startsWith('/'),
-                    `Dashboard ${dash.id} route "${dash.route}" is invalid`
+                    `Home ${dash.id} route "${dash.route}" is invalid`
                 ).toBe(true);
             });
         });
 
-        it('every dashboard should have at least one widget', () => {
+        it('every home should have at least one widget', () => {
             DashboardRegistry.forEach(dash => {
                 expect(
                     dash.widgets.length,
-                    `Dashboard ${dash.id} has no widgets`
+                    `Home ${dash.id} has no widgets`
                 ).toBeGreaterThan(0);
             });
         });
@@ -145,14 +145,14 @@ describe('Cross-Registry Consistency', () => {
 
     // ── getButtonsForPage() Wiring ────────────────────────────────────────
     describe('getButtonsForPage()', () => {
-        it('admin.dashboard should have buttons', () => {
-            const buttons = getButtonsForPage('admin.dashboard');
+        it('admin.home should have buttons', () => {
+            const buttons = getButtonsForPage('admin.home');
             // May return empty if not wired, but should not throw
             expect(Array.isArray(buttons)).toBe(true);
         });
 
         it('returned buttons should have id and label', () => {
-            const buttons = getButtonsForPage('admin.dashboard');
+            const buttons = getButtonsForPage('admin.home');
             buttons.forEach(btn => {
                 expect(btn.id).toBeDefined();
                 expect(btn.label).toBeDefined();

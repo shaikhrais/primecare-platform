@@ -1,4 +1,4 @@
-export const dashboardsFinanceContent = {
+export const homesFinanceContent = {
     ACCOUNTING_DASHBOARD: {
         TITLE: 'Accounting Intelligence',
         SUBTITLE: 'Real-time GAAP reporting for PrimeCare Platform.',

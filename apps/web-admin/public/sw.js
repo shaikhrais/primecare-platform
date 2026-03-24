@@ -26,7 +26,7 @@ const STALE_REVALIDATE_API = [
     '/v1/client/family',
     '/v1/staff/visits',
     '/v1/manager/analytics',
-    '/v1/admin/dashboard',
+    '/v1/admin/home',
     '/v1/staff/profile',
     '/v1/manager/staff',
     '/v1/billing/invoices',

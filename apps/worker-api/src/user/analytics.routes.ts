@@ -16,7 +16,7 @@ const MacroAnalyticsSchema = z.object({
 const getMacroAnalyticsRoute = createRoute({
   method: 'get',
   path: '/macro',
-  summary: 'Generate deep system-wide organization health metrics for Executive Dashboards',
+  summary: 'Generate deep system-wide organization health metrics for Executive Homes',
   security: [{ BearerAuth: [] }],
   responses: {
     200: { description: 'Successful Macro Aggregate Return', content: { 'application/json': { schema: MacroAnalyticsSchema } } },

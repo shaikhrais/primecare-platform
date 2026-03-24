@@ -941,7 +941,7 @@ describe('Data-Cy Contract — Batch 5', () => {
     });
 
     it('platform/admin/pages/support/index.tsx: platform/admin/pages/support/index.tsx — has 4 data-cy markers', () => {
-        const markers = ["support-dashboard-page","page.title","support-ticket-date","support-ticket-status"];
+        const markers = ["support-home-page","page.title","support-ticket-date","support-ticket-status"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
@@ -953,8 +953,8 @@ describe('Data-Cy Contract — Batch 5', () => {
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/support/index.tsx: data-cy="support-dashboard-page" follows conventions', () => {
-        const attr = 'support-dashboard-page';
+    it('platform/admin/pages/support/index.tsx: data-cy="support-home-page" follows conventions', () => {
+        const attr = 'support-home-page';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });

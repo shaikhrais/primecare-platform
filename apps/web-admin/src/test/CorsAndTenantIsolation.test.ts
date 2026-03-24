@@ -203,9 +203,9 @@ const CLIENT_METADATA: Record<string, { summary: string; tags: string[] }> = {
     SERVICES: { summary: 'List Available Services', tags: ['Client Services'] },
     CARE_PLAN_CREATE: { summary: 'Create Care Plan', tags: ['Client Care Plan'] },
     CARE_PLAN_UPDATE: { summary: 'Update Care Plan', tags: ['Client Care Plan'] },
-    GET_PROFILE: { summary: 'Get Client Profile', tags: ['Client Dashboard'] },
-    UPDATE_PROFILE: { summary: 'Update Client Profile', tags: ['Client Dashboard'] },
-    STATS: { summary: 'Get Client Dashboard Statistics', tags: ['Client Dashboard'] },
+    GET_PROFILE: { summary: 'Get Client Profile', tags: ['Client Home'] },
+    UPDATE_PROFILE: { summary: 'Update Client Profile', tags: ['Client Home'] },
+    STATS: { summary: 'Get Client Home Statistics', tags: ['Client Home'] },
     LIST_BOOKINGS: { summary: 'List Client Bookings', tags: ['Client Bookings'] },
     CREATE_BOOKING: { summary: 'Create Booking', tags: ['Client Bookings'] },
     UPDATE_BOOKING: { summary: 'Update Booking', tags: ['Client Bookings'] },
@@ -220,7 +220,7 @@ describe('Client Metadata', () => {
     it('has 15 operations', () => expect(Object.keys(CLIENT_METADATA).length).toBe(15));
     it('INVOICES', () => expect(CLIENT_METADATA.INVOICES.summary).toBe('List Client Invoices'));
     it('CARE_PLAN_CREATE', () => expect(CLIENT_METADATA.CARE_PLAN_CREATE.tags).toContain('Client Care Plan'));
-    it('STATS', () => expect(CLIENT_METADATA.STATS.summary).toBe('Get Client Dashboard Statistics'));
+    it('STATS', () => expect(CLIENT_METADATA.STATS.summary).toBe('Get Client Home Statistics'));
     it('TEAM_ROSTER', () => expect(CLIENT_METADATA.TEAM_ROSTER.tags).toContain('Client Relationship'));
     it('FAMILY_FEED', () => expect(CLIENT_METADATA.FAMILY_FEED.tags).toContain('Client Engagement'));
     it('INVOICE_PAY', () => expect(CLIENT_METADATA.INVOICE_PAY.summary).toBe('Initiate Invoice Payment'));
@@ -241,7 +241,7 @@ const COORDINATOR_METADATA: Record<string, { summary: string; tags: string[] }> 
     MATCH_OVERRIDE: { summary: 'Override PSW Match', tags: ['Coordinator Logistics'] },
     WAITLIST_SYNC: { summary: 'Sync Waitlist Priorities', tags: ['Coordinator Logistics'] },
     SOS_ACK: { summary: 'Acknowledge SOS Alert', tags: ['Coordinator Logistics'] },
-    DASHBOARD_STATS: { summary: 'Get Coordinator Dashboard Statistics', tags: ['Coordinator Dashboard'] },
+    DASHBOARD_STATS: { summary: 'Get Coordinator Home Statistics', tags: ['Coordinator Home'] },
     SOS_DISPATCH: { summary: 'Dispatch Emergency Replacement', tags: ['Coordinator Dispatch'] },
     DISPATCH_MAP: { summary: 'Get Live Dispatch Map', tags: ['Coordinator Logistics'] },
     MATCHING_ENGINE: { summary: 'Run AI Shift Match', tags: ['Coordinator Logistics'] },
@@ -269,7 +269,7 @@ const STAFF_METADATA: Record<string, { summary: string; tags: string[] }> = {
     SUPPORT_MESSAGES: { summary: 'Get Ticket Messages', tags: ['Staff Support'] },
     SUPPORT_REPLY: { summary: 'Reply to Ticket', tags: ['Staff Support'] },
     SCHEDULING_CREATE: { summary: 'Create Visit (Staff)', tags: ['Staff Scheduling'] },
-    DASHBOARD_STATS: { summary: 'Get Staff Dashboard Statistics', tags: ['Staff Dashboard'] },
+    DASHBOARD_STATS: { summary: 'Get Staff Home Statistics', tags: ['Staff Home'] },
     TASKS: { summary: 'List Staff Tasks', tags: ['Staff Operations'] },
     INCIDENT_SUBMIT: { summary: 'Submit Incident Report', tags: ['Staff Operations'] },
     COMPLIANCE_SCAN: { summary: 'Scan Branch Compliance', tags: ['Staff Operations'] },
@@ -278,7 +278,7 @@ const STAFF_METADATA: Record<string, { summary: string; tags: string[] }> = {
 
 const RN_METADATA: Record<string, { summary: string; tags: string[] }> = {
     SUPERVISION_OVERVIEW: { summary: 'Get PSW Supervision Overview', tags: ['RN Supervision'] },
-    DASHBOARD_STATS: { summary: 'Get RN Dashboard Statistics', tags: ['RN Dashboard'] },
+    DASHBOARD_STATS: { summary: 'Get RN Home Statistics', tags: ['RN Home'] },
     DAILY_REVIEW: { summary: 'Review Daily Entry', tags: ['RN Daily Review'] },
     CARE_PLAN_LIST: { summary: 'List Care Plans', tags: ['RN Clinical'] },
     CARE_PLAN_REVIEW: { summary: 'Review/Update Care Plan', tags: ['RN Clinical'] },
@@ -319,7 +319,7 @@ const USER_METADATA: Record<string, { summary: string; tags: string[] }> = {
 };
 
 const MANAGER_METADATA: Record<string, { summary: string; tags: string[] }> = {
-    STATS: { summary: 'Get Manager Dashboard Statistics', tags: ['Manager Dashboard'] },
+    STATS: { summary: 'Get Manager Home Statistics', tags: ['Manager Home'] },
     PAYROLL_AUDIT: { summary: 'Run Payroll Audit', tags: ['Manager Finance'] },
     OPS_STATS: { summary: 'Get Regional Ops Stats', tags: ['Manager Operations'] },
     BRANCH_HEALTH: { summary: 'Get Branch Health Status', tags: ['Manager Operations'] },
@@ -335,7 +335,7 @@ describe('User Metadata', () => {
 
 describe('Manager Metadata', () => {
     it('has 6 operations', () => expect(Object.keys(MANAGER_METADATA).length).toBe(6));
-    it('STATS', () => expect(MANAGER_METADATA.STATS.summary).toBe('Get Manager Dashboard Statistics'));
+    it('STATS', () => expect(MANAGER_METADATA.STATS.summary).toBe('Get Manager Home Statistics'));
     it('PAYROLL_AUDIT', () => expect(MANAGER_METADATA.PAYROLL_AUDIT.tags).toContain('Manager Finance'));
     it('OPS_STATS', () => expect(MANAGER_METADATA.OPS_STATS.summary).toBe('Get Regional Ops Stats'));
     it('BRANCH_HEALTH', () => expect(MANAGER_METADATA.BRANCH_HEALTH.tags).toContain('Manager Operations'));

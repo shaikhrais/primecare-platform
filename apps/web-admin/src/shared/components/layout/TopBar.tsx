@@ -7,7 +7,7 @@ import { useUIStore, useIsDarkMode } from '@/shared/stores';
 import { TopBarIdentity } from './topbar/TopBarIdentity';
 import { TopBarActions } from './topbar/TopBarActions';
 
-// Inlined from deleted client/pages/dashboard/components/AccessibilityToggle
+// Inlined from deleted client/pages/home/components/AccessibilityToggle
 const AccessibilityToggle: React.FC = () => {
     const [fontSize, setFontSize] = useState(100);
     return (

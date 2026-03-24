@@ -34,7 +34,7 @@
   "src/app/routes/platform/admin/users.tsx(80,32): error TS2304: Cannot find name 'apiClient'.",
   "src/app/routes/platform/admin/users.tsx(93,29): error TS2304: Cannot find name 'apiClient'.",
   "src/app/routes/platform/admin/users.tsx(97,23): error TS2304: Cannot find name 'apiClient'.",
-  "src/app/routes/platform/scrum-master/ScrumMasterRoutes.tsx(10,41): error TS2322: Type 'Promise<typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/staff/dashboard\")>' is not assignable to type 'Promise<{ default: ComponentType<any>; }>'.",
+  "src/app/routes/platform/scrum-master/ScrumMasterRoutes.tsx(10,41): error TS2322: Type 'Promise<typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/staff/home\")>' is not assignable to type 'Promise<{ default: ComponentType<any>; }>'.",
   "src/app/routes/platform/scrum-master/ScrumMasterRoutes.tsx(12,98): error TS2339: Property 'TechnicalAuditPortal' does not exist on type 'typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/rn/audit\")'.",
   "src/app/routes/platform/scrum-master/ScrumMasterRoutes.tsx(15,94): error TS2339: Property 'EnvironmentAudit' does not exist on type 'typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/rn/audit\")'.",
   "src/app/routes/platform/scrum-master/ScrumMasterRoutes.tsx(16,100): error TS2339: Property 'RegistryIntegrityCheck' does not exist on type 'typeof import(\"C:/Users/Admin2/Documents/GitHub/primecare-platform/apps/web-admin/src/app/routes/tenancy/rn/audit\")'.",

@@ -62,7 +62,7 @@ export const QueryKeys = {
     services: () => ['services'] as const,
     invoices: (filters?: Record<string, string>) => ['invoices', filters] as const,
     leads: (filters?: Record<string, string>) => ['leads', filters] as const,
-    dashboardStats: () => ['dashboard', 'stats'] as const,
+    dashboardStats: () => ['home', 'stats'] as const,
     auditLogs: (filters?: Record<string, string>) => ['audit-logs', filters] as const,
 } as const;
 
@@ -192,14 +192,14 @@ export function useCreateLead() {
     });
 }
 
-// ── Dashboard Stats ───────────────────────────────────────────────────────
+// ── Home Stats ───────────────────────────────────────────────────────
 
 export function useDashboardStats() {
     return useQuery<AdminDashboardStats, ApiError>({
         queryKey: QueryKeys.dashboardStats(),
-        queryFn: () => typedGet<AdminDashboardStats>('/v1/admin/dashboard/stats'),
+        queryFn: () => typedGet<AdminDashboardStats>('/v1/admin/home/stats'),
         staleTime: 30_000,
-        refetchOnWindowFocus: true, // Dashboard always shows fresh data
+        refetchOnWindowFocus: true, // Home always shows fresh data
     });
 }
 

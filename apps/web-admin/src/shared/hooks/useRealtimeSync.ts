@@ -2,7 +2,7 @@
  * useRealtimeSync — WebSocket hook for RealtimeSync Durable Object
  *
  * Connects to the backend RealtimeSync Durable Object for live
- * dashboard updates (visit status, dispatch changes, fleet heartbeats).
+ * home updates (visit status, dispatch changes, fleet heartbeats).
  *
  * Features:
  * - Auto-reconnect with exponential backoff

@@ -54,14 +54,14 @@ describe('PageRegistry', () => {
     describe('type distribution', () => {
         it('should have pages of every type', () => {
             const stats = getPageTypeStats();
-            const types = ['dashboard', 'form', 'list', 'hub', 'tool'];
+            const types = ['home', 'form', 'list', 'hub', 'tool'];
             types.forEach(type => {
                 expect(stats[type as keyof typeof stats], `No pages of type: ${type}`).toBeGreaterThan(0);
             });
         });
 
-        it('should have more than 5 dashboards', () => {
-            expect(getPagesByType('dashboard').length).toBeGreaterThan(5);
+        it('should have more than 5 homes', () => {
+            expect(getPagesByType('home').length).toBeGreaterThan(5);
         });
 
         it('should have more than 10 forms', () => {
@@ -122,10 +122,10 @@ describe('PageRegistry', () => {
             expect(DashboardRegistry.length).toBeGreaterThan(3);
         });
 
-        it('every dashboard should have statsEndpoints and widgets', () => {
+        it('every home should have statsEndpoints and widgets', () => {
             DashboardRegistry.forEach(dash => {
-                expect(Array.isArray(dash.statsEndpoints), `Dashboard ${dash.id} missing statsEndpoints`).toBe(true);
-                expect(Array.isArray(dash.widgets), `Dashboard ${dash.id} missing widgets`).toBe(true);
+                expect(Array.isArray(dash.statsEndpoints), `Home ${dash.id} missing statsEndpoints`).toBe(true);
+                expect(Array.isArray(dash.widgets), `Home ${dash.id} missing widgets`).toBe(true);
             });
         });
 

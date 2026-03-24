@@ -7,7 +7,7 @@ We must give them the Illusion of Absolute Ownership.
 ## The White-Label Engine
 The White-Label engine built into the deep architecture of the platform allows the Root Tenant to overwrite the UI realities for everyone beneath them.
 
-From their Super Admin dashboard, a Master Franchise can:
+From their Super Admin home, a Master Franchise can:
 *   **Asset Overrides:** Upload their own primary and secondary corporate logos, entirely replacing the PrimeCare branding.
 *   **Theming Variables:** Define CSS primary, secondary, and accent HEX color schemes that instantly propagate through all frontend React components, buttons, and navigation bars.
 *   **Infrastructure Masking:** Map their own Custom CNAME Domain (e.g., `portal.apexcare.com`). 

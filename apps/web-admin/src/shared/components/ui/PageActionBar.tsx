@@ -7,7 +7,7 @@ import { PcButton } from './PcButton';
  * PageActionBar — Auto-renders the correct action buttons for a given page.
  *
  * Usage:
- *   <PageActionBar pageId="admin.dashboard" />
+ *   <PageActionBar pageId="admin.home" />
  *
  * This looks up the page's buttons from PageActionRegistry and renders them
  * using PcButton (which reads from ButtonRegistry for label, variant, etc.)
@@ -16,7 +16,7 @@ import { PcButton } from './PcButton';
  * ═══════════════════════════════════════════════════════════════════════════ */
 
 interface PageActionBarProps {
-    /** PageEntry.id — e.g. 'admin.dashboard', 'psw.schedule' */
+    /** PageEntry.id — e.g. 'admin.home', 'psw.schedule' */
     pageId: string;
     /** Optional overrides for individual button onClick handlers */
     handlers?: Record<string, (e: React.MouseEvent) => void | Promise<void>>;

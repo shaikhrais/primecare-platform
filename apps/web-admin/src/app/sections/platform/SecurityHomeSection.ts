@@ -6,7 +6,7 @@ export const SecurityDashboardSection: any = {
         { label: 'System Status', value: '100%', color: 'var(--pc-success)' },
     ]},
     'mod.body': { emptyState: { 
-        title: 'Security Dashboard', 
+        title: 'Security Home', 
         description: 'This layout configuration has been safely decoupled and is awaiting custom React logic.' 
     }}
 };

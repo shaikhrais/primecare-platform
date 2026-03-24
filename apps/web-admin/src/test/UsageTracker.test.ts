@@ -88,10 +88,10 @@ describe('UsageTrackerTypes', () => {
     describe('Type shape validation', () => {
         it('RouteVisit has all required fields', () => {
             const visit: RouteVisit = {
-                path: '/dashboard', count: 5, lastVisit: Date.now(),
+                path: '/home', count: 5, lastVisit: Date.now(),
                 totalTimeMs: 30000, maxScrollDepth: 85,
             };
-            expect(visit.path).toBe('/dashboard');
+            expect(visit.path).toBe('/home');
             expect(visit.count).toBe(5);
             expect(visit.maxScrollDepth).toBe(85);
         });

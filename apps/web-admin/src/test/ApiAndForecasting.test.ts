@@ -323,7 +323,7 @@ const PSW_METADATA = {
     },
     EXTRA: {
         INCIDENTS_REPORT: { summary: 'Report Incident', tags: ['PSW Incidents'] },
-        DASHBOARD_STATS: { summary: 'Get PSW Dashboard Statistics', tags: ['PSW Dashboard'] },
+        DASHBOARD_STATS: { summary: 'Get PSW Home Statistics', tags: ['PSW Home'] },
         DAILY_ENTRY_CREATE: { summary: 'Create/Submit Daily Entry', tags: ['PSW Daily Entries'] },
         DAILY_ENTRY_HISTORY: { summary: 'Get Daily Entry History', tags: ['PSW Daily Entries'] },
         HANDOVER_SUBMIT: { summary: 'Submit Shift Handover', tags: ['PSW Handover'] },

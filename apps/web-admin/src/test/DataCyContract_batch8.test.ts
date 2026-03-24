@@ -726,199 +726,199 @@ describe('Data-Cy Contract — Batch 8', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/AccessibilityToggle.tsx: tenancy/client/pages/dashboard/components/AccessibilityToggle.tsx — has 1 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/AccessibilityToggle.tsx: tenancy/client/pages/home/components/AccessibilityToggle.tsx — has 1 data-cy markers', () => {
         const markers = ["btn-client.accessibility-toggle-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/AccessibilityToggle.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/AccessibilityToggle.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/AccessibilityToggle.tsx: data-cy="btn-client.accessibility-toggle-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/AccessibilityToggle.tsx: data-cy="btn-client.accessibility-toggle-0" follows conventions', () => {
         const attr = 'btn-client.accessibility-toggle-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/CareJourneyMap.tsx: tenancy/client/pages/dashboard/components/CareJourneyMap.tsx — has 1 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/CareJourneyMap.tsx: tenancy/client/pages/home/components/CareJourneyMap.tsx — has 1 data-cy markers', () => {
         const markers = ["h2-client.care-journey-map-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/CareJourneyMap.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/CareJourneyMap.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/CareJourneyMap.tsx: data-cy="h2-client.care-journey-map-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/CareJourneyMap.tsx: data-cy="h2-client.care-journey-map-0" follows conventions', () => {
         const attr = 'h2-client.care-journey-map-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/FundingThermometer.tsx: tenancy/client/pages/dashboard/components/FundingThermometer.tsx — has 1 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/FundingThermometer.tsx: tenancy/client/pages/home/components/FundingThermometer.tsx — has 1 data-cy markers', () => {
         const markers = ["h2-client.funding-thermometer-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/FundingThermometer.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/FundingThermometer.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/FundingThermometer.tsx: data-cy="h2-client.funding-thermometer-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/FundingThermometer.tsx: data-cy="h2-client.funding-thermometer-0" follows conventions', () => {
         const attr = 'h2-client.funding-thermometer-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx — has 11 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: tenancy/client/pages/home/components/ServiceBookingModal.tsx — has 11 data-cy markers', () => {
         const markers = ["modal-service-booking","form-service-booking","h3-client.service-booking-modal-0","btn-create-service-inline","form.booking.service","form.booking.datetime","form.booking.duration","form.booking.priority","form.booking.recurrence","btn-modal-cancel","btn-modal-submit"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/ServiceBookingModal.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="modal-service-booking" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="modal-service-booking" follows conventions', () => {
         const attr = 'modal-service-booking';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form-service-booking" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form-service-booking" follows conventions', () => {
         const attr = 'form-service-booking';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="h3-client.service-booking-modal-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="h3-client.service-booking-modal-0" follows conventions', () => {
         const attr = 'h3-client.service-booking-modal-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="btn-create-service-inline" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="btn-create-service-inline" follows conventions', () => {
         const attr = 'btn-create-service-inline';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form.booking.service" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form.booking.service" follows conventions', () => {
         const attr = 'form.booking.service';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form.booking.datetime" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form.booking.datetime" follows conventions', () => {
         const attr = 'form.booking.datetime';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form.booking.duration" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form.booking.duration" follows conventions', () => {
         const attr = 'form.booking.duration';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form.booking.priority" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form.booking.priority" follows conventions', () => {
         const attr = 'form.booking.priority';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="form.booking.recurrence" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="form.booking.recurrence" follows conventions', () => {
         const attr = 'form.booking.recurrence';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="btn-modal-cancel" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="btn-modal-cancel" follows conventions', () => {
         const attr = 'btn-modal-cancel';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/ServiceBookingModal.tsx: data-cy="btn-modal-submit" follows conventions', () => {
+    it('tenancy/client/pages/home/components/ServiceBookingModal.tsx: data-cy="btn-modal-submit" follows conventions', () => {
         const attr = 'btn-modal-submit';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx — has 4 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/TelehealthLauncher.tsx: tenancy/client/pages/home/components/TelehealthLauncher.tsx — has 4 data-cy markers', () => {
         const markers = ["h2-client.telehealth-launcher-0","btn-client.telehealth-launcher-0","h2-client.telehealth-launcher-1","btn-client.telehealth-launcher-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/TelehealthLauncher.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: data-cy="h2-client.telehealth-launcher-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/TelehealthLauncher.tsx: data-cy="h2-client.telehealth-launcher-0" follows conventions', () => {
         const attr = 'h2-client.telehealth-launcher-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: data-cy="btn-client.telehealth-launcher-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/TelehealthLauncher.tsx: data-cy="btn-client.telehealth-launcher-0" follows conventions', () => {
         const attr = 'btn-client.telehealth-launcher-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: data-cy="h2-client.telehealth-launcher-1" follows conventions', () => {
+    it('tenancy/client/pages/home/components/TelehealthLauncher.tsx: data-cy="h2-client.telehealth-launcher-1" follows conventions', () => {
         const attr = 'h2-client.telehealth-launcher-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/TelehealthLauncher.tsx: data-cy="btn-client.telehealth-launcher-1" follows conventions', () => {
+    it('tenancy/client/pages/home/components/TelehealthLauncher.tsx: data-cy="btn-client.telehealth-launcher-1" follows conventions', () => {
         const attr = 'btn-client.telehealth-launcher-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/WhosComingCard.tsx: tenancy/client/pages/dashboard/components/WhosComingCard.tsx — has 2 data-cy markers', () => {
+    it('tenancy/client/pages/home/components/WhosComingCard.tsx: tenancy/client/pages/home/components/WhosComingCard.tsx — has 2 data-cy markers', () => {
         const markers = ["h2-client.whos-coming-card-0","h3-client.whos-coming-card-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/client/pages/dashboard/components/WhosComingCard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/client/pages/home/components/WhosComingCard.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/client/pages/dashboard/components/WhosComingCard.tsx: data-cy="h2-client.whos-coming-card-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/WhosComingCard.tsx: data-cy="h2-client.whos-coming-card-0" follows conventions', () => {
         const attr = 'h2-client.whos-coming-card-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/client/pages/dashboard/components/WhosComingCard.tsx: data-cy="h3-client.whos-coming-card-0" follows conventions', () => {
+    it('tenancy/client/pages/home/components/WhosComingCard.tsx: data-cy="h3-client.whos-coming-card-0" follows conventions', () => {
         const attr = 'h3-client.whos-coming-card-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1055,120 +1055,120 @@ describe('Data-Cy Contract — Batch 8', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/CalendarExportList.tsx: tenancy/family/pages/dashboard/components/CalendarExportList.tsx — has 1 data-cy markers', () => {
+    it('tenancy/family/pages/home/components/CalendarExportList.tsx: tenancy/family/pages/home/components/CalendarExportList.tsx — has 1 data-cy markers', () => {
         const markers = ["h2-calendar-export-list-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/family/pages/dashboard/components/CalendarExportList.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/family/pages/home/components/CalendarExportList.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/family/pages/dashboard/components/CalendarExportList.tsx: data-cy="h2-calendar-export-list-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/CalendarExportList.tsx: data-cy="h2-calendar-export-list-0" follows conventions', () => {
         const attr = 'h2-calendar-export-list-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/CareUpdatesFeed.tsx: tenancy/family/pages/dashboard/components/CareUpdatesFeed.tsx — has 2 data-cy markers', () => {
+    it('tenancy/family/pages/home/components/CareUpdatesFeed.tsx: tenancy/family/pages/home/components/CareUpdatesFeed.tsx — has 2 data-cy markers', () => {
         const markers = ["h2-care-updates-feed-0","btn-care-updates-feed-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/family/pages/dashboard/components/CareUpdatesFeed.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/family/pages/home/components/CareUpdatesFeed.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/family/pages/dashboard/components/CareUpdatesFeed.tsx: data-cy="h2-care-updates-feed-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/CareUpdatesFeed.tsx: data-cy="h2-care-updates-feed-0" follows conventions', () => {
         const attr = 'h2-care-updates-feed-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/CareUpdatesFeed.tsx: data-cy="btn-care-updates-feed-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/CareUpdatesFeed.tsx: data-cy="btn-care-updates-feed-0" follows conventions', () => {
         const attr = 'btn-care-updates-feed-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/CoPaySlider.tsx: tenancy/family/pages/dashboard/components/CoPaySlider.tsx — has 2 data-cy markers', () => {
+    it('tenancy/family/pages/home/components/CoPaySlider.tsx: tenancy/family/pages/home/components/CoPaySlider.tsx — has 2 data-cy markers', () => {
         const markers = ["h2-co-pay-slider-0","input-co-pay-slider-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/family/pages/dashboard/components/CoPaySlider.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/family/pages/home/components/CoPaySlider.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/family/pages/dashboard/components/CoPaySlider.tsx: data-cy="h2-co-pay-slider-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/CoPaySlider.tsx: data-cy="h2-co-pay-slider-0" follows conventions', () => {
         const attr = 'h2-co-pay-slider-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/CoPaySlider.tsx: data-cy="input-co-pay-slider-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/CoPaySlider.tsx: data-cy="input-co-pay-slider-0" follows conventions', () => {
         const attr = 'input-co-pay-slider-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/iMessageThread.tsx: tenancy/family/pages/dashboard/components/iMessageThread.tsx — has 3 data-cy markers', () => {
+    it('tenancy/family/pages/home/components/iMessageThread.tsx: tenancy/family/pages/home/components/iMessageThread.tsx — has 3 data-cy markers', () => {
         const markers = ["btn-i-message-thread-0","form-i-message-thread","btn-i-message-thread-1"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/family/pages/dashboard/components/iMessageThread.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/family/pages/home/components/iMessageThread.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/family/pages/dashboard/components/iMessageThread.tsx: data-cy="btn-i-message-thread-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/iMessageThread.tsx: data-cy="btn-i-message-thread-0" follows conventions', () => {
         const attr = 'btn-i-message-thread-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/iMessageThread.tsx: data-cy="form-i-message-thread" follows conventions', () => {
+    it('tenancy/family/pages/home/components/iMessageThread.tsx: data-cy="form-i-message-thread" follows conventions', () => {
         const attr = 'form-i-message-thread';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/iMessageThread.tsx: data-cy="btn-i-message-thread-1" follows conventions', () => {
+    it('tenancy/family/pages/home/components/iMessageThread.tsx: data-cy="btn-i-message-thread-1" follows conventions', () => {
         const attr = 'btn-i-message-thread-1';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/family/pages/dashboard/components/LiveETATracker.tsx: tenancy/family/pages/dashboard/components/LiveETATracker.tsx — has 1 data-cy markers', () => {
+    it('tenancy/family/pages/home/components/LiveETATracker.tsx: tenancy/family/pages/home/components/LiveETATracker.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-live-e-t-a-tracker-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/family/pages/dashboard/components/LiveETATracker.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/family/pages/home/components/LiveETATracker.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/family/pages/dashboard/components/LiveETATracker.tsx: data-cy="h3-live-e-t-a-tracker-0" follows conventions', () => {
+    it('tenancy/family/pages/home/components/LiveETATracker.tsx: data-cy="h3-live-e-t-a-tracker-0" follows conventions', () => {
         const attr = 'h3-live-e-t-a-tracker-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1384,145 +1384,145 @@ describe('Data-Cy Contract — Batch 8', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/AnalyticsSection.tsx: tenancy/manager/pages/dashboard/components/AnalyticsSection.tsx — has 1 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/AnalyticsSection.tsx: tenancy/manager/pages/home/components/AnalyticsSection.tsx — has 1 data-cy markers', () => {
         const markers = ["section.analytics"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/AnalyticsSection.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/AnalyticsSection.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/AnalyticsSection.tsx: data-cy="section.analytics" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/AnalyticsSection.tsx: data-cy="section.analytics" follows conventions', () => {
         const attr = 'section.analytics';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/AnomalyTicker.tsx: tenancy/manager/pages/dashboard/components/AnomalyTicker.tsx — has 1 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/AnomalyTicker.tsx: tenancy/manager/pages/home/components/AnomalyTicker.tsx — has 1 data-cy markers', () => {
         const markers = ["btn-manager.anomaly-ticker-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/AnomalyTicker.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/AnomalyTicker.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/AnomalyTicker.tsx: data-cy="btn-manager.anomaly-ticker-0" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/AnomalyTicker.tsx: data-cy="btn-manager.anomaly-ticker-0" follows conventions', () => {
         const attr = 'btn-manager.anomaly-ticker-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/DashboardStats.tsx: tenancy/manager/pages/dashboard/components/DashboardStats.tsx — has 1 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/DashboardStats.tsx: tenancy/manager/pages/home/components/DashboardStats.tsx — has 1 data-cy markers', () => {
         const markers = ["dataCy"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/DashboardStats.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/DashboardStats.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/DashboardStats.tsx: data-cy="dataCy" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/DashboardStats.tsx: data-cy="dataCy" follows conventions', () => {
         const attr = 'dataCy';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/LiveMarginThermometer.tsx: tenancy/manager/pages/dashboard/components/LiveMarginThermometer.tsx — has 1 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/LiveMarginThermometer.tsx: tenancy/manager/pages/home/components/LiveMarginThermometer.tsx — has 1 data-cy markers', () => {
         const markers = ["h3-manager.live-margin-thermometer-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/LiveMarginThermometer.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/LiveMarginThermometer.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/LiveMarginThermometer.tsx: data-cy="h3-manager.live-margin-thermometer-0" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/LiveMarginThermometer.tsx: data-cy="h3-manager.live-margin-thermometer-0" follows conventions', () => {
         const attr = 'h3-manager.live-margin-thermometer-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/QuickActions.tsx: tenancy/manager/pages/dashboard/components/QuickActions.tsx — has 2 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/QuickActions.tsx: tenancy/manager/pages/home/components/QuickActions.tsx — has 2 data-cy markers', () => {
         const markers = ["dataCy","h2-manager.quick-actions-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/QuickActions.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/QuickActions.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/QuickActions.tsx: data-cy="dataCy" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/QuickActions.tsx: data-cy="dataCy" follows conventions', () => {
         const attr = 'dataCy';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/QuickActions.tsx: data-cy="h2-manager.quick-actions-0" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/QuickActions.tsx: data-cy="h2-manager.quick-actions-0" follows conventions', () => {
         const attr = 'h2-manager.quick-actions-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx — has 5 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: tenancy/manager/pages/home/components/ShiftTimeline.tsx — has 5 data-cy markers', () => {
         const markers = ["section.timeline","timeline-empty-message","timeline-item","timeline-client-name","timeline-details"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/ShiftTimeline.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: data-cy="section.timeline" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: data-cy="section.timeline" follows conventions', () => {
         const attr = 'section.timeline';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: data-cy="timeline-empty-message" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: data-cy="timeline-empty-message" follows conventions', () => {
         const attr = 'timeline-empty-message';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: data-cy="timeline-item" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: data-cy="timeline-item" follows conventions', () => {
         const attr = 'timeline-item';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: data-cy="timeline-client-name" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: data-cy="timeline-client-name" follows conventions', () => {
         const attr = 'timeline-client-name';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/dashboard/components/ShiftTimeline.tsx: data-cy="timeline-details" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/ShiftTimeline.tsx: data-cy="timeline-details" follows conventions', () => {
         const attr = 'timeline-details';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

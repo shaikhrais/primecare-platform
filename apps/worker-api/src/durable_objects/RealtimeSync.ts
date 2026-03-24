@@ -4,7 +4,7 @@ import { DurableObject } from 'cloudflare:workers';
  * RealtimeSync Durable Object 
  * Acts as a centralized WebSocket hub for a specific Tenant, forwarding 
  * real-time REST API mutations (visits, dispatch, telemetry) to connected 
- * web-admin frontend dashboards.
+ * web-admin frontend homes.
  */
 export class RealtimeSync extends DurableObject {
     sessions: Map<WebSocket, { userId: string; role: string }>;

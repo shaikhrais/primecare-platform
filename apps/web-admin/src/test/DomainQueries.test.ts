@@ -92,7 +92,7 @@ describe('Domain Queries Module Exports', () => {
         expect(typeof mod.useCreateLead).toBe('function');
     });
 
-    // Dashboard hooks
+    // Home hooks
     it('exports useDashboardStats', async () => {
         const mod: any = await import('@/shared/hooks/useDomainQueries');
         expect(typeof mod.useDashboardStats).toBe('function');
@@ -166,7 +166,7 @@ describe('QueryKeys', () => {
 
     it('dashboardStats returns static key', async () => {
         const { QueryKeys } = await import('@/shared/hooks/useDomainQueries');
-        expect(QueryKeys.dashboardStats()).toEqual(['dashboard', 'stats']);
+        expect(QueryKeys.dashboardStats()).toEqual(['home', 'stats']);
     });
 
     it('auditLogs with filters', async () => {

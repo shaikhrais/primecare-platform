@@ -27,7 +27,7 @@ export default function RoleSwitcher() {
     const user: User | null = (userStr && userStr !== 'undefined') ? JSON.parse(userStr) : null;
     const activeRole = user?.activeRole ?? '';
 
-    // For Admins, allow switching to ANY role to "see other dashboards"
+    // For Admins, allow switching to ANY role to "see other homes"
     // For others, only allow assigned roles
     const isAdmin = user?.roles?.includes('admin') || user?.role === 'admin';
     const availableRoles = isAdmin

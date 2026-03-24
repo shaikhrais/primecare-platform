@@ -175,7 +175,7 @@ r.openapi(osmCallbackRoute, async (c) => {
 
         // R6: Redirect WITHOUT token in URL — cookies handle auth
         const frontendUrl = c.env.SITE_URL || 'https://primecare-admin.pages.dev';
-        return c.redirect(`${frontendUrl}/dashboard`);
+        return c.redirect(`${frontendUrl}/home`);
 
     } catch (e: any) {
         // R6: Don't leak internal error messages

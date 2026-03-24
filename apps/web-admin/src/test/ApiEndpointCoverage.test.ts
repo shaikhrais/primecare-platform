@@ -10,7 +10,7 @@ describe('API Endpoint Coverage (11 pages with API calls)', () => {
         expect(11).toBeGreaterThan(0);
     });
 
-    it('D1: Admin Dashboard — uses 3 API endpoint(s)', () => {
+    it('D1: Admin Home — uses 3 API endpoint(s)', () => {
         const endpoints = ["/v1/admin/actions/export?format=csv","/v1/admin/actions/audit-chain/verify","/v1/admin/actions/audit-chain/stats"];
         expect(endpoints.length).toBe(3);
         // Every endpoint should start with /
@@ -82,8 +82,8 @@ describe('API Endpoint Coverage (11 pages with API calls)', () => {
         });
     });
 
-    it('D14: PSW Dashboard — uses 2 API endpoint(s)', () => {
-        const endpoints = ["/v1/psw/dashboard/incident","/v1/psw/dashboard/wellness"];
+    it('D14: PSW Home — uses 2 API endpoint(s)', () => {
+        const endpoints = ["/v1/psw/home/incident","/v1/psw/home/wellness"];
         expect(endpoints.length).toBe(2);
         // Every endpoint should start with /
         endpoints.forEach(ep => {

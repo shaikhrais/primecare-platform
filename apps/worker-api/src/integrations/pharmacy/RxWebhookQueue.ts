@@ -4,7 +4,7 @@
  * Middleware processor that catches webhooks sent by connected pharmacies
  * when a doctor materially changes a prescription string (e.g. 5mg to 10mg).
  * Without manual entry, it creates an unapproved 'Care Plan Amendment'
- * on the RN's dashboard to formally accept the change into the patient's PrimeCare eMAR.
+ * on the RN's home to formally accept the change into the patient's PrimeCare eMAR.
  */
 
 interface PharmacyRxPayload {
@@ -34,7 +34,7 @@ export class RxWebhookQueue {
      * Executes a DB insertion to generate an RN task
      */
     private static async createCarePlanAmendment(patientId: string, summary: string) {
-        // Assume Prisma DB insertion here linking to RN Dashboard Amendment Queue
+        // Assume Prisma DB insertion here linking to RN Home Amendment Queue
         console.log(`[Amendment Engine] Generated RN Approval Task: ${summary}`);
     }
 

@@ -130,13 +130,13 @@ describe('PageActionRegistry · Role Coverage', () => {
 // ── Admin Pages ─────────────────────────────────────────────────────────────
 
 describe('PageActionRegistry · Admin Pages', () => {
-    it('admin.dashboard has a primary button', () => {
-        expect(PageActionRegistry['admin.dashboard']).toBeDefined();
-        expect(PageActionRegistry['admin.dashboard'].primary).toBeDefined();
+    it('admin.home has a primary button', () => {
+        expect(PageActionRegistry['admin.home']).toBeDefined();
+        expect(PageActionRegistry['admin.home'].primary).toBeDefined();
     });
 
-    it('admin.dashboard has multiple actions', () => {
-        expect(PageActionRegistry['admin.dashboard'].actions.length).toBeGreaterThanOrEqual(3);
+    it('admin.home has multiple actions', () => {
+        expect(PageActionRegistry['admin.home'].actions.length).toBeGreaterThanOrEqual(3);
     });
 
     it('admin.users has user invite as primary', () => {

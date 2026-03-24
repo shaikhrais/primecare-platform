@@ -70,7 +70,7 @@ export const domainFeaturesContent = {
     WOUND_PAGE_TITLE: 'Wound Care Tracking',
     WOUND_PAGE_DESCRIPTION: 'PUSH tool assessments, photo documentation, and healing progress.',
     WOUND_PROGRESS_TITLE: 'Healing Progress',
-    WOUND_CHRONIC_TITLE: 'Chronic Condition Dashboard',
+    WOUND_CHRONIC_TITLE: 'Chronic Condition Home',
     WOUND_EMPTY: 'No wound assessments recorded.',
 
     // F13 — Webhooks
@@ -82,13 +82,13 @@ export const domainFeaturesContent = {
     // F14 — Performance Reviews
     REVIEWS_PAGE_TITLE: 'Performance Reviews',
     REVIEWS_PAGE_DESCRIPTION: 'Staff evaluations with KPI tracking, goal setting, and review cycles.',
-    REVIEWS_KPI_TITLE: 'PSW KPI Dashboard',
+    REVIEWS_KPI_TITLE: 'PSW KPI Home',
     REVIEWS_EMPTY: 'No reviews on file.',
 
     // F15 — Audit Export
     AUDIT_EXPORT_PAGE_TITLE: 'Audit Export & Compliance',
     AUDIT_EXPORT_PAGE_DESCRIPTION: 'Download audit logs, view PHIPA compliance scores, and generate regulatory reports.',
-    AUDIT_COMPLIANCE_TITLE: 'PHIPA Compliance Dashboard',
+    AUDIT_COMPLIANCE_TITLE: 'PHIPA Compliance Home',
     AUDIT_REGULATORY_TITLE: 'MOHLTC Regulatory Report',
     AUDIT_EMPTY: 'No audit records for the selected period.',
 

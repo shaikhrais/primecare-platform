@@ -118,7 +118,7 @@ class UniversalHomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.grid_view_customize_rounded, size: 48, color: activeColor),
+                Icon(Icons.widgets_rounded, size: 48, color: activeColor),
                 const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

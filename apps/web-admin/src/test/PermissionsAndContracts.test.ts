@@ -15,8 +15,8 @@ import { describe, it, expect } from 'vitest';
 // ═══════════════════════════════════════════════════════════════════════════
 
 type Permission =
-    | 'view_dashboard' | 'view_admin_dashboard' | 'view_finance_dashboard'
-    | 'view_clinical_dashboard' | 'view_ops_dashboard'
+    | 'view_home' | 'view_admin_home' | 'view_finance_home'
+    | 'view_clinical_home' | 'view_ops_home'
     | 'manage_users' | 'view_users' | 'create_users' | 'delete_users' | 'impersonate_users'
     | 'view_schedule' | 'manage_schedule' | 'create_visits' | 'approve_timesheets'
     | 'clinical_oversight' | 'manage_care_plans' | 'manage_assessments'
@@ -43,8 +43,8 @@ type Permission =
     | 'manage_registries' | 'run_diagnostics' | 'manage_themes';
 
 const ALL_PERMISSIONS: Permission[] = [
-    'view_dashboard', 'view_admin_dashboard', 'view_finance_dashboard',
-    'view_clinical_dashboard', 'view_ops_dashboard',
+    'view_home', 'view_admin_home', 'view_finance_home',
+    'view_clinical_home', 'view_ops_home',
     'manage_users', 'view_users', 'create_users', 'delete_users', 'impersonate_users',
     'view_schedule', 'manage_schedule', 'create_visits', 'approve_timesheets',
     'clinical_oversight', 'manage_care_plans', 'manage_assessments',
@@ -75,7 +75,7 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     super_admin: ALL_PERMISSIONS,
     scrum_master: ALL_PERMISSIONS,
     admin: [
-        'view_dashboard', 'view_admin_dashboard', 'view_finance_dashboard', 'view_ops_dashboard',
+        'view_home', 'view_admin_home', 'view_finance_home', 'view_ops_home',
         'manage_users', 'view_users', 'create_users', 'delete_users',
         'view_schedule', 'manage_schedule', 'create_visits', 'approve_timesheets',
         'clinical_oversight', 'manage_care_plans',
@@ -93,7 +93,7 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
         'view_knowledge_base', 'manage_knowledge_base', 'view_training',
     ],
     manager: [
-        'view_dashboard', 'view_ops_dashboard',
+        'view_home', 'view_ops_home',
         'manage_users', 'view_users',
         'view_schedule', 'manage_schedule', 'create_visits', 'approve_timesheets',
         'manage_incidents', 'view_incidents',
@@ -103,7 +103,7 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
         'view_knowledge_base', 'view_training',
     ],
     coordinator: [
-        'view_dashboard',
+        'view_home',
         'view_schedule', 'manage_schedule', 'create_visits',
         'manage_dispatch', 'manage_sos', 'manage_waitlist', 'manage_shift_swap',
         'manage_fleet',
@@ -111,14 +111,14 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
         'view_knowledge_base', 'view_training',
     ],
     finance_director: [
-        'view_dashboard', 'view_finance_dashboard',
+        'view_home', 'view_finance_home',
         'view_reports', 'manage_billing', 'manage_invoices',
         'view_ledger', 'manage_ledger', 'manage_payroll',
         'view_earnings', 'manage_reconciliation', 'manage_tax',
         'view_knowledge_base', 'view_training',
     ],
     rn: [
-        'view_dashboard', 'view_clinical_dashboard',
+        'view_home', 'view_clinical_home',
         'clinical_oversight', 'manage_care_plans', 'manage_assessments',
         'view_medical_records', 'manage_medications', 'manage_wound_care',
         'view_schedule',
@@ -127,27 +127,27 @@ const ROLE_PERMISSIONS: Record<string, Permission[]> = {
         'view_knowledge_base', 'view_training',
     ],
     psw: [
-        'view_dashboard', 'view_schedule',
+        'view_home', 'view_schedule',
         'view_open_shifts', 'manage_availability', 'submit_handover',
         'clock_in_out', 'view_own_earnings',
         'view_knowledge_base', 'view_training',
     ],
     client: [
-        'view_dashboard',
+        'view_home',
         'submit_feedback', 'request_booking',
         'view_own_medical', 'view_own_bookings', 'view_own_billing', 'view_family_portal',
         'view_knowledge_base', 'view_training',
     ],
     finance: [
-        'view_dashboard', 'view_finance_dashboard',
+        'view_home', 'view_finance_home',
         'view_reports', 'manage_billing',
         'view_earnings', 'approve_timesheets',
         'view_knowledge_base', 'view_training',
     ],
-    compliance: ['view_dashboard', 'manage_compliance', 'manage_incidents', 'view_reports', 'view_audit_logs', 'view_knowledge_base', 'view_training'],
-    hr: ['view_dashboard', 'manage_users', 'view_users', 'view_knowledge_base', 'view_training'],
-    staff: ['view_dashboard', 'view_users', 'manage_leads', 'view_leads', 'view_schedule', 'view_incidents', 'view_knowledge_base', 'view_training'],
-    training: ['view_dashboard', 'view_knowledge_base', 'view_training'],
+    compliance: ['view_home', 'manage_compliance', 'manage_incidents', 'view_reports', 'view_audit_logs', 'view_knowledge_base', 'view_training'],
+    hr: ['view_home', 'manage_users', 'view_users', 'view_knowledge_base', 'view_training'],
+    staff: ['view_home', 'view_users', 'manage_leads', 'view_leads', 'view_schedule', 'view_incidents', 'view_knowledge_base', 'view_training'],
+    training: ['view_home', 'view_knowledge_base', 'view_training'],
 };
 
 function can(role: string, permission: Permission): boolean {
@@ -195,7 +195,7 @@ describe('Permissions — Scrum Master', () => {
 describe('Permissions — Admin', () => {
     it('can manage_users', () => expect(can('admin', 'manage_users')).toBe(true));
     it('can delete_users', () => expect(can('admin', 'delete_users')).toBe(true));
-    it('can view_admin_dashboard', () => expect(can('admin', 'view_admin_dashboard')).toBe(true));
+    it('can view_admin_home', () => expect(can('admin', 'view_admin_home')).toBe(true));
     it('can manage_security', () => expect(can('admin', 'manage_security')).toBe(true));
     it('can manage_invoices', () => expect(can('admin', 'manage_invoices')).toBe(true));
     it('cannot manage_tenants', () => expect(can('admin', 'manage_tenants')).toBe(false));
@@ -323,11 +323,11 @@ describe('Permissions — Unknown Role', () => {
 });
 
 // --- Universal permissions ---
-describe('Permissions — Universal view_dashboard', () => {
+describe('Permissions — Universal view_home', () => {
     const allRoles = Object.keys(ROLE_PERMISSIONS);
-    it('every role can view_dashboard', () => {
+    it('every role can view_home', () => {
         for (const role of allRoles) {
-            expect(can(role, 'view_dashboard')).toBe(true);
+            expect(can(role, 'view_home')).toBe(true);
         }
     });
 });

@@ -24,7 +24,7 @@ function flattenObject(obj: Record<string, any>, prefix = ''): Array<{ key: stri
 /** Detect section from the top-level key */
 function detectSection(key: string): string {
     const top = key.split('.')[0]!.toLowerCase();
-    if (top.includes('dashboard')) return 'dashboards';
+    if (top.includes('home')) return 'homes';
     if (top.includes('nav') || top.includes('sidebar')) return 'nav';
     if (top.includes('admin')) return 'admin';
     if (top.includes('wizard') || top.includes('setup')) return 'wizards';

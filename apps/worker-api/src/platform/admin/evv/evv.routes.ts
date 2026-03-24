@@ -117,7 +117,7 @@ evv.openapi(approveExceptionRoute, async (c) => {
     return c.json({ success: true }, 200);
 });
 
-// GET /compliance-summary — Dashboard stats
+// GET /compliance-summary — Home stats
 const complianceSummaryRoute = createRoute({
     method: 'get', path: '/compliance-summary',
     summary: 'EVV Compliance Summary',

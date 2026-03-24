@@ -33,7 +33,7 @@ const ICON_MAP: Record<string, string> = {
     'lnk-adm-interop': '🔗', 'lnk-adm-locations': '📍',
     'lnk-ops-logistics': '🚚', 'lnk-ops-regions': '🗺️',
     'lnk-erp-inventory': '📦', 'lnk-erp-procurement': '🛒',
-    'lnk-telehealth-center': '🏥', 'lnk-telehealth-admin-dashboard': '🏥',
+    'lnk-telehealth-center': '🏥', 'lnk-telehealth-admin-home': '🏥',
     'lnk-rcm-claims': '💳', 'lnk-rcm-revenue': '💹',
     'lnk-pharmacy-hub': '💊', 'lnk-pharmacy-mar': '💊',
     'lnk-evv-exceptions': '📍', 'lnk-admin-consent-forms': '📜', 'lnk-admin-authorizations': '🔑',
@@ -44,7 +44,7 @@ const ICON_MAP: Record<string, string> = {
     'lnk-sm-impersonate': '🎭', 'lnk-sm-response-bot': '🤖', 'lnk-sm-perf-metrics': '⚡',
     'lnk-sm-theme-lab': '🎨',
     // Manager
-    'lnk-mgr-dashboard': '📊', 'lnk-mgr-pl': '💰', 'lnk-mgr-ops': '🔧',
+    'lnk-mgr-home': '📊', 'lnk-mgr-pl': '💰', 'lnk-mgr-ops': '🔧',
     'lnk-mgr-compliance': '✅', 'lnk-mgr-team': '👥', 'lnk-mgr-finance': '💵',
     'lnk-mgr-ops-hub': '🏢',
     // Premium — Manager
@@ -74,18 +74,18 @@ const ICON_MAP: Record<string, string> = {
     // Superuser
     'lnk-superuser-tenants': '🏢', 'lnk-superuser-sla': '📊',
     // Finance Director
-    'lnk-fd-dashboard': '🏛️', 'lnk-fd-ledger': '🏦', 'lnk-fd-tax-hub': '💰', 'lnk-fd-reconciliation': '🔄',
+    'lnk-fd-home': '🏛️', 'lnk-fd-ledger': '🏦', 'lnk-fd-tax-hub': '💰', 'lnk-fd-reconciliation': '🔄',
     // Regional
     'lnk-rd-regional': '🌐', 'lnk-rd-finance': '💵',
     // RPM
     'lnk-rpm-alerts': '🔔',
 };
 
-// ── Dashboard paths per role ─────────────────────────────────────────────────
+// ── Home paths per role ─────────────────────────────────────────────────
 const DASHBOARD_MAP: Record<string, { label: string; path: string; icon: string }> = {
     admin:            { label: ContentRegistry.MENU.DASHBOARD, path: RouteRegistry.ADMIN.DASHBOARD, icon: '📊' },
     super_admin:      { label: 'Platform Stats',               path: RouteRegistry.SUPERUSER.DASHBOARD, icon: '👑' },
-    scrum_master:     { label: 'Scrum Dashboard',               path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
+    scrum_master:     { label: 'Scrum Home',               path: RouteRegistry.SCRUM_MASTER.DASHBOARD, icon: '🚀' },
     manager:          { label: ContentRegistry.MENU.DASHBOARD,  path: RouteRegistry.MANAGER.DASHBOARD, icon: '📊' },
     regional_manager: { label: 'Regional HQ',                   path: RouteRegistry.MANAGER.REGIONAL_STATS, icon: '🌐' },
     coordinator:      { label: ContentRegistry.MENU.DASHBOARD,  path: RouteRegistry.COORDINATOR.DASHBOARD, icon: '📍' },
@@ -110,14 +110,14 @@ function getSharedItems(role: string): MenuItem[] {
 /**
  * Build sidebar menu items from the registry for the given role.
  *
- * Order: Dashboard → Registry links (deduplicated) → Shared (KB, Training, Support)
+ * Order: Home → Registry links (deduplicated) → Shared (KB, Training, Support)
  */
 export function useMenuItems(role: string): MenuItem[] {
     return useMemo(() => {
         const lowerRole = role.toLowerCase();
 
-        // 1. Dashboard entry
-        const dashboard = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
+        // 1. Home entry
+        const home = DASHBOARD_MAP[lowerRole] || DASHBOARD_MAP['client'];
 
         // 2. Role-specific links from ButtonRegistry
         const registryLinks = getLinksForRole(lowerRole);
@@ -130,10 +130,10 @@ export function useMenuItems(role: string): MenuItem[] {
         // 3. Shared tail items
         const shared = getSharedItems(lowerRole);
 
-        // 4. Deduplicate by path (dashboard + links + shared)
+        // 4. Deduplicate by path (home + links + shared)
         const seen = new Set<string>();
         const result: MenuItem[] = [];
-        for (const item of [dashboard, ...roleLinks, ...shared]) {
+        for (const item of [home, ...roleLinks, ...shared]) {
             if (!seen.has(item.path)) {
                 seen.add(item.path);
                 result.push(item);

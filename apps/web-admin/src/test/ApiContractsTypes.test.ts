@@ -346,10 +346,10 @@ describe('Client Contracts', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Dashboard & Audit
+// Home & Audit
 // ═══════════════════════════════════════════════════════════════════════════
 
-describe('Dashboard Contracts', () => {
+describe('Home Contracts', () => {
     it('AdminDashboardStats has all 8 metrics', () => {
         const stats: AdminDashboardStats = {
             totalUsers: 100, totalClients: 50, totalProviders: 25,

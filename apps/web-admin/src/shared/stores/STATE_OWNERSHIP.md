@@ -21,7 +21,7 @@
 
 | Concern | Pattern |
 |---------|---------|
-| All API data (lists, entities, dashboards) | `useQuery` with typed query keys |
+| All API data (lists, entities, homes) | `useQuery` with typed query keys |
 | Mutations (create, update, delete) | `useMutation` + `queryClient.invalidateQueries` |
 | Optimistic updates | Use `onMutate` → snapshot → rollback on error |
 

@@ -299,7 +299,7 @@ export interface ClientProfile {
     status: string;
 }
 
-// ─── Dashboard Stats ──────────────────────────────────────────────────────
+// ─── Home Stats ──────────────────────────────────────────────────────
 
 export interface AdminDashboardStats {
     totalUsers: number;

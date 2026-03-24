@@ -19157,7 +19157,7 @@ model Registry {
   key       String // dot-path key e.g. "ADMIN_DASHBOARD.TITLE"
   value     String // the actual text/content value
   category  String // content, api, route, theme, button, interaction
-  section   String? // grouping: e.g. "dashboards", "nav", "operations"
+  section   String? // grouping: e.g. "homes", "nav", "operations"
   metadata  Json? // extra config, icon, color, etc.
   tenantId  String?  @map("tenant_id")
   createdAt DateTime @default(now()) @map("created_at")
@@ -28053,7 +28053,7 @@ model Registry {
   key       String // dot-path key e.g. "ADMIN_DASHBOARD.TITLE"
   value     String // the actual text/content value
   category  String // content, api, route, theme, button, interaction
-  section   String? // grouping: e.g. "dashboards", "nav", "operations"
+  section   String? // grouping: e.g. "homes", "nav", "operations"
   metadata  Json? // extra config, icon, color, etc.
   tenantId  String?  @map("tenant_id")
   createdAt DateTime @default(now()) @map("created_at")
@@ -36341,9 +36341,9 @@ var init_ApiRegistry = __esm({
     init_performance2();
     TENANCY = {
       MANAGER: {
-        DASHBOARD_KPI: "/v1/manager/dashboard/kpi",
-        DASHBOARD_TODAY: "/v1/manager/dashboard/today",
-        DASHBOARD_STATS: "/v1/manager/dashboard/stats",
+        DASHBOARD_KPI: "/v1/manager/home/kpi",
+        DASHBOARD_TODAY: "/v1/manager/home/today",
+        DASHBOARD_STATS: "/v1/manager/home/stats",
         PERFORMANCE: "/v1/manager/performance/rankings",
         FINANCE: "/v1/manager/finance/pl",
         PAYROLL_AUDIT: "/v1/manager/finance/payroll-audit",
@@ -36364,7 +36364,7 @@ var init_ApiRegistry = __esm({
         BOOKING_REQUESTS: "/v1/client/bookings/requests",
         INVOICES: "/v1/client/invoices",
         SERVICES: "/v1/client/services",
-        DASHBOARD_STATS: "/v1/client/dashboard/stats",
+        DASHBOARD_STATS: "/v1/client/home/stats",
         CATALOG: "/v1/client/services/catalog",
         SUPPORT: "/v1/client/support/nursing-chat",
         CARE_TEAM: "/v1/client/team/roster",
@@ -36383,7 +36383,7 @@ var init_ApiRegistry = __esm({
         WELLNESS_PULSE: "/v1/psw/wellness/pulse",
         PAYOUT_HISTORY: "/v1/psw/payouts/history",
         DAILY_ENTRY_SUBMIT: "/v1/psw/daily-entry",
-        DASHBOARD_STATS: "/v1/psw/dashboard/stats",
+        DASHBOARD_STATS: "/v1/psw/home/stats",
         CREDENTIALS: "/v1/psw/credentials/vault",
         OFFERS: "/v1/psw/schedule/offers",
         OFFER_ACCEPT: /* @__PURE__ */ __name((id) => `/v1/psw/schedule/offers/${id}/accept`, "OFFER_ACCEPT"),
@@ -36392,7 +36392,7 @@ var init_ApiRegistry = __esm({
         INCIDENT_REPORT: "/v1/psw/incident/report"
       },
       RN: {
-        DASHBOARD_STATS: "/v1/rn/dashboard/stats",
+        DASHBOARD_STATS: "/v1/rn/home/stats",
         CARE_PLANS: "/v1/rn/clinical/care-plans",
         CARE_PLAN_REVIEW: /* @__PURE__ */ __name((id) => `/v1/rn/clinical/care-plans/${id}/review`, "CARE_PLAN_REVIEW"),
         DAILY_AUDIT_LIST: "/v1/rn/clinical/audit/list",
@@ -36408,7 +36408,7 @@ var init_ApiRegistry = __esm({
       STAFF: {
         CUSTOMERS: "/v1/staff/customers",
         TICKETS: "/v1/staff/tickets",
-        DASHBOARD_STATS: "/v1/staff/dashboard/stats",
+        DASHBOARD_STATS: "/v1/staff/home/stats",
         TASKS: "/v1/staff/tasks/grid",
         MESSAGES: "/v1/staff/messages/hub",
         INCIDENT_SUBMIT: "/v1/staff/ops/incidents/submit",
@@ -36423,7 +36423,7 @@ var init_ApiRegistry = __esm({
         SOS_ACK: "/v1/coordinator/incident/ack",
         SOS_INCIDENTS: "/v1/coordinator/incidents",
         SOS_DISPATCH: "/v1/coordinator/sos-dispatch",
-        DASHBOARD_STATS: "/v1/coordinator/dashboard/stats",
+        DASHBOARD_STATS: "/v1/coordinator/home/stats",
         DISPATCH_MAP: "/v1/coordinator/dispatch-map",
         MATCHING_RUN: "/v1/coordinator/matching/run",
         MASTER_SCHEDULE: "/v1/coordinator/schedule/master",
@@ -36915,7 +36915,7 @@ var init_base = __esm({
         FINANCE_DIRECTOR: "Finance Director"
       },
       MENU: {
-        DASHBOARD: "Dashboard",
+        DASHBOARD: "Home",
         USERS: "Users & PSWs",
         SCHEDULE: "Schedule",
         INCIDENTS: "Incidents",
@@ -36954,7 +36954,7 @@ var init_base = __esm({
         MY_EARNINGS: "My Earnings",
         MY_CREDENTIALS: "My Credentials",
         HELP_DESK: "Help Desk",
-        CLINICAL_DASHBOARD: "Clinical Dashboard",
+        CLINICAL_DASHBOARD: "Clinical Home",
         ACCOUNTING_INTELLIGENCE: "Accounting Intelligence",
         CLINIENT_ADMISSION: "Clients admission",
         DAILY_ENTRY: "Daily Entry",
@@ -37043,14 +37043,14 @@ var init_base = __esm({
   }
 });
 
-// ../../packages/shared/src/registries/content/dashboards-finance.ts
-var dashboardsFinanceContent;
-var init_dashboards_finance = __esm({
-  "../../packages/shared/src/registries/content/dashboards-finance.ts"() {
+// ../../packages/shared/src/registries/content/homes-finance.ts
+var homesFinanceContent;
+var init_homes_finance = __esm({
+  "../../packages/shared/src/registries/content/homes-finance.ts"() {
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
     init_performance2();
-    dashboardsFinanceContent = {
+    homesFinanceContent = {
       ACCOUNTING_DASHBOARD: {
         TITLE: "Accounting Intelligence",
         SUBTITLE: "Real-time GAAP reporting for PrimeCare Platform.",
@@ -37128,15 +37128,15 @@ var init_dashboards_finance = __esm({
   }
 });
 
-// ../../packages/shared/src/registries/content/dashboards.ts
-var dashboardsContent;
-var init_dashboards = __esm({
-  "../../packages/shared/src/registries/content/dashboards.ts"() {
+// ../../packages/shared/src/registries/content/homes.ts
+var homesContent;
+var init_homes = __esm({
+  "../../packages/shared/src/registries/content/homes.ts"() {
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
     init_performance2();
-    init_dashboards_finance();
-    dashboardsContent = {
+    init_homes_finance();
+    homesContent = {
       ADMIN_DASHBOARD: {
         STATS: {
           TOTAL_USERS: "Total Users",
@@ -37190,7 +37190,7 @@ var init_dashboards = __esm({
         BUTTON_REQUEST: "Request New Care",
         MODAL_TITLE: "Request New Care",
         MODAL_SUBTITLE: "Please select your care type and preferred time.",
-        MESSAGES: { LOADING: "Loading Client Dashboard..." },
+        MESSAGES: { LOADING: "Loading Client Home..." },
         FAMILY_HUB: {
           TITLE: "Family Care Hub",
           SUBTITLE: "Oversight, notifications, and care team engagement.",
@@ -37219,7 +37219,7 @@ var init_dashboards = __esm({
         MESSAGES: { LOADING: "Synchronizing Command Center..." }
       },
       RN_DASHBOARD: {
-        TITLE: "Clinical Dashboard",
+        TITLE: "Clinical Home",
         SUBTITLE: "Branch-wide clinical overview and task triage.",
         MESSAGES: { LOADING: "Synchronizing Clinical Center..." },
         STATS: {
@@ -37238,7 +37238,7 @@ var init_dashboards = __esm({
         TITLE_BRANCH: "Branch Coordination Hub",
         TITLE_NETWORK: "Network Coordination Hub",
         SUBTITLE: "Daily Schedule & Compliance",
-        MESSAGES: { LOADING: "Loading Staff Dashboard..." },
+        MESSAGES: { LOADING: "Loading Staff Home..." },
         STATS: {
           URGENT_NEEDS: "Urgent Scheduling Needs",
           URGENT_DESC: "Shifts requiring immediate assignment",
@@ -37261,7 +37261,7 @@ var init_dashboards = __esm({
         }
       },
       MANAGER_DASHBOARD: {
-        TITLE: "Branch Dashboard",
+        TITLE: "Branch Home",
         SUBTITLE: "Local agency operational overview",
         QUICK_ACTIONS: "Quick Actions",
         ANALYTICS: "Performance Analytics",
@@ -37279,7 +37279,7 @@ var init_dashboards = __esm({
           VIEW_CLIENTS: "View Clients"
         },
         PERSPECTIVES: ["Operations", "Clinical", "Marketing", "Recruiting", "Finance"],
-        MESSAGES: { LOADING: "Loading Dashboard..." }
+        MESSAGES: { LOADING: "Loading Home..." }
       },
       PLATFORM_DASHBOARD: {
         TITLE: "Platform Command Center",
@@ -37300,7 +37300,7 @@ var init_dashboards = __esm({
         }
       },
       SUMMARY_DASHBOARD: {
-        TITLE: "Registry Intelligence Dashboard",
+        TITLE: "Registry Intelligence Home",
         SUBTITLE: "Real-time platform summaries, KPIs, and registry-driven insights.",
         HEADER: { CONTEXT: "Context", LAST_UPDATED: "Last Synchronized", SYNC_NOW: "Sync Orbit" },
         CARDS: {
@@ -37329,7 +37329,7 @@ var init_dashboards = __esm({
         ACTIONS: { ACKNOWLEDGE_SOS: "Acknowledge SOS", OVERRIDE_MATCH: "Override Match", SYNC_WAITLIST: "Sync Priorities" },
         SUCCESS: { SOS_ACK: "SOS alert acknowledged.", MATCH_OVERRIDDEN: "PSW manual assignment confirmed.", WAITLIST_SYNCED: "Waitlist priorities updated." }
       },
-      ...dashboardsFinanceContent
+      ...homesFinanceContent
     };
   }
 });
@@ -38634,7 +38634,7 @@ var init_scrum_master = __esm({
         SUBTITLE: "Endpoint health and latency tracking."
       },
       DASHBOARD: {
-        TITLE: "Scrum Master Dashboard",
+        TITLE: "Scrum Master Home",
         SUBTITLE: "Engineering oversight and platform integrity metrics."
       },
       DEV_KB: {
@@ -38719,9 +38719,9 @@ var init_scrum_master = __esm({
         SECURITY_ROLES: "Security Roles",
         WORKFLOW_PATHWAY: "Workflow pathway",
         STEPS: {
-          ADMIN: ["Dashboard Overlay", "User Management", "Global Schedule", "Earnings Center", "System Settings", "Developer Audit Hub"],
-          SCRUM_MASTER: ["Technical Dashboard", "API Registry Audit", "Blueprint Gap Analysis", "Performance Sweep", "Security Surveillance", "Theme Customization"],
-          MANAGER: ["Operations Dashboard", "Shift Coordination", "Clinical Reviews", "Payroll Verification", "Regional Analytics"],
+          ADMIN: ["Home Overlay", "User Management", "Global Schedule", "Earnings Center", "System Settings", "Developer Audit Hub"],
+          SCRUM_MASTER: ["Technical Home", "API Registry Audit", "Blueprint Gap Analysis", "Performance Sweep", "Security Surveillance", "Theme Customization"],
+          MANAGER: ["Operations Home", "Shift Coordination", "Clinical Reviews", "Payroll Verification", "Regional Analytics"],
           MARKETING_MANAGER: ["Growth Pipeline", "CRM Management", "Lead Conversion", "Campaign Performance"],
           HR_MANAGER: ["Talent Pipeline", "Recruitment Funnel", "Onboarding Tracking", "Compliance Audits"],
           FINANCE_MANAGER: ["Revenue Intelligence", "Expense Audits", "Payroll Reconciliation", "Tax Compliance"],
@@ -38730,7 +38730,7 @@ var init_scrum_master = __esm({
           COORDINATOR: ["Live Dispatch Map", "SOS Queue", "Coverage Alerts", "Emergency Check-in"],
           RECRUITING_MANAGER: ["Job Postings", "Candidate Screening", "Interview Roster", "Offer Management"],
           STAFF: ["Staff Hub", "Lead Inquiries", "Customer Roster", "Incident Logging", "Compliance Monitoring"],
-          RN: ["Clinical Dashboard", "Care Plan Manager", "Daily Entry Audit", "Supervision Hub"],
+          RN: ["Clinical Home", "Care Plan Manager", "Daily Entry Audit", "Supervision Hub"],
           PSW: ["My Schedule", "Open Market", "Visit Check-in/out", "Payout Requests", "Compliance Ledger"],
           CLIENT: ["Care Hub", "New Request", "Assigned Team", "Digital Invoices", "Feedback Gateway"]
         }
@@ -38789,7 +38789,7 @@ var init_nav = __esm({
           PL: "Branch Profit & Loss",
           OPS_TRIAGE: "Operations Triage",
           COMPLIANCE: "Compliance Monitor",
-          DASHBOARD: "Branch Dashboard",
+          DASHBOARD: "Branch Home",
           AGENCY_HUB: "Agency Operations Hub",
           FINANCIALS: "Branch Financials",
           TEAM: "Branch Team"
@@ -38909,14 +38909,14 @@ var init_ContentRegistry = __esm({
     init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
     init_performance2();
     init_base();
-    init_dashboards();
+    init_homes();
     init_operations();
     init_wizards();
     init_system();
     init_nav();
     ContentRegistry = {
       ...baseContent,
-      ...dashboardsContent,
+      ...homesContent,
       ...operationsContent,
       ...wizardsContent,
       ...systemContent,
@@ -39110,7 +39110,7 @@ var init_RouteRegistry = __esm({
     PLATFORM2 = {
       ADMIN: {
         DASHBOARD: "/platform/admin",
-        SUMMARY_DASHBOARD: "/platform/admin/summary-dashboard",
+        SUMMARY_DASHBOARD: "/platform/admin/summary-home",
         CUSTOMERS: "/platform/admin/customers",
         USERS: "/platform/admin/users",
         USERS_NEW: "/platform/admin/users/new",
@@ -39200,7 +39200,7 @@ var init_RouteRegistry = __esm({
           MAR: "/platform/admin/pharmacy/mar"
         },
         FINANCE: {
-          DASHBOARD: "/platform/admin/finance/dashboard",
+          DASHBOARD: "/platform/admin/finance/home",
           TRADING_ACCOUNT: "/platform/admin/finance/trading",
           PROFIT_LOSS: "/platform/admin/finance/p-and-l",
           BALANCE_SHEET: "/platform/admin/finance/balance-sheet"
@@ -39462,7 +39462,7 @@ var init_InteractionRegistry = __esm({
       FINANCE_DIRECTOR: {
         DASHBOARD: {
           REFRESH: {
-            id: "fd-dashboard-refresh",
+            id: "fd-home-refresh",
             label: "Refresh Ledger",
             type: "button",
             module: "FINANCE_DIRECTOR",
@@ -39897,10 +39897,10 @@ var init_LinkRegistry = __esm({
       { id: "lnk-admin-settings", label: LINKS.ADMIN.SETTINGS, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.SETTINGS, description: "Platform configuration and business rules." },
       { id: "lnk-admin-content", label: LINKS.ADMIN.CONTENT, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.CONTENT, description: "UI string and localized content management." },
       { id: "lnk-admin-admission", label: LINKS.ADMIN.ADMISSION, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.ADMISSION, description: "Clinical intake and patient admission workflows." },
-      { id: "lnk-admin-reports", label: LINKS.ADMIN.REPORTS, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.REPORTS, description: "Consolidated platform-wide reporting dashboard." },
+      { id: "lnk-admin-reports", label: LINKS.ADMIN.REPORTS, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.REPORTS, description: "Consolidated platform-wide reporting home." },
       { id: "lnk-admin-setup-wizard", label: LINKS.ADMIN.SETUP_WIZARD, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.SETUP_WIZARD, description: "Step-by-step business initialization and onboarding." },
       { id: "lnk-admin-search", label: LINKS.ADMIN.SEARCH, role: "admin", module: "ADMIN", path: RouteRegistry.ADMIN.SEARCH, description: "System-wide search for patients, staff, and records." },
-      { id: "lnk-sm-api-hub", label: LINKS.SCRUM_MASTER.API_HUB, role: "scrum_master", module: "SCRUM_MASTER", path: RouteRegistry.SCRUM_MASTER.API_ENDPOINTS, description: "Technical dashboard for endpoint health and connectivity." },
+      { id: "lnk-sm-api-hub", label: LINKS.SCRUM_MASTER.API_HUB, role: "scrum_master", module: "SCRUM_MASTER", path: RouteRegistry.SCRUM_MASTER.API_ENDPOINTS, description: "Technical home for endpoint health and connectivity." },
       { id: "lnk-sm-monitoring", label: LINKS.SCRUM_MASTER.MONITORING, role: "scrum_master", module: "MONITORING", path: RouteRegistry.SCRUM_MASTER.MONITORING, description: "Live platform resource and health surveillance." },
       { id: "lnk-sm-env-audit", label: LINKS.SCRUM_MASTER.ENV_AUDIT, role: "scrum_master", module: "GOVERNANCE", path: RouteRegistry.SCRUM_MASTER.ENV_AUDIT, description: "Validation of infrastructure and environment variables." },
       { id: "lnk-sm-registry-check", label: LINKS.SCRUM_MASTER.REGISTRY, role: "scrum_master", module: "GOVERNANCE", path: RouteRegistry.SCRUM_MASTER.REGISTRY_CHECK, description: "Programmatic validation of master registry synchronization." },
@@ -39970,14 +39970,14 @@ var init_LinkRegistry = __esm({
       // Batch 26: Regional Director Mastery
       { id: "lnk-rd-regional", label: LINKS.REGIONAL.INTELLIGENCE, role: "regional_manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.REGIONAL_STATS, description: "High-level regional operational KPIs and radar." },
       { id: "lnk-rd-finance", label: LINKS.REGIONAL.FINANCE, role: "regional_manager", module: "FINANCE", path: RouteRegistry.MANAGER.FINANCE, description: "Consolidated regional financial governance and P&L." },
-      { id: "lnk-mgr-dashboard", label: LINKS.MANAGER.DASHBOARD, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.DASHBOARD, description: "Daily operational overview for branch managers." },
+      { id: "lnk-mgr-home", label: LINKS.MANAGER.DASHBOARD, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.DASHBOARD, description: "Daily operational overview for branch managers." },
       { id: "lnk-mgr-ops-hub", label: LINKS.MANAGER.AGENCY_HUB, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.OPERATIONS, description: "Centralized hub for branch-wide coordination and triage." },
       { id: "lnk-mgr-finance", label: LINKS.MANAGER.FINANCIALS, role: "manager", module: "FINANCE", path: RouteRegistry.MANAGER.FINANCE, description: "Branch-level billing, invoices, and financial performance." },
       { id: "lnk-mgr-team", label: LINKS.MANAGER.TEAM, role: "manager", module: "OPERATIONS", path: RouteRegistry.MANAGER.TEAM, description: "Management of branch staff profiles and performance." },
       { id: "lnk-coord-master-schedule", label: LINKS.COORDINATOR.MASTER_SCHEDULE, role: "coordinator", module: "OPERATIONS", path: RouteRegistry.COORDINATOR.SCHEDULE, description: "Unified master schedule for branch-wide shift oversight." },
       { id: "lnk-psw-availability-my", label: LINKS.PSW.MY_AVAILABILITY, role: "psw", module: "CARE_DELIVERY", path: RouteRegistry.PSW.AVAILABILITY, description: "Manage your weekly availability and service areas." },
       // Finance Director
-      { id: "lnk-fd-dashboard", label: ACCOUNTING_DASHBOARD.TITLE, role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: "High-level financial intelligence and real-time ledger oversight." },
+      { id: "lnk-fd-home", label: ACCOUNTING_DASHBOARD.TITLE, role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.FINANCE.DASHBOARD, description: "High-level financial intelligence and real-time ledger oversight." },
       { id: "lnk-fd-ledger", label: "Financial Ledger", role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER, description: "Forensic audit trail and immutable ledger verification." },
       { id: "lnk-fd-tax-hub", label: "Tax Compliance Hub", role: "finance_director", module: "FINANCE", path: RouteRegistry.ADMIN.SECURITY.TAX_HUB, description: "Periodic HST/GST filing and automated remittance processing." }
     ];
@@ -40047,8 +40047,8 @@ var init_SummaryRegistry = __esm({
     init_performance2();
     SummaryRegistry = [
       {
-        id: "admin-dashboard-kpis",
-        name: "Admin Dashboard Intelligence",
+        id: "admin-home-kpis",
+        name: "Admin Home Intelligence",
         lastUpdated: (/* @__PURE__ */ new Date()).toISOString(),
         kpis: [
           { id: "total-users", label: "Total Users", icon: "\u{1F465}", targetRoute: "/platform/admin/users" },
@@ -40108,11 +40108,11 @@ var init_SummaryRegistry = __esm({
         ]
       },
       {
-        id: "coordinator-dashboard-stats",
+        id: "coordinator-home-stats",
         name: "Logistics Command Intelligence",
         lastUpdated: (/* @__PURE__ */ new Date()).toISOString(),
         kpis: [
-          { id: "live-psw", label: "PSWs on Duty", icon: "\u{1F4CD}", apiPath: "/v1/coordinator/dashboard/stats" },
+          { id: "live-psw", label: "PSWs on Duty", icon: "\u{1F4CD}", apiPath: "/v1/coordinator/home/stats" },
           { id: "sos-active", label: "Active SOS", icon: "\u{1F6A8}", color: "red" },
           { id: "pending-offers", label: "Open Shift Offers", icon: "\u{1F4E2}" }
         ],
@@ -40294,7 +40294,7 @@ var init_content = __esm({
         LOGIN_TITLE: "Admin Login",
         LOGIN_TITLE_PSW: "Caregiver Login",
         LOGIN_TITLE_CLIENT: "Family Portal Login",
-        BUTTON: "Login to Dashboard",
+        BUTTON: "Login to Home",
         BUTTON_PSW: "Sign In as Caregiver",
         BUTTON_CLIENT: "Sign In to Family Hub"
       },
@@ -40308,7 +40308,7 @@ var init_content = __esm({
       },
       MENU: {
         ...ContentRegistry.MENU,
-        DASHBOARD: "Dashboard",
+        DASHBOARD: "Home",
         USERS: "Users",
         SCHEDULE: "Schedule",
         INCIDENTS: "Incidents",
@@ -40674,7 +40674,7 @@ function flattenObject(obj, prefix = "") {
 }
 function detectSection(key) {
   const top = key.split(".")[0].toLowerCase();
-  if (top.includes("dashboard")) return "dashboards";
+  if (top.includes("home")) return "homes";
   if (top.includes("nav") || top.includes("sidebar")) return "nav";
   if (top.includes("admin")) return "admin";
   if (top.includes("wizard") || top.includes("setup")) return "wizards";
@@ -49106,9 +49106,9 @@ var USER_METADATA = {
 };
 var MANAGER_METADATA = {
   STATS: {
-    summary: "Get Manager Dashboard Statistics",
-    description: "Retrieve comprehensive dashboard statistics for managers and admins.",
-    tags: ["Manager Dashboard"]
+    summary: "Get Manager Home Statistics",
+    description: "Retrieve comprehensive home statistics for managers and admins.",
+    tags: ["Manager Home"]
   },
   PAYROLL_AUDIT: {
     summary: "Run Payroll Audit",
@@ -49191,9 +49191,9 @@ var PSW_METADATA = {
       tags: ["PSW Incidents"]
     },
     DASHBOARD_STATS: {
-      summary: "Get PSW Dashboard Statistics",
+      summary: "Get PSW Home Statistics",
       description: "Retrieve earnings, reliability, and shift distribution stats for the authenticated PSW.",
-      tags: ["PSW Dashboard"]
+      tags: ["PSW Home"]
     },
     DAILY_ENTRY_CREATE: {
       summary: "Create/Submit Daily Entry",
@@ -49296,9 +49296,9 @@ var STAFF_METADATA = {
     tags: ["Staff Scheduling"]
   },
   DASHBOARD_STATS: {
-    summary: "Get Staff Dashboard Statistics",
-    description: "Retrieve various operational statistics for the staff coordinator dashboard.",
-    tags: ["Staff Dashboard"]
+    summary: "Get Staff Home Statistics",
+    description: "Retrieve various operational statistics for the staff coordinator home.",
+    tags: ["Staff Home"]
   },
   TASKS: {
     summary: "List Staff Tasks",
@@ -49328,9 +49328,9 @@ var RN_METADATA = {
     tags: ["RN Supervision"]
   },
   DASHBOARD_STATS: {
-    summary: "Get RN Dashboard Statistics",
-    description: "Retrieve various clinical and operational statistics for the RN dashboard.",
-    tags: ["RN Dashboard"]
+    summary: "Get RN Home Statistics",
+    description: "Retrieve various clinical and operational statistics for the RN home.",
+    tags: ["RN Home"]
   },
   DAILY_REVIEW: {
     summary: "Review Daily Entry",
@@ -49397,17 +49397,17 @@ var CLIENT_METADATA = {
   GET_PROFILE: {
     summary: "Get Client Profile",
     description: "Retrieve the profile details for the authenticated client.",
-    tags: ["Client Dashboard"]
+    tags: ["Client Home"]
   },
   UPDATE_PROFILE: {
     summary: "Update Client Profile",
     description: "Update the profile details for the authenticated client.",
-    tags: ["Client Dashboard"]
+    tags: ["Client Home"]
   },
   STATS: {
-    summary: "Get Client Dashboard Statistics",
+    summary: "Get Client Home Statistics",
     description: "Retrieve budget, wellness, and care continuity stats for the authenticated client.",
-    tags: ["Client Dashboard"]
+    tags: ["Client Home"]
   },
   LIST_BOOKINGS: {
     summary: "List Client Bookings",
@@ -49472,9 +49472,9 @@ var COORDINATOR_METADATA = {
     tags: ["Coordinator Logistics"]
   },
   DASHBOARD_STATS: {
-    summary: "Get Coordinator Dashboard Statistics",
+    summary: "Get Coordinator Home Statistics",
     description: "Retrieve operational statistics for the coordinator dispatcher hub.",
-    tags: ["Coordinator Dashboard"]
+    tags: ["Coordinator Home"]
   },
   SOS_DISPATCH: {
     summary: "Dispatch Emergency Replacement",
@@ -50439,7 +50439,7 @@ r6.openapi(osmCallbackRoute, async (c) => {
       path: "/"
     });
     const frontendUrl = c.env.SITE_URL || "https://primecare-admin.pages.dev";
-    return c.redirect(`${frontendUrl}/dashboard?token=${accessToken}`);
+    return c.redirect(`${frontendUrl}/home?token=${accessToken}`);
   } catch (e) {
     return c.json({ error: e.message }, 500);
   }
@@ -56933,7 +56933,7 @@ admin.route("/reseller", r25);
 var statsRoute = createRoute({
   method: "get",
   path: "/stats",
-  summary: "Get Admin Dashboard Statistics",
+  summary: "Get Admin Home Statistics",
   description: "Returns total counts for users, pending visits, total visits, and leads.",
   tags: ["Admin"],
   responses: {
@@ -57036,17 +57036,17 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 
-// src/tenancy/manager/dashboard/dashboard.routes.ts
+// src/tenancy/manager/home/home.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 
-// src/tenancy/manager/dashboard/routes/stats.ts
+// src/tenancy/manager/home/routes/stats.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 
-// src/tenancy/manager/dashboard/routes/stats/fulfillment.ts
+// src/tenancy/manager/home/routes/stats/fulfillment.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57108,7 +57108,7 @@ var getRevenueStats = /* @__PURE__ */ __name(async (prisma) => {
   })).reverse();
 }, "getRevenueStats");
 
-// src/tenancy/manager/dashboard/routes/stats/indicators.ts
+// src/tenancy/manager/home/routes/stats/indicators.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57155,7 +57155,7 @@ var getVolumeAndServiceStats = /* @__PURE__ */ __name(async (prisma) => {
   return { visitVolume, servicePopularity };
 }, "getVolumeAndServiceStats");
 
-// src/tenancy/manager/dashboard/routes/stats/staff.ts
+// src/tenancy/manager/home/routes/stats/staff.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57201,7 +57201,7 @@ var getStaffStats = /* @__PURE__ */ __name(async (prisma) => {
   return { staffUtilization, staffAttendance, travelTime };
 }, "getStaffStats");
 
-// src/tenancy/manager/dashboard/routes/stats.ts
+// src/tenancy/manager/home/routes/stats.ts
 var r27 = new OpenAPIHono();
 var getManagerStatsRoute = createRoute({
   ...ROUTE_METADATA.MANAGER.STATS,
@@ -57228,7 +57228,7 @@ var getManagerStatsRoute = createRoute({
           })
         }
       },
-      description: "Manager dashboard statistics"
+      description: "Manager home statistics"
     }
   }
 });
@@ -57275,7 +57275,7 @@ r27.openapi(getManagerStatsRoute, async (c) => {
 });
 var stats_default = r27;
 
-// src/tenancy/manager/dashboard/routes/today.ts
+// src/tenancy/manager/home/routes/today.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57330,7 +57330,7 @@ r28.openapi(getTodayRoute, async (c) => {
 });
 var today_default = r28;
 
-// src/tenancy/manager/dashboard/routes/kpi.ts
+// src/tenancy/manager/home/routes/kpi.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57389,7 +57389,7 @@ r29.openapi(getKpiRoute, async (c) => {
 });
 var kpi_default = r29;
 
-// src/tenancy/manager/dashboard/dashboard.routes.ts
+// src/tenancy/manager/home/home.routes.ts
 var r30 = new OpenAPIHono();
 r30.route("/", stats_default);
 r30.route("/", today_default);
@@ -57599,7 +57599,7 @@ manager.use("*", async (c, next) => {
   await middleware2(c, next);
 });
 manager.use("*", requireRole(["manager", "admin"]));
-manager.route("/dashboard", dashboard_routes_default);
+manager.route("/home", dashboard_routes_default);
 manager.route("/finance", finance_routes_default);
 manager.route("/ops", manager_ops_routes_default);
 var manager_module_default = manager;
@@ -57778,7 +57778,7 @@ r34.openapi(replyTicketRoute, async (c) => {
 });
 var support_routes_default = r34;
 
-// src/tenancy/staff/dashboard/dashboard.routes.ts
+// src/tenancy/staff/home/home.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -57797,7 +57797,7 @@ var getStaffStatsRoute = createRoute({
           })
         }
       },
-      description: "Staff dashboard statistics"
+      description: "Staff home statistics"
     }
   }
 });
@@ -58182,7 +58182,7 @@ staff.use("*", async (c, next) => {
   await middleware2(c, next);
 });
 staff.use("*", requireRole(["staff", "coordinator", "admin"]));
-staff.route("/dashboard", dashboard_routes_default2);
+staff.route("/home", dashboard_routes_default2);
 staff.route("/", scheduling_routes_default);
 staff.route("/", support_routes_default);
 staff.route("/", customers_routes_default);
@@ -58656,7 +58656,7 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 
-// src/tenancy/psw/dashboard/dashboard.routes.ts
+// src/tenancy/psw/home/home.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -58677,7 +58677,7 @@ var getDashboardStatsRoute = createRoute({
           })
         }
       },
-      description: "Dashboard statistics"
+      description: "Home statistics"
     },
     404: {
       description: "Profile not found"
@@ -59660,7 +59660,7 @@ psw.use("*", async (c, next) => {
   const middleware2 = requireAuth(c.env.JWT_SECRET);
   await middleware2(c, next);
 });
-psw.route("/dashboard", dashboard_routes_default3);
+psw.route("/home", dashboard_routes_default3);
 psw.route("/schedule", schedule_routes_default);
 psw.route("/daily-entry", dailyEntry_routes_default);
 psw.route("/incidents", incidents_routes_default3);
@@ -59675,7 +59675,7 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 
-// src/tenancy/client/dashboard/dashboard.routes.ts
+// src/tenancy/client/home/home.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
@@ -59713,7 +59713,7 @@ async function geocodeAddress(address) {
 }
 __name(geocodeAddress, "geocodeAddress");
 
-// src/tenancy/client/dashboard/dashboard.routes.ts
+// src/tenancy/client/home/home.routes.ts
 var r56 = new OpenAPIHono();
 var ProfileUpdateSchema = z.object({
   fullName: z.string().min(2).optional(),
@@ -59841,7 +59841,7 @@ var getClientStatsRoute = createRoute({
           })
         }
       },
-      description: "Client dashboard statistics"
+      description: "Client home statistics"
     },
     404: {
       description: "Profile not found"
@@ -60467,7 +60467,7 @@ client.use("*", async (c, next) => {
   const middleware2 = requireAuth(c.env.JWT_SECRET);
   await middleware2(c, next);
 });
-client.route("/dashboard", dashboard_routes_default4);
+client.route("/home", dashboard_routes_default4);
 client.route("/bookings", bookings_routes_default);
 client.route("/care-plan", carePlan_routes_default);
 client.route("/", services_routes_default2);
@@ -60603,11 +60603,11 @@ var sosAckRoute = createRoute({
 var dashboardStatsRoute = createRoute({
   ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
   method: "get",
-  path: "/dashboard/stats",
+  path: "/home/stats",
   middleware: [requirePermission("COORDINATOR_DISPATCH")],
   responses: {
     200: {
-      description: "Coordinator dashboard stats retrieved",
+      description: "Coordinator home stats retrieved",
       content: {
         "application/json": {
           schema: CoordinatorStatsSchema

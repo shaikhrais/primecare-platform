@@ -162,7 +162,7 @@
   "src/app/routes/platform/dam.tsx(332,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
   "src/app/routes/platform/dam.tsx(344,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
   "src/app/routes/platform/dam.tsx(356,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
-  "src/app/routes/platform/dashboard.tsx(7,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
+  "src/app/routes/platform/home.tsx(7,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
   "src/app/routes/platform/governance-hub.tsx(7,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",
   "src/app/routes/platform/marketing.tsx(3,37): error TS2307: Cannot find module '..sharedPageSectionRegistry' or its corresponding type declarations.",
   "src/app/routes/platform/marketing.tsx(9,10): error TS2741: Property 'title' is missing in type '{ pageId: string; sectionData: any; }' but required in type 'PageTemplateProps'.",

@@ -13,7 +13,7 @@ describe('Route Integrity (168 pages)', () => {
     });
 
     it('should have no duplicate file paths', () => {
-        const files = ["apps/web-admin/src/app/routes/auth/pages/login/F1-Login.tsx","apps/web-admin/src/app/routes/auth/pages/register/F2-Register.tsx","apps/web-admin/src/app/routes/auth/pages/forgot-password/F3-ForgotPassword.tsx","apps/web-admin/src/app/routes/auth/pages/reset-password/F4-ResetPassword.tsx","apps/web-admin/src/app/routes/auth/pages/onboard-business/F5-BusinessOnboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx","apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx","apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx","apps/web-admin/src/app/routes/platform/admin/pages/invoices/F9-InvoiceEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/users/F9a-UserEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/locations/F12-Locations.tsx","apps/web-admin/src/app/routes/platform/admin/pages/schedule/L1-Schedule.tsx","apps/web-admin/src/app/routes/platform/admin/pages/incidents/L2-IncidentList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/L3-LeadList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/users/L3a-UserList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/timesheets/L4-Timesheets.tsx","apps/web-admin/src/app/routes/platform/admin/pages/services/L5-Services.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audits/L6-AuditLogs.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/L7-AuthList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/L8-ConsentList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/referrals/L9-ReferralList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/claims/L10-ClaimsList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/webhooks/L11-WebhookList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue.tsx","apps/web-admin/src/app/routes/platform/admin/pages/customers/L15-CustomerList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/L22-EvvExceptions.tsx","apps/web-admin/src/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/erp/H4-SupplyChainHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/notifications/H5-NotificationsHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/documents/H6-DocumentCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/payroll/H7-PayrollHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/H19-WizardHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W3-CarePlanWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W4-RevenueWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reports/R1-ReportCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reports/R2-ExportPage.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/R6-AuthUtilization.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/R7-ConsentExpiring.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/R8-EvvExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R9-AuditDownload.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R10-ComplianceExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/referrals/R11-ReferralAnalytics.tsx","apps/web-admin/src/app/routes/platform/admin/pages/claims/R12-ClaimsEra.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R13-RegulatoryExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/search/T1-SearchPage.tsx","apps/web-admin/src/app/routes/platform/admin/pages/content/T2-ContentManager.tsx","apps/web-admin/src/app/routes/platform/admin/pages/template-editor/T3-TemplateEditor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/role-editor/T4-RoleEditor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/interoperability/T5-FHIRCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/sovereign/T6-SovereignWallet.tsx","apps/web-admin/src/app/routes/platform/admin/pages/automation/T7-AutoPilot.tsx","apps/web-admin/src/app/routes/platform/admin/pages/clinical-assistant/T8-ClinicalAssistant.tsx","apps/web-admin/src/app/routes/platform/admin/pages/insights/T9-AiInsights.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T10-SecurityGovernance.tsx","apps/web-admin/src/app/routes/platform/admin/pages/settings/T11-Settings.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/T12-BusinessStatus.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T13-DeviceManagement.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T14-ForensicTrails.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T15-CorsSettings.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T16-IntegrityVerification.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T17-FinancialLedger.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T18-TaxComplianceHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/T48-KBArticle.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/T49-AuthAlerts.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/T50-ConsentTemplates.tsx","apps/web-admin/src/app/routes/platform/admin/pages/webhooks/T51-WebhookDeliveries.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T52-PredictiveAnalytics.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T53-ChurnRisk.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T54-VisitOptimization.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T55-SentimentAnalysis.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T56-PermissionGrid.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T57-SessionMonitor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T58-ThreatDetection.tsx","apps/web-admin/src/app/routes/platform/admin/pages/finance/reconciliation/T59-Reconciliation.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/D10-RegionalStats.tsx","apps/web-admin/src/app/routes/tenancy/marketing/D11-MarketingDashboard.tsx","apps/web-admin/src/app/routes/tenancy/finance/D12-FinanceRegionalHub.tsx","apps/web-admin/src/app/routes/tenancy/qa/D13-ClinicalQaDashboard.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/training/H11-TrainingHub.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/operations/H12-OperationsHub.tsx","apps/web-admin/src/app/routes/tenancy/hr/H13-HrRecruitmentPortal.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/evaluations/L13-Evaluations.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/portfolio/T19-Portfolio.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/daily-entry/T20-DailyEntry.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/service-review/T21-ServiceReview.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/surveys/T22-SurveyManager.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/performance/T23-StaffRanker.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/dashboard/D14-PswDashboard.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/availability/F15-Availability.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/credentials/H14-CredentialVault.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/training/H15-PswTrainingHub.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/L16-PswSchedule.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/L17-OpenShifts.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/earnings/R3-PswEarnings.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/payouts/R4-PayoutHistory.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/shift-confirmation/T26-ShiftConfirmation.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/feed/T27-ProviderSocial.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/mileage/T28-MileageTracker.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/T60-OpenOffers.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T61-LiveVisit.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T62-CheckInScreen.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/audit/T30-EntryVerify.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/mar/T31-MarClient.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/billing/H10-BillingHub.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/engagement/H17-FamilyCareHub.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/bookings/L14-ClientBookings.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/medical/R5-MedicalSummary.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/family/P1-FamilyPortal.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/services/T34-CatalogBrowser.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/support/T35-ClientMessaging.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/team/T36-TeamRoster.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/support/T37-FeedbackLoop.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/hub/H18-CoordinatorHub.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/waitlist/L20-WaitlistManager.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/map/T38-DispatchMap.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/sos/T39-SosCenter.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/fleet/T40-FleetManagement.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/shift-swap/T41-ShiftSwap.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/D18-AlliedHealthDashboard.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/messages/T44-MessageCenter.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T46-ComplianceMonitor.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/H20-LogisticsHub.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T64-RegionMapping.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity.tsx","apps/web-admin/src/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit.tsx","apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx","apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx"];
+        const files = ["apps/web-admin/src/app/routes/auth/pages/login/F1-Login.tsx","apps/web-admin/src/app/routes/auth/pages/register/F2-Register.tsx","apps/web-admin/src/app/routes/auth/pages/forgot-password/F3-ForgotPassword.tsx","apps/web-admin/src/app/routes/auth/pages/reset-password/F4-ResetPassword.tsx","apps/web-admin/src/app/routes/auth/pages/onboard-business/F5-BusinessOnboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/home/D1-AdminDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/home/D2-RegistrySummary.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx","apps/web-admin/src/app/routes/platform/admin/pages/onboarding/F7-StaffOnboarding.tsx","apps/web-admin/src/app/routes/platform/admin/pages/timesheet-adjustment/F8-TimesheetAdjustment.tsx","apps/web-admin/src/app/routes/platform/admin/pages/invoices/F9-InvoiceEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/users/F9a-UserEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/incidents/F10-IncidentEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/F11-LeadEntry.tsx","apps/web-admin/src/app/routes/platform/admin/pages/locations/F12-Locations.tsx","apps/web-admin/src/app/routes/platform/admin/pages/schedule/L1-Schedule.tsx","apps/web-admin/src/app/routes/platform/admin/pages/incidents/L2-IncidentList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/L3-LeadList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/users/L3a-UserList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/timesheets/L4-Timesheets.tsx","apps/web-admin/src/app/routes/platform/admin/pages/services/L5-Services.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audits/L6-AuditLogs.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/L7-AuthList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/L8-ConsentList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/referrals/L9-ReferralList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/claims/L10-ClaimsList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/webhooks/L11-WebhookList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/booking-requests/L12-BookingRequestQueue.tsx","apps/web-admin/src/app/routes/platform/admin/pages/customers/L15-CustomerList.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/L22-EvvExceptions.tsx","apps/web-admin/src/app/routes/platform/admin/pages/telehealth/H1-TelehealthCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/pharmacy/H2-PharmacyHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/rcm/H3-RevenueCycleHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/erp/H4-SupplyChainHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/notifications/H5-NotificationsHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/documents/H6-DocumentCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/payroll/H7-PayrollHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/H8-KnowledgeBase.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reference-data/H9-ReferenceDataHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/H19-WizardHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W1-BusinessSetupWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W2-StaffOnboardingWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W3-CarePlanWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W4-RevenueWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/W5-BusinessModelWizard.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reports/R1-ReportCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/reports/R2-ExportPage.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/R6-AuthUtilization.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/R7-ConsentExpiring.tsx","apps/web-admin/src/app/routes/platform/admin/pages/evv/R8-EvvExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R9-AuditDownload.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R10-ComplianceExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/referrals/R11-ReferralAnalytics.tsx","apps/web-admin/src/app/routes/platform/admin/pages/claims/R12-ClaimsEra.tsx","apps/web-admin/src/app/routes/platform/admin/pages/audit-export/R13-RegulatoryExport.tsx","apps/web-admin/src/app/routes/platform/admin/pages/search/T1-SearchPage.tsx","apps/web-admin/src/app/routes/platform/admin/pages/content/T2-ContentManager.tsx","apps/web-admin/src/app/routes/platform/admin/pages/template-editor/T3-TemplateEditor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/role-editor/T4-RoleEditor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/interoperability/T5-FHIRCenter.tsx","apps/web-admin/src/app/routes/platform/admin/pages/sovereign/T6-SovereignWallet.tsx","apps/web-admin/src/app/routes/platform/admin/pages/automation/T7-AutoPilot.tsx","apps/web-admin/src/app/routes/platform/admin/pages/clinical-assistant/T8-ClinicalAssistant.tsx","apps/web-admin/src/app/routes/platform/admin/pages/insights/T9-AiInsights.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T10-SecurityGovernance.tsx","apps/web-admin/src/app/routes/platform/admin/pages/settings/T11-Settings.tsx","apps/web-admin/src/app/routes/platform/admin/pages/setup/T12-BusinessStatus.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T13-DeviceManagement.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T14-ForensicTrails.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T15-CorsSettings.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T16-IntegrityVerification.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T17-FinancialLedger.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T18-TaxComplianceHub.tsx","apps/web-admin/src/app/routes/platform/admin/pages/knowledge-base/T48-KBArticle.tsx","apps/web-admin/src/app/routes/platform/admin/pages/authorizations/T49-AuthAlerts.tsx","apps/web-admin/src/app/routes/platform/admin/pages/consent/T50-ConsentTemplates.tsx","apps/web-admin/src/app/routes/platform/admin/pages/webhooks/T51-WebhookDeliveries.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T52-PredictiveAnalytics.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T53-ChurnRisk.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T54-VisitOptimization.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ai/T55-SentimentAnalysis.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T56-PermissionGrid.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T57-SessionMonitor.tsx","apps/web-admin/src/app/routes/platform/admin/pages/security/T58-ThreatDetection.tsx","apps/web-admin/src/app/routes/platform/admin/pages/finance/reconciliation/T59-Reconciliation.tsx","apps/web-admin/src/app/routes/platform/admin/pages/leads/T66-LeadConversion.tsx","apps/web-admin/src/app/routes/platform/admin/pages/ops/T67-SupplyDemand.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/home/D7-ManagerDashboard.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/D10-RegionalStats.tsx","apps/web-admin/src/app/routes/tenancy/marketing/D11-MarketingDashboard.tsx","apps/web-admin/src/app/routes/tenancy/finance/D12-FinanceRegionalHub.tsx","apps/web-admin/src/app/routes/tenancy/qa/D13-ClinicalQaDashboard.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/training/H11-TrainingHub.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/operations/H12-OperationsHub.tsx","apps/web-admin/src/app/routes/tenancy/hr/H13-HrRecruitmentPortal.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/evaluations/L13-Evaluations.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/portfolio/T19-Portfolio.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/daily-entry/T20-DailyEntry.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/service-review/T21-ServiceReview.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/surveys/T22-SurveyManager.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/performance/T23-StaffRanker.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/finance/T24-PayrollVerification.tsx","apps/web-admin/src/app/routes/tenancy/manager/pages/compliance/T25-ComplianceSync.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/home/D14-PswDashboard.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/expenses/F14-ExpenseClaim.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/availability/F15-Availability.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/credentials/H14-CredentialVault.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/training/H15-PswTrainingHub.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/L16-PswSchedule.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/L17-OpenShifts.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/earnings/R3-PswEarnings.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/payouts/R4-PayoutHistory.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/shift-confirmation/T26-ShiftConfirmation.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/feed/T27-ProviderSocial.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/mileage/T28-MileageTracker.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/OpenShifts/T60-OpenOffers.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T61-LiveVisit.tsx","apps/web-admin/src/app/routes/tenancy/psw/pages/schedule/T62-CheckInScreen.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/home/D15-RnDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/supervision/H16-SupervisionHub.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/assessments/L18-AssessmentsHub.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/rai/L19-RaiAssessments.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/care-plans/T29-CarePlanManager.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/audit/T30-EntryVerify.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/mar/T31-MarClient.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/T32-WoundCareClient.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/rai/T33-RaiAssessmentDetail.tsx","apps/web-admin/src/app/routes/tenancy/rn/pages/schedule/T63-RnCheckInScreen.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/home/D8-ClientDashboard.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/request-booking/F17-RequestBooking.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/billing/H10-BillingHub.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/engagement/H17-FamilyCareHub.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/bookings/L14-ClientBookings.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/medical/R5-MedicalSummary.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/family/P1-FamilyPortal.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/services/T34-CatalogBrowser.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/support/T35-ClientMessaging.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/team/T36-TeamRoster.tsx","apps/web-admin/src/app/routes/tenancy/client/pages/support/T37-FeedbackLoop.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/hub/H18-CoordinatorHub.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/waitlist/L20-WaitlistManager.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/map/T38-DispatchMap.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/sos/T39-SosCenter.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/fleet/T40-FleetManagement.tsx","apps/web-admin/src/app/routes/tenancy/coordinator/pages/shift-swap/T41-ShiftSwap.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/D18-AlliedHealthDashboard.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/pages/treatments/L21-TreatmentList.tsx","apps/web-admin/src/app/routes/tenancy/allied-health/pages/sign-off/T42-SignOff.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/home/D19-StaffDashboard.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/messages/T44-MessageCenter.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T45-IncidentPortal.tsx","apps/web-admin/src/app/routes/tenancy/staff/pages/operations/T46-ComplianceMonitor.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/H20-LogisticsHub.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T64-RegionMapping.tsx","apps/web-admin/src/app/routes/tenancy/admin/pages/ops/T65-RealtimeCapacity.tsx","apps/web-admin/src/app/routes/tenancy/scrum-master/pages/T47-ResponseBotAudit.tsx","apps/web-admin/src/app/routes/platform/admin/pages/form-registry/index.tsx","apps/web-admin/src/app/routes/platform/admin/pages/page-registry/index.tsx"];
         const dupes = files.filter((f, i) => files.indexOf(f) !== i);
         expect(dupes).toEqual([]);
     });
@@ -68,19 +68,19 @@ describe('Route Integrity (168 pages)', () => {
         expect('Business Onboard'.length).toBeLessThan(50);
     });
 
-    it('D1: file "apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx" exists on disk', () => {
+    it('D1: file "apps/web-admin/src/app/routes/platform/admin/pages/home/D1-AdminDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D1-AdminDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/home/D1-AdminDashboard.tsx').toBe(true);
     });
 
-    it('D1: has a valid label "Admin Dashboard"', () => {
-        expect('Admin Dashboard'.length).toBeGreaterThan(0);
-        expect('Admin Dashboard'.length).toBeLessThan(50);
+    it('D1: has a valid label "Admin Home"', () => {
+        expect('Admin Home'.length).toBeGreaterThan(0);
+        expect('Admin Home'.length).toBeLessThan(50);
     });
 
-    it('D2: file "apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx" exists on disk', () => {
+    it('D2: file "apps/web-admin/src/app/routes/platform/admin/pages/home/D2-RegistrySummary.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/dashboard/D2-RegistrySummary.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/home/D2-RegistrySummary.tsx').toBe(true);
     });
 
     it('D2: has a valid label "Registry Summary"', () => {
@@ -93,9 +93,9 @@ describe('Route Integrity (168 pages)', () => {
         expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/security/D3-AccountingDashboard.tsx').toBe(true);
     });
 
-    it('D3: has a valid label "Accounting Dashboard"', () => {
-        expect('Accounting Dashboard'.length).toBeGreaterThan(0);
-        expect('Accounting Dashboard'.length).toBeLessThan(50);
+    it('D3: has a valid label "Accounting Home"', () => {
+        expect('Accounting Home'.length).toBeGreaterThan(0);
+        expect('Accounting Home'.length).toBeLessThan(50);
     });
 
     it('D4: file "apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx" exists on disk', () => {
@@ -103,9 +103,9 @@ describe('Route Integrity (168 pages)', () => {
         expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/evv/D4-EvvDashboard.tsx').toBe(true);
     });
 
-    it('D4: has a valid label "EVV Dashboard"', () => {
-        expect('EVV Dashboard'.length).toBeGreaterThan(0);
-        expect('EVV Dashboard'.length).toBeLessThan(50);
+    it('D4: has a valid label "EVV Home"', () => {
+        expect('EVV Home'.length).toBeGreaterThan(0);
+        expect('EVV Home'.length).toBeLessThan(50);
     });
 
     it('D5: file "apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx" exists on disk', () => {
@@ -113,9 +113,9 @@ describe('Route Integrity (168 pages)', () => {
         expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/ai/D5-AiDashboard.tsx').toBe(true);
     });
 
-    it('D5: has a valid label "AI Dashboard"', () => {
-        expect('AI Dashboard'.length).toBeGreaterThan(0);
-        expect('AI Dashboard'.length).toBeLessThan(50);
+    it('D5: has a valid label "AI Home"', () => {
+        expect('AI Home'.length).toBeGreaterThan(0);
+        expect('AI Home'.length).toBeLessThan(50);
     });
 
     it('D6: file "apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx" exists on disk', () => {
@@ -123,9 +123,9 @@ describe('Route Integrity (168 pages)', () => {
         expect(true, 'File not found: apps/web-admin/src/app/routes/platform/admin/pages/cron/D6-CronDashboard.tsx').toBe(true);
     });
 
-    it('D6: has a valid label "Cron Dashboard"', () => {
-        expect('Cron Dashboard'.length).toBeGreaterThan(0);
-        expect('Cron Dashboard'.length).toBeLessThan(50);
+    it('D6: has a valid label "Cron Home"', () => {
+        expect('Cron Home'.length).toBeGreaterThan(0);
+        expect('Cron Home'.length).toBeLessThan(50);
     });
 
     it('F6: file "apps/web-admin/src/app/routes/platform/admin/pages/admission/F6-ClientAdmission.tsx" exists on disk', () => {
@@ -928,14 +928,14 @@ describe('Route Integrity (168 pages)', () => {
         expect('Supply & Demand'.length).toBeLessThan(50);
     });
 
-    it('D7: file "apps/web-admin/src/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard.tsx" exists on disk', () => {
+    it('D7: file "apps/web-admin/src/app/routes/tenancy/manager/pages/home/D7-ManagerDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/manager/pages/dashboard/D7-ManagerDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/manager/pages/home/D7-ManagerDashboard.tsx').toBe(true);
     });
 
-    it('D7: has a valid label "Manager Dashboard"', () => {
-        expect('Manager Dashboard'.length).toBeGreaterThan(0);
-        expect('Manager Dashboard'.length).toBeLessThan(50);
+    it('D7: has a valid label "Manager Home"', () => {
+        expect('Manager Home'.length).toBeGreaterThan(0);
+        expect('Manager Home'.length).toBeLessThan(50);
     });
 
     it('D9: file "apps/web-admin/src/app/routes/tenancy/manager/pages/finance/D9-BranchPL.tsx" exists on disk', () => {
@@ -1098,14 +1098,14 @@ describe('Route Integrity (168 pages)', () => {
         expect('Compliance Sync'.length).toBeLessThan(50);
     });
 
-    it('D14: file "apps/web-admin/src/app/routes/tenancy/psw/pages/dashboard/D14-PswDashboard.tsx" exists on disk', () => {
+    it('D14: file "apps/web-admin/src/app/routes/tenancy/psw/pages/home/D14-PswDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/psw/pages/dashboard/D14-PswDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/psw/pages/home/D14-PswDashboard.tsx').toBe(true);
     });
 
-    it('D14: has a valid label "PSW Dashboard"', () => {
-        expect('PSW Dashboard'.length).toBeGreaterThan(0);
-        expect('PSW Dashboard'.length).toBeLessThan(50);
+    it('D14: has a valid label "PSW Home"', () => {
+        expect('PSW Home'.length).toBeGreaterThan(0);
+        expect('PSW Home'.length).toBeLessThan(50);
     });
 
     it('F13: file "apps/web-admin/src/app/routes/tenancy/psw/pages/handover/F13-ShiftHandover.tsx" exists on disk', () => {
@@ -1258,14 +1258,14 @@ describe('Route Integrity (168 pages)', () => {
         expect('Check-In'.length).toBeLessThan(50);
     });
 
-    it('D15: file "apps/web-admin/src/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard.tsx" exists on disk', () => {
+    it('D15: file "apps/web-admin/src/app/routes/tenancy/rn/pages/home/D15-RnDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/rn/pages/dashboard/D15-RnDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/rn/pages/home/D15-RnDashboard.tsx').toBe(true);
     });
 
-    it('D15: has a valid label "RN Dashboard"', () => {
-        expect('RN Dashboard'.length).toBeGreaterThan(0);
-        expect('RN Dashboard'.length).toBeLessThan(50);
+    it('D15: has a valid label "RN Home"', () => {
+        expect('RN Home'.length).toBeGreaterThan(0);
+        expect('RN Home'.length).toBeLessThan(50);
     });
 
     it('D16: file "apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx" exists on disk', () => {
@@ -1273,9 +1273,9 @@ describe('Route Integrity (168 pages)', () => {
         expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/rn/pages/mar/D16-MarDashboard.tsx').toBe(true);
     });
 
-    it('D16: has a valid label "MAR Dashboard"', () => {
-        expect('MAR Dashboard'.length).toBeGreaterThan(0);
-        expect('MAR Dashboard'.length).toBeLessThan(50);
+    it('D16: has a valid label "MAR Home"', () => {
+        expect('MAR Home'.length).toBeGreaterThan(0);
+        expect('MAR Home'.length).toBeLessThan(50);
     });
 
     it('D17: file "apps/web-admin/src/app/routes/tenancy/rn/pages/wound-care/D17-WoundCareDashboard.tsx" exists on disk', () => {
@@ -1378,14 +1378,14 @@ describe('Route Integrity (168 pages)', () => {
         expect('RN Check-In'.length).toBeLessThan(50);
     });
 
-    it('D8: file "apps/web-admin/src/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard.tsx" exists on disk', () => {
+    it('D8: file "apps/web-admin/src/app/routes/tenancy/client/pages/home/D8-ClientDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/client/pages/dashboard/D8-ClientDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/client/pages/home/D8-ClientDashboard.tsx').toBe(true);
     });
 
-    it('D8: has a valid label "Client Dashboard"', () => {
-        expect('Client Dashboard'.length).toBeGreaterThan(0);
-        expect('Client Dashboard'.length).toBeLessThan(50);
+    it('D8: has a valid label "Client Home"', () => {
+        expect('Client Home'.length).toBeGreaterThan(0);
+        expect('Client Home'.length).toBeLessThan(50);
     });
 
     it('F16: file "apps/web-admin/src/app/routes/tenancy/client/pages/feedback/F16-SubmitFeedback.tsx" exists on disk', () => {
@@ -1588,14 +1588,14 @@ describe('Route Integrity (168 pages)', () => {
         expect('Sign Off'.length).toBeLessThan(50);
     });
 
-    it('D19: file "apps/web-admin/src/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard.tsx" exists on disk', () => {
+    it('D19: file "apps/web-admin/src/app/routes/tenancy/staff/pages/home/D19-StaffDashboard.tsx" exists on disk', () => {
         // Pre-checked at generation time
-        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/staff/pages/dashboard/D19-StaffDashboard.tsx').toBe(true);
+        expect(true, 'File not found: apps/web-admin/src/app/routes/tenancy/staff/pages/home/D19-StaffDashboard.tsx').toBe(true);
     });
 
-    it('D19: has a valid label "Staff Dashboard"', () => {
-        expect('Staff Dashboard'.length).toBeGreaterThan(0);
-        expect('Staff Dashboard'.length).toBeLessThan(50);
+    it('D19: has a valid label "Staff Home"', () => {
+        expect('Staff Home'.length).toBeGreaterThan(0);
+        expect('Staff Home'.length).toBeLessThan(50);
     });
 
     it('T43: file "apps/web-admin/src/app/routes/tenancy/staff/pages/tasks/T43-TaskGrid.tsx" exists on disk', () => {

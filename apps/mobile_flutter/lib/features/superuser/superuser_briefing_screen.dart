@@ -15,7 +15,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // A deeply calming, slate-grey and soft aesthetic intentionally 
-    // replacing the chaotic red/warning Dashboards.
+    // replacing the chaotic red/warning Homes.
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.darkMatrixCard, 
       body: PrimeCareSafeArea(

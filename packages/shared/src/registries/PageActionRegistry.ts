@@ -25,7 +25,7 @@ import { TENANCY_ACTIONS } from './PageActionRegistry/tenancy-actions';
  * 
  * Usage:
  *   import { PageActionRegistry } from 'prime-care-shared';
- *   const actions = PageActionRegistry['admin.dashboard'];
+ *   const actions = PageActionRegistry['admin.home'];
  *   // { primary: 'btn-admin-user-invite', actions: [...] }
  */
 export const PageActionRegistry: Record<string, PageActions> = {

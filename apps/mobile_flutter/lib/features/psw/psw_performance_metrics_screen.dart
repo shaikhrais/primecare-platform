@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-/// The Gamified Growth Dashboard (Phase 67)
+/// The Gamified Growth Home (Phase 67)
 /// Translates the backend Prisma `TrustScore` and `GamificationProfile`
 /// into a beautiful consumer-facing UI that motivates Field Workers.
 class PswPerformanceMetricsScreen extends StatelessWidget {

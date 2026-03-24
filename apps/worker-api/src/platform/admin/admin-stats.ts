@@ -5,7 +5,7 @@
 import { createRoute, z } from '@hono/zod-openapi';
 
 export const statsRoute = createRoute({
-    method: 'get', path: '/stats', summary: 'Get Admin Dashboard Statistics',
+    method: 'get', path: '/stats', summary: 'Get Admin Home Statistics',
     description: 'Returns total counts for users, pending visits, total visits, and leads.',
     tags: ['Admin'],
     responses: {

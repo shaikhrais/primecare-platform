@@ -125,7 +125,7 @@ export const AppRouter: React.FC = () => {
 
                     {/* REDIRECTS & FALLBACKS */}
                     <Route path="/" element={<IndexRedirect />} />
-                    <Route path="/dashboard" element={<IndexRedirect />} />
+                    <Route path="/home" element={<IndexRedirect />} />
                     <Route path="/app" element={<IndexRedirect />} />
                     <Route path="/shifts" element={<Navigate to={RouteRegistry.ADMIN.SCHEDULE} replace />} />
                     <Route path="*" element={<NotFound />} />
