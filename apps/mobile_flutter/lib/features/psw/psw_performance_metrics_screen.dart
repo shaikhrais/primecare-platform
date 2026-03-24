@@ -5,8 +5,8 @@ import 'package:primecare_ui/primecare_ui.dart';
 /// The Gamified Growth Dashboard (Phase 67)
 /// Translates the backend Prisma `TrustScore` and `GamificationProfile`
 /// into a beautiful consumer-facing UI that motivates Field Workers.
-class PswGrowthDashboardScreen extends StatelessWidget {
-  const PswGrowthDashboardScreen({super.key});
+class PswPerformanceMetricsScreen extends StatelessWidget {
+  const PswPerformanceMetricsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

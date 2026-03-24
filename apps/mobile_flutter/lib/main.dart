@@ -1,4 +1,4 @@
-import 'features/shared/universal_dashboard_screen.dart';
+import 'features/shared/universal_operations_hub_screen.dart';
 import 'features/shared/universal_inbox_screen.dart';
 import 'features/rn/rn_patients_screen.dart';
 import 'features/shared/universal_daily_tasks_screen.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/locale_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'features/auth/login_screen.dart';
-import 'features/dashboard/dashboard_screen.dart';
+import 'features/admin/admin_telemetry_matrix_screen.dart';
 import 'features/auth/forgot_password_screen.dart';
 import 'features/psw/psw_home_screen.dart';
 import 'features/psw/psw_shifts_screen.dart';
@@ -30,11 +30,11 @@ import 'features/admin/admin_network_screen.dart';
 import 'features/admin/admin_audit_screen.dart';
 import 'features/admin/admin_telemetry_screen.dart';
 
-import 'features/client/client_dashboard_screen.dart';
+import 'features/client/client_care_hub_screen.dart';
 import 'features/coordinator/coordinator_jane_matrix_screen.dart';
 import 'features/coordinator/coordinator_live_map_screen.dart';
 import 'features/coordinator/coordinator_jane_scheduler_screen.dart';
-import 'features/manager/manager_dashboard_screen.dart';
+import 'features/manager/manager_analytics_matrix_screen.dart';
 import 'features/scrum_master/scrum_master_dashboard_screen.dart';
 import 'features/scrum_master/scrum_master_users_screen.dart';
 import 'features/scrum_master/scrum_master_diagnostic_screen.dart';
@@ -74,7 +74,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       final prefs = await SharedPreferences.getInstance();
       final hasToken = prefs.containsKey('auth_token');
       final isLoggingIn = state.uri.toString() == '/login';
-      final isGenericDashboard = state.uri.toString() == '/dashboard';
+      final isGenericDashboard = state.uri.toString() == '/admin/telemetry-matrix';
       final isRoot = state.uri.toString() == '/';
 
       if (!hasToken && !isLoggingIn) return '/login';
@@ -128,10 +128,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
 
           // ======================= NATIVE GRID HUBS =======================
-          GoRoute(path: '/rn/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/mt/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/gm/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/scrum-master/dashboard', builder: (context, state) => UniversalDashboardScreen(rolePrefix: 'scrum_master')),
+          GoRoute(path: '/rn/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'rn')),
+          GoRoute(path: '/mt/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'mt')),
+          GoRoute(path: '/gm/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'gm')),
+          GoRoute(path: '/scrum-master/operations-hub', builder: (context, state) => UniversalOperationsHubScreen(rolePrefix: 'scrum_master')),
           
           // ======================= PSW =======================
           GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
@@ -161,7 +161,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/rn/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnProfileActive)))),
 
           // ======================= CLIENT ====================
-          GoRoute(path: '/client/dashboard', builder: (context, state) => ClientDashboardScreen()),
+          GoRoute(path: '/client/care-hub', builder: (context, state) => ClientAdminTelemetryMatrixScreen()),
           
           GoRoute(path: '/client/pulse', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Wellness Pulse View')))),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
@@ -171,7 +171,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/client/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Client Family Settings')))),
 
           // ======================= ADMIN =====================
-          GoRoute(path: '/dashboard', builder: (context, state) => DashboardScreen()),
+          GoRoute(path: '/admin/telemetry-matrix', builder: (context, state) => AdminTelemetryMatrixScreen()),
           GoRoute(path: '/admin/network', builder: (context, state) => AdminNetworkScreen()),
           GoRoute(path: '/admin/telemetry', builder: (context, state) => const AdminTelemetryScreen()),
           GoRoute(path: '/admin/audit', builder: (context, state) => AdminAuditScreen()),
@@ -182,7 +182,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/settings', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Global Environment Variables')))),
 
           // ======================= COORDINATOR ===============
-          GoRoute(path: '/coordinator/dashboard', builder: (context, state) => CoordinatorJaneMatrixScreen()),
+          GoRoute(path: '/coordinator/matrix', builder: (context, state) => CoordinatorJaneMatrixScreen()),
           
           GoRoute(path: '/coordinator/staff', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorStaffActive)))),
           GoRoute(path: '/coordinator/approvals', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive)))),
@@ -195,7 +195,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/coordinator/fleet-matrix', builder: (context, state) => CoordinatorJaneSchedulerScreen()),
 
           // ======================= MANAGER ===================
-          GoRoute(path: '/manager/dashboard', builder: (context, state) => ManagerDashboardScreen()),
+          GoRoute(path: '/manager/analytics-matrix', builder: (context, state) => ManagerAdminTelemetryMatrixScreen()),
           
           GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
           GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),

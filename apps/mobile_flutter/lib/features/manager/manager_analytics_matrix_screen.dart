@@ -5,8 +5,8 @@ import '../../core/colors.dart';
 import 'package:flutter/services.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ManagerDashboardScreen extends StatelessWidget {
-  const ManagerDashboardScreen({super.key});
+class ManagerAnalyticsMatrixScreen extends StatelessWidget {
+  const ManagerAnalyticsMatrixScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

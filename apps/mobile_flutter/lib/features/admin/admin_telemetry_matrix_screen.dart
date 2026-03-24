@@ -7,14 +7,14 @@ import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/widgets/global_top_bar.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class AdminTelemetryMatrixScreen extends StatefulWidget {
+  const AdminTelemetryMatrixScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<AdminTelemetryMatrixScreen> createState() => _AdminTelemetryMatrixScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _AdminTelemetryMatrixScreenState extends State<AdminTelemetryMatrixScreen> {
   final TextEditingController _searchController = TextEditingController();
   
   List<Map<String, dynamic>> _masterData = [];

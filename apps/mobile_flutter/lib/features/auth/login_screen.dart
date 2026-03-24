@@ -39,31 +39,31 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
           case 'mt':
-            context.go('/mt/dashboard');
+            context.go('/mt/operations-hub');
             break;
           case 'gm':
           case 'general_manager':
-            context.go('/gm/dashboard');
+            context.go('/gm/operations-hub');
             break;
           case 'rn':
-            context.go('/rn/dashboard');
+            context.go('/rn/operations-hub');
             break;
           case 'coordinator':
-            context.go('/coordinator/dashboard');
+            context.go('/coordinator/matrix');
             break;
           case 'scrum_master':
           case 'developer':
-            context.go('/scrum-master/dashboard');
+            context.go('/scrum-master/operations-hub');
             break;
           case 'manager':
-            context.go('/manager/dashboard');
+            context.go('/manager/analytics-matrix');
             break;
           case 'admin':
           case 'super_admin':
-            context.go('/dashboard');
+            context.go('/admin/telemetry-matrix');
             break;
           case 'client':
-            context.go('/client/dashboard');
+            context.go('/client/care-hub');
             break;
           default:
             context.go('/psw/home');

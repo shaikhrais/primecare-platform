@@ -5,8 +5,8 @@ import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/widgets/global_top_bar.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 
-class ClientDashboardScreen extends StatelessWidget {
-  const ClientDashboardScreen({super.key});
+class ClientCareHubScreen extends StatelessWidget {
+  const ClientCareHubScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
