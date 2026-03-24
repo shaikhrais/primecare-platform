@@ -68,9 +68,9 @@ describe('Config — Environment Detection', () => {
 });
 
 describe('Config — Feature Flags', () => {
-    const features = { darkMode: true, newDashboard: false };
+    const features = { darkMode: true, newHome: false };
     it('enabled', () => expect(isFeatureEnabled(features, 'darkMode')).toBe(true));
-    it('disabled', () => expect(isFeatureEnabled(features, 'newDashboard')).toBe(false));
+    it('disabled', () => expect(isFeatureEnabled(features, 'newHome')).toBe(false));
     it('missing with default', () => expect(isFeatureEnabled(features, 'unknown', true)).toBe(true));
     it('missing no default', () => expect(isFeatureEnabled(features, 'unknown')).toBe(false));
 });

@@ -18,7 +18,7 @@
  *   });
  *
  *   // With transform
- *   const { data } = useRegistryQuery<DashboardStats>('/v1/admin/stats', {
+ *   const { data } = useRegistryQuery<HomeStats>('/v1/admin/stats', {
  *       select: (raw) => ({ total: raw.count, active: raw.active }),
  *   });
  */

@@ -250,12 +250,12 @@ const cols_3: TableColumn[] = [
     { key: 'status', label: 'Status' },
 ];
 
-export function AutoPilotDashboard() {
+export function AutoPilotHome() {
     return (
         <PageTemplate 
-            pageId="PGE-AutoPilotDashboard" 
+            pageId="PGE-AutoPilotHome" 
             actionPageId="admin.autopilot"
-            sectionData={PageSectionRegistry['AutoPilotDashboard']}
+            sectionData={PageSectionRegistry['AutoPilotHome']}
         />
     );
 }
@@ -413,7 +413,7 @@ export function ContentManager() {
 }
 
 // --- Extracted from cron.tsx ---
-export function CronDashboard() {
+export function CronHome() {
     const { t } = useTranslation();
 
     return (
@@ -451,11 +451,11 @@ export function CustomerList() {
 }
 
 // --- Extracted from home.tsx ---
-// Barrel re-export — identity file: D1-AdminDashboard.tsx
-// removed broken export: export { default } from './D1-AdminDashboard';
+// Barrel re-export — identity file: D1-AdminHome.tsx
+// removed broken export: export { default } from './D1-AdminHome';
 
 
-// --- Merged from D1-AdminDashboard.tsx ---
+// --- Merged from D1-AdminHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D1 · Admin Home (Main Landing)
 // Type: Home | Owner: admin | Registry: D1
@@ -464,12 +464,12 @@ export function CustomerList() {
 
 const Visit = (props: any) => <></>;
 
-export function AdminDashboard() {
+export function AdminHome() {
     return (
         <PageTemplate 
-            pageId="PGE-AdminDashboard" 
+            pageId="PGE-AdminHome" 
             actionPageId="admin.home"
-            sectionData={PageSectionRegistry['AdminDashboard']}
+            sectionData={PageSectionRegistry['AdminHome']}
         />
     );
 }
@@ -1230,12 +1230,12 @@ export function NotificationsHub() {
 }
 
 // --- Extracted from observability.tsx ---
-export function ObservabilityDashboard() {
+export function ObservabilityHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ObservabilityDashboard" 
+            pageId="PGE-ObservabilityHome" 
             isLive
-            sectionData={PageSectionRegistry['ObservabilityDashboard']}
+            sectionData={PageSectionRegistry['ObservabilityHome']}
         />
     );
 }
@@ -1613,13 +1613,13 @@ export function PrivateMarketplace() {
     );
 }
 
-// --- Merged from ResellerDashboard.tsx ---
-export function ResellerDashboard() {
+// --- Merged from ResellerHome.tsx ---
+export function ResellerHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ResellerDashboard" 
+            pageId="PGE-ResellerHome" 
             
-            sectionData={PageSectionRegistry['ResellerDashboard']}
+            sectionData={PageSectionRegistry['ResellerHome']}
         />
     );
 }
@@ -1627,7 +1627,7 @@ export function ResellerDashboard() {
 // --- Merged sidecars ---
 
 /* Merged from resellerHandlers.ts */
-// ResellerDashboard: fetch/provision handlers extracted
+// ResellerHome: fetch/provision handlers extracted
 const API_URL_15 = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 export const FALLBACK_CHILDREN = [
@@ -1719,19 +1719,19 @@ export function SearchPage() {
 }
 
 // --- Extracted from security.tsx ---
-// --- Merged from D3-AccountingDashboard.tsx ---
+// --- Merged from D3-AccountingHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D3 · Accounting Home
 // Type: Home | Owner: admin | Registry: D3
 // TEMPLATE-DRIVEN: Uses PageTemplate + PageSectionRegistry
 // ================================================================
 
-export function AccountingDashboard() {
+export function AccountingHome() {
     return (
         <PageTemplate 
-            pageId="PGE-AccountingDashboard" 
+            pageId="PGE-AccountingHome" 
             actionPageId="admin.accounting"
-            sectionData={PageSectionRegistry['AccountingDashboard']}
+            sectionData={PageSectionRegistry['AccountingHome']}
         />
     );
 }
@@ -1753,13 +1753,13 @@ export function AuditTrailViewer() {
     );
 }
 
-// --- Merged from SecurityDashboard.tsx ---
-export function SecurityDashboard() {
+// --- Merged from SecurityHome.tsx ---
+export function SecurityHome() {
     return (
         <PageTemplate 
-            pageId="PGE-SecurityDashboard" 
+            pageId="PGE-SecurityHome" 
             
-            sectionData={PageSectionRegistry['SecurityDashboard']}
+            sectionData={PageSectionRegistry['SecurityHome']}
         />
     );
 }
@@ -2363,12 +2363,12 @@ export function SupplyChainManagement() {
 }
 
 // --- Extracted from support.tsx ---
-export function SupportDashboard() {
+export function SupportHome() {
     return (
         <PageTemplate 
-            pageId="PGE-SupportDashboard" 
+            pageId="PGE-SupportHome" 
             
-            sectionData={PageSectionRegistry['SupportDashboard']}
+            sectionData={PageSectionRegistry['SupportHome']}
         />
     );
 }
@@ -2735,7 +2735,7 @@ export const useScheduleLogic = () => {
 };
 export const AdminRoutes = () => (
         <Route path={RouteRegistry.ADMIN.DASHBOARD} element={<RequireRole allowedRoles={['admin', 'finance_director']}><AppLayout /></RequireRole>}>
-            <Route index element={<AdminDashboard />} />
+            <Route index element={<AdminHome />} />
             <Route path={RouteRegistry.ADMIN.SUMMARY_DASHBOARD} element={<RegistrySummary />} />
             <Route path={RouteRegistry.ADMIN.USERS} element={<UserList />} />
             <Route path={RouteRegistry.ADMIN.USERS_NEW} element={<UserEntry />} />
@@ -2789,14 +2789,14 @@ export const AdminRoutes = () => (
             <Route path={RouteRegistry.ADMIN.SECURITY.INTEGRITY_SCAN} element={<IntegrityVerification />} />
             <Route path={RouteRegistry.ADMIN.SECURITY.FINANCIAL_LEDGER} element={<FinancialLedger />} />
             <Route path={RouteRegistry.ADMIN.SECURITY.TAX_HUB} element={<TaxComplianceHub />} />
-            <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingDashboard />} />
+            <Route path={RouteRegistry.ADMIN.FINANCE.DASHBOARD} element={<AccountingHome />} />
             <Route path={RouteRegistry.ADMIN.FINANCE.RECONCILIATION} element={<FinancialReconciliation />} />
             <Route path={RouteRegistry.ADMIN.NOTIFICATIONS_HUB} element={<NotificationsHub />} />
             <Route path={RouteRegistry.ADMIN.DOCUMENT_CENTER} element={<DocumentCenter />} />
             <Route path={RouteRegistry.ADMIN.PAYROLL_HUB} element={<PayrollHub />} />
             <Route path={RouteRegistry.ADMIN.BOOKING_REQUESTS} element={<BookingRequestQueue />} />
             <Route path={RouteRegistry.ADMIN.REFERENCE_DATA} element={<ReferenceDataHub />} />
-            <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronDashboard />} />
+            <Route path={RouteRegistry.ADMIN.CRON_DASHBOARD} element={<CronHome />} />
             <Route path={RouteRegistry.ADMIN.FORM_REGISTRY} element={<FormRegistryPage />} />
             <Route path={RouteRegistry.ADMIN.PAGE_REGISTRY} element={<PageRegistryPage />} />
                 <Route path={RouteRegistry.ADMIN.EVV.DASHBOARD} element={<div />} />
@@ -3209,13 +3209,13 @@ export function GovernanceHub() {
 // --- Merged from marketing.tsx ---
 
 // --- Extracted from b2b.tsx ---
-// --- Merged from B2bSlaDashboard.tsx ---
-export function B2bSlaDashboard() {
+// --- Merged from B2bSlaHome.tsx ---
+export function B2bSlaHome() {
     return (
         <PageTemplate 
-            pageId="PGE-B2bSlaDashboard" 
+            pageId="PGE-B2bSlaHome" 
             
-            sectionData={PageSectionRegistry['B2bSlaDashboard']}
+            sectionData={PageSectionRegistry['B2bSlaHome']}
         />
     );
 }
@@ -3365,13 +3365,13 @@ export function ReviewSentimentAnalyzer() {
 }
 
 // --- Extracted from data.tsx ---
-// --- Merged from GeoFencedAdDashboard.tsx ---
-export function GeoFencedAdDashboard() {
+// --- Merged from GeoFencedAdHome.tsx ---
+export function GeoFencedAdHome() {
     return (
         <PageTemplate 
-            pageId="PGE-GeoFencedAdDashboard" 
+            pageId="PGE-GeoFencedAdHome" 
             
-            sectionData={PageSectionRegistry['GeoFencedAdDashboard']}
+            sectionData={PageSectionRegistry['GeoFencedAdHome']}
         />
     );
 }
@@ -3633,17 +3633,17 @@ export function getStatusBg(status: SocialPlatform['status']): string {
 
 
 // Platform Portal (Super Admin)
-const PlatformDashboard = () => <div />;
+const PlatformHome = () => <div />;
 const PlatformAuditLogs = () => <div />;
 const SystemPolicies = () => <div />;
 
 export const PlatformRoutes = () => (
     <Route path={RouteRegistry.SUPERUSER.DASHBOARD} element={<RequireRole allowedRoles={['super_admin']}><AppLayout /></RequireRole>}>
-        <Route index element={<PlatformDashboard />} />
+        <Route index element={<PlatformHome />} />
         <Route path={RouteRegistry.SUPERUSER.TENANTS} element={<TenantList />} />
         <Route path={RouteRegistry.SUPERUSER.AUDIT_LOGS} element={<PlatformAuditLogs />} />
         <Route path={RouteRegistry.SUPERUSER.SLA} element={<SLAMonitoring />} />
-        <Route path={RouteRegistry.SUPERUSER.RISK_SURVEILLANCE} element={<RiskSurveillanceDashboard />} />
+        <Route path={RouteRegistry.SUPERUSER.RISK_SURVEILLANCE} element={<RiskSurveillanceHome />} />
         <Route path={RouteRegistry.SUPERUSER.GOVERNANCE_HUB} element={<GovernanceHub />} />
             <Route path={RouteRegistry.SUPERUSER.SYSTEM_POLICIES} element={<SystemPolicies />} />
     </Route>
@@ -3865,18 +3865,18 @@ export function BuildHealthPage() {
 }
 
 // --- Extracted from home.tsx ---
-export function ScrumMasterDashboard() {
+export function ScrumMasterHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ScrumMasterDashboard" 
+            pageId="PGE-ScrumMasterHome" 
             actionPageId="scrum_master.home"
-            sectionData={PageSectionRegistry['ScrumMasterDashboard']}
+            sectionData={PageSectionRegistry['ScrumMasterHome']}
         />
     );
 }
 
-// --- Extracted from dashboardHelpers.ts ---
-export const dashboardHelperStyles = `
+// --- Extracted from homeHelpers.ts ---
+export const homeHelperStyles = `
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .sm-card {
         background: rgba(255, 255, 255, 0.7);
@@ -3909,7 +3909,7 @@ export const dashboardHelperStyles = `
     .btn-utility:hover { transform: scale(1.05); }
 `;
 
-export async function handleDashboardAction(
+export async function handleHomeAction(
     endpoint: string, successMsg: string,
     showToast: (msg: string, type: 'success' | 'error') => void
 ): Promise<void> {
@@ -4130,7 +4130,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     admin: {
         mission: 'Orchestrate global franchise network, manage master financial records, and provision system-wide security policies.',
         pages: [
-            { name: 'Home', route: 'ADMIN.DASHBOARD', component: 'AdminDashboard', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
+            { name: 'Home', route: 'ADMIN.DASHBOARD', component: 'AdminHome', status: 'implemented', requirement: 'High-level operational overview for executive decision making.' },
             { name: 'User Management', route: 'ADMIN.USERS', component: 'UserList', status: 'implemented', requirement: 'Provision and audit security roles for all staff across the franchise.' },
             { name: 'Schedule', route: 'ADMIN.SCHEDULE', component: 'Schedule', status: 'implemented', requirement: 'Global visibility into all service appointments for master coordination.' },
             { name: 'Earnings', route: 'ADMIN.EARNINGS', component: 'AdminEarningsPage', status: 'implemented', requirement: 'Aggregate financial tracking for franchise royalty and payout audit.' },
@@ -4143,7 +4143,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     scrum_master: {
         mission: 'Maintain platform technical integrity, optimize system performance, and audit registry consistency.',
         pages: [
-            { name: 'Command Center', route: 'SCRUM_MASTER.DASHBOARD', component: 'ScrumMasterDashboard', status: 'implemented', requirement: 'Centralized technical health telemetry and autonomous alerts.' },
+            { name: 'Command Center', route: 'SCRUM_MASTER.DASHBOARD', component: 'ScrumMasterHome', status: 'implemented', requirement: 'Centralized technical health telemetry and autonomous alerts.' },
             { name: 'API Hub', route: 'SCRUM_MASTER.API_ENDPOINTS', component: 'ApiEndpointsHub', status: 'implemented', requirement: 'Endpoint verification and backend connectivity auditing.' },
             { name: 'Role Intelligence', route: 'SCRUM_MASTER.ROLE_FLOWS', component: 'RoleFlowsPage', status: 'implemented', requirement: 'Verify UI/RBAC mapping and implementation gap analysis.' },
             { name: 'Perf Audits', route: 'SCRUM_MASTER.PERFORMANCE', component: 'PerformancePage', status: 'implemented', requirement: 'Monitor V8 engine performance and Lighthouse core web vitals.' },
@@ -4167,7 +4167,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     staff: {
         mission: 'Execute daily intake operations, coordinate scheduling requests, and manage customer communications.',
         pages: [
-            { name: 'Staff Hub', route: 'STAFF.DASHBOARD', component: 'StaffDashboard', status: 'implemented', requirement: 'Daily task list and urgent scheduling notification center.' },
+            { name: 'Staff Hub', route: 'STAFF.DASHBOARD', component: 'StaffHome', status: 'implemented', requirement: 'Daily task list and urgent scheduling notification center.' },
             { name: 'Customers', route: 'STAFF.CUSTOMERS', component: 'CustomerList', status: 'implemented', requirement: 'Manage active customer roster and scheduling preferences.' },
             { name: 'Task Board', route: 'STAFF.TASKS', component: 'TaskGrid', status: 'implemented', requirement: 'Visual board for coordinating complex multi-step intake tasks.' },
             { name: 'Messaging', route: 'STAFF.MESSAGES', component: 'MessageCenter', status: 'implemented', requirement: 'Centralized hub for family and caregiver secure communications.' },
@@ -4189,7 +4189,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     rn: {
         mission: 'Maintain clinical oversight, audit caregiver documentation, and ensure professional nursing standards are met.',
         pages: [
-            { name: 'Home', route: 'RN.DASHBOARD', component: 'RnDashboard', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
+            { name: 'Home', route: 'RN.DASHBOARD', component: 'RnHome', status: 'implemented', requirement: 'High-level clinical overview and urgent review alerts.' },
             { name: 'Care Plans', route: 'RN.CARE_PLANS', component: 'ClinicalCarePlans', status: 'implemented', requirement: 'Digitize and manage professional patient care protocols.' },
             { name: 'Daily Audit', route: 'RN.DAILY_AUDIT', component: 'DailyAudit', status: 'implemented', requirement: 'RN sign-off and verification of PSW daily care records.' },
             { name: 'Supervision', route: 'RN.SUPERVISION', component: 'SupervisionHub', status: 'implemented', requirement: 'Monitor caregiver quality standards and certification compliance.' },
@@ -4198,7 +4198,7 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     marketing_manager: {
         mission: 'Drive branch growth, manage the intake pipeline, and optimize client acquisition strategies.',
         pages: [
-            { name: 'Growth Pipeline', route: 'MANAGER.MARKETING', component: 'MarketingDashboard', status: 'implemented', requirement: 'Real-time visibility into lead conversion and campaign ROI.' },
+            { name: 'Growth Pipeline', route: 'MANAGER.MARKETING', component: 'MarketingHome', status: 'implemented', requirement: 'Real-time visibility into lead conversion and campaign ROI.' },
         ]
     },
     hr_manager: {
@@ -4228,13 +4228,13 @@ export const resourceMapping: Record<string, RoleBlueprint> = {
     clinical_manager: {
         mission: 'Maintain professional clinical safety standards, oversee medication QA, and audit high-risk incidents.',
         pages: [
-            { name: 'Clinical QA', route: 'MANAGER.CLINICAL', component: 'ClinicalQaDashboard', status: 'implemented', requirement: 'Real-time safety alerts and medication compliance oversight.' },
+            { name: 'Clinical QA', route: 'MANAGER.CLINICAL', component: 'ClinicalQaHome', status: 'implemented', requirement: 'Real-time safety alerts and medication compliance oversight.' },
         ]
     },
     client: {
         mission: 'Manage family care plans, request service adjustments, and oversee billing and invoices.',
         pages: [
-            { name: 'Client Hub', route: 'CLIENT.DASHBOARD', component: 'ClientDashboard', status: 'implemented', requirement: 'Family overview for current care schedule and caregiver intros.' },
+            { name: 'Client Hub', route: 'CLIENT.DASHBOARD', component: 'ClientHome', status: 'implemented', requirement: 'Family overview for current care schedule and caregiver intros.' },
             { name: 'Bookings', route: 'CLIENT.BOOKINGS', component: 'ClientBookings', status: 'implemented', requirement: 'History of previous visits and upcoming scheduled care.' },
             { name: 'Billing', route: 'CLIENT.BILLING', component: 'ClientBilling', status: 'implemented', requirement: 'Secure payment gateway and digital invoice archive.' },
             { name: 'Service Catalog', route: 'CLIENT.SERVICES', component: 'CatalogBrowser', status: 'implemented', requirement: 'Self-service selection of additional specialized care modules.' },
@@ -4643,24 +4643,24 @@ export function SLAMonitoring() {
 // --- Merged from superuser.tsx ---
 
 
-// --- Merged from RiskSurveillanceDashboard.tsx ---
-export function RiskSurveillanceDashboard() {
+// --- Merged from RiskSurveillanceHome.tsx ---
+export function RiskSurveillanceHome() {
     return (
         <PageTemplate 
-            pageId="PGE-RiskSurveillanceDashboard" 
+            pageId="PGE-RiskSurveillanceHome" 
             
-            sectionData={PageSectionRegistry['RiskSurveillanceDashboard']}
+            sectionData={PageSectionRegistry['RiskSurveillanceHome']}
         />
     );
 }
 
 
-export function SuperAdminDashboard() {
+export function SuperAdminHome() {
     return (
         <PageTemplate 
-            pageId="PGE-SuperAdminDashboard" 
+            pageId="PGE-SuperAdminHome" 
             
-            sectionData={PageSectionRegistry['SuperAdminDashboard']}
+            sectionData={PageSectionRegistry['SuperAdminHome']}
         />
     );
 }

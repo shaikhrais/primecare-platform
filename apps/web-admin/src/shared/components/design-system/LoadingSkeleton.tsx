@@ -63,7 +63,7 @@ const TextSkeleton: React.FC<{ lines: number }> = ({ lines }) => (
     </div>
 );
 
-const DashboardSkeleton: React.FC = () => (
+const HomeSkeleton: React.FC = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {/* Hero stats row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
@@ -99,7 +99,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ variant = 'car
             {variant === 'card' && <CardSkeleton />}
             {variant === 'table' && <TableSkeleton rows={rows} />}
             {variant === 'text' && <TextSkeleton lines={lines} />}
-            {variant === 'home' && <DashboardSkeleton />}
+            {variant === 'home' && <HomeSkeleton />}
             {variant === 'form' && <FormSkeleton />}
             <style>{`@keyframes primecare-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }`}</style>
         </div>

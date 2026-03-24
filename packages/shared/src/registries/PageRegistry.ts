@@ -25,7 +25,7 @@ export interface PageEntry {
     icon?: string;
     description?: string;
     formRegistryId?: string;
-    dashboardRegistryId?: string;
+    homeRegistryId?: string;
     associates?: string[];
 }
 
@@ -37,7 +37,7 @@ export const CATEGORY_PREFIXES: Record<PageType, string> = {
 
 // ── Sub-Registry Types ───────────────────────────────────────────────────────
 
-export interface DashboardEntry {
+export interface HomeEntry {
     id: string; label: string; route: string; owner: PageEntry['owner'];
     statsEndpoints: string[];
     widgets: ('kpi-card' | 'chart' | 'table' | 'map' | 'calendar' | 'feed' | 'alert-panel')[];
@@ -76,7 +76,7 @@ export interface MasterEntry {
 
 // ── Import + Re-export sub-registries ────────────────────────────────────────
 
-import { DashboardRegistry } from './PageRegistry/homes';
+import { HomeRegistry } from './PageRegistry/homes';
 import { ListRegistry } from './PageRegistry/lists';
 import { HubRegistry } from './PageRegistry/hubs';
 import { WizardRegistry, ReportRegistry } from './PageRegistry/wizards-reports';
@@ -84,7 +84,7 @@ import { ToolRegistry } from './PageRegistry/tools';
 import { MASTER_REGISTRY } from './PageRegistry/master-registry';
 import { buildPageEntries } from './PageRegistry/page-builder';
 
-export { DashboardRegistry, ListRegistry, HubRegistry, WizardRegistry, ReportRegistry, ToolRegistry, MASTER_REGISTRY };
+export { HomeRegistry, ListRegistry, HubRegistry, WizardRegistry, ReportRegistry, ToolRegistry, MASTER_REGISTRY };
 
 // ── Aggregate ────────────────────────────────────────────────────────────────
 

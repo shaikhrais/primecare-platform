@@ -79,13 +79,13 @@ export function MarketingShowcase() {
     );
 }
 
-// --- Merged from RoleDashboardPlaceholder.tsx ---
-export function RoleDashboardPlaceholder() {
+// --- Merged from RoleHomePlaceholder.tsx ---
+export function RoleHomePlaceholder() {
     return (
         <PageTemplate 
-            pageId="PGE-RoleDashboardPlaceholder" 
+            pageId="PGE-RoleHomePlaceholder" 
             
-            sectionData={PageSectionRegistry['RoleDashboardPlaceholder']}
+            sectionData={PageSectionRegistry['RoleHomePlaceholder']}
         />
     );
 }

@@ -16,7 +16,7 @@ import type {
     Lead, CreateLeadRequest,
     Timesheet, TimesheetItem, Booking, CreateBookingRequest,
     PswProfile, PswAvailability, ClientProfile,
-    AdminDashboardStats, AuditLog,
+    AdminHomeStats, AuditLog,
     RealtimeEventType, RealtimeEvent,
 } from '@/shared/api/contracts';
 
@@ -350,8 +350,8 @@ describe('Client Contracts', () => {
 // ═══════════════════════════════════════════════════════════════════════════
 
 describe('Home Contracts', () => {
-    it('AdminDashboardStats has all 8 metrics', () => {
-        const stats: AdminDashboardStats = {
+    it('AdminHomeStats has all 8 metrics', () => {
+        const stats: AdminHomeStats = {
             totalUsers: 100, totalClients: 50, totalProviders: 25,
             activeVisits: 15, pendingBookings: 8,
             monthlyRevenue: 45000, openIncidents: 3, complianceScore: 92,

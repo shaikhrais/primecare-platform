@@ -666,32 +666,32 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/cron/CronDashboard.tsx: platform/admin/pages/cron/CronDashboard.tsx — has 3 data-cy markers', () => {
+    it('platform/admin/pages/cron/CronHome.tsx: platform/admin/pages/cron/CronHome.tsx — has 3 data-cy markers', () => {
         const markers = ["page.container","page.title","h3-admin.cron-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/cron/CronDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/cron/CronHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/cron/CronDashboard.tsx: data-cy="page.container" follows conventions', () => {
+    it('platform/admin/pages/cron/CronHome.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/cron/CronDashboard.tsx: data-cy="page.title" follows conventions', () => {
+    it('platform/admin/pages/cron/CronHome.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/cron/CronDashboard.tsx: data-cy="h3-admin.cron-home-0" follows conventions', () => {
+    it('platform/admin/pages/cron/CronHome.tsx: data-cy="h3-admin.cron-home-0" follows conventions', () => {
         const attr = 'h3-admin.cron-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -734,39 +734,39 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/home/components/DashboardCharts.tsx: platform/admin/pages/home/components/DashboardCharts.tsx — has 1 data-cy markers', () => {
+    it('platform/admin/pages/home/components/HomeCharts.tsx: platform/admin/pages/home/components/HomeCharts.tsx — has 1 data-cy markers', () => {
         const markers = ["h2-admin.home-charts-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/home/components/DashboardCharts.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/HomeCharts.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/home/components/DashboardCharts.tsx: data-cy="h2-admin.home-charts-0" follows conventions', () => {
+    it('platform/admin/pages/home/components/HomeCharts.tsx: data-cy="h2-admin.home-charts-0" follows conventions', () => {
         const attr = 'h2-admin.home-charts-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/home/components/DashboardStats.tsx: platform/admin/pages/home/components/DashboardStats.tsx — has 1 data-cy markers', () => {
+    it('platform/admin/pages/home/components/HomeStats.tsx: platform/admin/pages/home/components/HomeStats.tsx — has 1 data-cy markers', () => {
         const markers = ["stats-cards"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/home/components/DashboardStats.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/home/components/HomeStats.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/home/components/DashboardStats.tsx: data-cy="stats-cards" follows conventions', () => {
+    it('platform/admin/pages/home/components/HomeStats.tsx: data-cy="stats-cards" follows conventions', () => {
         const attr = 'stats-cards';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1037,26 +1037,26 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/evv/EvvDashboard.tsx: platform/admin/pages/evv/EvvDashboard.tsx — has 2 data-cy markers', () => {
+    it('platform/admin/pages/evv/EvvHome.tsx: platform/admin/pages/evv/EvvHome.tsx — has 2 data-cy markers', () => {
         const markers = ["page.container","page.title"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/evv/EvvDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/evv/EvvHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/evv/EvvDashboard.tsx: data-cy="page.container" follows conventions', () => {
+    it('platform/admin/pages/evv/EvvHome.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/evv/EvvDashboard.tsx: data-cy="page.title" follows conventions', () => {
+    it('platform/admin/pages/evv/EvvHome.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1757,74 +1757,74 @@ describe('Data-Cy Contract — Batch 4', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: platform/admin/pages/reseller/ResellerDashboard.tsx — has 10 data-cy markers', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: platform/admin/pages/reseller/ResellerHome.tsx — has 10 data-cy markers', () => {
         const markers = ["page.container","page.title","table-admin.reseller-home","h2-admin.reseller-home-0","reseller.form-provision","reseller.inp-name","reseller.inp-slug","reseller.inp-email","reseller.inp-password","btn-reseller-provision"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/reseller/ResellerDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/reseller/ResellerHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="page.container" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="page.title" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="table-admin.reseller-home" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="table-admin.reseller-home" follows conventions', () => {
         const attr = 'table-admin.reseller-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="h2-admin.reseller-home-0" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="h2-admin.reseller-home-0" follows conventions', () => {
         const attr = 'h2-admin.reseller-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="reseller.form-provision" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="reseller.form-provision" follows conventions', () => {
         const attr = 'reseller.form-provision';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="reseller.inp-name" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="reseller.inp-name" follows conventions', () => {
         const attr = 'reseller.inp-name';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="reseller.inp-slug" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="reseller.inp-slug" follows conventions', () => {
         const attr = 'reseller.inp-slug';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="reseller.inp-email" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="reseller.inp-email" follows conventions', () => {
         const attr = 'reseller.inp-email';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="reseller.inp-password" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="reseller.inp-password" follows conventions', () => {
         const attr = 'reseller.inp-password';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/reseller/ResellerDashboard.tsx: data-cy="btn-reseller-provision" follows conventions', () => {
+    it('platform/admin/pages/reseller/ResellerHome.tsx: data-cy="btn-reseller-provision" follows conventions', () => {
         const attr = 'btn-reseller-provision';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

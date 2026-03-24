@@ -672,20 +672,20 @@ describe('Data-Cy Contract — Batch 7', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/scrum-master/pages/home/components/DashboardStatus.tsx: platform/scrum-master/pages/home/components/DashboardStatus.tsx — has 1 data-cy markers', () => {
+    it('platform/scrum-master/pages/home/components/HomeStatus.tsx: platform/scrum-master/pages/home/components/HomeStatus.tsx — has 1 data-cy markers', () => {
         const markers = ["h2-home-status-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/DashboardStatus.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/scrum-master/pages/home/components/HomeStatus.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/scrum-master/pages/home/components/DashboardStatus.tsx: data-cy="h2-home-status-0" follows conventions', () => {
+    it('platform/scrum-master/pages/home/components/HomeStatus.tsx: data-cy="h2-home-status-0" follows conventions', () => {
         const attr = 'h2-home-status-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1779,50 +1779,50 @@ describe('Data-Cy Contract — Batch 7', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx — has 6 data-cy markers', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx — has 6 data-cy markers', () => {
         const markers = ["page.container","page.title","btn-superuser-risk-scan","h2-risk-surveillance-home-0","table-risk-surveillance-home","btn-risk-surveillance-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="page.container" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="page.title" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="btn-superuser-risk-scan" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="btn-superuser-risk-scan" follows conventions', () => {
         const attr = 'btn-superuser-risk-scan';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="h2-risk-surveillance-home-0" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="h2-risk-surveillance-home-0" follows conventions', () => {
         const attr = 'h2-risk-surveillance-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="table-risk-surveillance-home" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="table-risk-surveillance-home" follows conventions', () => {
         const attr = 'table-risk-surveillance-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/superuser/super-admin/pages/RiskSurveillanceDashboard.tsx: data-cy="btn-risk-surveillance-home-0" follows conventions', () => {
+    it('platform/superuser/super-admin/pages/RiskSurveillanceHome.tsx: data-cy="btn-risk-surveillance-home-0" follows conventions', () => {
         const attr = 'btn-risk-surveillance-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

@@ -26,7 +26,7 @@ export class OrphanedComponentSweeper {
         return [
             { fileName: 'PrimaryButton.tsx', exportName: 'PrimaryButton', filePath: '/components/ui/PrimaryButton.tsx', importCount: 142 },
             { fileName: 'LegacyCard.tsx', exportName: 'LegacyCard', filePath: '/components/deprecated/LegacyCard.tsx', importCount: 0 },
-            { fileName: 'OldDashboardLayout.tsx', exportName: 'DashboardLayoutV1', filePath: '/layouts/OldDashboardLayout.tsx', importCount: 0 }
+            { fileName: 'OldHomeLayout.tsx', exportName: 'HomeLayoutV1', filePath: '/layouts/OldHomeLayout.tsx', importCount: 0 }
         ];
     }
 

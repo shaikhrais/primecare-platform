@@ -11,7 +11,7 @@
  *   });
  *
  *   // With SSE stream
- *   const { data, isLive } = useRealtimeQuery<DashboardStats>('/v1/admin/stats', {
+ *   const { data, isLive } = useRealtimeQuery<HomeStats>('/v1/admin/stats', {
  *       sse: '/v1/admin/stats/stream',
  *   });
  *

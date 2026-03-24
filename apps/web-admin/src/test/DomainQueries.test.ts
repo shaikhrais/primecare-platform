@@ -93,9 +93,9 @@ describe('Domain Queries Module Exports', () => {
     });
 
     // Home hooks
-    it('exports useDashboardStats', async () => {
+    it('exports useHomeStats', async () => {
         const mod: any = await import('@/shared/hooks/useDomainQueries');
-        expect(typeof mod.useDashboardStats).toBe('function');
+        expect(typeof mod.useHomeStats).toBe('function');
     });
 
     // Audit hooks
@@ -164,9 +164,9 @@ describe('QueryKeys', () => {
         expect(key[0]).toBe('leads');
     });
 
-    it('dashboardStats returns static key', async () => {
+    it('homeStats returns static key', async () => {
         const { QueryKeys } = await import('@/shared/hooks/useDomainQueries');
-        expect(QueryKeys.dashboardStats()).toEqual(['home', 'stats']);
+        expect(QueryKeys.homeStats()).toEqual(['home', 'stats']);
     });
 
     it('auditLogs with filters', async () => {
@@ -180,7 +180,7 @@ describe('QueryKeys', () => {
         const keys = Object.keys(QueryKeys);
         expect(keys).toEqual(expect.arrayContaining([
             'visits', 'visit', 'users', 'user', 'incidents',
-            'services', 'invoices', 'leads', 'dashboardStats', 'auditLogs',
+            'services', 'invoices', 'leads', 'homeStats', 'auditLogs',
         ]));
         expect(keys).toHaveLength(10);
     });
@@ -195,7 +195,7 @@ describe('QueryKeys', () => {
         expect(Array.isArray(QueryKeys.services())).toBe(true);
         expect(Array.isArray(QueryKeys.invoices())).toBe(true);
         expect(Array.isArray(QueryKeys.leads())).toBe(true);
-        expect(Array.isArray(QueryKeys.dashboardStats())).toBe(true);
+        expect(Array.isArray(QueryKeys.homeStats())).toBe(true);
         expect(Array.isArray(QueryKeys.auditLogs())).toBe(true);
     });
 

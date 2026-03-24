@@ -641,32 +641,32 @@ describe('Data-Cy Contract — Batch 6', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/marketing/pages/b2b/B2bSlaDashboard.tsx: platform/marketing/pages/b2b/B2bSlaDashboard.tsx — has 3 data-cy markers', () => {
+    it('platform/marketing/pages/b2b/B2bSlaHome.tsx: platform/marketing/pages/b2b/B2bSlaHome.tsx — has 3 data-cy markers', () => {
         const markers = ["h3-b2b-sla-home-0","table-b2b-sla-home","btn-b2b-sla-home-0"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/marketing/pages/b2b/B2bSlaDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/marketing/pages/b2b/B2bSlaHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/marketing/pages/b2b/B2bSlaDashboard.tsx: data-cy="h3-b2b-sla-home-0" follows conventions', () => {
+    it('platform/marketing/pages/b2b/B2bSlaHome.tsx: data-cy="h3-b2b-sla-home-0" follows conventions', () => {
         const attr = 'h3-b2b-sla-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/marketing/pages/b2b/B2bSlaDashboard.tsx: data-cy="table-b2b-sla-home" follows conventions', () => {
+    it('platform/marketing/pages/b2b/B2bSlaHome.tsx: data-cy="table-b2b-sla-home" follows conventions', () => {
         const attr = 'table-b2b-sla-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/marketing/pages/b2b/B2bSlaDashboard.tsx: data-cy="btn-b2b-sla-home-0" follows conventions', () => {
+    it('platform/marketing/pages/b2b/B2bSlaHome.tsx: data-cy="btn-b2b-sla-home-0" follows conventions', () => {
         const attr = 'btn-b2b-sla-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1075,26 +1075,26 @@ describe('Data-Cy Contract — Batch 6', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/marketing/pages/data/GeoFencedAdDashboard.tsx: platform/marketing/pages/data/GeoFencedAdDashboard.tsx — has 2 data-cy markers', () => {
+    it('platform/marketing/pages/data/GeoFencedAdHome.tsx: platform/marketing/pages/data/GeoFencedAdHome.tsx — has 2 data-cy markers', () => {
         const markers = ["h3-geo-fenced-ad-home-0","table-geo-fenced-ad-home"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/marketing/pages/data/GeoFencedAdDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/marketing/pages/data/GeoFencedAdHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/marketing/pages/data/GeoFencedAdDashboard.tsx: data-cy="h3-geo-fenced-ad-home-0" follows conventions', () => {
+    it('platform/marketing/pages/data/GeoFencedAdHome.tsx: data-cy="h3-geo-fenced-ad-home-0" follows conventions', () => {
         const attr = 'h3-geo-fenced-ad-home-0';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/marketing/pages/data/GeoFencedAdDashboard.tsx: data-cy="table-geo-fenced-ad-home" follows conventions', () => {
+    it('platform/marketing/pages/data/GeoFencedAdHome.tsx: data-cy="table-geo-fenced-ad-home" follows conventions', () => {
         const attr = 'table-geo-fenced-ad-home';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

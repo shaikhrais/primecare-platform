@@ -206,7 +206,7 @@ const DEFAULT_FLAGS: Record<string, boolean> = {
     real_time_chat: true,
     telehealth: true,
     billing: true,
-    compliance_dashboard: true,
+    compliance_home: true,
     sos_alerts: true,
     dispatch_map: true,
     knowledge_base: true,
@@ -257,8 +257,8 @@ describe('Feature Flags — Defaults', () => {
         expect(DEFAULT_FLAGS.multi_currency).toBe(false);
     });
 
-    it('compliance_dashboard enabled', () => {
-        expect(DEFAULT_FLAGS.compliance_dashboard).toBe(true);
+    it('compliance_home enabled', () => {
+        expect(DEFAULT_FLAGS.compliance_home).toBe(true);
     });
 
     it('sos_alerts enabled', () => {

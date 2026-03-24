@@ -54,7 +54,7 @@ export const StatCardSkeleton: React.FC = () => (
 );
 
 /** Skeleton for home pages — header + stat cards + content panels */
-export const DashboardSkeleton: React.FC<{ statCount?: number }> = ({ statCount = 3 }) => (
+export const HomeSkeleton: React.FC<{ statCount?: number }> = ({ statCount = 3 }) => (
     <div style={{ padding: '2rem' }}>
         {/* Title */}
         <SkeletonBox width="280px" height="32px" style={{ marginBottom: '8px' }} />

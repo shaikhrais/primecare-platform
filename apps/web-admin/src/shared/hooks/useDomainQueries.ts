@@ -17,7 +17,7 @@ import type {
     User, CreateUserRequest, UpdateUserRequest,
     Incident, CreateIncidentRequest,
     Service, Invoice, Lead, CreateLeadRequest,
-    AdminDashboardStats, AuditLog, PaginationParams,
+    AdminHomeStats, AuditLog, PaginationParams,
 } from '@/shared/api/contracts';
 
 // ── Helper: typed fetch ───────────────────────────────────────────────────
@@ -62,7 +62,7 @@ export const QueryKeys = {
     services: () => ['services'] as const,
     invoices: (filters?: Record<string, string>) => ['invoices', filters] as const,
     leads: (filters?: Record<string, string>) => ['leads', filters] as const,
-    dashboardStats: () => ['home', 'stats'] as const,
+    homeStats: () => ['home', 'stats'] as const,
     auditLogs: (filters?: Record<string, string>) => ['audit-logs', filters] as const,
 } as const;
 
@@ -194,10 +194,10 @@ export function useCreateLead() {
 
 // ── Home Stats ───────────────────────────────────────────────────────
 
-export function useDashboardStats() {
-    return useQuery<AdminDashboardStats, ApiError>({
-        queryKey: QueryKeys.dashboardStats(),
-        queryFn: () => typedGet<AdminDashboardStats>('/v1/admin/home/stats'),
+export function useHomeStats() {
+    return useQuery<AdminHomeStats, ApiError>({
+        queryKey: QueryKeys.homeStats(),
+        queryFn: () => typedGet<AdminHomeStats>('/v1/admin/home/stats'),
         staleTime: 30_000,
         refetchOnWindowFocus: true, // Home always shows fresh data
     });

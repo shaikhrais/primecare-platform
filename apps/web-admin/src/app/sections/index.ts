@@ -7,16 +7,16 @@ import { UnauthorizedSection } from './shared/UnauthorizedSection';
 import { MessagingPortalSection } from './shared/MessagingPortalSection';
 import { DevPreviewSection } from './shared/DevPreviewSection';
 import { MarketingShowcaseSection } from './shared/MarketingShowcaseSection';
-import { RoleDashboardPlaceholderSection } from './shared/RoleDashboardPlaceholderSection';
+import { RoleHomePlaceholderSection } from './shared/RoleHomePlaceholderSection';
 import { LogisticsHubSection } from './tenancy/LogisticsHubSection';
 import { RegionMappingSection } from './tenancy/RegionMappingSection';
 import { RealtimeCapacitySection } from './tenancy/RealtimeCapacitySection';
-import { AlliedHealthDashboardSection } from './tenancy/AlliedHealthDashboardSection';
+import { AlliedHealthHomeSection } from './tenancy/AlliedHealthHomeSection';
 import { SignOffSection } from './tenancy/SignOffSection';
 import { TreatmentListSection } from './tenancy/TreatmentListSection';
 import { BillingHubSection } from './tenancy/BillingHubSection';
 import { ClientBookingsSection } from './tenancy/ClientBookingsSection';
-import { ClientDashboardSection } from './tenancy/ClientDashboardSection';
+import { ClientHomeSection } from './tenancy/ClientHomeSection';
 import { FamilyCareHubSection } from './tenancy/FamilyCareHubSection';
 import { FamilyPortalSection } from './tenancy/FamilyPortalSection';
 import { FeedbackFormSection } from './tenancy/FeedbackFormSection';
@@ -32,12 +32,12 @@ import { DispatchMapSection } from './tenancy/DispatchMapSection';
 import { ShiftSwapSection } from './tenancy/ShiftSwapSection';
 import { SosCenterSection } from './tenancy/SosCenterSection';
 import { WaitlistManagerSection } from './tenancy/WaitlistManagerSection';
-import { FamilyDashboardSection } from './tenancy/FamilyDashboardSection';
+import { FamilyHomeSection } from './tenancy/FamilyHomeSection';
 import { FinanceRegionalHubSection } from './tenancy/FinanceRegionalHubSection';
 import { HrRecruitmentPortalSection } from './tenancy/HrRecruitmentPortalSection';
 import { ComplianceSyncSection } from './tenancy/ComplianceSyncSection';
 import { DailyEntrySection } from './tenancy/DailyEntrySection';
-import { ManagerDashboardSection } from './tenancy/ManagerDashboardSection';
+import { ManagerHomeSection } from './tenancy/ManagerHomeSection';
 import { DocumentSigningCenterSection } from './tenancy/DocumentSigningCenterSection';
 import { EvaluationsSection } from './tenancy/EvaluationsSection';
 import { BranchPLSection } from './tenancy/BranchPLSection';
@@ -49,10 +49,10 @@ import { StaffRankerSection } from './tenancy/StaffRankerSection';
 import { ManagementPortfolioSection } from './tenancy/ManagementPortfolioSection';
 import { ServiceReviewSection } from './tenancy/ServiceReviewSection';
 import { SurveyManagerSection } from './tenancy/SurveyManagerSection';
-import { MarketingDashboardSection } from './tenancy/MarketingDashboardSection';
+import { MarketingHomeSection } from './tenancy/MarketingHomeSection';
 import { AvailabilityPageSection } from './tenancy/AvailabilityPageSection';
 import { CredentialVaultSection } from './tenancy/CredentialVaultSection';
-import { PswDashboardSection } from './tenancy/PswDashboardSection';
+import { PswHomeSection } from './tenancy/PswHomeSection';
 import { PswEarningsSection } from './tenancy/PswEarningsSection';
 import { ExpenseReportFormSection } from './tenancy/ExpenseReportFormSection';
 import { ProviderSocialSection } from './tenancy/ProviderSocialSection';
@@ -67,22 +67,22 @@ import { LiveVisitSection } from './tenancy/LiveVisitSection';
 import { CheckInScreenSection } from './tenancy/CheckInScreenSection';
 import { ShiftConfirmationSection } from './tenancy/ShiftConfirmationSection';
 import { PswTrainingHubSection } from './tenancy/PswTrainingHubSection';
-import { ClinicalQaDashboardSection } from './tenancy/ClinicalQaDashboardSection';
+import { ClinicalQaHomeSection } from './tenancy/ClinicalQaHomeSection';
 import { AssessmentsHubSection } from './tenancy/AssessmentsHubSection';
 import { EntryVerifySection } from './tenancy/EntryVerifySection';
 import { CarePlanManagerSection } from './tenancy/CarePlanManagerSection';
-import { RnDashboardSection } from './tenancy/RnDashboardSection';
-import { MarDashboardSection } from './tenancy/MarDashboardSection';
+import { RnHomeSection } from './tenancy/RnHomeSection';
+import { MarHomeSection } from './tenancy/MarHomeSection';
 import { MarClientSection } from './tenancy/MarClientSection';
 import { RaiAssessmentsSection } from './tenancy/RaiAssessmentsSection';
 import { RaiAssessmentDetailSection } from './tenancy/RaiAssessmentDetailSection';
 import { RnCheckInScreenSection } from './tenancy/RnCheckInScreenSection';
 import { SupervisionHubSection } from './tenancy/SupervisionHubSection';
-import { WoundCareDashboardSection } from './tenancy/WoundCareDashboardSection';
-import { WoundCareDashboard_OLDSection } from './tenancy/WoundCareDashboard_OLDSection';
+import { WoundCareHomeSection } from './tenancy/WoundCareHomeSection';
+import { WoundCareHome_OLDSection } from './tenancy/WoundCareHome_OLDSection';
 import { WoundCareClientSection } from './tenancy/WoundCareClientSection';
 import { ResponseBotAuditSection } from './tenancy/ResponseBotAuditSection';
-import { StaffDashboardSection } from './tenancy/StaffDashboardSection';
+import { StaffHomeSection } from './tenancy/StaffHomeSection';
 import { MessageCenterSection } from './tenancy/MessageCenterSection';
 import { IncidentPortalSection } from './tenancy/IncidentPortalSection';
 import { ComplianceMonitorSection } from './tenancy/ComplianceMonitorSection';
@@ -98,7 +98,7 @@ import { AuditLogsSection } from './platform/AuditLogsSection';
 import { AuthListSection } from './platform/AuthListSection';
 import { AuthUtilizationSection } from './platform/AuthUtilizationSection';
 import { AuthAlertsSection } from './platform/AuthAlertsSection';
-import { AutoPilotDashboardSection } from './platform/AutoPilotDashboardSection';
+import { AutoPilotHomeSection } from './platform/AutoPilotHomeSection';
 import { BookingRequestQueueSection } from './platform/BookingRequestQueueSection';
 import { ClaimsListSection } from './platform/ClaimsListSection';
 import { ClaimsEraSection } from './platform/ClaimsEraSection';
@@ -108,7 +108,7 @@ import { ConsentListSection } from './platform/ConsentListSection';
 import { ConsentExpiringSection } from './platform/ConsentExpiringSection';
 import { ConsentTemplatesSection } from './platform/ConsentTemplatesSection';
 import { CustomerListSection } from './platform/CustomerListSection';
-import { AdminDashboardSection } from './platform/AdminDashboardSection';
+import { AdminHomeSection } from './platform/AdminHomeSection';
 import { RegistrySummarySection } from './platform/RegistrySummarySection';
 import { DocumentCenterSection } from './platform/DocumentCenterSection';
 import { AdminEarningsPageSection } from './platform/AdminEarningsPageSection';
@@ -134,7 +134,7 @@ import { LocationsSection } from './platform/LocationsSection';
 import { LocationsListSection } from './platform/LocationsListSection';
 import { MarketplaceSection } from './platform/MarketplaceSection';
 import { NotificationsHubSection } from './platform/NotificationsHubSection';
-import { ObservabilityDashboardSection } from './platform/ObservabilityDashboardSection';
+import { ObservabilityHomeSection } from './platform/ObservabilityHomeSection';
 import { StaffOnboardingSection } from './platform/StaffOnboardingSection';
 import { OperationsCenterSection } from './platform/OperationsCenterSection';
 import { SupplyDemandSection } from './platform/SupplyDemandSection';
@@ -151,14 +151,14 @@ import { ReferralAnalyticsSection } from './platform/ReferralAnalyticsSection';
 import { ReportCenterSection } from './platform/ReportCenterSection';
 import { ExportPageSection } from './platform/ExportPageSection';
 import { PrivateMarketplaceSection } from './platform/PrivateMarketplaceSection';
-import { ResellerDashboardSection } from './platform/ResellerDashboardSection';
+import { ResellerHomeSection } from './platform/ResellerHomeSection';
 import { RolesListSection } from './platform/RolesListSection';
 import { RoleEditorSection } from './platform/RoleEditorSection';
 import { ScheduleSection } from './platform/ScheduleSection';
 import { SearchPageSection } from './platform/SearchPageSection';
-import { AccountingDashboardSection } from './platform/AccountingDashboardSection';
+import { AccountingHomeSection } from './platform/AccountingHomeSection';
 import { AuditTrailViewerSection } from './platform/AuditTrailViewerSection';
-import { SecurityDashboardSection } from './platform/SecurityDashboardSection';
+import { SecurityHomeSection } from './platform/SecurityHomeSection';
 import { SecurityGovernanceSection } from './platform/SecurityGovernanceSection';
 import { DeviceManagementSection } from './platform/DeviceManagementSection';
 import { ForensicTrailsSection } from './platform/ForensicTrailsSection';
@@ -181,7 +181,7 @@ import { RevenueWizardSection } from './platform/RevenueWizardSection';
 import { BusinessModelWizardSection } from './platform/BusinessModelWizardSection';
 import { SovereignWalletSection } from './platform/SovereignWalletSection';
 import { GrowthStrategySection } from './platform/GrowthStrategySection';
-import { SupportDashboardSection } from './platform/SupportDashboardSection';
+import { SupportHomeSection } from './platform/SupportHomeSection';
 import { TelehealthCenterSection } from './platform/TelehealthCenterSection';
 import { TemplatesListSection } from './platform/TemplatesListSection';
 import { TemplateEditorSection } from './platform/TemplateEditorSection';
@@ -221,9 +221,9 @@ import { ErrorPayloadInspectorSection } from './platform/ErrorPayloadInspectorSe
 import { FormSchemaFederatorSection } from './platform/FormSchemaFederatorSection';
 import { VisualLogicBuilderSection } from './platform/VisualLogicBuilderSection';
 import { WorkflowVersionControlSection } from './platform/WorkflowVersionControlSection';
-import { DashboardSection } from './platform/DashboardSection';
+import { HomeSection } from './platform/HomeSection';
 import { GovernanceHubSection } from './platform/GovernanceHubSection';
-import { B2bSlaDashboardSection } from './platform/B2bSlaDashboardSection';
+import { B2bSlaHomeSection } from './platform/B2bSlaHomeSection';
 import { CorporateAccountHierarchySection } from './platform/CorporateAccountHierarchySection';
 import { DischargePlannerPortalSection } from './platform/DischargePlannerPortalSection';
 import { FacilityLunchTrackerSection } from './platform/FacilityLunchTrackerSection';
@@ -237,7 +237,7 @@ import { CrisisCommsTriageSection } from './platform/CrisisCommsTriageSection';
 import { GoogleBusinessSyncSection } from './platform/GoogleBusinessSyncSection';
 import { LocalSeoRankTrackerSection } from './platform/LocalSeoRankTrackerSection';
 import { ReviewSentimentAnalyzerSection } from './platform/ReviewSentimentAnalyzerSection';
-import { GeoFencedAdDashboardSection } from './platform/GeoFencedAdDashboardSection';
+import { GeoFencedAdHomeSection } from './platform/GeoFencedAdHomeSection';
 import { CostOfCareCalculatorSection } from './platform/CostOfCareCalculatorSection';
 import { LandingPageAbTesterSection } from './platform/LandingPageAbTesterSection';
 import { LeadConversionFunnelSection } from './platform/LeadConversionFunnelSection';
@@ -266,7 +266,7 @@ import { RegistryIntegrityCheckSection } from './platform/RegistryIntegrityCheck
 import { ResponseBotSection } from './platform/ResponseBotSection';
 import { TechnicalAuditPortalSection } from './platform/TechnicalAuditPortalSection';
 import { BuildHealthPageSection } from './platform/BuildHealthPageSection';
-import { ScrumMasterDashboardSection } from './platform/ScrumMasterDashboardSection';
+import { ScrumMasterHomeSection } from './platform/ScrumMasterHomeSection';
 import { DeveloperKbSection } from './platform/DeveloperKbSection';
 import { DeveloperPortalSection } from './platform/DeveloperPortalSection';
 import { E2eRunnerSection } from './platform/E2eRunnerSection';
@@ -283,8 +283,8 @@ import { ApiEndpointsHubSection } from './platform/ApiEndpointsHubSection';
 import { ThemeCoreCenterSection } from './platform/ThemeCoreCenterSection';
 import { UsageStatisticsManagerSection } from './platform/UsageStatisticsManagerSection';
 import { SLAMonitoringSection } from './platform/SLAMonitoringSection';
-import { RiskSurveillanceDashboardSection } from './platform/RiskSurveillanceDashboardSection';
-import { SuperAdminDashboardSection } from './platform/SuperAdminDashboardSection';
+import { RiskSurveillanceHomeSection } from './platform/RiskSurveillanceHomeSection';
+import { SuperAdminHomeSection } from './platform/SuperAdminHomeSection';
 import { TenantListSection } from './platform/TenantListSection';
 import { BiometricLoginSection } from './auth/BiometricLoginSection';
 import { BusinessOnboardSection } from './auth/BusinessOnboardSection';
@@ -298,16 +298,16 @@ export const PageSectionRegistry: Record<string, any> = {
     'MessagingPortal': MessagingPortalSection,
     'DevPreview': DevPreviewSection,
     'MarketingShowcase': MarketingShowcaseSection,
-    'RoleDashboardPlaceholder': RoleDashboardPlaceholderSection,
+    'RoleHomePlaceholder': RoleHomePlaceholderSection,
     'LogisticsHub': LogisticsHubSection,
     'RegionMapping': RegionMappingSection,
     'RealtimeCapacity': RealtimeCapacitySection,
-    'AlliedHealthDashboard': AlliedHealthDashboardSection,
+    'AlliedHealthHome': AlliedHealthHomeSection,
     'SignOff': SignOffSection,
     'TreatmentList': TreatmentListSection,
     'BillingHub': BillingHubSection,
     'ClientBookings': ClientBookingsSection,
-    'ClientDashboard': ClientDashboardSection,
+    'ClientHome': ClientHomeSection,
     'FamilyCareHub': FamilyCareHubSection,
     'FamilyPortal': FamilyPortalSection,
     'FeedbackForm': FeedbackFormSection,
@@ -323,12 +323,12 @@ export const PageSectionRegistry: Record<string, any> = {
     'ShiftSwap': ShiftSwapSection,
     'SosCenter': SosCenterSection,
     'WaitlistManager': WaitlistManagerSection,
-    'FamilyDashboard': FamilyDashboardSection,
+    'FamilyHome': FamilyHomeSection,
     'FinanceRegionalHub': FinanceRegionalHubSection,
     'HrRecruitmentPortal': HrRecruitmentPortalSection,
     'ComplianceSync': ComplianceSyncSection,
     'DailyEntry': DailyEntrySection,
-    'ManagerDashboard': ManagerDashboardSection,
+    'ManagerHome': ManagerHomeSection,
     'DocumentSigningCenter': DocumentSigningCenterSection,
     'Evaluations': EvaluationsSection,
     'BranchPL': BranchPLSection,
@@ -340,10 +340,10 @@ export const PageSectionRegistry: Record<string, any> = {
     'ManagementPortfolio': ManagementPortfolioSection,
     'ServiceReview': ServiceReviewSection,
     'SurveyManager': SurveyManagerSection,
-    'MarketingDashboard': MarketingDashboardSection,
+    'MarketingHome': MarketingHomeSection,
     'AvailabilityPage': AvailabilityPageSection,
     'CredentialVault': CredentialVaultSection,
-    'PswDashboard': PswDashboardSection,
+    'PswHome': PswHomeSection,
     'PswEarnings': PswEarningsSection,
     'ExpenseReportForm': ExpenseReportFormSection,
     'ProviderSocial': ProviderSocialSection,
@@ -358,22 +358,22 @@ export const PageSectionRegistry: Record<string, any> = {
     'CheckInScreen': CheckInScreenSection,
     'ShiftConfirmation': ShiftConfirmationSection,
     'PswTrainingHub': PswTrainingHubSection,
-    'ClinicalQaDashboard': ClinicalQaDashboardSection,
+    'ClinicalQaHome': ClinicalQaHomeSection,
     'AssessmentsHub': AssessmentsHubSection,
     'EntryVerify': EntryVerifySection,
     'CarePlanManager': CarePlanManagerSection,
-    'RnDashboard': RnDashboardSection,
-    'MarDashboard': MarDashboardSection,
+    'RnHome': RnHomeSection,
+    'MarHome': MarHomeSection,
     'MarClient': MarClientSection,
     'RaiAssessments': RaiAssessmentsSection,
     'RaiAssessmentDetail': RaiAssessmentDetailSection,
     'RnCheckInScreen': RnCheckInScreenSection,
     'SupervisionHub': SupervisionHubSection,
-    'WoundCareDashboard': WoundCareDashboardSection,
-    'WoundCareDashboard_OLD': WoundCareDashboard_OLDSection,
+    'WoundCareHome': WoundCareHomeSection,
+    'WoundCareHome_OLD': WoundCareHome_OLDSection,
     'WoundCareClient': WoundCareClientSection,
     'ResponseBotAudit': ResponseBotAuditSection,
-    'StaffDashboard': StaffDashboardSection,
+    'StaffHome': StaffHomeSection,
     'MessageCenter': MessageCenterSection,
     'IncidentPortal': IncidentPortalSection,
     'ComplianceMonitor': ComplianceMonitorSection,
@@ -389,7 +389,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'AuthList': AuthListSection,
     'AuthUtilization': AuthUtilizationSection,
     'AuthAlerts': AuthAlertsSection,
-    'AutoPilotDashboard': AutoPilotDashboardSection,
+    'AutoPilotHome': AutoPilotHomeSection,
     'BookingRequestQueue': BookingRequestQueueSection,
     'ClaimsList': ClaimsListSection,
     'ClaimsEra': ClaimsEraSection,
@@ -399,7 +399,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'ConsentExpiring': ConsentExpiringSection,
     'ConsentTemplates': ConsentTemplatesSection,
     'CustomerList': CustomerListSection,
-    'AdminDashboard': AdminDashboardSection,
+    'AdminHome': AdminHomeSection,
     'RegistrySummary': RegistrySummarySection,
     'DocumentCenter': DocumentCenterSection,
     'AdminEarningsPage': AdminEarningsPageSection,
@@ -425,7 +425,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'LocationsList': LocationsListSection,
     'Marketplace': MarketplaceSection,
     'NotificationsHub': NotificationsHubSection,
-    'ObservabilityDashboard': ObservabilityDashboardSection,
+    'ObservabilityHome': ObservabilityHomeSection,
     'StaffOnboarding': StaffOnboardingSection,
     'OperationsCenter': OperationsCenterSection,
     'SupplyDemand': SupplyDemandSection,
@@ -442,14 +442,14 @@ export const PageSectionRegistry: Record<string, any> = {
     'ReportCenter': ReportCenterSection,
     'ExportPage': ExportPageSection,
     'PrivateMarketplace': PrivateMarketplaceSection,
-    'ResellerDashboard': ResellerDashboardSection,
+    'ResellerHome': ResellerHomeSection,
     'RolesList': RolesListSection,
     'RoleEditor': RoleEditorSection,
     'Schedule': ScheduleSection,
     'SearchPage': SearchPageSection,
-    'AccountingDashboard': AccountingDashboardSection,
+    'AccountingHome': AccountingHomeSection,
     'AuditTrailViewer': AuditTrailViewerSection,
-    'SecurityDashboard': SecurityDashboardSection,
+    'SecurityHome': SecurityHomeSection,
     'SecurityGovernance': SecurityGovernanceSection,
     'DeviceManagement': DeviceManagementSection,
     'ForensicTrails': ForensicTrailsSection,
@@ -472,7 +472,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'BusinessModelWizard': BusinessModelWizardSection,
     'SovereignWallet': SovereignWalletSection,
     'GrowthStrategy': GrowthStrategySection,
-    'SupportDashboard': SupportDashboardSection,
+    'SupportHome': SupportHomeSection,
     'TelehealthCenter': TelehealthCenterSection,
     'TemplatesList': TemplatesListSection,
     'TemplateEditor': TemplateEditorSection,
@@ -512,9 +512,9 @@ export const PageSectionRegistry: Record<string, any> = {
     'FormSchemaFederator': FormSchemaFederatorSection,
     'VisualLogicBuilder': VisualLogicBuilderSection,
     'WorkflowVersionControl': WorkflowVersionControlSection,
-    'Home': DashboardSection,
+    'Home': HomeSection,
     'GovernanceHub': GovernanceHubSection,
-    'B2bSlaDashboard': B2bSlaDashboardSection,
+    'B2bSlaHome': B2bSlaHomeSection,
     'CorporateAccountHierarchy': CorporateAccountHierarchySection,
     'DischargePlannerPortal': DischargePlannerPortalSection,
     'FacilityLunchTracker': FacilityLunchTrackerSection,
@@ -528,7 +528,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'GoogleBusinessSync': GoogleBusinessSyncSection,
     'LocalSeoRankTracker': LocalSeoRankTrackerSection,
     'ReviewSentimentAnalyzer': ReviewSentimentAnalyzerSection,
-    'GeoFencedAdDashboard': GeoFencedAdDashboardSection,
+    'GeoFencedAdHome': GeoFencedAdHomeSection,
     'CostOfCareCalculator': CostOfCareCalculatorSection,
     'LandingPageAbTester': LandingPageAbTesterSection,
     'LeadConversionFunnel': LeadConversionFunnelSection,
@@ -557,7 +557,7 @@ export const PageSectionRegistry: Record<string, any> = {
     'ResponseBot': ResponseBotSection,
     'TechnicalAuditPortal': TechnicalAuditPortalSection,
     'BuildHealthPage': BuildHealthPageSection,
-    'ScrumMasterDashboard': ScrumMasterDashboardSection,
+    'ScrumMasterHome': ScrumMasterHomeSection,
     'DeveloperKb': DeveloperKbSection,
     'DeveloperPortal': DeveloperPortalSection,
     'E2eRunner': E2eRunnerSection,
@@ -574,8 +574,8 @@ export const PageSectionRegistry: Record<string, any> = {
     'ThemeCoreCenter': ThemeCoreCenterSection,
     'UsageStatisticsManager': UsageStatisticsManagerSection,
     'SLAMonitoring': SLAMonitoringSection,
-    'RiskSurveillanceDashboard': RiskSurveillanceDashboardSection,
-    'SuperAdminDashboard': SuperAdminDashboardSection,
+    'RiskSurveillanceHome': RiskSurveillanceHomeSection,
+    'SuperAdminHome': SuperAdminHomeSection,
     'TenantList': TenantListSection,
     'BiometricLogin': BiometricLoginSection,
     'BusinessOnboard': BusinessOnboardSection,

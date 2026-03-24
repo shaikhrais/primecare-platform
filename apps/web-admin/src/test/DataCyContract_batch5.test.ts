@@ -272,32 +272,32 @@ describe('Data-Cy Contract — Batch 5', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/security/SecurityDashboard.tsx: platform/admin/pages/security/SecurityDashboard.tsx — has 3 data-cy markers', () => {
+    it('platform/admin/pages/security/SecurityHome.tsx: platform/admin/pages/security/SecurityHome.tsx — has 3 data-cy markers', () => {
         const markers = ["page.container","page.title","btn-sec-session-flush"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in platform/admin/pages/security/SecurityDashboard.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in platform/admin/pages/security/SecurityHome.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('platform/admin/pages/security/SecurityDashboard.tsx: data-cy="page.container" follows conventions', () => {
+    it('platform/admin/pages/security/SecurityHome.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/security/SecurityDashboard.tsx: data-cy="page.title" follows conventions', () => {
+    it('platform/admin/pages/security/SecurityHome.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('platform/admin/pages/security/SecurityDashboard.tsx: data-cy="btn-sec-session-flush" follows conventions', () => {
+    it('platform/admin/pages/security/SecurityHome.tsx: data-cy="btn-sec-session-flush" follows conventions', () => {
         const attr = 'btn-sec-session-flush';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

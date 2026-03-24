@@ -278,7 +278,7 @@ const DEFAULT_FLAGS: Record<string, boolean> = {
     real_time_chat: true,
     telehealth: true,
     billing: true,
-    compliance_dashboard: true,
+    compliance_home: true,
     sos_alerts: true,
     dispatch_map: true,
     knowledge_base: true,

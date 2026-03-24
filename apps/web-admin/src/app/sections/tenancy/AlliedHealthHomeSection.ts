@@ -1,5 +1,5 @@
 
-export const AlliedHealthDashboardSection: any = {
+export const AlliedHealthHomeSection: any = {
     'mod.stats': { kpiCards: [
         { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
         { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },

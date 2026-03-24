@@ -11,10 +11,10 @@ export const SmartBreadcrumbs: React.FC = () => {
     // Identify the home root based on the path
     const isPlatform = location.pathname.startsWith('/platform');
     const isTenancy = location.pathname.startsWith('/tenancy');
-    const dashboardRoot = isPlatform ? RouteRegistry.ADMIN.DASHBOARD : (isTenancy ? '/tenancy' : '/');
+    const homeRoot = isPlatform ? RouteRegistry.ADMIN.DASHBOARD : (isTenancy ? '/tenancy' : '/');
 
     // Don't show on home to avoid redundancy
-    if (location.pathname === dashboardRoot || location.pathname === RouteRegistry.ADMIN.DASHBOARD) {
+    if (location.pathname === homeRoot || location.pathname === RouteRegistry.ADMIN.DASHBOARD) {
         return null;
     }
 
@@ -22,7 +22,7 @@ export const SmartBreadcrumbs: React.FC = () => {
         <nav aria-label="breadcrumb" style={{ marginBottom: '1rem' }}>
             <ol style={{ display: 'flex', listStyle: 'none', padding: 0, margin: 0, fontSize: '0.875rem', color: 'var(--pc-text-tertiary)' }}>
                 <li style={{ display: 'flex', alignItems: 'center' }}>
-                    <Link to={dashboardRoot} style={{ color: 'var(--pc-text-tertiary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pc-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--pc-text-tertiary)'}>
+                    <Link to={homeRoot} style={{ color: 'var(--pc-text-tertiary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pc-text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--pc-text-tertiary)'}>
                         Home
                     </Link>
                 </li>

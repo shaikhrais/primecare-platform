@@ -301,7 +301,7 @@ export interface ClientProfile {
 
 // ─── Home Stats ──────────────────────────────────────────────────────
 
-export interface AdminDashboardStats {
+export interface AdminHomeStats {
     totalUsers: number;
     totalClients: number;
     totalProviders: number;

@@ -103,9 +103,9 @@ describe('typedApi.admin', () => {
         expect(typeof typedApi.admin.updateUser).toBe('function');
     });
 
-    it('has getDashboardStats method', async () => {
+    it('has getHomeStats method', async () => {
         const { typedApi } = await import('@/shared/api/typedClient');
-        expect(typeof typedApi.admin.getDashboardStats).toBe('function');
+        expect(typeof typedApi.admin.getHomeStats).toBe('function');
     });
 
     it('admin has exactly 5 methods', async () => {

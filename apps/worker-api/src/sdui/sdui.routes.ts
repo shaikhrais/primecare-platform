@@ -15,7 +15,7 @@ sduiModule.openapi(
   async (c) => {
     // In production, user = c.get('user')
     // Simulating RN Home schema dynamically rendered to the Flutter SDK
-    const rnDashboardSchema = {
+    const rnHomeSchema = {
       type: 'Padding',
       padding: 24,
       child: {
@@ -57,7 +57,7 @@ sduiModule.openapi(
       }
     };
 
-    return c.json(rnDashboardSchema);
+    return c.json(rnHomeSchema);
   }
 );
 

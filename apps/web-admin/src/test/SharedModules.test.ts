@@ -256,7 +256,7 @@ describe('Typed API Client Extended', () => {
     it('typedApi.admin has comprehensive methods', async () => {
         const { typedApi } = await import('@/shared/api/typedClient');
         expect(typedApi.admin.getUsers).toBeDefined();
-        expect(typedApi.admin.getDashboardStats).toBeDefined();
+        expect(typedApi.admin.getHomeStats).toBeDefined();
     });
 
     it('typedApi.manager has visit management', async () => {

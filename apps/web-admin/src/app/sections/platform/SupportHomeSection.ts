@@ -1,5 +1,5 @@
 
-export const SupportDashboardSection: any = {
+export const SupportHomeSection: any = {
     'mod.stats': { kpiCards: [
         { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
         { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },

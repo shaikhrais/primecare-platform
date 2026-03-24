@@ -1,5 +1,5 @@
 
-export const B2bSlaDashboardSection: any = {
+export const B2bSlaHomeSection: any = {
     'mod.stats': { kpiCards: [
         { label: 'System Health', value: 'Excellent', color: 'var(--pc-success)' },
         { label: 'Active Sessions', value: 24, color: 'var(--pc-primary)' },

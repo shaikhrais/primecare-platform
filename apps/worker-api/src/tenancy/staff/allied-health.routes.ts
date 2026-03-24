@@ -4,7 +4,7 @@ import { Bindings, Variables } from '../../bindings';
 const allied = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // GET /home/stats — Allied health home
-const dashboardRoute = createRoute({
+const homeRoute = createRoute({
     method: 'get', path: '/home/stats',
     summary: 'Allied health professional home stats', tags: ['Allied Health'],
     responses: {
@@ -23,7 +23,7 @@ const dashboardRoute = createRoute({
     },
 });
 
-allied.openapi(dashboardRoute, async (c) => {
+allied.openapi(homeRoute, async (c) => {
     const prisma = c.get('prisma');
     const userId = (c.get('jwtPayload') as any).sub;
     const psw = await prisma.pswProfile.findUnique({ where: { userId } });

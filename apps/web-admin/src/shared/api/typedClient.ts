@@ -36,7 +36,7 @@ interface TypedQueryOptions<T> {
  *
  * @example
  *   const { data, loading } = useTypedQuery<Visit[]>('/v1/manager/visits');
- *   const { data: stats } = useTypedQuery<AdminDashboardStats>('/v1/admin/home/stats');
+ *   const { data: stats } = useTypedQuery<AdminHomeStats>('/v1/admin/home/stats');
  */
 export function useTypedQuery<TResponse>(
     path: string,
@@ -150,7 +150,7 @@ export const typedApi = {
             const json = await res.json();
             return json.data ?? json;
         },
-        async getDashboardStats(): Promise<import('./contracts').AdminDashboardStats> {
+        async getHomeStats(): Promise<import('./contracts').AdminHomeStats> {
             const res = await apiClient.get('/v1/admin/home/stats');
             const json = await res.json();
             return json.data ?? json;

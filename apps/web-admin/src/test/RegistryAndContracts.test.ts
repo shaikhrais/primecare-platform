@@ -120,7 +120,7 @@ function detectSection(key: string): string {
 
 describe('detectSection', () => {
     it('home key → homes', () => {
-        expect(detectSection('dashboardMain.title')).toBe('homes');
+        expect(detectSection('homeMain.title')).toBe('homes');
     });
 
     it('nav key → nav', () => {
@@ -216,7 +216,7 @@ describe('detectSection', () => {
     });
 
     it('case insensitive', () => {
-        expect(detectSection('DashboardMain.title')).toBe('homes');
+        expect(detectSection('HomeMain.title')).toBe('homes');
     });
 });
 

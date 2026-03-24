@@ -11,7 +11,7 @@ import { QueryKeys } from '@/shared/hooks/useDomainQueries';
 import type {
     LoginRequest, LoginResponse, RegisterRequest,
     User, Visit, Incident, Service, Invoice, Lead,
-    AdminDashboardStats, AuditLog, PaginationParams,
+    AdminHomeStats, AuditLog, PaginationParams,
     RealtimeEvent, RealtimeEventType, ApiEnvelope,
     CreateVisitRequest, CreateUserRequest, CreateIncidentRequest,
     CreateLeadRequest, UpdateVisitRequest, UpdateUserRequest,
@@ -65,8 +65,8 @@ describe('QueryKeys', () => {
         expect(QueryKeys.leads({ source: 'website' })).toEqual(['leads', { source: 'website' }]);
     });
 
-    it('dashboardStats key is static', () => {
-        expect(QueryKeys.dashboardStats()).toEqual(['home', 'stats']);
+    it('homeStats key is static', () => {
+        expect(QueryKeys.homeStats()).toEqual(['home', 'stats']);
     });
 
     it('auditLogs key', () => {
@@ -130,8 +130,8 @@ describe('API Contract Type Shapes', () => {
         expect(params.search).toBe('test');
     });
 
-    it('AdminDashboardStats has all metric fields', () => {
-        const stats: AdminDashboardStats = {
+    it('AdminHomeStats has all metric fields', () => {
+        const stats: AdminHomeStats = {
             totalUsers: 100, totalClients: 50, totalProviders: 30,
             activeVisits: 15, pendingBookings: 5, monthlyRevenue: 45000,
             openIncidents: 2, complianceScore: 95,

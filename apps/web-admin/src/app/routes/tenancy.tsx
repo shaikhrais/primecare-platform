@@ -55,13 +55,13 @@ export function RealtimeCapacity() {
 // --- Merged from allied-health.tsx ---
 
 
-// --- Merged from D18-AlliedHealthDashboard.tsx ---
-export function AlliedHealthDashboard() {
+// --- Merged from D18-AlliedHealthHome.tsx ---
+export function AlliedHealthHome() {
     return (
         <PageTemplate 
-            pageId="PGE-AlliedHealthDashboard" 
+            pageId="PGE-AlliedHealthHome" 
             
-            sectionData={PageSectionRegistry['AlliedHealthDashboard']}
+            sectionData={PageSectionRegistry['AlliedHealthHome']}
         />
     );
 }
@@ -264,11 +264,11 @@ export function ClientBookings() {
 }
 
 // --- Extracted from home.tsx ---
-// Re-export from identity file: D8-ClientDashboard.tsx
-// removed broken export: export { default } from './D8-ClientDashboard';
+// Re-export from identity file: D8-ClientHome.tsx
+// removed broken export: export { default } from './D8-ClientHome';
 
 
-// --- Merged from D8-ClientDashboard.tsx ---
+// --- Merged from D8-ClientHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D8 — Client Home
 // Type: Home | Owner: client
@@ -277,12 +277,12 @@ export function ClientBookings() {
 
 
 
-export function ClientDashboard() {
+export function ClientHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ClientDashboard" 
+            pageId="PGE-ClientHome" 
             
-            sectionData={PageSectionRegistry['ClientDashboard']}
+            sectionData={PageSectionRegistry['ClientHome']}
         />
     );
 }
@@ -495,12 +495,12 @@ export function WaitlistManager() {
 // --- Merged from family.tsx ---
 
 // --- Extracted from home.tsx ---
-export function FamilyDashboard() {
+export function FamilyHome() {
     return (
         <PageTemplate 
-            pageId="PGE-FamilyDashboard" 
+            pageId="PGE-FamilyHome" 
             
-            sectionData={PageSectionRegistry['FamilyDashboard']}
+            sectionData={PageSectionRegistry['FamilyHome']}
         />
     );
 }
@@ -582,11 +582,11 @@ export function DailyEntry() {
 }
 
 // --- Extracted from home.tsx ---
-// Re-export from identity file: D7-ManagerDashboard.tsx
-// removed broken export: export { default } from './D7-ManagerDashboard';
+// Re-export from identity file: D7-ManagerHome.tsx
+// removed broken export: export { default } from './D7-ManagerHome';
 
 
-// --- Merged from D7-ManagerDashboard.tsx ---
+// --- Merged from D7-ManagerHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D7 — Manager Home
 // Type: Home | Owner: manager
@@ -595,12 +595,12 @@ export function DailyEntry() {
 
 
 
-export function ManagerDashboard() {
+export function ManagerHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ManagerDashboard" 
+            pageId="PGE-ManagerHome" 
             
-            sectionData={PageSectionRegistry['ManagerDashboard']}
+            sectionData={PageSectionRegistry['ManagerHome']}
         />
     );
 }
@@ -915,13 +915,13 @@ export function TrainingAcademy() {
 // --- Merged from marketing.tsx ---
 
 
-// --- Merged from D11-MarketingDashboard.tsx ---
-export function MarketingDashboard() {
+// --- Merged from D11-MarketingHome.tsx ---
+export function MarketingHome() {
     return (
         <PageTemplate 
-            pageId="PGE-MarketingDashboard" 
+            pageId="PGE-MarketingHome" 
             
-            sectionData={PageSectionRegistry['MarketingDashboard']}
+            sectionData={PageSectionRegistry['MarketingHome']}
         />
     );
 }
@@ -961,11 +961,11 @@ export function CredentialVault() {
 }
 
 // --- Extracted from home.tsx ---
-// Re-export from identity file: D14-PswDashboard.tsx
-// removed broken export: export { default } from './D14-PswDashboard';
+// Re-export from identity file: D14-PswHome.tsx
+// removed broken export: export { default } from './D14-PswHome';
 
 
-// --- Merged from D14-PswDashboard.tsx ---
+// --- Merged from D14-PswHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D14 — PSW Home
 // Type: Home | Owner: psw
@@ -974,12 +974,12 @@ export function CredentialVault() {
 
 
 
-export function PswDashboard() {
+export function PswHome() {
     return (
         <PageTemplate 
-            pageId="PGE-PswDashboard" 
+            pageId="PGE-PswHome" 
             
-            sectionData={PageSectionRegistry['PswDashboard']}
+            sectionData={PageSectionRegistry['PswHome']}
         />
     );
 }
@@ -1143,7 +1143,7 @@ export async function handleCheckOut(id: string, shifts: Shift[], setShifts: (s:
     }, (e) => { setShifts(orig); showToast(`Could not get location: ${e.message}`,'error'); });
 }
 
-export async function fetchDashboardData(showToast: (m: string, t: string) => void): Promise<{shifts: Shift[]; chartData: any}> {
+export async function fetchHomeData(showToast: (m: string, t: string) => void): Promise<{shifts: Shift[]; chartData: any}> {
     try {
         const token = localStorage.getItem('token');
         const [sR,stR] = await Promise.all([fetch(`${API_URL_1}${ApiRegistry.PSW.VISITS}`,{headers:{'Authorization':`Bearer ${token}`}}), fetch(`${API_URL_1}${ApiRegistry.PSW.DASHBOARD_STATS}`,{headers:{'Authorization':`Bearer ${token}`}})]);
@@ -1222,13 +1222,13 @@ export function PswTrainingHub() {
 // --- Merged from qa.tsx ---
 
 
-// --- Merged from D13-ClinicalQaDashboard.tsx ---
-export function ClinicalQaDashboard() {
+// --- Merged from D13-ClinicalQaHome.tsx ---
+export function ClinicalQaHome() {
     return (
         <PageTemplate 
-            pageId="PGE-ClinicalQaDashboard" 
+            pageId="PGE-ClinicalQaHome" 
             
-            sectionData={PageSectionRegistry['ClinicalQaDashboard']}
+            sectionData={PageSectionRegistry['ClinicalQaHome']}
         />
     );
 }
@@ -1301,11 +1301,11 @@ export function CarePlanManager() {
 }
 
 // --- Extracted from home.tsx ---
-// Re-export from identity file: D15-RnDashboard.tsx
-// removed broken export: export { default } from './D15-RnDashboard';
+// Re-export from identity file: D15-RnHome.tsx
+// removed broken export: export { default } from './D15-RnHome';
 
 
-// --- Merged from D15-RnDashboard.tsx ---
+// --- Merged from D15-RnHome.tsx ---
 // ================================================================
 // PAGE IDENTITY: D15 — RN Home
 // Type: Home | Owner: rn
@@ -1314,24 +1314,24 @@ export function CarePlanManager() {
 
 
 
-export function RnDashboard() {
+export function RnHome() {
     return (
         <PageTemplate 
-            pageId="PGE-RnDashboard" 
+            pageId="PGE-RnHome" 
             
-            sectionData={PageSectionRegistry['RnDashboard']}
+            sectionData={PageSectionRegistry['RnHome']}
         />
     );
 }
 
 // --- Extracted from mar.tsx ---
-// --- Merged from D16-MarDashboard.tsx ---
-export function MarDashboard() {
+// --- Merged from D16-MarHome.tsx ---
+export function MarHome() {
     return (
         <PageTemplate 
-            pageId="PGE-MarDashboard" 
+            pageId="PGE-MarHome" 
             
-            sectionData={PageSectionRegistry['MarDashboard']}
+            sectionData={PageSectionRegistry['MarHome']}
         />
     );
 }
@@ -1429,24 +1429,24 @@ export function SupervisionHub() {
 }
 
 // --- Extracted from wound-care.tsx ---
-export function WoundCareDashboard() {
+export function WoundCareHome() {
     return (
         <PageTemplate 
-            pageId="PGE-WoundCareDashboard" 
+            pageId="PGE-WoundCareHome" 
             
-            sectionData={PageSectionRegistry['WoundCareDashboard']}
+            sectionData={PageSectionRegistry['WoundCareHome']}
         />
     );
 }
 
 
-// --- Merged from D17-WoundCareDashboard.tsx ---
-export function WoundCareDashboard_OLD() {
+// --- Merged from D17-WoundCareHome.tsx ---
+export function WoundCareHome_OLD() {
     return (
         <PageTemplate 
-            pageId="PGE-WoundCareDashboard_OLD" 
+            pageId="PGE-WoundCareHome_OLD" 
             
-            sectionData={PageSectionRegistry['WoundCareDashboard_OLD']}
+            sectionData={PageSectionRegistry['WoundCareHome_OLD']}
         />
     );
 }
@@ -1484,17 +1484,17 @@ export function ResponseBotAudit() {
 
 
 // --- Extracted from home.tsx ---
-// Re-export from identity file: D19-StaffDashboard.tsx
-// removed broken export: export { default } from './D19-StaffDashboard';
+// Re-export from identity file: D19-StaffHome.tsx
+// removed broken export: export { default } from './D19-StaffHome';
 
 
-// --- Merged from D19-StaffDashboard.tsx ---
-export function StaffDashboard() {
+// --- Merged from D19-StaffHome.tsx ---
+export function StaffHome() {
     return (
         <PageTemplate 
-            pageId="PGE-StaffDashboard" 
+            pageId="PGE-StaffHome" 
             
-            sectionData={PageSectionRegistry['StaffDashboard']}
+            sectionData={PageSectionRegistry['StaffHome']}
         />
     );
 }
@@ -1812,7 +1812,7 @@ export const TenancyRoutes = () => (
     <>
         {/* MANAGER PORTAL */}
         <Route path={`${RouteRegistry.MANAGER.DASHBOARD}/*`} element={<RequireRole allowedRoles={['manager', 'operations_manager', 'clinical_manager']}><AppLayout /></RequireRole>}>
-            <Route index element={<ManagerDashboard />} />
+            <Route index element={<ManagerHome />} />
             <Route path="operations" element={<OperationsHub />} />
             <Route path="regional-stats" element={<RegionalStats />} />
             <Route path="compliance" element={<ComplianceSync />} />
@@ -1836,7 +1836,7 @@ export const TenancyRoutes = () => (
 
         {/* MARKETING PORTAL */}
         <Route path={`${RouteRegistry.MANAGER.MARKETING}/*`} element={<RequireRole allowedRoles={['marketing_manager']}><AppLayout /></RequireRole>}>
-            <Route index element={<MarketingDashboard />} />
+            <Route index element={<MarketingHome />} />
         </Route>
 
         {/* HR & RECRUITMENT PORTAL */}
@@ -1851,7 +1851,7 @@ export const TenancyRoutes = () => (
 
         {/* CLINICAL QA DASHBOARD */}
         <Route path={`${RouteRegistry.MANAGER.CLINICAL}/*`} element={<RequireRole allowedRoles={['clinical_manager']}><AppLayout /></RequireRole>}>
-            <Route index element={<ClinicalQaDashboard />} />
+            <Route index element={<ClinicalQaHome />} />
         </Route>
 
         {/* COORDINATOR PORTAL */}
@@ -1866,7 +1866,7 @@ export const TenancyRoutes = () => (
 
         {/* PSW / PROVIDER PORTAL */}
         <Route path={`${RouteRegistry.PSW.DASHBOARD}/*`} element={<RequireRole allowedRoles={['psw']}><AppLayout /></RequireRole>}>
-            <Route index element={<PswDashboard />} />
+            <Route index element={<PswHome />} />
             <Route path="schedule" element={<PswSchedule />} />
             <Route path="open-shifts" element={<PswOpenShifts />} />
             <Route path="offers" element={<PswOpenOffers />} />
@@ -1885,7 +1885,7 @@ export const TenancyRoutes = () => (
 
         {/* RN PORTAL */}
         <Route path={`${RouteRegistry.RN.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rn', 'clinical_manager']}><AppLayout /></RequireRole>}>
-            <Route index element={<RnDashboard />} />
+            <Route index element={<RnHome />} />
             <Route path="care-plans" element={<CarePlanManager />} />
             <Route path="entry-verify" element={<EntryVerify />} />
             <Route path="supervision" element={<SupervisionHub />} />
@@ -1895,7 +1895,7 @@ export const TenancyRoutes = () => (
 
         {/* CLIENT PORTAL */}
         <Route path={`${RouteRegistry.CLIENT.DASHBOARD}/*`} element={<RequireRole allowedRoles={['client']}><AppLayout /></RequireRole>}>
-            <Route index element={<ClientDashboard />} />
+            <Route index element={<ClientHome />} />
             <Route path="bookings" element={<ClientBookings />} />
             <Route path="billing" element={<ClientBilling />} />
             <Route path="feedback" element={<ClientFeedback />} />
@@ -1909,12 +1909,12 @@ export const TenancyRoutes = () => (
 
         {/* ALLIED HEALTH PORTAL */}
         <Route path={`${RouteRegistry.ALLIED.DASHBOARD}/*`} element={<RequireRole allowedRoles={['rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
-            <Route index element={<AlliedHealthDashboard />} />
+            <Route index element={<AlliedHealthHome />} />
         </Route>
 
         {/* STAFF PORTAL */}
         <Route path={`${RouteRegistry.STAFF.DASHBOARD}/*`} element={<RequireRole allowedRoles={['staff', 'admin']}><AppLayout /></RequireRole>}>
-            <Route index element={<StaffDashboard />} />
+            <Route index element={<StaffHome />} />
             <Route path="customers" element={<UserList />} />
             <Route path="tasks" element={<StaffTaskGrid />} />
             <Route path="messages" element={<StaffMessageCenter />} />
@@ -1928,9 +1928,9 @@ export const TenancyRoutes = () => (
         <Route element={<RequireRole allowedRoles={['admin', 'client', 'rn', 'psw', 'coordinator', 'rmt', 'rpt', 'rch']}><AppLayout /></RequireRole>}>
             <Route path={RouteRegistry.CLIENT.MEDICAL_SUMMARY} element={<MedicalSummary />} />
             <Route path={RouteRegistry.CLIENT.FAMILY_PORTAL} element={<FamilyPortal />} />
-            <Route path={RouteRegistry.RN.MAR} element={<MarDashboard />} />
+            <Route path={RouteRegistry.RN.MAR} element={<MarHome />} />
             <Route path={RouteRegistry.RN.MAR_CLIENT(':clientId')} element={<MarClient />} />
-            <Route path={RouteRegistry.RN.WOUND_CARE} element={<WoundCareDashboard />} />
+            <Route path={RouteRegistry.RN.WOUND_CARE} element={<WoundCareHome />} />
             <Route path={RouteRegistry.RN.WOUND_CARE_CLIENT(':clientId')} element={<WoundCareClient />} />
             <Route path={RouteRegistry.RN.RAI_ASSESSMENTS} element={<RaiAssessments />} />
             <Route path={RouteRegistry.RN.RAI_ASSESSMENT_DETAIL(':id')} element={<RaiAssessmentDetail />} />

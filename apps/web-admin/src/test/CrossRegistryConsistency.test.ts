@@ -7,7 +7,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import {
-    PageRegistry, DashboardRegistry, ListRegistry,
+    PageRegistry, HomeRegistry, ListRegistry,
     getLinksForRole, getButtonsForPage,
     FormRegistry, AdminRegistry,
 } from 'prime-care-shared';
@@ -33,7 +33,7 @@ describe('Cross-Registry Consistency', () => {
     // ── Home Validation ──────────────────────────────────────────────
     describe('home validation', () => {
         it('every home route should start with /', () => {
-            DashboardRegistry.forEach(dash => {
+            HomeRegistry.forEach(dash => {
                 expect(
                     dash.route.startsWith('/'),
                     `Home ${dash.id} route "${dash.route}" is invalid`
@@ -42,7 +42,7 @@ describe('Cross-Registry Consistency', () => {
         });
 
         it('every home should have at least one widget', () => {
-            DashboardRegistry.forEach(dash => {
+            HomeRegistry.forEach(dash => {
                 expect(
                     dash.widgets.length,
                     `Home ${dash.id} has no widgets`

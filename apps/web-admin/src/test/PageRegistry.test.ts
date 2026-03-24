@@ -9,7 +9,7 @@ import { describe, it, expect } from 'vitest';
 import {
     PageRegistry, getPageById, getPagesByType, getPagesByOwner,
     getPageTypeStats, getMasterList, MASTER_REGISTRY, MASTER_REGISTRY_COUNT,
-    PAGE_REGISTRY_COUNT, DashboardRegistry, ListRegistry, HubRegistry,
+    PAGE_REGISTRY_COUNT, HomeRegistry, ListRegistry, HubRegistry,
 } from 'prime-care-shared';
 
 describe('PageRegistry', () => {
@@ -118,12 +118,12 @@ describe('PageRegistry', () => {
 
     // ── Sub-Registries ────────────────────────────────────────────────────
     describe('sub-registries', () => {
-        it('DashboardRegistry should have entries', () => {
-            expect(DashboardRegistry.length).toBeGreaterThan(3);
+        it('HomeRegistry should have entries', () => {
+            expect(HomeRegistry.length).toBeGreaterThan(3);
         });
 
         it('every home should have statsEndpoints and widgets', () => {
-            DashboardRegistry.forEach(dash => {
+            HomeRegistry.forEach(dash => {
                 expect(Array.isArray(dash.statsEndpoints), `Home ${dash.id} missing statsEndpoints`).toBe(true);
                 expect(Array.isArray(dash.widgets), `Home ${dash.id} missing widgets`).toBe(true);
             });

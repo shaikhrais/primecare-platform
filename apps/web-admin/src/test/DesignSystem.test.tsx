@@ -183,7 +183,7 @@ describe('Shared Hooks Modules', () => {
         expect(mod.useInvoices).toBeDefined();
         expect(mod.useLeads).toBeDefined();
         expect(mod.useCreateLead).toBeDefined();
-        expect(mod.useDashboardStats).toBeDefined();
+        expect(mod.useHomeStats).toBeDefined();
         expect(mod.useAuditLogs).toBeDefined();
         expect(mod.QueryKeys).toBeDefined();
     });
@@ -255,7 +255,7 @@ describe('Typed API Client Module', () => {
         expect(typedApi.auth.register).toBeDefined();
         expect(typedApi.admin).toBeDefined();
         expect(typedApi.admin.getUsers).toBeDefined();
-        expect(typedApi.admin.getDashboardStats).toBeDefined();
+        expect(typedApi.admin.getHomeStats).toBeDefined();
         expect(typedApi.manager).toBeDefined();
         expect(typedApi.manager.getVisits).toBeDefined();
         expect(typedApi.manager.createVisit).toBeDefined();

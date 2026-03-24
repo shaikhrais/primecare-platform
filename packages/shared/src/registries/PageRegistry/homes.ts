@@ -1,6 +1,6 @@
-import type { DashboardEntry } from '../PageRegistry';
+import type { HomeEntry } from '../PageRegistry';
 
-export const DashboardRegistry: DashboardEntry[] = [
+export const HomeRegistry: HomeEntry[] = [
     // ── Platform Homes ──
     { id: 'admin.home', label: 'Admin Home', route: '/platform/admin', owner: 'admin', statsEndpoints: ['/v1/admin/stats'], widgets: ['kpi-card', 'chart', 'table'], icon: '⚙️' },
     { id: 'admin.summary', label: 'Registry Summary', route: '/platform/admin/summary-home', owner: 'admin', statsEndpoints: ['/v1/admin/stats'], widgets: ['kpi-card', 'chart'], icon: '📊' },

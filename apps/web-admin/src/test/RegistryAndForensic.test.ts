@@ -94,7 +94,7 @@ function detectSection(key: string): string {
 }
 
 describe('Detect Section', () => {
-    it('home', () => expect(detectSection('DashboardStats.count')).toBe('homes'));
+    it('home', () => expect(detectSection('HomeStats.count')).toBe('homes'));
     it('nav', () => expect(detectSection('NavMenu.items')).toBe('nav'));
     it('sidebar', () => expect(detectSection('SidebarLinks.home')).toBe('nav'));
     it('admin', () => expect(detectSection('AdminPanel.users')).toBe('admin'));

@@ -177,26 +177,26 @@ describe('Data-Cy Contract — Batch 8', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('shared/pages/RoleDashboardPlaceholder.tsx: shared/pages/RoleDashboardPlaceholder.tsx — has 2 data-cy markers', () => {
+    it('shared/pages/RoleHomePlaceholder.tsx: shared/pages/RoleHomePlaceholder.tsx — has 2 data-cy markers', () => {
         const markers = ["page.container","page.title"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in shared/pages/RoleDashboardPlaceholder.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in shared/pages/RoleHomePlaceholder.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('shared/pages/RoleDashboardPlaceholder.tsx: data-cy="page.container" follows conventions', () => {
+    it('shared/pages/RoleHomePlaceholder.tsx: data-cy="page.container" follows conventions', () => {
         const attr = 'page.container';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('shared/pages/RoleDashboardPlaceholder.tsx: data-cy="page.title" follows conventions', () => {
+    it('shared/pages/RoleHomePlaceholder.tsx: data-cy="page.title" follows conventions', () => {
         const attr = 'page.title';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
@@ -1422,20 +1422,20 @@ describe('Data-Cy Contract — Batch 8', () => {
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);
     });
 
-    it('tenancy/manager/pages/home/components/DashboardStats.tsx: tenancy/manager/pages/home/components/DashboardStats.tsx — has 1 data-cy markers', () => {
+    it('tenancy/manager/pages/home/components/HomeStats.tsx: tenancy/manager/pages/home/components/HomeStats.tsx — has 1 data-cy markers', () => {
         const markers = ["dataCy"];
         expect(markers.length).toBeGreaterThan(0);
 
         // Flag duplicate data-cy within the same page (soft check — some pages repeat markers)
         const dupes = markers.filter((m, idx) => markers.indexOf(m) !== idx);
         if (dupes.length > 0) {
-            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/DashboardStats.tsx: ' + dupes.join(', '));
+            console.warn('Duplicate data-cy in tenancy/manager/pages/home/components/HomeStats.tsx: ' + dupes.join(', '));
         }
         // Ensure dupes are less than 25% of total markers
         expect(dupes.length, 'Too many duplicates').toBeLessThan(markers.length * 0.5);
     });
 
-    it('tenancy/manager/pages/home/components/DashboardStats.tsx: data-cy="dataCy" follows conventions', () => {
+    it('tenancy/manager/pages/home/components/HomeStats.tsx: data-cy="dataCy" follows conventions', () => {
         const attr = 'dataCy';
         // Must use alphanumeric, dots, or hyphens (page codes may be uppercase)
         expect(attr).toMatch(/^[a-zA-Z0-9._-]+$/);

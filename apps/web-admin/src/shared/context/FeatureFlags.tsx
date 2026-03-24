@@ -6,7 +6,7 @@
  *
  * Usage:
  *   const { isEnabled } = useFeatureFlag('telehealth');
- *   if (isEnabled) return <TelehealthDashboard />;
+ *   if (isEnabled) return <TelehealthHome />;
  *
  *   <FeatureGate flag="new-billing-ui">
  *       <NewBillingUI />

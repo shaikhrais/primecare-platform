@@ -57394,7 +57394,7 @@ var r30 = new OpenAPIHono();
 r30.route("/", stats_default);
 r30.route("/", today_default);
 r30.route("/", kpi_default);
-var dashboard_routes_default = r30;
+var home_routes_default = r30;
 
 // src/tenancy/manager/finance/finance.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
@@ -57599,7 +57599,7 @@ manager.use("*", async (c, next) => {
   await middleware2(c, next);
 });
 manager.use("*", requireRole(["manager", "admin"]));
-manager.route("/home", dashboard_routes_default);
+manager.route("/home", home_routes_default);
 manager.route("/finance", finance_routes_default);
 manager.route("/ops", manager_ops_routes_default);
 var manager_module_default = manager;
@@ -57824,7 +57824,7 @@ r35.openapi(getStaffStatsRoute, async (c) => {
     }
   }, 200);
 });
-var dashboard_routes_default2 = r35;
+var home_routes_default2 = r35;
 
 // src/tenancy/staff/customers.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
@@ -58182,7 +58182,7 @@ staff.use("*", async (c, next) => {
   await middleware2(c, next);
 });
 staff.use("*", requireRole(["staff", "coordinator", "admin"]));
-staff.route("/home", dashboard_routes_default2);
+staff.route("/home", home_routes_default2);
 staff.route("/", scheduling_routes_default);
 staff.route("/", support_routes_default);
 staff.route("/", customers_routes_default);
@@ -58661,7 +58661,7 @@ init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_console();
 init_performance2();
 var r44 = new OpenAPIHono();
-var getDashboardStatsRoute = createRoute({
+var getHomeStatsRoute = createRoute({
   ...ROUTE_METADATA.PSW_EXTRA.DASHBOARD_STATS,
   method: "get",
   path: "/stats",
@@ -58684,7 +58684,7 @@ var getDashboardStatsRoute = createRoute({
     }
   }
 });
-r44.openapi(getDashboardStatsRoute, async (c) => {
+r44.openapi(getHomeStatsRoute, async (c) => {
   const prisma = c.get("prisma");
   const userId = c.get("jwtPayload").sub;
   const pswProfile = await prisma.pswProfile.findUnique({ where: { userId } });
@@ -58738,7 +58738,7 @@ r44.openapi(getDashboardStatsRoute, async (c) => {
     shifts: shiftData
   }, 200);
 });
-var dashboard_routes_default3 = r44;
+var home_routes_default3 = r44;
 
 // src/tenancy/psw/schedule/schedule.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
@@ -59660,7 +59660,7 @@ psw.use("*", async (c, next) => {
   const middleware2 = requireAuth(c.env.JWT_SECRET);
   await middleware2(c, next);
 });
-psw.route("/home", dashboard_routes_default3);
+psw.route("/home", home_routes_default3);
 psw.route("/schedule", schedule_routes_default);
 psw.route("/daily-entry", dailyEntry_routes_default);
 psw.route("/incidents", incidents_routes_default3);
@@ -59897,7 +59897,7 @@ r56.openapi(getClientStatsRoute, async (c) => {
     continuity: continuityData
   }, 200);
 });
-var dashboard_routes_default4 = r56;
+var home_routes_default4 = r56;
 
 // src/tenancy/client/bookings/bookings.routes.ts
 init_virtual_unenv_global_polyfill_cloudflare_unenv_preset_node_process();
@@ -60467,7 +60467,7 @@ client.use("*", async (c, next) => {
   const middleware2 = requireAuth(c.env.JWT_SECRET);
   await middleware2(c, next);
 });
-client.route("/home", dashboard_routes_default4);
+client.route("/home", home_routes_default4);
 client.route("/bookings", bookings_routes_default);
 client.route("/care-plan", carePlan_routes_default);
 client.route("/", services_routes_default2);
@@ -60600,7 +60600,7 @@ var sosAckRoute = createRoute({
     }
   }
 });
-var dashboardStatsRoute = createRoute({
+var homeStatsRoute = createRoute({
   ...ROUTE_METADATA.COORDINATOR.DASHBOARD_STATS,
   method: "get",
   path: "/home/stats",
@@ -60907,7 +60907,7 @@ coordinator.openapi(listSosRoute, async (c) => {
   });
   return c.json(incidents, 200);
 });
-coordinator.openapi(dashboardStatsRoute, async (c) => {
+coordinator.openapi(homeStatsRoute, async (c) => {
   const prisma = c.get("prisma");
   const tenantId = c.get("jwtPayload").tenantId;
   const [livePsw, sosActive, pendingMatches, waitlistCount] = await Promise.all([
