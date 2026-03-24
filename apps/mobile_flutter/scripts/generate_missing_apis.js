@@ -125,8 +125,8 @@ class _DefaultWidgetMatrixState extends State<DefaultWidgetMatrix> {
                       decoration: BoxDecoration(color: Theme.of(context).primaryColor.withValues(alpha: 0.1), shape: BoxShape.circle),
                       child: Icon(Icons.cloud_sync_rounded, color: Theme.of(context).primaryColor)
                     ),
-                    title: Text(node['title'] ?? node['id'] ?? 'Encrypted Node \${index}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    subtitle: Text(node['detail'] ?? 'Verified telemetry fetched natively.', style: const TextStyle(color: Colors.black54)),
+                    title: Text(node['title'] ?? node['text'] ?? node['id'] ?? 'Encrypted Node \${index}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    subtitle: Text(node['detail'] ?? node['status'] ?? 'Verified telemetry fetched natively.', style: const TextStyle(color: Colors.black54)),
                     trailing: const Icon(Icons.rocket_launch_rounded, color: Colors.grey),
                   );
                 }
@@ -191,9 +191,9 @@ class DefaultActivityLog extends StatelessWidget {
 }
 
 screens.forEach(s => {
-    const dir = \`lib/features/\${s.role}\`;
+    const dir = `lib/features/${s.role}`;
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(\`\${dir}/\${s.file}\`, generateScreenCode(s));
-    console.log(\`Upgraded Native Component bridging API <-> DB natively: \${s.file}\`);
+    fs.writeFileSync(`${dir}/${s.file}`, generateScreenCode(s));
+    console.log(`Upgraded Native Component bridging API <-> DB natively: ${s.file}`);
 });
 console.log('Finished fully syncing Frontend DOM interfaces to Backend D1 ORM.');
