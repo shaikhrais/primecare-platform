@@ -299,7 +299,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeDashboard.
   ///
   /// In en, this message translates to:
-  /// **'Home Dashboard'**
+  /// **'Central Operations Matrix'**
   String get homeDashboard;
 
   /// No description provided for @wellnessPulse.
@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// No description provided for @shiftAcceptedAddedToDashboard.
   ///
   /// In en, this message translates to:
-  /// **'Shift Accepted. Added to Dashboard.'**
+  /// **'Shift Accepted. Localized telemetry synced.'**
   String get shiftAcceptedAddedToDashboard;
 
   /// No description provided for @typeYourMessage.

@@ -92,16 +92,16 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (hasToken && (isLoggingIn || isGenericDashboard || isRoot)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
-          case 'mt': return '/mt/dashboard';
+          case 'mt': return '/mt/operations-hub';
           case 'gm':
-          case 'general_manager': return '/gm/dashboard';
-          case 'scrum_master': return '/scrum-master/dashboard';
-          case 'rn': return '/rn/dashboard';
-          case 'coordinator': return '/coordinator/dashboard';
-          case 'manager': return '/manager/dashboard';
+          case 'general_manager': return '/gm/operations-hub';
+          case 'scrum_master': return '/scrum-master/operations-hub';
+          case 'rn': return '/rn/operations-hub';
+          case 'coordinator': return '/coordinator/matrix';
+          case 'manager': return '/manager/analytics-matrix';
           case 'admin':
-          case 'super_admin': return '/dashboard';
-          case 'client': return '/client/dashboard';
+          case 'super_admin': return '/admin/telemetry-matrix';
+          case 'client': return '/client/care-hub';
           default: return '/psw/home';
         }
       }

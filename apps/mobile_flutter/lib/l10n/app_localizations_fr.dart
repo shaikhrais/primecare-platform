@@ -111,7 +111,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get password => '[FR] Password';
 
   @override
-  String get homeDashboard => '[FR] Home Dashboard';
+  String get homeDashboard => '[FR] Matrice des opérations centrales';
 
   @override
   String get wellnessPulse => '[FR] Wellness Pulse';
@@ -214,7 +214,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get shiftAcceptedAddedToDashboard =>
-      '[FR] Shift Accepted. Added to Dashboard.';
+      '[FR] Emplacement accepté. Télémétrie localisée synchronisée.';
 
   @override
   String get typeYourMessage => '[FR] Type your message...';
