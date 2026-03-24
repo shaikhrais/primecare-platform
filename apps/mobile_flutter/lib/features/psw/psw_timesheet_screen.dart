@@ -57,24 +57,35 @@ class _PswTimesheetScreenState extends State<PswTimesheetScreen> {
 
             SizedBox(height: 32),
             
-            // Interactive 30-Day Grid Space (Placeholder for GitHub UI)
             PrimeCareCard(
               width: double.infinity,
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimeCareText('Activity Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).textTheme.titleLarge?.color)),
-                  SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(28, (index) {
-                      final intensity = (index % 5 == 0) ? 0.8 : (index % 3 == 0) ? 0.4 : 0.1;
-                      return PrimeCareCard(child: const SizedBox.shrink(), width: 24, height: 24,
-                        
+                  const SizedBox(height: 16),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 7, 
+                        crossAxisSpacing: 8, 
+                        mainAxisSpacing: 8
+                    ),
+                    itemCount: 30,
+                    itemBuilder: (context, index) {
+                      final intensity = (index % 5 == 0) ? 0.8 : (index % 3 == 0) ? 0.4 : 0.05;
+                      return Container(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor.withValues(alpha: intensity),
+                              borderRadius: BorderRadius.circular(8)
+                          ),
+                          child: Center(
+                             child: Text('\${index + 1}', style: TextStyle(color: intensity > 0.3 ? Colors.white : Colors.black54, fontWeight: FontWeight.bold, fontSize: 12))
+                          )
                       );
-                    }),
+                    }
                   )
                 ],
               ),
