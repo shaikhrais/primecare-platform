@@ -23,6 +23,7 @@ import scrumMasterModule from './platform/scrum_master/scrum_master.module';
 import superuserModule from './platform/superuser/superuser.module';
 import debugModule from './platform/system/debug.routes';
 import cronRoutes from './platform/system/cron.routes';
+import missingApisModule from './platform/missing_apis/missing_apis.module';
 import webrtcModule from './platform/system/webrtc.routes';
 import ledgerModule from './finance/ledger/journal.routes';
 import sduiModule from './sdui/sdui.routes';
@@ -95,6 +96,7 @@ app.route('/v1/system/diagnostics', diagnosticsModule);
 app.route('/v1/system/behavioral', behavioralModule);
 app.route('/v1/activities', activitiesModule);
 app.route('/v1/inbox', inboxModule);
+app.route('/v1/platform', missingApisModule);
 
 // 6. Export with CORS wrapper + Sentry (extracted)
 export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);
