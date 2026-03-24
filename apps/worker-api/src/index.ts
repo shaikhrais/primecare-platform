@@ -30,6 +30,7 @@ import { ecosystemModule } from './ecosystem/ecosystem.routes';
 import { diagnosticsModule } from './ecosystem/diagnostics.routes';
 import { behavioralModule } from './ecosystem/behavioral.routes';
 import activitiesModule from './activities/activities.routes';
+import inboxModule from './inbox/inbox.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
 import { RealtimeSync } from './durable_objects/RealtimeSync';
@@ -93,6 +94,7 @@ app.route('/v1/system/ecosystem', ecosystemModule);
 app.route('/v1/system/diagnostics', diagnosticsModule);
 app.route('/v1/system/behavioral', behavioralModule);
 app.route('/v1/activities', activitiesModule);
+app.route('/v1/inbox', inboxModule);
 
 // 6. Export with CORS wrapper + Sentry (extracted)
 export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);

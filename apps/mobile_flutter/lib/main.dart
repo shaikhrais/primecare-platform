@@ -1,3 +1,4 @@
+import 'features/shared/universal_inbox_screen.dart';
 import 'features/rn/rn_patients_screen.dart';
 import 'features/shared/universal_daily_tasks_screen.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
@@ -95,6 +96,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+        GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
+
       GoRoute(
         path: '/login',
         builder: (context, state) => LoginScreen(),
