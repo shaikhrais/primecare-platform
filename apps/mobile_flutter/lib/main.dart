@@ -7,6 +7,17 @@ import 'features/shared/universal_daily_tasks_screen.dart';
 import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'features/rn/rn_profile_screen.dart';
+import 'features/client/client_pulse_screen.dart';
+import 'features/client/client_profile_screen.dart';
+import 'features/admin/admin_settings_screen.dart';
+import 'features/coordinator/coordinator_staff_screen.dart';
+import 'features/coordinator/coordinator_approvals_screen.dart';
+import 'features/coordinator/coordinator_profile_screen.dart';
+import 'features/manager/manager_reports_screen.dart';
+import 'features/manager/manager_teams_screen.dart';
+import 'features/manager/manager_profile_screen.dart';
+import 'features/mt/mt_clients_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/locale_provider.dart';
 import 'package:go_router/go_router.dart';
@@ -154,22 +165,22 @@ final routerProvider = Provider<GoRouter>((ref) {
           // ======================= RN ========================
           
           GoRoute(path: '/rn/patients', builder: (context, state) => const RnPatientsScreen()),
-          GoRoute(path: '/rn/inbox', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnInboxThreadActive)))),
+          // Universally intercepting mapped root RN execution parameters.
           GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
           GoRoute(path: '/rn/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/rn/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.rnProfileActive)))),
+          GoRoute(path: '/rn/profile', builder: (context, state) => const RnProfileScreen()),
 
           // ======================= CLIENT ====================
           GoRoute(path: '/client/care-hub', builder: (context, state) => ClientCareHubScreen()),
           
-          GoRoute(path: '/client/pulse', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Wellness Pulse View')))),
+          GoRoute(path: '/client/pulse', builder: (context, state) => const ClientPulseScreen()),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
           GoRoute(path: '/client/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'client')),
-          GoRoute(path: '/client/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Client Family Settings')))),
+          GoRoute(path: '/client/profile', builder: (context, state) => const ClientProfileScreen()),
 
           // ======================= ADMIN =====================
           GoRoute(path: '/admin/telemetry-matrix', builder: (context, state) => AdminTelemetryMatrixScreen()),
@@ -180,14 +191,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
           GoRoute(path: '/admin/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'admin')),
-          GoRoute(path: '/admin/settings', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Global Environment Variables')))),
+          GoRoute(path: '/admin/settings', builder: (context, state) => const AdminSettingsScreen()),
 
           // ======================= COORDINATOR ===============
           GoRoute(path: '/coordinator/matrix', builder: (context, state) => CoordinatorJaneMatrixScreen()),
           
-          GoRoute(path: '/coordinator/staff', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorStaffActive)))),
-          GoRoute(path: '/coordinator/approvals', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorApprovalsActive)))),
-          GoRoute(path: '/coordinator/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.coordinatorProfileActive)))),
+          GoRoute(path: '/coordinator/staff', builder: (context, state) => const CoordinatorStaffScreen()),
+          GoRoute(path: '/coordinator/approvals', builder: (context, state) => const CoordinatorApprovalsScreen()),
+          GoRoute(path: '/coordinator/profile', builder: (context, state) => const CoordinatorProfileScreen()),
           GoRoute(path: '/coordinator/live-map', builder: (context, state) => CoordinatorLiveMapScreen()),
           GoRoute(path: '/coordinator/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'coordinator')),
           GoRoute(path: '/coordinator/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'coordinator')),
@@ -198,18 +209,18 @@ final routerProvider = Provider<GoRouter>((ref) {
           // ======================= MANAGER ===================
           GoRoute(path: '/manager/analytics-matrix', builder: (context, state) => ManagerAnalyticsMatrixScreen()),
           
-          GoRoute(path: '/manager/reports', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Reports Active')))),
-          GoRoute(path: '/manager/teams', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Teams Active')))),
+          GoRoute(path: '/manager/reports', builder: (context, state) => const ManagerReportsScreen()),
+          GoRoute(path: '/manager/teams', builder: (context, state) => const ManagerTeamsScreen()),
           GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
           GoRoute(path: '/manager/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'manager')),
-          GoRoute(path: '/manager/profile', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText('Manager Profile Active')))),
+          GoRoute(path: '/manager/profile', builder: (context, state) => const ManagerProfileScreen()),
 
           // ======================= MT ========================
           
-          GoRoute(path: '/mt/clients', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtClientsActive)))),
-          GoRoute(path: '/mt/messages', builder: (context, state) => PrimeCareScaffold(body: PrimeCareCenter(child: PrimeCareText(AppLocalizations.of(context)!.mtMessagesActive)))),
+          GoRoute(path: '/mt/clients', builder: (context, state) => const MtClientsScreen()),
+          GoRoute(path: '/mt/messages', builder: (context, state) => UniversalInboxScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
           GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
