@@ -5,14 +5,14 @@ import { requirePermission } from '../../../_shared/middleware/rbac';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
-// GET Dashboard Stats for Staff
+// GET Operations Stats for Staff
 const getStaffStatsRoute = createRoute({
     ...ROUTE_METADATA.STAFF.DASHBOARD_STATS,
     method: 'get',
     path: '/stats',
     summary: 'Get Staff Stats',
-    tags: ['Staff', 'Dashboard'],
-    middleware: [requirePermission('view_ops_dashboard')],
+    tags: ['Staff', 'Operations'],
+    middleware: [requirePermission('view_ops_operations')],
     responses: {
         200: {
             content: {
@@ -22,7 +22,7 @@ const getStaffStatsRoute = createRoute({
                     }),
                 },
             },
-            description: 'Staff dashboard statistics',
+            description: 'Staff operations statistics',
         },
         '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } },
         '404': { description: 'Not Found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }

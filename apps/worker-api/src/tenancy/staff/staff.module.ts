@@ -4,7 +4,7 @@ import { requireAuth } from '../../_shared/middleware/auth';
 import { requireAnyPermission } from '../../_shared/middleware/rbac';
 import schedulingRoutes from './scheduling/scheduling.routes';
 import supportRoutes from './support/support.routes';
-import dashboardRoutes from './dashboard/dashboard.routes';
+import operationsRoutes from './operations/operations.routes';
 import customerRoutes from './customers.routes';
 import opsRoutes from './ops/ops.routes';
 import tasksRoutes from './ops/tasks.routes';
@@ -19,10 +19,10 @@ staff.use('*', async (c, next) => {
     const middleware = requireAuth(c.env.JWT_SECRET);
     return await middleware(c, next);
 });
-staff.use('*', requireAnyPermission(['view_dashboard', 'view_ops_dashboard']));
+staff.use('*', requireAnyPermission(['view_operations', 'view_ops_operations']));
 
 // Routes
-staff.route('/dashboard', dashboardRoutes);
+staff.route('/operations', operationsRoutes);
 staff.route('/', schedulingRoutes);
 staff.route('/', supportRoutes);
 staff.route('/', customerRoutes);

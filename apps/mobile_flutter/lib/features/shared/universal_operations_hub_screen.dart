@@ -118,7 +118,7 @@ class UniversalOperationsHubScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.dashboard_customize_rounded, size: 48, color: activeColor),
+                Icon(Icons.grid_view_customize_rounded, size: 48, color: activeColor),
                 const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

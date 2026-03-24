@@ -1,9 +1,9 @@
 /**
- * PSW Dashboard Handlers
- * Extracted from psw dashboard.routes.ts
+ * PSW Operations Handlers
+ * Extracted from psw operations.routes.ts
  */
 
-export async function handleGetDashboardStats(c: any) {
+export async function handleGetOperationsStats(c: any) {
     const prisma = c.get('prisma');
     try {
         const userId = c.get('jwtPayload').sub;

@@ -84,12 +84,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       final prefs = await SharedPreferences.getInstance();
       final hasToken = prefs.containsKey('auth_token');
       final isLoggingIn = state.uri.toString() == '/login';
-      final isGenericDashboard = state.uri.toString() == '/admin/telemetry-matrix';
+      final isGenericHub = state.uri.toString() == '/admin/telemetry-matrix';
       final isRoot = state.uri.toString() == '/';
 
       if (!hasToken && !isLoggingIn) return '/login';
       
-      if (hasToken && (isLoggingIn || isGenericDashboard || isRoot)) {
+      if (hasToken && (isLoggingIn || isGenericHub || isRoot)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
           case 'mt': return '/mt/operations-hub';

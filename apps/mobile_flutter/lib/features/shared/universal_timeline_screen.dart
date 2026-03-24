@@ -39,7 +39,7 @@ class _UniversalTimelineScreenState extends State<UniversalTimelineScreen> {
   Future<void> _fetchTasksFromApi() async {
     String role = widget.rolePrefix.replaceAll('/', '');
     if (role.isEmpty) role = 'psw';
-    if (role == 'dashboard') role = 'admin';
+    if (role == 'admin') role = 'admin';
     if (role == 'scrum-master') role = 'scrum_master';
 
     try {

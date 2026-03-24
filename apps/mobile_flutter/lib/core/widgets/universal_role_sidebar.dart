@@ -23,7 +23,7 @@ class UniversalRoleSidebar extends StatelessWidget {
       activeColor = const Color(0xFF10B981);
       destinations = [
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.home, icon: Icons.home_rounded, selectedIcon: Icons.home_rounded),
-        ResponsiveNavigationData(label: AppLocalizations.of(context)!.shifts, icon: Icons.space_dashboard_rounded, selectedIcon: Icons.space_dashboard_rounded),
+        ResponsiveNavigationData(label: AppLocalizations.of(context)!.shifts, icon: Icons.widgets_rounded, selectedIcon: Icons.widgets_rounded),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.clients, icon: Icons.people_outline, selectedIcon: Icons.people_outline),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.timesheet, icon: Icons.timer_outlined, selectedIcon: Icons.timer_outlined),
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
@@ -36,7 +36,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/rn')) {
       activeColor = const Color(0xFF3B82F6);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Patients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Inbox', icon: Icons.inbox_outlined, selectedIcon: Icons.inbox_rounded),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
@@ -61,7 +61,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath == '/admin/telemetry-matrix' || currentPath.startsWith('/admin')) {
       activeColor = const Color(0xFF8B5CF6);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Network', icon: Icons.hub_outlined, selectedIcon: Icons.hub),
         ResponsiveNavigationData(label: 'Audit', icon: Icons.security_rounded, selectedIcon: Icons.security_rounded),
         ResponsiveNavigationData(label: 'Global Telemetry', icon: Icons.radar_outlined, selectedIcon: Icons.radar_rounded),
@@ -76,7 +76,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/coordinator')) {
       activeColor = const Color(0xFFF59E0B);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Staff', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Approvals', icon: Icons.fact_check_outlined, selectedIcon: Icons.fact_check),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
@@ -89,7 +89,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/manager')) {
       activeColor = const Color(0xFFF43F5E);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Reports', icon: Icons.bar_chart_outlined, selectedIcon: Icons.bar_chart),
         ResponsiveNavigationData(label: 'Teams', icon: Icons.group_work_outlined, selectedIcon: Icons.group_work),
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
@@ -102,7 +102,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/mt')) {
        activeColor = const Color(0xFF14B8A6);
        destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Clients', icon: Icons.people_outline, selectedIcon: Icons.people),
         ResponsiveNavigationData(label: 'Messages', icon: Icons.chat_bubble_outline, selectedIcon: Icons.chat_bubble),
         ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
@@ -114,7 +114,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/gm')) {
       activeColor = const Color(0xFF0284C7);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
@@ -124,7 +124,7 @@ class UniversalRoleSidebar extends StatelessWidget {
     else if (currentPath.startsWith('/scrum-master')) {
       activeColor = const Color(0xFF9333EA);
       destinations = [
-        ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
+        ResponsiveNavigationData(label: 'Matrix', icon: Icons.grid_view_rounded, selectedIcon: Icons.grid_view_rounded),
         ResponsiveNavigationData(label: 'Daily Tasks', icon: Icons.task_alt, selectedIcon: Icons.task_alt),
         ResponsiveNavigationData(label: 'Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),

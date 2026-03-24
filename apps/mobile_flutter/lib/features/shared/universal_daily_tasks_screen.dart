@@ -40,7 +40,7 @@ class _UniversalDailyTasksScreenState extends State<UniversalDailyTasksScreen> {
   Future<void> _fetchTasksFromApi() async {
     String role = widget.rolePrefix.replaceAll('/', '');
     if (role.isEmpty) role = 'psw';
-    if (role == 'dashboard') role = 'admin';
+    if (role == 'admin') role = 'admin';
     if (role == 'scrum-master') role = 'scrum_master';
 
     try {
@@ -71,7 +71,7 @@ class _UniversalDailyTasksScreenState extends State<UniversalDailyTasksScreen> {
     
     String role = widget.rolePrefix.replaceAll('/', '');
     if (role == 'scrum-master') role = 'scrum_master';
-    if (role == 'dashboard') role = 'admin';
+    if (role == 'admin') role = 'admin';
 
     try {
       final response = await apiClient.post('/v1/activities', {
