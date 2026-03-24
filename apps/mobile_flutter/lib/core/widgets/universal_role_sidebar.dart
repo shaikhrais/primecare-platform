@@ -141,17 +141,36 @@ class UniversalRoleSidebar extends StatelessWidget {
       if (currentIndex == -1) currentIndex = 0;
     }
 
-    return ResponsiveShell(
-      body: child,
-      currentIndex: currentIndex,
-      destinations: destinations,
-      activeIconColor: activeColor,
-      activeIndicatorColor: activeColor?.withValues(alpha: 0.15),
-      onNavigate: (index) {
-        if (index >= 0 && index < paths.length) {
-          context.go(paths[index]);
-        }
-      },
+    return Stack(
+      children: [
+        ResponsiveShell(
+          body: child,
+          currentIndex: currentIndex,
+          destinations: destinations,
+          activeIconColor: activeColor,
+          activeIndicatorColor: activeColor?.withValues(alpha: 0.15),
+          onNavigate: (index) {
+            if (index >= 0 && index < paths.length) {
+              context.go(paths[index]);
+            }
+          },
+        ),
+        Positioned(
+          bottom: 100, // Perfectly floats above the modern BottomNavigationBar
+          right: 24,
+          child: FloatingActionButton(
+            elevation: 8,
+            heroTag: 'universal_talk_call_button',
+            backgroundColor: activeColor ?? Theme.of(context).primaryColor,
+            onPressed: () {
+              final segments = currentPath.split('/');
+              final userRole = segments.length > 1 ? segments[1] : 'psw';
+              context.push('/$userRole/inbox');
+            },
+            child: const Icon(Icons.forum_rounded, color: Colors.white, size: 28),
+          ),
+        ),
+      ],
     );
   }
 }

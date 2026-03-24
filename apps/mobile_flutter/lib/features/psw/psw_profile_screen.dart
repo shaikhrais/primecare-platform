@@ -18,11 +18,14 @@ class PswProfileScreen extends StatefulWidget {
 }
 
 class _PswProfileScreenState extends State<PswProfileScreen> {
-  Map<String, dynamic>? _profileCache;
-  final String _preferredShift = "Flex Time (Any)";
   bool _isLoading = true;
+  bool _isSaving = false;
   Uint8List? _profileImageBytes;
   final ImagePicker _picker = ImagePicker();
+
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   void initState() {
@@ -36,7 +39,10 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
       final profile = response['profile'];
       if (mounted && profile != null) {
         setState(() {
-          _profileCache = profile;
+          _firstNameController.text = profile['firstName'] ?? '';
+          _lastNameController.text = profile['lastName'] ?? '';
+          _phoneController.text = profile['phoneNumber'] ?? '';
+          // Avatar load skipped for brevity unless already cached
           _isLoading = false;
         });
       }
@@ -65,7 +71,8 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
     if (context.mounted) context.go('/login');
   }
 
-  Future<void> _handleSaveForm(Map<String, dynamic> formData) async {
+  Future<void> _handleSaveForm() async {
+      setState(() => _isSaving = true);
       try {
         String? base64Image;
         if (_profileImageBytes != null) {
@@ -73,9 +80,9 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         }
 
         final payload = {
-          'firstName': formData['firstName'],
-          'lastName': formData['lastName'],
-          'phoneNumber': formData['phoneNumber'],
+          'firstName': _firstNameController.text,
+          'lastName': _lastNameController.text,
+          'phoneNumber': _phoneController.text,
         };
 
         if (base64Image != null) {
@@ -85,12 +92,12 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         final response = await apiClient.put('/v1/user/profile', payload);
         
         if (mounted) {
-          // If the server returns final URL, we sync it
-          if (response['avatarUrl'] != null) {
+          if (response != null && response['avatarUrl'] != null) {
             final prefs = await SharedPreferences.getInstance();
             await prefs.setString('user_avatar', response['avatarUrl']);
           }
 
+          setState(() => _isSaving = false);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: PrimeCareText(AppLocalizations.of(context)!.profileSynchronizedWithPrimecareNetworksSafely),
@@ -101,6 +108,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         }
       } catch (e) {
         if (mounted) {
+          setState(() => _isSaving = false);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: PrimeCareText('Error updating profile: $e'), backgroundColor: PrimeCareColors.rose),
           );
@@ -120,13 +128,20 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
-              title: PrimeCareText(AppLocalizations.of(context)!.changePassword),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              title: Row(
+                children: [
+                  Icon(Icons.lock_reset_rounded, color: PrimeCareColors.rose),
+                  const SizedBox(width: 8),
+                  PrimeCareText(AppLocalizations.of(context)!.changePassword, style: const TextStyle(fontWeight: FontWeight.bold)),
+                ]
+              ),
               content: PrimeCareColumn(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextField(controller: curController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.currentPassword)),
-                  SizedBox(height: 16),
-                  TextField(controller: newController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.newPassword)),
+                  TextField(controller: curController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.currentPassword, border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)))),
+                  const SizedBox(height: 16),
+                  TextField(controller: newController, obscureText: true, decoration: InputDecoration(labelText: AppLocalizations.of(context)!.newPassword, border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)))),
                 ],
               ),
               actions: [
@@ -153,7 +168,7 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
                       }
                     }
                   },
-                  child: isChanging ? SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : PrimeCareText(AppLocalizations.of(context)!.update),
+                  child: isChanging ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)) : PrimeCareText(AppLocalizations.of(context)!.update),
                 ),
               ],
             );
@@ -166,69 +181,172 @@ class _PswProfileScreenState extends State<PswProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      body: DesktopPaneWrapper(
+      body: _isLoading ? const Center(child: CircularProgressIndicator()) : DesktopPaneWrapper(
         child: SingleChildScrollView(
-            padding: EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24.0),
             child: PrimeCareColumn(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Avatar Section
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+              // 1. Avatar Section
               PrimeCareCenter(
                 child: GestureDetector(
                   onTap: _pickImage,
                   child: PrimeCareStack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      CircleAvatar(
-                        radius: 56,
-                        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(20),
-                        backgroundImage: _profileImageBytes != null ? MemoryImage(_profileImageBytes!) : null,
-                        child: _profileImageBytes == null 
-                            ? PrimeCareIcon(Icons.badge, size: 48, color: Theme.of(context).colorScheme.primary)
-                            : null,
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.3), blurRadius: 20, spreadRadius: 5)
+                          ]
+                        ),
+                        child: CircleAvatar(
+                          radius: 64,
+                          backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                          backgroundImage: _profileImageBytes != null ? MemoryImage(_profileImageBytes!) : null,
+                          child: _profileImageBytes == null 
+                              ? PrimeCareIcon(Icons.person_pin_rounded, size: 64, color: Theme.of(context).colorScheme.primary)
+                              : null,
+                        ),
                       ),
-                      PrimeCareCard(
-                        
-                        padding: EdgeInsets.all(8),
-                        child: PrimeCareIcon(Icons.camera_alt, size: 16, color: Colors.white),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)]),
+                        child: PrimeCareIcon(Icons.camera_alt_rounded, size: 24, color: Theme.of(context).primaryColor),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               
-              SizedBox(height: 32),
-              
-              if (_profileCache != null)
-                PrimeCareDynamicFormBuilder(
-                  formId: 'psw_profile_onboarding_v1',
-                  apiGet: (path) => apiClient.get(path),
-                  apiPost: (path, data) => apiClient.post(path, data),
-                  onSubmitted: () {
-                    // SDUI handles the DB POST. We just refresh the visual UI organically.
-                    setState(() => _isLoading = true);
-                    _loadProfile();
-                  },
+              // 2. Personal Information Shaded Block
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 15, offset: const Offset(0, 8), spreadRadius: 2)
+                  ]
                 ),
-                
-              SizedBox(height: 16),
-              
-              PrimeCareButton(
-                onPressed: _showChangePasswordDialog,
-                text: 'Change Security Password',
-                isPrimary: false,
-                icon: Icons.security,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.fingerprint_rounded, color: Theme.of(context).primaryColor, size: 28),
+                        const SizedBox(width: 12),
+                        const Text('Personal Identity', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    _buildShadowedTextField(label: 'First Name', controller: _firstNameController, icon: Icons.badge_outlined),
+                    const SizedBox(height: 16),
+                    _buildShadowedTextField(label: 'Last Name', controller: _lastNameController, icon: Icons.badge_outlined),
+                    const SizedBox(height: 16),
+                    _buildShadowedTextField(label: 'Direct Phone Line', controller: _phoneController, icon: Icons.phone_android_rounded),
+                    
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _isSaving ? null : _handleSaveForm,
+                        icon: _isSaving ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2)) : const Icon(Icons.cloud_upload_rounded, color: Colors.white),
+                        label: const Text('Synchronize Profile', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          elevation: 6,
+                          shadowColor: Theme.of(context).primaryColor.withValues(alpha: 0.5)
+                        ),
+                      )
+                    )
+                  ]
+                ),
               ),
-              SizedBox(height: 16),
-              PrimeCareButton(
-                onPressed: () => _handleLogout(context),
-                text: 'Sign Out of Application',
-                isPrimary: false,
-                icon: Icons.logout,
+
+              const SizedBox(height: 24),
+              // 3. Security Subsystem Shaded Block
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: PrimeCareColors.rose.withValues(alpha: 0.05),
+                  border: Border.all(color: PrimeCareColors.rose.withValues(alpha: 0.2), width: 2),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.security_rounded, color: PrimeCareColors.rose, size: 28),
+                        const SizedBox(width: 12),
+                        Text('Security Architecture', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: PrimeCareColors.rose)),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Restrict access protocols and manage persistent authentication lifecycles globally below.', style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: _showChangePasswordDialog,
+                        icon: Icon(Icons.key_rounded, color: PrimeCareColors.rose),
+                        label: Text('Rotate Cipher Access Key', style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.rose)),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          side: BorderSide(color: PrimeCareColors.rose.withValues(alpha: 0.5)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
+                        )
+                      )
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () => _handleLogout(context),
+                        icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+                        label: const Text('Execute System Wipe & Logout', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PrimeCareColors.rose,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
+                        )
+                      )
+                    )
+                  ]
+                ),
               ),
+              const SizedBox(height: 64), // Scroll padding
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShadowedTextField({required String label, required TextEditingController controller, required IconData icon}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+           BoxShadow(color: Colors.black.withValues(alpha: 0.03), blurRadius: 6, offset: const Offset(0, 2))
+        ]
+      ),
+      child: TextField(
+        controller: controller,
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon, color: Theme.of(context).primaryColor),
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.grey[500], fontWeight: FontWeight.bold),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+          filled: true,
+          fillColor: Colors.transparent,
         ),
       ),
     );
