@@ -62,7 +62,7 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
       Navigator.pop(context); // Close Master Compose Layout
       
       final response = await apiClient.post('/v1/inbox', {
-        'threadType': 'General Broadcast => \${widget.rolePrefix.toUpperCase()}',
+        'threadType': 'General Broadcast => ${widget.rolePrefix.toUpperCase()}',
         'bodyText': text
       });
       
@@ -147,7 +147,7 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('System Messaging Hub: \${widget.rolePrefix.toUpperCase()}', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+                      Text('System Messaging Hub: ${widget.rolePrefix.toUpperCase()}', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
                       Text('Real-Time DB -> API Node Message Threads.', style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w600)),
                     ]
                   )
@@ -173,13 +173,13 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
                            const SizedBox(height: 4),
-                           Text("Sender: \${t.senderEmail}", style: TextStyle(fontSize: 13, color: Colors.grey[700], fontWeight: FontWeight.bold)),
+                           Text("Sender: ${t.senderEmail}", style: TextStyle(fontSize: 13, color: Colors.grey[700], fontWeight: FontWeight.bold)),
                            const SizedBox(height: 4),
                            Text(t.latestMessage, style: TextStyle(fontSize: 15, color: Colors.grey[800])),
                          ]
                        ),
                        trailing: Icon(Icons.reply_all_rounded, color: Colors.grey, size: 20),
-                       onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Initiating secure connection mapping Thread ID: \${t.id}..."))); },
+                       onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Initiating secure connection mapping Thread ID: ${t.id}..."))); },
                      )
                    );
                 }
