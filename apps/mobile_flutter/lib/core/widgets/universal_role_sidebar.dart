@@ -29,7 +29,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: AppLocalizations.of(context)!.profile, icon: Icons.person_outline, selectedIcon: Icons.person_outline),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/mentor'];
+      paths = ['/psw/home', '/psw/dashboard', '/psw/clients', '/psw/timesheet', '/psw/profile', '/psw/activities', '/psw/mentor'];
     } 
     else if (currentPath.startsWith('/rn')) {
       activeColor = const Color(0xFF3B82F6);
@@ -40,7 +40,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/mentor'];
+      paths = ['/rn/dashboard', '/rn/patients', '/rn/inbox', '/rn/profile', '/rn/activities', '/rn/mentor'];
     }
     else if (currentPath.startsWith('/client')) {
       activeColor = const Color(0xFF0EA5E9);
@@ -50,7 +50,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/mentor'];
+      paths = ['/client/dashboard', '/client/pulse', '/client/profile', '/client/activities', '/client/mentor'];
     }
     else if (currentPath == '/dashboard' || currentPath.startsWith('/admin')) {
       activeColor = const Color(0xFF8B5CF6);
@@ -58,10 +58,12 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'Network', icon: Icons.hub_outlined, selectedIcon: Icons.hub),
         ResponsiveNavigationData(label: 'Audit', icon: Icons.security_rounded, selectedIcon: Icons.security_rounded),
+        ResponsiveNavigationData(label: 'Global Telemetry', icon: Icons.radar_outlined, selectedIcon: Icons.radar_rounded),
         ResponsiveNavigationData(label: 'Settings', icon: Icons.settings_outlined, selectedIcon: Icons.settings),
+        ResponsiveNavigationData(label: 'Daily Activities', icon: Icons.timeline_outlined, selectedIcon: Icons.timeline_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/settings', '/admin/mentor'];
+      paths = ['/dashboard', '/admin/network', '/admin/audit', '/admin/telemetry', '/admin/settings', '/admin/activities', '/admin/mentor'];
     }
     else if (currentPath.startsWith('/coordinator')) {
       activeColor = const Color(0xFFF59E0B);
@@ -72,7 +74,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/mentor'];
+      paths = ['/coordinator/dashboard', '/coordinator/staff', '/coordinator/approvals', '/coordinator/profile', '/coordinator/activities', '/coordinator/mentor'];
     }
     else if (currentPath.startsWith('/manager')) {
       activeColor = const Color(0xFFF43F5E);
@@ -83,7 +85,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Profile', icon: Icons.person_outline, selectedIcon: Icons.person),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/mentor'];
+      paths = ['/manager/dashboard', '/manager/reports', '/manager/teams', '/manager/profile', '/manager/activities', '/manager/mentor'];
     }
     else if (currentPath.startsWith('/mt')) {
        activeColor = const Color(0xFF14B8A6);
@@ -93,7 +95,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Messages', icon: Icons.chat_bubble_outline, selectedIcon: Icons.chat_bubble),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/mentor'];
+      paths = ['/mt/dashboard', '/mt/clients', '/mt/messages', '/mt/activities', '/mt/mentor'];
     }
     else if (currentPath.startsWith('/gm')) {
       activeColor = const Color(0xFF0284C7);
@@ -101,7 +103,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/gm/dashboard', '/gm/mentor'];
+      paths = ['/gm/dashboard', '/gm/activities', '/gm/mentor'];
     }
     else if (currentPath.startsWith('/scrum-master')) {
       activeColor = const Color(0xFF9333EA);
@@ -109,7 +111,7 @@ class UniversalRoleSidebar extends StatelessWidget {
         ResponsiveNavigationData(label: 'Matrix', icon: Icons.dashboard_rounded, selectedIcon: Icons.dashboard_rounded),
         ResponsiveNavigationData(label: 'My Role', icon: Icons.school_outlined, selectedIcon: Icons.school_rounded),
       ];
-      paths = ['/scrum-master/dashboard', '/scrum-master/mentor'];
+      paths = ['/scrum-master/dashboard', '/scrum-master/activities', '/scrum-master/mentor'];
     }
     else {
       return child; 
