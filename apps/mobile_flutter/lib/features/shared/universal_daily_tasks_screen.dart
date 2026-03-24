@@ -74,7 +74,7 @@ class _UniversalDailyTasksScreenState extends State<UniversalDailyTasksScreen> {
     if (role == 'dashboard') role = 'admin';
 
     try {
-      final response = await apiClient.post('/v1/activities', body: {
+      final response = await apiClient.post('/v1/activities', {
         'title': _titleController.text,
         'description': _descController.text,
         'role': role
@@ -110,7 +110,7 @@ class _UniversalDailyTasksScreenState extends State<UniversalDailyTasksScreen> {
     setState(() { _tasks[index] = task.copyWith(status: newStatus); });
 
     try {
-      final response = await apiClient.patch('/v1/activities/${task.id}', body: { 'status': newStatus });
+      final response = await apiClient.patch('/v1/activities/${task.id}', { 'status': newStatus });
       if (response.statusCode != 200) throw Exception('API Failure');
     } catch (e) {
       if (mounted) setState(() { _tasks[index] = task.copyWith(status: isCompleting ? 'PENDING' : 'COMPLETED'); });

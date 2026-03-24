@@ -83,6 +83,20 @@ class ApiClient {
     }
   }
 
+    Future<dynamic> patch(String endpoint, Map<String, dynamic> body) async {
+    final headers = await _getHeaders();
+    final response = await http.patch(
+      Uri.parse('$baseUrl$endpoint'),
+      headers: headers,
+      body: jsonEncode(body),
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server returned ${response.statusCode}');
+    }
+  }
+
   Future<dynamic> get(String endpoint) async {
     final headers = await _getHeaders();
     final response = await http.get(

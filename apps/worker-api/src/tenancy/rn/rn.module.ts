@@ -7,6 +7,7 @@ import clinicalRoutes from './clinical/clinical.routes';
 import marRoutes from './mar/mar.routes';
 import woundCareRoutes from './wound-care/wound-care.routes';
 import raiHcRoutes from './assessments/rai-hc.routes';
+import patientsRoutes from './patients/patients.routes';
 
 const rn = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -23,5 +24,6 @@ rn.route('/clinical', clinicalRoutes);
 rn.route('/mar', marRoutes);
 rn.route('/wound-care', woundCareRoutes);
 rn.route('/assessments', raiHcRoutes);
+rn.route('/patients', patientsRoutes);
 
 export default rn;

@@ -37,102 +37,67 @@ class _UniversalTimelineScreenState extends State<UniversalTimelineScreen> {
   }
 
   Future<void> _fetchTasksFromApi() async {
-    // Simulate robust API Network Latency locally (DB -> Native API -> UI mapping)
-    await Future.delayed(const Duration(milliseconds: 1200));
-    
-    // Role-specific structural task generation dynamically mapping DB schema relations
     String role = widget.rolePrefix.replaceAll('/', '');
     if (role.isEmpty) role = 'psw';
     if (role == 'dashboard') role = 'admin';
+    if (role == 'scrum-master') role = 'scrum_master';
 
-    List<DailyTask> dbTasks = [];
-    
-    if (role == 'psw') {
-      dbTasks = [
-        DailyTask(id: 't1', title: 'Review Active Care Plans', description: 'Read latest DB updates for assigned morning clients natively.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Clock-In (EVV)', description: 'Initialize secure GPS timestamp at first client location structurally.', status: 'PENDING'),
-        DailyTask(id: 't3', title: 'Submit ADL Logs', description: 'Log Activities of Daily Living securely executing backend API triggers.', status: 'PENDING'),
-      ];
-    } else if (role == 'coordinator') {
-      dbTasks = [
-        DailyTask(id: 't1', title: 'Review Unstaffed Shifts', description: 'Check the Dispatch Matrix resolving null backend array allocations today.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Approve Timesheets', description: 'Validate yesterday\'s PSW EVV DB punches against scheduled Prisma models.', status: 'PENDING'),
-        DailyTask(id: 't3', title: 'Call-out Triage', description: 'Identify active staff call-outs updating system overrides globally.', status: 'PENDING'),
-      ];
-    } else if (role == 'rn') {
-      dbTasks = [
-        DailyTask(id: 't1', title: 'Intake 30-Day Reassessments', description: 'Approve pending 30-day client clinical `CarePlan` tables natively.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Medication Recon', description: 'Audit requested pharmacy alignments matching the database ledger.', status: 'PENDING'),
-      ];
-    } else if (role == 'client') {
-      dbTasks = [
-        DailyTask(id: 't1', title: 'Review Today\'s Schedule', description: 'Query which Caregiver is arriving referencing the `Visits` pipeline.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Log Health Pulse', description: 'Submit morning vital signs natively inserting into `VitalSigns` schema.', status: 'PENDING'),
-      ];
-    } else if (role == 'manager') {
-       dbTasks = [
-        DailyTask(id: 't1', title: 'Approve Overtime Payouts', description: 'Review flagged Tier 1 overtime logs writing approvals securely.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Review HR Investigations', description: 'Process pending disciplinary rows explicitly altering the data store.', status: 'PENDING'),
-      ];
-    } else if (role == 'mt') {
-       dbTasks = [
-        DailyTask(id: 't1', title: 'Check Regional Profit Margins', description: 'Review LHIN/CCAC invoice database aggregations logically.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Finalize Contract RFPs', description: 'Upload required SLA configurations updating network bounds locally.', status: 'PENDING'),
-      ];
-    } else if (role == 'gm') {
-       dbTasks = [
-        DailyTask(id: 't1', title: 'Global Liquidity Review', description: 'Parse multi-tenant cash flow aggregations natively mapping accounts.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Authorize Ghost Node Array', description: 'Sign the execution sequence deploying secure multi-region databases.', status: 'PENDING'),
-      ];
-    } else if (role == 'scrum_master') {
-       dbTasks = [
-        DailyTask(id: 't1', title: 'Merge CI/CD Logic', description: 'Deploy validated Cloudflare Worker algorithms actively overwriting the Edge.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Check WebAssembly Arrays', description: 'Review memory bounds detecting any memory leakage structures accurately.', status: 'PENDING'),
-      ];
-    } else if (role == 'admin') {
-       dbTasks = [
-        DailyTask(id: 't1', title: 'Review Daily DB Logs', description: 'Process multi-tenant SOC-2 active `AuditLog` table insertions natively.', status: 'PENDING'),
-        DailyTask(id: 't2', title: 'Execute Edge Reset', description: 'Trigger the Worker API flushing cached tenant nodes precisely.', status: 'PENDING'),
-      ];
-    }
-
-    if (mounted) {
-      setState(() {
-        _tasks = dbTasks;
-        _isLoading = false;
-      });
+    try {
+      final response = await apiClient.get('/v1/activities/$role');
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonList = jsonDecode(response.body);
+        List<DailyTask> dbTasks = jsonList.map((j) => DailyTask(
+          id: j['id'],
+          title: j['title'],
+          description: j['description'],
+          status: j['status']
+        )).toList();
+        
+        if (mounted) {
+          setState(() {
+            _tasks = dbTasks;
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() { _isLoading = false; });
+      }
     }
   }
 
   Future<void> _toggleTaskStatus(int index) async {
     final task = _tasks[index];
     final isCompleting = task.status == 'PENDING';
+    final newStatus = isCompleting ? 'COMPLETED' : 'PENDING';
     
     // Optimistic UI Data store mutation
     setState(() {
-      _tasks[index] = task.copyWith(status: isCompleting ? 'COMPLETED' : 'PENDING');
+      _tasks[index] = task.copyWith(status: newStatus);
     });
 
-    // Simulate API PATCH Request -> updating DB table `StaffTask` / `DailyEntry` natively
     try {
-      await Future.delayed(const Duration(milliseconds: 600)); // Hono API network routing latency
+      final response = await apiClient.patch('/v1/activities/\${task.id}', { 'status': newStatus });
       
-      if (mounted && isCompleting) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Icon(Icons.cloud_done, color: Colors.white, size: 20),
-                const SizedBox(width: 8),
-                Text('DB Execution Validated: Row marked COMPLETED locally.', style: TextStyle(fontWeight: FontWeight.bold)),
-              ]
-            ), 
-            backgroundColor: Color(0xFF059669),
-            duration: const Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-          )
-        );
-      }
+      if (response.statusCode == 200) {
+        if (mounted && isCompleting) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  Icon(Icons.cloud_done, color: Colors.white, size: 20),
+                  const SizedBox(width: 8),
+                  Text('Edge Matrix Updated: Row synced to Prisma.', style: TextStyle(fontWeight: FontWeight.bold)),
+                ]
+              ), 
+              backgroundColor: Color(0xFF059669),
+              duration: const Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+            )
+          );
+        }
+      } else { throw Exception('API Failure'); }
     } catch (e) {
       if (mounted) {
         setState(() {
@@ -286,8 +251,8 @@ class _UniversalTimelineScreenState extends State<UniversalTimelineScreen> {
             runSpacing: 16,
             children: [
               _buildStatBox('Time on System Today', '5h 12m', Icons.timer_outlined, Colors.purple),
-              _buildStatBox('Database Rows Synced', '$done / $total', Icons.storage_rounded, Colors.blue),
-              _buildStatBox('Operational Efficiency', '${(score * 100).toInt()}%', Icons.health_and_safety, score >= 0.8 ? Colors.green : Colors.orange),
+              _buildStatBox('Database Rows Synced', '\$done / \$total', Icons.storage_rounded, Colors.blue),
+              _buildStatBox('Operational Efficiency', '\${(score * 100).toInt()}%', Icons.health_and_safety, score >= 0.8 ? Colors.green : Colors.orange),
             ],
           )
         ],
