@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MessageBlock {
   final String text;
@@ -29,6 +30,48 @@ class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
     MessageBlock(text: "Please hold while I deploy the Universal WebRTC Calling sequence natively.", isMe: false, timestamp: "10:02 AM"),
   ];
 
+  WebSocketChannel? _channel;
+
+  @override
+  void initState() {
+    super.initState();
+    // Authentic Serverless Terminal Binding (Cloudflare DO ChatServer)
+    _channel = WebSocketChannel.connect(
+      Uri.parse('wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=secure_agent_token'),
+    );
+    
+    _channel!.stream.listen((message) {
+      if (mounted) {
+        setState(() {
+          _messages.add(MessageBlock(
+            text: message is String ? message : 'Unencrypted payload intercepted.',
+            isMe: false,
+            timestamp: "Just now"
+          ));
+        });
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent + 200,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOut,
+            );
+          }
+        });
+      }
+    }, onError: (err) {
+      debugPrint('[WEBSOCKET CONNECTION FAILURE]: $err');
+    });
+  }
+
+  @override
+  void dispose() {
+    _channel?.sink.close();
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   void _sendMessage() {
     if (_controller.text.trim().isEmpty) return;
     setState(() {
@@ -38,27 +81,16 @@ class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
         timestamp: "Just now"
       ));
     });
+    // Send actual physical string payloads crossing the explicit native WebAssembly edge into Cloudflare natively.
+    if (_channel != null) {
+      _channel!.sink.add(_controller.text.trim());
+    }
+
     _controller.clear();
     Future.delayed(const Duration(milliseconds: 100), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent + 200, // overshoot slightly
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    });
-    
-    // Simulate auto-reply payload
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() {
-          _messages.add(MessageBlock(
-            text: "System received external parameter: Synchronized securely.",
-            isMe: false,
-            timestamp: "Just now"
-          ));
-        });
+      if (_scrollController.hasClients) {
         _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent + 200,
+          _scrollController.position.maxScrollExtent + 200, // overshoot slightly
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );

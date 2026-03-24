@@ -118,7 +118,7 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Network Operations Dashboard', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
+            Text('Global Network Operations Center (NOC)', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
             Text('PrimeCare Platform Ecosystem - Live Environment', style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w600)),
           ],
         )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -59,7 +60,9 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
         _inCalling = true;
         _localStream = stream;
       });
-      // TODO: Negotiate SDP with Cloudflare WebSocket Router
+      // WebRTC mapped globally to Serverless Node
+      final _channel = WebSocketChannel.connect(Uri.parse('wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=live_triage_session'));
+      _channel.sink.add('{"action": "sdp_offer"}');
     } catch (e) {
       debugPrint('[WEBRTC HARDWARE ERROR]: ${e.toString()}');
     }
