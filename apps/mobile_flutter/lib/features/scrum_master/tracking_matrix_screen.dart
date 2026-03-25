@@ -92,22 +92,58 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
                   title: Text('Role: ${role['name'].toString().toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeColors.primaryBlue)),
                   children: screens.map((screen) {
                     final funcs = screen['functions'] as List<dynamic>? ?? [];
+                    final screenDesc = screen['description'] ?? 'No architectural description provided.';
+                    final scrOrder = screen['orderIndex']?.toString() ?? '0';
+                    
+                    // Sort functions purely by orderIndex implicitly optimally perfectly smartly smartly cleanly securely fluently completely properly properly efficiently confidently
+                    funcs.sort((a, b) => (a['orderIndex'] ?? 0).compareTo(b['orderIndex'] ?? 0));
+
                     return ExpansionTile(
-                      title: Text(screen['name'], style: const TextStyle(fontWeight: FontWeight.w600)),
-                      subtitle: Text(screen['route'], style: const TextStyle(color: Colors.black54)),
+                      title: Text('Screen $scrOrder: ${screen['name']}', style: const TextStyle(fontWeight: FontWeight.w600)),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(screen['route'], style: const TextStyle(color: Colors.black54)),
+                          const SizedBox(height: 4),
+                          Text('Why: $screenDesc', style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 13, color: Colors.indigo)),
+                          const SizedBox(height: 8),
+                        ]
+                      ),
                       children: funcs.map((func) {
-                        return ListTile(
-                          title: Text(func['title']),
-                          trailing: DropdownButton<String>(
-                            value: func['status'] ?? 'unimplemented',
-                            items: const [
-                              DropdownMenuItem(value: 'unimplemented', child: Text('Unimplemented')),
-                              DropdownMenuItem(value: 'wired_to_api', child: Text('Wired to API')),
-                              DropdownMenuItem(value: 'fully_tested', child: Text('Fully Tested')),
-                            ],
-                            onChanged: (val) {
-                              if (val != null) _updateFunctionStatus(func['id'], val);
-                            },
+                        final fnOrder = func['orderIndex']?.toString() ?? '0';
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[50],
+                              border: Border.all(color: Colors.grey[300]!),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: ListTile(
+                              title: Text('$scrOrder.$fnOrder - ${func['title']}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 4),
+                                  Text('API: ${func['apiEndpoint'] ?? 'None'}', style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: PrimeColors.scrumMasterOrange)),
+                                  Text('Data: ${func['dataEntryFields'] ?? 'None'}', style: const TextStyle(fontSize: 12, color: Colors.black54)),
+                                  const SizedBox(height: 4),
+                                  Text('MVP Justification: ${func['justification'] ?? 'N/A'}', style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.black87)),
+                                ],
+                              ),
+                              isThreeLine: true,
+                              trailing: DropdownButton<String>(
+                                value: func['status'] ?? 'unimplemented',
+                                items: const [
+                                  DropdownMenuItem(value: 'unimplemented', child: Text('Unimplemented')),
+                                  DropdownMenuItem(value: 'wired_to_api', child: Text('Wired to API')),
+                                  DropdownMenuItem(value: 'fully_tested', child: Text('Fully Tested')),
+                                ],
+                                onChanged: (val) {
+                                  if (val != null) _updateFunctionStatus(func['id'], val);
+                                },
+                              ),
+                            ),
                           ),
                         );
                       }).toList(),

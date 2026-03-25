@@ -132798,8 +132798,18 @@ export namespace Prisma {
 
   export type AggregatePlatformScreen = {
     _count: PlatformScreenCountAggregateOutputType | null
+    _avg: PlatformScreenAvgAggregateOutputType | null
+    _sum: PlatformScreenSumAggregateOutputType | null
     _min: PlatformScreenMinAggregateOutputType | null
     _max: PlatformScreenMaxAggregateOutputType | null
+  }
+
+  export type PlatformScreenAvgAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type PlatformScreenSumAggregateOutputType = {
+    orderIndex: number | null
   }
 
   export type PlatformScreenMinAggregateOutputType = {
@@ -132808,6 +132818,8 @@ export namespace Prisma {
     name: string | null
     route: string | null
     status: string | null
+    description: string | null
+    orderIndex: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -132818,6 +132830,8 @@ export namespace Prisma {
     name: string | null
     route: string | null
     status: string | null
+    description: string | null
+    orderIndex: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -132828,11 +132842,21 @@ export namespace Prisma {
     name: number
     route: number
     status: number
+    description: number
+    orderIndex: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type PlatformScreenAvgAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type PlatformScreenSumAggregateInputType = {
+    orderIndex?: true
+  }
 
   export type PlatformScreenMinAggregateInputType = {
     id?: true
@@ -132840,6 +132864,8 @@ export namespace Prisma {
     name?: true
     route?: true
     status?: true
+    description?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -132850,6 +132876,8 @@ export namespace Prisma {
     name?: true
     route?: true
     status?: true
+    description?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -132860,6 +132888,8 @@ export namespace Prisma {
     name?: true
     route?: true
     status?: true
+    description?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -132903,6 +132933,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PlatformScreenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlatformScreenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PlatformScreenMinAggregateInputType
@@ -132933,6 +132975,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PlatformScreenCountAggregateInputType | true
+    _avg?: PlatformScreenAvgAggregateInputType
+    _sum?: PlatformScreenSumAggregateInputType
     _min?: PlatformScreenMinAggregateInputType
     _max?: PlatformScreenMaxAggregateInputType
   }
@@ -132943,9 +132987,13 @@ export namespace Prisma {
     name: string
     route: string
     status: string
+    description: string | null
+    orderIndex: number
     createdAt: Date
     updatedAt: Date
     _count: PlatformScreenCountAggregateOutputType | null
+    _avg: PlatformScreenAvgAggregateOutputType | null
+    _sum: PlatformScreenSumAggregateOutputType | null
     _min: PlatformScreenMinAggregateOutputType | null
     _max: PlatformScreenMaxAggregateOutputType | null
   }
@@ -132970,6 +133018,8 @@ export namespace Prisma {
     name?: boolean
     route?: boolean
     status?: boolean
+    description?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
@@ -132983,6 +133033,8 @@ export namespace Prisma {
     name?: boolean
     route?: boolean
     status?: boolean
+    description?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
@@ -132994,6 +133046,8 @@ export namespace Prisma {
     name?: boolean
     route?: boolean
     status?: boolean
+    description?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -133019,6 +133073,8 @@ export namespace Prisma {
       name: string
       route: string
       status: string
+      description: string | null
+      orderIndex: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["platformScreen"]>
@@ -133421,6 +133477,8 @@ export namespace Prisma {
     readonly name: FieldRef<"PlatformScreen", 'String'>
     readonly route: FieldRef<"PlatformScreen", 'String'>
     readonly status: FieldRef<"PlatformScreen", 'String'>
+    readonly description: FieldRef<"PlatformScreen", 'String'>
+    readonly orderIndex: FieldRef<"PlatformScreen", 'Int'>
     readonly createdAt: FieldRef<"PlatformScreen", 'DateTime'>
     readonly updatedAt: FieldRef<"PlatformScreen", 'DateTime'>
   }
@@ -133781,8 +133839,18 @@ export namespace Prisma {
 
   export type AggregateScreenFunctionality = {
     _count: ScreenFunctionalityCountAggregateOutputType | null
+    _avg: ScreenFunctionalityAvgAggregateOutputType | null
+    _sum: ScreenFunctionalitySumAggregateOutputType | null
     _min: ScreenFunctionalityMinAggregateOutputType | null
     _max: ScreenFunctionalityMaxAggregateOutputType | null
+  }
+
+  export type ScreenFunctionalityAvgAggregateOutputType = {
+    orderIndex: number | null
+  }
+
+  export type ScreenFunctionalitySumAggregateOutputType = {
+    orderIndex: number | null
   }
 
   export type ScreenFunctionalityMinAggregateOutputType = {
@@ -133791,7 +133859,11 @@ export namespace Prisma {
     title: string | null
     isCore: boolean | null
     status: string | null
+    apiEndpoint: string | null
+    dataEntryFields: string | null
+    justification: string | null
     notes: string | null
+    orderIndex: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -133802,7 +133874,11 @@ export namespace Prisma {
     title: string | null
     isCore: boolean | null
     status: string | null
+    apiEndpoint: string | null
+    dataEntryFields: string | null
+    justification: string | null
     notes: string | null
+    orderIndex: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -133813,12 +133889,24 @@ export namespace Prisma {
     title: number
     isCore: number
     status: number
+    apiEndpoint: number
+    dataEntryFields: number
+    justification: number
     notes: number
+    orderIndex: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type ScreenFunctionalityAvgAggregateInputType = {
+    orderIndex?: true
+  }
+
+  export type ScreenFunctionalitySumAggregateInputType = {
+    orderIndex?: true
+  }
 
   export type ScreenFunctionalityMinAggregateInputType = {
     id?: true
@@ -133826,7 +133914,11 @@ export namespace Prisma {
     title?: true
     isCore?: true
     status?: true
+    apiEndpoint?: true
+    dataEntryFields?: true
+    justification?: true
     notes?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -133837,7 +133929,11 @@ export namespace Prisma {
     title?: true
     isCore?: true
     status?: true
+    apiEndpoint?: true
+    dataEntryFields?: true
+    justification?: true
     notes?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -133848,7 +133944,11 @@ export namespace Prisma {
     title?: true
     isCore?: true
     status?: true
+    apiEndpoint?: true
+    dataEntryFields?: true
+    justification?: true
     notes?: true
+    orderIndex?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -133892,6 +133992,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ScreenFunctionalityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ScreenFunctionalitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ScreenFunctionalityMinAggregateInputType
@@ -133922,6 +134034,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ScreenFunctionalityCountAggregateInputType | true
+    _avg?: ScreenFunctionalityAvgAggregateInputType
+    _sum?: ScreenFunctionalitySumAggregateInputType
     _min?: ScreenFunctionalityMinAggregateInputType
     _max?: ScreenFunctionalityMaxAggregateInputType
   }
@@ -133932,10 +134046,16 @@ export namespace Prisma {
     title: string
     isCore: boolean
     status: string
+    apiEndpoint: string | null
+    dataEntryFields: string | null
+    justification: string | null
     notes: string | null
+    orderIndex: number
     createdAt: Date
     updatedAt: Date
     _count: ScreenFunctionalityCountAggregateOutputType | null
+    _avg: ScreenFunctionalityAvgAggregateOutputType | null
+    _sum: ScreenFunctionalitySumAggregateOutputType | null
     _min: ScreenFunctionalityMinAggregateOutputType | null
     _max: ScreenFunctionalityMaxAggregateOutputType | null
   }
@@ -133960,7 +134080,11 @@ export namespace Prisma {
     title?: boolean
     isCore?: boolean
     status?: boolean
+    apiEndpoint?: boolean
+    dataEntryFields?: boolean
+    justification?: boolean
     notes?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
@@ -133972,7 +134096,11 @@ export namespace Prisma {
     title?: boolean
     isCore?: boolean
     status?: boolean
+    apiEndpoint?: boolean
+    dataEntryFields?: boolean
+    justification?: boolean
     notes?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
@@ -133984,7 +134112,11 @@ export namespace Prisma {
     title?: boolean
     isCore?: boolean
     status?: boolean
+    apiEndpoint?: boolean
+    dataEntryFields?: boolean
+    justification?: boolean
     notes?: boolean
+    orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -134007,7 +134139,11 @@ export namespace Prisma {
       title: string
       isCore: boolean
       status: string
+      apiEndpoint: string | null
+      dataEntryFields: string | null
+      justification: string | null
       notes: string | null
+      orderIndex: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["screenFunctionality"]>
@@ -134409,7 +134545,11 @@ export namespace Prisma {
     readonly title: FieldRef<"ScreenFunctionality", 'String'>
     readonly isCore: FieldRef<"ScreenFunctionality", 'Boolean'>
     readonly status: FieldRef<"ScreenFunctionality", 'String'>
+    readonly apiEndpoint: FieldRef<"ScreenFunctionality", 'String'>
+    readonly dataEntryFields: FieldRef<"ScreenFunctionality", 'String'>
+    readonly justification: FieldRef<"ScreenFunctionality", 'String'>
     readonly notes: FieldRef<"ScreenFunctionality", 'String'>
+    readonly orderIndex: FieldRef<"ScreenFunctionality", 'Int'>
     readonly createdAt: FieldRef<"ScreenFunctionality", 'DateTime'>
     readonly updatedAt: FieldRef<"ScreenFunctionality", 'DateTime'>
   }
@@ -136539,6 +136679,8 @@ export namespace Prisma {
     name: 'name',
     route: 'route',
     status: 'status',
+    description: 'description',
+    orderIndex: 'orderIndex',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -136552,7 +136694,11 @@ export namespace Prisma {
     title: 'title',
     isCore: 'isCore',
     status: 'status',
+    apiEndpoint: 'apiEndpoint',
+    dataEntryFields: 'dataEntryFields',
+    justification: 'justification',
     notes: 'notes',
+    orderIndex: 'orderIndex',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -146498,6 +146644,8 @@ export namespace Prisma {
     name?: StringFilter<"PlatformScreen"> | string
     route?: StringFilter<"PlatformScreen"> | string
     status?: StringFilter<"PlatformScreen"> | string
+    description?: StringNullableFilter<"PlatformScreen"> | string | null
+    orderIndex?: IntFilter<"PlatformScreen"> | number
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
@@ -146510,6 +146658,8 @@ export namespace Prisma {
     name?: SortOrder
     route?: SortOrder
     status?: SortOrder
+    description?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     role?: PlatformRoleOrderByWithRelationInput
@@ -146525,6 +146675,8 @@ export namespace Prisma {
     name?: StringFilter<"PlatformScreen"> | string
     route?: StringFilter<"PlatformScreen"> | string
     status?: StringFilter<"PlatformScreen"> | string
+    description?: StringNullableFilter<"PlatformScreen"> | string | null
+    orderIndex?: IntFilter<"PlatformScreen"> | number
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
@@ -146537,11 +146689,15 @@ export namespace Prisma {
     name?: SortOrder
     route?: SortOrder
     status?: SortOrder
+    description?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PlatformScreenCountOrderByAggregateInput
+    _avg?: PlatformScreenAvgOrderByAggregateInput
     _max?: PlatformScreenMaxOrderByAggregateInput
     _min?: PlatformScreenMinOrderByAggregateInput
+    _sum?: PlatformScreenSumOrderByAggregateInput
   }
 
   export type PlatformScreenScalarWhereWithAggregatesInput = {
@@ -146553,6 +146709,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"PlatformScreen"> | string
     route?: StringWithAggregatesFilter<"PlatformScreen"> | string
     status?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    description?: StringNullableWithAggregatesFilter<"PlatformScreen"> | string | null
+    orderIndex?: IntWithAggregatesFilter<"PlatformScreen"> | number
     createdAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
   }
@@ -146566,7 +146724,11 @@ export namespace Prisma {
     title?: StringFilter<"ScreenFunctionality"> | string
     isCore?: BoolFilter<"ScreenFunctionality"> | boolean
     status?: StringFilter<"ScreenFunctionality"> | string
+    apiEndpoint?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    dataEntryFields?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    justification?: StringNullableFilter<"ScreenFunctionality"> | string | null
     notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    orderIndex?: IntFilter<"ScreenFunctionality"> | number
     createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
@@ -146578,7 +146740,11 @@ export namespace Prisma {
     title?: SortOrder
     isCore?: SortOrder
     status?: SortOrder
+    apiEndpoint?: SortOrderInput | SortOrder
+    dataEntryFields?: SortOrderInput | SortOrder
+    justification?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     screen?: PlatformScreenOrderByWithRelationInput
@@ -146593,7 +146759,11 @@ export namespace Prisma {
     title?: StringFilter<"ScreenFunctionality"> | string
     isCore?: BoolFilter<"ScreenFunctionality"> | boolean
     status?: StringFilter<"ScreenFunctionality"> | string
+    apiEndpoint?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    dataEntryFields?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    justification?: StringNullableFilter<"ScreenFunctionality"> | string | null
     notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    orderIndex?: IntFilter<"ScreenFunctionality"> | number
     createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
@@ -146605,12 +146775,18 @@ export namespace Prisma {
     title?: SortOrder
     isCore?: SortOrder
     status?: SortOrder
+    apiEndpoint?: SortOrderInput | SortOrder
+    dataEntryFields?: SortOrderInput | SortOrder
+    justification?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ScreenFunctionalityCountOrderByAggregateInput
+    _avg?: ScreenFunctionalityAvgOrderByAggregateInput
     _max?: ScreenFunctionalityMaxOrderByAggregateInput
     _min?: ScreenFunctionalityMinOrderByAggregateInput
+    _sum?: ScreenFunctionalitySumOrderByAggregateInput
   }
 
   export type ScreenFunctionalityScalarWhereWithAggregatesInput = {
@@ -146622,7 +146798,11 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
     isCore?: BoolWithAggregatesFilter<"ScreenFunctionality"> | boolean
     status?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
+    apiEndpoint?: StringNullableWithAggregatesFilter<"ScreenFunctionality"> | string | null
+    dataEntryFields?: StringNullableWithAggregatesFilter<"ScreenFunctionality"> | string | null
+    justification?: StringNullableWithAggregatesFilter<"ScreenFunctionality"> | string | null
     notes?: StringNullableWithAggregatesFilter<"ScreenFunctionality"> | string | null
+    orderIndex?: IntWithAggregatesFilter<"ScreenFunctionality"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ScreenFunctionality"> | Date | string
   }
@@ -157234,6 +157414,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
@@ -157246,6 +157428,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
@@ -157256,6 +157440,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
@@ -157268,6 +157454,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
@@ -157279,6 +157467,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -157288,6 +157478,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157298,6 +157490,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157307,7 +157501,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     screen: PlatformScreenCreateNestedOneWithoutFunctionsInput
@@ -157319,7 +157517,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -157329,7 +157531,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screen?: PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput
@@ -157341,7 +157547,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157352,7 +157562,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -157362,7 +157576,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157373,7 +157591,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -163819,8 +164041,14 @@ export namespace Prisma {
     name?: SortOrder
     route?: SortOrder
     status?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenAvgOrderByAggregateInput = {
+    orderIndex?: SortOrder
   }
 
   export type PlatformScreenMaxOrderByAggregateInput = {
@@ -163829,6 +164057,8 @@ export namespace Prisma {
     name?: SortOrder
     route?: SortOrder
     status?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -163839,8 +164069,14 @@ export namespace Prisma {
     name?: SortOrder
     route?: SortOrder
     status?: SortOrder
+    description?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenSumOrderByAggregateInput = {
+    orderIndex?: SortOrder
   }
 
   export type PlatformScreenRelationFilter = {
@@ -163854,9 +164090,17 @@ export namespace Prisma {
     title?: SortOrder
     isCore?: SortOrder
     status?: SortOrder
+    apiEndpoint?: SortOrder
+    dataEntryFields?: SortOrder
+    justification?: SortOrder
     notes?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ScreenFunctionalityAvgOrderByAggregateInput = {
+    orderIndex?: SortOrder
   }
 
   export type ScreenFunctionalityMaxOrderByAggregateInput = {
@@ -163865,7 +164109,11 @@ export namespace Prisma {
     title?: SortOrder
     isCore?: SortOrder
     status?: SortOrder
+    apiEndpoint?: SortOrder
+    dataEntryFields?: SortOrder
+    justification?: SortOrder
     notes?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -163876,9 +164124,17 @@ export namespace Prisma {
     title?: SortOrder
     isCore?: SortOrder
     status?: SortOrder
+    apiEndpoint?: SortOrder
+    dataEntryFields?: SortOrder
+    justification?: SortOrder
     notes?: SortOrder
+    orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type ScreenFunctionalitySumOrderByAggregateInput = {
+    orderIndex?: SortOrder
   }
 
   export type AuditLogCreateNestedManyWithoutActorInput = {
@@ -188010,6 +188266,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
@@ -188020,6 +188278,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
@@ -188334,6 +188594,8 @@ export namespace Prisma {
     name?: StringFilter<"PlatformScreen"> | string
     route?: StringFilter<"PlatformScreen"> | string
     status?: StringFilter<"PlatformScreen"> | string
+    description?: StringNullableFilter<"PlatformScreen"> | string | null
+    orderIndex?: IntFilter<"PlatformScreen"> | number
     createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
     updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
   }
@@ -238721,7 +238983,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -238731,7 +238997,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -238806,7 +239076,11 @@ export namespace Prisma {
     title?: StringFilter<"ScreenFunctionality"> | string
     isCore?: BoolFilter<"ScreenFunctionality"> | boolean
     status?: StringFilter<"ScreenFunctionality"> | string
+    apiEndpoint?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    dataEntryFields?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    justification?: StringNullableFilter<"ScreenFunctionality"> | string | null
     notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    orderIndex?: IntFilter<"ScreenFunctionality"> | number
     createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
     updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
   }
@@ -238816,6 +239090,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     role: PlatformRoleCreateNestedOneWithoutScreensInput
@@ -238827,6 +239103,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -238852,6 +239130,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
@@ -238863,6 +239143,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -244577,6 +244859,8 @@ export namespace Prisma {
     name: string
     route: string
     status?: string
+    description?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -244631,6 +244915,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
@@ -244641,6 +244927,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
@@ -244651,6 +244939,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     route?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -248490,7 +248780,11 @@ export namespace Prisma {
     title: string
     isCore?: boolean
     status?: string
+    apiEndpoint?: string | null
+    dataEntryFields?: string | null
+    justification?: string | null
     notes?: string | null
+    orderIndex?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -248500,7 +248794,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -248510,7 +248808,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -248520,7 +248822,11 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isCore?: BoolFieldUpdateOperationsInput | boolean
     status?: StringFieldUpdateOperationsInput | string
+    apiEndpoint?: NullableStringFieldUpdateOperationsInput | string | null
+    dataEntryFields?: NullableStringFieldUpdateOperationsInput | string | null
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

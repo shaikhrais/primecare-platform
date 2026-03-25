@@ -1561,6 +1561,8 @@ exports.Prisma.PlatformScreenScalarFieldEnum = {
   name: 'name',
   route: 'route',
   status: 'status',
+  description: 'description',
+  orderIndex: 'orderIndex',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1571,7 +1573,11 @@ exports.Prisma.ScreenFunctionalityScalarFieldEnum = {
   title: 'title',
   isCore: 'isCore',
   status: 'status',
+  apiEndpoint: 'apiEndpoint',
+  dataEntryFields: 'dataEntryFields',
+  justification: 'justification',
   notes: 'notes',
+  orderIndex: 'orderIndex',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
