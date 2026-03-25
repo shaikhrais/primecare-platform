@@ -9,28 +9,47 @@ class MtIntakeFormsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(
             padding: EdgeInsets.all(24),
             children: [
-              _buildDigitalForm('General Liability Waiver', 'Signed on Oct 14, 2025', true),
-              _buildDigitalForm('Consent to Treat (Massage)', 'Signed on Oct 14, 2025', true),
-              _buildDigitalForm('Acupuncture Add-on Consent', 'Pending Signature', false),
-              
+              _buildDigitalForm(
+                'General Liability Waiver',
+                'Signed on Oct 14, 2025',
+                true,
+              ),
+              _buildDigitalForm(
+                'Consent to Treat (Massage)',
+                'Signed on Oct 14, 2025',
+                true,
+              ),
+              _buildDigitalForm(
+                'Acupuncture Add-on Consent',
+                'Pending Signature',
+                false,
+              ),
+
               SizedBox(height: 40),
               PrimeCareCard(
                 padding: EdgeInsets.all(24),
-                
+
                 child: PrimeCareColumn(
                   children: [
-                    PrimeCareIcon(Icons.draw_rounded, size: 48, color: PrimeCareColors.slate300),
+                    PrimeCareIcon(
+                      Icons.draw_rounded,
+                      size: 48,
+                      color: PrimeCareColors.slate300,
+                    ),
                     SizedBox(height: 16),
-                    PrimeCareText('No pending signatures required for standard treatment protocol today.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
+                    PrimeCareText(
+                      'No pending signatures required for standard treatment protocol today.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: PrimeCareColors.slate500),
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -42,19 +61,34 @@ class MtIntakeFormsScreen extends StatelessWidget {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      
+
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimeCareText(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: PrimeCareColors.radarDark)),
+              PrimeCareText(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
               SizedBox(height: 4),
-              PrimeCareText(status, style: TextStyle(color: signed ? PrimeCareColors.emerald : Color(0xFFEF4444))),
+              PrimeCareText(
+                status,
+                style: TextStyle(
+                  color: signed ? PrimeCareColors.emerald : Color(0xFFEF4444),
+                ),
+              ),
             ],
           ),
-          PrimeCareIcon(signed ? Icons.check_circle : Icons.warning_rounded, color: signed ? PrimeCareColors.emerald : Color(0xFFEF4444)),
+          PrimeCareIcon(
+            signed ? Icons.check_circle : Icons.warning_rounded,
+            color: signed ? PrimeCareColors.emerald : Color(0xFFEF4444),
+          ),
         ],
       ),
     );

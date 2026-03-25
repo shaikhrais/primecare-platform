@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ManagerReportsScreen extends StatelessWidget {
-  const ManagerReportsScreen({super.key});
+class ClientCareTeamScreen extends StatelessWidget {
+  const ClientCareTeamScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Manager Analytics Hub')),
+      appBar: AppBar(title: const Text('Your Care Team')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            MacroFinancialSummaryCard(),
-            SizedBox(height: 24),
-            PerformanceRadarChart(),
+            EtaTrackerWidget(),
             SizedBox(height: 24),
             Text(
-              'Timesheet Discrepancies',
+              'Assigned Caregivers',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            TimesheetDiscrepancyTable(),
+            SizedBox(height: 16),
+            CaregiverProfileCard(),
+            SizedBox(height: 12),
+            CaregiverProfileCard(),
           ],
         ),
       ),

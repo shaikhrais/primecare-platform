@@ -10,13 +10,15 @@ class ScrumMasterDiagnosticScreen extends StatefulWidget {
   const ScrumMasterDiagnosticScreen({super.key});
 
   @override
-  State<ScrumMasterDiagnosticScreen> createState() => _ScrumMasterDiagnosticScreenState();
+  State<ScrumMasterDiagnosticScreen> createState() =>
+      _ScrumMasterDiagnosticScreenState();
 }
 
-class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScreen> {
+class _ScrumMasterDiagnosticScreenState
+    extends State<ScrumMasterDiagnosticScreen> {
   bool _isRecovering = false;
   bool _runningSelfTest = true;
-  
+
   // Simulated Diagnostic Capacity States
   double _neuralCapacity = 0.0;
   String _ledgerStatus = 'AWAITING PING...';
@@ -44,7 +46,7 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
   void _triggerEmergencyRecovery() {
     setState(() => _isRecovering = true);
     HapticFeedback.heavyImpact();
-    
+
     // Simulating deep system cache purge and reset
     Future.delayed(Duration(seconds: 3), () {
       if (!mounted) return;
@@ -52,94 +54,185 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
         _isRecovering = false;
         _executeSelfTest(); // Re-run diagnostics
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: PrimeCareText(AppLocalizations.of(context)!.criticalRecoveryCompleteAllStateHashes),
-        backgroundColor: PrimeCareColors.emerald
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: PrimeCareText(
+            AppLocalizations.of(
+              context,
+            )!.criticalRecoveryCompleteAllStateHashes,
+          ),
+          backgroundColor: PrimeCareColors.emerald,
+        ),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      backgroundColor: PrimeCareColors.radarDark, // Deep Developer Terminal Background
-      
+      backgroundColor:
+          PrimeCareColors.radarDark, // Deep Developer Terminal Background
+
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: SingleChildScrollView(
-        padding: EdgeInsets.all(24),
-        child: AnimationLimiter(
-          child: PrimeCareColumn(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: AnimationConfiguration.toStaggeredList(
-              duration: Duration(milliseconds: 600),
-              childAnimationBuilder: (widget) => SlideAnimation(verticalOffset: 20, child: FadeInAnimation(child: widget)),
-              children: [
-                // CAPACITY HEADER
-                PrimeCareCenter(
-                  child: PrimeCareColumn(
-                    children: [
-                      PrimeCareIcon(Icons.memory_rounded, size: 64, color: PrimeCareColors.purple),
-                      SizedBox(height: 16),
-                      PrimeCareText('SYSTEM COGNITIVE CAPACITY', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2)),
-                      SizedBox(height: 8),
-                      PrimeCareText(
-                        _runningSelfTest ? 'ANALYZING...' : '$_neuralCapacity%', 
-                        style: TextStyle(
-                          color: _runningSelfTest ? PrimeCareColors.slate400 : PrimeCareColors.emerald, 
-                          fontSize: 48, 
-                          fontWeight: FontWeight.w900,
-                          fontFamily: 'monospace'
+            padding: EdgeInsets.all(24),
+            child: AnimationLimiter(
+              child: PrimeCareColumn(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Duration(milliseconds: 600),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: 20,
+                    child: FadeInAnimation(child: widget),
+                  ),
+                  children: [
+                    // CAPACITY HEADER
+                    PrimeCareCenter(
+                      child: PrimeCareColumn(
+                        children: [
+                          PrimeCareIcon(
+                            Icons.memory_rounded,
+                            size: 64,
+                            color: PrimeCareColors.purple,
+                          ),
+                          SizedBox(height: 16),
+                          PrimeCareText(
+                            'SYSTEM COGNITIVE CAPACITY',
+                            style: TextStyle(
+                              color: PrimeCareColors.slate400,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          PrimeCareText(
+                            _runningSelfTest
+                                ? 'ANALYZING...'
+                                : '$_neuralCapacity%',
+                            style: TextStyle(
+                              color: _runningSelfTest
+                                  ? PrimeCareColors.slate400
+                                  : PrimeCareColors.emerald,
+                              fontSize: 48,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                          if (!_runningSelfTest)
+                            PrimeCareText(
+                              '100% Operations Authorized. Proceeding to Hour 4 Offline Synchronization.',
+                              style: TextStyle(
+                                color: Color(0xFF3B82F6),
+                                fontStyle: FontStyle.italic,
+                                fontSize: 12,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 40),
+
+                    // LIVE SERVICE PINGS
+                    PrimeCareText(
+                      'LIVE SERVICE TOPOLOGY',
+                      style: TextStyle(
+                        color: PrimeCareColors.slate500,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    _buildSystemTile(
+                      'Double-Entry Ledger',
+                      _ledgerStatus,
+                      Icons.account_balance,
+                      _runningSelfTest,
+                    ),
+                    _buildSystemTile(
+                      'WebRTC Telehealth',
+                      _webrtcStatus,
+                      Icons.video_call,
+                      _runningSelfTest,
+                    ),
+                    _buildSystemTile(
+                      'Jane Scheduler Matrix',
+                      'ONLINE - 60FPS GRAPHICS',
+                      Icons.grid_view_rounded,
+                      _runningSelfTest,
+                    ),
+
+                    SizedBox(height: 48),
+
+                    // EMERGENCY RECOVERY
+                    PrimeCareText(
+                      'CRITICAL PROTOCOLS',
+                      style: TextStyle(
+                        color: PrimeCareColors.slate500,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    PrimeCareCard(
+                      child: ElevatedButton.icon(
+                        onPressed: _isRecovering
+                            ? null
+                            : _triggerEmergencyRecovery,
+                        icon: _isRecovering
+                            ? SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 3,
+                                ),
+                              )
+                            : PrimeCareIcon(
+                                Icons.warning_amber_rounded,
+                                size: 28,
+                              ),
+                        label: PrimeCareText(
+                          _isRecovering
+                              ? 'EXECUTING PURGE...'
+                              : 'REBOOT & RECOVER SYSTEM',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
                         ),
                       ),
-                      if (!_runningSelfTest)
-                        PrimeCareText('100% Operations Authorized. Proceeding to Hour 4 Offline Synchronization.', style: TextStyle(color: Color(0xFF3B82F6), fontStyle: FontStyle.italic, fontSize: 12)),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 16),
+                    PrimeCareText(
+                      'WARNING: Triggers aggressive local garbage collection, clears volatile SQLite caches, and force-terminates all trailing PRISMA connection hooks. Use only if UX frames drop below 120Hz.',
+                      style: TextStyle(color: Color(0xFF475569), fontSize: 10),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                
-                SizedBox(height: 40),
-                
-                // LIVE SERVICE PINGS
-                PrimeCareText('LIVE SERVICE TOPOLOGY', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 2)),
-                SizedBox(height: 12),
-                _buildSystemTile('Double-Entry Ledger', _ledgerStatus, Icons.account_balance, _runningSelfTest),
-                _buildSystemTile('WebRTC Telehealth', _webrtcStatus, Icons.video_call, _runningSelfTest),
-                _buildSystemTile('Jane Scheduler Matrix', 'ONLINE - 60FPS GRAPHICS', Icons.grid_view_rounded, _runningSelfTest),
-                
-                SizedBox(height: 48),
-
-                // EMERGENCY RECOVERY
-                PrimeCareText('CRITICAL PROTOCOLS', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 2)),
-                SizedBox(height: 16),
-                PrimeCareCard(
-                  
-                  child: ElevatedButton.icon(
-                    onPressed: _isRecovering ? null : _triggerEmergencyRecovery,
-                    icon: _isRecovering 
-                        ? SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
-                        : PrimeCareIcon(Icons.warning_amber_rounded, size: 28),
-                    label: PrimeCareText(_isRecovering ? 'EXECUTING PURGE...' : 'REBOOT & RECOVER SYSTEM', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 1)),
-                    
-                  ),
-                ),
-                SizedBox(height: 16),
-                PrimeCareText('WARNING: Triggers aggressive local garbage collection, clears volatile SQLite caches, and force-terminates all trailing PRISMA connection hooks. Use only if UX frames drop below 120Hz.', style: TextStyle(color: Color(0xFF475569), fontSize: 10), textAlign: TextAlign.center),
-              ],
+              ),
             ),
           ),
-        ),
-      )
         ),
       ),
     );
   }
 
-  Widget _buildSystemTile(String title, String status, IconData icon, bool isPending) {
+  Widget _buildSystemTile(
+    String title,
+    String status,
+    IconData icon,
+    bool isPending,
+  ) {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(16),
-      
+
       child: PrimeCareRow(
         children: [
           PrimeCareIcon(icon, color: PrimeCareColors.slate400, size: 28),
@@ -148,16 +241,42 @@ class _ScrumMasterDiagnosticScreenState extends State<ScrumMasterDiagnosticScree
             child: PrimeCareColumn(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PrimeCareText(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                PrimeCareText(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
                 SizedBox(height: 4),
-                PrimeCareText(status, style: TextStyle(color: isPending ? PrimeCareColors.slate400 : PrimeCareColors.emerald, fontFamily: 'monospace', fontSize: 12)),
+                PrimeCareText(
+                  status,
+                  style: TextStyle(
+                    color: isPending
+                        ? PrimeCareColors.slate400
+                        : PrimeCareColors.emerald,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
           if (isPending)
-            SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: PrimeCareColors.slate500))
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: PrimeCareColors.slate500,
+              ),
+            )
           else
-            PrimeCareIcon(Icons.check_circle_outline, color: PrimeCareColors.emerald),
+            PrimeCareIcon(
+              Icons.check_circle_outline,
+              color: PrimeCareColors.emerald,
+            ),
         ],
       ),
     );

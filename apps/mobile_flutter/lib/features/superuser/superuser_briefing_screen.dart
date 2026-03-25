@@ -14,10 +14,10 @@ class SuperuserBriefingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // A deeply calming, slate-grey and soft aesthetic intentionally 
+    // A deeply calming, slate-grey and soft aesthetic intentionally
     // replacing the chaotic red/warning Homes.
     return PrimeCareScaffold(
-      backgroundColor: PrimeCareColors.darkMatrixCard, 
+      backgroundColor: PrimeCareColors.darkMatrixCard,
       body: PrimeCareSafeArea(
         child: PrimeCarePadding(
           padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
@@ -40,8 +40,11 @@ class SuperuserBriefingScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 24,
                     backgroundColor: Color(0xFF2C2C30),
-                    child: PrimeCareIcon(Icons.wb_sunny_outlined, color: Colors.amberAccent),
-                  )
+                    child: PrimeCareIcon(
+                      Icons.wb_sunny_outlined,
+                      color: Colors.amberAccent,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 16),
@@ -67,7 +70,9 @@ class SuperuserBriefingScreen extends StatelessWidget {
                     _buildAutopilotMetricCard(
                       icon: Icons.check_circle_outline,
                       value: '142',
-                      label: AppLocalizations.of(context)!.shiftsAutomaticallyStaffed,
+                      label: AppLocalizations.of(
+                        context,
+                      )!.shiftsAutomaticallyStaffed,
                       color: Colors.tealAccent,
                     ),
                     _buildAutopilotMetricCard(
@@ -79,7 +84,9 @@ class SuperuserBriefingScreen extends StatelessWidget {
                     _buildAutopilotMetricCard(
                       icon: Icons.account_balance_wallet_outlined,
                       value: '34.2%',
-                      label: AppLocalizations.of(context)!.regionalMarginProtected,
+                      label: AppLocalizations.of(
+                        context,
+                      )!.regionalMarginProtected,
                       color: Colors.lightGreenAccent,
                     ),
                     _buildAutopilotMetricCard(
@@ -91,7 +98,9 @@ class SuperuserBriefingScreen extends StatelessWidget {
                     _buildAutopilotMetricCard(
                       icon: Icons.security,
                       value: '3',
-                      label: AppLocalizations.of(context)!.toxicWorkersHiddenLowTrust,
+                      label: AppLocalizations.of(
+                        context,
+                      )!.toxicWorkersHiddenLowTrust,
                       color: Colors.cyanAccent,
                     ),
                   ],
@@ -103,8 +112,9 @@ class SuperuserBriefingScreen extends StatelessWidget {
                 child: PrimeCareCard(
                   width: double.infinity,
                   height: 60,
-                  
-                  child: PrimeCareButton(type: PrimeCareButtonType.text, 
+
+                  child: PrimeCareButton(
+                    type: PrimeCareButtonType.text,
                     onPressed: () {
                       // Navigate inside to the deep Ecosystem Control Center if they MUST supervise.
                     },
@@ -118,7 +128,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -134,7 +144,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
   }) {
     return PrimeCareCard(
       padding: EdgeInsets.all(24),
-      
+
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -157,10 +167,7 @@ class SuperuserBriefingScreen extends StatelessWidget {
           SizedBox(height: 12),
           PrimeCareText(
             label,
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              color: Colors.grey[400],
-            ),
+            style: GoogleFonts.inter(fontSize: 14, color: Colors.grey[400]),
           ),
         ],
       ),

@@ -10,19 +10,23 @@ class PswClinicalNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      
       body: DesktopPaneWrapper(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: PrimeCareColumn(
             children: [
               PrimeCareCard(
-                
                 child: TextField(
                   maxLines: 15,
-                  style: TextStyle(fontSize: 18, color: PrimeCareColors.slate700, height: 1.5),
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: PrimeCareColors.slate700,
+                    height: 1.5,
+                  ),
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.describePatientMoodPhysicalChangesOr,
+                    hintText: AppLocalizations.of(
+                      context,
+                    )!.describePatientMoodPhysicalChangesOr,
                     hintStyle: TextStyle(color: PrimeCareColors.slate400),
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -31,14 +35,14 @@ class PswClinicalNotesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               SizedBox(height: 24),
-              
+
               PrimeCareRow(
                 children: [
                   PrimeCareExpanded(
                     child: PrimeCareButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       text: 'Add Image',
                       isPrimary: false,
                       icon: Icons.camera_alt,
@@ -47,7 +51,7 @@ class PswClinicalNotesScreen extends StatelessWidget {
                   SizedBox(width: 16),
                   PrimeCareExpanded(
                     child: PrimeCareButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       text: 'Audio Memo',
                       isPrimary: false,
                       icon: Icons.mic,
@@ -55,23 +59,29 @@ class PswClinicalNotesScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 48),
               PrimeCareButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                     SnackBar(
-                       content: PrimeCareText(AppLocalizations.of(context)!.progressNoteAppendedSecurely),
-                       backgroundColor: Theme.of(context).colorScheme.primary,
-                       behavior: SnackBarBehavior.floating,
-                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                     )
+                    SnackBar(
+                      content: PrimeCareText(
+                        AppLocalizations.of(
+                          context,
+                        )!.progressNoteAppendedSecurely,
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   );
                 },
                 text: 'SAVE CLINICAL NOTE',
                 isPrimary: true,
-              )
+              ),
             ],
           ),
         ),

@@ -13,9 +13,15 @@ class ManagerTeamsScreen extends StatelessWidget {
           children: [
             const Icon(Icons.architecture, size: 64, color: Colors.blueGrey),
             const SizedBox(height: 24),
-            Text('Teams Routing', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'Teams Routing',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 12),
-            const Text('Structural Node Scaffolded.', style: TextStyle(color: Colors.grey)),
+            const Text(
+              'Structural Node Scaffolded.',
+              style: TextStyle(color: Colors.grey),
+            ),
           ],
         ),
       ),

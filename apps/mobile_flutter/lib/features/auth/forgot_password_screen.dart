@@ -37,7 +37,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       final response = await apiClient.post('/v1/auth/forgot-password', {
         'email': email,
       });
-      
+
       if (mounted) {
         setState(() {
           _isSuccess = true;
@@ -45,7 +45,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         });
       }
     } catch (e) {
-      if (mounted) setState(() { _message = e.toString(); _isSuccess = false; });
+      if (mounted)
+        setState(() {
+          _message = e.toString();
+          _isSuccess = false;
+        });
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -62,14 +66,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         actions: [
           const LanguageToggleButton(),
           const SizedBox(width: 8),
-          Consumer(builder: (context, ref, child) {
-            final isDark = ref.watch(themeProvider) == ThemeMode.dark;
-            return IconButton(
-              tooltip: 'Toggle Theme',
-              icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: Theme.of(context).iconTheme.color),
-              onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
-            );
-          }),
+          Consumer(
+            builder: (context, ref, child) {
+              final isDark = ref.watch(themeProvider) == ThemeMode.dark;
+              return IconButton(
+                tooltip: 'Toggle Theme',
+                icon: PrimeCareIcon(
+                  isDark ? Icons.light_mode : Icons.dark_mode,
+                  color: Theme.of(context).iconTheme.color,
+                ),
+                onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
+              );
+            },
+          ),
           const SizedBox(width: 16),
         ],
       ),
@@ -82,17 +91,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                PrimeCareIcon(Icons.lock_reset, size: 48, color: Color(0xFF0EA5E9)),
+                PrimeCareIcon(
+                  Icons.lock_reset,
+                  size: 48,
+                  color: Color(0xFF0EA5E9),
+                ),
                 SizedBox(height: 16),
                 PrimeCareText(
                   'Password Recovery',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: PrimeCareColors.radarDark,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8),
                 PrimeCareText(
                   'Enter the email address associated with your PrimeCare account.',
-                  style: TextStyle(fontSize: 14, color: PrimeCareColors.slate500),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: PrimeCareColors.slate500,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 32),
@@ -102,7 +122,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: PrimeCareText(
                       _message!,
                       style: TextStyle(
-                        color: _isSuccess ? Color(0xFF059669) : PrimeCareColors.rose,
+                        color: _isSuccess
+                            ? Color(0xFF059669)
+                            : PrimeCareColors.rose,
                         fontSize: 14,
                       ),
                       textAlign: TextAlign.center,
@@ -115,22 +137,39 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.emailAddress,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 24),
-                  PrimeCareButton(type: PrimeCareButtonType.primary, 
+                  PrimeCareButton(
+                    type: PrimeCareButtonType.primary,
                     onPressed: _isLoading ? null : _handleReset,
                     child: _isLoading
-                        ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : PrimeCareText('Send Reset Link', style: TextStyle(fontWeight: FontWeight.bold)),
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : PrimeCareText(
+                            'Send Reset Link',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                   ),
                 ],
                 if (_isSuccess) ...[
-                  PrimeCareButton(type: PrimeCareButtonType.primary, 
+                  PrimeCareButton(
+                    type: PrimeCareButtonType.primary,
                     onPressed: () => context.go('/login'),
-                    child: PrimeCareText('Return to Authorization', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: PrimeCareText(
+                      'Return to Authorization',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ],

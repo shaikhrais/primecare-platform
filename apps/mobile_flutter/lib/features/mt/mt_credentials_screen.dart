@@ -9,21 +9,36 @@ class MtCredentialsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
-      
       body: PrimeCareCenter(
         child: DesktopPaneWrapper(
           child: PrimeCareListView(
             padding: EdgeInsets.all(24),
             children: [
-              PrimeCareIcon(Icons.verified_user_rounded, size: 64, color: PrimeCareColors.emerald),
+              PrimeCareIcon(
+                Icons.verified_user_rounded,
+                size: 64,
+                color: PrimeCareColors.emerald,
+              ),
               SizedBox(height: 16),
-              PrimeCareText('ACTIVE LICENSE STATUS', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+              PrimeCareText(
+                'ACTIVE LICENSE STATUS',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
               SizedBox(height: 48),
               _buildCredentialField('Registration Body', 'CMTO (Ontario)'),
               _buildCredentialField('License / Registration #', '12098-XA'),
               _buildCredentialField('Expiration Date', 'December 31, 2026'),
               SizedBox(height: 24),
-              PrimeCareText('If your license expires, the Jane App Scheduler will automatically block Coordinators from assigning you new clinical treatments.', textAlign: TextAlign.center, style: TextStyle(color: PrimeCareColors.slate500)),
+              PrimeCareText(
+                'If your license expires, the Jane App Scheduler will automatically block Coordinators from assigning you new clinical treatments.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: PrimeCareColors.slate500),
+              ),
             ],
           ),
         ),
@@ -35,13 +50,26 @@ class MtCredentialsScreen extends StatelessWidget {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(16),
-      
+
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PrimeCareText(label, style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.slate500)),
+          PrimeCareText(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: PrimeCareColors.slate500,
+            ),
+          ),
           SizedBox(height: 4),
-          PrimeCareText(value, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
+          PrimeCareText(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+              color: PrimeCareColors.radarDark,
+            ),
+          ),
         ],
       ),
     );

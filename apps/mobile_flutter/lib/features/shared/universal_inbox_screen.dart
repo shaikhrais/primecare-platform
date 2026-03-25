@@ -9,7 +9,12 @@ class ThreadModel {
   final String latestMessage;
   final String senderEmail;
 
-  ThreadModel({required this.id, required this.type, required this.latestMessage, required this.senderEmail});
+  ThreadModel({
+    required this.id,
+    required this.type,
+    required this.latestMessage,
+    required this.senderEmail,
+  });
 }
 
 class UniversalInboxScreen extends StatefulWidget {
@@ -35,21 +40,26 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
     try {
       final response = await apiClient.get('/v1/inbox');
       if (response != null && mounted) {
-        final List<dynamic> jsonList = response is Map && response['mocked'] == true ? [] : response;
+        final List<dynamic> jsonList =
+            response is Map && response['mocked'] == true ? [] : response;
         setState(() {
           _threads = jsonList.map((j) {
             final msgs = j['messages'] as List<dynamic>? ?? [];
             return ThreadModel(
-               id: j['id'],
-               type: j['threadType'] ?? 'general',
-               latestMessage: msgs.isNotEmpty ? msgs[0]['bodyText'] : 'Empty Thread Node.',
-               senderEmail: msgs.isNotEmpty ? msgs[0]['sender']['email'] : 'System Node'
+              id: j['id'],
+              type: j['threadType'] ?? 'general',
+              latestMessage: msgs.isNotEmpty
+                  ? msgs[0]['bodyText']
+                  : 'Empty Thread Node.',
+              senderEmail: msgs.isNotEmpty
+                  ? msgs[0]['sender']['email']
+                  : 'System Node',
             );
           }).toList();
           _isLoading = false;
         });
       }
-    } catch(e) {
+    } catch (e) {
       if (mounted) setState(() => _isLoading = false);
     }
   }
@@ -60,22 +70,33 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
       final text = _messageController.text;
       _messageController.clear();
       Navigator.pop(context); // Close Master Compose Layout
-      
+
       final response = await apiClient.post('/v1/inbox', {
         'threadType': 'General Broadcast => ${widget.rolePrefix.toUpperCase()}',
-        'bodyText': text
+        'bodyText': text,
       });
-      
+
       if (response != null) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Physical Database Notification Dispatched.'), backgroundColor: Colors.green));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Physical Database Notification Dispatched.'),
+              backgroundColor: Colors.green,
+            ),
+          );
           _isLoading = true;
-          setState((){});
+          setState(() {});
           _fetchInbox();
         }
       }
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Edge Networking Delay Intercepted.'), backgroundColor: Colors.orange));
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Edge Networking Delay Intercepted.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
     }
   }
 
@@ -83,18 +104,32 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       builder: (ctx) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom, left: 24, right: 24, top: 32),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(ctx).viewInsets.bottom,
+          left: 24,
+          right: 24,
+          top: 32,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
               children: [
-                Icon(Icons.mark_email_unread_rounded, size: 36, color: Theme.of(context).primaryColor),
+                Icon(
+                  Icons.mark_email_unread_rounded,
+                  size: 36,
+                  color: Theme.of(context).primaryColor,
+                ),
                 const SizedBox(width: 16),
-                const Text('Dispatch Framework Message', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                const Text(
+                  'Dispatch Framework Message',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const SizedBox(height: 24),
@@ -103,7 +138,9 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
               maxLines: 4,
               decoration: InputDecoration(
                 labelText: 'Direct Communication Array payload',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             const SizedBox(height: 32),
@@ -112,14 +149,23 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
-              child: const Text('Execute DB Cloud Storage', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: const Text(
+                'Execute DB Cloud Storage',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
             const SizedBox(height: 32),
-          ]
+          ],
         ),
-      )
+      ),
     );
   }
 
@@ -131,62 +177,125 @@ class _UniversalInboxScreenState extends State<UniversalInboxScreen> {
         onPressed: () => _showComposeSheet(context),
         backgroundColor: primary,
         icon: const Icon(Icons.maps_ugc_rounded, color: Colors.white),
-        label: const Text('Compose Override', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        label: const Text(
+          'Compose Override',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
-      body: _isLoading 
-      ? const Center(child: CircularProgressIndicator())
-      : SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.inbox_rounded, size: 48, color: primary),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text('System Messaging Hub: ${widget.rolePrefix.toUpperCase()}', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
-                      Text('Real-Time DB -> API Node Message Threads.', style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w600)),
-                    ]
-                  )
-                ]
+                      Icon(Icons.inbox_rounded, size: 48, color: primary),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'System Messaging Hub: ${widget.rolePrefix.toUpperCase()}',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w900,
+                              color: PrimeCareColors.radarDark,
+                            ),
+                          ),
+                          Text(
+                            'Real-Time DB -> API Node Message Threads.',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  _threads.isEmpty
+                      ? PrimeCareCard(
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(32),
+                              child: Text(
+                                'No Message Threads Detected within Physical Schema.',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: _threads.length,
+                          itemBuilder: (context, index) {
+                            final t = _threads[index];
+                            return PrimeCareCard(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              padding: EdgeInsets.zero,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(16),
+                                leading: CircleAvatar(
+                                  backgroundColor: primary.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                  child: Icon(Icons.email, color: primary),
+                                ),
+                                title: Text(
+                                  t.type.toUpperCase(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: primary,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      "Sender: ${t.senderEmail}",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.grey[700],
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      t.latestMessage,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Icon(
+                                  Icons.reply_all_rounded,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
+                                onTap: () {
+                                  context.push(
+                                    '/${widget.rolePrefix}/inbox/thread/${t.id}',
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                ],
               ),
-              const SizedBox(height: 32),
-              _threads.isEmpty 
-              ? PrimeCareCard(child: const Center(child: Padding(padding: EdgeInsets.all(32), child: Text('No Message Threads Detected within Physical Schema.', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 18)))))
-              : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: _threads.length,
-                itemBuilder: (context, index) {
-                   final t = _threads[index];
-                   return PrimeCareCard(
-                     margin: const EdgeInsets.only(bottom: 12),
-                     padding: EdgeInsets.zero,
-                     child: ListTile(
-                       contentPadding: const EdgeInsets.all(16),
-                       leading: CircleAvatar(backgroundColor: primary.withValues(alpha:0.1), child: Icon(Icons.email, color: primary)),
-                       title: Text(t.type.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: primary)),
-                       subtitle: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           const SizedBox(height: 4),
-                           Text("Sender: ${t.senderEmail}", style: TextStyle(fontSize: 13, color: Colors.grey[700], fontWeight: FontWeight.bold)),
-                           const SizedBox(height: 4),
-                           Text(t.latestMessage, style: TextStyle(fontSize: 15, color: Colors.grey[800])),
-                         ]
-                       ),
-                       trailing: Icon(Icons.reply_all_rounded, color: Colors.grey, size: 20),
-                       onTap: () { context.push('/${widget.rolePrefix}/inbox/thread/${t.id}'); },
-                     )
-                   );
-                }
-              )
-            ]
-          )
-        )
+            ),
     );
   }
 }

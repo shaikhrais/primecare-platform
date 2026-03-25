@@ -17,7 +17,7 @@ class SupervisorEscalationTicket extends StatelessWidget {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(24),
-      
+
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,45 +26,80 @@ class SupervisorEscalationTicket extends StatelessWidget {
             children: [
               PrimeCareRow(
                 children: [
-                  PrimeCareIcon(Icons.warning_rounded, color: Colors.redAccent, size: 24),
+                  PrimeCareIcon(
+                    Icons.warning_rounded,
+                    color: Colors.redAccent,
+                    size: 24,
+                  ),
                   SizedBox(width: 12),
-                  PrimeCareText('AI ESCALATION: SYSTEM REHABILITATION FAILED', 
-                    style: GoogleFonts.firaCode(color: Colors.redAccent, fontWeight: FontWeight.bold, fontSize: 12)),
+                  PrimeCareText(
+                    'AI ESCALATION: SYSTEM REHABILITATION FAILED',
+                    style: GoogleFonts.firaCode(
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
               PrimeCareCard(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                
-                child: PrimeCareText('URGENT', style: GoogleFonts.inter(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 10)),
-              )
+
+                child: PrimeCareText(
+                  'URGENT',
+                  style: GoogleFonts.inter(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 10,
+                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(height: 16),
-          PrimeCareText('Worker: ${ticketData['workerName']} (ID: ${ticketData['workerId']})', 
-            style: GoogleFonts.outfit(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+          PrimeCareText(
+            'Worker: ${ticketData['workerName']} (ID: ${ticketData['workerId']})',
+            style: GoogleFonts.outfit(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           SizedBox(height: 8),
-          PrimeCareText('The Embedded Mentor suspended this worker for missing 3 consecutive EVV geo-fences. The worker subsequently failed the mandatory retraining module 2 times. The AI has exhausted systemic correction parameters.', 
-            style: GoogleFonts.inter(color: Colors.grey[300], fontSize: 14, height: 1.5)),
+          PrimeCareText(
+            'The Embedded Mentor suspended this worker for missing 3 consecutive EVV geo-fences. The worker subsequently failed the mandatory retraining module 2 times. The AI has exhausted systemic correction parameters.',
+            style: GoogleFonts.inter(
+              color: Colors.grey[300],
+              fontSize: 14,
+              height: 1.5,
+            ),
+          ),
           SizedBox(height: 24),
           PrimeCareRow(
             children: [
               PrimeCareExpanded(
-                child: PrimeCareButton(type: PrimeCareButtonType.primary, 
-                  
+                child: PrimeCareButton(
+                  type: PrimeCareButtonType.primary,
+
                   onPressed: () {},
-                  child: PrimeCareText(AppLocalizations.of(context)!.initiateTermination),
+                  child: PrimeCareText(
+                    AppLocalizations.of(context)!.initiateTermination,
+                  ),
                 ),
               ),
               SizedBox(width: 16),
               PrimeCareExpanded(
-                child: PrimeCareButton(type: PrimeCareButtonType.secondary, 
-                  
+                child: PrimeCareButton(
+                  type: PrimeCareButtonType.secondary,
+
                   onPressed: () {},
-                  child: PrimeCareText(AppLocalizations.of(context)!.overrideLockout),
+                  child: PrimeCareText(
+                    AppLocalizations.of(context)!.overrideLockout,
+                  ),
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

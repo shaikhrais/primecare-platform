@@ -13,7 +13,7 @@ class AdminNetworkScreen extends StatefulWidget {
 class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
   late Timer _telemetryTimer;
   final Random _rnd = Random();
-  
+
   // Live Metrics tracking
   int _globalLatency = 18;
   int _activeWebRtc = 142;
@@ -22,10 +22,30 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
 
   // Visual Node array explicitly mapping Cloudflare edge emulation
   final List<Map<String, dynamic>> _edgeNodes = [
-    {'region': 'US-East-1', 'status': 'HEALTHY', 'ping': 12, 'type': 'Core Routing'},
-    {'region': 'CA-Central', 'status': 'HEALTHY', 'ping': 8, 'type': 'Primary DB'},
-    {'region': 'EU-West-2', 'status': 'DEGRADED', 'ping': 145, 'type': 'Edge Replica'},
-    {'region': 'AP-South', 'status': 'OFFLINE', 'ping': 0, 'type': 'Ghost Node'},
+    {
+      'region': 'US-East-1',
+      'status': 'HEALTHY',
+      'ping': 12,
+      'type': 'Core Routing',
+    },
+    {
+      'region': 'CA-Central',
+      'status': 'HEALTHY',
+      'ping': 8,
+      'type': 'Primary DB',
+    },
+    {
+      'region': 'EU-West-2',
+      'status': 'DEGRADED',
+      'ping': 145,
+      'type': 'Edge Replica',
+    },
+    {
+      'region': 'AP-South',
+      'status': 'OFFLINE',
+      'ping': 0,
+      'type': 'Ghost Node',
+    },
   ];
 
   bool _isPurging = false;
@@ -65,7 +85,13 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
     if (mounted) {
       setState(() => _isPurging = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Global Edge Cache thoroughly purged.', style: TextStyle(fontWeight: FontWeight.bold)), backgroundColor: Color(0xFF059669))
+        const SnackBar(
+          content: Text(
+            'Global Edge Cache thoroughly purged.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xFF059669),
+        ),
       );
     }
   }
@@ -79,7 +105,13 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
         _globalLatency = 12; // Flush latency visually
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Telemetry Engine forced restart successful.', style: TextStyle(fontWeight: FontWeight.bold)), backgroundColor: Color(0xFF0EA5E9))
+        const SnackBar(
+          content: Text(
+            'Telemetry Engine forced restart successful.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          backgroundColor: Color(0xFF0EA5E9),
+        ),
       );
     }
   }
@@ -96,11 +128,25 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
             const SizedBox(height: 32),
             _buildTopMetricsRow(),
             const SizedBox(height: 32),
-            Text('Global Edge Routing Array', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+            Text(
+              'Global Edge Routing Array',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: PrimeCareColors.radarDark,
+              ),
+            ),
             const SizedBox(height: 16),
             _buildRoutingGrid(),
             const SizedBox(height: 32),
-            Text('Execute Core Network Commands', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
+            Text(
+              'Execute Core Network Commands',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: PrimeCareColors.radarDark,
+              ),
+            ),
             const SizedBox(height: 16),
             _buildCommandCenter(),
             const SizedBox(height: 48),
@@ -113,15 +159,24 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
   Widget _buildHeaderLine() {
     return Row(
       children: [
-        Icon(Icons.hub_rounded, size: 48, color: Color(0xFF8B5CF6)), 
+        Icon(Icons.hub_rounded, size: 48, color: Color(0xFF8B5CF6)),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Global Network Operations Center (NOC)', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
-            Text('PrimeCare Platform Ecosystem - Live Environment', style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w600)),
+            Text(
+              'Global Network Operations Center (NOC)',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
+            ),
+            Text(
+              'PrimeCare Platform Ecosystem - Live Environment',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -131,15 +186,40 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
       spacing: 16,
       runSpacing: 16,
       children: [
-        _buildMetricBox('Edge Latency', '${_globalLatency}ms', Icons.speed_rounded, _globalLatency > 23 ? Colors.orange : Color(0xFF10B981)),
-        _buildMetricBox('Active WebRTC', '$_activeWebRtc', Icons.videocam, Color(0xFF3B82F6)),
-        _buildMetricBox('Data Transferred', '${_dataTransmittedTb.toStringAsFixed(2)} TB', Icons.data_usage, Color(0xFF8B5CF6)),
-        _buildMetricBox('CPU Load', '${_cpuLoad.toStringAsFixed(1)}%', Icons.memory, Colors.amber[700]!),
+        _buildMetricBox(
+          'Edge Latency',
+          '${_globalLatency}ms',
+          Icons.speed_rounded,
+          _globalLatency > 23 ? Colors.orange : Color(0xFF10B981),
+        ),
+        _buildMetricBox(
+          'Active WebRTC',
+          '$_activeWebRtc',
+          Icons.videocam,
+          Color(0xFF3B82F6),
+        ),
+        _buildMetricBox(
+          'Data Transferred',
+          '${_dataTransmittedTb.toStringAsFixed(2)} TB',
+          Icons.data_usage,
+          Color(0xFF8B5CF6),
+        ),
+        _buildMetricBox(
+          'CPU Load',
+          '${_cpuLoad.toStringAsFixed(1)}%',
+          Icons.memory,
+          Colors.amber[700]!,
+        ),
       ],
     );
   }
 
-  Widget _buildMetricBox(String label, String value, IconData icon, Color color) {
+  Widget _buildMetricBox(
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       width: 250,
       padding: const EdgeInsets.all(24),
@@ -148,8 +228,12 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: Offset(0, 4))
-        ]
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,12 +241,25 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label, style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.bold)),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Icon(icon, color: color, size: 24),
             ],
           ),
           const SizedBox(height: 16),
-          Text(value, style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: color)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w900,
+              color: color,
+            ),
+          ),
         ],
       ),
     );
@@ -174,10 +271,15 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
       runSpacing: 16,
       children: _edgeNodes.map((node) {
         Color statusColor;
-        switch(node['status']) {
-          case 'HEALTHY': statusColor = Color(0xFF10B981); break;
-          case 'DEGRADED': statusColor = Colors.orange; break;
-          default: statusColor = PrimeCareColors.rose;
+        switch (node['status']) {
+          case 'HEALTHY':
+            statusColor = Color(0xFF10B981);
+            break;
+          case 'DEGRADED':
+            statusColor = Colors.orange;
+            break;
+          default:
+            statusColor = PrimeCareColors.rose;
         }
 
         return Container(
@@ -186,16 +288,26 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: statusColor.withValues(alpha: 0.5), width: 2),
+            border: Border.all(
+              color: statusColor.withValues(alpha: 0.5),
+              width: 2,
+            ),
             boxShadow: [
-              BoxShadow(color: statusColor.withValues(alpha: 0.1), blurRadius: 10, offset: Offset(0, 4))
-            ]
+              BoxShadow(
+                color: statusColor.withValues(alpha: 0.1),
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: statusColor.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
                 child: Icon(Icons.dns, color: statusColor, size: 32),
               ),
               const SizedBox(width: 16),
@@ -203,9 +315,18 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(node['region'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    Text(
+                      node['region'],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(node['type'], style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                    Text(
+                      node['type'],
+                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                    ),
                   ],
                 ),
               ),
@@ -213,14 +334,34 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(color: statusColor, borderRadius: BorderRadius.circular(12)),
-                    child: Text(node['status'], style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      node['status'],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  Text(node['ping'] > 0 ? '${node['ping']}ms ping' : 'Timeout', style: TextStyle(color: Colors.grey[600], fontSize: 12, fontWeight: FontWeight.bold)),
+                  Text(
+                    node['ping'] > 0 ? '${node['ping']}ms ping' : 'Timeout',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         );
@@ -238,61 +379,94 @@ class _AdminNetworkScreenState extends State<AdminNetworkScreen> {
           Widget purgeBlock = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Edge Caching Controls', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(
+                'Edge Caching Controls',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
               const SizedBox(height: 8),
-              Text('Aggressively flush Cloudflare Edge Workers terminating lingering WebRTC sockets instantly.', style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+              Text(
+                'Aggressively flush Cloudflare Edge Workers terminating lingering WebRTC sockets instantly.',
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
+              ),
               const SizedBox(height: 24),
               PrimeCareButton(
                 type: PrimeCareButtonType.primary,
                 onPressed: _isPurging ? null : _handlePurge,
-                child: _isPurging 
-                    ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                    : Text('Purge Edge Cache', style: TextStyle(fontWeight: FontWeight.bold)),
-              )
+                child: _isPurging
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(
+                        'Purge Edge Cache',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+              ),
             ],
           );
 
           Widget restartBlock = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Telemetry Instance Restart', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              Text(
+                'Telemetry Instance Restart',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
               const SizedBox(height: 8),
-              Text('Forces a rolling restart of the polling metric ingestion engine smoothing latency spikes locally.', style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+              Text(
+                'Forces a rolling restart of the polling metric ingestion engine smoothing latency spikes locally.',
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
+              ),
               const SizedBox(height: 24),
               PrimeCareButton(
                 type: PrimeCareButtonType.secondary,
                 onPressed: _isRestarting ? null : _handleRestart,
-                child: _isRestarting 
-                    ? SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                    : Text('Restart Telemetry Engine', style: TextStyle(fontWeight: FontWeight.bold)),
-              )
+                child: _isRestarting
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(
+                        'Restart Telemetry Engine',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+              ),
             ],
           );
 
           if (isLarge) {
             return Row(
-              crossAxisAlignment: CrossAxisAlignment.start, 
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: purgeBlock),
                 const SizedBox(width: 48),
                 Container(width: 1, height: 120, color: Colors.grey[300]),
                 const SizedBox(width: 48),
                 Expanded(child: restartBlock),
-              ]
+              ],
             );
           } else {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch, 
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 purgeBlock,
                 const SizedBox(height: 32),
-                Container(width: double.infinity, height: 1, color: Colors.grey[300]),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.grey[300],
+                ),
                 const SizedBox(height: 32),
                 restartBlock,
-              ]
+              ],
             );
           }
-        }
+        },
       ),
     );
   }

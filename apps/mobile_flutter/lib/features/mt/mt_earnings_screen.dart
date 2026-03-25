@@ -14,26 +14,70 @@ class MtEarningsScreen extends StatelessWidget {
           child: PrimeCareListView(
             padding: EdgeInsets.all(24),
             children: [
-              PrimeCareText('PAYROLL & SPLITS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+              PrimeCareText(
+                'PAYROLL & SPLITS',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
               SizedBox(height: 24),
               PrimeCareCard(
                 padding: EdgeInsets.all(24),
-                
+
                 child: PrimeCareColumn(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PrimeCareText('Next Payout (Oct 15)', style: TextStyle(color: Color(0xFFDDD6FE), fontWeight: FontWeight.bold)),
+                    PrimeCareText(
+                      'Next Payout (Oct 15)',
+                      style: TextStyle(
+                        color: Color(0xFFDDD6FE),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    PrimeCareText('\$2,450.00', style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white)),
+                    PrimeCareText(
+                      '\$2,450.00',
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    PrimeCareCard(padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),  child: PrimeCareText('MT Revenue Split: 65%', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
+                    PrimeCareCard(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      child: PrimeCareText(
+                        'MT Revenue Split: 65%',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
               SizedBox(height: 24),
-              PrimeCareText('TRANSACTION HISTORY', style: TextStyle(color: PrimeCareColors.slate500, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+              PrimeCareText(
+                'TRANSACTION HISTORY',
+                style: TextStyle(
+                  color: PrimeCareColors.slate500,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
+              ),
               SizedBox(height: 16),
-              _buildEarningRow('Oct 10', 'Arthur Pendelton (Deep Tissue)', '\$94.25'),
+              _buildEarningRow(
+                'Oct 10',
+                'Arthur Pendelton (Deep Tissue)',
+                '\$94.25',
+              ),
               _buildEarningRow('Oct 10', 'Emily Watson (Swedish)', '\$68.50'),
             ],
           ),
@@ -46,18 +90,34 @@ class MtEarningsScreen extends StatelessWidget {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(16),
-      
+
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimeCareText(desc, style: TextStyle(fontWeight: FontWeight.bold, color: PrimeCareColors.radarDark)),
-              PrimeCareText(date, style: TextStyle(color: PrimeCareColors.slate500, fontSize: 12)),
+              PrimeCareText(
+                desc,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
+              PrimeCareText(
+                date,
+                style: TextStyle(color: PrimeCareColors.slate500, fontSize: 12),
+              ),
             ],
           ),
-          PrimeCareText(splitAmount, style: TextStyle(fontWeight: FontWeight.w900, color: PrimeCareColors.emerald, fontSize: 16)),
+          PrimeCareText(
+            splitAmount,
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              color: PrimeCareColors.emerald,
+              fontSize: 16,
+            ),
+          ),
         ],
       ),
     );

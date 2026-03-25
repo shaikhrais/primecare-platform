@@ -57,7 +57,7 @@ import 'core/widgets/universal_role_sidebar.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   OfflineSyncManager().initializeSyncListener();
-  
+
   runApp(ProviderScope(child: PrimeCareApp()));
 }
 
@@ -72,30 +72,36 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isRoot = state.uri.toString() == '/';
 
       if (!hasToken && !isLoggingIn) return '/login';
-      
+
       if (hasToken && (isLoggingIn || isGenericHome || isRoot)) {
         final role = prefs.getString('user_role') ?? 'psw';
         switch (role) {
-          case 'mt': return '/mt/home';
+          case 'mt':
+            return '/mt/home';
           case 'gm':
-          case 'general_manager': return '/gm/home';
-          case 'scrum_master': return '/scrum-master/home';
-          case 'rn': return '/rn/home';
-          case 'coordinator': return '/coordinator/home';
-          case 'manager': return '/manager/home';
+          case 'general_manager':
+            return '/gm/home';
+          case 'scrum_master':
+            return '/scrum-master/home';
+          case 'rn':
+            return '/rn/home';
+          case 'coordinator':
+            return '/coordinator/home';
+          case 'manager':
+            return '/manager/home';
           case 'admin':
-          case 'super_admin': return '/admin/home';
-          case 'client': return '/client/home';
-          default: return '/psw/home';
+          case 'super_admin':
+            return '/admin/home';
+          case 'client':
+            return '/client/home';
+          default:
+            return '/psw/home';
         }
       }
       return null;
     },
     routes: [
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => LoginScreen(),
-      ),
+      GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
       GoRoute(
         path: '/forgot-password',
         builder: (context, state) => ForgotPasswordScreen(),
@@ -118,109 +124,379 @@ final routerProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
-          
-          GoRoute(path: '/:role/inbox', builder: (context, state) => UniversalInboxScreen(rolePrefix: state.pathParameters['role'] ?? 'psw')),
-          GoRoute(path: '/:role/inbox/thread/:id', builder: (context, state) => UniversalChatThreadScreen(rolePrefix: state.pathParameters['role'] ?? 'psw', threadId: state.pathParameters['id']!)),
-          GoRoute(path: '/:role/call/:userId', builder: (context, state) => UniversalCallScreen(rolePrefix: state.pathParameters['role'] ?? 'psw', userId: state.pathParameters['userId']!)),
+          GoRoute(
+            path: '/:role/inbox',
+            builder: (context, state) => UniversalInboxScreen(
+              rolePrefix: state.pathParameters['role'] ?? 'psw',
+            ),
+          ),
+          GoRoute(
+            path: '/:role/inbox/thread/:id',
+            builder: (context, state) => UniversalChatThreadScreen(
+              rolePrefix: state.pathParameters['role'] ?? 'psw',
+              threadId: state.pathParameters['id']!,
+            ),
+          ),
+          GoRoute(
+            path: '/:role/call/:userId',
+            builder: (context, state) => UniversalCallScreen(
+              rolePrefix: state.pathParameters['role'] ?? 'psw',
+              userId: state.pathParameters['userId']!,
+            ),
+          ),
 
           // ======================= NATIVE GRID HUBS =======================
-          GoRoute(path: '/rn/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/mt/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/gm/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/scrum-master/home', builder: (context, state) => UniversalHomeScreen(rolePrefix: 'scrum_master')),
-          
+          GoRoute(
+            path: '/rn/home',
+            builder: (context, state) => UniversalHomeScreen(rolePrefix: 'rn'),
+          ),
+          GoRoute(
+            path: '/mt/home',
+            builder: (context, state) => UniversalHomeScreen(rolePrefix: 'mt'),
+          ),
+          GoRoute(
+            path: '/gm/home',
+            builder: (context, state) => UniversalHomeScreen(rolePrefix: 'gm'),
+          ),
+          GoRoute(
+            path: '/scrum-master/home',
+            builder: (context, state) =>
+                UniversalHomeScreen(rolePrefix: 'scrum_master'),
+          ),
+
           // ======================= PSW =======================
-          GoRoute(path: '/psw/home', builder: (context, state) => PswHomeScreen()),
-          GoRoute(path: '/psw/shifts', builder: (context, state) => PswShiftsScreen()),
-          
-          GoRoute(path: '/psw/clients', builder: (context, state) => PswClientsScreen()),
-          GoRoute(path: '/psw/timesheet', builder: (context, state) => PswTimesheetScreen()),
-          GoRoute(path: '/psw/profile', builder: (context, state) => PswProfileScreen()),
-          GoRoute(path: '/psw/messages', builder: (context, state) => PswMessagesScreen()),
-          GoRoute(path: '/psw/training', builder: (context, state) => PswTrainingScreen()),
-          GoRoute(path: '/psw/live-visit/:id', builder: (context, state) => PswLiveVisitScreen(visitId: state.pathParameters['id']!)),
-          GoRoute(path: '/psw/live-video-triage/:id', builder: (context, state) => PswLiveVideoTriageScreen(incidentId: state.pathParameters['id']!)),
-          GoRoute(path: '/psw/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'psw')),
-          GoRoute(path: '/psw/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'psw')),
-          GoRoute(path: '/psw/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'psw')),
-          GoRoute(path: '/psw/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'psw')),
-          GoRoute(path: '/psw/daily-timeline', builder: (context, state) => PswDailyScheduleScreen()),
-          
+          GoRoute(
+            path: '/psw/home',
+            builder: (context, state) => PswHomeScreen(),
+          ),
+          GoRoute(
+            path: '/psw/shifts',
+            builder: (context, state) => PswShiftsScreen(),
+          ),
+
+          GoRoute(
+            path: '/psw/clients',
+            builder: (context, state) => PswClientsScreen(),
+          ),
+          GoRoute(
+            path: '/psw/timesheet',
+            builder: (context, state) => PswTimesheetScreen(),
+          ),
+          GoRoute(
+            path: '/psw/profile',
+            builder: (context, state) => PswProfileScreen(),
+          ),
+          GoRoute(
+            path: '/psw/messages',
+            builder: (context, state) => PswMessagesScreen(),
+          ),
+          GoRoute(
+            path: '/psw/training',
+            builder: (context, state) => PswTrainingScreen(),
+          ),
+          GoRoute(
+            path: '/psw/live-visit/:id',
+            builder: (context, state) =>
+                PswLiveVisitScreen(visitId: state.pathParameters['id']!),
+          ),
+          GoRoute(
+            path: '/psw/live-video-triage/:id',
+            builder: (context, state) => PswLiveVideoTriageScreen(
+              incidentId: state.pathParameters['id']!,
+            ),
+          ),
+          GoRoute(
+            path: '/psw/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'psw'),
+          ),
+          GoRoute(
+            path: '/psw/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'psw'),
+          ),
+          GoRoute(
+            path: '/psw/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'psw'),
+          ),
+          GoRoute(
+            path: '/psw/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'psw'),
+          ),
+          GoRoute(
+            path: '/psw/daily-timeline',
+            builder: (context, state) => PswDailyScheduleScreen(),
+          ),
+
           // ======================= RN ========================
-          
-          GoRoute(path: '/rn/home', builder: (context, state) => const RnPatientsScreen()),
+          GoRoute(
+            path: '/rn/home',
+            builder: (context, state) => const RnPatientsScreen(),
+          ),
           // Universally intercepting mapped root RN execution parameters.
-          GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/rn/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/rn/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/rn/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'rn')),
-          GoRoute(path: '/rn/profile', builder: (context, state) => const RnProfileScreen()),
+          GoRoute(
+            path: '/rn/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'rn'),
+          ),
+          GoRoute(
+            path: '/rn/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'rn'),
+          ),
+          GoRoute(
+            path: '/rn/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'rn'),
+          ),
+          GoRoute(
+            path: '/rn/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'rn'),
+          ),
+          GoRoute(
+            path: '/rn/profile',
+            builder: (context, state) => const RnProfileScreen(),
+          ),
 
           // ======================= CLIENT ====================
-          GoRoute(path: '/client/home', builder: (context, state) => ClientCareHubScreen()),
-          
-          GoRoute(path: '/client/pulse', builder: (context, state) => const ClientPulseScreen()),
-          GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'client')),
-          GoRoute(path: '/client/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
-          GoRoute(path: '/client/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'client')),
-          GoRoute(path: '/client/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'client')),
-          GoRoute(path: '/client/profile', builder: (context, state) => const ClientProfileScreen()),
+          GoRoute(
+            path: '/client/home',
+            builder: (context, state) => ClientCareHubScreen(),
+          ),
+
+          GoRoute(
+            path: '/client/pulse',
+            builder: (context, state) => const ClientPulseScreen(),
+          ),
+          GoRoute(
+            path: '/client/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'client'),
+          ),
+          GoRoute(
+            path: '/client/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'client'),
+          ),
+          GoRoute(
+            path: '/client/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'client'),
+          ),
+          GoRoute(
+            path: '/client/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'client'),
+          ),
+          GoRoute(
+            path: '/client/profile',
+            builder: (context, state) => const ClientProfileScreen(),
+          ),
 
           // ======================= ADMIN =====================
-          GoRoute(path: '/admin/home', builder: (context, state) => AdminTelemetryMatrixScreen()),
-          GoRoute(path: '/admin/network', builder: (context, state) => AdminNetworkScreen()),
-          GoRoute(path: '/admin/telemetry', builder: (context, state) => const AdminTelemetryScreen()),
-          GoRoute(path: '/admin/audit', builder: (context, state) => AdminAuditScreen()),
-          GoRoute(path: '/admin/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'admin')),
-          GoRoute(path: '/admin/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
-          GoRoute(path: '/admin/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'admin')),
-          GoRoute(path: '/admin/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'admin')),
-          GoRoute(path: '/admin/settings', builder: (context, state) => const AdminSettingsScreen()),
+          GoRoute(
+            path: '/admin/home',
+            builder: (context, state) => AdminTelemetryMatrixScreen(),
+          ),
+          GoRoute(
+            path: '/admin/network',
+            builder: (context, state) => AdminNetworkScreen(),
+          ),
+          GoRoute(
+            path: '/admin/telemetry',
+            builder: (context, state) => const AdminTelemetryScreen(),
+          ),
+          GoRoute(
+            path: '/admin/audit',
+            builder: (context, state) => AdminAuditScreen(),
+          ),
+          GoRoute(
+            path: '/admin/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'admin'),
+          ),
+          GoRoute(
+            path: '/admin/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'admin'),
+          ),
+          GoRoute(
+            path: '/admin/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'admin'),
+          ),
+          GoRoute(
+            path: '/admin/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'admin'),
+          ),
+          GoRoute(
+            path: '/admin/settings',
+            builder: (context, state) => const AdminSettingsScreen(),
+          ),
 
           // ======================= COORDINATOR ===============
-          GoRoute(path: '/coordinator/home', builder: (context, state) => CoordinatorJaneMatrixScreen()),
-          
-          GoRoute(path: '/coordinator/staff', builder: (context, state) => const CoordinatorStaffScreen()),
-          GoRoute(path: '/coordinator/approvals', builder: (context, state) => const CoordinatorApprovalsScreen()),
-          GoRoute(path: '/coordinator/profile', builder: (context, state) => const CoordinatorProfileScreen()),
-          GoRoute(path: '/coordinator/live-map', builder: (context, state) => CoordinatorLiveMapScreen()),
-          GoRoute(path: '/coordinator/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'coordinator')),
-          GoRoute(path: '/coordinator/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'coordinator')),
-          GoRoute(path: '/coordinator/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'coordinator')),
-          GoRoute(path: '/coordinator/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'coordinator')),
-          GoRoute(path: '/coordinator/fleet-matrix', builder: (context, state) => CoordinatorJaneSchedulerScreen()),
+          GoRoute(
+            path: '/coordinator/home',
+            builder: (context, state) => CoordinatorJaneMatrixScreen(),
+          ),
+
+          GoRoute(
+            path: '/coordinator/staff',
+            builder: (context, state) => const CoordinatorStaffScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/approvals',
+            builder: (context, state) => const CoordinatorApprovalsScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/profile',
+            builder: (context, state) => const CoordinatorProfileScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/live-map',
+            builder: (context, state) => CoordinatorLiveMapScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'coordinator'),
+          ),
+          GoRoute(
+            path: '/coordinator/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'coordinator'),
+          ),
+          GoRoute(
+            path: '/coordinator/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'coordinator'),
+          ),
+          GoRoute(
+            path: '/coordinator/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'coordinator'),
+          ),
+          GoRoute(
+            path: '/coordinator/fleet-matrix',
+            builder: (context, state) => CoordinatorJaneSchedulerScreen(),
+          ),
 
           // ======================= MANAGER ===================
-          GoRoute(path: '/manager/home', builder: (context, state) => ManagerAnalyticsMatrixScreen()),
-          
-          GoRoute(path: '/manager/reports', builder: (context, state) => const ManagerReportsScreen()),
-          GoRoute(path: '/manager/teams', builder: (context, state) => const ManagerTeamsScreen()),
-          GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'manager')),
-          GoRoute(path: '/manager/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
-          GoRoute(path: '/manager/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'manager')),
-          GoRoute(path: '/manager/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'manager')),
-          GoRoute(path: '/manager/profile', builder: (context, state) => const ManagerProfileScreen()),
+          GoRoute(
+            path: '/manager/home',
+            builder: (context, state) => ManagerAnalyticsMatrixScreen(),
+          ),
+
+          GoRoute(
+            path: '/manager/reports',
+            builder: (context, state) => const ManagerReportsScreen(),
+          ),
+          GoRoute(
+            path: '/manager/teams',
+            builder: (context, state) => const ManagerTeamsScreen(),
+          ),
+          GoRoute(
+            path: '/manager/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'manager'),
+          ),
+          GoRoute(
+            path: '/manager/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'manager'),
+          ),
+          GoRoute(
+            path: '/manager/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'manager'),
+          ),
+          GoRoute(
+            path: '/manager/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'manager'),
+          ),
+          GoRoute(
+            path: '/manager/profile',
+            builder: (context, state) => const ManagerProfileScreen(),
+          ),
 
           // ======================= MT ========================
-          
-          GoRoute(path: '/mt/clients', builder: (context, state) => const MtClientsScreen()),
-          GoRoute(path: '/mt/messages', builder: (context, state) => UniversalInboxScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/mt/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/mt/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'mt')),
-          GoRoute(path: '/mt/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'mt')),
+          GoRoute(
+            path: '/mt/clients',
+            builder: (context, state) => const MtClientsScreen(),
+          ),
+          GoRoute(
+            path: '/mt/messages',
+            builder: (context, state) => UniversalInboxScreen(rolePrefix: 'mt'),
+          ),
+          GoRoute(
+            path: '/mt/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'mt'),
+          ),
+          GoRoute(
+            path: '/mt/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'mt'),
+          ),
+          GoRoute(
+            path: '/mt/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'mt'),
+          ),
+          GoRoute(
+            path: '/mt/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'mt'),
+          ),
+
           // ======================= GM =======================
-          
-          GoRoute(path: '/gm/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/gm/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/gm/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'gm')),
-          GoRoute(path: '/gm/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'gm')),
+          GoRoute(
+            path: '/gm/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'gm'),
+          ),
+          GoRoute(
+            path: '/gm/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'gm'),
+          ),
+          GoRoute(
+            path: '/gm/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'gm'),
+          ),
+          GoRoute(
+            path: '/gm/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'gm'),
+          ),
+
           // ======================= SCRUM MASTER ===========
-          
-          GoRoute(path: '/scrum-master/dailyTasks', builder: (context, state) => const UniversalDailyTasksScreen(rolePrefix: 'scrum_master')),
-          GoRoute(path: '/scrum-master/activities', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'scrum_master')),
-          GoRoute(path: '/scrum-master/dailyTasks', builder: (context, state) => const UniversalTimelineScreen(rolePrefix: 'scrum_master')),
-          GoRoute(path: '/scrum-master/mentor', builder: (context, state) => const RoleMentorScreen(rolePrefix: 'scrum_master')),
+          GoRoute(
+            path: '/scrum-master/dailyTasks',
+            builder: (context, state) =>
+                const UniversalDailyTasksScreen(rolePrefix: 'scrum_master'),
+          ),
+          GoRoute(
+            path: '/scrum-master/activities',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'scrum_master'),
+          ),
+          GoRoute(
+            path: '/scrum-master/dailyTasks',
+            builder: (context, state) =>
+                const UniversalTimelineScreen(rolePrefix: 'scrum_master'),
+          ),
+          GoRoute(
+            path: '/scrum-master/mentor',
+            builder: (context, state) =>
+                const RoleMentorScreen(rolePrefix: 'scrum_master'),
+          ),
         ],
       ),
     ],
@@ -236,7 +512,8 @@ class PrimeCareApp extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.primecareMobile,
+      onGenerateTitle: (context) =>
+          AppLocalizations.of(context)!.primecareMobile,
       theme: PrimeCareTheme.lightTheme,
       darkTheme: PrimeCareTheme.darkTheme,
       themeMode: ref.watch(themeProvider),

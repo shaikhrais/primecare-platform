@@ -4,24 +4,31 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../../core/api_client.dart';
 
-final sduiPayloadProvider = FutureProvider.autoDispose.family<Map<String, dynamic>, String>((ref, endpoint) async {
-  final response = await apiClient.get(endpoint);
-  return response as Map<String, dynamic>;
-});
+final sduiPayloadProvider = FutureProvider.autoDispose
+    .family<Map<String, dynamic>, String>((ref, endpoint) async {
+      final response = await apiClient.get(endpoint);
+      return response as Map<String, dynamic>;
+    });
 
 class UniversalHostScreen extends ConsumerWidget {
   final String endpoint;
 
   const UniversalHostScreen({super.key, required this.endpoint});
 
-  void _handleSduiAction(BuildContext context, String action, Map<String, dynamic>? payload) {
+  void _handleSduiAction(
+    BuildContext context,
+    String action,
+    Map<String, dynamic>? payload,
+  ) {
     if (action.startsWith('navigate:')) {
       final route = action.replaceFirst('navigate:', '');
       context.push(route, extra: payload);
     } else if (action == 'pop') {
       if (context.canPop()) context.pop();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: PrimeCareText('Unknown SDUI Action: $action')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: PrimeCareText('Unknown SDUI Action: $action')),
+      );
     }
   }
 
@@ -38,7 +45,8 @@ class UniversalHostScreen extends ConsumerWidget {
               return SingleChildScrollView(
                 child: PrimeCareSduiEngine(
                   schema: schema,
-                  onAction: (action, payload) => _handleSduiAction(context, action, payload),
+                  onAction: (action, payload) =>
+                      _handleSduiAction(context, action, payload),
                 ),
               );
             },
@@ -48,10 +56,21 @@ class UniversalHostScreen extends ConsumerWidget {
                 child: PrimeCareColumn(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    PrimeCareIcon(Icons.error_outline, color: Colors.red, size: 48),
+                    PrimeCareIcon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 48,
+                    ),
                     SizedBox(height: 16),
-                    PrimeCareText('SDUI Sync Failure', style: Theme.of(context).textTheme.titleMedium),
-                    PrimeCareText(err.toString(), style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+                    PrimeCareText(
+                      'SDUI Sync Failure',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    PrimeCareText(
+                      err.toString(),
+                      style: Theme.of(context).textTheme.bodySmall,
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),

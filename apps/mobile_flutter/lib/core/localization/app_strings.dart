@@ -9,7 +9,8 @@ class AppStrings {
 
   // Home Screen
   static const String welcomeBack = 'Welcome Back, First Responder!';
-  static const String nextShiftAnnouncement = 'Your next shift begins in 2h 15m. You have 2 unread announcements.';
+  static const String nextShiftAnnouncement =
+      'Your next shift begins in 2h 15m. You have 2 unread announcements.';
   static const String performanceMetrics = 'Performance Metrics';
   static const String weeklyHoursLabel = 'Weekly Hours';
   static const String complianceLabel = 'Compliance';
@@ -25,7 +26,8 @@ class AppStrings {
   // Home Screen
   static const String myShiftsTitle = 'My Shifts';
   static const String highDemandAlertTitle = 'High Demand Alert';
-  static const String highDemandAlertDesc = 'Surge pricing active for evening shifts (+1.5x payout rate).';
+  static const String highDemandAlertDesc =
+      'Surge pricing active for evening shifts (+1.5x payout rate).';
   static const String today = 'Today';
   static const String shiftCountLabel = '3 Shifts';
   static const String shiftAckSuccess = 'Shift acknowledged successfully.';
@@ -33,7 +35,8 @@ class AppStrings {
 
   // Theme Control Screen
   static const String themeConfiguration = 'Theme Configuration';
-  static const String selectThemeDesc = 'Select your preferred visual layout. Changes are applied globally.';
+  static const String selectThemeDesc =
+      'Select your preferred visual layout. Changes are applied globally.';
   static const String lightThemeLabel = 'Light (Enterprise Slate)';
   static const String darkThemeLabel = 'Dark (Obsidian)';
   static const String highContrastLabel = 'High Contrast (Medical)';

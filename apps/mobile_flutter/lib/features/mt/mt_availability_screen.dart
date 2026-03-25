@@ -14,9 +14,19 @@ class MtAvailabilityScreen extends StatelessWidget {
           child: PrimeCareListView(
             padding: EdgeInsets.all(24),
             children: [
-              PrimeCareText('MY JANE AVAILABILITY', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: PrimeCareColors.radarDark)),
+              PrimeCareText(
+                'MY JANE AVAILABILITY',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
               SizedBox(height: 24),
-              PrimeCareText('Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.', style: TextStyle(color: Color(0xFF475569), height: 1.5)),
+              PrimeCareText(
+                'Use this panel to literally restrict PrimeCare Coordinators from executing drag-and-drop bookings onto your grid.',
+                style: TextStyle(color: Color(0xFF475569), height: 1.5),
+              ),
               SizedBox(height: 32),
               _buildDayToggle('Monday', '9:00 AM - 5:00 PM', true),
               _buildDayToggle('Tuesday', '9:00 AM - 5:00 PM', true),
@@ -34,18 +44,39 @@ class MtAvailabilityScreen extends StatelessWidget {
     return PrimeCareCard(
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(16),
-      
+
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimeCareText(day, style: TextStyle(fontWeight: FontWeight.w900, color: isActive ? Color(0xFF2563EB) : PrimeCareColors.slate500, fontSize: 16)),
-              PrimeCareText(bounds, style: TextStyle(color: isActive ? PrimeCareColors.radarDark : PrimeCareColors.slate400, fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
+              PrimeCareText(
+                day,
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: isActive
+                      ? Color(0xFF2563EB)
+                      : PrimeCareColors.slate500,
+                  fontSize: 16,
+                ),
+              ),
+              PrimeCareText(
+                bounds,
+                style: TextStyle(
+                  color: isActive
+                      ? PrimeCareColors.radarDark
+                      : PrimeCareColors.slate400,
+                  fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
             ],
           ),
-          Switch(value: isActive, onChanged: (v){}, activeThumbColor: Color(0xFF2563EB)),
+          Switch(
+            value: isActive,
+            onChanged: (v) {},
+            activeThumbColor: Color(0xFF2563EB),
+          ),
         ],
       ),
     );

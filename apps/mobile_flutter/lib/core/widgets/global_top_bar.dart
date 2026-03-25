@@ -10,11 +10,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onLogout;
 
-  const GlobalTopBar({
-    super.key,
-    required this.title,
-    this.onLogout,
-  });
+  const GlobalTopBar({super.key, required this.title, this.onLogout});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,15 +20,23 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
       elevation: 12,
       shadowColor: Colors.black.withValues(alpha: 0.70),
       title: PrimeCareText(
-        title, 
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20, letterSpacing: -0.5)
+        title,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          letterSpacing: -0.5,
+        ),
       ),
       actions: [
         const LanguageToggleButton(),
         const SizedBox(width: 8),
         IconButton(
           tooltip: 'Toggle Theme',
-          icon: PrimeCareIcon(isDark ? Icons.light_mode : Icons.dark_mode, color: Colors.white),
+          icon: PrimeCareIcon(
+            isDark ? Icons.light_mode : Icons.dark_mode,
+            color: Colors.white,
+          ),
           onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
         ),
         const SizedBox(width: 8),
@@ -43,7 +47,10 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
         ),
         IconButton(
           tooltip: 'Notifications',
-          icon: PrimeCareIcon(Icons.notifications_none_rounded, color: Colors.white),
+          icon: PrimeCareIcon(
+            Icons.notifications_none_rounded,
+            color: Colors.white,
+          ),
           onPressed: () {},
         ),
         const SizedBox(width: 8),
@@ -51,7 +58,14 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
           icon: CircleAvatar(
             radius: 17,
             backgroundColor: Color(0xFF0EA5E9),
-            child: PrimeCareText('Pr', style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
+            child: PrimeCareText(
+              'Pr',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           onSelected: (value) async {
             if (value == 'profile') {
@@ -78,7 +92,13 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
               value: 'logout',
               child: ListTile(
                 leading: Icon(Icons.logout, color: Colors.red),
-                title: Text('Sign Out', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                title: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],

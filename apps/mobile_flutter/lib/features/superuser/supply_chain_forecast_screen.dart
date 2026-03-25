@@ -15,7 +15,7 @@ class SupplyChainForecastScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimeCareScaffold(
       backgroundColor: PrimeCareColors.radarDark, // Deep radar dark
-      
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: PrimeCareColumn(
@@ -24,30 +24,70 @@ class SupplyChainForecastScreen extends StatelessWidget {
             // Master KPI Heads-Up
             PrimeCareRow(
               children: [
-                PrimeCareExpanded(child: _buildMetricCard('Predicted Demand (7 Days)', '400 Hrs', Colors.orangeAccent)),
+                PrimeCareExpanded(
+                  child: _buildMetricCard(
+                    'Predicted Demand (7 Days)',
+                    '400 Hrs',
+                    Colors.orangeAccent,
+                  ),
+                ),
                 SizedBox(width: 16),
-                PrimeCareExpanded(child: _buildMetricCard('Latent Supply Available', '320 Hrs', Colors.blueAccent)),
+                PrimeCareExpanded(
+                  child: _buildMetricCard(
+                    'Latent Supply Available',
+                    '320 Hrs',
+                    Colors.blueAccent,
+                  ),
+                ),
                 SizedBox(width: 16),
-                PrimeCareExpanded(child: _buildMetricCard('Global Risk Status', 'CRITICAL', Colors.redAccent)),
+                PrimeCareExpanded(
+                  child: _buildMetricCard(
+                    'Global Risk Status',
+                    'CRITICAL',
+                    Colors.redAccent,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 32),
-            
-            PrimeCareText('GEOGRAPHICAL DEFICIT RADAR', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+
+            PrimeCareText(
+              'GEOGRAPHICAL DEFICIT RADAR',
+              style: GoogleFonts.outfit(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: 16),
-            
-            _buildDeficitRow('Etobicoke Sub-Franchise', 400, 320, isWarning: true),
+
+            _buildDeficitRow(
+              'Etobicoke Sub-Franchise',
+              400,
+              320,
+              isWarning: true,
+            ),
             SizedBox(height: 12),
-            _buildDeficitRow('Downtown Sub-Franchise', 120, 200, isWarning: false),
+            _buildDeficitRow(
+              'Downtown Sub-Franchise',
+              120,
+              200,
+              isWarning: false,
+            ),
             SizedBox(height: 12),
-            _buildDeficitRow('North York Sub-Franchise', 250, 250, isWarning: false),
+            _buildDeficitRow(
+              'North York Sub-Franchise',
+              250,
+              250,
+              isWarning: false,
+            ),
 
             SizedBox(height: 48),
 
             // AI Action Log
             PrimeCareCard(
               padding: EdgeInsets.all(24),
-              
+
               child: PrimeCareColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,17 +95,35 @@ class SupplyChainForecastScreen extends StatelessWidget {
                     children: [
                       PrimeCareIcon(Icons.bolt, color: Colors.yellowAccent),
                       SizedBox(width: 12),
-                      PrimeCareText('TELEMETRY ACTIONS LOG', style: GoogleFonts.firaCode(color: Colors.white, fontWeight: FontWeight.bold)),
+                      PrimeCareText(
+                        'TELEMETRY ACTIONS LOG',
+                        style: GoogleFonts.firaCode(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                   Divider(color: Colors.white24, height: 32),
-                  _buildLogEntry('02:00 AM', 'Etobicoke Deficit detected. Demand = 400. Supply = 320.'),
-                  _buildLogEntry('02:01 AM', 'Executing Pre-Recruitment sequence (TrustScore +15 Bounty).'),
-                  _buildLogEntry('02:05 AM', 'SMS Lifeline dispatched to 14 latent Field Workers.'),
-                  _buildLogEntry('02:40 AM', '2 Field Workers accepted. Deficit reduced to 56 Hours.'),
+                  _buildLogEntry(
+                    '02:00 AM',
+                    'Etobicoke Deficit detected. Demand = 400. Supply = 320.',
+                  ),
+                  _buildLogEntry(
+                    '02:01 AM',
+                    'Executing Pre-Recruitment sequence (TrustScore +15 Bounty).',
+                  ),
+                  _buildLogEntry(
+                    '02:05 AM',
+                    'SMS Lifeline dispatched to 14 latent Field Workers.',
+                  ),
+                  _buildLogEntry(
+                    '02:40 AM',
+                    '2 Field Workers accepted. Deficit reduced to 56 Hours.',
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -75,43 +133,86 @@ class SupplyChainForecastScreen extends StatelessWidget {
   Widget _buildMetricCard(String title, String value, Color accentColor) {
     return PrimeCareCard(
       padding: EdgeInsets.all(20),
-      
+
       child: PrimeCareColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PrimeCareText(title, style: GoogleFonts.inter(color: Colors.grey[400], fontSize: 13, fontWeight: FontWeight.w600)),
+          PrimeCareText(
+            title,
+            style: GoogleFonts.inter(
+              color: Colors.grey[400],
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           SizedBox(height: 8),
-          PrimeCareText(value, style: GoogleFonts.outfit(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+          PrimeCareText(
+            value,
+            style: GoogleFonts.outfit(
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildDeficitRow(String zone, int demand, int supply, {required bool isWarning}) {
+  Widget _buildDeficitRow(
+    String zone,
+    int demand,
+    int supply, {
+    required bool isWarning,
+  }) {
     double fillRatio = (supply / demand).clamp(0.0, 1.0);
     int percent = (fillRatio * 100).toInt();
 
     return PrimeCareCard(
       padding: EdgeInsets.all(16),
-      
+
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           PrimeCareColumn(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimeCareText(zone, style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+              PrimeCareText(
+                zone,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
               SizedBox(height: 4),
-              PrimeCareText(isWarning ? 'DEFICIT DETECTED' : 'SUPPLY OPTIMAL', style: GoogleFonts.firaCode(color: isWarning ? Colors.redAccent : Colors.blueAccent, fontSize: 12)),
+              PrimeCareText(
+                isWarning ? 'DEFICIT DETECTED' : 'SUPPLY OPTIMAL',
+                style: GoogleFonts.firaCode(
+                  color: isWarning ? Colors.redAccent : Colors.blueAccent,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
           PrimeCareRow(
             children: [
-              PrimeCareText('$percent% Fill Rate', style: GoogleFonts.outfit(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+              PrimeCareText(
+                '$percent% Fill Rate',
+                style: GoogleFonts.outfit(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(width: 16),
-              CircularProgressIndicator(value: fillRatio, backgroundColor: Colors.white24, color: isWarning ? Colors.redAccent : Colors.blueAccent),
+              CircularProgressIndicator(
+                value: fillRatio,
+                backgroundColor: Colors.white24,
+                color: isWarning ? Colors.redAccent : Colors.blueAccent,
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -123,9 +224,17 @@ class SupplyChainForecastScreen extends StatelessWidget {
       child: PrimeCareRow(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PrimeCareText('[$time]', style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 12)),
+          PrimeCareText(
+            '[$time]',
+            style: GoogleFonts.firaCode(color: Colors.grey[500], fontSize: 12),
+          ),
           SizedBox(width: 12),
-          PrimeCareExpanded(child: PrimeCareText(message, style: GoogleFonts.inter(color: Colors.white, fontSize: 14))),
+          PrimeCareExpanded(
+            child: PrimeCareText(
+              message,
+              style: GoogleFonts.inter(color: Colors.white, fontSize: 14),
+            ),
+          ),
         ],
       ),
     );

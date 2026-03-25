@@ -29,7 +29,8 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
           StreamBuilder<ConnectivityResult>(
             stream: Connectivity().onConnectivityChanged,
             builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data == ConnectivityResult.none) {
+              if (snapshot.hasData &&
+                  snapshot.data == ConnectivityResult.none) {
                 return OfflineBanner();
               }
               return SizedBox.shrink();
@@ -43,7 +44,10 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                   expandedHeight: 140,
                   // AppBar inherits automatically from theme.dart
                   flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    titlePadding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
                     title: PrimeCareText(
                       AppLocalizations.of(context)!.myShiftsTitle,
                       style: theme.textTheme.headlineLarge,
@@ -51,7 +55,10 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                   ),
                   actions: [
                     IconButton(
-                      icon: PrimeCareIcon(Icons.notifications_outlined, size: 30),
+                      icon: PrimeCareIcon(
+                        Icons.notifications_outlined,
+                        size: 30,
+                      ),
                       onPressed: () {},
                       color: colorScheme.primary,
                     ),
@@ -64,35 +71,60 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
                     child: PrimeCareCard(
                       padding: EdgeInsets.all(20),
-                      backgroundColor: _isGlobalCodeBlack ? Colors.red[900]!.withOpacity(0.2) : colorScheme.secondary.withAlpha(20),
+                      backgroundColor: _isGlobalCodeBlack
+                          ? Colors.red[900]!.withOpacity(0.2)
+                          : colorScheme.secondary.withAlpha(20),
                       child: PrimeCareRow(
                         children: [
                           PrimeCareCard(
                             padding: EdgeInsets.all(12),
-                            
-                            child: PrimeCareIcon(_isGlobalCodeBlack ? Icons.warning_amber_rounded : Icons.bolt, 
-                                color: _isGlobalCodeBlack ? Colors.redAccent : colorScheme.secondary, size: 28),
+
+                            child: PrimeCareIcon(
+                              _isGlobalCodeBlack
+                                  ? Icons.warning_amber_rounded
+                                  : Icons.bolt,
+                              color: _isGlobalCodeBlack
+                                  ? Colors.redAccent
+                                  : colorScheme.secondary,
+                              size: 28,
+                            ),
                           ),
                           SizedBox(width: 16),
                           PrimeCareExpanded(
                             child: PrimeCareColumn(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                PrimeCareText(_isGlobalCodeBlack ? 'SYSTEM OVERRIDE: CODE BLACK' : AppLocalizations.of(context)!.highDemandAlertTitle, 
-                                    style: theme.textTheme.titleLarge?.copyWith(
-                                        color: _isGlobalCodeBlack ? Colors.redAccent : null,
-                                        fontWeight: _isGlobalCodeBlack ? FontWeight.w900 : null
-                                    )),
+                                PrimeCareText(
+                                  _isGlobalCodeBlack
+                                      ? 'SYSTEM OVERRIDE: CODE BLACK'
+                                      : AppLocalizations.of(
+                                          context,
+                                        )!.highDemandAlertTitle,
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                    color: _isGlobalCodeBlack
+                                        ? Colors.redAccent
+                                        : null,
+                                    fontWeight: _isGlobalCodeBlack
+                                        ? FontWeight.w900
+                                        : null,
+                                  ),
+                                ),
                                 SizedBox(height: 4),
                                 PrimeCareText(
-                                  _isGlobalCodeBlack ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.' : AppLocalizations.of(context)!.highDemandAlertDesc,
+                                  _isGlobalCodeBlack
+                                      ? 'Ecosystem in critical state. All shifts mathematically boosted to +1.5x Hazard Pay globally. Do not travel if unsafe.'
+                                      : AppLocalizations.of(
+                                          context,
+                                        )!.highDemandAlertDesc,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                      color: _isGlobalCodeBlack ? Colors.red[200] : null
+                                    color: _isGlobalCodeBlack
+                                        ? Colors.red[200]
+                                        : null,
                                   ),
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -107,7 +139,10 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                       padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
                       child: PrimeCareRow(
                         children: [
-                          PrimeCareText(AppLocalizations.of(context)!.today, style: theme.textTheme.titleLarge),
+                          PrimeCareText(
+                            AppLocalizations.of(context)!.today,
+                            style: theme.textTheme.titleLarge,
+                          ),
                           SizedBox(width: 8),
                           PrimeCareBadge(
                             text: AppLocalizations.of(context)!.shiftCountLabel,
@@ -122,34 +157,39 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                 SliverPadding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   sliver: SliverLayoutBuilder(
-                    builder: (BuildContext context, SliverConstraints constraints) {
-                      if (constraints.crossAxisExtent > 800) {
-                        return SliverGrid(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: (constraints.crossAxisExtent / 400).floor(),
-                            mainAxisSpacing: 16.0,
-                            crossAxisSpacing: 16.0,
-                            childAspectRatio: 2.2,
-                          ),
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) => _buildShiftCard(context, index),
-                            childCount: 3,
-                          ),
-                        );
-                      }
-                      return SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => PrimeCarePadding(
-                            padding: EdgeInsets.only(bottom: 16.0),
-                            child: _buildShiftCard(context, index),
-                          ),
-                          childCount: 3,
-                        ),
-                      );
-                    },
+                    builder:
+                        (BuildContext context, SliverConstraints constraints) {
+                          if (constraints.crossAxisExtent > 800) {
+                            return SliverGrid(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        (constraints.crossAxisExtent / 400)
+                                            .floor(),
+                                    mainAxisSpacing: 16.0,
+                                    crossAxisSpacing: 16.0,
+                                    childAspectRatio: 2.2,
+                                  ),
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) =>
+                                    _buildShiftCard(context, index),
+                                childCount: 3,
+                              ),
+                            );
+                          }
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) => PrimeCarePadding(
+                                padding: EdgeInsets.only(bottom: 16.0),
+                                child: _buildShiftCard(context, index),
+                              ),
+                              childCount: 3,
+                            ),
+                          );
+                        },
                   ),
                 ),
-                
+
                 SliverToBoxAdapter(child: SizedBox(height: 80)),
               ],
             ),
@@ -172,27 +212,35 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
           child: Dismissible(
             key: Key('shift_$index'),
             background: PrimeCareCard(
-              
-              
               padding: EdgeInsets.only(left: 24),
               child: PrimeCareIcon(Icons.check, color: Colors.white, size: 36),
             ),
             secondaryBackground: PrimeCareCard(
-              
-              
               padding: EdgeInsets.only(right: 24),
-              child: PrimeCareIcon(Icons.handshake, color: Colors.white, size: 36),
+              child: PrimeCareIcon(
+                Icons.handshake,
+                color: Colors.white,
+                size: 36,
+              ),
             ),
             onDismissed: (direction) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: PrimeCareText(AppLocalizations.of(context)!.shiftAckSuccess),
+                  content: PrimeCareText(
+                    AppLocalizations.of(context)!.shiftAckSuccess,
+                  ),
                   backgroundColor: colorScheme.primary,
                   duration: Duration(seconds: 4),
                   behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  action: SnackBarAction(label: AppLocalizations.of(context)!.undo, textColor: colorScheme.secondary, onPressed: (){}),
-                )
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  action: SnackBarAction(
+                    label: AppLocalizations.of(context)!.undo,
+                    textColor: colorScheme.secondary,
+                    onPressed: () {},
+                  ),
+                ),
               );
             },
             child: InkWell(
@@ -207,8 +255,17 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                     PrimeCareRow(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        PrimeCareText('10:00 AM - 2:00 PM', style: theme.textTheme.titleLarge?.copyWith(fontSize: 18)),
-                        PrimeCareIcon(Icons.chevron_right, color: theme.dividerColor, size: 28),
+                        PrimeCareText(
+                          '10:00 AM - 2:00 PM',
+                          style: theme.textTheme.titleLarge?.copyWith(
+                            fontSize: 18,
+                          ),
+                        ),
+                        PrimeCareIcon(
+                          Icons.chevron_right,
+                          color: theme.dividerColor,
+                          size: 28,
+                        ),
                       ],
                     ),
                     SizedBox(height: 12),
@@ -216,11 +273,19 @@ class _PswShiftsScreenState extends State<PswShiftsScreen> {
                       children: [
                         CircleAvatar(radius: 16),
                         SizedBox(width: 12),
-                        PrimeCareText('Sarah Jenkins', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                        PrimeCareText(
+                          'Sarah Jenkins',
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 8),
-                    PrimeCareText('123 Main St, Unit 4B, Toronto ON', style: theme.textTheme.bodyMedium),
+                    PrimeCareText(
+                      '123 Main St, Unit 4B, Toronto ON',
+                      style: theme.textTheme.bodyMedium,
+                    ),
                   ],
                 ),
               ),
@@ -243,7 +308,11 @@ class _StickyDateDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 48.0;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return child;
   }
 

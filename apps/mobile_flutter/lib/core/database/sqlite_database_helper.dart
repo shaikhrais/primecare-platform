@@ -18,18 +18,14 @@ class SqliteDatabaseHelper {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, filePath);
 
-    return await openDatabase(
-      path, 
-      version: 1, 
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
     const idType = 'TEXT PRIMARY KEY';
     const textType = 'TEXT NOT NULL';
     const floatType = 'REAL NOT NULL';
-    
+
     // Abstract Payload Table
     await db.execute('''
       CREATE TABLE OfflineQueue (
@@ -45,7 +41,11 @@ class SqliteDatabaseHelper {
 
   Future<int> insertPayload(Map<String, dynamic> row) async {
     final db = await instance.database;
-    return await db.insert('OfflineQueue', row, conflictAlgorithm: ConflictAlgorithm.replace);
+    return await db.insert(
+      'OfflineQueue',
+      row,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   Future<List<Map<String, dynamic>>> readAllPendingPayloads() async {
@@ -56,20 +56,19 @@ class SqliteDatabaseHelper {
 
   Future<int> deletePayload(String id) async {
     final db = await instance.database;
-    return await db.delete(
-      'OfflineQueue',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    return await db.delete('OfflineQueue', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> incrementRetryCount(String id) async {
     final db = await instance.database;
-    return await db.rawUpdate('''
+    return await db.rawUpdate(
+      '''
       UPDATE OfflineQueue 
       SET retryCount = retryCount + 1 
       WHERE id = ?
-      ''', [id]);
+      ''',
+      [id],
+    );
   }
 
   Future close() async {

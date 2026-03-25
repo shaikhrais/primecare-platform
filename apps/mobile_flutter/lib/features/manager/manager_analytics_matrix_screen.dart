@@ -21,7 +21,6 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
             backgroundColor: PrimeCareColors.radarDark,
             flexibleSpace: FlexibleSpaceBar(
               background: PrimeCareCard(
-                
                 child: PrimeCareSafeArea(
                   child: PrimeCarePadding(
                     padding: EdgeInsets.all(24.0),
@@ -32,23 +31,54 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
                         PrimeCareRow(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            PrimeCareText('EXECUTIVE SUITE', style: TextStyle(color: PrimeCareColors.slate400, fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 12)),
-                            PrimeCareBadge(text: 'Q3 Target: 94%', color: PrimeCareColors.amber),
+                            PrimeCareText(
+                              'EXECUTIVE SUITE',
+                              style: TextStyle(
+                                color: PrimeCareColors.slate400,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 2,
+                                fontSize: 12,
+                              ),
+                            ),
+                            PrimeCareBadge(
+                              text: 'Q3 Target: 94%',
+                              color: PrimeCareColors.amber,
+                            ),
                           ],
                         ),
                         SizedBox(height: 8),
-                        PrimeCareText('Global Overview', style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w900)),
+                        PrimeCareText(
+                          'Global Overview',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
                         Spacer(),
-                        
+
                         PrimeCareRow(
                           children: [
-                            _buildMacroKpi(icon: Icons.check_circle_rounded, label: AppLocalizations.of(context)!.compliance, value: '91.4%'),
+                            _buildMacroKpi(
+                              icon: Icons.check_circle_rounded,
+                              label: AppLocalizations.of(context)!.compliance,
+                              value: '91.4%',
+                            ),
                             SizedBox(width: 16),
-                            _buildMacroKpi(icon: Icons.groups_rounded, label: AppLocalizations.of(context)!.activeStaff, value: '1,420'),
+                            _buildMacroKpi(
+                              icon: Icons.groups_rounded,
+                              label: AppLocalizations.of(context)!.activeStaff,
+                              value: '1,420',
+                            ),
                             SizedBox(width: 16),
-                            _buildMacroKpi(icon: Icons.warning_rounded, label: AppLocalizations.of(context)!.criticalSos, value: '2', isDanger: true),
+                            _buildMacroKpi(
+                              icon: Icons.warning_rounded,
+                              label: AppLocalizations.of(context)!.criticalSos,
+                              value: '2',
+                              isDanger: true,
+                            ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -56,7 +86,7 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
               ),
             ),
           ),
-          
+
           SliverPadding(
             padding: EdgeInsets.fromLTRB(24, 24, 24, 120),
             sliver: SliverToBoxAdapter(
@@ -64,14 +94,22 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
                 builder: (context, constraints) {
                   // Phase 54: Dynamic Desktop Fluid Grid Logic
                   final isDesktop = constraints.maxWidth >= 800;
-                  
+
                   return PrimeCareColumn(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 8),
-                      PrimeCareText('ORGANIZATIONAL HEALTH', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF475569), letterSpacing: 1.5, fontSize: 12)),
+                      PrimeCareText(
+                        'ORGANIZATIONAL HEALTH',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF475569),
+                          letterSpacing: 1.5,
+                          fontSize: 12,
+                        ),
+                      ),
                       SizedBox(height: 16),
-                      
+
                       Flex(
                         direction: isDesktop ? Axis.horizontal : Axis.vertical,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +120,10 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
                             fit: isDesktop ? FlexFit.tight : FlexFit.loose,
                             child: _buildGraphicWidget(),
                           ),
-                          if (isDesktop) SizedBox(width: 24) else SizedBox(height: 24),
+                          if (isDesktop)
+                            SizedBox(width: 24)
+                          else
+                            SizedBox(height: 24),
                           Flexible(
                             flex: isDesktop ? 1 : 1,
                             fit: isDesktop ? FlexFit.tight : FlexFit.loose,
@@ -94,7 +135,8 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
                                 SizedBox(
                                   width: double.infinity,
                                   child: PrimeCareButton(
-                                    onPressed: () => HapticFeedback.mediumImpact(),
+                                    onPressed: () =>
+                                        HapticFeedback.mediumImpact(),
                                     text: 'GENERATE FULL AUDIT REPORT',
                                     icon: Icons.download_rounded,
                                     isPrimary: true,
@@ -110,7 +152,7 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
                 },
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -125,12 +167,26 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
           PrimeCareRow(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PrimeCareText('Payroll vs Billables', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: PrimeCareColors.radarDark)),
-              PrimeCareIcon(Icons.trending_up_rounded, color: PrimeCareColors.emerald, size: 28),
+              PrimeCareText(
+                'Payroll vs Billables',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 18,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
+              PrimeCareIcon(
+                Icons.trending_up_rounded,
+                color: PrimeCareColors.emerald,
+                size: 28,
+              ),
             ],
           ),
           SizedBox(height: 8),
-          PrimeCareText('Last 30 Days Trajectory', style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14)),
+          PrimeCareText(
+            'Last 30 Days Trajectory',
+            style: TextStyle(color: PrimeCareColors.slate500, fontSize: 14),
+          ),
           SizedBox(height: 24),
           PrimeCareRow(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -141,7 +197,7 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
               _buildChartBar(height: 140, color: PrimeCareColors.slate500),
               _buildChartBar(height: 110, color: PrimeCareColors.amber),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -155,15 +211,30 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
         children: [
           PrimeCareRow(
             children: [
-              PrimeCareIcon(Icons.auto_awesome_rounded, color: PrimeCareColors.purple, size: 24),
+              PrimeCareIcon(
+                Icons.auto_awesome_rounded,
+                color: PrimeCareColors.purple,
+                size: 24,
+              ),
               SizedBox(width: 8),
-              PrimeCareText('AI Execution Matrix', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: PrimeCareColors.radarDark)),
+              PrimeCareText(
+                'AI Execution Matrix',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  color: PrimeCareColors.radarDark,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 16),
           PrimeCareText(
-            'System heuristics detect a 12% surplus in unmapped MT (Massage Therapy) hours across the Greater Toronto Area radius.', 
-            style: TextStyle(color: Color(0xFF475569), fontSize: 14, height: 1.5)
+            'System heuristics detect a 12% surplus in unmapped MT (Massage Therapy) hours across the Greater Toronto Area radius.',
+            style: TextStyle(
+              color: Color(0xFF475569),
+              fontSize: 14,
+              height: 1.5,
+            ),
           ),
           SizedBox(height: 16),
           PrimeCareButton(
@@ -171,24 +242,48 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
             text: 'Deploy Marketing Push',
             icon: Icons.podcasts_rounded,
             isPrimary: false,
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMacroKpi({required IconData icon, required String label, required String value, bool isDanger = false}) {
+  Widget _buildMacroKpi({
+    required IconData icon,
+    required String label,
+    required String value,
+    bool isDanger = false,
+  }) {
     return PrimeCareExpanded(
       child: PrimeCareCard(
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         backgroundColor: isDanger ? Color(0xFFBE123C) : Color(0x22FFFFFF),
         child: PrimeCareColumn(
           children: [
-            PrimeCareIcon(icon, color: isDanger ? Colors.white : PrimeCareColors.slate400, size: 20),
+            PrimeCareIcon(
+              icon,
+              color: isDanger ? Colors.white : PrimeCareColors.slate400,
+              size: 20,
+            ),
             SizedBox(height: 8),
-            PrimeCareText(value, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)),
+            PrimeCareText(
+              value,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 18,
+              ),
+            ),
             SizedBox(height: 4),
-            PrimeCareText(label, style: TextStyle(color: PrimeCareColors.slate300, fontSize: 10, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+            PrimeCareText(
+              label,
+              style: TextStyle(
+                color: PrimeCareColors.slate300,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -197,8 +292,10 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
 
   Widget _buildChartBar({required double height, required Color color}) {
     return PrimeCareExpanded(
-      child: PrimeCareCard(margin: EdgeInsets.symmetric(horizontal: 4), height: height,child: const SizedBox.shrink(),
-        
+      child: PrimeCareCard(
+        margin: EdgeInsets.symmetric(horizontal: 4),
+        height: height,
+        child: const SizedBox.shrink(),
       ),
     );
   }

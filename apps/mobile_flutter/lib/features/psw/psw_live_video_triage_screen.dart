@@ -11,7 +11,8 @@ class PswLiveVideoTriageScreen extends StatefulWidget {
   const PswLiveVideoTriageScreen({super.key, required this.incidentId});
 
   @override
-  State<PswLiveVideoTriageScreen> createState() => _PswLiveVideoTriageScreenState();
+  State<PswLiveVideoTriageScreen> createState() =>
+      _PswLiveVideoTriageScreenState();
 }
 
 class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
@@ -44,24 +45,30 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
       'audio': true,
       'video': {
         'mandatory': {
-          'minWidth': '1280', 
+          'minWidth': '1280',
           'minHeight': '720',
           'minFrameRate': '30',
         },
         'facingMode': 'user',
         'optional': [],
-      }
+      },
     };
 
     try {
-      final stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+      final stream = await navigator.mediaDevices.getUserMedia(
+        mediaConstraints,
+      );
       _localRenderer.srcObject = stream;
       setState(() {
         _inCalling = true;
         _localStream = stream;
       });
       // WebRTC mapped globally to Serverless Node
-      final channel = WebSocketChannel.connect(Uri.parse('wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=live_triage_session'));
+      final channel = WebSocketChannel.connect(
+        Uri.parse(
+          'wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=live_triage_session',
+        ),
+      );
       channel.sink.add('{"action": "sdp_offer"}');
     } catch (e) {
       debugPrint('[WEBRTC HARDWARE ERROR]: ${e.toString()}');
@@ -97,16 +104,22 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
               child: _inCalling
                   ? RTCVideoView(
                       _remoteRenderer,
-                      objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                      objectFit:
+                          RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
                     )
                   : PrimeCareCenter(
-                      child: PrimeCareText('Awaiting Triage Nurse Assignment...', 
-                        style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold)
+                      child: PrimeCareText(
+                        'Awaiting Triage Nurse Assignment...',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
             ),
           ),
-          
+
           // Local Video Stream (PiP Matrix)
           if (_inCalling)
             Positioned(
@@ -115,7 +128,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
               child: PrimeCareCard(
                 width: 120,
                 height: 160,
-                
+
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: RTCVideoView(
@@ -141,18 +154,28 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
             left: 20,
             child: PrimeCareCard(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              
+
               child: PrimeCareRow(
                 children: [
-                  PrimeCareCard(width: 8, height: 8,child: const SizedBox.shrink(),
-                    
+                  PrimeCareCard(
+                    width: 8,
+                    height: 8,
+                    child: const SizedBox.shrink(),
                   ),
                   SizedBox(width: 8),
-                  PrimeCareText(_inCalling ? 'LIVE STREAMING' : 'CONNECTING', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                  PrimeCareText(
+                    _inCalling ? 'LIVE STREAMING' : 'CONNECTING',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -161,27 +184,48 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
   Widget _buildControlsDock() {
     return PrimeCareCard(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-      
+
       child: PrimeCareRow(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildControlButton(Icons.mic, Colors.white, Colors.white24, () {}),
           if (!_inCalling)
-            _buildControlButton(Icons.videocam, Colors.white, PrimeCareColors.emerald, _openCamera)
+            _buildControlButton(
+              Icons.videocam,
+              Colors.white,
+              PrimeCareColors.emerald,
+              _openCamera,
+            )
           else
-            _buildControlButton(Icons.call_end, Colors.white, PrimeCareColors.rose, _hangUp),
-          _buildControlButton(Icons.switch_camera, Colors.white, Colors.white24, () {}),
+            _buildControlButton(
+              Icons.call_end,
+              Colors.white,
+              PrimeCareColors.rose,
+              _hangUp,
+            ),
+          _buildControlButton(
+            Icons.switch_camera,
+            Colors.white,
+            Colors.white24,
+            () {},
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildControlButton(IconData icon, Color iconColor, Color bgColor, VoidCallback onTap) {
+  Widget _buildControlButton(
+    IconData icon,
+    Color iconColor,
+    Color bgColor,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: PrimeCareCard(
-        width: 60, height: 60,
-        
+        width: 60,
+        height: 60,
+
         child: PrimeCareIcon(icon, color: iconColor, size: 28),
       ),
     );

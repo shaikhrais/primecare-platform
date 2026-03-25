@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme.dart';
 
-enum PrimeCareThemeType {
-  light,
-  dark,
-  highContrast
-}
+enum PrimeCareThemeType { light, dark, highContrast }
 
 class ThemeNotifier extends Notifier<PrimeCareThemeType> {
   @override
@@ -25,7 +21,7 @@ class ThemeNotifier extends Notifier<PrimeCareThemeType> {
       case PrimeCareThemeType.dark:
         return PrimeCareTheme.darkTheme;
       case PrimeCareThemeType.highContrast:
-        return PrimeCareTheme.darkTheme; 
+        return PrimeCareTheme.darkTheme;
     }
   }
 }

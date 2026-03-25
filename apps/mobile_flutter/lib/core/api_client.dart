@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiClient {
   // Mobile Android Emulator bypasses DNS limits using Loopback bindings
-  static const String baseUrl = 'https://primecare-api.itpro-mohammed.workers.dev'; 
+  static const String baseUrl =
+      'https://primecare-api.itpro-mohammed.workers.dev';
 
   Future<Map<String, String>> _getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
@@ -38,7 +39,9 @@ class ApiClient {
         throw Exception('Server returned ${response.statusCode}');
       }
     } catch (e) {
-      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint.');
+      print(
+        '🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting POST $endpoint.',
+      );
       if (!kIsWeb) {
         await SqliteDatabaseHelper.instance.insertPayload({
           'id': Uuid().v4(),
@@ -49,7 +52,11 @@ class ApiClient {
           'retryCount': 0,
         });
       }
-      return {'success': true, 'offline_queued': true, 'message': 'Saved locally. Will sync when online.'};
+      return {
+        'success': true,
+        'offline_queued': true,
+        'message': 'Saved locally. Will sync when online.',
+      };
     }
   }
 
@@ -68,7 +75,9 @@ class ApiClient {
         throw Exception('Server returned ${response.statusCode}');
       }
     } catch (e) {
-      print('🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint.');
+      print(
+        '🌐 [OFFLINE CRDT BUFFER] Connection dropped. Intercepting PUT $endpoint.',
+      );
       if (!kIsWeb) {
         await SqliteDatabaseHelper.instance.insertPayload({
           'id': Uuid().v4(),
@@ -79,11 +88,15 @@ class ApiClient {
           'retryCount': 0,
         });
       }
-      return {'success': true, 'offline_queued': true, 'message': 'Profile Update saved offline. Will sync when online.'};
+      return {
+        'success': true,
+        'offline_queued': true,
+        'message': 'Profile Update saved offline. Will sync when online.',
+      };
     }
   }
 
-    Future<dynamic> patch(String endpoint, Map<String, dynamic> body) async {
+  Future<dynamic> patch(String endpoint, Map<String, dynamic> body) async {
     final headers = await _getHeaders();
     final response = await http.patch(
       Uri.parse('$baseUrl$endpoint'),
@@ -107,7 +120,9 @@ class ApiClient {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return jsonDecode(response.body);
     } else {
-      print('[SANDBOX WARNING]: Suppressing API Exception ${response.statusCode}');
+      print(
+        '[SANDBOX WARNING]: Suppressing API Exception ${response.statusCode}',
+      );
       return {'success': true, 'mocked': true, 'profile': {}};
     }
   }
@@ -120,17 +135,14 @@ class ApiClient {
         'Accept-Language': 'fr',
         'X-Requested-With': 'Flutter_Client',
       },
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-      }),
+      body: jsonEncode({'email': email, 'password': password}),
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       final data = jsonDecode(response.body);
       final rawCookie = response.headers['set-cookie'];
       String? sessionCookie;
-      
+
       if (rawCookie != null) {
         final match = RegExp(r'accessToken=([^;]+)').firstMatch(rawCookie);
         if (match != null) {
@@ -141,18 +153,18 @@ class ApiClient {
       if (data['user'] != null && data['token'] != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('auth_token', data['token']);
-        
+
         final roles = data['user']['roles'] as List<dynamic>? ?? [];
         String primaryRole = 'psw';
-        
+
         if (data['user']['primaryRole'] != null) {
           primaryRole = data['user']['primaryRole'].toString();
         } else if (roles.isNotEmpty) {
           primaryRole = roles.first.toString();
         }
-        
+
         await prefs.setString('user_role', primaryRole);
-        
+
         if (sessionCookie != null) {
           await prefs.setString('auth_cookie', sessionCookie);
         }
