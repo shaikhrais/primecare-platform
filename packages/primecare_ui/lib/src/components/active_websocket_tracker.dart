@@ -1,35 +1,59 @@
 import 'package:flutter/material.dart';
+import 'prime_card.dart';
 
 class ActiveWebSocketTracker extends StatelessWidget {
-  const ActiveWebSocketTracker({Key? key}) : super(key: key);
+  final int activeConnections;
+  final int pendingJobQueue;
+  final double systemScore;
+
+  const ActiveWebSocketTracker({
+    Key? key,
+    this.activeConnections = 142,
+    this.pendingJobQueue = 12,
+    this.systemScore = 98.5,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return PrimeCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'WSS Connections',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.circle, color: Colors.green, size: 12),
-              SizedBox(width: 8),
-              Text(
-                '1,402 Active',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              const Text(
+                'WSS Pool Activity',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              Container(
+                width: 12,
+                height: 12,
+                decoration: const BoxDecoration(
+                  color: Colors.greenAccent,
+                  shape: BoxShape.circle,
+                ),
               ),
             ],
           ),
+          const SizedBox(height: 16),
+          _buildStatRow('Active Endpoints', activeConnections.toString(), Colors.blue),
+          const SizedBox(height: 8),
+          _buildStatRow('Job Queue (Pending)', pendingJobQueue.toString(), Colors.orange),
+          const SizedBox(height: 8),
+          _buildStatRow('Model Health Score', '${systemScore.toStringAsFixed(1)}/100', Colors.purple),
         ],
       ),
+    );
+  }
+
+  Widget _buildStatRow(String label, String val, Color color) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label, style: const TextStyle(color: Colors.black87)),
+        Text(val, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 16)),
+      ],
     );
   }
 }
