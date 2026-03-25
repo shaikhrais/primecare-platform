@@ -10,7 +10,7 @@ app.openapi(createRoute({
   path: '/{role}',
   
   request: { params: z.object({ role: z.string() }) },
-  responses: { 200: { description: 'Activity List', content: { 'application/json': { schema: z.any() } } } }
+  responses: { 200: { description: 'Activity List', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
   const { role } = c.req.valid('param');
   const user = c.var.user;
@@ -26,8 +26,8 @@ app.openapi(createRoute({
   if (items.length === 0) {
     // Generate native default activities replacing UI hardcoded representations
     const newItems = [
-      { role, userId: user.id, tenantId: user.tenantId, title: 'Initialize System Matrix', description: 'Backend sync executed generating node natively.', status: 'PENDING', dueDate: new Date() },
-      { role, userId: user.id, tenantId: user.tenantId, title: 'Validate Database Handshake', description: 'Confirm telemetry pipeline tracking arrays seamlessly.', status: 'PENDING', dueDate: new Date() }
+      { role, userId: user.id, tenantId: (user as any).tenantId, title: 'Initialize System Matrix', description: 'Backend sync executed generating node natively.', status: 'PENDING', dueDate: new Date() },
+      { role, userId: user.id, tenantId: (user as any).tenantId, title: 'Validate Database Handshake', description: 'Confirm telemetry pipeline tracking arrays seamlessly.', status: 'PENDING', dueDate: new Date() }
     ];
     await (c.var.prisma as any).dailyActivity.createMany({ data: newItems });
     items = await (c.var.prisma as any).dailyActivity.findMany({ where: { role, userId: user.id }, orderBy: { createdAt: 'desc' }  });
@@ -45,7 +45,7 @@ app.openapi(createRoute({
     params: z.object({ id: z.string() }),
     body: { content: { 'application/json': { schema: z.object({ status: z.string() }) } } }
   },
-  responses: { 200: { description: 'Updated', content: { 'application/json': { schema: z.any() } } } }
+  responses: { 200: { description: 'Updated', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
   const { id } = c.req.valid('param');
   const { status } = c.req.valid('json');
@@ -70,14 +70,14 @@ app.openapi(createRoute({
   request: { 
     body: { content: { 'application/json': { schema: z.object({ title: z.string(), description: z.string(), role: z.string() }) } } }
   },
-  responses: { 200: { description: 'Created', content: { 'application/json': { schema: z.any() } } } }
+  responses: { 200: { description: 'Created', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
   const { title, description, role } = c.req.valid('json');
   const user = c.var.user;
   if (!user) return c.json({ error: 'Unauthorized' }, 401);
 
   const newTask = await (c.var.prisma as any).dailyActivity.create({
-    data: { role, userId: user.id, tenantId: user.tenantId, title, description, status: 'PENDING', dueDate: new Date() }
+    data: { role, userId: user.id, tenantId: (user as any).tenantId, title, description, status: 'PENDING', dueDate: new Date() }
   });
 
   return c.json(newTask, 200);

@@ -70,7 +70,7 @@ class _UniversalInboxScreenState extends ConsumerState<UniversalInboxScreen> {
     try {
       await apiClient.post(
         '/api/inbox',
-        body: {'snippet': content, 'roleContext': widget.rolePrefix},
+        {'snippet': content, 'roleContext': widget.rolePrefix},
       );
       // Refresh Riverpod provider inherently cleanly explicitly exactly carefully correctly optimally elegantly stably seamlessly cleverly flexibly gracefully softly dynamically effectively nicely smoothly.
       ref.invalidate(universalInboxProvider(widget.rolePrefix));

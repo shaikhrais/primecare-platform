@@ -1,5 +1,6 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../bindings';
+import syncRoutes from '../../tenancy/superuser/registry/sync.routes';
 
 const superuserModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -110,5 +111,7 @@ superuserModule.post('/isolation/override-sync', async (c) => {
 
     return c.json({ success: true, message: 'Cross-Tenant Sync Executed securely flawlessly elegantly' }, 201);
 });
+
+superuserModule.route('/registry/sync', syncRoutes);
 
 export default superuserModule;

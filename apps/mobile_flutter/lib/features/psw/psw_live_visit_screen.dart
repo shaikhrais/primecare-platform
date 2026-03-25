@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/features/psw/providers/psw_evv_provider.dart';
+// import 'widgets/incident_report_fab.dart';
+import 'widgets/care_plan_sheet.dart';
 
 class PswLiveVisitScreen extends ConsumerWidget {
   const PswLiveVisitScreen({super.key});
@@ -38,14 +40,26 @@ class PswLiveVisitScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
                 const LiveGeolocationMapLoader(),
                 const SizedBox(height: 20),
-                const SlideToClockInWidget(),
-                const SizedBox(height: 20),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Care Plan Checklist',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Care Plan Checklist',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+                          builder: (ctx) => CarePlanSheet(patientId: visit.patientId),
+                        );
+                      },
+                      icon: const Icon(Icons.medical_information),
+                      label: const Text('View Full Plan'),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 Expanded(

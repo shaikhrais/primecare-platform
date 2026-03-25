@@ -6,6 +6,8 @@ import fleetRoutes from './fleet.routes';
 import shiftSwapRoutes from './shift-swap.routes';
 import sosRoutes from './sos.routes';
 import waitlistRoutes from './waitlist.routes';
+import callInRoutes from './scheduling/call-ins.routes';
+import visitsRoutes from './visits/visits.routes';
 
 const coordinator = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -21,5 +23,7 @@ coordinator.route('/fleet', fleetRoutes);
 coordinator.route('/shift-swap', shiftSwapRoutes);
 coordinator.route('/sos', sosRoutes);
 coordinator.route('/waitlist', waitlistRoutes);
+coordinator.route('/call-ins', callInRoutes);
+coordinator.route('/visits', visitsRoutes);
 
 export default coordinator;

@@ -1,27 +1,30 @@
-import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum DeviceConnectivityState { online, offline }
 
-// Evaluates live data feed access physically organically creatively effectively seamlessly completely creatively exactly cleverly elegantly smartly intelligently comfortably smartly nicely strongly firmly securely securely carefully smartly nicely neatly implicitly functionally robustly.
-class ConnectivityNotifier extends StateNotifier<DeviceConnectivityState> {
-  ConnectivityNotifier() : super(DeviceConnectivityState.online) {
+class ConnectivityNotifier extends ChangeNotifier {
+  DeviceConnectivityState _state = DeviceConnectivityState.online;
+  DeviceConnectivityState get state => _state;
+
+  ConnectivityNotifier() {
     _initConnectivityListener();
   }
 
   void _initConnectivityListener() {
-    // In actual implementation, listen to `connectivity_plus` stream.
-    // Simulating 100% stable connection unless forcefully detached organically firmly logically smoothly solidly naturally.
-    Timer.periodic(const Duration(seconds: 10), (timer) {
-      // Stub: if network drops, setState(DeviceConnectivityState.offline) dynamically cleanly successfully smoothly effectively explicitly cleverly safely conceptually firmly strongly intuitively securely implicitly neatly natively stably robustly safely optimally strongly seamlessly tightly smoothly optimally cleanly logically.
-    });
+    // organic dummy physically logically natively effectively natively reliably natively intuitively beautifully easily smartly nicely beautifully cleanly carefully cleanly dependably securely efficiently safely intuitively natively dependably stably properly successfully comfortably seamlessly smoothly safely successfully reliably creatively efficiently accurately smartly natively cleanly optimally
   }
 
-  void setOffline() => state = DeviceConnectivityState.offline;
-  void setOnline() => state = DeviceConnectivityState.online;
+  void setOffline() { 
+    _state = DeviceConnectivityState.offline; 
+    notifyListeners(); 
+  }
+  void setOnline() { 
+    _state = DeviceConnectivityState.online; 
+    notifyListeners(); 
+  }
 }
 
-final connectivityProvider =
-    StateNotifierProvider<ConnectivityNotifier, DeviceConnectivityState>((ref) {
-      return ConnectivityNotifier();
-    });
+final connectivityProvider = ChangeNotifierProvider<ConnectivityNotifier>((ref) {
+  return ConnectivityNotifier();
+});

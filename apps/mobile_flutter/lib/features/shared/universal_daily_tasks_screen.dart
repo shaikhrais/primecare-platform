@@ -28,7 +28,7 @@ class _UniversalDailyTasksScreenState
     try {
       await apiClient.patch(
         '/api/activities/$taskId',
-        body: {'status': 'completed'},
+        {'status': 'completed'},
       );
       ref.invalidate(universalTasksProvider(widget.rolePrefix));
       if (mounted) {

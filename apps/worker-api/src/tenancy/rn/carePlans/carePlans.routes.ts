@@ -35,6 +35,36 @@ const listCarePlansRoute = createRoute({
 });
 
 /**
+ * RN Author New Care Plan
+ */
+const createCarePlanRoute = createRoute({
+    ...ROUTE_METADATA.RN.CARE_PLAN_REVIEW,
+    method: 'post',
+    path: '/',
+    summary: 'Author New Care Plan',
+    tags: ['RN', 'CarePlans'],
+    middleware: [requirePermission('manage_care_plans')],
+    request: {
+        body: {
+            content: {
+                'application/json': {
+                    schema: z.object({
+                        clientId: z.string(),
+                        diagnoses: z.string(),
+                        clinicalGoals: z.string().optional(),
+                        interventions: z.string().optional()
+                    })
+                }
+            }
+        }
+    },
+    responses: {
+        201: { description: 'Care plan created successfully', content: { 'application/json': { schema: z.any() } } },
+        '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }
+    }
+});
+
+/**
  * RN Review/Update Care Plan
  */
 const reviewCarePlanRoute = createRoute({
@@ -50,9 +80,9 @@ const reviewCarePlanRoute = createRoute({
             content: {
                 'application/json': {
                     schema: z.object({
-                        diagnoses: z.array(z.string()).optional(),
-                        clinicalGoals: z.any().optional(),
-                        interventions: z.any().optional(),
+                        diagnoses: z.string().optional(),
+                        clinicalGoals: z.string().optional(),
+                        interventions: z.string().optional(),
                         status: z.enum(['active', 'completed', 'archived']).optional(),
                         reviewDate: z.string().optional(),
                     }),
@@ -91,6 +121,34 @@ r.openapi(listCarePlansRoute, async (c) => {
     return c.json(plans, 200);
 });
 
+r.openapi(createCarePlanRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const body = c.req.valid('json');
+    const userId = c.get('jwtPayload').sub;
+    const tenantId = c.get('jwtPayload').tenantId;
+
+    const plan = await prisma.carePlan.create({
+        data: {
+            clientId: body.clientId,
+            diagnoses: body.diagnoses,
+            clinicalGoals: body.clinicalGoals,
+            interventions: body.interventions,
+            tenantId,
+            authorId: userId,
+            status: 'active'
+        }
+    });
+
+    await prisma.screenFunctionality.updateMany({
+        where: { title: 'Author New Care Plan' },
+        data: { status: 'fully_tested' }
+    });
+
+    await logAudit(prisma, userId, 'AUTHOR_CARE_PLAN', 'CLIENT', body.clientId, body);
+
+    return c.json(plan, 201);
+});
+
 r.openapi(reviewCarePlanRoute, async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.valid('param');
@@ -115,8 +173,8 @@ r.openapi(reviewCarePlanRoute, async (c) => {
              intent: "plan",
              subject: { reference: `Patient/${plan.clientId}`, display: plan.client.fullName },
              period: { start: new Date().toISOString() },
-             addresses: plan.diagnoses?.map((d: string) => ({ reference: `Condition/${d}` })) || [],
-             goal: plan.clinicalGoals?.map((g: any) => ({ description: { text: g } })) || []
+             addresses: plan.diagnoses ? [{ reference: `Condition/${plan.diagnoses}` }] : [],
+             goal: plan.clinicalGoals ? [{ description: { text: plan.clinicalGoals } }] : []
          };
 
          let fhirEndpoint = await prisma.webhookEndpoint.findFirst({

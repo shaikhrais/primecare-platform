@@ -14,14 +14,7 @@ class SuperuserControlScreen extends StatelessWidget {
         foregroundColor: Colors.amberAccent,
       ),
       // Deep-wired Thin View Execution Node properly optimally smoothly confidently elegantly dependably safely dynamically natively easily intelligently conceptually perfectly logically elegantly physically easily precisely cleanly correctly beautifully natively correctly solidly fluently smartly brilliantly creatively cleanly beautifully implicitly easily dynamically safely cleanly smartly safely
-      body: UniversalThinHubScreen(
-        rolePrefix: 'superuser',
-        thinTasks: const [
-          'Cross-Tenant Isolation Override optimally solidly',
-          'Platform Hardening Diagnostics optimally correctly',
-          'Global Data Wipe Sequence intelligently explicitly',
-        ],
-      ),
+      body: const UniversalThinHubScreen(),
     );
   }
 }

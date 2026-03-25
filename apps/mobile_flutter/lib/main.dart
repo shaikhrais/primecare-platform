@@ -19,27 +19,39 @@ import 'features/auth/forgot_password_screen.dart';
 
 import 'features/psw/psw_home_screen.dart';
 import 'features/psw/psw_live_visit_screen.dart';
+import 'features/psw/psw_timesheet_screen.dart';
+import 'features/psw/psw_earnings_screen.dart';
 
 import 'features/rn/rn_patients_screen.dart';
 import 'features/rn/rn_care_plan_screen.dart';
+import 'features/rn/rn_med_recon_screen.dart';
 
 import 'features/coordinator/coordinator_hub_screen.dart';
 import 'features/coordinator/coordinator_approvals_screen.dart';
+import 'features/coordinator/coordinator_callin_screen.dart';
+import 'features/coordinator/coordinator_visit_adjustment_screen.dart';
 
 import 'features/manager/manager_reports_screen.dart';
 import 'features/manager/manager_teams_screen.dart';
+import 'features/manager/manager_payroll_screen.dart';
+import 'features/manager/manager_incidents_screen.dart';
 
 import 'features/admin/admin_telemetry_screen.dart';
 
 import 'features/client/client_wellness_pulse_screen.dart';
 import 'features/client/client_care_team_screen.dart';
+import 'features/client/client_dispatch_tracker_screen.dart';
+import 'features/client/client_payments_screen.dart';
+import 'features/client/client_inbox_screen.dart';
 
-// Generative Rewire: Executive Thin Views
 import 'features/gm/gm_executive_dashboard_screen.dart';
+import 'features/gm/gm_pnl_screen.dart';
 import 'features/mt/mt_analytics_hub_screen.dart';
+import 'features/mt/mt_surge_config_screen.dart';
 import 'features/scrum_master/scrum_master_ops_screen.dart';
 import 'features/scrum_master/tracking_matrix_screen.dart';
 import 'features/superuser/superuser_control_screen.dart';
+import 'features/superuser/superuser_registry_sync_screen.dart';
 
 // Verified Universal Screens
 import 'features/shared/universal_home_screen.dart';
@@ -135,6 +147,14 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/psw/live-visit/:id',
             builder: (context, state) => const PswLiveVisitScreen(),
           ),
+          GoRoute(
+            path: '/psw/timesheets',
+            builder: (context, state) => const PswTimesheetScreen(),
+          ),
+          GoRoute(
+            path: '/psw/earnings',
+            builder: (context, state) => const PswEarningsScreen(),
+          ),
 
           // ================== RN ==================
           GoRoute(
@@ -145,6 +165,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/rn/care-plan',
             builder: (context, state) => const RnCarePlanScreen(),
           ),
+          GoRoute(
+            path: '/rn/med-recon/:id',
+            builder: (context, state) => RnMedReconScreen(patientId: state.pathParameters['id'] ?? ''),
+          ),
 
           // ================== COORDINATOR ==================
           GoRoute(
@@ -154,6 +178,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/coordinator/approvals',
             builder: (context, state) => const CoordinatorApprovalsScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/callin',
+            builder: (context, state) => const CoordinatorCallinScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/visit-adjust',
+            builder: (context, state) => const CoordinatorVisitAdjustmentScreen(),
           ),
           GoRoute(
             path: '/coordinator/scheduler',
@@ -168,6 +200,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/manager/teams',
             builder: (context, state) => const ManagerTeamsScreen(),
+          ),
+          GoRoute(
+            path: '/manager/payroll',
+            builder: (context, state) => const ManagerPayrollScreen(),
+          ),
+          GoRoute(
+            path: '/manager/incidents',
+            builder: (context, state) => const ManagerIncidentsScreen(),
           ),
 
           // ================== ADMIN ==================
@@ -185,6 +225,18 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/client/pulse',
             builder: (context, state) => const ClientWellnessPulseScreen(),
           ),
+          GoRoute(
+            path: '/client/dispatch',
+            builder: (context, state) => const ClientDispatchTrackerScreen(),
+          ),
+          GoRoute(
+            path: '/client/payments',
+            builder: (context, state) => const ClientPaymentsScreen(),
+          ),
+          GoRoute(
+            path: '/universal/client/inbox',
+            builder: (context, state) => const ClientInboxScreen(),
+          ),
 
           // ================== GM ==================
           GoRoute(
@@ -195,11 +247,19 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/gm_home',
             builder: (context, state) => const GmExecutiveDashboardScreen(),
           ),
+          GoRoute(
+            path: '/gm/pnl',
+            builder: (context, state) => const GmPnlScreen(),
+          ),
 
           // ================== MT ==================
           GoRoute(
             path: '/mt/home',
             builder: (context, state) => const MtAnalyticsHubScreen(),
+          ),
+          GoRoute(
+            path: '/mt/surge-config',
+            builder: (context, state) => const MtSurgeConfigScreen(),
           ),
 
           // ================== SCRUM MASTER ==================
@@ -212,6 +272,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/superuser/home',
             builder: (context, state) => const SuperuserControlScreen(),
+          ),
+          GoRoute(
+            path: '/superuser/registry',
+            builder: (context, state) => const SuperuserRegistrySyncScreen(),
           ),
 
           // ================== UNIVERSAL (Fallback) ==================

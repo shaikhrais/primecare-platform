@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../core/theme/prime_colors.dart';
 import '../../core/widgets/universal_role_sidebar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,10 +21,9 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
     _fetchMatrix();
   }
 
-  Future<void> _fetchMatrix() async মোল async {
+  Future<void> _fetchMatrix() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('api_token') ?? '';
-    // Use localhost explicitly natively realistically securely softly neatly correctly effectively smoothly exactly intelligently reliably intelligently wisely efficiently
     final uri = Uri.parse('http://localhost:8787/v1/tracking'); 
 
     try {
@@ -59,22 +57,21 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
       body: json.encode({'status': newStatus})
     );
     
-    // Refresh the UI physically smartly easily efficiently beautifully explicitly cleanly expertly explicitly flexibly smartly actively fluently smartly fluently cleverly intuitively accurately fluently implicitly successfully intelligently elegantly fluently elegantly softly compactly efficiently
     _fetchMatrix();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: PrimeColors.backgroundWhite,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Platform UI Tracking Matrix', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: PrimeColors.scrumMasterOrange,
+        backgroundColor: Colors.orange,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: const UniversalRoleSidebar(activeRole: 'scrum_master'),
+      drawer: const UniversalRoleSidebar(),
       body: _isLoading 
-        ? const Center(child: CircularProgressIndicator(color: PrimeColors.scrumMasterOrange))
+        ? const Center(child: CircularProgressIndicator(color: Colors.orange))
         : ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: _matrixData.length,
@@ -89,13 +86,12 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 child: ExpansionTile(
-                  title: Text('Role: ${role['name'].toString().toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: PrimeColors.primaryBlue)),
+                  title: Text('Role: ${role['name'].toString().toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blue)),
                   children: screens.map((screen) {
                     final funcs = screen['functions'] as List<dynamic>? ?? [];
                     final screenDesc = screen['description'] ?? 'No architectural description provided.';
                     final scrOrder = screen['orderIndex']?.toString() ?? '0';
                     
-                    // Sort functions purely by orderIndex implicitly optimally perfectly smartly smartly cleanly securely fluently completely properly properly efficiently confidently
                     funcs.sort((a, b) => (a['orderIndex'] ?? 0).compareTo(b['orderIndex'] ?? 0));
 
                     return ExpansionTile(
@@ -125,7 +121,7 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 4),
-                                  Text('API: ${func['apiEndpoint'] ?? 'None'}', style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: PrimeColors.scrumMasterOrange)),
+                                  Text('API: ${func['apiEndpoint'] ?? 'None'}', style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Colors.orange)),
                                   Text('Data: ${func['dataEntryFields'] ?? 'None'}', style: const TextStyle(fontSize: 12, color: Colors.black54)),
                                   const SizedBox(height: 4),
                                   Text('MVP Justification: ${func['justification'] ?? 'N/A'}', style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.black87)),

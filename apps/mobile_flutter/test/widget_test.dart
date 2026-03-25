@@ -16,12 +16,12 @@ void main() {
       await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
 
       // Assert that the Email and Password fields are natively generated
-      expect(find.text('Email Address'), findsOneWidget);
-      expect(find.text('Password'), findsOneWidget);
+      expect(find.text('Enterprise Email'), findsOneWidget);
+      expect(find.text('Secure Password'), findsOneWidget);
 
       // Assert the High-Fidelity Login Button
       expect(find.byType(ElevatedButton), findsWidgets);
-      expect(find.text('Sign In to PrimeCare'), findsOneWidget);
+      expect(find.text('AUTHENTICATE'), findsOneWidget);
     });
 
     testWidgets('Validates Empty Field Constraints on Auth Form', (
@@ -30,11 +30,11 @@ void main() {
       await tester.pumpWidget(const MaterialApp(home: LoginScreen()));
 
       // Tap the login button without adding text
-      await tester.tap(find.text('Sign In to PrimeCare'));
+      await tester.tap(find.text('AUTHENTICATE'));
       await tester.pump();
 
       // Ensure that form validation kicks in structurally
-      expect(find.text('Please enter your email'), findsOneWidget);
+      expect(find.text('Please enter both email and password.'), findsOneWidget);
     });
   });
 }

@@ -11,6 +11,8 @@ import familyRoutes from './family/family.routes';
 import billingRoutes from './billing/billing.routes';
 import feedbackRoutes from './feedback/feedback.routes';
 import portalRoutes from './portal/portal.routes';
+import paymentRoutes from './payments/payments.routes';
+import inboxRoutes from './inbox/messages.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -30,6 +32,8 @@ client.route('/engagement', engagementRoutes); // feed at /engagement/feed
 client.route('/family', familyRoutes);
 client.route('/billing', billingRoutes);
 client.route('/feedback', feedbackRoutes);
+client.route('/payments', paymentRoutes);
+client.route('/inbox', inboxRoutes);
 client.route('/', portalRoutes);
 
 export default client;

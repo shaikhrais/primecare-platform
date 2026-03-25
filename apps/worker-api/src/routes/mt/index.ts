@@ -1,5 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { Bindings, Variables } from '../../bindings'
+import surgeConfigRoutes from './ecosystem/config.routes'
 
 const mt = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>()
 
@@ -10,9 +11,10 @@ mt.get('/analytics', (c) => {
       staffUtilization: '85%',
       unfilledShifts: 2
     },
-    message: 'MT Analytics Active'
   })
 })
+
+mt.route('/ecosystem/config', surgeConfigRoutes)
 
 mt.post('/thin-action', async (c) => {
   const body = await c.req.json()

@@ -47,9 +47,9 @@ class _UniversalThinHubScreenState
       final body = action['actionBody'] ?? {};
 
       if (method == 'POST') {
-        await apiClient.post(endpoint, body: body);
+        await apiClient.post(endpoint, body);
       } else if (method == 'PATCH') {
-        await apiClient.patch(endpoint, body: body);
+        await apiClient.patch(endpoint, body);
       } else if (method == 'DELETE') {
         await apiClient.delete(endpoint);
       }

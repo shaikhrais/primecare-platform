@@ -22,13 +22,15 @@ class UniversalRoleSidebar extends StatelessWidget {
       activeColor = const Color(0xFF10B981);
       paths = [
         '/psw/home',
+        '/psw/timesheets',
+        '/psw/earnings',
         '/universal/psw/inbox',
-        '/universal/psw/dailyTasks',
       ];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Messages'),
-        BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Tasks'),
+        BottomNavigationBarItem(icon: Icon(Icons.schedule_send), label: 'Timesheet'),
+        BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: 'Earnings'),
+        BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
       ];
     } else if (currentPath.startsWith('/rn')) {
       activeColor = const Color(0xFF3B82F6);
@@ -43,22 +45,31 @@ class UniversalRoleSidebar extends StatelessWidget {
       paths = [
         '/coordinator/home',
         '/coordinator/approvals',
+        '/coordinator/callin',
+        '/coordinator/visit-adjust',
         '/universal/coordinator/inbox',
       ];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Hub'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.fact_check),
-          label: 'Approvals',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.fact_check), label: 'Approvals'),
+        BottomNavigationBarItem(icon: Icon(Icons.phone_disabled), label: 'Call-in'),
+        BottomNavigationBarItem(icon: Icon(Icons.edit_calendar), label: 'Adjust'),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
       ];
     } else if (currentPath.startsWith('/manager')) {
       activeColor = const Color(0xFFF43F5E);
-      paths = ['/manager/home', '/manager/teams', '/universal/manager/inbox'];
+      paths = [
+        '/manager/home', 
+        '/manager/teams', 
+        '/manager/payroll',
+        '/manager/incidents',
+        '/universal/manager/inbox'
+      ];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Reports'),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Teams'),
+        BottomNavigationBarItem(icon: Icon(Icons.payments), label: 'Payroll'),
+        BottomNavigationBarItem(icon: Icon(Icons.warning), label: 'Escalations'),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
       ];
     } else if (currentPath.startsWith('/admin')) {
@@ -70,14 +81,40 @@ class UniversalRoleSidebar extends StatelessWidget {
       ];
     } else if (currentPath.startsWith('/client')) {
       activeColor = const Color(0xFF0EA5E9);
-      paths = ['/client/home', '/client/pulse', '/universal/client/inbox'];
+      paths = [
+        '/client/home',
+        '/client/pulse',
+        '/client/dispatch',
+        '/client/payments',
+        '/universal/client/inbox'
+      ];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Team'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.monitor_heart),
-          label: 'Pulse',
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.monitor_heart), label: 'Pulse'),
+        BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Tracker'),
+        BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Billing'),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
+      ];
+    } else if (currentPath.startsWith('/gm')) {
+      activeColor = const Color(0xFF6366F1);
+      paths = ['/gm_home', '/gm/pnl', '/universal/gm/inbox'];
+      items = const [
+        BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Executive'),
+        BottomNavigationBarItem(icon: Icon(Icons.stacked_line_chart), label: 'Ledger'),
+        BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Comm'),
+      ];
+    } else if (currentPath.startsWith('/superuser')) {
+      activeColor = const Color(0xFFEF4444);
+      paths = ['/superuser/home', '/superuser/registry'];
+      items = const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Root'),
+        BottomNavigationBarItem(icon: Icon(Icons.sync_problem), label: 'Registry'),
+      ];
+    } else if (currentPath.startsWith('/thin-hub')) {
+      activeColor = Colors.grey;
+      paths = ['/thin-hub'];
+      items = const [
+        BottomNavigationBarItem(icon: Icon(Icons.hub), label: 'Hub'),
       ];
     } else {
       paths = ['/psw/home'];
@@ -93,6 +130,7 @@ class UniversalRoleSidebar extends StatelessWidget {
       body: child,
       bottomNavigationBar: items.length > 1
           ? BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
               currentIndex: currentIndex,
               selectedItemColor: activeColor,
               unselectedItemColor: Colors.grey,

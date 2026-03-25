@@ -14,14 +14,7 @@ class ScrumMasterOpsScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       // Deep-wired Thin View Execution Node actively conceptually cleverly explicitly cleverly dynamically expertly smoothly compactly smartly properly creatively beautifully brilliantly fluently cleverly reliably smoothly natively cleanly conceptually flawlessly actively intuitively safely securely dynamically
-      body: UniversalThinHubScreen(
-        rolePrefix: 'scrum',
-        thinTasks: const [
-          'Verify Cloudflare Pipeline Deployments seamlessly efficiently',
-          'Audit Worker Exception Logs correctly nicely',
-          'Clear Dead-Letter Routing Queue securely easily',
-        ],
-      ),
+      body: const UniversalThinHubScreen(),
     );
   }
 }

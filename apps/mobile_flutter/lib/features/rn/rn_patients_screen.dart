@@ -60,9 +60,29 @@ class RnPatientsScreen extends ConsumerWidget {
                           '/rn/care-plan',
                         ); // Link logically precisely smartly
                       },
-                      child: PatientAcuityCard(
-                        name: p.name,
-                        acuityLevel: p.acuityLevel,
+                      child: Column(
+                        children: [
+                          PatientAcuityCard(
+                            name: p.name,
+                            acuityLevel: p.acuityLevel,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextButton.icon(
+                                onPressed: () => context.push('/rn/care-plan'),
+                                icon: const Icon(Icons.description, color: Colors.indigo),
+                                label: const Text('Care Plan', style: TextStyle(color: Colors.indigo)),
+                              ),
+                              TextButton.icon(
+                                onPressed: () => context.push('/rn/med-recon/${p.id}'),
+                                icon: const Icon(Icons.medication, color: Colors.blueGrey),
+                                label: const Text('Med Recon', style: TextStyle(color: Colors.blueGrey)),
+                              ),
+                            ],
+                          ),
+                        ]
                       ),
                     );
                   },

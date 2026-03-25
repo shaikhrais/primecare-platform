@@ -19,8 +19,8 @@ class _RnCarePlanScreenState extends ConsumerState<RnCarePlanScreen> {
     setState(() => _isDeploying = true);
     try {
       final response = await apiClient.post(
-        '/api/rn/care-plans/$planId/review',
-        body: jsonEncode({
+        '/v1/rn/clinical/care-plans/$planId/review',
+        jsonEncode({
           'diagnoses': ['E08.9', 'I10'],
           'clinicalGoals': [
             'Maintain blood glucose',

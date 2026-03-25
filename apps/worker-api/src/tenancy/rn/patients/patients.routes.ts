@@ -6,7 +6,7 @@ const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 app.openapi(createRoute({
     method: 'get',
     path: '/',
-    responses: { 200: { description: 'RN Patients List', content: { 'application/json': { schema: z.any() } } } }
+    responses: { 200: { description: 'RN Patients List', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
     const user = c.get('jwtPayload');
     if (!user) return c.json({ error: 'Unauthorized' }, 401);
