@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -11,6 +12,11 @@ class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       actions: [
+        IconButton(
+          icon: const Icon(Icons.assignment_ind_outlined),
+          tooltip: 'Role SOP & Daily Checklist',
+          onPressed: () => context.push('/role-sow'),
+        ),
         IconButton(
           icon: const Icon(Icons.notifications_none),
           onPressed: () {},

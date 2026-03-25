@@ -83,4 +83,30 @@ app.openapi(createRoute({
   return c.json(newTask, 200);
 });
 
+// POST /v1/activities/dispatch
+app.openapi(createRoute({
+  method: 'post',
+  path: '/dispatch',
+  summary: 'Drag and Drop Visits Dispatch',
+  request: { 
+    body: { content: { 'application/json': { schema: z.object({ visitId: z.string(), pswId: z.string(), scheduledTime: z.string() }) } } }
+  },
+  responses: { 200: { description: 'Dispatched', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
+}), async (c) => {
+  const { visitId, pswId, scheduledTime } = c.req.valid('json');
+  const user = c.var.user;
+  if (!user) return c.json({ error: 'Unauthorized' }, 401);
+
+  const updatedVisit = await (c.var.prisma as any).visit.update({
+    where: { id: visitId },
+    data: { 
+        assignedPswId: pswId, 
+        requestedStartAt: new Date(scheduledTime),
+        status: 'scheduled'
+    }
+  });
+
+  return c.json(updatedVisit, 200);
+});
+
 export default app;

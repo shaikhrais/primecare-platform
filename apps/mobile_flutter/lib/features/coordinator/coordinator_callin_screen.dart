@@ -1,11 +1,50 @@
 import 'package:flutter/material.dart';
 import '../shared/widgets/page_template.dart';
 import '../shared/widgets/kpi_card.dart';
+import '../../core/api_client.dart';
 
 // Hits POST /v1/coordinator/call-ins natively
 
-class CoordinatorCallinScreen extends StatelessWidget {
+class CoordinatorCallinScreen extends StatefulWidget {
   const CoordinatorCallinScreen({super.key});
+
+  @override
+  State<CoordinatorCallinScreen> createState() => _CoordinatorCallinScreenState();
+}
+
+class _CoordinatorCallinScreenState extends State<CoordinatorCallinScreen> {
+  String _dropReason = 'Sick';
+  bool _isLoading = false;
+
+  Future<void> _executeDrop() async {
+    setState(() => _isLoading = true);
+    try {
+      final res = await apiClient.post('/v1/coordinator/call-ins', body: {
+        'visitId': 'VST-9981',
+        'reason': _dropReason,
+      });
+
+      if (!mounted) return;
+
+      if (res['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Shift dropped! SOS Incident created. Reverting to requested pool.'), backgroundColor: Colors.green),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed: ${res['error']}'), backgroundColor: Colors.red),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Network Error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +80,17 @@ class CoordinatorCallinScreen extends StatelessWidget {
                 const Text('Rapid Shift Dropout', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 16),
                 TextFormField(
-                  initialValue: 'VISIT-9824 (Jane Doe - 14:00)',
+                  initialValue: 'VST-9981 (Jane Doe - 14:00)',
                   decoration: const InputDecoration(
                     labelText: 'Target Visit to Free',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.event_busy),
                   ),
-                  readOnly: true, // For conceptual UX simulation
+                  readOnly: true,
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: 'Sick',
+                  value: _dropReason,
                   decoration: const InputDecoration(
                     labelText: 'Drop Reason',
                     border: OutlineInputBorder(),
@@ -61,19 +100,21 @@ class CoordinatorCallinScreen extends StatelessWidget {
                     DropdownMenuItem(value: 'Emergency', child: Text('Personal Emergency')),
                     DropdownMenuItem(value: 'No Show', child: Text('No Show / Ghost')),
                   ],
-                  onChanged: (_) {},
+                  onChanged: (val) {
+                    if (val != null) {
+                      setState(() => _dropReason = val);
+                    }
+                  },
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Shift dropped! SOS Incident created. Reverting to requested pool.')),
-                      );
-                    },
-                    icon: const Icon(Icons.wifi_tethering_error),
-                    label: const Text('Execute Drop & Reschedule'),
+                    onPressed: _isLoading ? null : _executeDrop,
+                    icon: _isLoading 
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                        : const Icon(Icons.wifi_tethering_error),
+                    label: Text(_isLoading ? 'Processing...' : 'Execute Drop & Reschedule'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange,
                       foregroundColor: Colors.white,

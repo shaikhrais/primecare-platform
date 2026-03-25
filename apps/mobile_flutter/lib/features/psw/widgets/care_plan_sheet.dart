@@ -28,7 +28,7 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
       final token = prefs.getString('api_token') ?? '';
       
       final res = await http.get(
-        Uri.parse('http://localhost:8787/v1/psw/care-plan/${widget.patientId}'),
+        Uri.parse('https://primecare-api.itpro-mohammed.workers.dev/v1/psw/care-plan/${widget.patientId}'),
         headers: { 'Authorization': 'Bearer $token' },
       );
 

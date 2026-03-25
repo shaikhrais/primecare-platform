@@ -103,11 +103,20 @@ class UniversalRoleSidebar extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.stacked_line_chart), label: 'Ledger'),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Comm'),
       ];
+    } else if (currentPath.startsWith('/mt')) {
+      activeColor = const Color(0xFFF97316);
+      paths = ['/mt/home', '/mt/surge-config', '/universal/mt/inbox'];
+      items = const [
+        BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Analytics'),
+        BottomNavigationBarItem(icon: Icon(Icons.offline_bolt), label: 'Surge'),
+        BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
+      ];
     } else if (currentPath.startsWith('/superuser')) {
       activeColor = const Color(0xFFEF4444);
-      paths = ['/superuser/home', '/superuser/registry'];
+      paths = ['/superuser/home', '/superuser/territory', '/superuser/registry'];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Root'),
+        BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Territories'),
         BottomNavigationBarItem(icon: Icon(Icons.sync_problem), label: 'Registry'),
       ];
     } else if (currentPath.startsWith('/thin-hub')) {

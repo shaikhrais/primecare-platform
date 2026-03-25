@@ -29,6 +29,45 @@ const updateIncidentRoute = createRoute({
     }
 });
 
+const getIncidentsRoute = createRoute({
+    method: 'get',
+    path: '/',
+    summary: 'Get Branch Incidents',
+    tags: ['Manager', 'Incidents'],
+    middleware: [requirePermission('manage_incidents')],
+    request: {
+        query: z.object({ status: z.enum(['OPEN', 'acknowledged', 'resolved']).optional() })
+    },
+    responses: {
+        200: { description: 'Incidents List', content: { 'application/json': { schema: z.any() } } }
+    }
+});
+
+r.openapi(getIncidentsRoute, async (c) => {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    const { status } = c.req.valid('query');
+    
+    // Fetch critical incidents, optionally filtering by status
+    const incidents = await prisma.incident.findMany({
+        where: { tenantId, ...(status ? { status } : { status: { not: 'resolved' } }) },
+        orderBy: { reportedAt: 'desc' },
+        take: 50,
+    });
+    
+    // Map them cleanly for the frontend UX
+    const mapped = incidents.map((inc: any) => ({
+        id: inc.id,
+        type: inc.type,
+        severity: inc.severity,
+        status: inc.status,
+        description: inc.description || 'No description provided',
+        reportedAt: inc.reportedAt.toISOString()
+    }));
+    
+    return c.json(mapped, 200);
+});
+
 r.openapi(updateIncidentRoute, async (c) => {
     const prisma = c.get('prisma');
     const { id } = c.req.valid('param');

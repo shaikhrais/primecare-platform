@@ -23,14 +23,14 @@ class _PswEvvCheckoutScreenState extends ConsumerState<PswEvvCheckoutScreen> {
       final geoPayload = {'lat': 43.6532, 'lng': -79.3832, 'accuracy': 15.0};
 
       final response = await apiClient.post(
-        '/api/psw/schedule/visits/${widget.visitId}/check-out',
+        '/v1/psw/schedule/visits/${widget.visitId}/check-out',
         body: jsonEncode(geoPayload),
       );
 
       if (response.statusCode == 200 && mounted) {
         if (_notesController.text.isNotEmpty) {
           await apiClient.post(
-            '/api/psw/visit-notes',
+            '/v1/psw/visit-notes',
             body: jsonEncode({
               'visitId': widget.visitId,
               'content': _notesController.text,

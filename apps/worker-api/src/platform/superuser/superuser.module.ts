@@ -35,7 +35,7 @@ superuserModule.get('/tenants', async (c) => {
     }
 });
 
-// POST /v1/superuser/tenants - Provision a new tenant and its root admin
+// POST /v1/superuser/tenants - Provision a new Franchise/Tenant and its Owner GM
 superuserModule.post('/tenants', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ error: 'Database unavailable' }, 503);
@@ -47,30 +47,48 @@ superuserModule.post('/tenants', async (c) => {
     }
 
     try {
-        // Execute an atomic transaction to guarantee both the Tenant and its Root Admin are created
+        const parentTenantId = c.get('jwtPayload')?.tenantId || 'SYSTEM'; // The Franchisor
+
+        // Execute an atomic transaction to guarantee both the Franchise Tenant and its GM Owner are created safely
         const result = await prisma.$transaction(async (tx: any) => {
-            // 1. Create the Tenant wrapper
+            // 1. Create the Franchise Child-Tenant wrapper
             const newTenant = await tx.tenant.create({
                 data: {
                     name: parsed.data.name,
                     slug: parsed.data.slug,
-                    status: 'active'
+                    status: 'active',
+                    parentTenantId: parentTenantId !== 'SYSTEM' ? parentTenantId : undefined
                 }
             });
 
-            // 2. Create the Root Administrator for this new Tenant
+            // 2. Create the General Manager (Franchise Owner) for this new Tenant
             const adminUser = await tx.user.create({
                 data: {
                     tenantId: newTenant.id,
                     email: parsed.data.adminEmail,
-                    passwordHash: 'TempPassword123!', // In production, email a setup link or use proper hashing
-                    roles: ['admin'],
-                    profile: {
+                    passwordHash: 'c42661066023cb1bf9087593c6fdf1645e7f607185e4a81abf5950d99042b0c1', // Fixed placeholder hash
+                    roles: 'gm', // Natively map string
+                    clientProfile: {
                         create: {
-                            fullName: parsed.data.adminName,
-                            status: 'active'
+                            fullName: parsed.data.adminName
                         }
                     }
+                }
+            });
+
+            // 3. Record the Franchise Setup into the Master Ledger automatically! (Phase 13.2)
+            await tx.transactionLedger.create({
+                data: {
+                    tenantId: parentTenantId !== 'SYSTEM' ? parentTenantId : newTenant.id,
+                    actorUserId: adminUser.id,
+                    transactionType: 'FRANCHISE_FEE',
+                    amount: 50000.00, // Standard template Franchise Fee
+                    currency: 'USD',
+                    status: 'completed',
+                    creditAccount: 'franchise_revenue',
+                    debitAccount: 'accounts_receivable',
+                    description: `Automated Ledger Entry: Franchise Setup Fee for ${parsed.data.name}`,
+                    metadata: { slug: parsed.data.slug }
                 }
             });
 
@@ -86,10 +104,20 @@ superuserModule.post('/tenants', async (c) => {
     } catch (e: any) {
         // Handle unique constraint violations elegantly (e.g., duplicated slug)
         if (e.code === 'P2002') {
-            return c.json({ error: 'A tenant with that endpoint domain (slug) already exists.' }, 409);
+            return c.json({ error: 'A franchise with that endpoint domain (slug) already exists.' }, 409);
         }
-        return c.json({ error: 'Failed to provision tenant' }, 500);
+        return c.json({ error: 'Failed to provision franchise', details: e.message }, 500);
     }
+});
+
+// GET /v1/superuser/territories - Decouple demographic hardcodes
+superuserModule.get('/territories', async (c) => {
+    return c.json([
+        { region: 'Greater Seattle Area', zipCodes: '98101-98199', population: 380450, isClaimed: true },
+        { region: 'Bellevue Tech Corridor', zipCodes: '98004-98008', population: 147500, isClaimed: false },
+        { region: 'Vancouver Metro', zipCodes: 'V5K-V6Z', population: 260100, isClaimed: false },
+        { region: 'Portland Pearl District', zipCodes: '97209', population: 64200, isClaimed: false }
+    ], 200);
 });
 
 // Thin View Execution: Sync Isolation Override

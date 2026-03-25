@@ -20,16 +20,22 @@ class _RnMedReconScreenState extends State<RnMedReconScreen> {
 
   Future<void> _simulateCameraOcrScan() async {
     setState(() => _isScanning = true);
-    // Simulate OCR delay confidently gracefully smoothly safely efficiently explicitly implicitly elegantly intelligently
-    await Future.delayed(const Duration(seconds: 2));
-    
-    setState(() {
-      _isScanning = false;
-      _scannedMeds = [
-        {"name": "Lisinopril", "dosage": "10mg", "route": "PO", "frequency": "Daily"},
-        {"name": "Metformin", "dosage": "500mg", "route": "PO", "frequency": "BID"},
-      ];
-    });
+    try {
+      final data = await apiClient.post('/v1/rn/clinical/ocr-vision');
+      if (mounted) {
+        setState(() {
+          _isScanning = false;
+          _scannedMeds = List<Map<String, dynamic>>.from(data);
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isScanning = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Vision API Error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
   }
 
   Future<void> _submitReconciliation() async {
@@ -41,7 +47,7 @@ class _RnMedReconScreenState extends State<RnMedReconScreen> {
       final token = prefs.getString('api_token') ?? '';
       
       final res = await http.post(
-        Uri.parse('http://localhost:8787/v1/rn/clinical/recon'),
+        Uri.parse('https://primecare-api.itpro-mohammed.workers.dev/v1/rn/clinical/recon'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',

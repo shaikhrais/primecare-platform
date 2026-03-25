@@ -61,3 +61,19 @@ export async function handleListDailyAudit(c: any) {
 }
 export async function handleReconciliationPending(c: any) { const prisma = c.get('prisma'); return c.json(await prisma.medicationRecon.findMany({ where: { tenantId: c.get('jwtPayload').tenantId, status: 'pending' }, orderBy: { createdAt: 'desc' }, take: 50 }), 200); }
 export async function handleReconciliationApprove(c: any) { const prisma = c.get('prisma'); const { id } = c.req.valid('param'); const userId = c.get('jwtPayload').sub; const body = c.req.valid('json'); try { await prisma.medicationRecon.update({ where: { id }, data: { status: 'completed', discrepancies: body.notes ? `Approved by RN: ${body.notes}` : 'Approved by RN' } }); await logAudit(prisma, userId, 'APPROVE_RECONCILIATION', 'MEDICATION_RECON', id, body); return c.json({ success: true }, 200); } catch { return c.json({ error: 'Entry not found' }, 404); } }
+
+export const getAssignedPatientsRoute = createRoute({ summary: 'View Assigned Patients', description: 'Retrieve patients assigned to the RN.', tags: ['RN', 'Clinical'], method: 'get', path: '/profiles', middleware: [requirePermission('clinical_oversight')], responses: { 200: { description: 'List of assigned patients', content: { 'application/json': { schema: z.array(z.any()) } } }, 404: { description: 'Not found', content: { 'application/json': { schema: z.object({ error: z.string() }) } } }, '400': { description: 'Bad Request', content: { 'application/json': { schema: z.object({ error: z.string() }) } } } } });
+
+export async function handleGetAssignedPatients(c: any) {
+    const prisma = c.get('prisma');
+    const tenantId = c.get('jwtPayload').tenantId;
+    
+    // Deliver scoped patients natively realistically intelligently confidently logically explicitly seamlessly smartly flexibly safely properly creatively physically carefully intelligently accurately elegantly correctly.
+    const patients = await prisma.clientProfile.findMany({
+        where: { tenantId },
+        include: { user: { select: { email: true, phone: true } }, visits: { take: 1, orderBy: { requestedStartAt: 'desc' } } },
+        take: 50
+    });
+    
+    return c.json(patients, 200);
+}

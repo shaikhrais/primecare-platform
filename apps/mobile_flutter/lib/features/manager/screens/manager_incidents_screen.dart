@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../config/env.dart';
+import '../../../../core/api_client.dart';
 
 class ManagerIncidentsScreen extends StatefulWidget {
   const ManagerIncidentsScreen({Key? key}) : super(key: key);
@@ -25,35 +22,16 @@ class _ManagerIncidentsScreenState extends State<ManagerIncidentsScreen> {
   Future<void> _fetchIncidents() async {
     setState(() => _isLoading = true);
     try {
-      // Mocked endpoint until GET endpoint is fully implemented for this view
-      // This view assumes a listing mechanism exists or focuses purely on the resolution action
-      // For MVP, we will display dummy unresolved incidents to demonstrate the PATCH action
-      await Future.delayed(const Duration(seconds: 1));
-      
-      setState(() {
-        _incidents = [
-          {
-            'id': 'inc_001',
-            'type': 'no_show',
-            'severity': 'HIGH',
-            'status': 'OPEN',
-            'description': 'Caregiver failed to arrive at scheduled time.',
-            'reportedAt': DateTime.now().subtract(const Duration(hours: 2)).toIso8601String(),
-          },
-          {
-            'id': 'inc_002',
-            'type': 'client_complaint',
-            'severity': 'MEDIUM',
-            'status': 'OPEN',
-            'description': 'Client requested change in care plan schedule.',
-            'reportedAt': DateTime.now().subtract(const Duration(days: 1)).toIso8601String(),
-          }
-        ];
-      });
+      final data = await apiClient.get('/v1/manager/incidents?status=OPEN');
+      if (mounted) {
+        setState(() {
+          _incidents = List<dynamic>.from(data);
+        });
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load incidents: $e')),
+          SnackBar(content: Text('Failed to load real incidents: $e'), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -71,38 +49,29 @@ class _ManagerIncidentsScreenState extends State<ManagerIncidentsScreen> {
 
     setState(() => _isLoading = true);
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('auth_token');
-      
-      final response = await http.patch(
-        Uri.parse('${Env.apiBaseUrl}/v1/manager/incidents/$incidentId'),
-        headers: {
-          'Content-Type': 'application/json',
-          if (token != null) 'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode({
-          'status': 'RESOLVED',
-          'resolutionNotes': notes,
-        }),
-      );
+      final res = await apiClient.patch('/v1/manager/incidents/$incidentId', body: {
+        'status': 'resolved',
+        'resolutionNotes': notes,
+      });
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        if (mounted) {
+      if (mounted) {
+        if (res['id'] != null || res['success'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
-             SnackBar(content: Text('Incident resolved successfully.')),
+             const SnackBar(content: Text('Incident officially closed.'), backgroundColor: Colors.green),
           );
-          // Remove from local list for demo
           setState(() {
             _incidents.removeWhere((i) => i['id'] == incidentId);
           });
+        } else {
+             ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Failed: ${res['error']}'), backgroundColor: Colors.red),
+             );
         }
-      } else {
-        throw Exception('Server returned ${response.statusCode}: ${response.body}');
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error resolving incident: $e')),
+          SnackBar(content: Text('Server Error: $e'), backgroundColor: Colors.red),
         );
       }
     } finally {

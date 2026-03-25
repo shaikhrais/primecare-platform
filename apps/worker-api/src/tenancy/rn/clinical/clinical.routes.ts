@@ -2,8 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../bindings';
 import carePlanRoutes from '../carePlans/carePlans.routes';
 import scribeRoutes from '../../../platform/rn/clinical/scribe.routes';
-import { submitAssessmentRoute, syncMedicationReconRoute, recordSupervisionRoute, dailyAuditSignOffRoute, listDailyAuditRoute, reconciliationPendingRoute, reconciliationApproveRoute,
-    handleSubmitAssessment, handleSyncMedicationRecon, handleRecordSupervision, handleDailyAuditSignOff, handleListDailyAudit, handleReconciliationPending, handleReconciliationApprove
+import { submitAssessmentRoute, syncMedicationReconRoute, recordSupervisionRoute, dailyAuditSignOffRoute, listDailyAuditRoute, reconciliationPendingRoute, reconciliationApproveRoute, getAssignedPatientsRoute,
+    handleSubmitAssessment, handleSyncMedicationRecon, handleRecordSupervision, handleDailyAuditSignOff, handleListDailyAudit, handleReconciliationPending, handleReconciliationApprove, handleGetAssignedPatients
 } from './clinical-route-defs';
 
 const clinical = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
@@ -18,5 +18,14 @@ clinical.openapi(dailyAuditSignOffRoute, handleDailyAuditSignOff);
 clinical.openapi(listDailyAuditRoute, handleListDailyAudit);
 clinical.openapi(reconciliationPendingRoute, handleReconciliationPending);
 clinical.openapi(reconciliationApproveRoute, handleReconciliationApprove);
+clinical.openapi(getAssignedPatientsRoute, handleGetAssignedPatients);
+
+// Mock OCR Vision Pipeline (Decoupled from Frontend)
+clinical.post('/ocr-vision', async (c) => {
+    return c.json([
+        {"name": "Lisinopril", "dosage": "10mg", "route": "PO", "frequency": "Daily"},
+        {"name": "Metformin", "dosage": "500mg", "route": "PO", "frequency": "BID"}
+    ], 200);
+});
 
 export default clinical;

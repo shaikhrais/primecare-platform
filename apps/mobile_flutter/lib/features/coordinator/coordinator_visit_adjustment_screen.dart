@@ -1,11 +1,57 @@
 import 'package:flutter/material.dart';
 import '../shared/widgets/page_template.dart';
 import '../shared/widgets/kpi_card.dart';
+import '../../core/api_client.dart';
 
 // Hits PATCH /v1/coordinator/visits/:id natively
 
-class CoordinatorVisitAdjustmentScreen extends StatelessWidget {
+class CoordinatorVisitAdjustmentScreen extends StatefulWidget {
   const CoordinatorVisitAdjustmentScreen({super.key});
+
+  @override
+  State<CoordinatorVisitAdjustmentScreen> createState() => _CoordinatorVisitAdjustmentScreenState();
+}
+
+class _CoordinatorVisitAdjustmentScreenState extends State<CoordinatorVisitAdjustmentScreen> {
+  final _timeCtrl = TextEditingController(text: '15:00');
+  final _durationCtrl = TextEditingController(text: '120');
+  bool _isLoading = false;
+
+  Future<void> _commitAdjustment() async {
+    setState(() => _isLoading = true);
+    try {
+      final res = await apiClient.patch('/v1/coordinator/visits/VST-9981', body: {
+        'durationMinutes': int.tryParse(_durationCtrl.text) ?? 120,
+      });
+
+      if (!mounted) return;
+
+      if (res['id'] != null || res['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Visit VST-9981 mutated. Ecosystem broadcasted.'), backgroundColor: Colors.green),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Adjustment failed: ${res['error']}'), backgroundColor: Colors.red),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Network error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _timeCtrl.dispose();
+    _durationCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +92,7 @@ class CoordinatorVisitAdjustmentScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        initialValue: '15:00',
+                        controller: _timeCtrl,
                         decoration: const InputDecoration(
                           labelText: 'New Start Time',
                           border: OutlineInputBorder(),
@@ -56,11 +102,12 @@ class CoordinatorVisitAdjustmentScreen extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: TextFormField(
-                        initialValue: '120',
+                        controller: _durationCtrl,
                         decoration: const InputDecoration(
                           labelText: 'Duration (mins)',
                           border: OutlineInputBorder(),
                         ),
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                   ],
@@ -69,13 +116,11 @@ class CoordinatorVisitAdjustmentScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Visit VST-9981 mutated. Ecosystem broadcasted.')),
-                      );
-                    },
-                    icon: const Icon(Icons.published_with_changes),
-                    label: const Text('Commit Adjustment'),
+                    onPressed: _isLoading ? null : _commitAdjustment,
+                    icon: _isLoading 
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                        : const Icon(Icons.published_with_changes),
+                    label: Text(_isLoading ? 'Committing...' : 'Commit Adjustment'),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(16),
                       backgroundColor: Colors.amber.shade700,

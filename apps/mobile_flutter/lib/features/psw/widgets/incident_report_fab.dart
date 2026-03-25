@@ -50,7 +50,7 @@ class _IncidentReportFormState extends State<IncidentReportForm> {
       final token = prefs.getString('api_token') ?? '';
       
       final res = await http.post(
-        Uri.parse('http://localhost:8787/v1/psw/incidents'),
+        Uri.parse('https://primecare-api.itpro-mohammed.workers.dev/v1/psw/incidents'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',

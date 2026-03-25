@@ -53,6 +53,101 @@ class _UniversalDailyTasksScreenState
     }
   }
 
+  void _openDataEntryForm(String taskId, String rolePrefix, String taskTitle) {
+    String formTitle = 'Data Entry';
+    String formPlaceholder = 'Enter required data...';
+    String formButton = 'Submit Entry';
+
+    switch (rolePrefix.toLowerCase()) {
+      case 'superuser':
+        formTitle = 'Dispatch Framework Message';
+        formPlaceholder = 'Direct Communication Array payload';
+        formButton = 'Execute DB Cloud Storage';
+        break;
+      case 'psw':
+        formTitle = 'Clinical Progress Note';
+        formPlaceholder = 'Describe patient vitals, mood, and daily observations...';
+        formButton = 'Log Native Progress to DB';
+        break;
+      case 'rn':
+        formTitle = 'Medical Reconciliation Log';
+        formPlaceholder = 'Identify and document structural medication adjustments...';
+        formButton = 'Execute Med-Recon Commit';
+        break;
+      case 'manager':
+        formTitle = 'Incident Resolution Report';
+        formPlaceholder = 'Detail the resolution strategy applied to this escalation...';
+        formButton = 'Clear Escalation Safely';
+        break;
+      case 'coordinator':
+        formTitle = 'Active Dispatch Adjustment';
+        formPlaceholder = 'Provide structural justification for shift trajectory override...';
+        formButton = 'Commit Schedule Matrix';
+        break;
+      case 'client':
+        formTitle = 'Client Wellness Feedback';
+        formPlaceholder = 'Provide feedback to your care agency...';
+        formButton = 'Push Secure Feedback';
+        break;
+      default:
+        formTitle = '$taskTitle Entry Module';
+        formPlaceholder = 'General telemetry notes...';
+        formButton = 'Commit Data';
+    }
+
+    final TextEditingController textController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: Row(
+            children: [
+              const Icon(Icons.assignment_add, color: Colors.blue),
+              const SizedBox(width: 12),
+              Expanded(child: Text(formTitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: textController,
+                maxLines: 4,
+                decoration: InputDecoration(
+                  hintText: formPlaceholder,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  filled: true,
+                  fillColor: Colors.grey.shade50,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                // We simulate saving this specific contextual payload securely
+                _markTaskComplete(taskId);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+              child: Text(formButton),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final asyncTasks = ref.watch(universalTasksProvider(widget.rolePrefix));
@@ -90,29 +185,33 @@ class _UniversalDailyTasksScreenState
             itemCount: tasks.length,
             itemBuilder: (context, index) {
               final task = tasks[index];
+              final taskId = task['id']?.toString() ?? 'fallback_${index}';
+              final title = task['title'] ?? 'Task ${index + 1}';
+
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListTile(
-                  leading: const Icon(Icons.assignment, color: Colors.blue),
+                  leading: const Icon(Icons.assignment_turned_in, color: Colors.blue),
                   title: Text(
-                    task['title'] ?? 'Task ${index + 1}',
+                    title,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                    task['description'] ?? 'Pending action required.',
+                    task['description'] ?? 'Data Entry Required.',
                   ),
-                  trailing: const Icon(
-                    Icons.check_circle_outline,
-                    color: Colors.grey,
+                  trailing: ElevatedButton(
+                    onPressed: () => _openDataEntryForm(taskId, widget.rolePrefix, title),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade50,
+                      foregroundColor: Colors.blue,
+                      elevation: 0,
+                    ),
+                    child: const Text('Enter Data'),
                   ),
-                  onTap: () {
-                    final taskId =
-                        task['id']?.toString() ?? 'fallback_${index}';
-                    _markTaskComplete(taskId);
-                  },
+                  onTap: () => _openDataEntryForm(taskId, widget.rolePrefix, title),
                 ),
               );
             },

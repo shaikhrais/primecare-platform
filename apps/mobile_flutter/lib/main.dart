@@ -52,6 +52,7 @@ import 'features/scrum_master/scrum_master_ops_screen.dart';
 import 'features/scrum_master/tracking_matrix_screen.dart';
 import 'features/superuser/superuser_control_screen.dart';
 import 'features/superuser/superuser_registry_sync_screen.dart';
+import 'features/superuser/superuser_territory_map_screen.dart';
 
 // Verified Universal Screens
 import 'features/shared/universal_home_screen.dart';
@@ -62,6 +63,7 @@ import 'features/shared/universal_daily_tasks_screen.dart';
 import 'features/shared/universal_timeline_screen.dart';
 import 'features/shared/role_mentor_screen.dart';
 import 'features/shared/universal_thin_hub_screen.dart';
+import 'features/shared/role_sow_screen.dart';
 import 'features/coordinator/jane_scheduler_screen.dart';
 
 void main() {
@@ -277,6 +279,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/superuser/registry',
             builder: (context, state) => const SuperuserRegistrySyncScreen(),
           ),
+          GoRoute(
+            path: '/superuser/territory',
+            builder: (context, state) => const SuperuserTerritoryMapScreen(),
+          ),
 
           // ================== UNIVERSAL (Fallback) ==================
           GoRoute(
@@ -302,6 +308,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => RoleMentorScreen(
               rolePrefix: state.pathParameters['role'] ?? 'psw',
             ),
+          ),
+          GoRoute(
+            path: '/role-sow',
+            builder: (context, state) => const RoleSowScreen(),
           ),
         ],
       ),
