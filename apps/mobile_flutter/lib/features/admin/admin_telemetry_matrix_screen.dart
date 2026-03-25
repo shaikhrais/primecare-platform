@@ -5,7 +5,6 @@ import '../../core/colors.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/api_client.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/widgets/global_top_bar.dart';
 
 class AdminTelemetryMatrixScreen extends StatefulWidget {
   const AdminTelemetryMatrixScreen({super.key});

@@ -5,7 +5,6 @@ import '../../core/colors.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -114,10 +113,10 @@ class _CoordinatorLiveMapScreenState extends State<CoordinatorLiveMapScreen> {
       child: PrimeCareStack(
         alignment: Alignment.center,
         children: [
-          PrimeCareCard(child: const SizedBox.shrink(), width: 50, height: 50,
+          PrimeCareCard(width: 50, height: 50,child: const SizedBox.shrink(),
             
           ),
-          PrimeCareCard(child: const SizedBox.shrink(), width: 20, height: 20,
+          PrimeCareCard(width: 20, height: 20,child: const SizedBox.shrink(),
             
           ),
           if (worker.surge)

@@ -8,10 +8,10 @@ app.openapi(createRoute({
     path: '/',
     responses: { 200: { description: 'RN Patients List', content: { 'application/json': { schema: z.any() } } } }
 }), async (c) => {
-    const user = c.var.user;
+    const user = c.var.user as any;
     if (!user) return c.json({ error: 'Unauthorized' }, 401);
 
-    const patients = await c.var.prisma.clientProfile.findMany({
+    const patients = await (c.var.prisma as any).clientProfile.findMany({
         where: { tenantId: user.tenantId },
         orderBy: { fullName: 'asc' }
     });

@@ -4,7 +4,6 @@ import '../../core/colors.dart';
 
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class PswDailyScheduleScreen extends StatefulWidget {
@@ -161,7 +160,7 @@ class _PswDailyScheduleScreenState extends State<PswDailyScheduleScreen> {
             width: 40,
             child: PrimeCareColumn(
               children: [
-                PrimeCareCard(child: const SizedBox.shrink(), width: 16, height: 16,
+                PrimeCareCard(width: 16, height: 16,child: const SizedBox.shrink(),
                   
                 ),
                 if (!isLast)

@@ -2,7 +2,6 @@ import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
-import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class CoordinatorJaneSchedulerScreen extends StatefulWidget {
@@ -104,7 +103,7 @@ class _CoordinatorJaneSchedulerScreenState extends State<CoordinatorJaneSchedule
             width: _timeColumnWidth,
             child: PrimeCareColumn(
               children: [
-                PrimeCareCard(child: const SizedBox.shrink(), height: 50), // Corner Block
+                PrimeCareCard(height: 50, child: const SizedBox.shrink()), // Corner Block
                 PrimeCareExpanded(
                   child: ListView.builder(
                     itemCount: _endHour - _startHour + 1,

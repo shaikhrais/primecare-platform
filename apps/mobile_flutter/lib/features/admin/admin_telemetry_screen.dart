@@ -33,7 +33,7 @@ class _AdminTelemetryScreenState extends State<AdminTelemetryScreen> {
   final Random _rnd = Random();
   
   int _activeSessions = 412;
-  int _totalHours = 1204;
+  final int _totalHours = 1204;
   int _totalWork = 5432;
 
   final List<TelemetryNode> _liveUsers = [

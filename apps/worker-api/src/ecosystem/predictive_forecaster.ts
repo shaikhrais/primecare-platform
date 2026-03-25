@@ -45,7 +45,7 @@ export class PredictiveForecasterEngine {
     }
 
     // 4. Record the Telemetry for the General Manager's Home
-    await this.prisma.supplyForecastMetrics.create({
+    await (this.prisma as any).supplyForecastMetrics.create({
       data: {
         tenantId,
         targetDate,

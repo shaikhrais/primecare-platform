@@ -61,8 +61,8 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
         _localStream = stream;
       });
       // WebRTC mapped globally to Serverless Node
-      final _channel = WebSocketChannel.connect(Uri.parse('wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=live_triage_session'));
-      _channel.sink.add('{"action": "sdp_offer"}');
+      final channel = WebSocketChannel.connect(Uri.parse('wss://primecare-api.itpro-mohammed.workers.dev/websocket?token=live_triage_session'));
+      channel.sink.add('{"action": "sdp_offer"}');
     } catch (e) {
       debugPrint('[WEBRTC HARDWARE ERROR]: ${e.toString()}');
     }
@@ -144,7 +144,7 @@ class _PswLiveVideoTriageScreenState extends State<PswLiveVideoTriageScreen> {
               
               child: PrimeCareRow(
                 children: [
-                  PrimeCareCard(child: const SizedBox.shrink(), width: 8, height: 8,
+                  PrimeCareCard(width: 8, height: 8,child: const SizedBox.shrink(),
                     
                   ),
                   SizedBox(width: 8),

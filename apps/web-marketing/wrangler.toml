@@ -1,5 +1,0 @@
-name = "primecare-web"
-pages_build_output_dir = "dist"
-
-[vars]
-# API_URL = "https://api.primecare.ca/v1"

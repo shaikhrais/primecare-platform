@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 
 import 'package:primecare_ui/primecare_ui.dart';
-import '../../core/widgets/global_top_bar.dart';
-import 'package:primecare_mobile/l10n/app_localizations.dart';
 
 class ClientCareHubScreen extends StatelessWidget {
   const ClientCareHubScreen({super.key});

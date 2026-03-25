@@ -100,7 +100,7 @@ class _PswLiveVisitScreenState extends State<PswLiveVisitScreen> with SingleTick
                       AnimatedBuilder(
                         animation: _pulseController,
                         builder: (context, child) {
-                          return PrimeCareCard(child: const SizedBox.shrink(), width: 280 + (_pulseController.value * 40), height: 280 + (_pulseController.value * 40),
+                          return PrimeCareCard(width: 280 + (_pulseController.value * 40), height: 280 + (_pulseController.value * 40),child: const SizedBox.shrink(),
                             
                           );
                         },

@@ -197,7 +197,7 @@ class ManagerAnalyticsMatrixScreen extends StatelessWidget {
 
   Widget _buildChartBar({required double height, required Color color}) {
     return PrimeCareExpanded(
-      child: PrimeCareCard(child: const SizedBox.shrink(), margin: EdgeInsets.symmetric(horizontal: 4), height: height,
+      child: PrimeCareCard(margin: EdgeInsets.symmetric(horizontal: 4), height: height,child: const SizedBox.shrink(),
         
       ),
     );

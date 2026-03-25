@@ -1,4 +1,3 @@
-import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../core/colors.dart';
 import '../../core/api_client.dart';
@@ -98,7 +97,7 @@ class _DefaultWidgetMatrixState extends State<DefaultWidgetMatrix> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: data.length,
-                separatorBuilder: (_, __) => const Divider(),
+                separatorBuilder: (_, _) => const Divider(),
                 itemBuilder: (context, index) {
                   final node = data[index];
                   return ListTile(
@@ -107,7 +106,7 @@ class _DefaultWidgetMatrixState extends State<DefaultWidgetMatrix> {
                       decoration: BoxDecoration(color: Theme.of(context).primaryColor.withValues(alpha: 0.1), shape: BoxShape.circle),
                       child: Icon(Icons.cloud_sync_rounded, color: Theme.of(context).primaryColor)
                     ),
-                    title: Text(node['title'] ?? node['text'] ?? node['id'] ?? 'Encrypted Node ${index}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    title: Text(node['title'] ?? node['text'] ?? node['id'] ?? 'Encrypted Node $index', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     subtitle: Text(node['detail'] ?? node['status'] ?? 'Verified telemetry fetched natively.', style: const TextStyle(color: Colors.black54)),
                     trailing: const Icon(Icons.rocket_launch_rounded, color: Colors.grey),
                   );

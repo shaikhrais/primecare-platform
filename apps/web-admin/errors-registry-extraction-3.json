@@ -1,5 +1,0 @@
-[
-  "src/app/routes/shared/PageSectionRegistry.ts(1,31): error TS1127: Invalid character.",
-  "src/app/routes/shared/PageSectionRegistry.ts(1,32): error TS1435: Unknown keyword or identifier. Did you mean 'import'?",
-  "src/app/routes/shared/PageSectionRegistry.ts(1,58): error TS1434: Unexpected keyword or identifier."
-]

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../theme_provider.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'language_toggle_button.dart';
 import '../api_client.dart';

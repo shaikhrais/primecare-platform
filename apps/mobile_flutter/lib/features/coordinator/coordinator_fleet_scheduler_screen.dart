@@ -4,7 +4,6 @@ import '../../core/colors.dart';
 
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class CoordinatorFleetSchedulerScreen extends StatefulWidget {

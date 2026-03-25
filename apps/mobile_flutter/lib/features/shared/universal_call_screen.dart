@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 import 'dart:async';
 
 class UniversalCallScreen extends StatefulWidget {

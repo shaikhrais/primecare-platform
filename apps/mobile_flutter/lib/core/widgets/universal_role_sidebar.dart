@@ -148,7 +148,7 @@ class UniversalRoleSidebar extends StatelessWidget {
           currentIndex: currentIndex,
           destinations: destinations,
           activeIconColor: activeColor,
-          activeIndicatorColor: activeColor?.withValues(alpha: 0.15),
+          activeIndicatorColor: activeColor.withValues(alpha: 0.15),
           onNavigate: (index) {
             if (index >= 0 && index < paths.length) {
               context.go(paths[index]);

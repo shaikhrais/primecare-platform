@@ -24,7 +24,7 @@ class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   
-  List<MessageBlock> _messages = [
+  final List<MessageBlock> _messages = [
     MessageBlock(text: "Hello! Evaluating the initial communication ping from the matrix array.", isMe: false, timestamp: "09:41 AM"),
     MessageBlock(text: "Acknowledged. Standing by for cross-role live talk validation protocols.", isMe: true, timestamp: "09:43 AM"),
     MessageBlock(text: "Please hold while I deploy the Universal WebRTC Calling sequence natively.", isMe: false, timestamp: "10:02 AM"),

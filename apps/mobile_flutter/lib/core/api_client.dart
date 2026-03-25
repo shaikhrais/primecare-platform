@@ -19,7 +19,7 @@ class ApiClient {
       'Accept-Language': 'fr',
       'X-Requested-With': 'Flutter_Client',
       if (token != null) 'Authorization': 'Bearer $token',
-      if (cookie != null) 'Cookie': cookie,
+      'Cookie': ?cookie,
     };
   }
 

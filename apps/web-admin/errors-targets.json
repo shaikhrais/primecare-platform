@@ -1,6 +1,0 @@
-[
-  "src/app/routes/platform/admin/pages/page-registry/index.tsx(96,58): error TS2322: Type '{ groupedByOwner: Record<string, { file: string; label: string; type: PageType; owner: \"psw\" | \"client\" | \"admin\" | \"staff\" | \"coordinator\" | \"manager\" | \"rn\" | \"auth\" | \"shared\" | \"superuser\" | \"allied\" | \"scrum-master\"; associates: string[]; code: string; }[]>; selectedCode: string | null; setSelectedCode: Dispatc...' is not assignable to type 'IntrinsicAttributes'.",
-  "src/app/routes/platform/admin/pages/page-registry/index.tsx(99,49): error TS2322: Type '{ filteredMaster: { file: string; label: string; type: PageType; owner: \"psw\" | \"client\" | \"admin\" | \"staff\" | \"coordinator\" | \"manager\" | \"rn\" | \"auth\" | \"shared\" | \"superuser\" | \"allied\" | \"scrum-master\"; associates: string[]; code: string; }[]; }' is not assignable to type 'IntrinsicAttributes'.",
-  "src/app/routes/platform/admin/pages/page-registry/index.tsx(102,47): error TS2322: Type '{ grouped: Record<string, PageEntry[]>; }' is not assignable to type 'IntrinsicAttributes'.",
-  "src/test/ApiContractsTypes.test.ts(179,13): error TS2322: Type '\"active\"' is not assignable to type '\"scheduled\" | \"completed\" | \"cancelled\" | \"in_progress\" | \"no_show\"'."
-]

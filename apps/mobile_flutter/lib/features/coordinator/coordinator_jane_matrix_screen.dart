@@ -93,7 +93,7 @@ class _CoordinatorJaneMatrixScreenState extends State<CoordinatorJaneMatrixScree
   Widget _buildLegendItem(String label, Color color) {
     return PrimeCareRow(
       children: [
-        PrimeCareCard(child: const SizedBox.shrink(), width: 12, height: 12),
+        PrimeCareCard(width: 12, height: 12, child: const SizedBox.shrink()),
         SizedBox(width: 6),
         PrimeCareText(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF475569))),
       ],

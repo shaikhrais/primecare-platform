@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/colors.dart';
 
-import 'package:primecare_ui/primecare_ui.dart';
 
 class PswIncidentWizardScreen extends StatelessWidget {
   const PswIncidentWizardScreen({super.key});

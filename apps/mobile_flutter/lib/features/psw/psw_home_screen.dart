@@ -4,10 +4,8 @@ import '../../core/colors.dart';
 
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/widgets/global_top_bar.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import '../../../core/localization/app_strings.dart';
 
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});

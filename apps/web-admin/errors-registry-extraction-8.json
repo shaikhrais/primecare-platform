@@ -1,8 +1,0 @@
-[
-  "src/app/routes/shared/PageSectionRegistry.ts(853,39): error TS2552: Cannot find name 'tabs'. Did you mean 'tab'?",
-  "src/app/routes/shared/PageSectionRegistry.ts(1102,38): error TS2552: Cannot find name 'tabs'. Did you mean 'tab'?",
-  "src/app/routes/shared/PageSectionRegistry.ts(1104,30): error TS2367: This comparison appears to be unintentional because the types '\"default\"' and '\"blogs\"' have no overlap.",
-  "src/app/routes/shared/PageSectionRegistry.ts(1105,27): error TS2367: This comparison appears to be unintentional because the types '\"default\"' and '\"blogs\"' have no overlap.",
-  "src/app/routes/shared/PageSectionRegistry.ts(3256,3): error TS1117: An object literal cannot have multiple properties with the same name.",
-  "src/app/routes/shared/PageSectionRegistry.ts(3788,3): error TS1117: An object literal cannot have multiple properties with the same name."
-]

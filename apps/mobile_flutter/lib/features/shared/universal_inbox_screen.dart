@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/api_client.dart';
-import 'dart:convert';
 
 class ThreadModel {
   final String id;

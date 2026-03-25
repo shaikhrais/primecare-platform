@@ -91,7 +91,7 @@ class _PswClientsScreenState extends State<PswClientsScreen> {
                           SizedBox(height: 12),
                           PrimeCareRow(
                             children: [
-                              PrimeCareCard(child: const SizedBox.shrink(), width: 8, height: 8,
+                              PrimeCareCard(width: 8, height: 8,child: const SizedBox.shrink(),
                                 
                               ),
                               SizedBox(width: 6),
