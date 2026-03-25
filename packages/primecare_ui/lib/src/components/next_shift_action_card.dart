@@ -3,32 +3,43 @@ import 'prime_card.dart';
 import 'prime_status_badge.dart';
 
 class NextShiftActionCard extends StatelessWidget {
-  const NextShiftActionCard({Key? key}) : super(key: key);
+  final String patientName;
+  final String address;
+  final String timeText;
+  final Color badgeColor;
+
+  const NextShiftActionCard({
+    Key? key,
+    this.patientName = 'Eleanor Rigby',
+    this.address = '123 Penny Lane, Liverpool',
+    this.timeText = 'in 45 mins',
+    this.badgeColor = Colors.orange,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const PrimeCard(
+    return PrimeCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Next Shift',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              PrimeStatusBadge(text: 'in 45 mins', color: Colors.orange),
+              PrimeStatusBadge(text: timeText, color: badgeColor),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Text(
-            'Eleanor Rigby',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            patientName,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Text(
-            '123 Penny Lane, Liverpool',
-            style: TextStyle(color: Colors.grey),
+            address,
+            style: const TextStyle(color: Colors.grey),
           ),
         ],
       ),
