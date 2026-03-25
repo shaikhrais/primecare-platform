@@ -3,7 +3,7 @@ class PswDashboardData {
   final String? urgentAlert;
   final double dailyProgress;
   final NextShiftInfo? nextShift;
-  
+
   // Existing stats mappings
   final double hoursLogged;
   final int currentStreak;
@@ -22,7 +22,9 @@ class PswDashboardData {
       userName: json['userName'] as String? ?? 'Caregiver',
       urgentAlert: json['urgentAlert'] as String?,
       dailyProgress: (json['dailyProgress'] as num?)?.toDouble() ?? 0.0,
-      nextShift: json['nextShift'] != null ? NextShiftInfo.fromJson(json['nextShift']) : null,
+      nextShift: json['nextShift'] != null
+          ? NextShiftInfo.fromJson(json['nextShift'])
+          : null,
       hoursLogged: (json['hoursLogged'] as num?)?.toDouble() ?? 0.0,
       currentStreak: json['currentStreak'] as int? ?? 0,
     );
@@ -46,7 +48,9 @@ class NextShiftInfo {
     return NextShiftInfo(
       id: json['id'] as String? ?? '',
       patientName: json['patientName'] as String? ?? 'Unknown Patient',
-      startTime: json['startTime'] != null ? DateTime.parse(json['startTime']) : DateTime.now(),
+      startTime: json['startTime'] != null
+          ? DateTime.parse(json['startTime'])
+          : DateTime.now(),
       address: json['address'] as String? ?? 'Address Pending',
     );
   }
