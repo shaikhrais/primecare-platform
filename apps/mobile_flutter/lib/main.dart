@@ -34,6 +34,12 @@ import 'features/admin/admin_telemetry_screen.dart';
 import 'features/client/client_wellness_pulse_screen.dart';
 import 'features/client/client_care_team_screen.dart';
 
+// Generative Rewire: Executive Thin Views
+import 'features/gm/gm_executive_dashboard_screen.dart';
+import 'features/mt/mt_analytics_hub_screen.dart';
+import 'features/scrum_master/scrum_master_ops_screen.dart';
+import 'features/superuser/superuser_control_screen.dart';
+
 // Verified Universal Screens
 import 'features/shared/universal_home_screen.dart';
 import 'features/shared/universal_inbox_screen.dart';
@@ -75,6 +81,14 @@ final routerProvider = Provider<GoRouter>((ref) {
             return '/admin/home';
           case 'client':
             return '/client/home';
+          case 'gm':
+            return '/gm/home';
+          case 'mt':
+            return '/mt/home';
+          case 'scrum':
+            return '/scrum_master/home';
+          case 'superuser':
+            return '/superuser/home';
           default:
             return '/psw/home';
         }
@@ -169,6 +183,30 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/client/pulse',
             builder: (context, state) => const ClientWellnessPulseScreen(),
+          ),
+
+          // ================== GM ==================
+          GoRoute(
+            path: '/gm/home',
+            builder: (context, state) => const GmExecutiveDashboardScreen(),
+          ),
+
+          // ================== MT ==================
+          GoRoute(
+            path: '/mt/home',
+            builder: (context, state) => const MtAnalyticsHubScreen(),
+          ),
+
+          // ================== SCRUM MASTER ==================
+          GoRoute(
+            path: '/scrum_master/home',
+            builder: (context, state) => const ScrumMasterOpsScreen(),
+          ),
+
+          // ================== SUPERUSER ==================
+          GoRoute(
+            path: '/superuser/home',
+            builder: (context, state) => const SuperuserControlScreen(),
           ),
 
           // ================== UNIVERSAL (Fallback) ==================

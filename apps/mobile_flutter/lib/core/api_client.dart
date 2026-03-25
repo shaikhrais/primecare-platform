@@ -7,6 +7,10 @@ import 'database/sqlite_database_helper.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiClient {
+  final http.Client _client;
+
+  ApiClient({http.Client? client}) : _client = client ?? http.Client();
+
   // Mobile Android Emulator bypasses DNS limits using Loopback bindings
   static const String baseUrl =
       'https://primecare-api.itpro-mohammed.workers.dev';
@@ -27,7 +31,7 @@ class ApiClient {
   Future<dynamic> post(String endpoint, Map<String, dynamic> body) async {
     final headers = await _getHeaders();
     try {
-      final response = await http.post(
+      final response = await _client.post(
         Uri.parse('$baseUrl$endpoint'),
         headers: headers,
         body: jsonEncode(body),
@@ -63,7 +67,7 @@ class ApiClient {
   Future<dynamic> put(String endpoint, Map<String, dynamic> body) async {
     final headers = await _getHeaders();
     try {
-      final response = await http.put(
+      final response = await _client.put(
         Uri.parse('$baseUrl$endpoint'),
         headers: headers,
         body: jsonEncode(body),
@@ -98,7 +102,7 @@ class ApiClient {
 
   Future<dynamic> patch(String endpoint, Map<String, dynamic> body) async {
     final headers = await _getHeaders();
-    final response = await http.patch(
+    final response = await _client.patch(
       Uri.parse('$baseUrl$endpoint'),
       headers: headers,
       body: jsonEncode(body),
@@ -110,9 +114,23 @@ class ApiClient {
     }
   }
 
+  Future<dynamic> delete(String endpoint) async {
+    final headers = await _getHeaders();
+    final response = await _client.delete(
+      Uri.parse('$baseUrl$endpoint'),
+      headers: headers,
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.body.isEmpty) return {'success': true};
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server returned ${response.statusCode}');
+    }
+  }
+
   Future<dynamic> get(String endpoint) async {
     final headers = await _getHeaders();
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse('$baseUrl$endpoint'),
       headers: headers,
     );
@@ -128,7 +146,7 @@ class ApiClient {
   }
 
   Future<void> login(String email, String password) async {
-    final response = await http.post(
+    final response = await _client.post(
       Uri.parse('$baseUrl/v1/auth/login'),
       headers: {
         'Content-Type': 'application/json',

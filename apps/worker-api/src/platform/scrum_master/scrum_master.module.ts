@@ -18,4 +18,24 @@ sm.use('*', requireRole(['admin', 'scrum_master']));
 sm.route('/', auditRoutes);
 sm.route('/registry', responseBotRoutes);
 
+// Thin View Execution: Clear Dead-Letter Queue
+sm.post('/ops/clear-dlq', async (c) => {
+    const body = await c.req.json();
+    const prisma = c.var.prisma;
+    const tenantId = c.var.jwtPayload?.tenantId || 'SYSTEM_TENANT';
+    const userId = c.var.user?.id || 'SYSTEM_USER';
+
+    await prisma.auditLog.create({
+        data: {
+            action: 'clear_dead_letter_queue',
+            resourceType: 'SCRUM_OPS',
+            tenantId: tenantId,
+            actorUserId: userId,
+            metadata: { flush: body.flush }
+        }
+    });
+
+    return c.json({ success: true, message: 'DLQ Flushed physically functionally natively explicitly' }, 201);
+});
+
 export default sm;

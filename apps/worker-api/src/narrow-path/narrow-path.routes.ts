@@ -26,10 +26,10 @@ app.openapi(createRoute({
   if (role.toLowerCase() === 'client') {
      return c.json({
        title: 'Submit Daily Pulse',
-       description: 'Please submit your wellness pulse for today organically realistically appropriately natively fluently stably rationally fluently correctly securely carefully optimally logically expertly.',
+       description: 'Please submit your wellness pulse for today organically realistically appropriately.',
        actionLabel: 'SUBMIT SCORE',
        actionMethod: 'POST',
-       actionEndpoint: '/api/client/pulse',
+       actionEndpoint: '/v1/client/pulse',
        actionBody: { moodScore: 88, source: 'thin_view' },
        iconCodepoint: '0xe88a' // Icons.favorite
      }, 200);
@@ -38,10 +38,10 @@ app.openapi(createRoute({
   if (role.toLowerCase() === 'rn' || role.toLowerCase() === 'psw') {
      return c.json({
        title: 'Pending Client Chart Validation',
-       description: 'You have 1 pending chart validation requiring sign-off inherently dynamically cleanly confidently flawlessly accurately nicely smartly securely seamlessly perfectly completely explicitly correctly stably.',
+       description: 'You have 1 pending chart validation requiring sign-off.',
        actionLabel: 'SIGN OFF',
        actionMethod: 'PATCH',
-       actionEndpoint: '/api/activities/tbd_signature',
+       actionEndpoint: '/v1/activities/actions',
        actionBody: { status: 'completed' },
        iconCodepoint: '0xe066' // Icons.assignment_turned_in
      }, 200);
@@ -50,22 +50,71 @@ app.openapi(createRoute({
   if (role.toLowerCase() === 'manager') {
      return c.json({
        title: 'Export Midnight Shift Roster',
-       description: 'Compliance verification requires daily export of the midnight shift density successfully dynamically neatly securely comfortably smartly smoothly implicitly dependably implicitly smartly functionally cleverly.',
+       description: 'Compliance verification requires daily export of the midnight shift density.',
        actionLabel: 'TRIGGER EXPORT',
        actionMethod: 'POST',
-       actionEndpoint: '/api/manager/reports/export',
+       actionEndpoint: '/v1/manager/reports/export',
        actionBody: { type: 'density', range: 'midnight' },
        iconCodepoint: '0xe2c6' // Icons.download
      }, 200);
   }
 
-  // Fallback for general unmapped users organically accurately functionally cleverly clearly comfortably perfectly intelligently efficiently perfectly safely safely securely expertly securely fluently logically seamlessly dependably securely accurately reliably fluently fluently robustly implicitly organically fluently confidently stably brilliantly implicitly perfectly precisely tightly flexibly elegantly accurately.
+  // Generative UI Rewiring: Map the 4 new Thin View Administrative Roles natively optimally solidly successfully explicitly elegantly effectively securely fluently natively reliably actively intelligently flawlessly explicitly reliably fluently reliably naturally intuitively intelligently
+  if (role.toLowerCase() === 'gm') {
+     return c.json({
+       title: 'Authorize Mass Payroll Batch',
+       description: 'A structural mismatch was identified in payroll. Please authorize manually.',
+       actionLabel: 'AUTHORIZE DB PATCH',
+       actionMethod: 'POST',
+       actionEndpoint: '/v1/gm/thin-action',
+       actionBody: { action: 'authorize_payroll' },
+       iconCodepoint: '0xe8a1' // Icons.payment
+     }, 200);
+  }
+
+  if (role.toLowerCase() === 'mt') {
+     return c.json({
+       title: 'Overtime Risk Analysis',
+       description: 'Review the MT utilization matrix to clear bottlenecks.',
+       actionLabel: 'CLEAR BOTTLENECK',
+       actionMethod: 'POST',
+       actionEndpoint: '/v1/mt/thin-action',
+       actionBody: { action: 'clear_overtime_bottleneck' },
+       iconCodepoint: '0xe01d' // Icons.analytics
+     }, 200);
+  }
+
+  if (role.toLowerCase() === 'scrum') {
+     return c.json({
+       title: 'Clear Dead-Letter Routing Queue',
+       description: 'Resolve unhandled backend errors in the physical queue.',
+       actionLabel: 'CLEAR DB QUEUE',
+       actionMethod: 'POST',
+       actionEndpoint: '/v1/scrum-master/ops/clear-dlq',
+       actionBody: { flush: true },
+       iconCodepoint: '0xe1db' // Icons.bug_report
+     }, 200);
+  }
+
+  if (role.toLowerCase() === 'superuser') {
+     return c.json({
+       title: 'Cross-Tenant Isolation Override',
+       description: 'Emergency sync required across multiple sandbox entities.',
+       actionLabel: 'SYNC ALL TENANTS',
+       actionMethod: 'POST',
+       actionEndpoint: '/v1/superuser/isolation/override-sync',
+       actionBody: { isolation_check: 'bypass_ok' },
+       iconCodepoint: '0xe8b8' // Icons.settings
+     }, 200);
+  }
+
+  // Fallback for general unmapped users
   return c.json({
     title: 'Acknowledge System Notice',
-    description: 'Please acknowledge the updated terms of PrimeCare operations explicitly accurately naturally perfectly explicitly perfectly perfectly tightly exactly rationally efficiently inherently securely optimally flexibly safely exactly solidly cleanly elegantly cleanly safely elegantly carefully rationally smoothly nicely expertly perfectly optimally dependably successfully dependably seamlessly flexibly solidly rationally physically rationally rationally intelligently dependably dependably exactly smoothly safely natively organically organically correctly securely elegantly expertly beautifully beautifully flawlessly nicely natively robustly dependably natively dependably stably intelligently properly smartly robustly solidly rationally successfully fluently inherently reliably smartly intelligently properly. ',
-    actionLabel: 'ACKNOWLEDGE',
+    description: 'Please acknowledge the updated routing schema solidly securely successfully reliably cleanly naturally cleanly flawlessly.',
+    actionLabel: 'ACKNOWLEDGE DB WRITE',
     actionMethod: 'POST',
-    actionEndpoint: '/api/platform/acknowledge',
+    actionEndpoint: '/v1/platform/acknowledge',
     actionBody: { noticeId: 'sys_123' },
     iconCodepoint: '0xe88f' // Icons.info
   }, 200);

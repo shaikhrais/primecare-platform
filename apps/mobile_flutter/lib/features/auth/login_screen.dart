@@ -58,6 +58,18 @@ class _LoginScreenState extends State<LoginScreen> {
           case 'client':
             context.go('/client/home');
             break;
+          case 'gm':
+            context.go('/gm/home');
+            break;
+          case 'mt':
+            context.go('/mt/home');
+            break;
+          case 'scrum':
+            context.go('/scrum_master/home');
+            break;
+          case 'superuser':
+            context.go('/superuser/home');
+            break;
           default:
             context.go('/psw/home');
         }
