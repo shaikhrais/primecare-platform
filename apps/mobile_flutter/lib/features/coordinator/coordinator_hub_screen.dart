@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/features/coordinator/providers/coordinator_stats_provider.dart';
 
@@ -87,6 +89,32 @@ class CoordinatorHubScreen extends ConsumerWidget {
             ),
           ),
           const SliverToBoxAdapter(child: DragAssignWidget()),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SizedBox(
+                height: 60,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    context.push('/coordinator/scheduler');
+                  },
+                  icon: const Icon(Icons.calendar_month, size: 28),
+                  label: const Text(
+                    'OPEN JANE CALENDAR MATRIX',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purpleAccent,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const SliverToBoxAdapter(child: SizedBox(height: 32)),
         ],
       ),

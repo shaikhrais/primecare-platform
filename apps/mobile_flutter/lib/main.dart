@@ -43,6 +43,7 @@ import 'features/shared/universal_daily_tasks_screen.dart';
 import 'features/shared/universal_timeline_screen.dart';
 import 'features/shared/role_mentor_screen.dart';
 import 'features/shared/universal_thin_hub_screen.dart';
+import 'features/coordinator/jane_scheduler_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +63,21 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!hasToken && !isLoggingIn) return '/login';
 
       if (hasToken && (isLoggingIn || isRoot)) {
-        // Narrow Path Architecture Override: All roles route identically to the Universal Thin Hub
-        return '/thin-hub';
+        final role = prefs.getString('user_role') ?? 'psw';
+        switch (role) {
+          case 'rn':
+            return '/rn/home';
+          case 'coordinator':
+            return '/coordinator/home';
+          case 'manager':
+            return '/manager/home';
+          case 'admin':
+            return '/admin/home';
+          case 'client':
+            return '/client/home';
+          default:
+            return '/psw/home';
+        }
       }
       return null;
     },
@@ -125,6 +139,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/coordinator/approvals',
             builder: (context, state) => const CoordinatorApprovalsScreen(),
+          ),
+          GoRoute(
+            path: '/coordinator/scheduler',
+            builder: (context, state) => const InteractiveJaneSchedulerScreen(),
           ),
 
           // ================== MANAGER ==================
