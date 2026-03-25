@@ -1,40 +1,70 @@
 import 'package:flutter/material.dart';
-import 'prime_avatar.dart';
+import 'prime_card.dart';
 
 class CaregiverProfileCard extends StatelessWidget {
-  const CaregiverProfileCard({Key? key}) : super(key: key);
+  final String name;
+  final String role;
+  final double rating;
+  final String specialty;
+
+  const CaregiverProfileCard({
+    Key? key,
+    this.name = 'Sarah Jenkins',
+    this.role = 'Primary PSW',
+    this.rating = 4.9,
+    this.specialty = 'Dementia Specialist',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.deepPurple.shade50,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return PrimeCard(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const PrimeAvatar(fallbackInitials: 'FA', radius: 30),
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.blue.shade100,
+            child: Icon(Icons.person, size: 36, color: Colors.blue.shade800),
+          ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Fatima Ahmed',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple.shade900,
-                  ),
+                  name,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Fluent in Arabic & English',
-                  style: TextStyle(color: Colors.deepPurple.shade400),
+                  role,
+                  style: const TextStyle(color: Colors.blue),
                 ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.amber, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      rating.toStringAsFixed(1),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        specialty,
+                        style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.message, color: Colors.blue),
+          )
         ],
       ),
     );
