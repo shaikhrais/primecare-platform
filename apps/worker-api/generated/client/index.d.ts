@@ -583,6 +583,16 @@ export type CommunicationLog = $Result.DefaultSelection<Prisma.$CommunicationLog
  * 
  */
 export type DailyActivity = $Result.DefaultSelection<Prisma.$DailyActivityPayload>
+/**
+ * Model PlatformScreen
+ * 
+ */
+export type PlatformScreen = $Result.DefaultSelection<Prisma.$PlatformScreenPayload>
+/**
+ * Model ScreenFunctionality
+ * 
+ */
+export type ScreenFunctionality = $Result.DefaultSelection<Prisma.$ScreenFunctionalityPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1846,6 +1856,26 @@ export class PrismaClient<
     * ```
     */
   get dailyActivity(): Prisma.DailyActivityDelegate<ExtArgs>;
+
+  /**
+   * `prisma.platformScreen`: Exposes CRUD operations for the **PlatformScreen** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlatformScreens
+    * const platformScreens = await prisma.platformScreen.findMany()
+    * ```
+    */
+  get platformScreen(): Prisma.PlatformScreenDelegate<ExtArgs>;
+
+  /**
+   * `prisma.screenFunctionality`: Exposes CRUD operations for the **ScreenFunctionality** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ScreenFunctionalities
+    * const screenFunctionalities = await prisma.screenFunctionality.findMany()
+    * ```
+    */
+  get screenFunctionality(): Prisma.ScreenFunctionalityDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2400,7 +2430,9 @@ export namespace Prisma {
     GamificationProfile: 'GamificationProfile',
     AIInference: 'AIInference',
     CommunicationLog: 'CommunicationLog',
-    DailyActivity: 'DailyActivity'
+    DailyActivity: 'DailyActivity',
+    PlatformScreen: 'PlatformScreen',
+    ScreenFunctionality: 'ScreenFunctionality'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2416,7 +2448,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -10400,6 +10432,146 @@ export namespace Prisma {
           }
         }
       }
+      PlatformScreen: {
+        payload: Prisma.$PlatformScreenPayload<ExtArgs>
+        fields: Prisma.PlatformScreenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlatformScreenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlatformScreenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          findFirst: {
+            args: Prisma.PlatformScreenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlatformScreenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          findMany: {
+            args: Prisma.PlatformScreenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>[]
+          }
+          create: {
+            args: Prisma.PlatformScreenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          createMany: {
+            args: Prisma.PlatformScreenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlatformScreenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>[]
+          }
+          delete: {
+            args: Prisma.PlatformScreenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          update: {
+            args: Prisma.PlatformScreenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlatformScreenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlatformScreenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PlatformScreenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlatformScreenPayload>
+          }
+          aggregate: {
+            args: Prisma.PlatformScreenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlatformScreen>
+          }
+          groupBy: {
+            args: Prisma.PlatformScreenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlatformScreenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlatformScreenCountArgs<ExtArgs>
+            result: $Utils.Optional<PlatformScreenCountAggregateOutputType> | number
+          }
+        }
+      }
+      ScreenFunctionality: {
+        payload: Prisma.$ScreenFunctionalityPayload<ExtArgs>
+        fields: Prisma.ScreenFunctionalityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ScreenFunctionalityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ScreenFunctionalityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          findFirst: {
+            args: Prisma.ScreenFunctionalityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ScreenFunctionalityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          findMany: {
+            args: Prisma.ScreenFunctionalityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>[]
+          }
+          create: {
+            args: Prisma.ScreenFunctionalityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          createMany: {
+            args: Prisma.ScreenFunctionalityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ScreenFunctionalityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>[]
+          }
+          delete: {
+            args: Prisma.ScreenFunctionalityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          update: {
+            args: Prisma.ScreenFunctionalityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          deleteMany: {
+            args: Prisma.ScreenFunctionalityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ScreenFunctionalityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ScreenFunctionalityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ScreenFunctionalityPayload>
+          }
+          aggregate: {
+            args: Prisma.ScreenFunctionalityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateScreenFunctionality>
+          }
+          groupBy: {
+            args: Prisma.ScreenFunctionalityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ScreenFunctionalityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ScreenFunctionalityCountArgs<ExtArgs>
+            result: $Utils.Optional<ScreenFunctionalityCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -11596,11 +11768,13 @@ export namespace Prisma {
   export type PlatformRoleCountOutputType = {
     screenAccess: number
     resolutions: number
+    screens: number
   }
 
   export type PlatformRoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     screenAccess?: boolean | PlatformRoleCountOutputTypeCountScreenAccessArgs
     resolutions?: boolean | PlatformRoleCountOutputTypeCountResolutionsArgs
+    screens?: boolean | PlatformRoleCountOutputTypeCountScreensArgs
   }
 
   // Custom InputTypes
@@ -11626,6 +11800,13 @@ export namespace Prisma {
    */
   export type PlatformRoleCountOutputTypeCountResolutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProtocolResolutionWhereInput
+  }
+
+  /**
+   * PlatformRoleCountOutputType without action
+   */
+  export type PlatformRoleCountOutputTypeCountScreensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformScreenWhereInput
   }
 
 
@@ -12776,6 +12957,37 @@ export namespace Prisma {
    */
   export type WebhookEndpointCountOutputTypeCountDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WebhookDeliveryWhereInput
+  }
+
+
+  /**
+   * Count Type PlatformScreenCountOutputType
+   */
+
+  export type PlatformScreenCountOutputType = {
+    functions: number
+  }
+
+  export type PlatformScreenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    functions?: boolean | PlatformScreenCountOutputTypeCountFunctionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlatformScreenCountOutputType without action
+   */
+  export type PlatformScreenCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreenCountOutputType
+     */
+    select?: PlatformScreenCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlatformScreenCountOutputType without action
+   */
+  export type PlatformScreenCountOutputTypeCountFunctionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreenFunctionalityWhereInput
   }
 
 
@@ -30682,6 +30894,7 @@ export namespace Prisma {
     tenant?: boolean | PlatformRole$tenantArgs<ExtArgs>
     screenAccess?: boolean | PlatformRole$screenAccessArgs<ExtArgs>
     resolutions?: boolean | PlatformRole$resolutionsArgs<ExtArgs>
+    screens?: boolean | PlatformRole$screensArgs<ExtArgs>
     _count?: boolean | PlatformRoleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["platformRole"]>
 
@@ -30710,6 +30923,7 @@ export namespace Prisma {
     tenant?: boolean | PlatformRole$tenantArgs<ExtArgs>
     screenAccess?: boolean | PlatformRole$screenAccessArgs<ExtArgs>
     resolutions?: boolean | PlatformRole$resolutionsArgs<ExtArgs>
+    screens?: boolean | PlatformRole$screensArgs<ExtArgs>
     _count?: boolean | PlatformRoleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlatformRoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30722,6 +30936,7 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs> | null
       screenAccess: Prisma.$RoleScreenAccessPayload<ExtArgs>[]
       resolutions: Prisma.$ProtocolResolutionPayload<ExtArgs>[]
+      screens: Prisma.$PlatformScreenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31098,6 +31313,7 @@ export namespace Prisma {
     tenant<T extends PlatformRole$tenantArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRole$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     screenAccess<T extends PlatformRole$screenAccessArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRole$screenAccessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoleScreenAccessPayload<ExtArgs>, T, "findMany"> | Null>
     resolutions<T extends PlatformRole$resolutionsArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRole$resolutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProtocolResolutionPayload<ExtArgs>, T, "findMany"> | Null>
+    screens<T extends PlatformRole$screensArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRole$screensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31504,6 +31720,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProtocolResolutionScalarFieldEnum | ProtocolResolutionScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformRole.screens
+   */
+  export type PlatformRole$screensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    where?: PlatformScreenWhereInput
+    orderBy?: PlatformScreenOrderByWithRelationInput | PlatformScreenOrderByWithRelationInput[]
+    cursor?: PlatformScreenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlatformScreenScalarFieldEnum | PlatformScreenScalarFieldEnum[]
   }
 
   /**
@@ -132557,6 +132793,1958 @@ export namespace Prisma {
 
 
   /**
+   * Model PlatformScreen
+   */
+
+  export type AggregatePlatformScreen = {
+    _count: PlatformScreenCountAggregateOutputType | null
+    _min: PlatformScreenMinAggregateOutputType | null
+    _max: PlatformScreenMaxAggregateOutputType | null
+  }
+
+  export type PlatformScreenMinAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    name: string | null
+    route: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformScreenMaxAggregateOutputType = {
+    id: string | null
+    roleId: string | null
+    name: string | null
+    route: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlatformScreenCountAggregateOutputType = {
+    id: number
+    roleId: number
+    name: number
+    route: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PlatformScreenMinAggregateInputType = {
+    id?: true
+    roleId?: true
+    name?: true
+    route?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformScreenMaxAggregateInputType = {
+    id?: true
+    roleId?: true
+    name?: true
+    route?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlatformScreenCountAggregateInputType = {
+    id?: true
+    roleId?: true
+    name?: true
+    route?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PlatformScreenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformScreen to aggregate.
+     */
+    where?: PlatformScreenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreens to fetch.
+     */
+    orderBy?: PlatformScreenOrderByWithRelationInput | PlatformScreenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlatformScreenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlatformScreens
+    **/
+    _count?: true | PlatformScreenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlatformScreenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlatformScreenMaxAggregateInputType
+  }
+
+  export type GetPlatformScreenAggregateType<T extends PlatformScreenAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlatformScreen]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlatformScreen[P]>
+      : GetScalarType<T[P], AggregatePlatformScreen[P]>
+  }
+
+
+
+
+  export type PlatformScreenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformScreenWhereInput
+    orderBy?: PlatformScreenOrderByWithAggregationInput | PlatformScreenOrderByWithAggregationInput[]
+    by: PlatformScreenScalarFieldEnum[] | PlatformScreenScalarFieldEnum
+    having?: PlatformScreenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlatformScreenCountAggregateInputType | true
+    _min?: PlatformScreenMinAggregateInputType
+    _max?: PlatformScreenMaxAggregateInputType
+  }
+
+  export type PlatformScreenGroupByOutputType = {
+    id: string
+    roleId: string
+    name: string
+    route: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PlatformScreenCountAggregateOutputType | null
+    _min: PlatformScreenMinAggregateOutputType | null
+    _max: PlatformScreenMaxAggregateOutputType | null
+  }
+
+  type GetPlatformScreenGroupByPayload<T extends PlatformScreenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlatformScreenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlatformScreenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlatformScreenGroupByOutputType[P]>
+            : GetScalarType<T[P], PlatformScreenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlatformScreenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    name?: boolean
+    route?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
+    functions?: boolean | PlatformScreen$functionsArgs<ExtArgs>
+    _count?: boolean | PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["platformScreen"]>
+
+  export type PlatformScreenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roleId?: boolean
+    name?: boolean
+    route?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["platformScreen"]>
+
+  export type PlatformScreenSelectScalar = {
+    id?: boolean
+    roleId?: boolean
+    name?: boolean
+    route?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PlatformScreenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
+    functions?: boolean | PlatformScreen$functionsArgs<ExtArgs>
+    _count?: boolean | PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlatformScreenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    role?: boolean | PlatformRoleDefaultArgs<ExtArgs>
+  }
+
+  export type $PlatformScreenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlatformScreen"
+    objects: {
+      role: Prisma.$PlatformRolePayload<ExtArgs>
+      functions: Prisma.$ScreenFunctionalityPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roleId: string
+      name: string
+      route: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["platformScreen"]>
+    composites: {}
+  }
+
+  type PlatformScreenGetPayload<S extends boolean | null | undefined | PlatformScreenDefaultArgs> = $Result.GetResult<Prisma.$PlatformScreenPayload, S>
+
+  type PlatformScreenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PlatformScreenFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PlatformScreenCountAggregateInputType | true
+    }
+
+  export interface PlatformScreenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlatformScreen'], meta: { name: 'PlatformScreen' } }
+    /**
+     * Find zero or one PlatformScreen that matches the filter.
+     * @param {PlatformScreenFindUniqueArgs} args - Arguments to find a PlatformScreen
+     * @example
+     * // Get one PlatformScreen
+     * const platformScreen = await prisma.platformScreen.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlatformScreenFindUniqueArgs>(args: SelectSubset<T, PlatformScreenFindUniqueArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PlatformScreen that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PlatformScreenFindUniqueOrThrowArgs} args - Arguments to find a PlatformScreen
+     * @example
+     * // Get one PlatformScreen
+     * const platformScreen = await prisma.platformScreen.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlatformScreenFindUniqueOrThrowArgs>(args: SelectSubset<T, PlatformScreenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PlatformScreen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenFindFirstArgs} args - Arguments to find a PlatformScreen
+     * @example
+     * // Get one PlatformScreen
+     * const platformScreen = await prisma.platformScreen.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlatformScreenFindFirstArgs>(args?: SelectSubset<T, PlatformScreenFindFirstArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PlatformScreen that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenFindFirstOrThrowArgs} args - Arguments to find a PlatformScreen
+     * @example
+     * // Get one PlatformScreen
+     * const platformScreen = await prisma.platformScreen.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlatformScreenFindFirstOrThrowArgs>(args?: SelectSubset<T, PlatformScreenFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PlatformScreens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlatformScreens
+     * const platformScreens = await prisma.platformScreen.findMany()
+     * 
+     * // Get first 10 PlatformScreens
+     * const platformScreens = await prisma.platformScreen.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const platformScreenWithIdOnly = await prisma.platformScreen.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlatformScreenFindManyArgs>(args?: SelectSubset<T, PlatformScreenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PlatformScreen.
+     * @param {PlatformScreenCreateArgs} args - Arguments to create a PlatformScreen.
+     * @example
+     * // Create one PlatformScreen
+     * const PlatformScreen = await prisma.platformScreen.create({
+     *   data: {
+     *     // ... data to create a PlatformScreen
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlatformScreenCreateArgs>(args: SelectSubset<T, PlatformScreenCreateArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PlatformScreens.
+     * @param {PlatformScreenCreateManyArgs} args - Arguments to create many PlatformScreens.
+     * @example
+     * // Create many PlatformScreens
+     * const platformScreen = await prisma.platformScreen.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlatformScreenCreateManyArgs>(args?: SelectSubset<T, PlatformScreenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlatformScreens and returns the data saved in the database.
+     * @param {PlatformScreenCreateManyAndReturnArgs} args - Arguments to create many PlatformScreens.
+     * @example
+     * // Create many PlatformScreens
+     * const platformScreen = await prisma.platformScreen.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlatformScreens and only return the `id`
+     * const platformScreenWithIdOnly = await prisma.platformScreen.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlatformScreenCreateManyAndReturnArgs>(args?: SelectSubset<T, PlatformScreenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PlatformScreen.
+     * @param {PlatformScreenDeleteArgs} args - Arguments to delete one PlatformScreen.
+     * @example
+     * // Delete one PlatformScreen
+     * const PlatformScreen = await prisma.platformScreen.delete({
+     *   where: {
+     *     // ... filter to delete one PlatformScreen
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlatformScreenDeleteArgs>(args: SelectSubset<T, PlatformScreenDeleteArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PlatformScreen.
+     * @param {PlatformScreenUpdateArgs} args - Arguments to update one PlatformScreen.
+     * @example
+     * // Update one PlatformScreen
+     * const platformScreen = await prisma.platformScreen.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlatformScreenUpdateArgs>(args: SelectSubset<T, PlatformScreenUpdateArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PlatformScreens.
+     * @param {PlatformScreenDeleteManyArgs} args - Arguments to filter PlatformScreens to delete.
+     * @example
+     * // Delete a few PlatformScreens
+     * const { count } = await prisma.platformScreen.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlatformScreenDeleteManyArgs>(args?: SelectSubset<T, PlatformScreenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlatformScreens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlatformScreens
+     * const platformScreen = await prisma.platformScreen.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlatformScreenUpdateManyArgs>(args: SelectSubset<T, PlatformScreenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PlatformScreen.
+     * @param {PlatformScreenUpsertArgs} args - Arguments to update or create a PlatformScreen.
+     * @example
+     * // Update or create a PlatformScreen
+     * const platformScreen = await prisma.platformScreen.upsert({
+     *   create: {
+     *     // ... data to create a PlatformScreen
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlatformScreen we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlatformScreenUpsertArgs>(args: SelectSubset<T, PlatformScreenUpsertArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PlatformScreens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenCountArgs} args - Arguments to filter PlatformScreens to count.
+     * @example
+     * // Count the number of PlatformScreens
+     * const count = await prisma.platformScreen.count({
+     *   where: {
+     *     // ... the filter for the PlatformScreens we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlatformScreenCountArgs>(
+      args?: Subset<T, PlatformScreenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlatformScreenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlatformScreen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlatformScreenAggregateArgs>(args: Subset<T, PlatformScreenAggregateArgs>): Prisma.PrismaPromise<GetPlatformScreenAggregateType<T>>
+
+    /**
+     * Group by PlatformScreen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlatformScreenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlatformScreenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlatformScreenGroupByArgs['orderBy'] }
+        : { orderBy?: PlatformScreenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlatformScreenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlatformScreenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlatformScreen model
+   */
+  readonly fields: PlatformScreenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlatformScreen.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlatformScreenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    role<T extends PlatformRoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlatformRoleDefaultArgs<ExtArgs>>): Prisma__PlatformRoleClient<$Result.GetResult<Prisma.$PlatformRolePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    functions<T extends PlatformScreen$functionsArgs<ExtArgs> = {}>(args?: Subset<T, PlatformScreen$functionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlatformScreen model
+   */ 
+  interface PlatformScreenFieldRefs {
+    readonly id: FieldRef<"PlatformScreen", 'String'>
+    readonly roleId: FieldRef<"PlatformScreen", 'String'>
+    readonly name: FieldRef<"PlatformScreen", 'String'>
+    readonly route: FieldRef<"PlatformScreen", 'String'>
+    readonly status: FieldRef<"PlatformScreen", 'String'>
+    readonly createdAt: FieldRef<"PlatformScreen", 'DateTime'>
+    readonly updatedAt: FieldRef<"PlatformScreen", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlatformScreen findUnique
+   */
+  export type PlatformScreenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreen to fetch.
+     */
+    where: PlatformScreenWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreen findUniqueOrThrow
+   */
+  export type PlatformScreenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreen to fetch.
+     */
+    where: PlatformScreenWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreen findFirst
+   */
+  export type PlatformScreenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreen to fetch.
+     */
+    where?: PlatformScreenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreens to fetch.
+     */
+    orderBy?: PlatformScreenOrderByWithRelationInput | PlatformScreenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformScreens.
+     */
+    cursor?: PlatformScreenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformScreens.
+     */
+    distinct?: PlatformScreenScalarFieldEnum | PlatformScreenScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreen findFirstOrThrow
+   */
+  export type PlatformScreenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreen to fetch.
+     */
+    where?: PlatformScreenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreens to fetch.
+     */
+    orderBy?: PlatformScreenOrderByWithRelationInput | PlatformScreenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlatformScreens.
+     */
+    cursor?: PlatformScreenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlatformScreens.
+     */
+    distinct?: PlatformScreenScalarFieldEnum | PlatformScreenScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreen findMany
+   */
+  export type PlatformScreenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter, which PlatformScreens to fetch.
+     */
+    where?: PlatformScreenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlatformScreens to fetch.
+     */
+    orderBy?: PlatformScreenOrderByWithRelationInput | PlatformScreenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlatformScreens.
+     */
+    cursor?: PlatformScreenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlatformScreens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlatformScreens.
+     */
+    skip?: number
+    distinct?: PlatformScreenScalarFieldEnum | PlatformScreenScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreen create
+   */
+  export type PlatformScreenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlatformScreen.
+     */
+    data: XOR<PlatformScreenCreateInput, PlatformScreenUncheckedCreateInput>
+  }
+
+  /**
+   * PlatformScreen createMany
+   */
+  export type PlatformScreenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlatformScreens.
+     */
+    data: PlatformScreenCreateManyInput | PlatformScreenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlatformScreen createManyAndReturn
+   */
+  export type PlatformScreenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PlatformScreens.
+     */
+    data: PlatformScreenCreateManyInput | PlatformScreenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlatformScreen update
+   */
+  export type PlatformScreenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlatformScreen.
+     */
+    data: XOR<PlatformScreenUpdateInput, PlatformScreenUncheckedUpdateInput>
+    /**
+     * Choose, which PlatformScreen to update.
+     */
+    where: PlatformScreenWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreen updateMany
+   */
+  export type PlatformScreenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlatformScreens.
+     */
+    data: XOR<PlatformScreenUpdateManyMutationInput, PlatformScreenUncheckedUpdateManyInput>
+    /**
+     * Filter which PlatformScreens to update
+     */
+    where?: PlatformScreenWhereInput
+  }
+
+  /**
+   * PlatformScreen upsert
+   */
+  export type PlatformScreenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlatformScreen to update in case it exists.
+     */
+    where: PlatformScreenWhereUniqueInput
+    /**
+     * In case the PlatformScreen found by the `where` argument doesn't exist, create a new PlatformScreen with this data.
+     */
+    create: XOR<PlatformScreenCreateInput, PlatformScreenUncheckedCreateInput>
+    /**
+     * In case the PlatformScreen was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlatformScreenUpdateInput, PlatformScreenUncheckedUpdateInput>
+  }
+
+  /**
+   * PlatformScreen delete
+   */
+  export type PlatformScreenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+    /**
+     * Filter which PlatformScreen to delete.
+     */
+    where: PlatformScreenWhereUniqueInput
+  }
+
+  /**
+   * PlatformScreen deleteMany
+   */
+  export type PlatformScreenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlatformScreens to delete
+     */
+    where?: PlatformScreenWhereInput
+  }
+
+  /**
+   * PlatformScreen.functions
+   */
+  export type PlatformScreen$functionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    where?: ScreenFunctionalityWhereInput
+    orderBy?: ScreenFunctionalityOrderByWithRelationInput | ScreenFunctionalityOrderByWithRelationInput[]
+    cursor?: ScreenFunctionalityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScreenFunctionalityScalarFieldEnum | ScreenFunctionalityScalarFieldEnum[]
+  }
+
+  /**
+   * PlatformScreen without action
+   */
+  export type PlatformScreenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlatformScreen
+     */
+    select?: PlatformScreenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformScreenInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ScreenFunctionality
+   */
+
+  export type AggregateScreenFunctionality = {
+    _count: ScreenFunctionalityCountAggregateOutputType | null
+    _min: ScreenFunctionalityMinAggregateOutputType | null
+    _max: ScreenFunctionalityMaxAggregateOutputType | null
+  }
+
+  export type ScreenFunctionalityMinAggregateOutputType = {
+    id: string | null
+    screenId: string | null
+    title: string | null
+    isCore: boolean | null
+    status: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScreenFunctionalityMaxAggregateOutputType = {
+    id: string | null
+    screenId: string | null
+    title: string | null
+    isCore: boolean | null
+    status: string | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScreenFunctionalityCountAggregateOutputType = {
+    id: number
+    screenId: number
+    title: number
+    isCore: number
+    status: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ScreenFunctionalityMinAggregateInputType = {
+    id?: true
+    screenId?: true
+    title?: true
+    isCore?: true
+    status?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScreenFunctionalityMaxAggregateInputType = {
+    id?: true
+    screenId?: true
+    title?: true
+    isCore?: true
+    status?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScreenFunctionalityCountAggregateInputType = {
+    id?: true
+    screenId?: true
+    title?: true
+    isCore?: true
+    status?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ScreenFunctionalityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScreenFunctionality to aggregate.
+     */
+    where?: ScreenFunctionalityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenFunctionalities to fetch.
+     */
+    orderBy?: ScreenFunctionalityOrderByWithRelationInput | ScreenFunctionalityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ScreenFunctionalityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenFunctionalities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenFunctionalities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ScreenFunctionalities
+    **/
+    _count?: true | ScreenFunctionalityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ScreenFunctionalityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ScreenFunctionalityMaxAggregateInputType
+  }
+
+  export type GetScreenFunctionalityAggregateType<T extends ScreenFunctionalityAggregateArgs> = {
+        [P in keyof T & keyof AggregateScreenFunctionality]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateScreenFunctionality[P]>
+      : GetScalarType<T[P], AggregateScreenFunctionality[P]>
+  }
+
+
+
+
+  export type ScreenFunctionalityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScreenFunctionalityWhereInput
+    orderBy?: ScreenFunctionalityOrderByWithAggregationInput | ScreenFunctionalityOrderByWithAggregationInput[]
+    by: ScreenFunctionalityScalarFieldEnum[] | ScreenFunctionalityScalarFieldEnum
+    having?: ScreenFunctionalityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ScreenFunctionalityCountAggregateInputType | true
+    _min?: ScreenFunctionalityMinAggregateInputType
+    _max?: ScreenFunctionalityMaxAggregateInputType
+  }
+
+  export type ScreenFunctionalityGroupByOutputType = {
+    id: string
+    screenId: string
+    title: string
+    isCore: boolean
+    status: string
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ScreenFunctionalityCountAggregateOutputType | null
+    _min: ScreenFunctionalityMinAggregateOutputType | null
+    _max: ScreenFunctionalityMaxAggregateOutputType | null
+  }
+
+  type GetScreenFunctionalityGroupByPayload<T extends ScreenFunctionalityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ScreenFunctionalityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ScreenFunctionalityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ScreenFunctionalityGroupByOutputType[P]>
+            : GetScalarType<T[P], ScreenFunctionalityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ScreenFunctionalitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenId?: boolean
+    title?: boolean
+    isCore?: boolean
+    status?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screenFunctionality"]>
+
+  export type ScreenFunctionalitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    screenId?: boolean
+    title?: boolean
+    isCore?: boolean
+    status?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["screenFunctionality"]>
+
+  export type ScreenFunctionalitySelectScalar = {
+    id?: boolean
+    screenId?: boolean
+    title?: boolean
+    isCore?: boolean
+    status?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ScreenFunctionalityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+  }
+  export type ScreenFunctionalityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    screen?: boolean | PlatformScreenDefaultArgs<ExtArgs>
+  }
+
+  export type $ScreenFunctionalityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ScreenFunctionality"
+    objects: {
+      screen: Prisma.$PlatformScreenPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      screenId: string
+      title: string
+      isCore: boolean
+      status: string
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["screenFunctionality"]>
+    composites: {}
+  }
+
+  type ScreenFunctionalityGetPayload<S extends boolean | null | undefined | ScreenFunctionalityDefaultArgs> = $Result.GetResult<Prisma.$ScreenFunctionalityPayload, S>
+
+  type ScreenFunctionalityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ScreenFunctionalityFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ScreenFunctionalityCountAggregateInputType | true
+    }
+
+  export interface ScreenFunctionalityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ScreenFunctionality'], meta: { name: 'ScreenFunctionality' } }
+    /**
+     * Find zero or one ScreenFunctionality that matches the filter.
+     * @param {ScreenFunctionalityFindUniqueArgs} args - Arguments to find a ScreenFunctionality
+     * @example
+     * // Get one ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ScreenFunctionalityFindUniqueArgs>(args: SelectSubset<T, ScreenFunctionalityFindUniqueArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ScreenFunctionality that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ScreenFunctionalityFindUniqueOrThrowArgs} args - Arguments to find a ScreenFunctionality
+     * @example
+     * // Get one ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ScreenFunctionalityFindUniqueOrThrowArgs>(args: SelectSubset<T, ScreenFunctionalityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ScreenFunctionality that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityFindFirstArgs} args - Arguments to find a ScreenFunctionality
+     * @example
+     * // Get one ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ScreenFunctionalityFindFirstArgs>(args?: SelectSubset<T, ScreenFunctionalityFindFirstArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ScreenFunctionality that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityFindFirstOrThrowArgs} args - Arguments to find a ScreenFunctionality
+     * @example
+     * // Get one ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ScreenFunctionalityFindFirstOrThrowArgs>(args?: SelectSubset<T, ScreenFunctionalityFindFirstOrThrowArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ScreenFunctionalities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ScreenFunctionalities
+     * const screenFunctionalities = await prisma.screenFunctionality.findMany()
+     * 
+     * // Get first 10 ScreenFunctionalities
+     * const screenFunctionalities = await prisma.screenFunctionality.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const screenFunctionalityWithIdOnly = await prisma.screenFunctionality.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ScreenFunctionalityFindManyArgs>(args?: SelectSubset<T, ScreenFunctionalityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ScreenFunctionality.
+     * @param {ScreenFunctionalityCreateArgs} args - Arguments to create a ScreenFunctionality.
+     * @example
+     * // Create one ScreenFunctionality
+     * const ScreenFunctionality = await prisma.screenFunctionality.create({
+     *   data: {
+     *     // ... data to create a ScreenFunctionality
+     *   }
+     * })
+     * 
+     */
+    create<T extends ScreenFunctionalityCreateArgs>(args: SelectSubset<T, ScreenFunctionalityCreateArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ScreenFunctionalities.
+     * @param {ScreenFunctionalityCreateManyArgs} args - Arguments to create many ScreenFunctionalities.
+     * @example
+     * // Create many ScreenFunctionalities
+     * const screenFunctionality = await prisma.screenFunctionality.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ScreenFunctionalityCreateManyArgs>(args?: SelectSubset<T, ScreenFunctionalityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ScreenFunctionalities and returns the data saved in the database.
+     * @param {ScreenFunctionalityCreateManyAndReturnArgs} args - Arguments to create many ScreenFunctionalities.
+     * @example
+     * // Create many ScreenFunctionalities
+     * const screenFunctionality = await prisma.screenFunctionality.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ScreenFunctionalities and only return the `id`
+     * const screenFunctionalityWithIdOnly = await prisma.screenFunctionality.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ScreenFunctionalityCreateManyAndReturnArgs>(args?: SelectSubset<T, ScreenFunctionalityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ScreenFunctionality.
+     * @param {ScreenFunctionalityDeleteArgs} args - Arguments to delete one ScreenFunctionality.
+     * @example
+     * // Delete one ScreenFunctionality
+     * const ScreenFunctionality = await prisma.screenFunctionality.delete({
+     *   where: {
+     *     // ... filter to delete one ScreenFunctionality
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ScreenFunctionalityDeleteArgs>(args: SelectSubset<T, ScreenFunctionalityDeleteArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ScreenFunctionality.
+     * @param {ScreenFunctionalityUpdateArgs} args - Arguments to update one ScreenFunctionality.
+     * @example
+     * // Update one ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ScreenFunctionalityUpdateArgs>(args: SelectSubset<T, ScreenFunctionalityUpdateArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ScreenFunctionalities.
+     * @param {ScreenFunctionalityDeleteManyArgs} args - Arguments to filter ScreenFunctionalities to delete.
+     * @example
+     * // Delete a few ScreenFunctionalities
+     * const { count } = await prisma.screenFunctionality.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ScreenFunctionalityDeleteManyArgs>(args?: SelectSubset<T, ScreenFunctionalityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ScreenFunctionalities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ScreenFunctionalities
+     * const screenFunctionality = await prisma.screenFunctionality.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ScreenFunctionalityUpdateManyArgs>(args: SelectSubset<T, ScreenFunctionalityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ScreenFunctionality.
+     * @param {ScreenFunctionalityUpsertArgs} args - Arguments to update or create a ScreenFunctionality.
+     * @example
+     * // Update or create a ScreenFunctionality
+     * const screenFunctionality = await prisma.screenFunctionality.upsert({
+     *   create: {
+     *     // ... data to create a ScreenFunctionality
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ScreenFunctionality we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ScreenFunctionalityUpsertArgs>(args: SelectSubset<T, ScreenFunctionalityUpsertArgs<ExtArgs>>): Prisma__ScreenFunctionalityClient<$Result.GetResult<Prisma.$ScreenFunctionalityPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ScreenFunctionalities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityCountArgs} args - Arguments to filter ScreenFunctionalities to count.
+     * @example
+     * // Count the number of ScreenFunctionalities
+     * const count = await prisma.screenFunctionality.count({
+     *   where: {
+     *     // ... the filter for the ScreenFunctionalities we want to count
+     *   }
+     * })
+    **/
+    count<T extends ScreenFunctionalityCountArgs>(
+      args?: Subset<T, ScreenFunctionalityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ScreenFunctionalityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ScreenFunctionality.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ScreenFunctionalityAggregateArgs>(args: Subset<T, ScreenFunctionalityAggregateArgs>): Prisma.PrismaPromise<GetScreenFunctionalityAggregateType<T>>
+
+    /**
+     * Group by ScreenFunctionality.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScreenFunctionalityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ScreenFunctionalityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ScreenFunctionalityGroupByArgs['orderBy'] }
+        : { orderBy?: ScreenFunctionalityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ScreenFunctionalityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScreenFunctionalityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ScreenFunctionality model
+   */
+  readonly fields: ScreenFunctionalityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ScreenFunctionality.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ScreenFunctionalityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    screen<T extends PlatformScreenDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlatformScreenDefaultArgs<ExtArgs>>): Prisma__PlatformScreenClient<$Result.GetResult<Prisma.$PlatformScreenPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ScreenFunctionality model
+   */ 
+  interface ScreenFunctionalityFieldRefs {
+    readonly id: FieldRef<"ScreenFunctionality", 'String'>
+    readonly screenId: FieldRef<"ScreenFunctionality", 'String'>
+    readonly title: FieldRef<"ScreenFunctionality", 'String'>
+    readonly isCore: FieldRef<"ScreenFunctionality", 'Boolean'>
+    readonly status: FieldRef<"ScreenFunctionality", 'String'>
+    readonly notes: FieldRef<"ScreenFunctionality", 'String'>
+    readonly createdAt: FieldRef<"ScreenFunctionality", 'DateTime'>
+    readonly updatedAt: FieldRef<"ScreenFunctionality", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ScreenFunctionality findUnique
+   */
+  export type ScreenFunctionalityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter, which ScreenFunctionality to fetch.
+     */
+    where: ScreenFunctionalityWhereUniqueInput
+  }
+
+  /**
+   * ScreenFunctionality findUniqueOrThrow
+   */
+  export type ScreenFunctionalityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter, which ScreenFunctionality to fetch.
+     */
+    where: ScreenFunctionalityWhereUniqueInput
+  }
+
+  /**
+   * ScreenFunctionality findFirst
+   */
+  export type ScreenFunctionalityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter, which ScreenFunctionality to fetch.
+     */
+    where?: ScreenFunctionalityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenFunctionalities to fetch.
+     */
+    orderBy?: ScreenFunctionalityOrderByWithRelationInput | ScreenFunctionalityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScreenFunctionalities.
+     */
+    cursor?: ScreenFunctionalityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenFunctionalities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenFunctionalities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScreenFunctionalities.
+     */
+    distinct?: ScreenFunctionalityScalarFieldEnum | ScreenFunctionalityScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenFunctionality findFirstOrThrow
+   */
+  export type ScreenFunctionalityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter, which ScreenFunctionality to fetch.
+     */
+    where?: ScreenFunctionalityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenFunctionalities to fetch.
+     */
+    orderBy?: ScreenFunctionalityOrderByWithRelationInput | ScreenFunctionalityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ScreenFunctionalities.
+     */
+    cursor?: ScreenFunctionalityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenFunctionalities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenFunctionalities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ScreenFunctionalities.
+     */
+    distinct?: ScreenFunctionalityScalarFieldEnum | ScreenFunctionalityScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenFunctionality findMany
+   */
+  export type ScreenFunctionalityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter, which ScreenFunctionalities to fetch.
+     */
+    where?: ScreenFunctionalityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ScreenFunctionalities to fetch.
+     */
+    orderBy?: ScreenFunctionalityOrderByWithRelationInput | ScreenFunctionalityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ScreenFunctionalities.
+     */
+    cursor?: ScreenFunctionalityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ScreenFunctionalities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ScreenFunctionalities.
+     */
+    skip?: number
+    distinct?: ScreenFunctionalityScalarFieldEnum | ScreenFunctionalityScalarFieldEnum[]
+  }
+
+  /**
+   * ScreenFunctionality create
+   */
+  export type ScreenFunctionalityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ScreenFunctionality.
+     */
+    data: XOR<ScreenFunctionalityCreateInput, ScreenFunctionalityUncheckedCreateInput>
+  }
+
+  /**
+   * ScreenFunctionality createMany
+   */
+  export type ScreenFunctionalityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ScreenFunctionalities.
+     */
+    data: ScreenFunctionalityCreateManyInput | ScreenFunctionalityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ScreenFunctionality createManyAndReturn
+   */
+  export type ScreenFunctionalityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ScreenFunctionalities.
+     */
+    data: ScreenFunctionalityCreateManyInput | ScreenFunctionalityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ScreenFunctionality update
+   */
+  export type ScreenFunctionalityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ScreenFunctionality.
+     */
+    data: XOR<ScreenFunctionalityUpdateInput, ScreenFunctionalityUncheckedUpdateInput>
+    /**
+     * Choose, which ScreenFunctionality to update.
+     */
+    where: ScreenFunctionalityWhereUniqueInput
+  }
+
+  /**
+   * ScreenFunctionality updateMany
+   */
+  export type ScreenFunctionalityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ScreenFunctionalities.
+     */
+    data: XOR<ScreenFunctionalityUpdateManyMutationInput, ScreenFunctionalityUncheckedUpdateManyInput>
+    /**
+     * Filter which ScreenFunctionalities to update
+     */
+    where?: ScreenFunctionalityWhereInput
+  }
+
+  /**
+   * ScreenFunctionality upsert
+   */
+  export type ScreenFunctionalityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ScreenFunctionality to update in case it exists.
+     */
+    where: ScreenFunctionalityWhereUniqueInput
+    /**
+     * In case the ScreenFunctionality found by the `where` argument doesn't exist, create a new ScreenFunctionality with this data.
+     */
+    create: XOR<ScreenFunctionalityCreateInput, ScreenFunctionalityUncheckedCreateInput>
+    /**
+     * In case the ScreenFunctionality was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ScreenFunctionalityUpdateInput, ScreenFunctionalityUncheckedUpdateInput>
+  }
+
+  /**
+   * ScreenFunctionality delete
+   */
+  export type ScreenFunctionalityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+    /**
+     * Filter which ScreenFunctionality to delete.
+     */
+    where: ScreenFunctionalityWhereUniqueInput
+  }
+
+  /**
+   * ScreenFunctionality deleteMany
+   */
+  export type ScreenFunctionalityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ScreenFunctionalities to delete
+     */
+    where?: ScreenFunctionalityWhereInput
+  }
+
+  /**
+   * ScreenFunctionality without action
+   */
+  export type ScreenFunctionalityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScreenFunctionality
+     */
+    select?: ScreenFunctionalitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScreenFunctionalityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -134345,6 +136533,33 @@ export namespace Prisma {
   export type DailyActivityScalarFieldEnum = (typeof DailyActivityScalarFieldEnum)[keyof typeof DailyActivityScalarFieldEnum]
 
 
+  export const PlatformScreenScalarFieldEnum: {
+    id: 'id',
+    roleId: 'roleId',
+    name: 'name',
+    route: 'route',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PlatformScreenScalarFieldEnum = (typeof PlatformScreenScalarFieldEnum)[keyof typeof PlatformScreenScalarFieldEnum]
+
+
+  export const ScreenFunctionalityScalarFieldEnum: {
+    id: 'id',
+    screenId: 'screenId',
+    title: 'title',
+    isCore: 'isCore',
+    status: 'status',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ScreenFunctionalityScalarFieldEnum = (typeof ScreenFunctionalityScalarFieldEnum)[keyof typeof ScreenFunctionalityScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -136105,6 +138320,7 @@ export namespace Prisma {
     tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     screenAccess?: RoleScreenAccessListRelationFilter
     resolutions?: ProtocolResolutionListRelationFilter
+    screens?: PlatformScreenListRelationFilter
   }
 
   export type PlatformRoleOrderByWithRelationInput = {
@@ -136118,6 +138334,7 @@ export namespace Prisma {
     tenant?: TenantOrderByWithRelationInput
     screenAccess?: RoleScreenAccessOrderByRelationAggregateInput
     resolutions?: ProtocolResolutionOrderByRelationAggregateInput
+    screens?: PlatformScreenOrderByRelationAggregateInput
   }
 
   export type PlatformRoleWhereUniqueInput = Prisma.AtLeast<{
@@ -136134,6 +138351,7 @@ export namespace Prisma {
     tenant?: XOR<TenantNullableRelationFilter, TenantWhereInput> | null
     screenAccess?: RoleScreenAccessListRelationFilter
     resolutions?: ProtocolResolutionListRelationFilter
+    screens?: PlatformScreenListRelationFilter
   }, "id" | "name">
 
   export type PlatformRoleOrderByWithAggregationInput = {
@@ -144271,6 +146489,144 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"DailyActivity"> | Date | string
   }
 
+  export type PlatformScreenWhereInput = {
+    AND?: PlatformScreenWhereInput | PlatformScreenWhereInput[]
+    OR?: PlatformScreenWhereInput[]
+    NOT?: PlatformScreenWhereInput | PlatformScreenWhereInput[]
+    id?: StringFilter<"PlatformScreen"> | string
+    roleId?: StringFilter<"PlatformScreen"> | string
+    name?: StringFilter<"PlatformScreen"> | string
+    route?: StringFilter<"PlatformScreen"> | string
+    status?: StringFilter<"PlatformScreen"> | string
+    createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+    role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
+    functions?: ScreenFunctionalityListRelationFilter
+  }
+
+  export type PlatformScreenOrderByWithRelationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    name?: SortOrder
+    route?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    role?: PlatformRoleOrderByWithRelationInput
+    functions?: ScreenFunctionalityOrderByRelationAggregateInput
+  }
+
+  export type PlatformScreenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlatformScreenWhereInput | PlatformScreenWhereInput[]
+    OR?: PlatformScreenWhereInput[]
+    NOT?: PlatformScreenWhereInput | PlatformScreenWhereInput[]
+    roleId?: StringFilter<"PlatformScreen"> | string
+    name?: StringFilter<"PlatformScreen"> | string
+    route?: StringFilter<"PlatformScreen"> | string
+    status?: StringFilter<"PlatformScreen"> | string
+    createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+    role?: XOR<PlatformRoleRelationFilter, PlatformRoleWhereInput>
+    functions?: ScreenFunctionalityListRelationFilter
+  }, "id">
+
+  export type PlatformScreenOrderByWithAggregationInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    name?: SortOrder
+    route?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PlatformScreenCountOrderByAggregateInput
+    _max?: PlatformScreenMaxOrderByAggregateInput
+    _min?: PlatformScreenMinOrderByAggregateInput
+  }
+
+  export type PlatformScreenScalarWhereWithAggregatesInput = {
+    AND?: PlatformScreenScalarWhereWithAggregatesInput | PlatformScreenScalarWhereWithAggregatesInput[]
+    OR?: PlatformScreenScalarWhereWithAggregatesInput[]
+    NOT?: PlatformScreenScalarWhereWithAggregatesInput | PlatformScreenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    roleId?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    name?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    route?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    status?: StringWithAggregatesFilter<"PlatformScreen"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PlatformScreen"> | Date | string
+  }
+
+  export type ScreenFunctionalityWhereInput = {
+    AND?: ScreenFunctionalityWhereInput | ScreenFunctionalityWhereInput[]
+    OR?: ScreenFunctionalityWhereInput[]
+    NOT?: ScreenFunctionalityWhereInput | ScreenFunctionalityWhereInput[]
+    id?: StringFilter<"ScreenFunctionality"> | string
+    screenId?: StringFilter<"ScreenFunctionality"> | string
+    title?: StringFilter<"ScreenFunctionality"> | string
+    isCore?: BoolFilter<"ScreenFunctionality"> | boolean
+    status?: StringFilter<"ScreenFunctionality"> | string
+    notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+    updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+    screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
+  }
+
+  export type ScreenFunctionalityOrderByWithRelationInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    title?: SortOrder
+    isCore?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    screen?: PlatformScreenOrderByWithRelationInput
+  }
+
+  export type ScreenFunctionalityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ScreenFunctionalityWhereInput | ScreenFunctionalityWhereInput[]
+    OR?: ScreenFunctionalityWhereInput[]
+    NOT?: ScreenFunctionalityWhereInput | ScreenFunctionalityWhereInput[]
+    screenId?: StringFilter<"ScreenFunctionality"> | string
+    title?: StringFilter<"ScreenFunctionality"> | string
+    isCore?: BoolFilter<"ScreenFunctionality"> | boolean
+    status?: StringFilter<"ScreenFunctionality"> | string
+    notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+    updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+    screen?: XOR<PlatformScreenRelationFilter, PlatformScreenWhereInput>
+  }, "id">
+
+  export type ScreenFunctionalityOrderByWithAggregationInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    title?: SortOrder
+    isCore?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ScreenFunctionalityCountOrderByAggregateInput
+    _max?: ScreenFunctionalityMaxOrderByAggregateInput
+    _min?: ScreenFunctionalityMinOrderByAggregateInput
+  }
+
+  export type ScreenFunctionalityScalarWhereWithAggregatesInput = {
+    AND?: ScreenFunctionalityScalarWhereWithAggregatesInput | ScreenFunctionalityScalarWhereWithAggregatesInput[]
+    OR?: ScreenFunctionalityScalarWhereWithAggregatesInput[]
+    NOT?: ScreenFunctionalityScalarWhereWithAggregatesInput | ScreenFunctionalityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
+    screenId?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
+    title?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
+    isCore?: BoolWithAggregatesFilter<"ScreenFunctionality"> | boolean
+    status?: StringWithAggregatesFilter<"ScreenFunctionality"> | string
+    notes?: StringNullableWithAggregatesFilter<"ScreenFunctionality"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ScreenFunctionality"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ScreenFunctionality"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -146158,6 +148514,7 @@ export namespace Prisma {
     tenant?: TenantCreateNestedOneWithoutPlatformRolesInput
     screenAccess?: RoleScreenAccessCreateNestedManyWithoutRoleInput
     resolutions?: ProtocolResolutionCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleUncheckedCreateInput = {
@@ -146170,6 +148527,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     screenAccess?: RoleScreenAccessUncheckedCreateNestedManyWithoutRoleInput
     resolutions?: ProtocolResolutionUncheckedCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleUpdateInput = {
@@ -146182,6 +148540,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneWithoutPlatformRolesNestedInput
     screenAccess?: RoleScreenAccessUpdateManyWithoutRoleNestedInput
     resolutions?: ProtocolResolutionUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleUncheckedUpdateInput = {
@@ -146194,6 +148553,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screenAccess?: RoleScreenAccessUncheckedUpdateManyWithoutRoleNestedInput
     resolutions?: ProtocolResolutionUncheckedUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleCreateManyInput = {
@@ -154869,6 +157229,155 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlatformScreenCreateInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: PlatformRoleCreateNestedOneWithoutScreensInput
+    functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenUncheckedCreateInput = {
+    id?: string
+    roleId: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
+    functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
+  }
+
+  export type PlatformScreenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
+  }
+
+  export type PlatformScreenCreateManyInput = {
+    id?: string
+    roleId: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlatformScreenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenFunctionalityCreateInput = {
+    id?: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screen: PlatformScreenCreateNestedOneWithoutFunctionsInput
+  }
+
+  export type ScreenFunctionalityUncheckedCreateInput = {
+    id?: string
+    screenId: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screen?: PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenFunctionalityCreateManyInput = {
+    id?: string
+    screenId: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    screenId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -156709,11 +159218,21 @@ export namespace Prisma {
     none?: ProtocolResolutionWhereInput
   }
 
+  export type PlatformScreenListRelationFilter = {
+    every?: PlatformScreenWhereInput
+    some?: PlatformScreenWhereInput
+    none?: PlatformScreenWhereInput
+  }
+
   export type RoleScreenAccessOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ProtocolResolutionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlatformScreenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -161280,6 +163799,84 @@ export namespace Prisma {
     description?: SortOrder
     status?: SortOrder
     dueDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenFunctionalityListRelationFilter = {
+    every?: ScreenFunctionalityWhereInput
+    some?: ScreenFunctionalityWhereInput
+    none?: ScreenFunctionalityWhereInput
+  }
+
+  export type ScreenFunctionalityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlatformScreenCountOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    name?: SortOrder
+    route?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    name?: SortOrder
+    route?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenMinOrderByAggregateInput = {
+    id?: SortOrder
+    roleId?: SortOrder
+    name?: SortOrder
+    route?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlatformScreenRelationFilter = {
+    is?: PlatformScreenWhereInput
+    isNot?: PlatformScreenWhereInput
+  }
+
+  export type ScreenFunctionalityCountOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    title?: SortOrder
+    isCore?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenFunctionalityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    title?: SortOrder
+    isCore?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScreenFunctionalityMinOrderByAggregateInput = {
+    id?: SortOrder
+    screenId?: SortOrder
+    title?: SortOrder
+    isCore?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -166200,6 +168797,13 @@ export namespace Prisma {
     connect?: ProtocolResolutionWhereUniqueInput | ProtocolResolutionWhereUniqueInput[]
   }
 
+  export type PlatformScreenCreateNestedManyWithoutRoleInput = {
+    create?: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput> | PlatformScreenCreateWithoutRoleInput[] | PlatformScreenUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutRoleInput | PlatformScreenCreateOrConnectWithoutRoleInput[]
+    createMany?: PlatformScreenCreateManyRoleInputEnvelope
+    connect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+  }
+
   export type RoleScreenAccessUncheckedCreateNestedManyWithoutRoleInput = {
     create?: XOR<RoleScreenAccessCreateWithoutRoleInput, RoleScreenAccessUncheckedCreateWithoutRoleInput> | RoleScreenAccessCreateWithoutRoleInput[] | RoleScreenAccessUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: RoleScreenAccessCreateOrConnectWithoutRoleInput | RoleScreenAccessCreateOrConnectWithoutRoleInput[]
@@ -166212,6 +168816,13 @@ export namespace Prisma {
     connectOrCreate?: ProtocolResolutionCreateOrConnectWithoutEscalateToRoleInput | ProtocolResolutionCreateOrConnectWithoutEscalateToRoleInput[]
     createMany?: ProtocolResolutionCreateManyEscalateToRoleInputEnvelope
     connect?: ProtocolResolutionWhereUniqueInput | ProtocolResolutionWhereUniqueInput[]
+  }
+
+  export type PlatformScreenUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput> | PlatformScreenCreateWithoutRoleInput[] | PlatformScreenUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutRoleInput | PlatformScreenCreateOrConnectWithoutRoleInput[]
+    createMany?: PlatformScreenCreateManyRoleInputEnvelope
+    connect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
   }
 
   export type TenantUpdateOneWithoutPlatformRolesNestedInput = {
@@ -166252,6 +168863,20 @@ export namespace Prisma {
     deleteMany?: ProtocolResolutionScalarWhereInput | ProtocolResolutionScalarWhereInput[]
   }
 
+  export type PlatformScreenUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput> | PlatformScreenCreateWithoutRoleInput[] | PlatformScreenUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutRoleInput | PlatformScreenCreateOrConnectWithoutRoleInput[]
+    upsert?: PlatformScreenUpsertWithWhereUniqueWithoutRoleInput | PlatformScreenUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: PlatformScreenCreateManyRoleInputEnvelope
+    set?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    disconnect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    delete?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    connect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    update?: PlatformScreenUpdateWithWhereUniqueWithoutRoleInput | PlatformScreenUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: PlatformScreenUpdateManyWithWhereWithoutRoleInput | PlatformScreenUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: PlatformScreenScalarWhereInput | PlatformScreenScalarWhereInput[]
+  }
+
   export type RoleScreenAccessUncheckedUpdateManyWithoutRoleNestedInput = {
     create?: XOR<RoleScreenAccessCreateWithoutRoleInput, RoleScreenAccessUncheckedCreateWithoutRoleInput> | RoleScreenAccessCreateWithoutRoleInput[] | RoleScreenAccessUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: RoleScreenAccessCreateOrConnectWithoutRoleInput | RoleScreenAccessCreateOrConnectWithoutRoleInput[]
@@ -166278,6 +168903,20 @@ export namespace Prisma {
     update?: ProtocolResolutionUpdateWithWhereUniqueWithoutEscalateToRoleInput | ProtocolResolutionUpdateWithWhereUniqueWithoutEscalateToRoleInput[]
     updateMany?: ProtocolResolutionUpdateManyWithWhereWithoutEscalateToRoleInput | ProtocolResolutionUpdateManyWithWhereWithoutEscalateToRoleInput[]
     deleteMany?: ProtocolResolutionScalarWhereInput | ProtocolResolutionScalarWhereInput[]
+  }
+
+  export type PlatformScreenUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput> | PlatformScreenCreateWithoutRoleInput[] | PlatformScreenUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutRoleInput | PlatformScreenCreateOrConnectWithoutRoleInput[]
+    upsert?: PlatformScreenUpsertWithWhereUniqueWithoutRoleInput | PlatformScreenUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: PlatformScreenCreateManyRoleInputEnvelope
+    set?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    disconnect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    delete?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    connect?: PlatformScreenWhereUniqueInput | PlatformScreenWhereUniqueInput[]
+    update?: PlatformScreenUpdateWithWhereUniqueWithoutRoleInput | PlatformScreenUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: PlatformScreenUpdateManyWithWhereWithoutRoleInput | PlatformScreenUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: PlatformScreenScalarWhereInput | PlatformScreenScalarWhereInput[]
   }
 
   export type PlatformRoleCreateNestedOneWithoutScreenAccessInput = {
@@ -171954,6 +174593,76 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutDailyActivityInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyActivityInput, UserUpdateWithoutDailyActivityInput>, UserUncheckedUpdateWithoutDailyActivityInput>
+  }
+
+  export type PlatformRoleCreateNestedOneWithoutScreensInput = {
+    create?: XOR<PlatformRoleCreateWithoutScreensInput, PlatformRoleUncheckedCreateWithoutScreensInput>
+    connectOrCreate?: PlatformRoleCreateOrConnectWithoutScreensInput
+    connect?: PlatformRoleWhereUniqueInput
+  }
+
+  export type ScreenFunctionalityCreateNestedManyWithoutScreenInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
+    createMany?: ScreenFunctionalityCreateManyScreenInputEnvelope
+    connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+  }
+
+  export type ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
+    createMany?: ScreenFunctionalityCreateManyScreenInputEnvelope
+    connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+  }
+
+  export type PlatformRoleUpdateOneRequiredWithoutScreensNestedInput = {
+    create?: XOR<PlatformRoleCreateWithoutScreensInput, PlatformRoleUncheckedCreateWithoutScreensInput>
+    connectOrCreate?: PlatformRoleCreateOrConnectWithoutScreensInput
+    upsert?: PlatformRoleUpsertWithoutScreensInput
+    connect?: PlatformRoleWhereUniqueInput
+    update?: XOR<XOR<PlatformRoleUpdateToOneWithWhereWithoutScreensInput, PlatformRoleUpdateWithoutScreensInput>, PlatformRoleUncheckedUpdateWithoutScreensInput>
+  }
+
+  export type ScreenFunctionalityUpdateManyWithoutScreenNestedInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
+    upsert?: ScreenFunctionalityUpsertWithWhereUniqueWithoutScreenInput | ScreenFunctionalityUpsertWithWhereUniqueWithoutScreenInput[]
+    createMany?: ScreenFunctionalityCreateManyScreenInputEnvelope
+    set?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    disconnect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    delete?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    update?: ScreenFunctionalityUpdateWithWhereUniqueWithoutScreenInput | ScreenFunctionalityUpdateWithWhereUniqueWithoutScreenInput[]
+    updateMany?: ScreenFunctionalityUpdateManyWithWhereWithoutScreenInput | ScreenFunctionalityUpdateManyWithWhereWithoutScreenInput[]
+    deleteMany?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput = {
+    create?: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput> | ScreenFunctionalityCreateWithoutScreenInput[] | ScreenFunctionalityUncheckedCreateWithoutScreenInput[]
+    connectOrCreate?: ScreenFunctionalityCreateOrConnectWithoutScreenInput | ScreenFunctionalityCreateOrConnectWithoutScreenInput[]
+    upsert?: ScreenFunctionalityUpsertWithWhereUniqueWithoutScreenInput | ScreenFunctionalityUpsertWithWhereUniqueWithoutScreenInput[]
+    createMany?: ScreenFunctionalityCreateManyScreenInputEnvelope
+    set?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    disconnect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    delete?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    connect?: ScreenFunctionalityWhereUniqueInput | ScreenFunctionalityWhereUniqueInput[]
+    update?: ScreenFunctionalityUpdateWithWhereUniqueWithoutScreenInput | ScreenFunctionalityUpdateWithWhereUniqueWithoutScreenInput[]
+    updateMany?: ScreenFunctionalityUpdateManyWithWhereWithoutScreenInput | ScreenFunctionalityUpdateManyWithWhereWithoutScreenInput[]
+    deleteMany?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
+  }
+
+  export type PlatformScreenCreateNestedOneWithoutFunctionsInput = {
+    create?: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutFunctionsInput
+    connect?: PlatformScreenWhereUniqueInput
+  }
+
+  export type PlatformScreenUpdateOneRequiredWithoutFunctionsNestedInput = {
+    create?: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
+    connectOrCreate?: PlatformScreenCreateOrConnectWithoutFunctionsInput
+    upsert?: PlatformScreenUpsertWithoutFunctionsInput
+    connect?: PlatformScreenWhereUniqueInput
+    update?: XOR<XOR<PlatformScreenUpdateToOneWithWhereWithoutFunctionsInput, PlatformScreenUpdateWithoutFunctionsInput>, PlatformScreenUncheckedUpdateWithoutFunctionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -178263,6 +180972,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     screenAccess?: RoleScreenAccessCreateNestedManyWithoutRoleInput
     resolutions?: ProtocolResolutionCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleUncheckedCreateWithoutTenantInput = {
@@ -178274,6 +180984,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     screenAccess?: RoleScreenAccessUncheckedCreateNestedManyWithoutRoleInput
     resolutions?: ProtocolResolutionUncheckedCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleCreateOrConnectWithoutTenantInput = {
@@ -185294,6 +188005,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PlatformScreenCreateWithoutRoleInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    functions?: ScreenFunctionalityCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenUncheckedCreateWithoutRoleInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    functions?: ScreenFunctionalityUncheckedCreateNestedManyWithoutScreenInput
+  }
+
+  export type PlatformScreenCreateOrConnectWithoutRoleInput = {
+    where: PlatformScreenWhereUniqueInput
+    create: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput>
+  }
+
+  export type PlatformScreenCreateManyRoleInputEnvelope = {
+    data: PlatformScreenCreateManyRoleInput | PlatformScreenCreateManyRoleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutPlatformRolesInput = {
     update: XOR<TenantUpdateWithoutPlatformRolesInput, TenantUncheckedUpdateWithoutPlatformRolesInput>
     create: XOR<TenantCreateWithoutPlatformRolesInput, TenantUncheckedCreateWithoutPlatformRolesInput>
@@ -185568,6 +188309,35 @@ export namespace Prisma {
     orderIndex?: IntFilter<"ProtocolResolution"> | number
   }
 
+  export type PlatformScreenUpsertWithWhereUniqueWithoutRoleInput = {
+    where: PlatformScreenWhereUniqueInput
+    update: XOR<PlatformScreenUpdateWithoutRoleInput, PlatformScreenUncheckedUpdateWithoutRoleInput>
+    create: XOR<PlatformScreenCreateWithoutRoleInput, PlatformScreenUncheckedCreateWithoutRoleInput>
+  }
+
+  export type PlatformScreenUpdateWithWhereUniqueWithoutRoleInput = {
+    where: PlatformScreenWhereUniqueInput
+    data: XOR<PlatformScreenUpdateWithoutRoleInput, PlatformScreenUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type PlatformScreenUpdateManyWithWhereWithoutRoleInput = {
+    where: PlatformScreenScalarWhereInput
+    data: XOR<PlatformScreenUpdateManyMutationInput, PlatformScreenUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type PlatformScreenScalarWhereInput = {
+    AND?: PlatformScreenScalarWhereInput | PlatformScreenScalarWhereInput[]
+    OR?: PlatformScreenScalarWhereInput[]
+    NOT?: PlatformScreenScalarWhereInput | PlatformScreenScalarWhereInput[]
+    id?: StringFilter<"PlatformScreen"> | string
+    roleId?: StringFilter<"PlatformScreen"> | string
+    name?: StringFilter<"PlatformScreen"> | string
+    route?: StringFilter<"PlatformScreen"> | string
+    status?: StringFilter<"PlatformScreen"> | string
+    createdAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+    updatedAt?: DateTimeFilter<"PlatformScreen"> | Date | string
+  }
+
   export type PlatformRoleCreateWithoutScreenAccessInput = {
     id?: string
     name: string
@@ -185577,6 +188347,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant?: TenantCreateNestedOneWithoutPlatformRolesInput
     resolutions?: ProtocolResolutionCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleUncheckedCreateWithoutScreenAccessInput = {
@@ -185588,6 +188359,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     resolutions?: ProtocolResolutionUncheckedCreateNestedManyWithoutEscalateToRoleInput
+    screens?: PlatformScreenUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleCreateOrConnectWithoutScreenAccessInput = {
@@ -185615,6 +188387,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneWithoutPlatformRolesNestedInput
     resolutions?: ProtocolResolutionUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleUncheckedUpdateWithoutScreenAccessInput = {
@@ -185626,6 +188399,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolutions?: ProtocolResolutionUncheckedUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type ProtocolResolutionCreateWithoutProtocolInput = {
@@ -185704,6 +188478,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant?: TenantCreateNestedOneWithoutPlatformRolesInput
     screenAccess?: RoleScreenAccessCreateNestedManyWithoutRoleInput
+    screens?: PlatformScreenCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleUncheckedCreateWithoutResolutionsInput = {
@@ -185715,6 +188490,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     screenAccess?: RoleScreenAccessUncheckedCreateNestedManyWithoutRoleInput
+    screens?: PlatformScreenUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type PlatformRoleCreateOrConnectWithoutResolutionsInput = {
@@ -185773,6 +188549,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneWithoutPlatformRolesNestedInput
     screenAccess?: RoleScreenAccessUpdateManyWithoutRoleNestedInput
+    screens?: PlatformScreenUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleUncheckedUpdateWithoutResolutionsInput = {
@@ -185784,6 +188561,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screenAccess?: RoleScreenAccessUncheckedUpdateManyWithoutRoleNestedInput
+    screens?: PlatformScreenUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type UserCreateWithoutReputationInput = {
@@ -235909,6 +238687,186 @@ export namespace Prisma {
     reputation?: UserReputationUncheckedUpdateOneWithoutUserNestedInput
   }
 
+  export type PlatformRoleCreateWithoutScreensInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isCustom?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutPlatformRolesInput
+    screenAccess?: RoleScreenAccessCreateNestedManyWithoutRoleInput
+    resolutions?: ProtocolResolutionCreateNestedManyWithoutEscalateToRoleInput
+  }
+
+  export type PlatformRoleUncheckedCreateWithoutScreensInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isCustom?: boolean
+    tenantId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    screenAccess?: RoleScreenAccessUncheckedCreateNestedManyWithoutRoleInput
+    resolutions?: ProtocolResolutionUncheckedCreateNestedManyWithoutEscalateToRoleInput
+  }
+
+  export type PlatformRoleCreateOrConnectWithoutScreensInput = {
+    where: PlatformRoleWhereUniqueInput
+    create: XOR<PlatformRoleCreateWithoutScreensInput, PlatformRoleUncheckedCreateWithoutScreensInput>
+  }
+
+  export type ScreenFunctionalityCreateWithoutScreenInput = {
+    id?: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityUncheckedCreateWithoutScreenInput = {
+    id?: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityCreateOrConnectWithoutScreenInput = {
+    where: ScreenFunctionalityWhereUniqueInput
+    create: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput>
+  }
+
+  export type ScreenFunctionalityCreateManyScreenInputEnvelope = {
+    data: ScreenFunctionalityCreateManyScreenInput | ScreenFunctionalityCreateManyScreenInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlatformRoleUpsertWithoutScreensInput = {
+    update: XOR<PlatformRoleUpdateWithoutScreensInput, PlatformRoleUncheckedUpdateWithoutScreensInput>
+    create: XOR<PlatformRoleCreateWithoutScreensInput, PlatformRoleUncheckedCreateWithoutScreensInput>
+    where?: PlatformRoleWhereInput
+  }
+
+  export type PlatformRoleUpdateToOneWithWhereWithoutScreensInput = {
+    where?: PlatformRoleWhereInput
+    data: XOR<PlatformRoleUpdateWithoutScreensInput, PlatformRoleUncheckedUpdateWithoutScreensInput>
+  }
+
+  export type PlatformRoleUpdateWithoutScreensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneWithoutPlatformRolesNestedInput
+    screenAccess?: RoleScreenAccessUpdateManyWithoutRoleNestedInput
+    resolutions?: ProtocolResolutionUpdateManyWithoutEscalateToRoleNestedInput
+  }
+
+  export type PlatformRoleUncheckedUpdateWithoutScreensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
+    tenantId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    screenAccess?: RoleScreenAccessUncheckedUpdateManyWithoutRoleNestedInput
+    resolutions?: ProtocolResolutionUncheckedUpdateManyWithoutEscalateToRoleNestedInput
+  }
+
+  export type ScreenFunctionalityUpsertWithWhereUniqueWithoutScreenInput = {
+    where: ScreenFunctionalityWhereUniqueInput
+    update: XOR<ScreenFunctionalityUpdateWithoutScreenInput, ScreenFunctionalityUncheckedUpdateWithoutScreenInput>
+    create: XOR<ScreenFunctionalityCreateWithoutScreenInput, ScreenFunctionalityUncheckedCreateWithoutScreenInput>
+  }
+
+  export type ScreenFunctionalityUpdateWithWhereUniqueWithoutScreenInput = {
+    where: ScreenFunctionalityWhereUniqueInput
+    data: XOR<ScreenFunctionalityUpdateWithoutScreenInput, ScreenFunctionalityUncheckedUpdateWithoutScreenInput>
+  }
+
+  export type ScreenFunctionalityUpdateManyWithWhereWithoutScreenInput = {
+    where: ScreenFunctionalityScalarWhereInput
+    data: XOR<ScreenFunctionalityUpdateManyMutationInput, ScreenFunctionalityUncheckedUpdateManyWithoutScreenInput>
+  }
+
+  export type ScreenFunctionalityScalarWhereInput = {
+    AND?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
+    OR?: ScreenFunctionalityScalarWhereInput[]
+    NOT?: ScreenFunctionalityScalarWhereInput | ScreenFunctionalityScalarWhereInput[]
+    id?: StringFilter<"ScreenFunctionality"> | string
+    screenId?: StringFilter<"ScreenFunctionality"> | string
+    title?: StringFilter<"ScreenFunctionality"> | string
+    isCore?: BoolFilter<"ScreenFunctionality"> | boolean
+    status?: StringFilter<"ScreenFunctionality"> | string
+    notes?: StringNullableFilter<"ScreenFunctionality"> | string | null
+    createdAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+    updatedAt?: DateTimeFilter<"ScreenFunctionality"> | Date | string
+  }
+
+  export type PlatformScreenCreateWithoutFunctionsInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    role: PlatformRoleCreateNestedOneWithoutScreensInput
+  }
+
+  export type PlatformScreenUncheckedCreateWithoutFunctionsInput = {
+    id?: string
+    roleId: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlatformScreenCreateOrConnectWithoutFunctionsInput = {
+    where: PlatformScreenWhereUniqueInput
+    create: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
+  }
+
+  export type PlatformScreenUpsertWithoutFunctionsInput = {
+    update: XOR<PlatformScreenUpdateWithoutFunctionsInput, PlatformScreenUncheckedUpdateWithoutFunctionsInput>
+    create: XOR<PlatformScreenCreateWithoutFunctionsInput, PlatformScreenUncheckedCreateWithoutFunctionsInput>
+    where?: PlatformScreenWhereInput
+  }
+
+  export type PlatformScreenUpdateToOneWithWhereWithoutFunctionsInput = {
+    where?: PlatformScreenWhereInput
+    data: XOR<PlatformScreenUpdateWithoutFunctionsInput, PlatformScreenUncheckedUpdateWithoutFunctionsInput>
+  }
+
+  export type PlatformScreenUpdateWithoutFunctionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: PlatformRoleUpdateOneRequiredWithoutScreensNestedInput
+  }
+
+  export type PlatformScreenUncheckedUpdateWithoutFunctionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AuditLogCreateManyActorInput = {
     id?: string
     action: string
@@ -241511,6 +244469,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screenAccess?: RoleScreenAccessUpdateManyWithoutRoleNestedInput
     resolutions?: ProtocolResolutionUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleUncheckedUpdateWithoutTenantInput = {
@@ -241522,6 +244481,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     screenAccess?: RoleScreenAccessUncheckedUpdateManyWithoutRoleNestedInput
     resolutions?: ProtocolResolutionUncheckedUpdateManyWithoutEscalateToRoleNestedInput
+    screens?: PlatformScreenUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type PlatformRoleUncheckedUpdateManyWithoutTenantInput = {
@@ -241612,6 +244572,15 @@ export namespace Prisma {
     orderIndex?: number
   }
 
+  export type PlatformScreenCreateManyRoleInput = {
+    id?: string
+    name: string
+    route: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type RoleScreenAccessUpdateWithoutRoleInput = {
     id?: StringFieldUpdateOperationsInput | string
     screenRoute?: StringFieldUpdateOperationsInput | string
@@ -241655,6 +244624,35 @@ export namespace Prisma {
     actionType?: StringFieldUpdateOperationsInput | string
     uiOverrideKey?: NullableStringFieldUpdateOperationsInput | string | null
     orderIndex?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlatformScreenUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    functions?: ScreenFunctionalityUpdateManyWithoutScreenNestedInput
+  }
+
+  export type PlatformScreenUncheckedUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    functions?: ScreenFunctionalityUncheckedUpdateManyWithoutScreenNestedInput
+  }
+
+  export type PlatformScreenUncheckedUpdateManyWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    route?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProtocolResolutionCreateManyProtocolInput = {
@@ -245487,6 +248485,46 @@ export namespace Prisma {
     deliveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ScreenFunctionalityCreateManyScreenInput = {
+    id?: string
+    title: string
+    isCore?: boolean
+    status?: string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScreenFunctionalityUpdateWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScreenFunctionalityUncheckedUpdateManyWithoutScreenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCore?: BoolFieldUpdateOperationsInput | boolean
+    status?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -245596,6 +248634,10 @@ export namespace Prisma {
      * @deprecated Use WebhookEndpointCountOutputTypeDefaultArgs instead
      */
     export type WebhookEndpointCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WebhookEndpointCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformScreenCountOutputTypeDefaultArgs instead
+     */
+    export type PlatformScreenCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformScreenCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -246052,6 +249094,14 @@ export namespace Prisma {
      * @deprecated Use DailyActivityDefaultArgs instead
      */
     export type DailyActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DailyActivityDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PlatformScreenDefaultArgs instead
+     */
+    export type PlatformScreenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlatformScreenDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ScreenFunctionalityDefaultArgs instead
+     */
+    export type ScreenFunctionalityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ScreenFunctionalityDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

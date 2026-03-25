@@ -430,6 +430,7 @@ model PlatformRole {
   tenant       Tenant?              @relation(fields: [tenantId], references: [id])
   screenAccess RoleScreenAccess[]
   resolutions  ProtocolResolution[] @relation("EscalationRoles")
+  screens      PlatformScreen[]
   createdAt    DateTime             @default(now()) @map("created_at")
   updatedAt    DateTime             @updatedAt @map("updated_at")
 
@@ -2272,4 +2273,42 @@ model DailyActivity {
   @@index([userId])
   @@index([role])
   @@map("daily_activities")
+}
+
+// ==========================================
+// TRACKING MATRIX MODULE
+// ==========================================
+
+model PlatformScreen {
+  id     String @id @default(uuid())
+  roleId String @map("role_id")
+  name   String // e.g., "PSW Live Visit"
+  route  String // e.g., "/psw/live-visit/:id"
+  status String @default("pending") // pending, in-progress, completed
+
+  role      PlatformRole          @relation(fields: [roleId], references: [id])
+  functions ScreenFunctionality[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([roleId])
+  @@map("platform_screens")
+}
+
+model ScreenFunctionality {
+  id       String  @id @default(uuid())
+  screenId String  @map("screen_id")
+  title    String // e.g., "Submit GPS EVV Data"
+  isCore   Boolean @default(true) @map("is_core")
+  status   String  @default("unimplemented") // unimplemented, wired_to_api, fully_tested
+  notes    String?
+
+  screen PlatformScreen @relation(fields: [screenId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([screenId])
+  @@map("screen_functionalities")
 }

@@ -38,6 +38,7 @@ import 'features/client/client_care_team_screen.dart';
 import 'features/gm/gm_executive_dashboard_screen.dart';
 import 'features/mt/mt_analytics_hub_screen.dart';
 import 'features/scrum_master/scrum_master_ops_screen.dart';
+import 'features/scrum_master/tracking_matrix_screen.dart';
 import 'features/superuser/superuser_control_screen.dart';
 
 // Verified Universal Screens
@@ -187,7 +188,11 @@ final routerProvider = Provider<GoRouter>((ref) {
 
           // ================== GM ==================
           GoRoute(
-            path: '/gm/home',
+            path: '/scrum_master/tracking',
+            builder: (context, state) => const TrackingMatrixScreen(),
+          ),
+          GoRoute(
+            path: '/gm_home',
             builder: (context, state) => const GmExecutiveDashboardScreen(),
           ),
 

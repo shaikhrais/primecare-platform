@@ -1555,6 +1555,27 @@ exports.Prisma.DailyActivityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PlatformScreenScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  name: 'name',
+  route: 'route',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ScreenFunctionalityScalarFieldEnum = {
+  id: 'id',
+  screenId: 'screenId',
+  title: 'title',
+  isCore: 'isCore',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1700,7 +1721,9 @@ exports.Prisma.ModelName = {
   GamificationProfile: 'GamificationProfile',
   AIInference: 'AIInference',
   CommunicationLog: 'CommunicationLog',
-  DailyActivity: 'DailyActivity'
+  DailyActivity: 'DailyActivity',
+  PlatformScreen: 'PlatformScreen',
+  ScreenFunctionality: 'ScreenFunctionality'
 };
 
 /**

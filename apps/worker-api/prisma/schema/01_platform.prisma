@@ -415,6 +415,7 @@ model PlatformRole {
   tenant       Tenant?              @relation(fields: [tenantId], references: [id])
   screenAccess RoleScreenAccess[]
   resolutions  ProtocolResolution[] @relation("EscalationRoles")
+  screens      PlatformScreen[]
   createdAt    DateTime             @default(now()) @map("created_at")
   updatedAt    DateTime             @updatedAt @map("updated_at")
 
