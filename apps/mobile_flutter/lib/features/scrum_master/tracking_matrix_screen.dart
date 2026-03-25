@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:primecare_mobile/core/api_client.dart';
 import '../../core/widgets/universal_role_sidebar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TrackingMatrixScreen extends StatefulWidget {
   const TrackingMatrixScreen({super.key});
@@ -22,42 +20,35 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
   }
 
   Future<void> _fetchMatrix() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('api_token') ?? '';
-    final uri = Uri.parse('http://localhost:8787/v1/tracking'); 
-
     try {
-      final res = await http.get(uri, headers: {
-        'Authorization': 'Bearer $token'
-      });
-      if (res.statusCode == 200) {
+      final res = await apiClient.get('/v1/tracking');
+      if (mounted) {
         setState(() {
-          _matrixData = json.decode(res.body);
+          _matrixData = res is List ? res : [];
           _isLoading = false;
         });
-      } else {
-        setState(() => _isLoading = false);
       }
     } catch (e) {
-      setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
   Future<void> _updateFunctionStatus(String id, String newStatus) async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('api_token') ?? '';
-    final uri = Uri.parse('http://localhost:8787/v1/tracking/functions/$id'); 
-    
-    await http.patch(
-      uri, 
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json'
-      },
-      body: json.encode({'status': newStatus})
-    );
-    
-    _fetchMatrix();
+    try {
+      await apiClient.patch('/v1/tracking/functions/$id', {'status': newStatus});
+      _fetchMatrix();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update securely: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -69,7 +60,7 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
         backgroundColor: Colors.orange,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: const UniversalRoleSidebar(),
+      drawer: const UniversalRoleSidebar(currentPath: '/tracking', child: SizedBox.shrink()),
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator(color: Colors.orange))
         : ListView.builder(
@@ -99,7 +90,7 @@ class _TrackingMatrixScreenState extends State<TrackingMatrixScreen> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(screen['route'], style: const TextStyle(color: Colors.black54)),
+                          Text(screen['route'] ?? '', style: const TextStyle(color: Colors.black54)),
                           const SizedBox(height: 4),
                           Text('Why: $screenDesc', style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 13, color: Colors.indigo)),
                           const SizedBox(height: 8),

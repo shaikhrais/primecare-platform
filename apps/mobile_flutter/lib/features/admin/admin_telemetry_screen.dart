@@ -26,14 +26,14 @@ class AdminTelemetryScreen extends ConsumerWidget {
                 const ServerLoadGraph(),
                 const SizedBox(height: 24),
                 ActiveWebSocketTracker(
-                  activeConnections: stats.totalUsers > 0
-                      ? stats.totalUsers
+                  activeConnections: stats.totalVisits > 0
+                      ? stats.totalVisits
                       : 142,
-                  pendingJobQueue: stats.pendingVisits,
-                  systemScore: stats.modelScore,
+                  pendingJobQueue: stats.unassignedShifts,
+                  systemScore: (100.0 - stats.openIncidents).clamp(0.0, 100.0),
                 ),
                 const SizedBox(height: 24),
-                const SecurityAuditAlertList(),
+                // const SecurityAuditAlertList(),
               ],
             );
           },
