@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-
 class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
@@ -12,16 +11,22 @@ class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        title, 
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)
+        title,
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
-      backgroundColor: Colors.transparent, // Inherit Scaffold background passively
+      backgroundColor:
+          Colors.transparent, // Inherit Scaffold background passively
       surfaceTintColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
       actions: actions,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: PrimeCareColors.radarDark),
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: PrimeCareColors.radarDark,
+        ),
         onPressed: () {
           if (Navigator.canPop(context)) {
             Navigator.of(context).pop();

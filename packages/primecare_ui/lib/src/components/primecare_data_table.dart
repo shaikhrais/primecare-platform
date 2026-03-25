@@ -17,7 +17,7 @@ class PrimeCareDataTable<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.pTheme;
-    
+
     return Container(
       decoration: BoxDecoration(
         color: t.surfaceElevated,
@@ -28,7 +28,9 @@ class PrimeCareDataTable<T> extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(t.borderSubtle.withValues(alpha: 0.3)),
+          headingRowColor: WidgetStateProperty.all(
+            t.borderSubtle.withValues(alpha: 0.3),
+          ),
           dividerThickness: 1,
           columnSpacing: PrimeCareSpacing.xl,
           headingTextStyle: TextStyle(
@@ -37,11 +39,11 @@ class PrimeCareDataTable<T> extends StatelessWidget {
             fontSize: 12,
             letterSpacing: 0.5,
           ),
-          columns: columns.map((col) => DataColumn(label: Text(col.toUpperCase()))).toList(),
+          columns: columns
+              .map((col) => DataColumn(label: Text(col.toUpperCase())))
+              .toList(),
           rows: data.map((item) {
-            return DataRow(
-              cells: rowBuilder(item),
-            );
+            return DataRow(cells: rowBuilder(item));
           }).toList(),
         ),
       ),

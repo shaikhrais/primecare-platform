@@ -41,9 +41,16 @@ class PrimeCareAsyncCard<T> extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, color: Colors.red, size: 48),
               const SizedBox(height: 16),
-              Text('Connection Failed', style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                'Connection Failed',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
-              Text(err.toString(), style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+              Text(
+                err.toString(),
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -81,9 +88,13 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
     super.initState();
     for (var field in widget.schema) {
       if (['text', 'phone', 'email', 'number'].contains(field['type'])) {
-        _controllers[field['key']] = TextEditingController(text: field['initialValue']?.toString() ?? '');
+        _controllers[field['key']] = TextEditingController(
+          text: field['initialValue']?.toString() ?? '',
+        );
       } else if (field['type'] == 'dropdown') {
-        _dropdownValues[field['key']] = field['initialValue']?.toString() ?? (field['options'] as List).first.toString();
+        _dropdownValues[field['key']] =
+            field['initialValue']?.toString() ??
+            (field['options'] as List).first.toString();
       }
     }
   }
@@ -101,7 +112,9 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
       setState(() => _isSaving = true);
       try {
         final payload = <String, dynamic>{};
-        _controllers.forEach((key, controller) => payload[key] = controller.text.trim());
+        _controllers.forEach(
+          (key, controller) => payload[key] = controller.text.trim(),
+        );
         _dropdownValues.forEach((key, value) => payload[key] = value);
         await widget.onSubmit(payload);
       } finally {
@@ -118,14 +131,13 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ...widget.schema.map((field) {
-            
             if (field['type'] == 'header') {
               return Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 16),
                 child: PrimeCareSectionHeader(title: field['label']),
               );
             }
-            
+
             if (field['type'] == 'dropdown') {
               final options = field['options'] as List<String>;
               return Padding(
@@ -136,11 +148,22 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
                     labelText: field['label'],
                     filled: true,
                     fillColor: Colors.white,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
                   ),
-                  items: options.map((opt) => DropdownMenuItem(value: opt, child: Text(opt))).toList(),
-                  onChanged: (val) => setState(() => _dropdownValues[field['key']] = val!),
+                  items: options
+                      .map(
+                        (opt) => DropdownMenuItem(value: opt, child: Text(opt)),
+                      )
+                      .toList(),
+                  onChanged: (val) =>
+                      setState(() => _dropdownValues[field['key']] = val!),
                 ),
               );
             }
@@ -153,16 +176,18 @@ class _PrimeCareFormBuilderState extends State<PrimeCareFormBuilder> {
               child: PrimeCareTextField(
                 label: field['label'],
                 controller: _controllers[field['key']],
-                keyboardType: isPhone ? TextInputType.phone : (isNumber ? TextInputType.number : TextInputType.text),
-                validator: field['required'] == true 
-                  ? (val) => val == null || val.isEmpty ? 'Required' : null 
-                  : null,
+                keyboardType: isPhone
+                    ? TextInputType.phone
+                    : (isNumber ? TextInputType.number : TextInputType.text),
+                validator: field['required'] == true
+                    ? (val) => val == null || val.isEmpty ? 'Required' : null
+                    : null,
               ),
             );
           }),
-          
+
           const SizedBox(height: 32),
-          
+
           PrimeCareButton(
             onPressed: _isSaving ? null : _handleSave,
             text: widget.submitLabel,
@@ -206,7 +231,10 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
               padding: EdgeInsets.all(24),
               child: Text(
                 'No records found.',
-                style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           );
@@ -235,7 +263,12 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
         return list;
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (err, stack) => Center(child: Text('Error loading feed: $err', style: const TextStyle(color: Colors.red))),
+      error: (err, stack) => Center(
+        child: Text(
+          'Error loading feed: $err',
+          style: const TextStyle(color: Colors.red),
+        ),
+      ),
     );
   }
 }

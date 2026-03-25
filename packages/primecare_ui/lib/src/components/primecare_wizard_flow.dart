@@ -41,7 +41,7 @@ class PrimeCareWizardFlow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.pTheme;
-    
+
     return ListView(
       padding: const EdgeInsets.all(PrimeCareSpacing.xl),
       children: [
@@ -49,9 +49,16 @@ class PrimeCareWizardFlow extends StatelessWidget {
           headerWidget!,
           SizedBox(height: PrimeCareSpacing.xl),
         ],
-        Text(subtitle.toUpperCase(), style: TextStyle(color: t.textMuted, fontWeight: FontWeight.w900, letterSpacing: 2)),
+        Text(
+          subtitle.toUpperCase(),
+          style: TextStyle(
+            color: t.textMuted,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+          ),
+        ),
         const SizedBox(height: PrimeCareSpacing.xl),
-        
+
         ...steps.asMap().entries.map((entry) {
           final index = entry.key + 1;
           final step = entry.value;
@@ -62,7 +69,14 @@ class PrimeCareWizardFlow extends StatelessWidget {
               children: [
                 PrimeCareCard(
                   padding: const EdgeInsets.all(PrimeCareSpacing.md),
-                  child: Text('$index', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 18)),
+                  child: Text(
+                    '$index',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: PrimeCareSpacing.lg),
                 Expanded(
@@ -72,17 +86,33 @@ class PrimeCareWizardFlow extends StatelessWidget {
                       Row(
                         children: [
                           if (step.icon != null) ...[
-                            Icon(step.icon, color: Theme.of(context).primaryColor, size: 18),
+                            Icon(
+                              step.icon,
+                              color: Theme.of(context).primaryColor,
+                              size: 18,
+                            ),
                             const SizedBox(width: PrimeCareSpacing.sm),
                           ],
-                          Expanded(child: Text(step.title, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w900, fontSize: 16))),
+                          Expanded(
+                            child: Text(
+                              step.title,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: PrimeCareSpacing.sm),
-                      Text(step.description, style: TextStyle(color: t.textMuted, height: 1.4)),
+                      Text(
+                        step.description,
+                        style: TextStyle(color: t.textMuted, height: 1.4),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );
@@ -98,7 +128,13 @@ class PrimeCareWizardFlow extends StatelessWidget {
         PrimeCareButton(
           type: PrimeCareButtonType.primary,
           onPressed: onAction,
-          child: Text(actionLabel, style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1)),
+          child: Text(
+            actionLabel,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+            ),
+          ),
         ),
       ],
     );

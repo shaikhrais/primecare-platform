@@ -1,32 +1,50 @@
-library primecare_ui;
-
-export 'src/primecare_ui.dart';
-export 'src/primecare_data_ui.dart';
-export 'src/sdui_engine.dart';
-
-export 'src/theme/colors.dart';
-export 'src/theme/theme_tokens.dart';
-export 'src/theme/theme_extension.dart';
-export 'src/theme/primecare_theme.dart';
-export 'src/theme/primecare_responsive_shell.dart';
-export 'src/components/primecare_scheduler.dart';
+// Original Base Components & App Theme
+export 'src/theme/app_theme.dart';
+export 'src/layouts/primecare_flex.dart';
+export 'src/components/primecare_button.dart';
+export 'src/components/primecare_card.dart';
 export 'src/components/primecare_stat_card.dart';
 export 'src/components/primecare_data_table.dart';
-
-
 export 'src/components/master_detail_layout.dart';
-export 'src/components/desktop_pane_wrapper.dart';
 export 'src/components/responsive_layout_manager.dart';
-export 'src/components/offline_banner.dart';
 export 'src/components/primecare_app_bar.dart';
-export 'src/components/sdui_form_builder.dart';
-export 'src/components/primecare_card.dart';
-export 'src/components/primecare_button.dart';
+export 'src/components/primecare_scheduler.dart';
 export 'src/components/primecare_wizard_flow.dart';
+export 'src/components/desktop_pane_wrapper.dart';
+export 'src/components/sdui_form_builder.dart';
 
-
-// Phase 86: Universal Layout Engine
-export 'src/layouts/primecare_scaffold.dart';
-export 'src/layouts/primecare_flex.dart';
-
-export 'src/components/primecare_primitives.dart' hide PrimeCareTextField, PrimeCareScrollWrapper;
+// Generated Strategic UI Widgets
+export 'src/components/prime_button.dart';
+export 'src/components/prime_card.dart';
+export 'src/components/prime_avatar.dart';
+export 'src/components/prime_status_badge.dart';
+export 'src/components/prime_skeleton_loader.dart';
+export 'src/components/greeting_header_widget.dart';
+export 'src/components/next_shift_action_card.dart';
+export 'src/components/daily_progress_ring.dart';
+export 'src/components/urgent_alert_banner.dart';
+export 'src/components/slide_to_clock_in_widget.dart';
+export 'src/components/live_geolocation_map_loader.dart';
+export 'src/components/task_checklist_node.dart';
+export 'src/components/incident_report_fab.dart';
+export 'src/components/search_filter_tab_bar.dart';
+export 'src/components/patient_acuity_card.dart';
+export 'src/components/quick_call_button.dart';
+export 'src/components/medication_frequency_picker.dart';
+export 'src/components/clinical_intervention_form_group.dart';
+export 'src/components/digital_signature_pad.dart';
+export 'src/components/live_dispatch_map.dart';
+export 'src/components/kanban_waitlist_board.dart';
+export 'src/components/drag_assign_widget.dart';
+export 'src/components/tinder_style_swipe_approvals.dart';
+export 'src/components/macro_financial_summary_card.dart';
+export 'src/components/performance_radar_chart.dart';
+export 'src/components/timesheet_discrepancy_table.dart';
+export 'src/components/team_member_avatar_pile.dart';
+export 'src/components/compliance_expiry_gauge.dart';
+export 'src/components/mood_slider_widget.dart';
+export 'src/components/pulse_radial_gauge.dart';
+export 'src/components/eta_tracker_widget.dart';
+export 'src/components/caregiver_profile_card.dart';
+export 'src/components/server_load_graph.dart';
+export 'src/components/active_websocket_tracker.dart';

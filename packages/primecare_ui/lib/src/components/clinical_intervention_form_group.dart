@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+class ClinicalInterventionFormGroup extends StatelessWidget {
+  const ClinicalInterventionFormGroup({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Intervention Notes',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          maxLines: 4,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            hintText: 'Enter structured clinical notes...',
+          ),
+        ),
+      ],
+    );
+  }
+}

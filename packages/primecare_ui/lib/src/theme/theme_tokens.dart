@@ -14,7 +14,10 @@ class PrimeCareSpacing {
   // Semantic Shortcuts for Edge Padding
   static const EdgeInsets edgeAllMd = EdgeInsets.all(md);
   static const EdgeInsets edgeAllLg = EdgeInsets.all(lg);
-  static const EdgeInsets edgeScreen = EdgeInsets.symmetric(horizontal: lg, vertical: md);
+  static const EdgeInsets edgeScreen = EdgeInsets.symmetric(
+    horizontal: lg,
+    vertical: md,
+  );
 }
 
 /// Enterprise Curvature Metrics
@@ -37,19 +40,19 @@ class PrimeCareRadii {
 /// Enterprise Physical Depth Simulator (Soft Shadow Vectors)
 class PrimeCareShadows {
   static const BoxShadow soft = BoxShadow(
-    color: Color(0x26000000), 
+    color: Color(0x26000000),
     blurRadius: 16,
     spreadRadius: 2,
     offset: Offset(0, 4),
   );
-  
+
   static const BoxShadow floating = BoxShadow(
-    color: Color(0x33000000), 
+    color: Color(0x33000000),
     blurRadius: 32,
     spreadRadius: 8,
     offset: Offset(0, 16),
   );
-  
+
   static const BoxShadow dangerGlow = BoxShadow(
     color: Color(0x33E11D48),
     blurRadius: 16,

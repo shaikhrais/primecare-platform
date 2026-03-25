@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'prime_avatar.dart';
+
+class GreetingHeaderWidget extends StatelessWidget {
+  final String name;
+  const GreetingHeaderWidget({Key? key, required this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Good Morning,',
+              style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+            ),
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
+        const PrimeAvatar(fallbackInitials: 'PSW', isOnline: true),
+      ],
+    );
+  }
+}

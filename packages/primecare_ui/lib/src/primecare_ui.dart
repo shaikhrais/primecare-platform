@@ -28,9 +28,7 @@ class PrimeCareTextField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       maxLines: maxLines,
-      decoration: InputDecoration(
-        labelText: label,
-      ),
+      decoration: InputDecoration(labelText: label),
     );
   }
 }
@@ -38,7 +36,7 @@ class PrimeCareTextField extends StatelessWidget {
 /// Universal Header specifically mapped for Data Matrix groupings ("EVIDENCE CAPTURE", "INCIDENT DETAILS")
 class PrimeCareSectionHeader extends StatelessWidget {
   final String title;
-  
+
   const PrimeCareSectionHeader({super.key, required this.title});
 
   @override
@@ -60,11 +58,7 @@ class PrimeCareBadge extends StatelessWidget {
   final String text;
   final Color color;
 
-  const PrimeCareBadge({
-    super.key, 
-    required this.text, 
-    required this.color
-  });
+  const PrimeCareBadge({super.key, required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +101,11 @@ class PrimeCareAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: radius,
       backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(20),
-      child: Icon(defaultIcon, color: Theme.of(context).colorScheme.primary, size: radius * 1.2),
+      child: Icon(
+        defaultIcon,
+        color: Theme.of(context).colorScheme.primary,
+        size: radius * 1.2,
+      ),
     );
   }
 }

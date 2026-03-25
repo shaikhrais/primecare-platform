@@ -24,7 +24,10 @@ class PrimeCareThemeExtension extends ThemeExtension<PrimeCareThemeExtension> {
   }
 
   @override
-  PrimeCareThemeExtension lerp(covariant ThemeExtension<PrimeCareThemeExtension>? other, double t) {
+  PrimeCareThemeExtension lerp(
+    covariant ThemeExtension<PrimeCareThemeExtension>? other,
+    double t,
+  ) {
     if (other is! PrimeCareThemeExtension) return this;
     return PrimeCareThemeExtension(
       surfaceElevated: Color.lerp(surfaceElevated, other.surfaceElevated, t)!,
@@ -58,8 +61,9 @@ class PrimeCareThemeExtension extends ThemeExtension<PrimeCareThemeExtension> {
 
 /// Developer Syntax Sugar overriding physical BuildContext natively
 extension PrimeCareContextExtension on BuildContext {
-  PrimeCareThemeExtension get pTheme => Theme.of(this).extension<PrimeCareThemeExtension>()!;
-  
+  PrimeCareThemeExtension get pTheme =>
+      Theme.of(this).extension<PrimeCareThemeExtension>()!;
+
   // Instant Hooks
   Color get surfaceElevated => pTheme.surfaceElevated;
   Color get borderSubtle => pTheme.borderSubtle;

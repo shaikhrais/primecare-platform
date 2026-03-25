@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+
+class TaskChecklistNode extends StatefulWidget {
+  final String label;
+  const TaskChecklistNode({Key? key, required this.label}) : super(key: key);
+  @override
+  _TaskChecklistNodeState createState() => _TaskChecklistNodeState();
+}
+
+class _TaskChecklistNodeState extends State<TaskChecklistNode> {
+  bool isChecked = false;
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      value: isChecked,
+      onChanged: (val) => setState(() => isChecked = val ?? false),
+      title: Text(
+        widget.label,
+        style: TextStyle(
+          decoration: isChecked ? TextDecoration.lineThrough : null,
+          color: isChecked ? Colors.grey : Colors.black87,
+        ),
+      ),
+      controlAffinity: ListTileControlAffinity.leading,
+      activeColor: Colors.blueAccent,
+    );
+  }
+}

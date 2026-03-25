@@ -30,14 +30,17 @@ class PrimeCareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool resolveIsPrimary = isPrimary ?? (type == PrimeCareButtonType.primary);
-    
+
     Widget displayChild = child ?? Text(label ?? text ?? '');
 
     if (isLoading) {
       displayChild = const SizedBox(
         width: 16,
         height: 16,
-        child: CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
       );
     } else if (icon != null) {
       displayChild = Row(
@@ -53,31 +56,40 @@ class PrimeCareButton extends StatelessWidget {
 
     final buttonStyle = ElevatedButton.styleFrom(
       minimumSize: isFullWidth ? const Size.fromHeight(48) : null,
-      padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.lg, vertical: PrimeCareSpacing.md),
+      padding: const EdgeInsets.symmetric(
+        horizontal: PrimeCareSpacing.lg,
+        vertical: PrimeCareSpacing.md,
+      ),
     );
 
     if (!resolveIsPrimary && type != PrimeCareButtonType.text) {
-        return OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            minimumSize: isFullWidth ? const Size.fromHeight(48) : null,
-            padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.lg, vertical: PrimeCareSpacing.md),
+      return OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          minimumSize: isFullWidth ? const Size.fromHeight(48) : null,
+          padding: const EdgeInsets.symmetric(
+            horizontal: PrimeCareSpacing.lg,
+            vertical: PrimeCareSpacing.md,
           ),
-          onPressed: isLoading ? null : onPressed,
-          child: displayChild,
-        );
+        ),
+        onPressed: isLoading ? null : onPressed,
+        child: displayChild,
+      );
     }
 
     if (type == PrimeCareButtonType.text) {
-        return TextButton(
-          style: TextButton.styleFrom(
-            minimumSize: isFullWidth ? const Size.fromHeight(48) : null,
-            padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.lg, vertical: PrimeCareSpacing.md),
+      return TextButton(
+        style: TextButton.styleFrom(
+          minimumSize: isFullWidth ? const Size.fromHeight(48) : null,
+          padding: const EdgeInsets.symmetric(
+            horizontal: PrimeCareSpacing.lg,
+            vertical: PrimeCareSpacing.md,
           ),
-          onPressed: isLoading ? null : onPressed,
-          child: displayChild,
-        );
+        ),
+        onPressed: isLoading ? null : onPressed,
+        child: displayChild,
+      );
     }
-    
+
     return ElevatedButton(
       style: buttonStyle,
       onPressed: isLoading ? null : onPressed,

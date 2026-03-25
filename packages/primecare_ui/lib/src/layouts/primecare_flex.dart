@@ -26,8 +26,11 @@ class PrimeCareColumn extends StatelessWidget {
     if (gap > 0.0) {
       for (var i = 0; i < children.length; i++) {
         spacedChildren.add(children[i]);
-        if (i < children.length - 1 && children[i] is! Expanded && children[i] is! Flexible && children[i] is! Spacer) {
-           spacedChildren.add(SizedBox(height: gap));
+        if (i < children.length - 1 &&
+            children[i] is! Expanded &&
+            children[i] is! Flexible &&
+            children[i] is! Spacer) {
+          spacedChildren.add(SizedBox(height: gap));
         }
       }
     } else {
@@ -70,8 +73,11 @@ class PrimeCareRow extends StatelessWidget {
     if (gap > 0.0) {
       for (var i = 0; i < children.length; i++) {
         spacedChildren.add(children[i]);
-        if (i < children.length - 1 && children[i] is! Expanded && children[i] is! Flexible && children[i] is! Spacer) {
-           spacedChildren.add(SizedBox(width: gap));
+        if (i < children.length - 1 &&
+            children[i] is! Expanded &&
+            children[i] is! Flexible &&
+            children[i] is! Spacer) {
+          spacedChildren.add(SizedBox(width: gap));
         }
       }
     } else {

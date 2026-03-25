@@ -34,7 +34,7 @@ class PrimeCareScheduler extends StatelessWidget {
     required this.events,
     this.hourHeight = 80.0,
     this.startHour = 6, // default 6 AM
-    this.endHour = 22,  // default 10 PM
+    this.endHour = 22, // default 10 PM
     this.onEventTap,
   });
 
@@ -75,7 +75,10 @@ class PrimeCareScheduler extends StatelessWidget {
                       SizedBox(
                         width: 60,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: PrimeCareSpacing.md, top: PrimeCareSpacing.xs),
+                          padding: const EdgeInsets.only(
+                            right: PrimeCareSpacing.md,
+                            top: PrimeCareSpacing.xs,
+                          ),
                           child: Text(
                             '${(startHour + i).toString().padLeft(2, '0')}:00',
                             textAlign: TextAlign.right,
@@ -84,7 +87,11 @@ class PrimeCareScheduler extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Divider(color: t.borderSubtle, height: 1, thickness: 1),
+                        child: Divider(
+                          color: t.borderSubtle,
+                          height: 1,
+                          thickness: 1,
+                        ),
                       ),
                     ],
                   ),
@@ -92,20 +99,41 @@ class PrimeCareScheduler extends StatelessWidget {
 
               // 2. Render the specific Shift/Action Blocks natively
               for (final event in events)
-                if (event.startTime.year == activeDate.year && event.startTime.month == activeDate.month && event.startTime.day == activeDate.day)
+                if (event.startTime.year == activeDate.year &&
+                    event.startTime.month == activeDate.month &&
+                    event.startTime.day == activeDate.day)
                   Positioned(
                     top: _calculateTop(event.startTime),
                     left: 70, // Margin past the time axis
                     right: PrimeCareSpacing.md,
-                    height: _calculateHeight(event.startTime, event.endTime).clamp(24.0, double.infinity), // never smaller than 24
+                    height: _calculateHeight(
+                      event.startTime,
+                      event.endTime,
+                    ).clamp(24.0, double.infinity), // never smaller than 24
                     child: GestureDetector(
-                      onTap: onEventTap != null ? () => onEventTap!(event) : null,
+                      onTap: onEventTap != null
+                          ? () => onEventTap!(event)
+                          : null,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.sm, vertical: PrimeCareSpacing.xxs),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: PrimeCareSpacing.sm,
+                          vertical: PrimeCareSpacing.xxs,
+                        ),
                         decoration: BoxDecoration(
-                          color: event.isCompleted ? t.successSurface : const Color(0xFFE0F2FE), // Hardcoded subtle blue logic layer
+                          color: event.isCompleted
+                              ? t.successSurface
+                              : const Color(
+                                  0xFFE0F2FE,
+                                ), // Hardcoded subtle blue logic layer
                           borderRadius: PrimeCareRadii.boardSm,
-                          border: Border(left: BorderSide(color: event.isCompleted ? const Color(0xFF10B981) : const Color(0xFF38BDF8), width: 4)),
+                          border: Border(
+                            left: BorderSide(
+                              color: event.isCompleted
+                                  ? const Color(0xFF10B981)
+                                  : const Color(0xFF38BDF8),
+                              width: 4,
+                            ),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,18 +141,26 @@ class PrimeCareScheduler extends StatelessWidget {
                           children: [
                             Text(
                               event.title,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: const Color(0xFF0F172A),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: const Color(0xFF0F172A),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            if (_calculateHeight(event.startTime, event.endTime) >= 50)
+                            if (_calculateHeight(
+                                  event.startTime,
+                                  event.endTime,
+                                ) >=
+                                50)
                               Text(
                                 event.subtitle,
-                                style: TextStyle(color: const Color(0xFF334155), fontSize: 11),
+                                style: TextStyle(
+                                  color: const Color(0xFF334155),
+                                  fontSize: 11,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),

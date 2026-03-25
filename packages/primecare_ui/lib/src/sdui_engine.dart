@@ -3,17 +3,14 @@ import 'components/primecare_button.dart';
 import 'package:flutter/material.dart';
 import 'primecare_ui.dart';
 
-typedef SduiActionCallback = void Function(String action, Map<String, dynamic>? payload);
+typedef SduiActionCallback =
+    void Function(String action, Map<String, dynamic>? payload);
 
 class PrimeCareSduiEngine extends StatelessWidget {
   final Map<String, dynamic> schema;
   final SduiActionCallback? onAction;
 
-  const PrimeCareSduiEngine({
-    super.key,
-    required this.schema,
-    this.onAction,
-  });
+  const PrimeCareSduiEngine({super.key, required this.schema, this.onAction});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +25,17 @@ class PrimeCareSduiEngine extends StatelessWidget {
     switch (type) {
       case 'Column':
         return Column(
-          crossAxisAlignment: _parseCrossAxisAlignment(node['crossAxisAlignment']),
+          crossAxisAlignment: _parseCrossAxisAlignment(
+            node['crossAxisAlignment'],
+          ),
           mainAxisAlignment: _parseMainAxisAlignment(node['mainAxisAlignment']),
           children: _parseChildren(node['children']),
         );
       case 'Row':
         return Row(
-          crossAxisAlignment: _parseCrossAxisAlignment(node['crossAxisAlignment']),
+          crossAxisAlignment: _parseCrossAxisAlignment(
+            node['crossAxisAlignment'],
+          ),
           mainAxisAlignment: _parseMainAxisAlignment(node['mainAxisAlignment']),
           children: _parseChildren(node['children']),
         );
@@ -44,7 +45,9 @@ class PrimeCareSduiEngine extends StatelessWidget {
           style: TextStyle(
             fontSize: _parseDouble(node['fontSize']),
             color: _parseColor(node['color']),
-            fontWeight: node['bold'] == true ? FontWeight.bold : FontWeight.normal,
+            fontWeight: node['bold'] == true
+                ? FontWeight.bold
+                : FontWeight.normal,
           ),
           textAlign: _parseTextAlign(node['textAlign']),
         );
@@ -53,7 +56,8 @@ class PrimeCareSduiEngine extends StatelessWidget {
           final childWidget = _renderNode(node['child']);
           return PrimeCareCard(
             backgroundColor: _parseColor(node['backgroundColor']),
-            padding: _parseEdgeInsets(node['padding']) ?? const EdgeInsets.all(24),
+            padding:
+                _parseEdgeInsets(node['padding']) ?? const EdgeInsets.all(24),
             margin: _parseEdgeInsets(node['margin']),
             onTap: () {
               if (onAction != null && node.containsKey('action')) {
@@ -80,9 +84,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
           color: _parseColor(node['color']) ?? Colors.blue,
         );
       case 'PrimeCareAvatar':
-        return PrimeCareAvatar(
-          radius: _parseDouble(node['radius']) ?? 24.0,
-        );
+        return PrimeCareAvatar(radius: _parseDouble(node['radius']) ?? 24.0);
       case 'SizedBox':
         return SizedBox(
           width: _parseDouble(node['width']),
@@ -96,13 +98,16 @@ class PrimeCareSduiEngine extends StatelessWidget {
       case 'Padding':
         {
           final childWidget = _renderNode(node['child']);
-          return childWidget != null 
-            ? Padding(padding: _parseEdgeInsets(node['padding']) ?? EdgeInsets.zero, child: childWidget) 
-            : null;
+          return childWidget != null
+              ? Padding(
+                  padding: _parseEdgeInsets(node['padding']) ?? EdgeInsets.zero,
+                  child: childWidget,
+                )
+              : null;
         }
       case 'Spacer':
         return const Spacer();
-        
+
       default:
         return Center(child: Text('Unsupported SDUI Node: \$type'));
     }
@@ -141,10 +146,10 @@ class PrimeCareSduiEngine extends StatelessWidget {
     if (value is num) return EdgeInsets.all(value.toDouble());
     if (value is List && value.length == 4) {
       return EdgeInsets.fromLTRB(
-        _parseDouble(value[0]) ?? 0, 
-        _parseDouble(value[1]) ?? 0, 
-        _parseDouble(value[2]) ?? 0, 
-        _parseDouble(value[3]) ?? 0
+        _parseDouble(value[0]) ?? 0,
+        _parseDouble(value[1]) ?? 0,
+        _parseDouble(value[2]) ?? 0,
+        _parseDouble(value[3]) ?? 0,
       );
     }
     return null;
@@ -175,17 +180,27 @@ class PrimeCareSduiEngine extends StatelessWidget {
   }
 
   IconData? _parseIcon(dynamic value) {
-    switch(value) {
-      case 'phone': return Icons.phone;
-      case 'download': return Icons.download_rounded;
-      case 'send': return Icons.send_rounded;
-      case 'check': return Icons.check_circle_rounded;
-      case 'warning': return Icons.warning_rounded;
-      case 'groups': return Icons.groups_rounded;
-      case 'hub': return Icons.hub_rounded;
-      case 'speed': return Icons.speed;
-      case 'video': return Icons.video_camera_front;
-      case 'bug': return Icons.bug_report;
+    switch (value) {
+      case 'phone':
+        return Icons.phone;
+      case 'download':
+        return Icons.download_rounded;
+      case 'send':
+        return Icons.send_rounded;
+      case 'check':
+        return Icons.check_circle_rounded;
+      case 'warning':
+        return Icons.warning_rounded;
+      case 'groups':
+        return Icons.groups_rounded;
+      case 'hub':
+        return Icons.hub_rounded;
+      case 'speed':
+        return Icons.speed;
+      case 'video':
+        return Icons.video_camera_front;
+      case 'bug':
+        return Icons.bug_report;
     }
     return null;
   }

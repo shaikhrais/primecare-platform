@@ -29,7 +29,7 @@ class PrimeCareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.pTheme;
-    
+
     final decoration = BoxDecoration(
       color: backgroundColor ?? t.surfaceElevated,
       borderRadius: PrimeCareRadii.boardLg,
@@ -49,10 +49,7 @@ class PrimeCareCard extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             borderRadius: PrimeCareRadii.boardLg,
-            child: Padding(
-              padding: padding ?? EdgeInsets.zero,
-              child: child,
-            ),
+            child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
           ),
         ),
       );

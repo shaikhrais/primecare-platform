@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-
 class MasterDetailLayout extends StatelessWidget {
   final Widget masterList;
   final Widget detailView;
   final bool isDetailActive;
   final VoidCallback onBackToMaster;
-  
+
   const MasterDetailLayout({
     super.key,
     required this.masterList,
@@ -29,20 +28,30 @@ class MasterDetailLayout extends StatelessWidget {
               Container(
                 width: 350, // Fixed width for comfortable reading or dynamic
                 decoration: const BoxDecoration(
-                  border: Border(right: BorderSide(color: PrimeCareColors.slate200, width: 1)),
+                  border: Border(
+                    right: BorderSide(
+                      color: PrimeCareColors.slate200,
+                      width: 1,
+                    ),
+                  ),
                   color: Colors.white,
                 ),
                 child: masterList,
               ),
               // 70% Detail Pane
               Expanded(
-                child: isDetailActive 
-                    ? detailView 
+                child: isDetailActive
+                    ? detailView
                     : const Center(
-                        child: Text('Select an item from the list to view details.', 
-                          style: TextStyle(color: PrimeCareColors.slate400, fontSize: 16)),
+                        child: Text(
+                          'Select an item from the list to view details.',
+                          style: TextStyle(
+                            color: PrimeCareColors.slate400,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-              )
+              ),
             ],
           );
         } else {
@@ -51,16 +60,25 @@ class MasterDetailLayout extends StatelessWidget {
           // Mobile conditionally renders the List OR the Detail based on boolean context.
           if (isDetailActive) {
             return Scaffold(
-               appBar: AppBar(
-                 backgroundColor: Colors.white,
-                 elevation: 0,
-                 leading: IconButton(
-                   icon: const Icon(Icons.arrow_back, color: PrimeCareColors.radarDark),
-                   onPressed: onBackToMaster,
-                 ),
-                 title: const Text('Details', style: TextStyle(color: PrimeCareColors.radarDark, fontWeight: FontWeight.bold)),
-               ),
-               body: detailView,
+              appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: PrimeCareColors.radarDark,
+                  ),
+                  onPressed: onBackToMaster,
+                ),
+                title: const Text(
+                  'Details',
+                  style: TextStyle(
+                    color: PrimeCareColors.radarDark,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              body: detailView,
             );
           } else {
             return masterList;

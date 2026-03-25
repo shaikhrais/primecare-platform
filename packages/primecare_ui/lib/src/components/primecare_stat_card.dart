@@ -22,7 +22,7 @@ class PrimeCareStatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.pTheme;
     final isPositive = (delta ?? 0) >= 0;
-    
+
     return Container(
       padding: PrimeCareSpacing.edgeAllLg,
       decoration: BoxDecoration(
@@ -44,21 +44,20 @@ class PrimeCareStatCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (icon != null)
-                Icon(icon, color: t.textMuted, size: 20),
+              if (icon != null) Icon(icon, color: t.textMuted, size: 20),
             ],
           ),
           const SizedBox(height: PrimeCareSpacing.md),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
+          Text(value, style: Theme.of(context).textTheme.headlineMedium),
           if (delta != null) ...[
             const SizedBox(height: PrimeCareSpacing.sm),
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.xs, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: PrimeCareSpacing.xs,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: isPositive ? t.successSurface : t.dangerSurface,
                     borderRadius: PrimeCareRadii.boardSm,
@@ -66,9 +65,13 @@ class PrimeCareStatCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        isPositive ? Icons.arrow_upward_rounded : Icons.arrow_downward_rounded,
+                        isPositive
+                            ? Icons.arrow_upward_rounded
+                            : Icons.arrow_downward_rounded,
                         size: 12,
-                        color: isPositive ? const Color(0xFF10B981) : const Color(0xFFE11D48),
+                        color: isPositive
+                            ? const Color(0xFF10B981)
+                            : const Color(0xFFE11D48),
                       ),
                       const SizedBox(width: 2),
                       Text(
@@ -76,7 +79,9 @@ class PrimeCareStatCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: isPositive ? const Color(0xFF10B981) : const Color(0xFFE11D48),
+                          color: isPositive
+                              ? const Color(0xFF10B981)
+                              : const Color(0xFFE11D48),
                         ),
                       ),
                     ],
@@ -88,10 +93,10 @@ class PrimeCareStatCard extends StatelessWidget {
                     deltaSuffix!,
                     style: TextStyle(fontSize: 12, color: t.textMuted),
                   ),
-                ]
+                ],
               ],
             ),
-          ]
+          ],
         ],
       ),
     );

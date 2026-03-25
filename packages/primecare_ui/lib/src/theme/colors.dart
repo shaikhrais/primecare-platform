@@ -21,8 +21,12 @@ class PrimeCareColors {
   static const Color slate200 = Color(0xFFE2E8F0); // Borders
 
   // Absolute
-  static const Color white = Color(0xFFFFFFFF); // Explicit instead of Colors.white to avoid recursive node map
-  static const Color black = Color(0xFF000000); // Explicit instead of Colors.black
+  static const Color white = Color(
+    0xFFFFFFFF,
+  ); // Explicit instead of Colors.white to avoid recursive node map
+  static const Color black = Color(
+    0xFF000000,
+  ); // Explicit instead of Colors.black
 
   // Misc Rogue Colors mapped from codebase for complete coverage
   static const Color darkMatrix = Color(0xFF020617); // SCM Home Black

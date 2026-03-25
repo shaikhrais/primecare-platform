@@ -54,7 +54,10 @@ class ResponsiveShell extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  left: 0, top: 0, bottom: 0, width: 260,
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 260,
                   child: _DesktopSidebar(
                     currentIndex: currentIndex,
                     destinations: destinations,
@@ -79,7 +82,10 @@ class ResponsiveShell extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  left: 0, top: 0, bottom: 0, width: 80,
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 80,
                   child: _TabletNavRail(
                     currentIndex: currentIndex,
                     destinations: destinations,
@@ -128,7 +134,8 @@ class _DesktopSidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
-    final primaryIndicator = activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
+    final primaryIndicator =
+        activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
     return Container(
       width: 260,
@@ -139,7 +146,7 @@ class _DesktopSidebar extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.35),
             blurRadius: 24,
             offset: const Offset(8, 0),
-          )
+          ),
         ],
       ),
       child: Column(
@@ -151,7 +158,13 @@ class _DesktopSidebar extends StatelessWidget {
               children: [
                 Icon(Icons.monitor_heart_rounded, color: primaryIcon, size: 32),
                 const SizedBox(width: PrimeCareSpacing.sm),
-                Text('PrimeCare', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900, color: primaryIcon)),
+                Text(
+                  'PrimeCare',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w900,
+                    color: primaryIcon,
+                  ),
+                ),
               ],
             ),
           ),
@@ -162,34 +175,46 @@ class _DesktopSidebar extends StatelessWidget {
               itemBuilder: (context, index) {
                 final d = destinations[index];
                 final isSelected = currentIndex == index;
-                
+
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: PrimeCareSpacing.md, vertical: PrimeCareSpacing.xxs),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: PrimeCareSpacing.md,
+                    vertical: PrimeCareSpacing.xxs,
+                  ),
                   child: InkWell(
                     onTap: () => onNavigate(index),
                     borderRadius: PrimeCareRadii.boardMd,
                     child: Container(
                       padding: PrimeCareSpacing.edgeAllMd,
                       decoration: BoxDecoration(
-                        color: isSelected ? primaryIndicator : Colors.transparent,
+                        color: isSelected
+                            ? primaryIndicator
+                            : Colors.transparent,
                         borderRadius: PrimeCareRadii.boardMd,
-                        boxShadow: isSelected ? [
-                          BoxShadow(
-                            color: primaryIcon.withValues(alpha: 0.25),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          )
-                        ] : [],
+                        boxShadow: isSelected
+                            ? [
+                                BoxShadow(
+                                  color: primaryIcon.withValues(alpha: 0.25),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ]
+                            : [],
                       ),
                       child: Row(
                         children: [
-                          Icon(isSelected ? d.selectedIcon : d.icon, color: isSelected ? primaryIcon : t.textMuted),
+                          Icon(
+                            isSelected ? d.selectedIcon : d.icon,
+                            color: isSelected ? primaryIcon : t.textMuted,
+                          ),
                           const SizedBox(width: PrimeCareSpacing.md),
                           Text(
                             d.label,
                             style: TextStyle(
                               color: isSelected ? primaryIcon : t.textMuted,
-                              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.w500,
                             ),
                           ),
                         ],
@@ -225,7 +250,8 @@ class _TabletNavRail extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
-    final primaryIndicator = activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
+    final primaryIndicator =
+        activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
     return Container(
       decoration: BoxDecoration(
@@ -235,7 +261,7 @@ class _TabletNavRail extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.35),
             blurRadius: 24,
             offset: const Offset(8, 0),
-          )
+          ),
         ],
       ),
       child: NavigationRail(
@@ -246,15 +272,27 @@ class _TabletNavRail extends StatelessWidget {
         indicatorColor: primaryIndicator,
         selectedIconTheme: IconThemeData(color: primaryIcon),
         unselectedIconTheme: IconThemeData(color: t.textMuted),
-        selectedLabelTextStyle: TextStyle(color: primaryIcon, fontWeight: FontWeight.bold, fontSize: 13),
-        unselectedLabelTextStyle: TextStyle(color: t.textMuted, fontWeight: FontWeight.normal, fontSize: 12),
-        groupAlignment: 0, 
-        destinations: destinations.map((d) => NavigationRailDestination(
-          icon: Icon(d.icon),
-          selectedIcon: Icon(d.selectedIcon),
-          label: Text(d.label),
-          padding: const EdgeInsets.symmetric(vertical: 12),
-        )).toList(),
+        selectedLabelTextStyle: TextStyle(
+          color: primaryIcon,
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+        ),
+        unselectedLabelTextStyle: TextStyle(
+          color: t.textMuted,
+          fontWeight: FontWeight.normal,
+          fontSize: 12,
+        ),
+        groupAlignment: 0,
+        destinations: destinations
+            .map(
+              (d) => NavigationRailDestination(
+                icon: Icon(d.icon),
+                selectedIcon: Icon(d.selectedIcon),
+                label: Text(d.label),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -279,18 +317,23 @@ class _MobileBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.pTheme;
     final primaryIcon = activeIconColor ?? PrimeCareColors.skyBlue;
-    final primaryIndicator = activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
+    final primaryIndicator =
+        activeIndicatorColor ?? PrimeCareColors.skyBlue.withValues(alpha: 0.1);
 
     return NavigationBar(
       selectedIndex: currentIndex,
       onDestinationSelected: onNavigate,
       backgroundColor: t.surfaceElevated,
       indicatorColor: primaryIndicator,
-      destinations: destinations.map((d) => NavigationDestination(
-        icon: Icon(d.icon, color: t.textMuted),
-        selectedIcon: Icon(d.selectedIcon, color: primaryIcon),
-        label: d.label,
-      )).toList(),
+      destinations: destinations
+          .map(
+            (d) => NavigationDestination(
+              icon: Icon(d.icon, color: t.textMuted),
+              selectedIcon: Icon(d.selectedIcon, color: primaryIcon),
+              label: d.label,
+            ),
+          )
+          .toList(),
     );
   }
 }
