@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/features/rn/providers/rn_patients_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class RnPatientsScreen extends ConsumerWidget {
   const RnPatientsScreen({super.key});
@@ -53,9 +54,16 @@ class RnPatientsScreen extends ConsumerWidget {
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final p = patients[index];
-                    return PatientAcuityCard(
-                      name: p.name,
-                      acuityLevel: p.acuityLevel,
+                    return GestureDetector(
+                      onTap: () {
+                        context.push(
+                          '/rn/care-plan',
+                        ); // Link logically precisely smartly
+                      },
+                      child: PatientAcuityCard(
+                        name: p.name,
+                        acuityLevel: p.acuityLevel,
+                      ),
                     );
                   },
                 );

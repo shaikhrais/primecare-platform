@@ -3,29 +3,64 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_mobile/core/api_client.dart';
 import 'dart:convert';
 
-// Provider to fetch universal activities/tasks
 final universalTasksProvider = FutureProvider.family
     .autoDispose<List<dynamic>, String>((ref, rolePrefix) async {
       final response = await apiClient.get('/api/activities?role=$rolePrefix');
       if (response.statusCode == 200) {
         return jsonDecode(response.body) as List<dynamic>;
       } else {
-        // If specific role activities endpoint is stubbed, return empty list gracefully natively.
         return [];
       }
     });
 
-class UniversalDailyTasksScreen extends ConsumerWidget {
+class UniversalDailyTasksScreen extends ConsumerStatefulWidget {
   final String rolePrefix;
-
   const UniversalDailyTasksScreen({super.key, required this.rolePrefix});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final asyncTasks = ref.watch(universalTasksProvider(rolePrefix));
+  ConsumerState<UniversalDailyTasksScreen> createState() =>
+      _UniversalDailyTasksScreenState();
+}
+
+class _UniversalDailyTasksScreenState
+    extends ConsumerState<UniversalDailyTasksScreen> {
+  Future<void> _markTaskComplete(String taskId) async {
+    try {
+      await apiClient.patch(
+        '/api/activities/$taskId',
+        body: {'status': 'completed'},
+      );
+      ref.invalidate(universalTasksProvider(widget.rolePrefix));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Task physically marked as complete gracefully natively.',
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to complete task securely: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final asyncTasks = ref.watch(universalTasksProvider(widget.rolePrefix));
 
     return Scaffold(
-      appBar: AppBar(title: Text('${rolePrefix.toUpperCase()} Daily Tasks')),
+      appBar: AppBar(
+        title: Text('${widget.rolePrefix.toUpperCase()} Daily Tasks'),
+      ),
       body: asyncTasks.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) =>
@@ -69,8 +104,15 @@ class UniversalDailyTasksScreen extends ConsumerWidget {
                   subtitle: Text(
                     task['description'] ?? 'Pending action required.',
                   ),
-                  trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-                  onTap: () {},
+                  trailing: const Icon(
+                    Icons.check_circle_outline,
+                    color: Colors.grey,
+                  ),
+                  onTap: () {
+                    final taskId =
+                        task['id']?.toString() ?? 'fallback_${index}';
+                    _markTaskComplete(taskId);
+                  },
                 ),
               );
             },

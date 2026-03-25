@@ -15,16 +15,31 @@ class _ManagerTeamsScreenState extends State<ManagerTeamsScreen> {
   Future<void> _exportCompliance() async {
     setState(() => _isExporting = true);
     try {
-      await apiClient.post('/api/manager/reports/export', body: {
-        'type': 'compliance_roster',
-        'teams': ['all'],
-      });
+      await apiClient.post(
+        '/api/manager/reports/export',
+        body: {
+          'type': 'compliance_roster',
+          'teams': ['all'],
+        },
+      );
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Report generated natively and dispatched gracefully cleanly explicitly neatly.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Report generated natively and dispatched gracefully cleanly explicitly neatly.',
+            ),
+          ),
+        );
       }
     } catch (e) {
       if (mounted) {
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Export error neatly solidly seamlessly flexibly fluently accurately: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Export error neatly solidly seamlessly flexibly fluently accurately: $e',
+            ),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _isExporting = false);
@@ -66,4 +81,3 @@ class _ManagerTeamsScreenState extends State<ManagerTeamsScreen> {
     );
   }
 }
-
