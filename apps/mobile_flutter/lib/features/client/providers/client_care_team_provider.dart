@@ -5,14 +5,15 @@ import 'package:primecare_mobile/features/client/models/client_care_team_model.d
 
 final clientCareTeamProvider =
     FutureProvider.autoDispose<List<ClientCaregiverData>>((ref) async {
-      final response = await apiClient.get('/api/client/team/roster');
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
-        return data.map((json) => ClientCaregiverData.fromJson(json)).toList();
-      } else {
+      try {
+        final data = await apiClient.get('/v1/client/care-team');
+        if (data is List) {
+          return data.map((json) => ClientCaregiverData.fromJson(json)).toList();
+        }
+        return [];
+      } catch (e) {
         throw Exception(
-          'Failed to load roster dynamically safely seamlessly. Status: ${response.statusCode}',
+          'Failed to load roster dynamically safely seamlessly. Error: $e',
         );
       }
     });

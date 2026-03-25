@@ -13,6 +13,8 @@ import feedbackRoutes from './feedback/feedback.routes';
 import portalRoutes from './portal/portal.routes';
 import paymentRoutes from './payments/payments.routes';
 import inboxRoutes from './inbox/messages.routes';
+import careTeamRoutes from './careTeam/careTeam.routes';
+import pulseRoutes from './pulse/pulse.routes';
 
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -34,6 +36,8 @@ client.route('/billing', billingRoutes);
 client.route('/feedback', feedbackRoutes);
 client.route('/payments', paymentRoutes);
 client.route('/inbox', inboxRoutes);
+client.route('/care-team', careTeamRoutes);
+client.route('/pulse', pulseRoutes);
 client.route('/', portalRoutes);
 
 export default client;

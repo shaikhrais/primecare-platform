@@ -25,7 +25,7 @@ class _ClientWellnessPulseScreenState extends State<ClientWellnessPulseScreen> {
         'source': 'mobile_flutter_client',
       };
 
-      await apiClient.post('/api/client/pulse', body: payload);
+      await apiClient.post('/v1/client/pulse', payload);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

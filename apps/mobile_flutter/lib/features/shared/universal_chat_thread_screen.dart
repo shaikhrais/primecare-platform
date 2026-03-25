@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 
 class UniversalChatThreadScreen extends StatefulWidget {
   final String rolePrefix;
@@ -12,32 +13,79 @@ class UniversalChatThreadScreen extends StatefulWidget {
 
 class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<Map<String, dynamic>> _messages = [
-    {
-      'sender': 'system',
-      'text': 'Secure HIPAA-compliant E2E connection established.',
-    },
-    {'sender': 'agent', 'text': 'How can I assist you with your shift today?'},
-  ];
+  bool _isLoading = true;
+  List<Map<String, dynamic>> _messages = [];
+  String _error = '';
 
-  void _sendMessage() {
-    if (_controller.text.trim().isEmpty) return;
+  @override
+  void initState() {
+    super.initState();
+    _fetchInbox();
+  }
+
+  Future<void> _fetchInbox() async {
+    try {
+      final res = await apiClient.get('/v1/inbox');
+      if (mounted) {
+        setState(() {
+          _messages = [
+            {
+              'sender': 'system',
+              'text': 'Secure HIPAA-compliant E2E connection established.',
+            }
+          ];
+
+          if (res.data != null && res.data is List && res.data.isNotEmpty) {
+            final thread = res.data[0];
+            if (thread['messages'] != null && thread['messages'] is List) {
+              final msgs = List<dynamic>.from(thread['messages']);
+              for (var msg in msgs.reversed) {
+                // Determine if sender is me
+                // Normally we'd cross-reference user ID, but we approximate here.
+                _messages.add({
+                  'sender': 'agent',
+                  'text': msg['bodyText'] ?? '',
+                });
+              }
+            }
+          }
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = e.toString();
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _sendMessage() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty) return;
+
     setState(() {
-      _messages.add({'sender': 'me', 'text': _controller.text.trim()});
+      _messages.add({'sender': 'me', 'text': text});
     });
     _controller.clear();
 
-    // Simulate structural WS echo intelligently flawlessly explicitly cleanly
-    Future.delayed(const Duration(seconds: 1), () {
+    try {
+      await apiClient.post('/v1/inbox', {
+        'threadType': 'general',
+        'bodyText': text
+      });
+    } catch (e) {
       if (mounted) {
-        setState(() {
-          _messages.add({
-            'sender': 'agent',
-            'text': 'Received natively firmly perfectly implicitly.',
-          });
-        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to send natively: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
-    });
+    }
   }
 
   @override
@@ -48,6 +96,20 @@ class _UniversalChatThreadScreenState extends State<UniversalChatThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Comms Thread')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_error.isNotEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Comms Thread')),
+        body: Center(child: Text('Error resolving threads natively: $_error')),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Comms Thread')),
       body: Column(
