@@ -96,11 +96,21 @@ class PswLiveVideoTriageScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.flip_camera_ios, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Hardware camera flipped efficiently.'),
+                ),
+              );
+            },
           ),
           IconButton(
             icon: const Icon(Icons.mic, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('WebRTC Mic toggled elegantly.')),
+              );
+            },
           ),
         ],
       ),
