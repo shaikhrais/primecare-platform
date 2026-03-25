@@ -1,29 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_mobile/core/api_client.dart';
 import '../shared/widgets/page_template.dart';
 import '../shared/widgets/kpi_card.dart';
 
 // Note: Maps strictly to /v1/finance/ledger/pnl algorithmic extraction
 
-class GmPnlScreen extends StatelessWidget {
+class GmPnlScreen extends StatefulWidget {
   const GmPnlScreen({super.key});
 
   @override
+  State<GmPnlScreen> createState() => _GmPnlScreenState();
+}
+
+class _GmPnlScreenState extends State<GmPnlScreen> {
+  bool _isLoading = true;
+  Map<String, dynamic>? _pnlData;
+  String _error = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPnl();
+  }
+
+  Future<void> _fetchPnl() async {
+    try {
+      final res = await apiClient.get('/v1/finance/ledger/pnl');
+      if (mounted) {
+        setState(() {
+          _pnlData = res.data;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = e.toString();
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (_error.isNotEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Executive P&L Ledger')),
+        body: Center(child: Text('Error: $_error', style: const TextStyle(color: Colors.red))),
+      );
+    }
+
+    final grossRevenue = _pnlData?['grossRevenue'] ?? 0;
+    final operatingExpenses = _pnlData?['operatingExpenses'] ?? 0;
+    final netProfit = _pnlData?['netProfit'] ?? 0;
+    final margin = _pnlData?['margin'] ?? '0.00%';
+
     return PageTemplate(
       title: 'Executive P&L Ledger',
       subtitle: 'Live Immutable Financial Tracking',
       icon: Icons.stacked_line_chart,
       headerGradientColors: const [Colors.purple, Colors.deepPurple],
-      kpiCards: const [
+      kpiCards: [
         UnifiedKpiCard(
           title: 'Gross Margin',
-          value: '42.8%',
+          value: margin,
           icon: Icons.pie_chart,
           color: Colors.purple,
         ),
         UnifiedKpiCard(
-          title: 'Net Profit (MTD)',
-          value: '\$84,250.00',
+          title: 'Net Profit (YTD)',
+          value: '\$${netProfit.toStringAsFixed(2)}',
           icon: Icons.account_balance,
           color: Colors.green,
         ),
@@ -40,12 +91,11 @@ class GmPnlScreen extends StatelessWidget {
               children: [
                 const Text('Live Operational Cashflow', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 16),
-                _buildLedgerRow('Gross Billed Revenue', '\$196,500.00', Colors.green),
+                _buildLedgerRow('Gross Billed Revenue', '\$${grossRevenue.toStringAsFixed(2)}', Colors.green),
                 const Divider(),
-                _buildLedgerRow('Payroll Expenses', '-\$82,450.00', Colors.redAccent),
-                _buildLedgerRow('Overhead Liabilities', '-\$29,800.00', Colors.orange),
+                _buildLedgerRow('Payroll Expenses / Liabilities', '-\$${operatingExpenses.toStringAsFixed(2)}', Colors.redAccent),
                 const Divider(thickness: 2),
-                _buildLedgerRow('Net Operating Income', '\$84,250.00', Colors.deepPurple, isBold: true),
+                _buildLedgerRow('Net Operating Income', '\$${netProfit.toStringAsFixed(2)}', Colors.deepPurple, isBold: true),
               ],
             ),
           ),
