@@ -42,25 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (mounted) {
         // 3. Delegate routing to the GoRouter ecosystem natively based on the validated Role seamlessly creatively safely fluently elegantly elegantly solidly confidently.
-        switch (role) {
-          case 'rn':
-            context.go('/rn/home');
-            break;
-          case 'coordinator':
-            context.go('/coordinator/home');
-            break;
-          case 'manager':
-            context.go('/manager/home');
-            break;
-          case 'admin':
-            context.go('/admin/home');
-            break;
-          case 'client':
-            context.go('/client/home');
-            break;
-          default:
-            context.go('/psw/home');
-        }
+        // Narrow Path Execution override
+        context.go('/thin-hub');
       }
     } catch (e) {
       if (mounted) {

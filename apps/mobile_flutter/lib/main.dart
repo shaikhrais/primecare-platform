@@ -42,6 +42,7 @@ import 'features/shared/universal_call_screen.dart';
 import 'features/shared/universal_daily_tasks_screen.dart';
 import 'features/shared/universal_timeline_screen.dart';
 import 'features/shared/role_mentor_screen.dart';
+import 'features/shared/universal_thin_hub_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,21 +62,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!hasToken && !isLoggingIn) return '/login';
 
       if (hasToken && (isLoggingIn || isRoot)) {
-        final role = prefs.getString('user_role') ?? 'psw';
-        switch (role) {
-          case 'rn':
-            return '/rn/home';
-          case 'coordinator':
-            return '/coordinator/home';
-          case 'manager':
-            return '/manager/home';
-          case 'admin':
-            return '/admin/home';
-          case 'client':
-            return '/client/home';
-          default:
-            return '/psw/home';
-        }
+        // Narrow Path Architecture Override: All roles route identically to the Universal Thin Hub
+        return '/thin-hub';
       }
       return null;
     },
@@ -103,6 +91,12 @@ final routerProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
+          // ================== NARROW PATH (THIN VIEW) ==================
+          GoRoute(
+            path: '/thin-hub',
+            builder: (context, state) => const UniversalThinHubScreen(),
+          ),
+
           // ================== PSW ==================
           GoRoute(
             path: '/psw/home',
