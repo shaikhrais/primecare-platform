@@ -4,6 +4,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/features/psw/providers/psw_dashboard_provider.dart';
 import 'package:primecare_mobile/features/psw/models/psw_dashboard_model.dart';
 import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 
 class PswHomeScreen extends ConsumerWidget {
   const PswHomeScreen({super.key});
@@ -91,7 +92,9 @@ class PswHomeScreen extends ConsumerWidget {
                   PrimeButton(
                     label: 'View Full Schedule',
                     isOutline: true,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push('/universal/psw/activities');
+                    },
                   ),
                 ],
               ),
