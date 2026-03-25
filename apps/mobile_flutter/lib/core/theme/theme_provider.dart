@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../theme.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
-enum PrimeCareThemeType { light, dark, highContrast }
-
-class ThemeNotifier extends Notifier<PrimeCareThemeType> {
-  @override
-  PrimeCareThemeType build() {
-    return PrimeCareThemeType.light;
-  }
-
-  void setTheme(PrimeCareThemeType themeType) {
-    state = themeType;
-  }
-
-  ThemeData get activeThemeData {
-    switch (state) {
-      case PrimeCareThemeType.light:
-        return PrimeCareTheme.lightTheme;
-      case PrimeCareThemeType.dark:
-        return PrimeCareTheme.darkTheme;
-      case PrimeCareThemeType.highContrast:
-        return PrimeCareTheme.darkTheme;
-    }
-  }
-}
-
-final themeProvider = NotifierProvider<ThemeNotifier, PrimeCareThemeType>(() {
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
   return ThemeNotifier();
 });
+
+class ThemeNotifier extends StateNotifier<ThemeMode> {
+  ThemeNotifier() : super(ThemeMode.light);
+  void toggleTheme() {
+    state = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+  }
+}

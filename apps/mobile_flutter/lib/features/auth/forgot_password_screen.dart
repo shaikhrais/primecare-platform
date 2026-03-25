@@ -1,180 +1,33 @@
-import 'package:primecare_mobile/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import '../../core/colors.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/api_client.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import '../../core/theme_provider.dart';
-import '../../core/widgets/language_toggle_button.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
-
-  @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
-}
-
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _emailController = TextEditingController();
-  bool _isLoading = false;
-  String? _message;
-  bool _isSuccess = false;
-
-  Future<void> _handleReset() async {
-    final email = _emailController.text.trim();
-    if (email.isEmpty) {
-      setState(() => _message = 'Please enter a valid email address.');
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-      _message = null;
-    });
-
-    try {
-      final response = await apiClient.post('/v1/auth/forgot-password', {
-        'email': email,
-      });
-
-      if (mounted) {
-        setState(() {
-          _isSuccess = true;
-          _message = response['message'] ?? 'Password reset instructions sent.';
-        });
-      }
-    } catch (e) {
-      if (mounted)
-        setState(() {
-          _message = e.toString();
-          _isSuccess = false;
-        });
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
+class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PrimeCareScaffold(
-      appBar: PrimeCareNavBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        title: const SizedBox.shrink(),
-        actions: [
-          const LanguageToggleButton(),
-          const SizedBox(width: 8),
-          Consumer(
-            builder: (context, ref, child) {
-              final isDark = ref.watch(themeProvider) == ThemeMode.dark;
-              return IconButton(
-                tooltip: 'Toggle Theme',
-                icon: PrimeCareIcon(
-                  isDark ? Icons.light_mode : Icons.dark_mode,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
-              );
-            },
-          ),
-          const SizedBox(width: 16),
-        ],
-      ),
-      body: PrimeCareCenter(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.0),
-          child: PrimeCareCard(
-            padding: EdgeInsets.all(32.0),
-            child: PrimeCareColumn(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                PrimeCareIcon(
-                  Icons.lock_reset,
-                  size: 48,
-                  color: Color(0xFF0EA5E9),
-                ),
-                SizedBox(height: 16),
-                PrimeCareText(
-                  'Password Recovery',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: PrimeCareColors.radarDark,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 8),
-                PrimeCareText(
-                  'Enter the email address associated with your PrimeCare account.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: PrimeCareColors.slate500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 32),
-                if (_message != null) ...[
-                  PrimeCareCard(
-                    padding: EdgeInsets.all(12),
-                    child: PrimeCareText(
-                      _message!,
-                      style: TextStyle(
-                        color: _isSuccess
-                            ? Color(0xFF059669)
-                            : PrimeCareColors.rose,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                ],
-                if (!_isSuccess) ...[
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.emailAddress,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 24),
-                  PrimeCareButton(
-                    type: PrimeCareButtonType.primary,
-                    onPressed: _isLoading ? null : _handleReset,
-                    child: _isLoading
-                        ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : PrimeCareText(
-                            'Send Reset Link',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                  ),
-                ],
-                if (_isSuccess) ...[
-                  PrimeCareButton(
-                    type: PrimeCareButtonType.primary,
-                    onPressed: () => context.go('/login'),
-                    child: PrimeCareText(
-                      'Return to Authorization',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('Reset Password')),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            const Text('Enter your email to reset password.'),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
             ),
-          ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: PrimeButton(
+                label: 'SEND LINK',
+                onPressed: () => context.pop(),
+              ),
+            ),
+          ],
         ),
       ),
     );
