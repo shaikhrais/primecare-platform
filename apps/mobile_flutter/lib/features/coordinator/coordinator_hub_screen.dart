@@ -1,37 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_mobile/features/coordinator/providers/coordinator_stats_provider.dart';
 
-class CoordinatorHubScreen extends StatelessWidget {
+class CoordinatorHubScreen extends ConsumerWidget {
   const CoordinatorHubScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncStats = ref.watch(coordinatorStatsProvider);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Dispatch Hub')),
-      body: Column(
-        children: [
-          const LiveDispatchMap(),
-          const SizedBox(height: 16),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Align(
-              alignment: Alignment.centerLeft,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: asyncStats.when(
+              loading: () => const Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (err, stack) => Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Error loading stats: $err',
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+              data: (stats) {
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildStatBox(
+                        'Live PSWs',
+                        stats.livePsw.toString(),
+                        Colors.blue,
+                      ),
+                      _buildStatBox(
+                        'SOS Active',
+                        stats.sosActive.toString(),
+                        Colors.red,
+                      ),
+                      _buildStatBox(
+                        'Pending',
+                        stats.pendingMatches.toString(),
+                        Colors.orange,
+                      ),
+                      _buildStatBox(
+                        'Waitlist',
+                        stats.waitlistCount.toString(),
+                        Colors.purple,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          const SliverToBoxAdapter(child: LiveDispatchMap()),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Waitlist Kanban',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: KanbanWaitlistBoard(),
+          const SliverToBoxAdapter(child: SizedBox(height: 8)),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: KanbanWaitlistBoard(),
+            ),
           ),
-          const Spacer(),
-          const Text('Drag PSW to Assign:'),
-          const SizedBox(height: 16),
-          const DragAssignWidget(),
-          const SizedBox(height: 32),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Drag PSW to Assign:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: DragAssignWidget()),
+          const SliverToBoxAdapter(child: SizedBox(height: 32)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatBox(String label, String value, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade700,
+            ),
+          ),
         ],
       ),
     );
