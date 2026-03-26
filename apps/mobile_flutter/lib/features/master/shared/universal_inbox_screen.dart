@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 // Provider to fetch universal inbox threads
 final universalInboxProvider = FutureProvider.family
     .autoDispose<List<dynamic>, String>((ref, rolePrefix) async {
-      final response = await apiClient.get('/api/inbox?role=$rolePrefix');
+      final response = await apiClient.get('/v1/inbox');
       if (response is List) {
         return response;
       } else {
@@ -17,7 +17,7 @@ final universalInboxProvider = FutureProvider.family
 
 // Provider to fetch universal directory contacts
 final directoryProvider = FutureProvider.autoDispose<List<dynamic>>((ref) async {
-  final response = await apiClient.get('/api/user/directory');
+  final response = await apiClient.get('/v1/user/directory');
   if (response is List) return response;
   return [];
 });
@@ -124,7 +124,7 @@ class _UniversalInboxScreenState extends ConsumerState<UniversalInboxScreen> {
       };
       if (recipientId != null) payload['recipientUserId'] = recipientId;
 
-      await apiClient.post('/api/inbox', payload);
+      await apiClient.post('/v1/inbox', payload);
       // Refresh Riverpod provider inherently cleanly explicitly exactly carefully correctly optimally elegantly stably seamlessly cleverly flexibly gracefully softly dynamically effectively nicely smoothly.
       ref.invalidate(universalInboxProvider(widget.rolePrefix));
 
