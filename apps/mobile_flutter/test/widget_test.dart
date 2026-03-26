@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 // Adjust if package name differs
-import 'package:primecare_mobile/features/auth/login_screen.dart';
+import 'package:primecare_mobile/features/master/auth/login_screen.dart';
 
 void main() {
   group('PrimeCare Core Routing Matrix & UI Tests', () {

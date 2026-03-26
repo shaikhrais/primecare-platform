@@ -1,4 +1,4 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../bindings';
 import { requireAuth } from '../_shared/middleware/auth';
 import profileRoutes from './profile.routes';
@@ -21,6 +21,40 @@ user.use('*', async (c, next) => {
 });
 
 user.route('/profile', profileRoutes);
+
+// GEOLOCATED CONTACT DIRECTORY
+user.openapi(createRoute({
+    method: 'get',
+    path: '/directory',
+    responses: {
+        200: { description: 'Global Contact Directory', content: { 'application/json': { schema: z.any() } } },
+        401: { description: 'Unauthorized' }
+    }
+}), async (c) => {
+    const usr = c.var.user as any;
+    if (!usr) return c.json({ error: 'Unauthorized' }, 401);
+
+    const contacts = await c.var.prisma.user.findMany({
+        where: { tenantId: usr.tenantId },
+        select: {
+            id: true,
+            email: true,
+            roles: true,
+            clientProfile: { select: { fullName: true } },
+            pswProfile: { select: { fullName: true } }
+        }
+    });
+    
+    // Map to a deterministic displayName
+    const directory = contacts.map((c: any) => ({
+        id: c.id,
+        email: c.email,
+        roles: c.roles,
+        displayName: c.clientProfile?.fullName || c.pswProfile?.fullName || c.email.split('@')[0]
+    }));
+
+    return c.json(directory, 200);
+});
 user.route('/', passwordRoutes);
 user.route('/messaging', messagingRoutes);
 user.route('/training', sharedTrainingRoutes);

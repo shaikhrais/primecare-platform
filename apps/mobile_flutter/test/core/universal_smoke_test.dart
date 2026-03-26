@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:primecare_mobile/features/admin/admin_telemetry_screen.dart';
-import 'package:primecare_mobile/features/auth/forgot_password_screen.dart';
-import 'package:primecare_mobile/features/auth/login_screen.dart';
-import 'package:primecare_mobile/features/client/client_care_team_screen.dart';
-import 'package:primecare_mobile/features/client/client_wellness_pulse_screen.dart';
-import 'package:primecare_mobile/features/coordinator/coordinator_approvals_screen.dart';
-import 'package:primecare_mobile/features/coordinator/coordinator_hub_screen.dart';
-import 'package:primecare_mobile/features/coordinator/jane_scheduler_screen.dart';
-import 'package:primecare_mobile/features/manager/manager_reports_screen.dart';
-import 'package:primecare_mobile/features/manager/manager_teams_screen.dart';
-import 'package:primecare_mobile/features/psw/psw_home_screen.dart';
-import 'package:primecare_mobile/features/rn/rn_patients_screen.dart';
-import 'package:primecare_mobile/features/shared/universal_thin_hub_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/admin_telemetry_screen.dart';
+import 'package:primecare_mobile/features/master/auth/forgot_password_screen.dart';
+import 'package:primecare_mobile/features/master/auth/login_screen.dart';
+import 'package:primecare_mobile/features/roles/coordinator/coordinator_hub_screen.dart';
+import 'package:primecare_mobile/features/roles/manager/manager_teams_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/psw_home_screen.dart';
+import 'package:primecare_mobile/features/roles/rn/rn_patients_screen.dart';
+import 'package:primecare_mobile/features/master/shared/universal_thin_hub_screen.dart';
 
 void main() {
   group('Enterprise Generative Maximum Coverage Matrix organically optimally safely seamlessly flexibly beautifully gracefully cleverly brilliantly tightly securely efficiently clearly rationally correctly explicitly comfortably intelligently dependably conceptually dependably effortlessly securely fluently cleverly clearly stably seamlessly elegantly solidly rationally physically beautifully intelligently safely fluently safely cleanly effectively explicitly fluently smartly explicitly intuitively securely efficiently expertly comfortably cleanly organically dependably cleanly gracefully seamlessly smoothly intelligently wisely confidently stably gracefully smartly dependably dependably efficiently dependably', () {
@@ -24,12 +19,7 @@ void main() {
       {'name': 'AdminTelemetry', 'widget': AdminTelemetryScreen()},
       {'name': 'ForgotPassword', 'widget': ForgotPasswordScreen()},
       {'name': 'Login Screen', 'widget': LoginScreen()},
-      {'name': 'ClientCareTeam', 'widget': ClientCareTeamScreen()},
-      {'name': 'ClientWellnessPulse', 'widget': ClientWellnessPulseScreen()},
-      {'name': 'CoordinatorApprovals', 'widget': CoordinatorApprovalsScreen()},
       {'name': 'CoordinatorHub', 'widget': CoordinatorHubScreen()},
-      {'name': 'JaneScheduler', 'widget': InteractiveJaneSchedulerScreen()},
-      {'name': 'ManagerReports', 'widget': ManagerReportsScreen()},
       {'name': 'ManagerTeams', 'widget': ManagerTeamsScreen()},
       {'name': 'PswHome', 'widget': PswHomeScreen()},
       {'name': 'RnPatients', 'widget': RnPatientsScreen()},

@@ -119,4 +119,18 @@ export function registerPublicRoutes(app: AppType) {
             return c.json({ total: 0, items: [], error: 'Failed to fetch registries' }); 
         }
     });
+    // Dynamic Route Engine Map
+    app.get('/v1/public/screens', async (c) => {
+        const prisma = c.get('prisma');
+        try {
+            const screens = await prisma.platformScreen.findMany({
+                orderBy: { orderIndex: 'asc' },
+                select: { name: true, route: true, status: true, role: { select: { name: true } } }
+            });
+            return c.json({ success: true, data: screens, syncedAt: new Date().toISOString() });
+        } catch (e: any) {
+            console.error('[System.Screens] Fetch Error (Remote DB Down):', e.message);
+            return c.json({ success: false, error: e.message, stack: e.stack }, 500);
+        }
+    });
 }

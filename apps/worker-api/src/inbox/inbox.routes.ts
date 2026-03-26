@@ -19,7 +19,13 @@ app.openapi(createRoute({
     if (!user) return c.json({ error: 'Unauthorized' }, 401);
 
     const threads = await c.var.prisma.messageThread.findMany({
-        where: { tenantId: user.tenantId },
+        where: { 
+            tenantId: user.tenantId,
+            OR: [
+                { threadType: 'general' },
+                { threadType: { contains: user.id } }
+            ]
+        },
         include: {
             messages: {
                 orderBy: { createdAt: 'desc' },
@@ -39,17 +45,19 @@ app.openapi(createRoute({
 app.openapi(createRoute({
     method: 'post',
     path: '/',
-    request: { body: { content: { 'application/json': { schema: z.object({ threadType: z.string().default('general'), bodyText: z.string() }) } } } },
+    request: { body: { content: { 'application/json': { schema: z.object({ threadType: z.string().default('general'), bodyText: z.string(), recipientUserId: z.string().optional() }) } } } },
     responses: { 200: { description: 'Message Sent', content: { 'application/json': { schema: z.any() } } }, 401: { description: 'Unauthorized' } }
 }), async (c) => {
     const user = c.var.user as any;
-    const { threadType, bodyText } = c.req.valid('json');
+    const { threadType, bodyText, recipientUserId } = c.req.valid('json');
     if (!user) return c.json({ error: 'Unauthorized' }, 401);
+
+    const activeThreadType = recipientUserId ? `direct:${user.id}_${recipientUserId}` : threadType;
 
     const thread = await c.var.prisma.messageThread.create({
         data: {
             tenantId: user.tenantId,
-            threadType: threadType,
+            threadType: activeThreadType,
             messages: {
                 create: {
                     senderUserId: user.id,
