@@ -37,6 +37,7 @@ import 'features/manager/manager_payroll_screen.dart';
 import 'features/manager/manager_incidents_screen.dart';
 
 import 'features/admin/admin_telemetry_screen.dart';
+import 'features/admin/admin_audit_screen.dart';
 
 import 'features/client/client_wellness_pulse_screen.dart';
 import 'features/client/client_care_team_screen.dart';
@@ -216,6 +217,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/admin/home',
             builder: (context, state) => const AdminTelemetryScreen(),
+          ),
+          GoRoute(
+            path: '/admin/audit',
+            builder: (context, state) => const AdminAuditScreen(),
           ),
 
           // ================== CLIENT ==================

@@ -23,14 +23,30 @@ class AdminTelemetryScreen extends ConsumerWidget {
           data: (stats) {
             return Column(
               children: [
-                const ServerLoadGraph(),
-                const SizedBox(height: 24),
-                ActiveWebSocketTracker(
-                  activeConnections: stats.totalVisits > 0
-                      ? stats.totalVisits
-                      : 142,
-                  pendingJobQueue: stats.unassignedShifts,
-                  systemScore: (100.0 - stats.openIncidents).clamp(0.0, 100.0),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black87, blurRadius: 25, spreadRadius: 5, offset: Offset(0, 15)),
+                    ],
+                  ),
+                  child: const ServerLoadGraph(),
+                ),
+                const SizedBox(height: 32),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black87, blurRadius: 25, spreadRadius: 5, offset: Offset(0, 15)),
+                    ],
+                  ),
+                  child: ActiveWebSocketTracker(
+                    activeConnections: stats.totalVisits > 0
+                        ? stats.totalVisits
+                        : 142,
+                    pendingJobQueue: stats.unassignedShifts,
+                    systemScore: (100.0 - stats.openIncidents).clamp(0.0, 100.0),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 // const SecurityAuditAlertList(),

@@ -74,9 +74,10 @@ class UniversalRoleSidebar extends StatelessWidget {
       ];
     } else if (currentPath.startsWith('/admin')) {
       activeColor = const Color(0xFF8B5CF6);
-      paths = ['/admin/home', '/universal/admin/inbox'];
+      paths = ['/admin/home', '/admin/audit', '/universal/admin/inbox'];
       items = const [
         BottomNavigationBarItem(icon: Icon(Icons.radar), label: 'Telemetry'),
+        BottomNavigationBarItem(icon: Icon(Icons.security), label: 'Shadows'),
         BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Inbox'),
       ];
     } else if (currentPath.startsWith('/client')) {
