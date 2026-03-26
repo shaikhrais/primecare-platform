@@ -40,17 +40,11 @@ class ActiveVisitData {
 final pswEvvLiveProvider = FutureProvider.autoDispose<ActiveVisitData?>((
   ref,
 ) async {
-  final response = await apiClient.get('/api/psw/schedule/visits');
+  final response = await apiClient.get('/v1/psw/schedule/visits');
 
-  if (response.statusCode == 200) {
-    final List<dynamic> visits = jsonDecode(response.body);
-    if (visits.isEmpty) return null;
-
-    // Return first active or scheduled visit for EVV lifecycle
-    return ActiveVisitData.fromJson(visits.first);
+  if (response is List && response.isNotEmpty) {
+    return ActiveVisitData.fromJson(response.first);
   } else {
-    throw Exception(
-      'Failed to load active EVV pipeline efficiently directly actively optimally smoothly organically explicitly cleanly.',
-    );
+    return null;
   }
 });

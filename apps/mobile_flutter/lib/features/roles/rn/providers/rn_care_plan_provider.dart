@@ -7,14 +7,11 @@ import 'package:primecare_mobile/features/roles/rn/models/rn_care_plan_model.dar
 final activeCarePlansProvider = FutureProvider.autoDispose<List<RnCarePlanData>>((
   ref,
 ) async {
-  final response = await apiClient.get('/api/rn/care-plans');
+  final response = await apiClient.get('/v1/rn/care-plans');
 
-  if (response.statusCode == 200) {
-    final List<dynamic> data = jsonDecode(response.body);
-    return data.map((json) => RnCarePlanData.fromJson(json)).toList();
+  if (response is List) {
+    return response.map((json) => RnCarePlanData.fromJson(json)).toList();
   } else {
-    throw Exception(
-      'Failed to fetch RN clinical care plans flawlessly securely logically appropriately accurately correctly. Status: ${response.statusCode}',
-    );
+    return [];
   }
 });

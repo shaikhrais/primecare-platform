@@ -8,6 +8,7 @@ import 'package:primecare_mobile/features/roles/superuser/superuser_control_scre
 import 'package:primecare_mobile/features/master/shared/role_sow_screen.dart';
 import 'package:primecare_mobile/features/roles/client/client_wellness_pulse_screen.dart';
 import 'package:primecare_mobile/features/roles/admin/admin_audit_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/admin_form_entry_screen.dart';
 
 // Phase 24 Expanded Enterprise Role Matrices
 import 'package:primecare_mobile/features/roles/rn/rn_patients_screen.dart';
@@ -90,6 +91,7 @@ class ScreenRegistry {
       case 'manager_payroll': return const ManagerPayrollScreen();
       case 'manager_incidents': return const ManagerIncidentsScreen();
       case 'admin_telemetry': return const AdminTelemetryScreen();
+      case 'admin_forms': return const AdminFormEntryScreen();
       case 'client_pulse': return const ClientWellnessPulseScreen();
       case 'client_dispatch': return const ClientDispatchTrackerScreen();
       case 'client_payments': return const ClientPaymentsScreen();

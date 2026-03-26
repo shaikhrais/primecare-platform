@@ -7,7 +7,7 @@ final universalDashboardProvider = FutureProvider.family.autoDispose<Map<String,
   roleLiteral,
 ) async {
   // Pass the target role safely into the generalized router natively
-  final response = await apiClient.get('/api/$roleLiteral/home/stats');
+  final response = await apiClient.get('/v1/$roleLiteral/home/stats');
 
   if (response is Map) {
     if (response.containsKey('mocked') || response.containsKey('error')) {

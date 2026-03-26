@@ -27,6 +27,10 @@ class DynamicRouteEngine {
             )
           );
         }
+        // Forcibly inject new Admin Modules decoupled from external Prisma sync constraints
+        generatedRoutes.add(
+          GoRoute(path: '/admin/forms', builder: (context, state) => ScreenRegistry.resolveScreen('admin_forms', {})),
+        );
         
         print('[DynamicRouteEngine] Successfully compiled ${generatedRoutes.length} database routes natively.');
         return generatedRoutes;
@@ -57,6 +61,7 @@ class DynamicRouteEngine {
       GoRoute(path: '/admin/home', builder: (context, state) => ScreenRegistry.resolveScreen('Admin Matrix', {})),
       GoRoute(path: '/admin/audit', builder: (context, state) => ScreenRegistry.resolveScreen('Admin Matrix', {})), // Route explicitly matches audit screen
       GoRoute(path: '/admin/telemetry', builder: (context, state) => ScreenRegistry.resolveScreen('admin_telemetry', {})),
+      GoRoute(path: '/admin/forms', builder: (context, state) => ScreenRegistry.resolveScreen('admin_forms', {})),
       
       GoRoute(path: '/client/home', builder: (context, state) => ScreenRegistry.resolveScreen('Client Care Feed', {})),
       GoRoute(path: '/client/pulse', builder: (context, state) => ScreenRegistry.resolveScreen('client_pulse', {})),

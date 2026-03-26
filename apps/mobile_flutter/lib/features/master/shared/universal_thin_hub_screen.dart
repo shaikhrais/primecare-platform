@@ -14,7 +14,7 @@ final nextActionProvider = FutureProvider.autoDispose<Map<String, dynamic>?>((
   final role = prefs.getString('user_role') ?? 'unknown';
 
   final response = await apiClient.get(
-    '/api/narrow-path/next-action?role=$role',
+    '/v1/narrow-path/next-action?role=$role',
   );
   if (response is Map) {
     if (response.containsKey('mocked') || response.containsKey('error')) {

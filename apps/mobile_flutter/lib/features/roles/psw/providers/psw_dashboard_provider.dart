@@ -7,14 +7,13 @@ final pswDashboardProvider = FutureProvider.autoDispose<PswDashboardData>((
   ref,
 ) async {
   // Leverage the global apiClient injected across the application
-  final response = await apiClient.get('/api/psw/home');
+  final response = await apiClient.get('/v1/psw/home');
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    return PswDashboardData.fromJson(data);
+  if (response != null) {
+    return PswDashboardData.fromJson(response);
   } else {
     throw Exception(
-      'Failed to load dashboard payload dynamically. Status: ${response.statusCode}',
+      'Failed to load dashboard payload dynamically.',
     );
   }
 });

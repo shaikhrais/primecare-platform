@@ -30,7 +30,7 @@ class _RnCarePlanScreenState extends ConsumerState<RnCarePlanScreen> {
           'reviewDate': DateTime.now().toIso8601String(),
         },
       );
-      if (response.statusCode == 200 && mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Care Plan Deployed (FHIR R4 Sync Active)'),
