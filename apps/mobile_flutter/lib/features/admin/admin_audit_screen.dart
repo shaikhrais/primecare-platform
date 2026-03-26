@@ -69,7 +69,7 @@ class AdminAuditScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.bottom(24),
+              margin: const EdgeInsets.only(bottom: 24),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),

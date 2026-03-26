@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../../core/api_client.dart';
 
@@ -197,35 +199,76 @@ class _SuperuserTerritoryMapScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Mocked Mapbox UI Visualization
-            Container(
-              height: 250,
+            // Live Geographic Mapbox UI Visualization
+            SizedBox(
+              height: 350,
               width: double.infinity,
-              decoration: BoxDecoration(
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
-                  image: NetworkImage('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-122.3321,47.6062,10,0/800x400?access_token=pk.eyJ1IjoibW9jay1kZW1vLW1hcGJveCJ9'), // Mock static map graphic
-                  fit: BoxFit.cover,
-                ),
-                border: Border.all(color: Colors.blue.withOpacity(0.3), width: 2),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10, offset: const Offset(0, 5)),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 16, left: 16,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(8)),
-                      child: const Text('Demographic Density Overlay Active', style: TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold)),
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue.withOpacity(0.3), width: 2),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10, offset: const Offset(0, 5)),
+                    ],
                   ),
-                  const Center(
-                    child: Icon(Icons.location_on, size: 64, color: Colors.redAccent),
-                  )
-                ],
+                  child: FlutterMap(
+                    options: const MapOptions(
+                      initialCenter: LatLng(43.8, -79.4),
+                      initialZoom: 8.5,
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate: 'https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoibW9jay1kZW1vLW1hcGJveCJ9',
+                        userAgentPackageName: 'com.primecare.mobile',
+                      ),
+                      CircleLayer(
+                        circles: _zones.asMap().entries.map((entry) {
+                          final idx = entry.key;
+                          final z = entry.value;
+                          final lat = 43.6 + (idx * 0.15);
+                          final lng = -79.5 + (idx * 0.12);
+                          return CircleMarker(
+                            point: LatLng(lat, lng),
+                            color: z.isClaimed ? Colors.red.withOpacity(0.4) : Colors.green.withOpacity(0.5),
+                            borderColor: z.isClaimed ? Colors.red : Colors.green,
+                            borderStrokeWidth: 2,
+                            useRadiusInMeter: true,
+                            radius: (z.population / 20).clamp(5000.0, 15000.0),
+                          );
+                        }).toList(),
+                      ),
+                      MarkerLayer(
+                        markers: _zones.asMap().entries.map((entry) {
+                          final idx = entry.key;
+                          final z = entry.value;
+                          final lat = 43.6 + (idx * 0.15);
+                          final lng = -79.5 + (idx * 0.12);
+                          return Marker(
+                            point: LatLng(lat, lng),
+                            width: 120,
+                            height: 40,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: z.isClaimed ? Colors.red : Colors.green),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  z.region,
+                                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 24),

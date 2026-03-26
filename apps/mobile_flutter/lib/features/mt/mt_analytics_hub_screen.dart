@@ -14,14 +14,7 @@ class MtAnalyticsHubScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       // Deep-wired Thin View Execution Node properly conceptually dependably dependably securely natively explicitly efficiently cleanly flawlessly
-      body: UniversalThinHubScreen(
-        rolePrefix: 'mt',
-        thinTasks: const [
-          'Overtime Risk Analysis effectively efficiently',
-          'Staff Utilization Matrix elegantly properly',
-          'Shift Fulfillment Drilldown smoothly fluently',
-        ],
-      ),
+      body: const UniversalThinHubScreen(),
     );
   }
 }

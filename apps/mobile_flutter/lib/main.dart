@@ -38,6 +38,7 @@ import 'features/manager/manager_incidents_screen.dart';
 
 import 'features/admin/admin_telemetry_screen.dart';
 import 'features/admin/admin_audit_screen.dart';
+import 'features/admin/admin_daily_tasks_screen.dart';
 
 import 'features/client/client_wellness_pulse_screen.dart';
 import 'features/client/client_care_team_screen.dart';
@@ -60,7 +61,6 @@ import 'features/shared/universal_home_screen.dart';
 import 'features/shared/universal_inbox_screen.dart';
 import 'features/shared/universal_chat_thread_screen.dart';
 import 'features/shared/universal_call_screen.dart';
-import 'features/shared/universal_daily_tasks_screen.dart';
 import 'features/shared/universal_timeline_screen.dart';
 import 'features/shared/role_mentor_screen.dart';
 import 'features/shared/universal_thin_hub_screen.dart';
@@ -222,6 +222,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/admin/audit',
             builder: (context, state) => const AdminAuditScreen(),
           ),
+          GoRoute(
+            path: '/admin/dailyTasks',
+            builder: (context, state) => const AdminDailyTasksScreen(),
+          ),
 
           // ================== CLIENT ==================
           GoRoute(
@@ -288,6 +292,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/superuser/territory',
             builder: (context, state) => const SuperuserTerritoryMapScreen(),
           ),
+          GoRoute(
+            path: '/superuser/dailyTasks',
+            builder: (context, state) => const AdminDailyTasksScreen(),
+          ),
 
           // ================== UNIVERSAL (Fallback) ==================
           GoRoute(
@@ -296,12 +304,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               rolePrefix: state.pathParameters['role'] ?? 'psw',
             ),
           ),
-          GoRoute(
-            path: '/universal/:role/dailyTasks',
-            builder: (context, state) => UniversalDailyTasksScreen(
-              rolePrefix: state.pathParameters['role'] ?? 'psw',
-            ),
-          ),
+
           GoRoute(
             path: '/universal/:role/activities',
             builder: (context, state) => UniversalTimelineScreen(
