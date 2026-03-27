@@ -1,9 +1,10 @@
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_mobile/core/routing/sidebar_config.dart';
 
 final pswSidebarConfig = SidebarConfig(
   activeColor: const Color(0xFF10B981),
-  paths: ['/psw/home', '/psw/timesheets', '/psw/earnings', '/psw/inbox', '/psw/sow'],
+  paths: [AppRoutes.pswHome, AppRoutes.pswTimesheets, AppRoutes.pswEarnings, AppRoutes.pswInbox, AppRoutes.pswSow],
   items: const [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     BottomNavigationBarItem(icon: Icon(Icons.schedule_send), label: 'Timesheet'),

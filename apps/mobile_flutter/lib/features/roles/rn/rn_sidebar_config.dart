@@ -1,9 +1,10 @@
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:primecare_mobile/core/routing/sidebar_config.dart';
 
 final rnSidebarConfig = SidebarConfig(
   activeColor: const Color(0xFF3B82F6),
-  paths: ['/rn/home', '/rn/care-plan', '/rn/inbox', '/rn/sow'],
+  paths: [AppRoutes.rnHome, AppRoutes.rnCarePlan, AppRoutes.rnInbox, AppRoutes.rnSow],
   items: const [
     BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Patients'),
     BottomNavigationBarItem(icon: Icon(Icons.edit_document), label: 'Plan'),

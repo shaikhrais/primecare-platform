@@ -1,3 +1,4 @@
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -21,7 +22,7 @@ class AdminHomeScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () => context.push('/admin/roles'),
+                onPressed: () => context.push(AppRoutes.adminRoles),
                 icon: const Icon(Icons.admin_panel_settings),
                 label: const Text('Access Role Matrix Configurator'),
                 style: ElevatedButton.styleFrom(
