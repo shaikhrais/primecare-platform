@@ -3,7 +3,7 @@ import 'package:primecare_mobile/core/routing/sidebar_config.dart';
 
 final managerSidebarConfig = SidebarConfig(
   activeColor: const Color(0xFFF43F5E),
-  paths: ['/manager/home', '/manager/teams', '/manager/payroll', '/manager/incidents', '/universal/manager/inbox', '/universal/sow'],
+  paths: ['/manager/home', '/manager/teams', '/manager/payroll', '/manager/incidents', '/manager/inbox', '/manager/sow'],
   items: const [
     BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Reports'),
     BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Teams'),

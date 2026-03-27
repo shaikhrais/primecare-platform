@@ -5,5 +5,18 @@ class AuthState {
   AuthState({this.role});
 }
 
-// Lightweight mirror to satisfy RoleSowScreen dependencies following systemic refactoring
-final authProvider = Provider<AuthState>((ref) => AuthState(role: 'psw'));
+class AuthNotifier extends Notifier<AuthState> {
+  final String initialRole;
+  AuthNotifier([this.initialRole = 'psw']);
+
+  @override
+  AuthState build() {
+    return AuthState(role: initialRole);
+  }
+
+  void setRole(String role) => state = AuthState(role: role);
+}
+
+final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {
+  return AuthNotifier();
+});

@@ -9,6 +9,25 @@ import 'package:primecare_mobile/features/master/shared/role_sow_screen.dart';
 import 'package:primecare_mobile/features/roles/client/client_wellness_pulse_screen.dart';
 import 'package:primecare_mobile/features/roles/admin/admin_audit_screen.dart';
 import 'package:primecare_mobile/features/roles/admin/admin_form_entry_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/admin_home_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/screens/admin_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/screens/admin_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/screens/admin_role_matrix_screen.dart';
+import 'package:primecare_mobile/features/roles/rn/screens/rn_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/rn/screens/rn_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/coordinator/screens/coordinator_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/coordinator/screens/coordinator_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/manager/screens/manager_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/manager/screens/manager_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/gm/screens/gm_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/gm/screens/gm_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/mt/screens/mt_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/mt/screens/mt_sow_screen.dart';
+import 'package:primecare_mobile/features/roles/client/screens/client_inbox_screen.dart';
+import 'package:primecare_mobile/features/roles/superuser/screens/superuser_sow_screen.dart';
+
 
 // Phase 24 Expanded Enterprise Role Matrices
 import 'package:primecare_mobile/features/roles/rn/rn_patients_screen.dart';
@@ -34,6 +53,8 @@ import 'package:primecare_mobile/features/roles/mt/mt_surge_config_screen.dart';
 import 'package:primecare_mobile/features/roles/superuser/superuser_territory_map_screen.dart';
 import 'package:primecare_mobile/features/roles/superuser/superuser_registry_sync_screen.dart';
 import 'package:primecare_mobile/features/master/shared/universal_inbox_screen.dart';
+import 'package:primecare_mobile/features/master/shared/universal_chat_thread_screen.dart';
+import 'package:primecare_mobile/features/master/shared/universal_telehealth_screen.dart';
 
 /// Enterprise Reflection Registry
 /// Resolves raw Database Schema string paths to natively compiled UI Widget trees.
@@ -52,7 +73,7 @@ class ScreenRegistry {
         return const CoordinatorHubScreen();
       case 'Admin Matrix':
       case 'admin_home':
-        return const AdminAuditScreen();
+        return const AdminHomeScreen();
       case 'Superuser Command':
       case 'superuser_home':
         return const SuperuserControlScreen();
@@ -92,6 +113,24 @@ class ScreenRegistry {
       case 'manager_incidents': return const ManagerIncidentsScreen();
       case 'admin_telemetry': return const AdminTelemetryScreen();
       case 'admin_forms': return const AdminFormEntryScreen();
+      case 'admin_inbox': return const AdminInboxScreen();
+      case 'admin_sow': return const AdminSowScreen();
+      case 'admin_roles': return const AdminRoleMatrixScreen();
+      case 'rn_inbox': return const RnInboxScreen();
+      case 'rn_sow': return const RnSowScreen();
+      case 'psw_inbox': return const PswInboxScreen();
+      case 'psw_sow': return const PswSowScreen();
+      case 'coordinator_inbox': return const CoordinatorInboxScreen();
+      case 'coordinator_sow': return const CoordinatorSowScreen();
+      case 'manager_inbox': return const ManagerInboxScreen();
+      case 'manager_sow': return const ManagerSowScreen();
+      case 'gm_inbox': return const GmInboxScreen();
+      case 'gm_sow': return const GmSowScreen();
+      case 'mt_inbox': return const MtInboxScreen();
+      case 'mt_sow': return const MtSowScreen();
+      case 'client_inbox': return const ClientInboxScreen();
+      case 'superuser_sow': return const SuperuserSowScreen();
+
       case 'client_pulse': return const ClientWellnessPulseScreen();
       case 'client_dispatch': return const ClientDispatchTrackerScreen();
       case 'client_payments': return const ClientPaymentsScreen();
@@ -101,6 +140,16 @@ class ScreenRegistry {
       case 'superuser_registry': return const SuperuserRegistrySyncScreen();
       case 'universal_inbox': 
         return UniversalInboxScreen(rolePrefix: parameters['role'] ?? 'universal');
+      case 'universal_chat':
+        return UniversalChatThreadScreen(
+          rolePrefix: parameters['role'] ?? 'universal',
+          threadId: parameters['threadId'] ?? '',
+        );
+      case 'universal_telehealth':
+        return UniversalTelehealthScreen(
+          sessionType: parameters['sessionType'] ?? 'audio',
+          peerId: parameters['peerId'] ?? '',
+        );
         
       // Fault Tolerance Engine
       default:

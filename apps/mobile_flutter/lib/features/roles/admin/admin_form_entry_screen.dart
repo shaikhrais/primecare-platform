@@ -24,7 +24,7 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: const Text('Admin Omni-Action Form Hub'),
-        backgroundColor: AppTheme.secondaryColor,
+        backgroundColor: Colors.indigo.shade800,
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -40,7 +40,7 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
-                  color: AppTheme.primaryColor,
+                  color: Colors.indigo,
                 ),
               ),
               const SizedBox(height: 8),
@@ -58,6 +58,25 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
                 onPressed: () => _showOmniActionHub(context),
               ),
 
+              const Text(
+                'Available Forms',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.indigo),
+              ),
+              const SizedBox(height: 16),
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1.1,
+                children: [
+                  _buildEntityCard(context, 'Patient Profile', Icons.elderly, Colors.blue),
+                  _buildEntityCard(context, 'Care Worker', Icons.work_outline, Colors.green),
+                  _buildEntityCard(context, 'Master Schedule', Icons.calendar_month, Colors.purple),
+                  _buildEntityCard(context, 'Incident Report', Icons.warning_amber, Colors.red),
+                ],
+              ),
               const SizedBox(height: 32),
               
               // Passive metrics card
@@ -68,7 +87,7 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
                     const SizedBox(height: 16),
                     const Text('Total Manual Entries Today', style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    Text('0', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppTheme.primaryColor)),
+                    const Text('0', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.indigo)),
                   ],
                 ),
               ),
@@ -82,11 +101,11 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
   Widget _buildPulseButton({required BuildContext context, required String label, required IconData icon, required VoidCallback onPressed}) {
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.primaryColor,
+        color: Colors.indigo,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primaryColor.withOpacity(0.3),
+            color: Colors.indigo.withOpacity(0.3),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -114,6 +133,50 @@ class _AdminFormEntryScreenState extends State<AdminFormEntryScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEntityCard(BuildContext context, String title, IconData icon, MaterialColor color) {
+    return Material(
+      color: color.shade50,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Initializing empty $title form schema...'),
+              backgroundColor: color.shade700,
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.shade100,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, color: color.shade700, size: 28),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: color.shade900,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
         ),
       ),

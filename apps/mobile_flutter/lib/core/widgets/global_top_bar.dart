@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_mobile/core/auth/auth_provider.dart';
 import 'package:primecare_mobile/core/widgets/language_toggle_button.dart';
 
-class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
+class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onLogout;
 
   const GlobalTopBar({super.key, required this.title, required this.onLogout});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final activeRole = ref.watch(authProvider).role ?? 'psw';
     return AppBar(
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       actions: [
@@ -17,13 +20,143 @@ class GlobalTopBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.assignment_ind_outlined),
           tooltip: 'Role SOP & Objectives Checklist',
-          onPressed: () => context.push('/role-sow'),
+          onPressed: () => context.push('/$activeRole/sow'),
         ),
         IconButton(
           icon: const Icon(Icons.notifications_none),
           onPressed: () {},
         ),
-        IconButton(icon: const Icon(Icons.logout), onPressed: onLogout),
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.account_circle, size: 28),
+          tooltip: 'Account Options',
+          offset: const Offset(0, 40),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          onSelected: (value) {
+            if (value == 'profile') {
+              showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  title: const Row(
+                    children: [
+                      Icon(Icons.account_circle, size: 36, color: Colors.indigo),
+                      SizedBox(width: 12),
+                      Text('Edit My Profile'),
+                    ],
+                  ),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.indigo,
+                          child: Icon(Icons.person, size: 40, color: Colors.white),
+                        ),
+                        const SizedBox(height: 24),
+                        TextFormField(
+                          initialValue: 'PrimeCare Administrator',
+                          decoration: const InputDecoration(
+                            labelText: 'Full Name',
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.person_outline),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: 'admin@primecare.com',
+                          decoration: const InputDecoration(
+                            labelText: 'Email Address',
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.email_outlined),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: '+1 (555) 019-2831',
+                          decoration: const InputDecoration(
+                            labelText: 'Phone Number',
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.phone_outlined),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text('Cancel'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Profile updated successfully!'), backgroundColor: Colors.green),
+                        );
+                      },
+                      child: const Text('Save Changes'),
+                    ),
+                  ],
+                ),
+              );
+            } else if (value == 'logout') {
+              showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  title: const Row(
+                    children: [
+                      Icon(Icons.warning_amber_rounded, color: Colors.red),
+                      SizedBox(width: 12),
+                      Text('Confirm Sign Out'),
+                    ],
+                  ),
+                  content: const Text('Are you sure you want to terminate your current session? You will need to re-authenticate.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text('Cancel'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        onLogout();
+                      },
+                      child: const Text('Sign Out'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              value: 'profile',
+              child: Row(
+                children: [
+                  Icon(Icons.person_outline, color: Colors.grey.shade700),
+                  const SizedBox(width: 12),
+                  const Text('User Profile'),
+                ],
+              ),
+            ),
+            const PopupMenuDivider(),
+            const PopupMenuItem<String>(
+              value: 'logout',
+              child: Row(
+                children: [
+                  const Icon(Icons.logout, color: Colors.red),
+                  const SizedBox(width: 12),
+                  const Text('Sign Out', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

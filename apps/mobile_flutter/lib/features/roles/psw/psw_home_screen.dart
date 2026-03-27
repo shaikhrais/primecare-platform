@@ -93,7 +93,7 @@ class PswHomeScreen extends ConsumerWidget {
                     label: 'View Full Schedule',
                     isOutline: true,
                     onPressed: () {
-                      context.push('/universal/psw/activities');
+                      context.push('/psw/activities');
                     },
                   ),
                 ],

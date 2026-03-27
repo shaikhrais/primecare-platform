@@ -14,9 +14,10 @@ import 'core/network/offline_sync_manager.dart';
 import 'core/layouts/master_layout.dart';
 import 'core/routing/dynamic_route_engine.dart';
 
-// Authenticated UX Verified Screens (Audited)
+import 'core/auth/auth_provider.dart';
 import 'package:primecare_mobile/features/master/auth/login_screen.dart';
 import 'package:primecare_mobile/features/master/auth/forgot_password_screen.dart';
+import 'core/routing/screen_registry.dart';
 
 // Global Pointer for Database Routes (Phase 24)
 List<GoRoute> globalDatabaseRoutes = [];
@@ -28,12 +29,39 @@ void main() async {
   // Natively intercept launch to fetch the UI topology from the Cloudflare API
   globalDatabaseRoutes = await DynamicRouteEngine.fetchDatabaseRoutes();
   
-  runApp(const ProviderScope(child: PrimeCareApp()));
+  final prefs = await SharedPreferences.getInstance();
+  final String savedRole = prefs.getString('user_role') ?? 'psw';
+  
+  runApp(ProviderScope(
+    overrides: [
+      authProvider.overrideWith(() => AuthNotifier(savedRole)),
+    ],
+    child: const PrimeCareApp(),
+  ));
 }
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/login',
+    errorBuilder: (context, state) {
+      return Scaffold(
+        body: MasterLayout(
+          currentPath: state.uri.toString(),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.warning_amber_rounded, size: 80, color: Colors.orangeAccent),
+                SizedBox(height: 24),
+                Text('404 - Content Not Found', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.indigo)),
+                SizedBox(height: 8),
+                Text('The requested page does not exist in the role matrix.', style: TextStyle(fontSize: 16, color: Colors.grey)),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
     redirect: (context, state) async {
       final prefs = await SharedPreferences.getInstance();
       final hasToken = prefs.containsKey('auth_token');
@@ -60,10 +88,24 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
+      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: '/forgot-password',
         builder: (context, state) => ForgotPasswordScreen(),
+      ),
+
+      // Immersive Communication Suites (Bypass Master Layout)
+      GoRoute(
+        path: '/:role/chat/:threadId',
+        builder: (context, state) => ScreenRegistry.resolveScreen('universal_chat', state.pathParameters)
+      ),
+      GoRoute(
+        path: '/:role/telehealth',
+        builder: (context, state) => ScreenRegistry.resolveScreen('universal_telehealth', {
+          'role': state.pathParameters['role'] ?? 'universal',
+          'sessionType': state.uri.queryParameters['sessionType'] ?? 'audio',
+          'peerId': state.uri.queryParameters['peerId'] ?? ''
+        })
       ),
 
       ShellRoute(

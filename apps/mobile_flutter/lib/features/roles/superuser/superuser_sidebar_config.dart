@@ -3,7 +3,7 @@ import 'package:primecare_mobile/core/routing/sidebar_config.dart';
 
 final superuserSidebarConfig = SidebarConfig(
   activeColor: const Color(0xFFEF4444),
-  paths: ['/superuser/home', '/superuser/territory', '/superuser/registry', '/universal/sow'],
+  paths: ['/superuser/home', '/superuser/territory', '/superuser/registry', '/superuser/sow'],
   items: const [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Root'),
     BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Territories'),

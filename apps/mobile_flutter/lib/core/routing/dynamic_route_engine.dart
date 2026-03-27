@@ -6,38 +6,7 @@ class DynamicRouteEngine {
   /// Fetches the `PlatformScreen` telemetry array from the Database
   /// and natively translates it into `GoRoute` objects.
   static Future<List<GoRoute>> fetchDatabaseRoutes() async {
-    try {
-      final response = await ApiClient().get('/v1/public/screens');
-      
-      // Handle the dynamic PrimeCare raw JSON decoding
-      if (response != null && response.containsKey('data')) {
-        final List<dynamic> screensList = response['data'];
-        List<GoRoute> generatedRoutes = [];
-
-        for (var screen in screensList) {
-          if (screen['status'] != 'active') continue;
-          
-          final routePath = screen['route'];
-          final screenName = screen['name'];
-
-          generatedRoutes.add(
-            GoRoute(
-              path: routePath,
-              builder: (context, state) => ScreenRegistry.resolveScreen(screenName, state.pathParameters),
-            )
-          );
-        }
-        // Forcibly inject new Admin Modules decoupled from external Prisma sync constraints
-        generatedRoutes.add(
-          GoRoute(path: '/admin/forms', builder: (context, state) => ScreenRegistry.resolveScreen('admin_forms', {})),
-        );
-        
-        print('[DynamicRouteEngine] Successfully compiled ${generatedRoutes.length} database routes natively.');
-        return generatedRoutes;
-      }
-    } catch (e) {
-      print('[DynamicRouteEngine] Fallback to Offline Mock Matrix: $e');
-    }
+    // 100% Independent Frontend UI Routing Architecture (No Backend API Sync)
     
     // Core structural offline fallback covering ALL 9 PrimeCare roles natively
     return [
@@ -62,6 +31,9 @@ class DynamicRouteEngine {
       GoRoute(path: '/admin/audit', builder: (context, state) => ScreenRegistry.resolveScreen('Admin Matrix', {})), // Route explicitly matches audit screen
       GoRoute(path: '/admin/telemetry', builder: (context, state) => ScreenRegistry.resolveScreen('admin_telemetry', {})),
       GoRoute(path: '/admin/forms', builder: (context, state) => ScreenRegistry.resolveScreen('admin_forms', {})),
+      GoRoute(path: '/admin/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('admin_inbox', {})),
+      GoRoute(path: '/admin/sow', builder: (context, state) => ScreenRegistry.resolveScreen('admin_sow', {})),
+      GoRoute(path: '/admin/roles', builder: (context, state) => ScreenRegistry.resolveScreen('admin_roles', {})),
       
       GoRoute(path: '/client/home', builder: (context, state) => ScreenRegistry.resolveScreen('Client Care Feed', {})),
       GoRoute(path: '/client/pulse', builder: (context, state) => ScreenRegistry.resolveScreen('client_pulse', {})),
@@ -81,10 +53,24 @@ class DynamicRouteEngine {
       GoRoute(path: '/mt/surge-config', builder: (context, state) => ScreenRegistry.resolveScreen('mt_surge', {})),
       
       // Global Inbox Interceptors
-      GoRoute(path: '/universal/:role/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('universal_inbox', {})),
+      
       
       // Global SOW / Task List Matrix
-      GoRoute(path: '/universal/sow', builder: (context, state) => ScreenRegistry.resolveScreen('role_sow', {})),
+      
+      GoRoute(path: '/rn/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('rn_inbox', {})),
+      GoRoute(path: '/rn/sow', builder: (context, state) => ScreenRegistry.resolveScreen('rn_sow', {})),
+      GoRoute(path: '/psw/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('psw_inbox', {})),
+      GoRoute(path: '/psw/sow', builder: (context, state) => ScreenRegistry.resolveScreen('psw_sow', {})),
+      GoRoute(path: '/coordinator/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('coordinator_inbox', {})),
+      GoRoute(path: '/coordinator/sow', builder: (context, state) => ScreenRegistry.resolveScreen('coordinator_sow', {})),
+      GoRoute(path: '/manager/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('manager_inbox', {})),
+      GoRoute(path: '/manager/sow', builder: (context, state) => ScreenRegistry.resolveScreen('manager_sow', {})),
+      GoRoute(path: '/gm/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('gm_inbox', {})),
+      GoRoute(path: '/gm/sow', builder: (context, state) => ScreenRegistry.resolveScreen('gm_sow', {})),
+      GoRoute(path: '/mt/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('mt_inbox', {})),
+      GoRoute(path: '/mt/sow', builder: (context, state) => ScreenRegistry.resolveScreen('mt_sow', {})),
+      GoRoute(path: '/client/inbox', builder: (context, state) => ScreenRegistry.resolveScreen('client_inbox', {})),
+      GoRoute(path: '/superuser/sow', builder: (context, state) => ScreenRegistry.resolveScreen('superuser_sow', {})),
     ];
   }
 }

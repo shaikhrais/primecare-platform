@@ -12,8 +12,10 @@ import 'package:primecare_mobile/features/roles/gm/gm_sidebar_config.dart';
 import 'package:primecare_mobile/features/roles/mt/mt_sidebar_config.dart';
 import 'package:primecare_mobile/features/roles/superuser/superuser_sidebar_config.dart';
 import 'package:primecare_mobile/features/master/shared/thin_hub_sidebar_config.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_mobile/core/auth/auth_provider.dart';
 
-class UniversalRoleSidebar extends StatelessWidget {
+class UniversalRoleSidebar extends ConsumerWidget {
   final Widget child;
   final String currentPath;
 
@@ -23,22 +25,26 @@ class UniversalRoleSidebar extends StatelessWidget {
     required this.currentPath,
   });
 
-  SidebarConfig _getConfig() {
-    if (currentPath.startsWith('/rn')) return rnSidebarConfig;
-    if (currentPath.startsWith('/coordinator')) return coordinatorSidebarConfig;
-    if (currentPath.startsWith('/manager')) return managerSidebarConfig;
-    if (currentPath.startsWith('/admin')) return adminSidebarConfig;
-    if (currentPath.startsWith('/client')) return clientSidebarConfig;
-    if (currentPath.startsWith('/gm')) return gmSidebarConfig;
-    if (currentPath.startsWith('/mt')) return mtSidebarConfig;
-    if (currentPath.startsWith('/superuser')) return superuserSidebarConfig;
-    if (currentPath.startsWith('/thin-hub')) return thinHubSidebarConfig;
-    return pswSidebarConfig;
+  SidebarConfig _getConfig(String role) {
+    switch (role) {
+      case 'rn': return rnSidebarConfig;
+      case 'coordinator': return coordinatorSidebarConfig;
+      case 'manager': return managerSidebarConfig;
+      case 'admin': return adminSidebarConfig;
+      case 'client': return clientSidebarConfig;
+      case 'gm': return gmSidebarConfig;
+      case 'mt': return mtSidebarConfig;
+      case 'superuser': return superuserSidebarConfig;
+      case 'thin-hub': return thinHubSidebarConfig;
+      default: return pswSidebarConfig;
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final config = _getConfig();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+    final userRole = authState.role ?? 'psw';
+    final config = _getConfig(userRole);
     final activeColor = config.activeColor;
     final paths = config.paths;
     final items = config.items;
