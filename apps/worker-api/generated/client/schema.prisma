@@ -47,23 +47,32 @@ model User {
   assignedTasks      StaffTask[]         @relation("AssignedTasks")
 
   // RN Mastery Extensions
-  carePlansAuthored          CarePlan[]           @relation("CarePlanAuthor")
-  ledgerEntries              TransactionLedger[]  @relation("LedgerActor")
+  carePlansAuthored          CarePlan[]                  @relation("CarePlanAuthor")
+  ledgerEntries              TransactionLedger[]         @relation("LedgerActor")
   assessments                ClinicalAssessment[]
   medicationRecons           MedicationRecon[]
   supervisionLogs            SupervisionLog[]
-  acknowledgedIncidents      Incident[]           @relation("Acknowledger")
-  performedAudits            TechnicalAudit[]     @relation("PerformedAudits")
+  acknowledgedIncidents      Incident[]                  @relation("Acknowledger")
+  performedAudits            TechnicalAudit[]            @relation("PerformedAudits")
   dailyAuditSignOffs         DailyAuditSignOff[]
   wellnessPulses             WellnessPulse[]
   devices                    UserDevice[]
   systemEvents               SystemEvent[]
-  performanceReviewsAuthored PerformanceReview[]  @relation("ReviewAuthor")
+  performanceReviewsAuthored PerformanceReview[]         @relation("ReviewAuthor")
   iotEvents                  IoTEvent[]
   appNotifications           AppNotification[]
   gamificationProfile        GamificationProfile?
   reputation                 UserReputation?
   DailyActivity              DailyActivity[]
+  shiftCheckIns              PswShiftLog[]               @relation("UserShiftLogs")
+  adlCareLogs                AdlCareLog[]                @relation("UserAdlLogs")
+  pswVitals                  PswVitalSign[]              @relation("UserPswVitals")
+  behaviorNotes              BehaviorNote[]              @relation("UserBehaviorNotes")
+  nutritionRecords           NutritionRecord[]           @relation("UserNutrition")
+  mobilityLogs               MobilityLog[]               @relation("UserMobility")
+  infectionLogs              InfectionControlChecklist[] @relation("UserInfectionControl")
+  narrativeNotes             NarrativeProgressNote[]     @relation("UserNarrativeNotes")
+  carePlanFollowUps          CarePlanFollowUp[]          @relation("UserCarePlanFollowUp")
 
   @@index([tenantId])
   @@map("users")
@@ -187,6 +196,15 @@ model Tenant {
   staffGroups           StaffGroup[]
   platformRoles         PlatformRole[]
   DailyActivity         DailyActivity[]
+  shiftCheckIns         PswShiftLog[]               @relation("TenantShiftLogs")
+  adlCareLogs           AdlCareLog[]                @relation("TenantAdlLogs")
+  pswVitals             PswVitalSign[]              @relation("TenantPswVitals")
+  behaviorNotes         BehaviorNote[]              @relation("TenantBehaviorNotes")
+  nutritionRecords      NutritionRecord[]           @relation("TenantNutrition")
+  mobilityLogs          MobilityLog[]               @relation("TenantMobility")
+  infectionLogs         InfectionControlChecklist[] @relation("TenantInfectionControl")
+  narrativeNotes        NarrativeProgressNote[]     @relation("TenantNarrativeNotes")
+  carePlanFollowUps     CarePlanFollowUp[]          @relation("TenantCarePlanFollowUp")
 
   @@map("tenants")
 }
@@ -566,33 +584,33 @@ model SupplyForecastMetrics {
 // ==========================================
 
 model ClientProfile {
-  id                    String                 @id @default(uuid())
-  userId                String                 @unique @map("user_id")
-  fullName              String                 @map("full_name")
+  id                    String                      @id @default(uuid())
+  userId                String                      @unique @map("user_id")
+  fullName              String                      @map("full_name")
   dob                   DateTime?
-  addressLine1          String?                @map("address_line1")
-  addressLine2          String?                @map("address_line2")
+  addressLine1          String?                     @map("address_line1")
+  addressLine2          String?                     @map("address_line2")
   city                  String?
   province              String?
-  postalCode            String?                @map("postal_code")
+  postalCode            String?                     @map("postal_code")
   lat                   Float?
   lng                   Float?
-  emergencyName         String?                @map("emergency_contact_name")
-  emergencyPhone        String?                @map("emergency_contact_phone")
-  preferences           Json?                  @map("preferences_json")
-  createdAt             DateTime               @default(now()) @map("created_at")
-  updatedAt             DateTime               @updatedAt @map("updated_at")
-  tenantId              String                 @map("tenant_id")
+  emergencyName         String?                     @map("emergency_contact_name")
+  emergencyPhone        String?                     @map("emergency_contact_phone")
+  preferences           Json?                       @map("preferences_json")
+  createdAt             DateTime                    @default(now()) @map("created_at")
+  updatedAt             DateTime                    @updatedAt @map("updated_at")
+  tenantId              String                      @map("tenant_id")
   bookings              Booking[]
-  tenant                Tenant                 @relation(fields: [tenantId], references: [id])
-  user                  User                   @relation(fields: [userId], references: [id])
+  tenant                Tenant                      @relation(fields: [tenantId], references: [id])
+  user                  User                        @relation(fields: [userId], references: [id])
   DailyEntry            DailyEntry[]
   invoices              Invoice[]
   messageThreads        MessageThread[]
   visits                Visit[]
   feedbacks             Feedback[]
-  franchise             Franchise?             @relation(fields: [franchiseId], references: [id])
-  franchiseId           String?                @map("franchise_id")
+  franchise             Franchise?                  @relation(fields: [franchiseId], references: [id])
+  franchiseId           String?                     @map("franchise_id")
   inventoryItems        InventoryItem[]
   purchaseOrders        PurchaseOrder[]
   telehealthSessions    TelehealthSession[]
@@ -611,6 +629,15 @@ model ClientProfile {
   serviceAuthorizations ServiceAuthorization[]
   consentForms          ConsentForm[]
   familyMembers         FamilyMember[]
+  shiftCheckIns         PswShiftLog[]               @relation("ClientShiftLogs")
+  adlCareLogs           AdlCareLog[]                @relation("ClientAdlLogs")
+  pswVitals             PswVitalSign[]              @relation("ClientPswVitals")
+  behaviorNotes         BehaviorNote[]              @relation("ClientBehaviorNotes")
+  nutritionRecords      NutritionRecord[]           @relation("ClientNutrition")
+  mobilityLogs          MobilityLog[]               @relation("ClientMobility")
+  infectionLogs         InfectionControlChecklist[] @relation("ClientInfectionControl")
+  narrativeNotes        NarrativeProgressNote[]     @relation("ClientNarrativeNotes")
+  carePlanFollowUps     CarePlanFollowUp[]          @relation("ClientCarePlanFollowUp")
 
   @@index([tenantId])
   @@map("client_profiles")
@@ -2317,4 +2344,213 @@ model ScreenFunctionality {
 
   @@index([screenId])
   @@map("screen_functionalities")
+}
+
+// ==========================================
+// 09_PSW_FORMS (13-Form Clinical Standard)
+// ==========================================
+
+// 1. Shift Check-In / Check-Out Form
+model PswShiftLog {
+  id           String    @id @default(uuid())
+  pswId        String    @map("psw_id")
+  clientId     String    @map("client_id")
+  tenantId     String    @map("tenant_id")
+  date         DateTime  @default(now())
+  startTime    DateTime  @map("start_time")
+  endTime      DateTime? @map("end_time")
+  gpsLat       Float?    @map("gps_lat")
+  gpsLng       Float?    @map("gps_lng")
+  shiftStatus  String    @default("STARTED") // STARTED, COMPLETED, MISSED
+  signatureUrl String?   @map("signature_url")
+
+  psw    User          @relation("UserShiftLogs", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientShiftLogs", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantShiftLogs", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([clientId])
+  @@map("psw_shift_logs")
+}
+
+// 2. Client Daily Care Log (ADL Record)
+model AdlCareLog {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  hygiene     String? // Bathing / Grooming / Oral care
+  dressing    String? // Assistance level
+  toileting   String? // Assistance level
+  mobility    String? // Walk / Transfer / Bed mobility
+  feeding     String? // Meal support / % eaten
+  fluidIntake Int?    @map("fluid_intake_ml")
+  sleepStatus String? @map("sleep_status")
+  notes       String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  psw    User          @relation("UserAdlLogs", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientAdlLogs", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantAdlLogs", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("adl_care_logs")
+}
+
+// 3. Vital Signs & Health Monitoring (Dedicated PSW schema)
+model PswVitalSign {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  temperature   Float?
+  pulse         Int?
+  respiration   Int?
+  bloodPressure String? @map("blood_pressure") // e.g. "120/80"
+  spO2          Int?    @map("sp_o2")
+  painLevel     Int?    @map("pain_level") // 0-10
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserPswVitals", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientPswVitals", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantPswVitals", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("psw_vital_signs")
+}
+
+// 6. Behavior & Mental Status Notes
+model BehaviorNote {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  mood            String? // Calm / Agitated / Confused
+  orientation     String? // Person / Place / Time
+  behaviorChanges String? @map("behavior_changes")
+  communication   String? // Communication ability
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserBehaviorNotes", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientBehaviorNotes", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantBehaviorNotes", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("behavior_notes")
+}
+
+// 7. Nutrition & Hydration Record
+model NutritionRecord {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  mealsTakenPct Int?    @map("meals_taken_pct")
+  snacks        String?
+  fluidIntakeMl Int?    @map("fluid_intake_ml")
+  appetiteLevel String? @map("appetite_level")
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserNutrition", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientNutrition", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantNutrition", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("nutrition_records")
+}
+
+// 8. Mobility & Exercise Log
+model MobilityLog {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  movementType    String? @map("movement_type") // Walk / Transfer / Exercise
+  distanceOrDur   String? @map("distance_or_duration")
+  assistanceLevel String? @map("assistance_level") // Independent / Assist / Full support
+  painDuring      Boolean @default(false) @map("pain_during_movement")
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserMobility", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientMobility", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantMobility", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("mobility_logs")
+}
+
+// 9. Infection Control Checklist
+model InfectionControlChecklist {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  handHygieneDone  Boolean @default(false) @map("hand_hygiene_done")
+  ppeUsed          Boolean @default(false) @map("ppe_used")
+  equipmentCleaned Boolean @default(false) @map("equipment_cleaned")
+  wasteDisposed    Boolean @default(false) @map("waste_disposed")
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserInfectionControl", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientInfectionControl", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantInfectionControl", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("infection_control_checklists")
+}
+
+// 10. Progress Notes (Narrative)
+model NarrativeProgressNote {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  whatWasDone     String  @map("what_was_done") @db.Text
+  clientResponse  String  @map("client_response") @db.Text
+  changesObserved String? @map("changes_observed") @db.Text
+  planForNext     String? @map("plan_for_next_visit") @db.Text
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserNarrativeNotes", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientNarrativeNotes", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantNarrativeNotes", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("narrative_progress_notes")
+}
+
+// 11. Care Plan Follow-Up Form
+model CarePlanFollowUp {
+  id       String @id @default(uuid())
+  pswId    String @map("psw_id")
+  clientId String @map("client_id")
+  tenantId String @map("tenant_id")
+
+  tasksAssigned  String? @map("tasks_assigned") @db.Text
+  tasksCompleted String? @map("tasks_completed") @db.Text
+  notCompleted   String? @map("tasks_not_completed") @db.Text
+  reasonNotDone  String? @map("reason_not_completed") @db.Text
+
+  recordedAt DateTime @default(now()) @map("recorded_at")
+
+  psw    User          @relation("UserCarePlanFollowUp", fields: [pswId], references: [id])
+  client ClientProfile @relation("ClientCarePlanFollowUp", fields: [clientId], references: [id])
+  tenant Tenant        @relation("TenantCarePlanFollowUp", fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("care_plan_follow_ups")
 }

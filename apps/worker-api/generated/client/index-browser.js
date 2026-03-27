@@ -1582,6 +1582,122 @@ exports.Prisma.ScreenFunctionalityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PswShiftLogScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  gpsLat: 'gpsLat',
+  gpsLng: 'gpsLng',
+  shiftStatus: 'shiftStatus',
+  signatureUrl: 'signatureUrl'
+};
+
+exports.Prisma.AdlCareLogScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  hygiene: 'hygiene',
+  dressing: 'dressing',
+  toileting: 'toileting',
+  mobility: 'mobility',
+  feeding: 'feeding',
+  fluidIntake: 'fluidIntake',
+  sleepStatus: 'sleepStatus',
+  notes: 'notes',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PswVitalSignScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  temperature: 'temperature',
+  pulse: 'pulse',
+  respiration: 'respiration',
+  bloodPressure: 'bloodPressure',
+  spO2: 'spO2',
+  painLevel: 'painLevel',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.BehaviorNoteScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  mood: 'mood',
+  orientation: 'orientation',
+  behaviorChanges: 'behaviorChanges',
+  communication: 'communication',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.NutritionRecordScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  mealsTakenPct: 'mealsTakenPct',
+  snacks: 'snacks',
+  fluidIntakeMl: 'fluidIntakeMl',
+  appetiteLevel: 'appetiteLevel',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.MobilityLogScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  movementType: 'movementType',
+  distanceOrDur: 'distanceOrDur',
+  assistanceLevel: 'assistanceLevel',
+  painDuring: 'painDuring',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.InfectionControlChecklistScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  handHygieneDone: 'handHygieneDone',
+  ppeUsed: 'ppeUsed',
+  equipmentCleaned: 'equipmentCleaned',
+  wasteDisposed: 'wasteDisposed',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.NarrativeProgressNoteScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  whatWasDone: 'whatWasDone',
+  clientResponse: 'clientResponse',
+  changesObserved: 'changesObserved',
+  planForNext: 'planForNext',
+  recordedAt: 'recordedAt'
+};
+
+exports.Prisma.CarePlanFollowUpScalarFieldEnum = {
+  id: 'id',
+  pswId: 'pswId',
+  clientId: 'clientId',
+  tenantId: 'tenantId',
+  tasksAssigned: 'tasksAssigned',
+  tasksCompleted: 'tasksCompleted',
+  notCompleted: 'notCompleted',
+  reasonNotDone: 'reasonNotDone',
+  recordedAt: 'recordedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1729,7 +1845,16 @@ exports.Prisma.ModelName = {
   CommunicationLog: 'CommunicationLog',
   DailyActivity: 'DailyActivity',
   PlatformScreen: 'PlatformScreen',
-  ScreenFunctionality: 'ScreenFunctionality'
+  ScreenFunctionality: 'ScreenFunctionality',
+  PswShiftLog: 'PswShiftLog',
+  AdlCareLog: 'AdlCareLog',
+  PswVitalSign: 'PswVitalSign',
+  BehaviorNote: 'BehaviorNote',
+  NutritionRecord: 'NutritionRecord',
+  MobilityLog: 'MobilityLog',
+  InfectionControlChecklist: 'InfectionControlChecklist',
+  NarrativeProgressNote: 'NarrativeProgressNote',
+  CarePlanFollowUp: 'CarePlanFollowUp'
 };
 
 /**

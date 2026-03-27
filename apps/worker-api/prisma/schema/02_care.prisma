@@ -3,33 +3,33 @@
 // ==========================================
 
 model ClientProfile {
-  id                    String                 @id @default(uuid())
-  userId                String                 @unique @map("user_id")
-  fullName              String                 @map("full_name")
+  id                    String                      @id @default(uuid())
+  userId                String                      @unique @map("user_id")
+  fullName              String                      @map("full_name")
   dob                   DateTime?
-  addressLine1          String?                @map("address_line1")
-  addressLine2          String?                @map("address_line2")
+  addressLine1          String?                     @map("address_line1")
+  addressLine2          String?                     @map("address_line2")
   city                  String?
   province              String?
-  postalCode            String?                @map("postal_code")
+  postalCode            String?                     @map("postal_code")
   lat                   Float?
   lng                   Float?
-  emergencyName         String?                @map("emergency_contact_name")
-  emergencyPhone        String?                @map("emergency_contact_phone")
-  preferences           Json?                  @map("preferences_json")
-  createdAt             DateTime               @default(now()) @map("created_at")
-  updatedAt             DateTime               @updatedAt @map("updated_at")
-  tenantId              String                 @map("tenant_id")
+  emergencyName         String?                     @map("emergency_contact_name")
+  emergencyPhone        String?                     @map("emergency_contact_phone")
+  preferences           Json?                       @map("preferences_json")
+  createdAt             DateTime                    @default(now()) @map("created_at")
+  updatedAt             DateTime                    @updatedAt @map("updated_at")
+  tenantId              String                      @map("tenant_id")
   bookings              Booking[]
-  tenant                Tenant                 @relation(fields: [tenantId], references: [id])
-  user                  User                   @relation(fields: [userId], references: [id])
+  tenant                Tenant                      @relation(fields: [tenantId], references: [id])
+  user                  User                        @relation(fields: [userId], references: [id])
   DailyEntry            DailyEntry[]
   invoices              Invoice[]
   messageThreads        MessageThread[]
   visits                Visit[]
   feedbacks             Feedback[]
-  franchise             Franchise?             @relation(fields: [franchiseId], references: [id])
-  franchiseId           String?                @map("franchise_id")
+  franchise             Franchise?                  @relation(fields: [franchiseId], references: [id])
+  franchiseId           String?                     @map("franchise_id")
   inventoryItems        InventoryItem[]
   purchaseOrders        PurchaseOrder[]
   telehealthSessions    TelehealthSession[]
@@ -48,6 +48,15 @@ model ClientProfile {
   serviceAuthorizations ServiceAuthorization[]
   consentForms          ConsentForm[]
   familyMembers         FamilyMember[]
+  shiftCheckIns         PswShiftLog[]               @relation("ClientShiftLogs")
+  adlCareLogs           AdlCareLog[]                @relation("ClientAdlLogs")
+  pswVitals             PswVitalSign[]              @relation("ClientPswVitals")
+  behaviorNotes         BehaviorNote[]              @relation("ClientBehaviorNotes")
+  nutritionRecords      NutritionRecord[]           @relation("ClientNutrition")
+  mobilityLogs          MobilityLog[]               @relation("ClientMobility")
+  infectionLogs         InfectionControlChecklist[] @relation("ClientInfectionControl")
+  narrativeNotes        NarrativeProgressNote[]     @relation("ClientNarrativeNotes")
+  carePlanFollowUps     CarePlanFollowUp[]          @relation("ClientCarePlanFollowUp")
 
   @@index([tenantId])
   @@map("client_profiles")

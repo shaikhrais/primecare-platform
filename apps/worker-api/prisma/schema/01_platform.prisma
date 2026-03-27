@@ -32,23 +32,32 @@ model User {
   assignedTasks      StaffTask[]         @relation("AssignedTasks")
 
   // RN Mastery Extensions
-  carePlansAuthored          CarePlan[]           @relation("CarePlanAuthor")
-  ledgerEntries              TransactionLedger[]  @relation("LedgerActor")
+  carePlansAuthored          CarePlan[]                  @relation("CarePlanAuthor")
+  ledgerEntries              TransactionLedger[]         @relation("LedgerActor")
   assessments                ClinicalAssessment[]
   medicationRecons           MedicationRecon[]
   supervisionLogs            SupervisionLog[]
-  acknowledgedIncidents      Incident[]           @relation("Acknowledger")
-  performedAudits            TechnicalAudit[]     @relation("PerformedAudits")
+  acknowledgedIncidents      Incident[]                  @relation("Acknowledger")
+  performedAudits            TechnicalAudit[]            @relation("PerformedAudits")
   dailyAuditSignOffs         DailyAuditSignOff[]
   wellnessPulses             WellnessPulse[]
   devices                    UserDevice[]
   systemEvents               SystemEvent[]
-  performanceReviewsAuthored PerformanceReview[]  @relation("ReviewAuthor")
+  performanceReviewsAuthored PerformanceReview[]         @relation("ReviewAuthor")
   iotEvents                  IoTEvent[]
   appNotifications           AppNotification[]
   gamificationProfile        GamificationProfile?
   reputation                 UserReputation?
   DailyActivity              DailyActivity[]
+  shiftCheckIns              PswShiftLog[]               @relation("UserShiftLogs")
+  adlCareLogs                AdlCareLog[]                @relation("UserAdlLogs")
+  pswVitals                  PswVitalSign[]              @relation("UserPswVitals")
+  behaviorNotes              BehaviorNote[]              @relation("UserBehaviorNotes")
+  nutritionRecords           NutritionRecord[]           @relation("UserNutrition")
+  mobilityLogs               MobilityLog[]               @relation("UserMobility")
+  infectionLogs              InfectionControlChecklist[] @relation("UserInfectionControl")
+  narrativeNotes             NarrativeProgressNote[]     @relation("UserNarrativeNotes")
+  carePlanFollowUps          CarePlanFollowUp[]          @relation("UserCarePlanFollowUp")
 
   @@index([tenantId])
   @@map("users")
@@ -172,6 +181,15 @@ model Tenant {
   staffGroups           StaffGroup[]
   platformRoles         PlatformRole[]
   DailyActivity         DailyActivity[]
+  shiftCheckIns         PswShiftLog[]               @relation("TenantShiftLogs")
+  adlCareLogs           AdlCareLog[]                @relation("TenantAdlLogs")
+  pswVitals             PswVitalSign[]              @relation("TenantPswVitals")
+  behaviorNotes         BehaviorNote[]              @relation("TenantBehaviorNotes")
+  nutritionRecords      NutritionRecord[]           @relation("TenantNutrition")
+  mobilityLogs          MobilityLog[]               @relation("TenantMobility")
+  infectionLogs         InfectionControlChecklist[] @relation("TenantInfectionControl")
+  narrativeNotes        NarrativeProgressNote[]     @relation("TenantNarrativeNotes")
+  carePlanFollowUps     CarePlanFollowUp[]          @relation("TenantCarePlanFollowUp")
 
   @@map("tenants")
 }
