@@ -78,10 +78,10 @@ class _AdminRoleMatrixScreenState extends State<AdminRoleMatrixScreen> {
               const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+                child: PrimeCareButton(
                   onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Commit Configuration'),
+                  text: 'Commit Configuration',
+                  isFullWidth: true,
                 ),
               )
             ],
@@ -139,11 +139,10 @@ class _AdminRoleMatrixScreenState extends State<AdminRoleMatrixScreen> {
                         '${_selectedRole.toUpperCase()} Provisioned Pages',
                         style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       ),
-                      ElevatedButton.icon(
+                      PrimeCareButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.add),
-                        label: const Text('Assign New Screen'),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+                        icon: Icons.add,
+                        text: 'Assign New Screen',
                       )
                     ],
                   ),
@@ -155,13 +154,9 @@ class _AdminRoleMatrixScreenState extends State<AdminRoleMatrixScreen> {
                       itemCount: screens.length,
                       itemBuilder: (context, index) {
                         final screen = screens[index];
-                        return Card(
-                          elevation: 0,
+                        return PrimeCareCard(
                           margin: const EdgeInsets.only(bottom: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey.shade200),
-                          ),
+                          padding: EdgeInsets.zero,
                           child: ListTile(
                             contentPadding: const EdgeInsets.all(16),
                             leading: CircleAvatar(

@@ -169,29 +169,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerRight,
-            child: TextButton(
+            child: PrimeCareButton(
+              type: PrimeCareButtonType.text,
               onPressed: () => context.go('/forgot-password'),
-              child: const Text('Forgot Password?'),
+              text: 'Forgot Password?',
             ),
           ),
           const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
             height: 56,
-            child: _isLoading
-                ? ElevatedButton(
-                    onPressed: null,
-                    style: ElevatedButton.styleFrom(
-                      disabledBackgroundColor: Colors.blue.withOpacity(0.7),
-                    ),
-                    child: const CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  )
-                : PrimeButton(
-                    label: 'AUTHENTICATE',
-                    onPressed: _handleLogin,
-                  ),
+            child: PrimeCareButton(
+              text: 'AUTHENTICATE',
+              onPressed: _handleLogin,
+              isLoading: _isLoading,
+              isFullWidth: true,
+            ),
           ),
         ],
       ),

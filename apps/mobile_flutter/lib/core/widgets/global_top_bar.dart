@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/core/auth/auth_provider.dart';
 import 'package:primecare_mobile/core/widgets/language_toggle_button.dart';
 
@@ -89,15 +90,14 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                       onPressed: () => Navigator.pop(ctx),
                       child: const Text('Cancel'),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white),
+                    PrimeCareButton(
                       onPressed: () {
                         Navigator.pop(ctx);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Profile updated successfully!'), backgroundColor: Colors.green),
                         );
                       },
-                      child: const Text('Save Changes'),
+                      text: 'Save Changes',
                     ),
                   ],
                 ),
@@ -120,13 +120,13 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                       onPressed: () => Navigator.pop(ctx),
                       child: const Text('Cancel'),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
+                    PrimeCareButton(
                       onPressed: () {
                         Navigator.pop(ctx);
                         onLogout();
                       },
-                      child: const Text('Sign Out'),
+                      text: 'Sign Out',
+                      isPrimary: false,
                     ),
                   ],
                 ),
