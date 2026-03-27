@@ -39,6 +39,11 @@ import 'package:primecare_mobile/features/roles/mt/mt_analytics_hub_screen.dart'
 // Phase 24 Navigation Bottom Tab Extensions
 import 'package:primecare_mobile/features/roles/psw/psw_timesheet_screen.dart';
 import 'package:primecare_mobile/features/roles/psw/psw_earnings_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_shift_tracker_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_daily_entry_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_mar_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/psw_progress_notes_screen.dart';
+import 'package:primecare_mobile/features/roles/psw/screens/incident_report_screen.dart';
 import 'package:primecare_mobile/features/roles/rn/rn_care_plan_screen.dart';
 import 'package:primecare_mobile/features/roles/coordinator/coordinator_approvals_screen.dart';
 import 'package:primecare_mobile/features/roles/coordinator/screens/coordinator_callin_screen.dart';
@@ -104,6 +109,11 @@ class ScreenRegistry {
       // Navigation Bar Extensions
       case 'psw_timesheet': return const PswTimesheetScreen();
       case 'psw_earnings': return const PswEarningsScreen();
+      case 'psw_shift_tracker': return const PswShiftTrackerScreen();
+      case 'psw_daily_entry': return const PswDailyEntryScreen();
+      case 'psw_mar': return const PswMarScreen();
+      case 'psw_progress_notes': return const PswProgressNotesScreen();
+      case 'psw_incident_report': return const IncidentReportScreen();
       case 'rn_care_plan': return const RnCarePlanScreen();
       case 'coordinator_approvals': return const CoordinatorApprovalsScreen();
       case 'coordinator_callin': return const CoordinatorCallinScreen();

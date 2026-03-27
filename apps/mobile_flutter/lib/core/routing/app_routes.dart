@@ -13,6 +13,11 @@ class AppRoutes {
   static const String pswEarnings = '/psw/earnings';
   static const String pswInbox = '/psw/inbox';
   static const String pswSow = '/psw/sow';
+  static const String pswShiftTracker = '/psw/shift-tracker';
+  static const String pswDailyEntry = '/psw/daily-entry';
+  static const String pswMar = '/psw/mar';
+  static const String pswProgressNotes = '/psw/progress-notes';
+  static const String pswIncidentReport = '/psw/incident-report';
 
   // RN
   static const String rnHome = '/rn/home';

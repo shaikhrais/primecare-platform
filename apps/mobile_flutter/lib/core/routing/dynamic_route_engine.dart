@@ -13,6 +13,11 @@ class DynamicRouteEngine {
       GoRoute(path: AppRoutes.pswHome, builder: (context, state) => ScreenRegistry.resolveScreen('PSW Home', {})),
       GoRoute(path: AppRoutes.pswTimesheets, builder: (context, state) => ScreenRegistry.resolveScreen('psw_timesheet', {})),
       GoRoute(path: AppRoutes.pswEarnings, builder: (context, state) => ScreenRegistry.resolveScreen('psw_earnings', {})),
+      GoRoute(path: AppRoutes.pswShiftTracker, builder: (context, state) => ScreenRegistry.resolveScreen('psw_shift_tracker', {})),
+      GoRoute(path: AppRoutes.pswDailyEntry, builder: (context, state) => ScreenRegistry.resolveScreen('psw_daily_entry', {})),
+      GoRoute(path: AppRoutes.pswMar, builder: (context, state) => ScreenRegistry.resolveScreen('psw_mar', {})),
+      GoRoute(path: AppRoutes.pswProgressNotes, builder: (context, state) => ScreenRegistry.resolveScreen('psw_progress_notes', {})),
+      GoRoute(path: AppRoutes.pswIncidentReport, builder: (context, state) => ScreenRegistry.resolveScreen('psw_incident_report', {})),
       
       GoRoute(path: AppRoutes.rnHome, builder: (context, state) => ScreenRegistry.resolveScreen('RN Medical Desk', {})),
       GoRoute(path: AppRoutes.rnCarePlan, builder: (context, state) => ScreenRegistry.resolveScreen('rn_care_plan', {})),

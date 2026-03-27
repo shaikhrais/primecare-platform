@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/features/roles/psw/providers/psw_evv_provider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 // import 'widgets/incident_report_fab.dart';
 import 'widgets/care_plan_sheet.dart';
 
@@ -39,7 +41,25 @@ class PswLiveVisitScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 const LiveGeolocationMapLoader(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
+                const Text('Clinical Action Panel', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 12),
+                PrimeCareCard(
+                  child: Column(
+                    children: [
+                      PrimeCareButton(label: 'Shift EVV Tracker', icon: Icons.location_on, isFullWidth: true, onPressed: () => context.push(AppRoutes.pswShiftTracker)),
+                      const SizedBox(height: 8),
+                      PrimeCareButton(label: 'Daily Entry (ADL & Vitals)', icon: Icons.health_and_safety, isFullWidth: true, onPressed: () => context.push(AppRoutes.pswDailyEntry)),
+                      const SizedBox(height: 8),
+                      PrimeCareButton(label: 'MAR (Medication Support)', icon: Icons.medication, isFullWidth: true, onPressed: () => context.push(AppRoutes.pswMar)),
+                      const SizedBox(height: 8),
+                      PrimeCareButton(label: 'Progress Notes (AI Assist)', icon: Icons.note_alt, isFullWidth: true, type: PrimeCareButtonType.secondary, onPressed: () => context.push(AppRoutes.pswProgressNotes)),
+                      const SizedBox(height: 8),
+                      PrimeCareButton(label: 'Incident Report (Urgent)', icon: Icons.warning_amber_rounded, isFullWidth: true, type: PrimeCareButtonType.secondary, onPressed: () => context.push(AppRoutes.pswIncidentReport)),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
