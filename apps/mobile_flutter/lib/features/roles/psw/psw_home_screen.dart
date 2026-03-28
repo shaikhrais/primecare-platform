@@ -1,290 +1,459 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_mobile/core/routing/app_routes.dart';
-import 'package:primecare_mobile/features/roles/psw/providers/psw_dashboard_provider.dart';
 
-class PswHomeScreen extends ConsumerStatefulWidget {
+class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
 
-  @override
-  ConsumerState<PswHomeScreen> createState() => _PswHomeScreenState();
-}
-
-class _PswHomeScreenState extends ConsumerState<PswHomeScreen> {
-  bool _isShiftActive = false;
-  int _shiftSeconds = 0;
-  Timer? _timer;
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  void _toggleShift() {
-    setState(() {
-      _isShiftActive = !_isShiftActive;
-      if (_isShiftActive) {
-        _shiftSeconds = 0;
-        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          setState(() => _shiftSeconds++);
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Shift Started! Evv tracking enabled.')));
-      } else {
-        _timer?.cancel();
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Shift Ended successfully.')));
-      }
-    });
-  }
-
-  String get _formattedTime {
-    final h = (_shiftSeconds ~/ 3600).toString().padLeft(2, '0');
-    final m = ((_shiftSeconds % 3600) ~/ 60).toString().padLeft(2, '0');
-    final s = (_shiftSeconds % 60).toString().padLeft(2, '0');
-    return '$h:$m:$s';
-  }
-
-  // --- RESPONSIVE WIDGET BUILDERS ---
-
-  Widget _buildGreetingHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Good Morning, Rahil 👋', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 6),
-            Row(
-              children: [
-                Icon(Icons.location_on, size: 16, color: _isShiftActive ? Colors.green : Colors.grey),
-                const SizedBox(width: 6),
-                Text('Location: ${_isShiftActive ? 'Active ✅' : 'Inactive'}', style: const TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ],
-        ),
-        IconButton(
-          icon: const Icon(Icons.notifications_active, color: Colors.blueAccent, size: 28),
-          onPressed: () {},
-        )
-      ],
-    );
-  }
-
-  Widget _buildShiftExecutionCard() {
-    return PrimeCareCard(
-      backgroundColor: _isShiftActive ? Colors.blue.shade50 : Colors.white,
+  Widget _buildTopKpiCard(String title, String value, IconData icon, Color iconColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          )
+        ],
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            _isShiftActive ? 'Active Client: Mrs. Kaur' : 'Next Shift: Mrs. Kaur',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Icon(icon, color: iconColor, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-          if (_isShiftActive) ...[
-            const SizedBox(height: 12),
-            Text('⏱ $_formattedTime', style: const TextStyle(fontSize: 38, fontWeight: FontWeight.w900, color: Colors.indigo)),
-          ],
-          const SizedBox(height: 20),
-          PrimeCareButton(
-            label: _isShiftActive ? 'End Shift' : 'Locate & Start Shift',
-            icon: _isShiftActive ? Icons.stop_circle : Icons.play_circle_fill,
-            isFullWidth: true,
-            type: _isShiftActive ? PrimeCareButtonType.secondary : PrimeCareButtonType.primary,
-            onPressed: _toggleShift,
+          const SizedBox(height: 12),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C3E50),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildWorkflowQueue() {
+  Widget _buildSectionHeader(String title) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Today's Workflow", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-        const SizedBox(height: 12),
-        PrimeCareCard(
-          padding: EdgeInsets.zero,
-          child: Column(
-            children: [
-              PrimeCareTaskRow(icon: Icons.health_and_safety, title: 'ADL Care Entry', statusColor: Colors.orange, onTap: () => context.push(AppRoutes.pswDailyEntry)),
-              const Divider(height: 1),
-              PrimeCareTaskRow(icon: Icons.medication, title: 'Medication Assistance', statusColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
-              const Divider(height: 1),
-              PrimeCareTaskRow(icon: Icons.note_alt, title: 'Progress Notes', statusColor: Colors.blue, onTap: () => context.push(AppRoutes.pswProgressNotes)),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildQuickDispatchGrid(bool isDesktop) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Quick Dispatch", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-        const SizedBox(height: 12),
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: isDesktop ? 4 : 4, // 4 tiles natively balance on both mobile widths and desktop panes
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          children: [
-            PrimeCareActionTile(icon: Icons.warning_amber_rounded, label: 'Incident', iconColor: Colors.red, onTap: () => context.push(AppRoutes.pswIncidentReport)),
-            PrimeCareActionTile(icon: Icons.medication, label: 'Meds', iconColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
-            PrimeCareActionTile(icon: Icons.monitor_heart, label: 'Vitals', iconColor: Colors.purple, onTap: () => context.push(AppRoutes.pswDailyEntry)),
-            PrimeCareActionTile(icon: Icons.phone, label: 'Call RN', iconColor: Colors.blue, onTap: () {}),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildClientIntel() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Client Intel", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-        const SizedBox(height: 12),
-        PrimeCareCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Mrs. Kaur (78)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 6),
-              const Text('Condition: Stroke Recovery', style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: const [
-                  PrimeStatusBadge(text: '⚠️ Fall Risk', color: Colors.orange),
-                  PrimeStatusBadge(text: 'Low BP', color: Colors.red),
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildComplianceTracker() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Shift Compliance Tracker", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
-        const SizedBox(height: 12),
-        Row(
-          children: const [
-            Expanded(
-              child: PrimeCareProgressBar(progress: 0.6, activeColor: Colors.green),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C64B4),
             ),
-            SizedBox(width: 16),
-            Text('60%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          ],
+          ),
         ),
+        const Divider(height: 1, thickness: 1, color: Color(0xFFEBEBEB)),
       ],
     );
   }
 
-  Widget _buildFastEntryAction() {
-    return PrimeCareButton(
-      label: '⚡ Complete Daily Entry Wizard',
-      isFullWidth: true,
-      icon: Icons.flash_on,
-      onPressed: () => context.push(AppRoutes.pswDailyEntry),
+  Widget _buildBar(String label, int value, Color color, int maxVal) {
+    final heightRatio = value / maxVal;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(value.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+        const SizedBox(height: 4),
+        Container(
+          width: 40, // Slightly thinner to fit mobile screens dynamically 
+          height: 120 * heightRatio,
+          color: color,
+        ),
+        const SizedBox(height: 8),
+        Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      ],
+    );
+  }
+
+  Widget _buildPatientOverview() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Patient Overview'),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Active Cases', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF34495E))),
+                const SizedBox(height: 24),
+                SizedBox(
+                  height: 180,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _buildBar('High', 220, const Color(0xFF3498DB), 600),
+                      _buildBar('Medium', 580, const Color(0xFF1ABC9C), 600),
+                      _buildBar('Low', 410, const Color(0xFFF39C12), 600),
+                      _buildBar('Done', 322, const Color(0xFF2980B9), 600),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: Color(0xFFEBEBEB), thickness: 2),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecentPatients() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Recent Patients'),
+          _buildListTile(Icons.person, 'John Miller', ' - High Priority', Colors.red, Colors.red),
+          _buildListTile(Icons.person, 'Linda Garcia', ' - Follow-Up', const Color(0xFF2C64B4), Colors.grey),
+          _buildListTile(Icons.person, 'Michael Chen', ' - New Referral', Colors.green, Colors.green),
+          _buildListTile(Icons.person, 'Susan Davis', ' - Ongoing', const Color(0xFF2C64B4), const Color(0xFF2C64B4)),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessages() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Messages'),
+          _buildMessageRow('Dr. Smith', 'Update on John Miller\'s progress'),
+          _buildMessageRow('Nurse Kelly', 'Reminder: Call Linda Garcia today'),
+          _buildMessageRow('Karen', 'Can we discuss Michael Chen\'s needs?'),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTaskManager() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Task Manager'),
+          _buildTaskRow(Icons.medical_services, 'Medication Check', 'Overdue', Colors.red),
+          _buildTaskRow(Icons.description, 'Insurance Assist.', 'Due Today', Colors.teal),
+          _buildTaskRow(Icons.calendar_today, 'Follow-Up Call', '', Colors.transparent),
+          _buildTaskRow(Icons.check_box, 'Care Coordination', '', Colors.transparent),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNextAppointments() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Next Appointments'),
+          _buildApptRow('Anna Wilson', 'Apr 25, 10:00 AM'),
+          _buildApptRow('Robert Lee', 'Apr 26, 2:30 PM'),
+          _buildApptRow('Emily Turner', 'Apr 27, 9:45 AM'),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResourceCenter() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildSectionHeader('Resource Center'),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildResourceLink('Care Guidelines'),
+                      const SizedBox(height: 20),
+                      _buildResourceLink('Insurance Info'),
+                      const SizedBox(height: 20),
+                      _buildResourceLink('Patient Education'),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildResourceLink('Patient Forms'),
+                      const SizedBox(height: 20),
+                      _buildResourceLink('Support Services'),
+                      const SizedBox(height: 40), 
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper bindings 
+  Widget _buildListTile(IconData icon, String name, String sub, Color iconC, Color subC) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: iconC, size: 20),
+          const SizedBox(width: 12),
+          Text(name, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2C64B4), fontSize: 13)),
+          Expanded(child: Text(sub, style: TextStyle(color: subC, fontSize: 13), overflow: TextOverflow.ellipsis)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessageRow(String sender, String msg) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        children: [
+          const Icon(Icons.chat_bubble, color: Color(0xFF2C64B4), size: 18),
+          const SizedBox(width: 12),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                text: '$sender: ',
+                style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2C64B4), fontSize: 13),
+                children: [
+                  TextSpan(text: '"$msg"', style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
+                ]
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTaskRow(IconData icon, String title, String badge, Color badgeColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      child: Row(
+        children: [
+           Icon(icon, color: const Color(0xFF2C64B4), size: 20),
+           const SizedBox(width: 12),
+           Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2C3E50), fontSize: 13), overflow: TextOverflow.ellipsis)),
+           if (badge.isNotEmpty)
+             Container(
+               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+               decoration: BoxDecoration(color: badgeColor, borderRadius: BorderRadius.circular(4)),
+               child: Text(badge, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+             ),
+           const SizedBox(width: 8),
+           const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildApptRow(String name, String time) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      child: Row(
+        children: [
+           const Icon(Icons.check_circle, color: Color(0xFF2C64B4), size: 20),
+           const SizedBox(width: 12),
+           Expanded(
+             child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2C3E50), fontSize: 13)),
+                  Text(time, style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.grey, fontSize: 11)),
+                ]
+             ),
+           ),
+           const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResourceLink(String title) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(color: const Color(0xFF2C64B4), borderRadius: BorderRadius.circular(4)),
+          child: const Icon(Icons.description, color: Colors.white, size: 10),
+        ),
+        const SizedBox(width: 6),
+        Expanded(child: Text(title, style: const TextStyle(color: Color(0xFF2C64B4), fontWeight: FontWeight.w600, fontSize: 12), overflow: TextOverflow.ellipsis)),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC), // Sleek subtle gray background
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isDesktop = constraints.maxWidth >= 800;
-            
-            if (isDesktop) {
-              // --- PREMIUM DESKTOP / TABLET LAYOUT (2 Columns) ---
-              return SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 32.0),
-                child: Column(
-                  children: [
-                    _buildGreetingHeader(),
-                    const SizedBox(height: 32),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Left Pane: Shift Action & Quick Dispatch
-                        Expanded(
-                          flex: 7,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildShiftExecutionCard(),
-                              const SizedBox(height: 32),
-                              _buildQuickDispatchGrid(isDesktop),
-                              const SizedBox(height: 32),
-                              _buildWorkflowQueue(),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 48), // Generous Gutter
-                        
-                        // Right Side Rail: Intelligence & Compliance
-                        Expanded(
-                          flex: 4,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              _buildClientIntel(),
-                              const SizedBox(height: 32),
-                              _buildComplianceTracker(),
-                              const SizedBox(height: 48),
-                              _buildFastEntryAction(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              // --- STANDARD NATIVE MOBILE LAYOUT (1 Column Vertical Stack) ---
-              return SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildGreetingHeader(),
-                    const SizedBox(height: 24),
-                    _buildShiftExecutionCard(),
-                    const SizedBox(height: 24),
-                    _buildWorkflowQueue(),
-                    const SizedBox(height: 24),
-                    _buildQuickDispatchGrid(isDesktop),
-                    const SizedBox(height: 24),
-                    _buildClientIntel(),
-                    const SizedBox(height: 24),
-                    _buildComplianceTracker(),
-                    const SizedBox(height: 32),
-                    _buildFastEntryAction(),
-                    const SizedBox(height: 32),
-                  ],
-                ),
-              );
-            }
-          },
+      backgroundColor: const Color(0xFFF2F4F7),
+      appBar: AppBar(
+        titleSpacing: 16,
+        backgroundColor: const Color(0xFF2864AD),
+        elevation: 0,
+        title: Row(
+          children: const [
+            Icon(Icons.add_box, color: Colors.white, size: 24),
+            SizedBox(width: 8),
+            Text('PSW DASH', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16, letterSpacing: 1.0)),
+          ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Row(
+              children: const [
+                CircleAvatar(
+                  radius: 14,
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.person, color: Color(0xFF2864AD), size: 18),
+                ),
+                SizedBox(width: 8),
+                // Hide name on extremely tight screens
+                Text('Sarah', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 20),
+              ],
+            ),
+          )
+        ],
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 900;
+          
+          if (isDesktop) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(child: _buildTopKpiCard('Total Patients', '1,532', Icons.people, const Color(0xFF3498DB))),
+                      const SizedBox(width: 20),
+                      Expanded(child: _buildTopKpiCard('New Referrals', '24', Icons.person_add, const Color(0xFF3498DB))),
+                      const SizedBox(width: 20),
+                      Expanded(child: _buildTopKpiCard('Follow-Ups Due', '18', Icons.fact_check_outlined, const Color(0xFF1ABC9C))),
+                      const SizedBox(width: 20),
+                      Expanded(child: _buildTopKpiCard('Overdue Tasks', '5', Icons.check_box, const Color(0xFFE74C3C))),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _buildPatientOverview(),
+                            const SizedBox(height: 24),
+                            _buildRecentPatients(),
+                            const SizedBox(height: 24),
+                            _buildMessages(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 24),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _buildTaskManager(),
+                            const SizedBox(height: 24),
+                            _buildNextAppointments(),
+                            const SizedBox(height: 24),
+                            _buildResourceCenter(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          } else {
+            // -- MOBILE RESPONSIVE LAYOUT --
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(child: _buildTopKpiCard('Patients', '1,532', Icons.people, const Color(0xFF3498DB))),
+                      const SizedBox(width: 12),
+                      Expanded(child: _buildTopKpiCard('Referrals', '24', Icons.person_add, const Color(0xFF3498DB))),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(child: _buildTopKpiCard('Follow-Ups', '18', Icons.fact_check_outlined, const Color(0xFF1ABC9C))),
+                      const SizedBox(width: 12),
+                      Expanded(child: _buildTopKpiCard('Overdue', '5', Icons.check_box, const Color(0xFFE74C3C))),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  const Text('PRIORITY WORKFLOW', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 11, letterSpacing: 1.2)),
+                  const SizedBox(height: 12),
+                  _buildTaskManager(),
+                  const SizedBox(height: 16),
+                  _buildNextAppointments(),
+                  const SizedBox(height: 32),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }

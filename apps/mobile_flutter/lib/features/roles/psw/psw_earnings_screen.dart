@@ -28,7 +28,13 @@ class _PswEarningsScreenState extends State<PswEarningsScreen> {
       final res = await apiClient.get('/v1/psw/earnings');
       if (mounted) {
         setState(() {
-          _payouts = res.data ?? [];
+          if (res is Map && res.containsKey('data')) {
+            _payouts = res['data'] ?? [];
+          } else if (res is List) {
+            _payouts = res;
+          } else {
+            _payouts = [];
+          }
           _isLoading = false;
         });
       }

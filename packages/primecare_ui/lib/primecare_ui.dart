@@ -51,3 +51,14 @@ export 'src/components/eta_tracker_widget.dart';
 export 'src/components/caregiver_profile_card.dart';
 export 'src/components/server_load_graph.dart';
 export 'src/components/active_websocket_tracker.dart';
+export 'src/widgets/primecare_bar_chart.dart';
+
+// Dashboard Structural Components
+export 'src/components/dashboards/prime_shift_execution_card.dart';
+export 'src/components/dashboards/prime_performance_metrics_card.dart';
+export 'src/components/dashboards/prime_earnings_trajectory_card.dart';
+export 'src/components/dashboards/prime_workflow_queue_card.dart';
+export 'src/components/dashboards/prime_quick_dispatch_grid.dart';
+export 'src/components/dashboards/prime_client_intel_card.dart';
+export 'src/components/dashboards/prime_compliance_tracker.dart';
+export 'src/components/dashboards/prime_weekly_roster_card.dart';

@@ -32,9 +32,20 @@ class PrimeCareCard extends StatelessWidget {
 
     final decoration = BoxDecoration(
       color: backgroundColor ?? t.surfaceElevated,
-      borderRadius: PrimeCareRadii.boardLg,
-      border: muted ? null : Border.all(color: t.borderSubtle, width: 1.0),
-      boxShadow: muted ? [] : const [PrimeCareShadows.soft],
+      borderRadius: BorderRadius.circular(20), // Premium smooth curve
+      border: muted ? null : Border.all(color: Colors.grey.withOpacity(0.15), width: 1.0),
+      boxShadow: muted ? [] : [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04), // Soft diffused SaaS shadow
+          blurRadius: 24,
+          offset: const Offset(0, 10),
+        ),
+        BoxShadow(
+          color: Colors.black.withOpacity(0.02),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
     );
 
     if (onTap != null) {

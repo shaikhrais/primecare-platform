@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PrimeCareActionTile extends StatelessWidget {
+class PrimeCareActionTile extends StatefulWidget {
   final IconData icon;
   final String label;
   final Color iconColor;
@@ -15,29 +15,60 @@ class PrimeCareActionTile extends StatelessWidget {
   });
 
   @override
+  State<PrimeCareActionTile> createState() => _PrimeCareActionTileState();
+}
+
+class _PrimeCareActionTileState extends State<PrimeCareActionTile> {
+  bool _isHovering = false;
+
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            )
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: iconColor, size: 28),
-            const SizedBox(height: 8),
-            Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-          ],
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovering = true),
+      onExit: (_) => setState(() => _isHovering = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOutCubic,
+          decoration: BoxDecoration(
+            color: _isHovering ? widget.iconColor.withOpacity(0.03) : Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: _isHovering ? widget.iconColor.withOpacity(0.4) : Colors.grey.withOpacity(0.12),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovering ? widget.iconColor.withOpacity(0.15) : Colors.black.withOpacity(0.04),
+                blurRadius: _isHovering ? 16 : 8,
+                offset: Offset(0, _isHovering ? 8 : 4),
+              )
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: _isHovering ? widget.iconColor.withOpacity(0.15) : widget.iconColor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(widget.icon, color: widget.iconColor, size: _isHovering ? 32 : 28),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                widget.label, 
+                style: TextStyle(
+                  fontSize: 13, 
+                  fontWeight: FontWeight.bold, 
+                  color: _isHovering ? widget.iconColor : Colors.indigo.shade800,
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );
