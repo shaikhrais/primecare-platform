@@ -50,7 +50,7 @@ class _PswEarningsScreenState extends State<PswEarningsScreen> {
 
     if (_error.isNotEmpty) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Historical Earnings')),
+
         body: Center(child: Text('Error: $_error', style: const TextStyle(color: Colors.red))),
       );
     }

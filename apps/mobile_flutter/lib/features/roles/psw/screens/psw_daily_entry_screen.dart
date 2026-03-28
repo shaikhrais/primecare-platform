@@ -18,10 +18,7 @@ class _PswDailyEntryScreenState extends State<PswDailyEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Daily Care Log (ADL)'),
-        elevation: 0,
-      ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(

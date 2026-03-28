@@ -15,7 +15,7 @@ class PswLiveVisitScreen extends ConsumerWidget {
     final activeVisitAsync = ref.watch(pswEvvLiveProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Live EVV Tracker')),
+
       body: activeVisitAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error linking EVV: $err')),

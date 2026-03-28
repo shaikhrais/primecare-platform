@@ -27,9 +27,7 @@ class _PswProgressNotesScreenState extends State<PswProgressNotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Narrative Notes'),
-      ),
+
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

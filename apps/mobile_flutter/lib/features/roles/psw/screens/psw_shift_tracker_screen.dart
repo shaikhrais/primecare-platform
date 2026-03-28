@@ -15,12 +15,7 @@ class _PswShiftTrackerScreenState extends State<PswShiftTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shift EVV Tracker'),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(

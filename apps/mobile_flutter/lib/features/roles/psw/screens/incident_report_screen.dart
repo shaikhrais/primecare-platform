@@ -8,11 +8,7 @@ class IncidentReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Critical Incident Report'),
-        backgroundColor: Colors.red.shade800,
-        foregroundColor: Colors.white,
-      ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
