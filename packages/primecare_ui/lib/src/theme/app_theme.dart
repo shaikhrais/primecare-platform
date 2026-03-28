@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'theme_extension.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -17,6 +18,9 @@ class AppTheme {
           ),
         ),
       ),
+      extensions: const [
+        PrimeCareThemeExtension.light,
+      ],
     );
   }
 }
