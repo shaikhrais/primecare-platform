@@ -47,155 +47,245 @@ class _PswHomeScreenState extends ConsumerState<PswHomeScreen> {
     return '$h:$m:$s';
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final asyncDashboard = ref.watch(pswDashboardProvider);
+  // --- RESPONSIVE WIDGET BUILDERS ---
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC), // Sleek subtle gray background
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // 1. TOP HEADER (Identity & Status)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Good Morning, Rahil 👋', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on, size: 14, color: _isShiftActive ? Colors.green : Colors.grey),
-                          const SizedBox(width: 4),
-                          Text('Location: ${_isShiftActive ? 'Active ✅' : 'Inactive'}', style: const TextStyle(color: Colors.grey, fontSize: 13)),
-                        ],
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.notifications_active, color: Colors.blueAccent),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              // 2. PRIMARY ACTION CARD
-              PrimeCareCard(
-                backgroundColor: _isShiftActive ? Colors.blue.shade50 : Colors.white,
-                child: Column(
-                  children: [
-                    Text(
-                      _isShiftActive ? 'Client: Mrs. Kaur' : 'Next Shift: Mrs. Kaur',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    if (_isShiftActive) ...[
-                      const SizedBox(height: 8),
-                      Text('⏱ $_formattedTime', style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.indigo)),
-                    ],
-                    const SizedBox(height: 16),
-                    PrimeCareButton(
-                      label: _isShiftActive ? 'End Shift' : 'Start Shift',
-                      icon: _isShiftActive ? Icons.stop_circle : Icons.play_circle_fill,
-                      isFullWidth: true,
-                      type: _isShiftActive ? PrimeCareButtonType.secondary : PrimeCareButtonType.primary,
-                      onPressed: _toggleShift,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // 3. TODAY'S TASKS (Checklist)
-              const Text("Today's Workflow", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-              const SizedBox(height: 12),
-              PrimeCareCard(
-                padding: EdgeInsets.zero,
-                child: Column(
-                  children: [
-                    PrimeCareTaskRow(icon: Icons.health_and_safety, title: 'ADL Care Entry', statusColor: Colors.orange, onTap: () => context.push(AppRoutes.pswDailyEntry)),
-                    const Divider(height: 1),
-                    PrimeCareTaskRow(icon: Icons.medication, title: 'Medication Assistance', statusColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
-                    const Divider(height: 1),
-                    PrimeCareTaskRow(icon: Icons.note_alt, title: 'Progress Notes', statusColor: Colors.blue, onTap: () => context.push(AppRoutes.pswProgressNotes)),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // 4. QUICK ACTION GRID
-              const Text("Quick Dispatch", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-              const SizedBox(height: 12),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 4,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                children: [
-                  PrimeCareActionTile(icon: Icons.warning_amber_rounded, label: 'Incident', iconColor: Colors.red, onTap: () => context.push(AppRoutes.pswIncidentReport)),
-                  PrimeCareActionTile(icon: Icons.medication, label: 'Meds', iconColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
-                  PrimeCareActionTile(icon: Icons.monitor_heart, label: 'Vitals', iconColor: Colors.purple, onTap: () => context.push(AppRoutes.pswDailyEntry)),
-                  PrimeCareActionTile(icon: Icons.phone, label: 'Call RN', iconColor: Colors.blue, onTap: () {}),
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              // 5. CLIENT SUMMARY
-              const Text("Client Intel", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
-              const SizedBox(height: 12),
-              PrimeCareCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Mrs. Kaur (78)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 4),
-                    const Text('Condition: Stroke Recovery', style: TextStyle(color: Colors.grey)),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        const PrimeStatusBadge(text: '⚠️ Fall Risk', color: Colors.orange),
-                        const SizedBox(width: 8),
-                        const PrimeStatusBadge(text: 'Low BP', color: Colors.red),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // 6. PROGRESS BAR
-              const Text("Shift Compliance", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  const Expanded(
-                    child: PrimeCareProgressBar(progress: 0.6, activeColor: Colors.green),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text('60%', style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 32),
-
-              // 10. QUICK DAILY ENTRY (SMART FEATURE)
-              PrimeCareButton(
-                label: '⚡ Complete Daily Entry Wizard',
-                isFullWidth: true,
-                icon: Icons.flash_on,
-                onPressed: () => context.push(AppRoutes.pswDailyEntry),
-              ),
-              const SizedBox(height: 32),
-            ],
-          ),
+  Widget _buildGreetingHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Good Morning, Rahil 👋', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                Icon(Icons.location_on, size: 16, color: _isShiftActive ? Colors.green : Colors.grey),
+                const SizedBox(width: 6),
+                Text('Location: ${_isShiftActive ? 'Active ✅' : 'Inactive'}', style: const TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w600)),
+              ],
+            ),
+          ],
         ),
+        IconButton(
+          icon: const Icon(Icons.notifications_active, color: Colors.blueAccent, size: 28),
+          onPressed: () {},
+        )
+      ],
+    );
+  }
+
+  Widget _buildShiftExecutionCard() {
+    return PrimeCareCard(
+      backgroundColor: _isShiftActive ? Colors.blue.shade50 : Colors.white,
+      child: Column(
+        children: [
+          Text(
+            _isShiftActive ? 'Active Client: Mrs. Kaur' : 'Next Shift: Mrs. Kaur',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          if (_isShiftActive) ...[
+            const SizedBox(height: 12),
+            Text('⏱ $_formattedTime', style: const TextStyle(fontSize: 38, fontWeight: FontWeight.w900, color: Colors.indigo)),
+          ],
+          const SizedBox(height: 20),
+          PrimeCareButton(
+            label: _isShiftActive ? 'End Shift' : 'Locate & Start Shift',
+            icon: _isShiftActive ? Icons.stop_circle : Icons.play_circle_fill,
+            isFullWidth: true,
+            type: _isShiftActive ? PrimeCareButtonType.secondary : PrimeCareButtonType.primary,
+            onPressed: _toggleShift,
+          ),
+        ],
       ),
     );
   }
 
+  Widget _buildWorkflowQueue() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Today's Workflow", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const SizedBox(height: 12),
+        PrimeCareCard(
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              PrimeCareTaskRow(icon: Icons.health_and_safety, title: 'ADL Care Entry', statusColor: Colors.orange, onTap: () => context.push(AppRoutes.pswDailyEntry)),
+              const Divider(height: 1),
+              PrimeCareTaskRow(icon: Icons.medication, title: 'Medication Assistance', statusColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
+              const Divider(height: 1),
+              PrimeCareTaskRow(icon: Icons.note_alt, title: 'Progress Notes', statusColor: Colors.blue, onTap: () => context.push(AppRoutes.pswProgressNotes)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildQuickDispatchGrid(bool isDesktop) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Quick Dispatch", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const SizedBox(height: 12),
+        GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: isDesktop ? 4 : 4, // 4 tiles natively balance on both mobile widths and desktop panes
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          children: [
+            PrimeCareActionTile(icon: Icons.warning_amber_rounded, label: 'Incident', iconColor: Colors.red, onTap: () => context.push(AppRoutes.pswIncidentReport)),
+            PrimeCareActionTile(icon: Icons.medication, label: 'Meds', iconColor: Colors.green, onTap: () => context.push(AppRoutes.pswMar)),
+            PrimeCareActionTile(icon: Icons.monitor_heart, label: 'Vitals', iconColor: Colors.purple, onTap: () => context.push(AppRoutes.pswDailyEntry)),
+            PrimeCareActionTile(icon: Icons.phone, label: 'Call RN', iconColor: Colors.blue, onTap: () {}),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildClientIntel() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Client Intel", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const SizedBox(height: 12),
+        PrimeCareCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Mrs. Kaur (78)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 6),
+              const Text('Condition: Stroke Recovery', style: TextStyle(color: Colors.grey)),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: const [
+                  PrimeStatusBadge(text: '⚠️ Fall Risk', color: Colors.orange),
+                  PrimeStatusBadge(text: 'Low BP', color: Colors.red),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildComplianceTracker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("Shift Compliance Tracker", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
+        const SizedBox(height: 12),
+        Row(
+          children: const [
+            Expanded(
+              child: PrimeCareProgressBar(progress: 0.6, activeColor: Colors.green),
+            ),
+            SizedBox(width: 16),
+            Text('60%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFastEntryAction() {
+    return PrimeCareButton(
+      label: '⚡ Complete Daily Entry Wizard',
+      isFullWidth: true,
+      icon: Icons.flash_on,
+      onPressed: () => context.push(AppRoutes.pswDailyEntry),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF7F9FC), // Sleek subtle gray background
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isDesktop = constraints.maxWidth >= 800;
+            
+            if (isDesktop) {
+              // --- PREMIUM DESKTOP / TABLET LAYOUT (2 Columns) ---
+              return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 32.0),
+                child: Column(
+                  children: [
+                    _buildGreetingHeader(),
+                    const SizedBox(height: 32),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Left Pane: Shift Action & Quick Dispatch
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildShiftExecutionCard(),
+                              const SizedBox(height: 32),
+                              _buildQuickDispatchGrid(isDesktop),
+                              const SizedBox(height: 32),
+                              _buildWorkflowQueue(),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 48), // Generous Gutter
+                        
+                        // Right Side Rail: Intelligence & Compliance
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _buildClientIntel(),
+                              const SizedBox(height: 32),
+                              _buildComplianceTracker(),
+                              const SizedBox(height: 48),
+                              _buildFastEntryAction(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              // --- STANDARD NATIVE MOBILE LAYOUT (1 Column Vertical Stack) ---
+              return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildGreetingHeader(),
+                    const SizedBox(height: 24),
+                    _buildShiftExecutionCard(),
+                    const SizedBox(height: 24),
+                    _buildWorkflowQueue(),
+                    const SizedBox(height: 24),
+                    _buildQuickDispatchGrid(isDesktop),
+                    const SizedBox(height: 24),
+                    _buildClientIntel(),
+                    const SizedBox(height: 24),
+                    _buildComplianceTracker(),
+                    const SizedBox(height: 32),
+                    _buildFastEntryAction(),
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
 }
