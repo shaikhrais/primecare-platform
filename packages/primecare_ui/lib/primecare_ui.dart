@@ -12,6 +12,9 @@ export 'src/components/primecare_scheduler.dart';
 export 'src/components/primecare_wizard_flow.dart';
 export 'src/components/desktop_pane_wrapper.dart';
 export 'src/components/sdui_form_builder.dart';
+export 'src/components/primecare_task_row.dart';
+export 'src/components/primecare_action_tile.dart';
+export 'src/components/primecare_progress_bar.dart';
 
 // Generated Strategic UI Widgets
 export 'src/components/prime_button.dart';
