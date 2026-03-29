@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class RnDashboardScreen extends StatelessWidget {
@@ -14,6 +15,17 @@ class RnDashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+const SizedBox(height: 24),
+PrimeCareQuickActionsGrid(
+  sectionTitle: "Clinical Workflow",
+  actions: [
+    PrimeCareActionItem(title: 'Care Plans', icon: Icons.medical_services, route: AppRoutes.rnCarePlan, color: Color(0xFF1E88E5)),
+    PrimeCareActionItem(title: 'RN Inbox', icon: Icons.mail, route: AppRoutes.rnInbox, color: Colors.blueGrey),
+    PrimeCareActionItem(title: 'Clinical SOW', icon: Icons.analytics, route: AppRoutes.rnSow, color: Colors.teal),
+  ]
+),
+
             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [

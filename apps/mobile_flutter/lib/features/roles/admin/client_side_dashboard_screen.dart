@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 class ClientSideDashboardScreen extends StatelessWidget {
@@ -14,6 +15,18 @@ class ClientSideDashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+const SizedBox(height: 24),
+PrimeCareQuickActionsGrid(
+  sectionTitle: "Client Self-Serve",
+  actions: [
+    PrimeCareActionItem(title: 'Client Pulse', icon: Icons.favorite, route: AppRoutes.clientPulse, color: Colors.redAccent),
+    PrimeCareActionItem(title: 'Care Dispatch', icon: Icons.fire_truck, route: AppRoutes.clientDispatch, color: Color(0xFF1E88E5)),
+    PrimeCareActionItem(title: 'Payments', icon: Icons.payment, route: AppRoutes.clientPayments, color: Colors.green),
+    PrimeCareActionItem(title: 'Messages', icon: Icons.mail, route: AppRoutes.clientInbox, color: Colors.blueGrey),
+  ]
+),
+
             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                crossAxisAlignment: CrossAxisAlignment.end,

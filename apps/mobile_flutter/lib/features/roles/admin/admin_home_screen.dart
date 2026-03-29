@@ -15,6 +15,18 @@ class AdminHomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+const SizedBox(height: 24),
+PrimeCareQuickActionsGrid(
+  sectionTitle: "Global Administration",
+  actions: [
+    PrimeCareActionItem(title: 'Role Matrix', icon: Icons.admin_panel_settings, route: AppRoutes.adminRoles, color: Color(0xFF1E88E5)),
+    PrimeCareActionItem(title: 'System Audit', icon: Icons.policy, route: AppRoutes.adminAudit, color: Colors.indigo),
+    PrimeCareActionItem(title: 'Telemetry', icon: Icons.speed, route: AppRoutes.adminTelemetry, color: Colors.blueGrey),
+    PrimeCareActionItem(title: 'Form Builder', icon: Icons.dynamic_form, route: AppRoutes.adminForms, color: Colors.orange),
+  ]
+),
+
             const GreetingHeaderWidget(
               name: 'Founder Admin',
             ),

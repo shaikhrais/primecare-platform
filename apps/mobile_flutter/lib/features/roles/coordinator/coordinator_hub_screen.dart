@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_mobile/core/routing/app_routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -131,6 +132,18 @@ class CoordinatorHubScreen extends ConsumerWidget {
       ),
       child: Column(
         children: [
+
+const SizedBox(height: 24),
+PrimeCareQuickActionsGrid(
+  sectionTitle: "Coordination Tools",
+  actions: [
+    PrimeCareActionItem(title: 'Shift Approvals', icon: Icons.check_circle, route: AppRoutes.coordinatorApprovals, color: Colors.green),
+    PrimeCareActionItem(title: 'On-Call Mgmt', icon: Icons.phone_in_talk, route: AppRoutes.coordinatorCallin, color: Colors.orange),
+    PrimeCareActionItem(title: 'Visit Adjustment', icon: Icons.edit_calendar, route: AppRoutes.coordinatorVisitAdjust, color: Color(0xFF1E88E5)),
+    PrimeCareActionItem(title: 'Coordinator Inbox', icon: Icons.mail, route: AppRoutes.coordinatorInbox, color: Colors.blueGrey),
+  ]
+),
+
           Text(
             value,
             style: TextStyle(

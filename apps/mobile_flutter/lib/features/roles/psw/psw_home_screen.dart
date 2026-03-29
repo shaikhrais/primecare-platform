@@ -294,6 +294,18 @@ class PswHomeScreen extends StatelessWidget {
       decoration: BoxDecoration(color: const Color(0xFF1E74C5), borderRadius: BorderRadius.circular(4)),
       child: Column(
         children: [
+
+const SizedBox(height: 24),
+PrimeCareQuickActionsGrid(
+  sectionTitle: "My Day-to-Day Tasks",
+  actions: [
+    PrimeCareActionItem(title: 'Timesheets', icon: Icons.timer, route: AppRoutes.pswTimesheets, color: Color(0xFF1E88E5)),
+    PrimeCareActionItem(title: 'Earnings', icon: Icons.attach_money, route: AppRoutes.pswEarnings, color: Colors.green),
+    PrimeCareActionItem(title: 'Secure Inbox', icon: Icons.mail, route: AppRoutes.pswInbox, color: Colors.blueGrey),
+    PrimeCareActionItem(title: 'SOW Metrics', icon: Icons.analytics, route: AppRoutes.pswSow, color: Colors.purple),
+  ]
+),
+
           Icon(icon, color: Colors.white, size: 28),
           const SizedBox(height: 8),
           Text(text, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
