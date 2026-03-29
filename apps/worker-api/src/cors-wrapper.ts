@@ -59,7 +59,17 @@ export function registerErrorHandler(app: AppType) {
         const isPreview = origin && CORS_PREVIEW_RE.test(origin);
         const headerOrigin = (allowed.includes(origin || '') || isPreview) ? origin! : allowed[0]!;
         c.header('Access-Control-Allow-Origin', headerOrigin); c.header('Access-Control-Allow-Credentials', 'true');
-        return c.json({ status: 'error', message: err?.message || 'Internal Server Error', stackDump: typeof err?.stack === 'string' ? err.stack.substring(0, 500) : 'none', path: c.req.path }, 500);
+        
+        // Architecture Audit #1: OpenAPI 400/404 Consensus Synchronization
+        // Catches strictly identical validation anomalies across 413 dynamic endpoints cleanly generating formal 400 structures
+        if (err?.name === 'ZodError' || (err as any)?.issues || err?.message?.includes('Invalid')) {
+            return c.json({ success: false, error: 'Validation Error', details: (err as any)?.issues || err.message }, 400);
+        }
+        if (err?.name === 'NotFoundError' || err?.message?.includes('not found')) {
+            return c.json({ success: false, error: 'Resource Not Found' }, 404);
+        }
+
+        return c.json({ status: 'error', message: err?.message || 'Internal Server Error', stackDump: typeof err?.stack === 'string' ? err?.stack.substring(0, 500) : 'none', path: c.req.path }, 500);
     });
 }
 
