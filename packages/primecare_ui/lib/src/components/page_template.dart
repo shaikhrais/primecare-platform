@@ -29,20 +29,52 @@ class PageTemplate extends StatelessWidget {
         title: Text(title),
         actions: actionButton != null ? [actionButton!] : null,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (subtitle != null) Text(subtitle!, style: const TextStyle(fontSize: 16, color: Colors.grey)),
-            if (kpiCards != null) ...[
-              const SizedBox(height: 16),
-              Row(children: kpiCards!.map((c) => Expanded(child: c)).toList()),
-            ],
-            const SizedBox(height: 16),
-            if (child != null) child!,
-            if (children != null) ...children!,
-          ],
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1400),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (subtitle != null) 
+                  Text(
+                    subtitle!, 
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                if (kpiCards != null) ...[
+                  const SizedBox(height: 24),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final width = constraints.maxWidth;
+                      int crossAxisCount;
+                      if (width > 1000) {
+                        crossAxisCount = 4;
+                      } else if (width > 600) {
+                        crossAxisCount = 2;
+                      } else {
+                        crossAxisCount = 1;
+                      }
+                      
+                      final double spacing = 16.0;
+                      final double itemWidth = (width - (spacing * (crossAxisCount - 1))) / crossAxisCount;
+                      
+                      return Wrap(
+                        spacing: spacing,
+                        runSpacing: spacing,
+                        children: kpiCards!.map((c) => SizedBox(width: itemWidth, child: c)).toList(),
+                      );
+                    },
+                  ),
+                ],
+                const SizedBox(height: 16),
+                if (child != null) child!,
+                if (children != null) ...children!,
+              ],
+            ),
+          ),
         ),
       ),
     );
