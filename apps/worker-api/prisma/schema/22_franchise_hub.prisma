@@ -1,0 +1,42 @@
+model FranchiseRevenueNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  monthYear       String
+  revenueAmt      Int
+  patientVisits   Int
+  growthPct       Float
+  status          String   // On Track, At Risk
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model ClinicPerformanceNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  locationName    String
+  managerName     String
+  revenue         String
+  visits          Int
+  growth          String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model FranchiseBookingNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  patientName     String
+  clinicAssigned  String
+  appointmentType String
+  scheduledTime   String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

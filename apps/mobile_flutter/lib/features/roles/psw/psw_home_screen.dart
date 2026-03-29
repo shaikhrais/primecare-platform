@@ -480,6 +480,20 @@ class PswHomeScreen extends StatelessWidget {
                   _buildTodaysTasks(context),
                   const SizedBox(height: 16),
                   _buildClientAlerts(context),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => _showContactDirectory(context),
+                      icon: const Icon(Icons.contacts, color: Colors.white),
+                      label: const Text('Contact Directory', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1E88E5),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -545,6 +559,17 @@ class PswHomeScreen extends StatelessWidget {
                           _buildClientAlerts(context),
                           const SizedBox(height: 24),
                           _buildShiftReportSummary(context),
+                          const SizedBox(height: 24),
+                          ElevatedButton.icon(
+                            onPressed: () => _showContactDirectory(context),
+                            icon: const Icon(Icons.contacts, color: Colors.white),
+                            label: const Text('View Contact Directory', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF1E88E5),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -555,6 +580,106 @@ class PswHomeScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showContactDirectory(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('PrimeCare Roles & Email Directory', style: TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          content: SizedBox(
+            width: 600,
+            height: 500,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildContactSection('Corporate / Head Office', {
+                    'Founder / CEO': 'ceo@primecare.com',
+                    'COO (Operations Head)': 'operations@primecare.com',
+                    'CFO (Finance Head)': 'finance@primecare.com',
+                    'CTO (Tech Head)': 'tech@primecare.com',
+                    'Compliance Manager': 'compliance@primecare.com',
+                    'Head of Business Development': 'growth@primecare.com',
+                    'Head of Marketing': 'marketing@primecare.com',
+                    'Training Director': 'training@primecare.com',
+                  }),
+                  _buildContactSection('Business Development Team', {
+                    'Regional BD Manager (ON)': 'bd.ontario@primecare.com',
+                    'Regional BD Manager (USA)': 'bd.usa@primecare.com',
+                    'Franchise Sales Manager': 'franchise@primecare.com',
+                    'Partnership Manager': 'partnerships@primecare.com',
+                    'Territory Expansion Manager': 'expansion@primecare.com',
+                  }),
+                  _buildContactSection('Franchise Level (Hamilton)', {
+                    'Franchise Owner': 'owner@hamilton.primecare.com',
+                    'Operations Manager': 'ops@hamilton.primecare.com',
+                    'Scheduler / Coordinator': 'schedule@hamilton.primecare.com',
+                    'Billing / Admin': 'billing@hamilton.primecare.com',
+                    'HR / Hiring': 'hr@hamilton.primecare.com',
+                  }),
+                  _buildContactSection('Clinical Team', {
+                    'RN (Registered Nurse)': 'rn1@hamilton.primecare.com',
+                    'RPN': 'rpn1@hamilton.primecare.com',
+                    'RMT': 'rmt1@hamilton.primecare.com',
+                    'PSW': 'psw1@hamilton.primecare.com',
+                  }),
+                  _buildContactSection('Support Team', {
+                    'Customer Support': 'support@primecare.com',
+                    'Intake Coordinator': 'intake@primecare.com',
+                    'Quality Assurance': 'qa@primecare.com',
+                    'Training Coordinator': 'training.support@primecare.com',
+                  }),
+                  _buildContactSection('Marketing and Local Growth', {
+                    'Local Marketing Manager': 'marketing@hamilton.primecare.com',
+                    'Community Outreach': 'outreach@hamilton.primecare.com',
+                    'Territory Sales Manager': 'sales@hamilton.primecare.com',
+                  }),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close', style: TextStyle(color: Color(0xFF1E5BB2))),
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  Widget _buildContactSection(String title, Map<String, String> contacts) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          decoration: BoxDecoration(
+            color: const Color(0xFFEAF3FB),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F4C81))),
+        ),
+        const SizedBox(height: 8),
+        ...contacts.entries.map((e) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: Text(e.key, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF333333)))),
+              Text(e.value, style: const TextStyle(color: Color(0xFF1D72B8))),
+            ],
+          ),
+        )).toList(),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }

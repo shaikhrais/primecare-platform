@@ -16,6 +16,9 @@ export 'src/components/primecare_task_row.dart';
 export 'src/components/primecare_action_tile.dart';
 export 'src/components/primecare_progress_bar.dart';
 
+// Layout Components
+export 'src/components/layout/prime_responsive_grid.dart';
+
 // Generated Strategic UI Widgets
 export 'src/components/prime_button.dart';
 export 'src/components/prime_card.dart';

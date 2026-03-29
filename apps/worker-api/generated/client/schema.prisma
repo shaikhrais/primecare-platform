@@ -2554,3 +2554,720 @@ model CarePlanFollowUp {
   @@index([tenantId])
   @@map("care_plan_follow_ups")
 }
+
+model Clinic {
+  id              String    @id @default(uuid())
+  name            String
+  location        String
+  patientVolume   Int
+  efficiencyScore Float
+  revenue         Float
+  status          String    @default("ACTIVE")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  patients        Patient[]
+}
+
+model Patient {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  age       Int
+  gender    String
+  status    String   @default("ACTIVE") // ACTIVE, DISCHARGED
+  avatarUrl String?
+  clinicId  String
+  clinic    Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FinancialRecord {
+  id        String   @id @default(uuid())
+  month     String // e.g. "Jan", "Feb"
+  revenue   Float
+  expenses  Float
+  clinicId  String?
+  createdAt DateTime @default(now())
+}
+
+// 11_family_portal.prisma
+// Extends the core data model to explicitly support Family App dashboard metrics
+
+model FamilyAppointment {
+  id          String   @id @default(uuid())
+  title       String
+  patientName String
+  doctorName  String
+  date        DateTime
+  time        String
+  location    String
+  status      String   @default("PLANNED") // PLANNED, COMPLETED, CANCELLED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FamilyCarePlanTask {
+  id          String   @id @default(uuid())
+  patientName String
+  taskName    String
+  category    String   @default("MEDICATION") // MEDICATION, VITALS, ACTIVITY
+  timeSlot    String
+  isCompleted Boolean  @default(false)
+  completedBy String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FamilyClinicalMessage {
+  id         String   @id @default(uuid())
+  threadId   String
+  senderName String
+  senderRole String // DOCTOR, NURSE, PSW, FAMILY
+  content    String
+  timestamp  DateTime @default(now())
+  isRead     Boolean  @default(false)
+}
+
+model PatientIntake {
+  id            String    @id @default(uuid())
+  tenantId      String
+  patientName   String
+  status        String // PENDING, SCHEDULED, IN_PROGRESS, APPROVED, DRAFT
+  priority      String // LOW, MED, HIGH
+  franchiseCity String
+  coordinatorId String?
+  scheduledDate DateTime?
+  scheduledTime String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([tenantId])
+}
+
+model IntakeReferralMetric {
+  id              String   @id @default(uuid())
+  tenantId        String
+  sourceName      String
+  conversionCount Int      @default(0)
+  totalLeads      Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model JobOpening {
+  id               String   @id @default(uuid())
+  tenantId         String
+  title            String
+  department       String
+  location         String
+  status           String // ACTIVE, DRAFT, CLOSED
+  applicationCount Int      @default(0)
+  postedDate       DateTime @default(now())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model JobCandidate {
+  id            String   @id @default(uuid())
+  tenantId      String
+  candidateName String
+  appliedRole   String
+  department    String
+  source        String
+  status        String // SCREENING, SHORTLISTED, INTERVIEW, OFFER
+  rating        Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model InterviewEvent {
+  id            String   @id @default(uuid())
+  tenantId      String
+  candidateName String
+  roleTarget    String
+  managerName   String
+  scheduledDate DateTime
+  scheduledTime String
+  status        String // SCHEDULED, COMPLETED, CANCELLED
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model InvoiceRecord {
+  id             String   @id @default(uuid())
+  tenantId       String
+  invoiceId      String   @unique
+  patientName    String
+  clinicLocation String
+  amount         Float
+  status         String // Paid, Pending, Overdue
+  issueDate      DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model InsuranceClaim {
+  id             String   @id @default(uuid())
+  tenantId       String
+  claimCode      String   @unique
+  patientName    String
+  provider       String
+  status         String // Submission, Review, Reimbursed, Denied
+  denialReason   String?
+  amount         Float
+  submissionDate DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FinancialGoal {
+  id            String   @id @default(uuid())
+  tenantId      String
+  month         Int
+  year          Int
+  label         String
+  targetRevenue Float
+  actualRevenue Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FacilityNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  facilityName String
+  location     String
+  managerName  String
+  status       String // Operational, Review, Issue
+  satisfaction Float
+  dailyVisits  Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model StaffUtilization {
+  id            String   @id @default(uuid())
+  tenantId      String
+  staffName     String
+  role          String
+  totalHours    Float
+  clinicalHours Float
+  adminHours    Float
+  status        String // Optimized, Overworked, Underutilized
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model OpsIssueTicket {
+  id           String   @id @default(uuid())
+  tenantId     String
+  title        String
+  description  String
+  facilityName String
+  severity     String // Critical, High, Medium, Low
+  status       String // Reported, Dispatched, Resolved
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model IncidentReportNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  incidentType String
+  severity     String // Critical, High, Low
+  franchise    String
+  description  String
+  status       String // Open, Under Investigation, Closed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model AuditLogNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  franchise     String
+  auditDate     DateTime @default(now())
+  auditorName   String
+  score         Float
+  compliancePct Float
+  status        String // Passed, Failed, Warning
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model PatientSatisfactionNode {
+  id        String   @id @default(uuid())
+  tenantId  String
+  franchise String
+  score     Float
+  comments  String?
+  type      String // Commendation, Complaint, Neutral
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SalesDealNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  dealName       String
+  facilityTarget String
+  amount         Float
+  stage          String // Discovery, Evaluation, Proposal, Closed Won
+  repName        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model KeyAccountNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  accountName    String
+  contactName    String
+  stage          String
+  potentialValue Float
+  probability    Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model RepPerformanceNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  repName       String
+  quota         Float
+  attainment    Float
+  meetings      Int
+  pipelineValue Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model MarketingCampaignNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  campaignName String
+  platform     String // Google Ads, Social, Email
+  spend        Float
+  revenue      Float
+  leads        Int
+  status       String // Active, Paused, Completed
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalGrowthNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  regionName     String
+  patientAcqCost Float
+  newPatients    Int
+  totalRevenue   Float
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ContentAssetNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  assetName    String
+  assetType    String // Banner, Email, Print
+  author       String
+  status       String // Draft, Review, Live
+  thumbnailUrl String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model PatientAdmissionNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  patientName   String
+  priority      String // Critical, High, Normal
+  condition     String
+  location      String
+  attendingPhys String
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClinicalShiftNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  providerName String
+  role         String // RN, RPN, PSW
+  startTime    DateTime
+  endTime      DateTime
+  facility     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model MedicalAuditNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  regionCode      String // NY, IL, CA
+  survivalRate    Float
+  readmissionRate Float
+  averageWaitTime Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SupportTicketNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  franchiseName String
+  patientRef    String
+  issueType     String
+  status        String
+  assignedTo    String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model PatientFeedbackNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  patientName   String
+  franchiseName String
+  rating        Int // 1 to 5
+  comments      String
+  status        String // Reviewed, Pending
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SystemTelemetryNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  serviceName   String // DB Edge, API Gateway, Worker
+  uptimePercent Float
+  latencyMs     Int
+  status        String // Operational, Degraded, Down
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model CurriculumNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  programName   String
+  department    String
+  status        String
+  completionPct Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model InstructorNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  facilitatorName String
+  assignedCourse  String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model CertificationNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  staffName    String
+  clinicalRole String
+  certName     String
+  expiresAt    DateTime
+  status       String // Compliant, Expiring, Expired
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FranchiseRevenueNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  monthYear     String
+  revenueAmt    Int
+  patientVisits Int
+  growthPct     Float
+  status        String // On Track, At Risk
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClinicPerformanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  locationName String
+  managerName  String
+  revenue      String
+  visits       Int
+  growth       String
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FranchiseBookingNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  patientName     String
+  clinicAssigned  String
+  appointmentType String
+  scheduledTime   String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model OutreachEventNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  eventName       String
+  location        String
+  scheduledDate   DateTime
+  status          String // Upcoming, Completed, Active
+  participantGoal Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ParticipantMetricNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  metricDate      String
+  totalReached    Int
+  engagementScore Float
+  healthScreened  Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model OutreachBudgetNode {
+  id             String   @id @default(uuid())
+  tenantId       String
+  projectName    String
+  allocatedFunds Int
+  fundsUsed      Int
+  sponsor        String
+  status         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalNetworkNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  locationName    String
+  occupancyRate   Float
+  serverLoadScore Float
+  staffActive     Int
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalFinanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  monthLabel   String
+  grossRevenue Float
+  netMargin    Float
+  growthYoY    Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalActivityNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  eventTitle String
+  eventType  String
+  eventTime  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalMarketingAnalyticNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  metricType String
+  value      Float
+  growthYoY  Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalCampaignNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  campaignName String
+  managerName  String
+  roiFactor    Float
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalContentNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  assetTitle   String
+  assetType    String
+  deployedDate String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SupportAgentNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  agentName     String
+  shiftTime     String
+  activeTickets Int
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model TicketVolumeNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  hourlyMark    String
+  inboundCount  Int
+  resolvedCount Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ResolutionFeedbackNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  patientName  String
+  csatScore    Float
+  feedbackText String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClientTrendNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  monthLabel    String
+  revenueAmount Float
+  apptCount     Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClientClinicNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  clinicName    String
+  starRating    Int
+  revenueString String
+  rank          Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClientDemographicNode {
+  id          String   @id @default(uuid())
+  tenantId    String
+  cohortGroup String
+  percentage  Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId])
+}

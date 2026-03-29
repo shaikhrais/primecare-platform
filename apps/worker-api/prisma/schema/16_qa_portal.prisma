@@ -1,0 +1,41 @@
+model IncidentReportNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  incidentType    String
+  severity        String   // Critical, High, Low
+  franchise       String
+  description     String
+  status          String   // Open, Under Investigation, Closed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model AuditLogNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  franchise       String
+  auditDate       DateTime @default(now())
+  auditorName     String
+  score           Float
+  compliancePct   Float
+  status          String   // Passed, Failed, Warning
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model PatientSatisfactionNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  franchise       String
+  score           Float
+  comments        String?
+  type            String   // Commendation, Complaint, Neutral
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

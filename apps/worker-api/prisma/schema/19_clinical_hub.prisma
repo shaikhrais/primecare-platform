@@ -1,0 +1,41 @@
+model PatientAdmissionNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  patientName     String
+  priority        String   // Critical, High, Normal
+  condition       String
+  location        String
+  attendingPhys   String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model ClinicalShiftNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  providerName    String
+  role            String   // RN, RPN, PSW
+  startTime       DateTime
+  endTime         DateTime
+  facility        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model MedicalAuditNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  regionCode      String   // NY, IL, CA
+  survivalRate    Float
+  readmissionRate Float
+  averageWaitTime Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

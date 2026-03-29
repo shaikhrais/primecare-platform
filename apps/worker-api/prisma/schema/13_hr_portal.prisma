@@ -1,0 +1,44 @@
+model JobOpening {
+  id              String   @id @default(uuid())
+  tenantId        String
+  title           String
+  department      String
+  location        String
+  status          String   // ACTIVE, DRAFT, CLOSED
+  applicationCount Int     @default(0)
+  postedDate      DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model JobCandidate {
+  id              String   @id @default(uuid())
+  tenantId        String
+  candidateName   String
+  appliedRole     String
+  department      String
+  source          String
+  status          String   // SCREENING, SHORTLISTED, INTERVIEW, OFFER
+  rating          Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model InterviewEvent {
+  id              String   @id @default(uuid())
+  tenantId        String
+  candidateName   String
+  roleTarget      String
+  managerName     String
+  scheduledDate   DateTime
+  scheduledTime   String
+  status          String   // SCHEDULED, COMPLETED, CANCELLED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

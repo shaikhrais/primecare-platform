@@ -79,4 +79,43 @@ class AppRoutes {
   static const String mtSurgeConfig = '/mt/surge-config';
   static const String mtInbox = '/mt/inbox';
   static const String mtSow = '/mt/sow';
+
+  // Granular Dashboard Routes
+  static const String founderCeoDashboard = '/corporate/founder-ceo';
+  static const String cooDashboard = '/corporate/coo';
+  static const String cfoDashboard = '/corporate/cfo';
+  static const String ctoDashboard = '/corporate/cto';
+  static const String complianceDashboard = '/corporate/compliance';
+  static const String headBdDashboard = '/corporate/head-bd';
+  static const String headMarketingDashboard = '/corporate/head-marketing';
+  static const String trainingDirectorDashboard = '/corporate/training-director';
+  static const String bdTeamDashboard = '/business-development/bd-team';
+  static const String regionalBdOnDashboard = '/business-development/regional-bd-on';
+  static const String regionalBdUsaDashboard = '/business-development/regional-bd-usa';
+  static const String franchiseSalesDashboard = '/business-development/franchise-sales';
+  static const String partnershipMgrDashboard = '/business-development/partnership-mgr';
+  static const String territoryExpansionDashboard = '/business-development/territory-expansion';
+  static const String franchiseLevelDashboard = '/franchise-management/franchise-level';
+  static const String franchiseOwnerDashboard = '/franchise-management/franchise-owner';
+  static const String operationsMgrDashboard = '/franchise-management/operations-mgr';
+  static const String schedulerDashboard = '/franchise-management/scheduler';
+  static const String billingDashboard = '/franchise-management/billing';
+  static const String hrDashboard = '/franchise-management/hr';
+  static const String clinicalTeamDashboard = '/clinical/clinical-team';
+  static const String rnGranularDashboard = '/clinical/rn-granular';
+  static const String rpnDashboard = '/clinical/rpn';
+  static const String rmtDashboard = '/clinical/rmt';
+  static const String pswGranularDashboard = '/clinical/psw-granular';
+  static const String supportTeamDashboard = '/support/support-team';
+  static const String customerSupportDashboard = '/support/customer-support';
+  static const String intakeCoordinatorDashboard = '/support/intake-coordinator';
+  static const String qualityAssuranceDashboard = '/support/quality-assurance';
+  static const String trainingCoordinatorDashboard = '/support/training-coordinator';
+  static const String marketingGrowthDashboard = '/marketing/marketing-growth';
+  static const String localMarketingDashboard = '/marketing/local-marketing';
+  static const String communityOutreachDashboard = '/marketing/community-outreach';
+  static const String territorySalesDashboard = '/marketing/territory-sales';
+  static const String clientSideDashboard = '/client/client-side';
+  static const String clientGranularDashboard = '/client/client-granular';
+  static const String familyMemberDashboard = '/client/family-member';
 }

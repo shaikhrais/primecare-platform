@@ -1,0 +1,41 @@
+model SalesDealNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  dealName        String
+  facilityTarget  String
+  amount          Float
+  stage           String   // Discovery, Evaluation, Proposal, Closed Won
+  repName         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model KeyAccountNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  accountName     String
+  contactName     String
+  stage           String   
+  potentialValue  Float
+  probability     Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model RepPerformanceNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  repName         String
+  quota           Float
+  attainment      Float
+  meetings        Int
+  pipelineValue   Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

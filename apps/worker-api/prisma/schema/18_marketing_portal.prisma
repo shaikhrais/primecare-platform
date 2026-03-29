@@ -1,0 +1,41 @@
+model MarketingCampaignNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  campaignName    String
+  platform        String   // Google Ads, Social, Email
+  spend           Float
+  revenue         Float
+  leads           Int
+  status          String   // Active, Paused, Completed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model LocalGrowthNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  regionName      String
+  patientAcqCost  Float
+  newPatients     Int
+  totalRevenue    Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([tenantId])
+}
+
+model ContentAssetNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  assetName       String
+  assetType       String   // Banner, Email, Print
+  author          String
+  status          String   // Draft, Review, Live
+  thumbnailUrl    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}

@@ -2,7 +2,7 @@
  * Seed Helpers — extracted from seed.ts
  * Helper functions + domain entity seeding logic
  */
-import { PrismaClient } from '../../generated/client';
+import { PrismaClient } from '../generated/client';
 
 const prisma = new PrismaClient();
 export { prisma };
