@@ -8,7 +8,13 @@ class SqliteDatabaseHelper {
 
   SqliteDatabaseHelper._init();
 
-  Future<Database> get database async {
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+  Future<Database?> get database async {
+    if (kIsWeb) {
+      print("[PWA_NOTICE] Skipping native SQLite instantiation on Web Platform.");
+      return null;
+    }
     if (_database != null) return _database!;
     _database = await _initDB('primecare_offline_queue.db');
     return _database!;
@@ -41,6 +47,7 @@ class SqliteDatabaseHelper {
 
   Future<int> insertPayload(Map<String, dynamic> row) async {
     final db = await instance.database;
+    if (db == null) return 0; // PWA Bypass
     return await db.insert(
       'OfflineQueue',
       row,
@@ -50,17 +57,20 @@ class SqliteDatabaseHelper {
 
   Future<List<Map<String, dynamic>>> readAllPendingPayloads() async {
     final db = await instance.database;
+    if (db == null) return []; // PWA limits Array
     const orderBy = 'timestamp ASC';
     return await db.query('OfflineQueue', orderBy: orderBy);
   }
 
   Future<int> deletePayload(String id) async {
     final db = await instance.database;
+    if (db == null) return 0; 
     return await db.delete('OfflineQueue', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> incrementRetryCount(String id) async {
     final db = await instance.database;
+    if (db == null) return 0;
     return await db.rawUpdate(
       '''
       UPDATE OfflineQueue 
@@ -73,6 +83,6 @@ class SqliteDatabaseHelper {
 
   Future close() async {
     final db = await instance.database;
-    db.close();
+    db?.close();
   }
 }
