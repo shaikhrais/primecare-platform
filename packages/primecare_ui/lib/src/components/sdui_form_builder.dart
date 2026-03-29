@@ -230,29 +230,38 @@ class _PrimeCareDynamicFormBuilderState
 
     List<dynamic> fields = _schema!['fields'] ?? [];
 
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.webhook, color: Theme.of(context).colorScheme.secondary),
-              const SizedBox(width: 12),
-              Text(_schema!['title'] ?? 'Dynamic Form', overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.outfit(
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 700),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(24),
           ),
-          const SizedBox(height: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.webhook, color: Theme.of(context).colorScheme.secondary),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      _schema!['title'] ?? 'Dynamic Form', 
+                      overflow: TextOverflow.ellipsis, 
+                      maxLines: 1, 
+                      style: GoogleFonts.outfit(
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
 
           ...fields.map((field) => _buildField(field)),
 
@@ -282,6 +291,6 @@ class _PrimeCareDynamicFormBuilderState
           ),
         ],
       ),
-    );
+    )));
   }
 }
