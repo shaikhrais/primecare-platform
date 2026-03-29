@@ -44,84 +44,78 @@ class ClientDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 32),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+            PrimeResponsiveGrid(
+               desktopMainAxisExtent: 320,
+               desktopCrossAxisCount: 2,
                children: [
-                  Expanded(
-                     flex: 5,
-                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                           const Text('Key Performance Indicators', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                           const SizedBox(height: 16),
-                           Expanded(
-                              child: PrimeResponsiveGrid(
-                                 desktopMainAxisExtent: 100,
-                                 tabletMainAxisExtent: 120,
-                                 mobileMainAxisExtent: 140,
-                                 children: [
-                                    _buildSparklineCard('Active Clinics', '12/12', 'Modern Trend', const [0.7, 0.4, 0.5, 0.3, 0.6, 0.2, 0.7]),
-                                    _buildSparklineCard('Total Patients', '24,850', 'Modern Trend', const [0.8, 0.6, 0.7, 0.5, 0.4, 0.6, 0.3]),
-                                    _buildSparklineCard('Franchise Revenue', '\$4.2M', 'Modern Trend', const [0.6, 0.5, 0.8, 0.4, 0.3, 0.5, 0.4]),
-                                    _buildSparklineCard('Staff Performance', '94.2%', 'Modern Trend', const [0.5, 0.4, 0.6, 0.5, 0.3, 0.4, 0.6]),
-                                 ]
-                              )
+                  Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                        const Text('Key Performance Indicators', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        const SizedBox(height: 16),
+                        Expanded(
+                           child: PrimeResponsiveGrid(
+                              desktopMainAxisExtent: 120,
+                              tabletMainAxisExtent: 140,
+                              mobileMainAxisExtent: 140,
+                              desktopCrossAxisCount: 2,
+                              children: [
+                                 _buildSparklineCard('Active Clinics', '12/12', 'Modern Trend', const [0.7, 0.4, 0.5, 0.3, 0.6, 0.2, 0.7]),
+                                 _buildSparklineCard('Total Patients', '24,850', 'Modern Trend', const [0.8, 0.6, 0.7, 0.5, 0.4, 0.6, 0.3]),
+                                 _buildSparklineCard('Franchise Revenue', '\$4.2M', 'Modern Trend', const [0.6, 0.5, 0.8, 0.4, 0.3, 0.5, 0.4]),
+                                 _buildSparklineCard('Staff Performance', '94.2%', 'Modern Trend', const [0.5, 0.4, 0.6, 0.5, 0.3, 0.4, 0.6]),
+                              ]
                            )
-                        ]
-                     )
+                        )
+                     ]
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(flex: 6, child: _buildRevenueGrowthCard()),
+                  _buildRevenueGrowthCard(),
                ]
-            ).withHeight(280),
+            ),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+            PrimeResponsiveGrid(
+               desktopMainAxisExtent: 540,
+               desktopCrossAxisCount: 2,
                children: [
-                  Expanded(flex: 5, child: _buildClinicNetworkOverviewCard()),
-                  const SizedBox(width: 16),
-                  Expanded(
-                     flex: 6, 
-                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                           Expanded(
-                              flex: 5,
-                              child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                 children: [
-                                    Expanded(flex: 1, child: _buildEfficiencyTableCard()),
-                                    const SizedBox(width: 16),
-                                    Expanded(flex: 1, child: _buildPatientDemographicsCard()),
-                                 ]
-                              )
-                           ),
-                           const SizedBox(height: 16),
-                           Expanded(
-                              flex: 4,
-                              child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                 children: [
-                                    Expanded(flex: 1, child: _buildAppointmentStatisticsCard()),
-                                    const SizedBox(width: 16),
-                                    Expanded(flex: 1, child: _buildPatientFeedbackScoreCard()),
-                                 ]
-                              )
-                           ),
-                        ]
-                     )
+                  _buildClinicNetworkOverviewCard(),
+                  Column(
+                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                     children: [
+                        Expanded(
+                           flex: 5,
+                           child: PrimeResponsiveGrid(
+                              desktopMainAxisExtent: 260,
+                              desktopCrossAxisCount: 2,
+                              children: [
+                                 _buildEfficiencyTableCard(),
+                                 _buildPatientDemographicsCard(),
+                              ]
+                           )
+                        ),
+                        Expanded(
+                           flex: 4,
+                           child: PrimeResponsiveGrid(
+                              desktopMainAxisExtent: 200,
+                              desktopCrossAxisCount: 2,
+                              children: [
+                                 _buildAppointmentStatisticsCard(),
+                                 _buildPatientFeedbackScoreCard(),
+                              ]
+                           )
+                        ),
+                     ]
                   ),
                ]
-            ).withHeight(500),
+            ),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+            PrimeResponsiveGrid(
+               desktopMainAxisExtent: 220,
+               desktopCrossAxisCount: 2,
                children: [
-                  Expanded(flex: 1, child: _buildRecentFranchiseActivityCard()),
-                  const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildActionableInsightsCard()),
+                  _buildRecentFranchiseActivityCard(),
+                  _buildActionableInsightsCard(),
                ]
-            ).withHeight(200),
+            ),
             const SizedBox(height: 32),
          ]
         ),
@@ -692,8 +686,4 @@ class _NeedleGaugePainter extends CustomPainter {
       canvas.drawCircle(center, 8, Paint()..color = const Color(0xFF0F4C81));
    }
    @override bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-extension on Widget {
-   Widget withHeight(double h) => SizedBox(height: h, child: this);
 }

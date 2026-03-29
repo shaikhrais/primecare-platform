@@ -88,6 +88,10 @@ import clientTrendsList from './client-side/trends.routes';
 import clientClinicsList from './client-side/clinics.routes';
 import clientDemographicsList from './client-side/demographics.routes';
 
+import healthnetRevenueList from './healthnet/revenue.routes';
+import healthnetEfficiencyList from './healthnet/efficiency.routes';
+import healthnetNetworkList from './healthnet/network.routes';
+
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Client module-level middleware
@@ -199,6 +203,11 @@ client.route('/support-desk/feedback', supportFeedbackList);
 client.route('/client-side/trends', clientTrendsList);
 client.route('/client-side/clinics', clientClinicsList);
 client.route('/client-side/demographics', clientDemographicsList);
+
+// Client HealthNet Hub (Phase 19)
+client.route('/healthnet/revenue', healthnetRevenueList);
+client.route('/healthnet/efficiency', healthnetEfficiencyList);
+client.route('/healthnet/network', healthnetNetworkList);
 
 client.route('/', portalRoutes);
 

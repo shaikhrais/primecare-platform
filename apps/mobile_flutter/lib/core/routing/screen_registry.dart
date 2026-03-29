@@ -129,6 +129,11 @@ import 'package:primecare_mobile/features/roles/admin/client_side_trends_screen.
 import 'package:primecare_mobile/features/roles/admin/client_side_clinics_screen.dart';
 import 'package:primecare_mobile/features/roles/admin/client_side_demographics_screen.dart';
 
+// Phase 42: Client HealthNet Hub
+import 'package:primecare_mobile/features/roles/admin/client_healthnet_revenue_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/client_healthnet_efficiency_screen.dart';
+import 'package:primecare_mobile/features/roles/admin/client_healthnet_network_screen.dart';
+
 // Phase 24 Baseline Screens
 import 'package:primecare_mobile/features/roles/psw/psw_home_screen.dart';
 import 'package:primecare_mobile/features/roles/psw/psw_live_visit_screen.dart';
@@ -401,6 +406,10 @@ class ScreenRegistry {
       case 'client_side_trends_screen': return const ClientSideTrendsScreen();
       case 'client_side_clinics_screen': return const ClientSideClinicsScreen();
       case 'client_side_demographics_screen': return const ClientSideDemographicsScreen();
+      // Phase 42 Client HealthNet Hub
+      case 'client_healthnet_revenue_screen': return const ClientHealthnetRevenueScreen();
+      case 'client_healthnet_efficiency_screen': return const ClientHealthnetEfficiencyScreen();
+      case 'client_healthnet_network_screen': return const ClientHealthnetNetworkScreen();
       default:
         return Scaffold(
           appBar: AppBar(title: const Text('Dynamic Route Mismatch')),

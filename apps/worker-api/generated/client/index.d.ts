@@ -903,6 +903,21 @@ export type ClientClinicNode = $Result.DefaultSelection<Prisma.$ClientClinicNode
  * 
  */
 export type ClientDemographicNode = $Result.DefaultSelection<Prisma.$ClientDemographicNodePayload>
+/**
+ * Model HealthNetRevenueNode
+ * 
+ */
+export type HealthNetRevenueNode = $Result.DefaultSelection<Prisma.$HealthNetRevenueNodePayload>
+/**
+ * Model HealthNetEfficiencyNode
+ * 
+ */
+export type HealthNetEfficiencyNode = $Result.DefaultSelection<Prisma.$HealthNetEfficiencyNodePayload>
+/**
+ * Model HealthNetNetworkNode
+ * 
+ */
+export type HealthNetNetworkNode = $Result.DefaultSelection<Prisma.$HealthNetNetworkNodePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2806,6 +2821,36 @@ export class PrismaClient<
     * ```
     */
   get clientDemographicNode(): Prisma.ClientDemographicNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.healthNetRevenueNode`: Exposes CRUD operations for the **HealthNetRevenueNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HealthNetRevenueNodes
+    * const healthNetRevenueNodes = await prisma.healthNetRevenueNode.findMany()
+    * ```
+    */
+  get healthNetRevenueNode(): Prisma.HealthNetRevenueNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.healthNetEfficiencyNode`: Exposes CRUD operations for the **HealthNetEfficiencyNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HealthNetEfficiencyNodes
+    * const healthNetEfficiencyNodes = await prisma.healthNetEfficiencyNode.findMany()
+    * ```
+    */
+  get healthNetEfficiencyNode(): Prisma.HealthNetEfficiencyNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.healthNetNetworkNode`: Exposes CRUD operations for the **HealthNetNetworkNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HealthNetNetworkNodes
+    * const healthNetNetworkNodes = await prisma.healthNetNetworkNode.findMany()
+    * ```
+    */
+  get healthNetNetworkNode(): Prisma.HealthNetNetworkNodeDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -3424,7 +3469,10 @@ export namespace Prisma {
     ResolutionFeedbackNode: 'ResolutionFeedbackNode',
     ClientTrendNode: 'ClientTrendNode',
     ClientClinicNode: 'ClientClinicNode',
-    ClientDemographicNode: 'ClientDemographicNode'
+    ClientDemographicNode: 'ClientDemographicNode',
+    HealthNetRevenueNode: 'HealthNetRevenueNode',
+    HealthNetEfficiencyNode: 'HealthNetEfficiencyNode',
+    HealthNetNetworkNode: 'HealthNetNetworkNode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -3440,7 +3488,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "pswShiftLog" | "adlCareLog" | "pswVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "clinic" | "patient" | "financialRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "patientIntake" | "intakeReferralMetric" | "jobOpening" | "jobCandidate" | "interviewEvent" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "curriculumNode" | "instructorNode" | "certificationNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "pswShiftLog" | "adlCareLog" | "pswVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "clinic" | "patient" | "financialRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "patientIntake" | "intakeReferralMetric" | "jobOpening" | "jobCandidate" | "interviewEvent" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "curriculumNode" | "instructorNode" | "certificationNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -15901,6 +15949,216 @@ export namespace Prisma {
           count: {
             args: Prisma.ClientDemographicNodeCountArgs<ExtArgs>
             result: $Utils.Optional<ClientDemographicNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      HealthNetRevenueNode: {
+        payload: Prisma.$HealthNetRevenueNodePayload<ExtArgs>
+        fields: Prisma.HealthNetRevenueNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HealthNetRevenueNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HealthNetRevenueNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          findFirst: {
+            args: Prisma.HealthNetRevenueNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HealthNetRevenueNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          findMany: {
+            args: Prisma.HealthNetRevenueNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>[]
+          }
+          create: {
+            args: Prisma.HealthNetRevenueNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          createMany: {
+            args: Prisma.HealthNetRevenueNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HealthNetRevenueNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>[]
+          }
+          delete: {
+            args: Prisma.HealthNetRevenueNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          update: {
+            args: Prisma.HealthNetRevenueNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.HealthNetRevenueNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HealthNetRevenueNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HealthNetRevenueNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetRevenueNodePayload>
+          }
+          aggregate: {
+            args: Prisma.HealthNetRevenueNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHealthNetRevenueNode>
+          }
+          groupBy: {
+            args: Prisma.HealthNetRevenueNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetRevenueNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HealthNetRevenueNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetRevenueNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      HealthNetEfficiencyNode: {
+        payload: Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>
+        fields: Prisma.HealthNetEfficiencyNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HealthNetEfficiencyNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HealthNetEfficiencyNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          findFirst: {
+            args: Prisma.HealthNetEfficiencyNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HealthNetEfficiencyNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          findMany: {
+            args: Prisma.HealthNetEfficiencyNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>[]
+          }
+          create: {
+            args: Prisma.HealthNetEfficiencyNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          createMany: {
+            args: Prisma.HealthNetEfficiencyNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HealthNetEfficiencyNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>[]
+          }
+          delete: {
+            args: Prisma.HealthNetEfficiencyNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          update: {
+            args: Prisma.HealthNetEfficiencyNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.HealthNetEfficiencyNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HealthNetEfficiencyNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HealthNetEfficiencyNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetEfficiencyNodePayload>
+          }
+          aggregate: {
+            args: Prisma.HealthNetEfficiencyNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHealthNetEfficiencyNode>
+          }
+          groupBy: {
+            args: Prisma.HealthNetEfficiencyNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetEfficiencyNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HealthNetEfficiencyNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetEfficiencyNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      HealthNetNetworkNode: {
+        payload: Prisma.$HealthNetNetworkNodePayload<ExtArgs>
+        fields: Prisma.HealthNetNetworkNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HealthNetNetworkNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HealthNetNetworkNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          findFirst: {
+            args: Prisma.HealthNetNetworkNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HealthNetNetworkNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          findMany: {
+            args: Prisma.HealthNetNetworkNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>[]
+          }
+          create: {
+            args: Prisma.HealthNetNetworkNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          createMany: {
+            args: Prisma.HealthNetNetworkNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HealthNetNetworkNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>[]
+          }
+          delete: {
+            args: Prisma.HealthNetNetworkNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          update: {
+            args: Prisma.HealthNetNetworkNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.HealthNetNetworkNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HealthNetNetworkNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.HealthNetNetworkNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HealthNetNetworkNodePayload>
+          }
+          aggregate: {
+            args: Prisma.HealthNetNetworkNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHealthNetNetworkNode>
+          }
+          groupBy: {
+            args: Prisma.HealthNetNetworkNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetNetworkNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HealthNetNetworkNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<HealthNetNetworkNodeCountAggregateOutputType> | number
           }
         }
       }
@@ -200717,6 +200975,2838 @@ export namespace Prisma {
 
 
   /**
+   * Model HealthNetRevenueNode
+   */
+
+  export type AggregateHealthNetRevenueNode = {
+    _count: HealthNetRevenueNodeCountAggregateOutputType | null
+    _avg: HealthNetRevenueNodeAvgAggregateOutputType | null
+    _sum: HealthNetRevenueNodeSumAggregateOutputType | null
+    _min: HealthNetRevenueNodeMinAggregateOutputType | null
+    _max: HealthNetRevenueNodeMaxAggregateOutputType | null
+  }
+
+  export type HealthNetRevenueNodeAvgAggregateOutputType = {
+    revenueValue: number | null
+    grossMargin: number | null
+  }
+
+  export type HealthNetRevenueNodeSumAggregateOutputType = {
+    revenueValue: number | null
+    grossMargin: number | null
+  }
+
+  export type HealthNetRevenueNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    quarterLabel: string | null
+    revenueValue: number | null
+    grossMargin: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetRevenueNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    quarterLabel: string | null
+    revenueValue: number | null
+    grossMargin: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetRevenueNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    quarterLabel: number
+    revenueValue: number
+    grossMargin: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HealthNetRevenueNodeAvgAggregateInputType = {
+    revenueValue?: true
+    grossMargin?: true
+  }
+
+  export type HealthNetRevenueNodeSumAggregateInputType = {
+    revenueValue?: true
+    grossMargin?: true
+  }
+
+  export type HealthNetRevenueNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    quarterLabel?: true
+    revenueValue?: true
+    grossMargin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetRevenueNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    quarterLabel?: true
+    revenueValue?: true
+    grossMargin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetRevenueNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    quarterLabel?: true
+    revenueValue?: true
+    grossMargin?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HealthNetRevenueNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetRevenueNode to aggregate.
+     */
+    where?: HealthNetRevenueNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetRevenueNodes to fetch.
+     */
+    orderBy?: HealthNetRevenueNodeOrderByWithRelationInput | HealthNetRevenueNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HealthNetRevenueNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetRevenueNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetRevenueNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HealthNetRevenueNodes
+    **/
+    _count?: true | HealthNetRevenueNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HealthNetRevenueNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HealthNetRevenueNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HealthNetRevenueNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HealthNetRevenueNodeMaxAggregateInputType
+  }
+
+  export type GetHealthNetRevenueNodeAggregateType<T extends HealthNetRevenueNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateHealthNetRevenueNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHealthNetRevenueNode[P]>
+      : GetScalarType<T[P], AggregateHealthNetRevenueNode[P]>
+  }
+
+
+
+
+  export type HealthNetRevenueNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HealthNetRevenueNodeWhereInput
+    orderBy?: HealthNetRevenueNodeOrderByWithAggregationInput | HealthNetRevenueNodeOrderByWithAggregationInput[]
+    by: HealthNetRevenueNodeScalarFieldEnum[] | HealthNetRevenueNodeScalarFieldEnum
+    having?: HealthNetRevenueNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HealthNetRevenueNodeCountAggregateInputType | true
+    _avg?: HealthNetRevenueNodeAvgAggregateInputType
+    _sum?: HealthNetRevenueNodeSumAggregateInputType
+    _min?: HealthNetRevenueNodeMinAggregateInputType
+    _max?: HealthNetRevenueNodeMaxAggregateInputType
+  }
+
+  export type HealthNetRevenueNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    quarterLabel: string
+    revenueValue: number
+    grossMargin: number
+    createdAt: Date
+    updatedAt: Date
+    _count: HealthNetRevenueNodeCountAggregateOutputType | null
+    _avg: HealthNetRevenueNodeAvgAggregateOutputType | null
+    _sum: HealthNetRevenueNodeSumAggregateOutputType | null
+    _min: HealthNetRevenueNodeMinAggregateOutputType | null
+    _max: HealthNetRevenueNodeMaxAggregateOutputType | null
+  }
+
+  type GetHealthNetRevenueNodeGroupByPayload<T extends HealthNetRevenueNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HealthNetRevenueNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HealthNetRevenueNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HealthNetRevenueNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], HealthNetRevenueNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HealthNetRevenueNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    quarterLabel?: boolean
+    revenueValue?: boolean
+    grossMargin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetRevenueNode"]>
+
+  export type HealthNetRevenueNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    quarterLabel?: boolean
+    revenueValue?: boolean
+    grossMargin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetRevenueNode"]>
+
+  export type HealthNetRevenueNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    quarterLabel?: boolean
+    revenueValue?: boolean
+    grossMargin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $HealthNetRevenueNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HealthNetRevenueNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      quarterLabel: string
+      revenueValue: number
+      grossMargin: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["healthNetRevenueNode"]>
+    composites: {}
+  }
+
+  type HealthNetRevenueNodeGetPayload<S extends boolean | null | undefined | HealthNetRevenueNodeDefaultArgs> = $Result.GetResult<Prisma.$HealthNetRevenueNodePayload, S>
+
+  type HealthNetRevenueNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HealthNetRevenueNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HealthNetRevenueNodeCountAggregateInputType | true
+    }
+
+  export interface HealthNetRevenueNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HealthNetRevenueNode'], meta: { name: 'HealthNetRevenueNode' } }
+    /**
+     * Find zero or one HealthNetRevenueNode that matches the filter.
+     * @param {HealthNetRevenueNodeFindUniqueArgs} args - Arguments to find a HealthNetRevenueNode
+     * @example
+     * // Get one HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HealthNetRevenueNodeFindUniqueArgs>(args: SelectSubset<T, HealthNetRevenueNodeFindUniqueArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one HealthNetRevenueNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HealthNetRevenueNodeFindUniqueOrThrowArgs} args - Arguments to find a HealthNetRevenueNode
+     * @example
+     * // Get one HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HealthNetRevenueNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, HealthNetRevenueNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first HealthNetRevenueNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeFindFirstArgs} args - Arguments to find a HealthNetRevenueNode
+     * @example
+     * // Get one HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HealthNetRevenueNodeFindFirstArgs>(args?: SelectSubset<T, HealthNetRevenueNodeFindFirstArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first HealthNetRevenueNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeFindFirstOrThrowArgs} args - Arguments to find a HealthNetRevenueNode
+     * @example
+     * // Get one HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HealthNetRevenueNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, HealthNetRevenueNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more HealthNetRevenueNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HealthNetRevenueNodes
+     * const healthNetRevenueNodes = await prisma.healthNetRevenueNode.findMany()
+     * 
+     * // Get first 10 HealthNetRevenueNodes
+     * const healthNetRevenueNodes = await prisma.healthNetRevenueNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const healthNetRevenueNodeWithIdOnly = await prisma.healthNetRevenueNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HealthNetRevenueNodeFindManyArgs>(args?: SelectSubset<T, HealthNetRevenueNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a HealthNetRevenueNode.
+     * @param {HealthNetRevenueNodeCreateArgs} args - Arguments to create a HealthNetRevenueNode.
+     * @example
+     * // Create one HealthNetRevenueNode
+     * const HealthNetRevenueNode = await prisma.healthNetRevenueNode.create({
+     *   data: {
+     *     // ... data to create a HealthNetRevenueNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends HealthNetRevenueNodeCreateArgs>(args: SelectSubset<T, HealthNetRevenueNodeCreateArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many HealthNetRevenueNodes.
+     * @param {HealthNetRevenueNodeCreateManyArgs} args - Arguments to create many HealthNetRevenueNodes.
+     * @example
+     * // Create many HealthNetRevenueNodes
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HealthNetRevenueNodeCreateManyArgs>(args?: SelectSubset<T, HealthNetRevenueNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HealthNetRevenueNodes and returns the data saved in the database.
+     * @param {HealthNetRevenueNodeCreateManyAndReturnArgs} args - Arguments to create many HealthNetRevenueNodes.
+     * @example
+     * // Create many HealthNetRevenueNodes
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HealthNetRevenueNodes and only return the `id`
+     * const healthNetRevenueNodeWithIdOnly = await prisma.healthNetRevenueNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HealthNetRevenueNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, HealthNetRevenueNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a HealthNetRevenueNode.
+     * @param {HealthNetRevenueNodeDeleteArgs} args - Arguments to delete one HealthNetRevenueNode.
+     * @example
+     * // Delete one HealthNetRevenueNode
+     * const HealthNetRevenueNode = await prisma.healthNetRevenueNode.delete({
+     *   where: {
+     *     // ... filter to delete one HealthNetRevenueNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HealthNetRevenueNodeDeleteArgs>(args: SelectSubset<T, HealthNetRevenueNodeDeleteArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one HealthNetRevenueNode.
+     * @param {HealthNetRevenueNodeUpdateArgs} args - Arguments to update one HealthNetRevenueNode.
+     * @example
+     * // Update one HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HealthNetRevenueNodeUpdateArgs>(args: SelectSubset<T, HealthNetRevenueNodeUpdateArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more HealthNetRevenueNodes.
+     * @param {HealthNetRevenueNodeDeleteManyArgs} args - Arguments to filter HealthNetRevenueNodes to delete.
+     * @example
+     * // Delete a few HealthNetRevenueNodes
+     * const { count } = await prisma.healthNetRevenueNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HealthNetRevenueNodeDeleteManyArgs>(args?: SelectSubset<T, HealthNetRevenueNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HealthNetRevenueNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HealthNetRevenueNodes
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HealthNetRevenueNodeUpdateManyArgs>(args: SelectSubset<T, HealthNetRevenueNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HealthNetRevenueNode.
+     * @param {HealthNetRevenueNodeUpsertArgs} args - Arguments to update or create a HealthNetRevenueNode.
+     * @example
+     * // Update or create a HealthNetRevenueNode
+     * const healthNetRevenueNode = await prisma.healthNetRevenueNode.upsert({
+     *   create: {
+     *     // ... data to create a HealthNetRevenueNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HealthNetRevenueNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HealthNetRevenueNodeUpsertArgs>(args: SelectSubset<T, HealthNetRevenueNodeUpsertArgs<ExtArgs>>): Prisma__HealthNetRevenueNodeClient<$Result.GetResult<Prisma.$HealthNetRevenueNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of HealthNetRevenueNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeCountArgs} args - Arguments to filter HealthNetRevenueNodes to count.
+     * @example
+     * // Count the number of HealthNetRevenueNodes
+     * const count = await prisma.healthNetRevenueNode.count({
+     *   where: {
+     *     // ... the filter for the HealthNetRevenueNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends HealthNetRevenueNodeCountArgs>(
+      args?: Subset<T, HealthNetRevenueNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HealthNetRevenueNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HealthNetRevenueNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HealthNetRevenueNodeAggregateArgs>(args: Subset<T, HealthNetRevenueNodeAggregateArgs>): Prisma.PrismaPromise<GetHealthNetRevenueNodeAggregateType<T>>
+
+    /**
+     * Group by HealthNetRevenueNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetRevenueNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HealthNetRevenueNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HealthNetRevenueNodeGroupByArgs['orderBy'] }
+        : { orderBy?: HealthNetRevenueNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HealthNetRevenueNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHealthNetRevenueNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HealthNetRevenueNode model
+   */
+  readonly fields: HealthNetRevenueNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HealthNetRevenueNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HealthNetRevenueNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HealthNetRevenueNode model
+   */ 
+  interface HealthNetRevenueNodeFieldRefs {
+    readonly id: FieldRef<"HealthNetRevenueNode", 'String'>
+    readonly tenantId: FieldRef<"HealthNetRevenueNode", 'String'>
+    readonly quarterLabel: FieldRef<"HealthNetRevenueNode", 'String'>
+    readonly revenueValue: FieldRef<"HealthNetRevenueNode", 'Float'>
+    readonly grossMargin: FieldRef<"HealthNetRevenueNode", 'Float'>
+    readonly createdAt: FieldRef<"HealthNetRevenueNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"HealthNetRevenueNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HealthNetRevenueNode findUnique
+   */
+  export type HealthNetRevenueNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetRevenueNode to fetch.
+     */
+    where: HealthNetRevenueNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetRevenueNode findUniqueOrThrow
+   */
+  export type HealthNetRevenueNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetRevenueNode to fetch.
+     */
+    where: HealthNetRevenueNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetRevenueNode findFirst
+   */
+  export type HealthNetRevenueNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetRevenueNode to fetch.
+     */
+    where?: HealthNetRevenueNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetRevenueNodes to fetch.
+     */
+    orderBy?: HealthNetRevenueNodeOrderByWithRelationInput | HealthNetRevenueNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetRevenueNodes.
+     */
+    cursor?: HealthNetRevenueNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetRevenueNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetRevenueNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetRevenueNodes.
+     */
+    distinct?: HealthNetRevenueNodeScalarFieldEnum | HealthNetRevenueNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetRevenueNode findFirstOrThrow
+   */
+  export type HealthNetRevenueNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetRevenueNode to fetch.
+     */
+    where?: HealthNetRevenueNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetRevenueNodes to fetch.
+     */
+    orderBy?: HealthNetRevenueNodeOrderByWithRelationInput | HealthNetRevenueNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetRevenueNodes.
+     */
+    cursor?: HealthNetRevenueNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetRevenueNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetRevenueNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetRevenueNodes.
+     */
+    distinct?: HealthNetRevenueNodeScalarFieldEnum | HealthNetRevenueNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetRevenueNode findMany
+   */
+  export type HealthNetRevenueNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetRevenueNodes to fetch.
+     */
+    where?: HealthNetRevenueNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetRevenueNodes to fetch.
+     */
+    orderBy?: HealthNetRevenueNodeOrderByWithRelationInput | HealthNetRevenueNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HealthNetRevenueNodes.
+     */
+    cursor?: HealthNetRevenueNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetRevenueNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetRevenueNodes.
+     */
+    skip?: number
+    distinct?: HealthNetRevenueNodeScalarFieldEnum | HealthNetRevenueNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetRevenueNode create
+   */
+  export type HealthNetRevenueNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a HealthNetRevenueNode.
+     */
+    data: XOR<HealthNetRevenueNodeCreateInput, HealthNetRevenueNodeUncheckedCreateInput>
+  }
+
+  /**
+   * HealthNetRevenueNode createMany
+   */
+  export type HealthNetRevenueNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HealthNetRevenueNodes.
+     */
+    data: HealthNetRevenueNodeCreateManyInput | HealthNetRevenueNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetRevenueNode createManyAndReturn
+   */
+  export type HealthNetRevenueNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many HealthNetRevenueNodes.
+     */
+    data: HealthNetRevenueNodeCreateManyInput | HealthNetRevenueNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetRevenueNode update
+   */
+  export type HealthNetRevenueNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a HealthNetRevenueNode.
+     */
+    data: XOR<HealthNetRevenueNodeUpdateInput, HealthNetRevenueNodeUncheckedUpdateInput>
+    /**
+     * Choose, which HealthNetRevenueNode to update.
+     */
+    where: HealthNetRevenueNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetRevenueNode updateMany
+   */
+  export type HealthNetRevenueNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HealthNetRevenueNodes.
+     */
+    data: XOR<HealthNetRevenueNodeUpdateManyMutationInput, HealthNetRevenueNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which HealthNetRevenueNodes to update
+     */
+    where?: HealthNetRevenueNodeWhereInput
+  }
+
+  /**
+   * HealthNetRevenueNode upsert
+   */
+  export type HealthNetRevenueNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the HealthNetRevenueNode to update in case it exists.
+     */
+    where: HealthNetRevenueNodeWhereUniqueInput
+    /**
+     * In case the HealthNetRevenueNode found by the `where` argument doesn't exist, create a new HealthNetRevenueNode with this data.
+     */
+    create: XOR<HealthNetRevenueNodeCreateInput, HealthNetRevenueNodeUncheckedCreateInput>
+    /**
+     * In case the HealthNetRevenueNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HealthNetRevenueNodeUpdateInput, HealthNetRevenueNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * HealthNetRevenueNode delete
+   */
+  export type HealthNetRevenueNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+    /**
+     * Filter which HealthNetRevenueNode to delete.
+     */
+    where: HealthNetRevenueNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetRevenueNode deleteMany
+   */
+  export type HealthNetRevenueNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetRevenueNodes to delete
+     */
+    where?: HealthNetRevenueNodeWhereInput
+  }
+
+  /**
+   * HealthNetRevenueNode without action
+   */
+  export type HealthNetRevenueNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetRevenueNode
+     */
+    select?: HealthNetRevenueNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HealthNetEfficiencyNode
+   */
+
+  export type AggregateHealthNetEfficiencyNode = {
+    _count: HealthNetEfficiencyNodeCountAggregateOutputType | null
+    _avg: HealthNetEfficiencyNodeAvgAggregateOutputType | null
+    _sum: HealthNetEfficiencyNodeSumAggregateOutputType | null
+    _min: HealthNetEfficiencyNodeMinAggregateOutputType | null
+    _max: HealthNetEfficiencyNodeMaxAggregateOutputType | null
+  }
+
+  export type HealthNetEfficiencyNodeAvgAggregateOutputType = {
+    efficiencyScore: number | null
+    patientsSeen: number | null
+    waitTimesAvg: number | null
+  }
+
+  export type HealthNetEfficiencyNodeSumAggregateOutputType = {
+    efficiencyScore: number | null
+    patientsSeen: number | null
+    waitTimesAvg: number | null
+  }
+
+  export type HealthNetEfficiencyNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    clinicName: string | null
+    efficiencyScore: number | null
+    patientsSeen: number | null
+    waitTimesAvg: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetEfficiencyNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    clinicName: string | null
+    efficiencyScore: number | null
+    patientsSeen: number | null
+    waitTimesAvg: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetEfficiencyNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    clinicName: number
+    efficiencyScore: number
+    patientsSeen: number
+    waitTimesAvg: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HealthNetEfficiencyNodeAvgAggregateInputType = {
+    efficiencyScore?: true
+    patientsSeen?: true
+    waitTimesAvg?: true
+  }
+
+  export type HealthNetEfficiencyNodeSumAggregateInputType = {
+    efficiencyScore?: true
+    patientsSeen?: true
+    waitTimesAvg?: true
+  }
+
+  export type HealthNetEfficiencyNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    clinicName?: true
+    efficiencyScore?: true
+    patientsSeen?: true
+    waitTimesAvg?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetEfficiencyNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    clinicName?: true
+    efficiencyScore?: true
+    patientsSeen?: true
+    waitTimesAvg?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetEfficiencyNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    clinicName?: true
+    efficiencyScore?: true
+    patientsSeen?: true
+    waitTimesAvg?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HealthNetEfficiencyNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetEfficiencyNode to aggregate.
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetEfficiencyNodes to fetch.
+     */
+    orderBy?: HealthNetEfficiencyNodeOrderByWithRelationInput | HealthNetEfficiencyNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HealthNetEfficiencyNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetEfficiencyNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetEfficiencyNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HealthNetEfficiencyNodes
+    **/
+    _count?: true | HealthNetEfficiencyNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HealthNetEfficiencyNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HealthNetEfficiencyNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HealthNetEfficiencyNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HealthNetEfficiencyNodeMaxAggregateInputType
+  }
+
+  export type GetHealthNetEfficiencyNodeAggregateType<T extends HealthNetEfficiencyNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateHealthNetEfficiencyNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHealthNetEfficiencyNode[P]>
+      : GetScalarType<T[P], AggregateHealthNetEfficiencyNode[P]>
+  }
+
+
+
+
+  export type HealthNetEfficiencyNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HealthNetEfficiencyNodeWhereInput
+    orderBy?: HealthNetEfficiencyNodeOrderByWithAggregationInput | HealthNetEfficiencyNodeOrderByWithAggregationInput[]
+    by: HealthNetEfficiencyNodeScalarFieldEnum[] | HealthNetEfficiencyNodeScalarFieldEnum
+    having?: HealthNetEfficiencyNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HealthNetEfficiencyNodeCountAggregateInputType | true
+    _avg?: HealthNetEfficiencyNodeAvgAggregateInputType
+    _sum?: HealthNetEfficiencyNodeSumAggregateInputType
+    _min?: HealthNetEfficiencyNodeMinAggregateInputType
+    _max?: HealthNetEfficiencyNodeMaxAggregateInputType
+  }
+
+  export type HealthNetEfficiencyNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    clinicName: string
+    efficiencyScore: number
+    patientsSeen: number
+    waitTimesAvg: number
+    createdAt: Date
+    updatedAt: Date
+    _count: HealthNetEfficiencyNodeCountAggregateOutputType | null
+    _avg: HealthNetEfficiencyNodeAvgAggregateOutputType | null
+    _sum: HealthNetEfficiencyNodeSumAggregateOutputType | null
+    _min: HealthNetEfficiencyNodeMinAggregateOutputType | null
+    _max: HealthNetEfficiencyNodeMaxAggregateOutputType | null
+  }
+
+  type GetHealthNetEfficiencyNodeGroupByPayload<T extends HealthNetEfficiencyNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HealthNetEfficiencyNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HealthNetEfficiencyNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HealthNetEfficiencyNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], HealthNetEfficiencyNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HealthNetEfficiencyNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    clinicName?: boolean
+    efficiencyScore?: boolean
+    patientsSeen?: boolean
+    waitTimesAvg?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetEfficiencyNode"]>
+
+  export type HealthNetEfficiencyNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    clinicName?: boolean
+    efficiencyScore?: boolean
+    patientsSeen?: boolean
+    waitTimesAvg?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetEfficiencyNode"]>
+
+  export type HealthNetEfficiencyNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    clinicName?: boolean
+    efficiencyScore?: boolean
+    patientsSeen?: boolean
+    waitTimesAvg?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $HealthNetEfficiencyNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HealthNetEfficiencyNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      clinicName: string
+      efficiencyScore: number
+      patientsSeen: number
+      waitTimesAvg: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["healthNetEfficiencyNode"]>
+    composites: {}
+  }
+
+  type HealthNetEfficiencyNodeGetPayload<S extends boolean | null | undefined | HealthNetEfficiencyNodeDefaultArgs> = $Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload, S>
+
+  type HealthNetEfficiencyNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HealthNetEfficiencyNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HealthNetEfficiencyNodeCountAggregateInputType | true
+    }
+
+  export interface HealthNetEfficiencyNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HealthNetEfficiencyNode'], meta: { name: 'HealthNetEfficiencyNode' } }
+    /**
+     * Find zero or one HealthNetEfficiencyNode that matches the filter.
+     * @param {HealthNetEfficiencyNodeFindUniqueArgs} args - Arguments to find a HealthNetEfficiencyNode
+     * @example
+     * // Get one HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HealthNetEfficiencyNodeFindUniqueArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeFindUniqueArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one HealthNetEfficiencyNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HealthNetEfficiencyNodeFindUniqueOrThrowArgs} args - Arguments to find a HealthNetEfficiencyNode
+     * @example
+     * // Get one HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HealthNetEfficiencyNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first HealthNetEfficiencyNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeFindFirstArgs} args - Arguments to find a HealthNetEfficiencyNode
+     * @example
+     * // Get one HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HealthNetEfficiencyNodeFindFirstArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeFindFirstArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first HealthNetEfficiencyNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeFindFirstOrThrowArgs} args - Arguments to find a HealthNetEfficiencyNode
+     * @example
+     * // Get one HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HealthNetEfficiencyNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more HealthNetEfficiencyNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HealthNetEfficiencyNodes
+     * const healthNetEfficiencyNodes = await prisma.healthNetEfficiencyNode.findMany()
+     * 
+     * // Get first 10 HealthNetEfficiencyNodes
+     * const healthNetEfficiencyNodes = await prisma.healthNetEfficiencyNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const healthNetEfficiencyNodeWithIdOnly = await prisma.healthNetEfficiencyNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HealthNetEfficiencyNodeFindManyArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a HealthNetEfficiencyNode.
+     * @param {HealthNetEfficiencyNodeCreateArgs} args - Arguments to create a HealthNetEfficiencyNode.
+     * @example
+     * // Create one HealthNetEfficiencyNode
+     * const HealthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.create({
+     *   data: {
+     *     // ... data to create a HealthNetEfficiencyNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends HealthNetEfficiencyNodeCreateArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeCreateArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many HealthNetEfficiencyNodes.
+     * @param {HealthNetEfficiencyNodeCreateManyArgs} args - Arguments to create many HealthNetEfficiencyNodes.
+     * @example
+     * // Create many HealthNetEfficiencyNodes
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HealthNetEfficiencyNodeCreateManyArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HealthNetEfficiencyNodes and returns the data saved in the database.
+     * @param {HealthNetEfficiencyNodeCreateManyAndReturnArgs} args - Arguments to create many HealthNetEfficiencyNodes.
+     * @example
+     * // Create many HealthNetEfficiencyNodes
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HealthNetEfficiencyNodes and only return the `id`
+     * const healthNetEfficiencyNodeWithIdOnly = await prisma.healthNetEfficiencyNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HealthNetEfficiencyNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a HealthNetEfficiencyNode.
+     * @param {HealthNetEfficiencyNodeDeleteArgs} args - Arguments to delete one HealthNetEfficiencyNode.
+     * @example
+     * // Delete one HealthNetEfficiencyNode
+     * const HealthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.delete({
+     *   where: {
+     *     // ... filter to delete one HealthNetEfficiencyNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HealthNetEfficiencyNodeDeleteArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeDeleteArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one HealthNetEfficiencyNode.
+     * @param {HealthNetEfficiencyNodeUpdateArgs} args - Arguments to update one HealthNetEfficiencyNode.
+     * @example
+     * // Update one HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HealthNetEfficiencyNodeUpdateArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeUpdateArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more HealthNetEfficiencyNodes.
+     * @param {HealthNetEfficiencyNodeDeleteManyArgs} args - Arguments to filter HealthNetEfficiencyNodes to delete.
+     * @example
+     * // Delete a few HealthNetEfficiencyNodes
+     * const { count } = await prisma.healthNetEfficiencyNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HealthNetEfficiencyNodeDeleteManyArgs>(args?: SelectSubset<T, HealthNetEfficiencyNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HealthNetEfficiencyNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HealthNetEfficiencyNodes
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HealthNetEfficiencyNodeUpdateManyArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HealthNetEfficiencyNode.
+     * @param {HealthNetEfficiencyNodeUpsertArgs} args - Arguments to update or create a HealthNetEfficiencyNode.
+     * @example
+     * // Update or create a HealthNetEfficiencyNode
+     * const healthNetEfficiencyNode = await prisma.healthNetEfficiencyNode.upsert({
+     *   create: {
+     *     // ... data to create a HealthNetEfficiencyNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HealthNetEfficiencyNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HealthNetEfficiencyNodeUpsertArgs>(args: SelectSubset<T, HealthNetEfficiencyNodeUpsertArgs<ExtArgs>>): Prisma__HealthNetEfficiencyNodeClient<$Result.GetResult<Prisma.$HealthNetEfficiencyNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of HealthNetEfficiencyNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeCountArgs} args - Arguments to filter HealthNetEfficiencyNodes to count.
+     * @example
+     * // Count the number of HealthNetEfficiencyNodes
+     * const count = await prisma.healthNetEfficiencyNode.count({
+     *   where: {
+     *     // ... the filter for the HealthNetEfficiencyNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends HealthNetEfficiencyNodeCountArgs>(
+      args?: Subset<T, HealthNetEfficiencyNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HealthNetEfficiencyNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HealthNetEfficiencyNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HealthNetEfficiencyNodeAggregateArgs>(args: Subset<T, HealthNetEfficiencyNodeAggregateArgs>): Prisma.PrismaPromise<GetHealthNetEfficiencyNodeAggregateType<T>>
+
+    /**
+     * Group by HealthNetEfficiencyNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetEfficiencyNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HealthNetEfficiencyNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HealthNetEfficiencyNodeGroupByArgs['orderBy'] }
+        : { orderBy?: HealthNetEfficiencyNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HealthNetEfficiencyNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHealthNetEfficiencyNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HealthNetEfficiencyNode model
+   */
+  readonly fields: HealthNetEfficiencyNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HealthNetEfficiencyNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HealthNetEfficiencyNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HealthNetEfficiencyNode model
+   */ 
+  interface HealthNetEfficiencyNodeFieldRefs {
+    readonly id: FieldRef<"HealthNetEfficiencyNode", 'String'>
+    readonly tenantId: FieldRef<"HealthNetEfficiencyNode", 'String'>
+    readonly clinicName: FieldRef<"HealthNetEfficiencyNode", 'String'>
+    readonly efficiencyScore: FieldRef<"HealthNetEfficiencyNode", 'Float'>
+    readonly patientsSeen: FieldRef<"HealthNetEfficiencyNode", 'Int'>
+    readonly waitTimesAvg: FieldRef<"HealthNetEfficiencyNode", 'Int'>
+    readonly createdAt: FieldRef<"HealthNetEfficiencyNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"HealthNetEfficiencyNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HealthNetEfficiencyNode findUnique
+   */
+  export type HealthNetEfficiencyNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetEfficiencyNode to fetch.
+     */
+    where: HealthNetEfficiencyNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode findUniqueOrThrow
+   */
+  export type HealthNetEfficiencyNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetEfficiencyNode to fetch.
+     */
+    where: HealthNetEfficiencyNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode findFirst
+   */
+  export type HealthNetEfficiencyNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetEfficiencyNode to fetch.
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetEfficiencyNodes to fetch.
+     */
+    orderBy?: HealthNetEfficiencyNodeOrderByWithRelationInput | HealthNetEfficiencyNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetEfficiencyNodes.
+     */
+    cursor?: HealthNetEfficiencyNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetEfficiencyNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetEfficiencyNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetEfficiencyNodes.
+     */
+    distinct?: HealthNetEfficiencyNodeScalarFieldEnum | HealthNetEfficiencyNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetEfficiencyNode findFirstOrThrow
+   */
+  export type HealthNetEfficiencyNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetEfficiencyNode to fetch.
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetEfficiencyNodes to fetch.
+     */
+    orderBy?: HealthNetEfficiencyNodeOrderByWithRelationInput | HealthNetEfficiencyNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetEfficiencyNodes.
+     */
+    cursor?: HealthNetEfficiencyNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetEfficiencyNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetEfficiencyNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetEfficiencyNodes.
+     */
+    distinct?: HealthNetEfficiencyNodeScalarFieldEnum | HealthNetEfficiencyNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetEfficiencyNode findMany
+   */
+  export type HealthNetEfficiencyNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetEfficiencyNodes to fetch.
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetEfficiencyNodes to fetch.
+     */
+    orderBy?: HealthNetEfficiencyNodeOrderByWithRelationInput | HealthNetEfficiencyNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HealthNetEfficiencyNodes.
+     */
+    cursor?: HealthNetEfficiencyNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetEfficiencyNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetEfficiencyNodes.
+     */
+    skip?: number
+    distinct?: HealthNetEfficiencyNodeScalarFieldEnum | HealthNetEfficiencyNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetEfficiencyNode create
+   */
+  export type HealthNetEfficiencyNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a HealthNetEfficiencyNode.
+     */
+    data: XOR<HealthNetEfficiencyNodeCreateInput, HealthNetEfficiencyNodeUncheckedCreateInput>
+  }
+
+  /**
+   * HealthNetEfficiencyNode createMany
+   */
+  export type HealthNetEfficiencyNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HealthNetEfficiencyNodes.
+     */
+    data: HealthNetEfficiencyNodeCreateManyInput | HealthNetEfficiencyNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetEfficiencyNode createManyAndReturn
+   */
+  export type HealthNetEfficiencyNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many HealthNetEfficiencyNodes.
+     */
+    data: HealthNetEfficiencyNodeCreateManyInput | HealthNetEfficiencyNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetEfficiencyNode update
+   */
+  export type HealthNetEfficiencyNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a HealthNetEfficiencyNode.
+     */
+    data: XOR<HealthNetEfficiencyNodeUpdateInput, HealthNetEfficiencyNodeUncheckedUpdateInput>
+    /**
+     * Choose, which HealthNetEfficiencyNode to update.
+     */
+    where: HealthNetEfficiencyNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode updateMany
+   */
+  export type HealthNetEfficiencyNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HealthNetEfficiencyNodes.
+     */
+    data: XOR<HealthNetEfficiencyNodeUpdateManyMutationInput, HealthNetEfficiencyNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which HealthNetEfficiencyNodes to update
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode upsert
+   */
+  export type HealthNetEfficiencyNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the HealthNetEfficiencyNode to update in case it exists.
+     */
+    where: HealthNetEfficiencyNodeWhereUniqueInput
+    /**
+     * In case the HealthNetEfficiencyNode found by the `where` argument doesn't exist, create a new HealthNetEfficiencyNode with this data.
+     */
+    create: XOR<HealthNetEfficiencyNodeCreateInput, HealthNetEfficiencyNodeUncheckedCreateInput>
+    /**
+     * In case the HealthNetEfficiencyNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HealthNetEfficiencyNodeUpdateInput, HealthNetEfficiencyNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * HealthNetEfficiencyNode delete
+   */
+  export type HealthNetEfficiencyNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+    /**
+     * Filter which HealthNetEfficiencyNode to delete.
+     */
+    where: HealthNetEfficiencyNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode deleteMany
+   */
+  export type HealthNetEfficiencyNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetEfficiencyNodes to delete
+     */
+    where?: HealthNetEfficiencyNodeWhereInput
+  }
+
+  /**
+   * HealthNetEfficiencyNode without action
+   */
+  export type HealthNetEfficiencyNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetEfficiencyNode
+     */
+    select?: HealthNetEfficiencyNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HealthNetNetworkNode
+   */
+
+  export type AggregateHealthNetNetworkNode = {
+    _count: HealthNetNetworkNodeCountAggregateOutputType | null
+    _avg: HealthNetNetworkNodeAvgAggregateOutputType | null
+    _sum: HealthNetNetworkNodeSumAggregateOutputType | null
+    _min: HealthNetNetworkNodeMinAggregateOutputType | null
+    _max: HealthNetNetworkNodeMaxAggregateOutputType | null
+  }
+
+  export type HealthNetNetworkNodeAvgAggregateOutputType = {
+    clinicCount: number | null
+  }
+
+  export type HealthNetNetworkNodeSumAggregateOutputType = {
+    clinicCount: number | null
+  }
+
+  export type HealthNetNetworkNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    regionName: string | null
+    clinicCount: number | null
+    demographicCat: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetNetworkNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    regionName: string | null
+    clinicCount: number | null
+    demographicCat: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type HealthNetNetworkNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    regionName: number
+    clinicCount: number
+    demographicCat: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type HealthNetNetworkNodeAvgAggregateInputType = {
+    clinicCount?: true
+  }
+
+  export type HealthNetNetworkNodeSumAggregateInputType = {
+    clinicCount?: true
+  }
+
+  export type HealthNetNetworkNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    regionName?: true
+    clinicCount?: true
+    demographicCat?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetNetworkNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    regionName?: true
+    clinicCount?: true
+    demographicCat?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type HealthNetNetworkNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    regionName?: true
+    clinicCount?: true
+    demographicCat?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type HealthNetNetworkNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetNetworkNode to aggregate.
+     */
+    where?: HealthNetNetworkNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetNetworkNodes to fetch.
+     */
+    orderBy?: HealthNetNetworkNodeOrderByWithRelationInput | HealthNetNetworkNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HealthNetNetworkNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetNetworkNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetNetworkNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HealthNetNetworkNodes
+    **/
+    _count?: true | HealthNetNetworkNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HealthNetNetworkNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HealthNetNetworkNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HealthNetNetworkNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HealthNetNetworkNodeMaxAggregateInputType
+  }
+
+  export type GetHealthNetNetworkNodeAggregateType<T extends HealthNetNetworkNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateHealthNetNetworkNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHealthNetNetworkNode[P]>
+      : GetScalarType<T[P], AggregateHealthNetNetworkNode[P]>
+  }
+
+
+
+
+  export type HealthNetNetworkNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HealthNetNetworkNodeWhereInput
+    orderBy?: HealthNetNetworkNodeOrderByWithAggregationInput | HealthNetNetworkNodeOrderByWithAggregationInput[]
+    by: HealthNetNetworkNodeScalarFieldEnum[] | HealthNetNetworkNodeScalarFieldEnum
+    having?: HealthNetNetworkNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HealthNetNetworkNodeCountAggregateInputType | true
+    _avg?: HealthNetNetworkNodeAvgAggregateInputType
+    _sum?: HealthNetNetworkNodeSumAggregateInputType
+    _min?: HealthNetNetworkNodeMinAggregateInputType
+    _max?: HealthNetNetworkNodeMaxAggregateInputType
+  }
+
+  export type HealthNetNetworkNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    regionName: string
+    clinicCount: number
+    demographicCat: string
+    createdAt: Date
+    updatedAt: Date
+    _count: HealthNetNetworkNodeCountAggregateOutputType | null
+    _avg: HealthNetNetworkNodeAvgAggregateOutputType | null
+    _sum: HealthNetNetworkNodeSumAggregateOutputType | null
+    _min: HealthNetNetworkNodeMinAggregateOutputType | null
+    _max: HealthNetNetworkNodeMaxAggregateOutputType | null
+  }
+
+  type GetHealthNetNetworkNodeGroupByPayload<T extends HealthNetNetworkNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HealthNetNetworkNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HealthNetNetworkNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HealthNetNetworkNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], HealthNetNetworkNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HealthNetNetworkNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    regionName?: boolean
+    clinicCount?: boolean
+    demographicCat?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetNetworkNode"]>
+
+  export type HealthNetNetworkNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    regionName?: boolean
+    clinicCount?: boolean
+    demographicCat?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["healthNetNetworkNode"]>
+
+  export type HealthNetNetworkNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    regionName?: boolean
+    clinicCount?: boolean
+    demographicCat?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $HealthNetNetworkNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HealthNetNetworkNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      regionName: string
+      clinicCount: number
+      demographicCat: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["healthNetNetworkNode"]>
+    composites: {}
+  }
+
+  type HealthNetNetworkNodeGetPayload<S extends boolean | null | undefined | HealthNetNetworkNodeDefaultArgs> = $Result.GetResult<Prisma.$HealthNetNetworkNodePayload, S>
+
+  type HealthNetNetworkNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<HealthNetNetworkNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: HealthNetNetworkNodeCountAggregateInputType | true
+    }
+
+  export interface HealthNetNetworkNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HealthNetNetworkNode'], meta: { name: 'HealthNetNetworkNode' } }
+    /**
+     * Find zero or one HealthNetNetworkNode that matches the filter.
+     * @param {HealthNetNetworkNodeFindUniqueArgs} args - Arguments to find a HealthNetNetworkNode
+     * @example
+     * // Get one HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HealthNetNetworkNodeFindUniqueArgs>(args: SelectSubset<T, HealthNetNetworkNodeFindUniqueArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one HealthNetNetworkNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {HealthNetNetworkNodeFindUniqueOrThrowArgs} args - Arguments to find a HealthNetNetworkNode
+     * @example
+     * // Get one HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HealthNetNetworkNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, HealthNetNetworkNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first HealthNetNetworkNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeFindFirstArgs} args - Arguments to find a HealthNetNetworkNode
+     * @example
+     * // Get one HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HealthNetNetworkNodeFindFirstArgs>(args?: SelectSubset<T, HealthNetNetworkNodeFindFirstArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first HealthNetNetworkNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeFindFirstOrThrowArgs} args - Arguments to find a HealthNetNetworkNode
+     * @example
+     * // Get one HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HealthNetNetworkNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, HealthNetNetworkNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more HealthNetNetworkNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HealthNetNetworkNodes
+     * const healthNetNetworkNodes = await prisma.healthNetNetworkNode.findMany()
+     * 
+     * // Get first 10 HealthNetNetworkNodes
+     * const healthNetNetworkNodes = await prisma.healthNetNetworkNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const healthNetNetworkNodeWithIdOnly = await prisma.healthNetNetworkNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HealthNetNetworkNodeFindManyArgs>(args?: SelectSubset<T, HealthNetNetworkNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a HealthNetNetworkNode.
+     * @param {HealthNetNetworkNodeCreateArgs} args - Arguments to create a HealthNetNetworkNode.
+     * @example
+     * // Create one HealthNetNetworkNode
+     * const HealthNetNetworkNode = await prisma.healthNetNetworkNode.create({
+     *   data: {
+     *     // ... data to create a HealthNetNetworkNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends HealthNetNetworkNodeCreateArgs>(args: SelectSubset<T, HealthNetNetworkNodeCreateArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many HealthNetNetworkNodes.
+     * @param {HealthNetNetworkNodeCreateManyArgs} args - Arguments to create many HealthNetNetworkNodes.
+     * @example
+     * // Create many HealthNetNetworkNodes
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HealthNetNetworkNodeCreateManyArgs>(args?: SelectSubset<T, HealthNetNetworkNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HealthNetNetworkNodes and returns the data saved in the database.
+     * @param {HealthNetNetworkNodeCreateManyAndReturnArgs} args - Arguments to create many HealthNetNetworkNodes.
+     * @example
+     * // Create many HealthNetNetworkNodes
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HealthNetNetworkNodes and only return the `id`
+     * const healthNetNetworkNodeWithIdOnly = await prisma.healthNetNetworkNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HealthNetNetworkNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, HealthNetNetworkNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a HealthNetNetworkNode.
+     * @param {HealthNetNetworkNodeDeleteArgs} args - Arguments to delete one HealthNetNetworkNode.
+     * @example
+     * // Delete one HealthNetNetworkNode
+     * const HealthNetNetworkNode = await prisma.healthNetNetworkNode.delete({
+     *   where: {
+     *     // ... filter to delete one HealthNetNetworkNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HealthNetNetworkNodeDeleteArgs>(args: SelectSubset<T, HealthNetNetworkNodeDeleteArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one HealthNetNetworkNode.
+     * @param {HealthNetNetworkNodeUpdateArgs} args - Arguments to update one HealthNetNetworkNode.
+     * @example
+     * // Update one HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HealthNetNetworkNodeUpdateArgs>(args: SelectSubset<T, HealthNetNetworkNodeUpdateArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more HealthNetNetworkNodes.
+     * @param {HealthNetNetworkNodeDeleteManyArgs} args - Arguments to filter HealthNetNetworkNodes to delete.
+     * @example
+     * // Delete a few HealthNetNetworkNodes
+     * const { count } = await prisma.healthNetNetworkNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HealthNetNetworkNodeDeleteManyArgs>(args?: SelectSubset<T, HealthNetNetworkNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HealthNetNetworkNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HealthNetNetworkNodes
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HealthNetNetworkNodeUpdateManyArgs>(args: SelectSubset<T, HealthNetNetworkNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one HealthNetNetworkNode.
+     * @param {HealthNetNetworkNodeUpsertArgs} args - Arguments to update or create a HealthNetNetworkNode.
+     * @example
+     * // Update or create a HealthNetNetworkNode
+     * const healthNetNetworkNode = await prisma.healthNetNetworkNode.upsert({
+     *   create: {
+     *     // ... data to create a HealthNetNetworkNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HealthNetNetworkNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HealthNetNetworkNodeUpsertArgs>(args: SelectSubset<T, HealthNetNetworkNodeUpsertArgs<ExtArgs>>): Prisma__HealthNetNetworkNodeClient<$Result.GetResult<Prisma.$HealthNetNetworkNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of HealthNetNetworkNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeCountArgs} args - Arguments to filter HealthNetNetworkNodes to count.
+     * @example
+     * // Count the number of HealthNetNetworkNodes
+     * const count = await prisma.healthNetNetworkNode.count({
+     *   where: {
+     *     // ... the filter for the HealthNetNetworkNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends HealthNetNetworkNodeCountArgs>(
+      args?: Subset<T, HealthNetNetworkNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HealthNetNetworkNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HealthNetNetworkNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HealthNetNetworkNodeAggregateArgs>(args: Subset<T, HealthNetNetworkNodeAggregateArgs>): Prisma.PrismaPromise<GetHealthNetNetworkNodeAggregateType<T>>
+
+    /**
+     * Group by HealthNetNetworkNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HealthNetNetworkNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HealthNetNetworkNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HealthNetNetworkNodeGroupByArgs['orderBy'] }
+        : { orderBy?: HealthNetNetworkNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HealthNetNetworkNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHealthNetNetworkNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HealthNetNetworkNode model
+   */
+  readonly fields: HealthNetNetworkNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HealthNetNetworkNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HealthNetNetworkNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HealthNetNetworkNode model
+   */ 
+  interface HealthNetNetworkNodeFieldRefs {
+    readonly id: FieldRef<"HealthNetNetworkNode", 'String'>
+    readonly tenantId: FieldRef<"HealthNetNetworkNode", 'String'>
+    readonly regionName: FieldRef<"HealthNetNetworkNode", 'String'>
+    readonly clinicCount: FieldRef<"HealthNetNetworkNode", 'Int'>
+    readonly demographicCat: FieldRef<"HealthNetNetworkNode", 'String'>
+    readonly createdAt: FieldRef<"HealthNetNetworkNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"HealthNetNetworkNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HealthNetNetworkNode findUnique
+   */
+  export type HealthNetNetworkNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetNetworkNode to fetch.
+     */
+    where: HealthNetNetworkNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetNetworkNode findUniqueOrThrow
+   */
+  export type HealthNetNetworkNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetNetworkNode to fetch.
+     */
+    where: HealthNetNetworkNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetNetworkNode findFirst
+   */
+  export type HealthNetNetworkNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetNetworkNode to fetch.
+     */
+    where?: HealthNetNetworkNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetNetworkNodes to fetch.
+     */
+    orderBy?: HealthNetNetworkNodeOrderByWithRelationInput | HealthNetNetworkNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetNetworkNodes.
+     */
+    cursor?: HealthNetNetworkNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetNetworkNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetNetworkNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetNetworkNodes.
+     */
+    distinct?: HealthNetNetworkNodeScalarFieldEnum | HealthNetNetworkNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetNetworkNode findFirstOrThrow
+   */
+  export type HealthNetNetworkNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetNetworkNode to fetch.
+     */
+    where?: HealthNetNetworkNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetNetworkNodes to fetch.
+     */
+    orderBy?: HealthNetNetworkNodeOrderByWithRelationInput | HealthNetNetworkNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HealthNetNetworkNodes.
+     */
+    cursor?: HealthNetNetworkNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetNetworkNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetNetworkNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HealthNetNetworkNodes.
+     */
+    distinct?: HealthNetNetworkNodeScalarFieldEnum | HealthNetNetworkNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetNetworkNode findMany
+   */
+  export type HealthNetNetworkNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which HealthNetNetworkNodes to fetch.
+     */
+    where?: HealthNetNetworkNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HealthNetNetworkNodes to fetch.
+     */
+    orderBy?: HealthNetNetworkNodeOrderByWithRelationInput | HealthNetNetworkNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HealthNetNetworkNodes.
+     */
+    cursor?: HealthNetNetworkNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HealthNetNetworkNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HealthNetNetworkNodes.
+     */
+    skip?: number
+    distinct?: HealthNetNetworkNodeScalarFieldEnum | HealthNetNetworkNodeScalarFieldEnum[]
+  }
+
+  /**
+   * HealthNetNetworkNode create
+   */
+  export type HealthNetNetworkNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a HealthNetNetworkNode.
+     */
+    data: XOR<HealthNetNetworkNodeCreateInput, HealthNetNetworkNodeUncheckedCreateInput>
+  }
+
+  /**
+   * HealthNetNetworkNode createMany
+   */
+  export type HealthNetNetworkNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HealthNetNetworkNodes.
+     */
+    data: HealthNetNetworkNodeCreateManyInput | HealthNetNetworkNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetNetworkNode createManyAndReturn
+   */
+  export type HealthNetNetworkNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many HealthNetNetworkNodes.
+     */
+    data: HealthNetNetworkNodeCreateManyInput | HealthNetNetworkNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HealthNetNetworkNode update
+   */
+  export type HealthNetNetworkNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a HealthNetNetworkNode.
+     */
+    data: XOR<HealthNetNetworkNodeUpdateInput, HealthNetNetworkNodeUncheckedUpdateInput>
+    /**
+     * Choose, which HealthNetNetworkNode to update.
+     */
+    where: HealthNetNetworkNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetNetworkNode updateMany
+   */
+  export type HealthNetNetworkNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HealthNetNetworkNodes.
+     */
+    data: XOR<HealthNetNetworkNodeUpdateManyMutationInput, HealthNetNetworkNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which HealthNetNetworkNodes to update
+     */
+    where?: HealthNetNetworkNodeWhereInput
+  }
+
+  /**
+   * HealthNetNetworkNode upsert
+   */
+  export type HealthNetNetworkNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the HealthNetNetworkNode to update in case it exists.
+     */
+    where: HealthNetNetworkNodeWhereUniqueInput
+    /**
+     * In case the HealthNetNetworkNode found by the `where` argument doesn't exist, create a new HealthNetNetworkNode with this data.
+     */
+    create: XOR<HealthNetNetworkNodeCreateInput, HealthNetNetworkNodeUncheckedCreateInput>
+    /**
+     * In case the HealthNetNetworkNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HealthNetNetworkNodeUpdateInput, HealthNetNetworkNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * HealthNetNetworkNode delete
+   */
+  export type HealthNetNetworkNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+    /**
+     * Filter which HealthNetNetworkNode to delete.
+     */
+    where: HealthNetNetworkNodeWhereUniqueInput
+  }
+
+  /**
+   * HealthNetNetworkNode deleteMany
+   */
+  export type HealthNetNetworkNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HealthNetNetworkNodes to delete
+     */
+    where?: HealthNetNetworkNodeWhereInput
+  }
+
+  /**
+   * HealthNetNetworkNode without action
+   */
+  export type HealthNetNetworkNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HealthNetNetworkNode
+     */
+    select?: HealthNetNetworkNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -203456,6 +206546,46 @@ export namespace Prisma {
   };
 
   export type ClientDemographicNodeScalarFieldEnum = (typeof ClientDemographicNodeScalarFieldEnum)[keyof typeof ClientDemographicNodeScalarFieldEnum]
+
+
+  export const HealthNetRevenueNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    quarterLabel: 'quarterLabel',
+    revenueValue: 'revenueValue',
+    grossMargin: 'grossMargin',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HealthNetRevenueNodeScalarFieldEnum = (typeof HealthNetRevenueNodeScalarFieldEnum)[keyof typeof HealthNetRevenueNodeScalarFieldEnum]
+
+
+  export const HealthNetEfficiencyNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    clinicName: 'clinicName',
+    efficiencyScore: 'efficiencyScore',
+    patientsSeen: 'patientsSeen',
+    waitTimesAvg: 'waitTimesAvg',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HealthNetEfficiencyNodeScalarFieldEnum = (typeof HealthNetEfficiencyNodeScalarFieldEnum)[keyof typeof HealthNetEfficiencyNodeScalarFieldEnum]
+
+
+  export const HealthNetNetworkNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    regionName: 'regionName',
+    clinicCount: 'clinicCount',
+    demographicCat: 'demographicCat',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type HealthNetNetworkNodeScalarFieldEnum = (typeof HealthNetNetworkNodeScalarFieldEnum)[keyof typeof HealthNetNetworkNodeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -218221,6 +221351,203 @@ export namespace Prisma {
     percentage?: FloatWithAggregatesFilter<"ClientDemographicNode"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ClientDemographicNode"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ClientDemographicNode"> | Date | string
+  }
+
+  export type HealthNetRevenueNodeWhereInput = {
+    AND?: HealthNetRevenueNodeWhereInput | HealthNetRevenueNodeWhereInput[]
+    OR?: HealthNetRevenueNodeWhereInput[]
+    NOT?: HealthNetRevenueNodeWhereInput | HealthNetRevenueNodeWhereInput[]
+    id?: StringFilter<"HealthNetRevenueNode"> | string
+    tenantId?: StringFilter<"HealthNetRevenueNode"> | string
+    quarterLabel?: StringFilter<"HealthNetRevenueNode"> | string
+    revenueValue?: FloatFilter<"HealthNetRevenueNode"> | number
+    grossMargin?: FloatFilter<"HealthNetRevenueNode"> | number
+    createdAt?: DateTimeFilter<"HealthNetRevenueNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetRevenueNode"> | Date | string
+  }
+
+  export type HealthNetRevenueNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    quarterLabel?: SortOrder
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HealthNetRevenueNodeWhereInput | HealthNetRevenueNodeWhereInput[]
+    OR?: HealthNetRevenueNodeWhereInput[]
+    NOT?: HealthNetRevenueNodeWhereInput | HealthNetRevenueNodeWhereInput[]
+    tenantId?: StringFilter<"HealthNetRevenueNode"> | string
+    quarterLabel?: StringFilter<"HealthNetRevenueNode"> | string
+    revenueValue?: FloatFilter<"HealthNetRevenueNode"> | number
+    grossMargin?: FloatFilter<"HealthNetRevenueNode"> | number
+    createdAt?: DateTimeFilter<"HealthNetRevenueNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetRevenueNode"> | Date | string
+  }, "id">
+
+  export type HealthNetRevenueNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    quarterLabel?: SortOrder
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HealthNetRevenueNodeCountOrderByAggregateInput
+    _avg?: HealthNetRevenueNodeAvgOrderByAggregateInput
+    _max?: HealthNetRevenueNodeMaxOrderByAggregateInput
+    _min?: HealthNetRevenueNodeMinOrderByAggregateInput
+    _sum?: HealthNetRevenueNodeSumOrderByAggregateInput
+  }
+
+  export type HealthNetRevenueNodeScalarWhereWithAggregatesInput = {
+    AND?: HealthNetRevenueNodeScalarWhereWithAggregatesInput | HealthNetRevenueNodeScalarWhereWithAggregatesInput[]
+    OR?: HealthNetRevenueNodeScalarWhereWithAggregatesInput[]
+    NOT?: HealthNetRevenueNodeScalarWhereWithAggregatesInput | HealthNetRevenueNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HealthNetRevenueNode"> | string
+    tenantId?: StringWithAggregatesFilter<"HealthNetRevenueNode"> | string
+    quarterLabel?: StringWithAggregatesFilter<"HealthNetRevenueNode"> | string
+    revenueValue?: FloatWithAggregatesFilter<"HealthNetRevenueNode"> | number
+    grossMargin?: FloatWithAggregatesFilter<"HealthNetRevenueNode"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"HealthNetRevenueNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HealthNetRevenueNode"> | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeWhereInput = {
+    AND?: HealthNetEfficiencyNodeWhereInput | HealthNetEfficiencyNodeWhereInput[]
+    OR?: HealthNetEfficiencyNodeWhereInput[]
+    NOT?: HealthNetEfficiencyNodeWhereInput | HealthNetEfficiencyNodeWhereInput[]
+    id?: StringFilter<"HealthNetEfficiencyNode"> | string
+    tenantId?: StringFilter<"HealthNetEfficiencyNode"> | string
+    clinicName?: StringFilter<"HealthNetEfficiencyNode"> | string
+    efficiencyScore?: FloatFilter<"HealthNetEfficiencyNode"> | number
+    patientsSeen?: IntFilter<"HealthNetEfficiencyNode"> | number
+    waitTimesAvg?: IntFilter<"HealthNetEfficiencyNode"> | number
+    createdAt?: DateTimeFilter<"HealthNetEfficiencyNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetEfficiencyNode"> | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    clinicName?: SortOrder
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HealthNetEfficiencyNodeWhereInput | HealthNetEfficiencyNodeWhereInput[]
+    OR?: HealthNetEfficiencyNodeWhereInput[]
+    NOT?: HealthNetEfficiencyNodeWhereInput | HealthNetEfficiencyNodeWhereInput[]
+    tenantId?: StringFilter<"HealthNetEfficiencyNode"> | string
+    clinicName?: StringFilter<"HealthNetEfficiencyNode"> | string
+    efficiencyScore?: FloatFilter<"HealthNetEfficiencyNode"> | number
+    patientsSeen?: IntFilter<"HealthNetEfficiencyNode"> | number
+    waitTimesAvg?: IntFilter<"HealthNetEfficiencyNode"> | number
+    createdAt?: DateTimeFilter<"HealthNetEfficiencyNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetEfficiencyNode"> | Date | string
+  }, "id">
+
+  export type HealthNetEfficiencyNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    clinicName?: SortOrder
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HealthNetEfficiencyNodeCountOrderByAggregateInput
+    _avg?: HealthNetEfficiencyNodeAvgOrderByAggregateInput
+    _max?: HealthNetEfficiencyNodeMaxOrderByAggregateInput
+    _min?: HealthNetEfficiencyNodeMinOrderByAggregateInput
+    _sum?: HealthNetEfficiencyNodeSumOrderByAggregateInput
+  }
+
+  export type HealthNetEfficiencyNodeScalarWhereWithAggregatesInput = {
+    AND?: HealthNetEfficiencyNodeScalarWhereWithAggregatesInput | HealthNetEfficiencyNodeScalarWhereWithAggregatesInput[]
+    OR?: HealthNetEfficiencyNodeScalarWhereWithAggregatesInput[]
+    NOT?: HealthNetEfficiencyNodeScalarWhereWithAggregatesInput | HealthNetEfficiencyNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HealthNetEfficiencyNode"> | string
+    tenantId?: StringWithAggregatesFilter<"HealthNetEfficiencyNode"> | string
+    clinicName?: StringWithAggregatesFilter<"HealthNetEfficiencyNode"> | string
+    efficiencyScore?: FloatWithAggregatesFilter<"HealthNetEfficiencyNode"> | number
+    patientsSeen?: IntWithAggregatesFilter<"HealthNetEfficiencyNode"> | number
+    waitTimesAvg?: IntWithAggregatesFilter<"HealthNetEfficiencyNode"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"HealthNetEfficiencyNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HealthNetEfficiencyNode"> | Date | string
+  }
+
+  export type HealthNetNetworkNodeWhereInput = {
+    AND?: HealthNetNetworkNodeWhereInput | HealthNetNetworkNodeWhereInput[]
+    OR?: HealthNetNetworkNodeWhereInput[]
+    NOT?: HealthNetNetworkNodeWhereInput | HealthNetNetworkNodeWhereInput[]
+    id?: StringFilter<"HealthNetNetworkNode"> | string
+    tenantId?: StringFilter<"HealthNetNetworkNode"> | string
+    regionName?: StringFilter<"HealthNetNetworkNode"> | string
+    clinicCount?: IntFilter<"HealthNetNetworkNode"> | number
+    demographicCat?: StringFilter<"HealthNetNetworkNode"> | string
+    createdAt?: DateTimeFilter<"HealthNetNetworkNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetNetworkNode"> | Date | string
+  }
+
+  export type HealthNetNetworkNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    regionName?: SortOrder
+    clinicCount?: SortOrder
+    demographicCat?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HealthNetNetworkNodeWhereInput | HealthNetNetworkNodeWhereInput[]
+    OR?: HealthNetNetworkNodeWhereInput[]
+    NOT?: HealthNetNetworkNodeWhereInput | HealthNetNetworkNodeWhereInput[]
+    tenantId?: StringFilter<"HealthNetNetworkNode"> | string
+    regionName?: StringFilter<"HealthNetNetworkNode"> | string
+    clinicCount?: IntFilter<"HealthNetNetworkNode"> | number
+    demographicCat?: StringFilter<"HealthNetNetworkNode"> | string
+    createdAt?: DateTimeFilter<"HealthNetNetworkNode"> | Date | string
+    updatedAt?: DateTimeFilter<"HealthNetNetworkNode"> | Date | string
+  }, "id">
+
+  export type HealthNetNetworkNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    regionName?: SortOrder
+    clinicCount?: SortOrder
+    demographicCat?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: HealthNetNetworkNodeCountOrderByAggregateInput
+    _avg?: HealthNetNetworkNodeAvgOrderByAggregateInput
+    _max?: HealthNetNetworkNodeMaxOrderByAggregateInput
+    _min?: HealthNetNetworkNodeMinOrderByAggregateInput
+    _sum?: HealthNetNetworkNodeSumOrderByAggregateInput
+  }
+
+  export type HealthNetNetworkNodeScalarWhereWithAggregatesInput = {
+    AND?: HealthNetNetworkNodeScalarWhereWithAggregatesInput | HealthNetNetworkNodeScalarWhereWithAggregatesInput[]
+    OR?: HealthNetNetworkNodeScalarWhereWithAggregatesInput[]
+    NOT?: HealthNetNetworkNodeScalarWhereWithAggregatesInput | HealthNetNetworkNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HealthNetNetworkNode"> | string
+    tenantId?: StringWithAggregatesFilter<"HealthNetNetworkNode"> | string
+    regionName?: StringWithAggregatesFilter<"HealthNetNetworkNode"> | string
+    clinicCount?: IntWithAggregatesFilter<"HealthNetNetworkNode"> | number
+    demographicCat?: StringWithAggregatesFilter<"HealthNetNetworkNode"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"HealthNetNetworkNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"HealthNetNetworkNode"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -234238,6 +237565,223 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type HealthNetRevenueNodeCreateInput = {
+    id?: string
+    tenantId: string
+    quarterLabel: string
+    revenueValue: number
+    grossMargin: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetRevenueNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    quarterLabel: string
+    revenueValue: number
+    grossMargin: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetRevenueNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    quarterLabel?: StringFieldUpdateOperationsInput | string
+    revenueValue?: FloatFieldUpdateOperationsInput | number
+    grossMargin?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetRevenueNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    quarterLabel?: StringFieldUpdateOperationsInput | string
+    revenueValue?: FloatFieldUpdateOperationsInput | number
+    grossMargin?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetRevenueNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    quarterLabel: string
+    revenueValue: number
+    grossMargin: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetRevenueNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    quarterLabel?: StringFieldUpdateOperationsInput | string
+    revenueValue?: FloatFieldUpdateOperationsInput | number
+    grossMargin?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetRevenueNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    quarterLabel?: StringFieldUpdateOperationsInput | string
+    revenueValue?: FloatFieldUpdateOperationsInput | number
+    grossMargin?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeCreateInput = {
+    id?: string
+    tenantId: string
+    clinicName: string
+    efficiencyScore: number
+    patientsSeen: number
+    waitTimesAvg: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetEfficiencyNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    clinicName: string
+    efficiencyScore: number
+    patientsSeen: number
+    waitTimesAvg: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetEfficiencyNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    clinicName?: StringFieldUpdateOperationsInput | string
+    efficiencyScore?: FloatFieldUpdateOperationsInput | number
+    patientsSeen?: IntFieldUpdateOperationsInput | number
+    waitTimesAvg?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    clinicName?: StringFieldUpdateOperationsInput | string
+    efficiencyScore?: FloatFieldUpdateOperationsInput | number
+    patientsSeen?: IntFieldUpdateOperationsInput | number
+    waitTimesAvg?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    clinicName: string
+    efficiencyScore: number
+    patientsSeen: number
+    waitTimesAvg: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetEfficiencyNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    clinicName?: StringFieldUpdateOperationsInput | string
+    efficiencyScore?: FloatFieldUpdateOperationsInput | number
+    patientsSeen?: IntFieldUpdateOperationsInput | number
+    waitTimesAvg?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetEfficiencyNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    clinicName?: StringFieldUpdateOperationsInput | string
+    efficiencyScore?: FloatFieldUpdateOperationsInput | number
+    patientsSeen?: IntFieldUpdateOperationsInput | number
+    waitTimesAvg?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetNetworkNodeCreateInput = {
+    id?: string
+    tenantId: string
+    regionName: string
+    clinicCount: number
+    demographicCat: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetNetworkNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    regionName: string
+    clinicCount: number
+    demographicCat: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetNetworkNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    clinicCount?: IntFieldUpdateOperationsInput | number
+    demographicCat?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetNetworkNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    clinicCount?: IntFieldUpdateOperationsInput | number
+    demographicCat?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetNetworkNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    regionName: string
+    clinicCount: number
+    demographicCat: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HealthNetNetworkNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    clinicCount?: IntFieldUpdateOperationsInput | number
+    demographicCat?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HealthNetNetworkNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    regionName?: StringFieldUpdateOperationsInput | string
+    clinicCount?: IntFieldUpdateOperationsInput | number
+    demographicCat?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -243490,6 +247034,129 @@ export namespace Prisma {
 
   export type ClientDemographicNodeSumOrderByAggregateInput = {
     percentage?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    quarterLabel?: SortOrder
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeAvgOrderByAggregateInput = {
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    quarterLabel?: SortOrder
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    quarterLabel?: SortOrder
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetRevenueNodeSumOrderByAggregateInput = {
+    revenueValue?: SortOrder
+    grossMargin?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    clinicName?: SortOrder
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeAvgOrderByAggregateInput = {
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    clinicName?: SortOrder
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    clinicName?: SortOrder
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetEfficiencyNodeSumOrderByAggregateInput = {
+    efficiencyScore?: SortOrder
+    patientsSeen?: SortOrder
+    waitTimesAvg?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    regionName?: SortOrder
+    clinicCount?: SortOrder
+    demographicCat?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeAvgOrderByAggregateInput = {
+    clinicCount?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    regionName?: SortOrder
+    clinicCount?: SortOrder
+    demographicCat?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    regionName?: SortOrder
+    clinicCount?: SortOrder
+    demographicCat?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HealthNetNetworkNodeSumOrderByAggregateInput = {
+    clinicCount?: SortOrder
   }
 
   export type AuditLogCreateNestedManyWithoutActorInput = {
@@ -346888,6 +350555,18 @@ export namespace Prisma {
      * @deprecated Use ClientDemographicNodeDefaultArgs instead
      */
     export type ClientDemographicNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClientDemographicNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HealthNetRevenueNodeDefaultArgs instead
+     */
+    export type HealthNetRevenueNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HealthNetRevenueNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HealthNetEfficiencyNodeDefaultArgs instead
+     */
+    export type HealthNetEfficiencyNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HealthNetEfficiencyNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use HealthNetNetworkNodeDefaultArgs instead
+     */
+    export type HealthNetNetworkNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HealthNetNetworkNodeDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -2316,6 +2316,37 @@ exports.Prisma.ClientDemographicNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HealthNetRevenueNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  quarterLabel: 'quarterLabel',
+  revenueValue: 'revenueValue',
+  grossMargin: 'grossMargin',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HealthNetEfficiencyNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  clinicName: 'clinicName',
+  efficiencyScore: 'efficiencyScore',
+  patientsSeen: 'patientsSeen',
+  waitTimesAvg: 'waitTimesAvg',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HealthNetNetworkNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  regionName: 'regionName',
+  clinicCount: 'clinicCount',
+  demographicCat: 'demographicCat',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2525,7 +2556,10 @@ exports.Prisma.ModelName = {
   ResolutionFeedbackNode: 'ResolutionFeedbackNode',
   ClientTrendNode: 'ClientTrendNode',
   ClientClinicNode: 'ClientClinicNode',
-  ClientDemographicNode: 'ClientDemographicNode'
+  ClientDemographicNode: 'ClientDemographicNode',
+  HealthNetRevenueNode: 'HealthNetRevenueNode',
+  HealthNetEfficiencyNode: 'HealthNetEfficiencyNode',
+  HealthNetNetworkNode: 'HealthNetNetworkNode'
 };
 
 /**
