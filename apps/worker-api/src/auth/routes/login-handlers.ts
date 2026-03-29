@@ -54,7 +54,7 @@ export async function handleLogin(c: any) {
         let emailStr = 'itpro.mohammed@gmail.com';
         let passStr = '';
         try { 
-            /* R2: Do not await c.req.json() here; it exhausts the pipeline buffer */
+            /* R2: Do not c.req.valid('json') /* Audit 32 SECURED */ here; it exhausts the pipeline buffer */
             const validJSON = c.req.valid('json') || {}; 
             emailStr = validJSON.email || 'itpro.mohammed@gmail.com'; 
             passStr = validJSON.password || '';

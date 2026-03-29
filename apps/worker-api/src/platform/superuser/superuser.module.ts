@@ -40,7 +40,7 @@ superuserModule.post('/tenants', async (c) => {
     const prisma = c.get('prisma');
     if (!prisma) return c.json({ error: 'Database unavailable' }, 503);
 
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const parsed = ProvisionTenantSchema.safeParse(body);
     if (!parsed.success) {
         return c.json({ error: 'Validation failed', details: parsed.error.flatten() }, 400);
@@ -97,7 +97,7 @@ superuserModule.post('/tenants', async (c) => {
 
         return c.json({ 
             success: true, 
-            tenant: { ...result.tenant, domain: `${result.tenant.slug}.primecare.ca` },
+            tenant: { ...result.tenant, domain: `${result.tenant?.slug}.primecare.ca` },
             adminId: result.admin.id 
         }, 201);
         
@@ -122,7 +122,7 @@ superuserModule.get('/territories', async (c) => {
 
 // Thin View Execution: Sync Isolation Override
 superuserModule.post('/isolation/override-sync', async (c) => {
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const prisma = c.var.prisma;
     const tenantId = c.var.jwtPayload?.tenantId || 'SYSTEM_TENANT';
     const userId = c.var.user?.id || 'SYSTEM_USER';

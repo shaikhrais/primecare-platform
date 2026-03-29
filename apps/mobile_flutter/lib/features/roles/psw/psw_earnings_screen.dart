@@ -26,7 +26,7 @@ class PswEarningsScreen extends StatelessWidget {
         children: [
           const Text('Total Earnings This Period', style: TextStyle(fontSize: 16, color: Colors.grey)),
           const SizedBox(height: 8),
-          const Text('\$1,240.50', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A))),
+          const Text('\$1,240.50', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -158,7 +158,7 @@ class PswEarningsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(color: Colors.grey)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF1E3A8A))),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600, color: Theme.of(context).primaryColor)),
         ],
       ),
     );

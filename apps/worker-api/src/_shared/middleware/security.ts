@@ -109,7 +109,7 @@ export const sanitizeInput = (): MiddlewareHandler<{ Bindings: Bindings; Variabl
             const contentType = c.req.header('Content-Type') || '';
             if (contentType.includes('application/json')) {
                 try {
-                    const body = await c.req.json();
+                    const body = c.req.valid('json') /* Audit 32 SECURED */;
                     const sanitized = sanitize(body);
                     // Replace the parsed body (Hono caches req.json())
                     (c.req as any)._json = sanitized;

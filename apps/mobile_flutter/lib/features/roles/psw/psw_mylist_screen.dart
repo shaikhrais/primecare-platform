@@ -135,7 +135,7 @@ class _InteractiveTaskListState extends State<_InteractiveTaskList> {
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
-        const Text('Today\'s Prioritized Tasks', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A))),
+        const Text('Today\'s Prioritized Tasks', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
         const SizedBox(height: 24),
         _buildTasksList(),
       ],
@@ -146,7 +146,7 @@ class _InteractiveTaskListState extends State<_InteractiveTaskList> {
     return ListView(
       padding: const EdgeInsets.all(32.0),
       children: [
-        const Text('Today\'s Prioritized Tasks', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A))),
+        const Text('Today\'s Prioritized Tasks', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
         const SizedBox(height: 32),
         // On desktop, we could do a grid view for tasks or just keep a constrained list
         Center(

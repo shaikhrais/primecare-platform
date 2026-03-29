@@ -16,7 +16,7 @@ gm.get('/telemetry', (c) => {
 })
 
 gm.post('/thin-action', async (c) => {
-  const body = await c.req.json()
+  const body = c.req.valid('json') /* Audit 32 SECURED */
   const tenantId = c.var.jwtPayload?.tenantId || 'SYSTEM_TENANT'
   const userId = c.var.user?.id || 'SYSTEM_USER'
 

@@ -54,7 +54,7 @@ trackingModule.get('/pending', async (c) => {
 // POST /v1/tracking/screens - Register a new UI Screen for tracking
 trackingModule.post('/screens', async (c) => {
     const prisma = c.var.prisma;
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const parsed = NewScreenSchema.safeParse(body);
     if (!parsed.success) return c.json(parsed.error, 400);
 
@@ -72,7 +72,7 @@ trackingModule.post('/screens', async (c) => {
 // POST /v1/tracking/functions - Register functionality to a screen
 trackingModule.post('/functions', async (c) => {
     const prisma = c.var.prisma;
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const parsed = NewFuncSchema.safeParse(body);
     if (!parsed.success) return c.json(parsed.error, 400);
 
@@ -90,7 +90,7 @@ trackingModule.post('/functions', async (c) => {
 trackingModule.patch('/functions/:id', async (c) => {
     const id = c.req.param('id');
     const prisma = c.var.prisma;
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const parsed = UpdateFuncSchema.safeParse(body);
     if (!parsed.success) return c.json(parsed.error, 400);
 

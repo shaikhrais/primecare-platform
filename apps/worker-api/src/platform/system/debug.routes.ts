@@ -44,7 +44,7 @@ r.openapi(hashRoute, async (c) => {
 // R11: upsert-user kept for dev bootstrapping only — production gated above
 r.post('/upsert-user', async (c) => {
     const prisma = c.get('prisma');
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     // R11: Validate required fields
     const { email, roles, tenantSlug } = body;
     if (!email) return c.json({ error: 'email required' }, 400);

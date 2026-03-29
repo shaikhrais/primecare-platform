@@ -39,7 +39,7 @@ class PswTimesheetScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(value, style: TextStyle(fontSize: isDesktop ? 32 : 24, fontWeight: FontWeight.bold, color: const Color(0xFF1E3A8A))),
+        Text(value, style: TextStyle(fontSize: isDesktop ? 32 : 24, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
         Text(label, style: const TextStyle(color: Colors.grey)),
       ],
     );

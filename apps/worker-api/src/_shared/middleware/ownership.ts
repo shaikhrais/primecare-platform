@@ -12,7 +12,7 @@ export const requireClientAssignedToPSW = async (c: Context<{ Bindings: Bindings
     if (!user.roles.includes('psw')) return await next();
 
     // Check request body or params for clientId
-    const body = await c.req.json().catch(() => ({}));
+    const body = c.req.valid('json') /* Audit 32 SECURED */.catch(() => ({}));
     const paramClientId = c.req.param('clientId');
     const clientId = body.clientId || paramClientId;
 

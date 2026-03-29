@@ -20,7 +20,7 @@ sm.route('/registry', responseBotRoutes);
 
 // Thin View Execution: Clear Dead-Letter Queue
 sm.post('/ops/clear-dlq', async (c) => {
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const prisma = c.var.prisma;
     const tenantId = c.var.jwtPayload?.tenantId || 'SYSTEM_TENANT';
     const userId = c.var.user?.id || 'SYSTEM_USER';

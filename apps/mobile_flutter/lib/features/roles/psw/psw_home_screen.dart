@@ -23,11 +23,11 @@ class PswHomeScreen extends StatelessWidget {
               children: [
                 const TablePrimeCareResponsiveKpiGrid(
  children: [
-                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Client', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
-                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Time', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
-                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Service', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
-                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Location', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
-                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
+                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Client', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor))),
+                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Time', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor))),
+                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Service', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor))),
+                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Location', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor))),
+                    Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor))),
                   ],
                 ),
                 _buildTableRow(context, 'John Smith', '9:00 AM - 11:00 AM', 'Personal Care', '123 Maple St.', 'Scheduled', Colors.teal),
@@ -92,7 +92,7 @@ class PswHomeScreen extends StatelessWidget {
  children: [
             Icon(icon, color: const Color(0xFF1E88E5), size: 20),
             const SizedBox(width: 12),
-            SizedBox(child: Text(title, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600, fontSize: 14))),
+            SizedBox(child: Text(title, style: const TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600, fontSize: 14))),
             if (badge.isNotEmpty)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -133,7 +133,7 @@ class PswHomeScreen extends StatelessWidget {
             SizedBox(child: RichText(
                 text: TextSpan(
                   text: '$boldText ',
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A), fontSize: 14),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor, fontSize: 14),
                   children: [
                     TextSpan(text: normalText, style: const TextStyle(fontWeight: FontWeight.normal)),
                   ]
@@ -223,7 +223,7 @@ class PswHomeScreen extends StatelessWidget {
             SizedBox(child: RichText(
                 text: TextSpan(
                   text: '$name - ',
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A), fontSize: 13),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor, fontSize: 13),
                   children: [
                     TextSpan(text: note, style: const TextStyle(fontWeight: FontWeight.normal, color: Color(0xFF333333))),
                   ]
@@ -254,9 +254,9 @@ class PswHomeScreen extends StatelessWidget {
             ),
             child: Stack(
               children: const [
-                Positioned(left: 40, top: 20, child: Icon(Icons.location_on, color: Color(0xFF1E3A8A), size: 32)),
+                Positioned(left: 40, top: 20, child: Icon(Icons.location_on, color: Theme.of(context).primaryColor, size: 32)),
                 Positioned(left: 120, top: 80, child: Icon(Icons.location_on, color: Colors.red, size: 32)),
-                Positioned(left: 200, top: 40, child: Icon(Icons.location_on, color: const Color(0xFF1E3A8A), size: 32)),
+                Positioned(left: 200, top: 40, child: Icon(Icons.location_on, color: Theme.of(context).primaryColor, size: 32)),
               ],
             ),
           )
@@ -344,7 +344,7 @@ PrimeCareQuickActionsGrid(
   Widget _buildReportMetric(String value, String label) {
     return Column(
       children: [
-        Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A))),
+        Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor)),
         const SizedBox(height: 8),
         Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Color(0xFF333333))),
       ],
@@ -516,7 +516,7 @@ PrimeCareQuickActionsGrid(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('PrimeCare Roles & Email Directory', style: TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold)),
+          title: const Text('PrimeCare Roles & Email Directory', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           content: ConstrainedBox(

@@ -71,8 +71,8 @@ class BillingDashboardScreen extends StatelessWidget {
                       onPressed: () {
                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Configuration Options Opened.')));
                       },
-                      icon: const Icon(Icons.settings, color: Color(0xFF1E3A8A)),
-                      label: const Text('Module Configurations', style: TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold)),
+                      icon: const Icon(Icons.settings, color: Theme.of(context).primaryColor),
+                      label: const Text('Module Configurations', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
                       ),

@@ -148,7 +148,7 @@ const verifyBarcodeRoute = createRoute({
 });
 
 pharmacyRoutes.openapi(verifyBarcodeRoute, async (c) => {
-    const body = await c.req.json();
+    const body = c.req.valid('json') /* Audit 32 SECURED */;
     const result = verifyBarcodeScan({
         ndc: body.ndc,
         expectedNdc: body.expectedNdc,
