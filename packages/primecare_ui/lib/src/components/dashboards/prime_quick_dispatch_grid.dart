@@ -15,7 +15,7 @@ class PrimeQuickDispatchGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Quick Dispatch", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const Text("Quick Dispatch", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
         const SizedBox(height: 12),
         GridView.count(
           shrinkWrap: true,

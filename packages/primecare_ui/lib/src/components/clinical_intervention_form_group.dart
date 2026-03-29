@@ -8,9 +8,7 @@ class ClinicalInterventionFormGroup extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Intervention Notes',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        const Text('Intervention Notes', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         TextField(

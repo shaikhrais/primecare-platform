@@ -18,7 +18,7 @@ class PrimeComplianceTracker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Compliance Tracker", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
+        const Text("Compliance Tracker", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
         const SizedBox(height: 12),
         Row(
           children: [
@@ -26,7 +26,7 @@ class PrimeComplianceTracker extends StatelessWidget {
               child: PrimeCareProgressBar(progress: progress, activeColor: activeColor),
             ),
             const SizedBox(width: 16),
-            Text(percentageText, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(percentageText, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ],
         ),
       ],

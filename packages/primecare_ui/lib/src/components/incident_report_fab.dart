@@ -9,9 +9,7 @@ class IncidentReportFab extends StatelessWidget {
       onPressed: () {},
       backgroundColor: Colors.red.shade600,
       icon: const Icon(Icons.warning, color: Colors.white),
-      label: const Text(
-        'REPORT INCIDENT',
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      label: const Text('REPORT INCIDENT', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
   }

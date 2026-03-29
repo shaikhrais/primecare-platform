@@ -30,7 +30,7 @@ class PrimeCareBarChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               // Value Label
-              Text('\$${entry.value.toInt()}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.indigo)),
+              Text('\$${entry.value.toInt()}', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.indigo)),
               const SizedBox(height: 6),
               // Animated Bar
               TweenAnimationBuilder<double>(
@@ -60,7 +60,7 @@ class PrimeCareBarChart extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               // X-Axis Label
-              Text(entry.key, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.grey)),
+              Text(entry.key, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.grey)),
             ],
           );
         }).toList(),

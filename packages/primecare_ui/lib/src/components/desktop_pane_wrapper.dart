@@ -56,9 +56,7 @@ class DesktopPaneWrapper extends StatelessWidget {
                           size: 40,
                         ),
                         const SizedBox(height: 24),
-                        Text(
-                          'Enterprise Operation Protocol',
-                          style: Theme.of(context).textTheme.headlineMedium
+                        Text('Enterprise Operation Protocol', overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.headlineMedium
                               ?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
@@ -86,9 +84,7 @@ class DesktopPaneWrapper extends StatelessWidget {
                               size: 24,
                             ),
                             const SizedBox(width: 16),
-                            const Text(
-                              'End-To-End Encrypted Link',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            const Text('End-To-End Encrypted Link', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

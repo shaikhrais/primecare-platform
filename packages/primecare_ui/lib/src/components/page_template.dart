@@ -38,9 +38,7 @@ class PageTemplate extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (subtitle != null) 
-                  Text(
-                    subtitle!, 
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  Text(subtitle!, overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.grey.shade600,
                     ),
                   ),

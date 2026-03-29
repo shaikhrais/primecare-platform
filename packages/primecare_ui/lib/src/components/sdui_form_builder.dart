@@ -114,10 +114,8 @@ class _PrimeCareDynamicFormBuilderState
       case 'header':
         return Padding(
           padding: const EdgeInsets.only(top: 24, bottom: 12),
-          child: Text(
-            label.toUpperCase(),
-            style: GoogleFonts.firaCode(
-              color: Colors.blueAccent,
+          child: Text(label.toUpperCase(), overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.firaCode(
+              color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.5,
             ),
@@ -141,7 +139,7 @@ class _PrimeCareDynamicFormBuilderState
                 borderRadius: BorderRadius.circular(12),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blueAccent),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
@@ -163,14 +161,12 @@ class _PrimeCareDynamicFormBuilderState
             border: Border.all(color: Theme.of(context).dividerColor),
           ),
           child: SwitchListTile(
-            title: Text(
-              label,
-              style: GoogleFonts.inter(
+            title: Text(label, overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.inter(
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
             value: _formData[key!] ?? false,
-            activeColor: Colors.blueAccent,
+            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (val) => setState(() => _formData[key] = val),
           ),
         );
@@ -192,7 +188,7 @@ class _PrimeCareDynamicFormBuilderState
                 borderRadius: BorderRadius.circular(12),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blueAccent),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary),
                 borderRadius: BorderRadius.circular(12),
               ),
               filled: true,
@@ -224,13 +220,11 @@ class _PrimeCareDynamicFormBuilderState
   Widget build(BuildContext context) {
     if (_isLoading)
       return const Center(
-        child: CircularProgressIndicator(color: Colors.blueAccent),
+        child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary),
       );
     if (_schema == null)
       return Center(
-        child: Text(
-          'SDUI Engine Failure',
-          style: GoogleFonts.firaCode(color: Colors.red),
+        child: Text('SDUI Engine Failure', overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.firaCode(color: Colors.red),
         ),
       );
 
@@ -248,11 +242,9 @@ class _PrimeCareDynamicFormBuilderState
         children: [
           Row(
             children: [
-              const Icon(Icons.webhook, color: Colors.blueAccent),
+              const Icon(Icons.webhook, color: Theme.of(context).colorScheme.secondary),
               const SizedBox(width: 12),
-              Text(
-                _schema!['title'] ?? 'Dynamic Form',
-                style: GoogleFonts.outfit(
+              Text(_schema!['title'] ?? 'Dynamic Form', overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.outfit(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -267,7 +259,7 @@ class _PrimeCareDynamicFormBuilderState
           const SizedBox(height: 32),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 20),
               shape: RoundedRectangleBorder(
@@ -283,12 +275,9 @@ class _PrimeCareDynamicFormBuilderState
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   )
-                : Text(
-                    'TRANSMIT SECURE PAYLOAD',
-                    style: GoogleFonts.inter(
+                : Text('TRANSMIT SECURE PAYLOAD', overflow: TextOverflow.ellipsis, maxLines: 1, style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                    ),
+                      letterSpacing: 1.2,),
                   ),
           ),
         ],

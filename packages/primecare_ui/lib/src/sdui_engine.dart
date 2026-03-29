@@ -40,9 +40,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
           children: _parseChildren(node['children']),
         );
       case 'Text':
-        return Text(
-          node['text']?.toString() ?? '',
-          style: TextStyle(
+        return Text(node['text']?.toString() ?? '', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
             fontSize: _parseDouble(node['fontSize']),
             color: _parseColor(node['color']),
             fontWeight: node['bold'] == true
@@ -81,7 +79,7 @@ class PrimeCareSduiEngine extends StatelessWidget {
       case 'PrimeCareBadge':
         return PrimeCareBadge(
           text: node['text'] ?? '',
-          color: _parseColor(node['color']) ?? Colors.blue,
+          color: _parseColor(node['color']) ?? Theme.of(context).primaryColor,
         );
       case 'PrimeCareAvatar':
         return PrimeCareAvatar(radius: _parseDouble(node['radius']) ?? 24.0);

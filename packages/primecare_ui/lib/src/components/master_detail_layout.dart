@@ -43,12 +43,9 @@ class MasterDetailLayout extends StatelessWidget {
                 child: isDetailActive
                     ? detailView
                     : const Center(
-                        child: Text(
-                          'Select an item from the list to view details.',
-                          style: TextStyle(
+                        child: Text('Select an item from the list to view details.', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                             color: PrimeCareColors.slate400,
-                            fontSize: 16,
-                          ),
+                            fontSize: 16,),
                         ),
                       ),
               ),
@@ -70,12 +67,9 @@ class MasterDetailLayout extends StatelessWidget {
                   ),
                   onPressed: onBackToMaster,
                 ),
-                title: const Text(
-                  'Details',
-                  style: TextStyle(
+                title: const Text('Details', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                     color: PrimeCareColors.radarDark,
-                    fontWeight: FontWeight.bold,
-                  ),
+                    fontWeight: FontWeight.bold,),
                 ),
               ),
               body: detailView,

@@ -15,7 +15,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activeRole = ref.watch(authProvider).role ?? 'psw';
     return AppBar(
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold)),
       actions: [
         const LanguageToggleButton(),
         IconButton(
@@ -151,7 +151,7 @@ class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
                 children: [
                   const Icon(Icons.logout, color: Colors.red),
                   const SizedBox(width: 12),
-                  const Text('Sign Out', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                  const Text('Sign Out', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),

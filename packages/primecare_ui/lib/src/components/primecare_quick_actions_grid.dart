@@ -32,9 +32,7 @@ class PrimeCareQuickActionsGrid extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0),
-          child: Text(
-            sectionTitle,
-            style: const TextStyle(
+          child: Text(sectionTitle, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1E3A8A),
@@ -58,13 +56,10 @@ class PrimeCareQuickActionsGrid extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () => context.push(action.route),
                     icon: Icon(action.icon, color: Colors.white),
-                    label: Text(
-                      action.title,
-                      style: const TextStyle(
+                    label: Text(action.title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                        fontSize: 14,),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: action.color ?? const Color(0xFF1E88E5), // Base Blue

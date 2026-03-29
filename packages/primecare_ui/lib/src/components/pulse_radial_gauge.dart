@@ -10,23 +10,19 @@ class PulseRadialGauge extends StatelessWidget {
       height: 140,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.blue.shade100, width: 12),
+        border: Border.all(color: Theme.of(context).primaryColorLight, width: 12),
       ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '88',
-              style: TextStyle(
+            const Text('88', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
               ),
             ),
-            Text(
-              'Health Score',
-              style: TextStyle(fontSize: 10, color: Colors.blue.shade700),
+            Text('Health Score', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 10, color: Theme.of(context).primaryColorLight),
             ),
           ],
         ),

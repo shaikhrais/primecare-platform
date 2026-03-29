@@ -23,9 +23,7 @@ class PatientAcuityCard extends StatelessWidget {
           Container(width: 4, height: 40, color: color),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              name,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            child: Text(name, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           Icon(Icons.monitor_heart, color: color),

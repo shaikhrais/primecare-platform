@@ -22,9 +22,7 @@ class PrimeCareSectionHeader extends StatelessWidget {
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
         border: isWhite ? const Border(bottom: BorderSide(color: Color(0xFFE2E8F0))) : null,
       ),
-      child: Text(
-        title,
-        style: TextStyle(
+      child: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.bold,
           color: isWhite ? const Color(0xFF1E3A8A) : Colors.white,

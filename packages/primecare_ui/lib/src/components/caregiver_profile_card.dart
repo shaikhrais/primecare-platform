@@ -23,8 +23,8 @@ class CaregiverProfileCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: Colors.blue.shade100,
-            child: Icon(Icons.person, size: 36, color: Colors.blue.shade800),
+            backgroundColor: Theme.of(context).primaryColorLight,
+            child: Icon(Icons.person, size: 36, color: Theme.of(context).primaryColorLight),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -37,7 +37,7 @@ class CaregiverProfileCard extends StatelessWidget {
                 ),
                 Text(
                   role,
-                  style: const TextStyle(color: Colors.blue),
+                  style: const TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -63,7 +63,7 @@ class CaregiverProfileCard extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.message, color: Colors.blue),
+            icon: const Icon(Icons.message, color: Theme.of(context).primaryColor),
           )
         ],
       ),

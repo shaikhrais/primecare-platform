@@ -20,15 +20,15 @@ class PrimeClientIntelCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Client Intel", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const Text("Client Intel", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
         const SizedBox(height: 12),
         PrimeCareCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('$clientName ($age)', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text('$clientName ($age)', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 6),
-              Text('Condition: $condition', style: const TextStyle(color: Colors.grey)),
+              Text('Condition: $condition', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.grey)),
               const SizedBox(height: 16),
               Wrap(
                 spacing: 8.0,

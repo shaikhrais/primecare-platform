@@ -20,9 +20,9 @@ class PrimePerformanceMetricsCard extends StatelessWidget {
   Widget _buildStatMetric(String label, String value, Color color) {
     return Column(
       children: [
-        Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: color)),
+        Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: color)),
         const SizedBox(height: 4),
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600)),
+        Text(label, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -32,7 +32,7 @@ class PrimePerformanceMetricsCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Performance Metrics", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const Text("Performance Metrics", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
         const SizedBox(height: 12),
         PrimeCareCard(
           child: Column(
@@ -42,18 +42,18 @@ class PrimePerformanceMetricsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildStatMetric('On-Time Arrival', onTimeArrivalRate, Colors.green),
-                  _buildStatMetric('Tasks Logged', tasksLogged, Colors.blue),
+                  _buildStatMetric('Tasks Logged', tasksLogged, Theme.of(context).primaryColor),
                   _buildStatMetric('Patient Rating', patientRating, Colors.orange),
                 ],
               ),
               const SizedBox(height: 24),
-              const Text("Weekly Hours Target", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
+              const Text("Weekly Hours Target", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Expanded(child: PrimeCareProgressBar(progress: weeklyHoursProgress, activeColor: Colors.blue)),
+                  Expanded(child: PrimeCareProgressBar(progress: weeklyHoursProgress, activeColor: Theme.of(context).primaryColor)),
                   const SizedBox(width: 12),
-                  Text(weeklyHoursText, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(weeklyHoursText, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                 ],
               ),
             ],

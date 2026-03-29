@@ -62,7 +62,7 @@ class UniversalRoleSidebar extends ConsumerWidget {
                     type: BottomNavigationBarType.fixed,
                     currentIndex: currentIndex,
                     selectedItemColor: activeColor,
-                    unselectedItemColor: Colors.grey,
+                    unselectedItemColor: Theme.of(context).disabledColor,
                     onTap: (index) {
                       if (index < paths.length) context.go(paths[index]);
                     },
@@ -85,8 +85,8 @@ class UniversalRoleSidebar extends ConsumerWidget {
                     },
                     selectedIconTheme: IconThemeData(color: activeColor),
                     selectedLabelTextStyle: TextStyle(color: activeColor, fontWeight: FontWeight.bold),
-                    unselectedIconTheme: const IconThemeData(color: Colors.grey),
-                    unselectedLabelTextStyle: const TextStyle(color: Colors.grey),
+                    unselectedIconTheme: IconThemeData(color: Theme.of(context).disabledColor),
+                    unselectedLabelTextStyle: TextStyle(color: Theme.of(context).disabledColor),
                     destinations: items.map((item) {
                       return NavigationRailDestination(
                         icon: item.icon,

@@ -14,15 +14,12 @@ class _TaskChecklistNodeState extends State<TaskChecklistNode> {
     return CheckboxListTile(
       value: isChecked,
       onChanged: (val) => setState(() => isChecked = val ?? false),
-      title: Text(
-        widget.label,
-        style: TextStyle(
+      title: Text(widget.label, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
           decoration: isChecked ? TextDecoration.lineThrough : null,
-          color: isChecked ? Colors.grey : Colors.black87,
-        ),
+          color: isChecked ? Colors.grey : Colors.black87,),
       ),
       controlAffinity: ListTileControlAffinity.leading,
-      activeColor: Colors.blueAccent,
+      activeColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }

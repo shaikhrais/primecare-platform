@@ -59,13 +59,10 @@ class _PrimeCareActionTileState extends State<PrimeCareActionTile> {
                 child: Icon(widget.icon, color: widget.iconColor, size: _isHovering ? 32 : 28),
               ),
               const SizedBox(height: 12),
-              Text(
-                widget.label, 
-                style: TextStyle(
+              Text(widget.label, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                   fontSize: 13, 
                   fontWeight: FontWeight.bold, 
-                  color: _isHovering ? widget.iconColor : Colors.indigo.shade800,
-                )
+                  color: _isHovering ? widget.iconColor : Colors.indigo.shade800,)
               ),
             ],
           ),

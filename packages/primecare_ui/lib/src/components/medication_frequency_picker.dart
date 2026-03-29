@@ -11,7 +11,7 @@ class MedicationFrequencyPicker extends StatelessWidget {
         ChoiceChip(
           label: const Text('PRN'),
           selected: true,
-          selectedColor: Colors.blue.shade100,
+          selectedColor: Theme.of(context).primaryColorLight,
         ),
         const ChoiceChip(label: Text('Daily'), selected: false),
         const ChoiceChip(label: Text('BID'), selected: false),

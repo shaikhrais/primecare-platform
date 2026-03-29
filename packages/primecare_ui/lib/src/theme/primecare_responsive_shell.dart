@@ -158,9 +158,7 @@ class _DesktopSidebar extends StatelessWidget {
               children: [
                 Icon(Icons.monitor_heart_rounded, color: primaryIcon, size: 32),
                 const SizedBox(width: PrimeCareSpacing.sm),
-                Text(
-                  'PrimeCare',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                Text('PrimeCare', overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w900,
                     color: primaryIcon,
                   ),
@@ -208,14 +206,11 @@ class _DesktopSidebar extends StatelessWidget {
                             color: isSelected ? primaryIcon : t.textMuted,
                           ),
                           const SizedBox(width: PrimeCareSpacing.md),
-                          Text(
-                            d.label,
-                            style: TextStyle(
+                          Text(d.label, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                               color: isSelected ? primaryIcon : t.textMuted,
                               fontWeight: isSelected
                                   ? FontWeight.bold
-                                  : FontWeight.w500,
-                            ),
+                                  : FontWeight.w500,),
                           ),
                         ],
                       ),

@@ -71,7 +71,7 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Active Care Plan', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo)),
+              const Text('Active Care Plan', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo)),
               IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
             ],
           ),
@@ -79,7 +79,7 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
           if (_isLoading)
             const Expanded(child: Center(child: CircularProgressIndicator()))
           else if (_error != null)
-            Expanded(child: Center(child: Text(_error!, style: const TextStyle(color: Colors.red, fontSize: 16))))
+            Expanded(child: Center(child: Text(_error!, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.red, fontSize: 16))))
           else if (_carePlan != null)
             Expanded(
               child: ListView(
@@ -105,8 +105,8 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
+          Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+          Text(value, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -122,9 +122,9 @@ class _CarePlanSheetState extends State<CarePlanSheet> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo.shade900)),
+            Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.indigo.shade900)),
             const SizedBox(height: 8),
-            Text(content, style: const TextStyle(fontSize: 15)),
+            Text(content, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 15)),
           ],
         ),
       ),

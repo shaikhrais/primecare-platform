@@ -16,7 +16,7 @@ class PrimeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isDanger ? Colors.red : Colors.blueAccent;
+    final color = isDanger ? Colors.red : Theme.of(context).colorScheme.secondary;
     if (isOutline) {
       return OutlinedButton(
         style: OutlinedButton.styleFrom(
@@ -26,9 +26,7 @@ class PrimeButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          label,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold),
+        child: Text(label, overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: color, fontWeight: FontWeight.bold),
         ),
       );
     }
@@ -40,9 +38,7 @@ class PrimeButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       ),
       onPressed: onPressed,
-      child: Text(
-        label,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      child: Text(label, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }

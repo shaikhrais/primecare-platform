@@ -14,9 +14,7 @@ class ComplianceExpiryGauge extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Compliance Gauge: ${(percent * 100).toStringAsFixed(1)}% ($compliant / $total)',
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+        Text('Compliance Gauge: ${(percent * 100).toStringAsFixed(1)}% ($compliant / $total)', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Container(
@@ -43,8 +41,8 @@ class ComplianceExpiryGauge extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('0%', style: TextStyle(fontSize: 10, color: Colors.grey)),
-            Text('100% Compliant', style: TextStyle(fontSize: 10, color: percent >= 1.0 ? Colors.green : Colors.grey)),
+            const Text('0%', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 10, color: Colors.grey)),
+            Text('100% Compliant', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 10, color: percent >= 1.0 ? Colors.green : Colors.grey)),
           ],
         )
       ],

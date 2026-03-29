@@ -16,12 +16,10 @@ class DailyProgressRing extends StatelessWidget {
             value: progress,
             strokeWidth: 10,
             backgroundColor: Colors.grey.shade200,
-            valueColor: const AlwaysStoppedAnimation(Colors.blueAccent),
+            valueColor: const AlwaysStoppedAnimation(Theme.of(context).colorScheme.secondary),
           ),
           Center(
-            child: Text(
-              '${(progress * 100).toInt()}%',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            child: Text('${(progress * 100).toInt()}%', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
         ],

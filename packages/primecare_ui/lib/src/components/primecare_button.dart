@@ -55,14 +55,11 @@ class _PrimeCareButtonState extends State<PrimeCareButton> with SingleTickerProv
   Widget build(BuildContext context) {
     bool resolveIsPrimary = widget.isPrimary ?? (widget.type == PrimeCareButtonType.primary);
 
-    Widget displayChild = widget.child ?? Text(
-      widget.label ?? widget.text ?? '',
-      style: TextStyle(
+    Widget displayChild = widget.child ?? Text(widget.label ?? widget.text ?? '', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w700,
         color: resolveIsPrimary ? Colors.white : Colors.indigo,
-        letterSpacing: 0.5,
-      ),
+        letterSpacing: 0.5,),
     );
 
     if (widget.isLoading) {
@@ -98,7 +95,7 @@ class _PrimeCareButtonState extends State<PrimeCareButton> with SingleTickerProv
       borderRadius: BorderRadius.circular(16),
       gradient: resolveIsPrimary
           ? LinearGradient(
-              colors: _isHovering ? [Colors.indigo.shade600, Colors.blue.shade700] : [Colors.indigo, Colors.blueAccent],
+              colors: _isHovering ? [Colors.indigo.shade600, Theme.of(context).primaryColorLight] : [Colors.indigo, Theme.of(context).colorScheme.secondary],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             )
@@ -108,7 +105,7 @@ class _PrimeCareButtonState extends State<PrimeCareButton> with SingleTickerProv
       boxShadow: resolveIsPrimary
           ? [
               BoxShadow(
-                color: Colors.blueAccent.withOpacity(_isHovering ? 0.6 : 0.3),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(_isHovering ? 0.6 : 0.3),
                 blurRadius: _isHovering ? 16 : 8,
                 offset: const Offset(0, 4),
               )

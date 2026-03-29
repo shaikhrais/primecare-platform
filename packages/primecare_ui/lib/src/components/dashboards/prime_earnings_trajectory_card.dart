@@ -18,7 +18,7 @@ class PrimeEarningsTrajectoryCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
         const SizedBox(height: 12),
         PrimeCareCard(
           child: Column(
@@ -27,14 +27,14 @@ class PrimeEarningsTrajectoryCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Total Payout", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
-                  Text(totalPayout, style: const TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.w900)),
+                  const Text("Total Payout", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+                  Text(totalPayout, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 18, color: Colors.green, fontWeight: FontWeight.w900)),
                 ],
               ),
               const SizedBox(height: 24),
               PrimeCareBarChart(
                 data: trajectoryData,
-                barColor: Colors.blueAccent,
+                barColor: Theme.of(context).colorScheme.secondary,
               ),
             ],
           ),

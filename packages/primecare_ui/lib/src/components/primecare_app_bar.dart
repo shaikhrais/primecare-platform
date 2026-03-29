@@ -10,11 +10,8 @@ class PrimeCareAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        title,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+      title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(
+          context,).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
       backgroundColor:
           Colors.transparent, // Inherit Scaffold background passively

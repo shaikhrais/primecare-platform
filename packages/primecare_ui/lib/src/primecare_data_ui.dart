@@ -41,14 +41,10 @@ class PrimeCareAsyncCard<T> extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, color: Colors.red, size: 48),
               const SizedBox(height: 16),
-              Text(
-                'Connection Failed',
-                style: Theme.of(context).textTheme.titleMedium,
+              Text('Connection Failed', overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
-              Text(
-                err.toString(),
-                style: Theme.of(context).textTheme.bodySmall,
+              Text(err.toString(), overflow: TextOverflow.ellipsis, maxLines: 1, style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -229,12 +225,9 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
           return const Center(
             child: Padding(
               padding: EdgeInsets.all(24),
-              child: Text(
-                'No records found.',
-                style: TextStyle(
+              child: Text('No records found.', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                   color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
+                  fontWeight: FontWeight.bold,),
               ),
             ),
           );
@@ -264,9 +257,7 @@ class _PrimeCareFeedState<T> extends ConsumerState<PrimeCareFeed<T>> {
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, stack) => Center(
-        child: Text(
-          'Error loading feed: $err',
-          style: const TextStyle(color: Colors.red),
+        child: Text('Error loading feed: $err', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Colors.red),
         ),
       ),
     );

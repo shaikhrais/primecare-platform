@@ -14,7 +14,7 @@ class PrimeWeeklyRosterCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Upcoming Roster", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
+        const Text("Upcoming Roster", overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.indigo)),
         const SizedBox(height: 12),
         PrimeCareCard(
           padding: EdgeInsets.zero,

@@ -27,9 +27,7 @@ class LanguageToggleButton extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.blueGrey.shade200, width: 1),
               ),
-              child: Text(
-                isEn ? 'EN' : 'FR',
-                style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.black),
+              child: Text(isEn ? 'EN' : 'FR', overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
           )

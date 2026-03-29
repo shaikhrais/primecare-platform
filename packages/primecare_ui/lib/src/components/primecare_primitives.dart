@@ -21,13 +21,10 @@ class PrimeCareText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Text(
-    data,
-    style: style,
+  Widget build(BuildContext context) => Text(data, overflow: TextOverflow.ellipsis, maxLines: 1, style: style,
     textAlign: textAlign,
     overflow: overflow,
-    maxLines: maxLines,
-  );
+    maxLines: maxLines,);
 }
 
 class PrimeCareIcon extends StatelessWidget {
