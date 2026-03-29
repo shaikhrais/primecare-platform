@@ -380,8 +380,11 @@ class PswHomeScreen extends StatelessWidget {
           
           if (!isDesktop) {
             // Simplified mobile wrapper for compilation safety
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+            return RefreshIndicator(
+              onRefresh: () async { await Future.delayed(const Duration(seconds: 1)); },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   _buildUpcomingVisits(context), 
@@ -405,11 +408,14 @@ class PswHomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            );
+            ));
           }
 
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+          return RefreshIndicator(
+            onRefresh: () async { await Future.delayed(const Duration(seconds: 1)); },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
                 // Top KPI Row
@@ -479,8 +485,16 @@ class PswHomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ));
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Future speed dial expansion
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Quick Actions Menu Opened')));
+        },
+        backgroundColor: const Color(0xFFE80B44),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

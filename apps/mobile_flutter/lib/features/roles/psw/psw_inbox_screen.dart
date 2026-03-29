@@ -72,9 +72,21 @@ class PswInboxScreen extends StatelessWidget {
               _buildChatBubble('Hello! Could you confirm your availability for tomorrow?', false),
               _buildChatBubble('Yes, I am available for the morning shift.', true),
               _buildChatBubble('Great, assigning it now.', false),
+              const SizedBox(height: 16),
+              const Row(
+                children: [
+                   SizedBox(
+                     width: 40,
+                     child: LinearProgressIndicator(backgroundColor: Colors.transparent, color: Colors.blue),
+                   ),
+                   SizedBox(width: 8),
+                   Text('Coordinator 1 is typing...', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic, fontSize: 12))
+                ],
+              )
             ],
           ),
         ),
+        _buildQuickReplies(),
         Container(
           padding: const EdgeInsets.all(16),
           decoration: const BoxDecoration(border: Border(top: BorderSide(color: Color(0xFFE2E8F0)))),
@@ -139,6 +151,36 @@ class PswInboxScreen extends StatelessWidget {
         const VerticalDivider(width: 1, color: Color(0xFFE2E8F0)),
         Expanded(flex: 2, child: _buildChatPane()),
       ],
+    );
+  }
+
+  Widget _buildQuickReplies() {
+    return Container(
+      height: 40,
+      margin: const EdgeInsets.only(bottom: 8),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          _buildQuickReplyChip('Yes, I can take it.'),
+          const SizedBox(width: 8),
+          _buildQuickReplyChip('No, I have a conflict.'),
+          const SizedBox(width: 8),
+          _buildQuickReplyChip('Can we do afternoon?'),
+          const SizedBox(width: 8),
+          _buildQuickReplyChip('Needs Supervisor Review'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickReplyChip(String text) {
+    return ActionChip(
+      label: Text(text, style: const TextStyle(color: Color(0xFF1E88E5), fontSize: 12)),
+      backgroundColor: const Color(0xFF1E88E5).withOpacity(0.1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      side: const BorderSide(color: Color(0xFF1E88E5), width: 1),
+      onPressed: () {},
     );
   }
 }

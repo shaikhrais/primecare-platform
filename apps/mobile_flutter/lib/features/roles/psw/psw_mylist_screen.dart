@@ -46,18 +46,88 @@ class PswMyListScreen extends StatelessWidget {
   }
 
   Widget _buildTasksList() {
-    return ListView(
+    return const _InteractiveTaskList();
+  }
+}
+
+class _InteractiveTaskList extends StatefulWidget {
+  const _InteractiveTaskList();
+  @override
+  State<_InteractiveTaskList> createState() => _InteractiveTaskListState();
+}
+
+class _InteractiveTaskListState extends State<_InteractiveTaskList> {
+  final List<Map<String, dynamic>> _tasks = [
+    {'id': '1', 'title': 'Medication Reminder', 'subtitle': 'Mary Davies - 11:30 AM', 'status': 'Overdue', 'color': Colors.red, 'icon': Icons.warning},
+    {'id': '2', 'title': 'Bathing Assistance', 'subtitle': 'Robert Lee - 2:00 PM', 'status': 'Due Today', 'color': Colors.orange, 'icon': Icons.shower},
+    {'id': '3', 'title': 'Complete Visit Notes', 'subtitle': 'John Smith', 'status': 'Pending', 'color': Colors.blue, 'icon': Icons.edit_note},
+    {'id': '4', 'title': 'Submit Weekly Timesheet', 'subtitle': 'Due by Friday', 'status': 'Completed', 'color': Colors.green, 'icon': Icons.check_circle},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    if (_tasks.isEmpty) {
+      return const Center(child: Padding(padding: EdgeInsets.all(32), child: Text('All tasks completed!')));
+    }
+
+    return ReorderableListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      children: [
-        _buildTaskCard('Medication Reminder', 'Mary Davies - 11:30 AM', 'Overdue', Colors.red, Icons.warning),
-        const SizedBox(height: 16),
-        _buildTaskCard('Bathing Assistance', 'Robert Lee - 2:00 PM', 'Due Today', Colors.orange, Icons.shower),
-        const SizedBox(height: 16),
-        _buildTaskCard('Complete Visit Notes', 'John Smith', 'Pending', Colors.blue, Icons.edit_note),
-        const SizedBox(height: 16),
-        _buildTaskCard('Submit Weekly Timesheet', 'Due by Friday', 'Completed', Colors.green, Icons.check_circle),
-      ],
+      itemCount: _tasks.length,
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          if (oldIndex < newIndex) newIndex -= 1;
+          final item = _tasks.removeAt(oldIndex);
+          _tasks.insert(newIndex, item);
+        });
+      },
+      itemBuilder: (context, index) {
+        final task = _tasks[index];
+        return Dismissible(
+          key: Key(task['id']),
+          direction: DismissDirection.startToEnd,
+          background: Container(
+            color: Colors.green,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: const Icon(Icons.check, color: Colors.white, size: 32),
+          ),
+          onDismissed: (direction) {
+            setState(() => _tasks.removeAt(index));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${task['title']} marked complete')));
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: PrimeCareCardContainer(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(backgroundColor: task['color'].withOpacity(0.1), child: Icon(task['icon'], color: task['color'])),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(task['title'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        const SizedBox(height: 4),
+                        Text(task['subtitle'], style: const TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(color: task['color'], borderRadius: BorderRadius.circular(16)),
+                    child: Text(task['status'], style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.drag_indicator, color: Colors.grey)
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

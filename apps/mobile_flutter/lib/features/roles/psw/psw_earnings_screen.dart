@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class PswEarningsScreen extends StatelessWidget {
   const PswEarningsScreen({super.key});
@@ -51,20 +52,60 @@ class PswEarningsScreen extends StatelessWidget {
           const SizedBox(height: 24),
           SizedBox(
             height: 200,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: List.generate(7, (index) {
-                final height = 50.0 + (index * 20.0);
-                return Container(
-                  width: 32,
-                  height: height,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1E88E5),
-                    borderRadius: BorderRadius.circular(4),
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: 1200,
+                barTouchData: BarTouchData(
+                  enabled: true,
+                  touchTooltipData: BarTouchTooltipData(
+                    tooltipBgColor: Colors.blueAccent,
+                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                      return BarTooltipItem(
+                        '\$${rod.toY.round()}',
+                        const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      );
+                    },
                   ),
-                );
-              }),
+                ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        const style = TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12);
+                        String text;
+                        switch (value.toInt()) {
+                          case 0: text = 'Mon'; break;
+                          case 1: text = 'Tue'; break;
+                          case 2: text = 'Wed'; break;
+                          case 3: text = 'Thu'; break;
+                          case 4: text = 'Fri'; break;
+                          case 5: text = 'Sat'; break;
+                          case 6: text = 'Sun'; break;
+                          default: text = ''; break;
+                        }
+                        return SideTitleWidget(axisSide: meta.axisSide, child: Text(text, style: style));
+                      },
+                    ),
+                  ),
+                  leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                ),
+                borderData: FlBorderData(show: false),
+                gridData: FlGridData(show: false),
+                barGroups: [
+                  BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 600, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 850, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 700, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 1100, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: 900, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: 400, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                  BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: 500, color: const Color(0xFF1E88E5), width: 16, borderRadius: BorderRadius.circular(4))]),
+                ],
+              ),
             ),
           )
         ],
@@ -78,20 +119,46 @@ class PswEarningsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const PrimeCareSectionHeader(title: 'Recent Payout History', isWhite: true),
-          ListView.separated(
+          ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 5,
-            separatorBuilder: (context, index) => const Divider(height: 1),
             itemBuilder: (context, index) {
-              return ListTile(
+              final double amount = 950.0 + (index * 45);
+              return ExpansionTile(
                 leading: CircleAvatar(backgroundColor: Colors.blue.shade50, child: const Icon(Icons.account_balance, color: Colors.blue)),
-                title: Text('Direct Deposit - Week ${42 - index}'),
+                title: Text('Direct Deposit - Week ${42 - index}', style: const TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: const Text('Processed on Friday'),
-                trailing: Text('+\$${950 + (index * 45)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 16)),
+                trailing: Text('+\$${amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 16)),
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    color: Colors.grey.shade50,
+                    child: Column(
+                      children: [
+                        _buildBreakdownRow('Shift Base Pay', '\$${(amount * 0.8).toStringAsFixed(2)}'),
+                        _buildBreakdownRow('Mileage / Travel', '\$${(amount * 0.15).toStringAsFixed(2)}'),
+                        _buildBreakdownRow('Weekend Premium', '\$${(amount * 0.05).toStringAsFixed(2)}'),
+                      ],
+                    ),
+                  )
+                ],
               );
             },
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBreakdownRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(color: Colors.grey)),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF1E3A8A))),
         ],
       ),
     );

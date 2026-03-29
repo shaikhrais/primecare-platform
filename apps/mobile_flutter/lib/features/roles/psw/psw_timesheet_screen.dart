@@ -26,15 +26,9 @@ class PswTimesheetScreen extends StatelessWidget {
           _buildMetric('32 hrs', 'Total Hours Worked', isDesktop),
           if (isDesktop) _buildMetric('4', 'Shifts Completed', isDesktop),
           if (isDesktop) _buildMetric('2', 'Upcoming Shifts', isDesktop),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.timer),
-            label: const Text('Clock In'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1E88E5),
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            ),
+          const SizedBox(
+            width: 200,
+            child: _SwipeToClockIn(),
           )
         ],
       ),
@@ -162,5 +156,58 @@ class PrimeCareSectionHeaderWhite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimeCareSectionHeader(title: title, isWhite: true);
+  }
+}
+
+class _SwipeToClockIn extends StatefulWidget {
+  const _SwipeToClockIn();
+
+  @override
+  State<_SwipeToClockIn> createState() => _SwipeToClockInState();
+}
+
+class _SwipeToClockInState extends State<_SwipeToClockIn> {
+  bool _isClockedIn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isClockedIn) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(30)),
+        child: const Center(
+          child: Text('Clocked In Successfully', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
+      );
+    }
+    
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E88E5).withAlpha(40),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Stack(
+        children: [
+          const Center(child: Text('Swipe to Clock In >>>', style: TextStyle(color: Color(0xFF1E88E5), fontWeight: FontWeight.bold))),
+          Dismissible(
+            key: const Key('swipe_clock_in'),
+            direction: DismissDirection.startToEnd,
+            onDismissed: (direction) {
+              setState(() => _isClockedIn = true);
+            },
+            child: Container(
+              width: 56,
+              height: 56,
+              decoration: const BoxDecoration(
+                color: Color(0xFF1E88E5),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.timer, color: Colors.white),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
