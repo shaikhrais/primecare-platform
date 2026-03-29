@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Hits PATCH /v1/manager/incidents/:id natively
 
@@ -15,13 +16,13 @@ class ManagerIncidentsScreen extends StatelessWidget {
       icon: Icons.warning_amber_rounded,
       headerGradientColors: const [Colors.redAccent, Colors.red],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Active Alerts',
           value: '3 Critical',
           icon: Icons.notifications_active,
           color: Colors.red,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Resolved (7d)',
           value: '14 Tickets',
           icon: Icons.check_circle,

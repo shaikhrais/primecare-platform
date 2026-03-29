@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Hits POST /v1/registry/sync natively
 
@@ -15,13 +16,13 @@ class SuperuserRegistrySyncScreen extends StatelessWidget {
       icon: Icons.sync_problem,
       headerGradientColors: const [Colors.red, Colors.black87],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Registry Drift',
           value: '0.00%',
           icon: Icons.commit,
           color: Colors.green,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Remote Nodes',
           value: '14 Active',
           icon: Icons.cloud_done,

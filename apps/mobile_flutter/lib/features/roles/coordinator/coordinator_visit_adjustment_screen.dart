@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 import 'package:primecare_mobile/core/api_client.dart';
 
 // Hits PATCH /v1/coordinator/visits/:id natively
@@ -61,13 +62,13 @@ class _CoordinatorVisitAdjustmentScreenState extends State<CoordinatorVisitAdjus
       icon: Icons.edit_calendar,
       headerGradientColors: const [Colors.amber, Colors.orangeAccent],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Reschedules (24h)',
           value: '8 Shifts',
           icon: Icons.history,
           color: Colors.orange,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Waitlist Fill Rate',
           value: '94%',
           icon: Icons.group_add,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_mobile/core/api_client.dart';
-import 'package:primecare_mobile/core/widgets/global_top_bar.dart';
-import 'package:primecare_mobile/core/widgets/universal_role_sidebar.dart';
+
+
 
 /// Explicit Master Layout Class
 /// Consolidates the Universal Skeleton (GlobalTopBar + Sidebar) out of the GoRouter config natively.

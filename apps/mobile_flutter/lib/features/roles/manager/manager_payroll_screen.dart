@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Note: Navigates to physical /v1/manager/payroll/approve 
 // Executes Double-Entry Ledger commits.
@@ -16,13 +17,13 @@ class ManagerPayrollScreen extends StatelessWidget {
       icon: Icons.payments,
       headerGradientColors: const [Colors.deepOrange, Colors.orangeAccent],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Pending Approvals',
           value: '14 Batches',
           icon: Icons.pending_actions,
           color: Colors.orange,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Total Est. Liability',
           value: '\$12,450.00',
           icon: Icons.account_balance_wallet,

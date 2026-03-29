@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Hits POST /v1/client/payments natively
 
@@ -15,13 +16,13 @@ class ClientPaymentsScreen extends StatelessWidget {
       icon: Icons.credit_card,
       headerGradientColors: const [Colors.teal, Colors.tealAccent],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Outstanding Balance',
           value: '\$142.50',
           icon: Icons.account_balance_wallet,
           color: Colors.red,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Paid (YTD)',
           value: '\$1,200.00',
           icon: Icons.check_circle,

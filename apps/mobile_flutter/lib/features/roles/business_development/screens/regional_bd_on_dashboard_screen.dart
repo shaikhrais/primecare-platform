@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_mobile/features/master/shared/widgets/page_template.dart';
+
 
 class RegionalBdOnDashboardScreen extends StatelessWidget {
   const RegionalBdOnDashboardScreen({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 import 'package:primecare_mobile/core/api_client.dart';
 
 // Hits POST /v1/coordinator/call-ins natively
@@ -54,13 +55,13 @@ class _CoordinatorCallinScreenState extends State<CoordinatorCallinScreen> {
       icon: Icons.phone_disabled,
       headerGradientColors: const [Colors.orange, Colors.deepOrangeAccent],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Coverage Risk',
           value: 'Elevated',
           icon: Icons.security_update_warning,
           color: Colors.orange,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Standby Pool',
           value: '4 PSWs',
           icon: Icons.groups,

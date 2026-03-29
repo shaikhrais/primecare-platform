@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide TeamMemberAvatarPile;
 import 'package:primecare_mobile/core/api_client.dart';
-import 'package:primecare_mobile/core/widgets/operational/team_member_avatar_pile.dart';
+
 
 class ManagerTeamsScreen extends StatefulWidget {
   const ManagerTeamsScreen({super.key});

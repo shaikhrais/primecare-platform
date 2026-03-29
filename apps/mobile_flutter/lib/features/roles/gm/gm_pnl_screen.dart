@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_mobile/core/api_client.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+
+
 
 // Note: Maps strictly to /v1/finance/ledger/pnl algorithmic extraction
 
@@ -66,13 +67,13 @@ class _GmPnlScreenState extends State<GmPnlScreen> {
       icon: Icons.stacked_line_chart,
       headerGradientColors: const [Colors.purple, Colors.deepPurple],
       kpiCards: [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Gross Margin',
           value: margin,
           icon: Icons.pie_chart,
           color: Colors.purple,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Net Profit (YTD)',
           value: '\$${netProfit.toStringAsFixed(2)}',
           icon: Icons.account_balance,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Hits GET /v1/client/bookings/:id/status natively
 
@@ -15,13 +16,13 @@ class ClientDispatchTrackerScreen extends StatelessWidget {
       icon: Icons.map,
       headerGradientColors: const [Colors.lightBlue, Colors.blue],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Current Status',
           value: 'En Route',
           icon: Icons.directions_car,
           color: Colors.blue,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Estimated Arrival',
           value: '14:15 PM',
           icon: Icons.timer,

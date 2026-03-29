@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../master/shared/widgets/page_template.dart';
-import '../../master/shared/widgets/kpi_card.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+
+
 
 // Hits PATCH /v1/mt/ecosystem/config natively
 
@@ -15,13 +16,13 @@ class MtSurgeConfigScreen extends StatelessWidget {
       icon: Icons.settings_applications,
       headerGradientColors: const [Colors.deepPurple, Colors.indigo],
       kpiCards: const [
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Surge Factor',
           value: '1.25x BASE',
           icon: Icons.trending_up,
           color: Colors.redAccent,
         ),
-        UnifiedKpiCard(
+        PrimeCareKpiCard(
           title: 'Budget Utilized',
           value: '\$8,450 / \$15K',
           icon: Icons.pie_chart,
