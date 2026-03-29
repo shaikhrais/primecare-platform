@@ -27,7 +27,7 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                   ),
                   PrimeCareResponsiveKpiGrid(
  children: [
-                        const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                        const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                         const SizedBox(width: 16),
                         Stack(
                            children: [

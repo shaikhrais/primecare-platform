@@ -35,7 +35,7 @@ class ClientDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                               const SizedBox(width: 6),
                               const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.black54),
                            ]

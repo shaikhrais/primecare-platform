@@ -58,6 +58,8 @@ dependencies:
   path: any
   web_socket_channel: ^3.0.3
   fl_chart: ^1.2.0
+  sqflite_common_ffi_web: ^1.1.1
+  flutter_secure_storage: ^10.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

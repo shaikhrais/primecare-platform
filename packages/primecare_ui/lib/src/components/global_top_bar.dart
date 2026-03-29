@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_mobile/core/auth/auth_provider.dart';
-import 'package:primecare_mobile/core/widgets/language_toggle_button.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class GlobalTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onLogout;
+  final String activeRole;
+  final Widget? languageToggleWidget;
 
-  const GlobalTopBar({super.key, required this.title, required this.onLogout});
+  const GlobalTopBar({super.key, required this.title, required this.onLogout, this.activeRole = 'psw_granular', this.languageToggleWidget});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activeRole = ref.watch(authProvider).role ?? 'psw';
     return AppBar(
       title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(fontWeight: FontWeight.bold)),
       actions: [
-        const LanguageToggleButton(),
+        if (languageToggleWidget != null) languageToggleWidget!,
         IconButton(
           icon: const Icon(Icons.assignment_ind_outlined),
           tooltip: 'Role SOP & Objectives Checklist',

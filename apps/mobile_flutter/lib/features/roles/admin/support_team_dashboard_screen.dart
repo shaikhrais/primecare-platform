@@ -38,7 +38,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                        const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                      ]
                   )
                ]

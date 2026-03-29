@@ -37,7 +37,7 @@ class CaregiverProfileCard extends StatelessWidget {
                 ),
                 Text(
                   role,
-                  style: const TextStyle(color: Theme.of(context).primaryColor),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -63,7 +63,7 @@ class CaregiverProfileCard extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.message, color: Theme.of(context).primaryColor),
+            icon: Icon(Icons.message, color: Theme.of(context).primaryColor),
           )
         ],
       ),

@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/api_client.dart';
 
-class PswGranularDashboardScreen extends StatelessWidget {
+final pswMetricsProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
+  return await apiClient.get('/v1/clinical/psw/metrics');
+});
+
+class PswGranularDashboardScreen extends ConsumerWidget {
   const PswGranularDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final metricsAsync = ref.watch(pswMetricsProvider);
     return PageTemplate(
       title: 'PSW Dashboard',
       subtitle: 'Clinical Divisional Operations Module',
-      kpiCards: [
-        PrimeCareKpiCard(title: 'Patient Census', value: '1,204', icon: Icons.local_hospital, subtitle: 'Stable'),
-        PrimeCareKpiCard(title: 'Missed Visits', value: '0', icon: Icons.check_circle, subtitle: 'Perfect Record'),
-        PrimeCareKpiCard(title: 'Meds Compliance', value: '99%', icon: Icons.medication, subtitle: 'Reviewing 1%'),
-        PrimeCareKpiCard(title: 'Incident Reports', value: '2', icon: Icons.report_problem, subtitle: 'Low Severity'),
-      ],
+      kpiCards: metricsAsync.when(
+        data: (data) {
+          final patientCensus = data['patientCensus']?.toString() ?? '1,204';
+          final missedVisits = data['missedVisits']?.toString() ?? '0';
+          final medsCompliance = data['medsCompliance']?.toString() ?? '99%';
+          final incidents = data['incidentReports']?.toString() ?? '2';
+
+          return [
+            PrimeCareKpiCard(title: 'Patient Census', value: patientCensus, icon: Icons.local_hospital, subtitle: 'Stable'),
+            PrimeCareKpiCard(title: 'Missed Visits', value: missedVisits, icon: Icons.check_circle, subtitle: 'Perfect Record'),
+            PrimeCareKpiCard(title: 'Meds Compliance', value: medsCompliance, icon: Icons.medication, subtitle: 'Reviewing 1%'),
+            PrimeCareKpiCard(title: 'Incident Reports', value: incidents, icon: Icons.report_problem, subtitle: 'Low Severity'),
+          ];
+        },
+        loading: () => List.generate(4, (index) => const PrimeCareKpiCard(title: 'Loading...', value: '-', icon: Icons.sync, subtitle: 'Fetching from API/Local')),
+        error: (err, stack) => [PrimeCareKpiCard(title: 'System Error', value: 'ERR', icon: Icons.error, subtitle: 'Unable to fetch data')],
+      ),
       children: [
         const SizedBox(height: 24),
         PrimeCareResponsiveKpiGrid(
@@ -71,8 +89,8 @@ class PswGranularDashboardScreen extends StatelessWidget {
                       onPressed: () {
                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Configuration Options Opened.')));
                       },
-                      icon: const Icon(Icons.settings, color: Theme.of(context).primaryColor),
-                      label: const Text('Module Configurations', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
+                      icon: Icon(Icons.settings, color: Theme.of(context).primaryColor),
+                      label: Text('Module Configurations', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
                       ),

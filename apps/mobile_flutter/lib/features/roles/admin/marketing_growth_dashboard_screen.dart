@@ -34,7 +34,7 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 24),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                              const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                               const SizedBox(width: 12),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,

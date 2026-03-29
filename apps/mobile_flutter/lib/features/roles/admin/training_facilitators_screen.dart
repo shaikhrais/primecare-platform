@@ -64,7 +64,7 @@ class TrainingFacilitatorsScreen extends ConsumerWidget {
                                     data: items,
                                     rowBuilder: (data) {
                                        return [
-                                          DataCell(const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150'))),
+                                          DataCell(const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random'))),
                                           DataCell(Text(data['facilitatorName'], style: const TextStyle(fontWeight: FontWeight.bold))),
                                           DataCell(Text(data['assignedCourse'], style: const TextStyle(fontStyle: FontStyle.italic))),
                                           DataCell(_buildStatusPill(data['status'])),

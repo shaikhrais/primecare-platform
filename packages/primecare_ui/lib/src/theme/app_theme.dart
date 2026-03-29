@@ -4,7 +4,7 @@ import 'theme_extension.dart';
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
-      primarySwatch: Theme.of(context).primaryColor,
+      primarySwatch: Colors.indigo,
       primaryColor: const Color(0xFF1E3A8A),
       scaffoldBackgroundColor: Colors.grey.shade50,
       appBarTheme: const AppBarTheme(
@@ -35,7 +35,7 @@ class AppTheme {
           textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.white,

@@ -16,7 +16,7 @@ class PulseRadialGauge extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('88', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
+            Text('88', overflow: TextOverflow.ellipsis, maxLines: 1, style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,

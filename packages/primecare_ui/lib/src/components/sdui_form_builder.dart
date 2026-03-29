@@ -219,7 +219,7 @@ class _PrimeCareDynamicFormBuilderState
   @override
   Widget build(BuildContext context) {
     if (_isLoading)
-      return const Center(
+      return Center(
         child: CircularProgressIndicator(color: Theme.of(context).colorScheme.secondary),
       );
     if (_schema == null)

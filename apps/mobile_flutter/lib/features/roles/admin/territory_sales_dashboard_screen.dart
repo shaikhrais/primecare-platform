@@ -20,7 +20,7 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                children: [
                   PrimeCareResponsiveKpiGrid(
  children: [
-                        const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
+                        const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                         const SizedBox(width: 12),
                         const Text('Welcome,', style: TextStyle(color: Colors.black87, fontSize: 16)),
                         const SizedBox(width: 6),
@@ -179,7 +179,7 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Prospecting -> Proposal -> Negotiation -> Closed Win/Loss', style: TextStyle(fontSize: 10, color: Colors.black87)),
               const SizedBox(height: 24),
-              const SizedBox(child: SizedBox(width: double.infinity, child: CustomPaint(painter: _FunnelPainter()))),
+              SizedBox(child: SizedBox(width: double.infinity, child: CustomPaint(painter: _FunnelPainter()))),
               const SizedBox(height: 24),
               SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

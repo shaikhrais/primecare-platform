@@ -59,7 +59,7 @@ PrimeCareQuickActionsGrid(
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
+                              const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                               const SizedBox(width: 12),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,7 +386,7 @@ PrimeCareQuickActionsGrid(
                     ],
                     rowBuilder: (data) => [
                        DataCell(PrimeCareResponsiveKpiGrid(
- children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=${data['img']}')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random?img=${data['img']}')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
                        DataCell(Text(data['d']!, style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['c']!, style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['dr']!, style: const TextStyle(fontSize: 11))),

@@ -87,9 +87,9 @@ class FamilyAppointmentsScreen extends ConsumerWidget {
                         Expanded(
                            child: ListView(
                               children: [
-                                 _buildProviderCard('Dr. Evans', 'Pediatrics', 'https://i.pravatar.cc/150?img=1'),
+                                 _buildProviderCard('Dr. Evans', 'Pediatrics', 'https://api.dicebear.com/7.x/avataaars/png?seed=1'),
                                  const SizedBox(height: 16),
-                                 _buildProviderCard('Nurse Patel', 'Family Health', 'https://i.pravatar.cc/150?img=2'),
+                                 _buildProviderCard('Nurse Patel', 'Family Health', 'https://api.dicebear.com/7.x/avataaars/png?seed=2'),
                               ]
                            )
                         )

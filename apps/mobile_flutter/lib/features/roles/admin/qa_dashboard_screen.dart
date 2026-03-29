@@ -34,7 +34,7 @@ class QaDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=1')),
+                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=1')),
                               const SizedBox(width: 12),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,

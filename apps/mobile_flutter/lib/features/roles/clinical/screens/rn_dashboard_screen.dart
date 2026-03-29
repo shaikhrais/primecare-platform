@@ -40,7 +40,7 @@ PrimeCareQuickActionsGrid(
                   ),
                   PrimeCareResponsiveKpiGrid(
  children: [
-                        CircleAvatar(radius: 12, backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=1')),
+                        CircleAvatar(radius: 12, backgroundImage: const NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=1')),
                         const SizedBox(width: 8),
                         Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ PrimeCareQuickActionsGrid(
                     ],
                     rowBuilder: (data) => [
                        DataCell(PrimeCareResponsiveKpiGrid(
- children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Text(data['name'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random?u=${data['w']}')), const SizedBox(width: 8), Text(data['name'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
                        DataCell(Text(data['age'].toString(), style: const TextStyle(fontSize: 12))),
                        DataCell(Text(data['room'].toString(), style: const TextStyle(fontSize: 12))),
                        DataCell(
@@ -218,7 +218,7 @@ PrimeCareQuickActionsGrid(
                     children: [
                        PrimeCareResponsiveKpiGrid(
  children: [
-                             const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12')),
+                             const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=12')),
                              const SizedBox(width: 12),
                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Sarah M. - High BP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), Text('Conditions', style: TextStyle(color: Colors.black87, fontSize: 11))]),
                           ]
@@ -226,7 +226,7 @@ PrimeCareQuickActionsGrid(
                        const Divider(height: 32),
                        PrimeCareResponsiveKpiGrid(
  children: [
-                             const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11')),
+                             const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=11')),
                              const SizedBox(width: 12),
                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('John D. - Lab Results', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), Text('Conditions', style: TextStyle(color: Colors.black87, fontSize: 11))]),
                           ]

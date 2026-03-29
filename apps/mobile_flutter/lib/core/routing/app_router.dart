@@ -44,18 +44,54 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!hasToken && !isLoggingIn) return AppRoutes.login;
 
       if (hasToken && (isLoggingIn || isRoot)) {
-        final role = prefs.getString('user_role') ?? 'psw';
+        final role = prefs.getString('user_role') ?? 'psw_granular';
         switch (role) {
-          case 'rn': return AppRoutes.rnHome;
-          case 'coordinator': return AppRoutes.coordinatorHome;
-          case 'manager': return AppRoutes.managerHome;
-          case 'admin': return AppRoutes.adminHome;
-          case 'client': return AppRoutes.clientHome;
-          case 'gm': return AppRoutes.gmHome;
-          case 'mt': return AppRoutes.mtHome;
-          case 'scrum': return AppRoutes.scrumMasterHome;
-          case 'superuser': return AppRoutes.superuserHome;
-          default: return AppRoutes.pswHome;
+          case 'founder_ceo': return AppRoutes.founderCeoDashboard;
+          case 'coo': return AppRoutes.cooDashboard;
+          case 'cfo': return AppRoutes.cfoDashboard;
+          case 'cto': return AppRoutes.ctoDashboard;
+          case 'compliance': return AppRoutes.complianceDashboard;
+          case 'head_bd': return AppRoutes.headBdDashboard;
+          case 'head_marketing': return AppRoutes.headMarketingDashboard;
+          case 'training_director': return AppRoutes.trainingDirectorDashboard;
+          case 'bd_team': return AppRoutes.bdTeamDashboard;
+          case 'regional_bd_on': return AppRoutes.regionalBdOnDashboard;
+          case 'regional_bd_usa': return AppRoutes.regionalBdUsaDashboard;
+          case 'franchise_sales': return AppRoutes.franchiseSalesDashboard;
+          case 'partnership_mgr': return AppRoutes.partnershipMgrDashboard;
+          case 'territory_expansion': return AppRoutes.territoryExpansionDashboard;
+          case 'franchise_level': return AppRoutes.franchiseLevelDashboard;
+          case 'franchise_owner': return AppRoutes.franchiseOwnerDashboard;
+          case 'operations_mgr': return AppRoutes.operationsMgrDashboard;
+          case 'scheduler': return AppRoutes.schedulerDashboard;
+          case 'billing': return AppRoutes.billingDashboard;
+          case 'hr': return AppRoutes.hrDashboard;
+          case 'clinical_team': return AppRoutes.clinicalTeamDashboard;
+          case 'rn':
+          case 'rn_granular': return AppRoutes.rnGranularDashboard;
+          case 'rpn': return AppRoutes.rpnDashboard;
+          case 'rmt': return AppRoutes.rmtDashboard;
+          case 'psw':
+          case 'psw_granular': return AppRoutes.pswGranularDashboard;
+          case 'support_team': return AppRoutes.supportTeamDashboard;
+          case 'customer_support': return AppRoutes.customerSupportDashboard;
+          case 'intake_coordinator': return AppRoutes.intakeCoordinatorDashboard;
+          case 'quality_assurance': return AppRoutes.qualityAssuranceDashboard;
+          case 'training_coordinator': return AppRoutes.trainingCoordinatorDashboard;
+          case 'marketing_growth': return AppRoutes.marketingGrowthDashboard;
+          case 'local_marketing': return AppRoutes.localMarketingDashboard;
+          case 'community_outreach': return AppRoutes.communityOutreachDashboard;
+          case 'territory_sales': return AppRoutes.territorySalesDashboard;
+          case 'client':
+          case 'client_side': return AppRoutes.clientSideDashboard;
+          case 'client_granular': return AppRoutes.clientGranularDashboard;
+          case 'family_member': return AppRoutes.familyMemberDashboard;
+          // Fallback Mappings for legacy JWT tokens natively routed reliably
+          case 'admin': return AppRoutes.founderCeoDashboard;
+          case 'manager': return AppRoutes.operationsMgrDashboard;
+          case 'coordinator': return AppRoutes.schedulerDashboard;
+          case 'gm': return AppRoutes.franchiseOwnerDashboard;
+          default: return AppRoutes.pswGranularDashboard;
         }
       }
       return null;

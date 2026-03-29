@@ -339,11 +339,11 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
               const Divider(height: 1),
               SizedBox(child: Column(
                     children: [
-                       _buildAgentRow('https://i.pravatar.cc/150?img=9', 'Dr. Sarah Chen', '64', '00:03:'),
-                       _buildAgentRow('https://i.pravatar.cc/150?img=11', 'Marty Carker', '23', '00:03:'), // Typo in image
-                       _buildAgentRow('https://i.pravatar.cc/150?img=12', 'Narho Bresen', '18', '00:01:'), // Typo
-                       _buildAgentRow('https://i.pravatar.cc/150?img=13', 'Kada Rarnan', '10', '00:05:'), // Typo
-                       _buildAgentRow('https://i.pravatar.cc/150?img=5', 'Jenriy Saorey', '9', '00:02:'), // Typo
+                       _buildAgentRow('https://api.dicebear.com/7.x/avataaars/png?seed=9', 'Dr. Sarah Chen', '64', '00:03:'),
+                       _buildAgentRow('https://api.dicebear.com/7.x/avataaars/png?seed=11', 'Marty Carker', '23', '00:03:'), // Typo in image
+                       _buildAgentRow('https://api.dicebear.com/7.x/avataaars/png?seed=12', 'Narho Bresen', '18', '00:01:'), // Typo
+                       _buildAgentRow('https://api.dicebear.com/7.x/avataaars/png?seed=13', 'Kada Rarnan', '10', '00:05:'), // Typo
+                       _buildAgentRow('https://api.dicebear.com/7.x/avataaars/png?seed=5', 'Jenriy Saorey', '9', '00:02:'), // Typo
                     ]
                  )
               )

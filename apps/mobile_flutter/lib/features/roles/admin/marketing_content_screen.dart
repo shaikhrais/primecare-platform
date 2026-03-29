@@ -75,7 +75,7 @@ class MarketingContentScreen extends ConsumerWidget {
               Expanded(
                  flex: 3,
                  child: Container(
-                    decoration: BoxDecoration(color: Colors.grey.shade200, image: DecorationImage(image: NetworkImage(data['thumbnailUrl'] ?? 'https://i.pravatar.cc/100'), fit: BoxFit.cover)),
+                    decoration: BoxDecoration(color: Colors.grey.shade200, image: DecorationImage(image: NetworkImage(data['thumbnailUrl'] ?? 'https://api.dicebear.com/7.x/avataaars/png?seed=random'), fit: BoxFit.cover)),
                  )
               ),
               Expanded(

@@ -42,7 +42,7 @@ class HrDashboardScreen extends StatelessWidget {
                                  ]
                               ),
                               const SizedBox(width: 12),
-                              const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                              const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                            ]
                         )
                      ]
@@ -293,7 +293,7 @@ class HrDashboardScreen extends StatelessWidget {
                     ],
                     rowBuilder: (data) => [
                        DataCell(PrimeCareResponsiveKpiGrid(
- children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 12), Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random?u=${data['w']}')), const SizedBox(width: 12), Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
                        DataCell(Text(data['role'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['dep'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['src'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),

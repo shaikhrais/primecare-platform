@@ -22,7 +22,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
  children: [
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade100, backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=5')),
+                              CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade100, backgroundImage: const NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                               const SizedBox(width: 8),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,

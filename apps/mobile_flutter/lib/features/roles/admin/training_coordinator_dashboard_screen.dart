@@ -35,7 +35,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
+                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=9')),
                               const SizedBox(width: 8),
                               const Text('Sarah Jenkins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                               const SizedBox(width: 4),
@@ -253,11 +253,11 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
               SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       _buildFacilitatorRow('https://i.pravatar.cc/150?img=9', 'Sarah Jenkins', 'Facillitators', 'Active'), // Literal typo ll
-                       _buildFacilitatorRow('https://i.pravatar.cc/150?img=11', 'Mrria Mollax', 'Current Programs', 'Active'), // Literal typo
-                       _buildFacilitatorRow('https://i.pravatar.cc/150?img=9', 'Sarah Jenkins', 'HIPAA Compliance', 'Scheduled'),
-                       _buildFacilitatorRow('https://i.pravatar.cc/150?img=12', 'Sarah Jenkins', 'Current Programs', 'Completed'),
-                       _buildFacilitatorRow('https://i.pravatar.cc/150?img=9', 'Sarah Jenkins', 'Current Programs', 'Active_Blue'), // Active literal mapped to blue color
+                       _buildFacilitatorRow('https://api.dicebear.com/7.x/avataaars/png?seed=9', 'Sarah Jenkins', 'Facillitators', 'Active'), // Literal typo ll
+                       _buildFacilitatorRow('https://api.dicebear.com/7.x/avataaars/png?seed=11', 'Mrria Mollax', 'Current Programs', 'Active'), // Literal typo
+                       _buildFacilitatorRow('https://api.dicebear.com/7.x/avataaars/png?seed=9', 'Sarah Jenkins', 'HIPAA Compliance', 'Scheduled'),
+                       _buildFacilitatorRow('https://api.dicebear.com/7.x/avataaars/png?seed=12', 'Sarah Jenkins', 'Current Programs', 'Completed'),
+                       _buildFacilitatorRow('https://api.dicebear.com/7.x/avataaars/png?seed=9', 'Sarah Jenkins', 'Current Programs', 'Active_Blue'), // Active literal mapped to blue color
                     ]
                  )
               )

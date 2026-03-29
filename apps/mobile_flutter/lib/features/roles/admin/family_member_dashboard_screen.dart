@@ -33,7 +33,7 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
+                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                               const SizedBox(width: 8),
                               const Text('Sarah Jensen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), // Sarah Jensen text match
                               const SizedBox(width: 4),
@@ -240,11 +240,11 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=11', 'Liam Jensen', 'Photo, 7 yrs', '21 ago', 'Medical')), // Typo literal
+           SizedBox(child: _buildFamilyCard('https://api.dicebear.com/7.x/avataaars/png?seed=11', 'Liam Jensen', 'Photo, 7 yrs', '21 ago', 'Medical')), // Typo literal
            const SizedBox(height: 16),
-           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=5', 'Emily Jensen', 'Photo, 12 yrs', '12 ago', 'Medical status')),
+           SizedBox(child: _buildFamilyCard('https://api.dicebear.com/7.x/avataaars/png?seed=5', 'Emily Jensen', 'Photo, 12 yrs', '12 ago', 'Medical status')),
            const SizedBox(height: 16),
-           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=12', 'Michael Jensen', 'Photo, 45 yrs', '45 ago', 'Medical status')),
+           SizedBox(child: _buildFamilyCard('https://api.dicebear.com/7.x/avataaars/png?seed=12', 'Michael Jensen', 'Photo, 45 yrs', '45 ago', 'Medical status')),
         ]
      );
   }

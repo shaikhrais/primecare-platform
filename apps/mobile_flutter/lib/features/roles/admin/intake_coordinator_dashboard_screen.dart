@@ -191,7 +191,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
         children: [
            PrimeCareResponsiveKpiGrid(
  children: [
-                 const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11')),
+                 const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=11')),
                  const SizedBox(width: 12),
                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +228,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                     rowBuilder: (data) => [
                        DataCell(Container(width: 16, height: 16, decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400), borderRadius: BorderRadius.circular(4), color: data['c'] == '1' ? Colors.grey.shade200 : Colors.white), child: data['c'] == '1' ? const Icon(Icons.check, size: 12, color: Colors.black87) : null)),
                        DataCell(PrimeCareResponsiveKpiGrid(
- children: [const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
+ children: [const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=12')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
                        DataCell(_buildStatusPill(data['s']!)),
                        DataCell(Text(data['p']!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: data['p'] == 'High' ? Colors.red : data['p'] == 'Med' ? Colors.amber.shade800 : Colors.black87))),
                        DataCell(Text(data['f']!, style: const TextStyle(fontSize: 11))),

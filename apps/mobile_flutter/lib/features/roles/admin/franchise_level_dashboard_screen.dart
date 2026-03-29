@@ -37,7 +37,7 @@ class FranchiseLevelDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              CircleAvatar(radius: 12, backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=11')),
+                              CircleAvatar(radius: 12, backgroundImage: const NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=11')),
                               const SizedBox(width: 8),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,

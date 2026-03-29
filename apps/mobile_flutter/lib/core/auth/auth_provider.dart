@@ -7,7 +7,7 @@ class AuthState {
 
 class AuthNotifier extends Notifier<AuthState> {
   final String initialRole;
-  AuthNotifier([this.initialRole = 'psw']);
+  AuthNotifier([this.initialRole = 'psw_granular']);
 
   @override
   AuthState build() {

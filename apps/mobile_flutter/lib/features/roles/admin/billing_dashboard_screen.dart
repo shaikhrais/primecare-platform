@@ -39,7 +39,7 @@ class BillingDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 24),
-                        const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
+                        const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                      ]
                   )
                ]

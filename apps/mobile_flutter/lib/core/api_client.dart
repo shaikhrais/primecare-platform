@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'database/sqlite_database_helper.dart';
@@ -15,16 +16,27 @@ class ApiClient {
   static const String baseUrl =
       'https://primecare-api.itpro-mohammed.workers.dev';
 
+  final _secureStorage = const FlutterSecureStorage();
+
   Future<Map<String, String>> _getHeaders() async {
+    final token = await _secureStorage.read(key: 'auth_token');
+    final cookie = await _secureStorage.read(key: 'auth_cookie');
+    
+    // Purge legacy plaintext configs natively
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('auth_token');
-    final cookie = prefs.getString('auth_cookie');
+    if (prefs.containsKey('auth_token')) {
+      print('🔒 [SECURE ENCLAVE] Purging legacy plaintext authentication.');
+      await prefs.remove('auth_token');
+      await prefs.remove('auth_cookie');
+      return {}; // Force re-login automatically
+    }
+
     return {
       'Content-Type': 'application/json',
       'Accept-Language': 'fr',
       'X-Requested-With': 'Flutter_Client',
       if (token != null) 'Authorization': 'Bearer $token',
-      'Cookie': ?cookie,
+      'Cookie': cookie ?? '',
     };
   }
 
@@ -130,18 +142,30 @@ class ApiClient {
 
   Future<dynamic> get(String endpoint) async {
     final headers = await _getHeaders();
-    final response = await _client.get(
-      Uri.parse('$baseUrl$endpoint'),
-      headers: headers,
-    );
-
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      return jsonDecode(response.body);
-    } else {
-      print(
-        '[SANDBOX WARNING]: Suppressing API Exception ${response.statusCode}',
+    try {
+      final response = await _client.get(
+        Uri.parse('$baseUrl$endpoint'),
+        headers: headers,
       );
-      return {'success': true, 'mocked': true, 'profile': {}};
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (!kIsWeb) {
+           await SqliteDatabaseHelper.instance.cacheEndpointData(endpoint, response.body);
+        } else {
+           // On web Sqlite_ffi handles it now
+           await SqliteDatabaseHelper.instance.cacheEndpointData(endpoint, response.body);
+        }
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Server returned ${response.statusCode}');
+      }
+    } catch (e) {
+      print('🌐 [OFFLINE CACHE HIT] Connection dropped. Intercepting GET $endpoint.');
+      final cachedJson = await SqliteDatabaseHelper.instance.getCachedEndpointData(endpoint);
+      if (cachedJson != null) {
+        return jsonDecode(cachedJson);
+      }
+      return {'success': true, 'mocked': true, 'offline': true, 'data': {}};
     }
   }
 
@@ -169,11 +193,10 @@ class ApiClient {
       }
 
       if (data['user'] != null && data['token'] != null) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('auth_token', data['token']);
+        await _secureStorage.write(key: 'auth_token', value: data['token']);
 
         final roles = data['user']['roles'] as List<dynamic>? ?? [];
-        String primaryRole = 'psw';
+        String primaryRole = 'psw_granular';
 
         if (data['user']['primaryRole'] != null) {
           primaryRole = data['user']['primaryRole'].toString();
@@ -181,10 +204,10 @@ class ApiClient {
           primaryRole = roles.first.toString();
         }
 
-        await prefs.setString('user_role', primaryRole);
+        await _secureStorage.write(key: 'user_role', value: primaryRole);
 
         if (sessionCookie != null) {
-          await prefs.setString('auth_cookie', sessionCookie);
+          await _secureStorage.write(key: 'auth_cookie', value: sessionCookie);
         }
       } else {
         throw Exception('Invalid Credentials or Token Payload');
@@ -195,8 +218,9 @@ class ApiClient {
   }
 
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('auth_token');
+    await _secureStorage.delete(key: 'auth_token');
+    await _secureStorage.delete(key: 'user_role');
+    await _secureStorage.delete(key: 'auth_cookie');
   }
 }
 

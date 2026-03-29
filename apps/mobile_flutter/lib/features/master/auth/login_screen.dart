@@ -46,18 +46,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
            await prefs.setString('auth_token', 'mock_token_$role');
            ref.read(authProvider.notifier).setRole(role);
            
-           switch (role) {
-             case 'rn': context.go('/rn/home'); break;
-             case 'coordinator': context.go('/coordinator/home'); break;
-             case 'manager': context.go('/manager/home'); break;
-             case 'admin': context.go('/admin/home'); break;
-             case 'client': context.go('/client/home'); break;
-             case 'gm': context.go('/gm/home'); break;
-             case 'mt': context.go('/mt/home'); break;
-             case 'scrum': context.go('/scrum_master/home'); break;
-             case 'superuser': context.go('/superuser/home'); break;
-             default: context.go('/psw/home');
-           }
+           // Let GoRouter redirect handle mapping natively.
+           context.go('/');
            return;
          }
       }
@@ -74,38 +64,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ref.read(authProvider.notifier).setRole(primaryRole);
 
       if (hasSession && mounted) {
-        // 3. Delegate routing to the GoRouter ecosystem natively based on the validated Role seamlessly creatively safely fluently elegantly elegantly solidly confidently.
-        switch (primaryRole) {
-          case 'rn':
-            context.go('/rn/home');
-            break;
-          case 'coordinator':
-            context.go('/coordinator/home');
-            break;
-          case 'manager':
-            context.go('/manager/home');
-            break;
-          case 'admin':
-            context.go('/admin/home');
-            break;
-          case 'client':
-            context.go('/client/home');
-            break;
-          case 'gm':
-            context.go('/gm/home');
-            break;
-          case 'mt':
-            context.go('/mt/home');
-            break;
-          case 'scrum':
-            context.go('/scrum_master/home');
-            break;
-          case 'superuser':
-            context.go('/superuser/home');
-            break;
-          default:
-            context.go('/psw/home');
-        }
+        // 3. Delegate routing to the GoRouter ecosystem natively based on the validated Role.
+        context.go('/');
       }
     } catch (e) {
       if (mounted) {

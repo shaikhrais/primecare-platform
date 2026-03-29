@@ -20,14 +20,12 @@ class ClientDispatchTrackerScreen extends StatelessWidget {
           title: 'Current Status',
           value: 'En Route',
           icon: Icons.directions_car,
-          color: Colors.blue,
-        ),
+          ),
         PrimeCareKpiCard(
           title: 'Estimated Arrival',
           value: '14:15 PM',
           icon: Icons.timer,
-          color: Colors.green,
-        ),
+          ),
       ],
       children: [
         Card(
@@ -45,7 +43,7 @@ class ClientDispatchTrackerScreen extends StatelessWidget {
                   leading: CircleAvatar(child: Text('JS')),
                   title: Text('Your Caregiver: Jane'),
                   subtitle: Text('Identity verified. Security matched.'),
-                  trailing: Icon(Icons.verified, color: Colors.blue),
+                  trailing: Icon(Icons.verified, ),
                 ),
                 const Divider(),
                 _buildTimelineStep('Requested', '12:00 PM', true),
@@ -86,7 +84,7 @@ class ClientDispatchTrackerScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title, style: TextStyle(fontWeight: isActive ? FontWeight.bold : FontWeight.normal, color: isActive ? Colors.blue : (isDone ? Colors.black : Colors.grey))),
-                  Text(time, style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+                  Text(time, style: TextStyle(fontSize: 12)),
                 ],
               ),
             ),

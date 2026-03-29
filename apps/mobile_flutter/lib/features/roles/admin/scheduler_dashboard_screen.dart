@@ -34,7 +34,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         PrimeCareResponsiveKpiGrid(
  children: [
-                              const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
+                              const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=5')),
                               const SizedBox(width: 8),
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +252,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
                     rowBuilder: (data) => [
                        DataCell(Text(data['time'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                        DataCell(PrimeCareResponsiveKpiGrid(
- children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Text(data['id'], style: const TextStyle(color: Colors.black54, fontSize: 9))])])),
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random?u=${data['w']}')), const SizedBox(width: 8), Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Text(data['id'], style: const TextStyle(color: Colors.black54, fontSize: 9))])])),
                        DataCell(Text(data['type'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                        DataCell(Text(data['doc'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                        DataCell(Text(data['loc'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -334,7 +334,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
                  children: [
                     PrimeCareResponsiveKpiGrid(
  children: [
-                          CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=$w')),
+                          CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/png?seed=random?u=$w')),
                           const SizedBox(width: 8),
                           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(pn, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const Text('Coordinator', style: TextStyle(color: Colors.black54, fontSize: 9))]),
                        ]

@@ -20,13 +20,11 @@ class ClientPaymentsScreen extends StatelessWidget {
           title: 'Outstanding Balance',
           value: '\$142.50',
           icon: Icons.account_balance_wallet,
-          color: Colors.red,
         ),
         PrimeCareKpiCard(
           title: 'Paid (YTD)',
           value: '\$1,200.00',
           icon: Icons.check_circle,
-          color: Colors.green,
         ),
       ],
       children: [

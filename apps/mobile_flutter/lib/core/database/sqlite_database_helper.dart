@@ -1,6 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SqliteDatabaseHelper {
   static final SqliteDatabaseHelper instance = SqliteDatabaseHelper._init();
@@ -8,23 +10,21 @@ class SqliteDatabaseHelper {
 
   SqliteDatabaseHelper._init();
 
-import 'package:flutter/foundation.dart' show kIsWeb;
-
   Future<Database?> get database async {
-    if (kIsWeb) {
-      print("[PWA_NOTICE] Skipping native SQLite instantiation on Web Platform.");
-      return null;
-    }
     if (_database != null) return _database!;
     _database = await _initDB('primecare_offline_queue.db');
     return _database!;
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getApplicationDocumentsDirectory();
-    final path = join(dbPath.path, filePath);
-
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    if (kIsWeb) {
+      databaseFactory = databaseFactoryFfiWeb;
+      return await databaseFactory.openDatabase(filePath, options: OpenDatabaseOptions(version: 1, onCreate: _createDB));
+    } else {
+      final dbPath = await getApplicationDocumentsDirectory();
+      final path = join(dbPath.path, filePath);
+      return await openDatabase(path, version: 1, onCreate: _createDB);
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -35,14 +35,47 @@ import 'package:flutter/foundation.dart' show kIsWeb;
     // Abstract Payload Table
     await db.execute('''
       CREATE TABLE OfflineQueue (
-        id \$idType,
-        httpMethod \$textType,
-        endpointUrl \$textType,
-        jsonPayload \$textType,
-        timestamp \$floatType,
+        id $idType,
+        httpMethod $textType,
+        endpointUrl $textType,
+        jsonPayload $textType,
+        timestamp $floatType,
         retryCount INTEGER DEFAULT 0
       )
     ''');
+    
+    // Persistent Endpoint Cache
+    await db.execute('''
+      CREATE TABLE CacheStore (
+        endpointUrl $idType,
+        jsonResponse $textType,
+        lastUpdated $floatType
+      )
+    ''');
+  }
+
+  Future<int> cacheEndpointData(String url, String json) async {
+    final db = await instance.database;
+    if (db == null) return 0;
+    return await db.insert(
+      'CacheStore',
+      {
+        'endpointUrl': url,
+        'jsonResponse': json,
+        'lastUpdated': DateTime.now().millisecondsSinceEpoch.toDouble(),
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<String?> getCachedEndpointData(String url) async {
+    final db = await instance.database;
+    if (db == null) return null;
+    final results = await db.query('CacheStore', where: 'endpointUrl = ?', whereArgs: [url]);
+    if (results.isNotEmpty) {
+      return results.first['jsonResponse'] as String;
+    }
+    return null;
   }
 
   Future<int> insertPayload(Map<String, dynamic> row) async {

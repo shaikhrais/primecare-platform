@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_mobile/core/auth/auth_provider.dart';
-import 'widgets/page_template.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 
 class RoleSowScreen extends ConsumerWidget {
   const RoleSowScreen({super.key});
