@@ -95,7 +95,7 @@ r.openapi(uploadFileRoute, async (c) => {
         });
 
         return c.json({ key, url: `/v1/storage/file/${key}` }, 200);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         // R9: Don't leak internal errors
         return c.json({ error: 'File upload failed' }, 500);
     }

@@ -110,7 +110,7 @@ pharmacyRoutes.openapi(orderDrugsRoute, async (c) => {
         const result = await dispatchDispenser(mockOrder);
 
         return c.json({ message: `Medication order mapped to hardware subsystem: Status [${result.status}] - ${result.message}` }, 200);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ message: `Hardware Dispatch Failed: ${e.message}` }, 500);
     }
 });

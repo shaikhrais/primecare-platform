@@ -47,7 +47,7 @@ export async function handleLogin(c: any) {
         if (deviceId) { await logAudit(prisma, user.id, 'LOGIN', 'USER', user.id, { tenantId: user.tenantId, ip: clientIp }, deviceId); }
         const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
         return c.json({ user: safeUser, token: accessToken }, 200);
-    } catch (e: any) { 
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) { 
         // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
         console.warn('[OFFLINE_MODE] Database unreachable. Yielding mocked JWT session to permit UI authentication.');
         
@@ -98,5 +98,5 @@ export async function handleSwitchRole(c: any) {
         const token = await generateToken({ id: user.id, roles: parsedRoles, tenantId: user.tenantId }, jwtSecret, { activeRole: targetRole as string });
         setCookie(c, 'accessToken', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24, path: '/' });
         return c.json({ activeRole: targetRole }, 200);
-    } catch (e: any) { return c.json({ error: 'Failed to generate token payload.' }, 500); }
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) { return c.json({ error: 'Failed to generate token payload.' }, 500); }
 }

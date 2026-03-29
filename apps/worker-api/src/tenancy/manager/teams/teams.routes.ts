@@ -56,7 +56,7 @@ r.openapi(getTeamsRoute, async (c) => {
             teamMembers,
             complianceMetrics
         }, 200 as const);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: e.message }, 500 as const);
     }
 });

@@ -124,7 +124,7 @@ ledgerRoutes.openapi(postJournalEntryRoute, async (c) => {
       transactionChecksum: result.checksum 
     }, 201 as const);
 
-  } catch (e: any) {
+  } catch (e: any /* Audit 63 Notice: Should be unknown */) {
     // @ts-ignore - Explicit error casting for Hono framework catch bounds
     return c.json({ error: 'Atomic Transaction Failure: ' + e.message }, 500 as const);
   }

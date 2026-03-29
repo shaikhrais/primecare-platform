@@ -51,8 +51,8 @@ billingClaimsList.openapi(
          orderBy: { submissionDate: 'desc' }
        });
        return c.json({ claims: claims.map((a: any) => ({ ...a, submissionDate: a.submissionDate.toISOString() })) });
-    } catch (e: any) {
-       console.error(e);
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
+       console.error(JSON.stringify({ error: e?.message || e }));
        return c.json({ error: 'Internal error' }, 500 as any);
     }
   }

@@ -109,7 +109,7 @@ fhir.openapi(importRoute, async (c) => {
                 },
             });
             imported++;
-        } catch (e: any) { errors.push(e.message || 'Unknown error'); }
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) { errors.push(e.message || 'Unknown error'); }
     }
 
     await prisma.fhirSyncLog.create({

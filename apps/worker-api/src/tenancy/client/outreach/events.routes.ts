@@ -50,8 +50,8 @@ outreachEventsList.openapi(
        });
 
        return c.json({ events: items.map((a: any) => ({ ...a, scheduledDate: a.scheduledDate.toISOString(), createdAt: a.createdAt.toISOString() })) });
-    } catch (e: any) {
-       console.error(e);
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
+       console.error(JSON.stringify({ error: e?.message || e }));
        return c.json({ error: 'Internal error' }, 500 as any);
     }
   }

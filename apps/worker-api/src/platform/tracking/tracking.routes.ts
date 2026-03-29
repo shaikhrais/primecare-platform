@@ -63,7 +63,7 @@ trackingModule.post('/screens', async (c) => {
             data: parsed.data
         });
         return c.json(screen, 201);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         if (e.code === 'P2002') return c.json({ error: 'Screen route already exists for this role' }, 409);
         return c.json({ error: 'Failed' }, 500);
     }

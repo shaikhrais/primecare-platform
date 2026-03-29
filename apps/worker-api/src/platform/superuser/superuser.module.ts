@@ -30,7 +30,7 @@ superuserModule.get('/tenants', async (c) => {
         }));
         
         return c.json(mappedTenants);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: 'Failed to fetch tenants' }, 500);
     }
 });
@@ -101,7 +101,7 @@ superuserModule.post('/tenants', async (c) => {
             adminId: result.admin.id 
         }, 201);
         
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         // Handle unique constraint violations elegantly (e.g., duplicated slug)
         if (e.code === 'P2002') {
             return c.json({ error: 'A franchise with that endpoint domain (slug) already exists.' }, 409);

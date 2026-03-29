@@ -35,7 +35,7 @@ export function registerPublicRoutes(app: AppType) {
             const prisma = c.get('prisma');
             if (prisma) await prisma.$queryRaw`SELECT 1`;
             return c.json({ ...base, status: 'ok', db: 'connected' });
-        } catch (e: any) {
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) {
             return c.json({ ...base, status: 'degraded', db: 'disconnected' }, 503);
         }
     });
@@ -91,7 +91,7 @@ export function registerPublicRoutes(app: AppType) {
             const result: any[] = await prisma.$queryRaw`SELECT (SELECT COUNT(*) FROM users WHERE tenant_id = ${tenantId})::int AS "totalUsers", (SELECT COUNT(*) FROM visits WHERE tenant_id = ${tenantId})::int AS "totalVisits", (SELECT COUNT(*) FROM visits WHERE tenant_id = ${tenantId} AND status = 'requested')::int AS "pendingVisits", (SELECT COUNT(*) FROM leads WHERE tenant_id = ${tenantId})::int AS "totalLeads"`;
             const row = result[0] || EMPTY_STATS;
             return c.json({ totalUsers: row.totalUsers || 0, pendingVisits: row.pendingVisits || 0, totalVisits: row.totalVisits || 0, totalLeads: row.totalLeads || 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, syncedAt: new Date().toISOString() });
-        } catch (e: any) { return c.json({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, error: 'Stats aggregation failed', syncedAt: new Date().toISOString() }); }
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) { return c.json({ totalUsers: 0, pendingVisits: 0, totalVisits: 0, totalLeads: 0, modelScore: 0, MTD_REVENUE: '0.00', healthAlerts: { complianceRisk: 0, coverageGap: 0, pipelineStagnation: 0 }, error: 'Stats aggregation failed', syncedAt: new Date().toISOString() }); }
     });
 
     // Public registries
@@ -102,7 +102,7 @@ export function registerPublicRoutes(app: AppType) {
             const take = Math.min(parseInt(c.req.query('limit') || '100'), 500); const skip = parseInt(c.req.query('offset') || '0');
             const items = await prisma.registry.findMany({ where, orderBy: { key: 'asc' }, take, skip });
             return c.json({ total: items.length, items, syncedAt: new Date().toISOString() });
-        } catch (e: any) { 
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) { 
             // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
             if ((c.env as any).ENVIRONMENT !== 'production') {
                 return c.json({
@@ -128,7 +128,7 @@ export function registerPublicRoutes(app: AppType) {
                 select: { name: true, route: true, status: true, role: { select: { name: true } } }
             });
             return c.json({ success: true, data: screens, syncedAt: new Date().toISOString() });
-        } catch (e: any) {
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) {
             console.error('[System.Screens] Fetch Error (Remote DB Down):', e.message);
             return c.json({ success: false, error: e.message, stack: e.stack }, 500);
         }

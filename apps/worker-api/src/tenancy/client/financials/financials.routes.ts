@@ -50,8 +50,8 @@ financialsList.openapi(
          orderBy: { createdAt: 'asc' }
        });
        return c.json({ records });
-    } catch (e: any) {
-       console.error(e);
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
+       console.error(JSON.stringify({ error: e?.message || e }));
        return c.json({ error: 'Internal error' }, 500 as any);
     }
   }

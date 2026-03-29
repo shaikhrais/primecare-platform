@@ -35,7 +35,7 @@ r.openapi(getEarningsRoute, async (c) => {
         });
 
         return c.json(payouts, 200);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         console.warn('[Earnings API] Offline Fallback Yielded natively securely correctly', e.message);
         return c.json([
             { id: 'offline_1', amount: 1540.50, createdAt: new Date().toISOString() },

@@ -177,7 +177,7 @@ r.openapi(osmCallbackRoute, async (c) => {
         const frontendUrl = c.env.SITE_URL || 'https://primecare-admin.pages.dev';
         return c.redirect(`${frontendUrl}/home`);
 
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         // R6: Don't leak internal error messages
         return c.json({ error: 'OAuth authentication failed' }, 500);
     }

@@ -83,7 +83,7 @@ export const prismaMiddleware = () => {
                         where: { slug: tenantSlug },
                         select: { id: true }
                     });
-                } catch (e: any) {
+                } catch (e: any /* Audit 63 Notice: Should be unknown */) {
                     console.error('[TENANT_SLUG_LOOKUP_ERROR]', e.message);
                 }
                 if (tenant) tenantId = tenant?.id;

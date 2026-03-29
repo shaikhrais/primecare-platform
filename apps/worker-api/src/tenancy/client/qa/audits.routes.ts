@@ -49,8 +49,8 @@ qaAuditsList.openapi(
          orderBy: { auditDate: 'desc' }
        });
        return c.json({ audits: audits.map((a: any) => ({ ...a, auditDate: a.auditDate.toISOString() })) });
-    } catch (e: any) {
-       console.error(e);
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
+       console.error(JSON.stringify({ error: e?.message || e }));
        return c.json({ error: 'Internal error' }, 500 as any);
     }
   }

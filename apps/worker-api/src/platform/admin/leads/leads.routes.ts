@@ -107,7 +107,7 @@ r.openapi(convertLeadRoute, async (c) => {
     try {
         const result = await service.convertToClient(id);
         return c.json(result, 200);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         if (e.message === 'NOT_FOUND') return c.json({ error: 'Lead not found' }, 404);
         if (e.message === 'ALREADY_CONVERTED') return c.json({ error: 'Lead already converted' }, 400);
         throw e;

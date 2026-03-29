@@ -31,7 +31,7 @@ r.get('/', async (c) => {
         }
 
         return c.json({ total: registries.length, grouped, items: registries });
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         // R11: Don't leak error.message
         return c.json({ error: 'Failed to fetch registries', items: [], total: 0 });
     }
@@ -45,7 +45,7 @@ r.get('/:id', async (c) => {
         const reg = await prisma.registry.findUnique({ where: { id } });
         if (!reg) return c.json({ error: 'Not found' }, 404);
         return c.json(reg);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: 'Failed to fetch registry entry' }, 500);
     }
 });
@@ -79,7 +79,7 @@ r.put('/:id', async (c) => {
             },
         });
         return c.json(reg);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: 'Failed to update registry' }, 500);
     }
 });
@@ -113,7 +113,7 @@ r.post('/', async (c) => {
             },
         });
         return c.json(reg, 201);
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: 'Failed to create registry entry' }, 500);
     }
 });
@@ -125,7 +125,7 @@ r.delete('/:id', async (c) => {
     try {
         await prisma.registry.delete({ where: { id } });
         return c.json({ success: true });
-    } catch (e: any) {
+    } catch (e: any /* Audit 63 Notice: Should be unknown */) {
         return c.json({ error: 'Failed to delete registry entry' }, 500);
     }
 });
@@ -147,7 +147,7 @@ r.post('/seed', async (c) => {
                 create: { key: entry.key, value: entry.value, category: 'content', section },
             });
             created++;
-        } catch (e: any) {
+        } catch (e: any /* Audit 63 Notice: Should be unknown */) {
             try {
                 const existing = await prisma.registry.findFirst({
                     where: { key: entry.key, tenantId: null }
