@@ -60,6 +60,19 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
   <div class="loading-indicator">INITIALIZING SECURE TERMINAL...</div>
+  <script>
+    window.addEventListener('load', function(ev) {
+      _flutter.loader.load({
+        onEntrypointLoaded: async function(engineInitializer) {
+          let appRunner = await engineInitializer.initializeEngine({
+            renderer: "canvaskit",
+          });
+          document.querySelector('.loading-indicator').style.display = 'none';
+          await appRunner.runApp();
+        }
+      });
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

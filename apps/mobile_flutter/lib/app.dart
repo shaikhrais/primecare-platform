@@ -6,6 +6,15 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'core/theme_provider.dart';
 import 'core/locale_provider.dart';
 import 'core/routing/app_router.dart';
+import 'core/utils/scaffold_messenger.dart';
+
+class PrimeCareScrollBehavior extends ScrollBehavior {
+  const PrimeCareScrollBehavior();
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) {
+    return const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+  }
+}
 
 class PrimeCareApp extends ConsumerWidget {
   const PrimeCareApp({super.key});
@@ -19,8 +28,10 @@ class PrimeCareApp extends ConsumerWidget {
       onGenerateTitle: (context) => AppLocalizations.of(context)!.primecareMobile,
       theme: AppTheme.lightTheme,
       themeMode: ref.watch(themeProvider),
+      scaffoldMessengerKey: globalMessengerKey,
       routerConfig: appRouter,
       locale: locale,
+      scrollBehavior: const PrimeCareScrollBehavior(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
