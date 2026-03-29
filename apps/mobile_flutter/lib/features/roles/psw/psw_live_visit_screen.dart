@@ -15,7 +15,11 @@ class PswLiveVisitScreen extends ConsumerWidget {
     final activeVisitAsync = ref.watch(pswEvvLiveProvider);
 
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text('Live Patient Visit'),
+        backgroundColor: const Color(0xFF1453A3),
+        foregroundColor: Colors.white,
+      ),
       body: activeVisitAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(child: Text('Error linking EVV: $err')),

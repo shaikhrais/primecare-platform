@@ -9,6 +9,7 @@ class AppRoutes {
 
   // PSW
   static const String pswHome = '/psw/home';
+  static const String pswLiveVisit = '/psw/live-visit';
   static const String pswTimesheets = '/psw/timesheets';
   static const String pswEarnings = '/psw/earnings';
   static const String pswInbox = '/psw/inbox';

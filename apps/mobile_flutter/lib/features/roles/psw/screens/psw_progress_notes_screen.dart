@@ -27,7 +27,11 @@ class _PswProgressNotesScreenState extends State<PswProgressNotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text('Progress Notes'),
+        backgroundColor: const Color(0xFF1453A3),
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

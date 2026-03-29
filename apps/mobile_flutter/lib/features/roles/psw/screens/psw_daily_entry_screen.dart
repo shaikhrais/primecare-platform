@@ -18,7 +18,11 @@ class _PswDailyEntryScreenState extends State<PswDailyEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        title: const Text('Daily Entry (ADL & Vitals)'),
+        backgroundColor: const Color(0xFF1453A3),
+        foregroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
