@@ -27,7 +27,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                   ),
                   PrimeCareResponsiveKpiGrid(
  children: [
-                        SizedBox(width: 200, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Colors.black12))))),
+                        Flexible(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 200), child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Colors.black12)))))),
                         const SizedBox(width: 16),
                         const Icon(Icons.chat_bubble_outline, color: Colors.grey),
                         const SizedBox(width: 16),

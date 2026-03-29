@@ -67,7 +67,7 @@ class QaSatisfactionScreen extends ConsumerWidget {
                                        DataCell(Text(data['createdAt'].toString().substring(0, 10))),
                                        DataCell(Text(data['franchise'], style: const TextStyle(fontWeight: FontWeight.bold))),
                                        DataCell(Text('\${data["score"]}/5.0', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey))),
-                                       DataCell(SizedBox(width: 300, child: Text(data['comments'] ?? 'No text notes.', maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.black54)))),
+                                       DataCell(ConstrainedBox(constraints: const BoxConstraints(maxWidth: 300), child: Text(data['comments'] ?? 'No text notes.', maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.black54)))),
                                     ],
                                  );
                               },

@@ -67,7 +67,7 @@ class QaIncidentsScreen extends ConsumerWidget {
                                        DataCell(Text(data['createdAt'].toString().substring(0, 10))),
                                        DataCell(Text(data['incidentType'], style: const TextStyle(fontWeight: FontWeight.bold))),
                                        DataCell(Text(data['franchise'])),
-                                       DataCell(SizedBox(width: 200, child: Text(data['description'], maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.grey)))),
+                                       DataCell(ConstrainedBox(constraints: const BoxConstraints(maxWidth: 200), child: Text(data['description'], maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.grey)))),
                                        DataCell(Text(data['status'], style: TextStyle(color: data['status'] == 'Closed' ? Colors.green : Colors.orange.shade800, fontWeight: FontWeight.bold))),
                                     ],
                                  );

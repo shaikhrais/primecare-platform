@@ -24,7 +24,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.swap_vert, color: Colors.grey, size: 20)),
                         const SizedBox(width: 16),
-                        SizedBox(width: 200, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.grey.shade100, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none)))),
+                        Flexible(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 200), child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.grey.shade100, border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none))))),
                      ]
                   )
                ]

@@ -519,9 +519,8 @@ PrimeCareQuickActionsGrid(
           title: const Text('PrimeCare Roles & Email Directory', style: TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold)),
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          content: SizedBox(
-            width: 600,
-            height: 500,
+          content: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500, maxHeight: 600),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

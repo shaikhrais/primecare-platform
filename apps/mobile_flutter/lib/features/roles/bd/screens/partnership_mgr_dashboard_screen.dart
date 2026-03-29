@@ -20,7 +20,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                   const GreetingHeaderWidget(name: 'Medifuse Franchise Dashboard'),
                   PrimeCareResponsiveKpiGrid(
  children: [
-                        SizedBox(width: 240, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none)))),
+                        Flexible(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 240), child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none))))),
                         const SizedBox(width: 16),
                         const Icon(Icons.notifications_active_outlined, color: Colors.grey),
                         const SizedBox(width: 16),

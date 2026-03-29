@@ -72,9 +72,11 @@ class _UniversalInboxScreenState extends ConsumerState<UniversalInboxScreen> {
             final directoryAsync = ref.watch(directoryProvider);
             return AlertDialog(
               title: const Text('Compose Secure Message'),
-              content: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+              content: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                   children: [
                     directoryAsync.when(
                       data: (users) {
@@ -114,7 +116,8 @@ class _UniversalInboxScreenState extends ConsumerState<UniversalInboxScreen> {
                   ],
                 ),
               ),
-              actions: [
+            ),
+            actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(ctx),
                   child: const Text('CANCEL'),
