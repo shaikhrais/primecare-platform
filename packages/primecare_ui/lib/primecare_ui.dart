@@ -67,8 +67,8 @@ export 'src/components/dashboards/prime_compliance_tracker.dart';
 export 'src/components/dashboards/prime_weekly_roster_card.dart';
 
 // Abstracted Dashboard Core Components
-export 'src/components/primecare_kpi_card.dart';
+export 'src/components/cards/primecare_kpi_card.dart';
 export 'src/components/primecare_card_container.dart';
-export 'src/components/primecare_section_header.dart';
+export 'src/components/headers/primecare_section_header.dart';
 export 'src/components/primecare_responsive_kpi_grid.dart';
 export 'src/components/primecare_quick_actions_grid.dart';

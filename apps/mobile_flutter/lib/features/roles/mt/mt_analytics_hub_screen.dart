@@ -1,37 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:primecare_mobile/features/master/shared/universal_thin_hub_screen.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_mobile/core/routing/app_routes.dart';
+import 'package:primecare_mobile/features/master/shared/widgets/page_template.dart';
 
 class MtAnalyticsHubScreen extends StatelessWidget {
   const MtAnalyticsHubScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MT Analytics Hub', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        backgroundColor: Colors.purple.shade900,
-        foregroundColor: Colors.white,
-      ),
-      // Deep-wired Thin View Execution Node properly conceptually dependably dependably securely natively explicitly efficiently cleanly flawlessly
-      body: Column(
-        children: [
-          const Padding(
-             padding: EdgeInsets.all(24.0),
-             child: PrimeCareQuickActionsGrid(
-              sectionTitle: "Master Terminal",
-              actions: [
-                PrimeCareActionItem(title: 'Surge Configurator', icon: Icons.electric_bolt, route: AppRoutes.mtSurgeConfig, color: Colors.orange),
-                PrimeCareActionItem(title: 'MT Inbox', icon: Icons.mail, route: AppRoutes.mtInbox, color: Colors.blueGrey),
-                PrimeCareActionItem(title: 'MT SOW', icon: Icons.analytics, route: AppRoutes.mtSow, color: Color(0xFF1E88E5)),
-              ]
+    return PageTemplate(
+      title: 'Surge Configurator',
+      subtitle: 'Default Divisional Operations Module',
+      kpiCards: [
+        PrimeCareKpiCard(title: 'System Status', value: 'Online', icon: Icons.dns, subtitle: 'Stable'),
+        PrimeCareKpiCard(title: 'Active Users', value: '1.2k', icon: Icons.people, subtitle: 'Peak Hours'),
+        PrimeCareKpiCard(title: 'Error Rate', value: '0.01%', icon: Icons.bug_report, subtitle: 'Nominal'),
+        PrimeCareKpiCard(title: 'Pending Tasks', value: '5', icon: Icons.assignment, subtitle: 'Review'),
+      ],
+      children: [
+        const SizedBox(height: 24),
+        PrimeCareResponsiveKpiGrid(
+          children: [
+            SizedBox(
+              child: PrimeCareCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const PrimeCareSectionHeader(title: 'Active Operations Feed', isWhite: true),
+                    const SizedBox(height: 16),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.blue.shade50,
+                            child: const Icon(Icons.analytics, color: Colors.blue),
+                          ),
+                          title: Text('Automated default Report Generation - Batch ${index + 1}'),
+                          subtitle: const Text('Systems Nominal • Synced just now'),
+                          trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+                        );
+                      },
+                    )
+                  ]
+                )
+              )
             ),
-          ),
-          const Expanded(child: UniversalThinHubScreen()),
-        ],
-      ),
+            const SizedBox(width: 16),
+            SizedBox(
+              child: PrimeCareCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     const PrimeCareSectionHeader(title: 'Quick Module Actions', isWhite: true),
+                     const SizedBox(height: 16),
+                     ElevatedButton.icon(
+                      onPressed: () {
+                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Downloading Report Data...')));
+                      },
+                      icon: const Icon(Icons.download, color: Colors.white),
+                      label: const Text('Export Weekly Summary', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1E88E5),
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Configuration Options Opened.')));
+                      },
+                      icon: const Icon(Icons.settings, color: Color(0xFF1E3A8A)),
+                      label: const Text('Module Configurations', style: TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold)),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                    )
+                  ]
+                )
+              )
+            )
+          ]
+        )
+      ],
     );
   }
 }
