@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -17,11 +18,15 @@
   <base href="$FLUTTER_BASE_HREF">
 
   <!-- Content Security Policy (Audit #9): Neutering cross-domain XSS payloads natively -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com/ https://www.gstatic.com; connect-src 'self' https://*.cloudflare.com wss://*.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://www.gstatic.com; img-src 'self' data: blob: https://*.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: blob:;">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com/ https://www.gstatic.com; connect-src 'self' https://*.cloudflare.com wss://*.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com https://www.gstatic.com https://maps.googleapis.com https://i.pravatar.cc https://api2.amplitude.com https://*.workers.dev; img-src 'self' data: blob: https://*.cloudflare.com https://maps.googleapis.com https://i.pravatar.cc; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data: blob:;">
 
-  <!-- DOM Preloader (Audit #7): Natively neutralizing 0.5s font blinking -->
+  <!-- DOM Asset Preloaders (Audit #12): Natively circumventing lazy load timeouts -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="icons/Icon-192.png" as="image" type="image/png">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap">
+  </noscript>
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -34,17 +39,20 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>primecare_mobile</title>
   <link rel="manifest" href="manifest.json">
   <style>
-    body, html {
-      background-color: #0F172A; /* PrimeCare Radar Dark Theme */
+    body,
+    html {
+      background-color: #0F172A;
+      /* PrimeCare Radar Dark Theme */
       color: white;
       margin: 0;
       padding: 0;
     }
+
     .loading-indicator {
       display: flex;
       justify-content: center;
@@ -57,6 +65,7 @@
     }
   </style>
 </head>
+
 <body>
   <!--
     You can customize the "flutter_bootstrap.js" script.
@@ -68,9 +77,9 @@
   -->
   <div class="loading-indicator">INITIALIZING SECURE TERMINAL...</div>
   <script>
-    window.addEventListener('load', function(ev) {
+    window.addEventListener('load', function (ev) {
       _flutter.loader.load({
-        onEntrypointLoaded: async function(engineInitializer) {
+        onEntrypointLoaded: async function (engineInitializer) {
           let appRunner = await engineInitializer.initializeEngine({
             renderer: "canvaskit",
           });
@@ -82,4 +91,5 @@
   </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
+
 </html>
