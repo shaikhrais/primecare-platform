@@ -51,23 +51,36 @@ class SchedulerDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 32),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+            PrimeResponsiveGrid(
+               desktopMainAxisExtent: 220,
+               desktopCrossAxisCount: 2,
                children: [
-                  Expanded(flex: 2, child: _buildTodaysSummaryCard()),
-                  const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildKeyActivityCard()),
+                  _buildTodaysSummaryCard(),
+                  _buildKeyActivityCard(),
                ]
-            ).withHeight(180),
+            ),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
+            PrimeResponsiveGrid(
+               desktopMainAxisExtent: 680,
+               desktopCrossAxisCount: 2,
                children: [
-                  Expanded(flex: 3, child: _buildScheduleBlock()),
-                  const SizedBox(width: 16),
-                  Expanded(flex: 1, child: Column(children: [Expanded(flex: 2, child: _buildUpcomingScheduleBlock()), const SizedBox(height: 16), Expanded(flex: 1, child: _buildFacilityOverviewCard())])),
+                  _buildScheduleBlock(),
+                  Column(
+                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                     children: [
+                        Expanded(
+                           flex: 2,
+                           child: _buildUpcomingScheduleBlock(),
+                        ),
+                        const SizedBox(height: 16),
+                        Expanded(
+                           flex: 1,
+                           child: _buildFacilityOverviewCard(),
+                        ),
+                     ]
+                  ),
                ]
-            ).withHeight(640),
+            ),
             const SizedBox(height: 32),
           ],
         ),
@@ -412,8 +425,4 @@ class _ChartLine extends StatelessWidget {
          ]
       );
    }
-}
-
-extension on Widget {
-   Widget withHeight(double h) => SizedBox(height: h, child: this);
 }

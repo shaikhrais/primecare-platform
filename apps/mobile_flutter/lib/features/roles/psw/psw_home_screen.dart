@@ -1,103 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_mobile/core/routing/app_routes.dart';
 class PswHomeScreen extends StatelessWidget {
   const PswHomeScreen({super.key});
 
-  Widget _buildTopKpiCard(String title, String value, IconData icon, String subtitle) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: const Color(0xFFE2E8F0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.02),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            )
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(icon, color: const Color(0xFF1E88E5), size: 40),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.bold, fontSize: 14)),
-                const SizedBox(height: 8),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Text(value, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Color(0xFF1E3A8A))),
-                    const SizedBox(width: 6),
-                    if (subtitle.isNotEmpty)
-                      Text(subtitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF1E3A8A))),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: const BoxDecoration(
-        color: Color(0xFF1E5BB2),
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _buildCardContainer(Widget child, {EdgeInsetsGeometry? padding}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4, offset: const Offset(0, 2))],
-      ),
-      child: padding != null ? Padding(padding: padding, child: child) : child,
-    );
-  }
-
-  Widget _buildSectionHeaderWhite(String title) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)),
-      ),
-    );
-  }
-
-  // --- WIDGETS ---
-
   Widget _buildUpcomingVisits(BuildContext context) {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         children: [
-          _buildSectionHeader('Upcoming Visits'),
+          PrimeCareSectionHeader(title: 'Upcoming Visits'),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Table(
@@ -156,10 +68,10 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildTodaysTasks(BuildContext context) {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         children: [
-          _buildSectionHeaderWhite("Today's Tasks"),
+          PrimeCareSectionHeader(title: "Today's Tasks", isWhite: true),
           _buildTaskItem(context, Icons.check, 'Medication Reminder', 'Overdue', Colors.red, AppRoutes.pswMar),
           const Divider(height: 1, color: Color(0xFFE2E8F0)),
           _buildTaskItem(context, Icons.check, 'Bathing Assistance', 'Due Today', Colors.teal, AppRoutes.pswDailyEntry),
@@ -196,10 +108,10 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildClientAlerts(BuildContext context) {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         children: [
-          _buildSectionHeaderWhite("Client Alerts"),
+          PrimeCareSectionHeader(title: "Client Alerts", isWhite: true),
           _buildAlertItem(context, Icons.warning, 'Falls Risk:', 'Mary Davies'),
           const Divider(height: 1, color: Color(0xFFE2E8F0)),
           _buildAlertItem(context, Icons.warning, 'Allergies:', 'Robert Lee'),
@@ -237,11 +149,11 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildDailyOverview() {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionHeaderWhite("Daily Overview"),
+          PrimeCareSectionHeader(title: "Daily Overview", isWhite: true),
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: SizedBox(
@@ -285,11 +197,11 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildRecentNotes(BuildContext context) {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionHeaderWhite("Recent Notes"),
+          PrimeCareSectionHeader(title: "Recent Notes", isWhite: true),
           const SizedBox(height: 8),
           _buildNoteItem(context, Icons.add_box, 'Mary Davies', 'Assisted with Lunch prep.', const Color(0xFF1E88E5)),
           _buildNoteItem(context, Icons.add_box, 'Robert Lee', 'Administered medication, noted dizziness.', const Color(0xFF1E88E5)),
@@ -329,11 +241,11 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildClientLocations() {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionHeaderWhite("Client Locations"),
+          PrimeCareSectionHeader(title: "Client Locations", isWhite: true),
           Container(
             height: 140,
             width: double.infinity,
@@ -357,11 +269,11 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   Widget _buildTrainingResources() {
-    return _buildCardContainer(
+    return PrimeCareCardContainer(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionHeaderWhite("Training & Resources"),
+          PrimeCareSectionHeader(title: "Training & Resources", isWhite: true),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -396,11 +308,11 @@ class PswHomeScreen extends StatelessWidget {
   Widget _buildShiftReportSummary(BuildContext context) {
     return InkWell(
       onTap: () => context.push(AppRoutes.pswTimesheets),
-      child: _buildCardContainer(
+      child: PrimeCareCardContainer(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeaderWhite("Shift Report Summary"),
+            PrimeCareSectionHeader(title: "Shift Report Summary", isWhite: true),
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Row(
@@ -506,13 +418,13 @@ class PswHomeScreen extends StatelessWidget {
                 // Top KPI Row
                 Row(
                   children: [
-                    _buildTopKpiCard('Today\'s Visits', '8', Icons.calendar_month, ''),
+                    PrimeCareKpiCard(title: 'Today\'s Visits', value: '8', icon: Icons.calendar_month, subtitle: ''),
                     const SizedBox(width: 20),
-                    _buildTopKpiCard('Clients Assigned', '18', Icons.people, ''),
+                    PrimeCareKpiCard(title: 'Clients Assigned', value: '18', icon: Icons.people, subtitle: ''),
                     const SizedBox(width: 20),
-                    _buildTopKpiCard('Hours Worked This Week', '32', Icons.access_time, 'hrs'),
+                    PrimeCareKpiCard(title: 'Hours Worked This Week', value: '32', icon: Icons.access_time, subtitle: 'hrs'),
                     const SizedBox(width: 20),
-                    _buildTopKpiCard('Upcoming Shifts', '4', Icons.assignment_turned_in, ''),
+                    PrimeCareKpiCard(title: 'Upcoming Shifts', value: '4', icon: Icons.assignment_turned_in, subtitle: ''),
                   ],
                 ),
                 const SizedBox(height: 24),

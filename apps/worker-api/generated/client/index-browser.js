@@ -2347,6 +2347,36 @@ exports.Prisma.HealthNetNetworkNodeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SchedulerTrendNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  dayLabel: 'dayLabel',
+  apptCount: 'apptCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SchedulerRosterNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  providerName: 'providerName',
+  specialty: 'specialty',
+  shiftTime: 'shiftTime',
+  isAvailable: 'isAvailable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SchedulerFacilityNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  facilityName: 'facilityName',
+  occupancyRate: 'occupancyRate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2559,7 +2589,10 @@ exports.Prisma.ModelName = {
   ClientDemographicNode: 'ClientDemographicNode',
   HealthNetRevenueNode: 'HealthNetRevenueNode',
   HealthNetEfficiencyNode: 'HealthNetEfficiencyNode',
-  HealthNetNetworkNode: 'HealthNetNetworkNode'
+  HealthNetNetworkNode: 'HealthNetNetworkNode',
+  SchedulerTrendNode: 'SchedulerTrendNode',
+  SchedulerRosterNode: 'SchedulerRosterNode',
+  SchedulerFacilityNode: 'SchedulerFacilityNode'
 };
 
 /**

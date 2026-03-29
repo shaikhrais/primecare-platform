@@ -918,6 +918,21 @@ export type HealthNetEfficiencyNode = $Result.DefaultSelection<Prisma.$HealthNet
  * 
  */
 export type HealthNetNetworkNode = $Result.DefaultSelection<Prisma.$HealthNetNetworkNodePayload>
+/**
+ * Model SchedulerTrendNode
+ * 
+ */
+export type SchedulerTrendNode = $Result.DefaultSelection<Prisma.$SchedulerTrendNodePayload>
+/**
+ * Model SchedulerRosterNode
+ * 
+ */
+export type SchedulerRosterNode = $Result.DefaultSelection<Prisma.$SchedulerRosterNodePayload>
+/**
+ * Model SchedulerFacilityNode
+ * 
+ */
+export type SchedulerFacilityNode = $Result.DefaultSelection<Prisma.$SchedulerFacilityNodePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2851,6 +2866,36 @@ export class PrismaClient<
     * ```
     */
   get healthNetNetworkNode(): Prisma.HealthNetNetworkNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.schedulerTrendNode`: Exposes CRUD operations for the **SchedulerTrendNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SchedulerTrendNodes
+    * const schedulerTrendNodes = await prisma.schedulerTrendNode.findMany()
+    * ```
+    */
+  get schedulerTrendNode(): Prisma.SchedulerTrendNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.schedulerRosterNode`: Exposes CRUD operations for the **SchedulerRosterNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SchedulerRosterNodes
+    * const schedulerRosterNodes = await prisma.schedulerRosterNode.findMany()
+    * ```
+    */
+  get schedulerRosterNode(): Prisma.SchedulerRosterNodeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.schedulerFacilityNode`: Exposes CRUD operations for the **SchedulerFacilityNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SchedulerFacilityNodes
+    * const schedulerFacilityNodes = await prisma.schedulerFacilityNode.findMany()
+    * ```
+    */
+  get schedulerFacilityNode(): Prisma.SchedulerFacilityNodeDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -3472,7 +3517,10 @@ export namespace Prisma {
     ClientDemographicNode: 'ClientDemographicNode',
     HealthNetRevenueNode: 'HealthNetRevenueNode',
     HealthNetEfficiencyNode: 'HealthNetEfficiencyNode',
-    HealthNetNetworkNode: 'HealthNetNetworkNode'
+    HealthNetNetworkNode: 'HealthNetNetworkNode',
+    SchedulerTrendNode: 'SchedulerTrendNode',
+    SchedulerRosterNode: 'SchedulerRosterNode',
+    SchedulerFacilityNode: 'SchedulerFacilityNode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -3488,7 +3536,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "pswShiftLog" | "adlCareLog" | "pswVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "clinic" | "patient" | "financialRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "patientIntake" | "intakeReferralMetric" | "jobOpening" | "jobCandidate" | "interviewEvent" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "curriculumNode" | "instructorNode" | "certificationNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode"
+      modelProps: "user" | "tenant" | "registry" | "apiKey" | "auditLog" | "systemEvent" | "lead" | "fAQ" | "userDevice" | "systemPolicy" | "responseBotAudit" | "systemTouchpoint" | "registryEntry" | "messageThread" | "message" | "platformRole" | "roleScreenAccess" | "crisisProtocol" | "protocolResolution" | "ecosystemStateOverride" | "userReputation" | "ecosystemAutopilotConfig" | "hospitalTarget" | "referralPipeline" | "supplyForecastMetrics" | "clientProfile" | "pswProfile" | "visit" | "service" | "visitCheckEvent" | "visitNote" | "visitChecklist" | "incident" | "dailyEntry" | "booking" | "pswAvailability" | "pswDocument" | "shiftAssignment" | "timesheet" | "timesheetItem" | "shiftHandover" | "availabilityOverride" | "visitMatch" | "waitlistEntry" | "staffTask" | "staffGroup" | "staffGroupMember" | "bookingRequest" | "fleetStatus" | "carePlan" | "clinicalRecord" | "clinicalAssessment" | "medicationRecon" | "supervisionLog" | "healthID" | "fhirSyncLog" | "vitalSign" | "patientAlert" | "medication" | "prescription" | "mAR_Entry" | "eVVRecord" | "serviceAuthorization" | "consentForm" | "dailyAuditSignOff" | "wellnessPulse" | "invoice" | "payment" | "insuranceProvider" | "claim" | "billingCode" | "payout" | "mileageLog" | "chartOfAccount" | "financialTransaction" | "journalEntry" | "financialReconciliation" | "bankTransaction" | "transactionLedger" | "blogPost" | "feedback" | "trainingModule" | "trainingAssignment" | "survey" | "surveyResponse" | "region" | "branchCapacity" | "branchStat" | "complianceRecord" | "franchise" | "resellerAgreement" | "supplier" | "inventoryItem" | "purchaseOrder" | "telehealthSession" | "marketplaceListing" | "tenantSLA" | "aIRecommendation" | "sentimentAnalysis" | "securityThreat" | "technicalAudit" | "familyNotification" | "careFeedback" | "referral" | "familyMember" | "performanceReview" | "webhookEndpoint" | "webhookDelivery" | "ioTEvent" | "appNotification" | "gamificationProfile" | "aIInference" | "communicationLog" | "dailyActivity" | "platformScreen" | "screenFunctionality" | "pswShiftLog" | "adlCareLog" | "pswVitalSign" | "behaviorNote" | "nutritionRecord" | "mobilityLog" | "infectionControlChecklist" | "narrativeProgressNote" | "carePlanFollowUp" | "clinic" | "patient" | "financialRecord" | "familyAppointment" | "familyCarePlanTask" | "familyClinicalMessage" | "patientIntake" | "intakeReferralMetric" | "jobOpening" | "jobCandidate" | "interviewEvent" | "invoiceRecord" | "insuranceClaim" | "financialGoal" | "facilityNode" | "staffUtilization" | "opsIssueTicket" | "incidentReportNode" | "auditLogNode" | "patientSatisfactionNode" | "salesDealNode" | "keyAccountNode" | "repPerformanceNode" | "marketingCampaignNode" | "localGrowthNode" | "contentAssetNode" | "patientAdmissionNode" | "clinicalShiftNode" | "medicalAuditNode" | "supportTicketNode" | "patientFeedbackNode" | "systemTelemetryNode" | "curriculumNode" | "instructorNode" | "certificationNode" | "franchiseRevenueNode" | "clinicPerformanceNode" | "franchiseBookingNode" | "outreachEventNode" | "participantMetricNode" | "outreachBudgetNode" | "localNetworkNode" | "localFinanceNode" | "localActivityNode" | "localMarketingAnalyticNode" | "localCampaignNode" | "localContentNode" | "supportAgentNode" | "ticketVolumeNode" | "resolutionFeedbackNode" | "clientTrendNode" | "clientClinicNode" | "clientDemographicNode" | "healthNetRevenueNode" | "healthNetEfficiencyNode" | "healthNetNetworkNode" | "schedulerTrendNode" | "schedulerRosterNode" | "schedulerFacilityNode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -16159,6 +16207,216 @@ export namespace Prisma {
           count: {
             args: Prisma.HealthNetNetworkNodeCountArgs<ExtArgs>
             result: $Utils.Optional<HealthNetNetworkNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SchedulerTrendNode: {
+        payload: Prisma.$SchedulerTrendNodePayload<ExtArgs>
+        fields: Prisma.SchedulerTrendNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SchedulerTrendNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SchedulerTrendNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          findFirst: {
+            args: Prisma.SchedulerTrendNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SchedulerTrendNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          findMany: {
+            args: Prisma.SchedulerTrendNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>[]
+          }
+          create: {
+            args: Prisma.SchedulerTrendNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          createMany: {
+            args: Prisma.SchedulerTrendNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SchedulerTrendNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>[]
+          }
+          delete: {
+            args: Prisma.SchedulerTrendNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          update: {
+            args: Prisma.SchedulerTrendNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.SchedulerTrendNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SchedulerTrendNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SchedulerTrendNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerTrendNodePayload>
+          }
+          aggregate: {
+            args: Prisma.SchedulerTrendNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSchedulerTrendNode>
+          }
+          groupBy: {
+            args: Prisma.SchedulerTrendNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerTrendNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SchedulerTrendNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerTrendNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SchedulerRosterNode: {
+        payload: Prisma.$SchedulerRosterNodePayload<ExtArgs>
+        fields: Prisma.SchedulerRosterNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SchedulerRosterNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SchedulerRosterNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          findFirst: {
+            args: Prisma.SchedulerRosterNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SchedulerRosterNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          findMany: {
+            args: Prisma.SchedulerRosterNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>[]
+          }
+          create: {
+            args: Prisma.SchedulerRosterNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          createMany: {
+            args: Prisma.SchedulerRosterNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SchedulerRosterNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>[]
+          }
+          delete: {
+            args: Prisma.SchedulerRosterNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          update: {
+            args: Prisma.SchedulerRosterNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.SchedulerRosterNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SchedulerRosterNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SchedulerRosterNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerRosterNodePayload>
+          }
+          aggregate: {
+            args: Prisma.SchedulerRosterNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSchedulerRosterNode>
+          }
+          groupBy: {
+            args: Prisma.SchedulerRosterNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerRosterNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SchedulerRosterNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerRosterNodeCountAggregateOutputType> | number
+          }
+        }
+      }
+      SchedulerFacilityNode: {
+        payload: Prisma.$SchedulerFacilityNodePayload<ExtArgs>
+        fields: Prisma.SchedulerFacilityNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SchedulerFacilityNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SchedulerFacilityNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          findFirst: {
+            args: Prisma.SchedulerFacilityNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SchedulerFacilityNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          findMany: {
+            args: Prisma.SchedulerFacilityNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>[]
+          }
+          create: {
+            args: Prisma.SchedulerFacilityNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          createMany: {
+            args: Prisma.SchedulerFacilityNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SchedulerFacilityNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>[]
+          }
+          delete: {
+            args: Prisma.SchedulerFacilityNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          update: {
+            args: Prisma.SchedulerFacilityNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.SchedulerFacilityNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SchedulerFacilityNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SchedulerFacilityNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulerFacilityNodePayload>
+          }
+          aggregate: {
+            args: Prisma.SchedulerFacilityNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSchedulerFacilityNode>
+          }
+          groupBy: {
+            args: Prisma.SchedulerFacilityNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerFacilityNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SchedulerFacilityNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<SchedulerFacilityNodeCountAggregateOutputType> | number
           }
         }
       }
@@ -203807,6 +204065,2780 @@ export namespace Prisma {
 
 
   /**
+   * Model SchedulerTrendNode
+   */
+
+  export type AggregateSchedulerTrendNode = {
+    _count: SchedulerTrendNodeCountAggregateOutputType | null
+    _avg: SchedulerTrendNodeAvgAggregateOutputType | null
+    _sum: SchedulerTrendNodeSumAggregateOutputType | null
+    _min: SchedulerTrendNodeMinAggregateOutputType | null
+    _max: SchedulerTrendNodeMaxAggregateOutputType | null
+  }
+
+  export type SchedulerTrendNodeAvgAggregateOutputType = {
+    apptCount: number | null
+  }
+
+  export type SchedulerTrendNodeSumAggregateOutputType = {
+    apptCount: number | null
+  }
+
+  export type SchedulerTrendNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    dayLabel: string | null
+    apptCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerTrendNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    dayLabel: string | null
+    apptCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerTrendNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    dayLabel: number
+    apptCount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SchedulerTrendNodeAvgAggregateInputType = {
+    apptCount?: true
+  }
+
+  export type SchedulerTrendNodeSumAggregateInputType = {
+    apptCount?: true
+  }
+
+  export type SchedulerTrendNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    dayLabel?: true
+    apptCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerTrendNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    dayLabel?: true
+    apptCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerTrendNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    dayLabel?: true
+    apptCount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SchedulerTrendNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerTrendNode to aggregate.
+     */
+    where?: SchedulerTrendNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerTrendNodes to fetch.
+     */
+    orderBy?: SchedulerTrendNodeOrderByWithRelationInput | SchedulerTrendNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SchedulerTrendNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerTrendNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerTrendNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SchedulerTrendNodes
+    **/
+    _count?: true | SchedulerTrendNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SchedulerTrendNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SchedulerTrendNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SchedulerTrendNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SchedulerTrendNodeMaxAggregateInputType
+  }
+
+  export type GetSchedulerTrendNodeAggregateType<T extends SchedulerTrendNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSchedulerTrendNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSchedulerTrendNode[P]>
+      : GetScalarType<T[P], AggregateSchedulerTrendNode[P]>
+  }
+
+
+
+
+  export type SchedulerTrendNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SchedulerTrendNodeWhereInput
+    orderBy?: SchedulerTrendNodeOrderByWithAggregationInput | SchedulerTrendNodeOrderByWithAggregationInput[]
+    by: SchedulerTrendNodeScalarFieldEnum[] | SchedulerTrendNodeScalarFieldEnum
+    having?: SchedulerTrendNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SchedulerTrendNodeCountAggregateInputType | true
+    _avg?: SchedulerTrendNodeAvgAggregateInputType
+    _sum?: SchedulerTrendNodeSumAggregateInputType
+    _min?: SchedulerTrendNodeMinAggregateInputType
+    _max?: SchedulerTrendNodeMaxAggregateInputType
+  }
+
+  export type SchedulerTrendNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    dayLabel: string
+    apptCount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: SchedulerTrendNodeCountAggregateOutputType | null
+    _avg: SchedulerTrendNodeAvgAggregateOutputType | null
+    _sum: SchedulerTrendNodeSumAggregateOutputType | null
+    _min: SchedulerTrendNodeMinAggregateOutputType | null
+    _max: SchedulerTrendNodeMaxAggregateOutputType | null
+  }
+
+  type GetSchedulerTrendNodeGroupByPayload<T extends SchedulerTrendNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SchedulerTrendNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SchedulerTrendNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SchedulerTrendNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], SchedulerTrendNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SchedulerTrendNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    dayLabel?: boolean
+    apptCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerTrendNode"]>
+
+  export type SchedulerTrendNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    dayLabel?: boolean
+    apptCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerTrendNode"]>
+
+  export type SchedulerTrendNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    dayLabel?: boolean
+    apptCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SchedulerTrendNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SchedulerTrendNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      dayLabel: string
+      apptCount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["schedulerTrendNode"]>
+    composites: {}
+  }
+
+  type SchedulerTrendNodeGetPayload<S extends boolean | null | undefined | SchedulerTrendNodeDefaultArgs> = $Result.GetResult<Prisma.$SchedulerTrendNodePayload, S>
+
+  type SchedulerTrendNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SchedulerTrendNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SchedulerTrendNodeCountAggregateInputType | true
+    }
+
+  export interface SchedulerTrendNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SchedulerTrendNode'], meta: { name: 'SchedulerTrendNode' } }
+    /**
+     * Find zero or one SchedulerTrendNode that matches the filter.
+     * @param {SchedulerTrendNodeFindUniqueArgs} args - Arguments to find a SchedulerTrendNode
+     * @example
+     * // Get one SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SchedulerTrendNodeFindUniqueArgs>(args: SelectSubset<T, SchedulerTrendNodeFindUniqueArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SchedulerTrendNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SchedulerTrendNodeFindUniqueOrThrowArgs} args - Arguments to find a SchedulerTrendNode
+     * @example
+     * // Get one SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SchedulerTrendNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, SchedulerTrendNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SchedulerTrendNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeFindFirstArgs} args - Arguments to find a SchedulerTrendNode
+     * @example
+     * // Get one SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SchedulerTrendNodeFindFirstArgs>(args?: SelectSubset<T, SchedulerTrendNodeFindFirstArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SchedulerTrendNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeFindFirstOrThrowArgs} args - Arguments to find a SchedulerTrendNode
+     * @example
+     * // Get one SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SchedulerTrendNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, SchedulerTrendNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SchedulerTrendNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SchedulerTrendNodes
+     * const schedulerTrendNodes = await prisma.schedulerTrendNode.findMany()
+     * 
+     * // Get first 10 SchedulerTrendNodes
+     * const schedulerTrendNodes = await prisma.schedulerTrendNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const schedulerTrendNodeWithIdOnly = await prisma.schedulerTrendNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SchedulerTrendNodeFindManyArgs>(args?: SelectSubset<T, SchedulerTrendNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SchedulerTrendNode.
+     * @param {SchedulerTrendNodeCreateArgs} args - Arguments to create a SchedulerTrendNode.
+     * @example
+     * // Create one SchedulerTrendNode
+     * const SchedulerTrendNode = await prisma.schedulerTrendNode.create({
+     *   data: {
+     *     // ... data to create a SchedulerTrendNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends SchedulerTrendNodeCreateArgs>(args: SelectSubset<T, SchedulerTrendNodeCreateArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SchedulerTrendNodes.
+     * @param {SchedulerTrendNodeCreateManyArgs} args - Arguments to create many SchedulerTrendNodes.
+     * @example
+     * // Create many SchedulerTrendNodes
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SchedulerTrendNodeCreateManyArgs>(args?: SelectSubset<T, SchedulerTrendNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SchedulerTrendNodes and returns the data saved in the database.
+     * @param {SchedulerTrendNodeCreateManyAndReturnArgs} args - Arguments to create many SchedulerTrendNodes.
+     * @example
+     * // Create many SchedulerTrendNodes
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SchedulerTrendNodes and only return the `id`
+     * const schedulerTrendNodeWithIdOnly = await prisma.schedulerTrendNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SchedulerTrendNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, SchedulerTrendNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SchedulerTrendNode.
+     * @param {SchedulerTrendNodeDeleteArgs} args - Arguments to delete one SchedulerTrendNode.
+     * @example
+     * // Delete one SchedulerTrendNode
+     * const SchedulerTrendNode = await prisma.schedulerTrendNode.delete({
+     *   where: {
+     *     // ... filter to delete one SchedulerTrendNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SchedulerTrendNodeDeleteArgs>(args: SelectSubset<T, SchedulerTrendNodeDeleteArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SchedulerTrendNode.
+     * @param {SchedulerTrendNodeUpdateArgs} args - Arguments to update one SchedulerTrendNode.
+     * @example
+     * // Update one SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SchedulerTrendNodeUpdateArgs>(args: SelectSubset<T, SchedulerTrendNodeUpdateArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SchedulerTrendNodes.
+     * @param {SchedulerTrendNodeDeleteManyArgs} args - Arguments to filter SchedulerTrendNodes to delete.
+     * @example
+     * // Delete a few SchedulerTrendNodes
+     * const { count } = await prisma.schedulerTrendNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SchedulerTrendNodeDeleteManyArgs>(args?: SelectSubset<T, SchedulerTrendNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SchedulerTrendNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SchedulerTrendNodes
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SchedulerTrendNodeUpdateManyArgs>(args: SelectSubset<T, SchedulerTrendNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SchedulerTrendNode.
+     * @param {SchedulerTrendNodeUpsertArgs} args - Arguments to update or create a SchedulerTrendNode.
+     * @example
+     * // Update or create a SchedulerTrendNode
+     * const schedulerTrendNode = await prisma.schedulerTrendNode.upsert({
+     *   create: {
+     *     // ... data to create a SchedulerTrendNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SchedulerTrendNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SchedulerTrendNodeUpsertArgs>(args: SelectSubset<T, SchedulerTrendNodeUpsertArgs<ExtArgs>>): Prisma__SchedulerTrendNodeClient<$Result.GetResult<Prisma.$SchedulerTrendNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SchedulerTrendNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeCountArgs} args - Arguments to filter SchedulerTrendNodes to count.
+     * @example
+     * // Count the number of SchedulerTrendNodes
+     * const count = await prisma.schedulerTrendNode.count({
+     *   where: {
+     *     // ... the filter for the SchedulerTrendNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SchedulerTrendNodeCountArgs>(
+      args?: Subset<T, SchedulerTrendNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SchedulerTrendNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SchedulerTrendNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SchedulerTrendNodeAggregateArgs>(args: Subset<T, SchedulerTrendNodeAggregateArgs>): Prisma.PrismaPromise<GetSchedulerTrendNodeAggregateType<T>>
+
+    /**
+     * Group by SchedulerTrendNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerTrendNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SchedulerTrendNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SchedulerTrendNodeGroupByArgs['orderBy'] }
+        : { orderBy?: SchedulerTrendNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SchedulerTrendNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSchedulerTrendNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SchedulerTrendNode model
+   */
+  readonly fields: SchedulerTrendNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SchedulerTrendNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SchedulerTrendNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SchedulerTrendNode model
+   */ 
+  interface SchedulerTrendNodeFieldRefs {
+    readonly id: FieldRef<"SchedulerTrendNode", 'String'>
+    readonly tenantId: FieldRef<"SchedulerTrendNode", 'String'>
+    readonly dayLabel: FieldRef<"SchedulerTrendNode", 'String'>
+    readonly apptCount: FieldRef<"SchedulerTrendNode", 'Int'>
+    readonly createdAt: FieldRef<"SchedulerTrendNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"SchedulerTrendNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SchedulerTrendNode findUnique
+   */
+  export type SchedulerTrendNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerTrendNode to fetch.
+     */
+    where: SchedulerTrendNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerTrendNode findUniqueOrThrow
+   */
+  export type SchedulerTrendNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerTrendNode to fetch.
+     */
+    where: SchedulerTrendNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerTrendNode findFirst
+   */
+  export type SchedulerTrendNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerTrendNode to fetch.
+     */
+    where?: SchedulerTrendNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerTrendNodes to fetch.
+     */
+    orderBy?: SchedulerTrendNodeOrderByWithRelationInput | SchedulerTrendNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerTrendNodes.
+     */
+    cursor?: SchedulerTrendNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerTrendNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerTrendNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerTrendNodes.
+     */
+    distinct?: SchedulerTrendNodeScalarFieldEnum | SchedulerTrendNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerTrendNode findFirstOrThrow
+   */
+  export type SchedulerTrendNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerTrendNode to fetch.
+     */
+    where?: SchedulerTrendNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerTrendNodes to fetch.
+     */
+    orderBy?: SchedulerTrendNodeOrderByWithRelationInput | SchedulerTrendNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerTrendNodes.
+     */
+    cursor?: SchedulerTrendNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerTrendNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerTrendNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerTrendNodes.
+     */
+    distinct?: SchedulerTrendNodeScalarFieldEnum | SchedulerTrendNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerTrendNode findMany
+   */
+  export type SchedulerTrendNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerTrendNodes to fetch.
+     */
+    where?: SchedulerTrendNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerTrendNodes to fetch.
+     */
+    orderBy?: SchedulerTrendNodeOrderByWithRelationInput | SchedulerTrendNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SchedulerTrendNodes.
+     */
+    cursor?: SchedulerTrendNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerTrendNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerTrendNodes.
+     */
+    skip?: number
+    distinct?: SchedulerTrendNodeScalarFieldEnum | SchedulerTrendNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerTrendNode create
+   */
+  export type SchedulerTrendNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SchedulerTrendNode.
+     */
+    data: XOR<SchedulerTrendNodeCreateInput, SchedulerTrendNodeUncheckedCreateInput>
+  }
+
+  /**
+   * SchedulerTrendNode createMany
+   */
+  export type SchedulerTrendNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SchedulerTrendNodes.
+     */
+    data: SchedulerTrendNodeCreateManyInput | SchedulerTrendNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerTrendNode createManyAndReturn
+   */
+  export type SchedulerTrendNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SchedulerTrendNodes.
+     */
+    data: SchedulerTrendNodeCreateManyInput | SchedulerTrendNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerTrendNode update
+   */
+  export type SchedulerTrendNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SchedulerTrendNode.
+     */
+    data: XOR<SchedulerTrendNodeUpdateInput, SchedulerTrendNodeUncheckedUpdateInput>
+    /**
+     * Choose, which SchedulerTrendNode to update.
+     */
+    where: SchedulerTrendNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerTrendNode updateMany
+   */
+  export type SchedulerTrendNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SchedulerTrendNodes.
+     */
+    data: XOR<SchedulerTrendNodeUpdateManyMutationInput, SchedulerTrendNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which SchedulerTrendNodes to update
+     */
+    where?: SchedulerTrendNodeWhereInput
+  }
+
+  /**
+   * SchedulerTrendNode upsert
+   */
+  export type SchedulerTrendNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SchedulerTrendNode to update in case it exists.
+     */
+    where: SchedulerTrendNodeWhereUniqueInput
+    /**
+     * In case the SchedulerTrendNode found by the `where` argument doesn't exist, create a new SchedulerTrendNode with this data.
+     */
+    create: XOR<SchedulerTrendNodeCreateInput, SchedulerTrendNodeUncheckedCreateInput>
+    /**
+     * In case the SchedulerTrendNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SchedulerTrendNodeUpdateInput, SchedulerTrendNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * SchedulerTrendNode delete
+   */
+  export type SchedulerTrendNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+    /**
+     * Filter which SchedulerTrendNode to delete.
+     */
+    where: SchedulerTrendNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerTrendNode deleteMany
+   */
+  export type SchedulerTrendNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerTrendNodes to delete
+     */
+    where?: SchedulerTrendNodeWhereInput
+  }
+
+  /**
+   * SchedulerTrendNode without action
+   */
+  export type SchedulerTrendNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerTrendNode
+     */
+    select?: SchedulerTrendNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SchedulerRosterNode
+   */
+
+  export type AggregateSchedulerRosterNode = {
+    _count: SchedulerRosterNodeCountAggregateOutputType | null
+    _min: SchedulerRosterNodeMinAggregateOutputType | null
+    _max: SchedulerRosterNodeMaxAggregateOutputType | null
+  }
+
+  export type SchedulerRosterNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    providerName: string | null
+    specialty: string | null
+    shiftTime: string | null
+    isAvailable: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerRosterNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    providerName: string | null
+    specialty: string | null
+    shiftTime: string | null
+    isAvailable: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerRosterNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    providerName: number
+    specialty: number
+    shiftTime: number
+    isAvailable: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SchedulerRosterNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    providerName?: true
+    specialty?: true
+    shiftTime?: true
+    isAvailable?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerRosterNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    providerName?: true
+    specialty?: true
+    shiftTime?: true
+    isAvailable?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerRosterNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    providerName?: true
+    specialty?: true
+    shiftTime?: true
+    isAvailable?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SchedulerRosterNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerRosterNode to aggregate.
+     */
+    where?: SchedulerRosterNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerRosterNodes to fetch.
+     */
+    orderBy?: SchedulerRosterNodeOrderByWithRelationInput | SchedulerRosterNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SchedulerRosterNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerRosterNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerRosterNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SchedulerRosterNodes
+    **/
+    _count?: true | SchedulerRosterNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SchedulerRosterNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SchedulerRosterNodeMaxAggregateInputType
+  }
+
+  export type GetSchedulerRosterNodeAggregateType<T extends SchedulerRosterNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSchedulerRosterNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSchedulerRosterNode[P]>
+      : GetScalarType<T[P], AggregateSchedulerRosterNode[P]>
+  }
+
+
+
+
+  export type SchedulerRosterNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SchedulerRosterNodeWhereInput
+    orderBy?: SchedulerRosterNodeOrderByWithAggregationInput | SchedulerRosterNodeOrderByWithAggregationInput[]
+    by: SchedulerRosterNodeScalarFieldEnum[] | SchedulerRosterNodeScalarFieldEnum
+    having?: SchedulerRosterNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SchedulerRosterNodeCountAggregateInputType | true
+    _min?: SchedulerRosterNodeMinAggregateInputType
+    _max?: SchedulerRosterNodeMaxAggregateInputType
+  }
+
+  export type SchedulerRosterNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    providerName: string
+    specialty: string
+    shiftTime: string
+    isAvailable: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SchedulerRosterNodeCountAggregateOutputType | null
+    _min: SchedulerRosterNodeMinAggregateOutputType | null
+    _max: SchedulerRosterNodeMaxAggregateOutputType | null
+  }
+
+  type GetSchedulerRosterNodeGroupByPayload<T extends SchedulerRosterNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SchedulerRosterNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SchedulerRosterNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SchedulerRosterNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], SchedulerRosterNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SchedulerRosterNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    providerName?: boolean
+    specialty?: boolean
+    shiftTime?: boolean
+    isAvailable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerRosterNode"]>
+
+  export type SchedulerRosterNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    providerName?: boolean
+    specialty?: boolean
+    shiftTime?: boolean
+    isAvailable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerRosterNode"]>
+
+  export type SchedulerRosterNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    providerName?: boolean
+    specialty?: boolean
+    shiftTime?: boolean
+    isAvailable?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SchedulerRosterNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SchedulerRosterNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      providerName: string
+      specialty: string
+      shiftTime: string
+      isAvailable: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["schedulerRosterNode"]>
+    composites: {}
+  }
+
+  type SchedulerRosterNodeGetPayload<S extends boolean | null | undefined | SchedulerRosterNodeDefaultArgs> = $Result.GetResult<Prisma.$SchedulerRosterNodePayload, S>
+
+  type SchedulerRosterNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SchedulerRosterNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SchedulerRosterNodeCountAggregateInputType | true
+    }
+
+  export interface SchedulerRosterNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SchedulerRosterNode'], meta: { name: 'SchedulerRosterNode' } }
+    /**
+     * Find zero or one SchedulerRosterNode that matches the filter.
+     * @param {SchedulerRosterNodeFindUniqueArgs} args - Arguments to find a SchedulerRosterNode
+     * @example
+     * // Get one SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SchedulerRosterNodeFindUniqueArgs>(args: SelectSubset<T, SchedulerRosterNodeFindUniqueArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SchedulerRosterNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SchedulerRosterNodeFindUniqueOrThrowArgs} args - Arguments to find a SchedulerRosterNode
+     * @example
+     * // Get one SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SchedulerRosterNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, SchedulerRosterNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SchedulerRosterNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeFindFirstArgs} args - Arguments to find a SchedulerRosterNode
+     * @example
+     * // Get one SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SchedulerRosterNodeFindFirstArgs>(args?: SelectSubset<T, SchedulerRosterNodeFindFirstArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SchedulerRosterNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeFindFirstOrThrowArgs} args - Arguments to find a SchedulerRosterNode
+     * @example
+     * // Get one SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SchedulerRosterNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, SchedulerRosterNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SchedulerRosterNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SchedulerRosterNodes
+     * const schedulerRosterNodes = await prisma.schedulerRosterNode.findMany()
+     * 
+     * // Get first 10 SchedulerRosterNodes
+     * const schedulerRosterNodes = await prisma.schedulerRosterNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const schedulerRosterNodeWithIdOnly = await prisma.schedulerRosterNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SchedulerRosterNodeFindManyArgs>(args?: SelectSubset<T, SchedulerRosterNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SchedulerRosterNode.
+     * @param {SchedulerRosterNodeCreateArgs} args - Arguments to create a SchedulerRosterNode.
+     * @example
+     * // Create one SchedulerRosterNode
+     * const SchedulerRosterNode = await prisma.schedulerRosterNode.create({
+     *   data: {
+     *     // ... data to create a SchedulerRosterNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends SchedulerRosterNodeCreateArgs>(args: SelectSubset<T, SchedulerRosterNodeCreateArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SchedulerRosterNodes.
+     * @param {SchedulerRosterNodeCreateManyArgs} args - Arguments to create many SchedulerRosterNodes.
+     * @example
+     * // Create many SchedulerRosterNodes
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SchedulerRosterNodeCreateManyArgs>(args?: SelectSubset<T, SchedulerRosterNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SchedulerRosterNodes and returns the data saved in the database.
+     * @param {SchedulerRosterNodeCreateManyAndReturnArgs} args - Arguments to create many SchedulerRosterNodes.
+     * @example
+     * // Create many SchedulerRosterNodes
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SchedulerRosterNodes and only return the `id`
+     * const schedulerRosterNodeWithIdOnly = await prisma.schedulerRosterNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SchedulerRosterNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, SchedulerRosterNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SchedulerRosterNode.
+     * @param {SchedulerRosterNodeDeleteArgs} args - Arguments to delete one SchedulerRosterNode.
+     * @example
+     * // Delete one SchedulerRosterNode
+     * const SchedulerRosterNode = await prisma.schedulerRosterNode.delete({
+     *   where: {
+     *     // ... filter to delete one SchedulerRosterNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SchedulerRosterNodeDeleteArgs>(args: SelectSubset<T, SchedulerRosterNodeDeleteArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SchedulerRosterNode.
+     * @param {SchedulerRosterNodeUpdateArgs} args - Arguments to update one SchedulerRosterNode.
+     * @example
+     * // Update one SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SchedulerRosterNodeUpdateArgs>(args: SelectSubset<T, SchedulerRosterNodeUpdateArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SchedulerRosterNodes.
+     * @param {SchedulerRosterNodeDeleteManyArgs} args - Arguments to filter SchedulerRosterNodes to delete.
+     * @example
+     * // Delete a few SchedulerRosterNodes
+     * const { count } = await prisma.schedulerRosterNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SchedulerRosterNodeDeleteManyArgs>(args?: SelectSubset<T, SchedulerRosterNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SchedulerRosterNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SchedulerRosterNodes
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SchedulerRosterNodeUpdateManyArgs>(args: SelectSubset<T, SchedulerRosterNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SchedulerRosterNode.
+     * @param {SchedulerRosterNodeUpsertArgs} args - Arguments to update or create a SchedulerRosterNode.
+     * @example
+     * // Update or create a SchedulerRosterNode
+     * const schedulerRosterNode = await prisma.schedulerRosterNode.upsert({
+     *   create: {
+     *     // ... data to create a SchedulerRosterNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SchedulerRosterNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SchedulerRosterNodeUpsertArgs>(args: SelectSubset<T, SchedulerRosterNodeUpsertArgs<ExtArgs>>): Prisma__SchedulerRosterNodeClient<$Result.GetResult<Prisma.$SchedulerRosterNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SchedulerRosterNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeCountArgs} args - Arguments to filter SchedulerRosterNodes to count.
+     * @example
+     * // Count the number of SchedulerRosterNodes
+     * const count = await prisma.schedulerRosterNode.count({
+     *   where: {
+     *     // ... the filter for the SchedulerRosterNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SchedulerRosterNodeCountArgs>(
+      args?: Subset<T, SchedulerRosterNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SchedulerRosterNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SchedulerRosterNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SchedulerRosterNodeAggregateArgs>(args: Subset<T, SchedulerRosterNodeAggregateArgs>): Prisma.PrismaPromise<GetSchedulerRosterNodeAggregateType<T>>
+
+    /**
+     * Group by SchedulerRosterNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerRosterNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SchedulerRosterNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SchedulerRosterNodeGroupByArgs['orderBy'] }
+        : { orderBy?: SchedulerRosterNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SchedulerRosterNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSchedulerRosterNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SchedulerRosterNode model
+   */
+  readonly fields: SchedulerRosterNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SchedulerRosterNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SchedulerRosterNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SchedulerRosterNode model
+   */ 
+  interface SchedulerRosterNodeFieldRefs {
+    readonly id: FieldRef<"SchedulerRosterNode", 'String'>
+    readonly tenantId: FieldRef<"SchedulerRosterNode", 'String'>
+    readonly providerName: FieldRef<"SchedulerRosterNode", 'String'>
+    readonly specialty: FieldRef<"SchedulerRosterNode", 'String'>
+    readonly shiftTime: FieldRef<"SchedulerRosterNode", 'String'>
+    readonly isAvailable: FieldRef<"SchedulerRosterNode", 'Boolean'>
+    readonly createdAt: FieldRef<"SchedulerRosterNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"SchedulerRosterNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SchedulerRosterNode findUnique
+   */
+  export type SchedulerRosterNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerRosterNode to fetch.
+     */
+    where: SchedulerRosterNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerRosterNode findUniqueOrThrow
+   */
+  export type SchedulerRosterNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerRosterNode to fetch.
+     */
+    where: SchedulerRosterNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerRosterNode findFirst
+   */
+  export type SchedulerRosterNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerRosterNode to fetch.
+     */
+    where?: SchedulerRosterNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerRosterNodes to fetch.
+     */
+    orderBy?: SchedulerRosterNodeOrderByWithRelationInput | SchedulerRosterNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerRosterNodes.
+     */
+    cursor?: SchedulerRosterNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerRosterNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerRosterNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerRosterNodes.
+     */
+    distinct?: SchedulerRosterNodeScalarFieldEnum | SchedulerRosterNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerRosterNode findFirstOrThrow
+   */
+  export type SchedulerRosterNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerRosterNode to fetch.
+     */
+    where?: SchedulerRosterNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerRosterNodes to fetch.
+     */
+    orderBy?: SchedulerRosterNodeOrderByWithRelationInput | SchedulerRosterNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerRosterNodes.
+     */
+    cursor?: SchedulerRosterNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerRosterNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerRosterNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerRosterNodes.
+     */
+    distinct?: SchedulerRosterNodeScalarFieldEnum | SchedulerRosterNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerRosterNode findMany
+   */
+  export type SchedulerRosterNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerRosterNodes to fetch.
+     */
+    where?: SchedulerRosterNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerRosterNodes to fetch.
+     */
+    orderBy?: SchedulerRosterNodeOrderByWithRelationInput | SchedulerRosterNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SchedulerRosterNodes.
+     */
+    cursor?: SchedulerRosterNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerRosterNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerRosterNodes.
+     */
+    skip?: number
+    distinct?: SchedulerRosterNodeScalarFieldEnum | SchedulerRosterNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerRosterNode create
+   */
+  export type SchedulerRosterNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SchedulerRosterNode.
+     */
+    data: XOR<SchedulerRosterNodeCreateInput, SchedulerRosterNodeUncheckedCreateInput>
+  }
+
+  /**
+   * SchedulerRosterNode createMany
+   */
+  export type SchedulerRosterNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SchedulerRosterNodes.
+     */
+    data: SchedulerRosterNodeCreateManyInput | SchedulerRosterNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerRosterNode createManyAndReturn
+   */
+  export type SchedulerRosterNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SchedulerRosterNodes.
+     */
+    data: SchedulerRosterNodeCreateManyInput | SchedulerRosterNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerRosterNode update
+   */
+  export type SchedulerRosterNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SchedulerRosterNode.
+     */
+    data: XOR<SchedulerRosterNodeUpdateInput, SchedulerRosterNodeUncheckedUpdateInput>
+    /**
+     * Choose, which SchedulerRosterNode to update.
+     */
+    where: SchedulerRosterNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerRosterNode updateMany
+   */
+  export type SchedulerRosterNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SchedulerRosterNodes.
+     */
+    data: XOR<SchedulerRosterNodeUpdateManyMutationInput, SchedulerRosterNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which SchedulerRosterNodes to update
+     */
+    where?: SchedulerRosterNodeWhereInput
+  }
+
+  /**
+   * SchedulerRosterNode upsert
+   */
+  export type SchedulerRosterNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SchedulerRosterNode to update in case it exists.
+     */
+    where: SchedulerRosterNodeWhereUniqueInput
+    /**
+     * In case the SchedulerRosterNode found by the `where` argument doesn't exist, create a new SchedulerRosterNode with this data.
+     */
+    create: XOR<SchedulerRosterNodeCreateInput, SchedulerRosterNodeUncheckedCreateInput>
+    /**
+     * In case the SchedulerRosterNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SchedulerRosterNodeUpdateInput, SchedulerRosterNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * SchedulerRosterNode delete
+   */
+  export type SchedulerRosterNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+    /**
+     * Filter which SchedulerRosterNode to delete.
+     */
+    where: SchedulerRosterNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerRosterNode deleteMany
+   */
+  export type SchedulerRosterNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerRosterNodes to delete
+     */
+    where?: SchedulerRosterNodeWhereInput
+  }
+
+  /**
+   * SchedulerRosterNode without action
+   */
+  export type SchedulerRosterNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerRosterNode
+     */
+    select?: SchedulerRosterNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SchedulerFacilityNode
+   */
+
+  export type AggregateSchedulerFacilityNode = {
+    _count: SchedulerFacilityNodeCountAggregateOutputType | null
+    _avg: SchedulerFacilityNodeAvgAggregateOutputType | null
+    _sum: SchedulerFacilityNodeSumAggregateOutputType | null
+    _min: SchedulerFacilityNodeMinAggregateOutputType | null
+    _max: SchedulerFacilityNodeMaxAggregateOutputType | null
+  }
+
+  export type SchedulerFacilityNodeAvgAggregateOutputType = {
+    occupancyRate: number | null
+  }
+
+  export type SchedulerFacilityNodeSumAggregateOutputType = {
+    occupancyRate: number | null
+  }
+
+  export type SchedulerFacilityNodeMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    facilityName: string | null
+    occupancyRate: number | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerFacilityNodeMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    facilityName: string | null
+    occupancyRate: number | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SchedulerFacilityNodeCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    facilityName: number
+    occupancyRate: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SchedulerFacilityNodeAvgAggregateInputType = {
+    occupancyRate?: true
+  }
+
+  export type SchedulerFacilityNodeSumAggregateInputType = {
+    occupancyRate?: true
+  }
+
+  export type SchedulerFacilityNodeMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    facilityName?: true
+    occupancyRate?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerFacilityNodeMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    facilityName?: true
+    occupancyRate?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SchedulerFacilityNodeCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    facilityName?: true
+    occupancyRate?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SchedulerFacilityNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerFacilityNode to aggregate.
+     */
+    where?: SchedulerFacilityNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerFacilityNodes to fetch.
+     */
+    orderBy?: SchedulerFacilityNodeOrderByWithRelationInput | SchedulerFacilityNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SchedulerFacilityNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerFacilityNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerFacilityNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SchedulerFacilityNodes
+    **/
+    _count?: true | SchedulerFacilityNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SchedulerFacilityNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SchedulerFacilityNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SchedulerFacilityNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SchedulerFacilityNodeMaxAggregateInputType
+  }
+
+  export type GetSchedulerFacilityNodeAggregateType<T extends SchedulerFacilityNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSchedulerFacilityNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSchedulerFacilityNode[P]>
+      : GetScalarType<T[P], AggregateSchedulerFacilityNode[P]>
+  }
+
+
+
+
+  export type SchedulerFacilityNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SchedulerFacilityNodeWhereInput
+    orderBy?: SchedulerFacilityNodeOrderByWithAggregationInput | SchedulerFacilityNodeOrderByWithAggregationInput[]
+    by: SchedulerFacilityNodeScalarFieldEnum[] | SchedulerFacilityNodeScalarFieldEnum
+    having?: SchedulerFacilityNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SchedulerFacilityNodeCountAggregateInputType | true
+    _avg?: SchedulerFacilityNodeAvgAggregateInputType
+    _sum?: SchedulerFacilityNodeSumAggregateInputType
+    _min?: SchedulerFacilityNodeMinAggregateInputType
+    _max?: SchedulerFacilityNodeMaxAggregateInputType
+  }
+
+  export type SchedulerFacilityNodeGroupByOutputType = {
+    id: string
+    tenantId: string
+    facilityName: string
+    occupancyRate: number
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SchedulerFacilityNodeCountAggregateOutputType | null
+    _avg: SchedulerFacilityNodeAvgAggregateOutputType | null
+    _sum: SchedulerFacilityNodeSumAggregateOutputType | null
+    _min: SchedulerFacilityNodeMinAggregateOutputType | null
+    _max: SchedulerFacilityNodeMaxAggregateOutputType | null
+  }
+
+  type GetSchedulerFacilityNodeGroupByPayload<T extends SchedulerFacilityNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SchedulerFacilityNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SchedulerFacilityNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SchedulerFacilityNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], SchedulerFacilityNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SchedulerFacilityNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    facilityName?: boolean
+    occupancyRate?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerFacilityNode"]>
+
+  export type SchedulerFacilityNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    facilityName?: boolean
+    occupancyRate?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["schedulerFacilityNode"]>
+
+  export type SchedulerFacilityNodeSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    facilityName?: boolean
+    occupancyRate?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SchedulerFacilityNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SchedulerFacilityNode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      facilityName: string
+      occupancyRate: number
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["schedulerFacilityNode"]>
+    composites: {}
+  }
+
+  type SchedulerFacilityNodeGetPayload<S extends boolean | null | undefined | SchedulerFacilityNodeDefaultArgs> = $Result.GetResult<Prisma.$SchedulerFacilityNodePayload, S>
+
+  type SchedulerFacilityNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SchedulerFacilityNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SchedulerFacilityNodeCountAggregateInputType | true
+    }
+
+  export interface SchedulerFacilityNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SchedulerFacilityNode'], meta: { name: 'SchedulerFacilityNode' } }
+    /**
+     * Find zero or one SchedulerFacilityNode that matches the filter.
+     * @param {SchedulerFacilityNodeFindUniqueArgs} args - Arguments to find a SchedulerFacilityNode
+     * @example
+     * // Get one SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SchedulerFacilityNodeFindUniqueArgs>(args: SelectSubset<T, SchedulerFacilityNodeFindUniqueArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SchedulerFacilityNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SchedulerFacilityNodeFindUniqueOrThrowArgs} args - Arguments to find a SchedulerFacilityNode
+     * @example
+     * // Get one SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SchedulerFacilityNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, SchedulerFacilityNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SchedulerFacilityNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeFindFirstArgs} args - Arguments to find a SchedulerFacilityNode
+     * @example
+     * // Get one SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SchedulerFacilityNodeFindFirstArgs>(args?: SelectSubset<T, SchedulerFacilityNodeFindFirstArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SchedulerFacilityNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeFindFirstOrThrowArgs} args - Arguments to find a SchedulerFacilityNode
+     * @example
+     * // Get one SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SchedulerFacilityNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, SchedulerFacilityNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SchedulerFacilityNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SchedulerFacilityNodes
+     * const schedulerFacilityNodes = await prisma.schedulerFacilityNode.findMany()
+     * 
+     * // Get first 10 SchedulerFacilityNodes
+     * const schedulerFacilityNodes = await prisma.schedulerFacilityNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const schedulerFacilityNodeWithIdOnly = await prisma.schedulerFacilityNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SchedulerFacilityNodeFindManyArgs>(args?: SelectSubset<T, SchedulerFacilityNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SchedulerFacilityNode.
+     * @param {SchedulerFacilityNodeCreateArgs} args - Arguments to create a SchedulerFacilityNode.
+     * @example
+     * // Create one SchedulerFacilityNode
+     * const SchedulerFacilityNode = await prisma.schedulerFacilityNode.create({
+     *   data: {
+     *     // ... data to create a SchedulerFacilityNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends SchedulerFacilityNodeCreateArgs>(args: SelectSubset<T, SchedulerFacilityNodeCreateArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SchedulerFacilityNodes.
+     * @param {SchedulerFacilityNodeCreateManyArgs} args - Arguments to create many SchedulerFacilityNodes.
+     * @example
+     * // Create many SchedulerFacilityNodes
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SchedulerFacilityNodeCreateManyArgs>(args?: SelectSubset<T, SchedulerFacilityNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SchedulerFacilityNodes and returns the data saved in the database.
+     * @param {SchedulerFacilityNodeCreateManyAndReturnArgs} args - Arguments to create many SchedulerFacilityNodes.
+     * @example
+     * // Create many SchedulerFacilityNodes
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SchedulerFacilityNodes and only return the `id`
+     * const schedulerFacilityNodeWithIdOnly = await prisma.schedulerFacilityNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SchedulerFacilityNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, SchedulerFacilityNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SchedulerFacilityNode.
+     * @param {SchedulerFacilityNodeDeleteArgs} args - Arguments to delete one SchedulerFacilityNode.
+     * @example
+     * // Delete one SchedulerFacilityNode
+     * const SchedulerFacilityNode = await prisma.schedulerFacilityNode.delete({
+     *   where: {
+     *     // ... filter to delete one SchedulerFacilityNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SchedulerFacilityNodeDeleteArgs>(args: SelectSubset<T, SchedulerFacilityNodeDeleteArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SchedulerFacilityNode.
+     * @param {SchedulerFacilityNodeUpdateArgs} args - Arguments to update one SchedulerFacilityNode.
+     * @example
+     * // Update one SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SchedulerFacilityNodeUpdateArgs>(args: SelectSubset<T, SchedulerFacilityNodeUpdateArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SchedulerFacilityNodes.
+     * @param {SchedulerFacilityNodeDeleteManyArgs} args - Arguments to filter SchedulerFacilityNodes to delete.
+     * @example
+     * // Delete a few SchedulerFacilityNodes
+     * const { count } = await prisma.schedulerFacilityNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SchedulerFacilityNodeDeleteManyArgs>(args?: SelectSubset<T, SchedulerFacilityNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SchedulerFacilityNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SchedulerFacilityNodes
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SchedulerFacilityNodeUpdateManyArgs>(args: SelectSubset<T, SchedulerFacilityNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SchedulerFacilityNode.
+     * @param {SchedulerFacilityNodeUpsertArgs} args - Arguments to update or create a SchedulerFacilityNode.
+     * @example
+     * // Update or create a SchedulerFacilityNode
+     * const schedulerFacilityNode = await prisma.schedulerFacilityNode.upsert({
+     *   create: {
+     *     // ... data to create a SchedulerFacilityNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SchedulerFacilityNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SchedulerFacilityNodeUpsertArgs>(args: SelectSubset<T, SchedulerFacilityNodeUpsertArgs<ExtArgs>>): Prisma__SchedulerFacilityNodeClient<$Result.GetResult<Prisma.$SchedulerFacilityNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SchedulerFacilityNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeCountArgs} args - Arguments to filter SchedulerFacilityNodes to count.
+     * @example
+     * // Count the number of SchedulerFacilityNodes
+     * const count = await prisma.schedulerFacilityNode.count({
+     *   where: {
+     *     // ... the filter for the SchedulerFacilityNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SchedulerFacilityNodeCountArgs>(
+      args?: Subset<T, SchedulerFacilityNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SchedulerFacilityNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SchedulerFacilityNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SchedulerFacilityNodeAggregateArgs>(args: Subset<T, SchedulerFacilityNodeAggregateArgs>): Prisma.PrismaPromise<GetSchedulerFacilityNodeAggregateType<T>>
+
+    /**
+     * Group by SchedulerFacilityNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SchedulerFacilityNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SchedulerFacilityNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SchedulerFacilityNodeGroupByArgs['orderBy'] }
+        : { orderBy?: SchedulerFacilityNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SchedulerFacilityNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSchedulerFacilityNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SchedulerFacilityNode model
+   */
+  readonly fields: SchedulerFacilityNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SchedulerFacilityNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SchedulerFacilityNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SchedulerFacilityNode model
+   */ 
+  interface SchedulerFacilityNodeFieldRefs {
+    readonly id: FieldRef<"SchedulerFacilityNode", 'String'>
+    readonly tenantId: FieldRef<"SchedulerFacilityNode", 'String'>
+    readonly facilityName: FieldRef<"SchedulerFacilityNode", 'String'>
+    readonly occupancyRate: FieldRef<"SchedulerFacilityNode", 'Float'>
+    readonly status: FieldRef<"SchedulerFacilityNode", 'String'>
+    readonly createdAt: FieldRef<"SchedulerFacilityNode", 'DateTime'>
+    readonly updatedAt: FieldRef<"SchedulerFacilityNode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SchedulerFacilityNode findUnique
+   */
+  export type SchedulerFacilityNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerFacilityNode to fetch.
+     */
+    where: SchedulerFacilityNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerFacilityNode findUniqueOrThrow
+   */
+  export type SchedulerFacilityNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerFacilityNode to fetch.
+     */
+    where: SchedulerFacilityNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerFacilityNode findFirst
+   */
+  export type SchedulerFacilityNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerFacilityNode to fetch.
+     */
+    where?: SchedulerFacilityNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerFacilityNodes to fetch.
+     */
+    orderBy?: SchedulerFacilityNodeOrderByWithRelationInput | SchedulerFacilityNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerFacilityNodes.
+     */
+    cursor?: SchedulerFacilityNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerFacilityNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerFacilityNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerFacilityNodes.
+     */
+    distinct?: SchedulerFacilityNodeScalarFieldEnum | SchedulerFacilityNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerFacilityNode findFirstOrThrow
+   */
+  export type SchedulerFacilityNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerFacilityNode to fetch.
+     */
+    where?: SchedulerFacilityNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerFacilityNodes to fetch.
+     */
+    orderBy?: SchedulerFacilityNodeOrderByWithRelationInput | SchedulerFacilityNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SchedulerFacilityNodes.
+     */
+    cursor?: SchedulerFacilityNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerFacilityNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerFacilityNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SchedulerFacilityNodes.
+     */
+    distinct?: SchedulerFacilityNodeScalarFieldEnum | SchedulerFacilityNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerFacilityNode findMany
+   */
+  export type SchedulerFacilityNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter, which SchedulerFacilityNodes to fetch.
+     */
+    where?: SchedulerFacilityNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SchedulerFacilityNodes to fetch.
+     */
+    orderBy?: SchedulerFacilityNodeOrderByWithRelationInput | SchedulerFacilityNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SchedulerFacilityNodes.
+     */
+    cursor?: SchedulerFacilityNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SchedulerFacilityNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SchedulerFacilityNodes.
+     */
+    skip?: number
+    distinct?: SchedulerFacilityNodeScalarFieldEnum | SchedulerFacilityNodeScalarFieldEnum[]
+  }
+
+  /**
+   * SchedulerFacilityNode create
+   */
+  export type SchedulerFacilityNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SchedulerFacilityNode.
+     */
+    data: XOR<SchedulerFacilityNodeCreateInput, SchedulerFacilityNodeUncheckedCreateInput>
+  }
+
+  /**
+   * SchedulerFacilityNode createMany
+   */
+  export type SchedulerFacilityNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SchedulerFacilityNodes.
+     */
+    data: SchedulerFacilityNodeCreateManyInput | SchedulerFacilityNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerFacilityNode createManyAndReturn
+   */
+  export type SchedulerFacilityNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SchedulerFacilityNodes.
+     */
+    data: SchedulerFacilityNodeCreateManyInput | SchedulerFacilityNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SchedulerFacilityNode update
+   */
+  export type SchedulerFacilityNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SchedulerFacilityNode.
+     */
+    data: XOR<SchedulerFacilityNodeUpdateInput, SchedulerFacilityNodeUncheckedUpdateInput>
+    /**
+     * Choose, which SchedulerFacilityNode to update.
+     */
+    where: SchedulerFacilityNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerFacilityNode updateMany
+   */
+  export type SchedulerFacilityNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SchedulerFacilityNodes.
+     */
+    data: XOR<SchedulerFacilityNodeUpdateManyMutationInput, SchedulerFacilityNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which SchedulerFacilityNodes to update
+     */
+    where?: SchedulerFacilityNodeWhereInput
+  }
+
+  /**
+   * SchedulerFacilityNode upsert
+   */
+  export type SchedulerFacilityNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SchedulerFacilityNode to update in case it exists.
+     */
+    where: SchedulerFacilityNodeWhereUniqueInput
+    /**
+     * In case the SchedulerFacilityNode found by the `where` argument doesn't exist, create a new SchedulerFacilityNode with this data.
+     */
+    create: XOR<SchedulerFacilityNodeCreateInput, SchedulerFacilityNodeUncheckedCreateInput>
+    /**
+     * In case the SchedulerFacilityNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SchedulerFacilityNodeUpdateInput, SchedulerFacilityNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * SchedulerFacilityNode delete
+   */
+  export type SchedulerFacilityNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+    /**
+     * Filter which SchedulerFacilityNode to delete.
+     */
+    where: SchedulerFacilityNodeWhereUniqueInput
+  }
+
+  /**
+   * SchedulerFacilityNode deleteMany
+   */
+  export type SchedulerFacilityNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SchedulerFacilityNodes to delete
+     */
+    where?: SchedulerFacilityNodeWhereInput
+  }
+
+  /**
+   * SchedulerFacilityNode without action
+   */
+  export type SchedulerFacilityNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SchedulerFacilityNode
+     */
+    select?: SchedulerFacilityNodeSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -206586,6 +209618,45 @@ export namespace Prisma {
   };
 
   export type HealthNetNetworkNodeScalarFieldEnum = (typeof HealthNetNetworkNodeScalarFieldEnum)[keyof typeof HealthNetNetworkNodeScalarFieldEnum]
+
+
+  export const SchedulerTrendNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    dayLabel: 'dayLabel',
+    apptCount: 'apptCount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SchedulerTrendNodeScalarFieldEnum = (typeof SchedulerTrendNodeScalarFieldEnum)[keyof typeof SchedulerTrendNodeScalarFieldEnum]
+
+
+  export const SchedulerRosterNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    providerName: 'providerName',
+    specialty: 'specialty',
+    shiftTime: 'shiftTime',
+    isAvailable: 'isAvailable',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SchedulerRosterNodeScalarFieldEnum = (typeof SchedulerRosterNodeScalarFieldEnum)[keyof typeof SchedulerRosterNodeScalarFieldEnum]
+
+
+  export const SchedulerFacilityNodeScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    facilityName: 'facilityName',
+    occupancyRate: 'occupancyRate',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SchedulerFacilityNodeScalarFieldEnum = (typeof SchedulerFacilityNodeScalarFieldEnum)[keyof typeof SchedulerFacilityNodeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -221548,6 +224619,196 @@ export namespace Prisma {
     demographicCat?: StringWithAggregatesFilter<"HealthNetNetworkNode"> | string
     createdAt?: DateTimeWithAggregatesFilter<"HealthNetNetworkNode"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"HealthNetNetworkNode"> | Date | string
+  }
+
+  export type SchedulerTrendNodeWhereInput = {
+    AND?: SchedulerTrendNodeWhereInput | SchedulerTrendNodeWhereInput[]
+    OR?: SchedulerTrendNodeWhereInput[]
+    NOT?: SchedulerTrendNodeWhereInput | SchedulerTrendNodeWhereInput[]
+    id?: StringFilter<"SchedulerTrendNode"> | string
+    tenantId?: StringFilter<"SchedulerTrendNode"> | string
+    dayLabel?: StringFilter<"SchedulerTrendNode"> | string
+    apptCount?: IntFilter<"SchedulerTrendNode"> | number
+    createdAt?: DateTimeFilter<"SchedulerTrendNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerTrendNode"> | Date | string
+  }
+
+  export type SchedulerTrendNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    dayLabel?: SortOrder
+    apptCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerTrendNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SchedulerTrendNodeWhereInput | SchedulerTrendNodeWhereInput[]
+    OR?: SchedulerTrendNodeWhereInput[]
+    NOT?: SchedulerTrendNodeWhereInput | SchedulerTrendNodeWhereInput[]
+    tenantId?: StringFilter<"SchedulerTrendNode"> | string
+    dayLabel?: StringFilter<"SchedulerTrendNode"> | string
+    apptCount?: IntFilter<"SchedulerTrendNode"> | number
+    createdAt?: DateTimeFilter<"SchedulerTrendNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerTrendNode"> | Date | string
+  }, "id">
+
+  export type SchedulerTrendNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    dayLabel?: SortOrder
+    apptCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SchedulerTrendNodeCountOrderByAggregateInput
+    _avg?: SchedulerTrendNodeAvgOrderByAggregateInput
+    _max?: SchedulerTrendNodeMaxOrderByAggregateInput
+    _min?: SchedulerTrendNodeMinOrderByAggregateInput
+    _sum?: SchedulerTrendNodeSumOrderByAggregateInput
+  }
+
+  export type SchedulerTrendNodeScalarWhereWithAggregatesInput = {
+    AND?: SchedulerTrendNodeScalarWhereWithAggregatesInput | SchedulerTrendNodeScalarWhereWithAggregatesInput[]
+    OR?: SchedulerTrendNodeScalarWhereWithAggregatesInput[]
+    NOT?: SchedulerTrendNodeScalarWhereWithAggregatesInput | SchedulerTrendNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SchedulerTrendNode"> | string
+    tenantId?: StringWithAggregatesFilter<"SchedulerTrendNode"> | string
+    dayLabel?: StringWithAggregatesFilter<"SchedulerTrendNode"> | string
+    apptCount?: IntWithAggregatesFilter<"SchedulerTrendNode"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"SchedulerTrendNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SchedulerTrendNode"> | Date | string
+  }
+
+  export type SchedulerRosterNodeWhereInput = {
+    AND?: SchedulerRosterNodeWhereInput | SchedulerRosterNodeWhereInput[]
+    OR?: SchedulerRosterNodeWhereInput[]
+    NOT?: SchedulerRosterNodeWhereInput | SchedulerRosterNodeWhereInput[]
+    id?: StringFilter<"SchedulerRosterNode"> | string
+    tenantId?: StringFilter<"SchedulerRosterNode"> | string
+    providerName?: StringFilter<"SchedulerRosterNode"> | string
+    specialty?: StringFilter<"SchedulerRosterNode"> | string
+    shiftTime?: StringFilter<"SchedulerRosterNode"> | string
+    isAvailable?: BoolFilter<"SchedulerRosterNode"> | boolean
+    createdAt?: DateTimeFilter<"SchedulerRosterNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerRosterNode"> | Date | string
+  }
+
+  export type SchedulerRosterNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    providerName?: SortOrder
+    specialty?: SortOrder
+    shiftTime?: SortOrder
+    isAvailable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerRosterNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SchedulerRosterNodeWhereInput | SchedulerRosterNodeWhereInput[]
+    OR?: SchedulerRosterNodeWhereInput[]
+    NOT?: SchedulerRosterNodeWhereInput | SchedulerRosterNodeWhereInput[]
+    tenantId?: StringFilter<"SchedulerRosterNode"> | string
+    providerName?: StringFilter<"SchedulerRosterNode"> | string
+    specialty?: StringFilter<"SchedulerRosterNode"> | string
+    shiftTime?: StringFilter<"SchedulerRosterNode"> | string
+    isAvailable?: BoolFilter<"SchedulerRosterNode"> | boolean
+    createdAt?: DateTimeFilter<"SchedulerRosterNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerRosterNode"> | Date | string
+  }, "id">
+
+  export type SchedulerRosterNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    providerName?: SortOrder
+    specialty?: SortOrder
+    shiftTime?: SortOrder
+    isAvailable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SchedulerRosterNodeCountOrderByAggregateInput
+    _max?: SchedulerRosterNodeMaxOrderByAggregateInput
+    _min?: SchedulerRosterNodeMinOrderByAggregateInput
+  }
+
+  export type SchedulerRosterNodeScalarWhereWithAggregatesInput = {
+    AND?: SchedulerRosterNodeScalarWhereWithAggregatesInput | SchedulerRosterNodeScalarWhereWithAggregatesInput[]
+    OR?: SchedulerRosterNodeScalarWhereWithAggregatesInput[]
+    NOT?: SchedulerRosterNodeScalarWhereWithAggregatesInput | SchedulerRosterNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SchedulerRosterNode"> | string
+    tenantId?: StringWithAggregatesFilter<"SchedulerRosterNode"> | string
+    providerName?: StringWithAggregatesFilter<"SchedulerRosterNode"> | string
+    specialty?: StringWithAggregatesFilter<"SchedulerRosterNode"> | string
+    shiftTime?: StringWithAggregatesFilter<"SchedulerRosterNode"> | string
+    isAvailable?: BoolWithAggregatesFilter<"SchedulerRosterNode"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"SchedulerRosterNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SchedulerRosterNode"> | Date | string
+  }
+
+  export type SchedulerFacilityNodeWhereInput = {
+    AND?: SchedulerFacilityNodeWhereInput | SchedulerFacilityNodeWhereInput[]
+    OR?: SchedulerFacilityNodeWhereInput[]
+    NOT?: SchedulerFacilityNodeWhereInput | SchedulerFacilityNodeWhereInput[]
+    id?: StringFilter<"SchedulerFacilityNode"> | string
+    tenantId?: StringFilter<"SchedulerFacilityNode"> | string
+    facilityName?: StringFilter<"SchedulerFacilityNode"> | string
+    occupancyRate?: FloatFilter<"SchedulerFacilityNode"> | number
+    status?: StringFilter<"SchedulerFacilityNode"> | string
+    createdAt?: DateTimeFilter<"SchedulerFacilityNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerFacilityNode"> | Date | string
+  }
+
+  export type SchedulerFacilityNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    facilityName?: SortOrder
+    occupancyRate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SchedulerFacilityNodeWhereInput | SchedulerFacilityNodeWhereInput[]
+    OR?: SchedulerFacilityNodeWhereInput[]
+    NOT?: SchedulerFacilityNodeWhereInput | SchedulerFacilityNodeWhereInput[]
+    tenantId?: StringFilter<"SchedulerFacilityNode"> | string
+    facilityName?: StringFilter<"SchedulerFacilityNode"> | string
+    occupancyRate?: FloatFilter<"SchedulerFacilityNode"> | number
+    status?: StringFilter<"SchedulerFacilityNode"> | string
+    createdAt?: DateTimeFilter<"SchedulerFacilityNode"> | Date | string
+    updatedAt?: DateTimeFilter<"SchedulerFacilityNode"> | Date | string
+  }, "id">
+
+  export type SchedulerFacilityNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    facilityName?: SortOrder
+    occupancyRate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SchedulerFacilityNodeCountOrderByAggregateInput
+    _avg?: SchedulerFacilityNodeAvgOrderByAggregateInput
+    _max?: SchedulerFacilityNodeMaxOrderByAggregateInput
+    _min?: SchedulerFacilityNodeMinOrderByAggregateInput
+    _sum?: SchedulerFacilityNodeSumOrderByAggregateInput
+  }
+
+  export type SchedulerFacilityNodeScalarWhereWithAggregatesInput = {
+    AND?: SchedulerFacilityNodeScalarWhereWithAggregatesInput | SchedulerFacilityNodeScalarWhereWithAggregatesInput[]
+    OR?: SchedulerFacilityNodeScalarWhereWithAggregatesInput[]
+    NOT?: SchedulerFacilityNodeScalarWhereWithAggregatesInput | SchedulerFacilityNodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SchedulerFacilityNode"> | string
+    tenantId?: StringWithAggregatesFilter<"SchedulerFacilityNode"> | string
+    facilityName?: StringWithAggregatesFilter<"SchedulerFacilityNode"> | string
+    occupancyRate?: FloatWithAggregatesFilter<"SchedulerFacilityNode"> | number
+    status?: StringWithAggregatesFilter<"SchedulerFacilityNode"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SchedulerFacilityNode"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SchedulerFacilityNode"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -237782,6 +241043,216 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SchedulerTrendNodeCreateInput = {
+    id?: string
+    tenantId: string
+    dayLabel: string
+    apptCount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerTrendNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    dayLabel: string
+    apptCount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerTrendNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dayLabel?: StringFieldUpdateOperationsInput | string
+    apptCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerTrendNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dayLabel?: StringFieldUpdateOperationsInput | string
+    apptCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerTrendNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    dayLabel: string
+    apptCount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerTrendNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dayLabel?: StringFieldUpdateOperationsInput | string
+    apptCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerTrendNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dayLabel?: StringFieldUpdateOperationsInput | string
+    apptCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerRosterNodeCreateInput = {
+    id?: string
+    tenantId: string
+    providerName: string
+    specialty: string
+    shiftTime: string
+    isAvailable: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerRosterNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    providerName: string
+    specialty: string
+    shiftTime: string
+    isAvailable: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerRosterNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    providerName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    shiftTime?: StringFieldUpdateOperationsInput | string
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerRosterNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    providerName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    shiftTime?: StringFieldUpdateOperationsInput | string
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerRosterNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    providerName: string
+    specialty: string
+    shiftTime: string
+    isAvailable: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerRosterNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    providerName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    shiftTime?: StringFieldUpdateOperationsInput | string
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerRosterNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    providerName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    shiftTime?: StringFieldUpdateOperationsInput | string
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerFacilityNodeCreateInput = {
+    id?: string
+    tenantId: string
+    facilityName: string
+    occupancyRate: number
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerFacilityNodeUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    facilityName: string
+    occupancyRate: number
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerFacilityNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    facilityName?: StringFieldUpdateOperationsInput | string
+    occupancyRate?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerFacilityNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    facilityName?: StringFieldUpdateOperationsInput | string
+    occupancyRate?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerFacilityNodeCreateManyInput = {
+    id?: string
+    tenantId: string
+    facilityName: string
+    occupancyRate: number
+    status: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SchedulerFacilityNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    facilityName?: StringFieldUpdateOperationsInput | string
+    occupancyRate?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SchedulerFacilityNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    facilityName?: StringFieldUpdateOperationsInput | string
+    occupancyRate?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -247157,6 +250628,112 @@ export namespace Prisma {
 
   export type HealthNetNetworkNodeSumOrderByAggregateInput = {
     clinicCount?: SortOrder
+  }
+
+  export type SchedulerTrendNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    dayLabel?: SortOrder
+    apptCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerTrendNodeAvgOrderByAggregateInput = {
+    apptCount?: SortOrder
+  }
+
+  export type SchedulerTrendNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    dayLabel?: SortOrder
+    apptCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerTrendNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    dayLabel?: SortOrder
+    apptCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerTrendNodeSumOrderByAggregateInput = {
+    apptCount?: SortOrder
+  }
+
+  export type SchedulerRosterNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    providerName?: SortOrder
+    specialty?: SortOrder
+    shiftTime?: SortOrder
+    isAvailable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerRosterNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    providerName?: SortOrder
+    specialty?: SortOrder
+    shiftTime?: SortOrder
+    isAvailable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerRosterNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    providerName?: SortOrder
+    specialty?: SortOrder
+    shiftTime?: SortOrder
+    isAvailable?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    facilityName?: SortOrder
+    occupancyRate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeAvgOrderByAggregateInput = {
+    occupancyRate?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    facilityName?: SortOrder
+    occupancyRate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    facilityName?: SortOrder
+    occupancyRate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SchedulerFacilityNodeSumOrderByAggregateInput = {
+    occupancyRate?: SortOrder
   }
 
   export type AuditLogCreateNestedManyWithoutActorInput = {
@@ -350567,6 +354144,18 @@ export namespace Prisma {
      * @deprecated Use HealthNetNetworkNodeDefaultArgs instead
      */
     export type HealthNetNetworkNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HealthNetNetworkNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SchedulerTrendNodeDefaultArgs instead
+     */
+    export type SchedulerTrendNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SchedulerTrendNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SchedulerRosterNodeDefaultArgs instead
+     */
+    export type SchedulerRosterNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SchedulerRosterNodeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SchedulerFacilityNodeDefaultArgs instead
+     */
+    export type SchedulerFacilityNodeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SchedulerFacilityNodeDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

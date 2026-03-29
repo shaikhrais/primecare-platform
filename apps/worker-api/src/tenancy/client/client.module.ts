@@ -92,6 +92,10 @@ import healthnetRevenueList from './healthnet/revenue.routes';
 import healthnetEfficiencyList from './healthnet/efficiency.routes';
 import healthnetNetworkList from './healthnet/network.routes';
 
+import schedulerTrendsList from './scheduler/trends.routes';
+import schedulerRosterList from './scheduler/roster.routes';
+import schedulerFacilityList from './scheduler/facility.routes';
+
 const client = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // Client module-level middleware
@@ -208,6 +212,11 @@ client.route('/client-side/demographics', clientDemographicsList);
 client.route('/healthnet/revenue', healthnetRevenueList);
 client.route('/healthnet/efficiency', healthnetEfficiencyList);
 client.route('/healthnet/network', healthnetNetworkList);
+
+// Scheduler Hub (Phase 20)
+client.route('/scheduler/trends', schedulerTrendsList);
+client.route('/scheduler/roster', schedulerRosterList);
+client.route('/scheduler/facility', schedulerFacilityList);
 
 client.route('/', portalRoutes);
 

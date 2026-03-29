@@ -3308,3 +3308,39 @@ model HealthNetNetworkNode {
 
   @@index([tenantId])
 }
+
+model SchedulerTrendNode {
+  id        String   @id @default(uuid())
+  tenantId  String
+  dayLabel  String
+  apptCount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SchedulerRosterNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  providerName String
+  specialty    String
+  shiftTime    String
+  isAvailable  Boolean
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SchedulerFacilityNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  facilityName  String
+  occupancyRate Float
+  status        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
