@@ -18,14 +18,14 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Medifuse Franchise Dashboard'),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         SizedBox(width: 240, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none)))),
                         const SizedBox(width: 16),
                         const Icon(Icons.notifications_active_outlined, color: Colors.grey),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               CircleAvatar(radius: 12, backgroundColor: Colors.blue.shade100, child: const Icon(Icons.person, color: Colors.blue, size: 16)),
                               const SizedBox(width: 8),
                               const Text('Sarah Chen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
@@ -40,21 +40,19 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
             const SizedBox(height: 24),
             _buildKeyMetricsRow(),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildPartnershipOverviewCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildPartnershipOverviewCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildNetworkDistributionCard()),
+                  SizedBox(child: _buildNetworkDistributionCard()),
                ]
             ).withHeight(400),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildRecentPartnershipsTableCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildRecentPartnershipsTableCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildTopPerformingColumnsCard()),
+                  SizedBox(child: _buildTopPerformingColumnsCard()),
                ]
             ).withHeight(340),
             const SizedBox(height: 32),
@@ -65,10 +63,9 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(
-            child: PrimeCareCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -79,7 +76,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
                         children: [
                            const Text('124', style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold)),
-                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.trending_up, color: Colors.green, size: 14), SizedBox(width: 4), Text('+8%', style: TextStyle(color: Colors.green, fontSize: 13, fontWeight: FontWeight.bold))])),
+                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.trending_up, color: Colors.green, size: 14), SizedBox(width: 4), Text('+8%', style: TextStyle(color: Colors.green, fontSize: 13, fontWeight: FontWeight.bold))])),
                         ]
                      ),
                   ]
@@ -87,8 +85,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -99,7 +96,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
                         children: [
                            const Text('38', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.bar_chart, color: Colors.blue, size: 14), SizedBox(width: 4), Text('+3', style: TextStyle(color: Colors.blue, fontSize: 13, fontWeight: FontWeight.bold))])),
+                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.bar_chart, color: Colors.blue, size: 14), SizedBox(width: 4), Text('+3', style: TextStyle(color: Colors.blue, fontSize: 13, fontWeight: FontWeight.bold))])),
                         ]
                      ),
                   ]
@@ -107,8 +105,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -119,7 +116,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
                         children: [
                            const Text('\$1.2M', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.trending_up, color: Colors.green, size: 14), SizedBox(width: 4), Text('+15%', style: TextStyle(color: Colors.green, fontSize: 13, fontWeight: FontWeight.bold))])),
+                           Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4), decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.trending_up, color: Colors.green, size: 14), SizedBox(width: 4), Text('+15%', style: TextStyle(color: Colors.green, fontSize: 13, fontWeight: FontWeight.bold))])),
                         ]
                      ),
                   ]
@@ -127,8 +125,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -152,7 +149,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Partnership Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Part data', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Part data', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 16),
@@ -166,8 +164,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                           Text('Jan-Sep', style: TextStyle(color: Colors.grey, fontSize: 12)),
                        ]
                     ),
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           const Text('124', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
                           const SizedBox(width: 8),
                           Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Current', style: TextStyle(color: Colors.grey, fontSize: 11)), Text('Partners', style: TextStyle(color: Colors.grey, fontSize: 11))]),
@@ -176,8 +174,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        const Positioned.fill(child: ServerLoadGraph()), // Underlay mapping the visual
                        Positioned(bottom: 50, left: 60, child: _buildGrowthTooltip('36,138')),
@@ -213,9 +210,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 flex: 2,
-                 child: Container(
+              SizedBox(child: Container(
                    alignment: Alignment.center,
                    decoration: BoxDecoration(
                      color: Colors.teal.shade50.withOpacity(0.5),
@@ -243,9 +238,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                  )
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 flex: 1,
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('New York', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)), Text('9', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
@@ -270,12 +263,12 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Recent Partnerships', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Scroll raing', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Scroll raing', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Clinic Name', 'Type', 'Start Date', 'Performance', 'Contract Value', 'Status'],
                     data: const [
                        {'name': 'Clinic Name', 'type': 'Healthcare', 'start': '09/10/2023', 'perf': '80%', 'val': '\$10,000', 'stat': 'Active'},
@@ -287,7 +280,8 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
                        DataCell(Text(data['name']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['type']!, style: const TextStyle(fontSize: 12))),
                        DataCell(Text(data['start']!, style: const TextStyle(fontSize: 12))),
-                       DataCell(Row(children: [const Icon(Icons.show_chart, color: Colors.green, size: 16), const SizedBox(width: 4), Text(data['perf']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 12))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [const Icon(Icons.show_chart, color: Colors.green, size: 16), const SizedBox(width: 4), Text(data['perf']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 12))])),
                        DataCell(Text(data['val']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(
                           Container(
@@ -312,8 +306,7 @@ class PartnershipMgrDashboardScreen extends StatelessWidget {
               const Text('Top Performing Clinics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const Text('Quarterly Revenue', style: TextStyle(color: Colors.grey, fontSize: 12)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

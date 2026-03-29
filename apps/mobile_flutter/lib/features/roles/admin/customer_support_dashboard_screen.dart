@@ -19,11 +19,13 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
                crossAxisAlignment: CrossAxisAlignment.end,
                children: [
                   const Text('Support Operations Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.calendar_today, size: 14, color: Colors.black87), SizedBox(width: 8), Text('Dec 21 - 18, 2023', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.date_range, size: 14, color: Colors.grey)])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_today, size: 14, color: Colors.black87), SizedBox(width: 8), Text('Dec 21 - 18, 2023', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.date_range, size: 14, color: Colors.grey)])),
                         const SizedBox(width: 16),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.filter_list, color: Colors.white, size: 16), SizedBox(width: 8), Text('Filter', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16)])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_list, color: Colors.white, size: 16), SizedBox(width: 8), Text('Filter', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16)])),
                      ]
                   )
                ]
@@ -65,9 +67,8 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildMiniColArray(Color col, List<double> heights) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: heights.map((h) => Padding(padding: const EdgeInsets.only(right: 3), child: Container(width: 4, height: 40 * h, decoration: BoxDecoration(color: col, borderRadius: BorderRadius.circular(2))))).toList(),
+     return PrimeCareResponsiveKpiGrid(
+ children: heights.map((h) => Padding(padding: const EdgeInsets.only(right: 3), child: Container(width: 4, height: 40 * h, decoration: BoxDecoration(color: col, borderRadius: BorderRadius.circular(2))))).toList(),
      );
   }
 
@@ -82,8 +83,8 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: icBg, borderRadius: BorderRadius.circular(8)), child: Icon(ic, color: icCol, size: 16)),
                           const SizedBox(width: 8),
                           Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black87)),
@@ -113,12 +114,9 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
 
   Widget _buildDualVolumeDistributionCard() {
      return PrimeCareCard(
-        child: Row(
-           crossAxisAlignment: CrossAxisAlignment.stretch,
-           children: [
-              Expanded(
-                 flex: 2,
-                 child: Column(
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
+              SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                        Row(
@@ -134,19 +132,19 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
                              ),
                              Container(
                                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(24)),
-                                child: Row(
-                                   children: [
+                                child: PrimeCareResponsiveKpiGrid(
+ children: [
                                       Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: const BoxDecoration(border: Border(right: BorderSide(color: Colors.black12))), child: const Text('Daily', style: TextStyle(fontSize: 10))),
                                       Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: const BoxDecoration(border: Border(right: BorderSide(color: Colors.black12))), child: const Text('Weekly', style: TextStyle(fontSize: 10))),
-                                      Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: const BorderRadius.horizontal(right: Radius.circular(24))), child: Row(children: const [Text('7 days', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                                      Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: const BorderRadius.horizontal(right: Radius.circular(24))), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('7 days', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
                                    ]
                                 )
                              )
                           ]
                        ),
                        const SizedBox(height: 16),
-                       Expanded(
-                          child: Stack(
+                       SizedBox(child: Stack(
                              children: [
                                 Column(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,15 +172,12 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
                  )
               ),
               Container(width: 1, color: Colors.grey.shade200, margin: const EdgeInsets.symmetric(horizontal: 24)),
-              Expanded(
-                 flex: 1,
-                 child: Column(
+              SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                        const Text('Ticket Status Distribution', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                        const SizedBox(height: 24),
-                       Expanded(
-                          child: Stack(
+                       SizedBox(child: Stack(
                              alignment: Alignment.center,
                              children: [
                                 SizedBox(
@@ -196,11 +191,14 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                             Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Resolved', style: TextStyle(fontSize: 10))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Resolved', style: TextStyle(fontSize: 10))]),
                              const SizedBox(width: 16),
-                             Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.blue.shade600, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Open', style: TextStyle(fontSize: 10))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.blue.shade600, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Open', style: TextStyle(fontSize: 10))]),
                              const SizedBox(width: 16),
-                             Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('In Progress', style: TextStyle(fontSize: 10))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('In Progress', style: TextStyle(fontSize: 10))]),
                           ]
                        )
                     ]
@@ -220,8 +218,7 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Bar Chart', style: TextStyle(color: Colors.black87, fontSize: 11)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -273,8 +270,7 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Ticket ID', 'Patient Name', 'Franchise', 'Subject', 'Status', 'Priority', 'Assigned Agent', 'Last Updated'],
                     data: const [
                        {'id': '1074020', 'n': 'Aarah Matth', 'f': 'Franchise', 'sub': 'Censrsmentinent ...', 's': 'Closed', 'p': 'High', 'a': 'Dr. Sarah Chen', 'l': 'Jun 13, 2023'},
@@ -334,15 +330,14 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: const [
-                    Expanded(flex: 3, child: Text('Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
-                    Expanded(flex: 2, child: Text('Tickets Handled', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
-                    Expanded(flex: 1, child: Text('Avg T...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
+                    SizedBox(child: Text('Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
+                    SizedBox(child: Text('Tickets Handled', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
+                    SizedBox(child: Text('Avg T...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
                  ]
               ),
               const SizedBox(height: 12),
               const Divider(height: 1),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     children: [
                        _buildAgentRow('https://i.pravatar.cc/150?img=9', 'Dr. Sarah Chen', '64', '00:03:'),
                        _buildAgentRow('https://i.pravatar.cc/150?img=11', 'Marty Carker', '23', '00:03:'), // Typo in image
@@ -363,18 +358,16 @@ class CustomerSupportDashboardScreen extends StatelessWidget {
         child: Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-              Expanded(
-                 flex: 3, 
-                 child: Row(
-                    children: [
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
                        CircleAvatar(radius: 12, backgroundImage: NetworkImage(img)),
                        const SizedBox(width: 8),
                        Text(n, style: const TextStyle(fontSize: 10)),
                     ]
                  )
               ),
-              Expanded(flex: 2, child: Text(t, style: const TextStyle(fontSize: 10))),
-              Expanded(flex: 1, child: Text(avg, style: const TextStyle(fontSize: 10))),
+              SizedBox(child: Text(t, style: const TextStyle(fontSize: 10))),
+              SizedBox(child: Text(avg, style: const TextStyle(fontSize: 10))),
            ]
         )
      );
@@ -465,10 +458,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

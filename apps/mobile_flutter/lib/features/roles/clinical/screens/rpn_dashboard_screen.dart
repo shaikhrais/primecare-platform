@@ -18,13 +18,16 @@ class RpnDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Welcome back, Sarah!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(fontSize: 12))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(fontSize: 12))])),
                         const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('Notifications', style: TextStyle(fontSize: 12))])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('Notifications', style: TextStyle(fontSize: 12))])),
                         const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.calendar_today, size: 16), SizedBox(width: 8), Text('Oct 26, 2023', style: TextStyle(fontSize: 12))])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_today, size: 16), SizedBox(width: 8), Text('Oct 26, 2023', style: TextStyle(fontSize: 12))])),
                         const SizedBox(width: 8),
                         Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: const Text('Add Nurse', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13))),
                      ]
@@ -32,24 +35,23 @@ class RpnDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 24),
-            Row(
-               children: [
-                  Expanded(child: _buildTotalRpnsCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildTotalRpnsCard()),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildRadialGaugeCard()),
+                  SizedBox(child: _buildRadialGaugeCard()),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildCredentialComplianceCard()),
+                  SizedBox(child: _buildCredentialComplianceCard()),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildFranchiseRevenueCard()),
+                  SizedBox(child: _buildFranchiseRevenueCard()),
                ]
             ).withHeight(160),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildRegionalStaffingPerformanceCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildRegionalStaffingPerformanceCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: Column(children: [Expanded(flex: 3, child: _buildFranchiseMapCard()), const SizedBox(height: 16), Expanded(flex: 2, child: _buildNurseDeploymentMixCard()), const SizedBox(height: 16), Expanded(flex: 2, child: _buildNotificationsAlertsCard())])),
+                  SizedBox(child: Column(children: [SizedBox(child: _buildFranchiseMapCard()), const SizedBox(height: 16), SizedBox(child: _buildNurseDeploymentMixCard()), const SizedBox(height: 16), SizedBox(child: _buildNotificationsAlertsCard())])),
                ]
             ).withHeight(600),
             const SizedBox(height: 32),
@@ -79,7 +81,7 @@ class RpnDashboardScreen extends StatelessWidget {
                     Text('+15% MoM', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
                  ]
               ),
-              const Expanded(flex: 2, child: ServerLoadGraph()),
+              const SizedBox(child: ServerLoadGraph()),
               const Text('Line Chart', style: TextStyle(color: Colors.white70, fontSize: 11)),
            ]
         ),
@@ -96,8 +98,7 @@ class RpnDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: const [Text('Active Placements', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)), Icon(Icons.more_vert, color: Colors.grey, size: 16)]
               ),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        Container(
@@ -132,8 +133,7 @@ class RpnDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: const [Text('Credential Compliance', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)), Icon(Icons.more_vert, color: Colors.grey, size: 16)]
               ),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        SizedBox(
@@ -168,7 +168,7 @@ class RpnDashboardScreen extends StatelessWidget {
                     Text('+18%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)),
                  ]
               ),
-              const Expanded(child: ServerLoadGraph()),
+              const SizedBox(child: ServerLoadGraph()),
               const Text('Area Chart', style: TextStyle(color: Colors.black54, fontSize: 11)),
            ]
         )
@@ -189,8 +189,7 @@ class RpnDashboardScreen extends StatelessWidget {
               ),
               const Text('Stacked Bar Chart', style: TextStyle(color: Colors.black54, fontSize: 12)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,8 +249,8 @@ class RpnDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildLegendItem(String text, Color c) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 12, height: 12, decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(2))),
            const SizedBox(width: 8),
            Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
@@ -289,9 +288,12 @@ class RpnDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('RPNs', style: TextStyle(fontSize: 10))]), const Text('34 clinizes', style: TextStyle(fontSize: 10, color: Colors.black87))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Part time', style: TextStyle(fontSize: 10))]), const Text('Key metrics', style: TextStyle(fontSize: 10, color: Colors.black87))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: Colors.teal.shade300 == Colors.teal.shade300 ? BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle) : BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Status', style: TextStyle(fontSize: 10))]), const Text('Indicators', style: TextStyle(fontSize: 10, color: Colors.black87))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('RPNs', style: TextStyle(fontSize: 10))]), const Text('34 clinizes', style: TextStyle(fontSize: 10, color: Colors.black87))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Part time', style: TextStyle(fontSize: 10))]), const Text('Key metrics', style: TextStyle(fontSize: 10, color: Colors.black87))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: Colors.teal.shade300 == Colors.teal.shade300 ? BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle) : BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Status', style: TextStyle(fontSize: 10))]), const Text('Indicators', style: TextStyle(fontSize: 10, color: Colors.black87))]),
                  ]
               )
            ]
@@ -320,9 +322,12 @@ class RpnDashboardScreen extends StatelessWidget {
                        crossAxisAlignment: CrossAxisAlignment.start,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Full-time 62%', style: TextStyle(fontSize: 11))]), const SizedBox(height: 8),
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Part-time 28%', style: TextStyle(fontSize: 11))]), const SizedBox(height: 8),
-                          Row(children: [Container(width: 8, height: 8, decoration: Colors.green.shade500 == Colors.green.shade500 ? BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle) : BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Casual 10%', style: TextStyle(fontSize: 11))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Full-time 62%', style: TextStyle(fontSize: 11))]), const SizedBox(height: 8),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Part-time 28%', style: TextStyle(fontSize: 11))]), const SizedBox(height: 8),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: Colors.green.shade500 == Colors.green.shade500 ? BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle) : BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Casual 10%', style: TextStyle(fontSize: 11))]),
                        ]
                     )
                  ]
@@ -346,13 +351,15 @@ class RpnDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       Row(children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
-                       Row(children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Colors.redAccent, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
-                       Row(children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Colors.amber, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
+                       PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
+                       PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Colors.redAccent, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
+                       PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Colors.amber, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('List of recent activities/critical alerts', style: TextStyle(fontSize: 11))]),
                     ]
                  )
               )
@@ -367,10 +374,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 30, child: Text(lbl, style: const TextStyle(fontSize: 11, color: Colors.black87))),
-            Expanded(child: Divider(color: Colors.grey.shade200, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade200, height: 1)),
          ]
       );
    }

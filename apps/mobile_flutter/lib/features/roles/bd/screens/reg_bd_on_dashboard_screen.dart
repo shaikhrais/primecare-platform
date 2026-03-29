@@ -17,9 +17,10 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Ontario Regional Dashboard - Q4 2024'),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.filter_list, size: 16), SizedBox(width: 8), Text('Filter', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_list, size: 16), SizedBox(width: 8), Text('Filter', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
                         const SizedBox(width: 16),
                         Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.swap_vert, color: Colors.grey, size: 20)),
                         const SizedBox(width: 16),
@@ -42,10 +43,9 @@ class RegBdOnDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(
-            child: PrimeCareCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -67,8 +67,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,8 +89,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -113,8 +111,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -145,13 +142,10 @@ class RegBdOnDashboardScreen extends StatelessWidget {
   Widget _buildOperationsMiddleRow(BuildContext context) {
     return SizedBox(
       height: 320,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Franchise Performance Data Table
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -159,18 +153,19 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                         const Text('Franchisee Performance Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                        Row(
-                           children: [
-                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.filter_alt_outlined, size: 14), SizedBox(width: 4), Text('Filter', style: TextStyle(fontSize: 11))])),
+                        PrimeCareResponsiveKpiGrid(
+ children: [
+                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_alt_outlined, size: 14), SizedBox(width: 4), Text('Filter', style: TextStyle(fontSize: 11))])),
                               const SizedBox(width: 8),
-                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Sort', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Sort', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
                            ]
                         )
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: PrimeCareDataTable<Map<String, dynamic>>(
+                  SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                       columns: const ['Name', 'Location', 'Quarterly Revenue', 'Patient Rating', 'Status', ''],
                       data: const [
                         {'name': 'Samantha Lee', 'loc': 'Ontario', 'rev': '\$22.4M', 'stat': 'Odgey', 'color': Colors.blue},
@@ -182,7 +177,8 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                         DataCell(Text(data['name']!, style: const TextStyle(fontWeight: FontWeight.w600))),
                         DataCell(Text(data['loc']!)),
                         DataCell(Text(data['rev']!, style: const TextStyle(fontWeight: FontWeight.bold))),
-                        DataCell(Row(children: const [Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star_half, color: Colors.amber, size: 14)])),
+                        DataCell(PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star, color: Colors.amber, size: 14), Icon(Icons.star_half, color: Colors.amber, size: 14)])),
                         DataCell(
                            Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -200,16 +196,14 @@ class RegBdOnDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Center: Quarterly Revenue Growth Area Chart
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Quarterly Revenue Growth (Ontario)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                   const SizedBox(height: 16),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)),
                         const SizedBox(width: 4),
                         const Text('\$0F4C81', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
@@ -220,8 +214,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  const Expanded(
-                    child: ServerLoadGraph(), // Dual area chart
+                  const SizedBox(child: ServerLoadGraph(), // Dual area chart
                   ),
                 ],
               ),
@@ -229,9 +222,7 @@ class RegBdOnDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Regional Market Share Donut
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -245,7 +236,8 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                   Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                        Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('GTA', style: TextStyle(fontSize: 12))]),
+                        PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('GTA', style: TextStyle(fontSize: 12))]),
                         const Text('43.8%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                      ]
                   ),
@@ -253,7 +245,8 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                   Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                        Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Ottawa', style: TextStyle(fontSize: 12))]),
+                        PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Ottawa', style: TextStyle(fontSize: 12))]),
                         const Text('48.5%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                      ]
                   ),
@@ -269,13 +262,10 @@ class RegBdOnDashboardScreen extends StatelessWidget {
   Widget _buildBottomNetworkRow(BuildContext context) {
     return SizedBox(
       height: 280,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Clinic Network Growth Bars
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -289,12 +279,12 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                               Text('By region by Region', style: TextStyle(color: Colors.grey, fontSize: 13)),
                            ]
                         ),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.filter_alt_outlined, size: 14), SizedBox(width: 4), Text('Filter', style: TextStyle(fontSize: 11))])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_alt_outlined, size: 14), SizedBox(width: 4), Text('Filter', style: TextStyle(fontSize: 11))])),
                      ]
                   ),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Row(
+                  SizedBox(child: Row(
                        crossAxisAlignment: CrossAxisAlignment.end,
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                        children: [
@@ -310,15 +300,10 @@ class RegBdOnDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Operations Summary and Map
-          Expanded(
-            flex: 3,
-            child: PrimeCareCard(
-              child: Row(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                    Expanded(
-                       flex: 1,
-                       child: Column(
+          SizedBox(child: PrimeCareCard(
+              child: PrimeCareResponsiveKpiGrid(
+ children: [
+                    SizedBox(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                              const Text('Operations Summary', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
@@ -333,15 +318,12 @@ class RegBdOnDashboardScreen extends StatelessWidget {
                        )
                     ),
                     const SizedBox(width: 24),
-                    Expanded(
-                       flex: 1,
-                       child: Column(
+                    SizedBox(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                              SizedBox(width: 140, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 14), isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Colors.grey.shade300))))),
                              const SizedBox(height: 16),
-                             Expanded(
-                                child: Container(
+                             SizedBox(child: Container(
                                    width: double.infinity,
                                    decoration: BoxDecoration(
                                       color: Colors.blue.withOpacity(0.05),
@@ -375,9 +357,8 @@ class RegBdOnDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 32, height: 180 * val1, decoration: const BoxDecoration(color: Color(0xFF0F4C81), borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)))),
                  const SizedBox(width: 8),
                  Container(width: 32, height: 180 * val2, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: const BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)))),
@@ -393,12 +374,11 @@ class RegBdOnDashboardScreen extends StatelessWidget {
      return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade200)),
-        child: Row(
-           children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
               Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade200)), child: Icon(icon, color: color, size: 16)),
               const SizedBox(width: 12),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),

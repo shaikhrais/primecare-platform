@@ -28,10 +28,9 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         const Expanded(
-            child: PrimeCareStatCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Total Revenue',
                 value: '\$1.2M',
                 delta: 8.0,
@@ -39,8 +38,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'New Patient Leads',
                 value: '14.5K',
                 delta: 15.0,
@@ -48,8 +46,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Marketing Spend',
                 value: '\$180K',
                 delta: -3.0,
@@ -57,8 +54,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'CAC',
                 value: '\$12.50',
                 delta: -5.0,
@@ -72,13 +68,10 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
   Widget _buildAcquisitionRow(BuildContext context) {
     return SizedBox(
       height: 380,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Patient Acquisition Breakdown
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -109,8 +102,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
                      ],
                   ),
                   const SizedBox(height: 16),
-                  const Expanded(
-                    child: ServerLoadGraph(), // Natively interpolating the multi-line chart structure
+                  const SizedBox(child: ServerLoadGraph(), // Natively interpolating the multi-line chart structure
                   ),
                 ],
               ),
@@ -118,9 +110,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Franchise Performance Overview Bars
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,8 +128,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: Column(
+                  SizedBox(child: Column(
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                        children: [
                           _buildHorizontalBar('Austin', '\$145K', 1.0, '1200 Leads'),
@@ -164,12 +153,11 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildHorizontalBar(String city, String rev, double widthPercent, String leads) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            SizedBox(width: 60, child: Text(city, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold))),
            SizedBox(width: 50, child: Text(rev, style: const TextStyle(fontSize: 12))),
-           Expanded(
-              child: FractionallySizedBox(
+           SizedBox(child: FractionallySizedBox(
                  alignment: Alignment.centerLeft,
                  widthFactor: widthPercent,
                  child: Container(
@@ -184,8 +172,8 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildLegendItem(String label, Color color) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
            const SizedBox(width: 8),
            Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
@@ -196,13 +184,10 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
   Widget _buildCampaignDistributionsRow(BuildContext context) {
     return SizedBox(
       height: 300,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Top Campaigns Data Table
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -218,8 +203,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: PrimeCareDataTable<Map<String, String>>(
+                  SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                       columns: const ['Campaign Name', 'Spend', 'Leads', 'ROI', 'Status'],
                       data: const [
                         {'name': 'Fall Health Drive', 'spend': '\$15K', 'leads': '2100', 'roi': '4.2x', 'stat': 'Active'},
@@ -248,20 +232,16 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Social Engagement Metrics Donut Chart
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Social Engagement Metrics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const Text('Engagement by Platform', style: TextStyle(color: Colors.grey, fontSize: 13)),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Row(
-                       children: [
-                          Expanded(
-                             child: Center(
+                  SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                          SizedBox(child: Center(
                                child: Stack(
                                  alignment: Alignment.center,
                                  children: [
@@ -306,9 +286,7 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Recent Leads Feed List
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -317,10 +295,10 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
                   Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: const [
-                        Expanded(flex: 2, child: Text('Patient Name', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 2, child: Text('Franchise', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 2, child: Text('Source', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                        Expanded(flex: 1, child: Text('Date', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                        SizedBox(child: Text('Patient Name', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                        SizedBox(child: Text('Franchise', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                        SizedBox(child: Text('Source', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
+                        SizedBox(child: Text('Date', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
                      ]
                   ),
                   const Divider(height: 24),
@@ -342,10 +320,10 @@ class HeadMarketingDashboardScreen extends StatelessWidget {
      return Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
          children: [
-            Expanded(flex: 2, child: Text(name, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
-            Expanded(flex: 2, child: Text(fran, style: const TextStyle(fontSize: 11, color: Colors.grey))),
-            Expanded(flex: 2, child: Text(src, style: const TextStyle(fontSize: 11, color: Colors.grey))),
-            Expanded(flex: 1, child: Text(date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            SizedBox(child: Text(name, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
+            SizedBox(child: Text(fran, style: const TextStyle(fontSize: 11, color: Colors.grey))),
+            SizedBox(child: Text(src, style: const TextStyle(fontSize: 11, color: Colors.grey))),
+            SizedBox(child: Text(date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
          ]
      );
   }

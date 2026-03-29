@@ -28,10 +28,9 @@ class ComplianceDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(
-            child: PrimeCareCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -60,24 +59,21 @@ class ComplianceDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Active Locations',
                 value: '14/15',
                 deltaSuffix: '93% Compliant',
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Upcoming Audits',
                 value: '4',
                 deltaSuffix: 'this week',
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Open Actions',
                 value: '23',
                 deltaSuffix: 'Items',
@@ -88,13 +84,10 @@ class ComplianceDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildCompliancePerformanceRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Left: Franchise Compliance Performance Grouped Bar Chart
-        Expanded(
-          flex: 2,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,9 +95,10 @@ class ComplianceDashboardScreen extends StatelessWidget {
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
                       const Text('Franchise Compliance Performance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                      Row(
-                         children: [
-                            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)), child: Row(children: [Container(width: 12, height: 2, color: const Color(0xFF0F4C81)), const SizedBox(width: 4), const Text('Target', style: TextStyle(fontSize: 12))])),
+                      PrimeCareResponsiveKpiGrid(
+ children: [
+                            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 12, height: 2, color: const Color(0xFF0F4C81)), const SizedBox(width: 4), const Text('Target', style: TextStyle(fontSize: 12))])),
                             const SizedBox(width: 8),
                             const Icon(Icons.more_horiz, color: Colors.grey),
                          ]
@@ -113,15 +107,14 @@ class ComplianceDashboardScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 // Pseudo Grouped Bar Chart implementation using Row spacing
-                Expanded(
-                  child: Stack(
+                SizedBox(child: Stack(
                      children: [
                         // Target Line
                         Positioned(
                            top: 40, left: 0, right: 0,
-                           child: Row(
-                              children: [
-                                 Expanded(child: Container(height: 1, color: Colors.grey.shade400)),
+                           child: PrimeCareResponsiveKpiGrid(
+ children: [
+                                 SizedBox(child: Container(height: 1, color: Colors.grey.shade400)),
                                  const SizedBox(width: 4),
                                  const Text('Target', style: TextStyle(fontSize: 10, color: Colors.grey)),
                               ]
@@ -148,9 +141,7 @@ class ComplianceDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Right: Audit Status and Findings
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -210,9 +201,8 @@ class ComplianceDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 24, height: 160 * val1, color: const Color(0xFF0F4C81)),
                  const SizedBox(width: 4),
                  Container(width: 24, height: 160 * val2, color: Colors.teal.shade400),
@@ -225,8 +215,8 @@ class ComplianceDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildLegendDot(String text, Color color) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
            const SizedBox(width: 8),
            Text(text, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
@@ -237,13 +227,10 @@ class ComplianceDashboardScreen extends StatelessWidget {
   Widget _buildActionItemsRow(BuildContext context) {
     return SizedBox(
       height: 300,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Recent Audits & Action Items Table
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -255,8 +242,7 @@ class ComplianceDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: PrimeCareDataTable<Map<String, dynamic>>(
+                  SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                       columns: const ['Location', 'Audit Type', 'Date', 'Auditor', 'Score', 'Status', 'Actions'],
                       data: const [
                         {'loc': 'Boston Center', 'type': 'HIPAA', 'date': '10/21/23', 'aud': 'Dr. Lee', 'score': '92%', 'stat': 'Compliant', 'act': 'View Report'},
@@ -292,9 +278,7 @@ class ComplianceDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Tasks
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -321,13 +305,11 @@ class ComplianceDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTaskTile(bool isUrgent, String title, String date) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Icon(isUrgent ? Icons.error : Icons.circle_outlined, color: isUrgent ? Colors.red.shade400 : Colors.grey.shade300, size: 20),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),

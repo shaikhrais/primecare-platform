@@ -27,8 +27,8 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                         Text('Support Lead', style: TextStyle(color: Colors.black54, fontSize: 11)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const Icon(Icons.search, color: Colors.grey, size: 20),
                         const SizedBox(width: 16),
                         Stack(
@@ -63,9 +63,9 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
-                        Expanded(child: _buildOpenTicketsByTypeCard()),
+                        SizedBox(child: _buildOpenTicketsByTypeCard()),
                         const SizedBox(height: 16),
-                        Expanded(child: _buildPatientVolumeCard()),
+                        SizedBox(child: _buildPatientVolumeCard()),
                      ]
                   ),
                ]
@@ -81,7 +81,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                      children: [
                         _buildSystemStatusCard().withHeight(120),
                         const SizedBox(height: 16),
-                        Expanded(child: _buildPendingUrgentCasesCard()),
+                        SizedBox(child: _buildPendingUrgentCasesCard()),
                      ]
                   ),
                ]
@@ -126,8 +126,8 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                     const Text('Support Ticket Trend (Last 30 Days)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     Container(
                        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)),
-                       child: Row(
-                          children: [
+                       child: PrimeCareResponsiveKpiGrid(
+ children: [
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: const BoxDecoration(border: Border(right: BorderSide(color: Colors.black12))), child: const Text('Week', style: TextStyle(fontSize: 11))),
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, border: const Border(right: BorderSide(color: Colors.black12))), child: const Text('Month', style: TextStyle(fontSize: 11))),
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), child: const Text('Year', style: TextStyle(fontSize: 11))),
@@ -137,16 +137,17 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 12),
-              Row(
-                 children: [
-                    Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Tickets opened', style: TextStyle(fontSize: 11))]),
+              PrimeCareResponsiveKpiGrid(
+ children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Tickets opened', style: TextStyle(fontSize: 11))]),
                     const SizedBox(width: 16),
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Resolved', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Resolved', style: TextStyle(fontSize: 11))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,8 +185,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
            children: [
               const Text('Open Tickets by Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,8 +234,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
            children: [
               const Text('Patient Volume & Franchise Growth', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,9 +271,8 @@ class SupportTeamDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 10, height: 110 * h1, color: const Color(0xFF0F4C81)),
                  const SizedBox(width: 4),
                  Container(width: 10, height: 110 * h2, color: Colors.teal.shade500),
@@ -295,8 +293,8 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Recent Support Tickets', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: const Text('View All Tickets', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
                           const SizedBox(width: 12),
                           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.teal.shade700, borderRadius: BorderRadius.circular(4)), child: const Text('Export Data', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
@@ -305,8 +303,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['ID', 'Franchise', 'Patient', 'Issue', 'Status', 'Assigned To', 'Last Updated'],
                     data: const [
                        {'id': '#12405', 'f': 'GreenValley Health', 'p': 'John D.', 'i': 'Appointment Scheduling', 's': 'In Progress', 'a': 'Alex R.', 'l': 'Feb 17, 2021 AM'},
@@ -374,8 +371,7 @@ class SupportTeamDashboardScreen extends StatelessWidget {
            children: [
               const Text('Pending Urgent Cases', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     children: [
                        _buildUrgentRow('Pending Urgent Cases 0', 'List 7 minutes ago', Colors.teal.shade500),
                        const SizedBox(height: 16),
@@ -391,13 +387,11 @@ class SupportTeamDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildUrgentRow(String title, String sub, Color c) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(margin: const EdgeInsets.only(top: 4), width: 8, height: 8, decoration: BoxDecoration(color: c, shape: BoxShape.circle)),
            const SizedBox(width: 8),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
@@ -450,10 +444,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

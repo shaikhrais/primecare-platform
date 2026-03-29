@@ -17,8 +17,8 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const CircleAvatar(radius: 20, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
                         const SizedBox(width: 16),
                         Column(
@@ -31,8 +31,8 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
                         )
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         Stack(
                            children: [
                               Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: Colors.grey.shade300)), child: const Icon(Icons.notifications_none, color: Colors.grey, size: 20)),
@@ -94,8 +94,8 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
               Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(8)), child: Icon(ic, color: Colors.white, size: 20)),
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
               Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
-              Row(
-                 children: [
+              PrimeCareResponsiveKpiGrid(
+ children: [
                     if (pos != null) Text(pos, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)),
                     if (pos != null) const SizedBox(width: 4),
                     if (sub != null) Text(sub, style: const TextStyle(color: Colors.black54, fontSize: 11)),
@@ -115,8 +115,8 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Monthly Revenue & Growth', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           const Text('Jan-Dec 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                           const SizedBox(width: 8),
                           const Icon(Icons.more_horiz, color: Colors.grey),
@@ -128,14 +128,15 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                    Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                     const SizedBox(width: 24),
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Patient Vists', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Patient Vists', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -191,8 +192,7 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: const [Text('Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10)), SizedBox(width: 16), Text('Patient Vists', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10))]),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Column(
@@ -228,8 +228,7 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            SizedBox(width: 90, child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-           Expanded(
-              child: Stack(
+           SizedBox(child: Stack(
                  alignment: Alignment.centerLeft,
                  children: [
                     FractionallySizedBox(
@@ -259,8 +258,7 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
                  children: const [Text('Clinic Performance Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)), Icon(Icons.more_horiz, color: Colors.grey)]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Location', 'Manager', 'Revenue', 'Patient Visits', 'Growth', 'Status'],
                     data: const [
                        {'loc': 'Boston Central', 'mgr': 'Sarah Jenser', 'rev': '\$410K', 'vis': '3100', 'grw': '+9.1%', 'stat': 'On Track'},
@@ -293,8 +291,7 @@ class FranchiseOwnerDashboardScreen extends StatelessWidget {
                  children: const [Text('Recent Appointments & Alerts', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)), Icon(Icons.more_horiz, color: Colors.grey)]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Patient Name', 'Clinic', 'Type', 'Time', 'Status'],
                     data: const [
                        {'pn': 'Patient Name', 'cl': 'Clinic', 'type': 'Healthary', 'time': '9:30 AM', 'stat': 'Status'},
@@ -322,10 +319,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 20, child: Text(lbl, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }

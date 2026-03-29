@@ -28,10 +28,9 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         const Expanded(
-            child: PrimeCareStatCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Active Trainees',
                 value: '12,850',
                 delta: 5.2,
@@ -39,8 +38,7 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Franchise Compliance',
                 value: '94.1%',
                 delta: 2.8,
@@ -48,16 +46,14 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Courses Completed',
                 value: '6,782',
                 deltaSuffix: 'This Month',
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Average Quiz Score',
                 value: '88.6%',
                 delta: null,
@@ -71,13 +67,10 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   Widget _buildPerformanceAndAlertsRow(BuildContext context) {
     return SizedBox(
       height: 340,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Franchise Training Performance
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,13 +82,9 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.end,
-                       children: [
-                          Expanded(
-                             flex: 3,
-                             child: Column(
+                  SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                          SizedBox(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                    Row(
@@ -106,16 +95,13 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
                                       ]
                                    ),
                                    const SizedBox(height: 16),
-                                   const Expanded(
-                                      child: ServerLoadGraph(), // Multi-line aesthetic proxy
+                                   const SizedBox(child: ServerLoadGraph(), // Multi-line aesthetic proxy
                                    )
                                 ]
                              ),
                           ),
                           const SizedBox(width: 24),
-                          Expanded(
-                             flex: 2,
-                             child: Column(
+                          SizedBox(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                    Row(
@@ -126,8 +112,7 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
                                       ]
                                    ),
                                    const SizedBox(height: 16),
-                                   Expanded(
-                                      child: Row(
+                                   SizedBox(child: Row(
                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                          crossAxisAlignment: CrossAxisAlignment.end,
                                          children: [
@@ -150,13 +135,9 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Alerts & Actions List
-          Expanded(
-            flex: 1,
-            child: Column(
+          SizedBox(child: Column(
               children: [
-                Expanded(
-                   flex: 1,
-                   child: PrimeCareCard(
+                SizedBox(child: PrimeCareCard(
                       child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -175,9 +156,7 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
                    )
                 ),
                 const SizedBox(height: 16),
-                Expanded(
-                   flex: 1,
-                   child: PrimeCareCard(
+                SizedBox(child: PrimeCareCard(
                       child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,8 +199,8 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildAlertText(String text) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            const Icon(Icons.warning, color: Colors.red, size: 16),
            const SizedBox(width: 8),
            Text(text, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
@@ -230,8 +209,8 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActionItem(String text) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            const Icon(Icons.check_circle_outline, color: Colors.grey, size: 16),
            const SizedBox(width: 8),
            Text(text, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
@@ -242,13 +221,10 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   Widget _buildActivityAndSatisfactionRow(BuildContext context) {
     return SizedBox(
       height: 280,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Recent Activity Feed
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -275,9 +251,7 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Trainee Satisfaction Feedback
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -289,8 +263,8 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const Icon(Icons.star, color: Colors.amber, size: 18),
                         const Icon(Icons.star, color: Colors.amber, size: 18),
                         const Icon(Icons.star, color: Colors.amber, size: 18),
@@ -329,17 +303,15 @@ class TrainingDirectorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityListTile(IconData icon, String boldText, String normalText) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(color: Colors.blue.shade50, shape: BoxShape.circle),
               child: Icon(icon, color: const Color(0xFF0F4C81), size: 18),
            ),
            const SizedBox(width: 16),
-           Expanded(
-              child: RichText(
+           SizedBox(child: RichText(
                  text: TextSpan(
                     style: const TextStyle(color: Colors.black87, fontSize: 13),
                     children: [

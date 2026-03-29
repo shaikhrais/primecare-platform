@@ -28,21 +28,19 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
             const SizedBox(height: 24),
             _buildKeyMetricsRow(),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildMarketHeatmapCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildMarketHeatmapCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildDualPipelineCard()),
+                  SizedBox(child: _buildDualPipelineCard()),
                ]
             ).withHeight(360),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildKeyMarketsTableCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildKeyMarketsTableCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildUpcomingAppointmentsCard()),
+                  SizedBox(child: _buildUpcomingAppointmentsCard()),
                ]
             ).withHeight(340),
             const SizedBox(height: 32),
@@ -53,15 +51,15 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(child: _buildSparklineCard('Open Markets', '+2', '8', 'Open Markets')),
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: _buildSparklineCard('Open Markets', '+2', '8', 'Open Markets')),
          const SizedBox(width: 16),
-         Expanded(child: _buildSparklineCard('Active Leads', '+12', '45', 'Active Leads')),
+         SizedBox(child: _buildSparklineCard('Active Leads', '+12', '45', 'Active Leads')),
          const SizedBox(width: 16),
-         Expanded(child: _buildSparklineCard('Approved Franchises', '+4', '19', 'Approved Franchises')),
+         SizedBox(child: _buildSparklineCard('Approved Franchises', '+4', '19', 'Approved Franchises')),
          const SizedBox(width: 16),
-         Expanded(child: _buildSparklineCard('Revenue Potential', '+15%', '\$8.5M', 'Revenue Potential')),
+         SizedBox(child: _buildSparklineCard('Revenue Potential', '+15%', '\$8.5M', 'Revenue Potential')),
       ],
     );
   }
@@ -98,8 +96,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Market Performance Heatmap', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: const [
+                    PrimeCareResponsiveKpiGrid(
+ children: const [
                           Icon(Icons.location_on, color: Color(0xFF0F4C81), size: 16),
                           SizedBox(width: 8),
                           Text('Target Expansion Hubs', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -108,8 +106,7 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Container(
                          alignment: Alignment.center,
@@ -164,8 +161,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildLegendItem(String label, Color c) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 12, height: 12, decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(2))),
            const SizedBox(width: 8),
            Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
@@ -180,12 +177,9 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
            children: [
               const Text('Lead Pipeline', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Row(
-                    children: [
-                       Expanded(
-                          flex: 3,
-                          child: Column(
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                              children: [
                                 _buildFunnelRow('New', '18', 1.0, const Color(0xFF1B6A9C)),
@@ -197,9 +191,7 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                           )
                        ),
                        const SizedBox(width: 8),
-                       Expanded(
-                          flex: 1,
-                          child: Stack(
+                       SizedBox(child: Stack(
                              children: [
                                 _buildHLine(0.1, '28%'),
                                 _buildHLine(0.3, '12%'),
@@ -231,8 +223,7 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
            SizedBox(width: 70, child: Text(title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold))),
-           Expanded(
-              child: Center(
+           SizedBox(child: Center(
                  child: FractionallySizedBox(
                     widthFactor: width,
                     child: Container(
@@ -251,9 +242,9 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
   Widget _buildHLine(double topPercent, String lbl) {
      return Positioned(
         top: 250 * topPercent, left: 0, right: 0,
-        child: Row(
-           children: [
-              Expanded(child: Divider(color: Colors.grey.shade300)),
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
+              SizedBox(child: Divider(color: Colors.grey.shade300)),
               const SizedBox(width: 4),
               Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.grey)),
            ]
@@ -283,8 +274,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                     const Text('Key Markets Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     Container(
                        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)),
-                       child: Row(
-                          children: [
+                       child: PrimeCareResponsiveKpiGrid(
+ children: [
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, border: Border(right: BorderSide(color: Colors.grey.shade300))), child: const Text('Area', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border(right: BorderSide(color: Colors.grey.shade300))), child: const Text('Bar', style: TextStyle(fontSize: 11))),
                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), child: const Text('Heatmap', style: TextStyle(fontSize: 11))),
@@ -294,8 +285,7 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, dynamic>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                     columns: const ['Region', 'Manager', 'Leads', 'Status', 'Potential', 'Growth', ''],
                     data: const [
                        {'reg': 'California North', 'mgr': 'Sarah Jenkin', 'leads': '18', 'stat': 'Active', 'pot': '\$8.5M', 'growth': '24%'},
@@ -306,7 +296,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                     ],
                     rowBuilder: (data) => [
                        DataCell(Text(data['reg']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                       DataCell(Row(children: [CircleAvatar(radius: 10, backgroundColor: Colors.blue.shade100, child: const Icon(Icons.person, size: 12, color: Colors.blue)), const SizedBox(width: 8), Text(data['mgr']!, style: const TextStyle(fontSize: 12))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [CircleAvatar(radius: 10, backgroundColor: Colors.blue.shade100, child: const Icon(Icons.person, size: 12, color: Colors.blue)), const SizedBox(width: 8), Text(data['mgr']!, style: const TextStyle(fontSize: 12))])),
                        DataCell(Text(data['leads']!, style: const TextStyle(fontSize: 12))),
                        DataCell(
                           Container(
@@ -317,7 +308,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
                        ),
                        DataCell(Text(data['pot']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['growth']!, style: const TextStyle(fontSize: 12))),
-                       DataCell(Row(children: const [Icon(Icons.edit, color: Colors.grey, size: 16), SizedBox(width: 8), Icon(Icons.more_vert, color: Colors.grey, size: 16)])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.edit, color: Colors.grey, size: 16), SizedBox(width: 8), Icon(Icons.more_vert, color: Colors.grey, size: 16)])),
                     ],
                  )
               )
@@ -333,8 +325,7 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
            children: [
               const Text('Upcoming Appointments', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildAptTile('Meeting + Franchisee', '8 am - 1:10 am', true),
@@ -353,8 +344,8 @@ class TerritoryExpansionDashboardScreen extends StatelessWidget {
      return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(color: isTeal ? Colors.teal.shade50 : Colors.white, borderRadius: BorderRadius.circular(8)),
-        child: Row(
-           children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
               Container(width: 4, height: 32, decoration: BoxDecoration(color: isTeal ? Colors.teal : const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(4))),
               const SizedBox(width: 12),
               Column(

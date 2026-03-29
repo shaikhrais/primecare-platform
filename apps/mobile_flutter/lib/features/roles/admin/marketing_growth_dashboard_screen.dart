@@ -18,9 +18,10 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('GROWTH DASHBOARD', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Row(
-                     children: [
-                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 24),
                         Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: const Icon(Icons.add, color: Colors.black87, size: 16)),
                         const SizedBox(width: 16),
@@ -31,8 +32,8 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 24),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
                               const SizedBox(width: 12),
                               Column(
@@ -49,12 +50,11 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 32),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                  Expanded(flex: 3, child: _buildLeftColumn()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildLeftColumn()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRightColumn()),
+                  SizedBox(child: _buildRightColumn()),
                ]
             ),
             const SizedBox(height: 32),
@@ -72,7 +72,8 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                  const Text('Growth Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                 Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Oct 1 - Oct 31, 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                 Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Oct 1 - Oct 31, 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
               ]
            ),
            const SizedBox(height: 24),
@@ -125,7 +126,8 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
            children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black87)),
               Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
-              Row(children: [const Icon(Icons.arrow_drop_up, color: Colors.teal, size: 16), Text('$grw%', style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 12))]),
+              PrimeCareResponsiveKpiGrid(
+ children: [const Icon(Icons.arrow_drop_up, color: Colors.teal, size: 16), Text('$grw%', style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 12))]),
            ]
         ),
      );
@@ -150,19 +152,20 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                     Container(
                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(24)),
-                       child: Row(
-                          children: [
-                             Row(children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Revenue', style: TextStyle(fontSize: 12))]),
+                       child: PrimeCareResponsiveKpiGrid(
+ children: [
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Revenue', style: TextStyle(fontSize: 12))]),
                              const SizedBox(width: 16),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Patients', style: TextStyle(fontSize: 12))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Patients', style: TextStyle(fontSize: 12))]),
                           ]
                        )
                     )
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,8 +203,7 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Leads / Leads/ Cost', style: TextStyle(color: Colors.black54, fontSize: 12)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,9 +238,8 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 14, height: 210 * h1, decoration: const BoxDecoration(color: Color(0xFF0F4C81), borderRadius: BorderRadius.vertical(top: Radius.circular(2)))),
                  const SizedBox(width: 4),
                  Container(width: 14, height: 210 * h2, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: const BorderRadius.vertical(top: Radius.circular(2)))),
@@ -256,8 +257,7 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.center,
            children: [
               const Align(alignment: Alignment.centerLeft, child: Text('Local Location Performance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                        SizedBox(width: 160, height: 160, child: CircularProgressIndicator(value: 0.65, strokeWidth: 36, backgroundColor: Colors.teal.shade500, color: const Color(0xFF0F4C81))),
@@ -266,9 +266,12 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Row(children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Top Performers (40%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const SizedBox(height: 16),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade600, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Growth Areas (25%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const SizedBox(height: 16),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Needs Focus (35%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Top Performers (40%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const SizedBox(height: 16),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade600, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Growth Areas (25%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const SizedBox(height: 16),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Needs Focus (35%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                           ]
                        )
                     ]
@@ -285,11 +288,14 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
         children: [
            const Text('Growth Alerts', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
            const SizedBox(height: 16),
-           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(24)), child: Row(children: const [Icon(Icons.emoji_events, color: Color(0xFF0F4C81), size: 16), SizedBox(width: 8), Text('Top Performe', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 12))])),
+           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(24)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.emoji_events, color: Color(0xFF0F4C81), size: 16), SizedBox(width: 8), Text('Top Performe', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 12))])),
            const SizedBox(height: 12),
-           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(24)), child: Row(children: [Icon(Icons.trending_up, color: Colors.teal.shade700, size: 16), const SizedBox(width: 8), Text('Growth Areas', style: TextStyle(color: Colors.teal.shade700, fontWeight: FontWeight.bold, fontSize: 12))])),
+           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(24)), child: PrimeCareResponsiveKpiGrid(
+ children: [Icon(Icons.trending_up, color: Colors.teal.shade700, size: 16), const SizedBox(width: 8), Text('Growth Areas', style: TextStyle(color: Colors.teal.shade700, fontWeight: FontWeight.bold, fontSize: 12))])),
            const SizedBox(height: 12),
-           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.circular(24)), child: Row(children: const [Icon(Icons.lightbulb_outline, color: Color(0xFF0F4C81), size: 16), SizedBox(width: 8), Text('Needs Focus', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 12))])),
+           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.circular(24)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.lightbulb_outline, color: Color(0xFF0F4C81), size: 16), SizedBox(width: 8), Text('Needs Focus', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 12))])),
         ]
      );
   }
@@ -301,8 +307,7 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
            children: [
               const Text('Upcoming Campa...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildCampaignRow(Icons.bolt, 'Social Blitz', 'Date ups your mi...', Colors.blue.shade50, const Color(0xFF0F4C81)),
@@ -319,13 +324,11 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildCampaignRow(IconData ic, String title, String sub, Color bi, Color ti) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: bi, borderRadius: BorderRadius.circular(8)), child: Icon(ic, color: ti, size: 20)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -345,8 +348,7 @@ class MarketingGrowthDashboardScreen extends StatelessWidget {
            children: [
               const Text('Growth Alerts', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildCampaignRow(Icons.notifications_none, 'Top Performers', 'Growth ensrram...', Colors.blue.shade50, const Color(0xFF0F4C81)),
@@ -424,10 +426,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 40, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }
@@ -438,10 +440,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

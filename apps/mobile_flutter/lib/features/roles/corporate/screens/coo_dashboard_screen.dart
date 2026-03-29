@@ -28,10 +28,9 @@ class CooDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return const Row(
-      children: [
-         Expanded(
-            child: PrimeCareStatCard(
+    return const PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Total Locations',
                 value: '28 Franchises',
                 delta: 2.0,
@@ -39,8 +38,7 @@ class CooDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Revenue YTD',
                 value: '\$3.4M',
                 delta: 12.0,
@@ -48,8 +46,7 @@ class CooDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Staff Utilization',
                 value: '89%',
                 delta: 3.0,
@@ -57,8 +54,7 @@ class CooDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Patient Satisfaction',
                 value: '4.7/5.0',
                 delta: 4.5,
@@ -70,13 +66,10 @@ class CooDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildNetworkPerformanceRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Franchise Network Performance
-        Expanded(
-          flex: 2,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -91,8 +84,8 @@ class CooDashboardScreen extends StatelessWidget {
                 Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
-                      Row(
-                         children: [
+                      PrimeCareResponsiveKpiGrid(
+ children: [
                             Container(width: 12, height: 12, decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(2))),
                             const SizedBox(width: 8),
                             const Text('Monthly Revenue per Franchise', style: TextStyle(fontSize: 12)),
@@ -102,8 +95,8 @@ class CooDashboardScreen extends StatelessWidget {
                             const Text('Patient Volume', style: TextStyle(fontSize: 12)),
                          ],
                       ),
-                      Row(
-                         children: [
+                      PrimeCareResponsiveKpiGrid(
+ children: [
                             const Text('Top:', style: TextStyle(fontSize: 12, color: Colors.grey)),
                             const SizedBox(width: 8),
                             _buildPill('New York'),
@@ -118,8 +111,7 @@ class CooDashboardScreen extends StatelessWidget {
                    ],
                 ),
                 const SizedBox(height: 16),
-                const Expanded(
-                  child: PrimeCareBarChart(
+                const SizedBox(child: PrimeCareBarChart(
                     data: {
                       'Jan': 310,
                       'Feb': 310,
@@ -141,9 +133,7 @@ class CooDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Staffing Overview
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -202,13 +192,10 @@ class CooDashboardScreen extends StatelessWidget {
   Widget _buildOperationsMetricsRow(BuildContext context) {
     return SizedBox(
       height: 300, 
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Operations Metrics
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -220,10 +207,9 @@ class CooDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                     children: [
-                        Expanded(
-                           child: Column(
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        SizedBox(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                  const Text('Average Wait Time', style: TextStyle(fontSize: 13, color: Colors.black87)),
@@ -236,8 +222,7 @@ class CooDashboardScreen extends StatelessWidget {
                         ),
                         Container(width: 1, height: 120, color: Colors.grey.shade300),
                         const SizedBox(width: 16),
-                        Expanded(
-                           child: Column(
+                        SizedBox(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
                                  Text('Appointment Efficiency', style: TextStyle(fontSize: 13, color: Colors.black87)),
@@ -251,8 +236,7 @@ class CooDashboardScreen extends StatelessWidget {
                         ),
                         Container(width: 1, height: 120, color: Colors.grey.shade300),
                         const SizedBox(width: 16),
-                        Expanded(
-                           child: Column(
+                        SizedBox(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
                                  Text('Room Occupancy', style: TextStyle(fontSize: 13, color: Colors.black87)),
@@ -272,9 +256,7 @@ class CooDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Critical Alerts & Updates
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -302,16 +284,15 @@ class CooDashboardScreen extends StatelessWidget {
            borderRadius: BorderRadius.circular(8),
            border: Border.all(color: isUrgent ? Colors.red.shade200 : Colors.grey.shade200),
         ),
-        child: Row(
-           children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
               Container(
                  padding: const EdgeInsets.all(8),
                  decoration: BoxDecoration(color: isUrgent ? Colors.red.shade100 : Colors.teal.shade100, shape: BoxShape.circle),
                  child: Icon(icon, color: color, size: 20),
               ),
               const SizedBox(width: 12),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: isUrgent ? Colors.red.shade700 : Colors.black87)),

@@ -17,16 +17,17 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                  Row(
-                     children: const [
+                  PrimeCareResponsiveKpiGrid(
+ children: const [
                         Text('Operations Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                         Text(' | ', style: TextStyle(color: Colors.grey, fontSize: 18)),
                         Text('Healthcare Franchise (12 Locations)', style: TextStyle(color: Colors.black54, fontSize: 16)),
                      ]
                   ),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.location_on_outlined, size: 16), SizedBox(width: 8), Text('Locations', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.location_on_outlined, size: 16), SizedBox(width: 8), Text('Locations', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                         const SizedBox(width: 16),
                         Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: const Icon(Icons.search, size: 16)),
                         const SizedBox(width: 8),
@@ -40,8 +41,8 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                         Container(
                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)),
-                           child: Row(
-                              children: const [
+                           child: PrimeCareResponsiveKpiGrid(
+ children: const [
                                  Icon(Icons.person_outline, size: 16),
                                  SizedBox(width: 8),
                                  Text('A. Patel', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -115,7 +116,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                     )
                  ]
               ),
-              const Expanded(child: ServerLoadGraph()),
+              const SizedBox(child: ServerLoadGraph()),
            ]
         )
      );
@@ -153,9 +154,10 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Revenue by Location (Last 30 Days)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.insert_chart_outlined, size: 14), SizedBox(width: 4), Text('Chart', style: TextStyle(fontSize: 11))])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.insert_chart_outlined, size: 14), SizedBox(width: 4), Text('Chart', style: TextStyle(fontSize: 11))])),
                           const SizedBox(width: 8),
                           const Icon(Icons.more_horiz, color: Colors.grey),
                        ]
@@ -163,8 +165,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,8 +225,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
            children: [
               const Text('Franchise Map & Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Container(
+              SizedBox(child: Container(
                     decoration: BoxDecoration(
                        image: const DecorationImage(image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/1000px-World_map_blank_without_borders.svg.png'), opacity: 0.3, fit: BoxFit.cover),
                        color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)
@@ -258,8 +258,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                  children: const [Text('Recent Activities', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Icon(Icons.more_horiz, color: Colors.grey)]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildActivityRow(Icons.warning_amber_rounded, Colors.red.shade50, Colors.redAccent, 'Alerts updated', 'Recruitment: yi lanchers for\n+1 hours ago'),
@@ -275,13 +274,11 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityRow(IconData ic, Color bg, Color iconC, String title, String sub) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: bg, shape: BoxShape.circle), child: Icon(ic, color: iconC, size: 16)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -303,9 +300,10 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Franchise Performance Metrics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.filter_list, size: 14), SizedBox(width: 4), Text('Filters', style: TextStyle(fontSize: 12))])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_list, size: 14), SizedBox(width: 4), Text('Filters', style: TextStyle(fontSize: 12))])),
                           const SizedBox(width: 8),
                           const Icon(Icons.more_horiz, color: Colors.grey),
                        ]
@@ -313,8 +311,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Name', 'Manager', 'Patient Satisfaction', 'Daily Visits', 'Status'],
                     data: const [
                        {'n': 'Downtown', 'm': 'J. Doe', 's': '4.9', 'v': '120', 'st': 'Operational'},
@@ -353,8 +350,7 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
               const SizedBox(height: 12),
               _buildTaskRow(false, 'Check in nonplete graph'),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -388,8 +384,8 @@ class OperationsMgrDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTaskRow(bool isC, String txt) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 16, height: 16, decoration: BoxDecoration(color: isC ? const Color(0xFF0F4C81) : Colors.transparent, border: Border.all(color: isC ? const Color(0xFF0F4C81) : Colors.grey), borderRadius: BorderRadius.circular(4)), child: isC ? const Icon(Icons.check, color: Colors.white, size: 12) : null),
            const SizedBox(width: 12),
            Text(txt, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -410,9 +406,8 @@ class _MapPin extends StatelessWidget {
    Widget build(BuildContext context) {
       return Positioned(
          top: t, left: l,
-         child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+         child: PrimeCareResponsiveKpiGrid(
+ children: [
                const Icon(Icons.adjust, color: Color(0xFF0F4C81), size: 12),
                const SizedBox(width: 4),
                Column(
@@ -433,10 +428,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 20, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }

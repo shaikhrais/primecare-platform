@@ -19,9 +19,10 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Welcome, Sarah J.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
-                  Row(
-                     children: [
-                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(16)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(16)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
                         const Icon(Icons.search, color: Colors.black54), // Duplicated search icon
                         const SizedBox(width: 16),
@@ -32,8 +33,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
                               const SizedBox(width: 8),
                               const Text('Sarah Jenkins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
@@ -90,9 +91,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black87)),
-              Row(
-                 crossAxisAlignment: CrossAxisAlignment.end,
-                 children: [
+              PrimeCareResponsiveKpiGrid(
+ children: [
                     Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
                     const SizedBox(width: 4),
                     Padding(padding: const EdgeInsets.only(bottom: 6), child: Text(sub, style: const TextStyle(color: Colors.black87, fontSize: 12))),
@@ -114,9 +114,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
            children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black87)),
               const SizedBox(height: 4),
-              Row(
-                 crossAxisAlignment: CrossAxisAlignment.end,
-                 children: [
+              PrimeCareResponsiveKpiGrid(
+ children: [
                     Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                     const SizedBox(width: 4),
                     Padding(
@@ -125,8 +124,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                     ),
                  ]
               ),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Padding(
@@ -158,9 +156,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildDualBar(double h1, double h2) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 4, height: 60 * h1, color: const Color(0xFF0F4C81)),
            const SizedBox(width: 2),
            Container(width: 4, height: 60 * h2, color: Colors.teal.shade500),
@@ -177,16 +174,18 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Training Program Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
-                          Container(width: 160, padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 14), SizedBox(width: 4), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 11))])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(width: 160, padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 14), SizedBox(width: 4), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 11))])),
                           const SizedBox(width: 12),
                           Container(
                              decoration: BoxDecoration(color: Colors.grey.shade100, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)),
-                             child: Row(
-                                children: [
+                             child: PrimeCareResponsiveKpiGrid(
+ children: [
                                    Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6), decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: const Text('All', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold))),
-                                   Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: Row(children: const [Text('Active', style: TextStyle(fontSize: 10)), SizedBox(width: 2), Icon(Icons.keyboard_arrow_down, size: 12)])),
+                                   Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Active', style: TextStyle(fontSize: 10)), SizedBox(width: 2), Icon(Icons.keyboard_arrow_down, size: 12)])),
                                 ]
                              )
                           )
@@ -195,8 +194,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Program Name', 'Department', 'Status', 'Start Date', 'Completion %', 'Actions'],
                     data: const [
                        {'p': 'Patient Care Excellence', 'd': 'Patient Care Ext', 's': 'Active', 'c': '80%'}, // Literal typo Ext
@@ -212,7 +210,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                        DataCell(_buildStatusPill(data['s']!)),
                        DataCell(Text(data['s'] == 'Active' ? '12/15/2023' : data['s'] == 'Scheduled' ? '12/13/2023' : '12/15/2023', style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['c']!, style: const TextStyle(fontSize: 11))),
-                       DataCell(Row(children: const [Text('Manage', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('|', style: TextStyle(color: Colors.black26)), SizedBox(width: 4), Text('View', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 11))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: const [Text('Manage', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('|', style: TextStyle(color: Colors.black26)), SizedBox(width: 4), Text('View', style: TextStyle(color: Color(0xFF0F4C81), fontWeight: FontWeight.bold, fontSize: 11))])),
                     ],
                  )
               ),
@@ -251,8 +250,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Divider(height: 1),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildFacilitatorRow('https://i.pravatar.cc/150?img=9', 'Sarah Jenkins', 'Facillitators', 'Active'), // Literal typo ll
@@ -272,8 +270,8 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Row(
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  CircleAvatar(radius: 14, backgroundImage: NetworkImage(img)),
                  const SizedBox(width: 8),
                  Column(
@@ -297,8 +295,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
            children: [
               const Text('Training Compliance Tracker', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        Stack(
@@ -358,11 +355,9 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.stretch,
            children: [
               const Text('Key Performance Metrics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-              Expanded(
-                 child: Row(
-                    children: [
-                       Expanded(
-                          child: Column(
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
                                 Text('50m', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
@@ -372,8 +367,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                           )
                        ),
                        Container(width: 1, color: Colors.grey.shade200, margin: const EdgeInsets.symmetric(vertical: 24)),
-                       Expanded(
-                          child: Column(
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
                                 Text('4.3 ★', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
@@ -383,8 +377,7 @@ class TrainingCoordinatorDashboardScreen extends StatelessWidget {
                           )
                        ),
                        Container(width: 1, color: Colors.grey.shade200, margin: const EdgeInsets.symmetric(vertical: 24)),
-                       Expanded(
-                          child: Column(
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
                                 Text('56+★', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)), // Literal typo matching string

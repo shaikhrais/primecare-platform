@@ -18,9 +18,10 @@ class HrDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Talent Acquisition\nDashboard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, height: 1.2)),
-                  Row(
-                     children: [
-                        Container(width: 300, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search Candidates, Jobs...', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 300, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search Candidates, Jobs...', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 24),
                         Stack(
                            children: [
@@ -31,8 +32,8 @@ class HrDashboardScreen extends StatelessWidget {
                         const SizedBox(width: 16),
                         const Icon(Icons.mail_outline, color: Colors.black87, size: 24),
                         const SizedBox(width: 24),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               Column(
                                  crossAxisAlignment: CrossAxisAlignment.end,
                                  children: const [
@@ -107,7 +108,7 @@ class HrDashboardScreen extends StatelessWidget {
                           sub,
                        ]
                     ),
-                    Expanded(child: Padding(padding: const EdgeInsets.only(left: 16), child: vizGraphic)),
+                    SizedBox(child: Padding(padding: const EdgeInsets.only(left: 16), child: vizGraphic)),
                  ]
               )
            ]
@@ -118,7 +119,8 @@ class HrDashboardScreen extends StatelessWidget {
   Widget _buildJobOpeningsCard() {
      return _buildTopCardBase(
         Icons.business_center_outlined, 'Total Job Openings', '142',
-        Row(children: const [Text('+8%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('this month', style: TextStyle(color: Colors.black54, fontSize: 11))]),
+        PrimeCareResponsiveKpiGrid(
+ children: const [Text('+8%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('this month', style: TextStyle(color: Colors.black54, fontSize: 11))]),
         const SizedBox(height: 40, child: ServerLoadGraph())
      );
   }
@@ -162,7 +164,8 @@ class HrDashboardScreen extends StatelessWidget {
   Widget _buildEmployeesHiredCard() {
      return _buildTopCardBase(
         Icons.people_alt_outlined, 'Employees Hired', '34',
-        Row(children: const [Text('this month ', style: TextStyle(color: Colors.black54, fontSize: 11)), Icon(Icons.arrow_drop_up, color: Colors.green, size: 14), Text('22.5%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11))]),
+        PrimeCareResponsiveKpiGrid(
+ children: const [Text('this month ', style: TextStyle(color: Colors.black54, fontSize: 11)), Icon(Icons.arrow_drop_up, color: Colors.green, size: 14), Text('22.5%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11))]),
         SizedBox(height: 40, child: CustomPaint(painter: _UpwardLinePainter(), size: const Size(double.infinity, 40)))
      );
   }
@@ -176,8 +179,8 @@ class HrDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Hiring Pipeline', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('50%', style: TextStyle(fontSize: 12)),
                           const SizedBox(width: 16),
                           Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('197%', style: TextStyle(fontSize: 12)), // match mock literal
@@ -186,8 +189,7 @@ class HrDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,8 +246,7 @@ class HrDashboardScreen extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.center,
            children: [
               const Align(alignment: Alignment.centerLeft, child: Text('Departmental Hires', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                        SizedBox(width: 140, height: 140, child: CircularProgressIndicator(value: 0.8, strokeWidth: 32, backgroundColor: Colors.teal.shade500, color: const Color(0xFF0F4C81))),
@@ -254,11 +255,16 @@ class HrDashboardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Row(children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Nursing', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.blue.shade700, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Admin', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.blue.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Tech', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade600, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Clinic', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
-                             Row(children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Support', style: TextStyle(fontSize: 12))]),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Nursing', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.blue.shade700, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Admin', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.blue.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Tech', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade600, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Clinic', style: TextStyle(fontSize: 12))]), const SizedBox(height: 8),
+                             PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 10, height: 10, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Support', style: TextStyle(fontSize: 12))]),
                           ]
                        )
                     ]
@@ -278,8 +284,7 @@ class HrDashboardScreen extends StatelessWidget {
            children: [
               const Text('Recent Applications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, dynamic>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                     columns: const ['Applicant', 'Role', 'Department', 'Source', 'Applied Date', 'Status (Active)', 'Actions'],
                     data: const [
                        {'pn': 'Sarah Jones', 'w': 9, 'role': 'Nurse Practitioner', 'dep': 'Healthcare', 'src': 'Pompany', 'date': '24 May 2024', 'stat': 'Reviewing'},
@@ -287,7 +292,8 @@ class HrDashboardScreen extends StatelessWidget {
                        {'pn': 'Mama Toreh', 'w': 7, 'role': 'Medical Assistant', 'dep': 'Medical Assist...', 'src': 'Source', 'date': '24 May 2024', 'stat': 'Interview Scheduled'},
                     ],
                     rowBuilder: (data) => [
-                       DataCell(Row(children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 12), Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 12), Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
                        DataCell(Text(data['role'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['dep'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['src'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
@@ -344,10 +350,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 30, child: Text(lbl, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }

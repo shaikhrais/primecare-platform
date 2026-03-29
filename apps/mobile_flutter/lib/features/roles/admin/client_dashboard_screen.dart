@@ -19,9 +19,10 @@ class ClientDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Overview: Q3 2023 | HealthNet Franchise', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
-                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
                         const Icon(Icons.mail_outline, color: Colors.black54),
                         const SizedBox(width: 16),
@@ -32,8 +33,8 @@ class ClientDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
                               const SizedBox(width: 6),
                               const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.black54),
@@ -53,8 +54,7 @@ class ClientDashboardScreen extends StatelessWidget {
                      children: [
                         const Text('Key Performance Indicators', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                         const SizedBox(height: 16),
-                        Expanded(
-                           child: PrimeResponsiveGrid(
+                        SizedBox(child: PrimeResponsiveGrid(
                               desktopMainAxisExtent: 120,
                               tabletMainAxisExtent: 140,
                               mobileMainAxisExtent: 140,
@@ -81,9 +81,7 @@ class ClientDashboardScreen extends StatelessWidget {
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
-                        Expanded(
-                           flex: 5,
-                           child: PrimeResponsiveGrid(
+                        SizedBox(child: PrimeResponsiveGrid(
                               desktopMainAxisExtent: 260,
                               desktopCrossAxisCount: 2,
                               children: [
@@ -92,9 +90,7 @@ class ClientDashboardScreen extends StatelessWidget {
                               ]
                            )
                         ),
-                        Expanded(
-                           flex: 4,
-                           child: PrimeResponsiveGrid(
+                        SizedBox(child: PrimeResponsiveGrid(
                               desktopMainAxisExtent: 200,
                               desktopCrossAxisCount: 2,
                               children: [
@@ -163,21 +159,23 @@ class ClientDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Revenue Growth', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Menthly twel v', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo mapping
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Menthly twel v', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo mapping
                  ]
               ),
               const SizedBox(height: 8),
               Row(
                  mainAxisAlignment: MainAxisAlignment.end,
                  children: [
-                    Row(children: [Container(width: 12, height: 2, color: Colors.teal.shade500), const SizedBox(width: 6), const Text('Revenue', style: TextStyle(fontSize: 10))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 12, height: 2, color: Colors.teal.shade500), const SizedBox(width: 6), const Text('Revenue', style: TextStyle(fontSize: 10))]),
                     const SizedBox(width: 16),
-                    Row(children: [Container(width: 12, height: 2, color: Colors.grey.shade400), const SizedBox(width: 6), const Text('Previous Year', style: TextStyle(fontSize: 10))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 12, height: 2, color: Colors.grey.shade400), const SizedBox(width: 6), const Text('Previous Year', style: TextStyle(fontSize: 10))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,13 +213,12 @@ class ClientDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Clinic Network Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Interactive Map', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Interactive Map', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 flex: 2,
-                 child: Center(
+              SizedBox(child: Center(
                     child: Stack(
                        alignment: Alignment.center,
                        children: [
@@ -238,9 +235,7 @@ class ClientDashboardScreen extends StatelessWidget {
                  )
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 flex: 1,
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Padding(
@@ -287,15 +282,14 @@ class ClientDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: const [
-                    Expanded(flex: 2, child: Text('Clinic', style: TextStyle(fontSize: 10, color: Colors.black54))),
-                    Expanded(flex: 2, child: Text('Patients', style: TextStyle(fontSize: 10, color: Colors.black54))),
-                    Expanded(flex: 2, child: Text('Revenue', style: TextStyle(fontSize: 10, color: Colors.black54))),
-                    Expanded(flex: 2, child: Text('Efficiency', style: TextStyle(fontSize: 10, color: Colors.black54))),
+                    SizedBox(child: Text('Clinic', style: TextStyle(fontSize: 10, color: Colors.black54))),
+                    SizedBox(child: Text('Patients', style: TextStyle(fontSize: 10, color: Colors.black54))),
+                    SizedBox(child: Text('Revenue', style: TextStyle(fontSize: 10, color: Colors.black54))),
+                    SizedBox(child: Text('Efficiency', style: TextStyle(fontSize: 10, color: Colors.black54))),
                  ]
               ),
               const SizedBox(height: 8),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildEffRow('Cllin 1', '\$62.2M', 0.6, 0.4), // Literal typographical formatting
@@ -317,10 +311,10 @@ class ClientDashboardScreen extends StatelessWidget {
      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Expanded(flex: 2, child: Text(n, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
-           Expanded(flex: 2, child: Padding(padding: const EdgeInsets.only(right: 8), child: Container(height: 6, decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(4)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: h1, child: Container(decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(4))))))),
-           Expanded(flex: 2, child: Padding(padding: const EdgeInsets.only(right: 8), child: Container(height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: h2, child: Container(decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4))))))),
-           Expanded(flex: 2, child: Text(eff, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
+           SizedBox(child: Text(n, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
+           SizedBox(child: Padding(padding: const EdgeInsets.only(right: 8), child: Container(height: 6, decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(4)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: h1, child: Container(decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(4))))))),
+           SizedBox(child: Padding(padding: const EdgeInsets.only(right: 8), child: Container(height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: h2, child: Container(decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4))))))),
+           SizedBox(child: Text(eff, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10))),
         ]
      );
   }
@@ -332,8 +326,7 @@ class ClientDashboardScreen extends StatelessWidget {
            children: [
               const Text('Patient Demographics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        SizedBox(
@@ -350,16 +343,19 @@ class ClientDashboardScreen extends StatelessWidget {
                     Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Age Groups', style: TextStyle(fontSize: 10))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Age Groups', style: TextStyle(fontSize: 10))]),
                           const SizedBox(height: 8),
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('10-4 maxns', style: TextStyle(fontSize: 10))]), // Literal typo mapping (instead of maybe 10-40 months?
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade300, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('10-4 maxns', style: TextStyle(fontSize: 10))]), // Literal typo mapping (instead of maybe 10-40 months?
                        ]
                     ),
                     const SizedBox(width: 16),
                     Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Gender', style: TextStyle(fontSize: 10))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Gender', style: TextStyle(fontSize: 10))]),
                           const SizedBox(height: 8),
                           const SizedBox(height: 8), // spacer matching
                        ]
@@ -384,8 +380,7 @@ class ClientDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -420,8 +415,7 @@ class ClientDashboardScreen extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.stretch,
            children: [
               const Text('Patient Feedback Score', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        SizedBox(
@@ -453,8 +447,7 @@ class ClientDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildActivityRowWrapper(Icons.notifications_none, 'Updates on Clinic Openings', 'Updater 17, 2023', '12/11ies'), // Literal Typo string Updater, 11ies
@@ -472,8 +465,8 @@ class ClientDashboardScreen extends StatelessWidget {
      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Row(
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.teal.shade50, shape: BoxShape.circle), child: Icon(ic, color: Colors.teal.shade600, size: 20)),
                  const SizedBox(width: 12),
                  Column(
@@ -503,8 +496,7 @@ class ClientDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildInsightRowWrapper(Icons.bar_chart, 'Increase Staff Training for Clinic 4', 'Increase Staff Training for Clinic in Sancelting Clinc 4'), // Literal Typo Sancelting
@@ -519,12 +511,11 @@ class ClientDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildInsightRowWrapper(IconData ic, String t, String sub) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: Icon(ic, color: const Color(0xFF0F4C81), size: 20)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(t, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -542,10 +533,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 32, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

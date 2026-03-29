@@ -21,8 +21,8 @@ class PswHomeScreen extends StatelessWidget {
                 4: FlexColumnWidth(1.5),
               },
               children: [
-                const TableRow(
-                  children: [
+                const TablePrimeCareResponsiveKpiGrid(
+ children: [
                     Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Client', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
                     Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Time', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
                     Padding(padding: EdgeInsets.only(bottom: 12), child: Text('Service', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A)))),
@@ -43,8 +43,8 @@ class PswHomeScreen extends StatelessWidget {
   }
 
   TableRow _buildTableRow(BuildContext context, String client, String time, String service, String location, String status, Color statusColor) {
-    return TableRow(
-      children: [
+    return TablePrimeCareResponsiveKpiGrid(
+ children: [
         GestureDetector(
           onTap: () => context.push(AppRoutes.pswLiveVisit),
           child: Padding(padding: const EdgeInsets.symmetric(vertical: 12), child: Text(client, style: const TextStyle(color: Color(0xFF1E5BB2), fontWeight: FontWeight.bold, decoration: TextDecoration.underline))),
@@ -88,11 +88,11 @@ class PswHomeScreen extends StatelessWidget {
       onTap: () => context.push(routePath),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
             Icon(icon, color: const Color(0xFF1E88E5), size: 20),
             const SizedBox(width: 12),
-            Expanded(child: Text(title, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600, fontSize: 14))),
+            SizedBox(child: Text(title, style: const TextStyle(color: Color(0xFF1E3A8A), fontWeight: FontWeight.w600, fontSize: 14))),
             if (badge.isNotEmpty)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -126,12 +126,11 @@ class PswHomeScreen extends StatelessWidget {
       onTap: () => context.push(AppRoutes.pswIncidentReport),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
             Icon(icon, color: Colors.orange, size: 20),
             const SizedBox(width: 12),
-            Expanded(
-              child: RichText(
+            SizedBox(child: RichText(
                 text: TextSpan(
                   text: '$boldText ',
                   style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A), fontSize: 14),
@@ -217,13 +216,11 @@ class PswHomeScreen extends StatelessWidget {
       onTap: () => context.push(AppRoutes.pswProgressNotes),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+        child: PrimeCareResponsiveKpiGrid(
+ children: [
             Icon(icon, color: iconColor, size: 18),
             const SizedBox(width: 8),
-            Expanded(
-              child: RichText(
+            SizedBox(child: RichText(
                 text: TextSpan(
                   text: '$name - ',
                   style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E3A8A), fontSize: 13),
@@ -276,13 +273,13 @@ class PswHomeScreen extends StatelessWidget {
           PrimeCareSectionHeader(title: "Training & Resources", isWhite: true),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(child: _buildResourceBox(Icons.warning, 'Safety\nProcedures')),
+            child: PrimeCareResponsiveKpiGrid(
+ children: [
+                SizedBox(child: _buildResourceBox(Icons.warning, 'Safety\nProcedures')),
                 const SizedBox(width: 12),
-                Expanded(child: _buildResourceBox(Icons.health_and_safety, 'Dementia\nCare Tips')),
+                SizedBox(child: _buildResourceBox(Icons.health_and_safety, 'Dementia\nCare Tips')),
                 const SizedBox(width: 12),
-                Expanded(child: _buildResourceBox(Icons.menu_book, 'New Policy\nUpdates')),
+                SizedBox(child: _buildResourceBox(Icons.menu_book, 'New Policy\nUpdates')),
               ],
             ),
           )
@@ -352,8 +349,8 @@ class PswHomeScreen extends StatelessWidget {
         titleSpacing: 24,
         backgroundColor: const Color(0xFF1453A3), // V3 deep blue
         elevation: 0,
-        title: Row(
-          children: const [
+        title: PrimeCareResponsiveKpiGrid(
+ children: const [
             Icon(Icons.add_box, color: Colors.white, size: 28),
             SizedBox(width: 12),
             Text('PSW Dashboard', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20)),
@@ -362,8 +359,8 @@ class PswHomeScreen extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 24.0),
-            child: Row(
-              children: const [
+            child: PrimeCareResponsiveKpiGrid(
+ children: const [
                 CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage('https://i.pravatar.cc/100?img=5'), // Match wireframe woman
@@ -416,8 +413,8 @@ class PswHomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 // Top KPI Row
-                Row(
-                  children: [
+                PrimeCareResponsiveKpiGrid(
+ children: [
                     PrimeCareKpiCard(title: 'Today\'s Visits', value: '8', icon: Icons.calendar_month, subtitle: ''),
                     const SizedBox(width: 20),
                     PrimeCareKpiCard(title: 'Clients Assigned', value: '18', icon: Icons.people, subtitle: ''),
@@ -429,31 +426,26 @@ class PswHomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 // Main Grid Layout
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                PrimeCareResponsiveKpiGrid(
+ children: [
                     // Left Wide Column
-                    Expanded(
-                      flex: 13,
-                      child: Column(
+                    SizedBox(child: Column(
                         children: [
                           _buildUpcomingVisits(context),
                           const SizedBox(height: 24),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(flex: 10, child: _buildDailyOverview()),
+                          PrimeCareResponsiveKpiGrid(
+ children: [
+                              SizedBox(child: _buildDailyOverview()),
                               const SizedBox(width: 24),
-                              Expanded(flex: 8, child: _buildRecentNotes(context)),
+                              SizedBox(child: _buildRecentNotes(context)),
                             ],
                           ),
                           const SizedBox(height: 24),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(flex: 10, child: _buildClientLocations()),
+                          PrimeCareResponsiveKpiGrid(
+ children: [
+                              SizedBox(child: _buildClientLocations()),
                               const SizedBox(width: 24),
-                              Expanded(flex: 12, child: _buildTrainingResources()),
+                              SizedBox(child: _buildTrainingResources()),
                             ],
                           )
                         ],
@@ -461,9 +453,7 @@ class PswHomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 24),
                     // Right Narrow Column
-                    Expanded(
-                      flex: 7,
-                      child: Column(
+                    SizedBox(child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           _buildTodaysTasks(context),
@@ -585,7 +575,7 @@ class PswHomeScreen extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: Text(e.key, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF333333)))),
+              SizedBox(child: Text(e.key, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF333333)))),
               Text(e.value, style: const TextStyle(color: Color(0xFF1D72B8))),
             ],
           ),

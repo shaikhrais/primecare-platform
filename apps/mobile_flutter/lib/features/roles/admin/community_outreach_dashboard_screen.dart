@@ -25,26 +25,27 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
                         Text('eleanor.reed@careconnect.com', style: TextStyle(color: Colors.black54, fontSize: 13)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const Icon(Icons.notifications_active_outlined, color: Colors.black87, size: 20),
                         const SizedBox(width: 8),
                         const Text('Notifications', style: TextStyle(fontSize: 12)),
                         const SizedBox(width: 24),
-                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(24)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(24)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.add, color: Colors.white, size: 16), SizedBox(width: 8), Text('New Program', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.add, color: Colors.white, size: 16), SizedBox(width: 8), Text('New Program', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))])),
                      ]
                   )
                ]
             ),
             const SizedBox(height: 32),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                  Expanded(flex: 3, child: _buildLeftColumn()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildLeftColumn()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRightColumn()),
+                  SizedBox(child: _buildRightColumn()),
                ]
             ),
             const SizedBox(height: 32),
@@ -103,7 +104,7 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
-              Expanded(child: Padding(padding: const EdgeInsets.only(top: 12), child: content)),
+              SizedBox(child: Padding(padding: const EdgeInsets.only(top: 12), child: content)),
            ]
         ),
      );
@@ -123,7 +124,7 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
                     Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(4)), child: const Text('+12%', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 10))),
                  ]
               ),
-              Expanded(child: CustomPaint(painter: _ZigZagLinePainter(Colors.teal.shade500, Colors.teal.shade50), size: const Size(double.infinity, 40))),
+              SizedBox(child: CustomPaint(painter: _ZigZagLinePainter(Colors.teal.shade500, Colors.teal.shade50), size: const Size(double.infinity, 40))),
            ]
         )
      );
@@ -208,8 +209,7 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
                     Text(' / \$60k', style: TextStyle(color: Colors.black54, fontSize: 12)),
                  ]
               ),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -239,27 +239,30 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
                        children: [
                           const Text('Outreach Engagement & Impact', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                           const SizedBox(height: 8),
-                          Row(
-                             children: [
-                                Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Participants', style: TextStyle(fontSize: 11))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [
+                                PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Participants', style: TextStyle(fontSize: 11))]),
                                 const SizedBox(width: 16),
-                                Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Programs', style: TextStyle(fontSize: 11))]),
+                                PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Programs', style: TextStyle(fontSize: 11))]),
                              ]
                           )
                        ]
                     ),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('12 months', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('12 months', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                           const SizedBox(width: 12),
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('12 months', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('12 months', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                        ]
                     )
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -326,8 +329,7 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
            children: [
               const Text('Active Outreach Programs', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Program Name', 'Status', 'Leads', 'Participants'],
                     data: const [
                        {'n': 'Health Fair', 's': 'Active', 'l': '245', 'p': '1,650'},
@@ -389,9 +391,11 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Row(children: [const Text('Aug 15', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const SizedBox(width: 8), Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Wellness Workshop', style: TextStyle(fontSize: 11))]),
+              PrimeCareResponsiveKpiGrid(
+ children: [const Text('Aug 15', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const SizedBox(width: 8), Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Wellness Workshop', style: TextStyle(fontSize: 11))]),
               const SizedBox(height: 12),
-              Row(children: [const Text('Aug 22', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const SizedBox(width: 8), Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Community Health Fair', style: TextStyle(fontSize: 11))]),
+              PrimeCareResponsiveKpiGrid(
+ children: [const Text('Aug 22', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const SizedBox(width: 8), Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Community Health Fair', style: TextStyle(fontSize: 11))]),
            ]
         ),
      );
@@ -404,8 +408,7 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
            children: [
               const Text('Recent Activity Feed', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildActivityRow(Icons.event_note, 'Community Health\nFair\'s Fair', '7 hours sgo', Colors.blue.shade50, const Color(0xFF0F4C81)), // Literal typos from mockup
@@ -421,13 +424,11 @@ class CommunityOutreachDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityRow(IconData ic, String title, String sub, Color bg, Color ti) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: bg, shape: BoxShape.circle), child: Icon(ic, color: ti, size: 16)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
@@ -538,10 +539,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 32, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

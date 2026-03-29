@@ -28,10 +28,9 @@ class HeadBdDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         const Expanded(
-            child: PrimeCareStatCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'YTD Franchise Growth',
                 value: '+18.2%',
                 delta: null,
@@ -39,8 +38,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -51,8 +49,8 @@ class HeadBdDashboardScreen extends StatelessWidget {
                            Container(
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(4)),
-                              child: Row(
-                                 children: [
+                              child: PrimeCareResponsiveKpiGrid(
+ children: [
                                     Icon(Icons.arrow_drop_up, color: Colors.teal.shade700, size: 16),
                                     Text('Active', style: TextStyle(color: Colors.teal.shade700, fontSize: 10, fontWeight: FontWeight.bold)),
                                  ]
@@ -72,8 +70,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'New Leads',
                 value: '127',
                 delta: 12,
@@ -81,8 +78,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Avg. Franchise Rev.',
                 value: '\$840K',
                 delta: 8.4,
@@ -96,13 +92,10 @@ class HeadBdDashboardScreen extends StatelessWidget {
   Widget _buildFranchisePipelineRow(BuildContext context) {
     return SizedBox(
       height: 360,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Franchise Performance Data Table
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -114,8 +107,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: PrimeCareDataTable<Map<String, dynamic>>(
+                  SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                       columns: const ['Franchisee Name', 'Location', 'Revenue', 'Growth', 'Leads', 'Actions'],
                       data: const [
                         {'name': 'Franchisee A', 'loc': 'HealthMan', 'rev': '\$18.5M', 'grw': 0.85, 'lead': '127'},
@@ -145,16 +137,13 @@ class HeadBdDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Growth Pipeline & Conversion (Stacked bars mapped to columns)
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Growth Pipeline & Conversion', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Row(
+                  SizedBox(child: Row(
                        crossAxisAlignment: CrossAxisAlignment.end,
                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                        children: [
@@ -206,13 +195,10 @@ class HeadBdDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildAcquisitionRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Top Performing Franchises Map
-        Expanded(
-          flex: 2,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -284,9 +270,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Franchise Acquisition Funnel
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -316,8 +300,7 @@ class HeadBdDashboardScreen extends StatelessWidget {
               width: 80,
               child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
            ),
-           Expanded(
-              child: Center(
+           SizedBox(child: Center(
                  child: FractionallySizedBox(
                     widthFactor: widthFactor,
                     child: Container(

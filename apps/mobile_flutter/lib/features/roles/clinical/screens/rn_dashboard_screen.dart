@@ -17,8 +17,8 @@ class RnDashboardScreen extends StatelessWidget {
             Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                  Row(
-                     children: const [
+                  PrimeCareResponsiveKpiGrid(
+ children: const [
                         Text('NurseDirect', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F4C81))),
                         SizedBox(width: 8),
                         Text('|', style: TextStyle(fontSize: 16, color: Colors.grey)),
@@ -26,8 +26,8 @@ class RnDashboardScreen extends StatelessWidget {
                         Text('Healthcare Franchise Portal', style: TextStyle(fontSize: 14)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         CircleAvatar(radius: 12, backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=1')),
                         const SizedBox(width: 8),
                         Column(
@@ -55,23 +55,21 @@ class RnDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildDailyPatientRosterCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildDailyPatientRosterCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildMyScheduleCard()),
+                  SizedBox(child: _buildMyScheduleCard()),
                ]
             ).withHeight(360),
             const SizedBox(height: 16),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 1, child: _buildCriticalAlertsCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildCriticalAlertsCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildCareTasksOverviewCard()),
+                  SizedBox(child: _buildCareTasksOverviewCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: Column(children: [Expanded(flex: 2, child: _buildRecentActivityFeedCard()), const SizedBox(height: 16), Expanded(flex: 1, child: _buildFranchiseUpdatesCard())])),
+                  SizedBox(child: Column(children: [SizedBox(child: _buildRecentActivityFeedCard()), const SizedBox(height: 16), SizedBox(child: _buildFranchiseUpdatesCard())])),
                ]
             ).withHeight(340),
             const SizedBox(height: 32),
@@ -90,12 +88,12 @@ class RnDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Daily Patient Roster', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.tune, size: 16), SizedBox(width: 8), Text('Filters', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.tune, size: 16), SizedBox(width: 8), Text('Filters', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, dynamic>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                     columns: const ['Name', 'Age', 'Room', 'Status', 'Next Task', 'Alerts'],
                     data: const [
                        {'name': 'Liam Chen', 'age': '26', 'room': '#6', 'stat': 'Monted', 'task': 'Propeiare Br...', 'alert': 'red', 'w': 1},
@@ -105,7 +103,8 @@ class RnDashboardScreen extends StatelessWidget {
                        {'name': 'John Doen', 'age': '29', 'room': '#8', 'stat': 'Monted', 'task': 'Next Task', 'alert': 'amber', 'w': 4},
                     ],
                     rowBuilder: (data) => [
-                       DataCell(Row(children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Text(data['name'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Text(data['name'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))])),
                        DataCell(Text(data['age'].toString(), style: const TextStyle(fontSize: 12))),
                        DataCell(Text(data['room'].toString(), style: const TextStyle(fontSize: 12))),
                        DataCell(
@@ -140,16 +139,14 @@ class RnDashboardScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('Today\'s appointments', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildScheduleBlock('9:30 AM', 'Sarah Miller', '9:30 AM'),
                        _buildScheduleBlock('11:00 AM', 'John Doe', '11:00 AM'),
                        _buildScheduleBlock('2:00 PM', 'Mark Davis', '2:00 PM'),
-                       Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                       PrimeCareResponsiveKpiGrid(
+ children: const [
                              SizedBox(width: 50, child: Text('3:00 PM', style: TextStyle(fontSize: 10))),
                              SizedBox(width: 12),
                           ]
@@ -163,13 +160,11 @@ class RnDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildScheduleBlock(String timeList, String name, String timeBlock) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            SizedBox(width: 50, child: Text(timeList, style: const TextStyle(fontSize: 10))),
            const SizedBox(width: 12),
-           Expanded(
-              child: Container(
+           SizedBox(child: Container(
                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                  decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4), border: Border(left: BorderSide(color: Colors.teal.shade400, width: 4))),
                  child: Row(
@@ -207,19 +202,18 @@ class RnDashboardScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('List', style: TextStyle(color: Colors.grey, fontSize: 12)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     children: [
-                       Row(
-                          children: [
+                       PrimeCareResponsiveKpiGrid(
+ children: [
                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12')),
                              const SizedBox(width: 12),
                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Sarah M. - High BP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), Text('Conditions', style: TextStyle(color: Colors.black87, fontSize: 11))]),
                           ]
                        ),
                        const Divider(height: 32),
-                       Row(
-                          children: [
+                       PrimeCareResponsiveKpiGrid(
+ children: [
                              const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11')),
                              const SizedBox(width: 12),
                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('John D. - Lab Results', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), Text('Conditions', style: TextStyle(color: Colors.black87, fontSize: 11))]),
@@ -241,8 +235,7 @@ class RnDashboardScreen extends StatelessWidget {
            children: [
               const Text('Care Tasks Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 32),
-              Expanded(
-                 child: Center(
+              SizedBox(child: Center(
                     child: SizedBox(
                        width: 130, height: 130,
                        child: CircularProgressIndicator(value: 0.75, strokeWidth: 24, backgroundColor: const Color(0xFF0F4C81), color: Colors.teal.shade500),
@@ -253,19 +246,22 @@ class RnDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Meds', style: TextStyle(fontSize: 10))]), const Text('45%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Assessments', style: TextStyle(fontSize: 10))]), const Text('30%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF1B6A9C), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Procedures', style: TextStyle(fontSize: 10))]), const Text('25%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Meds', style: TextStyle(fontSize: 10))]), const Text('45%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Assessments', style: TextStyle(fontSize: 10))]), const Text('30%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF1B6A9C), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Procedures', style: TextStyle(fontSize: 10))]), const Text('25%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Row(
-                 children: [
-                    Expanded(flex: 45, child: Container(height: 4, decoration: const BoxDecoration(color: Color(0xFF0F4C81), borderRadius: BorderRadius.horizontal(left: Radius.circular(2))))),
+              PrimeCareResponsiveKpiGrid(
+ children: [
+                    SizedBox(child: Container(height: 4, decoration: const BoxDecoration(color: Color(0xFF0F4C81), borderRadius: BorderRadius.horizontal(left: Radius.circular(2))))),
                     const SizedBox(width: 4),
-                    Expanded(flex: 30, child: Container(height: 4, decoration: BoxDecoration(color: Colors.teal.shade500))),
+                    SizedBox(child: Container(height: 4, decoration: BoxDecoration(color: Colors.teal.shade500))),
                     const SizedBox(width: 4),
-                    Expanded(flex: 25, child: Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: const BorderRadius.horizontal(right: Radius.circular(2))))),
+                    SizedBox(child: Container(height: 4, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: const BorderRadius.horizontal(right: Radius.circular(2))))),
                  ]
               )
            ]
@@ -286,8 +282,7 @@ class RnDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned(top: 16, bottom: 20, left: 16, child: Container(width: 1, color: Colors.grey.shade300)),
                        Column(
@@ -307,13 +302,11 @@ class RnDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTimelineRow(IconData icon, String title, String sub, String time, bool isSelected) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: isSelected ? const Color(0xFF0F4C81) : Colors.grey.shade100, shape: BoxShape.circle), child: Icon(icon, color: isSelected ? Colors.white : Colors.black87, size: 16)),
            const SizedBox(width: 16),
-           Expanded(
-              child: Container(
+           SizedBox(child: Container(
                  padding: EdgeInsets.all(isSelected ? 12 : 0),
                  decoration: BoxDecoration(color: isSelected ? Colors.blue.shade50 : Colors.transparent, borderRadius: BorderRadius.circular(8)),
                  child: Row(

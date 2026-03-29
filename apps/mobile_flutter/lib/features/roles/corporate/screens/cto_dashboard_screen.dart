@@ -26,10 +26,9 @@ class CtoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         const Expanded(
-            child: PrimeCareStatCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Franchise Growth',
                 value: '112',
                 delta: 15.0,
@@ -37,8 +36,7 @@ class CtoDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: Container(
+         SizedBox(child: Container(
                padding: const EdgeInsets.all(24),
                decoration: BoxDecoration(
                   color: Colors.teal, // Special inverted theme from image
@@ -58,8 +56,8 @@ class CtoDashboardScreen extends StatelessWidget {
                      const SizedBox(height: 16),
                      const Text('99.98%', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white)),
                      const SizedBox(height: 24),
-                     Row(
-                        children: const [
+                     PrimeCareResponsiveKpiGrid(
+ children: const [
                            Text('Chart', style: TextStyle(color: Colors.white70)),
                            SizedBox(width: 4),
                            Icon(Icons.arrow_outward, color: Colors.white70, size: 14),
@@ -70,8 +68,7 @@ class CtoDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Daily Telehealth Sessions',
                 value: '4.2k',
                 delta: 8.0,
@@ -79,8 +76,7 @@ class CtoDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         const Expanded(
-            child: PrimeCareStatCard(
+         const SizedBox(child: PrimeCareStatCard(
                 title: 'Active Users',
                 value: '1.5m',
                 delta: 12.0,
@@ -92,13 +88,10 @@ class CtoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildSystemHealthRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Left: Franchise System Health Map
-        Expanded(
-          flex: 2,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -110,12 +103,10 @@ class CtoDashboardScreen extends StatelessWidget {
                    ]
                 ),
                 const SizedBox(height: 24),
-                Row(
-                   children: [
+                PrimeCareResponsiveKpiGrid(
+ children: [
                       // Map View
-                      Expanded(
-                         flex: 3,
-                         child: Column(
+                      SizedBox(child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                                const Text('Network Status Map', style: TextStyle(fontSize: 13, color: Colors.black87)),
@@ -139,9 +130,7 @@ class CtoDashboardScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 24),
                       // Performance Indicators
-                      Expanded(
-                         flex: 1,
-                         child: Column(
+                      SizedBox(child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                                const Text('Performance Indicators', style: TextStyle(fontSize: 13, color: Colors.black87)),
@@ -162,9 +151,7 @@ class CtoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Right: Key Performance Data
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -189,8 +176,7 @@ class CtoDashboardScreen extends StatelessWidget {
                    ]
                 ),
                 const SizedBox(height: 24),
-                Expanded(
-                  child: Container(
+                SizedBox(child: Container(
                      padding: const EdgeInsets.only(bottom: 16),
                      child: const ServerLoadGraph(), // Smooth line chart visualization
                   )
@@ -204,8 +190,8 @@ class CtoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildRadialIndicator(IconData icon, String label, String value, double percentage) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            SizedBox(
               width: 48, height: 48,
               child: Stack(
@@ -229,13 +215,10 @@ class CtoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTechnicalIntegrationsRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Security Overview
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -260,9 +243,7 @@ class CtoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // EHR Implementation Progress
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -290,9 +271,7 @@ class CtoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Tech Stack Performance
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -322,11 +301,11 @@ class CtoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildEHRProgress(String label, double value) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            SizedBox(width: 80, child: Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500))),
            const SizedBox(width: 16),
-           Expanded(child: PrimeCareProgressBar(progress: value, activeColor: const Color(0xFF0F4C81))),
+           SizedBox(child: PrimeCareProgressBar(progress: value, activeColor: const Color(0xFF0F4C81))),
         ]
      );
   }

@@ -18,11 +18,12 @@ class SchedulerDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Scheduler / Coordinator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const Text('Franchise:', style: TextStyle(fontSize: 12, color: Colors.black54)),
                         const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('\'Aurora Healthcare\'', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('\'Aurora Healthcare\'', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                         const SizedBox(width: 16),
                         Stack(
                            children: [
@@ -31,8 +32,8 @@ class SchedulerDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
                               const SizedBox(width: 8),
                               Column(
@@ -68,14 +69,10 @@ class SchedulerDashboardScreen extends StatelessWidget {
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
-                        Expanded(
-                           flex: 2,
-                           child: _buildUpcomingScheduleBlock(),
+                        SizedBox(child: _buildUpcomingScheduleBlock(),
                         ),
                         const SizedBox(height: 16),
-                        Expanded(
-                           flex: 1,
-                           child: _buildFacilityOverviewCard(),
+                        SizedBox(child: _buildFacilityOverviewCard(),
                         ),
                      ]
                   ),
@@ -94,13 +91,10 @@ class SchedulerDashboardScreen extends StatelessWidget {
         children: [
            const Text('Today\'s Summary', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
            const SizedBox(height: 16),
-           Expanded(
-              child: PrimeCareCard(
-                 child: Row(
-                    children: [
-                       Expanded(
-                          flex: 1,
-                          child: Column(
+           SizedBox(child: PrimeCareCard(
+                 child: PrimeCareResponsiveKpiGrid(
+ children: [
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
@@ -110,9 +104,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
                           )
                        ),
                        Container(width: 1, color: Colors.grey.shade200, margin: const EdgeInsets.symmetric(horizontal: 24)),
-                       Expanded(
-                          flex: 1,
-                          child: Column(
+                       SizedBox(child: Column(
                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
@@ -151,15 +143,13 @@ class SchedulerDashboardScreen extends StatelessWidget {
         children: [
            const Text('Key Activity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
            const SizedBox(height: 16),
-           Expanded(
-              child: PrimeCareCard(
+           SizedBox(child: PrimeCareCard(
                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        const Text('Appointment Trends this week', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                        const SizedBox(height: 16),
-                       Expanded(
-                          child: Stack(
+                       SizedBox(child: Stack(
                              children: [
                                 Column(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,9 +189,8 @@ class SchedulerDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 8, height: 100 * h1, decoration: const BoxDecoration(color: Color(0xFF0F4C81), borderRadius: BorderRadius.vertical(top: Radius.circular(2)))),
                  const SizedBox(width: 4),
                  Container(width: 8, height: 100 * h2, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: const BorderRadius.vertical(top: Radius.circular(2)))),
@@ -221,16 +210,18 @@ class SchedulerDashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                  const Text('Schedule', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                 Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.filter_list, size: 14), SizedBox(width: 4), Text('Filter views', style: TextStyle(fontSize: 12))])),
+                 Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.filter_list, size: 14), SizedBox(width: 4), Text('Filter views', style: TextStyle(fontSize: 12))])),
               ]
            ),
            const SizedBox(height: 16),
-           Row(
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)),
-                    child: Row(children: const [Icon(Icons.chevron_left, size: 16), SizedBox(width: 12), Text('November 14, 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), SizedBox(width: 12), Icon(Icons.chevron_right, size: 16)])
+                    child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.chevron_left, size: 16), SizedBox(width: 12), Text('November 14, 2023', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), SizedBox(width: 12), Icon(Icons.chevron_right, size: 16)])
                  ),
                  const SizedBox(width: 24),
                  _buildFilterDropdown('Location', 'West Seattle'),
@@ -241,8 +232,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
               ]
            ),
            const SizedBox(height: 24),
-           Expanded(
-              child: PrimeCareCard(
+           SizedBox(child: PrimeCareCard(
                  child: PrimeCareDataTable<Map<String, dynamic>>(
                     columns: const ['Time', 'Patient', 'Appointment Type', 'Clinician', 'Location', 'Status'],
                     data: const [
@@ -261,7 +251,8 @@ class SchedulerDashboardScreen extends StatelessWidget {
                     ],
                     rowBuilder: (data) => [
                        DataCell(Text(data['time'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                       DataCell(Row(children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Text(data['id'], style: const TextStyle(color: Colors.black54, fontSize: 9))])])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=${data['w']}')), const SizedBox(width: 8), Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [Text(data['pn'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Text(data['id'], style: const TextStyle(color: Colors.black54, fontSize: 9))])])),
                        DataCell(Text(data['type'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                        DataCell(Text(data['doc'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                        DataCell(Text(data['loc'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -275,8 +266,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildFilterDropdown(String label, String val) {
-     return Expanded(
-        child: Column(
+     return SizedBox(child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
               Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
@@ -307,14 +297,12 @@ class SchedulerDashboardScreen extends StatelessWidget {
         children: [
            const Text('Upcoming Schedule', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
            const SizedBox(height: 16),
-           Expanded(
-              child: PrimeCareCard(
+           SizedBox(child: PrimeCareCard(
                  child: Column(
                     children: [
                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('List view', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Icon(Icons.more_horiz, color: Colors.grey)]),
                        const SizedBox(height: 16),
-                       Expanded(
-                          child: ListView(
+                       SizedBox(child: ListView(
                              children: [
                                 _buildUpcomingCard('Samantha Reed', 1, 'Confirmed', '14 Nov 14, 2023'),
                                 const SizedBox(height: 12),
@@ -344,8 +332,8 @@ class SchedulerDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=$w')),
                           const SizedBox(width: 8),
                           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(pn, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), const Text('Coordinator', style: TextStyle(color: Colors.black54, fontSize: 9))]),
@@ -358,7 +346,8 @@ class SchedulerDashboardScreen extends StatelessWidget {
               if (stat != null) Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
-                    Row(children: [const Text('Follow-up ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: stat == 'Confirmed' ? Colors.teal.shade50 : Colors.orange.shade50, borderRadius: BorderRadius.circular(8)), child: Text(stat, style: TextStyle(color: stat == 'Confirmed' ? Colors.teal.shade700 : Colors.orange.shade800, fontWeight: FontWeight.bold, fontSize: 9)))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [const Text('Follow-up ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: stat == 'Confirmed' ? Colors.teal.shade50 : Colors.orange.shade50, borderRadius: BorderRadius.circular(8)), child: Text(stat, style: TextStyle(color: stat == 'Confirmed' ? Colors.teal.shade700 : Colors.orange.shade800, fontWeight: FontWeight.bold, fontSize: 9)))]),
                  ]
               ),
               if (date != null) const SizedBox(height: 4),
@@ -374,8 +363,7 @@ class SchedulerDashboardScreen extends StatelessWidget {
         children: [
            const Text('Facility Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
            const SizedBox(height: 16),
-           Expanded(
-              child: Stack(
+           SizedBox(child: Stack(
                  children: [
                     Container(decoration: BoxDecoration(color: Colors.blueGrey.shade100, image: const DecorationImage(image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Map_of_Manhattan.png/800px-Map_of_Manhattan.png'), opacity: 0.15, fit: BoxFit.cover), borderRadius: BorderRadius.circular(8))),
                     const _CardMapPin(30, 20, 'West Seattle', true),
@@ -401,11 +389,12 @@ class _CardMapPin extends StatelessWidget {
          child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)]),
-            child: Row(
-               children: [
+            child: PrimeCareResponsiveKpiGrid(
+ children: [
                   Container(padding: const EdgeInsets.all(4), decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle), child: const Icon(Icons.location_on, color: Colors.white, size: 8)),
                   const SizedBox(width: 8),
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(loc, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10)), Row(children: [const Text('Status ', style: TextStyle(color: Colors.black54, fontSize: 9)), Icon(Icons.diamond, color: isOk ? Colors.teal : Colors.red, size: 8), const Text(' Status', style: TextStyle(color: Colors.teal, fontSize: 9))])]),
+                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(loc, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10)), PrimeCareResponsiveKpiGrid(
+ children: [const Text('Status ', style: TextStyle(color: Colors.black54, fontSize: 9)), Icon(Icons.diamond, color: isOk ? Colors.teal : Colors.red, size: 8), const Text(' Status', style: TextStyle(color: Colors.teal, fontSize: 9))])]),
                ]
             )
          )
@@ -418,10 +407,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }

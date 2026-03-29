@@ -18,14 +18,16 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Sales Manager Dashboard'),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.add, size: 16), SizedBox(width: 8), Text('Quick Add', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.add, size: 16), SizedBox(width: 8), Text('Quick Add', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
                         const SizedBox(width: 16),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))])),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               CircleAvatar(radius: 16, backgroundColor: Colors.blue.shade100, child: const Icon(Icons.person, color: Colors.blue, size: 20)),
                               const SizedBox(width: 8),
                               Column(
@@ -46,30 +48,27 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
             const SizedBox(height: 24),
             _buildKeyMetricsRow(),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildPipelineOverviewCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildPipelineOverviewCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildUpcomingMilestonesCard()),
+                  SizedBox(child: _buildUpcomingMilestonesCard()),
                ]
             ).withHeight(340),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildMapPerformanceCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildMapPerformanceCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildTopFranchiseesTableCard()),
+                  SizedBox(child: _buildTopFranchiseesTableCard()),
                ]
             ).withHeight(380),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildKanbanFlowCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildKanbanFlowCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRecentActivityFeedCard()),
+                  SizedBox(child: _buildRecentActivityFeedCard()),
                ]
             ).withHeight(340),
             const SizedBox(height: 32),
@@ -80,10 +79,9 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(
-            child: Container(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: Container(
                padding: const EdgeInsets.all(20),
                decoration: BoxDecoration(color: Colors.teal.shade300, borderRadius: BorderRadius.circular(12), boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))]),
                child: Column(
@@ -91,9 +89,8 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                   children: [
                      const Text('New Franchisee Applications', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 13)),
                      const SizedBox(height: 16),
-                     Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                     PrimeCareResponsiveKpiGrid(
+ children: [
                            const Text('148', style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold)),
                            const SizedBox(width: 8),
                            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), borderRadius: BorderRadius.circular(12)), child: const Text('+15%', style: TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold))),
@@ -115,8 +112,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -144,8 +140,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -157,9 +152,8 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                         ]
                      ),
                      const SizedBox(height: 16),
-                     Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                     PrimeCareResponsiveKpiGrid(
+ children: [
                            const Text('29', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
                            const SizedBox(width: 8),
                            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(12)), child: const Text('+12%', style: TextStyle(color: Colors.green, fontSize: 11, fontWeight: FontWeight.bold))),
@@ -172,8 +166,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -215,20 +208,23 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                           Text('Line Chart: Jan-Oct', style: TextStyle(color: Colors.grey, fontSize: 12)),
                        ]
                     ),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('#0F4C81 & #48', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('#0F4C81 & #48', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 16),
               Row(
                  mainAxisAlignment: MainAxisAlignment.end,
                  children: [
-                    Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('New Leads', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('New Leads', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
                     const SizedBox(width: 16),
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Qualified', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Qualified', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))]),
                  ]
               ),
               const SizedBox(height: 16),
-              const Expanded(child: ServerLoadGraph()), // Represents the dual Jan-Oct lines
+              const SizedBox(child: ServerLoadGraph()), // Represents the dual Jan-Oct lines
            ]
         )
      );
@@ -287,12 +283,12 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                           Text('Interactive Map of USA', style: TextStyle(color: Colors.grey, fontSize: 12)),
                        ]
                     ),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Interactive Map', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Interactive Map', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Container(
                          alignment: Alignment.centerLeft,
@@ -326,8 +322,8 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                           child: Column(
                              crossAxisAlignment: CrossAxisAlignment.end,
                              children: [
-                                Row(
-                                   children: [
+                                PrimeCareResponsiveKpiGrid(
+ children: [
                                       Column(crossAxisAlignment: CrossAxisAlignment.end, children: const [Text('Sales', style: TextStyle(color: Colors.grey, fontSize: 12)), Text('552', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)), Text('Sales', style: TextStyle(color: Colors.grey, fontSize: 11))]),
                                       const SizedBox(width: 16),
                                       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [const Text('', style: TextStyle(color: Colors.grey, fontSize: 12)), const Text('\$150K', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 16)), const Text('Revenue', style: TextStyle(color: Colors.grey, fontSize: 11))]),
@@ -336,8 +332,8 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                                 const SizedBox(height: 24),
                                 const Text('Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                                 const SizedBox(height: 8),
-                                Row(
-                                   children: [
+                                PrimeCareResponsiveKpiGrid(
+ children: [
                                       Container(width: 16, height: 16, color: Colors.teal.shade100),
                                       Container(width: 16, height: 16, color: Colors.teal.shade300),
                                       Container(width: 16, height: 16, color: Colors.teal.shade500),
@@ -371,8 +367,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Franchisee Name', 'Location', 'Clinics', 'Revenue', 'Growth', 'Status'],
                     data: const [
                        {'name': 'Alera Johnson', 'loc': 'Healthcare', 'clinics': '2', 'rev': '\$23.0K', 'growth': '23%', 'stat': 'Status'},
@@ -387,7 +382,8 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                        DataCell(Text(data['loc']!, style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['clinics']!, style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['rev']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                       DataCell(Row(children: [const Icon(Icons.arrow_drop_up, color: Colors.green, size: 16), Text(data['growth']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [const Icon(Icons.arrow_drop_up, color: Colors.green, size: 16), Text(data['growth']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11))])),
                        DataCell(
                           Container(
                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -416,8 +412,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildKanbanColumn('Application', [
@@ -445,8 +440,7 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKanbanColumn(String title, List<Widget> items) {
-     return Expanded(
-        child: Padding(
+     return SizedBox(child: Padding(
            padding: const EdgeInsets.symmetric(horizontal: 4.0),
            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,13 +505,11 @@ class FranchiseSalesDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityRow(IconData icon, String text, String time) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            CircleAvatar(radius: 12, backgroundColor: Colors.blue.shade100, child: Icon(icon, size: 14, color: Colors.blue)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(text, style: const TextStyle(fontSize: 12)),

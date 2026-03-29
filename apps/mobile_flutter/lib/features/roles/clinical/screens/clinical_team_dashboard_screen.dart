@@ -18,14 +18,14 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Clinical Team Dashboard | MediHealth Franchise'),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         SizedBox(width: 200, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Colors.black12))))),
                         const SizedBox(width: 16),
                         const Icon(Icons.notifications_active_outlined, color: Colors.redAccent),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade100, child: const Icon(Icons.person, color: Colors.teal, size: 16)),
                               const SizedBox(width: 8),
                               Column(
@@ -114,12 +114,12 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Patient Flow & Volume (Weekly Overview)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.show_chart, size: 16), SizedBox(width: 8), Text('Chart', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.show_chart, size: 16), SizedBox(width: 8), Text('Chart', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        const Positioned.fill(child: ServerLoadGraph()), // Underlay mapping the visual
                        Positioned(
@@ -155,17 +155,15 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Franchise Performance Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Maps & Chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Maps & Chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const Text('Map & Bar Chart', style: TextStyle(color: Colors.black54, fontSize: 12)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Row(
-                    children: [
-                       Expanded(
-                          flex: 1,
-                          child: Container(
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                       SizedBox(child: Container(
                              decoration: const BoxDecoration(
                                image: DecorationImage(
                                  image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Blank_US_Map_%28states_only%29.svg/1000px-Blank_US_Map_%28states_only%29.svg.png'),
@@ -183,14 +181,11 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                           )
                        ),
                        const SizedBox(width: 16),
-                       Expanded(
-                          flex: 1,
-                          child: Column(
+                       SizedBox(child: Column(
                              children: [
                                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('200', style: TextStyle(fontSize:9,color:Colors.grey)), Text('150', style: TextStyle(fontSize:9,color:Colors.grey)), Text('100', style: TextStyle(fontSize:9,color:Colors.grey)), Text('50', style: TextStyle(fontSize:9,color:Colors.grey)), Text('0', style: TextStyle(fontSize:9,color:Colors.grey))]),
                                 const SizedBox(height: 8),
-                                Expanded(
-                                   child: Row(
+                                SizedBox(child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -212,9 +207,12 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Chicago', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('14,230', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('Afl + 42.2%', style: TextStyle(color: Colors.grey, fontSize: 10))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('NY', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('84 -', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('chiirlcs', style: TextStyle(color: Colors.grey, fontSize: 10))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade200, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('SF', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('17.4 afin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('AS + 60%+', style: TextStyle(color: Colors.grey, fontSize: 10))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Chicago', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('14,230', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('Afl + 42.2%', style: TextStyle(color: Colors.grey, fontSize: 10))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('NY', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('84 -', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('chiirlcs', style: TextStyle(color: Colors.grey, fontSize: 10))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade200, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('SF', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]), const Text('17.4 afin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('AS + 60%+', style: TextStyle(color: Colors.grey, fontSize: 10))]),
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('\$28,500', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Container(width: 60, height: 4, decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(2)))]),
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text('Patient Satisfaction', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), const Text('95.38%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Container(width: 60, height: 4, decoration: BoxDecoration(color: Colors.teal.shade400, borderRadius: BorderRadius.circular(2)))]),
                  ]
@@ -228,9 +226,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 10, height: 80 * h1, color: const Color(0xFF0F4C81)),
                  Container(width: 10, height: 80 * h2, color: Colors.teal.shade400),
               ]
@@ -250,18 +247,15 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('My Schedule', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.calendar_month, size: 14, color: Colors.grey), SizedBox(width: 8), Text('Centers', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_month, size: 14, color: Colors.grey), SizedBox(width: 8), Text('Centers', style: TextStyle(fontSize: 12)), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const Text('Today\'s appointments', style: TextStyle(color: Colors.black54, fontSize: 12)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                       Expanded(
-                          flex: 1,
-                          child: Column(
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                       SizedBox(child: Column(
                              children: [
                                 Container(
                                    padding: const EdgeInsets.all(12),
@@ -278,15 +272,12 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                           )
                        ),
                        const SizedBox(width: 24),
-                       Expanded(
-                          flex: 2,
-                          child: Column(
+                       SizedBox(child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                 const Text('Timeline', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                                 const SizedBox(height: 16),
-                                Expanded(
-                                   child: Stack(
+                                SizedBox(child: Stack(
                                       children: [
                                          Column(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -302,7 +293,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                                             child: Container(
                                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                                decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(4), border: Border(left: BorderSide(color: Colors.teal.shade400, width: 4))),
-                                               child: Row(children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Dr. Sarah Chen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                                               child: PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Dr. Sarah Chen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                                             )
                                          ),
                                          Positioned(
@@ -310,7 +302,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                                             child: Container(
                                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                                decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4), border: Border(left: BorderSide(color: Colors.blue.shade400, width: 4))),
-                                               child: Row(children: const [SizedBox(width: 14), Text('Dr. Sarah Chen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                                               child: PrimeCareResponsiveKpiGrid(
+ children: const [SizedBox(width: 14), Text('Dr. Sarah Chen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                                             )
                                          )
                                       ]
@@ -334,8 +327,7 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
            children: [
               const Text('Recent Admissions', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Patient Name', 'ID', 'Location', 'Status', 'Attending Phys'],
                     data: const [
                        {'name': 'Annonoiiizatient', 'id': '6570', 'loc': 'Location', 'stat': 'Statived', 'phys': 'Dr. Sarah Chen'},
@@ -369,8 +361,7 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
            children: [
               const Text('Critical Alerts', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Patient Name', 'Prioritity', 'Actions', ''],
                     data: const [
                        {'name': 'Patient Flags', 'date': '26 Novs, 2023', 'prio': 'Priority', 'act': 'Actions'},
@@ -379,8 +370,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                     ],
                     rowBuilder: (data) => [
                        DataCell(
-                          Row(
-                             children: [
+                          PrimeCareResponsiveKpiGrid(
+ children: [
                                 const Icon(Icons.flag, color: Colors.redAccent, size: 20),
                                 const SizedBox(width: 8),
                                 Column(
@@ -406,7 +397,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                           Container(
                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                              decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)),
-                             child: Row(children: const [Text('Actions', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.chevron_right, size: 16)])
+                             child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Actions', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.chevron_right, size: 16)])
                           )
                        ),
                     ],
@@ -432,13 +424,13 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                           Text('Kanban view, status, assignee', style: TextStyle(color: Colors.grey, fontSize: 12)),
                        ]
                     ),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Kanben', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Kanben', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Row(
-                    children: [
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
                        _buildKanbanColumn('Status', Icons.local_fire_department, Colors.orange, [
                           _buildKanbanCard('Patients Staff', 'Dr'),
                           _buildKanbanCard('Ehocloianagement', ''),
@@ -459,8 +451,7 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKanbanColumn(String title, IconData? icon, Color? c, List<Widget> items) {
-     return Expanded(
-        child: Padding(
+     return SizedBox(child: Padding(
            padding: const EdgeInsets.symmetric(horizontal: 4.0),
            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +459,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Row(children: [Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), if (icon != null) ...[const SizedBox(width: 4), Icon(icon, color: c, size: 14)]]),
+                       PrimeCareResponsiveKpiGrid(
+ children: [Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)), if (icon != null) ...[const SizedBox(width: 4), Icon(icon, color: c, size: 14)]]),
                        const Icon(Icons.more_horiz, size: 16, color: Colors.grey),
                     ]
                  ),
@@ -489,7 +481,8 @@ class ClinicalTeamDashboardScreen extends StatelessWidget {
            children: [
               Text(text, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               const SizedBox(height: 8),
-              if (sub.isNotEmpty) Row(children: [CircleAvatar(radius: 6, backgroundColor: Colors.orange.shade100, child: const Icon(Icons.person, size: 8, color: Colors.orange)), const SizedBox(width: 4), Text(sub, style: const TextStyle(color: Colors.grey, fontSize: 10))])
+              if (sub.isNotEmpty) PrimeCareResponsiveKpiGrid(
+ children: [CircleAvatar(radius: 6, backgroundColor: Colors.orange.shade100, child: const Icon(Icons.person, size: 8, color: Colors.orange)), const SizedBox(width: 4), Text(sub, style: const TextStyle(color: Colors.grey, fontSize: 10))])
            ]
         ),
      );
@@ -501,10 +494,10 @@ class _TimelineDivider extends StatelessWidget {
    const _TimelineDivider(this.time);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 40, child: Text(time, style: const TextStyle(color: Colors.grey, fontSize: 10))),
-            Expanded(child: Divider(color: Colors.grey.shade200)),
+            SizedBox(child: Divider(color: Colors.grey.shade200)),
          ]
       );
    }

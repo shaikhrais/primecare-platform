@@ -25,8 +25,8 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                         Text('Sarah Jenkins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const CircleAvatar(radius: 16, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=9')),
                         const SizedBox(width: 16),
                         Stack(
@@ -36,7 +36,8 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 24),
-                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search ...', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search ...', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                      ]
                   )
                ]
@@ -85,7 +86,7 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
               Text(title, style: const TextStyle(color: Colors.black87, fontSize: 11)),
-              Expanded(child: Padding(padding: const EdgeInsets.only(top: 12), child: content)),
+              SizedBox(child: Padding(padding: const EdgeInsets.only(top: 12), child: content)),
            ]
         ),
      );
@@ -102,10 +103,11 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
                  children: [
                     const Text('8,412', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                    Row(children: const [Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('+12.5%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('+12.5%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))]),
                  ]
               ),
-              Expanded(child: CustomPaint(painter: _WaveAreaPainter(Colors.teal.shade500, Colors.teal.shade50), size: const Size(double.infinity, 40))),
+              SizedBox(child: CustomPaint(painter: _WaveAreaPainter(Colors.teal.shade500, Colors.teal.shade50), size: const Size(double.infinity, 40))),
            ]
         )
      );
@@ -129,8 +131,7 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                     Text(' Pending', style: TextStyle(fontSize: 10, color: Colors.black54)),
                  ]
               ),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -169,9 +170,8 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                    Row(
-                       crossAxisAlignment: CrossAxisAlignment.center,
-                       children: const [
+                    PrimeCareResponsiveKpiGrid(
+ children: const [
                           Text('4.8', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                           SizedBox(width: 4),
                           Icon(Icons.star, color: Colors.amber, size: 16),
@@ -206,10 +206,11 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
                  children: [
                     const Text('\$198K', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                    Row(children: const [Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('+8%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('+8%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))]),
                  ]
               ),
-              Expanded(child: CustomPaint(painter: _WaveAreaPainter(const Color(0xFF0F4C81), Colors.blue.shade50), size: const Size(double.infinity, 40))),
+              SizedBox(child: CustomPaint(painter: _WaveAreaPainter(const Color(0xFF0F4C81), Colors.blue.shade50), size: const Size(double.infinity, 40))),
            ]
         )
      );
@@ -224,11 +225,13 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Performance Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Last 30 Days', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Last 30 Days', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                           const SizedBox(width: 12),
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('All Locations', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All Locations', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                           const SizedBox(width: 12),
                           Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(4)), child: const Text('Export', style: TextStyle(fontSize: 11))),
                        ]
@@ -236,16 +239,17 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 12),
-              Row(
-                 children: [
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Campaign Reach', style: TextStyle(fontSize: 11))]),
+              PrimeCareResponsiveKpiGrid(
+ children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 6), const Text('Campaign Reach', style: TextStyle(fontSize: 11))]),
                     const SizedBox(width: 16),
-                    Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('New Patients', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 6), const Text('New Patients', style: TextStyle(fontSize: 11))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,12 +287,12 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Location Performance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('All', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Location Name', 'Manager', 'Active Ads', 'Rating', 'ROI'],
                     data: const [
                        {'n': 'Location\nName 1', 'm': 'Sarah', 'a': '24', 'r': '4.8', 'roi': '50%'},
@@ -330,22 +334,20 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Recent Campaign Activity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('All', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Row(
-                    children: [
+              SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
                        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.teal.shade50, borderRadius: BorderRadius.circular(8)), child: Icon(Icons.person_add_alt_1, color: Colors.teal.shade700, size: 20)),
                        const SizedBox(width: 12),
                        const Icon(Icons.chevron_right, color: Colors.grey, size: 16),
                        const SizedBox(width: 12),
                        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.campaign, color: Color(0xFF0F4C81), size: 20)),
                        const SizedBox(width: 24),
-                       Expanded(
-                          flex: 2,
-                          child: Column(
+                       SizedBox(child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
@@ -355,9 +357,7 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                              ]
                           )
                        ),
-                       Expanded(
-                          flex: 3,
-                          child: Column(
+                       SizedBox(child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
@@ -367,9 +367,7 @@ class LocalMarketingDashboardScreen extends StatelessWidget {
                              ]
                           )
                        ),
-                       Expanded(
-                          flex: 2,
-                          child: Column(
+                       SizedBox(child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              mainAxisAlignment: MainAxisAlignment.center,
                              children: const [
@@ -461,10 +459,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 32, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

@@ -25,16 +25,16 @@ class PswManagementDashboardScreen extends StatelessWidget {
                         Text('Welcome, Administrator Sarah J.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         SizedBox(width: 200, child: TextField(decoration: InputDecoration(hintText: 'Search', prefixIcon: const Icon(Icons.search, size: 18), filled: true, fillColor: Colors.white, isDense: true, contentPadding: const EdgeInsets.all(8), border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: Colors.black12))))),
                         const SizedBox(width: 16),
                         const Icon(Icons.chat_bubble_outline, color: Colors.grey),
                         const SizedBox(width: 16),
                         const Icon(Icons.notifications_active_outlined, color: Colors.redAccent),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade100, child: const Icon(Icons.person, color: Colors.teal, size: 16)),
                               const SizedBox(width: 8),
                               const Text('Sarah J.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
@@ -47,27 +47,25 @@ class PswManagementDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 2, child: _buildTrackingOverviewCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildTrackingOverviewCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRealTimeMapCard()),
+                  SizedBox(child: _buildRealTimeMapCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRecentActivityFeedCard()),
+                  SizedBox(child: _buildRecentActivityFeedCard()),
                ]
             ).withHeight(360),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 1, child: _buildClientManagementCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildClientManagementCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildStaffAvailabilityCard()),
+                  SizedBox(child: _buildStaffAvailabilityCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildUpcomingTasksCard()),
+                  SizedBox(child: _buildUpcomingTasksCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildVisitSatisfactionCard()),
+                  SizedBox(child: _buildVisitSatisfactionCard()),
                ]
             ).withHeight(360),
             const SizedBox(height: 32),
@@ -86,7 +84,8 @@ class PswManagementDashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                    const Text('Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                   Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Daily visits', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                   Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Daily visits', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                 ]
              ),
              const SizedBox(height: 24),
@@ -99,8 +98,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                 ]
              ),
              const SizedBox(height: 16),
-             Expanded(
-                child: Stack(
+             SizedBox(child: Stack(
                    children: [
                       const Positioned.fill(child: ServerLoadGraph()), // Represents the huge teal area chart
                       Positioned(top: 0, bottom: 20, left: 0, child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('300', style: TextStyle(fontSize:10,color:Colors.grey)), Text('200', style: TextStyle(fontSize:10,color:Colors.grey)), Text('100', style: TextStyle(fontSize:10,color:Colors.grey))])),
@@ -109,10 +107,10 @@ class PswManagementDashboardScreen extends StatelessWidget {
                 )
              ),
              const SizedBox(height: 16),
-             Row(
-                children: [
-                   Expanded(flex: 1, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Clients Served', style: TextStyle(fontSize: 12)), SizedBox(height: 4), Text('215', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))])),
-                   Expanded(flex: 1, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Performance Score', style: TextStyle(fontSize: 12)), SizedBox(height: 4), Text('94%', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))])),
+             PrimeCareResponsiveKpiGrid(
+ children: [
+                   SizedBox(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Clients Served', style: TextStyle(fontSize: 12)), SizedBox(height: 4), Text('215', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))])),
+                   SizedBox(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [Text('Performance Score', style: TextStyle(fontSize: 12)), SizedBox(height: 4), Text('94%', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))])),
                 ]
              )
           ]
@@ -128,15 +126,15 @@ class PswManagementDashboardScreen extends StatelessWidget {
              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                   Row(children: [Icon(Icons.location_on_outlined, size: 18), SizedBox(width: 8), Text('Real-Time Map', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))]),
+                   PrimeCareResponsiveKpiGrid(
+ children: [Icon(Icons.location_on_outlined, size: 18), SizedBox(width: 8), Text('Real-Time Map', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))]),
                    Icon(Icons.more_horiz, color: Colors.grey),
                 ]
              ),
              const SizedBox(height: 16),
              const Text('24 active PSWs and scheduled\nclient visits in the city.', style: TextStyle(color: Colors.black87, fontSize: 12)),
              const SizedBox(height: 16),
-             Expanded(
-                child: Container(
+             SizedBox(child: Container(
                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: const DecorationImage(
@@ -176,8 +174,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     children: [
                        _buildActivityRow('D', 'David L.', 'started visit @ 9:02 AM'),
                        const Divider(height: 24),
@@ -195,13 +192,11 @@ class PswManagementDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActivityRow(String initial, String name, String subtitle) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade400, child: Text(initial, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -229,8 +224,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('Client Needs Breakdown', style: TextStyle(color: Colors.black87, fontSize: 12)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,8 +277,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 32),
-              Expanded(
-                 child: Center(
+              SizedBox(child: Center(
                     child: SizedBox(
                        width: 140, height: 140,
                        child: CircularProgressIndicator(value: 0.68, strokeWidth: 32, backgroundColor: const Color(0xFF0F4C81), color: Colors.teal),
@@ -303,8 +296,8 @@ class PswManagementDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildAvailabilityLegend(String text, Color c) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 8, height: 8, decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(2))),
            const SizedBox(width: 8),
            Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
@@ -325,8 +318,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildTaskTile('Important deadlines', 'June 18, 2024', Colors.red),
@@ -342,13 +334,11 @@ class PswManagementDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTaskTile(String title, String sub, Color c) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 4, height: 32, decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(4))),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -378,8 +368,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('4.8/5.0', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -391,7 +380,7 @@ class PswManagementDashboardScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 30, right: 10),
                           child: Column(
                              children: [
-                                const Expanded(child: ServerLoadGraph()), // Green baseline trend
+                                const SizedBox(child: ServerLoadGraph()), // Green baseline trend
                                 Row(
                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: const [
@@ -420,10 +409,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Divider(color: Colors.grey.shade200, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade200, height: 1)),
          ]
       );
    }

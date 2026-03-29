@@ -35,26 +35,23 @@ class AdminHomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Row(
-              children: const [
-                Expanded(
-                  child: PrimeCareStatCard(
+            PrimeCareResponsiveKpiGrid(
+ children: const [
+                SizedBox(child: PrimeCareStatCard(
                     title: 'Active Nodes',
                     value: '1,429',
                     icon: Icons.hub,
                   ),
                 ),
                 SizedBox(width: 16),
-                Expanded(
-                  child: PrimeCareStatCard(
+                SizedBox(child: PrimeCareStatCard(
                     title: 'Cloudflare Latency',
                     value: '14ms',
                     icon: Icons.speed,
                   ),
                 ),
                 SizedBox(width: 16),
-                Expanded(
-                  child: PrimeCareStatCard(
+                SizedBox(child: PrimeCareStatCard(
                     title: 'System Exceptions',
                     value: '3',
                     icon: Icons.warning_amber,
@@ -63,12 +60,9 @@ class AdminHomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: PrimeCareCard(
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                SizedBox(child: PrimeCareCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
@@ -86,9 +80,7 @@ class AdminHomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 24),
-                Expanded(
-                  flex: 1,
-                  child: PrimeCareCard(
+                SizedBox(child: PrimeCareCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [

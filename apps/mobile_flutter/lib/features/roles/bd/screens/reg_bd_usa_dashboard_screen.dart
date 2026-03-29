@@ -17,9 +17,10 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Regional Business Development Dashboard - USA\nMonday, October 28, 2024'),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('User Notifications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.notifications_none, size: 16), SizedBox(width: 8), Text('User Notifications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), Icon(Icons.keyboard_arrow_down, size: 16)])),
                      ]
                   )
                ]
@@ -40,10 +41,9 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return Row(
-      children: [
-         Expanded(
-            child: PrimeCareCard(
+    return PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,8 +59,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -76,8 +75,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,8 +91,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
             ),
          ),
          const SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareCard(
+         SizedBox(child: PrimeCareCard(
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -121,13 +118,10 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
   Widget _buildPerformanceMiddleRow(BuildContext context) {
     return SizedBox(
       height: 380,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Regional Performance Stacked Area
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -139,8 +133,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 32),
-                  Expanded(
-                    child: Stack(
+                  SizedBox(child: Stack(
                        children: [
                           Positioned(
                              top: 0, left: 40,
@@ -192,9 +185,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Expansion Pipeline Status (Funnel overlay)
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -216,12 +207,9 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
                   ),
                   const Divider(),
                   const SizedBox(height: 16),
-                  Expanded(
-                     child: Row(
-                        children: [
-                           Expanded(
-                              flex: 1,
-                              child: Column(
+                  SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                           SizedBox(child: Column(
                                  children: [
                                     _buildCenteredFunnelLayer('145', 1.0, const Color(0xFF0F4C81)),
                                     const SizedBox(height: 4),
@@ -236,9 +224,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
                               )
                            ),
                            const SizedBox(width: 16),
-                           Expanded(
-                              flex: 1,
-                              child: Column(
+                           SizedBox(child: Column(
                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                  children: [
                                     _buildFunnelLegend('Prospecting', '145', const Color(0xFF0F4C81)),
@@ -284,8 +270,8 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildLegendItem(String label, Color color) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
            const SizedBox(width: 8),
            Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
@@ -294,8 +280,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildCenteredFunnelLayer(String value, double widthFactor, Color color) {
-     return Expanded(
-        child: Center(
+     return SizedBox(child: Center(
            child: FractionallySizedBox(
               widthFactor: widthFactor,
               child: Container(
@@ -312,7 +297,8 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
      return Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
          children: [
-            Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)), const SizedBox(width: 8), Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold))]),
+            PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)), const SizedBox(width: 8), Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold))]),
             Text(count, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
          ]
      );
@@ -321,13 +307,10 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
   Widget _buildBottomNetworkRow(BuildContext context) {
     return SizedBox(
       height: 380,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Left: Key Franchise Metrics by Region (Map)
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -339,8 +322,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Stack(
+                  SizedBox(child: Stack(
                        alignment: Alignment.center,
                        children: [
                            Container(
@@ -379,9 +361,7 @@ class RegBdUsaDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Right: Top Performing Franchisees (Q4)
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
@@ -443,18 +423,19 @@ class _MapChip extends StatelessWidget {
 }
 
 Widget _buildLeaderboardRow(String num, String initial, String name, String growth) {
-   return Row(
-      children: [
+   return PrimeCareResponsiveKpiGrid(
+ children: [
          Text(num, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
          const SizedBox(width: 16),
          CircleAvatar(radius: 16, backgroundColor: Colors.grey.shade200, child: Text(initial, style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))),
          const SizedBox(width: 12),
-         Expanded(child: Text(name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12))),
+         SizedBox(child: Text(name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12))),
          Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
                Text(growth, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-               Row(children: const [Icon(Icons.arrow_drop_up, color: Colors.green, size: 16), Text('Growth', style: TextStyle(color: Colors.green, fontSize: 10))]),
+               PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.arrow_drop_up, color: Colors.green, size: 16), Text('Growth', style: TextStyle(color: Colors.green, fontSize: 10))]),
             ]
          )
       ]

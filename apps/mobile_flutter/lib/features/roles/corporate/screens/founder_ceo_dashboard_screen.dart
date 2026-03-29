@@ -32,10 +32,9 @@ class FounderCeoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return const Row(
-      children: [
-         Expanded(
-            child: PrimeCareStatCard(
+    return const PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Total Franchise Locations',
                 value: '38 active',
                 delta: 3.2,
@@ -43,8 +42,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Total Revenue (YTD)',
                 value: '\$24.8M',
                 delta: 12.5,
@@ -52,8 +50,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Total Patient Admissions',
                 value: '112,450',
                 delta: 8.1,
@@ -61,8 +58,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Average Clinic Rating',
                 value: '4.8/5',
                 delta: 0.2,
@@ -74,13 +70,10 @@ class FounderCeoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildPerformanceRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Map Placeholder
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -106,9 +99,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Line Chart Placeholder 
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,9 +115,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Data Table Top Franchises
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -158,13 +147,10 @@ class FounderCeoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildOperationsRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Bar Chart
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -187,9 +173,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Donut Chart Placeholder
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -226,9 +210,7 @@ class FounderCeoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Quality Metrics Progress Bars
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

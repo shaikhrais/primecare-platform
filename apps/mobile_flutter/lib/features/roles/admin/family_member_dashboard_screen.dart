@@ -19,9 +19,10 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Welcome, Sarah!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
-                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
                         Stack(
                            children: [
@@ -30,8 +31,8 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
                               const SizedBox(width: 8),
                               const Text('Sarah Jensen', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), // Sarah Jensen text match
@@ -64,19 +65,20 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                            children: [
                               const Text('My Family', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('All secend', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo All secend
+                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All secend', style: TextStyle(fontSize: 11)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo All secend
                            ]
                         ),
                         const SizedBox(height: 16),
-                        Expanded(child: _buildFamilyList()),
+                        SizedBox(child: _buildFamilyList()),
                      ]
                   ),
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
-                        Expanded(flex: 2, child: _buildRecentMedicalUpdatesCard()),
+                        SizedBox(child: _buildRecentMedicalUpdatesCard()),
                         const SizedBox(height: 16),
-                        Expanded(flex: 3, child: _buildUpcomingAppointmentsCard()),
+                        SizedBox(child: _buildUpcomingAppointmentsCard()),
                      ]
                   ),
                ]
@@ -92,14 +94,12 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                      children: [
                         const Text('Health Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                         const SizedBox(height: 16),
-                        Expanded(
-                           child: PrimeCareCard(
-                              child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                 children: [
-                                    Expanded(flex: 1, child: _buildMonthlyFamilyVisitsChart()),
+                        SizedBox(child: PrimeCareCard(
+                              child: PrimeCareResponsiveKpiGrid(
+ children: [
+                                    SizedBox(child: _buildMonthlyFamilyVisitsChart()),
                                     const SizedBox(width: 24),
-                                    Expanded(flex: 1, child: _buildWellnessTrendsChart()),
+                                    SizedBox(child: _buildWellnessTrendsChart()),
                                  ]
                               )
                            )
@@ -111,21 +111,20 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                      children: [
                         const Text('Healthcare Feed', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                         const SizedBox(height: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               Container(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(16)), child: const Text('Tips', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                               const SizedBox(width: 16),
                               const Text('Articles', style: TextStyle(fontSize: 11)),
                            ]
                         ),
                         const SizedBox(height: 16),
-                        Expanded(
-                           child: Column(
+                        SizedBox(child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Expanded(child: _buildFeedCard('Tips for wne time', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna')), // Literal typo wne
+                                 SizedBox(child: _buildFeedCard('Tips for wne time', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna')), // Literal typo wne
                                  const SizedBox(height: 16),
-                                 Expanded(child: _buildFeedCard('Tips Articles', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do')),
+                                 SizedBox(child: _buildFeedCard('Tips Articles', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do')),
                               ]
                            )
                         )
@@ -241,11 +240,11 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Expanded(child: _buildFamilyCard('https://i.pravatar.cc/150?img=11', 'Liam Jensen', 'Photo, 7 yrs', '21 ago', 'Medical')), // Typo literal
+           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=11', 'Liam Jensen', 'Photo, 7 yrs', '21 ago', 'Medical')), // Typo literal
            const SizedBox(height: 16),
-           Expanded(child: _buildFamilyCard('https://i.pravatar.cc/150?img=5', 'Emily Jensen', 'Photo, 12 yrs', '12 ago', 'Medical status')),
+           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=5', 'Emily Jensen', 'Photo, 12 yrs', '12 ago', 'Medical status')),
            const SizedBox(height: 16),
-           Expanded(child: _buildFamilyCard('https://i.pravatar.cc/150?img=12', 'Michael Jensen', 'Photo, 45 yrs', '45 ago', 'Medical status')),
+           SizedBox(child: _buildFamilyCard('https://i.pravatar.cc/150?img=12', 'Michael Jensen', 'Photo, 45 yrs', '45 ago', 'Medical status')),
         ]
      );
   }
@@ -257,8 +256,8 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
         child: Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-              Row(
-                 children: [
+              PrimeCareResponsiveKpiGrid(
+ children: [
                     CircleAvatar(radius: 28, backgroundImage: NetworkImage(img)),
                     const SizedBox(width: 16),
                     Column(
@@ -277,11 +276,14 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                    Row(children: const [Icon(Icons.schedule, size: 12, color: Colors.black87), SizedBox(width: 4), Text('Recent Activity', style: TextStyle(fontSize: 10))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.schedule, size: 12, color: Colors.black87), SizedBox(width: 4), Text('Recent Activity', style: TextStyle(fontSize: 10))]),
                     const SizedBox(height: 4),
-                    Row(children: const [Icon(Icons.calendar_today, size: 12, color: Colors.black87), SizedBox(width: 4), Text('Upcoming Appts', style: TextStyle(fontSize: 10))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_today, size: 12, color: Colors.black87), SizedBox(width: 4), Text('Upcoming Appts', style: TextStyle(fontSize: 10))]),
                     const SizedBox(height: 4),
-                    Row(children: [Icon(Icons.healing, size: 12, color: Colors.teal.shade500), const SizedBox(width: 4), Text(medText, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Icon(Icons.healing, size: 12, color: Colors.teal.shade500), const SizedBox(width: 4), Text(medText, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold))]),
                  ]
               ),
               Container(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10), decoration: BoxDecoration(color: const Color(0xFF0F4C81), borderRadius: BorderRadius.circular(24)), child: const Text('View Profile', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12))),
@@ -298,8 +300,7 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
               const Text('Recent Medical Updates', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const Text('Timeline', style: TextStyle(color: Colors.black54, fontSize: 10)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Padding(
@@ -323,12 +324,10 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTimelineRow(Color col, String t, String sub, String date) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 8, height: 8, margin: const EdgeInsets.only(top: 4, right: 12), decoration: BoxDecoration(color: col, shape: BoxShape.circle)),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Row(
@@ -353,8 +352,7 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
            children: [
               const Text('Upcoming Appointments', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Date', 'Time', 'Doctor', 'Patient', 'Actions'],
                     data: const [
                        {'d': '01/24', 't': '18:30', 'dr': 'Doctor', 'p': 'Patients'},
@@ -383,12 +381,12 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                  const Text('Monthly Family Visits', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                 Row(children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Line chart', style: TextStyle(fontSize: 10))]),
+                 PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Line chart', style: TextStyle(fontSize: 10))]),
               ]
            ),
            const SizedBox(height: 16),
-           Expanded(
-              child: Stack(
+           SizedBox(child: Stack(
                  children: [
                     Column(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -424,12 +422,12 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                  const Text('Wellness Trends', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                 Row(children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('#0F4C81', style: TextStyle(fontSize: 10))]), // Literal typo rendering color hex instead of label
+                 PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 6, height: 6, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('#0F4C81', style: TextStyle(fontSize: 10))]), // Literal typo rendering color hex instead of label
               ]
            ),
            const SizedBox(height: 16),
-           Expanded(
-              child: Stack(
+           SizedBox(child: Stack(
                  children: [
                     Column(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -463,9 +461,8 @@ class FamilyMemberDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTwinBar(double h1, double h2) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(width: 6, height: 120 * h1, color: const Color(0xFF0F4C81)),
            const SizedBox(width: 2),
            Container(width: 6, height: 120 * h2, color: Colors.teal.shade600),
@@ -496,10 +493,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 20, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

@@ -18,8 +18,8 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                crossAxisAlignment: CrossAxisAlignment.end,
                children: [
-                  Row(
-                     children: const [
+                  PrimeCareResponsiveKpiGrid(
+ children: const [
                         Text('Franchise Intake', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                         SizedBox(width: 8),
                         Text('|', style: TextStyle(color: Colors.black26, fontSize: 24)),
@@ -27,9 +27,10 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                         Text('Welcome, Sarah J.', style: TextStyle(color: Colors.black87, fontSize: 20)),
                      ]
                   ),
-                  Row(
-                     children: [
-                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(16)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 200, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(16)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
                         Stack(
                            children: [
@@ -55,7 +56,8 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                            children: [
                               const Text('Daily Snapshot', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.calendar_today, size: 14), SizedBox(width: 8), Text('Main Intake', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_today, size: 14), SizedBox(width: 8), Text('Main Intake', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                            ]
                         ),
                         const SizedBox(height: 16),
@@ -70,15 +72,15 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(height: 24),
-                        Expanded(child: _buildPatientIntakeQueueTable()),
+                        SizedBox(child: _buildPatientIntakeQueueTable()),
                      ]
                   ),
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: [
-                        Expanded(flex: 3, child: _buildReferralSourcesCard()),
+                        SizedBox(child: _buildReferralSourcesCard()),
                         const SizedBox(height: 16),
-                        Expanded(flex: 7, child: _buildUpcomingIntakesCard()),
+                        SizedBox(child: _buildUpcomingIntakesCard()),
                      ]
                   )
                ]
@@ -109,8 +111,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                     ]
                  ]
               ),
-              Expanded(
-                 child: CustomPaint(painter: _MiniAreaPainter(lineCol, pts), size: const Size(double.infinity, double.infinity))
+              SizedBox(child: CustomPaint(painter: _MiniAreaPainter(lineCol, pts), size: const Size(double.infinity, double.infinity))
               )
            ]
         ),
@@ -124,8 +125,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
            children: [
               const Text('Referral Sources', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Row(
@@ -169,8 +169,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Upcoming ad location', style: TextStyle(fontSize: 11, color: Colors.black54)), // Literal typo match
               const SizedBox(height: 24),
-              Expanded(
-                 child: Column(
+              SizedBox(child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                        _buildUpcomingRow('A. Chen', '10:30 AM', 'City Health\n'),
@@ -190,8 +189,8 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Row(
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11')),
                  const SizedBox(width: 12),
                  Column(
@@ -217,8 +216,7 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Current cases to healthcare Intake Coordinator', style: TextStyle(fontSize: 11, color: Colors.black54)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['', 'Patient Name', 'Status', 'Priority', 'Franchise Location', 'Date Submitted', 'Actions'], // Checkbox col
                     data: const [
                        {'c': '1', 'n': 'A. Chen', 's': 'Pending Review', 'p': 'High', 'f': 'City Health', 'd': '10:30 AM', 'a': '1'},
@@ -229,7 +227,8 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
                     ],
                     rowBuilder: (data) => [
                        DataCell(Container(width: 16, height: 16, decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade400), borderRadius: BorderRadius.circular(4), color: data['c'] == '1' ? Colors.grey.shade200 : Colors.white), child: data['c'] == '1' ? const Icon(Icons.check, size: 12, color: Colors.black87) : null)),
-                       DataCell(Row(children: [const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [const CircleAvatar(radius: 12, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12')), const SizedBox(width: 8), Text(data['n']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))])),
                        DataCell(_buildStatusPill(data['s']!)),
                        DataCell(Text(data['p']!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: data['p'] == 'High' ? Colors.red : data['p'] == 'Med' ? Colors.amber.shade800 : Colors.black87))),
                        DataCell(Text(data['f']!, style: const TextStyle(fontSize: 11))),
@@ -255,8 +254,8 @@ class IntakeCoordinatorDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildActionRow(String type) {
-     return Row(
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            const Icon(Icons.remove_red_eye_outlined, size: 16, color: Colors.black54),
            const SizedBox(width: 8),
            const Icon(Icons.edit_outlined, size: 16, color: Colors.black54),

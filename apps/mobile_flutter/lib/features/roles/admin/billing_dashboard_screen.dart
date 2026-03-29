@@ -25,9 +25,10 @@ class BillingDashboardScreen extends StatelessWidget {
                         Text('Good Morning, Sarah!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                      ]
                   ),
-                  Row(
-                     children: [
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.calendar_today_outlined, size: 16), SizedBox(width: 8), Text('Oct 26, 2023', style: TextStyle(fontSize: 12))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.calendar_today_outlined, size: 16), SizedBox(width: 8), Text('Oct 26, 2023', style: TextStyle(fontSize: 12))])),
                         const SizedBox(width: 24),
                         const Icon(Icons.search, color: Colors.black54, size: 24),
                         const SizedBox(width: 16),
@@ -90,7 +91,7 @@ class BillingDashboardScreen extends StatelessWidget {
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
               sub,
-              Expanded(child: Padding(padding: const EdgeInsets.only(top: 8), child: vizGraphic)),
+              SizedBox(child: Padding(padding: const EdgeInsets.only(top: 8), child: vizGraphic)),
            ]
         ),
      );
@@ -99,7 +100,8 @@ class BillingDashboardScreen extends StatelessWidget {
   Widget _buildFranchiseRevenueCard() {
      return _buildTopCardBase(
         'Total Franchise Revenue', '\$3,245,670',
-        Row(children: const [Text('+8.2%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('vs last month', style: TextStyle(color: Colors.black54, fontSize: 11))]),
+        PrimeCareResponsiveKpiGrid(
+ children: const [Text('+8.2%', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)), SizedBox(width: 4), Text('vs last month', style: TextStyle(color: Colors.black54, fontSize: 11))]),
         SizedBox(height: 40, child: CustomPaint(painter: _UpwardWavePainter(Colors.teal.shade500, Colors.teal.shade50, true), size: const Size(double.infinity, 40)))
      );
   }
@@ -163,20 +165,22 @@ class BillingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Revenue Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Area chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Area chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                           const SizedBox(width: 16),
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Revenue', style: TextStyle(fontSize: 11))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Revenue', style: TextStyle(fontSize: 11))]),
                           const SizedBox(width: 8),
-                          Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Target', style: TextStyle(fontSize: 11))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 4), const Text('Target', style: TextStyle(fontSize: 11))]),
                        ]
                     )
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,8 +219,7 @@ class BillingDashboardScreen extends StatelessWidget {
            crossAxisAlignment: CrossAxisAlignment.stretch,
            children: [
               const Text('Billing Distribution', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        SizedBox(
@@ -240,9 +243,12 @@ class BillingDashboardScreen extends StatelessWidget {
               Row(
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, color: const Color(0xFF0F4C81)), const SizedBox(width: 4), const Text('Paid', style: TextStyle(fontSize: 11))]), const Text('72%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, color: Colors.teal.shade500), const SizedBox(width: 4), const Text('Pending', style: TextStyle(fontSize: 11))]), const Text('18%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 8, height: 8, color: Colors.blueGrey.shade100), const SizedBox(width: 4), const Text('Overdue', style: TextStyle(fontSize: 11))]), const Text('10%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, color: const Color(0xFF0F4C81)), const SizedBox(width: 4), const Text('Paid', style: TextStyle(fontSize: 11))]), const Text('72%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, color: Colors.teal.shade500), const SizedBox(width: 4), const Text('Pending', style: TextStyle(fontSize: 11))]), const Text('18%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
+                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, color: Colors.blueGrey.shade100), const SizedBox(width: 4), const Text('Overdue', style: TextStyle(fontSize: 11))]), const Text('10%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))]),
                  ]
               ),
               const SizedBox(height: 8),
@@ -260,12 +266,12 @@ class BillingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Recent Invoices', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('All Chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All Chart', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 16)])),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Invoice ID', 'Patient', 'Clinic Location', 'Date', 'Amount', 'Status'],
                     data: const [
                        {'id': '10F4081', 'pn': 'Patient Chen', 'loc': 'Morth Lane', 'd': '07/27/2023', 's': 'Paid'},
@@ -306,18 +312,19 @@ class BillingDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Monthly Goals Progress', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Row(
-                       children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.rectangle)), const SizedBox(width: 4), const Text('Goal', style: TextStyle(fontSize: 10))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.rectangle)), const SizedBox(width: 4), const Text('Goal', style: TextStyle(fontSize: 10))]),
                           const SizedBox(width: 8),
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.rectangle)), const SizedBox(width: 4), const Text('Actual', style: TextStyle(fontSize: 10))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade400, shape: BoxShape.rectangle)), const SizedBox(width: 4), const Text('Actual', style: TextStyle(fontSize: 10))]),
                        ]
                     )
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -357,9 +364,8 @@ class BillingDashboardScreen extends StatelessWidget {
      return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-           Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+           PrimeCareResponsiveKpiGrid(
+ children: [
                  Container(width: 6, height: 210 * hGoal, decoration: const BoxDecoration(color: Color(0xFF0F4C81))),
                  const SizedBox(width: 2),
                  Container(width: 6, height: 210 * hActual, decoration: BoxDecoration(color: Colors.teal.shade500)),
@@ -465,10 +471,10 @@ class _ChartLine extends StatelessWidget {
    const _ChartLine(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 40, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Divider(color: Colors.grey.shade300, height: 1)),
+            SizedBox(child: Divider(color: Colors.grey.shade300, height: 1)),
          ]
       );
    }
@@ -479,10 +485,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black54))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }

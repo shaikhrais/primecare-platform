@@ -18,8 +18,8 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                crossAxisAlignment: CrossAxisAlignment.end,
                children: [
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const CircleAvatar(radius: 18, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5')),
                         const SizedBox(width: 12),
                         const Text('Welcome,', style: TextStyle(color: Colors.black87, fontSize: 16)),
@@ -27,8 +27,8 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                         const Text('Sarah J.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                      ]
                   ),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         Stack(
                            children: [
                               const Padding(padding: EdgeInsets.all(4), child: Icon(Icons.notifications_none, color: Colors.black87, size: 20)),
@@ -36,7 +36,8 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 32),
-                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(8)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                      ]
                   )
                ]
@@ -46,15 +47,17 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Dashboard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
                         const Text('Date Range', style: TextStyle(color: Colors.black87, fontSize: 12)),
                         const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Last 90 Days', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Last 90 Days', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                         const SizedBox(width: 16),
                         const Text('Filter', style: TextStyle(color: Colors.black87, fontSize: 12)),
                         const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Northeast', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                        Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Northeast', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                      ]
                   )
                ]
@@ -112,8 +115,8 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
            children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10, color: Colors.black87)),
               Text(val, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
-              Row(
-                 children: [
+              PrimeCareResponsiveKpiGrid(
+ children: [
                     Text(pre, style: TextStyle(color: highlight, fontWeight: highlight == Colors.teal ? FontWeight.bold : FontWeight.normal, fontSize: 11)),
                     Text(sub, style: TextStyle(color: highlight == Colors.teal ? Colors.black54 : Colors.black87, fontSize: 11)),
                  ]
@@ -139,18 +142,18 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                           Text('U.S. Northeast Territory', style: TextStyle(color: Colors.black87, fontSize: 12)),
                        ]
                     ),
-                    Row(
-                       children: [
+                    PrimeCareResponsiveKpiGrid(
+ children: [
                           Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: const Text('Facilitys', style: TextStyle(fontSize: 11))), // Literal typo match
                           const SizedBox(width: 8),
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('All Density', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All Density', style: TextStyle(fontSize: 11)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])),
                        ]
                     )
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned.fill(
                           child: Opacity(
@@ -176,11 +179,9 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Prospecting -> Proposal -> Negotiation -> Closed Win/Loss', style: TextStyle(fontSize: 10, color: Colors.black87)),
               const SizedBox(height: 24),
-              const Expanded(flex: 3, child: SizedBox(width: double.infinity, child: CustomPaint(painter: _FunnelPainter()))),
+              const SizedBox(child: SizedBox(width: double.infinity, child: CustomPaint(painter: _FunnelPainter()))),
               const SizedBox(height: 24),
-              Expanded(
-                 flex: 4,
-                 child: Column(
+              SizedBox(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        const Text('Deal Stages', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
@@ -204,8 +205,10 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: c, shape: BoxShape.circle)), const SizedBox(width: 8), Text(stage, style: const TextStyle(fontSize: 11))]),
-           Row(children: [SizedBox(width: 30, child: Text(count, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))), const SizedBox(width: 24), SizedBox(width: 50, child: Text(val, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))]),
+           PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: c, shape: BoxShape.circle)), const SizedBox(width: 8), Text(stage, style: const TextStyle(fontSize: 11))]),
+           PrimeCareResponsiveKpiGrid(
+ children: [SizedBox(width: 30, child: Text(count, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))), const SizedBox(width: 24), SizedBox(width: 50, child: Text(val, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))]),
         ]
      );
   }
@@ -223,8 +226,7 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Facility Name', 'Franchisee', 'Q3 Revenue', 'Growth %', 'Rank'],
                     data: const [
                        {'n': 'Facility Name 1', 'f': 'Franchisee', 'rev': '\$4.8M', 'grw': '8.4%', 'r': '1'},
@@ -235,9 +237,12 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                     rowBuilder: (data) => [
                        DataCell(Text(data['n']!, style: const TextStyle(fontSize: 11))),
                        DataCell(Text(data['f']!, style: const TextStyle(fontSize: 11))),
-                       DataCell(Row(children: [SizedBox(width: 40, child: Text(data['rev']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))), Container(width: double.parse(data['r']!) == 1 ? 24 : double.parse(data['r']!) == 4 ? 12 : 18, height: 4, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(2)))])),
-                       DataCell(Row(children: [const Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('${data['grw']}', style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))])),
-                       DataCell(Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: data['r'] == '4' ? Colors.amber : Colors.green, shape: BoxShape.circle)), const SizedBox(width: 8), Text(data['r']!, style: const TextStyle(fontSize: 11))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [SizedBox(width: 40, child: Text(data['rev']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11))), Container(width: double.parse(data['r']!) == 1 ? 24 : double.parse(data['r']!) == 4 ? 12 : 18, height: 4, decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(2)))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [const Icon(Icons.arrow_drop_up, color: Colors.teal, size: 14), Text('${data['grw']}', style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11))])),
+                       DataCell(PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: data['r'] == '4' ? Colors.amber : Colors.green, shape: BoxShape.circle)), const SizedBox(width: 8), Text(data['r']!, style: const TextStyle(fontSize: 11))])),
                     ],
                  )
               ),
@@ -259,8 +264,7 @@ class TerritorySalesDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Facility', 'Potential Value', 'Contact', 'Stage', 'Probability'],
                     data: const [
                        {'n': 'Facility 1', 'v': '\$33.1M', 'c': 'Contact J.', 's': 'Success', 'p': '80%'},

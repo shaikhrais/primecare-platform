@@ -28,10 +28,9 @@ class CfoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildKeyMetricsRow() {
-    return const Row(
-      children: [
-         Expanded(
-            child: PrimeCareStatCard(
+    return const PrimeCareResponsiveKpiGrid(
+ children: [
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Total Revenue',
                 value: '\$48.7M',
                 delta: 12.1,
@@ -39,8 +38,7 @@ class CfoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Net Profit',
                 value: '\$7.2M',
                 delta: 15.5,
@@ -48,8 +46,7 @@ class CfoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'EBITDA Margin',
                 value: '18.4%',
                 delta: 0.8,
@@ -57,8 +54,7 @@ class CfoDashboardScreen extends StatelessWidget {
             ),
          ),
          SizedBox(width: 16),
-         Expanded(
-            child: PrimeCareStatCard(
+         SizedBox(child: PrimeCareStatCard(
                 title: 'Operating Cash Flow',
                 value: '\$9.1M',
                 delta: 6.3,
@@ -70,13 +66,10 @@ class CfoDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildFinancialOverviewRow(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
+    return PrimeCareResponsiveKpiGrid(
+ children: [
         // Left: Financial Performance Overview
-        Expanded(
-          flex: 2,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -96,8 +89,8 @@ class CfoDashboardScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 // Legend
-                Row(
-                   children: [
+                PrimeCareResponsiveKpiGrid(
+ children: [
                       Container(width: 12, height: 12, decoration: BoxDecoration(color: Colors.teal.shade300, borderRadius: BorderRadius.circular(2))),
                       const SizedBox(width: 8),
                       const Text('Revenue', style: TextStyle(fontSize: 12)),
@@ -108,8 +101,7 @@ class CfoDashboardScreen extends StatelessWidget {
                    ],
                 ),
                 const SizedBox(height: 16),
-                const Expanded(
-                  child: PrimeCareBarChart(
+                const SizedBox(child: PrimeCareBarChart(
                     data: {
                       'Mar': 120,
                       'Apr': 150,
@@ -129,9 +121,7 @@ class CfoDashboardScreen extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         // Right: Franchise Portfolio Performance 
-        Expanded(
-          flex: 1,
-          child: PrimeCareCard(
+        SizedBox(child: PrimeCareCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -150,8 +140,7 @@ class CfoDashboardScreen extends StatelessWidget {
                    ]
                 ),
                 const SizedBox(height: 16),
-                Expanded(
-                  child: Container(
+                SizedBox(child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.blue.withOpacity(0.05),
@@ -198,13 +187,10 @@ class CfoDashboardScreen extends StatelessWidget {
   Widget _buildOperationalDistributionsRow(BuildContext context) {
     return SizedBox(
       height: 380, // strict boundary constraint to align table and donut chart equally
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: PrimeCareResponsiveKpiGrid(
+ children: [
           // Data Table Top Franchises
-          Expanded(
-            flex: 2,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -216,8 +202,7 @@ class CfoDashboardScreen extends StatelessWidget {
                      ]
                   ),
                   const SizedBox(height: 16),
-                  Expanded(
-                    child: PrimeCareDataTable<Map<String, String>>(
+                  SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                       columns: const ['Ranking', 'Location', 'Revenue', 'Growth', 'Profitability'],
                       data: const [
                         {'rnk': '1', 'loc': 'Bestamolenity', 'rev': '\$48.7M', 'grw': '12.1%', 'pro': '5.85%'},
@@ -231,8 +216,8 @@ class CfoDashboardScreen extends StatelessWidget {
                         DataCell(Text(data['loc']!)),
                         DataCell(Text(data['rev']!, style: const TextStyle(fontWeight: FontWeight.w600))),
                         DataCell(
-                           Row(
-                              children: [
+                           PrimeCareResponsiveKpiGrid(
+ children: [
                                  const Icon(Icons.arrow_drop_up, color: Colors.green, size: 20),
                                  Text(data['grw']!, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
                               ]
@@ -248,19 +233,15 @@ class CfoDashboardScreen extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Donut Chart Operating Expenses Breakdown
-          Expanded(
-            flex: 1,
-            child: PrimeCareCard(
+          SizedBox(child: PrimeCareCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Operating Expenses Breakdown', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 24),
-                  Expanded(
-                    child: Row(
-                       children: [
-                          Expanded(
-                             child: Center(
+                  SizedBox(child: PrimeCareResponsiveKpiGrid(
+ children: [
+                          SizedBox(child: Center(
                                child: Stack(
                                  alignment: Alignment.center,
                                  children: [
@@ -311,8 +292,8 @@ class CfoDashboardScreen extends StatelessWidget {
   }
 
    Widget _buildLegendItem(String label, Color color) {
-     return Row(
-       children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
           Container(width: 12, height: 12, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
           const SizedBox(width: 8),
           Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),

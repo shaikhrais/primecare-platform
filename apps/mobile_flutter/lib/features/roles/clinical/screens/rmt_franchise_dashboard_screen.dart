@@ -18,10 +18,10 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const GreetingHeaderWidget(name: 'Franchise Dashboard - RMT Network'),
-                  Row(
-                     children: [
-                        Row(
-                           children: [
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               CircleAvatar(radius: 12, backgroundColor: Colors.teal.shade100, backgroundImage: const NetworkImage('https://i.pravatar.cc/150?img=5')),
                               const SizedBox(width: 8),
                               Column(
@@ -44,33 +44,31 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                ]
             ),
             const SizedBox(height: 24),
-            Row(
-               children: [
-                  Expanded(child: _buildAreaMetricCard('Total Revenue', '\$78,450.20', '+12.5%')),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildAreaMetricCard('Total Revenue', '\$78,450.20', '+12.5%')),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildBarMetricCard('Total Bookings', '4,102', '+8%', Colors.teal, false)),
+                  SizedBox(child: _buildBarMetricCard('Total Bookings', '4,102', '+8%', Colors.teal, false)),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildBarMetricCard('Active Therapists', '187', '+3', Colors.teal.shade700, true)),
+                  SizedBox(child: _buildBarMetricCard('Active Therapists', '187', '+3', Colors.teal.shade700, true)),
                   const SizedBox(width: 16),
-                  Expanded(child: _buildBarMetricCard('Franchise Locations', '24', null, const Color(0xFF0F4C81), false)),
+                  SizedBox(child: _buildBarMetricCard('Franchise Locations', '24', null, const Color(0xFF0F4C81), false)),
                ]
             ).withHeight(140),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 3, child: _buildDualLineChartCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildDualLineChartCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildDonutUtilizationCard()),
+                  SizedBox(child: _buildDonutUtilizationCard()),
                ]
             ).withHeight(360),
             const SizedBox(height: 24),
-            Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               children: [
-                  Expanded(flex: 3, child: _buildTopFranchiseeTableCard()),
+            PrimeCareResponsiveKpiGrid(
+ children: [
+                  SizedBox(child: _buildTopFranchiseeTableCard()),
                   const SizedBox(width: 16),
-                  Expanded(flex: 1, child: _buildRecentActivityVerticalFeed()),
+                  SizedBox(child: _buildRecentActivityVerticalFeed()),
                ]
             ).withHeight(360),
             const SizedBox(height: 32),
@@ -95,7 +93,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                     Text(pop, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)),
                  ]
               ),
-              const Expanded(child: ServerLoadGraph()), // Simulated area wave
+              const SizedBox(child: ServerLoadGraph()), // Simulated area wave
            ]
         ),
      );
@@ -116,8 +114,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                     if (pop != null) Text(pop, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)),
                  ]
               ),
-              Expanded(
-                 child: Row(
+              SizedBox(child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -150,7 +147,8 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Franchise Performance Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: Row(children: const [Text('Senshbooad', style: TextStyle(color: Colors.white, fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16)])),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.teal.shade500, borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Senshbooad', style: TextStyle(color: Colors.white, fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16)])),
                  ]
               ),
               const SizedBox(height: 24),
@@ -162,26 +160,27 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                        children: [
                           const Text('Monthly Revenue & Bookings', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                           const SizedBox(height: 8),
-                          Row(
-                             children: [
+                          PrimeCareResponsiveKpiGrid(
+ children: [
                                 Container(width: 12, height: 4, color: const Color(0xFF0F4C81)), const SizedBox(width: 4), const Text('Revenue', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)), const SizedBox(width: 16),
                                 Container(width: 12, height: 4, color: Colors.teal), const SizedBox(width: 4), const Text('Bookings', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                              ]
                           )
                        ]
                     ),
-                    Row(
-                       children: [
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.show_chart, size: 14), SizedBox(width: 4), Text('Day', style: TextStyle(fontSize: 12)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                    PrimeCareResponsiveKpiGrid(
+ children: [
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.show_chart, size: 14), SizedBox(width: 4), Text('Day', style: TextStyle(fontSize: 12)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
                           const SizedBox(width: 8),
-                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: Row(children: const [Icon(Icons.close, size: 14), SizedBox(width: 4), Text('Months', style: TextStyle(fontSize: 12)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
+                          Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade300), borderRadius: BorderRadius.circular(4)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.close, size: 14), SizedBox(width: 4), Text('Months', style: TextStyle(fontSize: 12)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 14)])),
                        ]
                     )
                  ]
               ),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        const Positioned.fill(child: ServerLoadGraph()), // Represents the huge dual area chart
                        Positioned(top: 0, bottom: 20, left: 0, child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [Text('\$80,000', style: TextStyle(fontSize:10,color:Colors.grey)), Text('\$60,000', style: TextStyle(fontSize:10,color:Colors.grey)), Text('\$4,000', style: TextStyle(fontSize:10,color:Colors.grey)), Text('\$20,000', style: TextStyle(fontSize:10,color:Colors.grey)), Text('0', style: TextStyle(fontSize:10,color:Colors.grey))])),
@@ -209,8 +208,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
            children: [
               const Text('Therapist Utilization', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 32),
-              Expanded(
-                 child: Center(
+              SizedBox(child: Center(
                     child: SizedBox(
                        width: 140, height: 140,
                        child: CircularProgressIndicator(value: 0.55, strokeWidth: 32, backgroundColor: const Color(0xFF0F4C81), color: Colors.teal.shade500),
@@ -223,7 +221,8 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                  children: [
                     Column(
                        children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Available', style: TextStyle(fontSize: 12))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Available', style: TextStyle(fontSize: 12))]),
                           const SizedBox(height: 4),
                           const Text('45%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                        ]
@@ -231,7 +230,8 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                     const SizedBox(width: 32),
                     Column(
                        children: [
-                          Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Booked', style: TextStyle(fontSize: 12))]),
+                          PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Booked', style: TextStyle(fontSize: 12))]),
                           const SizedBox(height: 4),
                           const Text('55%', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
                        ]
@@ -256,8 +256,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, dynamic>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, dynamic>>(
                     columns: const ['#', 'Franchisee', 'Total Revenue', 'Growth%', 'Rating', 'Therapists'],
                     data: const [
                        {'num': '1', 'name': 'Downtown Clinic', 'rev': '\$78,450.20', 'growth': '+3%', 'w': 1, 'rating': 4},
@@ -271,8 +270,8 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
                        DataCell(Text(data['name'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(Text(data['rev'].toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                        DataCell(
-                          Row(
-                             children: [
+                          PrimeCareResponsiveKpiGrid(
+ children: [
                                 _buildGrowthIndicator(data['w'] as int),
                                 const SizedBox(width: 8),
                                 Text(data['growth'].toString(), style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 11)),
@@ -312,8 +311,7 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
            children: [
               const Text('Recent Activity Feed', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Positioned(top: 16, bottom: 40, left: 16, child: Container(width: 2, color: Colors.grey.shade200)),
                        Column(
@@ -338,13 +336,11 @@ class RmtFranchiseDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildTimelineRow(IconData icon, String title, String time) {
-     return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+     return PrimeCareResponsiveKpiGrid(
+ children: [
            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.blue.shade50, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 2)), child: Icon(icon, color: const Color(0xFF1B6A9C), size: 14)),
            const SizedBox(width: 12),
-           Expanded(
-              child: Column(
+           SizedBox(child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                     Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),

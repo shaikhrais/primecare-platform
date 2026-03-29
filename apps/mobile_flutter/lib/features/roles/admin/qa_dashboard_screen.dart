@@ -18,9 +18,10 @@ class QaDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Global Overview - Q3 2024', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Row(
-                     children: [
-                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
+                  PrimeCareResponsiveKpiGrid(
+ children: [
+                        Container(width: 250, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Icon(Icons.search, color: Colors.grey, size: 16), SizedBox(width: 8), Text('Search', style: TextStyle(color: Colors.grey, fontSize: 13))])),
                         const SizedBox(width: 16),
                         const Icon(Icons.event_note, color: const Color(0xFF0F4C81)),
                         const SizedBox(width: 16),
@@ -31,8 +32,8 @@ class QaDashboardScreen extends StatelessWidget {
                            ]
                         ),
                         const SizedBox(width: 16),
-                        Row(
-                           children: [
+                        PrimeCareResponsiveKpiGrid(
+ children: [
                               const CircleAvatar(radius: 14, backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=1')),
                               const SizedBox(width: 12),
                               Column(
@@ -55,7 +56,8 @@ class QaDashboardScreen extends StatelessWidget {
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
                   const Text('Key Metrics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('All manaries', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])), // Literal typo
+                  Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('All manaries', style: TextStyle(fontSize: 12)), SizedBox(width: 8), Icon(Icons.keyboard_arrow_down, size: 14)])), // Literal typo
                ]
             ),
             const SizedBox(height: 16),
@@ -109,8 +111,8 @@ class QaDashboardScreen extends StatelessWidget {
               Text(val, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32, color: tx)),
               const SizedBox(height: 4),
               isPill 
-                 ? Row(
-                      children: [
+                 ? PrimeCareResponsiveKpiGrid(
+ children: [
                          Text(sub.split('   ')[0], style: TextStyle(color: subCol, fontSize: 11, fontWeight: FontWeight.bold)),
                          const SizedBox(width: 8),
                          Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: Colors.amber.shade200, borderRadius: BorderRadius.circular(4)), child: Text(sub.split('   ')[1], style: TextStyle(color: Colors.amber.shade900, fontSize: 10))),
@@ -131,21 +133,23 @@ class QaDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Quality Performance Trends', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Scorts', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Scorts', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal
                  ]
               ),
               const SizedBox(height: 12),
               Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                    Row(children: [Container(width: 12, height: 2, color: const Color(0xFF0F4C81)), const SizedBox(width: 6), const Text('Avg. Score', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 12, height: 2, color: const Color(0xFF0F4C81)), const SizedBox(width: 6), const Text('Avg. Score', style: TextStyle(fontSize: 11))]),
                     const SizedBox(width: 16),
-                    Row(children: [Container(width: 12, height: 2, color: Colors.teal.shade500), const SizedBox(width: 6), const Text('Compliance', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 12, height: 2, color: Colors.teal.shade500), const SizedBox(width: 6), const Text('Compliance', style: TextStyle(fontSize: 11))]),
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     children: [
                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,8 +185,7 @@ class QaDashboardScreen extends StatelessWidget {
            children: [
               const Text('Audit Status Distribution', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 24),
-              Expanded(
-                 child: Stack(
+              SizedBox(child: Stack(
                     alignment: Alignment.center,
                     children: [
                        SizedBox(
@@ -196,11 +199,14 @@ class QaDashboardScreen extends StatelessWidget {
               Column(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                    Row(children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Completed (62%)', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF0F4C81), shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Completed (62%)', style: TextStyle(fontSize: 11))]),
                     const SizedBox(height: 8),
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('In Progress (23%)', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade500, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('In Progress (23%)', style: TextStyle(fontSize: 11))]),
                     const SizedBox(height: 8),
-                    Row(children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade200, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Scheduled (15%)', style: TextStyle(fontSize: 11))]),
+                    PrimeCareResponsiveKpiGrid(
+ children: [Container(width: 8, height: 8, decoration: BoxDecoration(color: Colors.teal.shade200, shape: BoxShape.circle)), const SizedBox(width: 8), const Text('Scheduled (15%)', style: TextStyle(fontSize: 11))]),
                  ]
               )
            ]
@@ -215,8 +221,7 @@ class QaDashboardScreen extends StatelessWidget {
            children: [
               const Text('Franchise Performance Leaderboard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Site Name', 'QA\nScore', 'Compliance\n%', 'Last Audit\nDate', 'Status'],
                     data: const [
                        {'s': 'NY Clinic', 'q': '95%', 'c': '98%', 'd': 'Aug 12', 'st': 'High', 'bg': 'm'}, // mint
@@ -258,12 +263,12 @@ class QaDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Recent Compliance Issues', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Setaits', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Setaits', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo
                  ]
               ),
               const SizedBox(height: 16),
-             Expanded(
-                 child: Stack(
+             SizedBox(child: Stack(
                     children: [
                        PrimeCareDataTable<Map<String, String>>(
                           columns: const ['', 'Severity', 'Site', 'Type', 'Date', 'Action needed'], // First column empty for timeline
@@ -314,12 +319,12 @@ class QaDashboardScreen extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                     const Text('Upcoming Audits', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: Row(children: const [Text('Staturs', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey.shade300)), child: PrimeCareResponsiveKpiGrid(
+ children: const [Text('Staturs', style: TextStyle(fontSize: 10)), SizedBox(width: 4), Icon(Icons.keyboard_arrow_down, size: 12)])), // Literal typo
                  ]
               ),
               const SizedBox(height: 16),
-              Expanded(
-                 child: PrimeCareDataTable<Map<String, String>>(
+              SizedBox(child: PrimeCareDataTable<Map<String, String>>(
                     columns: const ['Site', 'Date', 'Auditor', 'Status'],
                     data: const [
                        {'s': 'NY Clinic', 'd': 'Aug 12', 'a': 'Auditor', 'r': 'Status'},
@@ -458,10 +463,10 @@ class _ChartLineEmpty extends StatelessWidget {
    const _ChartLineEmpty(this.lbl);
    @override
    Widget build(BuildContext context) {
-      return Row(
-         children: [
+      return PrimeCareResponsiveKpiGrid(
+ children: [
             SizedBox(width: 24, child: Text(lbl, style: const TextStyle(fontSize: 10, color: Colors.black87))),
-            Expanded(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
+            SizedBox(child: Container(decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade200, style: BorderStyle.none))))),
          ]
       );
    }
