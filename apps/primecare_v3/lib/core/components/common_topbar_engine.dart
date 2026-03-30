@@ -65,11 +65,105 @@ class CommonTopbarEngine extends StatelessWidget {
           
           const SizedBox(width: 16),
           
-          // Profile Avatar
-          const CircleAvatar(
-            backgroundColor: Color(0xFF3B82F6),
-            radius: 18,
-            child: Text('HO', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+          // Care Profile Menu Popup
+          PopupMenuButton<int>(
+            offset: const Offset(0, 48),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            elevation: 8,
+            color: Colors.white,
+            position: PopupMenuPosition.under,
+            tooltip: 'Care Profile',
+            itemBuilder: (context) => [
+              PopupMenuItem<int>(
+                value: 0,
+                enabled: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Color(0xFF3B82F6),
+                        backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5'),
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('Amanda Higgins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
+                          Text('Care Coordinator', style: TextStyle(fontSize: 13, color: Colors.black54)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const PopupMenuDivider(),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Row(
+                  children: const [
+                    Icon(Icons.person_outline, size: 20, color: Color(0xFF0F172A)),
+                    SizedBox(width: 12),
+                    Text('My Profile', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0F172A))),
+                  ],
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 2,
+                child: Row(
+                  children: const [
+                    Icon(Icons.settings_outlined, size: 20, color: Color(0xFF0F172A)),
+                    SizedBox(width: 12),
+                    Text('Account Settings', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0F172A))),
+                  ],
+                ),
+              ),
+              const PopupMenuDivider(),
+              PopupMenuItem<int>(
+                value: 3,
+                child: Row(
+                  children: const [
+                    Icon(Icons.logout_rounded, size: 20, color: Colors.redAccent),
+                    SizedBox(width: 12),
+                    Text('Sign Out', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent)),
+                  ],
+                ),
+              ),
+            ],
+            onSelected: (value) {
+              if (value == 3) {
+                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signing out securely...')));
+                 // Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade200),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4, offset: const Offset(0, 2))
+                ]
+              ),
+              child: Row(
+                children: const [
+                  CircleAvatar(
+                    backgroundColor: Color(0xFF3B82F6),
+                    radius: 16,
+                    backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5'),
+                  ),
+                  SizedBox(width: 8),
+                  Text('Amanda', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF0F172A))),
+                  SizedBox(width: 4),
+                  Icon(Icons.keyboard_arrow_down, size: 18, color: Colors.black54),
+                  SizedBox(width: 4),
+                ],
+              ),
+            ),
           )
         ],
       ),
