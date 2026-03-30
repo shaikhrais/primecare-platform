@@ -1,4 +1,5 @@
 // Original Base Components & App Theme
+export 'src/theme/primecare_theme.dart';
 export 'src/theme/app_theme.dart';
 export 'src/layouts/primecare_flex.dart';
 export 'src/components/primecare_button.dart';
@@ -16,6 +17,8 @@ export 'src/components/primecare_task_row.dart';
 export 'src/components/primecare_action_tile.dart';
 export 'src/components/primecare_progress_bar.dart';
 export 'src/components/primecare_primitives.dart';
+
+export 'src/components/auth_split_layout.dart';
 
 // Layout Components
 export 'src/components/layout/prime_responsive_grid.dart';

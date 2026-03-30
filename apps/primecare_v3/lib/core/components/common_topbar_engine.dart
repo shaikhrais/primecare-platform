@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../auth/auth_provider.dart';
+import '../providers/theme_provider.dart';
 
-class CommonTopbarEngine extends StatelessWidget {
+class CommonTopbarEngine extends ConsumerWidget {
   final String screenTitle;
   final VoidCallback onLanguageToggle;
   final VoidCallback onNotificationsTap;
@@ -13,12 +17,17 @@ class CommonTopbarEngine extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+    final userName = authState.userName ?? 'Guest';
+    final roleId = authState.roleId ?? 'Unassigned';
+    final colors = ref.watch(themeProvider).colors;
+
     return Container(
       height: 70,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        border: Border(bottom: BorderSide(color: colors.border)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
@@ -26,10 +35,10 @@ class CommonTopbarEngine extends StatelessWidget {
           // Breadcrumb / Title Area
           Text(
             screenTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF0F172A),
+              color: colors.textMain,
             ),
           ),
           
@@ -39,17 +48,17 @@ class CommonTopbarEngine extends StatelessWidget {
           Container(
             height: 36,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
+              border: Border.all(color: colors.border),
               borderRadius: BorderRadius.circular(18),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: InkWell(
               onTap: onLanguageToggle,
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.language, size: 16, color: Colors.black54),
-                  SizedBox(width: 6),
-                  Text('EN/FR', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black87)),
+                  Icon(Icons.language, size: 16, color: colors.textMuted),
+                  const SizedBox(width: 6),
+                  Text('EN/FR', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: colors.textMain)),
                 ],
               ),
             ),
@@ -59,7 +68,7 @@ class CommonTopbarEngine extends StatelessWidget {
           
           // Notifications
           IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.black54),
+            icon: Icon(Icons.notifications_outlined, color: colors.textMuted),
             onPressed: onNotificationsTap,
           ),
           
@@ -72,7 +81,7 @@ class CommonTopbarEngine extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             elevation: 8,
-            color: Colors.white,
+            color: colors.surface,
             position: PopupMenuPosition.under,
             tooltip: 'Care Profile',
             itemBuilder: (context) => [
@@ -83,17 +92,17 @@ class CommonTopbarEngine extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 20,
-                        backgroundColor: Color(0xFF3B82F6),
-                        backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5'),
+                        backgroundColor: colors.accent,
+                        child: Icon(Icons.person, color: colors.surface),
                       ),
                       const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('Amanda Higgins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF0F172A))),
-                          Text('Care Coordinator', style: TextStyle(fontSize: 13, color: Colors.black54)),
+                        children: [
+                          Text(userName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: colors.textMain)),
+                          Text(roleId.replaceAll('_', ' ').toUpperCase(), style: TextStyle(fontSize: 13, color: colors.textMuted)),
                         ],
                       ),
                     ],
@@ -104,20 +113,20 @@ class CommonTopbarEngine extends StatelessWidget {
               PopupMenuItem<int>(
                 value: 1,
                 child: Row(
-                  children: const [
-                    Icon(Icons.person_outline, size: 20, color: Color(0xFF0F172A)),
-                    SizedBox(width: 12),
-                    Text('My Profile', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0F172A))),
+                  children: [
+                    Icon(Icons.person_outline, size: 20, color: colors.textMain),
+                    const SizedBox(width: 12),
+                    Text('My Profile', style: TextStyle(fontWeight: FontWeight.w600, color: colors.textMain)),
                   ],
                 ),
               ),
               PopupMenuItem<int>(
                 value: 2,
                 child: Row(
-                  children: const [
-                    Icon(Icons.settings_outlined, size: 20, color: Color(0xFF0F172A)),
-                    SizedBox(width: 12),
-                    Text('Account Settings', style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF0F172A))),
+                  children: [
+                    Icon(Icons.settings_outlined, size: 20, color: colors.textMain),
+                    const SizedBox(width: 12),
+                    Text('Account Settings', style: TextStyle(fontWeight: FontWeight.w600, color: colors.textMain)),
                   ],
                 ),
               ),
@@ -134,33 +143,37 @@ class CommonTopbarEngine extends StatelessWidget {
               ),
             ],
             onSelected: (value) {
-              if (value == 3) {
-                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signing out securely...')));
-                 // Navigator.pushReplacementNamed(context, '/login');
+              if (value == 1) {
+                context.push('/profile');
+              } else if (value == 2) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Account Settings coming soon!')));
+              } else if (value == 3) {
+                context.go('/logged_out');
+                ref.read(authProvider.notifier).logout();
               }
             },
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade200),
+                color: colors.surface,
+                border: Border.all(color: colors.border),
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4, offset: const Offset(0, 2))
+                boxShadow: const [
+                  BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
                 ]
               ),
               child: Row(
-                children: const [
+                children: [
                   CircleAvatar(
-                    backgroundColor: Color(0xFF3B82F6),
+                    backgroundColor: colors.accent,
                     radius: 16,
-                    backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=5'),
+                    child: Icon(Icons.person, color: colors.surface, size: 20),
                   ),
-                  SizedBox(width: 8),
-                  Text('Amanda', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF0F172A))),
-                  SizedBox(width: 4),
-                  Icon(Icons.keyboard_arrow_down, size: 18, color: Colors.black54),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 8),
+                  Text(userName.split(' ').first, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: colors.textMain)),
+                  const SizedBox(width: 4),
+                  Icon(Icons.keyboard_arrow_down, size: 18, color: colors.textMuted),
+                  const SizedBox(width: 4),
                 ],
               ),
             ),

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/forms/form_renderer_adapter.dart';
+import '../core/auth/auth_provider.dart';
+import '../modules/auth/login_page.dart';
+import '../modules/auth/signup_page.dart';
+import '../modules/auth/forgot_password_page.dart';
+import '../modules/auth/logout_success_page.dart';
+import '../modules/profile/global_profile_page.dart';
 import '../modules/offices/corporate_head_office/founder_ceo/founder_ceo_routes.dart';
 import '../modules/offices/corporate_head_office/founder_ceo/founder_ceo_layout.dart';
 import '../modules/offices/corporate_head_office/founder_ceo/founder_ceo_dashboard.dart';
@@ -185,6 +192,7 @@ import '../modules/offices/clinical_team/psw/psw_clients.dart';
 import '../modules/offices/clinical_team/psw/psw_staff.dart';
 import '../modules/offices/clinical_team/psw/psw_schedule.dart';
 import '../modules/offices/clinical_team/psw/psw_reports.dart';
+import '../modules/offices/clinical_team/psw/psw_data_entry_page.dart';
 import '../modules/offices/clinical_team/physiotherapist/physiotherapist_routes.dart';
 import '../modules/offices/clinical_team/physiotherapist/physiotherapist_layout.dart';
 import '../modules/offices/clinical_team/physiotherapist/physiotherapist_dashboard.dart';
@@ -290,10 +298,70 @@ import '../modules/offices/client_side/family_member/family_member_staff.dart';
 import '../modules/offices/client_side/family_member/family_member_schedule.dart';
 import '../modules/offices/client_side/family_member/family_member_reports.dart';
 
+class RouterNotifier extends ChangeNotifier {
+  final Ref _ref;
+  RouterNotifier(this._ref) {
+    _ref.listen(authProvider, (_, __) => notifyListeners());
+  }
+}
 
-final router = GoRouter(
-  initialLocation: '/corporate_head_office/founder_ceo/dashboard',
-  routes: [
+final routerProvider = Provider<GoRouter>((ref) {
+  final notifier = RouterNotifier(ref);
+
+  return GoRouter(
+    initialLocation: '/login',
+    refreshListenable: notifier,
+    redirect: (context, state) {
+      final authState = ref.read(authProvider);
+      final isAuth = authState.isAuthenticated;
+      final isAuthPage = state.uri.path == '/login' || state.uri.path == '/signup' || state.uri.path == '/forgot_password' || state.uri.path == '/logged_out';
+
+      if (!isAuth && !isAuthPage) return '/login';
+      
+      if (isAuth && isAuthPage) {
+        final role = authState.roleId;
+        switch (role) {
+          case 'coo_operations_head': return CooOperationsHeadRoutes.dashboard;
+          case 'cfo_finance_head': return CfoFinanceHeadRoutes.dashboard;
+          case 'cto_tech_head': return CtoTechHeadRoutes.dashboard;
+          case 'compliance_manager': return ComplianceManagerRoutes.dashboard;
+          case 'director_of_nursing': return DirectorOfNursingRoutes.dashboard;
+          case 'franchise_owner': return FranchiseOwnerRoutes.dashboard;
+          case 'rn': return RnRoutes.dashboard;
+          case 'psw': return PswRoutes.dashboard;
+          case 'physiotherapist': return PhysiotherapistRoutes.dashboard;
+          case 'care_coordinator': return CareCoordinatorRoutes.dashboard;
+          case 'customer_support': return CustomerSupportRoutes.dashboard;
+          case 'client': return ClientRoutes.dashboard;
+          case 'family_member': return FamilyMemberRoutes.dashboard;
+          case 'founder_ceo': 
+          default: 
+            return FounderCeoRoutes.dashboard;
+        }
+      }
+      return null;
+    },
+    routes: [
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginPageWidget(),
+      ),
+      GoRoute(
+        path: '/signup',
+        builder: (context, state) => const SignupPageWidget(),
+      ),
+      GoRoute(
+        path: '/forgot_password',
+        builder: (context, state) => const ForgotPasswordPageWidget(),
+      ),
+      GoRoute(
+        path: '/logged_out',
+        builder: (context, state) => const LogoutSuccessPageWidget(),
+      ),
+      GoRoute(
+        path: '/profile',
+        builder: (context, state) => const GlobalProfilePageWidget(),
+      ),
       ShellRoute(
         builder: (context, state, child) {
           return FounderCeoLayoutWidget(childContent: child);
@@ -1094,6 +1162,10 @@ final router = GoRouter(
              builder: (_, __) => const PswSettingsWidget(),
            ),
            GoRoute(
+             path: PswRoutes.allForms,
+             builder: (_, __) => const PswDataEntryPage(),
+           ),
+           GoRoute(
              path: '/schema-form/:formId',
              builder: (context, state) => FormRendererAdapter(formId: state.pathParameters['formId']!),
            ),
@@ -1557,3 +1629,4 @@ final router = GoRouter(
 
   ],
 );
+});

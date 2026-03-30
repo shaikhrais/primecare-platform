@@ -6,5 +6,6 @@ class PswRoutes {
   static const String schedule = '$prefix/schedule';
   static const String reports = '$prefix/reports';
   static const String settings = '$prefix/settings';
+  static const String allForms = '$prefix/all-forms';
   static const String dynamicForms = '/schema-form/psw';
 }

@@ -20,7 +20,7 @@ class PswDashboardWidget extends StatelessWidget {
             RoleDataBuilder(
               roleId: 'psw',
               builder: (context, data) {
-                return DashboardKpiGrid(kpis: data.kpis, title: '\${data.greetingTitle} | Metrics');
+                return DashboardKpiGrid(kpis: data.kpis, title: '${data.greetingTitle} | Metrics');
               },
             ),
             const SizedBox(height: 24),

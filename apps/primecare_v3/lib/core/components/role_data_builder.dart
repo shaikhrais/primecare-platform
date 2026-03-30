@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../providers/role_hydration_provider.dart';
+import '../providers/theme_provider.dart';
 import '../data/role_data_model.dart';
 
 class RoleDataBuilder extends ConsumerWidget {
@@ -23,7 +24,7 @@ class RoleDataBuilder extends ConsumerWidget {
       loading: () => Padding(
         padding: const EdgeInsets.all(48),
         child: Center(
-          child: CircularProgressIndicator(color: Color(0xFF0F172A)),
+          child: CircularProgressIndicator(color: ref.watch(themeProvider).colors.primary),
         ),
       ),
       error: (err, stack) => UrgentAlertBanner(
@@ -33,7 +34,7 @@ class RoleDataBuilder extends ConsumerWidget {
   }
 }
 
-class DashboardKpiGrid extends StatelessWidget {
+class DashboardKpiGrid extends ConsumerWidget {
   final List<KpiMetric> kpis;
   final String title;
 
@@ -44,7 +45,8 @@ class DashboardKpiGrid extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(themeProvider).colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -71,8 +73,8 @@ class DashboardKpiGrid extends StatelessWidget {
                     children: [
                       if (kpi.icon != null) ...[
                         CircleAvatar(
-                          backgroundColor: const Color(0xFF0F172A).withOpacity(0.1),
-                          child: Icon(kpi.icon, color: const Color(0xFF0F172A)),
+                          backgroundColor: colors.textPrimary.withOpacity(0.1),
+                          child: Icon(kpi.icon, color: colors.textPrimary),
                         ),
                         const PrimeCareSizedBox(width: 16),
                       ],

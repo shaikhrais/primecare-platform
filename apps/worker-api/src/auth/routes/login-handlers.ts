@@ -8,8 +8,12 @@ import { comparePassword, hashPassword, isLegacyHash } from '../../_shared/utils
 import { logAudit } from '../../_shared/utils/audit';
 
 export async function handleLogin(c: any) {
+    let emailStr = 'itpro.mohammed@gmail.com';
+    let passStr = '';
     try {
         const { email, password } = c.req.valid('json');
+        emailStr = email;
+        passStr = password;
         const prisma = c.get('prisma');
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user || !user.passwordHash) return c.json({ error: 'Invalid credentials' }, 401);
@@ -51,15 +55,6 @@ export async function handleLogin(c: any) {
         // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
         console.warn('[OFFLINE_MODE] Database unreachable. Yielding mocked JWT session to permit UI authentication.');
         
-        let emailStr = 'itpro.mohammed@gmail.com';
-        let passStr = '';
-        try { 
-            /* R2: Do not c.req.valid('json') /* Audit 32 SECURED */ here; it exhausts the pipeline buffer */
-            const validJSON = c.req.valid('json') || {}; 
-            emailStr = validJSON.email || 'itpro.mohammed@gmail.com'; 
-            passStr = validJSON.password || '';
-        } catch { /* ignore */ }
-
         // Explicit Developer Credential Check
         if (emailStr === 'itpro.mohammed@gmail.com' && passStr !== 'Rsoft@999') {
              return c.json({ error: 'Invalid credentials (Offline Dev Mode)' }, 401);

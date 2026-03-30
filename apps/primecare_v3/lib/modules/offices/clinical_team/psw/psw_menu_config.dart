@@ -10,6 +10,7 @@ List<SidebarMenuConfig> getPswMenus() {
     SidebarMenuConfig(label: 'Schedule', route: PswRoutes.schedule, icon: Icons.calendar_today),
     SidebarMenuConfig(label: 'Reports', route: PswRoutes.reports, icon: Icons.analytics),
     SidebarMenuConfig(label: 'Dynamic SDUI', route: PswRoutes.dynamicForms, icon: Icons.dynamic_form),
+    SidebarMenuConfig(label: 'All Forms', route: PswRoutes.allForms, icon: Icons.dataset),
     SidebarMenuConfig(label: 'Settings', route: PswRoutes.settings, icon: Icons.settings),
   ];
 }

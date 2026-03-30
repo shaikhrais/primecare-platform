@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/providers/theme_provider.dart';
 
-class MasterLayout extends StatelessWidget {
+class MasterLayout extends ConsumerWidget {
   final Widget? sidebar;
   final Widget? topbar;
   final Widget content;
@@ -13,7 +15,8 @@ class MasterLayout extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(themeProvider).colors;
     return Scaffold(
       appBar: topbar != null ? PreferredSize(
         preferredSize: const Size.fromHeight(70),
@@ -31,7 +34,7 @@ class MasterLayout extends StatelessWidget {
           Expanded(
             child: SafeArea(
               child: Container(
-                color: const Color(0xFFF1F5F9), // Slate 50 background
+                color: colors.background, // Slate 50 background
                 child: content,
               ),
             ),
