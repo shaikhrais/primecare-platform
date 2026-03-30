@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
-  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
+class CfoFinanceHeadTranslationKeysWidget extends StatelessWidget {
+  const CfoFinanceHeadTranslationKeysWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
