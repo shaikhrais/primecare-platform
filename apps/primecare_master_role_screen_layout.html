@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrimeCare Master Role, Screens, and Layout Structure</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#d9e2ef;
+      --blue:#0f4c81;
+      --blue2:#1d72b8;
+      --headbg:#eaf3fb;
+      --tag:#eef6ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    .wrap{
+      max-width:1400px;
+      margin:32px auto;
+      padding:0 20px 48px;
+    }
+    .hero{
+      background:linear-gradient(135deg,var(--blue),var(--blue2));
+      color:#fff;
+      border-radius:20px;
+      padding:30px;
+      margin-bottom:24px;
+      box-shadow:0 10px 24px rgba(15,76,129,.16);
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size:32px;
+    }
+    .hero p{
+      margin:0;
+      font-size:15px;
+      opacity:.96;
+    }
+    .info{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 20px;
+      margin-bottom:24px;
+    }
+    .info h2{
+      margin:0 0 10px;
+      color:var(--blue);
+      font-size:22px;
+    }
+    .rule-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+    .tag{
+      background:var(--tag);
+      color:var(--blue);
+      border:1px solid #cfe2f8;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      font-weight:700;
+    }
+    .section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      margin-bottom:22px;
+      overflow:hidden;
+      box-shadow:0 4px 14px rgba(0,0,0,.04);
+    }
+    .section-head{
+      background:var(--headbg);
+      border-bottom:1px solid var(--line);
+      padding:18px 20px;
+    }
+    .section-head h2{
+      margin:0 0 6px;
+      color:var(--blue);
+      font-size:24px;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .content{
+      padding:18px 20px 22px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr 1.3fr 1.3fr;
+      gap:18px;
+      align-items:start;
+    }
+    .panel{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 16px;
+      background:#fff;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      color:var(--blue);
+      font-size:18px;
+    }
+    ul{
+      margin:0;
+      padding-left:18px;
+    }
+    li{ margin:0 0 6px; }
+    .layout-block{
+      margin-bottom:14px;
+      padding-bottom:12px;
+      border-bottom:1px dashed var(--line);
+    }
+    .layout-block:last-child{
+      margin-bottom:0;
+      padding-bottom:0;
+      border-bottom:none;
+    }
+    .layout-label{
+      display:inline-block;
+      background:var(--tag);
+      color:var(--blue);
+      border:1px solid #cfe2f8;
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .footer{
+      margin-top:26px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width: 1100px){
+      .grid{ grid-template-columns:1fr; }
+    }
+    @media (max-width: 700px){
+      .hero h1{ font-size:26px; }
+      .wrap{ padding:0 14px 32px; margin:16px auto; }
+      .section-head h2{ font-size:21px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>PrimeCare Master Role, Screens, and Layout Structure</h1>
+      <p>Enterprise healthcare SaaS structure for founder, franchise, clinical, support, marketing, and client roles across mobile, tablet, and desktop layouts.</p>
+    </div>
+
+    <div class="info">
+      <h2>Global Layout Rules</h2>
+      <div class="rule-tags">
+        <div class="tag">Mobile = Single Column Action</div>
+        <div class="tag">Tablet = Two Column Workspace</div>
+        <div class="tag">Desktop = Sidebar + Multi Panel</div>
+        <div class="tag">Flow = Role → Screens → Device Layout</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Founder / CEO</h2>
+        <p>Top-level strategic role focused on expansion, revenue, performance, and governance.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Executive Dashboard</li>
+              <li>Territory Map</li>
+              <li>Franchise Performance</li>
+              <li>Revenue Analytics</li>
+              <li>Growth Pipeline</li>
+              <li>Reports Center</li>
+              <li>User Management</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Summary cards only</li>
+                <li>Alerts and KPIs</li>
+                <li>Simple charts</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>2-column layout</li>
+                <li>Left: KPIs</li>
+                <li>Right: map and trends</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Sidebar + topbar</li>
+              <li>Grid with KPIs</li>
+              <li>Territory map</li>
+              <li>Revenue charts</li>
+              <li>Franchise table</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Franchise Owner</h2>
+        <p>Territory leader focused on clients, staff, finance, scheduling, and local business health.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Owner Dashboard</li>
+              <li>Clients</li>
+              <li>Staff</li>
+              <li>Schedule</li>
+              <li>Billing</li>
+              <li>Reports</li>
+              <li>Alerts</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Today overview</li>
+                <li>Alerts</li>
+                <li>Quick actions</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Left: clients and alerts</li>
+                <li>Right: schedule and stats</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Revenue overview</li>
+              <li>Staff panel</li>
+              <li>Schedule board</li>
+              <li>Alerts</li>
+              <li>Tables and reports</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Operations Manager</h2>
+        <p>Daily workflow and territory operations controller for assignments, incidents, and live monitoring.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Operations Dashboard</li>
+              <li>Shift Board</li>
+              <li>Staff Assignment</li>
+              <li>Incident Center</li>
+              <li>Visit Monitoring</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Shift list</li>
+                <li>Quick assign</li>
+                <li>Alerts</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Left: shifts</li>
+                <li>Right: assignment details</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Multi-panel shift board</li>
+              <li>Staff list</li>
+              <li>Alerts and incidents</li>
+              <li>Live visit status</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Scheduler / Coordinator</h2>
+        <p>Scheduling specialist responsible for calendars, open shifts, availability, and visit planning.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Calendar</li>
+              <li>Open Shifts</li>
+              <li>Staff Availability</li>
+              <li>Visit Planner</li>
+              <li>Cancellation Manager</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Daily schedule</li>
+                <li>Quick edit</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Calendar with edit panel</li>
+                <li>Touch-friendly planning</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Full calendar view</li>
+              <li>Drag and drop scheduling</li>
+              <li>Filters and assignment controls</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>RN (Registered Nurse)</h2>
+        <p>Clinical supervisor role handling care plans, vitals review, risk review, and client oversight.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>RN Dashboard</li>
+              <li>Care Plans</li>
+              <li>Assigned Clients</li>
+              <li>Vitals Review</li>
+              <li>Risk Assessment</li>
+              <li>Notes Review</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Client list</li>
+                <li>Quick notes</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Left: client summary</li>
+                <li>Right: care plan and vitals</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Multi-tab clinical workspace</li>
+              <li>Care plans</li>
+              <li>Vitals</li>
+              <li>Notes</li>
+              <li>Risk review</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>RMT</h2>
+        <p>Therapy provider role focused on appointments, treatment notes, SOAP notes, and client history.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Appointments</li>
+              <li>Treatment Notes</li>
+              <li>SOAP Notes</li>
+              <li>Schedule</li>
+              <li>Client History</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Today appointments</li>
+                <li>Quick notes</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Treatment view + notes side-by-side</li>
+                <li>Better charting space</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Calendar</li>
+              <li>SOAP notes workspace</li>
+              <li>Treatment history panel</li>
+              <li>Client overview</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>PSW (Personal Support Worker)</h2>
+        <p>Primary field-care role focused on shifts, client tasks, daily entry, ADL support, and incident reporting.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>PSW Dashboard</li>
+              <li>My Shift</li>
+              <li>My Clients</li>
+              <li>Daily Entry</li>
+              <li>ADL Log</li>
+              <li>Medication Assistance</li>
+              <li>Vitals</li>
+              <li>Notes</li>
+              <li>Incident Report</li>
+              <li>Messages</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Start / End shift</li>
+                <li>Quick actions</li>
+                <li>Task checklist</li>
+                <li>Alerts</li>
+                <li>1-column action-first layout</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Left: client and care plan</li>
+                <li>Right: ADL, notes, vitals forms</li>
+                <li>2-column workspace</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Sidebar</li>
+              <li>Tasks</li>
+              <li>Clients</li>
+              <li>Notes</li>
+              <li>History</li>
+              <li>Dashboard + workspace hybrid</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Support Team</h2>
+        <p>Service and issue resolution role for tickets, escalations, and client communication support.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Support Dashboard</li>
+              <li>Tickets</li>
+              <li>Client Issues</li>
+              <li>Escalations</li>
+              <li>Knowledge Base</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Ticket list</li>
+                <li>Status updates</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Tickets and details split view</li>
+                <li>Faster issue handling</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>CRM-style workspace</li>
+              <li>Ticket list</li>
+              <li>Chat</li>
+              <li>History and escalation tools</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Marketing / Sales</h2>
+        <p>Growth-focused role responsible for campaigns, outreach, leads, and conversion tracking.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Marketing Dashboard</li>
+              <li>Campaigns</li>
+              <li>Leads</li>
+              <li>Conversion Reports</li>
+              <li>Outreach</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Leads summary</li>
+                <li>Quick follow-up</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>Leads and campaigns side-by-side</li>
+                <li>Better planning view</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Analytics-heavy dashboard</li>
+              <li>Funnels</li>
+              <li>Charts</li>
+              <li>Lead tables</li>
+              <li>Campaign reports</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>Client / Family</h2>
+        <p>End-user role for appointments, care updates, invoices, messages, and profile access.</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="panel">
+            <h3>Screens</h3>
+            <ul>
+              <li>Client Dashboard</li>
+              <li>Appointments</li>
+              <li>Care Plan</li>
+              <li>Invoices</li>
+              <li>Messages</li>
+              <li>Profile</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Mobile / Tablet</h3>
+            <div class="layout-block">
+              <div class="layout-label">Mobile</div>
+              <ul>
+                <li>Appointments</li>
+                <li>Updates</li>
+                <li>Messages</li>
+              </ul>
+            </div>
+            <div class="layout-block">
+              <div class="layout-label">Tablet</div>
+              <ul>
+                <li>More details with visit history</li>
+                <li>Better reading layout</li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Desktop</h3>
+            <ul>
+              <li>Invoices and reports</li>
+              <li>Care tracking</li>
+              <li>Detailed appointment management</li>
+              <li>Full communication area</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      PrimeCare Master UI Structure · Role → Screens → Layout (Mobile / Tablet / Desktop)
+    </div>
+  </div>
+</body>
+</html>

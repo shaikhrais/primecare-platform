@@ -10,55 +10,55 @@ class AppRoutes {
   // Granular Enterprise Domain Dashboard Routes (Phase 24/43 36-Role Mappings)
   
   // 1. Corporate
-  static const String founderCeoDashboard = '/corporate/founder-ceo';
+  static const String founderCeoDashboard = '/corporate/ceo';
   static const String cooDashboard = '/corporate/coo';
   static const String cfoDashboard = '/corporate/cfo';
   static const String ctoDashboard = '/corporate/cto';
   static const String complianceDashboard = '/corporate/compliance';
-  static const String headBdDashboard = '/corporate/head-bd';
-  static const String headMarketingDashboard = '/corporate/head-marketing';
-  static const String trainingDirectorDashboard = '/corporate/training-director';
+  static const String headBdDashboard = '/corporate/bd';
+  static const String headMarketingDashboard = '/corporate/marketing';
+  static const String trainingDirectorDashboard = '/corporate/training';
   
   // 2. Business Development
-  static const String bdTeamDashboard = '/business-development/bd-team';
-  static const String regionalBdOnDashboard = '/business-development/regional-bd-on';
-  static const String regionalBdUsaDashboard = '/business-development/regional-bd-usa';
-  static const String franchiseSalesDashboard = '/business-development/franchise-sales';
-  static const String partnershipMgrDashboard = '/business-development/partnership-mgr';
-  static const String territoryExpansionDashboard = '/business-development/territory-expansion';
+  static const String bdTeamDashboard = '/bd/team';
+  static const String regionalBdOnDashboard = '/bd/regional-on';
+  static const String regionalBdUsaDashboard = '/bd/regional-usa';
+  static const String franchiseSalesDashboard = '/bd/franchise-sales';
+  static const String partnershipMgrDashboard = '/bd/partnerships';
+  static const String territoryExpansionDashboard = '/bd/expansion';
   
   // 3. Franchise Management
-  static const String franchiseLevelDashboard = '/franchise-management/franchise-level';
-  static const String franchiseOwnerDashboard = '/franchise-management/franchise-owner';
-  static const String operationsMgrDashboard = '/franchise-management/operations-mgr';
-  static const String schedulerDashboard = '/franchise-management/scheduler';
-  static const String billingDashboard = '/franchise-management/billing';
-  static const String hrDashboard = '/franchise-management/hr';
+  static const String franchiseLevelDashboard = '/franchise/level';
+  static const String franchiseOwnerDashboard = '/franchise/owner';
+  static const String operationsMgrDashboard = '/franchise/operations';
+  static const String schedulerDashboard = '/franchise/scheduler';
+  static const String billingDashboard = '/franchise/billing';
+  static const String hrDashboard = '/franchise/hr';
   
   // 4. Clinical
-  static const String clinicalTeamDashboard = '/clinical/clinical-team';
-  static const String rnGranularDashboard = '/clinical/rn-granular';
+  static const String clinicalTeamDashboard = '/clinical/team';
+  static const String rnGranularDashboard = '/clinical/rn';
   static const String rpnDashboard = '/clinical/rpn';
   static const String rmtDashboard = '/clinical/rmt';
-  static const String pswGranularDashboard = '/clinical/psw-granular';
+  static const String pswGranularDashboard = '/clinical/psw';
   
   // 5. Support
-  static const String supportTeamDashboard = '/support/support-team';
-  static const String customerSupportDashboard = '/support/customer-support';
-  static const String intakeCoordinatorDashboard = '/support/intake-coordinator';
-  static const String qualityAssuranceDashboard = '/support/quality-assurance';
-  static const String trainingCoordinatorDashboard = '/support/training-coordinator';
+  static const String supportTeamDashboard = '/support/team';
+  static const String customerSupportDashboard = '/support/customers';
+  static const String intakeCoordinatorDashboard = '/support/intake';
+  static const String qualityAssuranceDashboard = '/support/qa';
+  static const String trainingCoordinatorDashboard = '/support/training';
   
   // 6. Marketing
-  static const String marketingGrowthDashboard = '/marketing/marketing-growth';
-  static const String localMarketingDashboard = '/marketing/local-marketing';
-  static const String communityOutreachDashboard = '/marketing/community-outreach';
+  static const String marketingGrowthDashboard = '/marketing/growth';
+  static const String localMarketingDashboard = '/marketing/local';
+  static const String communityOutreachDashboard = '/marketing/outreach';
   static const String territorySalesDashboard = '/marketing/territory-sales';
   
   // 7. Client
-  static const String clientSideDashboard = '/client/client-side';
-  static const String clientGranularDashboard = '/client/client-granular';
-  static const String familyMemberDashboard = '/client/family-member';
+  static const String clientSideDashboard = '/client/dashboard';
+  static const String clientGranularDashboard = '/client/portal';
+  static const String familyMemberDashboard = '/client/family';
 
   // Legacy Map Safeties for auto-generated files
   static const String clientHome = '/legacy/clientHome';

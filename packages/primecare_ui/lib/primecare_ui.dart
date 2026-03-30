@@ -15,6 +15,7 @@ export 'src/components/sdui_form_builder.dart';
 export 'src/components/primecare_task_row.dart';
 export 'src/components/primecare_action_tile.dart';
 export 'src/components/primecare_progress_bar.dart';
+export 'src/components/primecare_primitives.dart';
 
 // Layout Components
 export 'src/components/layout/prime_responsive_grid.dart';
