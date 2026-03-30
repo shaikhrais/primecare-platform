@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PhysiotherapistScreenRegistryWidget extends StatelessWidget {
-  const PhysiotherapistScreenRegistryWidget({super.key});
+class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
+  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
 
   @override
   Widget build(BuildContext context) {

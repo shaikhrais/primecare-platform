@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FamilyMemberTranslationKeysWidget extends StatelessWidget {
-  const FamilyMemberTranslationKeysWidget({super.key});
+class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
+  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
 
   @override
   Widget build(BuildContext context) {

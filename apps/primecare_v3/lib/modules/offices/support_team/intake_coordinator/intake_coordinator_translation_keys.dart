@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class IntakeCoordinatorTranslationKeysWidget extends StatelessWidget {
-  const IntakeCoordinatorTranslationKeysWidget({super.key});
+class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
+  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
 
   @override
   Widget build(BuildContext context) {

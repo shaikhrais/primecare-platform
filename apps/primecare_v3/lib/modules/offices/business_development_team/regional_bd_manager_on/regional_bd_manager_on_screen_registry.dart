@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RegionalBdManagerOnScreenRegistryWidget extends StatelessWidget {
-  const RegionalBdManagerOnScreenRegistryWidget({super.key});
+class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
+  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
 
   @override
   Widget build(BuildContext context) {
