@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "Plateforme PrimeCare V3",
+    "version": "3.0.0"
+  },
+  "roles": {
+    "psw": "Préposé aux services de soutien",
+    "rn": "Infirmière autorisée",
+    "client": "Portail Client",
+    "family_member": "Portail Familial",
+    "territory_sales_manager": "Directeur territorial"
+  },
+  "offices": {
+    "HO": "Siège social",
+    "BD": "Opérations de la succursale",
+    "FL": "Logistique de terrain",
+    "CT": "Terminal de ville",
+    "ST": "Territoire d'état",
+    "MG": "Méga-région",
+    "CS": "Services corporatifs"
+  }
+}
