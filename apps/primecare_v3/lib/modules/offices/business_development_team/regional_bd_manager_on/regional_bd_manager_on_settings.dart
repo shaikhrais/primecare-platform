@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
-  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
+class RegionalBdManagerOnSettingsWidget extends StatelessWidget {
+  const RegionalBdManagerOnSettingsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

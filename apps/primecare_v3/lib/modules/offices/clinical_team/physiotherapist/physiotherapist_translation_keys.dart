@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
-  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
+class PhysiotherapistTranslationKeysWidget extends StatelessWidget {
+  const PhysiotherapistTranslationKeysWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

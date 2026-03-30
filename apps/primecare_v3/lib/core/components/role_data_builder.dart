@@ -20,15 +20,14 @@ class RoleDataBuilder extends ConsumerWidget {
 
     return asyncData.when(
       data: (data) => builder(context, data),
-      loading: () => const Padding(
-        padding: EdgeInsets.all(48),
+      loading: () => Padding(
+        padding: const EdgeInsets.all(48),
         child: Center(
-          child: CircularProgressIndicator(color: PrimeCareColors.primaryNavy),
+          child: CircularProgressIndicator(color: Color(0xFF0F172A)),
         ),
       ),
       error: (err, stack) => UrgentAlertBanner(
         message: 'Hydration Exception: \$err',
-        onDismiss: () => ref.refresh(roleHydrationProvider(roleId)),
       ),
     );
   }
@@ -72,8 +71,8 @@ class DashboardKpiGrid extends StatelessWidget {
                     children: [
                       if (kpi.icon != null) ...[
                         CircleAvatar(
-                          backgroundColor: PrimeCareColors.primaryNavy.withOpacity(0.1),
-                          child: Icon(kpi.icon, color: PrimeCareColors.primaryNavy),
+                          backgroundColor: const Color(0xFF0F172A).withOpacity(0.1),
+                          child: Icon(kpi.icon, color: const Color(0xFF0F172A)),
                         ),
                         const PrimeCareSizedBox(width: 16),
                       ],

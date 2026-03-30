@@ -25,7 +25,7 @@ class RoleDataRepository {
     // Clinical Team Logics
     else if (roleId == 'rn' || roleId == 'psw' || roleId == 'physiotherapist') {
       kpis = const [
-        KpiMetric(label: 'Today\\'s Visits', value: '8', trend: 'On Track', isPositive: true, icon: Icons.local_hospital),
+        KpiMetric(label: "Today's Visits", value: '8', trend: 'On Track', isPositive: true, icon: Icons.local_hospital),
         KpiMetric(label: 'Pending Notes', value: '2', trend: 'Action Req', isPositive: false, icon: Icons.note_alt),
         KpiMetric(label: 'Weekly Hours', value: '38h', trend: '+2h', isPositive: true, icon: Icons.access_time),
       ];

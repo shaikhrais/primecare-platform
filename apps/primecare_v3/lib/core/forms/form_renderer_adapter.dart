@@ -86,7 +86,7 @@ class _FormRendererAdapterState extends State<FormRendererAdapter> {
           ElevatedButton(
             onPressed: () {
                // Submits telemetry logic
-               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('\${_schema!['title']} Submitted Safely!')));
+               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("\${_schema!['title']} Submitted Safely!")));
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),

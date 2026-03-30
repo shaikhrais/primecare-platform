@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-class ${roleClassNamePrefix}${classNameSuffix}Widget extends StatelessWidget {
-  const ${roleClassNamePrefix}${classNameSuffix}Widget({super.key});
+class PartnershipManagerClientsWidget extends StatelessWidget {
+  const PartnershipManagerClientsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
