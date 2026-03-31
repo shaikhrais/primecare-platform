@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../routes/app_routes.dart';
+
 class AuthState {
   final bool isAuthenticated;
   final String? token;
@@ -35,19 +37,51 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   static String getDashboardRouteForRole(String role) {
-    if (role.isEmpty) return '/';
+    if (role.isEmpty) return AppRoutes.pswDashboard;
     
-    final normalized = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
+    final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
     
-    if (normalized.contains('founder') || normalized.contains('ceo')) return '/offices/corporate/roles/ceo/dashboard';
-    if (normalized.contains('psw')) return '/offices/clinic/roles/psw/dashboard';
-    if (normalized.contains('admin')) return '/offices/franchise/roles/billing_admin/dashboard';
-    if (normalized.contains('rn')) return '/offices/clinic/roles/rn/dashboard';
-    if (normalized.contains('rmt')) return '/offices/clinic/roles/rmt/dashboard';
-    if (normalized.contains('physio')) return '/offices/clinic/roles/physio/dashboard';
-    if (normalized.contains('chiro')) return '/offices/clinic/roles/chiro/dashboard';
+    // Corporate Leadership
+    if (r.contains('ceo') || r.contains('founder')) return AppRoutes.ceoDashboard;
+    if (r.contains('coo')) return AppRoutes.cooDashboard;
+    if (r.contains('cfo') || r.contains('finance')) return AppRoutes.cfoDashboard;
+    if (r.contains('cto') || r.contains('tech')) return AppRoutes.ctoDashboard;
+    if (r.contains('compliance')) return AppRoutes.complianceManagerDashboard;
+    if (r.contains('training') && r.contains('director')) return AppRoutes.trainingDirectorDashboard;
     
-    return '/offices/clinic/roles/psw/dashboard'; 
+    // Business Development
+    if (r.contains('regional') || r.contains('bdm')) return AppRoutes.regionalManagerOntarioDashboard;
+    if (r.contains('sales_manager')) return AppRoutes.franchiseSalesManagerDashboard;
+    if (r.contains('partnership')) return AppRoutes.partnershipManagerDashboard;
+    if (r.contains('expansion')) return AppRoutes.territoryExpansionManagerDashboard;
+
+    // Franchise Tier
+    if (r.contains('owner') || r.contains('franchisee')) return AppRoutes.franchiseOwnerDashboard;
+    if (r.contains('operations') || r.contains('ops')) return AppRoutes.operationsManagerDashboard;
+    if (r.contains('scheduler') || r.contains('coordinator')) return AppRoutes.schedulerDashboard;
+    if (r.contains('admin') || r.contains('billing')) return AppRoutes.billingAdminDashboard;
+    if (r.contains('hr') || r.contains('hiring')) return AppRoutes.hrHiringDashboard;
+
+    // Clinical Execution
+    if (r == 'rn' || r.contains('registered_nurse')) return AppRoutes.rnDashboard;
+    if (r == 'rpn') return AppRoutes.rpnDashboard;
+    if (r == 'rmt' || r.contains('massage')) return AppRoutes.rmtDashboard;
+    if (r == 'psw' || r.contains('personal')) return AppRoutes.pswDashboard;
+    
+    // Support & Intake
+    if (r.contains('customer_support') || r.contains('support')) return AppRoutes.customerSupportDashboard;
+    if (r.contains('intake')) return AppRoutes.intakeCoordinatorDashboard;
+    if (r.contains('quality') || r.contains('qa')) return AppRoutes.qualityAssuranceDashboard;
+    
+    // Marketing
+    if (r.contains('marketing')) return AppRoutes.localMarketingManagerDashboard;
+    if (r.contains('outreach')) return AppRoutes.communityOutreachDashboard;
+    
+    // Client Side
+    if (r == 'client' || r == 'patient') return AppRoutes.clientDashboard;
+    if (r.contains('family')) return AppRoutes.familyMemberDashboard;
+    
+    return AppRoutes.pswDashboard; // Fallback security
   }
 
   Future<void> _loadStoredAuth() async {
@@ -68,11 +102,19 @@ class AuthNotifier extends Notifier<AuthState> {
         body: jsonEncode({'email': email, 'password': password}),
       );
 
-      // We also maintain mock logic for easy visual testing if API fails
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final token = data['token'] ?? 'mock-token';
-        final role = data['role'] ?? 'PSW';
+        
+        // Deeply unpack role from Worker-API or root
+        String role = 'PSW';
+        if (data['role'] != null) {
+          role = data['role'];
+        } else if (data['user'] != null && data['user']['roles'] != null && (data['user']['roles'] as List).isNotEmpty) {
+          role = data['user']['roles'][0];
+        } else if (data['activeRole'] != null) {
+          role = data['activeRole'];
+        }
         
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('auth_token', token);

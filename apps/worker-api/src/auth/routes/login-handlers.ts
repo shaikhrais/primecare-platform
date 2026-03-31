@@ -50,7 +50,7 @@ export async function handleLogin(c: any) {
         setCookie(c, 'refreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24 * 7, path: '/v1/auth/refresh' });
         if (deviceId) { await logAudit(prisma, user.id, 'LOGIN', 'USER', user.id, { tenantId: user.tenantId, ip: clientIp }, deviceId); }
         const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
-        return c.json({ user: safeUser, token: accessToken }, 200);
+        return c.json({ user: safeUser, token: accessToken, role: parsedRoles[0] }, 200);
     } catch (e: any) { 
         console.error('[DATABASE_FAULT] Critical Error in Prisma Request:', e);
         return c.json({ error: 'Database Unreachable', message: 'The API could not establish a connection to the PostgreSQL cluster. Ensure Prisma Accelerate or TCP connection strings are configured properly online.' }, 500);
