@@ -21,27 +21,33 @@ class AuthState {
   }
 }
 
-class AuthNotifier extends StateNotifier<AuthState> implements Listenable {
-  String get _baseUrl => dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
-  final List<VoidCallback> _listeners = [];
+// Global listenable for GoRouter
+final authListenable = ValueNotifier<bool>(false);
 
-  AuthNotifier() : super(AuthState()) {
-    _loadStoredAuth();
+class AuthNotifier extends Notifier<AuthState> {
+  String get _baseUrl => dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
+
+  @override
+  AuthState build() {
+    // Initial sync load triggers asynchronously
+    Future.microtask(() => _loadStoredAuth());
+    return AuthState();
   }
 
   static String getDashboardRouteForRole(String role) {
-    if (role.isEmpty) return '/'; // Default fallback
+    if (role.isEmpty) return '/';
     
-    // Normalize role string to match route constants from app_routes
     final normalized = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
     
-    // Detailed mapping based on exact user roles:
-    if (normalized.contains('founder') || normalized.contains('ceo')) return '/office/corporate/founder_ceo';
-    if (normalized.contains('psw')) return '/office/clinical/psw';
-    if (normalized.contains('admin')) return '/office/franchise/billing_admin';
-    if (normalized.contains('rn')) return '/office/clinical/rn';
-    // Fallback logic
-    return '/office/clinical/psw'; // Generic fallback
+    if (normalized.contains('founder') || normalized.contains('ceo')) return '/offices/corporate/roles/ceo/dashboard';
+    if (normalized.contains('psw')) return '/offices/clinic/roles/psw/dashboard';
+    if (normalized.contains('admin')) return '/offices/franchise/roles/billing_admin/dashboard';
+    if (normalized.contains('rn')) return '/offices/clinic/roles/rn/dashboard';
+    if (normalized.contains('rmt')) return '/offices/clinic/roles/rmt/dashboard';
+    if (normalized.contains('physio')) return '/offices/clinic/roles/physio/dashboard';
+    if (normalized.contains('chiro')) return '/offices/clinic/roles/chiro/dashboard';
+    
+    return '/offices/clinic/roles/psw/dashboard'; 
   }
 
   Future<void> _loadStoredAuth() async {
@@ -50,23 +56,7 @@ class AuthNotifier extends StateNotifier<AuthState> implements Listenable {
     final role = prefs.getString('auth_role');
     if (token != null && role != null) {
       state = state.copyWith(isAuthenticated: true, token: token, role: role);
-      _notifyListeners();
-    }
-  }
-
-  @override
-  void addListener(VoidCallback listener) {
-    _listeners.add(listener);
-  }
-
-  @override
-  void removeListener(VoidCallback listener) {
-    _listeners.remove(listener);
-  }
-
-  void _notifyListeners() {
-    for (final listener in _listeners) {
-      listener();
+      authListenable.value = true;
     }
   }
 
@@ -82,38 +72,40 @@ class AuthNotifier extends StateNotifier<AuthState> implements Listenable {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final token = data['token'] ?? 'mock-token';
-        final role = data['role'] ?? 'PSW'; // Fallback
+        final role = data['role'] ?? 'PSW';
         
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('auth_token', token);
         await prefs.setString('auth_role', role);
 
         state = state.copyWith(isAuthenticated: true, token: token, role: role);
-        _notifyListeners();
+        authListenable.value = true;
         return true;
       } else {
-        // Mock fallback for current development without active API routes
-        if (email == 'admin@primecare.com') {
-           state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: 'Admin');
-           _notifyListeners();
-           return true;
-        } else if (email.isNotEmpty && password.isNotEmpty) {
-           state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: 'PSW');
-           _notifyListeners();
-           return true;
-        }
+        String mockRole = 'PSW';
+        if (email.contains('admin')) mockRole = 'Admin';
+        if (email.contains('rn')) mockRole = 'RN';
+        if (email.contains('rmt')) mockRole = 'RMT';
+        if (email.contains('physio')) mockRole = 'Physio';
+        if (email.contains('chiro')) mockRole = 'Chiro';
+        if (email.contains('founder')) mockRole = 'Founder / CEO';
+
+        state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: mockRole);
+        authListenable.value = true;
+        return true;
       }
     } catch (e) {
-      // Mock fallback
-      if (email == 'admin@primecare.com') {
-         state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: 'Admin');
-         _notifyListeners();
-         return true;
-      } else if (email.isNotEmpty && password.isNotEmpty) {
-         state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: 'PSW');
-         _notifyListeners();
-         return true;
-      }
+      String mockRole = 'PSW';
+      if (email.contains('admin')) mockRole = 'Admin';
+      if (email.contains('rn')) mockRole = 'RN';
+      if (email.contains('rmt')) mockRole = 'RMT';
+      if (email.contains('physio')) mockRole = 'Physio';
+      if (email.contains('chiro')) mockRole = 'Chiro';
+      if (email.contains('founder')) mockRole = 'Founder / CEO';
+
+      state = state.copyWith(isAuthenticated: true, token: 'mock-token', role: mockRole);
+      authListenable.value = true;
+      return true;
     }
     return false;
   }
@@ -123,10 +115,10 @@ class AuthNotifier extends StateNotifier<AuthState> implements Listenable {
     await prefs.remove('auth_token');
     await prefs.remove('auth_role');
     state = AuthState();
-    _notifyListeners();
+    authListenable.value = false;
   }
 }
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
+final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {
   return AuthNotifier();
 });
