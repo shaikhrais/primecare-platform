@@ -51,30 +51,9 @@ export async function handleLogin(c: any) {
         if (deviceId) { await logAudit(prisma, user.id, 'LOGIN', 'USER', user.id, { tenantId: user.tenantId, ip: clientIp }, deviceId); }
         const safeUser = { id: user.id, email: user.email, roles: parsedRoles, tenantId: user.tenantId, status: user.status };
         return c.json({ user: safeUser, token: accessToken }, 200);
-    } catch (e: any /* Audit 63 Notice: Should be unknown */) { 
-        // ---- OFFLINE MOCK BYPASS FOR FLUTTER UI TESTING ----
-        console.warn('[OFFLINE_MODE] Database unreachable. Yielding mocked JWT session to permit UI authentication.');
-        
-        // Explicit Developer Credential Check
-        if (emailStr === 'itpro.mohammed@gmail.com' && passStr !== 'Rsoft@999') {
-             return c.json({ error: 'Invalid credentials (Offline Dev Mode)' }, 401);
-        }
-
-        let mockRoles = ['psw'];
-        if (emailStr.toLowerCase().includes('admin') || emailStr.toLowerCase().includes('itpro') || emailStr.toLowerCase().includes('founder')) mockRoles = ['admin'];
-        else if (emailStr.toLowerCase().includes('mt')) mockRoles = ['mt'];
-        else if (emailStr.toLowerCase().includes('client')) mockRoles = ['client'];
-        else if (emailStr.toLowerCase().includes('manager')) mockRoles = ['manager'];
-        else if (emailStr.toLowerCase().includes('rn')) mockRoles = ['rn'];
-        else if (emailStr.toLowerCase().includes('coordinator')) mockRoles = ['coordinator'];
-        else if (emailStr.toLowerCase().includes('gm')) mockRoles = ['gm'];
-        else if (emailStr.toLowerCase().includes('scrum')) mockRoles = ['scrum_master'];
-
-        const jwtSecret = c.env?.JWT_SECRET || 'local-mock-secret-key-123';
-        const mockToken = await generateToken({ id: 'mock-offline-123', roles: mockRoles, tenantId: 'system' }, jwtSecret);
-        setCookie(c, 'accessToken', mockToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 60 * 60 * 24, path: '/' });
-        
-        return c.json({ user: { id: 'mock-offline-123', email: emailStr, roles: mockRoles, tenantId: 'system', status: 'active' }, token: mockToken, _mockSource: true }, 200);
+    } catch (e: any) { 
+        console.error('[DATABASE_FAULT] Critical Error in Prisma Request:', e);
+        return c.json({ error: 'Database Unreachable', message: 'The API could not establish a connection to the PostgreSQL cluster. Ensure Prisma Accelerate or TCP connection strings are configured properly online.' }, 500);
     }
 }
 

@@ -43,7 +43,7 @@ export const prismaMiddleware = () => {
                     edgeUri = `prisma://accelerate.prisma-data.net/?api_key=${apiKey}`;
                 }
 
-                if (edgeUri.startsWith('prisma://')) {
+                if (edgeUri.startsWith('prisma://') || edgeUri.startsWith('prisma+postgres://')) {
                     const baseClient = new PrismaClient({ datasourceUrl: edgeUri });
                     prismaInstance = baseClient.$extends(withAccelerate());
                 } else {

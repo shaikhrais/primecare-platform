@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../services/auth_service.dart';
+
+class AdminDashboardScreen extends ConsumerWidget {
+  const AdminDashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Administrator Dashboard'),
+        backgroundColor: Colors.deepPurple,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              ref.read(authProvider.notifier).logout();
+            },
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.admin_panel_settings, size: 80, color: Color(0xFFBB86FC)),
+            const SizedBox(height: 24),
+            Text(
+              'Welcome, Platform Administrator',
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            const Text('Manage platform settings, roles, and metrics here.'),
+          ],
+        ),
+      ),
+    );
+  }
+}
