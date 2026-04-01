@@ -4,7 +4,8 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
+import '../../../../providers/dashboard_providers.dart';
+import '../../../../services/dashboard_service.dart';
 
 class SlpDashboard extends ConsumerWidget {
   const SlpDashboard({Key? key}) : super(key: key);
@@ -12,114 +13,125 @@ class SlpDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    ref.watch(dioProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text(
-                    'Speech & Swallowing Clinic Hub',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Restoring communication and swallowing function through evidence-based care.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // SLP KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          _buildKpi(cardWidth, 'Speech Sessions', '5', Icons.record_voice_over, AppTheme.primary, '3 Completed'),
-                          _buildKpi(cardWidth, 'Swallowing Tests', '2', Icons.local_dining_outlined, Colors.indigo, 'High priority'),
-                          _buildKpi(cardWidth, 'Progress Notes', '6', Icons.grading, Colors.orange, 'EOD deadline'),
-                          _buildKpi(cardWidth, 'Vocal Clarity Score', '84%', Icons.multitrack_audio, Colors.teal, 'Network Average'),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Active Clinical Queue
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Communication Recovery Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildSessionRow('Linda Belcher', 'Aphasia Recovery', 'Vocal Exercises', '10:45 AM'),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildSessionRow('Gene Belcher', 'Swallowing Evaluation', 'Bedside Test', '11:45 AM', isHighRisk: true),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildSessionRow('Tina Belcher', 'Cognitive-Comm Therapy', 'Social Interaction', '1:30 PM'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+        data: (metrics) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(
+                      'Speech & Swallowing Clinic Hub',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.primary,
+                        fontFamily: 'Outfit',
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Restoring communication and swallowing function through evidence-based care.',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.blueGrey,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
 
-                      const SizedBox(width: 24),
+                    // SLP KPI ROW
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: metrics.kpis.map((kpi) => _buildKpi(
+                            cardWidth, 
+                            kpi.title, 
+                            kpi.value, 
+                            _getIcon(kpi.title), 
+                            _getStatusColor(kpi.status), 
+                            kpi.subtitle
+                          )).toList(),
+                        );
+                      },
+                    ),
 
-                      // RIGHT: Clinical Logs
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Clinical Assessments', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(title: 'Swallowing Plan', subtitle: 'Modified Diet - Ref: G. Belcher', timestamp: '22m ago', icon: Icons.restaurant, iconColor: Colors.teal),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Vocal Analysis', subtitle: 'L. Belcher - Improved', timestamp: '1h ago', icon: Icons.mic, iconColor: Colors.indigo),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Caregiver Training', subtitle: 'Session logged', timestamp: '5h ago', icon: Icons.groups, iconColor: Colors.blueGrey),
-                                ],
+                    const SizedBox(height: 32),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: Active Clinical Queue
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Communication Recovery Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
+                                  children: [
+                                    _buildSessionRow('Linda Belcher', 'Aphasia Recovery', 'Vocal Exercises', '10:45 AM'),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildSessionRow('Gene Belcher', 'Swallowing Evaluation', 'Bedside Test', '11:45 AM', isHighRisk: true),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildSessionRow('Tina Belcher', 'Cognitive-Comm Therapy', 'Social Interaction', '1:30 PM'),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+
+                        const SizedBox(width: 24),
+
+                        // RIGHT: Clinical Logs
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Clinical Assessments', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: metrics.recentActivity.map((log) => Column(
+                                    children: [
+                                      AuditLogTile(
+                                        title: log.title, 
+                                        subtitle: log.subtitle, 
+                                        timestamp: log.timestamp, 
+                                        icon: _getActivityIcon(log.icon), 
+                                        iconColor: _getStatusColor(log.color)
+                                      ),
+                                      const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                    ],
+                                  )).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -160,5 +172,37 @@ class SlpDashboard extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIcon(String title) {
+    if (title.contains('Speech')) return Icons.record_voice_over;
+    if (title.contains('Swallowing')) return Icons.local_dining_outlined;
+    if (title.contains('Note')) return Icons.grading;
+    if (title.contains('Vocal')) return Icons.multitrack_audio;
+    return Icons.insights;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'restaurant': return Icons.restaurant;
+      case 'mic': return Icons.mic;
+      case 'groups': return Icons.groups;
+      default: return Icons.history;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'teal': return Colors.teal;
+      case 'warning':
+      case 'orange': return Colors.orange;
+      case 'danger':
+      case 'red': return Colors.red;
+      case 'info':
+      case 'indigo':
+      case 'blue': return Colors.indigo;
+      default: return Colors.blueGrey;
+    }
   }
 }

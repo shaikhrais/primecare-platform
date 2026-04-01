@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/api_providers.dart';
 import '../routes/app_routes.dart';
@@ -55,6 +57,7 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('franchise_sales')) return AppRoutes.franchiseSalesManagerDashboard;
     if (r.contains('partnership')) return AppRoutes.partnershipManagerDashboard;
     if (r.contains('expansion')) return AppRoutes.territoryExpansionManagerDashboard;
+    if (r.contains('general_manager') || r.contains('gm')) return AppRoutes.generalManagerDashboard;
 
     // Franchise Tier
     if (r.contains('owner') || r.contains('franchisee')) return AppRoutes.franchiseOwnerDashboard;

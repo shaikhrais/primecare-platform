@@ -4,7 +4,8 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
+import '../../../../providers/dashboard_providers.dart';
+import '../../../../services/dashboard_service.dart';
 
 class PswDashboard extends ConsumerWidget {
   const PswDashboard({Key? key}) : super(key: key);
@@ -12,114 +13,125 @@ class PswDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    ref.watch(dioProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text(
-                    'PSW Daily Care Portal',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Coordinating daily living support and specialized home care cycles.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // PSW KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          _buildKpi(cardWidth, 'Daily ADLs', '14 / 22', Icons.task_alt, AppTheme.primary, '8 Tasks remaining'),
-                          _buildKpi(cardWidth, 'Next Shift', '18:30', Icons.schedule, Colors.indigo, 'Downtown Center'),
-                          _buildKpi(cardWidth, 'Client Alerts', '2', Icons.notification_important_outlined, Colors.orange, 'Verification required'),
-                          _buildKpi(cardWidth, 'Shift Hours', '32 / 40', Icons.history, Colors.teal, 'This week'),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Today's Care Shifts
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Active Care Schedule', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildCareRow('Eleanor Rigby', 'Bathing & Grooming', 'READY', '14:30', isNext: true),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildCareRow('John Smith', 'Meal Prep (Low Sodium)', 'UPCOMING', '16:00'),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildCareRow('Martha Wayne', 'Ambulation / Walking Support', 'UPCOMING', '18:00'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+        data: (metrics) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(
+                      'PSW Daily Care Portal',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.primary,
+                        fontFamily: 'Outfit',
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Coordinating daily living support and specialized home care cycles.',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.blueGrey,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
 
-                      const SizedBox(width: 24),
+                    // PSW KPI ROW
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: metrics.kpis.map((kpi) => _buildKpi(
+                            cardWidth, 
+                            kpi.title, 
+                            kpi.value, 
+                            _getIcon(kpi.title), 
+                            _getStatusColor(kpi.status), 
+                            kpi.subtitle
+                          )).toList(),
+                        );
+                      },
+                    ),
 
-                      // RIGHT: ADL LOGS
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Incident Reports (Recent)', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(title: 'Minor Fall', subtitle: 'J. Smith - No injuries', timestamp: '2h ago', icon: Icons.warning, iconColor: Colors.orange),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Skin Integrity', subtitle: 'E. Rigby - Redness noted', timestamp: '4h ago', icon: Icons.healing, iconColor: Colors.indigo),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Note Submitted', subtitle: 'M. Wayne - Home safety', timestamp: '1d ago', icon: Icons.verified, iconColor: Colors.teal),
-                                ],
+                    const SizedBox(height: 32),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: Today's Care Shifts
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Active Care Schedule', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
+                                  children: [
+                                    _buildCareRow('Eleanor Rigby', 'Bathing & Grooming', 'READY', '14:30', isNext: true),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildCareRow('John Smith', 'Meal Prep (Low Sodium)', 'UPCOMING', '16:00'),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildCareRow('Martha Wayne', 'Ambulation / Walking Support', 'UPCOMING', '18:00'),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+
+                        const SizedBox(width: 24),
+
+                        // RIGHT: ADL LOGS
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Incident Reports (Recent)', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: metrics.recentActivity.map((log) => Column(
+                                    children: [
+                                      AuditLogTile(
+                                        title: log.title, 
+                                        subtitle: log.subtitle, 
+                                        timestamp: log.timestamp, 
+                                        icon: _getActivityIcon(log.icon), 
+                                        iconColor: _getStatusColor(log.color)
+                                      ),
+                                      const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                    ],
+                                  )).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -160,5 +172,37 @@ class PswDashboard extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIcon(String title) {
+    if (title.contains('ADL')) return Icons.task_alt;
+    if (title.contains('Shift')) return Icons.schedule;
+    if (title.contains('Alert')) return Icons.notification_important_outlined;
+    if (title.contains('Hours')) return Icons.history;
+    return Icons.insights;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'warning': return Icons.warning;
+      case 'healing': return Icons.healing;
+      case 'verified': return Icons.verified;
+      default: return Icons.history;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'teal': return Colors.teal;
+      case 'warning':
+      case 'orange': return Colors.orange;
+      case 'danger':
+      case 'red': return Colors.red;
+      case 'info':
+      case 'indigo':
+      case 'blue': return Colors.indigo;
+      default: return Colors.blueGrey;
+    }
   }
 }

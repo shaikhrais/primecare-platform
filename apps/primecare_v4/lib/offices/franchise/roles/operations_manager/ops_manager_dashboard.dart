@@ -4,7 +4,8 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
+import '../../../../providers/dashboard_providers.dart';
+import '../../../../services/dashboard_service.dart';
 
 class OpsManagerDashboard extends ConsumerWidget {
   const OpsManagerDashboard({Key? key}) : super(key: key);
@@ -12,114 +13,125 @@ class OpsManagerDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    ref.watch(dioProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text(
-                    'Operations & Facility Management',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Orchestrating daily clinical logistics, equipment readiness, and staff velocity.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // OPS KPI ROW
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          _buildKpi(cardWidth, 'Active Facility', 'ON-Toronto-W', Icons.location_on_outlined, AppTheme.primary, 'Region: GTA East'),
-                          _buildKpi(cardWidth, 'Staff Presence', '92%', Icons.people_outline, Colors.teal, '4 Absence alerts'),
-                          _buildKpi(cardWidth, 'Supply Chain', '98%', Icons.inventory_2_outlined, Colors.indigo, 'Stock: Optimal'),
-                          _buildKpi(cardWidth, 'Logistics Score', '8.4/10', Icons.analytics_outlined, Colors.orange, 'Last 7 days'),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Daily Logistics
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Operational Readiness Monitor', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildLogisticsRow('Equipment Check', 'Physio Wing v2', 'VERIFIED', Colors.teal),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildLogisticsRow('Supply Refill', 'Medication Vault', 'URGENT', Colors.red, isUrgent: true),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildLogisticsRow('Maintenance', 'OT / SLP Labs', 'PENDING', Colors.orange),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+        data: (metrics) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(
+                      'Operations & Facility Management',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.primary,
+                        fontFamily: 'Outfit',
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Orchestrating daily clinical logistics, equipment readiness, and staff velocity.',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.blueGrey,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
 
-                      const SizedBox(width: 24),
+                    // OPS KPI ROW
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: metrics.kpis.map((kpi) => _buildKpi(
+                            cardWidth, 
+                            kpi.title, 
+                            kpi.value, 
+                            _getIcon(kpi.title), 
+                            _getStatusColor(kpi.status), 
+                            kpi.subtitle
+                          )).toList(),
+                        );
+                      },
+                    ),
 
-                      // RIGHT: Staffing
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Operations Audit Feed', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(title: 'Logistics Verified', subtitle: 'Ref: #OP-882 - Done', timestamp: '22m ago', icon: Icons.playlist_add_check, iconColor: Colors.teal),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Incident: Supply Delay', subtitle: 'Late shipment (v2)', timestamp: '2h ago', icon: Icons.warning_amber_outlined, iconColor: Colors.red),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Facility Inspection', subtitle: 'Score: 9.8/10', timestamp: '1d ago', icon: Icons.verified_user_outlined, iconColor: Colors.indigo),
-                                ],
+                    const SizedBox(height: 32),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: Daily Logistics
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Operational Readiness Monitor', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
+                                  children: [
+                                    _buildLogisticsRow('Equipment Check', 'Physio Wing v2', 'VERIFIED', Colors.teal),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildLogisticsRow('Supply Refill', 'Medication Vault', 'URGENT', Colors.red, isUrgent: true),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildLogisticsRow('Maintenance', 'OT / SLP Labs', 'PENDING', Colors.orange),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+
+                        const SizedBox(width: 24),
+
+                        // RIGHT: Staffing
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Operations Audit Feed', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: metrics.recentActivity.map((log) => Column(
+                                    children: [
+                                      AuditLogTile(
+                                        title: log.title, 
+                                        subtitle: log.subtitle, 
+                                        timestamp: log.timestamp, 
+                                        icon: _getActivityIcon(log.icon), 
+                                        iconColor: _getStatusColor(log.color)
+                                      ),
+                                      const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                    ],
+                                  )).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -155,5 +167,37 @@ class OpsManagerDashboard extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIcon(String title) {
+    if (title.contains('Facility')) return Icons.location_on_outlined;
+    if (title.contains('Staff')) return Icons.people_outline;
+    if (title.contains('Supply')) return Icons.inventory_2_outlined;
+    if (title.contains('Logistics')) return Icons.analytics_outlined;
+    return Icons.insights;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'check': return Icons.playlist_add_check;
+      case 'warning': return Icons.warning_amber_outlined;
+      case 'verified': return Icons.verified_user_outlined;
+      default: return Icons.history;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'teal': return Colors.teal;
+      case 'warning':
+      case 'orange': return Colors.orange;
+      case 'danger':
+      case 'red': return Colors.red;
+      case 'info':
+      case 'indigo':
+      case 'blue': return Colors.indigo;
+      default: return Colors.blueGrey;
+    }
   }
 }

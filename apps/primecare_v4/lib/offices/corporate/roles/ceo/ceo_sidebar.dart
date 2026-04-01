@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 
-class PlaceholderScreen extends StatelessWidget {
-  const PlaceholderScreen({Key? key}) : super(key: key);
+class CeoSidebar extends StatelessWidget {
+  const CeoSidebar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Generated Screen')),
-      body: const Center(
-        child: Text('Placeholder View'),
+    return Container(
+      width: 250,
+      color: Colors.white.withOpacity(0.05),
+      child: ListView(
+        children: [
+          _buildItem(Icons.dashboard_outlined, 'Executive Dashboard'),
+          _buildItem(Icons.payments_outlined, 'Financial Overview'),
+          _buildItem(Icons.settings_outlined, 'System Settings'),
+        ],
       ),
     );
+  }
+
+  Widget _buildItem(IconData icon, String label) {
+    return ListTile(leading: Icon(icon, color: AppTheme.primary), title: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)));
   }
 }

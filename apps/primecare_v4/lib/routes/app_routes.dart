@@ -24,6 +24,7 @@ class AppRoutes {
   static const String territoryExpansionManagerDashboard = '/offices/business_development/roles/territory_expansion_manager/dashboard';
   static const String franchiseOwnerDashboard = '/offices/franchise/roles/franchise_owner/dashboard';
   static const String operationsManagerDashboard = '/offices/franchise/roles/operations_manager/dashboard';
+  static const String generalManagerDashboard = '/offices/business_development/roles/general_manager/dashboard';
   static const String schedulerDashboard = '/offices/franchise/roles/scheduler/dashboard';
   static const String billingAdminDashboard = '/offices/franchise/roles/billing_admin/dashboard';
   static const String hrHiringDashboard = '/offices/franchise/roles/hr_hiring/dashboard';
@@ -50,4 +51,6 @@ class AppRoutes {
   static const String familyMemberDashboard = '/offices/client/roles/family_member/dashboard';
 
   static const String scrumMasterDashboard = '/offices/system/roles/scrum_master/dashboard';
+  static const String guestDashboard = '/offices/system/roles/guest/dashboard';
+  static const String patientDashboard = '/offices/client/roles/client/dashboard';
 }

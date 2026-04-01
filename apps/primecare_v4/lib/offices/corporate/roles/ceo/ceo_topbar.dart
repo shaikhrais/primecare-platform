@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
-class PlaceholderScreen extends StatelessWidget {
-  const PlaceholderScreen({Key? key}) : super(key: key);
+class CeoTopbar extends StatelessWidget {
+  const CeoTopbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Generated Screen')),
-      body: const Center(
-        child: Text('Placeholder View'),
+    return Container(
+      height: 64,
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.blueGrey.withOpacity(0.1)))),
+      child: const Row(
+        children: [
+          Text('PRIMECARE CEO PORTAL', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2)),
+          Spacer(),
+          Icon(Icons.notifications_none),
+        ],
       ),
     );
   }

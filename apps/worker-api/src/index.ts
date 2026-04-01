@@ -37,6 +37,7 @@ import trackingRoutes from './platform/tracking/tracking.routes';
 import gmModule from './routes/gm/index';
 import mtModule from './routes/mt/index';
 import pswDashboardModule from './routes/psw_dashboard';
+import dashboardModule from './platform/dashboard.routes';
 
 import { ChatServer } from './durable_objects/ChatServer';
 import { RealtimeSync } from './durable_objects/RealtimeSync';
@@ -107,6 +108,7 @@ app.route('/v1/tracking', trackingRoutes);
 app.route('/v1/gm', gmModule);
 app.route('/v1/mt', mtModule);
 app.route('/v1/psw/dashboard', pswDashboardModule);
+app.route('/v1/dashboard', dashboardModule);
 
 // 6. Export with CORS wrapper + Sentry (extracted)
 export default withSentryWorker(createFetchWrapper(app) as unknown as ExportedHandler);

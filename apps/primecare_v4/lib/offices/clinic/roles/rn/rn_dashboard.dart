@@ -4,7 +4,8 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
+import '../../../../providers/dashboard_providers.dart';
+import '../../../../services/dashboard_service.dart';
 
 class RnDashboard extends ConsumerWidget {
   const RnDashboard({Key? key}) : super(key: key);
@@ -12,115 +13,125 @@ class RnDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    // Observe dioProvider to ensure connectivity is ready.
-    ref.watch(dioProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Registered Nurse: Clinical Operations',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.primary,
-                      fontFamily: 'Outfit',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Monitoring specialized care delivery and critical clinical vitals.',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.blueGrey,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // CLINICAL HUD row
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          _buildKpi(cardWidth, 'Active Patients', '18', Icons.people_outline, AppTheme.primary, '3 Critical alerts'),
-                          _buildKpi(cardWidth, 'Meds Pending', '4', Icons.medication_liquid, Colors.orange, 'Due in <15m'),
-                          _buildKpi(cardWidth, 'Assessments', '12', Icons.assignment_outlined, Colors.indigo, '8 Completed'),
-                          _buildKpi(cardWidth, 'Care Compliance', '98%', Icons.verified_user_outlined, Colors.teal, 'Target: 100%'),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Clinical Queue
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('High-Priority Clinical Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildPatientAction('Arthur Dent', 'Wound Care (Stage 2)', '14:30', 'Room 201'),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildPatientAction('Ford Prefect', 'IV Antibiotics Cycle', '15:15', 'Room 204', isCritical: true),
-                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildPatientAction('Tricia McMillan', 'Post-Op Observation', '16:00', 'Room 305'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err')),
+        data: (metrics) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Registered Nurse: Clinical Operations',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme.primary,
+                        fontFamily: 'Outfit',
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Monitoring specialized care delivery and critical clinical vitals.',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.blueGrey,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
 
-                      const SizedBox(width: 24),
+                    // CLINICAL HUD row
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: metrics.kpis.map((kpi) => _buildKpi(
+                            cardWidth, 
+                            kpi.title, 
+                            kpi.value, 
+                            _getIcon(kpi.title), 
+                            _getStatusColor(kpi.status), 
+                            kpi.subtitle
+                          )).toList(),
+                        );
+                      },
+                    ),
 
-                      // RIGHT: System Activity
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Clinical Audit Trail', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(title: 'Vitals Recorded', subtitle: 'J. Watson - Verified', timestamp: '12m ago', icon: Icons.health_and_safety, iconColor: Colors.teal),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Medication Refusal', subtitle: 'H. Lecter (Room 102)', timestamp: '45m ago', icon: Icons.warning, iconColor: Colors.orange),
-                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Shift Handoff', subtitle: 'from RN Sarah Blake', timestamp: '2h ago', icon: Icons.swap_horiz, iconColor: Colors.indigo),
-                                ],
+                    const SizedBox(height: 32),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: Clinical Queue
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('High-Priority Clinical Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
+                                  children: [
+                                    _buildPatientAction('Arthur Dent', 'Wound Care (Stage 2)', '14:30', 'Room 201'),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildPatientAction('Ford Prefect', 'IV Antibiotics Cycle', '15:15', 'Room 204', isCritical: true),
+                                    const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                    _buildPatientAction('Tricia McMillan', 'Post-Op Observation', '16:00', 'Room 305'),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ],
+
+                        const SizedBox(width: 24),
+
+                        // RIGHT: System Activity
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Clinical Audit Trail', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: metrics.recentActivity.map((log) => Column(
+                                    children: [
+                                      AuditLogTile(
+                                        title: log.title, 
+                                        subtitle: log.subtitle, 
+                                        timestamp: log.timestamp, 
+                                        icon: _getActivityIcon(log.icon), 
+                                        iconColor: _getStatusColor(log.color)
+                                      ),
+                                      const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                    ],
+                                  )).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -169,5 +180,37 @@ class RnDashboard extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIcon(String title) {
+    if (title.contains('Patient')) return Icons.people_outline;
+    if (title.contains('Meds')) return Icons.medication_liquid;
+    if (title.contains('Assess')) return Icons.assignment_outlined;
+    if (title.contains('Complian')) return Icons.verified_user_outlined;
+    return Icons.insights;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'health': return Icons.health_and_safety;
+      case 'warning': return Icons.warning;
+      case 'swap': return Icons.swap_horiz;
+      default: return Icons.history;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'teal': return Colors.teal;
+      case 'warning':
+      case 'orange': return Colors.orange;
+      case 'danger':
+      case 'red': return Colors.red;
+      case 'info':
+      case 'indigo':
+      case 'blue': return Colors.indigo;
+      default: return Colors.blueGrey;
+    }
   }
 }

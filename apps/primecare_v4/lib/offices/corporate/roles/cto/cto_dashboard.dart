@@ -4,7 +4,8 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
+import '../../../../providers/dashboard_providers.dart';
+import '../../../../services/dashboard_service.dart';
 
 class CtoDashboard extends ConsumerWidget {
   const CtoDashboard({Key? key}) : super(key: key);
@@ -12,121 +13,132 @@ class CtoDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    ref.watch(dioProvider);
+    final metricsAsync = ref.watch(dashboardMetricsProvider);
 
     return Scaffold(
       backgroundColor: const Color(0xFF020617), // Deep space navy for CTO
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Row(
-                    children: [
-                      const Icon(Icons.hub_outlined, color: Colors.blueAccent, size: 28),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Infrastructure & CTO Hub',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontFamily: 'Outfit',
+      body: metricsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text('Error loading metrics: $err', style: const TextStyle(color: Colors.white))),
+        data: (metrics) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Row(
+                      children: [
+                        const Icon(Icons.hub_outlined, color: Colors.blueAccent, size: 28),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Infrastructure & CTO Hub',
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontFamily: 'Outfit',
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      _buildVersionBadge('v4.2.1-stable'),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Real-time orchestration of the PrimeCare core engine and Cloudflare edges.',
-                    style: TextStyle(color: Colors.blueGrey, fontFamily: 'Inter'),
-                  ),
-                  const SizedBox(height: 32),
+                        const Spacer(),
+                        _buildVersionBadge('v4.2.1-stable'),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Real-time orchestration of the PrimeCare core engine and Cloudflare edges.',
+                      style: TextStyle(color: Colors.blueGrey, fontFamily: 'Inter'),
+                    ),
+                    const SizedBox(height: 32),
 
-                  // INFRA HUD row
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
-                      return Wrap(
-                        spacing: 16,
-                        runSpacing: 16,
-                        children: [
-                          _buildKpi(cardWidth, 'Global Uptime', '99.99%', Icons.cloud_done_outlined, Colors.greenAccent, 'Last 30 days'),
-                          _buildKpi(cardWidth, 'API Throughput', '14.2k req/s', Icons.speed, Colors.blueAccent, 'Peak: 18k'),
-                          _buildKpi(cardWidth, 'DB Connections', '42/100', Icons.storage_outlined, Colors.purpleAccent, 'Healthy pool'),
-                          _buildKpi(cardWidth, 'Edge Latency', '22ms', Icons.bolt, Colors.tealAccent, 'Cloudflare Region: W-USR'),
-                        ],
-                      );
-                    },
-                  ),
+                    // INFRA HUD row
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                        return Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: metrics.kpis.map((kpi) => _buildKpi(
+                            cardWidth, 
+                            kpi.title, 
+                            kpi.value, 
+                            _getIcon(kpi.title), 
+                            _getStatusColor(kpi.status), 
+                            kpi.subtitle
+                          )).toList(),
+                        );
+                      },
+                    ),
 
-                  const SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // LEFT: Endpoint Status
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Microservice Health Matrix', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(24),
-                              child: Column(
-                                children: [
-                                  _buildServiceStatus('Core Worker-API', 'OPERATIONAL', Colors.greenAccent),
-                                  const Divider(color: Colors.white10, height: 24, thickness: 0.5),
-                                  _buildServiceStatus('Auth-Vault v2', 'OPERATIONAL', Colors.greenAccent),
-                                  const Divider(color: Colors.white10, height: 24, thickness: 0.5),
-                                  _buildServiceStatus('Prisma-Pulse Proxy', 'DEGRADED', Colors.orangeAccent, 'Increased latency in US-East'),
-                                  const Divider(color: Colors.white10, height: 24, thickness: 0.5),
-                                  _buildServiceStatus('Media Transmuxing', 'OPERATIONAL', Colors.greenAccent),
-                                ],
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // LEFT: Endpoint Status
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Microservice Health Matrix', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
+                                  children: [
+                                    _buildServiceStatus('Core Worker-API', 'OPERATIONAL', Colors.greenAccent),
+                                    const Divider(color: Colors.white10, height: 24, thickness: 0.5),
+                                    _buildServiceStatus('Auth-Vault v2', 'OPERATIONAL', Colors.greenAccent),
+                                    const Divider(color: Colors.white10, height: 24, thickness: 0.5),
+                                    _buildServiceStatus('Prisma-Pulse Proxy', 'OPERATIONAL', Colors.greenAccent),
+                                    const Divider(color: Colors.white10, height: 24, thickness: 0.5),
+                                    _buildServiceStatus('Media Transmuxing', 'OPERATIONAL', Colors.greenAccent),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
 
-                      const SizedBox(width: 24),
+                        const SizedBox(width: 24),
 
-                      // RIGHT: Deployments
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Direct Deployment Feed', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
-                            const SizedBox(height: 16),
-                            GlassSurface(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  AuditLogTile(title: 'Prod Push: Hotfix 02', subtitle: 'by TechArchitect', timestamp: '5m ago', icon: Icons.rocket_launch, iconColor: Colors.blueAccent),
-                                  const Divider(color: Colors.white10, height: 16, thickness: 0.5),
-                                  AuditLogTile(title: 'DB Schema Migration', subtitle: 'Role Registry Sync', timestamp: '2h ago', icon: Icons.schema, iconColor: Colors.purpleAccent),
-                                  const Divider(color: Colors.white10, height: 16, thickness: 0.5),
-                                  AuditLogTile(title: 'Edge Cache Purge', subtitle: 'Global Wipe', timestamp: '5h ago', icon: Icons.cleaning_services, iconColor: Colors.tealAccent),
-                                ],
+                        // RIGHT: Deployments
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Direct Deployment Feed', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18, fontFamily: 'Outfit')),
+                              const SizedBox(height: 16),
+                              GlassSurface(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: metrics.recentActivity.map((log) => Column(
+                                    children: [
+                                      AuditLogTile(
+                                        title: log.title, 
+                                        subtitle: log.subtitle, 
+                                        timestamp: log.timestamp, 
+                                        icon: _getActivityIcon(log.icon), 
+                                        iconColor: _getStatusColor(log.color)
+                                      ),
+                                      const Divider(color: Colors.white10, height: 16, thickness: 0.5),
+                                    ],
+                                  )).toList(),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -170,5 +182,42 @@ class CtoDashboard extends ConsumerWidget {
       decoration: BoxDecoration(color: Colors.blueAccent.withOpacity(0.1), borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.blueAccent.withOpacity(0.3))),
       child: Text(text, style: const TextStyle(color: Colors.blueAccent, fontSize: 11, fontWeight: FontWeight.bold)),
     );
+  }
+
+  IconData _getIcon(String title) {
+    if (title.contains('Uptime')) return Icons.cloud_done_outlined;
+    if (title.contains('Throughput')) return Icons.speed;
+    if (title.contains('Connections')) return Icons.storage_outlined;
+    if (title.contains('Latency')) return Icons.bolt;
+    if (title.contains('Staff')) return Icons.people;
+    return Icons.insights;
+  }
+
+  IconData _getActivityIcon(String icon) {
+    switch (icon) {
+      case 'verified': return Icons.verified;
+      case 'person_add': return Icons.person_add;
+      case 'security': return Icons.security;
+      case 'rocket': return Icons.rocket_launch;
+      case 'schema': return Icons.schema;
+      case 'cleaning': return Icons.cleaning_services;
+      default: return Icons.history;
+    }
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'success':
+      case 'green':
+      case 'teal': return Colors.tealAccent;
+      case 'warning':
+      case 'orange': return Colors.orangeAccent;
+      case 'danger':
+      case 'red': return Colors.redAccent;
+      case 'info':
+      case 'blue':
+      case 'indigo': return Colors.blueAccent;
+      default: return Colors.blueGrey;
+    }
   }
 }
