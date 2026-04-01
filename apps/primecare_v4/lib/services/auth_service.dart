@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../providers/api_providers.dart';
 import '../routes/app_routes.dart';
 
 class AuthState {
@@ -46,40 +44,54 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('coo')) return AppRoutes.cooDashboard;
     if (r.contains('cfo') || r.contains('finance')) return AppRoutes.cfoDashboard;
     if (r.contains('cto') || r.contains('tech')) return AppRoutes.ctoDashboard;
-    if (r.contains('compliance')) return AppRoutes.complianceManagerDashboard;
-    if (r.contains('training') && r.contains('director')) return AppRoutes.trainingDirectorDashboard;
+    if (r.contains('compliance_manager')) return AppRoutes.complianceManagerDashboard;
+    if (r.contains('head_of_bus_dev') || r.contains('growth')) return AppRoutes.headOfBusDevDashboard;
+    if (r.contains('head_of_marketing')) return AppRoutes.headOfMarketingDashboard;
+    if (r.contains('training_director')) return AppRoutes.trainingDirectorDashboard;
     
     // Business Development
-    if (r.contains('regional') || r.contains('bdm')) return AppRoutes.regionalManagerOntarioDashboard;
-    if (r.contains('sales_manager')) return AppRoutes.franchiseSalesManagerDashboard;
+    if (r.contains('ontario')) return AppRoutes.regionalManagerOntarioDashboard;
+    if (r.contains('usa')) return AppRoutes.regionalManagerUsaDashboard;
+    if (r.contains('franchise_sales')) return AppRoutes.franchiseSalesManagerDashboard;
     if (r.contains('partnership')) return AppRoutes.partnershipManagerDashboard;
     if (r.contains('expansion')) return AppRoutes.territoryExpansionManagerDashboard;
 
     // Franchise Tier
     if (r.contains('owner') || r.contains('franchisee')) return AppRoutes.franchiseOwnerDashboard;
-    if (r.contains('operations') || r.contains('ops')) return AppRoutes.operationsManagerDashboard;
+    if (r.contains('operations_manager')) return AppRoutes.operationsManagerDashboard;
     if (r.contains('scheduler') || r.contains('coordinator')) return AppRoutes.schedulerDashboard;
-    if (r.contains('admin') || r.contains('billing')) return AppRoutes.billingAdminDashboard;
+    if (r.contains('billing') || r.contains('admin')) return AppRoutes.billingAdminDashboard;
     if (r.contains('hr') || r.contains('hiring')) return AppRoutes.hrHiringDashboard;
 
     // Clinical Execution
     if (r == 'rn' || r.contains('registered_nurse')) return AppRoutes.rnDashboard;
     if (r == 'rpn') return AppRoutes.rpnDashboard;
-    if (r == 'rmt' || r.contains('massage')) return AppRoutes.rmtDashboard;
-    if (r == 'psw' || r.contains('personal')) return AppRoutes.pswDashboard;
+    if (r == 'rmt') return AppRoutes.rmtDashboard;
+    if (r == 'psw') return AppRoutes.pswDashboard;
     
+    // Allied Health (Clinical Specialties)
+    if (r == 'physio' || r.contains('physiotherapist')) return AppRoutes.physioDashboard;
+    if (r == 'chiro' || r.contains('chiropractor')) return AppRoutes.chiroDashboard;
+    if (r == 'ot' || r.contains('occupational')) return AppRoutes.occupationalTherapistDashboard;
+    if (r == 'slp' || r.contains('speech')) return AppRoutes.speechPathologistDashboard;
+
     // Support & Intake
     if (r.contains('customer_support') || r.contains('support')) return AppRoutes.customerSupportDashboard;
     if (r.contains('intake')) return AppRoutes.intakeCoordinatorDashboard;
     if (r.contains('quality') || r.contains('qa')) return AppRoutes.qualityAssuranceDashboard;
+    if (r.contains('training_coordinator')) return AppRoutes.trainingCoordinatorDashboard;
     
-    // Marketing
-    if (r.contains('marketing')) return AppRoutes.localMarketingManagerDashboard;
+    // Marketing & Growth
+    if (r.contains('local_marketing')) return AppRoutes.localMarketingManagerDashboard;
     if (r.contains('outreach')) return AppRoutes.communityOutreachDashboard;
+    if (r.contains('territory_sales')) return AppRoutes.territorySalesManagerDashboard;
     
     // Client Side
-    if (r == 'client' || r == 'patient') return AppRoutes.clientDashboard;
+    if (r == 'client') return AppRoutes.clientDashboard;
     if (r.contains('family')) return AppRoutes.familyMemberDashboard;
+    
+    // Technical / System
+    if (r.contains('scrum') || r.contains('master')) return AppRoutes.scrumMasterDashboard;
     
     return AppRoutes.pswDashboard; // Fallback security
   }
@@ -96,14 +108,14 @@ class AuthNotifier extends Notifier<AuthState> {
 
   Future<bool> login(String email, String password) async {
     try {
-      final response = await http.post(
-        Uri.parse('$_baseUrl/auth/login'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
+      final dio = ref.read(dioProvider);
+      final response = await dio.post(
+        '/auth/login',
+        data: {'email': email, 'password': password},
       );
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+        final data = response.data;
         final token = data['token'] ?? 'mock-token';
         
         // Deeply unpack role from Worker-API or root

@@ -49,6 +49,10 @@ async function main() {
         { name: 'RPN', email: 'rpn1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
         { name: 'RMT', email: 'rmt1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
         { name: 'PSW', email: 'psw1@hamilton.primecare.com', roles: 'psw', tenantId: tenantA.id },
+        { name: 'Physiotherapist', email: 'physio1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
+        { name: 'Chiropractor', email: 'chiro1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
+        { name: 'Occupational Therapist', email: 'ot1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
+        { name: 'Speech Pathologist', email: 'slp1@hamilton.primecare.com', roles: 'rn', tenantId: tenantA.id },
 
         // 5. Support Team
         { name: 'Customer Support', email: 'support@primecare.com', roles: 'admin', tenantId: tenantHQ.id },
@@ -64,6 +68,9 @@ async function main() {
         // 7. Client Side
         { name: 'Client', email: 'client1@gmail.com', roles: 'client', tenantId: tenantA.id },
         { name: 'Family Member', email: 'family1@gmail.com', roles: 'client', tenantId: tenantA.id },
+
+        // 8. System / Technical
+        { name: 'Scrum Master (Tech Auditor)', email: 'scrum@primecare.com', roles: 'admin', tenantId: tenantHQ.id },
     ];
 
     let count = 0;

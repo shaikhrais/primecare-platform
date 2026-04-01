@@ -48,6 +48,11 @@ import '../offices/marketing/roles/community_outreach/community_events.dart' as 
 import '../offices/marketing/roles/territory_sales_manager/lead_generation.dart' as TerritorySalesManagerDash;
 import '../offices/client/roles/client/client_dashboard.dart' as ClientDash;
 import '../offices/client/roles/family_member/family_dashboard.dart' as FamilyMemberDash;
+import '../offices/clinic/roles/physio/physio_dashboard.dart' as PhysioDash;
+import '../offices/clinic/roles/chiro/chiro_dashboard.dart' as ChiroDash;
+import '../offices/clinic/roles/occupational_therapist/ot_dashboard.dart' as OtDash;
+import '../offices/clinic/roles/speech_pathologist/slp_dashboard.dart' as SlpDash;
+import '../offices/system/roles/scrum_master/scrum_master_dashboard.dart' as ScrumMasterDash;
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authNotifier = ref.watch(authProvider.notifier);
@@ -103,35 +108,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
         GoRoute(
           path: AppRoutes.cfoDashboard,
-          builder: (context, state) => const CfoDash.PlaceholderScreen(),
+          builder: (context, state) => const CfoDash.CfoDashboard(),
         ),
         GoRoute(
           path: AppRoutes.ctoDashboard,
-          builder: (context, state) => const CtoDash.PlaceholderScreen(),
+          builder: (context, state) => const CtoDash.CtoDashboard(),
         ),
         GoRoute(
           path: AppRoutes.complianceManagerDashboard,
-          builder: (context, state) => const ComplianceManagerDash.PlaceholderScreen(),
+          builder: (context, state) => const ComplianceManagerDash.ComplianceDashboard(),
         ),
         GoRoute(
           path: AppRoutes.headOfBusDevDashboard,
-          builder: (context, state) => const HeadOfBusDevDash.PlaceholderScreen(),
+          builder: (context, state) => const HeadOfBusDevDash.BusDevDashboard(),
         ),
         GoRoute(
           path: AppRoutes.headOfMarketingDashboard,
-          builder: (context, state) => const HeadOfMarketingDash.PlaceholderScreen(),
+          builder: (context, state) => const HeadOfMarketingDash.MarketingOverview(),
         ),
         GoRoute(
           path: AppRoutes.trainingDirectorDashboard,
-          builder: (context, state) => const TrainingDirectorDash.PlaceholderScreen(),
+          builder: (context, state) => const TrainingDirectorDash.TrainingAdminDashboard(),
         ),
         GoRoute(
           path: AppRoutes.regionalManagerOntarioDashboard,
-          builder: (context, state) => const RegionalManagerOntarioDash.PlaceholderScreen(),
+          builder: (context, state) => const RegionalManagerOntarioDash.RegionDashboard(),
         ),
         GoRoute(
           path: AppRoutes.regionalManagerUsaDashboard,
-          builder: (context, state) => const RegionalManagerUsaDash.PlaceholderScreen(),
+          builder: (context, state) => const RegionalManagerUsaDash.RegionDashboard(),
         ),
         GoRoute(
           path: AppRoutes.franchiseSalesManagerDashboard,
@@ -147,11 +152,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
         GoRoute(
           path: AppRoutes.franchiseOwnerDashboard,
-          builder: (context, state) => const FranchiseOwnerDash.PlaceholderScreen(),
+          builder: (context, state) => const FranchiseOwnerDash.OwnerDashboard(),
         ),
         GoRoute(
           path: AppRoutes.operationsManagerDashboard,
-          builder: (context, state) => const OperationsManagerDash.PlaceholderScreen(),
+          builder: (context, state) => const OperationsManagerDash.OpsManagerDashboard(),
         ),
         GoRoute(
           path: AppRoutes.schedulerDashboard,
@@ -185,19 +190,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
         GoRoute(
           path: AppRoutes.rnDashboard,
-          builder: (context, state) => const RnDash.PlaceholderScreen(),
+          builder: (context, state) => const RnDash.RnDashboard(),
         ),
         GoRoute(
           path: AppRoutes.rpnDashboard,
-          builder: (context, state) => const RpnDash.PlaceholderScreen(),
+          builder: (context, state) => const RpnDash.RpnDashboard(),
         ),
         GoRoute(
           path: AppRoutes.rmtDashboard,
-          builder: (context, state) => const RmtDash.PlaceholderScreen(),
+          builder: (context, state) => const RmtDash.RmtDashboard(),
         ),
         GoRoute(
           path: AppRoutes.pswDashboard,
-          builder: (context, state) => const PswDash.PlaceholderScreen(),
+          builder: (context, state) => const PswDash.PswDashboard(),
         ),
         GoRoute(
           path: AppRoutes.customerSupportDashboard,
@@ -215,6 +220,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           path: AppRoutes.trainingCoordinatorDashboard,
           builder: (context, state) => const TrainingCoordinatorDash.PlaceholderScreen(),
         ),
+        GoRoute(
+          path: AppRoutes.physioDashboard,
+          builder: (context, state) => const PhysioDash.PhysioDashboard(),
+        ),
+        GoRoute(
+          path: AppRoutes.chiroDashboard,
+          builder: (context, state) => const ChiroDash.ChiroDashboard(),
+        ),
+        GoRoute(
+          path: AppRoutes.occupationalTherapistDashboard,
+          builder: (context, state) => const OtDash.OtDashboard(),
+        ),
+        GoRoute(
+          path: AppRoutes.speechPathologistDashboard,
+          builder: (context, state) => const SlpDash.SlpDashboard(),
+        ),
         ],
       ),
       
@@ -229,6 +250,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           path: AppRoutes.familyMemberDashboard,
           builder: (context, state) => const FamilyMemberDash.PlaceholderScreen(),
         ),
+        ],
+      ),
+
+      ShellRoute(
+        builder: (context, state, child) => MasterLayout(shellType: AppShellType.admin, child: child),
+        routes: [
+          GoRoute(
+            path: AppRoutes.scrumMasterDashboard,
+            builder: (context, state) => const ScrumMasterDash.ScrumMasterDashboard(),
+          ),
         ],
       ),
     ],

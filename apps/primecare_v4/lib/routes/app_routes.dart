@@ -31,13 +31,23 @@ class AppRoutes {
   static const String rpnDashboard = '/offices/clinic/roles/rpn/dashboard';
   static const String rmtDashboard = '/offices/clinic/roles/rmt/dashboard';
   static const String pswDashboard = '/offices/clinic/roles/psw/dashboard';
+  
+  static const String physioDashboard = '/offices/clinic/roles/physio/dashboard';
+  static const String chiroDashboard = '/offices/clinic/roles/chiro/dashboard';
+  static const String occupationalTherapistDashboard = '/offices/clinic/roles/occupational_therapist/dashboard';
+  static const String speechPathologistDashboard = '/offices/clinic/roles/speech_pathologist/dashboard';
+
   static const String customerSupportDashboard = '/offices/support/roles/customer_support/dashboard';
   static const String intakeCoordinatorDashboard = '/offices/support/roles/intake_coordinator/dashboard';
   static const String qualityAssuranceDashboard = '/offices/support/roles/quality_assurance/dashboard';
   static const String trainingCoordinatorDashboard = '/offices/support/roles/training_coordinator/dashboard';
+
   static const String localMarketingManagerDashboard = '/offices/marketing/roles/local_marketing_manager/dashboard';
   static const String communityOutreachDashboard = '/offices/marketing/roles/community_outreach/dashboard';
   static const String territorySalesManagerDashboard = '/offices/marketing/roles/territory_sales_manager/dashboard';
+
   static const String clientDashboard = '/offices/client/roles/client/dashboard';
   static const String familyMemberDashboard = '/offices/client/roles/family_member/dashboard';
+
+  static const String scrumMasterDashboard = '/offices/system/roles/scrum_master/dashboard';
 }

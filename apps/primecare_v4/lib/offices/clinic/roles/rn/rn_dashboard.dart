@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../components/glass_surface.dart';
+import '../../../../office/components/glass_surface.dart';
+import '../../../../office/components/kpi_stat_card.dart';
+import '../../../../office/components/audit_log_tile.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../providers/api_providers.dart';
 
-// Represents the functional dashboard for a Registered Nurse (RN)
-class PlaceholderScreen extends ConsumerWidget {
-  const PlaceholderScreen({Key? key}) : super(key: key);
+class RnDashboard extends ConsumerWidget {
+  const RnDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    
+    // Observe dioProvider to ensure connectivity is ready.
+    ref.watch(dioProvider);
+
     return Scaffold(
-      backgroundColor: Colors.transparent, // Inherit shell background
+      backgroundColor: Colors.transparent,
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -20,109 +25,94 @@ class PlaceholderScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Text(
-                        'Registered Nurse Overview (Downtown Sector)',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFF006565),
-                        ),
-                                           ),
-                       ElevatedButton.icon(
-                         onPressed: () {},
-                         icon: const Icon(Icons.add_box),
-                         label: const Text('Add Nursing Note'),
-                         style: ElevatedButton.styleFrom(
-                           backgroundColor: const Color(0xFF006565),
-                           foregroundColor: Colors.white,
-                         ),
-                       )
-                     ],
-                   ),
+                  Text(
+                    'Registered Nurse: Clinical Operations',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.primary,
+                      fontFamily: 'Outfit',
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Text(
-                    'You are supervising 14 active care plans and have 2 critical updates.',
-                    style: theme.textTheme.titleMedium?.copyWith(color: Colors.blueGrey),
+                    'Monitoring specialized care delivery and critical clinical vitals.',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.blueGrey,
+                      fontFamily: 'Inter',
+                    ),
                   ),
-                  const SizedBox(height: 32),
-                  
-                  // TOP METRICS ROW (Clinical)
-                  Row(
-                    children: [
-                      Expanded(child: _buildGlassMetricCard(context, Icons.medical_services, 'Care Plans to Review', '3 Pending', Colors.blue)),
-                      const SizedBox(width: 16),
-                      Expanded(child: _buildGlassMetricCard(context, Icons.medication, 'Medication Passes', '18 Scheduled', Colors.purple)),
-                      const SizedBox(width: 16),
-                      Expanded(child: _buildGlassMetricCard(context, Icons.warning_amber, 'Incident Reports', '0 Active', Colors.green)),
-                      const SizedBox(width: 16),
-                      Expanded(child: _buildGlassMetricCard(context, Icons.people_alt, 'Supervised PSWs', '6 Active', Colors.teal)),
-                    ],
-                  ),
-                  
                   const SizedBox(height: 32),
 
-                  // CLINICAL WORKFLOW & ALERTS
+                  // CLINICAL HUD row
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
+                      return Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: [
+                          _buildKpi(cardWidth, 'Active Patients', '18', Icons.people_outline, AppTheme.primary, '3 Critical alerts'),
+                          _buildKpi(cardWidth, 'Meds Pending', '4', Icons.medication_liquid, Colors.orange, 'Due in <15m'),
+                          _buildKpi(cardWidth, 'Assessments', '12', Icons.assignment_outlined, Colors.indigo, '8 Completed'),
+                          _buildKpi(cardWidth, 'Care Compliance', '98%', Icons.verified_user_outlined, Colors.teal, 'Target: 100%'),
+                        ],
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 32),
+
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // LEFT COLUMN: Triage & Clinical Schedule
+                      // LEFT: Clinical Queue
                       Expanded(
-                        flex: 5,
+                        flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Urgent Triage & Alerts', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 16),
-                            _buildTriageCard('Eleanor Rigby - Missed Morning Medication (8:00 AM)', context),
-                            _buildTriageCard('John Smith - Elevated Blood Pressure Report filed by PSW', context),
-                            
-                            const SizedBox(height: 24),
-                            Text('Today’s Clinical Schedule', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 16),
-                            _buildShiftCard(context, '10:00 AM', 'Wound Care Assessment', 'Room 102 - Post-Op observation and dressing change.', true),
-                            _buildShiftCard(context, '01:00 PM', 'IV Therapy Session', 'Room 304 - Hydration & Antibiotic protocol.', false),
-                            _buildShiftCard(context, '03:15 PM', 'Initial Intake Assessment', 'Room 216 - Full systems check and care plan generation.', false),
-                          ],
-                        )
-                      ),
-                      
-                      const SizedBox(width: 24),
-                      
-                      // RIGHT COLUMN: Quick Care Plan Access
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Recent Activity Logs', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                            Text('High-Priority Clinical Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
                             const SizedBox(height: 16),
                             GlassSurface(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    _buildLogEntry('PSW Sarah checked out of John Smith\'s care. Vitals normal.'),
-                                    const Divider(),
-                                    _buildLogEntry('Vitals flagged: Martha Wayne Temp 38.2°C.'),
-                                    const Divider(),
-                                    _buildLogEntry('Pharmacy confirmed medication restock for Ward B.'),
-                                    const SizedBox(height: 24),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      child: OutlinedButton.icon(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.history),
-                                        label: const Text('View Full Client History'),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                children: [
+                                  _buildPatientAction('Arthur Dent', 'Wound Care (Stage 2)', '14:30', 'Room 201'),
+                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                  _buildPatientAction('Ford Prefect', 'IV Antibiotics Cycle', '15:15', 'Room 204', isCritical: true),
+                                  const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
+                                  _buildPatientAction('Tricia McMillan', 'Post-Op Observation', '16:00', 'Room 305'),
+                                ],
                               ),
-                            )
+                            ),
                           ],
-                        )
+                        ),
+                      ),
+
+                      const SizedBox(width: 24),
+
+                      // RIGHT: System Activity
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Clinical Audit Trail', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                            const SizedBox(height: 16),
+                            GlassSurface(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  AuditLogTile(title: 'Vitals Recorded', subtitle: 'J. Watson - Verified', timestamp: '12m ago', icon: Icons.health_and_safety, iconColor: Colors.teal),
+                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                  AuditLogTile(title: 'Medication Refusal', subtitle: 'H. Lecter (Room 102)', timestamp: '45m ago', icon: Icons.warning, iconColor: Colors.orange),
+                                  const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
+                                  AuditLogTile(title: 'Shift Handoff', subtitle: 'from RN Sarah Blake', timestamp: '2h ago', icon: Icons.swap_horiz, iconColor: Colors.indigo),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   )
@@ -135,103 +125,47 @@ class PlaceholderScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildGlassMetricCard(BuildContext context, IconData icon, String label, String value, Color color) {
-    return GlassSurface(
-      child: Container(
-        height: 100,
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Icon(icon, size: 20, color: color),
-                const SizedBox(width: 8),
-                Text(label, style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.blueGrey, fontSize: 13)),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(value, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
+  Widget _buildKpi(double width, String title, String value, IconData icon, Color color, [String? subtitle]) {
+    return SizedBox(
+      width: width,
+      child: KpiStatCard(title: title, value: value, subtitle: subtitle, icon: icon, iconColor: color),
     );
   }
 
-  Widget _buildTriageCard(String alert, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: GlassSurface(
-        hasGhostBorder: false,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(left: BorderSide(color: Colors.red.shade400, width: 4)),
-            color: Colors.red.withOpacity(0.05),
-          ),
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            children: [
-              const Icon(Icons.warning, color: Colors.red, size: 20),
-              const SizedBox(width: 12),
-              Expanded(child: Text(alert, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red))),
-              TextButton(onPressed: () {}, child: const Text('Review', style: TextStyle(color: Colors.red)))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildShiftCard(BuildContext context, String time, String task, String details, bool isNext) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: GlassSurface(
-        hasGhostBorder: isNext,
-        child: Container(
-          decoration: BoxDecoration(
-            border: isNext ? Border(left: BorderSide(color: const Color(0xFF006565), width: 4)) : null,
-          ),
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Container(
-                width: 90,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                decoration: BoxDecoration(
-                  color: isNext ? const Color(0xFF006565).withOpacity(0.1) : Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                child: Text(time, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: isNext ? const Color(0xFF006565) : null), textAlign: TextAlign.center),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(task, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    const SizedBox(height: 4),
-                    Text(details, style: const TextStyle(fontSize: 13, color: Colors.blueGrey)),
-                  ],
-                ),
-              ),
-              IconButton(icon: const Icon(Icons.arrow_forward_ios, size: 16), onPressed: () {})
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLogEntry(String text) {
+  Widget _buildPatientAction(String name, String type, String time, String location, {bool isCritical = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.sync_alt, color: Colors.blueGrey, size: 16),
-          const SizedBox(width: 12),
-          Expanded(child: Text(text, style: const TextStyle(fontSize: 13, height: 1.4))),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: isCritical ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              isCritical ? Icons.priority_high : Icons.healing,
+              color: isCritical ? Colors.red : AppTheme.primary,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(type, style: const TextStyle(color: Colors.blueGrey, fontSize: 13)),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(time, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              Text(location, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
+            ],
+          ),
         ],
       ),
     );

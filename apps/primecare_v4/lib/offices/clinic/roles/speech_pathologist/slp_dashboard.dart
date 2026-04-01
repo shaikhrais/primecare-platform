@@ -6,8 +6,8 @@ import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/api_providers.dart';
 
-class RpnDashboard extends ConsumerWidget {
-  const RpnDashboard({Key? key}) : super(key: key);
+class SlpDashboard extends ConsumerWidget {
+  const SlpDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,8 +24,8 @@ class RpnDashboard extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Registered Practical Nurse Hub',
+                   Text(
+                    'Speech & Swallowing Clinic Hub',
                     style: theme.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppTheme.primary,
@@ -34,7 +34,7 @@ class RpnDashboard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Managing medication cycles and specialized treatment plans.',
+                    'Restoring communication and swallowing function through evidence-based care.',
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: Colors.blueGrey,
                       fontFamily: 'Inter',
@@ -42,7 +42,7 @@ class RpnDashboard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 32),
 
-                  // CLINICAL KPI ROW
+                  // SLP KPI ROW
                   LayoutBuilder(
                     builder: (context, constraints) {
                       final cardWidth = constraints.maxWidth > 1200 ? (constraints.maxWidth - 48) / 4 : (constraints.maxWidth > 600 ? (constraints.maxWidth - 16) / 2 : constraints.maxWidth);
@@ -50,10 +50,10 @@ class RpnDashboard extends ConsumerWidget {
                         spacing: 16,
                         runSpacing: 16,
                         children: [
-                          _buildKpi(cardWidth, 'MAR Completion', '85%', Icons.medication, AppTheme.primary, '12 Pending rounds'),
-                          _buildKpi(cardWidth, 'Wound Care', '4', Icons.healing, Colors.indigo, 'Check-ups due'),
-                          _buildKpi(cardWidth, 'Active Vitals', '16', Icons.monitor_heart, Colors.teal, 'All stable'),
-                          _buildKpi(cardWidth, 'Documentation', '6', Icons.description_outlined, Colors.orange, 'Notes pending'),
+                          _buildKpi(cardWidth, 'Speech Sessions', '5', Icons.record_voice_over, AppTheme.primary, '3 Completed'),
+                          _buildKpi(cardWidth, 'Swallowing Tests', '2', Icons.local_dining_outlined, Colors.indigo, 'High priority'),
+                          _buildKpi(cardWidth, 'Progress Notes', '6', Icons.grading, Colors.orange, 'EOD deadline'),
+                          _buildKpi(cardWidth, 'Vocal Clarity Score', '84%', Icons.multitrack_audio, Colors.teal, 'Network Average'),
                         ],
                       );
                     },
@@ -64,23 +64,23 @@ class RpnDashboard extends ConsumerWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // LEFT: Medication Queue
+                      // LEFT: Active Clinical Queue
                       Expanded(
                         flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Medication Administration Queue (MAR)', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                            Text('Communication Recovery Queue', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
                             const SizedBox(height: 16),
                             GlassSurface(
                               padding: const EdgeInsets.all(24),
                               child: Column(
                                 children: [
-                                  _buildMarRow('Sarah Miller', 'Evening Meds (6-item)', '17:00', 'Room 102'),
+                                  _buildSessionRow('Linda Belcher', 'Aphasia Recovery', 'Vocal Exercises', '10:45 AM'),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildMarRow('Thomas Anderson', 'Wound Dressing Change', '17:30', 'Room 105', isCritical: true),
+                                  _buildSessionRow('Gene Belcher', 'Swallowing Evaluation', 'Bedside Test', '11:45 AM', isHighRisk: true),
                                   const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                  _buildMarRow('Janet Leigh', 'PRN: Pain Management', 'ASAP', 'Room 203'),
+                                  _buildSessionRow('Tina Belcher', 'Cognitive-Comm Therapy', 'Social Interaction', '1:30 PM'),
                                 ],
                               ),
                             ),
@@ -96,17 +96,17 @@ class RpnDashboard extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Protocol Confirmations', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                            Text('Clinical Assessments', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
                             const SizedBox(height: 16),
                             GlassSurface(
                               padding: const EdgeInsets.all(16),
                               child: Column(
                                 children: [
-                                  AuditLogTile(title: 'Medication Verified', subtitle: 'S. Miller - Double Check', timestamp: '5m ago', icon: Icons.verified, iconColor: Colors.teal),
+                                  AuditLogTile(title: 'Swallowing Plan', subtitle: 'Modified Diet - Ref: G. Belcher', timestamp: '22m ago', icon: Icons.restaurant, iconColor: Colors.teal),
                                   const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Skin Assessment', subtitle: 'T. Anderson - Logged', timestamp: '1h ago', icon: Icons.assignment, iconColor: Colors.indigo),
+                                  AuditLogTile(title: 'Vocal Analysis', subtitle: 'L. Belcher - Improved', timestamp: '1h ago', icon: Icons.mic, iconColor: Colors.indigo),
                                   const Divider(color: Colors.blueGrey, height: 16, thickness: 0.1),
-                                  AuditLogTile(title: 'Pharmacy Order', subtitle: 'Refill: Metformin (60d)', timestamp: '3h ago', icon: Icons.local_pharmacy, iconColor: Colors.blueGrey),
+                                  AuditLogTile(title: 'Caregiver Training', subtitle: 'Session logged', timestamp: '5h ago', icon: Icons.groups, iconColor: Colors.blueGrey),
                                 ],
                               ),
                             ),
@@ -131,14 +131,14 @@ class RpnDashboard extends ConsumerWidget {
     );
   }
 
-  Widget _buildMarRow(String name, String type, String time, String room, {bool isCritical = false}) {
+  Widget _buildSessionRow(String name, String type, String focus, String time, {bool isHighRisk = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isCritical ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
-            child: Text(name[0], style: TextStyle(color: isCritical ? Colors.red : AppTheme.primary, fontWeight: FontWeight.bold)),
+            backgroundColor: isHighRisk ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            child: Text(name[0], style: TextStyle(color: isHighRisk ? Colors.red : AppTheme.primary, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -146,15 +146,15 @@ class RpnDashboard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                Text(type, style: const TextStyle(color: Colors.blueGrey, fontSize: 13)),
+                Text('$type ($focus)', style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(time, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-              Text(room, style: const TextStyle(color: Colors.blueGrey, fontSize: 12)),
+              Text(time, style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.primary)),
+              if (isHighRisk) const Text('HIGH RISK', style: TextStyle(color: Colors.red, fontSize: 9, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
             ],
           ),
         ],
