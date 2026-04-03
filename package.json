@@ -18,7 +18,8 @@
     "turbo:build": "npx turbo build",
     "turbo:typecheck": "npx turbo typecheck",
     "turbo:test": "npx turbo test",
-    "turbo:lint": "npx turbo lint"
+    "turbo:lint": "npx turbo lint",
+    "dev:services": "turbo run dev --filter='./services/*'"
   },
   "dependencies": {
     "@fastify/busboy": "^3.2.0",

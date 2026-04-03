@@ -4,9 +4,9 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
+    "dev": "wrangler dev",
     "build": "tsc",
-    "deploy": "wrangler deploy src/index.ts"
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "hono": "^4.2.0"
