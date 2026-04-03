@@ -1,0 +1,41 @@
+// Domain: d_training.prisma
+
+// 
+model CurriculumNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  programName   String
+  department    String
+  status        String
+  completionPct Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model InstructorNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  facilitatorName String
+  assignedCourse  String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model CertificationNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  staffName    String
+  clinicalRole String
+  certName     String
+  expiresAt    DateTime
+  status       String // Compliant, Expiring, Expired
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}

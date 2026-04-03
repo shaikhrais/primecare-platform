@@ -1,0 +1,123 @@
+// Domain: d_franchise.prisma
+
+// 
+model FranchiseRevenueNode {
+  id            String   @id @default(uuid())
+  tenantId      String
+  monthYear     String
+  revenueAmt    Int
+  patientVisits Int
+  growthPct     Float
+  status        String // On Track, At Risk
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model ClinicPerformanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  locationName String
+  managerName  String
+  revenue      String
+  visits       Int
+  growth       String
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model FranchiseBookingNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  patientName     String
+  clinicAssigned  String
+  appointmentType String
+  scheduledTime   String
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model LocalNetworkNode {
+  id              String   @id @default(uuid())
+  tenantId        String
+  locationName    String
+  occupancyRate   Float
+  serverLoadScore Float
+  staffActive     Int
+  status          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalFinanceNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  monthLabel   String
+  grossRevenue Float
+  netMargin    Float
+  growthYoY    Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalActivityNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  eventTitle String
+  eventType  String
+  eventTime  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+// 
+model LocalMarketingAnalyticNode {
+  id         String   @id @default(uuid())
+  tenantId   String
+  metricType String
+  value      Float
+  growthYoY  Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalCampaignNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  campaignName String
+  managerName  String
+  roiFactor    Float
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model LocalContentNode {
+  id           String   @id @default(uuid())
+  tenantId     String
+  assetTitle   String
+  assetType    String
+  deployedDate String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId])
+}

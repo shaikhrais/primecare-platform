@@ -1,0 +1,250 @@
+// ==========================================
+// FINANCIAL ENGINE MODELS (Bank-Level)
+// ==========================================
+
+model Invoice {
+  id              String        @id @default(uuid())
+  clientId        String        @map("client_id")
+  status          String?       @default("draft")
+  currency        String?       @default("CAD")
+  subtotal        Decimal?
+  tax             Decimal?
+  total           Decimal?
+  stripeInvoiceId String?       @map("stripe_invoice_id")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  tenantId        String        @map("tenant_id")
+  client          ClientProfile @relation(fields: [clientId], references: [id])
+  tenant          Tenant        @relation(fields: [tenantId], references: [id])
+  payments        Payment[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@map("invoices")
+}
+
+model Payment {
+  id                    String   @id @default(uuid())
+  invoiceId             String   @map("invoice_id")
+  stripePaymentIntentId String?  @map("stripe_payment_intent_id")
+  amount                Decimal?
+  status                String?
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+  invoice               Invoice  @relation(fields: [invoiceId], references: [id])
+
+  @@map("payments")
+}
+
+model InsuranceProvider {
+  id           String   @id @default(uuid())
+  tenantId     String   @map("tenant_id")
+  name         String
+  networkId    String?  @map("network_id")
+  contactPhone String?  @map("contact_phone")
+  claimsEmail  String?  @map("claims_email")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id])
+  claims Claim[]
+
+  @@index([tenantId])
+  @@map("insurance_providers")
+}
+
+model Claim {
+  id           String   @id @default(uuid())
+  tenantId     String   @map("tenant_id")
+  patientId    String   @map("patient_id")
+  providerId   String   @map("provider_id") // InsuranceProvider ID
+  serviceDate  DateTime @map("service_date")
+  amount       Float
+  status       String   @default("draft") // draft, submitted, pending, paid, denied
+  denialReason String?  @map("denial_reason")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  tenant   Tenant            @relation(fields: [tenantId], references: [id])
+  patient  ClientProfile     @relation(fields: [patientId], references: [id])
+  provider InsuranceProvider @relation(fields: [providerId], references: [id])
+
+  @@index([tenantId])
+  @@map("claims")
+}
+
+model BillingCode {
+  id          String @id @default(uuid())
+  code        String @unique
+  description String
+  category    String // HCPCS, CPT, ICD-10
+  defaultRate Float  @map("default_rate")
+
+  @@map("billing_codes")
+}
+
+model Payout {
+  id          String    @id @default(uuid())
+  providerId  String    @map("provider_id")
+  tenantId    String    @map("tenant_id")
+  amount      Decimal
+  currency    String    @default("CAD")
+  status      String    @default("pending") // pending, paid, failed
+  notes       String?
+  processedAt DateTime? @map("processed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("payouts")
+}
+
+model MileageLog {
+  id                  String   @id @default(uuid())
+  providerId          String   @map("provider_id")
+  date                DateTime
+  fromVisitId         String?  @map("from_visit_id")
+  toVisitId           String?  @map("to_visit_id")
+  fromAddress         String?  @map("from_address")
+  toAddress           String?  @map("to_address")
+  distanceKm          Float    @map("distance_km")
+  travelMinutes       Int?     @map("travel_minutes")
+  reimbursementRate   Float    @default(0.70) @map("reimbursement_rate") // CRA 2025 rate
+  reimbursementAmount Float?   @map("reimbursement_amount")
+  status              String   @default("pending") // pending, approved, paid
+  createdAt           DateTime @default(now()) @map("created_at")
+  tenantId            String   @map("tenant_id")
+
+  psw    ProviderProfile @relation(fields: [providerId], references: [id])
+  tenant Tenant          @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([providerId])
+  @@map("mileage_logs")
+}
+
+model ChartOfAccount {
+  id        String   @id @default(uuid())
+  code      String // e.g., '1000', '2000'
+  name      String // e.g., 'Cash', 'Accounts Receivable'
+  type      String
+  status    String   @default("active")
+  tenantId  String   @map("tenant_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant         Tenant         @relation(fields: [tenantId], references: [id])
+  journalEntries JournalEntry[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("financial_accounts")
+}
+
+model FinancialTransaction {
+  id          String   @id @default(uuid())
+  type        String // INVOICE, PAYMENT, PAYROLL, EXPENSE
+  referenceId String?  @map("reference_id") // ID of linked document
+  amount      Decimal
+  currency    String   @default("CAD")
+  status      String   @default("draft")
+  tenantId    String   @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  tenant          Tenant                    @relation(fields: [tenantId], references: [id])
+  journalEntries  JournalEntry[]
+  reconciliations FinancialReconciliation[]
+
+  @@index([tenantId])
+  @@index([referenceId])
+  @@map("financial_transactions")
+}
+
+model JournalEntry {
+  id            String   @id @default(uuid())
+  transactionId String   @map("transaction_id")
+  accountId     String   @map("account_id")
+  debit         Decimal  @default(0)
+  paidOutAmount Decimal? @map("paid_out_amount")
+  currency      String   @default("CAD")
+  balanceBefore Decimal  @default(0) @map("balance_before")
+  balanceAfter  Decimal  @default(0) @map("balance_after")
+  tenantId      String   @map("tenant_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  transaction FinancialTransaction @relation(fields: [transactionId], references: [id])
+  account     ChartOfAccount       @relation(fields: [accountId], references: [id])
+  tenant      Tenant               @relation(fields: [tenantId], references: [id])
+
+  @@index([transactionId])
+  @@index([accountId])
+  @@index([tenantId])
+  @@map("financial_journal_entries")
+}
+
+model FinancialReconciliation {
+  id                String    @id @default(uuid())
+  transactionId     String    @map("transaction_id")
+  bankTransactionId String?   @map("bank_transaction_id")
+  status            String    @default("pending") // pending, matched, reconciled
+  matchedAt         DateTime? @map("matched_at")
+  tenantId          String    @map("tenant_id")
+
+  transaction     FinancialTransaction @relation(fields: [transactionId], references: [id])
+  bankTransaction BankTransaction?     @relation(fields: [bankTransactionId], references: [id])
+  tenant          Tenant               @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("financial_reconciliations")
+}
+
+model BankTransaction {
+  id          String   @id @default(uuid())
+  bankDate    DateTime @map("bank_date")
+  description String
+  amount      Decimal
+  currency    String   @default("CAD")
+  externalRef String?  @map("external_ref")
+  status      String   @default("unreconciled") // unreconciled, reconciled, ignored
+  tenantId    String   @map("tenant_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  tenant          Tenant                    @relation(fields: [tenantId], references: [id])
+  reconciliations FinancialReconciliation[]
+
+  @@index([tenantId])
+  @@map("financial_bank_transactions")
+}
+
+// ─── Immutable Transaction Ledger ─────────────────────────────────────
+// Append-only financial entries with SHA-256 hash chaining.
+// NO updatedAt — records are NEVER modified. Corrections are reversal entries.
+model TransactionLedger {
+  id               String   @id @default(uuid())
+  tenantId         String   @map("tenant_id")
+  transactionType  String   @map("transaction_type") // PAYMENT, REFUND, ADJUSTMENT, REVERSAL, PAYOUT
+  referenceType    String   @map("reference_type") // Invoice, Payout, Claim
+  referenceId      String   @map("reference_id")
+  debitAccount     String   @map("debit_account") // e.g. "accounts_receivable", "cash"
+  creditAccount    String   @map("credit_account") // e.g. "revenue", "refund_payable"
+  amount           Decimal
+  currency         String   @default("CAD")
+  description      String?
+  actorUserId      String?  @map("actor_user_id")
+  ipAddress        String?  @map("ip_address")
+  checksum         String   @default("") // SHA-256 of this entry
+  previousChecksum String?  @map("previous_checksum") // SHA-256 of previous entry
+  status           String   @default("sealed") // sealed = immutable, voided = reversed by another entry
+  voidedByEntryId  String?  @map("voided_by_entry_id") // links to the reversal entry
+  createdAt        DateTime @default(now()) @map("created_at")
+  // NO updatedAt — records are immutable
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  actor  User?  @relation("LedgerActor", fields: [actorUserId], references: [id])
+
+  @@index([tenantId])
+  @@index([referenceType, referenceId])
+  @@index([createdAt])
+  @@map("transaction_ledger")
+}

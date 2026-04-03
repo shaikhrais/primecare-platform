@@ -2584,7 +2584,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\worker-api\\generated\\client",
+      "value": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\packages\\database\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -2601,12 +2601,11 @@ const config = {
       "driverAdapters",
       "prismaSchemaFolder"
     ],
-    "sourceFilePath": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\apps\\worker-api\\prisma\\schema\\00_base.prisma",
+    "sourceFilePath": "C:\\Users\\Admin2\\Documents\\GitHub\\primecare-platform\\packages\\database\\prisma\\schema\\00_base.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma/schema",
   "clientVersion": "5.22.0",
