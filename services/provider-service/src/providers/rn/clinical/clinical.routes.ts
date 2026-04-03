@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import carePlanRoutes from '../carePlans/carePlans.routes';
 import scribeRoutes from '../../../../platform/rn/clinical/scribe.routes';
 import { submitAssessmentRoute, syncMedicationReconRoute, recordSupervisionRoute, dailyAuditSignOffRoute, listDailyAuditRoute, reconciliationPendingRoute, reconciliationApproveRoute, getAssignedPatientsRoute,

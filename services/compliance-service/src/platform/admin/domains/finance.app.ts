@@ -3,7 +3,7 @@
  * Financial, payroll, claims, ERP
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import financialRoutes from '../financial/financial.routes';
 import payrollRoutes from '../payroll/payroll.routes';
 import claimRoutes from '../claims/claims.routes';

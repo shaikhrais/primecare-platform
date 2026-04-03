@@ -3,7 +3,7 @@
  * Users, settings, search, staff-groups, registries, services, scrum, developer
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import userRoutes from '../users/users.routes';
 import settingsRoutes from '../settings/settings.routes';
 import searchRoutes from '../search/search.routes';

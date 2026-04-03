@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Variables, Bindings } from '../../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 const ledgerRoutes = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

@@ -13,7 +13,7 @@
  *   /v1/admin/*  (infra)    → system-data, webhooks, cron, interop, ai-iot
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { requireAuth } from '@primecare/shared-auth';
 import { requireRole } from '@primecare/shared-auth';
 

@@ -3,7 +3,7 @@
  * EVV, consent, authorizations, pharmacy, discharge, clinical autopilot
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import evvRoutes from '../evv/evv.routes';
 import consentRoutes from '../consent/consent.routes';
 import authorizationRoutes from '../authorizations/authorizations.routes';

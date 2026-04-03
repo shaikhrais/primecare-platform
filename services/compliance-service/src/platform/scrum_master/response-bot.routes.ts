@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { sweepRegistryRoute, updateTouchpointRoute, listTouchpointsRoute, syncRegistriesRoute, handleSweepRegistry, handleUpdateTouchpoint, handleListTouchpoints, handleSyncRegistries } from './response-bot-defs';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

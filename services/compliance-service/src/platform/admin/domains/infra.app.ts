@@ -4,7 +4,7 @@
  * risk surveillance, predictive staffing, reseller
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { systemDataRoutes } from '../system-data/system-data.routes';
 import auditExportRoutes from '../audit-export/audit-export.routes';
 import webhookRoutes from '../webhooks/webhooks.routes';

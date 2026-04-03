@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { listUsersRoute, createUserRoute, verifyUserRoute, updateRolesRoute, elevateUserRoute, updateStatusRoute, churnHeatmapRoute, handleListUsers, handleCreateUser, handleVerifyUser, handleUpdateRoles, handleElevateUser, handleUpdateStatus, handleChurnHeatmap } from './users-route-defs';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

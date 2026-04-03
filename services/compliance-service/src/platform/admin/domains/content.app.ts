@@ -3,7 +3,7 @@
  * Content, DAM, marketing, telehealth
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import contentRoutes from '../content/content.routes';
 import damRoutes from '../dam/dam.routes';
 import marketingRoutes from '../marketing/marketing.routes';

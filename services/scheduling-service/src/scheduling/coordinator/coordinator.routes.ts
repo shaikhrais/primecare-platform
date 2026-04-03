@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { matchOverrideRoute, waitlistSyncRoute, sosAckRoute, homeStatsRoute, dispatchMapRoute, matchingEngineRoute, listSosRoute, sosDispatchRoute, masterScheduleRoute, shiftBroadcastRoute, fleetPingRoute } from './coordinator-route-defs';
 import { handleSosDispatch, handleMasterSchedule, handleShiftBroadcast, handleMatchOverride, handleWaitlistSync, handleSosAck, handleListSos, handleHomeStats, handleDispatchMap, handleMatchingEngine, handleFleetPing } from './coordinator-handlers';
 

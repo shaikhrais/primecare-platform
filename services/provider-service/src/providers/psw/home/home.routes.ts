@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { ROUTE_METADATA } from '@primecare/shared-utils';
 import { requirePermission } from '@primecare/shared-auth';
 import { handleGetHomeStats, handleRedeemStore } from './home-handlers';

@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { requireAuth } from '@primecare/shared-auth';
 import profileRoutes from './profile.routes';
 import passwordRoutes from './password.routes';

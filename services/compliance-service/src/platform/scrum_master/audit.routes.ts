@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { ButtonRegistry, LinkRegistry, ApiRegistry, runIntegrityCheck } from 'prime-care-shared';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

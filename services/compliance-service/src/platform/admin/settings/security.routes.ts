@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { getSecurityRoute, updateSecurityRoute, listDevicesRoute, authorizeDeviceRoute, revokeDeviceRoute, getDeviceActivityRoute, getForensicTrailsRoute, getDailySummaryRoute, getCorsRoute, updateCorsRoute, verifyIntegrityRoute,
     handleGetSecurity, handleUpdateSecurity, handleListDevices, handleAuthorizeDevice, handleRevokeDevice, handleGetDeviceActivity, handleGetForensicTrails, handleGetDailySummary, handleGetCors, handleUpdateCors, handleVerifyIntegrity
 } from './security-route-defs';

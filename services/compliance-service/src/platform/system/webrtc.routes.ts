@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { Bindings } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 const webrtcModule = new Hono<{ Bindings: Bindings }>();
 

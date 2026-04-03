@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { listLedgerRoute, listAccountsRoute, initializeRoute, createInvoiceRoute, getBalancesRoute, reconcileRoute, autoReconcileRoute, reconciliationSummaryRoute, pAndLRoute, balanceSheetRoute, dailySummaryRoute, tradingAccountRoute, forecastRoute, taxFilingRoute, taxRemittanceRoute, earningsRoute, unmatchedReconciliationRoute, executeMatchRoute,
     handleListLedger, handleListAccounts, handleInitialize, handleCreateInvoice, handleGetBalances, handleReconcile, handleAutoReconcile, handleReconciliationSummary, handlePAndL, handleBalanceSheet, handleDailySummary, handleTradingAccount, handleForecast, handleTaxFiling, handleTaxRemittance, handleEarnings, handleUnmatchedReconciliation, handleExecuteMatch
 } from './financial-route-defs';

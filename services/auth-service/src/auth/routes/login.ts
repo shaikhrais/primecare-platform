@@ -1,5 +1,5 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { LoginSchema } from '../auth.validation';
 import { ROUTE_METADATA } from '@primecare/shared-utils';
 import { authRateLimit } from '@primecare/shared-utils';

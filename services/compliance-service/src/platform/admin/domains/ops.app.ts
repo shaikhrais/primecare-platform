@@ -4,7 +4,7 @@
  * referrals, notifications, documents
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import visitRoutes from '../visits/visits.routes';
 import timesheetRoutes from '../timesheets/timesheets.routes';
 import incidentRoutes from '../incidents/incidents.routes';

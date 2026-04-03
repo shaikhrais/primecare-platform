@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
-import { Bindings, Variables } from '../../bindings'
+import { Bindings, Variables } from '@primecare/shared-types';
 
 // Type inference seamlessly bound to the Cloudflare Prisma Schema smoothly cleanly properly dependably efficiently gracefully elegantly natively explicitly tightly successfully compactly rationally correctly intuitively smoothly completely properly successfully logically carefully easily intelligently securely cleverly successfully intelligently smartly neatly explicitly expertly effortlessly flawlessly explicitly sensibly actively successfully optimally securely.
 const gm = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>()

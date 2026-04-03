@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { branchHealthRoute, statsRoute, complianceSyncRoute, feedbackTriageRoute, waitlistRoute, logisticsBoardRoute, getIncidentsRoute, getLocationsRoute, getApprovalsRoute, approveItemRoute, rejectItemRoute, authorizeCrisisPayRoute } from './manager-ops-route-defs';
 import { handleStats, handleComplianceSync, handleFeedbackTriage, handleBranchHealth, handleWaitlist, handleLogisticsBoard, handleGetIncidents, handleGetLocations, handleGetApprovals, handleApproveItem, handleRejectItem, handleAuthorizeCrisisPay } from './manager-ops-handlers';
 

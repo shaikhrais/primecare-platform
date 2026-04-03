@@ -5,8 +5,8 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { AdminRegistry } from 'prime-care-shared';
-import { Bindings, Variables } from './bindings';
-import { captureWorkerException } from './_shared/middleware/sentry';
+import { Bindings, Variables } from '@primecare/shared-types';
+import { captureWorkerException } from './sentry';
 
 const { CorsRegistry } = AdminRegistry;
 const CORS_ORIGINS = ['https://primecare-admin.pages.dev', 'https://primecare-v4.pages.dev', 'https://primecare-app.pages.dev', 'https://primecare-web.pages.dev', 'https://primecare-mobile.pages.dev', 'http://localhost:8787'];

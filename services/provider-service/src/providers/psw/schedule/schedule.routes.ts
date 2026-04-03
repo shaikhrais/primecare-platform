@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import visitsRoute from './visits';
 import checkRoute from './check';
 import offersRoute from './offers';

@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 
-import { Bindings, Variables } from '../../../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { ROUTE_METADATA } from '@primecare/shared-utils';
 import { VisitService } from '../visits.service';
 import { CreateVisitSchema } from 'prime-care-shared';

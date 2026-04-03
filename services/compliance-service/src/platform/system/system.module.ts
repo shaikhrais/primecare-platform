@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 import { requireAuth } from '@primecare/shared-auth';
 import notificationRoutes from './notifications/notifications.routes';
 import paymentRoutes from './payments/payments.routes';

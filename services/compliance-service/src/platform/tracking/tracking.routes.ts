@@ -1,5 +1,5 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 const trackingModule = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
