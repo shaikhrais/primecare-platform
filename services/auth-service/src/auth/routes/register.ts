@@ -3,7 +3,7 @@ import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { RegisterSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { hashPassword } from '@primecare/shared-utils';
+import { hashPassword } from '@primecare/shared-auth';
 import { ROUTE_METADATA } from '@primecare/shared-utils';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();

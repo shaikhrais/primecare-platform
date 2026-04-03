@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { hashPassword } from '@primecare/shared-utils';
+import { hashPassword } from '@primecare/shared-auth';
 
 export class AdminClientService {
     constructor(private prisma: PrismaClient) { }
