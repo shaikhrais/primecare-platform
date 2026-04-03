@@ -3,7 +3,7 @@
  * Extracted from financial.service.ts (getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport, recordTaxRemittance)
  */
 import { Decimal } from 'Decimal.js';
-import type { PrismaClient } from '../../../generated/client/index.js';
+import type { PrismaClient } from '@primecare/database';
 
 export function calculateBalance(entries: any[], accountType: string): Decimal {
     let balance = new Decimal(0);

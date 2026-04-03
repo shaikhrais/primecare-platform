@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 /**
  * R23 (L22): Distributed rate limiter using Cloudflare KV.

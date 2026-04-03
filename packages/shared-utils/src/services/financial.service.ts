@@ -3,7 +3,7 @@
  * Reporting methods extracted to financial-reporting.ts
  */
 import { Decimal } from 'Decimal.js';
-import type { PrismaClient } from '../../../generated/client/index.js';
+import type { PrismaClient } from '@primecare/database';
 import { calculateBalance, getTradingAccount, getIncomeStatement, getBalanceSheet, generateDailySummary, generateTaxFilingReport } from './financial-reporting';
 
 export class FinancialService {

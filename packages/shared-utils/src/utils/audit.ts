@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../generated/client/edge';
+import { PrismaClient } from '@primecare/database';
 
 /**
  * Logs a standard audit action to the database.

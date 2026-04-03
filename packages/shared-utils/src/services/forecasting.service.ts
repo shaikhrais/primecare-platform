@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../generated/client';
+import { PrismaClient } from '@primecare/database';
 import { Decimal } from 'Decimal.js';
 
 export interface ForecastPoint {

@@ -11,7 +11,7 @@
  *   DEFAULT — 120 req / 60s (general API calls)
  */
 import { MiddlewareHandler } from 'hono';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 type RateLimitProfile = 'AUTH' | 'STRICT' | 'DEFAULT';
 

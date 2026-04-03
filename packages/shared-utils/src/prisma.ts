@@ -1,9 +1,9 @@
 import { createMiddleware } from 'hono/factory';
-import { Bindings, Variables } from '../../bindings';
-import { tenantExtension } from '../prisma/tenant.extension';
-import { auditExtension } from '../prisma/audit.extension';
-import { forensicExtension } from '../prisma/forensic.extension';
-import { PrismaClient } from '../../../generated/client/edge';
+import { Bindings, Variables } from '@primecare/shared-types';
+import { tenantExtension } from '@primecare/database';
+import { auditExtension } from '@primecare/database';
+import { forensicExtension } from '@primecare/database';
+import { PrismaClient } from '@primecare/database';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';

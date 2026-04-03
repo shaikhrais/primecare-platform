@@ -1,5 +1,5 @@
 import { MiddlewareHandler } from 'hono';
-import { Bindings, Variables } from '../../bindings';
+import { Bindings, Variables } from '@primecare/shared-types';
 
 /**
  * #16: Tenant Isolation Middleware
