@@ -21,7 +21,6 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.use('*', cors({
   origin: [
     'https://primecare-v4.pages.dev',
-    'https://primecare-platform-ui.pages.dev',
     'http://localhost:3000',
     'http://localhost:8000',
     'http://localhost:5173'
