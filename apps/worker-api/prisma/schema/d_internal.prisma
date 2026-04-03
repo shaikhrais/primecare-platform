@@ -167,3 +167,15 @@ model SchedulerFacilityNode {
 
   @@index([tenantId])
 }
+
+model SystemEventLog {
+  id           String   @id @default(uuid())
+  eventName    String
+  sourceDomain String
+  tenantId     String?
+  payload      Json     @default("{}")
+  timestamp    DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([eventName])
+}

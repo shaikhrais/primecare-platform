@@ -65,17 +65,19 @@ export const CourseCompletedPayloadSchema = z.object({
 
 export interface DomainEventPayload<T = Record<string, any>> {
   eventId: string;
+  eventName: DomainEventName;
   timestamp: string;
   tenantId: string;
   sourceDomain: string;
   data: T;
+  prisma?: any; // Context-injected Prisma client for background persistence
 }
 
 export type EventCallback<T = any> = (payload: DomainEventPayload<T>) => Promise<void>;
 
 class EventBus {
   private static instance: EventBus;
-  private listeners: Map<DomainEventName, EventCallback[]> = new Map();
+  private listeners: Map<DomainEventName | '*', EventCallback[]> = new Map();
 
   private constructor() {}
 
@@ -90,11 +92,11 @@ class EventBus {
    * Registers an asynchronous listener for a specific domain event.
    * Listeners should be entirely decoupled from the emitting domain.
    */
-  public subscribe(event: DomainEventName, callback: EventCallback): void {
-    if (!this.listeners.has(event)) {
-      this.listeners.set(event, []);
+  public subscribe(event: DomainEventName | '*', callback: EventCallback): void {
+    if (!this.listeners.has(event as DomainEventName)) {
+      this.listeners.set(event as DomainEventName, []);
     }
-    this.listeners.get(event)!.push(callback);
+    this.listeners.get(event as DomainEventName)!.push(callback);
     console.log(`[EventBus] Domain Listener Registered for: ${event}`);
   }
 
@@ -102,15 +104,19 @@ class EventBus {
    * Emits a payload to all registered listeners asynchronously.
    * This is immediately "fire-and-forget" so the core endpoint doesn't block.
    */
-  public emit(event: DomainEventName, payload: Omit<DomainEventPayload, 'eventId'>): void {
+  public emit(event: DomainEventName, payload: Omit<DomainEventPayload, 'eventId' | 'eventName'>): void {
     const fullPayload: DomainEventPayload = {
       ...payload,
       eventId: crypto.randomUUID(),
+      eventName: event,
     };
 
     console.log(`[EventBus] Emitting ${event} from ${payload.sourceDomain}`);
 
-    const eventListeners = this.listeners.get(event) || [];
+    // Get specific event listeners and wildcard listeners
+    const specificListeners = this.listeners.get(event) || [];
+    const wildcardListeners = this.listeners.get('*' as DomainEventName) || [];
+    const eventListeners = [...specificListeners, ...wildcardListeners];
     
     // Asynchronously dispatch to avoid blocking the HTTP handler
     eventListeners.forEach(listener => {
@@ -124,3 +130,4 @@ class EventBus {
 }
 
 export const eventBus = EventBus.getInstance();
+

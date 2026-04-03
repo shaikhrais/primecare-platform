@@ -61,9 +61,12 @@ import { withSentryWorker } from './_shared/middleware/sentry';
 import { registerBillingEventListeners } from './domains/billing/finance/finance.listeners';
 import { registerComplianceEventListeners } from './domains/compliance/compliance.listeners';
 import { registerReportingEventListeners } from './domains/reporting/reporting.listeners';
+import { registerTelemetryInterceptor } from './domains/reporting/telemetry.listener';
+
 registerBillingEventListeners();
 registerComplianceEventListeners();
 registerReportingEventListeners();
+registerTelemetryInterceptor();
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
