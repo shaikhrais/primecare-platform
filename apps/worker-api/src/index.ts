@@ -60,8 +60,10 @@ import { withSentryWorker } from './_shared/middleware/sentry';
 // Phase 4: Pub/Sub Listener Bootstrapping
 import { registerBillingEventListeners } from './domains/billing/finance/finance.listeners';
 import { registerComplianceEventListeners } from './domains/compliance/compliance.listeners';
+import { registerReportingEventListeners } from './domains/reporting/reporting.listeners';
 registerBillingEventListeners();
 registerComplianceEventListeners();
+registerReportingEventListeners();
 
 const app = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

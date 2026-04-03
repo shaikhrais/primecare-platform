@@ -57,6 +57,12 @@ export const TerritoryUpdatedPayloadSchema = z.object({
   status: z.enum(['ACTIVE', 'INACTIVE', 'EXPANDING'])
 });
 
+export const CourseCompletedPayloadSchema = z.object({
+  providerId: z.string(),
+  courseId: z.string(),
+  score: z.number().optional()
+});
+
 export interface DomainEventPayload<T = Record<string, any>> {
   eventId: string;
   timestamp: string;
