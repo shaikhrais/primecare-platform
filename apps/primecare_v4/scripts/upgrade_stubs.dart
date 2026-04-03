@@ -1,3 +1,40 @@
+import 'dart:io';
+
+void main() {
+  final officesDir = Directory('lib/offices');
+  final dartFiles = officesDir.listSync(recursive: true).whereType<File>().where((file) => file.path.endsWith('.dart')).toList();
+
+  int upgradedCount = 0;
+
+  for (final file in dartFiles) {
+    if (file.path.contains('_layout') || file.path.contains('_sidebar') || file.path.contains('_topbar')) {
+      continue;
+    }
+
+    final content = file.readAsStringSync();
+    final lines = content.split('\n');
+
+    // Identify stub pages (short files)
+    if (lines.length < 65) {
+      // Extract the class name
+      final classMatch = RegExp(r'class\s+([A-Za-z0-9_]+)\s+extends').firstMatch(content);
+      if (classMatch == null) continue;
+      
+      final className = classMatch.group(1)!;
+
+      // Extract title from Text('Title') if possible
+      String title = className.replaceAll('View', '').replaceAll('Dashboard', '');
+      final textMatch = RegExp(r"Text\('([^']+)'").firstMatch(content);
+      if (textMatch != null && textMatch.group(1)! != 'Error loading metrics: \$err') {
+        title = textMatch.group(1)!;
+      } else {
+        // Beautify class name
+        title = title.replaceAllMapped(RegExp(r'[A-Z]'), (match) => ' ${match.group(0)}').trim();
+      }
+
+      print('Upgrading $className ($title) in ${file.path}');
+
+      final newContent = '''
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
@@ -6,8 +43,8 @@ import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
-class ViewScheduleView extends ConsumerWidget {
-  const ViewScheduleView({Key? key}) : super(key: key);
+class $className extends ConsumerWidget {
+  const $className({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +55,7 @@ class ViewScheduleView extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       body: metricsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
+        error: (err, stack) => Center(child: Text('Error: \$err')),
         data: (metrics) => CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -28,7 +65,7 @@ class ViewScheduleView extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'My Care Schedule',
+                      '$title',
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppTheme.primary,
@@ -37,7 +74,7 @@ class ViewScheduleView extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Overview and analytical breakdown for My Care Schedule.',
+                      'Overview and analytical breakdown for $title.',
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: Colors.blueGrey,
                         fontFamily: 'Inter',
@@ -75,7 +112,7 @@ class ViewScheduleView extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('My Care Schedule Ledger', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
+                              Text('$title Ledger', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, fontFamily: 'Outfit')),
                               const SizedBox(height: 16),
                               GlassSurface(
                                 padding: const EdgeInsets.all(24),
@@ -159,4 +196,12 @@ class ViewScheduleView extends ConsumerWidget {
       ),
     );
   }
+}
+''';
+      file.writeAsStringSync(newContent);
+      upgradedCount++;
+    }
+  }
+
+  print('\\nSuccessfully upgraded \$upgradedCount stub pages to high fidelity Riverpod UI.');
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../services/auth_service.dart';
+import 'auth_layout.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -33,68 +34,77 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
+    return AuthLayout(
+      heroTitle: 'Secure Access to Your Clinical Workspace',
+      heroSubtitle: 'Sign in to access patient records, clinical notes, and enterprise analytics.',
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Sign In',
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: 'Outfit', color: Color(0xFF191C1E)),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'Please enter your credentials to continue.',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey, fontFamily: 'Inter'),
+          ),
+          const SizedBox(height: 48),
+          TextField(
+            controller: _emailController,
+            decoration: AuthInputDecoration.get('Email Address', Icons.email_outlined),
+            keyboardType: TextInputType.emailAddress,
+          ),
+          const SizedBox(height: 24),
+          TextField(
+            controller: _passwordController,
+            decoration: AuthInputDecoration.get('Password', Icons.lock_outline),
+            obscureText: true,
+          ),
+          const SizedBox(height: 16),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () => context.push('/forgot-password'),
+              style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
+              child: const Text('Forgot Password?', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 32),
+          Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF006948), Color(0xFF00855D)],
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ElevatedButton(
+              onPressed: _isLoading ? null : _login,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: _isLoading 
+                  ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                  : const Text('Login', style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 32),
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Icon(Icons.medical_services, size: 80, color: Color(0xFFBB86FC)),
-              const SizedBox(height: 24),
-              const Text(
-                'PrimeCare',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 48),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.email),
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock),
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _isLoading ? null : _login,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                ),
-                child: _isLoading 
-                    ? const CircularProgressIndicator()
-                    : const Text('Sign In', style: TextStyle(fontSize: 18)),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () => context.push('/forgot-password'),
-                    child: const Text('Forgot Password?'),
-                  ),
-                  TextButton(
-                    onPressed: () => context.push('/signup'),
-                    child: const Text('Sign Up'),
-                  ),
-                ],
+              const Text('Don\'t have an account?', style: TextStyle(color: Colors.blueGrey)),
+              TextButton(
+                onPressed: () => context.push('/signup'),
+                style: TextButton.styleFrom(foregroundColor: const Color(0xFF006948)),
+                child: const Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
