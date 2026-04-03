@@ -1,4 +1,5 @@
 ﻿import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 
 type Bindings = {
   AUTH_SERVICE: Fetcher;
@@ -14,6 +15,23 @@ type Bindings = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+
+// Strict CORS configuration
+app.use('*', cors({
+  origin: [
+    'https://primecare-v3.pages.dev',
+    'https://primecare-platform-ui.pages.dev',
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:5173'
+  ],
+  allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  allowMethods: ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE', 'PATCH'],
+  exposeHeaders: ['Content-Length', 'x-custom-header'],
+  maxAge: 600,
+  credentials: true,
+}));
 
 // Global Middleware
 app.use('*', async (c, next) => {
