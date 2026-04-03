@@ -19,7 +19,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, '..', 'packages', 'contracts', 'openapi.json');
 
-const baseUrl = process.argv[2] || 'http://localhost:8787';
+const baseUrl = process.argv[2] || 'http://localhost:8700';
 const specUrl = `${baseUrl}/openapi.json`;
 
 async function main() {
