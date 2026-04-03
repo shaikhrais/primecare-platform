@@ -1,6 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../../bindings';
-import { requireAnyPermission } from '../../../_shared/middleware/rbac';
+import { requireAnyPermission } from '@primecare/shared-auth';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

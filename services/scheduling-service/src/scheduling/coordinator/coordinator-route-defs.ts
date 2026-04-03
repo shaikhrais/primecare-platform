@@ -3,8 +3,8 @@
  * Extracted from coordinator.routes.ts for modularity
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '../../../_shared/constants/route_metadata';
-import { requirePermission } from '../../../_shared/middleware/rbac';
+import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { requirePermission } from '@primecare/shared-auth';
 
 export const CoordinatorStatsSchema = z.object({
     livePsw: z.number(),

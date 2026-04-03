@@ -3,9 +3,9 @@
  * Extracted from bookings.routes.ts
  */
 import { createRoute, z } from '@hono/zod-openapi';
-import { ROUTE_METADATA } from '../../../../_shared/constants/route_metadata';
-import { requirePermission, requireAnyPermission } from '../../../../_shared/middleware/rbac';
-import { logAudit } from '../../../../_shared/utils/audit';
+import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { requirePermission, requireAnyPermission } from '@primecare/shared-auth';
+import { logAudit } from '@primecare/shared-utils';
 
 const BookingSchema = z.object({ serviceId: z.string().uuid().optional(), serviceType: z.string(), requestedStartAt: z.string().datetime(), durationMinutes: z.number().min(30), priority: z.enum(['normal', 'urgent']).default('normal'), notes: z.string().optional(), recurrenceRule: z.any().optional() });
 const BookingParamsSchema = z.object({ id: z.string().openapi({ param: { name: 'id', in: 'path' } }) });

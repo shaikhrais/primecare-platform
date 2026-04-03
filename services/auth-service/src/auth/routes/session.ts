@@ -3,8 +3,8 @@ import { setCookie, getCookie, deleteCookie } from 'hono/cookie';
 import { verify } from 'hono/jwt';
 import { Bindings, Variables } from '../../bindings';
 import { generateToken, parseRoles } from '../auth.service';
-import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
-import { logAudit } from '../../_shared/utils/audit';
+import { ROUTE_METADATA } from '@primecare/shared-utils';
+import { logAudit } from '@primecare/shared-utils';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 

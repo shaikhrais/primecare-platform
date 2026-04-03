@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../../bindings';
-import { requireAuth } from '../../../_shared/middleware/auth';
+import { requireAuth } from '@primecare/shared-auth';
 import homeRoutes from './home/home.routes';
 import bookingRoutes from './bookings/bookings.routes';
 import carePlanRoutes from './carePlan/carePlan.routes';

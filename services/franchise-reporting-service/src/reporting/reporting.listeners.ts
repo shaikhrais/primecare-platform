@@ -1,4 +1,4 @@
-import { eventBus, DomainEventPayload, CaseOpenedPayloadSchema, TicketEscalatedPayloadSchema, TerritoryUpdatedPayloadSchema } from '../../_shared/events/eventBus';
+import { eventBus, DomainEventPayload, CaseOpenedPayloadSchema, TicketEscalatedPayloadSchema, TerritoryUpdatedPayloadSchema } from '@primecare/shared-events';
 import { z } from 'zod';
 
 /**

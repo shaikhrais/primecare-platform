@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { AppEnv } from '../../../../../../app';
-import { requirePermission } from '../../../../_shared/middleware/rbac';
+import { requirePermission } from '@primecare/shared-auth';
 import { Permission } from '@repo/shared/registries/PermissionRegistry';
 import { MTComplianceController } from './compliance.controller';
 

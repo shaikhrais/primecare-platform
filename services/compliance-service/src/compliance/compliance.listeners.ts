@@ -1,4 +1,4 @@
-import { eventBus, DomainEventPayload, CaseOpenedPayloadSchema } from '../../_shared/events/eventBus';
+import { eventBus, DomainEventPayload, CaseOpenedPayloadSchema } from '@primecare/shared-events';
 import { z } from 'zod';
 
 /**

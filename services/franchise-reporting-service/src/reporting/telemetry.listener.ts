@@ -1,4 +1,4 @@
-import { eventBus, DomainEventPayload } from '../../_shared/events/eventBus';
+import { eventBus, DomainEventPayload } from '@primecare/shared-events';
 
 /**
  * Initializes the universal Telemetry Interceptor.

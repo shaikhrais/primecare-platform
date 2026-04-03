@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import { eventBus } from '../../_shared/events/eventBus';
+import { eventBus } from '@primecare/shared-events';
 
 export const handleGetSummary = async (c: Context) => {
   return c.json({ status: 'TRAINING domain operational' }, 200);

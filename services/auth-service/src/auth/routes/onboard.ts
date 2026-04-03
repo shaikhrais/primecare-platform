@@ -3,12 +3,12 @@ import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { BusinessOnboardSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { hashPassword } from '../../_shared/utils/crypto';
+import { hashPassword } from '@primecare/shared-utils';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // R19: Rate limit onboarding (5 per minute per IP)
-import { authRateLimit } from '../../_shared/middleware/rate-limit';
+import { authRateLimit } from '@primecare/shared-utils';
 r.use('/onboard-business', authRateLimit);
 
 // POST /v1/auth/onboard-business

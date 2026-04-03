@@ -3,13 +3,13 @@ import { setCookie } from 'hono/cookie';
 import { Bindings, Variables } from '../../bindings';
 import { RegisterSchema } from '../auth.validation';
 import { generateToken, generateRefreshToken, parseRoles } from '../auth.service';
-import { hashPassword } from '../../_shared/utils/crypto';
-import { ROUTE_METADATA } from '../../_shared/constants/route_metadata';
+import { hashPassword } from '@primecare/shared-utils';
+import { ROUTE_METADATA } from '@primecare/shared-utils';
 
 const r = new OpenAPIHono<{ Bindings: Bindings; Variables: Variables }>();
 
 // R19: Rate limit registration (5 per minute per IP)
-import { authRateLimit } from '../../_shared/middleware/rate-limit';
+import { authRateLimit } from '@primecare/shared-utils';
 r.use('/register', authRateLimit);
 
 // Register

@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Bindings, Variables } from '../../../../../bindings';
-import { requireAuth } from '../../../_shared/middleware/auth';
+import { requireAuth } from '@primecare/shared-auth';
 import supervisionRoutes from './supervision/supervision.routes';
 import dailyReviewRoutes from './dailyReview/dailyReview.routes';
 import clinicalRoutes from './clinical/clinical.routes';
