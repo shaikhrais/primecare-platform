@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class ClientIntakeFormsView extends ConsumerWidget {
-  const ClientIntakeFormsView({Key? key}) : super(key: key);
+  const ClientIntakeFormsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,7 +86,7 @@ class ClientIntakeFormsView extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
-            CircleAvatar(radius: 18, backgroundColor: color.withOpacity(0.1), child: Text(patient[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
+            CircleAvatar(radius: 18, backgroundColor: color.withValues(alpha: 0.1), child: Text(patient[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
             const SizedBox(width: 20),
             Expanded(
               child: Column(

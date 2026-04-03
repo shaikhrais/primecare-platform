@@ -5,12 +5,10 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../office/components/region_performance_card.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../providers/api_providers.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class CfoDashboard extends ConsumerWidget {
-  const CfoDashboard({Key? key}) : super(key: key);
+  const CfoDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -194,7 +192,7 @@ class CfoDashboard extends ConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
             child: Icon(icon, color: color, size: 20),
           ),
           const SizedBox(width: 12),

@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class FinancialReportsView extends ConsumerWidget {
-  const FinancialReportsView({Key? key}) : super(key: key);
+  const FinancialReportsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -55,11 +55,11 @@ class FinancialReportsView extends ConsumerWidget {
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    _buildTrendRow('Clinic Service Revenue', '$8.4M', '+4.2%', Colors.teal),
+                    _buildTrendRow('Clinic Service Revenue', r'$8.4M', '+4.2%', Colors.teal),
                     const Divider(height: 32, thickness: 0.1),
-                    _buildTrendRow('Franchise Royalty Fees', '$2.1M', '+2.1%', Colors.indigo),
+                    _buildTrendRow('Franchise Royalty Fees', r'$2.1M', '+2.1%', Colors.indigo),
                     const Divider(height: 32, thickness: 0.1),
-                    _buildTrendRow('Institutional Partnerships', '$3.7M', '-0.5%', Colors.orange),
+                    _buildTrendRow('Institutional Partnerships', r'$3.7M', '-0.5%', Colors.orange),
                   ],
                 ),
               ),
@@ -105,7 +105,7 @@ class FinancialReportsView extends ConsumerWidget {
             Expanded(child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold))),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
               child: Text(status, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 10)),
             ),
           ],

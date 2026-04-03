@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class LeadGeneration extends ConsumerWidget {
-  const LeadGeneration({Key? key}) : super(key: key);
+  const LeadGeneration({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,11 +81,11 @@ class LeadGeneration extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    _buildLeadRow('Brampton Cluster Hub', 'Franchise Discovery', '$45k potential', 'HOT LEAD', isHot: true),
+                                    _buildLeadRow('Brampton Cluster Hub', 'Franchise Discovery', r'$45k potential', 'HOT LEAD', isHot: true),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildLeadRow('Toronto East Satellite', 'Clinic Expansion Deal', '$120k potential', 'NEGOTIATION'),
+                                    _buildLeadRow('Toronto East Satellite', 'Clinic Expansion Deal', r'$120k potential', 'NEGOTIATION'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    _buildLeadRow('Vaughan Mobility Core', 'New Unit Inquiry', '$32k potential', 'DISCOVERY'),
+                                    _buildLeadRow('Vaughan Mobility Core', 'New Unit Inquiry', r'$32k potential', 'DISCOVERY'),
                                   ],
                                 ),
                               ),
@@ -149,7 +148,7 @@ class LeadGeneration extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isHot ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isHot ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(isHot ? Icons.whatshot_outlined : Icons.corporate_fare_outlined, color: isHot ? Colors.orange : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

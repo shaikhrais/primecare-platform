@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class SalesDashboard extends ConsumerWidget {
-  const SalesDashboard({Key? key}) : super(key: key);
+  const SalesDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,7 +81,7 @@ class SalesDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    _buildPipelineRow('John Doe (Hamilton)', 'FDD Signed', '$45k Dep', 'LEGAL REVIEW'),
+                                    _buildPipelineRow('John Doe (Hamilton)', 'FDD Signed', r'$45k Dep', 'LEGAL REVIEW'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
                                     _buildPipelineRow('Jane Smith (Vaughan)', 'Discovery Day', 'N/A', 'QUALIFIED', isHot: true),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
@@ -149,7 +148,7 @@ class SalesDashboard extends ConsumerWidget {
       child: Row(
         children: [
            CircleAvatar(
-            backgroundColor: isHot ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isHot ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.corporate_fare_outlined, color: isHot ? Colors.orange : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

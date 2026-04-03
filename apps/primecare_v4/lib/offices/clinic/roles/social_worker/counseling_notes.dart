@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class CounselingNotesView extends ConsumerStatefulWidget {
-  const CounselingNotesView({Key? key}) : super(key: key);
+  const CounselingNotesView({super.key});
 
   @override
   ConsumerState<CounselingNotesView> createState() => _CounselingNotesViewState();
@@ -45,7 +45,7 @@ class _CounselingNotesViewState extends ConsumerState<CounselingNotesView> {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.teal.withOpacity(0.1),
+                  color: Colors.teal.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
@@ -105,7 +105,7 @@ class _CounselingNotesViewState extends ConsumerState<CounselingNotesView> {
                     Switch.adaptive(
                       value: _safetyReconciled, 
                       onChanged: (v) => setState(() => _safetyReconciled = v),
-                      activeColor: Colors.teal,
+                      activeTrackColor: Colors.teal,
                     ),
                   ],
                 ),
@@ -176,7 +176,7 @@ class _CounselingNotesViewState extends ConsumerState<CounselingNotesView> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.teal.withOpacity(0.1),
+              color: Colors.teal.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Text('ACTIVE COUNSELING', style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold, fontSize: 11)),
@@ -200,16 +200,16 @@ class _CounselingNotesViewState extends ConsumerState<CounselingNotesView> {
             minLines: 3,
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.blueGrey.withOpacity(0.5)),
+              hintStyle: TextStyle(color: Colors.blueGrey.withValues(alpha: 0.5)),
               filled: true,
-              fillColor: Colors.white.withOpacity(0.5),
+              fillColor: Colors.white.withValues(alpha: 0.5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withOpacity(0.1)),
+                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.blueGrey.withOpacity(0.1)),
+                borderSide: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
               ),
             ),
           ),

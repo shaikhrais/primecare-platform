@@ -21,7 +21,7 @@ class AppTheme {
   // Ambient Shadow - BoxShadow: 0 8px 32px rgba(24, 28, 29, 0.06)
   static final List<BoxShadow> ambientShadow = [
     BoxShadow(
-      color: const Color(0xFF181C1D).withOpacity(0.06),
+      color: const Color(0xFF181C1D).withValues(alpha: 0.06),
       blurRadius: 32,
       offset: const Offset(0, 8),
     ),
@@ -93,7 +93,7 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: primary.withOpacity(0.4), // "Ghost Border" at 40%
+            color: primary.withValues(alpha: 0.4), // "Ghost Border" at 40%
             width: 2,
           ),
         ),

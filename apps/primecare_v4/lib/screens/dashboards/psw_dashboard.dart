@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/auth_service.dart';
 
 class PswDashboardScreen extends ConsumerWidget {
-  const PswDashboardScreen({Key? key}) : super(key: key);
+  const PswDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

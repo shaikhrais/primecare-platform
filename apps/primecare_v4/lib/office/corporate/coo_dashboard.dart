@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class CooDashboardScreen extends StatelessWidget {
-  const CooDashboardScreen({Key? key}) : super(key: key);
+  const CooDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

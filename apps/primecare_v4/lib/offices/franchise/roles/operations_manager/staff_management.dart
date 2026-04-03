@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class StaffManagementView extends ConsumerWidget {
-  const StaffManagementView({Key? key}) : super(key: key);
+  const StaffManagementView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +56,7 @@ class StaffManagementView extends ConsumerWidget {
   Widget _buildStaffRow(String name, String role, String status, Color color) {
     return Row(
       children: [
-        CircleAvatar(radius: 18, backgroundColor: color.withOpacity(0.1), child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
+        CircleAvatar(radius: 18, backgroundColor: color.withValues(alpha: 0.1), child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
         const SizedBox(width: 20),
         Expanded(
           child: Column(

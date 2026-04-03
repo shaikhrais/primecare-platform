@@ -24,7 +24,7 @@ Future<void> main() async {
 }
 
 class PrimeCareApp extends ConsumerWidget {
-  const PrimeCareApp({Key? key}) : super(key: key);
+  const PrimeCareApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

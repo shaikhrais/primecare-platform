@@ -7,7 +7,7 @@ import '../../services/auth_service.dart';
 class ProviderLayout extends ConsumerWidget {
   final Widget child;
   
-  const ProviderLayout({Key? key, required this.child}) : super(key: key);
+  const ProviderLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

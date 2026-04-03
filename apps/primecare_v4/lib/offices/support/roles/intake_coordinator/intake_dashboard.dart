@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class IntakeDashboard extends ConsumerWidget {
-  const IntakeDashboard({Key? key}) : super(key: key);
+  const IntakeDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class IntakeDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isUrgent ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isUrgent ? Colors.red.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(isUrgent ? Icons.priority_high : Icons.person_add_alt_1_outlined, color: isUrgent ? Colors.red : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

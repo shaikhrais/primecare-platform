@@ -8,7 +8,7 @@ import 'sidebar_config.dart';
 import '../../routes/app_routes.dart';
 
 class SidebarLayout extends ConsumerWidget {
-  const SidebarLayout({Key? key}) : super(key: key);
+  const SidebarLayout({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,7 +62,7 @@ class SidebarLayout extends ConsumerWidget {
                     );
                   }
                 },
-                hoverColor: const Color(0xFF006565).withOpacity(0.05),
+                hoverColor: const Color(0xFF006565).withValues(alpha: 0.05),
               ),
             );
           },

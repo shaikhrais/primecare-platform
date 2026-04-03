@@ -10,13 +10,13 @@ class KpiStatCard extends StatelessWidget {
   final Color? iconColor;
 
   const KpiStatCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.subtitle,
     this.icon,
     this.iconColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class KpiStatCard extends StatelessWidget {
             Text(
               subtitle!,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: Colors.blueGrey.withOpacity(0.8),
+                color: Colors.blueGrey.withValues(alpha: 0.8),
               ),
             ),
           ],

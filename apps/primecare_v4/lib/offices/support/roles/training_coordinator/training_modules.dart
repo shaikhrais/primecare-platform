@@ -7,7 +7,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/api_providers.dart';
 
 class TrainingCoordinatorDashboard extends ConsumerWidget {
-  const TrainingCoordinatorDashboard({Key? key}) : super(key: key);
+  const TrainingCoordinatorDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -137,7 +137,7 @@ class TrainingCoordinatorDashboard extends ConsumerWidget {
       child: Row(
         children: [
            CircleAvatar(
-            backgroundColor: isUrgent ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isUrgent ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.school_outlined, color: isUrgent ? Colors.orange : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

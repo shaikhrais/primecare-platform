@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class IntakeCoordinatorDashboardScreen extends StatelessWidget {
-  const IntakeCoordinatorDashboardScreen({Key? key}) : super(key: key);
+  const IntakeCoordinatorDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

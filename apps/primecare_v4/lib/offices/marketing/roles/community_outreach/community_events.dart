@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class CommunityEvents extends ConsumerWidget {
-  const CommunityEvents({Key? key}) : super(key: key);
+  const CommunityEvents({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class CommunityEvents extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isPriority ? Colors.teal.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isPriority ? Colors.teal.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.event_outlined, color: isPriority ? Colors.teal : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

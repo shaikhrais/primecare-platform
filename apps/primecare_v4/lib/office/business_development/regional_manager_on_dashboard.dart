@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class RegionalManagerOnDashboardScreen extends StatelessWidget {
-  const RegionalManagerOnDashboardScreen({Key? key}) : super(key: key);
+  const RegionalManagerOnDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

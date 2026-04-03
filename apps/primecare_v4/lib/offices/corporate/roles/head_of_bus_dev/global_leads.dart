@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class GlobalLeadsView extends ConsumerWidget {
-  const GlobalLeadsView({Key? key}) : super(key: key);
+  const GlobalLeadsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

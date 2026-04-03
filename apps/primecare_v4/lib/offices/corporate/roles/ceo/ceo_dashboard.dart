@@ -6,10 +6,9 @@ import '../../../../office/components/audit_log_tile.dart';
 import '../../../../office/components/region_performance_card.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class CeoDashboard extends ConsumerWidget {
-  const CeoDashboard({Key? key}) : super(key: key);
+  const CeoDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,11 +83,11 @@ class CeoDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
                                   children: [
-                                    RegionPerformanceCard(region: 'Ontario Corridor', facilityCount: '42 Facilities', revenue: '$1.4M', margin: '32.4% ACTIVE'),
+                                    RegionPerformanceCard(region: 'Ontario Corridor', facilityCount: '42 Facilities', revenue: r'$1.4M', margin: '32.4% ACTIVE'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    RegionPerformanceCard(region: 'New York Metro', facilityCount: '36 Facilities', revenue: '$1.1M', margin: '28.1% ACTIVE'),
+                                    RegionPerformanceCard(region: 'New York Metro', facilityCount: '36 Facilities', revenue: r'$1.1M', margin: '28.1% ACTIVE'),
                                     const Divider(color: Colors.blueGrey, height: 24, thickness: 0.1),
-                                    RegionPerformanceCard(region: 'New Jersey Satellite', facilityCount: '18 Facilities', revenue: '$640k', margin: '24.5% STABLE', marginColor: Colors.blue),
+                                    RegionPerformanceCard(region: 'New Jersey Satellite', facilityCount: '18 Facilities', revenue: r'$640k', margin: '24.5% STABLE', marginColor: Colors.blue),
                                   ],
                                 ),
                               ),

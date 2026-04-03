@@ -3,12 +3,11 @@ import '../../../../office/components/glass_surface.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class ChatWithProviderView extends StatelessWidget {
-  const ChatWithProviderView({Key? key}) : super(key: key);
+  const ChatWithProviderView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
+        return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
@@ -35,7 +34,7 @@ class ChatWithProviderView extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isMe ? color.withOpacity(0.1) : Colors.white.withOpacity(0.5),
+          color: isMe ? color.withValues(alpha: 0.1) : Colors.white.withValues(alpha: 0.5),
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16),
             topRight: const Radius.circular(16),

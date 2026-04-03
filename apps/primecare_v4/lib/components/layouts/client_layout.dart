@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ClientLayout extends StatefulWidget {
   final Widget child;
   
-  const ClientLayout({Key? key, required this.child}) : super(key: key);
+  const ClientLayout({super.key, required this.child});
 
   @override
   State<ClientLayout> createState() => _ClientLayoutState();

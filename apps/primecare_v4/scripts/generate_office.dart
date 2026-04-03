@@ -136,21 +136,21 @@ class TopBarLayout extends ConsumerWidget implements PreferredSizeWidget {
     final department = entry.key;
     final roles = entry.value;
 
-    final deptDir = Directory('lib/office/${department}');
+    final deptDir = Directory('lib/office/$department');
     if (!await deptDir.exists()) await deptDir.create(recursive: true);
 
     for (final role in roles) {
-      final className = toPascalCase(role) + 'DashboardScreen';
+      final className = '${toPascalCase(role)}DashboardScreen';
       final fileName = '${role}_dashboard.dart';
-      final routeVarName = toCamelCase(role) + 'Dashboard';
-      final routePath = '/office/${department}/${role}';
+      final routeVarName = '${toCamelCase(role)}Dashboard';
+      final routePath = '/office/$department/$role';
 
-      await File('lib/office/${department}/${fileName}').writeAsString('''
+      await File('lib/office/$department/$fileName').writeAsString('''
 import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
-class ${className} extends StatelessWidget {
-  const ${className}({Key? key}) : super(key: key);
+class $className extends StatelessWidget {
+  const $className({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +159,7 @@ class ${className} extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('${className}', style: Theme.of(context).textTheme.headlineMedium),
+            Text('$className', style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 16),
             const Text('Welcome to your personalized workspace.'),
           ],
@@ -170,12 +170,12 @@ class ${className} extends StatelessWidget {
 }
 ''');
 
-      routeVariables.add("  static const String ${routeVarName} = '${routePath}';");
-      importStatements.add("import '../office/${department}/${fileName}';");
+      routeVariables.add("  static const String $routeVarName = '$routePath';");
+      importStatements.add("import '../office/$department/$fileName';");
       goRoutes.add('''
       GoRoute(
-        path: AppRoutes.${routeVarName},
-        builder: (context, state) => const ${className}(),
+        path: AppRoutes.$routeVarName,
+        builder: (context, state) => const $className(),
       ),''');
     }
   }

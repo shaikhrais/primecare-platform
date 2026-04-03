@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/health_indicator.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class CooDashboard extends ConsumerWidget {
-  const CooDashboard({Key? key}) : super(key: key);
+  const CooDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -102,7 +101,7 @@ class CooDashboard extends ConsumerWidget {
                                 child: Center(
                                   child: Column(
                                     children: [
-                                      Icon(Icons.map, size: 48, color: AppTheme.primary.withOpacity(0.5)),
+                                      Icon(Icons.map, size: 48, color: AppTheme.primary.withValues(alpha: 0.5)),
                                       const SizedBox(height: 16),
                                       const Text('Interactive Staffing Heatmap Placeholder', style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold, fontFamily: 'Inter')),
                                     ],
@@ -126,7 +125,7 @@ class CooDashboard extends ConsumerWidget {
                               // Use the recent activity for critical issues if status is warning/danger
                               ...metrics.recentActivity.where((log) => log.color == 'warning' || log.color == 'danger' || log.color == 'red' || log.color == 'orange').map((log) => 
                                 _buildCriticalIssueCard(log.title, log.subtitle, log.timestamp, _getStatusColor(log.color))
-                              ).toList(),
+                              ),
                               
                               const SizedBox(height: 32),
                               

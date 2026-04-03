@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class RpnDashboardScreen extends StatelessWidget {
-  const RpnDashboardScreen({Key? key}) : super(key: key);
+  const RpnDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

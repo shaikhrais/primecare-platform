@@ -5,7 +5,7 @@ import '../../routes/app_routes.dart';
 class AdminLayout extends StatelessWidget {
   final Widget child;
   
-  const AdminLayout({Key? key, required this.child}) : super(key: key);
+  const AdminLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class AdminLayout extends StatelessWidget {
           // Basic Admin Navigation Sidebar
           Container(
             width: 250,
-            color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             child: ListView(
               children: [
                 ListTile(

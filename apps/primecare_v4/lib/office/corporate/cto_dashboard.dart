@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class CtoDashboardScreen extends StatelessWidget {
-  const CtoDashboardScreen({Key? key}) : super(key: key);
+  const CtoDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

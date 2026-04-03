@@ -7,7 +7,7 @@ import 'provider_top_bar.dart';
 
 class MasterLayout extends ConsumerWidget {
   final Widget child;
-  const MasterLayout({Key? key, required this.child}) : super(key: key);
+  const MasterLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class TerritoryExpansionDashboard extends ConsumerWidget {
-  const TerritoryExpansionDashboard({Key? key}) : super(key: key);
+  const TerritoryExpansionDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -155,7 +154,7 @@ class TerritoryExpansionDashboard extends ConsumerWidget {
       child: Row(
         children: [
            CircleAvatar(
-            backgroundColor: isHot ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isHot ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.travel_explore_outlined, color: isHot ? Colors.orange : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),
@@ -177,7 +176,7 @@ class TerritoryExpansionDashboard extends ConsumerWidget {
   Widget _buildBadge(String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(color: AppTheme.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(100), border: Border.all(color: AppTheme.primary.withOpacity(0.2))),
+      decoration: BoxDecoration(color: AppTheme.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(100), border: Border.all(color: AppTheme.primary.withValues(alpha: 0.2))),
       child: Text(label, style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.bold, fontSize: 10, letterSpacing: 1.1)),
     );
   }

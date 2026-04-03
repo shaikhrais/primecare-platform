@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_theme.dart';
 
 class RegionPerformanceCard extends StatelessWidget {
   final String region;
@@ -9,13 +8,13 @@ class RegionPerformanceCard extends StatelessWidget {
   final Color? marginColor;
 
   const RegionPerformanceCard({
-    Key? key,
+    super.key,
     required this.region,
     required this.facilityCount,
     required this.revenue,
     required this.margin,
     this.marginColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class RegionPerformanceCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: (marginColor ?? Colors.green).withOpacity(0.1),
+                color: (marginColor ?? Colors.green).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(

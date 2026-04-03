@@ -9,7 +9,7 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
   final String role;
   final bool isMobile;
   
-  const ProviderTopBar({Key? key, required this.role, this.isMobile = false}) : super(key: key);
+  const ProviderTopBar({super.key, required this.role, this.isMobile = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -140,7 +140,7 @@ class ProviderTopBar extends ConsumerWidget implements PreferredSizeWidget {
            alignment: Alignment.centerLeft,
            padding: const EdgeInsets.symmetric(horizontal: 16.0),
            decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: Theme.of(context).dividerColor.withOpacity(0.2)))
+              border: Border(top: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.2)))
            ),
            child: Row(
              children: extraChips.map((chipText) => Padding(

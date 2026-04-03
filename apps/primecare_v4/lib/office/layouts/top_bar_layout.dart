@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/auth_service.dart';
 
 class TopBarLayout extends ConsumerWidget implements PreferredSizeWidget {
-  const TopBarLayout({Key? key}) : super(key: key);
+  const TopBarLayout({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

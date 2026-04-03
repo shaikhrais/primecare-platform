@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class PartnershipManagerDashboardScreen extends StatelessWidget {
-  const PartnershipManagerDashboardScreen({Key? key}) : super(key: key);
+  const PartnershipManagerDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

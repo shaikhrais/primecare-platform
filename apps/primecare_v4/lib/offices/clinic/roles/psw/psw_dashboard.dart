@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class PswDashboard extends ConsumerWidget {
-  const PswDashboard({Key? key}) : super(key: key);
+  const PswDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -160,7 +159,7 @@ class PswDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isNext ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isNext ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Text(name[0], style: TextStyle(color: isNext ? Colors.orange : AppTheme.primary, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),

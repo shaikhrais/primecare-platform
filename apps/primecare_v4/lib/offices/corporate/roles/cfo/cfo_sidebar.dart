@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class CfoSidebar extends StatelessWidget {
-  const CfoSidebar({Key? key}) : super(key: key);
+  const CfoSidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 250,
-      color: Colors.white.withOpacity(0.05),
+      color: Colors.white.withValues(alpha: 0.05),
       child: ListView(
         children: [
           _buildItem(Icons.dashboard_outlined, 'Financial Dashboard'),

@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class SchedulingDashboard extends ConsumerWidget {
-  const SchedulingDashboard({Key? key}) : super(key: key);
+  const SchedulingDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -150,7 +149,7 @@ class SchedulingDashboard extends ConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: isUrgent ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: isUrgent ? Colors.red.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(isUrgent ? Icons.priority_high : Icons.calendar_month_outlined, color: isUrgent ? Colors.red : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

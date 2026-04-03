@@ -7,7 +7,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class CustomerSatisfactionView extends ConsumerWidget {
-  const CustomerSatisfactionView({Key? key}) : super(key: key);
+  const CustomerSatisfactionView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -141,7 +141,7 @@ class CustomerSatisfactionView extends ConsumerWidget {
         children: [
            Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(Icons.maps_home_work_outlined, color: statusColor, size: 20),
           ),
           const SizedBox(width: 16),

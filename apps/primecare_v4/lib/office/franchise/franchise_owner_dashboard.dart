@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class FranchiseOwnerDashboardScreen extends StatelessWidget {
-  const FranchiseOwnerDashboardScreen({Key? key}) : super(key: key);
+  const FranchiseOwnerDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

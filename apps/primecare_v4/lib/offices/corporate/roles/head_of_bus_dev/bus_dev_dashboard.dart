@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class BusDevDashboard extends ConsumerWidget {
-  const BusDevDashboard({Key? key}) : super(key: key);
+  const BusDevDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class BusDevDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isWon ? Colors.teal.withOpacity(0.1) : (isHot ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1)),
+            backgroundColor: isWon ? Colors.teal.withValues(alpha: 0.1) : (isHot ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1)),
             child: Icon(isWon ? Icons.check_circle_outline : (isHot ? Icons.whatshot_outlined : Icons.corporate_fare_outlined), color: isWon ? Colors.teal : (isHot ? Colors.orange : AppTheme.primary), size: 20),
           ),
           const SizedBox(width: 16),

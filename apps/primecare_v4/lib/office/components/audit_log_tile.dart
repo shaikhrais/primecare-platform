@@ -9,13 +9,13 @@ class AuditLogTile extends StatelessWidget {
   final Color? iconColor;
 
   const AuditLogTile({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     required this.timestamp,
     this.icon,
     this.iconColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class AuditLogTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: (iconColor ?? AppTheme.primary).withOpacity(0.1),
+              color: (iconColor ?? AppTheme.primary).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -62,7 +62,7 @@ class AuditLogTile extends StatelessWidget {
                 Text(
                   timestamp,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: Colors.blueGrey.withOpacity(0.6),
+                    color: Colors.blueGrey.withValues(alpha: 0.6),
                   ),
                 ),
               ],

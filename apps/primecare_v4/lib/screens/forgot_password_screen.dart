@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'auth_layout.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  const ForgotPasswordScreen({super.key});
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -80,7 +80,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           if (_isSent) ...[
              Container(
               decoration: BoxDecoration(
-                color: const Color(0xFF006948).withOpacity(0.1),
+                color: const Color(0xFF006948).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ElevatedButton(

@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
 import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class HeadOfMarketingDashboard extends ConsumerWidget {
-  const HeadOfMarketingDashboard({Key? key}) : super(key: key);
+  const HeadOfMarketingDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -145,7 +143,7 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
         children: [
            Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(Icons.public_outlined, color: color, size: 20),
           ),
           const SizedBox(width: 16),
@@ -179,7 +177,7 @@ class HeadOfMarketingDashboard extends ConsumerWidget {
           const SizedBox(height: 8),
           LinearProgressIndicator(
             value: double.parse(value.replaceAll('%', '')) / 100,
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             borderRadius: BorderRadius.circular(4),
           ),

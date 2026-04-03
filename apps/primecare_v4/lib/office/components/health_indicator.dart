@@ -6,10 +6,10 @@ class HealthIndicator extends StatelessWidget {
   final double height;
 
   const HealthIndicator({
-    Key? key,
+    super.key,
     required this.progress,
     this.height = 12.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

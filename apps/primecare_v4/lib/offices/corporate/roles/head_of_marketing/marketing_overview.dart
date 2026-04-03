@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class MarketingOverview extends ConsumerWidget {
-  const MarketingOverview({Key? key}) : super(key: key);
+  const MarketingOverview({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class MarketingOverview extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isPaused ? Colors.blueGrey.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isPaused ? Colors.blueGrey.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.hub_outlined, color: isPaused ? Colors.blueGrey : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

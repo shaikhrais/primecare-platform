@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class ComplianceManagerDashboardScreen extends StatelessWidget {
-  const ComplianceManagerDashboardScreen({Key? key}) : super(key: key);
+  const ComplianceManagerDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

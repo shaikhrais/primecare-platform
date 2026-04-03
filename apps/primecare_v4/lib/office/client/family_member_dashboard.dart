@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class FamilyMemberDashboardScreen extends StatelessWidget {
-  const FamilyMemberDashboardScreen({Key? key}) : super(key: key);
+  const FamilyMemberDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

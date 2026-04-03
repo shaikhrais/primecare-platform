@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../core/theme/app_theme.dart';
 import '../../office/components/glass_surface.dart';
 
 class AuthLayout extends StatefulWidget {
@@ -9,11 +8,11 @@ class AuthLayout extends StatefulWidget {
   final String heroSubtitle;
 
   const AuthLayout({
-    Key? key,
+    super.key,
     required this.child,
     required this.heroTitle,
     required this.heroSubtitle,
-  }) : super(key: key);
+  });
 
   @override
   State<AuthLayout> createState() => _AuthLayoutState();
@@ -110,7 +109,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 Container(
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
                       BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
@@ -142,7 +141,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                 // Language Switcher
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
                       BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))
@@ -220,7 +219,7 @@ class _AuthLayoutState extends State<AuthLayout> {
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(0.05),
+                color: Colors.white.withValues(alpha: 0.05),
               ),
             ),
           ),
@@ -261,7 +260,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                   Text(
                     widget.heroSubtitle,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontFamily: 'Inter',
                     ),
                   ),

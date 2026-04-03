@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:primecare_v4/services/dio_client.dart';
 
 class DomainService {

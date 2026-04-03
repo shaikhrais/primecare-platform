@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class TrainingDirectorDashboardScreen extends StatelessWidget {
-  const TrainingDirectorDashboardScreen({Key? key}) : super(key: key);
+  const TrainingDirectorDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

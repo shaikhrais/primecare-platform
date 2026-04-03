@@ -3,7 +3,7 @@ import '../../../../components/layouts/master_layout.dart';
 
 class ComplianceLayout extends StatelessWidget {
   final Widget child;
-  const ComplianceLayout({Key? key, required this.child}) : super(key: key);
+  const ComplianceLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

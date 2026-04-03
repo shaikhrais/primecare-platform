@@ -3,7 +3,7 @@ import '../../../../components/layouts/master_layout.dart';
 
 class RmtLayout extends StatelessWidget {
   final Widget child;
-  const RmtLayout({Key? key, required this.child}) : super(key: key);
+  const RmtLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class ScrumMasterDashboard extends ConsumerWidget {
-  const ScrumMasterDashboard({Key? key}) : super(key: key);
+  const ScrumMasterDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -126,7 +124,7 @@ class ScrumMasterDashboard extends ConsumerWidget {
                                         icon: const Icon(Icons.flash_on),
                                         label: const Text('Flush Dead Letter Queue'),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.tealAccent.withOpacity(0.1),
+                                          backgroundColor: Colors.tealAccent.withValues(alpha: 0.1),
                                           foregroundColor: Colors.tealAccent,
                                           side: const BorderSide(color: Colors.tealAccent),
                                           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -175,8 +173,8 @@ class ScrumMasterDashboard extends ConsumerWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: Colors.tealAccent.withOpacity(0.05),
-        border: Border.all(color: Colors.tealAccent.withOpacity(0.2)),
+        color: Colors.tealAccent.withValues(alpha: 0.05),
+        border: Border.all(color: Colors.tealAccent.withValues(alpha: 0.2)),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Center(

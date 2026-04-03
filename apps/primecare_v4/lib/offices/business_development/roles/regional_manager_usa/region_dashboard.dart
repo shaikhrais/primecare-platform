@@ -9,7 +9,7 @@ import '../../../../providers/api_providers.dart';
 
 class RegionDashboard extends ConsumerWidget {
   final String regionName;
-  const RegionDashboard({Key? key, this.regionName = 'USA Northeast'}) : super(key: key);
+  const RegionDashboard({super.key, this.regionName = 'USA Northeast'});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,7 +7,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class PartnerManagementView extends ConsumerWidget {
-  const PartnerManagementView({Key? key}) : super(key: key);
+  const PartnerManagementView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -133,7 +133,7 @@ class PartnerManagementView extends ConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(icon, color: statusColor, size: 20),
           ),
           const SizedBox(width: 16),
@@ -149,7 +149,7 @@ class PartnerManagementView extends ConsumerWidget {
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              backgroundColor: statusColor.withOpacity(0.1),
+              backgroundColor: statusColor.withValues(alpha: 0.1),
               foregroundColor: statusColor,
               elevation: 0,
             ),

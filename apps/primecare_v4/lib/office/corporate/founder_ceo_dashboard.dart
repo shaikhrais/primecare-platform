@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class FounderCeoDashboardScreen extends StatelessWidget {
-  const FounderCeoDashboardScreen({Key? key}) : super(key: key);
+  const FounderCeoDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

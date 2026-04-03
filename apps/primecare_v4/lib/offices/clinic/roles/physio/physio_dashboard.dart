@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class PhysioDashboard extends ConsumerWidget {
-  const PhysioDashboard({Key? key}) : super(key: key);
+  const PhysioDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -99,9 +98,9 @@ class PhysioDashboard extends ConsumerWidget {
                                 padding: const EdgeInsets.all(20),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.red.withOpacity(0.3)),
+                                    border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
                                     borderRadius: BorderRadius.circular(12),
-                                    color: Colors.red.withOpacity(0.05),
+                                    color: Colors.red.withValues(alpha: 0.05),
                                   ),
                                   padding: const EdgeInsets.all(16),
                                   child: Row(
@@ -186,7 +185,7 @@ class PhysioDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),

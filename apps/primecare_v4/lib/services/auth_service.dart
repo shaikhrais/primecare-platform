@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/api_providers.dart';
@@ -27,11 +25,6 @@ class AuthState {
 final authListenable = ValueNotifier<bool>(false);
 
 class AuthNotifier extends Notifier<AuthState> {
-  String get _baseUrl {
-    String url = dotenv.env['API_URL'] ?? 'https://primecare-api.itpro-mohammed.workers.dev';
-    return url.endsWith('/v1') ? url : '$url/v1';
-  }
-
   @override
   AuthState build() {
     // Initial sync load triggers asynchronously
@@ -167,7 +160,6 @@ class AuthNotifier extends Notifier<AuthState> {
       authListenable.value = true;
       return true;
     }
-    return false;
   }
 
   Future<bool> register(String email, String password, String firstName, String lastName, String role) async {

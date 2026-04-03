@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class BillingDashboard extends ConsumerWidget {
-  const BillingDashboard({Key? key}) : super(key: key);
+  const BillingDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class BillingDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isOverdue ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isOverdue ? Colors.red.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.receipt_outlined, color: isOverdue ? Colors.red : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

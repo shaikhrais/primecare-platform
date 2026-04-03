@@ -9,12 +9,12 @@ class GlassSurface extends StatelessWidget {
   final bool hasGhostBorder;
 
   const GlassSurface({
-    Key? key,
+    super.key,
     required this.child,
     this.borderRadius = 24.0,
     this.padding = EdgeInsets.zero,
     this.hasGhostBorder = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,10 @@ class GlassSurface extends StatelessWidget {
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
-               color: AppTheme.surface.withOpacity(0.85),
+               color: AppTheme.surface.withValues(alpha: 0.85),
                borderRadius: BorderRadius.circular(borderRadius),
                border: hasGhostBorder ? Border.all(
-                  color: AppTheme.outlineVariant.withOpacity(0.15), // Ghost Border fallback
+                  color: AppTheme.outlineVariant.withValues(alpha: 0.15), // Ghost Border fallback
                   width: 1,
                ) : null,
             ),

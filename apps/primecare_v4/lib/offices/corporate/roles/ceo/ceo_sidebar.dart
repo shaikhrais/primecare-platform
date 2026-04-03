@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class CeoSidebar extends StatelessWidget {
-  const CeoSidebar({Key? key}) : super(key: key);
+  const CeoSidebar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 250,
-      color: Colors.white.withOpacity(0.05),
+      color: Colors.white.withValues(alpha: 0.05),
       child: ListView(
         children: [
           _buildItem(Icons.dashboard_outlined, 'Executive Dashboard'),

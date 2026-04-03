@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class HeadBusinessDevelopmentDashboardScreen extends StatelessWidget {
-  const HeadBusinessDevelopmentDashboardScreen({Key? key}) : super(key: key);
+  const HeadBusinessDevelopmentDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

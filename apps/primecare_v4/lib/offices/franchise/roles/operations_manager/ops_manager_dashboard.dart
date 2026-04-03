@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class OpsManagerDashboard extends ConsumerWidget {
-  const OpsManagerDashboard({Key? key}) : super(key: key);
+  const OpsManagerDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -150,7 +149,7 @@ class OpsManagerDashboard extends ConsumerWidget {
         children: [
            Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(isUrgent ? Icons.priority_high : Icons.settings_input_component, color: color, size: 20),
           ),
           const SizedBox(width: 16),

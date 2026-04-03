@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class CommunityOutreachDashboard extends ConsumerWidget {
-  const CommunityOutreachDashboard({Key? key}) : super(key: key);
+  const CommunityOutreachDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -150,7 +149,7 @@ class CommunityOutreachDashboard extends ConsumerWidget {
         children: [
            Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(Icons.event_available_outlined, color: statusColor, size: 20),
           ),
           const SizedBox(width: 16),
@@ -165,7 +164,7 @@ class CommunityOutreachDashboard extends ConsumerWidget {
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
+            decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
             child: Text(status, style: TextStyle(fontWeight: FontWeight.bold, color: statusColor, fontSize: 10)),
           ),
         ],

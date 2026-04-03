@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class SlpDashboard extends ConsumerWidget {
-  const SlpDashboard({Key? key}) : super(key: key);
+  const SlpDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class SlpDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isHighRisk ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isHighRisk ? Colors.red.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Text(name[0], style: TextStyle(color: isHighRisk ? Colors.red : AppTheme.primary, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),

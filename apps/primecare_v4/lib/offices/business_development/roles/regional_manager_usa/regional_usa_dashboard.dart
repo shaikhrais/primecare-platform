@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class RegionalUsaDashboard extends ConsumerWidget {
-  const RegionalUsaDashboard({Key? key}) : super(key: key);
+  const RegionalUsaDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class RegionalUsaDashboard extends ConsumerWidget {
       child: Row(
         children: [
            CircleAvatar(
-            backgroundColor: isWarning ? Colors.orange.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isWarning ? Colors.orange.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Icon(Icons.public_outlined, color: isWarning ? Colors.orange : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

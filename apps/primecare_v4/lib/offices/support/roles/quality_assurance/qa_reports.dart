@@ -7,7 +7,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class QaReportsView extends ConsumerWidget {
-  const QaReportsView({Key? key}) : super(key: key);
+  const QaReportsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

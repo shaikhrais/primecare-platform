@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class RmtDashboard extends ConsumerWidget {
-  const RmtDashboard({Key? key}) : super(key: key);
+  const RmtDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -149,7 +148,7 @@ class RmtDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: isCurrent ? Colors.teal.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1),
+            backgroundColor: isCurrent ? Colors.teal.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1),
             child: Text(name[0], style: TextStyle(color: isCurrent ? Colors.teal : AppTheme.primary, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),

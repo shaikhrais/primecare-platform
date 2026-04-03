@@ -6,10 +6,9 @@ import '../../../../office/components/audit_log_tile.dart';
 import '../../../../office/components/region_performance_card.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class OpsDashboard extends ConsumerWidget {
-  const OpsDashboard({Key? key}) : super(key: key);
+  const OpsDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class CarePlansView extends ConsumerWidget {
-  const CarePlansView({Key? key}) : super(key: key);
+  const CarePlansView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -117,7 +117,7 @@ class CarePlansView extends ConsumerWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: color.withOpacity(0.1),
+                backgroundColor: color.withValues(alpha: 0.1),
                 child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(width: 16),
@@ -142,7 +142,7 @@ class CarePlansView extends ConsumerWidget {
           const SizedBox(height: 20),
           LinearProgressIndicator(
             value: double.parse(progress.replaceAll('%', '')) / 100.0,
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 8,
             borderRadius: BorderRadius.circular(4),
@@ -154,8 +154,8 @@ class CarePlansView extends ConsumerWidget {
             spacing: 8,
             children: goals.map((goal) => Chip(
               label: Text(goal, style: const TextStyle(fontSize: 11)),
-              backgroundColor: Colors.white.withOpacity(0.5),
-              side: BorderSide(color: Colors.blueGrey.withOpacity(0.1)),
+              backgroundColor: Colors.white.withValues(alpha: 0.5),
+              side: BorderSide(color: Colors.blueGrey.withValues(alpha: 0.1)),
               padding: EdgeInsets.zero,
             )).toList(),
           ),
@@ -171,7 +171,7 @@ class CarePlansView extends ConsumerWidget {
               ElevatedButton(
                 onPressed: () {}, 
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primary.withOpacity(0.1),
+                  backgroundColor: AppTheme.primary.withValues(alpha: 0.1),
                   foregroundColor: AppTheme.primary,
                   elevation: 0,
                 ),

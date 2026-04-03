@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../office/components/glass_surface.dart';
-import '../../../../office/components/kpi_stat_card.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class IssueTrackingView extends ConsumerWidget {
-  const IssueTrackingView({Key? key}) : super(key: key);
+  const IssueTrackingView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,7 +45,7 @@ class IssueTrackingView extends ConsumerWidget {
   Widget _buildIssueRow(String user, String subject, String status, Color color) {
     return Row(
       children: [
-        CircleAvatar(radius: 18, backgroundColor: color.withOpacity(0.1), child: Text(user[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
+        CircleAvatar(radius: 18, backgroundColor: color.withValues(alpha: 0.1), child: Text(user[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
         const SizedBox(width: 20),
         Expanded(
           child: Column(
@@ -60,7 +58,7 @@ class IssueTrackingView extends ConsumerWidget {
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
+          decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
           child: Text(status, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 10)),
         ),
       ],

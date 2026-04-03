@@ -4,7 +4,7 @@ import 'provider_top_bar_config.dart';
 class RoleQuickActionsMenu extends StatelessWidget {
   final String role;
 
-  const RoleQuickActionsMenu({Key? key, required this.role}) : super(key: key);
+  const RoleQuickActionsMenu({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {

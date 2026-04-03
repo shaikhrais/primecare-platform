@@ -3,7 +3,7 @@ import '../../../../components/layouts/master_layout.dart';
 
 class BizDevLayout extends StatelessWidget {
   final Widget child;
-  const BizDevLayout({Key? key, required this.child}) : super(key: key);
+  const BizDevLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

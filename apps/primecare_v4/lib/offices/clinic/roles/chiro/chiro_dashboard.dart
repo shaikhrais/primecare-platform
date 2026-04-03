@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class ChiroDashboard extends ConsumerWidget {
-  const ChiroDashboard({Key? key}) : super(key: key);
+  const ChiroDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -164,7 +163,7 @@ class ChiroDashboard extends ConsumerWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: AppTheme.primary.withOpacity(0.1),
+            backgroundColor: AppTheme.primary.withValues(alpha: 0.1),
             child: Text(name[0], style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 16),

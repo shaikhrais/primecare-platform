@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class CandidatePipelineView extends ConsumerWidget {
-  const CandidatePipelineView({Key? key}) : super(key: key);
+  const CandidatePipelineView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -86,7 +86,7 @@ class CandidatePipelineView extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
-            CircleAvatar(radius: 18, backgroundColor: color.withOpacity(0.1), child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
+            CircleAvatar(radius: 18, backgroundColor: color.withValues(alpha: 0.1), child: Text(name[0], style: TextStyle(color: color, fontWeight: FontWeight.bold))),
             const SizedBox(width: 20),
             Expanded(
               child: Column(
@@ -99,7 +99,7 @@ class CandidatePipelineView extends ConsumerWidget {
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
               child: Text(status, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 10)),
             ),
           ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class LocalMarketingManagerDashboardScreen extends StatelessWidget {
-  const LocalMarketingManagerDashboardScreen({Key? key}) : super(key: key);
+  const LocalMarketingManagerDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

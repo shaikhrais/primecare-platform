@@ -3,7 +3,7 @@ import '../../../../components/layouts/master_layout.dart';
 
 class CfoLayout extends StatelessWidget {
   final Widget child;
-  const CfoLayout({Key? key, required this.child}) : super(key: key);
+  const CfoLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

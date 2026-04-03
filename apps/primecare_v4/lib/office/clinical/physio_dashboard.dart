@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class PhysioDashboardScreen extends StatelessWidget {
-  const PhysioDashboardScreen({Key? key}) : super(key: key);
+  const PhysioDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

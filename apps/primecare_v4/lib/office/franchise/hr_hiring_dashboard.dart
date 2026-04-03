@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../layouts/master_layout.dart';
 
 class HrHiringDashboardScreen extends StatelessWidget {
-  const HrHiringDashboardScreen({Key? key}) : super(key: key);
+  const HrHiringDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

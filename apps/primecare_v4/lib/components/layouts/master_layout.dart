@@ -12,10 +12,10 @@ class MasterLayout extends ConsumerWidget {
   final AppShellType shellType;
 
   const MasterLayout({
-    Key? key, 
+    super.key, 
     required this.child, 
     this.shellType = AppShellType.none,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,7 +53,6 @@ class MasterLayout extends ConsumerWidget {
       case AppShellType.client:
         return ClientLayout(child: animatedChild);
       case AppShellType.none:
-      default:
         return Scaffold(
           backgroundColor: Theme.of(context).colorScheme.surface,
           body: animatedChild,

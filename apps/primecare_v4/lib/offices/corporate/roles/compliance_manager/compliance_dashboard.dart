@@ -5,10 +5,9 @@ import '../../../../office/components/kpi_stat_card.dart';
 import '../../../../office/components/audit_log_tile.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
-import '../../../../services/dashboard_service.dart';
 
 class ComplianceDashboard extends ConsumerWidget {
-  const ComplianceDashboard({Key? key}) : super(key: key);
+  const ComplianceDashboard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -156,7 +155,7 @@ class ComplianceDashboard extends ConsumerWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: isUrgent ? Colors.red.withOpacity(0.1) : AppTheme.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(color: isUrgent ? Colors.red.withValues(alpha: 0.1) : AppTheme.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
             child: Icon(isUrgent ? Icons.priority_high : Icons.fact_check, color: isUrgent ? Colors.red : AppTheme.primary, size: 20),
           ),
           const SizedBox(width: 16),

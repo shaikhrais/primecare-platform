@@ -6,7 +6,7 @@ import '../services/auth_service.dart';
 import 'auth_layout.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({super.key});
 
   @override
   ConsumerState<SignupScreen> createState() => _SignupScreenState();
@@ -98,7 +98,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
           const SizedBox(height: 24),
           DropdownButtonFormField<String>(
-            value: _selectedRole,
+            initialValue: _selectedRole,
             decoration: AuthInputDecoration.get('auth.role'.tr(), Icons.work_outline),
             items: _roles.map((role) {
               return DropdownMenuItem(

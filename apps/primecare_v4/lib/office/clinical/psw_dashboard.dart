@@ -5,7 +5,7 @@ import '../components/gradient_button.dart';
 import '../components/health_indicator.dart';
 
 class PswDashboardScreen extends StatelessWidget {
-  const PswDashboardScreen({Key? key}) : super(key: key);
+  const PswDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

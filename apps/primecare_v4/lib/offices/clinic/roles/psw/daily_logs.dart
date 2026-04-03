@@ -6,7 +6,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../providers/dashboard_providers.dart';
 
 class DailyLogsView extends ConsumerWidget {
-  const DailyLogsView({Key? key}) : super(key: key);
+  const DailyLogsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -128,7 +128,7 @@ class DailyLogsView extends ConsumerWidget {
         const SizedBox(height: 12),
         LinearProgressIndicator(
           value: value,
-          backgroundColor: AppTheme.primary.withOpacity(0.05),
+          backgroundColor: AppTheme.primary.withValues(alpha: 0.05),
           valueColor: const AlwaysStoppedAnimation(AppTheme.primary),
           minHeight: 8,
           borderRadius: BorderRadius.circular(4),

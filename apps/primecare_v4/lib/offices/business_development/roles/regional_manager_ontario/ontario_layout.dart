@@ -3,7 +3,7 @@ import '../../../../components/layouts/master_layout.dart';
 
 class OntarioLayout extends StatelessWidget {
   final Widget child;
-  const OntarioLayout({Key? key, required this.child}) : super(key: key);
+  const OntarioLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
