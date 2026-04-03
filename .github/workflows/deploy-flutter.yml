@@ -1,0 +1,39 @@
+﻿name: Deploy PrimeCare Flutter Frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/primecare_v4/**'
+      - '.github/workflows/deploy-flutter.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        working-directory: ./apps/primecare_v4
+        run: flutter pub get
+
+      - name: Build Web Application
+        working-directory: ./apps/primecare_v4
+        run: flutter build web --release --web-renderer html
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: primecare-platform-ui
+          directory: ./apps/primecare_v4/build/web
+          branch: main
